@@ -48,15 +48,14 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
-    NEXT_PUBLIC_REDPACKET_CHANNEL_KEY: z.string(),
-    NEXT_PUBLIC_REDPACKET_CHANNEL_URL: z.string(),
-
     NEXT_PUBLIC_SENTRY_DSN: z.string(),
 });
 
 export const env = {
     shared: {
         NODE_ENV: process.env.NODE_ENV as NODE_ENV,
+        VERSION: process.version || process.env.npm_package_version,
+        COMMIT_HASH: process.env.COMMIT_HASH,
     },
     internal: (typeof window === 'undefined' ? InternalEnvSchema.parse(process.env) : {}) as z.infer<
         typeof InternalEnvSchema
@@ -75,9 +74,6 @@ export const env = {
 
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
         NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
-
-        NEXT_PUBLIC_REDPACKET_CHANNEL_KEY: process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY,
-        NEXT_PUBLIC_REDPACKET_CHANNEL_URL: process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL,
 
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
     }),

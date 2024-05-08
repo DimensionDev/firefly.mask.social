@@ -32,6 +32,7 @@ import type { TypedDataDomain } from 'viem';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
+import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
@@ -64,6 +65,7 @@ import type { ResponseJSON } from '@/types/index.js';
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 
 @SetQueryDataForLikePost(Source.Lens)
+@SetQueryDataForBookmarkPost(Source.Lens)
 @SetQueryDataForMirrorPost(Source.Lens)
 @SetQueryDataForCommentPost(Source.Lens)
 @SetQueryDataForDeletePost(Source.Lens)
@@ -1074,7 +1076,13 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
-        return result.isSuccess().valueOf();
+        return result.isSuccess();
+    }
+    async unblockUser(profileId: string) {
+        const result = await lensSessionHolder.sdk.profile.unblock({
+            profiles: [profileId],
+        });
+        return result.isSuccess();
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
         const result = await lensSessionHolder.sdk.publication.reactions.fetch({
@@ -1117,12 +1125,38 @@ class LensSocialMedia implements Provider {
             },
         });
         if (!result) throw new Error(t`No one likes this post yet.`);
-        const profiles = result.items.map(formatLensPost);
+        const posts = result.items.map(formatLensPost);
         return createPageable(
-            profiles,
+            posts,
             indicator || createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
+    }
+    async bookmark(postId: string): Promise<boolean> {
+        const result = await lensSessionHolder.sdk.publication.bookmarks.add({ on: postId });
+        return result.isSuccess();
+    }
+
+    async unbookmark(postId: string): Promise<boolean> {
+        const result = await lensSessionHolder.sdk.publication.bookmarks.remove({ on: postId });
+        return result.isSuccess();
+    }
+
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const result = await lensSessionHolder.sdk.publication.bookmarks.fetch({
+            cursor: indicator?.id ? indicator.id : undefined,
+        });
+        if (result.isSuccess()) {
+            const value = result.value;
+            value.items.map(formatLensPost);
+            const profiles = value.items.map(formatLensPost);
+            return createPageable(
+                profiles,
+                indicator || createIndicator(),
+                value.pageInfo.next ? createNextIndicator(indicator, value.pageInfo.next) : undefined,
+            );
+        }
+        throw new Error('Failed to fetch bookmarks');
     }
 }
 

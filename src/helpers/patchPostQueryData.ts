@@ -5,15 +5,18 @@ import type { SocialSource } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
+type Matcher = string | ((post: Draft<Post> | undefined) => boolean);
 
-export function patchPostQueryData(source: SocialSource, postId: string, patcher: Patcher) {
+export function patchPostQueryData(source: SocialSource, postId: Matcher, patcher: Patcher) {
+    const matcher = typeof postId === 'string' ? (post: Draft<Post> | undefined) => post?.postId === postId : postId;
+
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {
         if (!old) return old;
 
         return produce(old, (draft) => {
             for (const p of [draft, draft.root, draft.commentOn]) {
-                if (p?.postId === postId) {
-                    patcher(p);
+                if (matcher(p)) {
+                    patcher(p!);
                 }
             }
         });
@@ -24,10 +27,11 @@ export function patchPostQueryData(source: SocialSource, postId: string, patcher
 
         return produce(old, (draft) => {
             for (const page of draft.pages) {
+                if (!page) continue;
                 for (const post of page.data) {
                     for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
-                        if (p?.postId === postId) {
-                            patcher(p);
+                        if (matcher(p)) {
+                            patcher(p!);
                         }
                     }
                 }

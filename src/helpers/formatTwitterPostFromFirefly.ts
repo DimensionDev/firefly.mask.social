@@ -5,7 +5,7 @@ import type { ApiV2Includes } from 'twitter-api-v2/dist/esm/types/v2/tweet.defin
 import { Source } from '@/constants/enum.js';
 import { type Attachment, type Post, type PostType, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes): Post {
+export function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes): Post {
     const user = includes?.users?.find((u) => u.id === item.author_id);
     const repliedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'replied_to')?.id;
     const repliedTweet = repliedTweetId ? includes?.tweets?.find((tweet) => tweet.id === repliedTweetId) : undefined;
@@ -73,7 +73,7 @@ function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes)
     return ret;
 }
 
-export function formatTwitterPostFromFirefly(
+export function formatTweetsPage(
     data: TweetV2PaginableTimelineResult,
     type?: PostType,
     currentIndicator?: PageIndicator,

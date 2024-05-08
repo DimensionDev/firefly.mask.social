@@ -4,7 +4,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -26,18 +26,18 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
     const isClickableFollowList = source === Source.Farcaster || source === Source.Twitter;
 
     return (
-        <div className=" flex gap-3 p-3">
+        <div className="flex gap-3 p-3">
             {profile?.pfp ? (
                 <Avatar src={profile.pfp} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
             ) : (
-                <SourceIcon className="rounded-full" source={source} size={80} />
+                <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
-                        <SourceIcon source={source} size={20} />
+                        <SocialSourceIcon source={source} size={20} />
                         {!isMyProfile && profile && isMedium ? (
                             <>
                                 <div className="ml-auto ">

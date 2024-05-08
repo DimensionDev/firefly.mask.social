@@ -8,7 +8,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatTwitterPostFromFirefly } from '@/helpers/formatTwitterPostFromFirefly.js';
+import { formatTweetsPage } from '@/helpers/formatTwitterPostFromFirefly.js';
 import { formatTwitterProfileFromFirefly } from '@/helpers/formatTwitterProfileFromFirefly.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import {
@@ -109,7 +109,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterPostFromFirefly(response.data, 'Post', indicator);
+        return formatTweetsPage(response.data, 'Post', indicator);
     }
 
     discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -151,7 +151,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterPostFromFirefly(response.data, 'Post', indicator);
+        return formatTweetsPage(response.data, 'Post', indicator);
     }
 
     async getLikedPostsByProfileId(
@@ -166,7 +166,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        const postWithPageable = formatTwitterPostFromFirefly(response.data, 'Post', indicator);
+        const postWithPageable = formatTweetsPage(response.data, 'Post', indicator);
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
 
@@ -182,7 +182,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterPostFromFirefly(response.data, 'Post', indicator);
+        return formatTweetsPage(response.data, 'Post', indicator);
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -338,7 +338,9 @@ class TwitterSocialMedia implements Provider {
     async blockUser(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-
+    async unblockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
@@ -347,6 +349,37 @@ class TwitterSocialMedia implements Provider {
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
+    }
+    async bookmark(tweetId: string): Promise<boolean> {
+        const response = await fetchJSON<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.success) throw new Error(t`Failed to bookmark post.`);
+        return response.data;
+    }
+    async unbookmark(tweetId: string): Promise<boolean> {
+        const response = await fetchJSON<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.success) throw new Error(t`Failed to unbookmark post.`);
+        return response.data;
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat('/api/twitter/bookmarks', {
+            cursor: indicator?.id || undefined,
+            limit: 25,
+        });
+        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        if (!response.success) throw new Error(t`Failed to fetch bookmarks.`);
+        return formatTweetsPage(response.data, 'Post', indicator);
     }
 }
 

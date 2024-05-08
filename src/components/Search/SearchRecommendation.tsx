@@ -12,7 +12,7 @@ import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -186,7 +186,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     <div className="flex-1 text-left">
                                         <div className="flex">
                                             <span className="mr-1">{channel.name}</span>
-                                            <SourceIcon source={Source.Farcaster} />
+                                            <SocialSourceIcon source={Source.Farcaster} />
                                         </div>
                                     </div>
                                 </div>
@@ -236,7 +236,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 <div className="flex-1 text-left">
                                     <div className="flex">
                                         <span className="mr-1">{profile.displayName}</span>
-                                        <SourceIcon source={profile.source} />
+                                        <SocialSourceIcon source={profile.source} />
                                     </div>
                                     <div className=" font-normal text-secondary">@{profile.handle}</div>
                                 </div>

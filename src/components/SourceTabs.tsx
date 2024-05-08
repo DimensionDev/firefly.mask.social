@@ -4,14 +4,10 @@ import { compact } from 'lodash-es';
 import { usePathname, useSearchParams } from 'next/navigation.js';
 import { startTransition } from 'react';
 
-import { SearchType, Source, SourceInURL } from '@/constants/enum.js';
+import { SearchType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -20,17 +16,9 @@ export function SourceTabs() {
     const updateCurrentSource = useGlobalState.use.updateCurrentSource();
 
     const { updateSearchType } = useSearchStateStore();
-    const currentProfileAll = useCurrentProfileAll();
+
     const searchParams = useSearchParams();
     const pathname = usePathname();
-
-    if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
-        const param = pathname.split('/');
-        const handle = param[param.length - 1];
-        const sourceString = searchParams.get('source') as SourceInURL;
-        const source = narrowToSocialSource(resolveSource(sourceString));
-        if (currentProfileAll[source]?.handle !== handle) return null;
-    }
 
     if (pathname !== '/' && currentSource === Source.Farcaster) {
         updateCurrentSource(Source.Farcaster);

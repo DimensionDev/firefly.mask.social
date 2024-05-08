@@ -5,7 +5,6 @@ import { toHex } from 'viem';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -17,7 +16,7 @@ interface WarpcastSignInResponse {
     deeplinkUrl: string;
 }
 
-async function createChallenge(signal?: AbortSignal) {
+async function createSession(signal?: AbortSignal) {
     // create key pair in client side
     const privateKey = utils.randomPrivateKey();
     const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
@@ -37,7 +36,7 @@ async function createChallenge(signal?: AbortSignal) {
         toHex(privateKey),
         response.data.timestamp,
         response.data.expiresAt,
-        // the token is one-time use
+        // the signer request token is one-time use
         response.data.token,
     );
 
@@ -47,44 +46,11 @@ async function createChallenge(signal?: AbortSignal) {
     };
 }
 
-export async function createSessionByGrantPermissionFirefly(callback?: (url: string) => void, signal?: AbortSignal) {
-    const { deeplink, session } = await createChallenge(signal);
-
-    // present QR code to the user or open the link in a new tab
-    callback?.(deeplink);
-
-    try {
-        // firefly start polling for the signed key request
-        // once key request is signed, we will get the fid
-        const fireflySession = await FireflySession.from(session);
-
-        if (fireflySession) {
-            // we also posses the session in firefly session holder
-            // which means if we login in farcaster, we login firefly as well
-            fireflySessionHolder.resumeSession(fireflySession);
-        }
-    } catch (error) {
-        console.error(`[login farcaster] failed to restore firefly session: ${error}`);
-    }
-
-    return session;
-}
-
-/**
- * Initiates the creation of a session by granting data access permission to another FID.
- * @param signal
- * @returns
- */
-export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
-    const { deeplink, session } = await createChallenge(signal);
-
-    // present QR code to the user or open the link in a new tab
-    callback?.(deeplink);
-
+async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
     const query = async () => {
         const signedKeyResponse = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
             urlcat('/api/warpcast/signed-key', {
-                token: session.signerRequestToken,
+                token,
             }),
             {
                 signal,
@@ -111,10 +77,43 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
     };
 
     const { result } = await queryTimes();
-    if (result.signedKeyRequest.userFid) {
-        session.profileId = `${result.signedKeyRequest.userFid}`;
-        return session;
+    return result.signedKeyRequest;
+}
+
+/**
+ * Initiates the creation of a session by granting data access permission to another FID.
+ * @param signal
+ * @returns
+ */
+async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
+    const { deeplink, session } = await createSession(signal);
+
+    // invalid session type
+    if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Invalid session type');
+
+    // present QR code to the user or open the link in a new tab
+    callback?.(deeplink);
+
+    const result = await pollingSignerRequestToken(session.signerRequestToken, signal);
+    if (result.userFid) {
+        session.profileId = `${result.userFid}`;
     }
 
-    throw new Error('Failed to query the signed key request status after several attempts. Please try again later.');
+    // polling failed
+    if (!session.profileId)
+        throw new Error(
+            'Failed to query the signed key request status after several attempts. Please try again later.',
+        );
+
+    return session;
+}
+
+export async function createSessionByGrantPermissionFirefly(callback?: (url: string) => void, signal?: AbortSignal) {
+    const session = await createSessionByGrantPermission(callback, signal);
+
+    // firefly start polling for the signed key request
+    // once key request is signed, we will get the fid
+    await FireflySession.fromAndRestore(session, signal);
+
+    return session;
 }

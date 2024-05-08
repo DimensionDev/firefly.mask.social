@@ -1,6 +1,7 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
@@ -9,6 +10,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Lens]: Source.Lens,
         [SourceInURL.Twitter]: Source.Twitter,
         [SourceInURL.Article]: Source.Article,
+        [SourceInURL.Wallet]: Source.Wallet,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);
@@ -38,3 +40,5 @@ export const resolveSocialSourceFromSessionType = createLookupTableResolver<Sess
         throw new Error(`Unknown keyword: ${keyword}`);
     },
 );
+
+export const resolveFireflyPlatform = resolveSourceInURL;

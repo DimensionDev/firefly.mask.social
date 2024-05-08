@@ -5,16 +5,18 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
-import { useEffect, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { useEffect, useRef, useState } from 'react';
+import { useAsyncFn, useUnmount } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { AbortError } from '@/constants/error.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isAbortedError } from '@/helpers/isAbortedError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import {
@@ -26,6 +28,7 @@ import {
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -33,6 +36,8 @@ interface LoginLensProps {
 }
 
 export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
+    const controllerRef = useRef<AbortController>();
+
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(false);
 
@@ -43,25 +48,40 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
         async (signless: boolean) => {
             if (!profiles.length || !currentProfile) return;
 
-            try {
-                const session = await createSessionForProfileIdFirefly(currentProfile.profileId);
+            if (!controllerRef.current || controllerRef.current?.signal.aborted) {
+                controllerRef.current = new AbortController();
 
-                if (!currentProfile.signless && signless) {
-                    await updateSignless(true);
+                try {
+                    const session = await createSessionForProfileIdFirefly(
+                        currentProfile.profileId,
+                        controllerRef.current?.signal,
+                    );
+
+                    if (!currentProfile.signless && signless) {
+                        await updateSignless(true);
+                    }
+
+                    // restore profiles for lens
+                    restoreProfile(currentProfile, profiles, session);
+                    enqueueSuccessMessage(t`Your Lens account is now connected.`);
+
+                    // restore profiles exclude lens
+                    await FireflySessionConfirmModalRef.openAndWaitForClose({
+                        sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
+                        onDetected(profiles) {
+                            if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
+                            LoginModalRef.close();
+                        },
+                    });
+                } catch (error) {
+                    // skip if the error is abort error
+                    if (isAbortedError(error)) return;
+
+                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                        error,
+                    });
+                    throw error;
                 }
-
-                // restore profiles for lens
-                restoreProfile(currentProfile, profiles, session);
-                LoginModalRef.close();
-                enqueueSuccessMessage(t`Your Lens account is now connected.`);
-
-                // restore profiles exclude lens
-                await FireflySessionConfirmModalRef.openAndWaitForClose();
-            } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
-                    error,
-                });
-                throw error;
             }
         },
         [profiles, currentProfile],
@@ -71,6 +91,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
         if (!currentProfile) return;
         if (!isSameAddress(account.address, currentAccount)) LoginModalRef.close();
     }, [currentProfile, account, currentAccount]);
+
+    useUnmount(() => {
+        controllerRef.current?.abort(new AbortError());
+    });
 
     return (
         <div

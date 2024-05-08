@@ -27,6 +27,7 @@
         "Oembed",
         "overscan",
         "pageable",
+        "Paginable",
         "recasted",
         "recaster",
         "recasters",
@@ -41,12 +42,14 @@
         "Thirdweb",
         "Twitterbot",
         "Twmoji",
+        "unbookmark",
         "unfollow",
         "unfollowed",
         "unhash",
         "unliked",
         "unlonely",
         "unmirror",
+        "unretweet",
         "unvote",
         "upvotes",
         "urlcat",
@@ -56,8 +59,7 @@
         "warpcast",
         "zora",
         "zustand",
-        "Paginable",
-        "unretweet"
+        "keybase"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -97,6 +99,7 @@
         "servie",
         "sinonjs",
         "splited",
+        "siwe",
         "tailwindcss",
         "tailwindui",
         "thefireflyapp",
@@ -112,7 +115,9 @@
         "rarible",
         "rpid",
         "simplehash",
-        "imagedelivery"
+        "imagedelivery",
+        "ethLeaderboard",
+        "Leaderboard"
     ],
     "flagWords": [],
     "ignorePaths": [

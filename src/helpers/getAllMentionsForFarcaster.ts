@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 
-import { MENTION_REGEX } from '@/constants/regex.js';
+import { MENTION_REGEX } from '@/constants/regexp.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 
 export async function getAllMentionsForFarcaster(text: string) {

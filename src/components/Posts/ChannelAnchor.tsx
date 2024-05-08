@@ -4,7 +4,7 @@ import { memo, useMemo } from 'react';
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -30,7 +30,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
                     {channel.imageUrl ? (
                         <Avatar src={channel.imageUrl} alt={channel.id} size={16} className="h-4 w-4 rounded-full" />
                     ) : (
-                        <SourceIcon className="rounded-full" source={channel.source} size={16} />
+                        <SocialSourceIcon className="rounded-full" source={channel.source} size={16} />
                     )}
                     <span className="text-[15px] text-secondary">/{channel.id}</span>
                 </div>
@@ -50,7 +50,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
             interactive
             content={<ChannelCard channel={channel} />}
         >
-            {content}
+            <div>{content}</div>
         </Tippy>
     ) : (
         content

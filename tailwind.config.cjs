@@ -17,8 +17,10 @@ module.exports = {
                 secondarySuccess: 'rgb(var(--color-secondary-success) / <alpha-value>)',
                 primaryPink: 'rgb(var(--color-primary-pink) / <alpha-value>)',
                 danger: 'rgb(var(--color-danger) / <alpha-value>)',
+                warn: 'rgb(var(--color-warn) / <alpha-value>)',
                 lensPrimary: 'rgb(var(--color-lens-primary) / <alpha-value>)',
                 farcasterPrimary: 'rgb(var(--color-farcaster-primary) / <alpha-value>)',
+                twitterPrimary: 'rgb(var( --color-twitter-primary) / <alpha-value>)',
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
                 secondary: 'var(--color-secondary)',
                 second: 'var(--color-second)',
@@ -41,6 +43,7 @@ module.exports = {
                 lightBottom: 'var(--m-light-bottom)',
                 lightBottom80: 'var(--color-bottom80)',
                 commonDanger: 'var(--m-common-danger)',
+                commonWarn: 'var(--m-common-warn)',
                 lightSecond: '#767F8D',
                 lightLineSecond: '#E6E7E8',
                 foreground: 'rgb(var(--foreground-rgb) / <alpha-value>)',

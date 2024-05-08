@@ -4,10 +4,13 @@ import { ErrorReportSnackbar } from '@/components/ErrorReportSnackbar.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
 
-export function enqueueMessage(message: SnackbarMessage, options?: OptionsObject) {
+export function enqueueInfoMessage(message: SnackbarMessage, options?: OptionsObject) {
     SnackbarRef.open({
         message,
-        options,
+        options: {
+            variant: 'info',
+            ...options,
+        },
     });
 }
 

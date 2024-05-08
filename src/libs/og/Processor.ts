@@ -10,7 +10,7 @@ import {
     MIRROR_HOSTNAME_REGEXP,
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
-} from '@/constants/regex.js';
+} from '@/constants/regexp.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import {
     generateIframe,

@@ -12,7 +12,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
@@ -41,7 +41,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const [showRecommendation, setShowRecommendation] = useState(false);
 
     const currentProfileAll = useCurrentProfileAll();
-    const currentProfiles = compact(SORTED_SOURCES.map((x) => currentProfileAll[x]));
+    const currentProfiles = compact(SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]));
 
     const { searchKeyword, updateState } = useSearchStateStore();
     const { updateSidebarOpen } = useNavigatorState();
@@ -64,7 +64,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
         <>
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
                 {searchMode || enableFixedBack ? (
-                    <div className=" flex h-[30px] w-[30px] justify-center">
+                    <div className=" flex h-[30px] w-[30px] shrink-0 justify-center">
                         <ClickableButton
                             onClick={() => {
                                 if (isSearchPage || enableFixedBack) router.back();
@@ -77,7 +77,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </ClickableButton>
                     </div>
                 ) : (
-                    <div className=" flex h-[30px] justify-start">
+                    <div className=" flex h-[30px] shrink-0 justify-start">
                         <ClickableButton
                             className=" flex items-center justify-center"
                             onClick={() => {

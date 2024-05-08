@@ -22,6 +22,9 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr "{count, plural, one {1 second} other {{count} seconds}}"
+
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -48,6 +51,15 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
+
+msgid "Failed to unbookmark post."
+msgstr "Failed to unbookmark post."
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr "You can sign in to Farcaster with the following options."
+
+msgid "Mute @{0}"
+msgstr "Mute @{0}"
 
 msgid "X"
 msgstr "X"
@@ -88,11 +100,11 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
-msgid "Confirm you want to block @{0}"
-msgstr "Confirm you want to block @{0}"
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
+
+msgid "Connect with Warpcast"
+msgstr "Connect with Warpcast"
 
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
@@ -103,8 +115,14 @@ msgstr "Casts"
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
 
+msgid "Trending Channels"
+msgstr "Trending Channels"
+
 msgid "Debug Console"
 msgstr "Debug Console"
+
+msgid "Failed to mute @{0} on {sourceName}"
+msgstr "Failed to mute @{0} on {sourceName}"
 
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
@@ -135,6 +153,9 @@ msgstr "comment"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "The author is muted by you."
+msgstr "The author is muted by you."
 
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
@@ -169,6 +190,9 @@ msgstr "Type something here..."
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
 
+msgid "Reconnect with Firefly"
+msgstr "Reconnect with Firefly"
+
 msgid "Revise on"
 msgstr "Revise on"
 
@@ -187,6 +211,9 @@ msgstr "Search"
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
 
+msgid "Confirm you want to report @{0}?"
+msgstr "Confirm you want to report @{0}?"
+
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -199,8 +226,14 @@ msgstr "Failed to unlike the post."
 msgid "Mirror again"
 msgstr "Mirror again"
 
+msgid "Failed to detect device accounts."
+msgstr "Failed to detect device accounts."
+
 msgid "Add another post..."
 msgstr "Add another post..."
+
+msgid "{count, plural, one {Bookmark} other {{0}}}"
+msgstr "{count, plural, one {Bookmark} other {{0}}}"
 
 msgid "Audio Cover"
 msgstr "Audio Cover"
@@ -210,9 +243,6 @@ msgstr "Recent"
 
 msgid "Block"
 msgstr "Block"
-
-msgid "Block @{0}"
-msgstr "Block @{0}"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -277,6 +307,9 @@ msgstr "Log out"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
+msgid "Failed to un-bookmark"
+msgstr "Failed to un-bookmark"
+
 msgid "post"
 msgstr "post"
 
@@ -322,6 +355,9 @@ msgstr "Confirm you want to mute /{0}?"
 msgid "Collected"
 msgstr "Collected"
 
+msgid "Failed to bookmark"
+msgstr "Failed to bookmark"
+
 msgid "<0>You</0> mirrored"
 msgstr "<0>You</0> mirrored"
 
@@ -330,6 +366,9 @@ msgstr "Failed to create image payload."
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Detecting..."
+msgstr "Detecting..."
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
@@ -388,6 +427,9 @@ msgstr "Your post has published successfully."
 msgid "Confirm you want to unmute /{0}?"
 msgstr "Confirm you want to unmute /{0}?"
 
+msgid "Bookmark"
+msgstr "Bookmark"
+
 msgid "Everyone"
 msgstr "Everyone"
 
@@ -397,8 +439,8 @@ msgstr "Failed to unmute /{0}."
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
-msgid "Confirm you want to report this message"
-msgstr "Confirm you want to report this message"
+msgid "Confirm you want to mute @{0}?"
+msgstr "Confirm you want to mute @{0}?"
 
 msgid "Compose"
 msgstr "Compose"
@@ -408,6 +450,9 @@ msgstr "The user declined the request."
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
+
+msgid "Suggested Channels"
+msgstr "Suggested Channels"
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -433,6 +478,9 @@ msgstr "Clear All"
 msgid "Lens"
 msgstr "Lens"
 
+msgid "Failed to fetch bookmarks."
+msgstr "Failed to fetch bookmarks."
+
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
@@ -457,8 +505,14 @@ msgstr "Invalid URL."
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
+msgid "Articles"
+msgstr "Articles"
+
 msgid "Settings"
 msgstr "Settings"
+
+msgid "Unmuted @{0} on {sourceName}"
+msgstr "Unmuted @{0} on {sourceName}"
 
 msgid "Details"
 msgstr "Details"
@@ -526,9 +580,6 @@ msgstr "{count, plural, one {# view} other {{0}}}"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
-msgid "Loading..."
-msgstr "Loading..."
-
 msgid "Share"
 msgstr "Share"
 
@@ -547,11 +598,17 @@ msgstr "One click to connect your account status."
 msgid "Quote"
 msgstr "Quote"
 
+msgid "Failed to bookmark post."
+msgstr "Failed to bookmark post."
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
 msgid "Unliked"
 msgstr "Unliked"
+
+msgid "Please click and refresh the QR code to log in again."
+msgstr "Please click and refresh the QR code to log in again."
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -607,6 +664,9 @@ msgstr "recasted your"
 msgid "Quotes"
 msgstr "Quotes"
 
+msgid "The user rejected the request."
+msgstr "The user rejected the request."
+
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
 
@@ -649,14 +709,14 @@ msgstr "Casts + Replies"
 msgid "Image"
 msgstr "Image"
 
+msgid "Muted @{0} on {sourceName}"
+msgstr "Muted @{0} on {sourceName}"
+
 msgid "Copy"
 msgstr "Copy"
 
 msgid "Skip for now"
 msgstr "Skip for now"
-
-msgid "Failed to block @{0}"
-msgstr "Failed to block @{0}"
 
 msgid "Notifications"
 msgstr "Notifications"
@@ -672,6 +732,9 @@ msgstr "Connect"
 
 msgid "Switch account"
 msgstr "Switch account"
+
+msgid "Sign in with Custody Wallet"
+msgstr "Sign in with Custody Wallet"
 
 msgid "Mention"
 msgstr "Mention"
@@ -691,8 +754,8 @@ msgstr "You've hit rock bottom."
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
-msgid "Login with custody wallet"
-msgstr "Login with custody wallet"
+msgid "Failed to create firefly session."
+msgstr "Failed to create firefly session."
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
@@ -715,6 +778,9 @@ msgstr "Firefly"
 msgid "Add"
 msgstr "Add"
 
+msgid "No device accounts detected."
+msgstr "No device accounts detected."
+
 msgid "Log out all"
 msgstr "Log out all"
 
@@ -723,6 +789,9 @@ msgstr "LuckyDrop"
 
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "Failed to unmute @{0} on {sourceName}"
+msgstr "Failed to unmute @{0} on {sourceName}"
 
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
@@ -735,6 +804,9 @@ msgstr "Share to"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
@@ -772,6 +844,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
 
+msgid "Post added to your Bookmarks"
+msgstr "Post added to your Bookmarks"
+
 msgid "Cancel mirror successfully"
 msgstr "Cancel mirror successfully"
 
@@ -787,6 +862,9 @@ msgstr "Your Lens account is now connected"
 msgid "Click to copy"
 msgstr "Click to copy"
 
+msgid "Unmute @{0}"
+msgstr "Unmute @{0}"
+
 msgid "Mask Network"
 msgstr "Mask Network"
 
@@ -798,6 +876,9 @@ msgstr "Your Lens account is now connected."
 
 msgid "Remove"
 msgstr "Remove"
+
+msgid "Post remove from your Bookmarks"
+msgstr "Post remove from your Bookmarks"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
@@ -834,6 +915,9 @@ msgstr "Language"
 
 msgid "Add a comment"
 msgstr "Add a comment"
+
+msgid "FREE"
+msgstr "FREE"
 
 msgid "Profiles"
 msgstr "Profiles"

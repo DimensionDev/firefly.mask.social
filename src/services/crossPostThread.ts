@@ -3,7 +3,7 @@ import { delay, safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -13,7 +13,9 @@ import { type CompositePost, useComposeStateStore } from '@/store/useComposeStor
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 function shouldCrossPost(index: number, post: CompositePost) {
-    return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
+    return SORTED_SOCIAL_SOURCES.some(
+        (x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x],
+    );
 }
 
 async function getParentPostById(source: SocialSource, postId: string) {
@@ -52,7 +54,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
 
     const all: Array<Promise<Post | null>> = [];
 
-    SORTED_SOURCES.forEach((x) => {
+    SORTED_SOCIAL_SOURCES.forEach((x) => {
         const parentPostId = previousPost.postId[x];
 
         if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x]) {
@@ -67,7 +69,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
     return {
         ...post,
         parentPost: Object.fromEntries(
-            SORTED_SOURCES.map((x, i) => {
+            SORTED_SOCIAL_SOURCES.map((x, i) => {
                 const settled = allSettled[i];
                 const fetchedPost = settled.status === 'fulfilled' ? settled.value : null;
                 return [x, post.parentPost[x] ?? fetchedPost];
@@ -113,10 +115,12 @@ export async function crossPostThread({
 
     if (failedPlatforms.length) {
         // the first error on each platform
-        const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
+        const allErrors = SORTED_SOCIAL_SOURCES.map(
+            (x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null,
+        );
 
         // show success message if no error found on certain platform
-        SORTED_SOURCES.forEach((x, i) => {
+        SORTED_SOCIAL_SOURCES.forEach((x, i) => {
             const error = allErrors[i];
             if (error) return;
             const rootPost = updatedPosts[0];

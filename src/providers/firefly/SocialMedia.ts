@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -19,10 +19,13 @@ import {
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BookmarkResponse,
     type CastResponse,
     type CastsOfChannelResponse,
     type CastsResponse,
@@ -30,10 +33,12 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
+    type FireFlyProfile,
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type ReactorsResponse,
+    type RelationResponse,
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
@@ -41,6 +46,7 @@ import {
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
+    type WalletProfileResponse,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -67,7 +73,10 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
 
-        return formatBriefChannelFromFirefly(data);
+        return {
+            ...formatBriefChannelFromFirefly(data.channel),
+            blocked: data.blocked,
+        };
     }
 
     async getChannelsByProfileId(
@@ -84,9 +93,9 @@ class FireflySocialMedia implements Provider {
         const channels = data.map(formatChannelFromFirefly);
         return createPageable(channels, createIndicator(indicator));
     }
-
+    // no cursor in response
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/trending_channels', {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
             size: 20,
             cursor: indicator?.id,
         });
@@ -94,13 +103,8 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const channels = data.channels.map(formatChannelFromFirefly);
-
-        return createPageable(
-            channels,
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
+        const channels = data.map((x) => x.channel).map(formatChannelFromFirefly);
+        return createPageable(channels, createIndicator(indicator));
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -292,6 +296,69 @@ class FireflySocialMedia implements Provider {
                 ...friendship,
             });
         });
+    }
+
+    async getAllPlatformProfileByIdentity(identity: string, source: Source): Promise<FireFlyProfile[]> {
+        let queryKey = '';
+        switch (source) {
+            case Source.Lens:
+                queryKey = 'lensHandle';
+                break;
+            case Source.Farcaster:
+                queryKey = 'fid';
+                break;
+            case Source.Wallet:
+                queryKey = 'walletAddress';
+                break;
+            case Source.Twitter:
+                queryKey = 'twitterId';
+                break;
+            case Source.Article:
+            default:
+                break;
+        }
+
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', queryKey ? { [`${queryKey}`]: identity } : {});
+
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        const profiles = resolveFireflyResponseData(response);
+
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireFlyProfile[]> {
+        if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
+
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', {
+            twitterId,
+            lensHandle,
+            fid,
+        });
+
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        const profiles = resolveFireflyResponseData(response);
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getNextIDRelations(platform: string, identity: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/wallet/relations', {
+            platform,
+            identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<RelationResponse>(url, {
+            method: 'GET',
+        });
+
+        const relations = resolveFireflyResponseData(response);
+
+        return relations;
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -664,12 +731,63 @@ class FireflySocialMedia implements Provider {
         // TODO Mocking result for now.
         return true;
     }
+    async unblockUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
+    }
+    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/create');
+        const response = await fireflySessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platform: FireflyPlatform.Farcaster,
+                platform_id: profileId,
+                post_type: postType,
+                post_id: postId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to bookmark');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/remove');
+        const response = await fireflySessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                post_ids: [postId],
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to bookmark');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+            post_type: BookmarkType.All,
+            platforms: 'farcaster',
+            limit: 25,
+            cursor: indicator?.id || undefined,
+        });
+        const response = await fireflySessionHolder.fetch<BookmarkResponse>(url);
+
+        const posts = response.data?.list.map((x) => {
+            return {
+                ...formatFarcasterPostFromFirefly(x.post_content),
+                hasBookmarked: true,
+            };
+        });
+
+        return createPageable(
+            posts || [],
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+        );
     }
 }
 

@@ -19,9 +19,11 @@ export enum PageRoute {
     Following = '/following',
     Notifications = '/notifications',
     Profile = '/profile',
+    Bookmark = '/bookmark',
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',
+    ChannelTrending = '/trending',
 }
 
 export enum Source {
@@ -29,6 +31,7 @@ export enum Source {
     Lens = 'Lens',
     Twitter = 'Twitter',
     Article = 'Article',
+    Wallet = 'Wallet',
 }
 
 export enum SourceInURL {
@@ -36,6 +39,7 @@ export enum SourceInURL {
     Lens = 'lens',
     Twitter = 'twitter',
     Article = 'article',
+    Wallet = 'wallet',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
@@ -69,6 +73,10 @@ export enum ProfileTabType {
     Channels = 'Channels',
 }
 
+export enum WalletProfileTabType {
+    Articles = 'Articles',
+}
+
 export enum EngagementType {
     Mirrors = 'mirrors',
     Quotes = 'quotes',
@@ -91,7 +99,28 @@ export enum ScrollListKey {
     Comment = 'comment-list',
     Channel = 'channel-post-list',
     Profile = 'profile-post-list',
+    Bookmark = 'bookmark',
     Collected = 'profile-collected-list',
     Engagement = 'post-engagement',
     NFTList = 'nft-list',
 }
+
+export enum FarcasterSignType {
+    // connect with warpcast
+    GrantPermission = 'grant_permission',
+    // reconnect with firefly
+    RelayService = 'relay_service',
+    // recovery phrase
+    RecoveryPhrase = 'recovery_phrase',
+    // custody wallet
+    CustodyWallet = 'custody_wallet',
+}
+export enum BookmarkType {
+    All = 'all',
+    Text = 'text',
+    Video = 'video',
+    Audio = 'audio',
+    Image = 'image',
+}
+
+export { SourceInURL as FireflyPlatform };

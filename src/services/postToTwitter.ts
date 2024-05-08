@@ -32,7 +32,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             publicationId: '',
             type: postType,
             postId: '',
-            author: createDummyProfile(),
+            author: createDummyProfile(Source.Twitter),
             metadata: {
                 locale: 'en',
                 content: {

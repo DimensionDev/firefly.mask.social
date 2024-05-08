@@ -1,7 +1,7 @@
 import { compact, first, last, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { URL_REGEX } from '@/constants/regex.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
@@ -94,6 +94,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         mirrors: cast.recastedBy ? [formatFarcasterProfileFromFirefly(cast.recastedBy)] : undefined,
         hasLiked: cast.liked,
         hasMirrored: cast.recasted,
+        hasBookmarked: cast.bookmarked,
         source: Source.Farcaster,
         canComment: true,
         commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,

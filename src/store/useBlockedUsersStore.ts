@@ -9,6 +9,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 interface BlockedUserState {
     allBlockedUsers: Record<string, string[]>;
     blockUser(operator: Profile, profile: Profile): void;
+    unblockUser(operator: Profile, profile: Profile): void;
 }
 
 const useBlockedUsersStore = create<
@@ -26,6 +27,13 @@ const useBlockedUsersStore = create<
                     }
                     const prevList = get().allBlockedUsers[key] || [];
                     state.allBlockedUsers[key] = uniq([...prevList, profile.profileId]);
+                });
+            },
+            unblockUser: (operator: Profile, profile: Profile) => {
+                set((state) => {
+                    const key = `${operator.source}:${operator.profileId}`;
+                    const prevList = get().allBlockedUsers[key] || [];
+                    state.allBlockedUsers[key] = prevList.filter((id) => id !== profile.profileId);
                 });
             },
         })),

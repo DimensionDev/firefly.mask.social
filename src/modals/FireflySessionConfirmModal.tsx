@@ -2,33 +2,136 @@ import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { compact } from 'lodash-es';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface FireflySessionConfirmModalProps {}
+interface Pair {
+    profile: Profile;
+    session: FarcasterSession | LensSession;
+}
+
+interface ProfileModalProps {
+    pairs: Pair[];
+    onConfirm?: () => void;
+    onClose?: () => void;
+}
+
+function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
+    const [selectedPairs, setSelectedPairs] = useState<Record<SocialSource, Pair | null>>({
+        [Source.Farcaster]: null,
+        [Source.Lens]: null,
+        [Source.Twitter]: null,
+    });
+
+    return (
+        <div>
+            <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-lightMain">
+                <Trans>One click to connect your account status.</Trans>
+            </p>
+            <ul className=" flex max-h-[288px] flex-col gap-3 overflow-auto py-2">
+                {pairs
+                    .sort((a, b) => {
+                        const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
+                        const bIndex = SORTED_SOCIAL_SOURCES.indexOf(b.profile.source);
+                        return aIndex - bIndex;
+                    })
+                    .map((pair) => (
+                        <ProfileInList
+                            key={pair.profile.profileId}
+                            profile={pair.profile}
+                            isSelected={Object.entries(selectedPairs).some(([_, x]) =>
+                                isSameProfile(x?.profile, pair.profile),
+                            )}
+                            onSelect={() => {
+                                setSelectedPairs((pairs) => {
+                                    const currentPair = pairs[pair.profile.source];
+                                    return {
+                                        ...pairs,
+                                        [pair.profile.source]:
+                                            currentPair && isSameProfile(currentPair.profile, pair.profile)
+                                                ? null
+                                                : pair,
+                                    };
+                                });
+                            }}
+                            ProfileAvatarProps={{
+                                enableSourceIcon: true,
+                            }}
+                        />
+                    ))}
+            </ul>
+            <div className=" flex gap-2">
+                <ClickableButton
+                    className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-[11px] font-bold text-lightBottom"
+                    onClick={() => {
+                        onClose?.();
+                        ConfirmModalRef.close(false);
+                    }}
+                >
+                    <Trans>Skip for now</Trans>
+                </ClickableButton>
+                <ClickableButton
+                    className=" flex flex-1 items-center justify-center rounded-full bg-main py-[11px] font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
+                    disabled={compact(Object.values(selectedPairs)).length === 0}
+                    onClick={() => {
+                        Object.entries(selectedPairs).forEach(([_, x]) => {
+                            if (!x) return;
+                            restoreProfile(x.profile, [x.profile], x.session);
+                        });
+                        onConfirm?.();
+                        ConfirmModalRef.close(true);
+                    }}
+                >
+                    <Trans>Confirm</Trans>
+                </ClickableButton>
+            </div>
+        </div>
+    );
+}
+
+export type FireflySessionOpenConfirmModalProps = {
+    sessions?: Array<LensSession | FarcasterSession>;
+    onDetected?: (profiles: Profile[]) => void;
+} | void;
 
 // true - indicates the user restored sessions
 // false - indicates the users rejected the session restore
 export type FireflySessionCloseConfirmModalProps = boolean;
 
 export const FireflySessionConfirmModal = forwardRef<
-    SingletonModalRefCreator<void, FireflySessionCloseConfirmModalProps>
+    SingletonModalRefCreator<FireflySessionOpenConfirmModalProps, FireflySessionCloseConfirmModalProps>
 >(function FireflySessionModal(_, ref) {
     const [open, dispatch] = useSingletonModal(ref, {
-        async onOpen() {
+        async onOpen(props) {
             try {
-                // firefly session has been created
-                const sessions = await syncSessionFromFirefly();
+                const currentProfileAll = getCurrentProfileAll();
+
+                // if there is a session already logged in, skip the restore
+                const sessions = (props?.sessions ?? []).filter((x) => {
+                    const source = resolveSocialSourceFromSessionType(x.type);
+                    return !isSameProfile(currentProfileAll[source], {
+                        source,
+                        profileId: x.profileId,
+                    } as unknown as Profile);
+                });
 
                 // no session to restore
                 if (!sessions.length) {
                     dispatch?.close(false);
+                    props?.onDetected?.([]);
                     return;
                 }
 
@@ -50,40 +153,25 @@ export const FireflySessionConfirmModal = forwardRef<
                     ),
                 );
 
+                // profiles detected, invoke the callback before showing the confirm modal
+                props?.onDetected?.(pairs.map((x) => x.profile));
+
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
                     content: (
-                        <div>
-                            <p className="text-[15px] font-medium leading-normal text-lightMain">
-                                <Trans>One click to connect your account status.</Trans>
-                            </p>
-                            <ul className=" py-2">
-                                {pairs.map(({ profile }) => (
-                                    <ProfileInList
-                                        key={profile.profileId}
-                                        profile={profile}
-                                        isSelected={false}
-                                        onSelect={() => {}}
-                                        ProfileAvatarProps={{
-                                            enableSourceIcon: true,
-                                        }}
-                                    />
-                                ))}
-                            </ul>
-                        </div>
+                        <ProfileModal
+                            pairs={pairs}
+                            onConfirm={() => dispatch?.close(true)}
+                            onClose={() => dispatch?.close(false)}
+                        />
                     ),
-                    enableCancelButton: true,
-                    cancelButtonText: t`Skip for now`,
+                    enableCancelButton: false,
+                    enableConfirmButton: false,
                 });
-
-                if (confirmed) {
-                    pairs.forEach(({ profile, session }) => restoreProfile(profile, [profile], session));
-                }
 
                 dispatch?.close(confirmed);
             } catch (error) {
-                console.error('[restore firefly session] Failed to restore sessions from Firefly:', error);
-                dispatch?.close(false);
+                dispatch?.abort?.(error instanceof Error ? error : new Error('Failed to restore sessions.'));
             }
         },
     });
