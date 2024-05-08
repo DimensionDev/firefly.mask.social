@@ -12,7 +12,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
@@ -41,7 +41,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const [showRecommendation, setShowRecommendation] = useState(false);
 
     const currentProfileAll = useCurrentProfileAll();
-    const currentProfiles = compact(SORTED_SOURCES.map((x) => currentProfileAll[x]));
+    const currentProfiles = compact(SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]));
 
     const { searchKeyword, updateState } = useSearchStateStore();
     const { updateSidebarOpen } = useNavigatorState();

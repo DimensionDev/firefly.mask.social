@@ -24,7 +24,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SOURCES_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
@@ -75,7 +75,7 @@ export function ComposeAction(props: ComposeActionProps) {
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
             open: true,
             fireflyContext: Object.fromEntries(
-                SORTED_SOURCES.map((x) => {
+                SORTED_SOCIAL_SOURCES.map((x) => {
                     const currentProfile = currentProfileAll[x];
                     return [
                         `current${x}Profile`,
@@ -221,7 +221,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources
-                                        .filter((x) => !!currentProfileAll[x] && SORTED_SOURCES.includes(x))
+                                        .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
                                         .map((y) => (
                                             <SourceIcon key={y} source={y} size={20} />
                                         ))}
