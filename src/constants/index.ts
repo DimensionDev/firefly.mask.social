@@ -53,6 +53,7 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Twitter]: [SearchType.Posts, SearchType.Users],
 };
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
+export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
 // Lens

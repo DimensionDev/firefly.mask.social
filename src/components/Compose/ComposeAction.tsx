@@ -5,6 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
+import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -14,6 +15,7 @@ import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
@@ -22,7 +24,7 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { MAX_POST_SIZE_PER_THREAD, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
@@ -46,7 +48,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { availableSources, chars, images, video, restriction, isRootPost, parentPost } = useCompositePost();
+    const { availableSources, chars, images, video, restriction, isRootPost, parentPost, channel } = useCompositePost();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
 
@@ -248,6 +250,33 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
+            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) && type === 'compose' ? (
+                <div className=" flex h-9 items-center justify-between pb-safe">
+                    <span className=" text-[15px] text-secondary">
+                        <Trans>Channels</Trans>
+                    </span>
+                    <Popover as="div" className="relative">
+                        {(_) => (
+                            <>
+                                <Popover.Button
+                                    className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                    disabled={!isRootPost}
+                                >
+                                    <span className=" text-[15px] font-bold">
+                                        {compact(
+                                            SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
+                                                (source) => channel[source]?.name,
+                                            ),
+                                        ).join(',')}
+                                    </span>
+                                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                </Popover.Button>
+                                <ChannelSearchPanel />
+                            </>
+                        )}
+                    </Popover>
+                </div>
+            ) : null}
         </div>
     );
 }
