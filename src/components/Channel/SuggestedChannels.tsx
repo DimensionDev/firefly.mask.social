@@ -21,7 +21,7 @@ export interface SuggestedChannelsProps {
 }
 export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     const { data, isLoading, isError } = useQuery({
-        queryKey: ['sugguest-channels', source],
+        queryKey: ['suggest-channels', source],
         queryFn: async () => {
             return resolveSocialMediaProvider(source).discoverChannels();
         },

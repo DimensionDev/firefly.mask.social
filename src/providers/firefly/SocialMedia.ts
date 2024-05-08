@@ -101,11 +101,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
         const channels = data.map((x) => x.channel).map(formatChannelFromFirefly);
-        return createPageable(
-            channels,
-            createIndicator(indicator),
-            // data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
+        return createPageable(channels, createIndicator(indicator));
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
