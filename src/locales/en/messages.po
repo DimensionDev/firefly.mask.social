@@ -52,6 +52,9 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 
+msgid "Failed to unbookmark post."
+msgstr "Failed to unbookmark post."
+
 msgid "You can sign in to Farcaster with the following options."
 msgstr "You can sign in to Farcaster with the following options."
 
@@ -585,6 +588,9 @@ msgstr "One click to connect your account status."
 
 msgid "Quote"
 msgstr "Quote"
+
+msgid "Failed to bookmark post."
+msgstr "Failed to bookmark post."
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"

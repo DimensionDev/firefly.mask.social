@@ -57,6 +57,9 @@ msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
+msgid "Failed to unbookmark post."
+msgstr ""
+
 msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
@@ -590,6 +593,9 @@ msgstr ""
 
 msgid "Quote"
 msgstr "引用"
+
+msgid "Failed to bookmark post."
+msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
