@@ -307,6 +307,7 @@ export interface Channel {
     timestamp: number;
     lead?: Profile;
     hosts?: Profile[];
+    blocked?: boolean;
     __original__?: unknown;
 }
 
