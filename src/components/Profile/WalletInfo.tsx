@@ -73,7 +73,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                             return (
                                                 <div className="flex items-center gap-[5px]" key={ens}>
                                                     <MiniEnsIcon width={16} height={16} />
-                                                    <span className="text-[10px] font-bold leading-4">{ens}</span>
+                                                    <span className="text-[10px] font-bold leading-4 text-main">
+                                                        {ens}
+                                                    </span>
                                                 </div>
                                             );
                                         })}

@@ -14,7 +14,7 @@ interface RelationPlatformIconProps extends React.SVGProps<SVGSVGElement> {
 }
 
 export function RelationPlatformIcon({ size, source, ...props }: RelationPlatformIconProps) {
-    const isDarkMode = useDarkMode();
+    const { isDarkMode } = useDarkMode();
     const style = {
         width: size,
         height: size,

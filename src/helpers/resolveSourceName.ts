@@ -7,7 +7,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Lens]: 'Lens',
         [Source.Farcaster]: 'Farcaster',
         [Source.Twitter]: 'X',
-        [Source.Article]: 'Article',
+        [Source.Article]: 'Articles',
         [Source.Wallet]: 'Wallet',
     },
     (source) => {

@@ -7,6 +7,7 @@ import { memo } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
+import ArticleAnchorIcon from '@/assets/article-anchor.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
@@ -79,41 +80,54 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         >
             <ArticleHeader article={article} />
 
-            <div className="pl-[52px]">
-                {cover.data ? (
-                    <ImageAsset
-                        src={cover.data}
-                        width={510}
-                        height={260}
-                        className="mb-3 w-full cursor-pointer rounded-lg object-cover"
-                        alt={cover.data}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            event.preventDefault();
-                            if (cover.data)
-                                PreviewImageModalRef.open({
-                                    images: [cover.data],
-                                    current: cover.data,
-                                });
-                        }}
-                    />
-                ) : null}
-                <div className="text-xl font-semibold">{article.title}</div>
-                <div className="mt-3 rounded-2xl border border-secondaryLine bg-bg p-3">
+            <div className="-mt-2 pl-[52px]">
+                <div className="flex items-center gap-1 text-[15px]">
+                    <ArticleAnchorIcon width={18} height={18} />
+                    <span className="flex items-center gap-1 text-secondary">
+                        <strong className="text-main">
+                            {article.type === ArticleType.Revise ? t`Revised` : t`Posted`}
+                        </strong>
+                        an article
+                    </span>
+                </div>
+                <div className="mt-[6px] flex flex-col gap-2 rounded-2xl bg-bg p-3">
+                    {cover.data ? (
+                        <ImageAsset
+                            disableLoadHandler
+                            src={cover.data}
+                            width={510}
+                            height={260}
+                            className="mb-3 w-full cursor-pointer rounded-lg object-cover"
+                            alt={cover.data}
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                event.preventDefault();
+                                if (cover.data)
+                                    PreviewImageModalRef.open({
+                                        images: [cover.data],
+                                        current: cover.data,
+                                    });
+                            }}
+                        />
+                    ) : null}
+                    <div
+                        className={classNames('line-clamp-2 text-base font-bold leading-[20px]', {
+                            'max-h-[40px]': !!IS_SAFARI && !!IS_APPLE,
+                        })}
+                    >
+                        {article.title}
+                    </div>
                     <ArticleMarkup
                         disableImage
-                        className={classNames('markup linkify line-clamp-5 break-words text-[15px]', {
-                            'max-h-[8rem]': !!IS_SAFARI && !!IS_APPLE,
-                        })}
+                        className={classNames(
+                            'markup linkify line-clamp-5 break-words text-sm leading-[18px] text-second',
+                            {
+                                'max-h-[8rem]': !!IS_SAFARI && !!IS_APPLE,
+                            },
+                        )}
                     >
                         {article.content}
                     </ArticleMarkup>
-                </div>
-                <div className="mt-3 flex items-center gap-2 text-[16px] text-secondary">
-                    {Icon ? <Icon width={16} height={16} /> : null}
-
-                    {article.type === ArticleType.Revise ? t`Revise on ` : t`Post on `}
-                    <span className="capitalize">{article.platform}</span>
                 </div>
             </div>
         </motion.article>

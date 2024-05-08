@@ -1,5 +1,5 @@
 export const URL_REGEX =
-    /(?<!@)\b((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)]*)?)/gi;
+    /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)]*)?)/gi;
 
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))/;
@@ -8,7 +8,7 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
 
-export const CHANNEL_REGEX = /(?<=\s)\/[\w-]+\b/g;
+export const CHANNEL_REGEX = /(\s\/[^\s/]+)/g;
 
 export const MIRROR_HOSTNAME_REGEXP = /mirror\.xyz|.+\.mirror\.xyz/i;
 

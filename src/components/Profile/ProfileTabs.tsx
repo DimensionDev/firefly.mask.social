@@ -2,6 +2,7 @@
 
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
+import { isUndefined, omitBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
 import urlcat from 'urlcat';
@@ -27,6 +28,7 @@ const resolveProfileTabColor = createLookupTableResolver<
         background?: string;
         darkBackground?: string;
         color?: string;
+        darkColor?: string;
         activeBackground?: string;
         activeColor?: string;
         borderColor?: string;
@@ -36,7 +38,8 @@ const resolveProfileTabColor = createLookupTableResolver<
         [Source.Lens]: {
             background: 'rgba(171, 254, 44, 0.2)',
             darkBackground: 'rgba(171, 254, 44, 0.3)',
-            color: '#ffffff',
+            color: '#00501E',
+            darkColor: '#ffffff',
             activeColor: '#00501E',
             activeBackground: '#ABFE2C',
             borderColor: '#00501E',
@@ -44,7 +47,8 @@ const resolveProfileTabColor = createLookupTableResolver<
         [Source.Farcaster]: {
             background: 'rgba(133, 93, 205, 0.12)',
             darkBackground: 'rgba(133, 93, 205, 0.3)',
-            color: '#ffffff',
+            color: '#855DCD',
+            darkColor: '#ffffff',
             activeColor: '#ffffff',
             activeBackground: '#855DCD',
             borderColor: '#ffffff',
@@ -56,14 +60,13 @@ const resolveProfileTabColor = createLookupTableResolver<
     {},
 );
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
-    const isDarkMode = useDarkMode();
+    const { isDarkMode } = useDarkMode();
     const { update, identity: currentProfile } = ProfileContext.useContainer();
-
     const pathname = usePathname();
-    const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
 
+    const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
     return (
-        <div className="no-scrollbar flex max-w-full gap-2 overflow-x-auto px-5">
+        <div className="portable-tabs flex gap-2 px-5">
             {profiles.map((profile, index) => {
                 const colors = resolveProfileTabColor(profile.source);
 
@@ -82,10 +85,17 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                     source: profile.source,
                                     identity: profile.identity,
                                 });
-                                replaceSearchParams(
-                                    new URLSearchParams({
+
+                                const params = omitBy(
+                                    {
                                         source: resolveSourceInURL(profile.source),
-                                    }),
+                                        identity: pathname === '/profile' ? profile.identity : undefined,
+                                    },
+                                    isUndefined,
+                                ) as Record<string, string>;
+
+                                replaceSearchParams(
+                                    new URLSearchParams(params),
                                     isOtherProfile ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
                                 );
                             });
@@ -103,7 +113,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                 : isDarkMode
                                   ? colors.darkBackground
                                   : colors.background,
-                            color: isActive ? colors.activeColor : colors.color,
+                            color: isActive ? colors.activeColor : isDarkMode ? colors.darkColor : colors.color,
                         }}
                         key={index}
                     >
@@ -116,7 +126,9 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                 border: isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
                             }}
                         />
-                        <span className="whitespace-nowrap text-[10px] leading-3">{profile.displayName}</span>
+                        <span className="whitespace-nowrap text-[10px] leading-3">
+                            {profile.source === Source.Wallet ? profile.displayName : `@${profile.displayName}`}
+                        </span>
                     </ClickableArea>
                 );
             })}
