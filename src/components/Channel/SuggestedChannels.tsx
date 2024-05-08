@@ -65,7 +65,6 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                                         </div>
                                     </div>
                                 </Link>
-                                {/* <FollowButton channel={channel} /> */}
                             </div>
                         );
                     })

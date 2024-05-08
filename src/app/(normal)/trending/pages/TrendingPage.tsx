@@ -4,17 +4,17 @@ import { Suspense } from 'react';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { Loading } from '@/components/Loading.js';
-import { SourceInURL } from '@/constants/enum.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { type SocialSourceInURL,SourceInURL } from '@/constants/enum.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 interface PageProps {
     searchParams: {
-        source: SourceInURL;
+        source: SocialSourceInURL;
     };
 }
 
 export function TrendingChannelPage({ searchParams: { source = SourceInURL.Farcaster } }: PageProps) {
-    const currentSource = resolveSocialPlatform(source);
+    const currentSource = resolveSocialSource(source);
 
     return (
         <div>
