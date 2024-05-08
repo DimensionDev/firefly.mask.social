@@ -14,7 +14,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, pageableSchemas);
         const client = await createTwitterClientV2(request);
-        const limit = Number(queryParams.limit || '25');
+        const limit = queryParams.limit || 25;
         const { data } = await client.v2.bookmarks({
             max_results: limit,
             pagination_token: queryParams.cursor || undefined,

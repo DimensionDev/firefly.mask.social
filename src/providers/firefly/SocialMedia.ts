@@ -781,8 +781,6 @@ class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<BookmarkResponse>(url);
 
-        console.log('DEBUG: response');
-        console.log(response);
         const posts = response.data?.list.map((x) => {
             return {
                 ...formatFarcasterPostFromFirefly(x.post_content),

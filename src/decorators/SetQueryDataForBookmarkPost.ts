@@ -43,9 +43,9 @@ export function SetQueryDataForBookmarkPost(source: SocialSource) {
             const status = key === 'bookmark';
 
             Object.defineProperty(target.prototype, key, {
-                value: async (postId: string, ...args: any[]) => {
+                value: async (postId: string, ...args: unknown[]) => {
                     toggleBookmark(source, postId, status);
-                    const m = method as (postId: string, ...args: any[]) => ReturnType<Provider[K]>;
+                    const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
                     try {
                         const result = await m.call(target.prototype, postId, ...args);
                         return result;
