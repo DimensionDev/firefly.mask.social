@@ -7,7 +7,7 @@ import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -57,7 +57,7 @@ export function PostByItem({ source }: PostByItemProps) {
         return (
             <div className=" flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
                 <div className=" flex items-center gap-2 text-main">
-                    <SourceIcon size={24} source={source} />
+                    <SocialSourceIcon size={24} source={source} />
                     <span className=" font-bold text-main">{resolveSourceName(source)}</span>
                 </div>
 
@@ -94,7 +94,7 @@ export function PostByItem({ source }: PostByItemProps) {
             <div className=" flex items-center gap-2">
                 <div className="relative">
                     <Avatar src={profile.pfp} size={24} alt={profile.handle} />
-                    <SourceIcon
+                    <SocialSourceIcon
                         className="absolute -bottom-1 -right-1 z-10 rounded-full border border-white dark:border-gray-900"
                         source={profile.source}
                         size={12}

@@ -20,6 +20,7 @@ module.exports = {
                 warn: 'rgb(var(--color-warn) / <alpha-value>)',
                 lensPrimary: 'rgb(var(--color-lens-primary) / <alpha-value>)',
                 farcasterPrimary: 'rgb(var(--color-farcaster-primary) / <alpha-value>)',
+                twitterPrimary: 'rgb(var( --color-twitter-primary) / <alpha-value>)',
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
                 secondary: 'var(--color-secondary)',
                 second: 'var(--color-second)',

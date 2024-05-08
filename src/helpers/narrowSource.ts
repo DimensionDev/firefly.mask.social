@@ -7,6 +7,7 @@ export const narrowToSocialSource = createLookupTableResolver<Source, SocialSour
         [Source.Farcaster]: Source.Farcaster,
         [Source.Lens]: Source.Lens,
         [Source.Twitter]: Source.Twitter,
+        [Source.Wallet]: Source.Farcaster,
         // default to Farcaster
         [Source.Article]: Source.Farcaster,
     },
@@ -20,6 +21,7 @@ export const narrowToSocialSourceInURL = createLookupTableResolver<SourceInURL, 
         [SourceInURL.Farcaster]: SourceInURL.Farcaster,
         [SourceInURL.Lens]: SourceInURL.Lens,
         [SourceInURL.Twitter]: SourceInURL.Twitter,
+        [SourceInURL.Wallet]: SourceInURL.Farcaster,
         // default to Farcaster
         [SourceInURL.Article]: SourceInURL.Farcaster,
     },

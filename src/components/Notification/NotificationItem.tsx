@@ -18,7 +18,7 @@ import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Markup } from '@/components/Markup/Markup.js';
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -367,7 +367,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         <div className="flex flex-1 items-center justify-between">
                             <AvatarGroup profiles={profiles.slice(0, 5)} />
                             <div className="flex items-center space-x-2">
-                                <SourceIcon source={notification.source} />
+                                <SocialSourceIcon source={notification.source} />
                                 {notification.timestamp ? (
                                     <span className="text-xs leading-4 text-secondary">
                                         <TimestampFormatter time={notification.timestamp} />

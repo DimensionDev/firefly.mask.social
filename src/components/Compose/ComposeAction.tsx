@@ -20,7 +20,7 @@ import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -216,7 +216,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                     {availableSources
                                         .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
                                         .map((y) => (
-                                            <SourceIcon key={y} source={y} size={20} />
+                                            <SocialSourceIcon key={y} source={y} size={20} />
                                         ))}
                                 </span>
                                 {type === 'compose' ? (

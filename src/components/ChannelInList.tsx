@@ -2,7 +2,7 @@ import { isUndefined } from 'lodash-es';
 
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
@@ -39,7 +39,7 @@ export function ChannelInList({ channel, noFollowButton = true, listKey, index }
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
                     <p className="flex-start flex items-center text-sm font-bold leading-5 md:mt-2">
                         <span className="mr-2 text-xl">{channel.name}</span>
-                        <SourceIcon source={channel.source} />
+                        <SocialSourceIcon source={channel.source} />
                     </p>
                     {channel.id ? <p className="text-sm text-secondary">/{channel.id}</p> : null}
                     {channel.description ? (

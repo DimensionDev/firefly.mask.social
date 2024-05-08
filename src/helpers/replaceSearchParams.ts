@@ -3,11 +3,11 @@
  * @param key The key of the search parameter to update.
  * @param value The new value for the search parameter.
  */
-export function replaceSearchParams(params: URLSearchParams) {
+export function replaceSearchParams(params: URLSearchParams, pathname?: string) {
     const newSearchParams = new URLSearchParams(location.search);
     params.forEach((value, key) => newSearchParams.set(key, value));
 
-    const newURL = `${location.pathname}?${newSearchParams}`;
+    const newURL = `${pathname ?? location.pathname}?${newSearchParams}`;
 
     history.replaceState(
         {

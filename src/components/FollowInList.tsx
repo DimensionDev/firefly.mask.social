@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
@@ -31,7 +31,7 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
                     <div className="max-w-[calc(100% - 32px)] mr-2 truncate text-xl leading-6">
                         {profile.displayName}
                     </div>
-                    <SourceIcon
+                    <SocialSourceIcon
                         source={profile.source}
                         className={profile.source === Source.Lens ? 'dark:opacity-70' : undefined}
                     />
