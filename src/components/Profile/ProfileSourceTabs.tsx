@@ -2,11 +2,12 @@
 
 import { groupBy, keys } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { startTransition } from 'react';
+import { startTransition, useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import type { Source } from '@/constants/enum.js';
+import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
@@ -22,10 +23,15 @@ interface ProfileSourceTabs {
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const { update, source } = ProfileContext.useContainer();
 
-    const tabs = keys(groupBy(profiles, (x) => x.source)) as Source[];
+    const tabs = useMemo(() => {
+        return (keys(groupBy(profiles, (x) => x.source)) as Source[]).sort((a, b) => {
+            const aIndex = SORTED_PROFILE_SOURCES.indexOf(a);
+            const bIndex = SORTED_PROFILE_SOURCES.indexOf(b);
+            return aIndex - bIndex;
+        });
+    }, [profiles]);
 
     const pathname = usePathname();
-
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
 
     return (
@@ -46,6 +52,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
 
                                     const target = profiles.find((x) => x.source === value);
                                     if (!target) return;
+
                                     update?.({
                                         source: target.source,
                                         identity: target.identity,

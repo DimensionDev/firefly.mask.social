@@ -58,70 +58,68 @@ const resolveProfileTabColor = createLookupTableResolver<
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const isDarkMode = useDarkMode();
     const { update, identity: currentProfile } = ProfileContext.useContainer();
+
     const pathname = usePathname();
-
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+
     return (
-        <div className="px-3">
-            <div className="no-scrollbar flex max-w-full gap-2 overflow-x-auto">
-                {profiles.map((profile, index) => {
-                    const colors = resolveProfileTabColor(profile.source);
+        <div className="no-scrollbar flex max-w-full gap-2 overflow-x-auto px-5">
+            {profiles.map((profile, index) => {
+                const colors = resolveProfileTabColor(profile.source);
 
-                    const isActive =
-                        profile.source === Source.Wallet
-                            ? isSameAddress(profile.identity, currentProfile)
-                            : currentProfile === profile.identity;
+                const isActive =
+                    profile.source === Source.Wallet
+                        ? isSameAddress(profile.identity, currentProfile)
+                        : currentProfile === profile.identity;
 
-                    return (
-                        <ClickableArea
-                            onClick={() => {
-                                startTransition(() => {
-                                    scrollTo(0, 0);
+                return (
+                    <ClickableArea
+                        onClick={() => {
+                            startTransition(() => {
+                                scrollTo(0, 0);
 
-                                    update?.({
-                                        source: profile.source,
-                                        identity: profile.identity,
-                                    });
-                                    replaceSearchParams(
-                                        new URLSearchParams({
-                                            source: resolveSourceInURL(profile.source),
-                                        }),
-                                        isOtherProfile ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
-                                    );
+                                update?.({
+                                    source: profile.source,
+                                    identity: profile.identity,
                                 });
-                            }}
-                            className={classNames('flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2', {
-                                'bg-main': isActive,
-                                'text-primaryBottom': isActive,
-                                'bg-thirdMain': !isActive,
-                                'border-primaryBottom': isActive,
-                                border: isActive,
-                            })}
+                                replaceSearchParams(
+                                    new URLSearchParams({
+                                        source: resolveSourceInURL(profile.source),
+                                    }),
+                                    isOtherProfile ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
+                                );
+                            });
+                        }}
+                        className={classNames('flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2', {
+                            'bg-main': isActive,
+                            'text-primaryBottom': isActive,
+                            'bg-thirdMain': !isActive,
+                            'border-primaryBottom': isActive,
+                            border: isActive,
+                        })}
+                        style={{
+                            background: isActive
+                                ? colors.activeBackground
+                                : isDarkMode
+                                  ? colors.darkBackground
+                                  : colors.background,
+                            color: isActive ? colors.activeColor : colors.color,
+                        }}
+                        key={index}
+                    >
+                        <SourceSquareIcon
+                            source={profile.source}
+                            size={14}
+                            forceLight={isActive}
+                            className="rounded-[4px]"
                             style={{
-                                background: isActive
-                                    ? colors.activeBackground
-                                    : isDarkMode
-                                      ? colors.darkBackground
-                                      : colors.background,
-                                color: isActive ? colors.activeColor : colors.color,
+                                border: isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
                             }}
-                            key={index}
-                        >
-                            <SourceSquareIcon
-                                source={profile.source}
-                                size={14}
-                                forceLight={isActive}
-                                className="rounded-[4px]"
-                                style={{
-                                    border:
-                                        isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
-                                }}
-                            />
-                            <span className="whitespace-nowrap text-[10px] leading-3">{profile.displayName}</span>
-                        </ClickableArea>
-                    );
-                })}
-            </div>
+                        />
+                        <span className="whitespace-nowrap text-[10px] leading-3">{profile.displayName}</span>
+                    </ClickableArea>
+                );
+            })}
         </div>
     );
 }
