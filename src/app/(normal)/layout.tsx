@@ -48,6 +48,10 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 r: '/article/[^/]+$',
                                 flags: 'i',
                             },
+                            {
+                                r: '/nft/[^/]+/\\w+$',
+                                flags: 'i',
+                            },
                             '/channel',
                             '/settings',
                         ]}
