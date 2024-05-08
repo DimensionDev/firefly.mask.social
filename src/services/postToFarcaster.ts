@@ -2,10 +2,9 @@ import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { isHomeChannel } from '@/helpers/channel.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
@@ -16,7 +15,7 @@ import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, postId, channel } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -30,7 +29,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
-        const hasPayload = hasRpPayload(typedMessage);
+        const currentChannel = channel[Source.Farcaster];
         return {
             publicationId: '',
             type: postType,
@@ -52,8 +51,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY : undefined,
-            parentChannelUrl: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_URL : undefined,
+            parentChannelKey: isHomeChannel(currentChannel) ? undefined : currentChannel?.id,
+            parentChannelUrl: isHomeChannel(currentChannel) ? undefined : currentChannel?.parentUrl,
         } satisfies Post;
     };
 

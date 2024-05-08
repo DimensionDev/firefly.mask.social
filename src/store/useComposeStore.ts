@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
+import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
@@ -12,7 +13,7 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
@@ -51,6 +52,9 @@ export interface CompositePost {
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
     rpPayload: RedPacketPayload | null;
+
+    // only available in farcaster now
+    channel: Record<SocialSource, Channel | null>;
 }
 
 interface ComposeState {
@@ -100,6 +104,7 @@ interface ComposeState {
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
+    updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -132,6 +137,11 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         openGraphs: EMPTY_LIST,
         video: null,
         rpPayload: null,
+        channel: {
+            [Source.Farcaster]: HOME_CHANNEL,
+            [Source.Lens]: null,
+            [Source.Twitter]: null,
+        },
     };
 }
 
@@ -413,6 +423,21 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         availableSources: sources,
+                    }),
+                    cursor,
+                ),
+            );
+        },
+        updateChannel(source, channel, cursor) {
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        channel: {
+                            ...post.channel,
+                            [source]: channel,
+                        },
                     }),
                     cursor,
                 ),
