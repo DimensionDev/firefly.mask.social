@@ -472,6 +472,9 @@ msgstr "Clear All"
 msgid "Lens"
 msgstr "Lens"
 
+msgid "Failed to fetch bookmarks."
+msgstr "Failed to fetch bookmarks."
+
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
