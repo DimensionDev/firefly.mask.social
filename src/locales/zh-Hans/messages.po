@@ -27,6 +27,9 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -35,6 +38,12 @@ msgstr ""
 
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
+
+msgid "Unmute successfully."
+msgstr ""
+
+msgid "Mute /{0}"
+msgstr ""
 
 msgid "Communities"
 msgstr "社区"
@@ -46,6 +55,12 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr ""
+
+msgid "Mute @{0}"
 msgstr ""
 
 msgid "X"
@@ -87,11 +102,11 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
-msgid "Confirm you want to block @{0}"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
+
+msgid "Connect with Warpcast"
+msgstr ""
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
@@ -104,6 +119,9 @@ msgstr ""
 
 msgid "Debug Console"
 msgstr "诊断命令行"
+
+msgid "Failed to mute @{0} on {sourceName}"
+msgstr ""
 
 msgid "Failed to like the comment."
 msgstr ""
@@ -134,6 +152,9 @@ msgstr "评论"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "The author is muted by you."
+msgstr ""
 
 msgid "Failed to report @{0}"
 msgstr ""
@@ -168,6 +189,9 @@ msgstr "从这里开始..."
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
 
+msgid "Reconnect with Firefly"
+msgstr ""
+
 msgid "Revise on"
 msgstr ""
 
@@ -186,6 +210,9 @@ msgstr "搜索"
 msgid "Connected Accounts"
 msgstr "已链接的账号"
 
+msgid "Confirm you want to report @{0}?"
+msgstr ""
+
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -198,8 +225,14 @@ msgstr ""
 msgid "Mirror again"
 msgstr ""
 
+msgid "Failed to detect device accounts."
+msgstr ""
+
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
+
+msgid "{count, plural, one {Bookmark} other {{0}}}"
+msgstr ""
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -208,9 +241,6 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "Block"
-msgstr ""
-
-msgid "Block @{0}"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -233,6 +263,9 @@ msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！
 
 msgid "Confirmation"
 msgstr "确认"
+
+msgid "Failed to mute /{0}."
+msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
@@ -273,6 +306,9 @@ msgstr "登出"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Failed to un-bookmark"
+msgstr ""
+
 msgid "post"
 msgstr "发帖"
 
@@ -287,6 +323,9 @@ msgstr "查询规则"
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
+
+msgid "Unmute /{0}"
+msgstr ""
 
 msgid "Invalid compose type: {type}."
 msgstr ""
@@ -309,8 +348,14 @@ msgstr ""
 msgid "Reply"
 msgstr "回复"
 
+msgid "Confirm you want to mute /{0}?"
+msgstr ""
+
 msgid "Collected"
 msgstr "已收藏"
+
+msgid "Failed to bookmark"
+msgstr ""
 
 msgid "<0>You</0> mirrored"
 msgstr "<0>你</0> 已转发"
@@ -320,6 +365,9 @@ msgstr "创建图片内容失败"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Detecting..."
+msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -364,7 +412,7 @@ msgid "Failed to login."
 msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
+msgstr ""
 
 msgid "Unlike"
 msgstr "取消点赞"
@@ -375,13 +423,22 @@ msgstr "帖子已经被隐藏"
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Confirm you want to unmute /{0}?"
+msgstr ""
+
+msgid "Bookmark"
+msgstr ""
+
 msgid "Everyone"
 msgstr "任何人"
+
+msgid "Failed to unmute /{0}."
+msgstr ""
 
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
-msgid "Confirm you want to report this message"
+msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
 msgid "Compose"
@@ -398,6 +455,9 @@ msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 
 
 msgid "Failed to follow."
 msgstr "关注失败"
+
+msgid "Mute"
+msgstr ""
 
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
@@ -440,6 +500,9 @@ msgstr "帖子已经被加密"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "Unmuted @{0} on {sourceName}"
+msgstr ""
 
 msgid "Details"
 msgstr "详情"
@@ -495,6 +558,9 @@ msgstr ""
 msgid "Display"
 msgstr "显示"
 
+msgid "Mute successfully."
+msgstr ""
+
 msgid "Show More"
 msgstr "显示更多"
 
@@ -503,9 +569,6 @@ msgstr ""
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
-
-msgid "Loading..."
-msgstr "加载中..."
 
 msgid "Share"
 msgstr "分享"
@@ -530,6 +593,9 @@ msgstr ""
 
 msgid "Unliked"
 msgstr "已取消点赞"
+
+msgid "Please click and refresh the QR code to log in again."
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -585,6 +651,9 @@ msgstr "转帖了你的"
 msgid "Quotes"
 msgstr ""
 
+msgid "The user rejected the request."
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
@@ -627,13 +696,13 @@ msgstr ""
 msgid "Image"
 msgstr "图片"
 
+msgid "Muted @{0} on {sourceName}"
+msgstr ""
+
 msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
-msgstr ""
-
-msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
@@ -650,6 +719,9 @@ msgstr "连接"
 
 msgid "Switch account"
 msgstr "切换账号"
+
+msgid "Sign in with Custody Wallet"
+msgstr ""
 
 msgid "Mention"
 msgstr "提及"
@@ -669,8 +741,8 @@ msgstr "你已经滑到底部啦～"
 msgid "Failed to mirror post."
 msgstr "转发失败"
 
-msgid "Login with custody wallet"
-msgstr "使用托管钱包登录"
+msgid "Failed to create firefly session."
+msgstr ""
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
@@ -693,6 +765,9 @@ msgstr "Firefly"
 msgid "Add"
 msgstr "添加"
 
+msgid "No device accounts detected."
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -701,6 +776,9 @@ msgstr "红包"
 
 msgid "{0} and others"
 msgstr "{0} 和 其他"
+
+msgid "Failed to unmute @{0} on {sourceName}"
+msgstr ""
 
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
@@ -713,6 +791,9 @@ msgstr "分享到"
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
+msgstr ""
 
 msgid "Failed to quote post."
 msgstr ""
@@ -750,7 +831,13 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
+msgid "Post added to your Bookmarks"
+msgstr ""
+
 msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -760,6 +847,9 @@ msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 
 msgid "Click to copy"
+msgstr ""
+
+msgid "Unmute @{0}"
 msgstr ""
 
 msgid "Mask Network"
@@ -773,6 +863,9 @@ msgstr "你的 Lens 账号已经连接。"
 
 msgid "Remove"
 msgstr "移除"
+
+msgid "Post remove from your Bookmarks"
+msgstr ""
 
 msgid "Cancel Recast"
 msgstr "取消转帖"
@@ -809,6 +902,9 @@ msgstr "语言"
 
 msgid "Add a comment"
 msgstr "添加一条评论"
+
+msgid "FREE"
+msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"

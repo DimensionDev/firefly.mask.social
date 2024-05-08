@@ -338,7 +338,9 @@ class TwitterSocialMedia implements Provider {
     async blockUser(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-
+    async unblockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
@@ -346,6 +348,15 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async bookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 }

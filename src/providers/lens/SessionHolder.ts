@@ -34,10 +34,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
     override async resumeSession(session: LensSession) {
         const refreshToken = session.refreshToken;
-        if (!refreshToken) throw new Error('No refresh token');
-
-        const verified = await this.sdk.authentication.verify(session.token);
-        if (!verified) throw new Error('Invalid session');
+        if (!refreshToken) return;
 
         const now = Date.now();
         localStorage.setItem(

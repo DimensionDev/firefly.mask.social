@@ -26,9 +26,11 @@ export function Title({ profile }: TitleProps) {
 
     return (
         <div className="sticky top-0 z-50 flex h-[60px] items-center bg-primaryBottom px-4">
-            <div className="flex items-center gap-7">
-                <ComeBackIcon className=" cursor-pointer text-lightMain" onClick={comeback} />
-                <span className=" text-xl font-black text-lightMain">{profile.displayName ?? '-'}</span>
+            <div className="mr-1 flex items-center gap-7 overflow-auto">
+                <ComeBackIcon className=" shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
+                <span className=" overflow-hidden text-ellipsis whitespace-nowrap text-xl font-black text-lightMain">
+                    {profile.displayName || '-'}
+                </span>
             </div>
 
             {(profile && reached) || !isMedium ? (

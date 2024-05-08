@@ -11,6 +11,7 @@ import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
+import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -22,31 +23,34 @@ import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useBlockUser } from '@/hooks/useBlockUser.js';
+import { useChangeChannelStatus } from '@/hooks/useChangeChannelStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
+import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
     source: SocialSource;
     author: Profile;
+    channel?: Channel;
     id?: string;
 }
 
-export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, id }) {
+export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, id, channel }) {
     const isLogin = useIsLogin(source);
     const currentProfile = useCurrentProfile(source);
+
     const isMyPost = isSameProfile(author, currentProfile);
 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
-    const [{ loading: blocking }, blockUser] = useBlockUser(currentProfile);
-
+    const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
+    const [{ loading: muting }, changeChannelStatus] = useChangeChannelStatus(currentProfile);
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
     const isBusy = loading || reporting || blocking;
@@ -162,12 +166,24 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     )}
                                 </Menu.Item>
                             ) : null}
+                            {channel && currentProfile ? (
+                                <Menu.Item>
+                                    {({ close }) => (
+                                        <MuteChannelButton
+                                            busy={muting}
+                                            channel={channel}
+                                            onStatusChange={changeChannelStatus}
+                                            onClick={close}
+                                        />
+                                    )}
+                                </Menu.Item>
+                            ) : null}
                             <Menu.Item>
                                 {({ close }) => (
                                     <BlockUserButton
                                         busy={blocking}
                                         profile={author}
-                                        onBlock={blockUser}
+                                        onToggleBlock={toggleBlock}
                                         onClick={close}
                                     />
                                 )}

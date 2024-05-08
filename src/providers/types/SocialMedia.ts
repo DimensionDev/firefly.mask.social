@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { RestrictionType, SocialSource } from '@/constants/enum.js';
+import type { BookmarkType, RestrictionType, SocialSource } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -62,6 +62,7 @@ export interface Profile {
     viewerContext?: {
         following?: boolean;
         followedBy?: boolean;
+        blocking?: boolean;
     };
     ownedBy?: {
         networkType: NetworkType;
@@ -154,6 +155,7 @@ export interface Post {
     hasLiked?: boolean;
     hasActed?: boolean;
     hasQuoted?: boolean;
+    hasBookmarked?: boolean;
     source: SocialSource;
     isThread?: boolean;
 
@@ -666,10 +668,10 @@ export interface Provider {
      * Report a post
      */
     reportPost: (post: Post) => Promise<boolean>;
-    /**
-     * Block a user
-     */
+
     blockUser: (profileId: string) => Promise<boolean>;
+
+    unblockUser: (profileId: string) => Promise<boolean>;
 
     getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
@@ -679,4 +681,15 @@ export interface Provider {
     getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
     getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * @param postId
+     * @param profileId - farcaster only
+     * @param postType - farcaster only
+     */
+    bookmark: (postId: string, profileId?: string, postType?: BookmarkType) => Promise<boolean>;
+
+    unbookmark: (postId: string) => Promise<boolean>;
+
+    getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }
