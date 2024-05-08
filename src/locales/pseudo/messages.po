@@ -130,6 +130,9 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
+msgid "<0>Posted</0>an article"
+msgstr ""
+
 msgid "Offline"
 msgstr ""
 
@@ -502,6 +505,9 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
+msgid "<0>Revised</0>an article"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -607,9 +613,6 @@ msgstr ""
 msgid "Unliked"
 msgstr ""
 
-msgid "Revised"
-msgstr ""
-
 msgid "Please click and refresh the QR code to log in again."
 msgstr ""
 
@@ -674,9 +677,6 @@ msgid "Please input the url to be revalidated."
 msgstr ""
 
 msgid "Show more"
-msgstr ""
-
-msgid "an article"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -896,9 +896,6 @@ msgid "No matching users"
 msgstr ""
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr ""
-
-msgid "Posted"
 msgstr ""
 
 msgid "Log in to Farcaster account"

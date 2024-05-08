@@ -130,6 +130,9 @@ msgstr "Failed to like the comment."
 msgid "Failed to login"
 msgstr "Failed to login"
 
+msgid "<0>Posted</0>an article"
+msgstr "<0>Posted</0>an article"
+
 msgid "Offline"
 msgstr "Offline"
 
@@ -502,6 +505,9 @@ msgstr "The file \"{0}\" exceeds the size limit."
 msgid "Invalid URL."
 msgstr "Invalid URL."
 
+msgid "<0>Revised</0>an article"
+msgstr "<0>Revised</0>an article"
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
@@ -607,9 +613,6 @@ msgstr "{0, plural, one {Post} other {Post All}}"
 msgid "Unliked"
 msgstr "Unliked"
 
-msgid "Revised"
-msgstr "Revised"
-
 msgid "Please click and refresh the QR code to log in again."
 msgstr "Please click and refresh the QR code to log in again."
 
@@ -675,9 +678,6 @@ msgstr "Please input the url to be revalidated."
 
 msgid "Show more"
 msgstr "Show more"
-
-msgid "an article"
-msgstr "an article"
 
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
@@ -897,9 +897,6 @@ msgstr "No matching users"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-
-msgid "Posted"
-msgstr "Posted"
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
