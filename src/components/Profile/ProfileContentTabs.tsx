@@ -47,7 +47,7 @@ interface TabsProps {
     source: SocialSource;
 }
 
-export function Tabs({ profileId, source }: TabsProps) {
+export function ProfileContentTabs({ profileId, source }: TabsProps) {
     const [currentTab, setCurrentTab] = useState(ProfileTabType.Feed);
 
     const computedCurrentTab =
