@@ -15,7 +15,7 @@ import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId, channel } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, postId, channel } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -29,8 +29,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
-        const curChannel = channel[Source.Farcaster];
-        const isCurChanelHomeChannel = curChannel ? isHomeChannel(curChannel, Source.Farcaster) : false;
+        const currentChannel = channel[Source.Farcaster];
         return {
             publicationId: '',
             type: postType,
@@ -52,8 +51,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: isCurChanelHomeChannel ? undefined : curChannel?.id ?? undefined,
-            parentChannelUrl: isCurChanelHomeChannel ? undefined : curChannel?.parentUrl ?? undefined,
+            parentChannelKey: isHomeChannel(currentChannel) ? undefined : currentChannel?.id,
+            parentChannelUrl: isHomeChannel(currentChannel) ? undefined : currentChannel?.parentUrl,
         } satisfies Post;
     };
 
