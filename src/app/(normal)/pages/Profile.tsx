@@ -24,7 +24,7 @@ import { isMyProfile } from '@/helpers/isMyProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { useProfileContext } from '@/hooks/useProfileContext.js';
+import { ProfileContext } from '@/hooks/useProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireFlyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
@@ -38,58 +38,54 @@ interface ProfilePageProps {
 export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
-    const { source, identity } = useProfileContext();
+    const { source, identity } = ProfileContext.useContainer();
 
-    const current = profiles.find((x) => {
-        if (source === Source.Wallet) isSameAddress(identity, x.identity);
+    const currentProfile = profiles.find((x) => {
+        if (source === Source.Wallet) return isSameAddress(identity, x.identity);
         return x.identity.toLowerCase() === identity?.toLowerCase();
     });
 
     const walletProfile = useMemo(() => {
-        return current?.source === Source.Wallet ? (current?.__origin__ as WalletProfile) : undefined;
-    }, [current]);
-
-    const walletProfiles = useMemo(() => {
-        return profiles.filter((x) => x.source === Source.Wallet);
-    }, [profiles]);
+        return currentProfile?.source === Source.Wallet ? (currentProfile?.__origin__ as WalletProfile) : undefined;
+    }, [currentProfile]);
 
     const { data: profile = null, isLoading } = useQuery({
-        queryKey: ['profile', source, current?.identity],
+        queryKey: ['profile', source, currentProfile?.identity],
         queryFn: async () => {
-            if (!current || current.source === Source.Wallet) return null;
+            if (!currentProfile || currentProfile.source === Source.Wallet) return null;
             // can't access the profile If not login Twitter.
-            if (current.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
-            const socialSource = narrowToSocialSource(current.source);
+            if (currentProfile.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
+            const socialSource = narrowToSocialSource(currentProfile.source);
 
-            return getProfileById(socialSource, current.identity);
+            return getProfileById(socialSource, currentProfile.identity);
         },
     });
 
     const { data: relations } = useQuery({
-        enabled: current?.source === Source.Wallet,
-        queryKey: ['relation', identity, current],
+        enabled: currentProfile?.source === Source.Wallet,
+        queryKey: ['relation', identity, currentProfile],
         queryFn: async () => {
-            if (current?.source !== Source.Wallet || !identity) return EMPTY_LIST;
+            if (currentProfile?.source !== Source.Wallet || !identity) return EMPTY_LIST;
 
-            return FireflySocialMediaProvider.getNextIDRelations('ethereum', current.identity);
+            return FireflySocialMediaProvider.getNextIDRelations('ethereum', currentProfile.identity);
         },
     });
 
     const info = useMemo(() => {
         if (source === Source.Wallet && walletProfile) {
-            return <WalletInfo profile={walletProfile} relations={relations} walletProfiles={walletProfiles} />;
+            return <WalletInfo profile={walletProfile} relations={relations} />;
         }
         if (profile) {
-            const isMySelf = isMyProfile(
+            const isMyself = isMyProfile(
                 profile.source,
                 profile.source === Source.Lens ? profile.handle : profile.profileId,
             );
 
-            return <Info profile={profile} isMyProfile={isMySelf} source={profile.source} />;
+            return <Info profile={profile} isMyProfile={isMyself} source={profile.source} />;
         }
 
         return null;
-    }, [profile, walletProfile, source, relations, walletProfiles]);
+    }, [profile, walletProfile, source, relations]);
 
     const title = useMemo(() => {
         if (!profile) return SITE_NAME;
@@ -98,30 +94,16 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
         return createPageTitle(fragments.join(' '));
     }, [profile]);
 
-    const content = useMemo(() => {
-        if (isLoading) return <Loading />;
-        if (source === Source.Twitter && !currentTwitterProfile?.profileId)
-            return <NotLoginFallback source={Source.Twitter} />;
-
-        return (
-            <>
-                {info}
-                <ProfileTabs profiles={profiles.filter((x) => x.source === source)} />
-
-                {walletProfile ? (
-                    <WalletTabs address={walletProfile.address} />
-                ) : profile ? (
-                    <Tabs source={profile.source} profileId={profile.profileId} />
-                ) : null}
-            </>
-        );
-    }, [isLoading, currentTwitterProfile, source, info, profiles, profile, walletProfile]);
-
     useDocumentTitle(title);
     useNavigatorTitle(t`Profile`);
     useUpdateCurrentVisitingProfile(profile);
 
-    if (!profile && !walletProfile && !isLoading && !(current?.source === Source.Twitter && !currentTwitterProfile)) {
+    if (
+        !profile &&
+        !walletProfile &&
+        !isLoading &&
+        !(currentProfile?.source === Source.Twitter && !currentTwitterProfile)
+    ) {
         notFound();
     }
 
@@ -139,7 +121,22 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
                 />
             ) : null}
             {profiles.length > 1 ? <ProfileSourceTabs profiles={profiles} /> : null}
-            {content}
+            {isLoading ? (
+                <Loading />
+            ) : source === Source.Twitter && !currentTwitterProfile?.profileId ? (
+                <NotLoginFallback source={Source.Twitter} />
+            ) : (
+                <>
+                    {info}
+                    <ProfileTabs profiles={profiles.filter((x) => x.source === source)} />
+
+                    {walletProfile ? (
+                        <WalletTabs address={walletProfile.address} />
+                    ) : profile ? (
+                        <Tabs source={profile.source} profileId={profile.profileId} />
+                    ) : null}
+                </>
+            )}
         </div>
     );
 }

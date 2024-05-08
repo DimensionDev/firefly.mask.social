@@ -14,7 +14,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { useProfileContext } from '@/hooks/useProfileContext.js';
+import { ProfileContext } from '@/hooks/useProfileContext.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
 
 interface ProfileTabsProps {
@@ -57,7 +57,7 @@ const resolveProfileTabColor = createLookupTableResolver<
 );
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const isDarkMode = useDarkMode();
-    const { update, identity: current } = useProfileContext();
+    const { update, identity: currentProfile } = ProfileContext.useContainer();
     const pathname = usePathname();
 
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
@@ -69,8 +69,8 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                     const isActive =
                         profile.source === Source.Wallet
-                            ? isSameAddress(profile.identity, current)
-                            : current === profile.identity;
+                            ? isSameAddress(profile.identity, currentProfile)
+                            : currentProfile === profile.identity;
 
                     return (
                         <ClickableArea

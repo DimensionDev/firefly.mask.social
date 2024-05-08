@@ -17,12 +17,11 @@ import { Tippy } from '@/esm/Tippy.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { FireFlyProfile, Relation, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;
     relations?: Relation[];
-    walletProfiles: FireFlyProfile[];
 }
 
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
@@ -70,9 +69,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                 interactive
                                 content={
                                     <div className="flex flex-wrap gap-x-[15px] rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
-                                        {profile.ens.map((ens, index) => {
+                                        {profile.ens.map((ens) => {
                                             return (
-                                                <div className="flex items-center gap-[5px]" key={index}>
+                                                <div className="flex items-center gap-[5px]" key={ens}>
                                                     <MiniEnsIcon width={16} height={16} />
                                                     <span className="text-[10px] font-bold leading-4">{ens}</span>
                                                 </div>

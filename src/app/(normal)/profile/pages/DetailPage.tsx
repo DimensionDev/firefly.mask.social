@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { useMemo, useState } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
@@ -22,17 +21,6 @@ interface PageProps {
 
 export function ProfileDetailPage({ params: { id: identity }, searchParams: { source } }: PageProps) {
     const currentSource = resolveSource(source);
-    const [value, setValue] = useState({
-        source: currentSource,
-        identity,
-    });
-
-    const context = useMemo(() => {
-        return {
-            ...value,
-            update: setValue,
-        };
-    }, [value]);
 
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['all-profiles', currentSource, identity],
@@ -41,7 +29,7 @@ export function ProfileDetailPage({ params: { id: identity }, searchParams: { so
         },
     });
 
-    if (isLoading && !profiles) {
+    if (isLoading) {
         return <Loading />;
     }
 
@@ -50,7 +38,7 @@ export function ProfileDetailPage({ params: { id: identity }, searchParams: { so
     }
 
     return (
-        <ProfileContext.Provider value={context}>
+        <ProfileContext.Provider initialState={{ source: currentSource, identity }}>
             <ProfilePage profiles={profiles} />
         </ProfileContext.Provider>
     );

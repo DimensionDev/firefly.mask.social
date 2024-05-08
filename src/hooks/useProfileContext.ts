@@ -1,16 +1,21 @@
 'use client';
-import { createContext, useContext } from 'react';
+
+import { useState } from 'react';
+import { createContainer } from 'unstated-next';
 
 import { Source } from '@/constants/enum.js';
 
-export const ProfileContext = createContext<{
+interface ProfileState {
     source: Source;
     identity?: string;
-    update?: (value: { source: Source; identity: string }) => void;
-}>({
-    source: Source.Farcaster,
-});
-
-export function useProfileContext() {
-    return useContext(ProfileContext);
 }
+function useProfileContext(initialState?: ProfileState) {
+    const [value, setValue] = useState<ProfileState>(initialState ?? { source: Source.Farcaster });
+
+    return {
+        ...value,
+        update: setValue,
+    };
+}
+
+export const ProfileContext = createContainer(useProfileContext);
