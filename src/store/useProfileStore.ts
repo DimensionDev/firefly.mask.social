@@ -18,6 +18,8 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 
 interface ProfileState {
     profiles: Profile[];
@@ -38,7 +40,7 @@ interface ProfileStatePersisted {
 
 function createState(
     provider: {
-        getUpdatedProfile: (profile: Profile) => Promise<Profile | null>;
+        getUpdatedProfile?: (profile: Profile) => Promise<Profile | null>;
     },
     options: PersistOptions<ProfileState, ProfileStatePersisted>,
 ) {
@@ -61,7 +63,7 @@ function createState(
                     const profile = get().currentProfile;
                     if (!profile) return;
 
-                    const updatedProfile = await provider.getUpdatedProfile(profile);
+                    const updatedProfile = await provider.getUpdatedProfile?.(profile);
                     if (!updatedProfile) return;
 
                     set((state) => {
@@ -73,7 +75,7 @@ function createState(
                     const profiles = get().profiles;
 
                     const updatedProfiles = compact(
-                        await Promise.all(profiles.map((profile) => provider.getUpdatedProfile(profile))),
+                        await Promise.all(profiles.map((profile) => provider.getUpdatedProfile?.(profile))),
                     );
                     if (!updatedProfiles.length) return;
 
@@ -93,7 +95,15 @@ function createState(
                         state.currentProfileSession = null;
                     }),
             })),
-            options,
+            {
+                storage: createSessionStorage(),
+                partialize: (state) => ({
+                    profiles: state.profiles,
+                    currentProfile: state.currentProfile,
+                    currentProfileSession: state.currentProfileSession,
+                }),
+                ...options,
+            },
         ),
     );
 }
@@ -104,12 +114,6 @@ const useFarcasterStateBase = createState(
     },
     {
         name: 'farcaster-state',
-        storage: createSessionStorage(),
-        partialize: (state) => ({
-            profiles: state.profiles,
-            currentProfile: state.currentProfile,
-            currentProfileSession: state.currentProfileSession,
-        }),
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined') return;
 
@@ -127,12 +131,6 @@ const useLensStateBase = createState(
     },
     {
         name: 'lens-state',
-        storage: createSessionStorage(),
-        partialize: (state) => ({
-            profiles: state.profiles,
-            currentProfile: state.currentProfile,
-            currentProfileSession: state.currentProfileSession,
-        }),
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined') return;
 
@@ -156,17 +154,9 @@ const useLensStateBase = createState(
 );
 
 const useTwitterStateBase = createState(
-    {
-        getUpdatedProfile: () => Promise.resolve(null),
-    },
+    {},
     {
         name: 'twitter-state',
-        storage: createSessionStorage(),
-        partialize: (state) => ({
-            profiles: state.profiles,
-            currentProfile: state.currentProfile,
-            currentProfileSession: state.currentProfileSession,
-        }),
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined') return;
 
@@ -188,6 +178,22 @@ const useTwitterStateBase = createState(
     },
 );
 
+const useFireflyStateBase = createState(
+    {},
+    {
+        name: 'firefly-state',
+        onRehydrateStorage: () => async (state) => {
+            if (typeof window === 'undefined') return;
+
+            const session = state?.currentProfileSession;
+            if (session) {
+                fireflySessionHolder.resumeSession(session as FireflySession);
+            }
+        },
+    },
+);
+
 export const useLensStateStore = createSelectors(useLensStateBase);
 export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
 export const useTwitterStateStore = createSelectors(useTwitterStateBase);
+export const useFireflyStateStore = createSelectors(useFireflyStateBase);
