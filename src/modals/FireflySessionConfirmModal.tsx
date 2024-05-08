@@ -7,7 +7,7 @@ import { forwardRef, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -44,8 +44,8 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
             <ul className=" flex max-h-[288px] flex-col gap-3 overflow-auto py-2">
                 {pairs
                     .sort((a, b) => {
-                        const aIndex = SORTED_SOURCES.indexOf(a.profile.source);
-                        const bIndex = SORTED_SOURCES.indexOf(b.profile.source);
+                        const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
+                        const bIndex = SORTED_SOCIAL_SOURCES.indexOf(b.profile.source);
                         return aIndex - bIndex;
                     })
                     .map((pair) => (

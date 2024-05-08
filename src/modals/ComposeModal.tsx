@@ -26,7 +26,7 @@ import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOURCES } from '@/constants/index.js';
+import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
@@ -170,7 +170,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 const fullMessage = [
                     t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`,
-                    ...SORTED_SOURCES.map((x) => {
+                    ...SORTED_SOCIAL_SOURCES.map((x) => {
                         if (x === Source.Twitter) return '';
                         const currentProfile = currentProfileAll[x];
                         const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;

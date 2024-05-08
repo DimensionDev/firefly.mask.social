@@ -11,7 +11,7 @@ import { forwardRef } from 'react';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStoreAll.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -35,7 +35,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             } else if (props?.source) {
                 profiles = profileStoreAll[props.source].profiles;
             } else {
-                profiles = SORTED_SOURCES.flatMap((x) => profileStoreAll[x].profiles);
+                profiles = SORTED_SOCIAL_SOURCES.flatMap((x) => profileStoreAll[x].profiles);
             }
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Log out`,
@@ -75,7 +75,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             if (source) {
                 profileStoreAll[source].clearCurrentProfile();
             } else {
-                SORTED_SOURCES.forEach((x) => profileStoreAll[x].clearCurrentProfile());
+                SORTED_SOCIAL_SOURCES.forEach((x) => profileStoreAll[x].clearCurrentProfile());
             }
 
             dispatch?.close();
