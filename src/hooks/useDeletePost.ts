@@ -1,15 +1,17 @@
+import { t } from '@lingui/macro';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { Trans } from 'react-i18next';
 import { useAsyncFn } from 'react-use';
 
-import { type SocialSource, SourceInURL } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useComeBack } from '@/hooks/useComeback.js';
 
 export function useDeletePost(source: SocialSource) {
     const router = useRouter();
     const pathname = usePathname();
+    const navBack = useComeBack();
     return useAsyncFn(
         async (postId: string) => {
             try {
@@ -18,16 +20,15 @@ export function useDeletePost(source: SocialSource) {
                 if (!result) throw new Error(`Failed to delete post: ${postId}`);
 
                 if (isRoutePathname(pathname, '/post')) {
-                    const url = `/profile?source=${SourceInURL.Lens}`;
-                    router.replace(url);
+                    navBack();
                 }
-                enqueueSuccessMessage(<Trans>Your post was deleted.</Trans>);
+                enqueueSuccessMessage(t`Your post was deleted.`);
             } catch (error) {
-                enqueueErrorMessage(<Trans>Failed to delete post.</Trans>, {
+                enqueueErrorMessage(t`Failed to delete post.`, {
                     error,
                 });
             }
         },
-        [source, router, pathname],
+        [source, router, pathname, navBack],
     );
 }

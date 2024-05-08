@@ -1,14 +1,30 @@
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'notistack';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar } from '@/components/ErrorReportSnackbar.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
+
+function snackbarAction(key: SnackbarKey) {
+    return (
+        <ClickableButton
+            className="flex h-6 w-6 items-center justify-center"
+            onClick={() => {
+                SnackbarRef.close({ key });
+            }}
+        >
+            <XMarkIcon width={20} height={20} />
+        </ClickableButton>
+    );
+}
 
 export function enqueueInfoMessage(message: SnackbarMessage, options?: OptionsObject) {
     SnackbarRef.open({
         message,
         options: {
             variant: 'info',
+            action: snackbarAction,
             ...options,
         },
     });
@@ -19,6 +35,7 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Option
         message,
         options: {
             variant: 'success',
+            action: snackbarAction,
             ...options,
         },
     });
