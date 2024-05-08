@@ -2,7 +2,6 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { deletePostsOfUserFromQueryData } from '@/helpers/deletePostsOfUserFromQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Post, Profile, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
@@ -41,9 +40,6 @@ export function SetQueryDataForBlockUser(source: SocialSource) {
                     const result = await m?.call(target.prototype, profileId);
                     if (!result) return false;
 
-                    if (key === 'blockUser') {
-                        deletePostsOfUserFromQueryData(source, profileId);
-                    }
                     setBlockStatus(source, profileId, key === 'blockUser');
 
                     return result;
