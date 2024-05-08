@@ -8,12 +8,11 @@ import SearchIcon from '@/assets/search.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { SOURCES_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSearchChannels } from '@/hooks/useSearchChannel.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { classNames } from '@/helpers/classNames.js';
-import { SOURCES_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
 
 export function ChannelSearchPanel() {
     const [inputText, setInputText] = useState('');

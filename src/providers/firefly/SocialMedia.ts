@@ -70,7 +70,7 @@ class FireflySocialMedia implements Provider {
 
         return formatBriefChannelFromFirefly(data);
     }
- 
+
     async getChannelsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
