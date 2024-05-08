@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
@@ -87,7 +87,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                         <strong className="text-main">
                             {article.type === ArticleType.Revise ? t`Revised` : t`Posted`}
                         </strong>
-                        an article
+                        <Trans>an article</Trans>
                     </span>
                 </div>
                 <div className="mt-[6px] flex flex-col gap-2 rounded-2xl bg-bg p-3">

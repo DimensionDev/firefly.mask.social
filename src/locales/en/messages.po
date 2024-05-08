@@ -676,6 +676,9 @@ msgstr "Please input the url to be revalidated."
 msgid "Show more"
 msgstr "Show more"
 
+msgid "an article"
+msgstr "an article"
+
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
 

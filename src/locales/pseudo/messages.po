@@ -676,6 +676,9 @@ msgstr ""
 msgid "Show more"
 msgstr ""
 
+msgid "an article"
+msgstr ""
+
 msgid "Something went wrong. Please try again."
 msgstr ""
 

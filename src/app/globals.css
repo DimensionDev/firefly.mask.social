@@ -13,14 +13,14 @@
         scrollbar-width: none; /* Firefox */
     }
 
-    .portable-tabs {
+    .scrollableTabs {
         overflow-x: auto;
         max-width: 100%;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }
 
-    .portable-tabs::-webkit-scrollbar {
+    .scrollableTabs::-webkit-scrollbar {
         display: none;
     }
 }
