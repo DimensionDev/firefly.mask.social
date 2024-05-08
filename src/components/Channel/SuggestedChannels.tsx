@@ -7,8 +7,8 @@ import React from 'react';
 import LoadingIcon from '@/assets/loading.svg';
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
-import { PageRoute, type SocialPlatform } from '@/constants/enum.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { PageRoute, type SocialSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
@@ -16,7 +16,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export interface SuggestedChannelsProps {
-    source: SocialPlatform;
+    source: SocialSource;
 }
 export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     const res = useQuery({
@@ -56,7 +56,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                                     <div className="flex-start flex flex-1 flex-col overflow-auto">
                                         <p className="flex-start flex items-center">
                                             <span className="mr-2 truncate text-xl leading-[24px]">{channel.name}</span>
-                                            <SourceIcon source={channel.source} className="shrink-0" />
+                                            <SocialSourceIcon source={channel.source} className="shrink-0" />
                                         </p>
                                         <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
                                             <p className="truncate">/{channel.id}</p>
