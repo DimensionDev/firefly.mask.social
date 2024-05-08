@@ -193,9 +193,6 @@ msgstr "Missing IPFS hash for image or video."
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
 
-msgid "Revise on"
-msgstr "Revise on"
-
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
@@ -610,6 +607,9 @@ msgstr "{0, plural, one {Post} other {Post All}}"
 msgid "Unliked"
 msgstr "Unliked"
 
+msgid "Revised"
+msgstr "Revised"
+
 msgid "Please click and refresh the QR code to log in again."
 msgstr "Please click and refresh the QR code to log in again."
 
@@ -645,9 +645,6 @@ msgstr "There is no data available for display."
 
 msgid "Cancel"
 msgstr "Cancel"
-
-msgid "Post on"
-msgstr "Post on"
 
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
@@ -897,6 +894,9 @@ msgstr "No matching users"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+
+msgid "Posted"
+msgstr "Posted"
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"

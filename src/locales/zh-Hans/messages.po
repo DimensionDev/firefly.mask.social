@@ -198,9 +198,6 @@ msgstr "未找到图片和视频的 hash 信息。"
 msgid "Reconnect with Firefly"
 msgstr ""
 
-msgid "Revise on"
-msgstr ""
-
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择2张图片。"
 
@@ -615,6 +612,9 @@ msgstr ""
 msgid "Unliked"
 msgstr "已取消点赞"
 
+msgid "Revised"
+msgstr ""
+
 msgid "Please click and refresh the QR code to log in again."
 msgstr ""
 
@@ -649,9 +649,6 @@ msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
 msgid "Cancel"
-msgstr ""
-
-msgid "Post on"
 msgstr ""
 
 msgid "Failed to like the post."
@@ -902,6 +899,9 @@ msgstr "未找到匹配用户"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source} 取消关注 @{handle}} other {在 {source} 关注 @{handle}}}"
+
+msgid "Posted"
+msgstr ""
 
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"

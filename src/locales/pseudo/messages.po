@@ -193,9 +193,6 @@ msgstr ""
 msgid "Reconnect with Firefly"
 msgstr ""
 
-msgid "Revise on"
-msgstr ""
-
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -610,6 +607,9 @@ msgstr ""
 msgid "Unliked"
 msgstr ""
 
+msgid "Revised"
+msgstr ""
+
 msgid "Please click and refresh the QR code to log in again."
 msgstr ""
 
@@ -644,9 +644,6 @@ msgid "There is no data available for display."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
-
-msgid "Post on"
 msgstr ""
 
 msgid "Failed to like the post."
@@ -896,6 +893,9 @@ msgid "No matching users"
 msgstr ""
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
+msgid "Posted"
 msgstr ""
 
 msgid "Log in to Farcaster account"
