@@ -3,7 +3,7 @@ import { compact, uniq } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
 import { CHANNEL_SEARCH_LIST_SIZE, FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
-import  { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
