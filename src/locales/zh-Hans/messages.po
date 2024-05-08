@@ -135,6 +135,9 @@ msgstr ""
 msgid "Failed to login"
 msgstr "登录失败"
 
+msgid "<0>Posted</0>an article"
+msgstr ""
+
 msgid "Offline"
 msgstr "离线"
 
@@ -507,6 +510,9 @@ msgstr ""
 msgid "Invalid URL."
 msgstr "无效 URL"
 
+msgid "<0>Revised</0>an article"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
@@ -612,9 +618,6 @@ msgstr ""
 msgid "Unliked"
 msgstr "已取消点赞"
 
-msgid "Revised"
-msgstr ""
-
 msgid "Please click and refresh the QR code to log in again."
 msgstr ""
 
@@ -679,9 +682,6 @@ msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
 msgid "Show more"
-msgstr ""
-
-msgid "an article"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -902,9 +902,6 @@ msgstr "未找到匹配用户"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source} 取消关注 @{handle}} other {在 {source} 关注 @{handle}}}"
-
-msgid "Posted"
-msgstr ""
 
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
