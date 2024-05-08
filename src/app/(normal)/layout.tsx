@@ -73,12 +73,13 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 <IfPathname isOneOf={['/search']}>
                     <SearchFilter />
                 </IfPathname>
-                <div className="mt-6">
-                    <SuggestedChannels source={Source.Farcaster} />
-                </div>
 
                 <div className="mt-6">
                     <mask-calendar-widget />
+                </div>
+
+                <div className="mt-6">
+                    <SuggestedChannels source={Source.Farcaster} />
                 </div>
             </aside>
             <ComposeButton />
