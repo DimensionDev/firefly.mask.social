@@ -11,9 +11,9 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Info } from '@/components/Profile/Info.js';
+import { ProfileContentTabs } from '@/components/Profile/ProfileContentTabs.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
-import { Tabs } from '@/components/Profile/Tabs.js';
 import { Title } from '@/components/Profile/Title.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
 import { WalletTabs } from '@/components/Profile/WalletTabs.js';
@@ -133,7 +133,7 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
                     {walletProfile ? (
                         <WalletTabs address={walletProfile.address} />
                     ) : profile ? (
-                        <Tabs source={profile.source} profileId={profile.profileId} />
+                        <ProfileContentTabs source={profile.source} profileId={profile.profileId} />
                     ) : null}
                 </>
             )}

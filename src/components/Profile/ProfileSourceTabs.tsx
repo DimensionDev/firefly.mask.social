@@ -1,6 +1,6 @@
 'use client';
 
-import { groupBy, keys } from 'lodash-es';
+import { groupBy, isUndefined, keys, omitBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { startTransition, useMemo } from 'react';
 import urlcat from 'urlcat';
@@ -36,7 +36,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
 
     return (
         <div className=" border-b border-line bg-primaryBottom px-4">
-            <nav className="no-scrollbar -mb-px flex  max-w-full space-x-4 overflow-x-auto" aria-label="Tabs">
+            <nav className="scrollableTabs -mb-px flex space-x-4" aria-label="Tabs">
                 {tabs.map((value) => (
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
@@ -57,10 +57,17 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                         source: target.source,
                                         identity: target.identity,
                                     });
-                                    replaceSearchParams(
-                                        new URLSearchParams({
+
+                                    const params = omitBy(
+                                        {
                                             source: resolveSourceInURL(target.source),
-                                        }),
+                                            identity: pathname === '/profile' ? target.identity : undefined,
+                                        },
+                                        isUndefined,
+                                    ) as Record<string, string>;
+
+                                    replaceSearchParams(
+                                        new URLSearchParams(params),
                                         isOtherProfile ? urlcat('/profile/:id', { id: target.identity }) : undefined,
                                     );
                                 })

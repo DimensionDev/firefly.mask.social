@@ -8,6 +8,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import type { Article } from '@/providers/types/Article.js';
 
 interface ArticleHeaderProps {
@@ -20,6 +21,9 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
         address: article.author.id,
         source: SourceInURL.Wallet,
     });
+
+    const Icon = resolveArticlePlatformIcon(article.platform);
+
     return (
         <div className={classNames('flex items-start gap-3', className)}>
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
@@ -44,6 +48,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 </Link>
             </div>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
+                {Icon ? <Icon width={16} height={16} /> : null}
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={article.timestamp} />
                 </span>

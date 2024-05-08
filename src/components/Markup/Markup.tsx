@@ -12,7 +12,7 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { Source } from '@/constants/enum.js';
-import { CHANNEL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { CHANNEL_REGEX, EMAIL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -28,6 +28,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
                 remarkBreaks,
                 post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+                linkifyRegex(EMAIL_REGEX),
                 linkifyRegex(URL_REGEX),
                 linkifyRegex(HASHTAG_REGEX),
             ]);
@@ -37,6 +38,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
             post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+            linkifyRegex(EMAIL_REGEX),
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat
             // as a mention rather than link

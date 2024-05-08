@@ -12,6 +12,17 @@
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }
+
+    .scrollableTabs {
+        overflow-x: auto;
+        max-width: 100%;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .scrollableTabs::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 :root {

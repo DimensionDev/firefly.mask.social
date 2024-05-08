@@ -1,15 +1,17 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+import { compact, uniqBy } from 'lodash-es';
+import { useSearchParams } from 'next/navigation.js';
 import { useMemo } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
-import { Source } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
@@ -20,8 +22,11 @@ import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from 
 export default function Page() {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
-
     const currentProfile = useCurrentProfile(currentSocialSource);
+
+    const searchParams = useSearchParams();
+    const sourceFromParams = searchParams.get('source') as SourceInURL;
+    const identityFromParams = searchParams.get('identity');
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
@@ -58,7 +63,7 @@ export default function Page() {
                 ? {
                       identity: currentFarcasterProfile.profileId,
                       source: Source.Farcaster,
-                      displayName: currentFarcasterProfile.displayName,
+                      displayName: currentFarcasterProfile.handle,
                       __origin__: null,
                   }
                 : undefined,
@@ -91,11 +96,16 @@ export default function Page() {
     return (
         <ProfileContext.Provider
             initialState={{
-                source: currentProfile.source,
-                identity: currentSource === Source.Lens ? currentProfile?.handle : currentProfile?.profileId,
+                source: sourceFromParams ? resolveSource(sourceFromParams) : currentProfile.source,
+                identity:
+                    identityFromParams ??
+                    (currentSource === Source.Lens ? currentProfile?.handle : currentProfile?.profileId),
             }}
         >
-            <ProfilePage hiddenTitle profiles={profiles ? [...profiles, ...defaultProfiles] : defaultProfiles} />
+            <ProfilePage
+                hiddenTitle
+                profiles={profiles ? uniqBy([...profiles, ...defaultProfiles], (x) => x.identity) : defaultProfiles}
+            />
         </ProfileContext.Provider>
     );
 }

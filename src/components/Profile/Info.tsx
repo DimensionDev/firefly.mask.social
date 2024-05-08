@@ -33,7 +33,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
+            <div className=" relative flex flex-1 flex-col gap-[6px]">
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
