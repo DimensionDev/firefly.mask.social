@@ -96,7 +96,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col space-y-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
+                    className="absolute right-0 z-[1000] flex w-max flex-col overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
