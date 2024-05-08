@@ -79,13 +79,14 @@ export async function POST(request: Request) {
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
         case ActionType.PostRedirect:
+            const locationUrl = response.headers.get('Location');
             if (response.ok && response.status >= 300 && response.status < 400) {
-                const locationUrl = response.headers.get('Location');
                 if (locationUrl && HttpUrlSchema.safeParse(locationUrl).success)
                     return createSuccessResponseJSON({
                         redirectUrl: locationUrl,
                     });
             }
+            console.error(`Failed to redirect to ${locationUrl}\n%s`, await response.text());
             return Response.json(
                 {
                     error: 'The frame server cannot handle the post-redirect request correctly.',

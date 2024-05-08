@@ -34,7 +34,16 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
     const githubReportLink = useMemo(() => {
         const url = new URLSearchParams();
         url.set('title', title as string);
-        url.set('body', body as string);
+        url.set(
+            'body',
+            [
+                '## Description',
+                body as string,
+                '## System Info',
+                `- UserAgent: \`${navigator.userAgent}\``,
+                `- Timestamp: \`${new Date().toISOString()}\``,
+            ].join('\n'),
+        );
         return 'https://github.com/DimensionDev/firefly.mask.social/issues/new?' + url.toString();
     }, [title, body]);
 
