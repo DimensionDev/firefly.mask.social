@@ -5,6 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
+import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -38,7 +39,6 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { compact } from 'lodash-es';
 
 interface ComposeActionProps {}
 
