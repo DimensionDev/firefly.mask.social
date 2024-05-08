@@ -231,7 +231,10 @@ export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
-export type ChannelResponse = Response<ChannelBrief>;
+export type ChannelResponse = Response<{
+    blocked: boolean;
+    channel: ChannelBrief;
+}>;
 
 export type ChannelsResponse = Response<Channel[]>;
 

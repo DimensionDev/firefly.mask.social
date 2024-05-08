@@ -73,7 +73,10 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
 
-        return formatBriefChannelFromFirefly(data);
+        return {
+            ...formatBriefChannelFromFirefly(data.channel),
+            blocked: data.blocked,
+        };
     }
 
     async getChannelsByProfileId(
