@@ -6,7 +6,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -228,7 +228,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     const availableSources = uniq([...x.availableSources, source]);
                     return {
                         ...x,
-                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                        availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
                     };
                 }),
             })),
@@ -239,7 +239,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     const availableSources = x.availableSources.filter((s) => s !== source);
                     return {
                         ...x,
-                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                        availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
                     };
                 }),
             })),
