@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
+import { FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { FF_GARDEN_CHANNEL, HOME_CHANNEL, SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
+import { SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 async function searchChannels(source: SocialSource, keyword: string) {
