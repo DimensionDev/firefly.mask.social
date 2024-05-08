@@ -1,5 +1,6 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import {
     useFarcasterStateStore,
@@ -7,7 +8,6 @@ import {
     useLensStateStore,
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
-import { Source, type SocialSource } from '@/constants/enum.js';
 
 export const resolveProfileStore = createLookupTableResolver<SocialSource, typeof useFarcasterStateStore | null>(
     {
@@ -18,8 +18,10 @@ export const resolveProfileStore = createLookupTableResolver<SocialSource, typeo
     () => null,
 );
 
-
-export const resolveProfileStoreFromSessionType = createLookupTableResolver<SessionType, typeof useFarcasterStateStore | null>(
+export const resolveProfileStoreFromSessionType = createLookupTableResolver<
+    SessionType,
+    typeof useFarcasterStateStore | null
+>(
     {
         [SessionType.Farcaster]: useFarcasterStateStore,
         [SessionType.Lens]: useLensStateStore,

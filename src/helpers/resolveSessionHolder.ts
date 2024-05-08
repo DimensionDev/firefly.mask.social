@@ -7,8 +7,6 @@ import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-
-
 export const resolveSessionHolder = createLookupTableResolver<SessionType, SessionHolder<Session> | null>(
     {
         [SessionType.Farcaster]: farcasterSessionHolder,

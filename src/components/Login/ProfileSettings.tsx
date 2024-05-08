@@ -56,12 +56,10 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         break;
                     case Source.Farcaster:
                         if (!FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)) break;
-                        const fireflySession = await FireflySession.from(
+                        await FireflySession.fromAndRestore(
                             farcasterSessionHolder.session,
                             controllerRef.current?.signal,
                         );
-                        if (!fireflySession) break;
-                        fireflySessionHolder.resumeSession(fireflySession);
                         break;
                     case Source.Twitter:
                         throw new Error('Not implemented');
