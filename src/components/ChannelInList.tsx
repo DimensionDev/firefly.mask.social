@@ -50,12 +50,23 @@ export function ChannelInList({ channel, noFollowButton = true, dense = false, l
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
                     <p className="flex-start flex items-center text-sm font-bold leading-5 ">
-                        <span className="mr-2 text-xl">{channel.name}</span>
-                        <SocialSourceIcon source={channel.source} />
+                        <span
+                            className={classNames('mr-2', {
+                                'text-xl': !dense,
+                                'text-l': dense,
+                            })}
+                        >
+                            {channel.name}
+                        </span>
+                        <SocialSourceIcon source={channel.source} size={isSmall || dense ? 14 : 20} />
                     </p>
                     <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
                         <p className="truncate">/{channel.id}</p>
-                        <UserIcon width={18} height={18} className="shrink-0" />
+                        <UserIcon
+                            width={isSmall || dense ? 14 : 18}
+                            height={isSmall || dense ? 14 : 18}
+                            className="shrink-0"
+                        />
                         <span>{nFormatter(channel.followerCount)}</span>
                     </div>
                     {!dense && channel.description ? (

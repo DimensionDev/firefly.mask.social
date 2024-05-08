@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-import { AsideTitle } from '@/components/Channel/AsideTitle.js';
+import { AsideTitle } from '@/components/AsideTitle.js';
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { PageRoute, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -33,13 +33,13 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div className=" rounded-md bg-lightBg">
+        <div className=" rounded-lg bg-lightBg">
             <AsideTitle>
                 <Trans>Suggested Channels</Trans>
             </AsideTitle>
             <div className=" flex flex-col">
                 {suggestedChannels.map((channel) => (
-                    <ChannelInList channel={channel} noFollowButton dense />
+                    <ChannelInList key={channel.id} channel={channel} noFollowButton dense />
                 ))}
             </div>
             {showMore ? (

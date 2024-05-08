@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { Loading } from '@/components/Loading.js';
+import { PageTitle } from '@/components/PageTitle.js';
 import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
@@ -19,9 +20,9 @@ export function TrendingChannelPage({ searchParams: { source = SourceInURL.Farca
 
     return (
         <div>
-            <p className="m-4 ml-4 text-lg font-bold leading-snug text-main">
+            <PageTitle>
                 <Trans>Trending Channels</Trans>
-            </p>
+            </PageTitle>
             <Suspense fallback={<Loading />}>
                 <ChannelList source={currentSource} />
             </Suspense>
