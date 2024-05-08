@@ -7,33 +7,29 @@ import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
-import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
+import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { useChangeChannelStatus } from '@/hooks/useChangeChannelStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useReportUser } from '@/hooks/useReportUser.js';
-import { useToggleBlock } from '@/hooks/useToggleBlock.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
-    profile: Profile;
+    channel: Channel;
     className?: string;
 }
 
-export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
+export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ channel, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
-    const currentProfile = useCurrentProfile(profile.source);
-    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
-    const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
+    const currentProfile = useCurrentProfile(channel.source);
+    const [{ loading: muting }, changeChannelStatus] = useChangeChannelStatus(currentProfile);
 
-    const isBusy = reporting || blocking;
+    const isBusy = muting;
 
     return (
-        <Menu className={classNames('relative', className as string)} as="div" {...rest}>
+        <Menu className={classNames('relative', className)} as="div" {...rest}>
             <Menu.Button
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
@@ -70,7 +66,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                                 className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
                                 onClick={async () => {
                                     close();
-                                    copyToClipboard(urlcat(location.origin, getProfileUrl(profile)));
+                                    copyToClipboard(urlcat(location.origin, getChannelUrl(channel)));
                                     enqueueSuccessMessage(t`Copied`);
                                 }}
                             >
@@ -81,29 +77,18 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                             </ClickableButton>
                         )}
                     </Menu.Item>
-
-                    {profile.source === Source.Lens ? (
+                    {currentProfile ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <ReportUserButton
-                                    busy={reporting}
-                                    onConfirm={close}
-                                    profile={profile}
-                                    onReport={reportUser}
+                                <MuteChannelButton
+                                    channel={channel}
+                                    busy={isBusy}
+                                    onStatusChange={changeChannelStatus}
+                                    onClick={close}
                                 />
                             )}
                         </Menu.Item>
                     ) : null}
-                    <Menu.Item>
-                        {({ close }) => (
-                            <BlockUserButton
-                                busy={blocking}
-                                onConfirm={close}
-                                profile={profile}
-                                onToggleBlock={toggleBlock}
-                            />
-                        )}
-                    </Menu.Item>
                 </Menu.Items>
             </Transition>
         </Menu>

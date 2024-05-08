@@ -13,26 +13,31 @@ const CipherSchema = z.object({
 
 const TwitterMetricsSchema = z.object({
     account_id: z.string(),
+    platform: z.literal('twitter'),
     client_os: z.string(),
     login_metadata: z.array(
         z.object({
             client_id: z.string(),
             login_time: z.number(),
             access_token: z.string(),
-            refresh_token: z.string(),
+            consumer_key: z.string(),
+            consumer_secret: z.string(),
+            access_token_secret: z.string(),
         }),
     ),
 });
 
 const LensMetricsSchema = z.object({
     account_id: z.string(),
+    platform: z.literal('lens'),
     client_os: z.string(),
     login_metadata: z.array(
         z.object({
             token: z.string(),
-            address: z.number(),
+            address: z.string(), // 0xab...cd
             login_time: z.number(),
-            profile_id: z.string(),
+            // cspell: disable-next-line
+            profile_id: z.string(), // 0x049b19
             refresh_token: z.string(),
         }),
     ),
@@ -40,6 +45,7 @@ const LensMetricsSchema = z.object({
 
 const FarcasterMetricsSchema = z.object({
     account_id: z.string(),
+    platform: z.literal('farcaster'),
     client_os: z.string(),
     login_metadata: z.array(
         z.object({

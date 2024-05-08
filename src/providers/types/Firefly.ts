@@ -261,3 +261,14 @@ export type SearchChannelsResponse = Response<{
     channels: ChannelBrief[];
     cursor: string;
 }>;
+
+export interface BookmarkResponse {
+    list: Array<{
+        account_id: string;
+        /** e.g. twitter, lens, farcaster, article */
+        platform: string;
+        platform_id: string;
+        post_id: string;
+        post_content: {};
+    }>;
+}

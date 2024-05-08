@@ -12,7 +12,7 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { Source } from '@/constants/enum.js';
-import { CHANNEL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regex.js';
+import { CHANNEL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

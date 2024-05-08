@@ -2,6 +2,7 @@ import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
+import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { Collect } from '@/components/Actions/Collect.js';
 import { Comment } from '@/components/Actions/Comment.js';
 import { Like } from '@/components/Actions/Like.js';
@@ -69,6 +70,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
             disabled={disabled}
         />,
+        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} />,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
@@ -83,6 +85,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 'grid-cols-3': actionLength === 4,
                 'grid-cols-4': actionLength === 5,
                 'grid-cols-5': actionLength === 6,
+                'grid-cols-6': actionLength === 7,
             })}
         >
             {actions}

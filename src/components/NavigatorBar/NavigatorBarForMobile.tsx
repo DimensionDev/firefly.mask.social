@@ -64,7 +64,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
         <>
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
                 {searchMode || enableFixedBack ? (
-                    <div className=" flex h-[30px] w-[30px] justify-center">
+                    <div className=" flex h-[30px] w-[30px] shrink-0 justify-center">
                         <ClickableButton
                             onClick={() => {
                                 if (isSearchPage || enableFixedBack) router.back();
@@ -77,7 +77,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </ClickableButton>
                     </div>
                 ) : (
-                    <div className=" flex h-[30px] justify-start">
+                    <div className=" flex h-[30px] shrink-0 justify-start">
                         <ClickableButton
                             className=" flex items-center justify-center"
                             onClick={() => {

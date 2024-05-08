@@ -21,9 +21,11 @@ export class SessionFactory {
         const fragments = serializedSession.split(':');
         const type = fragments[0] as SessionType;
         const json = atob(fragments[1]) as string;
-        // for lens session, the extra token is the refresh token
-        // for farcaster session, the extra token is the signer request token
-        const extraToken = fragments[2] ?? '';
+        // for lens session, the second token is the refresh token
+        // for farcaster session, the second token is the signer request token
+        const secondToken = fragments[2] ?? '';
+        // for farcaster session, the third token is the channel token
+        const thirdToken = fragments[3] ?? '';
 
         const session = parseJSON<{
             type: SessionType;
@@ -55,7 +57,7 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        extraToken,
+                        secondToken,
                     );
                 case SessionType.Farcaster:
                     return new FarcasterSession(
@@ -63,7 +65,8 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        extraToken,
+                        secondToken,
+                        thirdToken,
                     );
                 case SessionType.Twitter:
                     return new TwitterSession(session.profileId, session.token, session.createdAt, session.expiresAt);

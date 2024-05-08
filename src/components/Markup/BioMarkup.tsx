@@ -18,7 +18,7 @@ import {
     HASHTAG_REGEX,
     MENTION_REGEX,
     URL_REGEX,
-} from '@/constants/regex.js';
+} from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
 
 interface BioMarkupProps extends MarkupProps {

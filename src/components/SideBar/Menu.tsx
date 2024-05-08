@@ -1,6 +1,7 @@
 'use client';
 
-import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon as BookmarkSelectedIcon } from '@heroicons/react/24/solid';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
@@ -88,6 +89,12 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     name: <Trans>Connect</Trans>,
                                     icon: WalletIcon,
                                     selectedIcon: WalletIcon,
+                                },
+                                {
+                                    href: PageRoute.Bookmark,
+                                    name: <Trans>Bookmark</Trans>,
+                                    icon: BookmarkIcon,
+                                    selectedIcon: BookmarkSelectedIcon,
                                 },
                                 {
                                     href: PageRoute.Settings,

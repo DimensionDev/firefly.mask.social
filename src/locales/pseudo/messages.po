@@ -22,6 +22,9 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -29,6 +32,12 @@ msgid "Retweet"
 msgstr ""
 
 msgid "Failed to fetch as Blob."
+msgstr ""
+
+msgid "Unmute successfully."
+msgstr ""
+
+msgid "Mute /{0}"
 msgstr ""
 
 msgid "Communities"
@@ -41,6 +50,12 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr ""
+
+msgid "Mute @{0}"
 msgstr ""
 
 msgid "X"
@@ -82,10 +97,10 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
-msgid "Confirm you want to block @{0}"
+msgid "OpenGraph"
 msgstr ""
 
-msgid "OpenGraph"
+msgid "Connect with Warpcast"
 msgstr ""
 
 msgid "Wrong wallet"
@@ -98,6 +113,9 @@ msgid "Transaction button is not available yet."
 msgstr ""
 
 msgid "Debug Console"
+msgstr ""
+
+msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Failed to like the comment."
@@ -128,6 +146,9 @@ msgid "comment"
 msgstr ""
 
 msgid "Confirm"
+msgstr ""
+
+msgid "The author is muted by you."
 msgstr ""
 
 msgid "Failed to report @{0}"
@@ -163,6 +184,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
+msgid "Reconnect with Firefly"
+msgstr ""
+
 msgid "Revise on"
 msgstr ""
 
@@ -181,6 +205,9 @@ msgstr ""
 msgid "Connected Accounts"
 msgstr ""
 
+msgid "Confirm you want to report @{0}?"
+msgstr ""
+
 msgid "Select Account"
 msgstr ""
 
@@ -193,7 +220,13 @@ msgstr ""
 msgid "Mirror again"
 msgstr ""
 
+msgid "Failed to detect device accounts."
+msgstr ""
+
 msgid "Add another post..."
+msgstr ""
+
+msgid "{count, plural, one {Bookmark} other {{0}}}"
 msgstr ""
 
 msgid "Audio Cover"
@@ -203,9 +236,6 @@ msgid "Recent"
 msgstr ""
 
 msgid "Block"
-msgstr ""
-
-msgid "Block @{0}"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -227,6 +257,9 @@ msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr ""
 
 msgid "Confirmation"
+msgstr ""
+
+msgid "Failed to mute /{0}."
 msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
@@ -268,6 +301,9 @@ msgstr ""
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Failed to un-bookmark"
+msgstr ""
+
 msgid "post"
 msgstr ""
 
@@ -281,6 +317,9 @@ msgid "Search Filter"
 msgstr ""
 
 msgid "Try searching for something else."
+msgstr ""
+
+msgid "Unmute /{0}"
 msgstr ""
 
 msgid "Invalid compose type: {type}."
@@ -304,7 +343,13 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
+msgid "Confirm you want to mute /{0}?"
+msgstr ""
+
 msgid "Collected"
+msgstr ""
+
+msgid "Failed to bookmark"
 msgstr ""
 
 msgid "<0>You</0> mirrored"
@@ -314,6 +359,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Detecting..."
 msgstr ""
 
 msgid "Privacy Policy"
@@ -370,13 +418,22 @@ msgstr ""
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Confirm you want to unmute /{0}?"
+msgstr ""
+
+msgid "Bookmark"
+msgstr ""
+
 msgid "Everyone"
+msgstr ""
+
+msgid "Failed to unmute /{0}."
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
-msgid "Confirm you want to report this message"
+msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
 msgid "Compose"
@@ -392,6 +449,9 @@ msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {F
 msgstr ""
 
 msgid "Failed to follow."
+msgstr ""
+
+msgid "Mute"
 msgstr ""
 
 msgid "Confirm to log out this account?"
@@ -434,6 +494,9 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "Unmuted @{0} on {sourceName}"
 msgstr ""
 
 msgid "Details"
@@ -490,6 +553,9 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
+msgid "Mute successfully."
+msgstr ""
+
 msgid "Show More"
 msgstr ""
 
@@ -497,9 +563,6 @@ msgid "{count, plural, one {# view} other {{0}}}"
 msgstr ""
 
 msgid "Failed to parse session."
-msgstr ""
-
-msgid "Loading..."
 msgstr ""
 
 msgid "Share"
@@ -524,6 +587,9 @@ msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
 msgid "Unliked"
+msgstr ""
+
+msgid "Please click and refresh the QR code to log in again."
 msgstr ""
 
 msgid "Visit mask.io"
@@ -580,6 +646,9 @@ msgstr ""
 msgid "Quotes"
 msgstr ""
 
+msgid "The user rejected the request."
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr ""
 
@@ -622,13 +691,13 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
+msgid "Muted @{0} on {sourceName}"
+msgstr ""
+
 msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
-msgstr ""
-
-msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
@@ -644,6 +713,9 @@ msgid "Connect"
 msgstr ""
 
 msgid "Switch account"
+msgstr ""
+
+msgid "Sign in with Custody Wallet"
 msgstr ""
 
 msgid "Mention"
@@ -664,7 +736,7 @@ msgstr ""
 msgid "Failed to mirror post."
 msgstr ""
 
-msgid "Login with custody wallet"
+msgid "Failed to create firefly session."
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -688,6 +760,9 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "No device accounts detected."
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -695,6 +770,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Please switch to the wallet used for login."
@@ -707,6 +785,9 @@ msgid "Share to"
 msgstr ""
 
 msgid "Unknown session type."
+msgstr ""
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr ""
 
 msgid "Failed to quote post."
@@ -745,7 +826,13 @@ msgstr ""
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
+msgid "Post added to your Bookmarks"
+msgstr ""
+
 msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -755,6 +842,9 @@ msgid "Your Lens account is now connected"
 msgstr ""
 
 msgid "Click to copy"
+msgstr ""
+
+msgid "Unmute @{0}"
 msgstr ""
 
 msgid "Mask Network"
@@ -767,6 +857,9 @@ msgid "Your Lens account is now connected."
 msgstr ""
 
 msgid "Remove"
+msgstr ""
+
+msgid "Post remove from your Bookmarks"
 msgstr ""
 
 msgid "Cancel Recast"
@@ -803,6 +896,9 @@ msgid "Language"
 msgstr ""
 
 msgid "Add a comment"
+msgstr ""
+
+msgid "FREE"
 msgstr ""
 
 msgid "Profiles"

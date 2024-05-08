@@ -2,7 +2,7 @@ import { EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-b
 import type { InfiniteData } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 
-import { type SocialSource } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

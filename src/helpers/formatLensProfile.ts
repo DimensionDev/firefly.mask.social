@@ -42,6 +42,7 @@ export function formatLensProfile(result: ProfileFragment): Profile {
         viewerContext: {
             following: result.operations.isFollowedByMe.value,
             followedBy: result.operations.isFollowingMe.value,
+            blocking: result.operations.isBlockedByMe.value,
         },
         source: Source.Lens,
     };

@@ -1,23 +1,57 @@
+import { type Draft, produce } from 'immer';
+
+import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { deletePostsOfUserFromQueryData } from '@/helpers/deletePostsOfUserFromQueryData.js';
-import type { Provider } from '@/providers/types/SocialMedia.js';
+import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import type { Post, Profile, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
+
+function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
+    const matcher = (post: Draft<Post> | undefined) => post?.author.profileId === profileId;
+    patchPostQueryData(source, matcher, (draft) => {
+        if (draft.author.profileId !== profileId) return;
+        draft.author.viewerContext = {
+            ...draft.author.viewerContext,
+            blocking: status,
+        };
+    });
+
+    queryClient.setQueriesData<Profile>({ queryKey: ['profile', source] }, (old) => {
+        if (!old || old.profileId !== profileId) return old;
+        return produce(old, (draft) => {
+            draft.viewerContext = {
+                ...draft.viewerContext,
+                blocking: status,
+            };
+        });
+    });
+}
+
+const METHODS_BE_OVERRIDDEN = ['blockUser', 'unblockUser'] as const;
 
 export function SetQueryDataForBlockUser(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
-        const method = target.prototype.blockUser as Provider['blockUser'];
+        function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
+            const method = target.prototype[key] as Provider[K];
 
-        Object.defineProperty(target.prototype, 'blockUser', {
-            value: async (profileId: string) => {
-                const m = method as (profileId: string) => Promise<boolean>;
-                const result = await m?.call(target.prototype, profileId);
+            Object.defineProperty(target.prototype, key, {
+                value: async (profileId: string) => {
+                    const m = method as (profileId: string) => Promise<boolean>;
+                    const result = await m?.call(target.prototype, profileId);
+                    if (!result) return false;
 
-                if (result) deletePostsOfUserFromQueryData(source, profileId);
+                    if (key === 'blockUser') {
+                        deletePostsOfUserFromQueryData(source, profileId);
+                    }
+                    setBlockStatus(source, profileId, key === 'blockUser');
 
-                return result;
-            },
-        });
+                    return result;
+                },
+            });
+        }
 
+        METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
         return target;
     };
 }

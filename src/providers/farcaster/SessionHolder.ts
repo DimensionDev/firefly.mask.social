@@ -4,9 +4,7 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     override resumeSession(session: FarcasterSession) {
-        if (session.expiresAt > Date.now()) {
-            this.internalSession = session;
-        }
+        this.internalSession = session;
     }
 
     override fetch<T>(url: string, options?: RequestInit, required = false) {
