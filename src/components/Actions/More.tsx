@@ -106,7 +106,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         <Menu.Item>
                             {({ close }) => (
                                 <ClickableButton
-                                    className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                    className="flex cursor-pointer items-center p-4 hover:bg-bg"
                                     onClick={async () => {
                                         close();
                                         if (id) deletePost(id);
@@ -128,7 +128,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             <Menu.Item>
                                 {({ close }) => (
                                     <ClickableButton
-                                        className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                        className="flex cursor-pointer items-center p-4 hover:bg-bg"
                                         onClick={async () => {
                                             close();
                                             await handleToggle();
@@ -194,7 +194,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         <Menu.Item
                             as={Link}
                             href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
-                            className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                            className="flex cursor-pointer items-center p-4 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <ChartBarIcon width={24} height={24} />

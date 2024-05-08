@@ -67,7 +67,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                     <Menu.Item>
                         {({ close }) => (
                             <ClickableButton
-                                className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                className="flex cursor-pointer items-center p-4 hover:bg-bg"
                                 onClick={async () => {
                                     close();
                                     copyToClipboard(urlcat(location.origin, getProfileUrl(profile)));

@@ -29,7 +29,7 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
 
     return (
         <ClickableButton
-            className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
+            className={classNames('flex cursor-pointer items-center p-4 hover:bg-bg', className)}
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
