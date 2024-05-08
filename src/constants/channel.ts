@@ -3,7 +3,7 @@ import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export const HOME_CHANNEL: Channel = {
     name: 'Home',
-    id: 'home', // home channel id is empty
+    id: 'home', // the channel id is fake
     imageUrl: '',
     url: '',
     parentUrl: '',
@@ -18,7 +18,7 @@ export const FF_GARDEN_CHANNEL: Channel = {
     imageUrl: 'https://i.imgur.com/NfzIpwa.jpg',
     url: 'https://warpcast.com/~/channel/firefly-garden',
     parentUrl: 'https://warpcast.com/~/channel/firefly-garden',
-    followerCount: 489, // @warn: may change
+    followerCount: 0, // the follower count is fake
     timestamp: 1703399720,
     source: Source.Farcaster,
 };
