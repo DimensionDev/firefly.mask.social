@@ -376,3 +376,12 @@ export type BookmarkResponse = Response<{
         post_content: Cast;
     }>;
 }>;
+
+export type BlockUserResponse = Response<
+    Array<{
+        id: string;
+        address: string;
+        snsId: string;
+        snsPlatform: string;
+    }>
+>;
