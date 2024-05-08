@@ -84,10 +84,17 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 <div className="flex items-center gap-1 text-[15px]">
                     <ArticleAnchorIcon width={18} height={18} />
                     <span className="flex items-center gap-1 text-secondary">
-                        <strong className="text-main">
-                            {article.type === ArticleType.Revise ? t`Revised` : t`Posted`}
-                        </strong>
-                        <Trans>an article</Trans>
+                        {article.type === ArticleType.Revise ? (
+                            <Trans>
+                                <strong className="text-main">Revised</strong>
+                                an article
+                            </Trans>
+                        ) : (
+                            <Trans>
+                                <strong className="text-main">Posted</strong>
+                                an article
+                            </Trans>
+                        )}
                     </span>
                 </div>
                 <div className="mt-[6px] flex flex-col gap-2 rounded-2xl bg-bg p-3">

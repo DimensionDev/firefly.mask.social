@@ -48,7 +48,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 </Link>
             </div>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
-                {Icon ? <Icon width={16} height={16} /> : null}
+                {Icon ? <Icon width={20} height={20} /> : null}
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={article.timestamp} />
                 </span>
