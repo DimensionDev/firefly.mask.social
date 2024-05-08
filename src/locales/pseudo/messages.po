@@ -151,7 +151,6 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
-
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -354,6 +353,9 @@ msgid "The user declined the request."
 msgstr ""
 
 msgid "<0>{0}</0> liked"
+msgstr ""
+
+msgid "Suggested Channels"
 msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -573,6 +575,9 @@ msgid "Failed to query the signed key state."
 msgstr ""
 
 msgid "Copy"
+msgstr ""
+
+msgid "x"
 msgstr ""
 
 msgid "Notifications"
