@@ -8,6 +8,7 @@ import SearchIcon from '@/assets/search.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
+import { SOURCES_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
