@@ -1,9 +1,12 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
@@ -69,5 +72,14 @@ export class FireflySession extends BaseSession implements Session {
                 safeUnreachable(session.type);
                 throw new Error(`Unknown session type: ${session.type}`);
         }
+    }
+
+    static async fromAndRestore(session: Session, signal?: AbortSignal): Promise<FireflySession | null> {
+        const fireflySession = await FireflySession.from(session, signal);
+        if (!fireflySession) return null;
+
+        const profile = createDummyProfile(Source.Farcaster);
+        restoreProfile(profile, [profile], fireflySession);
+        return fireflySession;
     }
 }

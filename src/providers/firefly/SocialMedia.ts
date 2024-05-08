@@ -746,7 +746,7 @@ class FireflySocialMedia implements Provider {
     }
     async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/create');
-        const response = await farcasterSessionHolder.fetch<string>(url, {
+        const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
                 platform: 'farcaster',
@@ -760,7 +760,7 @@ class FireflySocialMedia implements Provider {
     }
     async unbookmark(postId: string): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/remove');
-        const response = await farcasterSessionHolder.fetch<string>(url, {
+        const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
                 post_ids: [postId],
@@ -776,7 +776,10 @@ class FireflySocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id || undefined,
         });
-        const response = await farcasterSessionHolder.fetch<BookmarkResponse>(url);
+        const response = await fireflySessionHolder.fetch<BookmarkResponse>(url);
+
+        console.log('DEBUG: response');
+        console.log(response);
 
         return createPageable([], createIndicator(indicator));
     }

@@ -37,7 +37,6 @@ async function login(createSession: () => Promise<FarcasterSession>, signal?: Ab
 
         // restore profiles for farcaster
         restoreProfile(profile, [profile], session);
-
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
 
         // restore profile exclude farcaster

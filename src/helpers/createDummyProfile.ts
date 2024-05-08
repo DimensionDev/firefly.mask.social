@@ -1,8 +1,9 @@
-import { Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function createDummyProfile() {
+export function createDummyProfile(source: SocialSource) {
     return {
+        source,
         profileId: '',
         handle: '',
         pfp: '',
@@ -11,7 +12,6 @@ export function createDummyProfile() {
         followingCount: 0,
         fullHandle: '',
         status: ProfileStatus.Active,
-        source: Source.Twitter,
         verified: true,
     } satisfies Profile;
 }

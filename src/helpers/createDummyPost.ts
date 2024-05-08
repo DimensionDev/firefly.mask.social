@@ -6,7 +6,7 @@ export function createDummyPost(source: SocialSource, content: string) {
     return {
         publicationId: '',
         postId: '',
-        author: createDummyProfile(),
+        author: createDummyProfile(source),
         metadata: {
             locale: 'en',
             content: {

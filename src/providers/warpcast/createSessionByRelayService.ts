@@ -5,7 +5,6 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 interface FarcasterReplyResponse {
     channelToken: string;
@@ -53,13 +52,7 @@ export async function createSessionByRelayService(callback?: (url: string) => vo
 
     // firefly start polling for the signed key request
     // once key request is signed, we will get the fid
-    const fireflySession = await FireflySession.from(session, signal);
-
-    if (fireflySession) {
-        // we also posses the session in firefly session holder
-        // which means if we login in farcaster, we login firefly as well
-        fireflySessionHolder.resumeSession(fireflySession);
-    }
+    await FireflySession.fromAndRestore(session, signal);
 
     // polling failed
     if (!session.profileId)
