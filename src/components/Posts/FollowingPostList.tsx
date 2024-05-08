@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -31,7 +31,7 @@ export const FollowingPostList = memo(function FollowingPostList() {
             currentSource,
             'following',
             isLogin,
-            SORTED_SOURCES.map((x) => currentProfileAll[x]?.profileId),
+            SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
         ],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;

@@ -20,7 +20,7 @@ import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -122,7 +122,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         <LoadingIcon className="animate-spin" width={24} height={24} />
                     </div>
                 ) : (
-                    SORTED_SOURCES.map((source) => (
+                    SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
                     ))
                 )}

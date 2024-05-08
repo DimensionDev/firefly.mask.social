@@ -22,10 +22,9 @@ import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { SOURCES_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
@@ -75,7 +74,7 @@ export function ComposeAction(props: ComposeActionProps) {
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
             open: true,
             fireflyContext: Object.fromEntries(
-                SORTED_SOURCES.map((x) => {
+                SORTED_SOCIAL_SOURCES.map((x) => {
                     const currentProfile = currentProfileAll[x];
                     return [
                         `current${x}Profile`,
@@ -94,12 +93,6 @@ export function ComposeAction(props: ComposeActionProps) {
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount;
-
-    // channel
-    const showChannel = availableSources.some((s) => SOURCES_WITH_CHANNEL_SUPPORT.includes(s)) && type === 'compose';
-    const selecteChannelNames = compact(
-        SORTED_SOURCES.filter((source) => !!channel[source]).map((source) => channel[source]?.name),
-    ).join(',');
 
     return (
         <div className=" px-4 pb-4">
@@ -221,7 +214,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources
-                                        .filter((x) => !!currentProfileAll[x] && SORTED_SOURCES.includes(x))
+                                        .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
                                         .map((y) => (
                                             <SourceIcon key={y} source={y} size={20} />
                                         ))}
@@ -257,7 +250,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
-            {showChannel ? (
+            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) && type === 'compose' ? (
                 <div className=" flex h-9 items-center justify-between pb-safe">
                     <span className=" text-[15px] text-secondary">
                         <Trans>Channels</Trans>
@@ -269,7 +262,13 @@ export function ComposeAction(props: ComposeActionProps) {
                                     className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                                     disabled={!isRootPost}
                                 >
-                                    <span className=" text-[15px] font-bold">{selecteChannelNames}</span>
+                                    <span className=" text-[15px] font-bold">
+                                        {compact(
+                                            SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
+                                                (source) => channel[source]?.name,
+                                            ),
+                                        ).join(',')}
+                                    </span>
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 </Popover.Button>
                                 <ChannelSearchPanel />

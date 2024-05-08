@@ -14,7 +14,7 @@ import { useDebounce } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -144,7 +144,7 @@ export function MentionsPlugin(): JSX.Element | null {
             'searchProfiles',
             availableSources,
             debounceQuery,
-            SORTED_SOURCES.map((x) => currentProfileAll[x]?.profileId).join('_'),
+            SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId).join('_'),
         ],
         queryFn: async () => {
             if (!debounceQuery) return;
