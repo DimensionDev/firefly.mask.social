@@ -52,6 +52,9 @@ msgstr ""
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
+msgid "Failed to unbookmark post."
+msgstr ""
+
 msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
@@ -475,6 +478,9 @@ msgstr ""
 msgid "Lens"
 msgstr ""
 
+msgid "Failed to fetch bookmarks."
+msgstr ""
+
 msgid "Failed to upvote post."
 msgstr ""
 
@@ -590,6 +596,9 @@ msgid "One click to connect your account status."
 msgstr ""
 
 msgid "Quote"
+msgstr ""
+
+msgid "Failed to bookmark post."
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
