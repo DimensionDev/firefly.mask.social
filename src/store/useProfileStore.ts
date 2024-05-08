@@ -12,16 +12,16 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
 
-interface ProfileState {
+export interface ProfileState {
     profiles: Profile[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -32,7 +32,7 @@ interface ProfileState {
     clearCurrentProfile: () => void;
 }
 
-interface ProfileStatePersisted {
+export interface ProfileStatePersisted {
     profiles: Profile[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
