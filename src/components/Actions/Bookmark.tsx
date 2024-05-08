@@ -21,7 +21,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disab
     const { hasBookmarked } = post;
 
     const tooltip = plural(count, {
-        one: `Bookmark`,
+        one: t`Bookmark`,
         other: t`${humanize(count)} Bookmarks`,
     });
     const mutation = useToggleBookmark();
