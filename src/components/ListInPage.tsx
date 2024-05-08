@@ -71,7 +71,6 @@ export function ListInPage<T = unknown>({
             endReached={onEndReached}
             itemSize={(el: HTMLElement) => {
                 if (!itemsRendered.current) itemsRendered.current = true;
-
                 return el.getBoundingClientRect().height;
             }}
             {...VirtualListProps}

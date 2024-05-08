@@ -1,4 +1,4 @@
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
@@ -18,16 +18,17 @@ interface ChannelListProps {
 export function ChannelList({ source }: ChannelListProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['channels', source, 'channels-of'],
-
         queryFn: async ({ pageParam }) => {
-            const provider = resolveSocialMediaProvider(source);
-            return provider.discoverChannels(createIndicator(undefined, pageParam));
+            // one page only
+            if (pageParam === '') {
+                const provider = resolveSocialMediaProvider(source);
+                return provider.discoverChannels(createIndicator(undefined, pageParam));
+            }
+            return createPageable<Channel>(EMPTY_LIST, createIndicator());
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            return data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-        },
+        getNextPageParam: () => null,
+        select: (data) => data.pages.flatMap((x) => x.data) || EMPTY_LIST,
     });
 
     return (
@@ -35,6 +36,7 @@ export function ChannelList({ source }: ChannelListProps) {
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
+                useWindowScroll: false,
                 listKey: `${ScrollListKey.Channel}`,
                 computeItemKey: (index, channel) => `${channel.id}-${index}`,
                 itemContent: getChannelItemContent,
