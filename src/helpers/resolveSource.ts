@@ -45,6 +45,7 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Farcaster]: FireflyPlatform.Farcaster,
         [Source.Lens]: FireflyPlatform.Lens,
         [Source.Twitter]: FireflyPlatform.Twitter,
+        [Source.Wallet]: FireflyPlatform.Wallet,
         // not correct in some situations
         [Source.Article]: FireflyPlatform.Article,
     },

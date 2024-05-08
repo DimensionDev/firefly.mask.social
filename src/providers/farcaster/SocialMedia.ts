@@ -279,49 +279,28 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
     async reportUser(profileId: string) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.reportUser(profileId);
-        if (isGrantByPermission) return FireflySocialMediaProvider.reportUser(profileId);
-        return false;
+        return FireflySocialMediaProvider.reportUser(profileId);
     }
     async reportPost(post: Post) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.reportPost(post);
-        if (isGrantByPermission) return FireflySocialMediaProvider.reportPost(post);
-        return false;
+        return FireflySocialMediaProvider.reportPost(post);
     }
     async blockUser(profileId: string) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.blockUser(profileId);
-        if (isGrantByPermission) return FireflySocialMediaProvider.blockUser(profileId);
-        return false;
+        return FireflySocialMediaProvider.blockUser(profileId);
     }
     async unblockUser(profileId: string) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.unblockUser(profileId);
-        if (isGrantByPermission) return FireflySocialMediaProvider.blockUser(profileId);
-        return false;
+        return FireflySocialMediaProvider.blockUser(profileId);
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
     async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.bookmark(postId);
-        if (isGrantByPermission) return FireflySocialMediaProvider.bookmark(postId, profileId, postType);
-        return false;
+        return FireflySocialMediaProvider.bookmark(postId, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.unbookmark(postId);
-        if (isGrantByPermission) return FireflySocialMediaProvider.unbookmark(postId);
-        return false;
+        return FireflySocialMediaProvider.unbookmark(postId);
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getBookmarks(indicator);
-        if (isGrantByPermission) return FireflySocialMediaProvider.getBookmarks(indicator);
-        throw new Error('No session found.');
+        return FireflySocialMediaProvider.getBookmarks(indicator);
     }
 }
 

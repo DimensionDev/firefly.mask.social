@@ -20,6 +20,8 @@ export function toggleBookmark(source: SocialSource, postId: string, status: boo
         });
     });
 
+    queryClient.invalidateQueries({ queryKey: ['posts', source, 'bookmark'] });
+
     if (!status) {
         queryClient.setQueryData<{ pages: Array<{ data: Post[] }> }>(['posts', source, 'bookmark'], (old) => {
             if (!old) return old;

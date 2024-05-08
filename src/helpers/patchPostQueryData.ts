@@ -27,6 +27,7 @@ export function patchPostQueryData(source: SocialSource, postId: Matcher, patche
 
         return produce(old, (draft) => {
             for (const page of draft.pages) {
+                if (!page) continue;
                 for (const post of page.data) {
                     for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
                         if (matcher(p)) {
