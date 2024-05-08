@@ -1,11 +1,11 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 
-import { SourceIcon } from '@/components/SourceIcon.js';
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
@@ -23,7 +23,7 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
     return (
         <div className="relative cursor-pointer md:mx-auto lg:m-0 " style={style} {...divProps}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
-                <SourceIcon source={source} size={size} />
+                <SocialSourceIcon source={source} size={size} />
             </div>
             <PlusIcon
                 className="absolute -bottom-[1px] -right-[8px] rounded-full bg-white text-black lg:left-8 lg:top-6"

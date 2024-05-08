@@ -2,7 +2,9 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
+import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
+import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
@@ -21,10 +23,12 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
-@SetQueryDataForLikePost(SocialPlatform.Farcaster)
-@SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
-@SetQueryDataForCommentPost(SocialPlatform.Farcaster)
-@SetQueryDataForDeletePost(SocialPlatform.Farcaster)
+@SetQueryDataForLikePost(Source.Farcaster)
+@SetQueryDataForBookmarkPost(Source.Farcaster)
+@SetQueryDataForMirrorPost(Source.Farcaster)
+@SetQueryDataForCommentPost(Source.Farcaster)
+@SetQueryDataForDeletePost(Source.Farcaster)
+@SetQueryDataForBlockUser(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -139,10 +143,10 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getLikeReactors(postId, indicator);
     }
 
-    async getMirrorReactors(postId: string, indicator?: PageIndicator) {
+    async getRepostReactors(postId: string, indicator?: PageIndicator) {
         const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
-        return FireflySocialMediaProvider.getMirrorReactors(postId, indicator);
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.getRepostReactors(postId, indicator);
+        return FireflySocialMediaProvider.getRepostReactors(postId, indicator);
     }
 
     async isFollowedByMe(profileId: string) {
@@ -273,6 +277,51 @@ class FarcasterSocialMedia implements Provider {
 
     getCommentsById(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
+    }
+    async reportUser(profileId: string) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.reportUser(profileId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.reportUser(profileId);
+        return false;
+    }
+    async reportPost(post: Post) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.reportPost(post);
+        if (isGrantByPermission) return FireflySocialMediaProvider.reportPost(post);
+        return false;
+    }
+    async blockUser(profileId: string) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.blockUser(profileId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.blockUser(profileId);
+        return false;
+    }
+    async unblockUser(profileId: string) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.unblockUser(profileId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.blockUser(profileId);
+        return false;
+    }
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async bookmark(postId: string): Promise<boolean> {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.bookmark(postId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.bookmark(postId);
+        return false;
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.unbookmark(postId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.unbookmark(postId);
+        return false;
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.getBookmarks(indicator);
+        if (isGrantByPermission) return FireflySocialMediaProvider.getBookmarks(indicator);
+        throw new Error('No session found.');
     }
 }
 

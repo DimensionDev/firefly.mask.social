@@ -1,4 +1,4 @@
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Profile as WarpProfile } from '@/providers/types/Warpcast.js';
@@ -20,6 +20,6 @@ export function formatWarpcastUser(user: WarpProfile): Profile {
             following: user.viewerContext.following,
             followedBy: user.viewerContext.followedBy,
         },
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
     };
 }

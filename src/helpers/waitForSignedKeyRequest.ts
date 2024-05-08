@@ -39,6 +39,9 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
                 urlcat(WARPCAST_ROOT_URL, '/signed-key-request', {
                     token,
                 }),
+                {
+                    signal,
+                },
             );
 
             // Continue the loop if there are errors in the response

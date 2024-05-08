@@ -25,9 +25,9 @@ import type {
 import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { URL_REGEX } from '@/constants/regex.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
@@ -241,7 +241,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
     return {
         publicationId: result.id,
         type: result.__typename,
-        source: SocialPlatform.Lens,
+        source: Source.Lens,
         postId: result.id,
         timestamp,
         author: profile,
@@ -259,6 +259,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
         hasQuoted: result.operations.hasQuoted,
         hasActed: result.operations.hasActed.value,
         hasLiked: result.operations.hasUpvoted,
+        hasBookmarked: result.operations.hasBookmarked,
         stats,
         __original__: result,
         momoka: result.momoka || undefined,
@@ -287,7 +288,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             author: formatLensProfile(result.mirrorOn.by),
             reporter: profile,
             isHidden: result.mirrorOn.isHidden,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             mediaObjects,
             metadata: {
                 locale: result.mirrorOn.metadata.locale,
@@ -311,6 +312,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasQuoted: result.mirrorOn.operations.hasQuoted,
             hasActed: result.mirrorOn.operations.hasActed.value,
             hasLiked: result.mirrorOn.operations.hasUpvoted,
+            hasBookmarked: result.mirrorOn.operations.hasBookmarked,
             mentions: result.mirrorOn.profilesMentioned.map((x) =>
                 formatLensProfileByHandleInfo(x.snapshotHandleMentioned),
             ),
@@ -335,7 +337,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         return {
             publicationId: result.id,
             type: result.__typename,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             postId: result.id,
             timestamp,
             author: profile,
@@ -365,6 +367,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasQuoted: result.operations.hasQuoted,
             hasActed: result.operations.hasActed.value,
             hasLiked: result.operations.hasUpvoted,
+            hasBookmarked: result.operations.hasBookmarked,
             quoteOn: formatLensQuoteOrComment(result.quoteOn),
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             canAct,
@@ -374,7 +377,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         return {
             publicationId: result.id,
             type: result.__typename,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             postId: result.id,
             timestamp,
             author: profile,
@@ -398,13 +401,14 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 countOpenActions: result.stats.countOpenActions,
             },
             __original__: result,
+            commentOn: formatLensQuoteOrComment(result.commentOn),
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
             hasQuoted: result.operations.hasQuoted,
             hasActed: result.operations.hasActed.value,
-            commentOn: formatLensQuoteOrComment(result.commentOn),
             hasLiked: result.operations.hasUpvoted,
+            hasBookmarked: result.operations.hasBookmarked,
             firstComment: result.firstComment ? formatLensQuoteOrComment(result.firstComment) : undefined,
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             root:
@@ -418,7 +422,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         return {
             publicationId: result.id,
             type: result.__typename,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             postId: result.id,
             timestamp,
             author: profile,
@@ -444,10 +448,11 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             canAct,
+            hasActed: result.operations.hasActed.value,
             hasMirrored: result.operations.hasMirrored,
             hasQuoted: result.operations.hasQuoted,
             hasLiked: result.operations.hasUpvoted,
-            hasActed: result.operations.hasActed.value,
+            hasBookmarked: result.operations.hasBookmarked,
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             __original__: result,
             momoka: result.momoka || undefined,

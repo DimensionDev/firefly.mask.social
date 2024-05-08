@@ -10,14 +10,14 @@ import { forwardRef } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { SocialPlatform } from '@/constants/enum.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStoreAll.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LogoutModalProps {
-    source?: SocialPlatform;
+    source?: SocialSource;
     profile?: Profile;
 }
 
@@ -35,7 +35,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             } else if (props?.source) {
                 profiles = profileStoreAll[props.source].profiles;
             } else {
-                profiles = SORTED_SOURCES.flatMap((x) => profileStoreAll[x].profiles);
+                profiles = SORTED_SOCIAL_SOURCES.flatMap((x) => profileStoreAll[x].profiles);
             }
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Log out`,
@@ -66,7 +66,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             const source = props?.source || props?.profile?.source;
 
             // call next-auth signOut for twitter
-            if (!source || source === SocialPlatform.Twitter) {
+            if (!source || source === Source.Twitter) {
                 await signOut({
                     redirect: false,
                 });
@@ -75,7 +75,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             if (source) {
                 profileStoreAll[source].clearCurrentProfile();
             } else {
-                SORTED_SOURCES.forEach((x) => profileStoreAll[x].clearCurrentProfile());
+                SORTED_SOCIAL_SOURCES.forEach((x) => profileStoreAll[x].clearCurrentProfile());
             }
 
             dispatch?.close();

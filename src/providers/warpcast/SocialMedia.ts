@@ -10,7 +10,7 @@ import { isZero, resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { BookmarkType, Source } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
@@ -27,6 +27,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import {
+    type BookmarkedCastsResponse,
     type Cast,
     type CastResponse,
     type CastsResponse,
@@ -228,7 +229,7 @@ class WarpcastSocialMedia implements Provider {
         return formatWarpcastUser(user);
     }
 
-    async getLikeReactors(postId: string, indicator?: PageIndicator) {
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes', {
             castHash: postId,
             limit: 15,
@@ -243,7 +244,7 @@ class WarpcastSocialMedia implements Provider {
         );
     }
 
-    async getMirrorReactors(postId: string, indicator?: PageIndicator) {
+    async getRepostReactors(postId: string, indicator?: PageIndicator) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-recasters', {
             castHash: postId,
             limit: 15,
@@ -626,7 +627,7 @@ class WarpcastSocialMedia implements Provider {
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.type === 'cast-reply') {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Comment,
                     post,
@@ -637,6 +638,61 @@ class WarpcastSocialMedia implements Provider {
         });
         return createPageable(
             compact(data),
+            createIndicator(indicator),
+            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
+        );
+    }
+    async reportUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async blockUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+    async unblockUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    /**
+     * @param {string} postId
+     * @param {'PUT' | 'DELETE'} method - PUT to bookmark, DELETE to unbookmark
+     * @returns {Promise<boolean>}
+     */
+    async baseBookmark(postId: string, method: 'PUT' | 'DELETE'): Promise<boolean> {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts');
+        const { result } = await farcasterSessionHolder.fetch<SuccessResponse>(resolveCrossOriginURL(url), {
+            method,
+            body: JSON.stringify({
+                castHash: postId,
+            }),
+        });
+        return result.success;
+    }
+    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
+        return this.baseBookmark(postId, 'PUT');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        return this.baseBookmark(postId, 'DELETE');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts', {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const { result, next } = await farcasterSessionHolder.fetch<BookmarkedCastsResponse>(
+            resolveCrossOriginURL(url),
+        );
+        const data = result.bookmarks.map(formatWarpcastPost);
+        return createPageable(
+            data,
             createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );

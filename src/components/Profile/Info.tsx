@@ -1,18 +1,21 @@
 import { Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
-import { BioMarkup } from '@/components/Markup/index.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
+import { classNames } from '@/helpers/classNames.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
     isMyProfile: boolean;
     profile?: Profile;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function Info({ isMyProfile, profile, source }: InfoProps) {
@@ -20,20 +23,21 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
     const followerCount = profile?.followerCount ?? 0;
 
     const isMedium = useIsMedium();
+    const isClickableFollowList = source === Source.Farcaster || source === Source.Twitter;
 
     return (
-        <div className=" flex gap-3 p-3">
+        <div className="flex gap-3 p-3">
             {profile?.pfp ? (
                 <Avatar src={profile.pfp} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
             ) : (
-                <SourceIcon className="rounded-full" source={source} size={80} />
+                <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
-                        <SourceIcon source={source} size={20} />
+                        <SocialSourceIcon source={source} size={20} />
                         {!isMyProfile && profile && isMedium ? (
                             <>
                                 <div className="ml-auto ">
@@ -46,22 +50,40 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                     <span className="text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>
 
-                <BioMarkup className="text-[15px]">{profile?.bio ?? '-'}</BioMarkup>
+                <BioMarkup className="text-[15px]" source={profile?.source}>
+                    {profile?.bio ?? '-'}
+                </BioMarkup>
 
-                <div className=" flex gap-3 text-[15px]">
-                    <div className=" flex gap-1">
+                <div className="flex gap-3 text-[15px]">
+                    <Link
+                        href={{
+                            pathname: `/profile/${profile?.profileId}/following`,
+                            query: { source: resolveSourceInURL(source) },
+                        }}
+                        className={classNames('flex gap-1 hover:underline', {
+                            'pointer-events-none': !isClickableFollowList,
+                        })}
+                    >
                         <span className=" font-bold text-lightMain">{followingCount}</span>
                         <span className=" text-secondary">
                             {profile?.viewerContext?.following ? <Trans>Following</Trans> : <Trans>Followings</Trans>}
                         </span>
-                    </div>
+                    </Link>
 
-                    <div className=" flex gap-1">
+                    <Link
+                        href={{
+                            pathname: `/profile/${profile?.profileId}/followers`,
+                            query: { source: resolveSourceInURL(source) },
+                        }}
+                        className={classNames('flex gap-1 hover:underline', {
+                            'pointer-events-none': !isClickableFollowList,
+                        })}
+                    >
                         <span className=" font-bold text-lightMain">{followerCount}</span>
                         <span className=" text-secondary">
                             {followerCount === 1 ? <Trans>Follower</Trans> : <Trans>Followers</Trans>}
                         </span>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>

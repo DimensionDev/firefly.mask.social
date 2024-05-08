@@ -3,27 +3,24 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ProfileTabType, ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ProfileTabType, ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 interface LikedFeedListProps {
     profileId: string;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
-    const queryResult = useSuspenseInfiniteQuery({
+    const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'liked-posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId || source !== SocialPlatform.Farcaster) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
-            const posts = await FarcasterSocialMediaProvider.getLikedPostsByProfileId(
-                profileId,
-                createIndicator(undefined, pageParam),
-            );
-
+            const provider = resolveSocialMediaProvider(source);
+            const posts = await provider.getLikedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
             return posts;
         },
         initialPageParam: '',
@@ -37,7 +34,7 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
     return (
         <ListInPage
             key={source}
-            queryResult={queryResult}
+            queryResult={query}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${ProfileTabType.Liked}:${profileId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,

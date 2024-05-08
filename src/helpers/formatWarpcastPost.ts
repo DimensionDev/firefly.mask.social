@@ -1,7 +1,7 @@
 import { first, last, union } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
-import { URL_REGEX } from '@/constants/regex.js';
+import { Source } from '@/constants/enum.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 
@@ -47,7 +47,7 @@ export function formatWarpcastPost(cast: Cast): Post {
     return {
         publicationId: cast.hash,
         type: cast.parentHash ? 'Comment' : 'Post',
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
         postId: cast.hash,
         parentPostId: cast.threadHash,
         timestamp: cast.timestamp,
@@ -61,7 +61,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             followingCount: cast.author.followingCount,
             status: ProfileStatus.Active,
             verified: cast.author.pfp?.verified ?? false,
-            source: SocialPlatform.Farcaster,
+            source: Source.Farcaster,
         },
         metadata: {
             locale: '',
@@ -83,7 +83,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             followingCount: 0,
             status: ProfileStatus.Active,
             verified: true,
-            source: SocialPlatform.Farcaster,
+            source: Source.Farcaster,
         })),
         mentions: cast.mentions?.map((x) => ({
             fullHandle: x.username,
@@ -95,7 +95,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             followingCount: x.followingCount,
             status: ProfileStatus.Active,
             verified: x.pfp?.verified ?? false,
-            source: SocialPlatform.Farcaster,
+            source: Source.Farcaster,
         })),
         hasLiked: cast.viewerContext?.reacted,
         hasMirrored: cast.viewerContext?.recast,

@@ -1,8 +1,9 @@
 import { compact, first, last, uniqBy } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
-import { URL_REGEX } from '@/constants/regex.js';
+import { Source } from '@/constants/enum.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
+import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
@@ -83,7 +84,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
                 handle: x.handle,
                 fullHandle: x.handle,
                 pfp: '',
-                source: SocialPlatform.Farcaster,
+                source: Source.Farcaster,
                 followerCount: 0,
                 followingCount: 0,
                 status: ProfileStatus.Active,
@@ -93,11 +94,12 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         mirrors: cast.recastedBy ? [formatFarcasterProfileFromFirefly(cast.recastedBy)] : undefined,
         hasLiked: cast.liked,
         hasMirrored: cast.recasted,
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
         canComment: true,
         commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
         root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
         threads: cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
+        channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
         __original__: cast,
     };
 }

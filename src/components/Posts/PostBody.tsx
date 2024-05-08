@@ -10,7 +10,8 @@ import { useAsync } from 'react-use';
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Frame } from '@/components/Frame/index.js';
-import { Markup, NakedMarkup } from '@/components/Markup/index.js';
+import { Markup } from '@/components/Markup/Markup.js';
+import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -85,7 +86,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    if (post.isHidden) {
+    if (post.isHidden || post.author.viewerContext?.blocking) {
         return (
             <div
                 className={classNames({
@@ -104,7 +105,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     )}
                 >
                     <EyeSlash width={16} height={16} />
-                    <Trans>Post has been hidden</Trans>
+                    {post.author.viewerContext?.blocking ? (
+                        <Trans>The author is muted by you.</Trans>
+                    ) : (
+                        <Trans>Post has been hidden</Trans>
+                    )}
                 </div>
             </div>
         );

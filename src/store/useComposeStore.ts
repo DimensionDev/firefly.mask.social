@@ -5,14 +5,15 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
+import { HOME_CHANNEL } from '@/constants/channel.js';
+import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
@@ -33,15 +34,15 @@ export interface CompositePost {
     id: Cursor;
 
     // tracking the post id in specific platform if it's posted
-    postId: Record<SocialPlatform, string | null>;
+    postId: Record<SocialSource, string | null>;
     // tracking the parent post in specific platform
-    parentPost: Record<SocialPlatform, OrphanPost | null>;
+    parentPost: Record<SocialSource, OrphanPost | null>;
     // tracking error
-    postError: Record<SocialPlatform, Error | null>;
+    postError: Record<SocialSource, Error | null>;
 
     restriction: RestrictionType;
     // use the same value of root post
-    availableSources: SocialPlatform[];
+    availableSources: SocialSource[];
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
@@ -51,6 +52,9 @@ export interface CompositePost {
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
     rpPayload: RedPacketPayload | null;
+
+    // only available in farcaster now
+    channel: Record<SocialSource, Channel | null>;
 }
 
 interface ComposeState {
@@ -79,15 +83,15 @@ interface ComposeState {
     updateCursor: (cursor: Cursor) => void;
 
     // operations upon all posts
-    enableSource: (source: SocialPlatform) => void;
-    disableSource: (source: SocialPlatform) => void;
+    enableSource: (source: SocialSource) => void;
+    disableSource: (source: SocialSource) => void;
     updateRestriction: (restriction: RestrictionType) => void;
 
     // operations upon the current editable post
-    updatePostId: (source: SocialPlatform, postId: string, cursor?: Cursor) => void;
-    updatePostError: (source: SocialPlatform, postError: Error, cursor?: Cursor) => void;
-    updateParentPost: (source: SocialPlatform, parentPost: Post, cursor?: Cursor) => void;
-    updateAvailableSources: (sources: SocialPlatform[], cursor?: Cursor) => void;
+    updatePostId: (source: SocialSource, postId: string, cursor?: Cursor) => void;
+    updatePostError: (source: SocialSource, postError: Error, cursor?: Cursor) => void;
+    updateParentPost: (source: SocialSource, parentPost: Post, cursor?: Cursor) => void;
+    updateAvailableSources: (sources: SocialSource[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
     updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
@@ -100,6 +104,7 @@ interface ComposeState {
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
+    updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -109,19 +114,19 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
         postId: {
-            [SocialPlatform.Farcaster]: null,
-            [SocialPlatform.Lens]: null,
-            [SocialPlatform.Twitter]: null,
+            [Source.Farcaster]: null,
+            [Source.Lens]: null,
+            [Source.Twitter]: null,
         },
         postError: {
-            [SocialPlatform.Farcaster]: null,
-            [SocialPlatform.Lens]: null,
-            [SocialPlatform.Twitter]: null,
+            [Source.Farcaster]: null,
+            [Source.Lens]: null,
+            [Source.Twitter]: null,
         },
         parentPost: {
-            [SocialPlatform.Farcaster]: null,
-            [SocialPlatform.Lens]: null,
-            [SocialPlatform.Twitter]: null,
+            [Source.Farcaster]: null,
+            [Source.Lens]: null,
+            [Source.Twitter]: null,
         },
         availableSources: getCurrentAvailableSources(),
         restriction: RestrictionType.Everyone,
@@ -132,6 +137,11 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         openGraphs: EMPTY_LIST,
         video: null,
         rpPayload: null,
+        channel: {
+            [Source.Farcaster]: HOME_CHANNEL,
+            [Source.Lens]: null,
+            [Source.Twitter]: null,
+        },
     };
 }
 
@@ -228,7 +238,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     const availableSources = uniq([...x.availableSources, source]);
                     return {
                         ...x,
-                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                        availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
                     };
                 }),
             })),
@@ -239,7 +249,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     const availableSources = x.availableSources.filter((s) => s !== source);
                     return {
                         ...x,
-                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                        availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
                     };
                 }),
             })),
@@ -250,10 +260,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         parentPost: {
-                            [SocialPlatform.Lens]: null,
-                            [SocialPlatform.Farcaster]: null,
-                            [SocialPlatform.Twitter]: null,
-
+                            [Source.Lens]: null,
+                            [Source.Farcaster]: null,
+                            [Source.Twitter]: null,
                             // a post can only have one parent post in specific platform
                             [source]: parentPost,
                         },
@@ -419,6 +428,21 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 ),
             );
         },
+        updateChannel(source, channel, cursor) {
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        channel: {
+                            ...post.channel,
+                            [source]: channel,
+                        },
+                    }),
+                    cursor,
+                ),
+            );
+        },
         loadFramesFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
             const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
@@ -461,4 +485,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
-

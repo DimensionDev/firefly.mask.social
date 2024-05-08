@@ -1,15 +1,15 @@
 import { isUndefined } from 'lodash-es';
 
+import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import UserIcon from '@/assets/user.svg';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
 
 interface ChannelInListProps {
     channel: Channel;
@@ -25,7 +25,7 @@ export function ChannelInList({ channel, noFollowButton = true, listKey, index }
     return (
         <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
             <Link
-                className="flex-start flex flex-1 overflow-auto items-center"
+                className="flex-start flex flex-1 items-center overflow-auto"
                 onClick={() => {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                 }}
@@ -41,11 +41,11 @@ export function ChannelInList({ channel, noFollowButton = true, listKey, index }
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
                     <p className="flex-start flex items-center text-sm font-bold leading-5 ">
                         <span className="mr-2 text-xl">{channel.name}</span>
-                        <SourceIcon source={channel.source} />
+                        <SocialSourceIcon source={channel.source} />
                     </p>
                     <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
                         <p className="truncate">/{channel.id}</p>
-                        <UserIcon width={18} height={18} className='shrink-0'/>
+                        <UserIcon width={18} height={18} className="shrink-0" />
                         <span>{nFormatter(channel.followerCount)}</span>
                     </div>
                     {channel.description ? (

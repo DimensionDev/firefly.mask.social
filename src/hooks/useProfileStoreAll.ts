@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export function useProfileStoreAll() {
@@ -30,7 +30,7 @@ export function useProfileStoreAll() {
 
     return useMemo(() => {
         const store = {
-            [SocialPlatform.Farcaster]: {
+            [Source.Farcaster]: {
                 currentProfile: currentFarcasterProfile,
                 currentProfileSession: currentFarcasterProfileSession,
                 profiles: farcasterProfiles,
@@ -38,7 +38,7 @@ export function useProfileStoreAll() {
                 refreshProfiles: refreshFarcasterProfiles,
                 refreshCurrentProfile: refreshFarcasterProfile,
             },
-            [SocialPlatform.Lens]: {
+            [Source.Lens]: {
                 currentProfile: currentLensProfile,
                 currentProfileSession: currentLensProfileSession,
                 profiles: lensProfiles,
@@ -46,7 +46,7 @@ export function useProfileStoreAll() {
                 refreshProfiles: refreshLensProfiles,
                 refreshCurrentProfile: refreshLensProfile,
             },
-            [SocialPlatform.Twitter]: {
+            [Source.Twitter]: {
                 currentProfile: currentTwitterProfile,
                 currentProfileSession: currentTwitterProfileSession,
                 profiles: twitterProfiles,
@@ -55,7 +55,7 @@ export function useProfileStoreAll() {
                 refreshCurrentProfile: refreshTwitterProfile,
             },
         };
-        return store as Record<SocialPlatform, (typeof store)[SocialPlatform]>;
+        return store as Record<SocialSource, (typeof store)[SocialSource]>;
     }, [
         clearFarcasterCurrentProfile,
         clearLensCurrentProfile,

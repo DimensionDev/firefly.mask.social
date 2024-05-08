@@ -6,7 +6,6 @@ import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { Loading } from '@/components/Loading.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { isBotRequest } from '@/helpers/isBotRequest.js';
 
 interface PageProps {
     searchParams: {

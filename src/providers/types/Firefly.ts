@@ -1,7 +1,11 @@
+import type { Source } from '@/constants/enum.js';
+import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+
 export interface Cast {
     fid: string;
     hash: string;
     text: string;
+    channel?: Channel;
     parent_hash?: string;
     parent_fid?: string;
     parent_url?: string;
@@ -13,6 +17,8 @@ export interface Cast {
         handle: string;
     }>;
     created_at: string;
+    /** example 2024-05-06T10:22:42.152Z */
+    deleted_at: string | null;
     likeCount: number;
     recastCount: number;
     replyCount: string;
@@ -87,8 +93,8 @@ export interface ChannelProfile {
             text: string;
         };
     };
-    verifications: string[];
-    verified_addresses: Record<'eth_addresses' | 'sol_addresses', string[]>;
+    verifications?: string[];
+    verified_addresses?: Record<'eth_addresses' | 'sol_addresses', string[]>;
 }
 
 export interface Channel {
@@ -130,6 +136,30 @@ export interface ChannelBrief {
     follower_count?: number;
     lead?: ChannelProfileBrief;
     hostFids?: number[];
+}
+
+export interface Article {
+    timestamp: string;
+    hash: string;
+    owner: string;
+    digest: string;
+    type: ArticleType;
+    platform: ArticlePlatform;
+    content: {
+        body: string;
+        title: string;
+    };
+    author: string;
+    displayInfo: {
+        ensHandle: string;
+        avatarUrl: string;
+    };
+    authorship: {
+        contributor: string;
+    };
+    related_urls: string[];
+    article_id: string;
+    cover_img_url: string | null;
 }
 
 export interface Response<T> {
@@ -190,8 +220,8 @@ export type LensLoginResponse = Response<{
 }>;
 
 export type FarcasterLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
+    accessToken?: string;
+    accountId?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     fid: string;
@@ -211,6 +241,18 @@ export type DiscoverChannelsResponse = Response<
     }>
 >;
 
+export type DiscoverArticlesResponse = Response<{
+    cursor: number;
+    result: Article[];
+}>;
+
+export type GetArticleDetailResponse = Response<Article[]>;
+
+export type GetFollowingArticlesResponse = Response<{
+    cursor: number;
+    result: Article[];
+}>;
+
 export type CastsOfChannelResponse = Response<{
     casts: Cast[];
     cursor: string;
@@ -221,3 +263,111 @@ export type SearchChannelsResponse = Response<{
     channels: ChannelBrief[];
     cursor: string;
 }>;
+
+export enum RelatedWalletSource {
+    firefly = 'firefly',
+    cyber = 'cyber',
+    hand_writing = 'hand_writing',
+    opensea = 'opensea',
+    pfp = 'pfp',
+    rss3 = 'rss3',
+    twitter_hexagon = 'twitter_hexagon',
+    uniswap = 'uniswap',
+    ethLeaderboard = 'web ens data',
+    lens = 'lens',
+    farcaster = 'farcaster',
+    other = 'other',
+    twitter = 'twitter',
+}
+
+export enum RelationPlatform {
+    reddit = 'reddit',
+    keybase = 'keybase',
+    github = 'github',
+}
+
+export interface WalletProfile {
+    address: string;
+    ens: string[];
+    blockchain: string;
+    is_connected: boolean;
+    verifiedSources: Array<{
+        source: RelatedWalletSource;
+        provider: string;
+        verifiedText: string;
+    }>;
+    avatar: string;
+    primary_ens: string | null;
+}
+
+export interface LensV3Profile {
+    id: string;
+    ownedBy: string;
+    nameSpace: string;
+    localName: string;
+    fullHandle: string;
+}
+
+export interface FarcasterProfile {
+    avatar: {
+        url: string;
+        verified: boolean;
+    };
+    bio: string;
+    followerCount: number;
+    followingCount: number;
+    fid: number;
+    username: string;
+    display_name: string;
+    isPowerUser: boolean;
+    raw_data: string;
+    signer_address: string;
+    addresses: string[];
+    id: number;
+}
+
+export interface TwitterProfile {
+    twitter_id: string;
+    handle: string;
+    source: string;
+    provider: string;
+}
+
+export interface WalletProfiles {
+    walletProfiles: WalletProfile[];
+    lensProfilesV3: LensV3Profile[];
+    farcasterProfiles: FarcasterProfile[];
+    twitterProfiles: TwitterProfile[];
+}
+
+export type WalletProfileResponse = Response<WalletProfiles>;
+
+export interface FireFlyProfile {
+    identity: string;
+    source: Source;
+    displayName: string;
+    __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | null;
+}
+
+export interface Relation {
+    source: string[];
+    identity: {
+        uuid: string;
+        platform: RelationPlatform;
+        identity: string;
+        displayName: string;
+    };
+}
+
+export type RelationResponse = Response<Relation[]>;
+
+export interface BookmarkResponse {
+    list: Array<{
+        account_id: string;
+        /** e.g. twitter, lens, farcaster, article */
+        platform: string;
+        platform_id: string;
+        post_id: string;
+        post_content: {};
+    }>;
+}

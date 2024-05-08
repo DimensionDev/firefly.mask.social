@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { RestrictionType, SocialPlatform } from '@/constants/enum.js';
+import type { BookmarkType, RestrictionType, SocialSource } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -62,12 +62,13 @@ export interface Profile {
     viewerContext?: {
         following?: boolean;
         followedBy?: boolean;
+        blocking?: boolean;
     };
     ownedBy?: {
         networkType: NetworkType;
         address: string;
     };
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export interface MediaObject {
@@ -154,7 +155,8 @@ export interface Post {
     hasLiked?: boolean;
     hasActed?: boolean;
     hasQuoted?: boolean;
-    source: SocialPlatform;
+    hasBookmarked?: boolean;
+    source: SocialSource;
     isThread?: boolean;
 
     /**
@@ -174,6 +176,7 @@ export interface Post {
     quoteOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
+    channel?: Channel;
     /**
      * Lens only
      * To mirror a post on momoka, need to invoke with the client method mirrorOnMomoka
@@ -223,7 +226,7 @@ export interface Collection {
 
 export interface BaseNotification {
     notificationId: string;
-    source: SocialPlatform;
+    source: SocialSource;
     /** time in milliseconds */
     timestamp?: number;
 }
@@ -291,7 +294,7 @@ export interface ChannelLead {
 }
 
 export interface Channel {
-    source: SocialPlatform;
+    source: SocialSource;
     id: string;
     name: string;
     description?: string;
@@ -656,4 +659,37 @@ export interface Provider {
      * @param localPost
      */
     getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
+
+    /**
+     * Report a user
+     */
+    reportUser: (profileId: string) => Promise<boolean>;
+    /**
+     * Report a post
+     */
+    reportPost: (post: Post) => Promise<boolean>;
+
+    blockUser: (profileId: string) => Promise<boolean>;
+
+    unblockUser: (profileId: string) => Promise<boolean>;
+
+    getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
+     * Including Reposts, Recasts, Mirrors, Retweets
+     */
+    getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * @param postId
+     * @param profileId - farcaster only
+     * @param postType - farcaster only
+     */
+    bookmark: (postId: string, profileId?: string, postType?: BookmarkType) => Promise<boolean>;
+
+    unbookmark: (postId: string) => Promise<boolean>;
+
+    getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

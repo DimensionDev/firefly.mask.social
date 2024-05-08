@@ -1,3 +1,5 @@
+'use client';
+
 import LoadingIcon from '@/assets/loading.svg';
 
 export function Loading() {

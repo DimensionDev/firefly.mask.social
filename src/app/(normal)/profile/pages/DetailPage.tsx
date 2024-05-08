@@ -1,12 +1,14 @@
 'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import type { SourceInURL } from '@/constants/enum.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { getProfileById } from '@/services/getProfileById.js';
+import { SourceInURL } from '@/constants/enum.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
+import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface PageProps {
     params: {
@@ -17,21 +19,27 @@ interface PageProps {
     };
 }
 
-export function ProfileDetailPage({ params: { id: handleOrProfileId }, searchParams: { source } }: PageProps) {
-    const currentSource = resolveSocialPlatform(source);
+export function ProfileDetailPage({ params: { id: identity }, searchParams: { source } }: PageProps) {
+    const currentSource = resolveSource(source);
 
-    const { data: profile = null, isLoading } = useQuery({
-        queryKey: ['profile', currentSource, handleOrProfileId],
-        queryFn: () => getProfileById(currentSource, handleOrProfileId),
+    const { data: profiles, isLoading } = useQuery({
+        queryKey: ['all-profiles', currentSource, identity],
+        queryFn: async () => {
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, currentSource);
+        },
     });
 
     if (isLoading) {
         return <Loading />;
     }
 
-    if (!profile) {
+    if (!profiles?.length) {
         notFound();
     }
 
-    return <ProfilePage profile={profile} />;
+    return (
+        <ProfileContext.Provider initialState={{ source: currentSource, identity }}>
+            <ProfilePage profiles={profiles} />
+        </ProfileContext.Provider>
+    );
 }

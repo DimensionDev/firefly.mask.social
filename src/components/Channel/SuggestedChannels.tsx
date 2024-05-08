@@ -7,7 +7,6 @@ import React from 'react';
 import LoadingIcon from '@/assets/loading.svg';
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { FollowButton } from '@/components/Channel/FollowButton.jsx';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { PageRoute, type SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';

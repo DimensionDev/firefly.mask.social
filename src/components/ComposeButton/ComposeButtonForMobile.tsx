@@ -4,18 +4,21 @@ import ComposeAddIcon from '@/assets/compose-add.svg';
 import ReplyIcon from '@/assets/reply.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function ComposeButtonForMobile() {
+    const currentSource = useGlobalState.use.currentSource();
+    const currentSocialSource = narrowToSocialSource(currentSource);
+
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-    const currentSource = useGlobalState.use.currentSource();
 
     const isLogin = useIsLogin();
-    const isCurrentLogin = useIsLogin(currentSource);
+    const isCurrentLogin = useIsLogin(currentSocialSource);
     const currentPost = useCurrentVisitingPost();
 
     if (!isLogin) return null;

@@ -1,6 +1,6 @@
 import { compact, uniqBy } from 'lodash-es';
 
-import { URL_REGEX } from '@/constants/regex.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 
 export abstract class BaseLoader<T> {

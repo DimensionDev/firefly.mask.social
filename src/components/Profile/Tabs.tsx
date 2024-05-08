@@ -10,7 +10,7 @@ import { FeedList } from '@/components/Profile/FeedList.js';
 import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
 import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
-import { ProfileTabType, SocialPlatform } from '@/constants/enum.js';
+import { ProfileTabType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -20,7 +20,7 @@ const ContentList = memo(function ContentList({
     profileId,
 }: {
     type: ProfileTabType;
-    source: SocialPlatform;
+    source: SocialSource;
     profileId: string;
 }) {
     switch (type) {
@@ -44,15 +44,15 @@ const ContentList = memo(function ContentList({
 
 interface TabsProps {
     profileId: string;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function Tabs({ profileId, source }: TabsProps) {
     const [currentTab, setCurrentTab] = useState(ProfileTabType.Feed);
 
     const computedCurrentTab =
-        (source === SocialPlatform.Lens && currentTab === ProfileTabType.Channels) ||
-        (source === SocialPlatform.Farcaster && currentTab === ProfileTabType.Collected)
+        (source === Source.Lens && currentTab === ProfileTabType.Channels) ||
+        (source === Source.Farcaster && currentTab === ProfileTabType.Collected)
             ? ProfileTabType.Feed
             : currentTab;
 
@@ -62,11 +62,11 @@ export function Tabs({ profileId, source }: TabsProps) {
                 {[
                     {
                         type: ProfileTabType.Feed,
-                        title: <Trans>Feed</Trans>,
+                        title: source === Source.Farcaster ? <Trans>Casts</Trans> : <Trans>Feed</Trans>,
                     },
                     {
                         type: ProfileTabType.Replies,
-                        title: <Trans>Replies</Trans>,
+                        title: source === Source.Farcaster ? <Trans>Casts + Replies</Trans> : <Trans>Replies</Trans>,
                     },
                     {
                         type: ProfileTabType.Liked,

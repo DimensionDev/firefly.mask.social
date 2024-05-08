@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ChannelDetailPage } from '@/app/(normal)/channel/pages/DetailPage.js';
-import { KeyType, type SourceInURL } from '@/constants/enum.js';
+import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
@@ -16,13 +16,12 @@ interface Props {
         id: string;
     };
     searchParams: {
-        source: SourceInURL;
+        source: SocialSourceInURL;
     };
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (isBotRequest() && searchParams.source)
-        return getChannelOGByIdRedis(searchParams.source as SourceInURL, params.id);
+    if (isBotRequest() && searchParams.source) return getChannelOGByIdRedis(searchParams.source, params.id);
     return createSiteMetadata();
 }
 

@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -16,7 +16,7 @@ export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
         followerCount: user.follower_count,
         followingCount: user.following_count,
         status: user.active_status,
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
         verified: user.power_badge,
         viewerContext: {
             following: user.viewer_context?.following,

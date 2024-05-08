@@ -1,12 +1,12 @@
 import { Avatar } from '@/components/Avatar.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
+export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
     profile: Profile;
     size?: number;
     linkable?: boolean;
@@ -31,7 +31,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
                 <Avatar src={profile.pfp} size={size} alt={profile.displayName} />
             </div>
             {enableSourceIcon ? (
-                <SourceIcon
+                <SocialSourceIcon
                     className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"
                     source={profile.source}
                     size={16}

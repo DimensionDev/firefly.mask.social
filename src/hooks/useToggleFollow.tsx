@@ -3,7 +3,7 @@ import { ClientError } from 'graphql-request';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsFollowing } from '@/hooks/useIsFollowing.js';
@@ -20,7 +20,7 @@ export function useToggleFollow(profile: Profile) {
     // Request received, but state might not update yet.
     const [received, setReceived] = useState(false);
 
-    const handleOrProfileId = profile.source === SocialPlatform.Lens ? profile.handle : profile.profileId;
+    const handleOrProfileId = profile.source === Source.Lens ? profile.handle : profile.profileId;
     const isMyProfile = useIsMyProfile(profile.source, handleOrProfileId);
 
     const previousIsFollowing = isMyProfile || !!profile?.viewerContext?.following;

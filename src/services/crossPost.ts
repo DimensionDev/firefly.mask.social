@@ -6,9 +6,9 @@ import { produce } from 'immer';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
+import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -22,7 +22,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-async function refreshProfileFeed(source: SocialPlatform) {
+async function refreshProfileFeed(source: SocialSource) {
     const currentProfileAll = getCurrentProfileAll();
 
     await queryClient.invalidateQueries({
@@ -38,17 +38,17 @@ async function refreshProfileFeed(source: SocialPlatform) {
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
     if (env.shared.NODE_ENV === NODE_ENV.Development) {
-        if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
+        if (rpPayload?.publicKey && !SORTED_SOCIAL_SOURCES.some((x) => postId[x])) {
             console.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }
     }
 
-    if (hasRpPayload(typedMessage) && SORTED_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
+    if (hasRpPayload(typedMessage) && SORTED_SOCIAL_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
         const currentProfileAll = getCurrentProfileAll();
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
         const reactions = compact(
-            SORTED_SOURCES.map((x) => {
+            SORTED_SOCIAL_SOURCES.map((x) => {
                 const id = postId[x];
                 return id
                     ? {
@@ -60,7 +60,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         );
 
         const claimPlatforms = compact(
-            SORTED_SOURCES.map((x) => {
+            SORTED_SOCIAL_SOURCES.map((x) => {
                 const currentProfile = currentProfileAll[x];
                 return postId[x] && currentProfile
                     ? {
@@ -71,7 +71,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
             }),
         );
         const postOn: FireflyRedPacketAPI.PostOn[] = compact(
-            SORTED_SOURCES.map((x) => {
+            SORTED_SOCIAL_SOURCES.map((x) => {
                 const currentProfile = currentProfileAll[x];
                 return postId[x] && currentProfile
                     ? {
@@ -156,7 +156,7 @@ export async function crossPost(
     const { availableSources } = compositePost;
 
     const allSettled = await Promise.allSettled(
-        SORTED_SOURCES.map(async (x) => {
+        SORTED_SOCIAL_SOURCES.map(async (x) => {
             if (!availableSources.includes(x)) return null;
 
             // post already published
@@ -204,7 +204,7 @@ export async function crossPost(
             const allErrors = allSettled.map((x) => (x.status === 'rejected' ? x.reason : null));
 
             // show success message if no error found on certain platform
-            SORTED_SOURCES.forEach((x, i) => {
+            SORTED_SOCIAL_SOURCES.forEach((x, i) => {
                 const settled = allSettled[i];
                 const error = settled.status === 'rejected' ? settled.reason : null;
                 if (error) return;
@@ -242,7 +242,7 @@ export async function crossPost(
     // refresh profile feed
     if (!skipRefreshFeeds) {
         try {
-            const staleSources = SORTED_SOURCES.filter((source, i) => {
+            const staleSources = SORTED_SOCIAL_SOURCES.filter((source, i) => {
                 const settled = allSettled[i];
                 const postId = settled.status === 'fulfilled' ? settled.value : null;
                 return availableSources.includes(source) && postId ? source : null;

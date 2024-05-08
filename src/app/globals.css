@@ -26,8 +26,10 @@
     --color-second: #767676;
     --color-primary-pink: 255 150 142;
     --color-danger: 255 53 69;
+    --color-warn: 255 177 0;
     --color-lens-primary: 154 227 42;
     --color-farcaster-primary: 146 80 255;
+    --color-twitter-primary: 29 161 243;
     --color-secondary: rgba(118, 127, 141, 1);
     --color-collected: 255 150 142;
     --color-second: rgba(118, 127, 141, 1);
@@ -57,6 +59,7 @@
     --color-tab-line: rgba(29, 155, 240, 1);
     --color-success: rgba(61, 194, 51, 1);
     --m-common-danger: #ff3545;
+    --m-common-warn: #ffb100;
     --m-light-bottom: #fff;
     --plyr-audio-controls-background: rgba(243, 243, 243, 1);
     --plyr-range-thumb-height: 0px;
@@ -79,7 +82,9 @@
     --color-secondary-success: 24 195 123;
     --color-primary-pink: 255 150 142;
     --color-danger: 255 53 69;
+    --color-warn: 255 177 0;
     --color-lens-primary: 154 227 42;
+    --color-twitter-primary: 29 161 243;
     --color-farcaster-primary: 146 80 255;
     --color-collected: 255 150 142;
     --color-bottom80: rgba(0, 0, 0, 0.8);
@@ -128,6 +133,7 @@
     --color-secondary-success: 24 195 123;
     --color-primary-pink: 255 150 142;
     --color-danger: 255 53 69;
+    --color-warn: 255 177 0;
     --color-bottom80: rgba(0, 0, 0, 0.8);
     --color-main1: rgba(255, 255, 255, 0.28);
     --color-main2: rgba(255, 255, 255, 0.13);
@@ -317,4 +323,20 @@ body {
     .preview-actions .slick-next {
         display: none !important;
     }
+}
+
+.channel-card {
+    background: none !important;
+}
+
+.ens-card {
+    background: none !important;
+}
+
+[data-hide-scrollbar] {
+    scrollbar-width: none;
+}
+
+[data-hide-scrollbar]::-webkit-scrollbar {
+    display: none;
 }

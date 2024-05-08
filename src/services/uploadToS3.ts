@@ -1,10 +1,10 @@
-import { SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 type UploadS3Response = ResponseJSON<{ link: string }>;
 
-export async function uploadToS3(file: File, source: SourceInURL): Promise<string> {
+export async function uploadToS3(file: File, source: SocialSourceInURL): Promise<string> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('source', source);

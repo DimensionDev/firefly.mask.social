@@ -2,6 +2,7 @@ import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
+import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { Collect } from '@/components/Actions/Collect.js';
 import { Comment } from '@/components/Actions/Comment.js';
 import { Like } from '@/components/Actions/Like.js';
@@ -9,7 +10,7 @@ import { Mirror } from '@/components/Actions/Mirrors.js';
 import { Share } from '@/components/Actions/Share.js';
 import { Views } from '@/components/Actions/Views.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
@@ -56,7 +57,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             post={post}
         />,
 
-        post.source !== SocialPlatform.Farcaster && post.canAct ? (
+        post.source !== Source.Farcaster && post.canAct ? (
             <Collect key="collect" count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
         ) : null,
         <Like
@@ -66,10 +67,11 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             hasLiked={post.hasLiked}
             postId={post.postId}
             source={post.source}
-            authorId={post.source === SocialPlatform.Farcaster ? post.author.profileId : undefined}
+            authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
             disabled={disabled}
         />,
-        post.source === SocialPlatform.Farcaster || isSmall ? null : (
+        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} />,
+        post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
         <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
@@ -83,6 +85,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 'grid-cols-3': actionLength === 4,
                 'grid-cols-4': actionLength === 5,
                 'grid-cols-5': actionLength === 6,
+                'grid-cols-6': actionLength === 7,
             })}
         >
             {actions}

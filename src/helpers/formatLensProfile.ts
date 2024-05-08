@@ -1,6 +1,6 @@
 import type { HandleInfoFragment, ProfileFragment } from '@lens-protocol/client';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { AVATAR } from '@/constants/index.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
@@ -42,8 +42,9 @@ export function formatLensProfile(result: ProfileFragment): Profile {
         viewerContext: {
             following: result.operations.isFollowedByMe.value,
             followedBy: result.operations.isFollowingMe.value,
+            blocking: result.operations.isBlockedByMe.value,
         },
-        source: SocialPlatform.Lens,
+        source: Source.Lens,
     };
 }
 
@@ -58,6 +59,6 @@ export function formatLensProfileByHandleInfo(result: HandleInfoFragment): Profi
         followingCount: 0,
         status: ProfileStatus.Active,
         verified: true,
-        source: SocialPlatform.Lens,
+        source: Source.Lens,
     };
 }

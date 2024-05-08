@@ -4,6 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
+import { notFound } from 'next/navigation.js';
 import type React from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -12,17 +13,16 @@ import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -34,7 +34,7 @@ interface PageProps {
         id: string;
     };
     searchParams: {
-        source: SourceInURL;
+        source: SocialSourceInURL;
     };
 }
 
@@ -50,7 +50,7 @@ function refreshThreadByPostId(postId: string) {
 }
 
 export function PostDetailPage({ params: { id: postId }, searchParams: { source } }: PageProps) {
-    const currentSource = resolveSocialPlatform(source);
+    const currentSource = resolveSocialSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
@@ -61,36 +61,41 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
         queryFn: async () => {
             if (!postId) return;
 
-            const post = await getPostById(currentSource, postId);
-            if (!post) return;
+            try {
+                const provider = resolveSocialMediaProvider(currentSource);
+                const post = await provider.getPostById(postId);
+                if (!post) return;
 
-            if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
-            return post;
+                if (currentSource === Source.Lens) fetchAndStoreViews([post.postId]);
+                return post;
+            } catch (err) {
+                if (err instanceof Error && err.message === 'Post not found') return null;
+                throw err;
+            }
         },
     });
 
+    if (!post) {
+        notFound();
+    }
+
     const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({
-        queryKey: ['posts', currentSource, 'thread-detail', post?.postId, post?.root?.postId],
+        queryKey: ['posts', currentSource, 'thread-detail', post.postId, post.root?.postId],
         queryFn: async () => {
-            const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
+            const root = post.root ? post.root : post.commentOn ? post.commentOn : post;
             if (!root?.stats?.comments) return createPageable(EMPTY_LIST, undefined);
 
-            if (!isSameProfile(root.author, post?.author)) return createPageable(EMPTY_LIST, undefined);
+            if (!isSameProfile(root.author, post.author)) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
-            const posts = await provider.getThreadByPostId(
-                root.postId,
-                root.postId === post?.postId ? post : undefined,
-            );
+            const posts = await provider.getThreadByPostId(root.postId, root.postId === post.postId ? post : undefined);
 
             /**
              * The data of Lens is stored in Redis.
              * Since there is no expiration time and we need to check each time whether a new post has been added to the thread.
              * If so, we need to clear the cache and request again.
              */
-            if (currentSource === SocialPlatform.Lens && posts.length >= MIN_POST_SIZE_PER_THREAD) {
+            if (currentSource === Source.Lens && posts.length >= MIN_POST_SIZE_PER_THREAD) {
                 const lastPost = last(posts);
                 if (!lastPost) return createPageable(posts, undefined);
 
@@ -112,7 +117,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
-    useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
+    useDocumentTitle(post ? createPageTitle(t`Post by ${post.author.displayName}`) : SITE_NAME);
     useUpdateCurrentVisitingPost(post);
 
     if (!post) return;
@@ -150,7 +155,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                         <PostActions
                             disablePadding
                             post={post}
-                            disabled={post?.isHidden}
+                            disabled={post.isHidden}
                             className="!mt-0 border-b border-line px-4 py-3"
                         />
                         {/* TODO: Compose Comment Input */}

@@ -10,7 +10,7 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Oembed } from '@/components/Oembed/index.js';
-import { URL_REGEX } from '@/constants/regex.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 

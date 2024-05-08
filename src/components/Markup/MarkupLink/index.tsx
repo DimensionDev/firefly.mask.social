@@ -4,11 +4,12 @@ import { safeUnreachable } from '@masknet/kit';
 import { isValidDomain } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 
+import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
-import { SocialPlatform } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGEX } from '@/constants/regex.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { BIO_TWITTER_PROFILE_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { createLensProfileFromHandle } from '@/helpers/createLensProfileFromHandle.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
@@ -19,9 +20,10 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export interface MarkupLinkProps {
     title?: string;
     post?: Post;
+    source?: SocialSource;
 }
 
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post }) {
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source }) {
     if (!title) return null;
 
     if (title.startsWith('@')) {
@@ -29,7 +31,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         if (!source) return title;
 
         switch (source) {
-            case SocialPlatform.Lens: {
+            case Source.Lens: {
                 const handle = getLensHandleFromMentionTitle(title);
                 if (!handle) return title;
 
@@ -37,7 +39,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 return <MentionLink handle={handle} link={link} />;
             }
 
-            case SocialPlatform.Farcaster: {
+            case Source.Farcaster: {
                 const profile = post.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
                 if (!profile) return title;
 
@@ -45,9 +47,8 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 return <MentionLink handle={profile.handle} link={link} />;
             }
 
-            case SocialPlatform.Twitter:
+            case Source.Twitter:
                 return title;
-
             default:
                 safeUnreachable(source);
                 return title;
@@ -55,6 +56,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     }
 
     if (title.startsWith('#')) return <Hashtag title={title} />;
+
+    if (title.startsWith('/')) {
+        return <ChannelTag title={title} source={source} />;
+    }
 
     if (isValidDomain(title)) return title;
 

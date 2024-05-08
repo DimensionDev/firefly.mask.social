@@ -579,6 +579,37 @@ class HubbleSocialMedia implements Provider {
 
         return packet;
     }
+    async reportUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async blockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unblockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async bookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export const HubbleSocialMediaProvider = new HubbleSocialMedia();

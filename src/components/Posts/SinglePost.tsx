@@ -7,13 +7,14 @@ import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
+import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -44,13 +45,13 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const pathname = usePathname();
 
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-
+    const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
     const postLink = getPostUrl(post);
 
     const show = useMemo(() => {
         if (!post.isThread || isPostPage) return false;
 
-        if (post.source === SocialPlatform.Farcaster && post.stats?.comments === 0) return false;
+        if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
         return true;
     }, [post, isPostPage]);
 
@@ -75,7 +76,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             <PostHeader post={post} />
 
             <PostBody post={post} showMore={showMore} />
-
+            {!!post.channel && post.type === 'Post' && !isChannelPage ? <ChannelAnchor channel={post.channel} /> : null}
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
             {show ? (

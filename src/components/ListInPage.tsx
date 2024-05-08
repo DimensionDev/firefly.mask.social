@@ -1,13 +1,14 @@
 'use client';
 
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import type { Components } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualList, type VirtualListProps } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -27,7 +28,10 @@ export function ListInPage<T = unknown>({
     NoResultsFallbackProps,
 }: ListInPageProps<T>) {
     const currentSource = useGlobalState.use.currentSource();
-    const isLogin = useIsLogin(currentSource);
+    const currentSocialSource = narrowToSocialSource(currentSource);
+
+    const itemsRendered = useRef(false);
+    const isLogin = useIsLogin(currentSocialSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
 
@@ -39,7 +43,7 @@ export function ListInPage<T = unknown>({
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={currentSource} />;
+        return <NotLoginFallback source={currentSocialSource} />;
     }
 
     if (noResultsFallbackRequired && !data.length) {
@@ -56,6 +60,7 @@ export function ListInPage<T = unknown>({
         hasNextPage,
         fetchNextPage,
         isFetching,
+        itemsRendered: itemsRendered.current,
         ...(VirtualListProps?.context ?? {}),
     };
 
@@ -64,6 +69,11 @@ export function ListInPage<T = unknown>({
             useWindowScroll
             data={data}
             endReached={onEndReached}
+            itemSize={(el: HTMLElement) => {
+                if (!itemsRendered.current) itemsRendered.current = true;
+
+                return el.getBoundingClientRect().height;
+            }}
             {...VirtualListProps}
             context={Context}
             components={Components}

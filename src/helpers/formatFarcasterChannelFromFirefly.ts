@@ -1,4 +1,4 @@
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type {
     Channel as FireflyChannel,
     ChannelBrief,
@@ -19,18 +19,18 @@ export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile):
         followerCount: channelProfile.follower_count,
         followingCount: channelProfile.following_count,
         status: channelProfile.active_status === 'active' ? ProfileStatus.Active : ProfileStatus.Inactive,
-        verified: channelProfile.verifications.length > 0,
+        verified: !!channelProfile.verifications && channelProfile.verifications.length > 0,
         viewerContext: {
             following: channelProfile.isFollowing ?? false,
             followedBy: channelProfile.isFollowedBack ?? false,
         },
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
     };
 }
 
 export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
     const formatted: Channel = {
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
         id: channel.id,
         name: channel.name,
         description: channel.description,
@@ -66,13 +66,13 @@ export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProf
             following: channelProfile.isFollowing,
             followedBy: channelProfile.isFollowedBack,
         },
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
     };
 }
 
 export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
     const formatted: Channel = {
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
         id: channel.id,
         name: channel.name,
         description: channel.description,

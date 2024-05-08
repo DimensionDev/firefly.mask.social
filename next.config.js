@@ -12,6 +12,13 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
 export default {
+    // Note: we run tsc and eslint in other places
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
     logging: {
         fetches: {
             fullUrl: true,

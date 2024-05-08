@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { BookmarkType, Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -19,10 +19,13 @@ import {
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BookmarkResponse,
     type CastResponse,
     type CastsOfChannelResponse,
     type CastsResponse,
@@ -30,10 +33,12 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
+    type FireFlyProfile,
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type ReactorsResponse,
+    type RelationResponse,
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
@@ -41,6 +46,7 @@ import {
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
+    type WalletProfileResponse,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -268,7 +274,7 @@ class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
 
-            if (!cast) throw new Error('Post not found');
+            if (!cast || cast.deleted_at) throw new Error('Post not found');
             return formatFarcasterPostFromFirefly(cast);
         });
     }
@@ -286,12 +292,74 @@ class FireflySocialMedia implements Provider {
             );
             const user = resolveFireflyResponseData(response);
             const friendship = await this.getFriendship(profileId);
-
             return formatFarcasterProfileFromFirefly({
                 ...user,
                 ...friendship,
             });
         });
+    }
+
+    async getAllPlatformProfileByIdentity(identity: string, source: Source): Promise<FireFlyProfile[]> {
+        let queryKey = '';
+        switch (source) {
+            case Source.Lens:
+                queryKey = 'lensHandle';
+                break;
+            case Source.Farcaster:
+                queryKey = 'fid';
+                break;
+            case Source.Wallet:
+                queryKey = 'walletAddress';
+                break;
+            case Source.Twitter:
+                queryKey = 'twitterId';
+                break;
+            case Source.Article:
+            default:
+                break;
+        }
+
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', queryKey ? { [`${queryKey}`]: identity } : {});
+
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        const profiles = resolveFireflyResponseData(response);
+
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireFlyProfile[]> {
+        if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
+
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', {
+            twitterId,
+            lensHandle,
+            fid,
+        });
+
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        const profiles = resolveFireflyResponseData(response);
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getNextIDRelations(platform: string, identity: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/wallet/relations', {
+            platform,
+            identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<RelationResponse>(url, {
+            method: 'GET',
+        });
+
+        const relations = resolveFireflyResponseData(response);
+
+        return relations;
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -345,7 +413,7 @@ class FireflySocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/casts');
             const response = await fetchJSON<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -353,7 +421,6 @@ class FireflySocialMedia implements Provider {
                     size: 25,
                     sourceFid: session?.profileId,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                    needRootParentHash: true,
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
@@ -392,7 +459,7 @@ class FireflySocialMedia implements Provider {
 
     async getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/replies');
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
 
             const response = await fetchJSON<CastsResponse>(url, {
                 method: 'POST',
@@ -401,6 +468,7 @@ class FireflySocialMedia implements Provider {
                     size: 25,
                     sourceFid: session?.profileId,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    needRootParentHash: true,
                 }),
             });
 
@@ -433,7 +501,7 @@ class FireflySocialMedia implements Provider {
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Reaction,
                     reactors: users,
@@ -442,7 +510,7 @@ class FireflySocialMedia implements Provider {
                 };
             } else if (notification.notificationType === FireflyNotificationType.CastBeRecasted) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Mirror,
                     mirrors: users,
@@ -454,7 +522,7 @@ class FireflySocialMedia implements Provider {
                     ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
                     : undefined;
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Comment,
                     comment: post
@@ -468,14 +536,14 @@ class FireflySocialMedia implements Provider {
                 };
             } else if (notification.notificationType === FireflyNotificationType.BeFollowed) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Follow,
                     followers: users,
                 };
             } else if (notification.notificationType === FireflyNotificationType.BeMentioned) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Mention,
                     post,
@@ -534,7 +602,7 @@ class FireflySocialMedia implements Provider {
         });
     }
 
-    async getMirrorReactors(postId: string, indicator?: PageIndicator) {
+    async getRepostReactors(postId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
                 castHash: postId,
@@ -586,7 +654,7 @@ class FireflySocialMedia implements Provider {
             return {
                 publicationId: cast.hash,
                 type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
-                source: SocialPlatform.Farcaster,
+                source: Source.Farcaster,
                 postId: cast.hash,
                 parentPostId: cast.parent_hash,
                 timestamp: Number(cast.created_at),
@@ -652,6 +720,64 @@ class FireflySocialMedia implements Provider {
             const data = resolveFireflyResponseData(response);
             return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
         });
+    }
+    async reportUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async blockUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+    async unblockUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+    async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/create');
+        const response = await farcasterSessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platform: 'farcaster',
+                platform_id: profileId,
+                post_type: postType,
+                post_id: postId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to bookmark');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/remove');
+        const response = await farcasterSessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                post_ids: [postId],
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to bookmark');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+            post_type: BookmarkType.All,
+            platforms: 'farcaster',
+            limit: 25,
+            cursor: indicator?.id || undefined,
+        });
+        const response = await farcasterSessionHolder.fetch<BookmarkResponse>(url);
+
+        return createPageable([], createIndicator(indicator));
     }
 }
 

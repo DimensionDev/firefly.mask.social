@@ -5,7 +5,7 @@ import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { ALLOWED_IMAGES_MIMES, FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -64,8 +64,8 @@ export function Media({ close }: MediaProps) {
 
     const disabledVideo =
         !!video ||
-        availableSources.includes(SocialPlatform.Farcaster) ||
-        (availableSources.includes(SocialPlatform.Lens) && images.length > 0);
+        availableSources.includes(Source.Farcaster) ||
+        (availableSources.includes(Source.Lens) && images.length > 0);
 
     return (
         <Transition

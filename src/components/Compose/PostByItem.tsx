@@ -7,8 +7,8 @@ import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -18,13 +18,13 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function PostByItem({ source }: PostByItemProps) {
@@ -39,7 +39,7 @@ export function PostByItem({ source }: PostByItemProps) {
     const [{ loading }, loginLens] = useAsyncFn(
         async (profile: Profile) => {
             try {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
+                const session = await createSessionForProfileId(profile.profileId);
 
                 updateLensCurrentProfile(profile, session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
@@ -57,14 +57,14 @@ export function PostByItem({ source }: PostByItemProps) {
         return (
             <div className=" flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
                 <div className=" flex items-center gap-2 text-main">
-                    <SourceIcon size={24} source={source} />
+                    <SocialSourceIcon size={24} source={source} />
                     <span className=" font-bold text-main">{resolveSourceName(source)}</span>
                 </div>
 
                 <ClickableButton
                     className=" font-bold text-blueBottom"
                     onClick={async () => {
-                        if (source === SocialPlatform.Farcaster && images.length > 2) {
+                        if (source === Source.Farcaster && images.length > 2) {
                             enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
                             return;
                         }
@@ -94,7 +94,7 @@ export function PostByItem({ source }: PostByItemProps) {
             <div className=" flex items-center gap-2">
                 <div className="relative">
                     <Avatar src={profile.pfp} size={24} alt={profile.handle} />
-                    <SourceIcon
+                    <SocialSourceIcon
                         className="absolute -bottom-1 -right-1 z-10 rounded-full border border-white dark:border-gray-900"
                         source={profile.source}
                         size={12}
@@ -115,7 +115,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 ) : (
                     <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
                 )
-            ) : currentProfile.source === SocialPlatform.Lens ? (
+            ) : currentProfile.source === Source.Lens ? (
                 <ClickableButton
                     className=" font-bold text-blueBottom disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={loading}
