@@ -6,6 +6,7 @@ import { useCopyToClipboard } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { env } from '@/constants/env.js';
 
 interface ReportCompleteProps {
     id: number | string;
@@ -39,9 +40,10 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
             [
                 '## Description',
                 body as string,
-                '## System Info',
-                `- UserAgent: \`${navigator.userAgent}\``,
-                `- Timestamp: \`${new Date().toISOString()}\``,
+                '## Extra Information',
+                `- Version: ${env.shared.VERSION}`,
+                `- UserAgent: ${navigator.userAgent}`,
+                `- Timestamp: ${new Date().toISOString()}`,
             ].join('\n'),
         );
         return 'https://github.com/DimensionDev/firefly.mask.social/issues/new?' + url.toString();
