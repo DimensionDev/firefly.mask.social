@@ -112,6 +112,9 @@ msgstr "Casts"
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
 
+msgid "Trending Channels"
+msgstr "Trending Channels"
+
 msgid "Debug Console"
 msgstr "Debug Console"
 
@@ -705,9 +708,6 @@ msgstr "Copy"
 
 msgid "Skip for now"
 msgstr "Skip for now"
-
-msgid "x"
-msgstr ""
 
 msgid "Notifications"
 msgstr "Notifications"

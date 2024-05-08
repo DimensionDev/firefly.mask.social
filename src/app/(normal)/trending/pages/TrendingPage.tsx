@@ -1,10 +1,11 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { Suspense } from 'react';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { Loading } from '@/components/Loading.js';
-import { type SocialSourceInURL,SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 interface PageProps {
@@ -18,7 +19,9 @@ export function TrendingChannelPage({ searchParams: { source = SourceInURL.Farca
 
     return (
         <div>
-            <p className="m-4 ml-4 text-lg font-bold leading-snug text-main">Trending Channels</p>
+            <p className="m-4 ml-4 text-lg font-bold leading-snug text-main">
+                <Trans>Trending Channels</Trans>
+            </p>
             <Suspense fallback={<Loading />}>
                 <ChannelList source={currentSource} />
             </Suspense>
