@@ -91,7 +91,7 @@ export default function Page() {
     return (
         <ProfileContext.Provider
             initialState={{
-                source: currentSource,
+                source: currentProfile.source,
                 identity: currentSource === Source.Lens ? currentProfile?.handle : currentProfile?.profileId,
             }}
         >
