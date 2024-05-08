@@ -214,6 +214,9 @@ msgstr "Connected Accounts"
 msgid "Confirm you want to report @{0}?"
 msgstr "Confirm you want to report @{0}?"
 
+msgid "{0} Bookmarks"
+msgstr "{0} Bookmarks"
+
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -231,9 +234,6 @@ msgstr "Failed to detect device accounts."
 
 msgid "Add another post..."
 msgstr "Add another post..."
-
-msgid "{count, plural, one {Bookmark} other {{0}}}"
-msgstr "{count, plural, one {Bookmark} other {{0}}}"
 
 msgid "Audio Cover"
 msgstr "Audio Cover"
@@ -285,6 +285,9 @@ msgstr "Follow System"
 
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
+
+msgid "Your post was deleted."
+msgstr "Your post was deleted."
 
 msgid "URL is required."
 msgstr "URL is required."
@@ -511,6 +514,9 @@ msgstr "Articles"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "{0} Bookmark"
+msgstr "{0} Bookmark"
+
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "Unmuted @{0} on {sourceName}"
 
@@ -573,9 +579,6 @@ msgstr "Mute successfully."
 
 msgid "Show More"
 msgstr "Show More"
-
-msgid "{count, plural, one {# view} other {{0}}}"
-msgstr "{count, plural, one {# view} other {{0}}}"
 
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
@@ -658,6 +661,9 @@ msgstr "Unable to retrieve post details."
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
 
+msgid "{0} View"
+msgstr "{0} View"
+
 msgid "recasted your"
 msgstr "recasted your"
 
@@ -708,6 +714,9 @@ msgstr "Casts + Replies"
 
 msgid "Image"
 msgstr "Image"
+
+msgid "Failed to delete post."
+msgstr "Failed to delete post."
 
 msgid "Muted @{0} on {sourceName}"
 msgstr "Muted @{0} on {sourceName}"
@@ -909,6 +918,9 @@ msgstr "Mirrors"
 
 msgid "Video"
 msgstr "Video"
+
+msgid "{0} Views"
+msgstr "{0} Views"
 
 msgid "Language"
 msgstr "Language"

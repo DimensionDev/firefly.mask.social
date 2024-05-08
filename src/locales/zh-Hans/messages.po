@@ -219,6 +219,9 @@ msgstr "已链接的账号"
 msgid "Confirm you want to report @{0}?"
 msgstr ""
 
+msgid "{0} Bookmarks"
+msgstr ""
+
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -236,9 +239,6 @@ msgstr ""
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
-
-msgid "{count, plural, one {Bookmark} other {{0}}}"
-msgstr ""
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -289,6 +289,9 @@ msgid "Follow System"
 msgstr "跟随系统"
 
 msgid "Failed to mirror."
+msgstr ""
+
+msgid "Your post was deleted."
 msgstr ""
 
 msgid "URL is required."
@@ -516,6 +519,9 @@ msgstr ""
 msgid "Settings"
 msgstr "设置"
 
+msgid "{0} Bookmark"
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}"
 msgstr ""
 
@@ -578,9 +584,6 @@ msgstr ""
 
 msgid "Show More"
 msgstr "显示更多"
-
-msgid "{count, plural, one {# view} other {{0}}}"
-msgstr ""
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
@@ -663,6 +666,9 @@ msgstr "数据获取失败。"
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
 
+msgid "{0} View"
+msgstr ""
+
 msgid "recasted your"
 msgstr "转帖了你的"
 
@@ -713,6 +719,9 @@ msgstr ""
 
 msgid "Image"
 msgstr "图片"
+
+msgid "Failed to delete post."
+msgstr ""
 
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
@@ -914,6 +923,9 @@ msgstr ""
 
 msgid "Video"
 msgstr "视频"
+
+msgid "{0} Views"
+msgstr ""
 
 msgid "Language"
 msgstr "语言"

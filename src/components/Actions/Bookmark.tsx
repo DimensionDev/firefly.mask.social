@@ -1,6 +1,6 @@
 import { BookmarkIcon } from '@heroicons/react/24/outline';
 import { BookmarkIcon as BookmarkActiveIcon } from '@heroicons/react/24/solid';
-import { plural, t } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -20,10 +20,7 @@ interface BookmarkProps {
 export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disabled = false, post }) {
     const { hasBookmarked } = post;
 
-    const tooltip = plural(count, {
-        one: t`Bookmark`,
-        other: t`${humanize(count)} Bookmarks`,
-    });
+    const tooltip = count === 1 ? t`${humanize(count)} Bookmark` : t`${humanize(count)} Bookmarks`;
     const mutation = useToggleBookmark();
 
     return (
