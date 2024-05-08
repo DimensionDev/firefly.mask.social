@@ -112,6 +112,9 @@ msgstr "Casts"
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
 
+msgid "Trending Channels"
+msgstr "Trending Channels"
+
 msgid "Debug Console"
 msgstr "Debug Console"
 
@@ -444,6 +447,9 @@ msgstr "The user declined the request."
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
+
+msgid "Suggested Channels"
+msgstr "Suggested Channels"
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"

@@ -238,10 +238,11 @@ export type ChannelResponse = Response<{
 
 export type ChannelsResponse = Response<Channel[]>;
 
-export type DiscoverChannelsResponse = Response<{
-    channels: Channel[];
-    cursor: number;
-}>;
+export type DiscoverChannelsResponse = Response<
+    Array<{
+        channel: Channel;
+    }>
+>;
 
 export type DiscoverArticlesResponse = Response<{
     cursor: number;

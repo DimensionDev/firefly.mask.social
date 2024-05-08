@@ -23,6 +23,7 @@ export enum PageRoute {
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',
+    ChannelTrending = '/trending',
 }
 
 export enum Source {
