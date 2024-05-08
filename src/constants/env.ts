@@ -54,7 +54,8 @@ const ExternalEnvSchema = z.object({
 export const env = {
     shared: {
         NODE_ENV: process.env.NODE_ENV as NODE_ENV,
-        VERSION: process.env.npm_package_version,
+        VERSION: process.version || process.env.npm_package_version,
+        COMMIT_HASH: process.env.COMMIT_HASH,
     },
     internal: (typeof window === 'undefined' ? InternalEnvSchema.parse(process.env) : {}) as z.infer<
         typeof InternalEnvSchema

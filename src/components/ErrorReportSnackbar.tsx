@@ -42,6 +42,8 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
                 body as string,
                 '## Extra Information',
                 `- Version: ${env.shared.VERSION}`,
+                `- Environment: ${env.shared.NODE_ENV}`,
+                `- Commit Hash: ${env.shared.COMMIT_HASH}`,
                 `- UserAgent: ${navigator.userAgent}`,
                 `- Timestamp: ${new Date().toISOString()}`,
             ].join('\n'),

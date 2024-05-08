@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { createRequire } from 'module';
 import CopyPlugin from 'copy-webpack-plugin';
+import { execSync } from 'child_process';
 
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
@@ -101,6 +102,7 @@ export default {
                     'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? JSON.stringify(''),
                     'process.env.MASK_SENTRY': JSON.stringify('disabled'),
                     'process.env.MASK_MIXPANEL': JSON.stringify('disabled'),
+                    'procsss.env.COMMIT_HASH': JSON.stringify(execSync('git rev-parse --short HEAD').toString().trim()),
                     'process.env.NODE_DEBUG': 'undefined',
                     'process.version': JSON.stringify(process.env.npm_package_version),
                 }),
