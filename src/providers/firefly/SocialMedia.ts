@@ -66,7 +66,7 @@ class FireflySocialMedia implements Provider {
     }
 
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
-        const url = urlcat('https://api-dev.firefly.land', '/v2/farcaster-hub/channel', {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel', {
             channelHandle,
         });
         const response = await fetchJSON<ChannelResponse>(url, {
@@ -74,10 +74,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
 
-        return {
-            ...formatBriefChannelFromFirefly(data.channel),
-            blocked: data.blocked,
-        };
+        return formatBriefChannelFromFirefly(data);
     }
 
     async getChannelsByProfileId(
