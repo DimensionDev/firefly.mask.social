@@ -20,7 +20,12 @@ import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessag
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
-import { FireflySessionConfirmModalRef, LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import {
+    DraggablePopoverRef,
+    FireflySessionConfirmModalRef,
+    LoginModalRef,
+    LogoutModalRef,
+} from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
@@ -77,6 +82,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     onDetected(profiles) {
                         if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
                         onClose?.();
+                        DraggablePopoverRef.close();
                     },
                 });
             } catch (error) {

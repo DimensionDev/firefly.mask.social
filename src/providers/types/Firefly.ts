@@ -225,7 +225,7 @@ export type FarcasterLoginResponse = Response<{
     accountId?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
-    fid: string;
+    fid: string | number;
 }>;
 
 export type MetricsDownloadResponse = Response<{

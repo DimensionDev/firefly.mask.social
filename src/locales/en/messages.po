@@ -916,6 +916,9 @@ msgstr "Confirm you want to unmute @{0}?"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 
+msgid "Failed to restore farcaster profile from Firefly. Please confirm your profile has connected to Firefly."
+msgstr "Failed to restore farcaster profile from Firefly. Please confirm your profile has connected to Firefly."
+
 msgid "Recasted"
 msgstr "Recasted"
 

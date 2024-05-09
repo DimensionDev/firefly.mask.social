@@ -37,6 +37,8 @@ export async function createSessionForProfileId(profileId: string, signal?: Abor
 export async function createSessionForProfileIdFirefly(profileId: string, signal?: AbortSignal) {
     const session = await createSessionForProfileId(profileId);
 
+    // firefly start polling for the signed key request
+    // once key request is signed, we will get the fid
     await FireflySession.fromAndRestore(session, signal);
 
     return session;
