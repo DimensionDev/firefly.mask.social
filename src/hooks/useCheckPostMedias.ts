@@ -11,14 +11,13 @@ export function useCheckPostMedias() {
     const hasVideo = !!video;
     const imageCount = images.length;
     return useCallback(() => {
-        let invalid = false;
         if (availableSources.includes(Source.Farcaster)) {
             if (hasVideo) {
                 enqueueErrorMessage(t`Failed to upload. Video is not supported yet`, {
                     known: true,
                     description: t`Farcaster doesn't support video yet.`,
                 });
-                invalid = true;
+                return true;
             }
             const maxImageCount = getCurrentPostImageLimits(availableSources);
             if (imageCount > maxImageCount) {
@@ -26,9 +25,9 @@ export function useCheckPostMedias() {
                     known: true,
                     description: t`Farcaster doesn't support video yet.`,
                 });
-                invalid = true;
+                return true;
             }
         }
-        return invalid;
+        return false;
     }, [availableSources, hasVideo, imageCount]);
 }
