@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -20,7 +20,6 @@ interface BookmarkProps {
 export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disabled = false, post }) {
     const { hasBookmarked } = post;
 
-    const tooltip = count === 1 ? t`${humanize(count)} Bookmark` : t`${humanize(count)} Bookmarks`;
     const mutation = useToggleBookmark();
 
     return (
@@ -36,7 +35,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disab
                 className="rounded-full p-1.5 hover:bg-warn/[.20] hover:text-warn"
                 aria-label="Bookmark"
             >
-                <Tooltip disabled={disabled} placement="top" content={tooltip}>
+                <Tooltip disabled={disabled} placement="top" content={hasBookmarked ? t`Remove bookmark` : t`Bookmark`}>
                     {hasBookmarked ? (
                         <BookmarkActiveIcon width={16} height={16} className="text-warn" />
                     ) : (
