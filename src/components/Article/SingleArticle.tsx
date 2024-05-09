@@ -131,7 +131,9 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     </div>
                     <ArticleMarkup
                         disableImage
-                        className="markup linkify line-clamp-5 break-words text-sm leading-[18px] text-second"
+                        className={classNames('markup linkify break-words text-sm leading-[18px] text-second', {
+                            'line-clamp-5': !IS_APPLE || !IS_SAFARI,
+                        })}
                     >
                         {content}
                     </ArticleMarkup>

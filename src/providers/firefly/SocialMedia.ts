@@ -66,7 +66,7 @@ class FireflySocialMedia implements Provider {
     }
 
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel', {
+        const url = urlcat('https://api-dev.firefly.land', '/v2/farcaster-hub/channel', {
             channelHandle,
         });
         const response = await fetchJSON<ChannelResponse>(url, {
@@ -105,7 +105,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
         const channels = data.map((x) => x.channel).map(formatChannelFromFirefly);
-        return createPageable(channels, createIndicator(indicator));
+        return createPageable(channels, createIndicator(indicator), undefined);
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -374,7 +374,11 @@ class FireflySocialMedia implements Provider {
         const { list, next_cursor } = resolveFireflyResponseData(response);
         const data = list.map(formatFarcasterProfileFromFirefly);
 
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+        );
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -389,7 +393,11 @@ class FireflySocialMedia implements Provider {
         const { list, next_cursor } = resolveFireflyResponseData(response);
         const data = list.map(formatFarcasterProfileFromFirefly);
 
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+        );
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -598,7 +606,11 @@ class FireflySocialMedia implements Provider {
             const { items, nextCursor } = resolveFireflyResponseData(response);
 
             const data = items.map(formatFarcasterProfileFromFirefly);
-            return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                nextCursor ? createNextIndicator(indicator, nextCursor) : undefined,
+            );
         });
     }
 
@@ -616,7 +628,11 @@ class FireflySocialMedia implements Provider {
             const { items, nextCursor } = resolveFireflyResponseData(response);
 
             const data = items.map(formatFarcasterProfileFromFirefly);
-            return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                nextCursor ? createNextIndicator(indicator, nextCursor) : undefined,
+            );
         });
     }
 
@@ -673,7 +689,7 @@ class FireflySocialMedia implements Provider {
                 },
             } satisfies Post;
         });
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, ''));
+        return createPageable(data, createIndicator(indicator), undefined);
     }
 
     async getUploadMediaToken(token: string) {

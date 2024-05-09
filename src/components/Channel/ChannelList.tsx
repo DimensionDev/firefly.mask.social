@@ -1,4 +1,4 @@
-import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
@@ -7,8 +7,8 @@ import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-const getChannelItemContent = (index: number, channel: Channel) => {
-    return <ChannelInList key={channel.id} channel={channel} />;
+const getChannelItemContent = (index: number, channel: Channel, listKey: string) => {
+    return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;
 };
 
 interface ChannelListProps {
@@ -17,17 +17,13 @@ interface ChannelListProps {
 
 export function ChannelList({ source }: ChannelListProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['channels', source, 'channels-of'],
+        queryKey: ['channels', source, 'trending'],
         queryFn: async ({ pageParam }) => {
-            // one page only
-            if (pageParam === '') {
-                const provider = resolveSocialMediaProvider(source);
-                return provider.discoverChannels(createIndicator(undefined, pageParam));
-            }
-            return createPageable<Channel>(EMPTY_LIST, createIndicator());
+            const provider = resolveSocialMediaProvider(source);
+            return provider.discoverChannels(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
-        getNextPageParam: () => null,
+        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => data.pages.flatMap((x) => x.data) || EMPTY_LIST,
     });
 
@@ -37,9 +33,10 @@ export function ChannelList({ source }: ChannelListProps) {
             queryResult={queryResult}
             VirtualListProps={{
                 useWindowScroll: false,
-                listKey: `${ScrollListKey.Channel}`,
+                listKey: `${ScrollListKey.Channel}:trending`,
                 computeItemKey: (index, channel) => `${channel.id}-${index}`,
-                itemContent: getChannelItemContent,
+                itemContent: (index, channel) =>
+                    getChannelItemContent(index, channel, `${ScrollListKey.Channel}:trending`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

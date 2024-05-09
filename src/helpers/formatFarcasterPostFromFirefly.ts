@@ -1,7 +1,7 @@
 import { compact, first, last, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { URL_REGEX } from '@/constants/regexp.js';
+import { EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
@@ -20,7 +20,8 @@ const fixUrls = (urls: Array<string | undefined>) => {
 };
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const matchedUrls = fixUrls([...cast.text.matchAll(URL_REGEX)].map((x) => x[0]));
+    const email_regex = new RegExp(EMAIL_REGEX, 'g');
+    const matchedUrls = fixUrls([...cast.text.replaceAll(email_regex, '').matchAll(URL_REGEX)].map((x) => x[0]));
     const oembedUrls = fixUrls([...matchedUrls, ...cast.embeds.map((x) => x.url)]);
     const oembedUrl = last(oembedUrls);
     const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
