@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -16,7 +16,6 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
-import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { PreviewImageModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -61,7 +60,13 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         queryClient.setQueryData(['article-detail', article.id], article);
     });
 
-    const Icon = resolveArticlePlatformIcon(article.platform);
+    const content = useMemo(() => {
+        if (IS_SAFARI && IS_APPLE) {
+            const results = article.content.split('\n');
+            return `${results.slice(0, 5).join('')}${results.length > 5 ? '...' : ''}`;
+        }
+        return article.content;
+    }, [article.content]);
 
     return (
         <motion.article
@@ -126,14 +131,9 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     </div>
                     <ArticleMarkup
                         disableImage
-                        className={classNames(
-                            'markup linkify line-clamp-5 break-words text-sm leading-[18px] text-second',
-                            {
-                                'max-h-[8rem]': !!IS_SAFARI && !!IS_APPLE,
-                            },
-                        )}
+                        className="markup linkify line-clamp-5 break-words text-sm leading-[18px] text-second"
                     >
-                        {article.content}
+                        {content}
                     </ArticleMarkup>
                 </div>
             </div>
