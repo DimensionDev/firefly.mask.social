@@ -4,8 +4,8 @@ import { Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import type { Article } from '@/providers/types/Article.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
@@ -16,13 +16,12 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const BookmarkButton = forwardRef<HTMLButtonElement, Props>(function BookmarkButton(
-    { busy, article, className, onConfirm, onToggleBookmark, ...rest }: Props,
+    { busy, article, onConfirm, onToggleBookmark, ...rest }: Props,
     ref,
 ) {
     const { hasBookmarked } = article;
     return (
-        <ClickableButton
-            className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
+        <MenuButton
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
@@ -40,6 +39,6 @@ export const BookmarkButton = forwardRef<HTMLButtonElement, Props>(function Book
             <span className="text-[17px] font-bold leading-[22px] text-main">
                 {hasBookmarked ? <Trans>Unbookmark</Trans> : <Trans>Bookmark</Trans>}
             </span>
-        </ClickableButton>
+        </MenuButton>
     );
 });

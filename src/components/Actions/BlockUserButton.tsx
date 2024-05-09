@@ -3,8 +3,8 @@ import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -16,13 +16,12 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function BlockUserButton(
-    { busy, profile, className, onConfirm, onToggleBlock, ...rest }: Props,
+    { busy, profile, onConfirm, onToggleBlock, ...rest }: Props,
     ref,
 ) {
     const muted = profile.viewerContext?.blocking;
     return (
-        <ClickableButton
-            className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
+        <MenuButton
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
@@ -52,6 +51,6 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
             <span className="text-[17px] font-bold leading-[22px] text-main">
                 {muted ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
             </span>
-        </ClickableButton>
+        </MenuButton>
     );
 });

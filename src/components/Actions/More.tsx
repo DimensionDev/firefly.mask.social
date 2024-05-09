@@ -11,9 +11,9 @@ import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -96,7 +96,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
+                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-[17px] text-main"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -105,8 +105,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     {isMyPost ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <ClickableButton
-                                    className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                <MenuButton
                                     onClick={async () => {
                                         close();
                                         if (id) deletePost(id);
@@ -120,15 +119,14 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     <span className="text-[17px] font-bold leading-[22px] text-main">
                                         <Trans>Delete</Trans>
                                     </span>
-                                </ClickableButton>
+                                </MenuButton>
                             )}
                         </Menu.Item>
                     ) : (
                         <>
                             <Menu.Item>
                                 {({ close }) => (
-                                    <ClickableButton
-                                        className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                    <MenuButton
                                         onClick={async () => {
                                             close();
                                             await handleToggle();
@@ -151,7 +149,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             />{' '}
                                             @{author.handle}
                                         </span>
-                                    </ClickableButton>
+                                    </MenuButton>
                                 )}
                             </Menu.Item>
                             {source === Source.Lens ? (
@@ -194,7 +192,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         <Menu.Item
                             as={Link}
                             href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
-                            className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                            className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <ChartBarIcon width={24} height={24} />

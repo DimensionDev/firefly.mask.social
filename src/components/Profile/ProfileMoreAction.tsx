@@ -18,6 +18,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
 import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
     profile: Profile;
@@ -58,7 +59,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col space-y-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
+                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-[17px] text-main"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -66,8 +67,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                 >
                     <Menu.Item>
                         {({ close }) => (
-                            <ClickableButton
-                                className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                            <MenuButton
                                 onClick={async () => {
                                     close();
                                     copyToClipboard(urlcat(location.origin, getProfileUrl(profile)));
@@ -78,7 +78,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                                 <span className="text-[17px] font-bold leading-[22px] text-main">
                                     <Trans>Copy Link</Trans>
                                 </span>
-                            </ClickableButton>
+                            </MenuButton>
                         )}
                     </Menu.Item>
 
