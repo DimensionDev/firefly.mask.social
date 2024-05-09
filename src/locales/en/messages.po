@@ -73,6 +73,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "Searching channel"
 msgstr "Searching channel"
 
+msgid "Failed to upload. Video is not supported yet"
+msgstr "Failed to upload. Video is not supported yet"
+
 msgid "Act"
 msgstr "Act"
 
@@ -214,9 +217,6 @@ msgstr "Connected Accounts"
 msgid "Confirm you want to report @{0}?"
 msgstr "Confirm you want to report @{0}?"
 
-msgid "{0} Bookmarks"
-msgstr "{0} Bookmarks"
-
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -345,6 +345,9 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
+
+msgid "Failed to upload. More than {maxImageCount} images"
+msgstr "Failed to upload. More than {maxImageCount} images"
 
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
@@ -478,6 +481,9 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
+msgid "Remove bookmark"
+msgstr "Remove bookmark"
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -516,9 +522,6 @@ msgstr "Articles"
 
 msgid "Settings"
 msgstr "Settings"
-
-msgid "{0} Bookmark"
-msgstr "{0} Bookmark"
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "Unmuted @{0} on {sourceName}"
@@ -762,6 +765,9 @@ msgstr "You've hit rock bottom."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
+
+msgid "Farcaster doesn't support video yet."
+msgstr "Farcaster doesn't support video yet."
 
 msgid "Failed to create firefly session."
 msgstr "Failed to create firefly session."

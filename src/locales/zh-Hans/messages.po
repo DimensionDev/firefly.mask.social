@@ -78,6 +78,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "Searching channel"
 msgstr ""
 
+msgid "Failed to upload. Video is not supported yet"
+msgstr ""
+
 msgid "Act"
 msgstr "收藏"
 
@@ -219,9 +222,6 @@ msgstr "已链接的账号"
 msgid "Confirm you want to report @{0}?"
 msgstr ""
 
-msgid "{0} Bookmarks"
-msgstr ""
-
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -349,6 +349,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
@@ -483,6 +486,9 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
+msgid "Remove bookmark"
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -521,9 +527,6 @@ msgstr ""
 
 msgid "Settings"
 msgstr "设置"
-
-msgid "{0} Bookmark"
-msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr ""
@@ -767,6 +770,9 @@ msgstr "你已经滑到底部啦～"
 
 msgid "Failed to mirror post."
 msgstr "转发失败"
+
+msgid "Farcaster doesn't support video yet."
+msgstr ""
 
 msgid "Failed to create firefly session."
 msgstr ""

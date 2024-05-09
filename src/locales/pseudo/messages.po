@@ -73,6 +73,9 @@ msgstr ""
 msgid "Searching channel"
 msgstr ""
 
+msgid "Failed to upload. Video is not supported yet"
+msgstr ""
+
 msgid "Act"
 msgstr ""
 
@@ -214,9 +217,6 @@ msgstr ""
 msgid "Confirm you want to report @{0}?"
 msgstr ""
 
-msgid "{0} Bookmarks"
-msgstr ""
-
 msgid "Select Account"
 msgstr ""
 
@@ -344,6 +344,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
@@ -478,6 +481,9 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
+msgid "Remove bookmark"
+msgstr ""
+
 msgid "Lens"
 msgstr ""
 
@@ -515,9 +521,6 @@ msgid "Articles"
 msgstr ""
 
 msgid "Settings"
-msgstr ""
-
-msgid "{0} Bookmark"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}"
@@ -761,6 +764,9 @@ msgid "You've hit rock bottom."
 msgstr ""
 
 msgid "Failed to mirror post."
+msgstr ""
+
+msgid "Farcaster doesn't support video yet."
 msgstr ""
 
 msgid "Failed to create firefly session."
