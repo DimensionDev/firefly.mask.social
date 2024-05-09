@@ -6,6 +6,7 @@ import { immer } from 'zustand/middleware/immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -20,6 +21,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { resolveFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
     profiles: Profile[];
@@ -190,9 +192,16 @@ const useFireflyStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined') return;
 
-            const session = state?.currentProfileSession;
+            const session = state?.currentProfileSession || (await resolveFireflySessionAll());
+
             if (session) {
+                const profile = createDummyProfile(Source.Farcaster);
+                state?.updateCurrentProfile(profile, session);
+                state?.updateProfiles([profile]);
                 fireflySessionHolder.resumeSession(session as FireflySession);
+            } else {
+                console.warn('[firefly store] clean the local store because no session found from the server.');
+                state?.clear();
             }
         },
     },
