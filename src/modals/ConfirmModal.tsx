@@ -15,6 +15,7 @@ export interface ConfirmModalOpenProps {
     cancelButtonText?: string;
     enableConfirmButton?: boolean;
     enableCancelButton?: boolean;
+    enableCloseButton?: boolean;
     variant?: 'normal' | 'danger';
 }
 
@@ -28,6 +29,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
         const [cancelButtonText, setCancelButtonText] = useState<string>();
         const [enableConfirmButton, setEnableConfirmButton] = useState<boolean>(true);
         const [enableCancelButton, setEnableCancelButton] = useState<boolean>(false);
+        const [enableCloseButton, setEnableCloseButton] = useState<boolean>(true);
         const [variant, setVariant] = useState<ConfirmModalOpenProps['variant']>('danger');
 
         const [open, dispatch] = useSingletonModal(ref, {
@@ -37,6 +39,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                 setContent(props.content);
                 setEnableConfirmButton(props.enableConfirmButton ?? true);
                 setEnableCancelButton(props.enableCancelButton ?? false);
+                setEnableCloseButton(props.enableCloseButton ?? true);
                 setConfirmButtonText(props.confirmButtonText);
                 setCancelButtonText(props.cancelButtonText);
             },
@@ -46,7 +49,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
             <Modal open={open} onClose={() => dispatch?.close(false)}>
                 <div className="relative w-[355px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                     <div className="inline-flex h-[56px] w-[355px] items-center justify-center gap-2 rounded-t-[12px] p-4">
-                        <CloseButton onClick={() => dispatch?.close(false)} />
+                        {enableCloseButton ? <CloseButton onClick={() => dispatch?.close(false)} /> : null}
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                             {title ? title : <Trans>Confirmation</Trans>}
                         </div>
@@ -59,7 +62,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                             <div className=" flex flex-row gap-3">
                                 {enableCancelButton ? (
                                     <ClickableButton
-                                        className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-[11px] font-bold text-lightBottom"
+                                        className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-2 font-bold text-lightBottom"
                                         onClick={() => dispatch?.close(false)}
                                     >
                                         {cancelButtonText || t`Cancel`}
@@ -68,7 +71,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                 {enableConfirmButton ? (
                                     <ClickableButton
                                         className={classNames(
-                                            ' flex flex-1 items-center justify-center rounded-full  py-[11px] font-bold text-lightBottom',
+                                            ' flex flex-1 items-center justify-center rounded-full  py-2 font-bold text-lightBottom',
                                             variant === 'normal' ? 'bg-main' : 'bg-commonDanger',
                                         )}
                                         onClick={() => dispatch?.close(true)}
