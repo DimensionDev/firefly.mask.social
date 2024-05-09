@@ -59,7 +59,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
     return isMedium ? (
         <Tippy
             maxWidth={400}
-            className="channel-card"
+            className="tippy-card"
             placement="bottom"
             duration={200}
             arrow={false}

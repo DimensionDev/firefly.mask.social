@@ -12,7 +12,7 @@ export function getPostsSelector(source: SocialSource) {
             uniqBy(
                 data.pages.flatMap((x) => x?.data || EMPTY_LIST),
                 (post) => {
-                    if (!post.mirrors?.length) return `${post.postId}:mirror`;
+                    if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
                     return post.postId;
                 },
             ) || EMPTY_LIST;

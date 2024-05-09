@@ -11,14 +11,21 @@ interface ModalProps {
     onClose: () => void;
     children?: React.ReactNode;
     className?: string;
+    disableScrollLock?: boolean;
 }
 
-export function Modal({ backdrop = true, open, onClose, children, className }: ModalProps) {
+export function Modal({ backdrop = true, open, onClose, children, className, disableScrollLock = true }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     return (
         <Transition appear show={open} as={Fragment}>
-            <Dialog initialFocus={ref} as="div" className="relative z-[100]" onClose={onClose} disableScrollLock>
+            <Dialog
+                initialFocus={ref}
+                as="div"
+                className="relative z-[100]"
+                onClose={onClose}
+                disableScrollLock={disableScrollLock}
+            >
                 <Dialog.Panel className="fixed inset-0 overflow-y-auto">
                     <div
                         className={classNames(
