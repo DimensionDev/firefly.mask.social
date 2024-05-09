@@ -2,7 +2,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'notistack';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ErrorReportSnackbar } from '@/components/ErrorReportSnackbar.js';
+import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
 
@@ -41,12 +41,14 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Option
     });
 }
 
-interface ErrorOptions extends OptionsObject {
+interface ErrorOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'known'> {
     error?: unknown;
+    /** If you don't want to display error stack */
+    description?: string;
 }
 
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
-    const detailedMessage = options?.error ? getDetailedErrorMessage(options.error) : '';
+    const detail = (options?.error ? getDetailedErrorMessage(options.error) : '') || options?.description || '';
 
     SnackbarRef.open({
         message,
@@ -55,7 +57,7 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
             variant: 'error',
             ...options,
             content: (key: SnackbarKey, message?: SnackbarMessage) => (
-                <ErrorReportSnackbar id={key} message={message} detail={detailedMessage} />
+                <ErrorReportSnackbar id={key} message={message} detail={detail} known={options?.known} />
             ),
         },
     });
