@@ -215,7 +215,7 @@ export function LoginFarcaster() {
                         <span className=" flex flex-1 items-center">
                             {label}
                             {isFreeOfTransactionFee ? (
-                                <span className=" ml-2 rounded-md border border-lightBottom px-1 text-xs font-bold text-lightBottom">
+                                <span className=" ml-2 rounded-md border border-main px-1 text-xs font-bold text-main">
                                     {t`FREE`}
                                 </span>
                             ) : null}
