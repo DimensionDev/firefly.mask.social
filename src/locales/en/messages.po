@@ -478,6 +478,9 @@ msgstr "Mute"
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
 
+msgid "Failed to recast."
+msgstr "Failed to recast."
+
 msgid "Followings"
 msgstr "Followings"
 
@@ -807,6 +810,9 @@ msgstr "{0} and others"
 
 msgid "Failed to unmute @{0} on {sourceName}"
 msgstr "Failed to unmute @{0} on {sourceName}"
+
+msgid "Failed to retweet."
+msgstr "Failed to retweet."
 
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."

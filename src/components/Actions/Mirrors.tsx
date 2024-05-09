@@ -76,16 +76,16 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
         const mirror = async () => {
             switch (source) {
-                case Source.Lens: {
-                    const result = await LensSocialMediaProvider.mirrorPost(postId);
-                    enqueueSuccessMessage(mirrored ? t`Cancel mirror successfully` : t`Mirrored`);
-                    return result;
-                }
                 case Source.Farcaster: {
                     const result = await (mirrored
                         ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                         : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
                     enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
+                    return result;
+                }
+                case Source.Lens: {
+                    const result = await LensSocialMediaProvider.mirrorPost(postId);
+                    enqueueSuccessMessage(mirrored ? t`Cancel mirror successfully` : t`Mirrored`);
                     return result;
                 }
                 case Source.Twitter:
@@ -103,9 +103,26 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
         try {
             await mirror();
         } catch (error) {
-            enqueueErrorMessage(t`Failed to mirror.`, {
-                error,
-            });
+            switch (source) {
+                case Source.Farcaster:
+                    enqueueErrorMessage(t`Failed to recast.`, {
+                        error,
+                    });
+                    break;
+                case Source.Lens:
+                    enqueueErrorMessage(t`Failed to mirror.`, {
+                        error,
+                    });
+                    break;
+                case Source.Twitter:
+                    enqueueErrorMessage(t`Failed to retweet.`, {
+                        error,
+                    });
+                    break;
+                default:
+                    safeUnreachable(source);
+                    break;
+            }
             throw error;
         }
     }, [postId, source, mirrored, queryClient, post.author.profileId]);
