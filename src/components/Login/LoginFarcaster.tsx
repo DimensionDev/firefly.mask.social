@@ -33,7 +33,10 @@ import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/crea
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
-async function login(createSession: () => Promise<FarcasterSession>, signal?: AbortSignal) {
+async function login(
+    createSession: () => Promise<FarcasterSession>,
+    options?: { skipSyncSessions?: boolean; signal?: AbortSignal },
+) {
     try {
         const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
@@ -43,17 +46,21 @@ async function login(createSession: () => Promise<FarcasterSession>, signal?: Ab
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
 
         // restore profile exclude farcaster
-        await FireflySessionConfirmModalRef.openAndWaitForClose({
-            source: Source.Farcaster,
-            sessions: await syncSessionFromFirefly(signal),
-            onDetected(profiles) {
-                if (!profiles.length)
-                    enqueueInfoMessage(t`No device accounts detected.`, {
-                        environment: NODE_ENV.Development,
-                    });
-                LoginModalRef.close();
-            },
-        });
+        if (!options?.skipSyncSessions) {
+            await FireflySessionConfirmModalRef.openAndWaitForClose({
+                source: Source.Farcaster,
+                sessions: await syncSessionFromFirefly(options?.signal),
+                onDetected(profiles) {
+                    if (!profiles.length)
+                        enqueueInfoMessage(t`No device accounts detected.`, {
+                            environment: NODE_ENV.Development,
+                        });
+                    LoginModalRef.close();
+                },
+            });
+        } else {
+            LoginModalRef.close();
+        }
     } catch (error) {
         // skip if the error is abort error
         if (isAbortedError(error)) return;
@@ -129,7 +136,7 @@ export function LoginFarcaster() {
                         },
                         controllerRef.current?.signal,
                     ),
-                controllerRef.current?.signal,
+                { signal: controllerRef.current?.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -184,7 +191,7 @@ export function LoginFarcaster() {
 
                     return restoredSession as FarcasterSession;
                 },
-                controllerRef.current?.signal,
+                { skipSyncSessions: true, signal: controllerRef.current?.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -202,7 +209,7 @@ export function LoginFarcaster() {
                     const client = await getWalletClientRequired(config);
                     return createSessionByCustodyWallet(client);
                 },
-                controllerRef.current?.signal,
+                { signal: controllerRef.current?.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
