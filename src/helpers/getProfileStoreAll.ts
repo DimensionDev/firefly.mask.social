@@ -11,25 +11,25 @@ export function getProfileStoreAll() {
             currentProfile: farcasterState.currentProfile,
             currentProfileSession: farcasterState.currentProfileSession,
             profiles: farcasterState.profiles,
-            clearCurrentProfile: farcasterState.clearCurrentProfile,
             refreshProfiles: farcasterState.refreshProfiles,
             refreshCurrentProfile: farcasterState.refreshCurrentProfile,
+            clear: farcasterState.clear,
         },
         [Source.Lens]: {
             currentProfile: lensState.currentProfile,
             currentProfileSession: lensState.currentProfileSession,
             profiles: lensState.profiles,
-            clearCurrentProfile: lensState.clearCurrentProfile,
             refreshProfiles: lensState.refreshProfiles,
             refreshCurrentProfile: lensState.refreshCurrentProfile,
+            clear: lensState.clear,
         },
         [Source.Twitter]: {
             currentProfile: twitterState.currentProfile,
             currentProfileSession: twitterState.currentProfileSession,
             profiles: twitterState.profiles,
-            clearCurrentProfile: twitterState.clearCurrentProfile,
             refreshProfiles: twitterState.refreshProfiles,
             refreshCurrentProfile: twitterState.refreshCurrentProfile,
+            clear: twitterState.clear,
         },
     };
 }

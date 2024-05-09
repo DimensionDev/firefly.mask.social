@@ -16,9 +16,9 @@ export function useProfileStoreAll() {
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
     const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
 
-    const clearFarcasterCurrentProfile = useFarcasterStateStore.use.clearCurrentProfile();
-    const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
-    const clearTwitterCurrentProfile = useTwitterStateStore.use.clearCurrentProfile();
+    const clearFarcaster = useFarcasterStateStore.use.clear();
+    const clearLens = useLensStateStore.use.clear();
+    const clearTwitter = useTwitterStateStore.use.clear();
 
     const refreshLensProfiles = useLensStateStore.use.refreshProfiles();
     const refreshFarcasterProfiles = useFarcasterStateStore.use.refreshProfiles();
@@ -34,32 +34,32 @@ export function useProfileStoreAll() {
                 currentProfile: currentFarcasterProfile,
                 currentProfileSession: currentFarcasterProfileSession,
                 profiles: farcasterProfiles,
-                clearCurrentProfile: clearFarcasterCurrentProfile,
                 refreshProfiles: refreshFarcasterProfiles,
                 refreshCurrentProfile: refreshFarcasterProfile,
+                clear: clearFarcaster,
             },
             [Source.Lens]: {
                 currentProfile: currentLensProfile,
                 currentProfileSession: currentLensProfileSession,
                 profiles: lensProfiles,
-                clearCurrentProfile: clearLensCurrentProfile,
                 refreshProfiles: refreshLensProfiles,
                 refreshCurrentProfile: refreshLensProfile,
+                clear: clearLens,
             },
             [Source.Twitter]: {
                 currentProfile: currentTwitterProfile,
                 currentProfileSession: currentTwitterProfileSession,
                 profiles: twitterProfiles,
-                clearCurrentProfile: clearTwitterCurrentProfile,
                 refreshProfiles: refreshTwitterProfiles,
                 refreshCurrentProfile: refreshTwitterProfile,
+                clear: clearTwitter,
             },
         };
         return store as Record<SocialSource, (typeof store)[SocialSource]>;
     }, [
-        clearFarcasterCurrentProfile,
-        clearLensCurrentProfile,
-        clearTwitterCurrentProfile,
+        clearFarcaster,
+        clearLens,
+        clearTwitter,
         currentFarcasterProfile,
         currentFarcasterProfileSession,
         currentLensProfile,
