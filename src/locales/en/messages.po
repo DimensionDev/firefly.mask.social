@@ -19,6 +19,9 @@ msgstr "Login required to post on {sourceName}."
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
+msgid "Muted"
+msgstr "Muted"
+
 msgid "Quote Post"
 msgstr "Quote Post"
 
@@ -117,9 +120,6 @@ msgstr "Casts"
 
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
-
-msgid "Mute {0}"
-msgstr "Mute {0}"
 
 msgid "Trending Channels"
 msgstr "Trending Channels"
@@ -321,6 +321,9 @@ msgstr "Hashtag"
 
 msgid "Frame"
 msgstr "Frame"
+
+msgid "Unmuting"
+msgstr "Unmuting"
 
 msgid "Search Filter"
 msgstr "Search Filter"
@@ -903,6 +906,9 @@ msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
+
+msgid "Confirm you want to unmute @{0}?"
+msgstr "Confirm you want to unmute @{0}?"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"

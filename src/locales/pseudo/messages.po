@@ -19,6 +19,9 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr ""
 
+msgid "Muted"
+msgstr ""
+
 msgid "Quote Post"
 msgstr ""
 
@@ -116,9 +119,6 @@ msgid "Casts"
 msgstr ""
 
 msgid "Transaction button is not available yet."
-msgstr ""
-
-msgid "Mute {0}"
 msgstr ""
 
 msgid "Trending Channels"
@@ -320,6 +320,9 @@ msgid "Hashtag"
 msgstr ""
 
 msgid "Frame"
+msgstr ""
+
+msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
@@ -902,6 +905,9 @@ msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed 
 msgstr ""
 
 msgid "Log in to Farcaster account"
+msgstr ""
+
+msgid "Confirm you want to unmute @{0}?"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
