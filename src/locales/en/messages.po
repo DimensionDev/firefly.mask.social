@@ -337,6 +337,9 @@ msgstr "Unmute /{0}"
 msgid "Invalid compose type: {type}."
 msgstr "Invalid compose type: {type}."
 
+msgid "View Source"
+msgstr "View Source"
+
 msgid "and"
 msgstr "and"
 
