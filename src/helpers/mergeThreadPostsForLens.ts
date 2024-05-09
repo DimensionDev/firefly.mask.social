@@ -18,8 +18,10 @@ export function mergeThreadPostsForLens(posts: Post[]) {
     });
 
     return uniqBy(filtered, (x) => {
+        if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
         if (x.type !== 'Comment' || !x.root) return x.publicationId;
         if (x.type === 'Comment' && x.firstComment?.postId !== x.postId) return x.publicationId;
+
         return x.root.publicationId;
     }).map((post) => {
         if (

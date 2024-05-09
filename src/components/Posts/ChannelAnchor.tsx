@@ -45,7 +45,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
                     appendTo={() => document.body}
                     offset={[100, 0]}
                     maxWidth={400}
-                    className="channel-card"
+                    className="tippy-card"
                     placement="bottom-end"
                     duration={200}
                     arrow={false}

@@ -60,7 +60,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                         {profile.ens.length ? (
                             <Tippy
                                 maxWidth={304}
-                                className="ens-card"
+                                className="tippy-card"
                                 placement="bottom"
                                 duration={200}
                                 arrow={false}

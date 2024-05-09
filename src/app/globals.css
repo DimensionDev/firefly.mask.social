@@ -325,11 +325,7 @@ body {
     }
 }
 
-.channel-card {
-    background: none !important;
-}
-
-.ens-card {
+.tippy-card {
     background: none !important;
 }
 

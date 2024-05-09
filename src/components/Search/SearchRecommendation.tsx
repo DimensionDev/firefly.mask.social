@@ -57,7 +57,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             return {
                 // Only the first 5 results are displayed
                 indicator: createIndicator(),
-                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 4) : [])),
+                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 3) : [])),
             };
         },
         enabled: !!debouncedKeyword,
