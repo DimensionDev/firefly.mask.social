@@ -43,7 +43,7 @@ export function SourceTabs() {
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
-            <nav className="portable-tabs -mb-px flex space-x-4" aria-label="Tabs">
+            <nav className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
                 {SORTED_HOME_SOURCES.filter((x) => {
                     if (x !== Source.Article) return true;
                     if (pathname === PageRoute.Home || (pathname === PageRoute.Following && !!fireflySession))

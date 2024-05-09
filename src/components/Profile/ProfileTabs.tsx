@@ -66,7 +66,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
     return (
-        <div className="scrollableTabs flex gap-2 px-5">
+        <div className="scrollable-tab flex gap-2 px-5">
             {profiles.map((profile, index) => {
                 const colors = resolveProfileTabColor(profile.source);
 
