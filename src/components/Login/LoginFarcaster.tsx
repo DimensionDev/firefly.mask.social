@@ -12,7 +12,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { FarcasterSignType } from '@/constants/enum.js';
+import { FarcasterSignType, NODE_ENV } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -43,7 +43,10 @@ async function login(createSession: () => Promise<FarcasterSession>, signal?: Ab
         await FireflySessionConfirmModalRef.openAndWaitForClose({
             sessions: await syncSessionFromFirefly(signal),
             onDetected(profiles) {
-                if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
+                if (!profiles.length)
+                    enqueueInfoMessage(t`No device accounts detected.`, {
+                        environment: NODE_ENV.Development,
+                    });
                 LoginModalRef.close();
             },
         });

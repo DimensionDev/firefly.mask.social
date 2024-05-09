@@ -11,13 +11,12 @@ import { env } from '@/constants/env.js';
 export interface ErrorReportSnackbarProps {
     id: number | string;
     detail?: string | React.ReactNode;
-    /** Will hide report button for known error */
-    known?: boolean;
+    noReport?: boolean;
     message: SnackbarMessage;
 }
 
 export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackbarProps>(function ErrorReportSnackbar(
-    { id, detail, known, message },
+    { id, detail, noReport, message },
     ref,
 ) {
     const { closeSnackbar } = useSnackbar();
@@ -110,7 +109,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
                                 )}
                                 {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
                             </ClickableButton>
-                            {known ? null : (
+                            {noReport ? null : (
                                 <a
                                     className="ml-1 inline-flex cursor-pointer items-center text-white underline"
                                     href={githubReportLink}

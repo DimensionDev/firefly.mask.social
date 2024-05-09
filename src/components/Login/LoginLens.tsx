@@ -13,6 +13,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { NODE_ENV } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -69,7 +70,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     await FireflySessionConfirmModalRef.openAndWaitForClose({
                         sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
                         onDetected(profiles) {
-                            if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
+                            if (!profiles.length)
+                                enqueueInfoMessage(t`No device accounts detected.`, {
+                                    environment: NODE_ENV.Development,
+                                });
                             LoginModalRef.close();
                         },
                     });

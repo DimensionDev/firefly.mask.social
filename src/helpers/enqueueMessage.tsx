@@ -3,8 +3,27 @@ import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'noti
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
+import type { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
+
+interface MessageOptions extends OptionsObject {
+    version?: string;
+    environment?: NODE_ENV;
+}
+
+interface ErrorOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport'> {
+    error?: unknown;
+    /** If you don't want to display error stack */
+    description?: string;
+}
+
+interface ErrorsOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport'> {
+    errors?: unknown[];
+    /** If you don't want to display error stack */
+    description?: string;
+}
 
 function snackbarAction(key: SnackbarKey) {
     return (
@@ -19,7 +38,24 @@ function snackbarAction(key: SnackbarKey) {
     );
 }
 
-export function enqueueInfoMessage(message: SnackbarMessage, options?: OptionsObject) {
+function versionFilter(options?: MessageOptions) {
+    return options?.version && options.version === env.shared.VERSION;
+}
+
+function environmentFilter(options?: MessageOptions) {
+    return options?.environment && options.environment === env.shared.NODE_ENV;
+}
+
+/**
+ * Filters for messages that should be displayed in the current environment.
+ * A filter returns true means the message should be displayed.
+ * A filter returns false means the message should be ignored.
+ */
+const MESSAGE_FILTERS = [versionFilter, environmentFilter];
+
+export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
     SnackbarRef.open({
         message,
         options: {
@@ -30,7 +66,9 @@ export function enqueueInfoMessage(message: SnackbarMessage, options?: OptionsOb
     });
 }
 
-export function enqueueSuccessMessage(message: SnackbarMessage, options?: OptionsObject) {
+export function enqueueSuccessMessage(message: SnackbarMessage, options?: MessageOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
     SnackbarRef.open({
         message,
         options: {
@@ -41,14 +79,10 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Option
     });
 }
 
-interface ErrorOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'known'> {
-    error?: unknown;
-    /** If you don't want to display error stack */
-    description?: string;
-}
-
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
-    const detail = (options?.error ? getDetailedErrorMessage(options.error) : '') || options?.description || '';
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
+    const detail = options?.description || (options?.error ? getDetailedErrorMessage(options.error) : '') || '';
 
     SnackbarRef.open({
         message,
@@ -57,18 +91,16 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
             variant: 'error',
             ...options,
             content: (key: SnackbarKey, message?: SnackbarMessage) => (
-                <ErrorReportSnackbar id={key} message={message} detail={detail} known={options?.known} />
+                <ErrorReportSnackbar id={key} message={message} detail={detail} noReport={options?.noReport} />
             ),
         },
     });
 }
 
-interface ErrorsOptions extends OptionsObject {
-    errors?: unknown[];
-}
-
 export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsOptions) {
-    const detailedMessage = options?.errors?.map(getDetailedErrorMessage).join('\n').trim();
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
+    const detailedMessage = options?.description || options?.errors?.map(getDetailedErrorMessage).join('\n').trim();
 
     SnackbarRef.open({
         message,
