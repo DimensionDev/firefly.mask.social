@@ -2,9 +2,9 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'notistack';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
 
