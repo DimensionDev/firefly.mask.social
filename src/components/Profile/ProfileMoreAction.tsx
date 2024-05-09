@@ -8,8 +8,8 @@ import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -18,7 +18,6 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
 import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { MenuButton } from '@/components/Actions/MenuButton.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
     profile: Profile;
