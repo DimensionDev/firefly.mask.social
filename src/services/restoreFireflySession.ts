@@ -1,9 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { Source } from '@/constants/enum.js';
+import { FIREFLY_ROOT_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
@@ -57,4 +59,20 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             safeUnreachable(type);
             return null;
     }
+}
+
+export async function resolveFireflySessionAll() {
+    for (const source of SORTED_SOCIAL_SOURCES) {
+        // we don't support twitter for now
+        if (source === Source.Twitter) continue;
+
+        const holder = resolveSessionHolder(source);
+        if (!holder?.session) continue;
+
+        const fireflySession = await restoreFireflySession(holder.session);
+        if (!fireflySession) continue;
+
+        return fireflySession;
+    }
+    return null;
 }

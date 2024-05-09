@@ -20,6 +20,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { resolveFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
     profiles: Profile[];
@@ -190,9 +191,13 @@ const useFireflyStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined') return;
 
-            const session = state?.currentProfileSession;
+            const session = state?.currentProfileSession || (await resolveFireflySessionAll());
+
             if (session) {
                 fireflySessionHolder.resumeSession(session as FireflySession);
+            } else {
+                console.warn('[firefly store] clean the local store because no session found from the server.');
+                state?.clear();
             }
         },
     },
