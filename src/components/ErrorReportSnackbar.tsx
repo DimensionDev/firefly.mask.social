@@ -8,14 +8,16 @@ import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { env } from '@/constants/env.js';
 
-interface ReportCompleteProps {
+export interface ErrorReportSnackbarProps {
     id: number | string;
     detail?: string | React.ReactNode;
+    /** Will hide report button for known error */
+    known?: boolean;
     message: SnackbarMessage;
 }
 
-export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProps>(function ErrorReportSnackbar(
-    { id, detail, message },
+export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackbarProps>(function ErrorReportSnackbar(
+    { id, detail, known, message },
     ref,
 ) {
     const { closeSnackbar } = useSnackbar();
@@ -108,14 +110,16 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
                                 )}
                                 {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
                             </ClickableButton>
-                            <a
-                                className="ml-1 inline-flex cursor-pointer items-center text-white underline"
-                                href={githubReportLink}
-                                target="_blank"
-                            >
-                                <BugAntIcon className="mr-1 h-3 w-3" />
-                                <Trans>Report</Trans>
-                            </a>
+                            {known ? null : (
+                                <a
+                                    className="ml-1 inline-flex cursor-pointer items-center text-white underline"
+                                    href={githubReportLink}
+                                    target="_blank"
+                                >
+                                    <BugAntIcon className="mr-1 h-3 w-3" />
+                                    <Trans>Report</Trans>
+                                </a>
+                            )}
                         </div>
                     </div>
                 ) : null}
