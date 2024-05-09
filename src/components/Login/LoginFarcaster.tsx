@@ -302,8 +302,12 @@ export function LoginFarcaster() {
                                 ) : null}
                             </div>
                             <div
-                                className=" relative flex cursor-pointer items-center justify-center"
+                                className={classNames(' relative flex items-center justify-center', {
+                                    'cursor-pointer': !scanned,
+                                })}
                                 onClick={() => {
+                                    if (scanned) return;
+
                                     controllerRef.current?.abort(new AbortError());
 
                                     switch (signType) {
