@@ -6,14 +6,21 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useBlockedUsersState } from '@/store/useBlockedUsersStore.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
 /**
  * Block/Unblock a user
  */
 export function useToggleBlock(operator: Profile | null) {
     const { blockUser } = useBlockedUsersState();
+    const isLogin = useIsLogin(operator?.source);
     return useAsyncFn(
         async (profile: Profile) => {
+            if (!isLogin) {
+                LoginModalRef.open({ source: profile.source });
+                return;
+            }
             const blocking = profile.viewerContext?.blocking;
             const sourceName = resolveSourceName(profile.source);
             try {
@@ -38,6 +45,6 @@ export function useToggleBlock(operator: Profile | null) {
                 throw error;
             }
         },
-        [operator, blockUser],
+        [isLogin, operator, blockUser],
     );
 }
