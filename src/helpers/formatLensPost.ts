@@ -27,7 +27,7 @@ import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { URL_REGEX } from '@/constants/regexp.js';
+import { EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
@@ -275,7 +275,8 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
         const content = formatContent(result.mirrorOn.metadata);
 
-        const oembedUrl = last(content?.content.match(URL_REGEX) || []);
+        const email_regex = new RegExp(EMAIL_REGEX, 'g');
+        const oembedUrl = last(content?.content.replaceAll(email_regex, '').match(URL_REGEX) || []);
 
         const canAct =
             !!result.mirrorOn.openActionModules?.length &&
