@@ -9,11 +9,11 @@ import { Loading } from '@/components/Loading.js';
 import { Source } from '@/constants/enum.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 export default function Page() {
-    const { currentProfileTabState } = useGlobalState();
+    const { currentProfileTabState } = useProfileTabState();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();

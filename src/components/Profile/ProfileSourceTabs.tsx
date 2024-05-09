@@ -8,20 +8,23 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 interface ProfileSourceTabs {
     profiles: FireFlyProfile[];
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const updateCurrentProfileState = useGlobalState.use.updateCurrentProfileState();
+    const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
     const { update, source } = ProfileContext.useContainer();
 
     const pathname = usePathname();
@@ -54,22 +57,32 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                 startTransition(() => {
                                     scrollTo(0, 0);
 
-                                    const target = profiles.find((x) => x.source === value);
-                                    if (!target) return;
+                                    const currentProfile =
+                                        value !== Source.Wallet && value !== Source.Article && isProfilePage
+                                            ? getCurrentProfile(narrowToSocialSource(value))
+                                            : undefined;
 
-                                    update?.({
-                                        source: target.source,
-                                        identity: target.identity,
-                                    });
+                                    const target = currentProfile
+                                        ? {
+                                              source: currentProfile.source,
+                                              identity: getProfileIdentity(currentProfile),
+                                          }
+                                        : profiles.find((x) => x.source === value);
 
                                     if (isProfilePage)
-                                        updateCurrentProfileState({ source: target.source, identity: target.identity });
+                                        updateCurrentProfileState({ source: value, identity: target?.identity ?? '' });
 
+                                    update?.({
+                                        source: value,
+                                        identity: target?.identity,
+                                    });
                                     replaceSearchParams(
                                         new URLSearchParams({
-                                            source: resolveSourceInURL(target.source),
+                                            source: resolveSourceInURL(value),
                                         }),
-                                        isOtherProfile ? urlcat('/profile/:id', { id: target.identity }) : undefined,
+                                        isOtherProfile && target
+                                            ? urlcat('/profile/:id', { id: target.identity })
+                                            : undefined,
                                     );
                                 })
                             }

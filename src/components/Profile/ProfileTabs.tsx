@@ -16,7 +16,7 @@ import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 interface ProfileTabsProps {
     profiles: FireFlyProfile[];
@@ -61,7 +61,7 @@ const resolveProfileTabColor = createLookupTableResolver<
 );
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const updateCurrentProfileState = useGlobalState.use.updateCurrentProfileState();
+    const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
     const { update, identity: currentProfile } = ProfileContext.useContainer();
     const pathname = usePathname();
 
