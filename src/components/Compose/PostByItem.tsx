@@ -13,13 +13,13 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
@@ -32,7 +32,7 @@ export function PostByItem({ source }: PostByItemProps) {
     const profiles = useProfiles(source);
     const currentProfile = useCurrentProfile(source);
 
-    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+    const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     const { enableSource, disableSource } = useComposeStateStore();
     const { availableSources, images } = useCompositePost();
@@ -41,8 +41,8 @@ export function PostByItem({ source }: PostByItemProps) {
         async (profile: Profile) => {
             try {
                 const session = await createSessionForProfileId(profile.profileId);
-                updateCurrentProfile(profile, session);
-                resolveSessionHolder(profile.source)?.resumeSession(session);
+                updateLensCurrentProfile(profile, session);
+                lensSessionHolder.resumeSession(session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
@@ -51,7 +51,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 throw error;
             }
         },
-        [updateCurrentProfile],
+        [updateLensCurrentProfile],
     );
 
     if (!currentProfile || !profiles?.length)
