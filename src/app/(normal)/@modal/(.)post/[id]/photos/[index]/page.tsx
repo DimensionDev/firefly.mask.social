@@ -97,7 +97,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
     useKeyPressEvent((ev) => ev.key === 'ArrowRight', slickRef.current?.slickNext);
 
     return (
-        <Modal open backdrop={false} onClose={() => router.back()} disableScrollLock={false}>
+        <Modal open backdrop={false} onClose={() => router.back()}>
             <div
                 className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
                 onClick={isMedium ? () => router.back() : undefined}
