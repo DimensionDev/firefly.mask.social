@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
-import { BookmarkType, Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -293,8 +293,13 @@ class FarcasterSocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
-    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
-        return FireflySocialMediaProvider.bookmark(postId, profileId, postType);
+    async bookmark(
+        postId: string,
+        platform?: FireflyPlatform,
+        profileId?: string,
+        postType?: BookmarkType,
+    ): Promise<boolean> {
+        return FireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
         return FireflySocialMediaProvider.unbookmark(postId);

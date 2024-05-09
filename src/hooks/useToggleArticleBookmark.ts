@@ -33,7 +33,7 @@ export function useToggleArticleBookmark() {
                     error,
                 });
                 // revert
-                toggleBookmark(Source.Article, article.id, hasBookmarked);
+                toggleBookmark(Source.Article, article.id, !!hasBookmarked);
                 throw error;
             }
         },

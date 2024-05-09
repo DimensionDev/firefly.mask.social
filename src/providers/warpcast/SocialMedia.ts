@@ -10,7 +10,7 @@ import { isZero, resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
@@ -676,7 +676,7 @@ class WarpcastSocialMedia implements Provider {
         });
         return result.success;
     }
-    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
+    async bookmark(postId: string): Promise<boolean> {
         return this.baseBookmark(postId, 'PUT');
     }
     async unbookmark(postId: string): Promise<boolean> {

@@ -24,7 +24,7 @@ export function useToggleBookmark(source: SocialSource) {
                     enqueueSuccessMessage(t`Post remove from your Bookmarks`);
                     return result;
                 } else {
-                    const result = await provider.bookmark(postId, post.author.profileId, BookmarkType.Text);
+                    const result = await provider.bookmark(postId, undefined, post.author.profileId, BookmarkType.Text);
                     enqueueSuccessMessage(t`Post added to your Bookmarks`);
                     return result;
                 }
