@@ -6,6 +6,7 @@ import { immer } from 'zustand/middleware/immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -194,6 +195,9 @@ const useFireflyStateBase = createState(
             const session = state?.currentProfileSession || (await resolveFireflySessionAll());
 
             if (session) {
+                const profile = createDummyProfile(Source.Farcaster);
+                state?.updateCurrentProfile(profile, session);
+                state?.updateProfiles([profile]);
                 fireflySessionHolder.resumeSession(session as FireflySession);
             } else {
                 console.warn('[firefly store] clean the local store because no session found from the server.');
