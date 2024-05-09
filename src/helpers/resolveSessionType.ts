@@ -1,5 +1,6 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
 import { createLookupTableResolver } from '@masknet/shared-base';
+
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSessionType = createLookupTableResolver<SocialSource, SessionType>(

@@ -16,6 +16,7 @@ import { getProfileStoreAll } from '@/helpers/getProfileStoreAll.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSessionType } from '@/helpers/resolveSessionType.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 export interface LogoutModalProps {
     source?: SocialSource;
@@ -69,11 +70,17 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             if (source) {
                 profileStoreAll[source].clear();
                 resolveSessionHolder(resolveSessionType(source))?.removeSession();
+
+                // remove firefly session if it's the parent session matches the source
+                if (fireflySessionHolder.session?.parent.type === resolveSessionType(source)) {
+                    fireflySessionHolder.removeSession();
+                }
             } else {
                 SORTED_SOCIAL_SOURCES.forEach((x) => {
                     profileStoreAll[x].clear();
                     resolveSessionHolder(resolveSessionType(x))?.removeSession();
                 });
+                fireflySessionHolder.removeSession();
             }
 
             dispatch?.close();
