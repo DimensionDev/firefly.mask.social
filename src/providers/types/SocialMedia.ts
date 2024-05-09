@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { BookmarkType, RestrictionType, SocialSource } from '@/constants/enum.js';
+import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -685,10 +685,16 @@ export interface Provider {
 
     /**
      * @param postId
+     * @param platform - farcaster only
      * @param profileId - farcaster only
      * @param postType - farcaster only
      */
-    bookmark: (postId: string, profileId?: string, postType?: BookmarkType) => Promise<boolean>;
+    bookmark: (
+        postId: string,
+        platform?: FireflyPlatform,
+        profileId?: string,
+        postType?: BookmarkType,
+    ) => Promise<boolean>;
 
     unbookmark: (postId: string) => Promise<boolean>;
 

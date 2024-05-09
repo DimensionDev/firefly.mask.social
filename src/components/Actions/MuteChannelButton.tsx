@@ -3,8 +3,8 @@ import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -18,7 +18,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function MuteChannelButton(
-    { busy, channel, className, onStatusChange, ...rest }: Props,
+    { busy, channel, onStatusChange, ...rest }: Props,
     ref,
 ) {
     const { allBlockedChannels } = useBlockedChannelState();
@@ -28,8 +28,7 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
         allBlockedChannels[`${currentProfile.source}:${currentProfile.profileId}`]?.includes(channel.id);
 
     return (
-        <ClickableButton
-            className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
+        <MenuButton
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
@@ -63,6 +62,6 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
             <span className="text-[17px] font-bold leading-[22px] text-main">
                 {muted ? t`Unmute /${channel.id}` : t`Mute /${channel.id}`}
             </span>
-        </ClickableButton>
+        </MenuButton>
     );
 });

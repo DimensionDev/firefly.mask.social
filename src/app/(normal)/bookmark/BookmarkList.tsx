@@ -35,6 +35,7 @@ export function BookmarkList({ source }: Props) {
     });
     return (
         <ListInPage
+            loginRequired
             key={source}
             queryResult={query}
             VirtualListProps={{

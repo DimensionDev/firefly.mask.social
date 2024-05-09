@@ -604,6 +604,9 @@ msgstr "Your frame URL."
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
 
+msgid "Article remove from your Bookmarks"
+msgstr "Article remove from your Bookmarks"
+
 msgid "Failed to unfollow."
 msgstr "Failed to unfollow."
 
@@ -840,6 +843,9 @@ msgstr "<0>You</0> and {0} recasted"
 
 msgid "Dark Mode"
 msgstr "Dark Mode"
+
+msgid "Article added to your Bookmarks"
+msgstr "Article added to your Bookmarks"
 
 msgid "Online"
 msgstr "Online"

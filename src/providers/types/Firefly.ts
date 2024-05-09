@@ -161,6 +161,7 @@ export interface Article {
     related_urls: string[];
     article_id: string;
     cover_img_url: string | null;
+    has_bookmarked?: boolean;
 }
 
 export interface Response<T> {
@@ -362,7 +363,7 @@ export interface Relation {
 
 export type RelationResponse = Response<Relation[]>;
 
-export type BookmarkResponse = Response<{
+export type BookmarkResponse<T> = Response<{
     cursor: number;
     list: Array<{
         account_id: string;
@@ -370,7 +371,7 @@ export type BookmarkResponse = Response<{
         platform: string;
         platform_id: string;
         post_id: string;
-        post_content: Cast;
+        post_content: T;
     }>;
 }>;
 

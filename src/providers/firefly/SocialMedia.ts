@@ -27,6 +27,7 @@ import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type BlockUserResponse,
     type BookmarkResponse,
+    type Cast,
     type CastResponse,
     type CastsOfChannelResponse,
     type CastsResponse,
@@ -770,12 +771,17 @@ class FireflySocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
-    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
+    async bookmark(
+        postId: string,
+        platform?: FireflyPlatform,
+        profileId?: string,
+        postType?: BookmarkType,
+    ): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/create');
         const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: FireflyPlatform.Farcaster,
+                platform,
                 platform_id: profileId,
                 post_type: postType,
                 post_id: postId,
@@ -802,7 +808,7 @@ class FireflySocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id || undefined,
         });
-        const response = await fireflySessionHolder.fetch<BookmarkResponse>(url);
+        const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
 
         const posts = response.data?.list.map((x) => {
             return {

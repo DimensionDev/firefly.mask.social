@@ -20,7 +20,7 @@ interface BookmarkProps {
 export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disabled = false, post }) {
     const { hasBookmarked } = post;
 
-    const mutation = useToggleBookmark();
+    const mutation = useToggleBookmark(post.source);
 
     return (
         <ClickableArea
