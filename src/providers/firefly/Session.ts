@@ -26,7 +26,7 @@ export class FireflySession extends BaseSession implements Session {
         throw new Error('Not allowed');
     }
 
-    static async from(session: Session, signal?: AbortSignal): Promise<FireflySession | null> {
+    static async from(session: Session, signal?: AbortSignal): Promise<FireflySession> {
         switch (session.type) {
             case SessionType.Lens: {
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/lens/login');
@@ -55,14 +55,14 @@ export class FireflySession extends BaseSession implements Session {
                     }),
                     signal,
                 });
-                if (response.data?.fid) {
-                    session.profileId = response.data.fid;
-                }
                 const data = resolveFireflyResponseData(response);
-                if (data.accountId && data.accessToken) {
+
+                if (data.fid && data.accountId && data.accessToken) {
+                    session.profileId = `${data.fid}`;
                     return new FireflySession(data.accountId, data.accessToken);
                 }
-                return null;
+
+                throw new Error(response.error ? response.error.join('\n') : 'Failed to restore farcaster profile.');
             }
             case SessionType.Firefly:
                 throw new Error('Not allowed');
@@ -74,12 +74,21 @@ export class FireflySession extends BaseSession implements Session {
         }
     }
 
+    static async restore(session: FireflySession) {
+        const profile = createDummyProfile(Source.Farcaster);
+        restoreProfile(profile, [profile], session);
+        return session;
+    }
+
     static async fromAndRestore(session: Session, signal?: AbortSignal): Promise<FireflySession | null> {
         const fireflySession = await FireflySession.from(session, signal);
-        if (!fireflySession) return null;
 
-        const profile = createDummyProfile(Source.Farcaster);
-        restoreProfile(profile, [profile], fireflySession);
-        return fireflySession;
+        // polling failed
+        if (!session.profileId)
+            throw new Error(
+                'Failed to query the signed key request status after several attempts. Please try again later.',
+            );
+
+        return FireflySession.restore(fireflySession);
     }
 }

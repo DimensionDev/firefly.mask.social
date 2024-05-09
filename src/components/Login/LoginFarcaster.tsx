@@ -23,8 +23,11 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isAbortedError } from '@/helpers/isAbortedError.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
@@ -102,6 +105,8 @@ export function LoginFarcaster() {
 
     const [url, setUrl] = useState('');
     const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);
+
+    const [scanned, setScanned] = useState(false);
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
@@ -140,18 +145,45 @@ export function LoginFarcaster() {
 
         try {
             await login(
-                () =>
-                    createSessionByRelayService(
+                async () => {
+                    const staledSession = fireflySessionHolder.session;
+
+                    const session = await createSessionByRelayService(
                         (url) => {
                             resetCountdown();
                             startCountdown();
+                            setScanned(false);
 
                             const device = getMobileDevice();
                             if (device === 'unknown') setUrl(url);
                             else location.href = url;
                         },
                         controllerRef.current?.signal,
-                    ),
+                    );
+
+                    // let the user see the qr code has been scanned and display a loading icon
+                    setScanned(true);
+
+                    // for relay service we need to sync the session from firefly
+                    // and find out the the signer key of the connected profile
+                    const sessions = await syncSessionFromFirefly(controllerRef.current?.signal);
+
+                    const restoredSession = sessions.find(
+                        (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
+                    );
+                    if (!restoredSession) {
+                        // the current profile did not connect to firefly
+                        // we need to restore the staled session and keep everything untouched
+                        if (staledSession) FireflySession.restore(staledSession);
+
+                        enqueueErrorMessage(
+                            t`Failed to restore farcaster profile from Firefly. Please confirm your profile has connected to Firefly.`,
+                        );
+                        throw new Error('Failed to restore farcaster profile from Firefly.');
+                    }
+
+                    return restoredSession as FarcasterSession;
+                },
                 controllerRef.current?.signal,
             );
         } catch (error) {
@@ -290,11 +322,16 @@ export function LoginFarcaster() {
                             >
                                 <QRCode
                                     className={classNames({
-                                        'blur-md': count === 0,
+                                        'blur-md': count === 0 || scanned,
                                     })}
                                     value={url}
                                     size={360}
                                 />
+                                {scanned ? (
+                                    <div className=" absolute inset-0 flex flex-col items-center justify-center">
+                                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                                    </div>
+                                ) : null}
                             </div>
                         </>
                     ) : (
