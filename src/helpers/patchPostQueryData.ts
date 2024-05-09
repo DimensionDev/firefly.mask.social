@@ -1,13 +1,13 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialSource } from '@/constants/enum.js';
+import type { Source } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
 type Matcher = string | ((post: Draft<Post> | undefined) => boolean);
 
-export function patchPostQueryData(source: SocialSource, postId: Matcher, patcher: Patcher) {
+export function patchPostQueryData(source: Source, postId: Matcher, patcher: Patcher) {
     const matcher = typeof postId === 'string' ? (post: Draft<Post> | undefined) => post?.postId === postId : postId;
 
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {

@@ -1,12 +1,13 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialSource } from '@/constants/enum.js';
+import type { Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-export function toggleBookmark(source: SocialSource, postId: string, status: boolean) {
+export function toggleBookmark(source: Source, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         draft.hasBookmarked = status;
         draft.stats = produce(draft.stats, (old) => {
@@ -22,21 +23,40 @@ export function toggleBookmark(source: SocialSource, postId: string, status: boo
 
     queryClient.invalidateQueries({ queryKey: ['posts', source, 'bookmark'] });
 
-    if (!status) {
-        queryClient.setQueryData<{ pages: Array<{ data: Post[] }> }>(['posts', source, 'bookmark'], (old) => {
-            if (!old) return old;
-            return produce(old, (draft) => {
-                draft.pages.forEach((page) => {
-                    page.data = page.data.filter((post) => post.postId !== postId);
+    // Articles
+    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles', 'discover'] }, (old) => {
+        if (!old) return old;
+
+        return produce(old, (draft) => {
+            draft.pages.forEach((page) => {
+                page.data.forEach((article) => {
+                    if (article.id === postId) article.hasBookmarked = status;
                 });
             });
         });
+    });
+
+    if (!status) {
+        queryClient.setQueryData<{ pages: Array<{ data: Array<Post | Article> }> }>(
+            ['posts', source, 'bookmark'],
+            (old) => {
+                if (!old) return old;
+                return produce(old, (draft) => {
+                    draft.pages.forEach((page) => {
+                        page.data = page.data.filter((post) => {
+                            if ('id' in post) return post.id === postId; // Article
+                            else return post.postId !== postId; // Post
+                        });
+                    });
+                });
+            },
+        );
     }
 }
 
 const METHODS_BE_OVERRIDDEN = ['bookmark', 'unbookmark'] as const;
 
-export function SetQueryDataForBookmarkPost(source: SocialSource) {
+export function SetQueryDataForBookmarkPost(source: Source) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];

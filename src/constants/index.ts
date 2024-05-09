@@ -55,6 +55,7 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.Article] as const;
 export const SORTED_PROFILE_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Wallet];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
+export const SORTED_BOOKMARK_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article] as const;
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
