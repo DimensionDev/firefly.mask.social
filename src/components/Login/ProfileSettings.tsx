@@ -4,8 +4,8 @@ import { CloudIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { signOut } from 'next-auth/react';
-import { useEffect, useRef } from 'react';
-import { useAsyncFn, useUnmount } from 'react-use';
+import { useRef } from 'react';
+import { useAsyncFn, useMount, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import LogOutIcon from '@/assets/logout.svg';
@@ -14,12 +14,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import {
     DraggablePopoverRef,
     FireflySessionConfirmModalRef,
@@ -40,13 +39,7 @@ interface ProfileSettingsProps {
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const controllerRef = useRef<AbortController>();
-
-    const { currentProfile, profiles, refreshProfiles } = useProfileStore(source);
-    const { login } = useSwitchLensAccount();
-
-    useEffect(() => {
-        refreshProfiles();
-    }, [refreshProfiles]);
+    const { currentProfile, refreshProfiles } = useProfileStore(source);
 
     const [{ loading }, onDetect] = useAsyncFn(
         async (source: SocialSource) => {
@@ -93,74 +86,82 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
         [currentProfile],
     );
 
+    useMount(() => {
+        refreshProfiles();
+    });
+
     useUnmount(() => {
         controllerRef.current?.abort(new AbortError());
     });
 
+    if (!currentProfile) return null;
+
+    const canDetect =
+        env.shared.NODE_ENV === NODE_ENV.Development &&
+        (source === Source.Lens ||
+            (source === Source.Farcaster &&
+                FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)));
+
     return (
-        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line md:px-5">
-            {profiles.map((profile) => (
+        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
+            <div className=" flex flex-col">
                 <ClickableButton
-                    key={profile.profileId}
-                    className="my-3 flex items-center justify-between gap-2 outline-none"
-                    disabled={isSameProfile(currentProfile, profile) || source === Source.Farcaster}
+                    key={currentProfile.profileId}
+                    className="flex items-center justify-between gap-3 py-3 outline-none md:px-5"
+                    disabled={source === Source.Farcaster}
+                >
+                    <ProfileAvatar profile={currentProfile} clickable linkable />
+                    <ProfileName profile={currentProfile} />
+
+                    <OnlineStatusIndicator />
+                </ClickableButton>
+            </div>
+            <div className=" flex flex-col md:mx-5">
+                <ClickableButton
+                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
                     onClick={async () => {
-                        await login(profile);
+                        if (source === Source.Twitter)
+                            await signOut({
+                                redirect: false,
+                            });
+                        LoginModalRef.open({ source });
                         onClose?.();
                     }}
                 >
-                    <ProfileAvatar profile={profile} clickable linkable />
-                    <ProfileName profile={profile} />
-
-                    {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
-                </ClickableButton>
-            ))}
-            <ClickableButton
-                className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
-                onClick={async () => {
-                    if (source === Source.Twitter)
-                        await signOut({
-                            redirect: false,
-                        });
-                    LoginModalRef.open({ source });
-                    onClose?.();
-                }}
-            >
-                <UserAddIcon width={24} height={24} />
-                <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
-                    <Trans>Switch account</Trans>
-                </span>
-            </ClickableButton>
-            {(currentProfile && source === Source.Lens) ||
-            (FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true) &&
-                source === Source.Farcaster) ? (
-                <ClickableButton
-                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
-                    disabled={loading}
-                    onClick={() => onDetect(source)}
-                >
-                    {loading ? (
-                        <LoadingIcon className="animate-spin" width={24} height={24} />
-                    ) : (
-                        <CloudIcon width={24} height={24} />
-                    )}
+                    <UserAddIcon width={24} height={24} />
                     <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
-                        {loading ? <Trans>Detecting...</Trans> : <Trans>Detect device accounts</Trans>}
+                        <Trans>Switch account</Trans>
                     </span>
                 </ClickableButton>
-            ) : null}
-            <ClickableButton
-                className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
-                onClick={() => {
-                    LogoutModalRef.open({ source });
-                    onClose?.();
-                }}
-            >
-                <LogOutIcon width={24} height={24} />
-                <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
-                    <Trans>Log out</Trans>
-                </span>
-            </ClickableButton>
+                {canDetect ? (
+                    <ClickableButton
+                        className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
+                        disabled={loading}
+                        onClick={() => onDetect(source)}
+                    >
+                        {loading ? (
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        ) : (
+                            <CloudIcon width={24} height={24} />
+                        )}
+                        <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
+                            {loading ? <Trans>Detecting...</Trans> : <Trans>Detect device accounts</Trans>}
+                        </span>
+                    </ClickableButton>
+                ) : null}
+                <ClickableButton
+                    className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg "
+                    onClick={() => {
+                        LogoutModalRef.open({ source });
+                        onClose?.();
+                    }}
+                >
+                    <LogOutIcon width={24} height={24} />
+                    <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
+                        <Trans>Log out</Trans>
+                    </span>
+                </ClickableButton>
+            </div>
         </div>
     );
 }

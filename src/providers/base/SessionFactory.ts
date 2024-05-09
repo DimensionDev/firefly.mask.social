@@ -21,11 +21,12 @@ export class SessionFactory {
         const fragments = serializedSession.split(':');
         const type = fragments[0] as SessionType;
         const json = atob(fragments[1]) as string;
-        // for lens session, the second token is the refresh token
-        // for farcaster session, the second token is the signer request token
-        const secondToken = fragments[2] ?? '';
-        // for farcaster session, the third token is the channel token
-        const thirdToken = fragments[3] ?? '';
+        // for lens session, the second part is the refresh token
+        // for farcaster session, the second part is the signer request token
+        // for firefly session, the second part is the parent session in base64 encoded
+        const secondPart = fragments[2] ?? '';
+        // for farcaster session, the third part is the channel token
+        const thirdPart = fragments[3] ?? '';
 
         const session = parseJSON<{
             type: SessionType;
@@ -57,7 +58,7 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        secondToken,
+                        secondPart,
                     );
                 case SessionType.Farcaster:
                     return new FarcasterSession(
@@ -65,13 +66,17 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        secondToken,
-                        thirdToken,
+                        secondPart,
+                        thirdPart,
                     );
                 case SessionType.Twitter:
                     return new TwitterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case SessionType.Firefly:
-                    return new FireflySession(session.profileId, session.token);
+                    return new FireflySession(
+                        session.profileId,
+                        session.token,
+                        SessionFactory.createSession(atob(secondPart)),
+                    );
                 default:
                     safeUnreachable(type);
                     throw new Error(t`Unknown session type.`);

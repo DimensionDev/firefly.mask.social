@@ -16,6 +16,10 @@ export class SessionHolder<T extends Session> {
         this.internalSession = session;
     }
 
+    removeSession() {
+        this.internalSession = null;
+    }
+
     withSession<K extends (session: T | null) => unknown>(callback: K, required = false) {
         return callback(required ? this.sessionRequired : this.session) as ReturnType<K>;
     }

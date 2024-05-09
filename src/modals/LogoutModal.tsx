@@ -12,29 +12,27 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getProfilesAll } from '@/helpers/getProfilesAll.js';
-import { useProfileStoreAll } from '@/hooks/useProfileStoreAll.js';
+import { getProfileStoreAll } from '@/helpers/getProfileStoreAll.js';
+import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
+import { resolveSessionType } from '@/helpers/resolveSessionType.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export interface LogoutModalProps {
     source?: SocialSource;
-    profile?: Profile;
 }
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
     const router = useRouter();
 
-    const profileStoreAll = useProfileStoreAll();
-
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
-            const profilesAll = getProfilesAll();
-            const profiles = props?.profile
-                ? [props.profile]
-                : props?.source
-                  ? profilesAll[props.source]
-                  : SORTED_SOCIAL_SOURCES.flatMap((x) => profilesAll[x]);
+            const profileStoreAll = getProfileStoreAll();
+            const profiles = props?.source
+                ? profileStoreAll[props.source].profiles
+                : SORTED_SOCIAL_SOURCES.flatMap((x) => profileStoreAll[x].profiles);
+
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Log out`,
                 content: (
@@ -61,7 +59,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             });
             if (!confirmed) return;
 
-            const source = props?.source || props?.profile?.source;
+            const source = props?.source;
 
             // call next-auth signOut for twitter
             if (!source || source === Source.Twitter) {
@@ -71,9 +69,21 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             }
 
             if (source) {
-                profileStoreAll[source].clearCurrentProfile();
+                profileStoreAll[source].clear();
+                resolveSessionHolder(source)?.removeSession();
+
+                // remove firefly session if it's the parent session matches the source
+                if (fireflySessionHolder.session?.parent.type === resolveSessionType(source)) {
+                    useFireflyStateStore.getState().clear();
+                    fireflySessionHolder.removeSession();
+                }
             } else {
-                SORTED_SOCIAL_SOURCES.forEach((x) => profileStoreAll[x].clearCurrentProfile());
+                SORTED_SOCIAL_SOURCES.forEach((x) => {
+                    profileStoreAll[x].clear();
+                    resolveSessionHolder(x)?.removeSession();
+                });
+                useFireflyStateStore.getState().clear();
+                fireflySessionHolder.removeSession();
             }
 
             dispatch?.close();

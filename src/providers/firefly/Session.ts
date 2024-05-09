@@ -14,8 +14,16 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class FireflySession extends BaseSession implements Session {
-    constructor(accountId: string, accessToken: string) {
+    constructor(
+        accountId: string,
+        accessToken: string,
+        public parent: Session,
+    ) {
         super(SessionType.Firefly, accountId, accessToken, 0, 0);
+    }
+
+    override serialize(): `${SessionType}:${string}:${string}` {
+        return `${super.serialize()}:${btoa(this.parent.serialize())}`;
     }
 
     override async refresh(): Promise<void> {
@@ -38,7 +46,7 @@ export class FireflySession extends BaseSession implements Session {
                     signal,
                 });
                 const data = resolveFireflyResponseData(response);
-                return new FireflySession(data.accountId, data.accessToken);
+                return new FireflySession(data.accountId, data.accessToken, session);
             }
             case SessionType.Farcaster: {
                 if (FarcasterSession.isCustodyWallet(session)) throw new Error('Not allowed');
@@ -59,7 +67,7 @@ export class FireflySession extends BaseSession implements Session {
 
                 if (data.fid && data.accountId && data.accessToken) {
                     session.profileId = `${data.fid}`;
-                    return new FireflySession(data.accountId, data.accessToken);
+                    return new FireflySession(data.accountId, data.accessToken, session);
                 }
 
                 throw new Error(response.error ? response.error.join('\n') : 'Failed to restore farcaster profile.');
