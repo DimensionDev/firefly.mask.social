@@ -20,7 +20,6 @@ async function downloadMetricsFromFirefly(signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(
         urlcat(FIREFLY_ROOT_URL, '/v1/metrics/download'),
         {
-            method: 'GET',
             signal,
         },
         true,
