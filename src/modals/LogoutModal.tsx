@@ -18,6 +18,7 @@ import { resolveSessionType } from '@/helpers/resolveSessionType.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 export interface LogoutModalProps {
     source?: SocialSource;
@@ -85,6 +86,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                 useFireflyStateStore.getState().clear();
                 fireflySessionHolder.removeSession();
             }
+
+            useProfileTabState.getState().reset();
 
             dispatch?.close();
             await delay(300);
