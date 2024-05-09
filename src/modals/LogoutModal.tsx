@@ -12,8 +12,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getProfilesAll } from '@/helpers/getProfilesAll.js';
-import { useProfileStoreAll } from '@/hooks/useProfileStoreAll.js';
+import { getProfileStoreAll } from '@/helpers/getProfileStoreAll.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -25,16 +24,14 @@ export interface LogoutModalProps {
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
     const router = useRouter();
 
-    const profileStoreAll = useProfileStoreAll();
-
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
-            const profilesAll = getProfilesAll();
+            const profielStoreAll = getProfileStoreAll();
             const profiles = props?.profile
                 ? [props.profile]
                 : props?.source
-                  ? profilesAll[props.source]
-                  : SORTED_SOCIAL_SOURCES.flatMap((x) => profilesAll[x]);
+                  ? profielStoreAll[props.source].profiles
+                  : SORTED_SOCIAL_SOURCES.flatMap((x) => profielStoreAll[x].profiles);
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Log out`,
                 content: (
@@ -71,9 +68,9 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             }
 
             if (source) {
-                profileStoreAll[source].clearCurrentProfile();
+                profielStoreAll[source].clearCurrentProfile();
             } else {
-                SORTED_SOCIAL_SOURCES.forEach((x) => profileStoreAll[x].clearCurrentProfile());
+                SORTED_SOCIAL_SOURCES.forEach((x) => profielStoreAll[x].clearCurrentProfile());
             }
 
             dispatch?.close();

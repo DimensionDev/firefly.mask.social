@@ -17,9 +17,7 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import {
     DraggablePopoverRef,
     FireflySessionConfirmModalRef,
@@ -41,8 +39,7 @@ interface ProfileSettingsProps {
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const controllerRef = useRef<AbortController>();
 
-    const { currentProfile, profiles, refreshProfiles } = useProfileStore(source);
-    const { login } = useSwitchLensAccount();
+    const { currentProfile, refreshProfiles } = useProfileStore(source);
 
     useEffect(() => {
         refreshProfiles();
@@ -96,6 +93,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     useUnmount(() => {
         controllerRef.current?.abort(new AbortError());
     });
+
+    if (!currentProfile) return null;
 
     return (
         <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
