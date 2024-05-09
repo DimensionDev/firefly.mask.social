@@ -39,8 +39,10 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
                     <p className="flex-start flex items-center text-sm font-bold leading-5 md:mt-2">
-                        <span className="mr-2 text-xl">{profile.displayName}</span>
-                        <SocialSourceIcon source={profile.source} />
+                        <span className="overflow-hide mr-2 text-ellipsis whitespace-nowrap text-xl">
+                            {profile.displayName}
+                        </span>
+                        <SocialSourceIcon className="shrink-0" source={profile.source} />
                     </p>
                     {profile.handle ? <p className="text-sm text-secondary">@{profile.handle}</p> : null}
                     {profile.bio ? (
@@ -54,11 +56,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 </div>
             </Link>
 
-            {!noFollowButton ? (
-                <div>
-                    <FollowButton profile={profile} />
-                </div>
-            ) : null}
+            {!noFollowButton ? <FollowButton className="ml-2" profile={profile} /> : null}
         </div>
     );
 }

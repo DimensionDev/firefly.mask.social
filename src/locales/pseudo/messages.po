@@ -19,6 +19,9 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr ""
 
+msgid "Muted"
+msgstr ""
+
 msgid "Quote Post"
 msgstr ""
 
@@ -71,6 +74,9 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "Searching channel"
+msgstr ""
+
+msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
 msgid "Act"
@@ -214,9 +220,6 @@ msgstr ""
 msgid "Confirm you want to report @{0}?"
 msgstr ""
 
-msgid "{0} Bookmarks"
-msgstr ""
-
 msgid "Select Account"
 msgstr ""
 
@@ -239,9 +242,6 @@ msgid "Audio Cover"
 msgstr ""
 
 msgid "Recent"
-msgstr ""
-
-msgid "Block"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -322,6 +322,9 @@ msgstr ""
 msgid "Frame"
 msgstr ""
 
+msgid "Unmuting"
+msgstr ""
+
 msgid "Search Filter"
 msgstr ""
 
@@ -344,6 +347,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
@@ -515,9 +521,6 @@ msgid "Articles"
 msgstr ""
 
 msgid "Settings"
-msgstr ""
-
-msgid "{0} Bookmark"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}"
@@ -838,6 +841,9 @@ msgstr ""
 msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
+msgid "Unbookmark"
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr ""
 
@@ -899,6 +905,9 @@ msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed 
 msgstr ""
 
 msgid "Log in to Farcaster account"
+msgstr ""
+
+msgid "Confirm you want to unmute @{0}?"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"

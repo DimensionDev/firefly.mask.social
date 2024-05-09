@@ -24,6 +24,9 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
 
+msgid "Muted"
+msgstr ""
+
 msgid "Quote Post"
 msgstr "引用"
 
@@ -76,6 +79,9 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
 msgid "Searching channel"
+msgstr ""
+
+msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
 msgid "Act"
@@ -219,9 +225,6 @@ msgstr "已链接的账号"
 msgid "Confirm you want to report @{0}?"
 msgstr ""
 
-msgid "{0} Bookmarks"
-msgstr ""
-
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -245,9 +248,6 @@ msgstr "音频封面"
 
 msgid "Recent"
 msgstr "最近"
-
-msgid "Block"
-msgstr ""
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -327,6 +327,9 @@ msgstr "#"
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Unmuting"
+msgstr ""
+
 msgid "Search Filter"
 msgstr "查询规则"
 
@@ -349,6 +352,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
@@ -521,9 +527,6 @@ msgstr ""
 
 msgid "Settings"
 msgstr "设置"
-
-msgid "{0} Bookmark"
-msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr ""
@@ -843,6 +846,9 @@ msgstr "取消关注"
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
 
+msgid "Unbookmark"
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr ""
 
@@ -905,6 +911,9 @@ msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source
 
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
+
+msgid "Confirm you want to unmute @{0}?"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"

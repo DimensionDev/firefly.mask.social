@@ -19,6 +19,9 @@ msgstr "Login required to post on {sourceName}."
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
+msgid "Muted"
+msgstr "Muted"
+
 msgid "Quote Post"
 msgstr "Quote Post"
 
@@ -72,6 +75,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 
 msgid "Searching channel"
 msgstr "Searching channel"
+
+msgid "Failed to upload. Video is not supported yet"
+msgstr "Failed to upload. Video is not supported yet"
 
 msgid "Act"
 msgstr "Act"
@@ -214,9 +220,6 @@ msgstr "Connected Accounts"
 msgid "Confirm you want to report @{0}?"
 msgstr "Confirm you want to report @{0}?"
 
-msgid "{0} Bookmarks"
-msgstr "{0} Bookmarks"
-
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -240,9 +243,6 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
-
-msgid "Block"
-msgstr "Block"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -322,6 +322,9 @@ msgstr "Hashtag"
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Unmuting"
+msgstr "Unmuting"
+
 msgid "Search Filter"
 msgstr "Search Filter"
 
@@ -345,6 +348,9 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
+
+msgid "Failed to upload. More than {maxImageCount} images"
+msgstr "Failed to upload. More than {maxImageCount} images"
 
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
@@ -516,9 +522,6 @@ msgstr "Articles"
 
 msgid "Settings"
 msgstr "Settings"
-
-msgid "{0} Bookmark"
-msgstr "{0} Bookmark"
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "Unmuted @{0} on {sourceName}"
@@ -838,6 +841,9 @@ msgstr "Unfollow"
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
 
+msgid "Unbookmark"
+msgstr "Unbookmark"
+
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
 
@@ -900,6 +906,9 @@ msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
+
+msgid "Confirm you want to unmute @{0}?"
+msgstr "Confirm you want to unmute @{0}?"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"

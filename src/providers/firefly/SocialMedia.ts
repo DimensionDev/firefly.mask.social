@@ -25,6 +25,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BlockUserResponse,
     type BookmarkResponse,
     type CastResponse,
     type CastsOfChannelResponse,
@@ -728,12 +729,26 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async blockUser(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/block');
+        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                fid: profileId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to mute user');
     }
     async unblockUser(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/unblock');
+        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                fid: profileId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to mute user');
     }
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
