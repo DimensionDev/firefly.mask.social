@@ -98,69 +98,69 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     });
 
     return (
-        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line md:px-5">
-            {profiles.map((profile) => (
+        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
+            {currentProfile ? (
+                <div className=" flex flex-col">
+                    <ClickableButton
+                        key={currentProfile.profileId}
+                        className="flex items-center justify-between gap-3 py-3 outline-none md:px-5"
+                        disabled={source === Source.Farcaster}
+                    >
+                        <ProfileAvatar profile={currentProfile} clickable linkable />
+                        <ProfileName profile={currentProfile} />
+
+                        <OnlineStatusIndicator />
+                    </ClickableButton>
+                </div>
+            ) : null}
+            <div className=" flex flex-col md:mx-5">
                 <ClickableButton
-                    key={profile.profileId}
-                    className="my-3 flex items-center justify-between gap-2 outline-none"
-                    disabled={isSameProfile(currentProfile, profile) || source === Source.Farcaster}
+                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
                     onClick={async () => {
-                        await login(profile);
+                        if (source === Source.Twitter)
+                            await signOut({
+                                redirect: false,
+                            });
+                        LoginModalRef.open({ source });
                         onClose?.();
                     }}
                 >
-                    <ProfileAvatar profile={profile} clickable linkable />
-                    <ProfileName profile={profile} />
-
-                    {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
-                </ClickableButton>
-            ))}
-            <ClickableButton
-                className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
-                onClick={async () => {
-                    if (source === Source.Twitter)
-                        await signOut({
-                            redirect: false,
-                        });
-                    LoginModalRef.open({ source });
-                    onClose?.();
-                }}
-            >
-                <UserAddIcon width={24} height={24} />
-                <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
-                    <Trans>Switch account</Trans>
-                </span>
-            </ClickableButton>
-            {(currentProfile && source === Source.Lens) ||
-            (FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true) &&
-                source === Source.Farcaster) ? (
-                <ClickableButton
-                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
-                    disabled={loading}
-                    onClick={() => onDetect(source)}
-                >
-                    {loading ? (
-                        <LoadingIcon className="animate-spin" width={24} height={24} />
-                    ) : (
-                        <CloudIcon width={24} height={24} />
-                    )}
+                    <UserAddIcon width={24} height={24} />
                     <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
-                        {loading ? <Trans>Detecting...</Trans> : <Trans>Detect device accounts</Trans>}
+                        <Trans>Switch account</Trans>
                     </span>
                 </ClickableButton>
-            ) : null}
-            <ClickableButton
-                className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
-                onClick={() => {
-                    LogoutModalRef.open({ source });
-                    onClose?.();
-                }}
-            >
-                <LogOutIcon width={24} height={24} />
-                <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
-                    <Trans>Log out</Trans>
-                </span>
-            </ClickableButton>
+                {(currentProfile && source === Source.Lens) ||
+                (FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true) &&
+                    source === Source.Farcaster) ? (
+                    <ClickableButton
+                        className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
+                        disabled={loading}
+                        onClick={() => onDetect(source)}
+                    >
+                        {loading ? (
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        ) : (
+                            <CloudIcon width={24} height={24} />
+                        )}
+                        <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
+                            {loading ? <Trans>Detecting...</Trans> : <Trans>Detect device accounts</Trans>}
+                        </span>
+                    </ClickableButton>
+                ) : null}
+                <ClickableButton
+                    className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg "
+                    onClick={() => {
+                        LogoutModalRef.open({ source });
+                        onClose?.();
+                    }}
+                >
+                    <LogOutIcon width={24} height={24} />
+                    <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
+                        <Trans>Log out</Trans>
+                    </span>
+                </ClickableButton>
+            </div>
         </div>
     );
 }
