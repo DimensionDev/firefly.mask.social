@@ -6,6 +6,7 @@ import React, { forwardRef, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
+import { classNames } from '@/helpers/classNames.js';
 
 export interface ConfirmModalOpenProps {
     title?: string;
@@ -14,6 +15,7 @@ export interface ConfirmModalOpenProps {
     cancelButtonText?: string;
     enableConfirmButton?: boolean;
     enableCancelButton?: boolean;
+    variant?: 'normal' | 'danger';
 }
 
 export type ConfirmModalCloseProps = boolean;
@@ -26,10 +28,12 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
         const [cancelButtonText, setCancelButtonText] = useState<string>();
         const [enableConfirmButton, setEnableConfirmButton] = useState<boolean>(true);
         const [enableCancelButton, setEnableCancelButton] = useState<boolean>(false);
+        const [variant, setVariant] = useState<ConfirmModalOpenProps['variant']>('danger');
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {
                 setTitle(props.title);
+                setVariant(props.variant || 'danger');
                 setContent(props.content);
                 setEnableConfirmButton(props.enableConfirmButton ?? true);
                 setEnableCancelButton(props.enableCancelButton ?? false);
@@ -63,7 +67,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                 ) : null}
                                 {enableConfirmButton ? (
                                     <ClickableButton
-                                        className=" flex flex-1 items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
+                                        className={classNames(
+                                            ' flex flex-1 items-center justify-center rounded-full  py-[11px] font-bold text-lightBottom',
+                                            variant === 'normal' ? 'bg-main' : 'bg-commonDanger',
+                                        )}
                                         onClick={() => dispatch?.close(true)}
                                     >
                                         {confirmButtonText || t`Confirm`}
