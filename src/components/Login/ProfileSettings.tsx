@@ -4,8 +4,8 @@ import { CloudIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { signOut } from 'next-auth/react';
-import { useEffect, useRef } from 'react';
-import { useAsyncFn, useUnmount } from 'react-use';
+import { useRef } from 'react';
+import { useAsyncFn, useMount, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import LogOutIcon from '@/assets/logout.svg';
@@ -14,7 +14,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
@@ -38,12 +39,7 @@ interface ProfileSettingsProps {
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const controllerRef = useRef<AbortController>();
-
     const { currentProfile, refreshProfiles } = useProfileStore(source);
-
-    useEffect(() => {
-        refreshProfiles();
-    }, [refreshProfiles]);
 
     const [{ loading }, onDetect] = useAsyncFn(
         async (source: SocialSource) => {
@@ -90,11 +86,21 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
         [currentProfile],
     );
 
+    useMount(() => {
+        refreshProfiles();
+    });
+
     useUnmount(() => {
         controllerRef.current?.abort(new AbortError());
     });
 
     if (!currentProfile) return null;
+
+    const canDetect =
+        env.shared.NODE_ENV === NODE_ENV.Development &&
+        (source === Source.Lens ||
+            (source === Source.Farcaster &&
+                FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)));
 
     return (
         <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
@@ -129,9 +135,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         <Trans>Switch account</Trans>
                     </span>
                 </ClickableButton>
-                {(currentProfile && source === Source.Lens) ||
-                (FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true) &&
-                    source === Source.Farcaster) ? (
+                {canDetect ? (
                     <ClickableButton
                         className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
                         disabled={loading}

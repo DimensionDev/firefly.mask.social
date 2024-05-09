@@ -75,7 +75,7 @@ export class SessionFactory {
                     return new FireflySession(
                         session.profileId,
                         session.token,
-                        SessionFactory.createSession(secondPart),
+                        SessionFactory.createSession(atob(secondPart)),
                     );
                 default:
                     safeUnreachable(type);
