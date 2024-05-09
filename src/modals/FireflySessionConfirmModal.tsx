@@ -75,7 +75,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
             </ul>
             <div className=" flex gap-2">
                 <ClickableButton
-                    className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-[11px] font-bold text-lightBottom"
+                    className=" flex flex-1 items-center justify-center rounded-full border border-main py-[11px] font-bold text-main"
                     onClick={() => {
                         onClose?.();
                         ConfirmModalRef.close(false);

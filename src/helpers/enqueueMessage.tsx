@@ -39,11 +39,13 @@ function snackbarAction(key: SnackbarKey) {
 }
 
 function versionFilter(options?: MessageOptions) {
-    return options?.version && options.version === env.shared.VERSION;
+    if (!options?.version) return true;
+    return options.version === env.shared.VERSION;
 }
 
 function environmentFilter(options?: MessageOptions) {
-    return options?.environment && options.environment === env.shared.NODE_ENV;
+    if (!options?.environment) return true;
+    return options.environment === env.shared.NODE_ENV;
 }
 
 /**
