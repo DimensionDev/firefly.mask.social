@@ -12,6 +12,7 @@ interface ProfileTabState {
         identity: string;
     };
     updateCurrentProfileState: (state: { source: Source; identity: string }) => void;
+    reset: () => void;
 }
 
 const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
@@ -25,6 +26,14 @@ const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unkn
                 set((state) => {
                     state.currentProfileTabState = profileState;
                 }),
+            reset: () => {
+                set((state) => {
+                    state.currentProfileTabState = {
+                        source: getCurrentSource(),
+                        identity: '',
+                    };
+                });
+            },
         })),
         {
             name: 'profile-tab-state',
