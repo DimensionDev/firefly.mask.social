@@ -90,7 +90,7 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                         <div key={type} className=" flex flex-col">
                             <ClickableButton
                                 className={classNames(
-                                    ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
+                                    'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
                                     computedCurrentTab === type ? ' text-main' : ' text-third hover:text-main',
                                 )}
                                 onClick={() => setCurrentTab(type)}

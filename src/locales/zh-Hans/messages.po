@@ -342,6 +342,9 @@ msgstr ""
 msgid "Invalid compose type: {type}."
 msgstr ""
 
+msgid "View Source"
+msgstr ""
+
 msgid "and"
 msgstr "和"
 

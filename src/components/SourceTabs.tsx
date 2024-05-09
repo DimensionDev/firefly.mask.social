@@ -32,8 +32,11 @@ export function SourceTabs() {
         );
     }
 
-    if (pathname === '/following' && currentSource === Source.Article && !fireflySession) {
-        updateCurrentSource(Source.Article);
+    if (
+        (pathname === '/following' && currentSource === Source.Article && !fireflySession) ||
+        (pathname !== PageRoute.Following && pathname !== PageRoute.Home && currentSource === Source.Article)
+    ) {
+        updateCurrentSource(Source.Farcaster);
         replaceSearchParams(
             new URLSearchParams({
                 source: resolveSourceInURL(Source.Farcaster),
