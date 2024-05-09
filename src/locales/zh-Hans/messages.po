@@ -486,9 +486,6 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
-msgid "Remove bookmark"
-msgstr ""
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -848,6 +845,9 @@ msgstr "取消关注"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
+
+msgid "Unbookmark"
+msgstr ""
 
 msgid "Claim on {0}: {1}"
 msgstr ""

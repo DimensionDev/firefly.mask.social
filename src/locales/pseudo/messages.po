@@ -481,9 +481,6 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
-msgid "Remove bookmark"
-msgstr ""
-
 msgid "Lens"
 msgstr ""
 
@@ -842,6 +839,9 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
+msgstr ""
+
+msgid "Unbookmark"
 msgstr ""
 
 msgid "Claim on {0}: {1}"

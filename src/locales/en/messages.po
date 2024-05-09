@@ -481,9 +481,6 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
-msgid "Remove bookmark"
-msgstr "Remove bookmark"
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -843,6 +840,9 @@ msgstr "Unfollow"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
+
+msgid "Unbookmark"
+msgstr "Unbookmark"
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
