@@ -3,8 +3,22 @@ import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'noti
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar } from '@/components/ErrorReportSnackbar.js';
+import type { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
+
+interface MessageOptions extends OptionsObject {
+    environment?: NODE_ENV;
+}
+
+interface ErrorOptions extends MessageOptions {
+    error?: unknown;
+}
+
+interface ErrorsOptions extends MessageOptions {
+    errors?: unknown[];
+}
 
 function snackbarAction(key: SnackbarKey) {
     return (
@@ -19,7 +33,20 @@ function snackbarAction(key: SnackbarKey) {
     );
 }
 
-export function enqueueInfoMessage(message: SnackbarMessage, options?: OptionsObject) {
+function environmentFilter(options?: MessageOptions) {
+    return options?.environment && options.environment === env.shared.NODE_ENV;
+}
+
+/**
+ * Filters for messages that should be displayed in the current environment.
+ * A filter returns true means the message should be displayed.
+ * A filter returns false means the message should be ignored.
+ */
+const MESSAGE_FILTERS = [environmentFilter];
+
+export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
     SnackbarRef.open({
         message,
         options: {
@@ -30,7 +57,9 @@ export function enqueueInfoMessage(message: SnackbarMessage, options?: OptionsOb
     });
 }
 
-export function enqueueSuccessMessage(message: SnackbarMessage, options?: OptionsObject) {
+export function enqueueSuccessMessage(message: SnackbarMessage, options?: MessageOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
     SnackbarRef.open({
         message,
         options: {
@@ -41,11 +70,9 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Option
     });
 }
 
-interface ErrorOptions extends OptionsObject {
-    error?: unknown;
-}
-
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
     const detailedMessage = options?.error ? getDetailedErrorMessage(options.error) : '';
 
     SnackbarRef.open({
@@ -61,11 +88,9 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
     });
 }
 
-interface ErrorsOptions extends OptionsObject {
-    errors?: unknown[];
-}
-
 export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
     const detailedMessage = options?.errors?.map(getDetailedErrorMessage).join('\n').trim();
 
     SnackbarRef.open({
