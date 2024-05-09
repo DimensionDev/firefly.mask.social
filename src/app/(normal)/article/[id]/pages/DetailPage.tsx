@@ -93,15 +93,21 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         }}
                     />
                 ) : null}
-
-                <div className="text-2xl font-semibold">{article.title}</div>
-
+                <div className="text-2xl font-semibold">{article.title} </div>
+                {article.origin ? (
+                    <Link
+                        href={article.origin}
+                        className="text-sm text-link hover:underline"
+                        rel="noreferrer noopener"
+                        target="_blank"
+                    >
+                        <Trans>View Source</Trans>
+                    </Link>
+                ) : null}
                 <div className="my-5 border-b border-secondaryLine">
                     <ArticleHeader article={article} className="pb-2" />
                 </div>
-
                 <ArticleMarkup className="markup linkify break-words text-[15px]">{article.content}</ArticleMarkup>
-
                 {authorUrl ? (
                     <div className="mt-4 rounded-2xl border border-secondaryLine bg-bg p-2">
                         <div className="border-b border-secondaryLine pb-2 text-sm">

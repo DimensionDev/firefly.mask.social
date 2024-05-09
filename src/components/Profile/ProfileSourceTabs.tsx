@@ -1,12 +1,11 @@
 'use client';
 
-import { groupBy, isUndefined, keys, omitBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { startTransition, useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import type { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -15,24 +14,29 @@ import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ProfileSourceTabs {
     profiles: FireFlyProfile[];
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
+    const updateCurrentProfileState = useGlobalState.use.updateCurrentProfileState();
     const { update, source } = ProfileContext.useContainer();
 
-    const tabs = useMemo(() => {
-        return (keys(groupBy(profiles, (x) => x.source)) as Source[]).sort((a, b) => {
-            const aIndex = SORTED_PROFILE_SOURCES.indexOf(a);
-            const bIndex = SORTED_PROFILE_SOURCES.indexOf(b);
-            return aIndex - bIndex;
-        });
-    }, [profiles]);
-
     const pathname = usePathname();
-    const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+    const isProfilePage = pathname === PageRoute.Profile;
+    const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
+
+    const tabs = useMemo(() => {
+        return SORTED_PROFILE_SOURCES.filter((source) => {
+            if (isProfilePage) {
+                if (source === Source.Wallet) return profiles.some((x) => x.source === Source.Wallet);
+                return true;
+            }
+            return profiles.some((x) => x.source === source);
+        });
+    }, [profiles, isProfilePage]);
 
     return (
         <div className=" border-b border-line bg-primaryBottom px-4">
@@ -58,16 +62,13 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                         identity: target.identity,
                                     });
 
-                                    const params = omitBy(
-                                        {
-                                            source: resolveSourceInURL(target.source),
-                                            identity: pathname === '/profile' ? target.identity : undefined,
-                                        },
-                                        isUndefined,
-                                    ) as Record<string, string>;
+                                    if (isProfilePage)
+                                        updateCurrentProfileState({ source: target.source, identity: target.identity });
 
                                     replaceSearchParams(
-                                        new URLSearchParams(params),
+                                        new URLSearchParams({
+                                            source: resolveSourceInURL(target.source),
+                                        }),
                                         isOtherProfile ? urlcat('/profile/:id', { id: target.identity }) : undefined,
                                     );
                                 })

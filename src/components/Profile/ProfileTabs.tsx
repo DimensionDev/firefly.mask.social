@@ -2,14 +2,13 @@
 
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
-import { isUndefined, omitBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { SourceSquareIcon } from '@/components/SourceSquareIcon.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
@@ -17,6 +16,7 @@ import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ProfileTabsProps {
     profiles: FireFlyProfile[];
@@ -61,9 +61,11 @@ const resolveProfileTabColor = createLookupTableResolver<
 );
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
+    const updateCurrentProfileState = useGlobalState.use.updateCurrentProfileState();
     const { update, identity: currentProfile } = ProfileContext.useContainer();
     const pathname = usePathname();
 
+    const isProfilePage = pathname === PageRoute.Profile;
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
     return (
         <div className="scrollable-tab flex gap-2 px-5">
@@ -86,16 +88,16 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                     identity: profile.identity,
                                 });
 
-                                const params = omitBy(
-                                    {
-                                        source: resolveSourceInURL(profile.source),
-                                        identity: pathname === '/profile' ? profile.identity : undefined,
-                                    },
-                                    isUndefined,
-                                ) as Record<string, string>;
+                                if (isProfilePage)
+                                    updateCurrentProfileState({
+                                        source: profile.source,
+                                        identity: profile.identity,
+                                    });
 
                                 replaceSearchParams(
-                                    new URLSearchParams(params),
+                                    new URLSearchParams({
+                                        source: resolveSourceInURL(profile.source),
+                                    }),
                                     isOtherProfile ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
                                 );
                             });

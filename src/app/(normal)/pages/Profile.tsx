@@ -4,23 +4,17 @@ import { t } from '@lingui/macro';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
-import { notFound } from 'next/navigation.js';
+import { notFound, usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { Loading } from '@/components/Loading.js';
-import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { Info } from '@/components/Profile/Info.js';
-import { ProfileContentTabs } from '@/components/Profile/ProfileContentTabs.js';
+import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { WalletInfo } from '@/components/Profile/WalletInfo.js';
-import { WalletTabs } from '@/components/Profile/WalletTabs.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { isMyProfile } from '@/helpers/isMyProfile.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -32,13 +26,14 @@ import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface ProfilePageProps {
     profiles: FireFlyProfile[];
-    hiddenTitle?: boolean;
 }
 
-export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
+export function ProfilePage({ profiles }: ProfilePageProps) {
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
-
     const { source, identity } = ProfileContext.useContainer();
+
+    const pathname = usePathname();
+    const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
 
     const currentProfile = profiles.find((x) => {
         if (source === Source.Wallet) return isSameAddress(identity, x.identity);
@@ -71,22 +66,6 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
         },
     });
 
-    const info = useMemo(() => {
-        if (source === Source.Wallet && walletProfile) {
-            return <WalletInfo profile={walletProfile} relations={relations} />;
-        }
-        if (profile) {
-            const isMyself = isMyProfile(
-                profile.source,
-                profile.source === Source.Lens ? profile.handle : profile.profileId,
-            );
-
-            return <Info profile={profile} isMyProfile={isMyself} source={profile.source} />;
-        }
-
-        return null;
-    }, [profile, walletProfile, source, relations]);
-
     const title = useMemo(() => {
         if (!profile) return SITE_NAME;
         const fragments = [profile.displayName];
@@ -99,6 +78,7 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
     useUpdateCurrentVisitingProfile(profile);
 
     if (
+        isOtherProfile &&
         !profile &&
         !walletProfile &&
         !isLoading &&
@@ -109,7 +89,7 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
 
     return (
         <div>
-            {!hiddenTitle ? (
+            {isOtherProfile ? (
                 <Title
                     profile={profile}
                     isSingleProfile={profiles.length === 1}
@@ -120,23 +100,15 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
                     }
                 />
             ) : null}
-            {profiles.length > 1 ? <ProfileSourceTabs profiles={profiles} /> : null}
-            {isLoading ? (
-                <Loading />
-            ) : source === Source.Twitter && !currentTwitterProfile?.profileId ? (
-                <NotLoginFallback source={Source.Twitter} />
-            ) : (
-                <>
-                    {info}
-                    <ProfileTabs profiles={profiles.filter((x) => x.source === source)} />
-
-                    {walletProfile ? (
-                        <WalletTabs address={walletProfile.address} />
-                    ) : profile ? (
-                        <ProfileContentTabs source={profile.source} profileId={profile.profileId} />
-                    ) : null}
-                </>
-            )}
+            {profiles.length > 1 || pathname === PageRoute.Profile ? <ProfileSourceTabs profiles={profiles} /> : null}
+            <ProfileContent
+                loading={isLoading}
+                source={source}
+                walletProfile={walletProfile}
+                profile={profile}
+                profiles={profiles}
+                relations={relations}
+            />
         </div>
     );
 }
