@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 
+import { UnmuteButton } from '@/components/Actions/UnmuteButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
@@ -41,7 +42,11 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                         {!isMyProfile && profile && isMedium ? (
                             <>
                                 <div className="ml-auto ">
-                                    <FollowButton profile={profile} />
+                                    {profile.viewerContext?.blocking ? (
+                                        <UnmuteButton profile={profile} />
+                                    ) : (
+                                        <FollowButton profile={profile} />
+                                    )}
                                 </div>
                                 <ProfileMoreAction profile={profile} />
                             </>

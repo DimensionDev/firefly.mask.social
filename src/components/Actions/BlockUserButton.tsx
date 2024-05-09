@@ -19,16 +19,16 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
     { busy, profile, className, onConfirm, onToggleBlock: onToggleBlock, ...rest }: Props,
     ref,
 ) {
-    const blocking = profile.viewerContext?.blocking;
+    const muted = profile.viewerContext?.blocking;
     return (
         <ClickableButton
             className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
-                if (!blocking) {
+                if (!muted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                        title: t`Mute ${profile.handle}`,
+                        title: t`Mute @${profile.handle}`,
                         content: (
                             <div className="text-main">
                                 <Trans>Confirm you want to mute @{profile.handle}?</Trans>
@@ -44,13 +44,13 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
         >
             {busy ? (
                 <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
-            ) : blocking ? (
+            ) : muted ? (
                 <SpeakerWaveIcon width={24} height={24} />
             ) : (
                 <SpeakerXMarkIcon width={24} height={24} />
             )}
             <span className="text-[17px] font-bold leading-[22px] text-main">
-                {blocking ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
+                {muted ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
             </span>
         </ClickableButton>
     );
