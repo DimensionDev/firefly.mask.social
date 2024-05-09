@@ -103,9 +103,10 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
 }
 
 export type FireflySessionOpenConfirmModalProps = {
+    source: SocialSource;
     sessions?: Array<LensSession | FarcasterSession>;
     onDetected?: (profiles: Profile[]) => void;
-} | void;
+};
 
 // true - indicates the user restored sessions
 // false - indicates the users rejected the session restore
@@ -119,13 +120,25 @@ export const FireflySessionConfirmModal = forwardRef<
             try {
                 const currentProfileAll = getCurrentProfileAll();
 
-                // if there is a session already logged in, skip the restore
                 const sessions = (props?.sessions ?? []).filter((x) => {
                     const source = resolveSocialSourceFromSessionType(x.type);
-                    return !isSameProfile(currentProfileAll[source], {
-                        source,
-                        profileId: x.profileId,
-                    } as unknown as Profile);
+
+                    // if the session shares the same source with the current profile, skip the restore
+                    if (source === props?.source) {
+                        return false;
+                    }
+
+                    // if there is a session already logged in, skip the restore
+                    if (
+                        isSameProfile(currentProfileAll[source], {
+                            source,
+                            profileId: x.profileId,
+                        } as unknown as Profile)
+                    ) {
+                        return false;
+                    }
+
+                    return true;
                 });
 
                 // no session to restore

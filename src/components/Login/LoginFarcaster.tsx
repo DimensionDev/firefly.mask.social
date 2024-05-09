@@ -12,7 +12,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { FarcasterSignType, NODE_ENV } from '@/constants/enum.js';
+import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -41,6 +41,7 @@ async function login(createSession: () => Promise<FarcasterSession>, signal?: Ab
 
         // restore profile exclude farcaster
         await FireflySessionConfirmModalRef.openAndWaitForClose({
+            source: Source.Farcaster,
             sessions: await syncSessionFromFirefly(signal),
             onDetected(profiles) {
                 if (!profiles.length)

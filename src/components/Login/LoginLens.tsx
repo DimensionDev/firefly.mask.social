@@ -13,7 +13,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { NODE_ENV } from '@/constants/enum.js';
+import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -68,6 +68,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
                     // restore profiles exclude lens
                     await FireflySessionConfirmModalRef.openAndWaitForClose({
+                        source: Source.Lens,
                         sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
                         onDetected(profiles) {
                             if (!profiles.length)

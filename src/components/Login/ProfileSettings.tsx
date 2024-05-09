@@ -14,7 +14,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -72,12 +72,10 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 if (!fireflySessionHolder.session) throw new Error(t`Failed to create firefly session.`);
 
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
+                    source,
                     sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
                     onDetected(profiles) {
-                        if (!profiles.length)
-                            enqueueInfoMessage(t`No device accounts detected.`, {
-                                environment: NODE_ENV.Development,
-                            });
+                        if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
                         onClose?.();
                     },
                 });
