@@ -80,8 +80,8 @@ function createState(
                     if (!updatedProfiles.length) return;
 
                     // might be logged out
-                    const profileSesion = get().currentProfileSession;
-                    if (!profileSesion) return;
+                    const profileSession = get().currentProfileSession;
+                    if (!profileSession) return;
 
                     set((state) => {
                         const currentProfile = profiles.find((p) => isSameProfile(p, profile));
