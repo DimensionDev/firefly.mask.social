@@ -1,4 +1,4 @@
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
+import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
@@ -24,10 +24,10 @@ export function restoreProfile(
 
     store?.getState().updateProfiles(profiles);
     store?.getState().updateCurrentProfile(currentProfile, session);
-    resolveSessionHolder(session.type)?.resumeSession(session);
+    resolveSessionHolderFromSessionType(session.type)?.resumeSession(session);
 }
 
 export function restoreSessionForFirefly(session: FireflySession | null) {
     if (!session) return;
-    resolveSessionHolder(session.type)?.resumeSession(session);
+    resolveSessionHolderFromSessionType(session.type)?.resumeSession(session);
 }

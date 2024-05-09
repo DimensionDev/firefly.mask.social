@@ -70,7 +70,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
             if (source) {
                 profileStoreAll[source].clear();
-                resolveSessionHolder(resolveSessionType(source))?.removeSession();
+                resolveSessionHolder(source)?.removeSession();
 
                 // remove firefly session if it's the parent session matches the source
                 if (fireflySessionHolder.session?.parent.type === resolveSessionType(source)) {
@@ -80,7 +80,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             } else {
                 SORTED_SOCIAL_SOURCES.forEach((x) => {
                     profileStoreAll[x].clear();
-                    resolveSessionHolder(resolveSessionType(x))?.removeSession();
+                    resolveSessionHolder(x)?.removeSession();
                 });
                 useFireflyStateStore.getState().clear();
                 fireflySessionHolder.removeSession();

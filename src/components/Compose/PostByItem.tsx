@@ -19,10 +19,10 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
+import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 
 interface PostByItemProps {
     source: SocialSource;
@@ -42,7 +42,7 @@ export function PostByItem({ source }: PostByItemProps) {
             try {
                 const session = await createSessionForProfileId(profile.profileId);
                 updateCurrentProfile(profile, session);
-                lensSessionHolder.resumeSession(session);
+                resolveSessionHolder(profile.source)?.resumeSession(session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
