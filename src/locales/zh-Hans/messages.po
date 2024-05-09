@@ -609,6 +609,9 @@ msgstr "您 Frame 的 URL。"
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
 
+msgid "Article remove from your Bookmarks"
+msgstr ""
+
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
 
@@ -845,6 +848,9 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
 msgid "Dark Mode"
 msgstr "深色模式"
+
+msgid "Article added to your Bookmarks"
+msgstr ""
 
 msgid "Online"
 msgstr "在线"
