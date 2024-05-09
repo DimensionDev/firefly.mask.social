@@ -16,7 +16,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function BlockUserButton(
-    { busy, profile, className, onConfirm, onToggleBlock: onToggleBlock, ...rest }: Props,
+    { busy, profile, className, onConfirm, onToggleBlock, ...rest }: Props,
     ref,
 ) {
     const muted = profile.viewerContext?.blocking;

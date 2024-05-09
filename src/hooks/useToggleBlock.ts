@@ -4,10 +4,10 @@ import { useAsyncFn } from 'react-use';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useBlockedUsersState } from '@/store/useBlockedUsersStore.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useBlockedUsersState } from '@/store/useBlockedUsersStore.js';
 
 /**
  * Block/Unblock a user
@@ -19,7 +19,7 @@ export function useToggleBlock(operator: Profile | null) {
         async (profile: Profile) => {
             if (!isLogin) {
                 LoginModalRef.open({ source: profile.source });
-                return;
+                return false;
             }
             const blocking = profile.viewerContext?.blocking;
             const sourceName = resolveSourceName(profile.source);

@@ -23,9 +23,7 @@ class FireflyArticle implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const response = await fetchJSON<DiscoverArticlesResponse>(url, {
-            method: 'GET',
-        });
+        const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url);
 
         const data = resolveFireflyResponseData(response);
 
@@ -41,7 +39,7 @@ class FireflyArticle implements Provider {
     async discoverArticlesByAddress(address: string, indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
 
-        const response = await fetchJSON<DiscoverArticlesResponse>(url, {
+        const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
@@ -65,7 +63,7 @@ class FireflyArticle implements Provider {
     async getArticleById(articleId: string) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/article/contents_by_ids');
 
-        const response = await fetchJSON<GetArticleDetailResponse>(url, {
+        const response = await fireflySessionHolder.fetch<GetArticleDetailResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 ids: [articleId],
