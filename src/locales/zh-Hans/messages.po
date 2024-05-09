@@ -123,6 +123,9 @@ msgstr ""
 msgid "Transaction button is not available yet."
 msgstr ""
 
+msgid "Mute {0}"
+msgstr ""
+
 msgid "Trending Channels"
 msgstr ""
 
@@ -245,9 +248,6 @@ msgstr "音频封面"
 
 msgid "Recent"
 msgstr "最近"
-
-msgid "Block"
-msgstr ""
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -767,9 +767,6 @@ msgstr "你已经滑到底部啦～"
 
 msgid "Failed to mirror post."
 msgstr "转发失败"
-
-msgid "Farcaster doesn't support video yet."
-msgstr ""
 
 msgid "Failed to create firefly session."
 msgstr ""

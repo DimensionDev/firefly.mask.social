@@ -28,7 +28,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
                 rest.onClick?.();
                 if (!blocking) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                        title: t`Block`,
+                        title: t`Mute ${profile.handle}`,
                         content: (
                             <div className="text-main">
                                 <Trans>Confirm you want to mute @{profile.handle}?</Trans>

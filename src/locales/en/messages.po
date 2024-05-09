@@ -118,6 +118,9 @@ msgstr "Casts"
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
 
+msgid "Mute {0}"
+msgstr "Mute {0}"
+
 msgid "Trending Channels"
 msgstr "Trending Channels"
 
@@ -240,9 +243,6 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
-
-msgid "Block"
-msgstr "Block"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -762,9 +762,6 @@ msgstr "You've hit rock bottom."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
-
-msgid "Farcaster doesn't support video yet."
-msgstr "Farcaster doesn't support video yet."
 
 msgid "Failed to create firefly session."
 msgstr "Failed to create firefly session."
