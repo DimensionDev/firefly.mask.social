@@ -9,7 +9,6 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 interface Props {
     source: SocialSource;
@@ -19,10 +18,7 @@ export function BookmarkList({ source }: Props) {
     const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'bookmark'],
         queryFn: async ({ pageParam }) => {
-            if (
-                (source === Source.Farcaster && !fireflySessionHolder.session) ||
-                (source === Source.Lens && !lensSessionHolder.session)
-            ) {
+            if (source === Source.Farcaster && !fireflySessionHolder.session) {
                 return;
             }
             const provider = resolveSocialMediaProvider(source);
