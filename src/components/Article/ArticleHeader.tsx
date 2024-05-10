@@ -3,9 +3,11 @@ import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
@@ -52,6 +54,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={article.timestamp} />
                 </span>
+                {env.shared.NODE_ENV === 'development' ? <ArticleMoreAction article={article} /> : null}
                 {/* TODO: report and mute */}
             </div>
         </div>
