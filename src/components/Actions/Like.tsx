@@ -57,8 +57,8 @@ export const Like = memo<LikeProps>(function Like({
                 ? provider.unvotePost(postId, Number(authorId))
                 : provider.upvotePost(postId, Number(authorId));
 
-            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
             await promise;
+            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
             return;
         } catch (error) {
             if (isComment) {
