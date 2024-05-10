@@ -104,6 +104,7 @@ export enum ScrollListKey {
     Collected = 'profile-collected-list',
     Engagement = 'post-engagement',
     NFTList = 'nft-list',
+    TopCollectors = 'top-collectors',
 }
 
 export enum FarcasterSignType {

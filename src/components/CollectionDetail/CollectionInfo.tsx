@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 
 import CopyIcon from '@/assets/copy.svg';
+import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -58,6 +59,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                     <div className="text-normal flex items-center text-sm leading-[14px] text-secondary">
                         <span className="hidden sm:inline">{address}</span>
                         <span className="inline sm:hidden">{formatEthereumAddress(address, 4)}</span>
+                        <CopyButton value={address} />
                         <CopyIcon className="ml-1.5 h-3 w-3 text-secondary" />
                     </div>
                     <div className="flex items-center space-x-2 whitespace-nowrap text-sm leading-[22px]">

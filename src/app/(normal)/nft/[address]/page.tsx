@@ -10,6 +10,7 @@ import { useMemo, useState } from 'react';
 import ComeBack from '@/assets/comeback.svg';
 import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js';
 import { NFTList } from '@/components/CollectionDetail/NFTList.js';
+import { TopCollectors } from '@/components/CollectionDetail/TopCollectors.js';
 import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import type { SourceInURL } from '@/constants/enum.js';
@@ -81,7 +82,7 @@ export default function Page({ params }: { params: { address: string }; searchPa
                 {
                     {
                         items: <NFTList address={address} />,
-                        topCollectors: <div>Top Collectors</div>,
+                        topCollectors: <TopCollectors address={address} totalQuantity={data?.total_quantity} />,
                     }[currentTab]
                 }
             </div>

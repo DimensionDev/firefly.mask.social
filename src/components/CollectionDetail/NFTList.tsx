@@ -23,7 +23,7 @@ export function NFTList(props: { address: string }) {
     return (
         <GridListInPage
             queryResult={queryResult}
-            className="mt-1"
+            className="mt-2"
             VirtualGridListProps={{
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
