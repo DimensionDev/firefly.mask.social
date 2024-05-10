@@ -10,7 +10,7 @@ import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
-import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.js';
 import { BIO_TWITTER_PROFILE_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -26,9 +26,15 @@ const PLUGINS = [
 interface ArticleMarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     children: ReactMarkdownOptions['children'] | null;
     disableImage?: boolean;
+    imageProps?: Partial<ImageAssetProps>;
 }
 
-export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ children, disableImage, ...rest }) {
+export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
+    children,
+    disableImage,
+    imageProps,
+    ...rest
+}) {
     if (!children) return null;
 
     return (
@@ -60,6 +66,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ c
                                     images: [props.src],
                                 });
                             }}
+                            {...imageProps}
                         />
                     );
                 },

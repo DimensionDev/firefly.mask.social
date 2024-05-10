@@ -73,7 +73,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 </h2>
             </div>
 
-            <div className="p-4">
+            <div className="px-4">
                 {cover.data ? (
                     <ImageAsset
                         src={cover.data}
@@ -104,10 +104,15 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         <Trans>View Source</Trans>
                     </Link>
                 ) : null}
-                <div className="my-5 border-b border-secondaryLine">
-                    <ArticleHeader article={article} className="pb-2" />
+                <div className="my-5 mt-2 border-b border-secondaryLine">
+                    <ArticleHeader article={article} className="items-center pb-2" />
                 </div>
-                <ArticleMarkup className="markup linkify break-words text-[15px]">{article.content}</ArticleMarkup>
+                <ArticleMarkup
+                    className="markup linkify break-words text-[15px]"
+                    imageProps={{ disableLoadHandler: true, style: { objectFit: 'cover' } }}
+                >
+                    {article.content}
+                </ArticleMarkup>
                 {authorUrl ? (
                     <div className="mt-4 rounded-2xl border border-secondaryLine bg-bg p-2">
                         <div className="border-b border-secondaryLine pb-2 text-sm">
