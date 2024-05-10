@@ -7,8 +7,8 @@ import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
@@ -54,7 +54,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col space-y-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
+                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -62,8 +62,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                 >
                     <Menu.Item>
                         {({ close }) => (
-                            <ClickableButton
-                                className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                            <MenuButton
                                 onClick={async () => {
                                     close();
                                     copyToClipboard(urlcat(location.origin, getChannelUrl(channel)));
@@ -71,10 +70,10 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                                 }}
                             >
                                 <LinkIcon width={24} height={24} />
-                                <span className="text-[17px] font-bold leading-[22px] text-main">
+                                <span className="font-bold leading-[22px] text-main">
                                     <Trans>Copy Link</Trans>
                                 </span>
-                            </ClickableButton>
+                            </MenuButton>
                         )}
                     </Menu.Item>
                     {currentProfile ? (

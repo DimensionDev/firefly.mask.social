@@ -48,7 +48,7 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
             ) : (
                 <FlagIcon width={24} height={24} />
             )}
-            <span className="text-[17px] font-bold leading-[22px] text-main">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Report @{profile.handle}</Trans>
             </span>
         </MenuButton>

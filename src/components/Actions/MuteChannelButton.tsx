@@ -59,7 +59,7 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
             ) : (
                 <SpeakerXMarkIcon width={24} height={24} />
             )}
-            <span className="text-[17px] font-bold leading-[22px] text-main">
+            <span className="font-bold leading-[22px] text-main">
                 {muted ? t`Unmute /${channel.id}` : t`Mute /${channel.id}`}
             </span>
         </MenuButton>
