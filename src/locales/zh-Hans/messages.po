@@ -160,7 +160,7 @@ msgid "Retry"
 msgstr ""
 
 msgid "Show less"
-msgstr ">>>>>>> released"
+msgstr ""
 
 msgid "comment"
 msgstr "评论"
