@@ -1,6 +1,5 @@
 /* cspell:disable */
 
-import { compact } from 'lodash-es';
 import type { TweetV2UserTimelineParams } from 'twitter-api-v2';
 
 import {
