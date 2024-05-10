@@ -75,6 +75,9 @@ msgstr "诊断网络"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
+msgid "Download Image"
+msgstr ""
+
 msgid "Searching channel"
 msgstr ""
 
@@ -129,6 +132,9 @@ msgstr "诊断命令行"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
+msgid "NFT Standard"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr ""
 
@@ -169,6 +175,9 @@ msgid "Device Logged In"
 msgstr ""
 
 msgid "Username"
+msgstr ""
+
+msgid "Blockchain"
 msgstr ""
 
 msgid "No results for \"{searchKeyword}\""
@@ -240,6 +249,12 @@ msgstr "添加另一个帖子..."
 msgid "{count, plural, one {Bookmark} other {{0}}}"
 msgstr ""
 
+msgid "Items"
+msgstr ""
+
+msgid "Minting Txn Hash"
+msgstr ""
+
 msgid "Audio Cover"
 msgstr "音频封面"
 
@@ -247,6 +262,9 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "Block"
+msgstr ""
+
+msgid "Owners"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -357,6 +375,9 @@ msgstr "回复"
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "Owned By"
+msgstr ""
+
 msgid "Collected"
 msgstr "已收藏"
 
@@ -411,6 +432,9 @@ msgstr ""
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
+msgid "Description"
+msgstr ""
+
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
@@ -461,6 +485,9 @@ msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 {source} 取消关注 @{handle} 失败} other {在 {source} 关注 @{handle} 失败}}"
+
+msgid "NFT Contract"
+msgstr ""
 
 msgid "Failed to follow."
 msgstr "关注失败"
@@ -516,6 +543,9 @@ msgstr ""
 msgid "Settings"
 msgstr "设置"
 
+msgid "Creator"
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}"
 msgstr ""
 
@@ -536,6 +566,9 @@ msgstr "Farcaster"
 
 msgid "commented"
 msgstr "已回复"
+
+msgid "Minting Date"
+msgstr ""
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
@@ -600,6 +633,9 @@ msgstr "取消关注失败"
 msgid "One click to connect your account status."
 msgstr ""
 
+msgid "Top Collectors"
+msgstr ""
+
 msgid "Quote"
 msgstr "引用"
 
@@ -607,6 +643,9 @@ msgid "Failed to bookmark post."
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
+msgstr ""
+
+msgid "Floor Price"
 msgstr ""
 
 msgid "Unliked"
@@ -681,11 +720,17 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
+msgid "POAPs"
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
 
 msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
+
+msgid "24H Volume"
+msgstr ""
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "未找到 Lens profile。请尝试其他钱包。"
@@ -762,6 +807,9 @@ msgstr "转发失败"
 msgid "Failed to create firefly session."
 msgstr ""
 
+msgid "Properties"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
@@ -835,6 +883,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
 
 msgid "Claim on {0}: {1}"
+msgstr ""
+
+msgid "NFT ID"
 msgstr ""
 
 msgid "Failed to unmirror post."
@@ -960,6 +1011,9 @@ msgstr "转发了你的"
 msgid "Mirror"
 msgstr "转发"
 
+msgid "Last Sale"
+msgstr ""
+
 msgid "Terms of Service"
 msgstr "服务条款"
 
@@ -987,10 +1041,16 @@ msgstr "<0/> 在 <1><2/></1> 提及了你"
 msgid "Login"
 msgstr "登录"
 
+msgid "Overflow"
+msgstr ""
+
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Copy Address"
 msgstr ""
 
 msgid "Likes"

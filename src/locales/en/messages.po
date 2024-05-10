@@ -70,6 +70,9 @@ msgstr "Debug Connection"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 
+msgid "Download Image"
+msgstr "Download Image"
+
 msgid "Searching channel"
 msgstr "Searching channel"
 
@@ -124,6 +127,9 @@ msgstr "Debug Console"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "Failed to mute @{0} on {sourceName}"
 
+msgid "NFT Standard"
+msgstr "NFT Standard"
+
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
@@ -165,6 +171,9 @@ msgstr "Device Logged In"
 
 msgid "Username"
 msgstr "Username"
+
+msgid "Blockchain"
+msgstr "Blockchain"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "No results for \"{searchKeyword}\""
@@ -235,6 +244,12 @@ msgstr "Add another post..."
 msgid "{count, plural, one {Bookmark} other {{0}}}"
 msgstr "{count, plural, one {Bookmark} other {{0}}}"
 
+msgid "Items"
+msgstr "Items"
+
+msgid "Minting Txn Hash"
+msgstr "Minting Txn Hash"
+
 msgid "Audio Cover"
 msgstr "Audio Cover"
 
@@ -243,6 +258,9 @@ msgstr "Recent"
 
 msgid "Block"
 msgstr "Block"
+
+msgid "Owners"
+msgstr "Owners"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -352,6 +370,9 @@ msgstr "Reply"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "Owned By"
+msgstr "Owned By"
+
 msgid "Collected"
 msgstr "Collected"
 
@@ -406,6 +427,9 @@ msgstr "No one likes this post yet."
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
 
+msgid "Description"
+msgstr "Description"
+
 msgid "Malformed session."
 msgstr "Malformed session."
 
@@ -456,6 +480,9 @@ msgstr "Suggested Channels"
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
+
+msgid "NFT Contract"
+msgstr "NFT Contract"
 
 msgid "Failed to follow."
 msgstr "Failed to follow."
@@ -511,6 +538,9 @@ msgstr "Articles"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "Creator"
+msgstr "Creator"
+
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "Unmuted @{0} on {sourceName}"
 
@@ -531,6 +561,9 @@ msgstr "Farcaster"
 
 msgid "commented"
 msgstr "commented"
+
+msgid "Minting Date"
+msgstr "Minting Date"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
@@ -595,6 +628,9 @@ msgstr "Failed to unfollow."
 msgid "One click to connect your account status."
 msgstr "One click to connect your account status."
 
+msgid "Top Collectors"
+msgstr "Top Collectors"
+
 msgid "Quote"
 msgstr "Quote"
 
@@ -603,6 +639,9 @@ msgstr "Failed to bookmark post."
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
+
+msgid "Floor Price"
+msgstr "Floor Price"
 
 msgid "Unliked"
 msgstr "Unliked"
@@ -676,11 +715,17 @@ msgstr "Show more"
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
 
+msgid "POAPs"
+msgstr "POAPs"
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
 
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
+
+msgid "24H Volume"
+msgstr "24H Volume"
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "No Lens profile was found. Please try using a different wallet."
@@ -757,6 +802,9 @@ msgstr "Failed to mirror post."
 msgid "Failed to create firefly session."
 msgstr "Failed to create firefly session."
 
+msgid "Properties"
+msgstr "Properties"
+
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
 
@@ -831,6 +879,9 @@ msgstr "You cannot reply to @{author} on {0}."
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
+
+msgid "NFT ID"
+msgstr "NFT ID"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
@@ -955,6 +1006,9 @@ msgstr "mirrored your"
 msgid "Mirror"
 msgstr "Mirror"
 
+msgid "Last Sale"
+msgstr "Last Sale"
+
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
@@ -982,11 +1036,17 @@ msgstr "<0/> mentioned you in a <1><2/></1>"
 msgid "Login"
 msgstr "Login"
 
+msgid "Overflow"
+msgstr "Overflow"
+
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."
+
+msgid "Copy Address"
+msgstr "Copy Address"
 
 msgid "Likes"
 msgstr "Likes"
