@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -37,6 +37,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
 }) {
     const router = useRouter();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
+
     const cover = useQuery({
         queryKey: ['article', 'cover', article.id],
         queryFn: async () => {
@@ -60,12 +61,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         queryClient.setQueryData(['article-detail', article.id], article);
     });
 
-    const content = useMemo(() => {
-        if (IS_SAFARI && IS_APPLE) {
-            return article.content.split('\n').slice(0, 5).join('');
-        }
-        return article.content;
-    }, [article.content]);
+    const content = article.content.split('\n').slice(0, 5).join('');
 
     return (
         <motion.article
@@ -101,7 +97,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                         )}
                     </span>
                 </div>
-                <div className="mt-[6px] flex flex-col gap-2 rounded-2xl bg-bg p-3">
+                <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line p-3">
                     {cover.data ? (
                         <ImageAsset
                             disableLoadHandler
@@ -113,6 +109,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                             onClick={(event) => {
                                 event.stopPropagation();
                                 event.preventDefault();
+
                                 if (cover.data)
                                     PreviewImageModalRef.open({
                                         images: [cover.data],
@@ -128,14 +125,31 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     >
                         {article.title}
                     </div>
-                    <ArticleMarkup
-                        disableImage
-                        className={classNames('markup linkify break-words text-sm leading-[18px] text-second', {
-                            'line-clamp-5': !IS_APPLE || !IS_SAFARI,
-                        })}
-                    >
-                        {content}
-                    </ArticleMarkup>
+                    {content ? (
+                        <div className="h-[100px]">
+                            <ArticleMarkup
+                                disableImage
+                                className="markup linkify break-words text-sm leading-[18px] text-second"
+                            >
+                                {content}
+                            </ArticleMarkup>
+                            <div
+                                className=" absolute bottom-0 left-0 h-[60px] w-full"
+                                style={{
+                                    background: `linear-gradient(
+                            to top,
+                            rgba(var(--background-end-rgb), 1) 0%,
+                            rgba(var(--background-end-rgb), 0.3) 50%,
+                            rgba(var(--background-end-rgb), 0.15) 65%,
+                            rgba(var(--background-end-rgb), 0.075) 75.5%,
+                            rgba(var(--background-end-rgb), 0.037) 82.85%,
+                            rgba(var(--background-end-rgb), 0.019) 88%,
+                            rgba(var(--background-end-rgb), 0) 100%
+                          )`,
+                                }}
+                            />
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </motion.article>
