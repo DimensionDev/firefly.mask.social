@@ -191,7 +191,7 @@ export function LoginFarcaster() {
                         (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
                     );
 
-                    if (!restoredSession || Math.random() < 1) {
+                    if (!restoredSession) {
                         // the current profile did not connect to firefly
                         // we need to restore the staled session and keep everything untouched
                         if (staledSession) FireflySession.restore(staledSession);
@@ -313,15 +313,15 @@ export function LoginFarcaster() {
                     {profileError ? (
                         <div className=" absolute inset-0 flex flex-col items-center justify-center">
                             {profileError.profile ? (
-                                <div className=" mb-4">
+                                <div className=" mb-4 flex flex-col items-center justify-center">
                                     <ProfileAvatar
                                         className=" mb-2"
                                         profile={profileError.profile}
                                         size={64}
                                         enableSourceIcon={false}
                                     />
-                                    <p className=" text-base">{profileError.profile.displayName || 'YangKun'}</p>
-                                    <p className=" text-xs">@{profileError.profile.handle || 'yangkun'}</p>
+                                    <p className=" text-base">{profileError.profile.displayName}</p>
+                                    <p className=" text-xs">@{profileError.profile.handle}</p>
                                 </div>
                             ) : null}
                             <p className=" mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
@@ -329,8 +329,9 @@ export function LoginFarcaster() {
                                 className=" rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
                                 onClick={() => {
                                     setSignType(null);
-                                    setScanned(null);
+                                    setScanned(false);
                                     setProfileError(null);
+                                    resetCountdown();
                                 }}
                             >
                                 <Trans>Back</Trans>
