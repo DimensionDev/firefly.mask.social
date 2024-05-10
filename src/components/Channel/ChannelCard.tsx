@@ -28,7 +28,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
     if (loading) {
         return (
-            <div className="h-[198px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
+            <div className="h-[182px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
                 <div className="animate-pulse">
                     <div className="flex w-full gap-[10px]">
                         <div className="h-20 w-20 rounded-full bg-slate-700" />

@@ -481,9 +481,6 @@ msgstr "Confirm to log out this account?"
 msgid "Failed to recast."
 msgstr "Failed to recast."
 
-msgid "Followings"
-msgstr "Followings"
-
 msgid "No post found"
 msgstr "No post found"
 
@@ -706,9 +703,6 @@ msgstr "No Lens profile was found. Please try using a different wallet."
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
 
-msgid "Follower"
-msgstr "Follower"
-
 msgid "The frame server failed to process the request."
 msgstr "The frame server failed to process the request."
 
@@ -876,6 +870,9 @@ msgstr "Your post have published successfully on {0}."
 
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
+
+msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 
 msgid "Cancel mirror successfully"
 msgstr "Cancel mirror successfully"

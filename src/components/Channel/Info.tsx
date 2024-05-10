@@ -27,7 +27,7 @@ export function Info({ channel, source }: InfoProps) {
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
+            <div className=" relative flex flex-1 flex-col gap-[6px]">
                 {channel && isMedium ? (
                     <div className=" absolute right-0 top-4">
                         <ChannelMoreAction channel={channel} />

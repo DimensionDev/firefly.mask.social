@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { plural, Trans } from '@lingui/macro';
 
 import { UnmuteButton } from '@/components/Actions/UnmuteButton.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -9,6 +9,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -66,9 +67,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                         }}
                         className={classNames('flex gap-1 hover:underline')}
                     >
-                        <span className=" font-bold text-lightMain">{followingCount}</span>
+                        <span className=" font-bold text-lightMain">{nFormatter(followingCount)}</span>
                         <span className=" text-secondary">
-                            {profile?.viewerContext?.following ? <Trans>Following</Trans> : <Trans>Followings</Trans>}
+                            <Trans>Following</Trans>
                         </span>
                     </Link>
 
@@ -79,9 +80,13 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                         }}
                         className={classNames('flex gap-1 hover:underline')}
                     >
-                        <span className=" font-bold text-lightMain">{followerCount}</span>
+                        <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
                         <span className=" text-secondary">
-                            {followerCount === 1 ? <Trans>Follower</Trans> : <Trans>Followers</Trans>}
+                            {plural(followerCount, {
+                                zero: 'Follower',
+                                one: 'Follower',
+                                other: 'Followers',
+                            })}
                         </span>
                     </Link>
                 </div>
