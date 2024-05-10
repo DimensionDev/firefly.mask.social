@@ -10,10 +10,12 @@ import urlcat from 'urlcat';
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/components/Image.js';
+import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -66,8 +68,14 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
                             button={button}
                             disabled={loading || readonly}
                             onClick={async () => {
-                                if (readonly) return;
-                                if (loading) return;
+                                if (readonly || loading) return;
+
+                                if (!farcasterSessionHolder.session && button.action === ActionType.Post) {
+                                    LoginModalRef.open({
+                                        source: Source.Farcaster,
+                                    });
+                                    return;
+                                }
 
                                 const inputText = inputRef.current?.value;
                                 // there is only one input field in the frame

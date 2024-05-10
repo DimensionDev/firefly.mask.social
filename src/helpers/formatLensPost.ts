@@ -27,8 +27,9 @@ import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
+import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
@@ -272,11 +273,8 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
     if (result.__typename === 'Mirror') {
         const mediaObjects = getMediaObjects(result.mirrorOn.metadata);
-
         const content = formatContent(result.mirrorOn.metadata);
-
-        const email_regex = new RegExp(EMAIL_REGEX, 'g');
-        const oembedUrl = last(content?.content.replaceAll(email_regex, '').match(URL_REGEX) || []);
+        const oembedUrls = getEmbedUrls(content?.content ?? '', []);
 
         const canAct =
             !!result.mirrorOn.openActionModules?.length &&
@@ -295,7 +293,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 locale: result.mirrorOn.metadata.locale,
                 content: {
                     ...content,
-                    oembedUrl,
+                    oembedUrl: last(oembedUrls),
                 },
                 contentURI: result.mirrorOn.metadata.rawURI,
             },
