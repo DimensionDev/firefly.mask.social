@@ -10,6 +10,7 @@ import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
@@ -27,11 +28,20 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+
+class ProfileError extends Error {
+    constructor(
+        public profile: Profile | null,
+        public override message: string,
+    ) {
+        super(message);
+    }
+}
 
 async function login(
     createSession: () => Promise<FarcasterSession>,
@@ -88,7 +98,7 @@ export function LoginFarcaster() {
     const options = useMemo(() => {
         return [
             {
-                label: t`Connect with Warpcast`,
+                label: t`New connect with Warpcast`,
                 type: FarcasterSignType.GrantPermission,
                 developmentOnly: false,
                 isFreeOfTransactionFee: false,
@@ -114,6 +124,7 @@ export function LoginFarcaster() {
     const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);
 
     const [scanned, setScanned] = useState(false);
+    const [profileError, setProfileError] = useState<ProfileError | null>(null);
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
@@ -170,6 +181,7 @@ export function LoginFarcaster() {
 
                     // let the user see the qr code has been scanned and display a loading icon
                     setScanned(true);
+                    setProfileError(null);
 
                     // for relay service we need to sync the session from firefly
                     // and find out the the signer key of the connected profile
@@ -178,15 +190,31 @@ export function LoginFarcaster() {
                     const restoredSession = sessions.find(
                         (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
                     );
+
                     if (!restoredSession) {
                         // the current profile did not connect to firefly
                         // we need to restore the staled session and keep everything untouched
                         if (staledSession) FireflySession.restore(staledSession);
 
-                        enqueueErrorMessage(
-                            t`Failed to restore farcaster profile from Firefly. Please confirm your profile has connected to Firefly.`,
-                        );
-                        throw new Error('Failed to restore farcaster profile from Firefly.');
+                        try {
+                            const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+
+                            setProfileError(
+                                new ProfileError(
+                                    profile,
+                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                                ),
+                            );
+                        } catch {
+                            setProfileError(
+                                new ProfileError(
+                                    null,
+                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                                ),
+                            );
+                        }
+
+                        throw new AbortError();
                     }
 
                     return restoredSession as FarcasterSession;
@@ -282,7 +310,34 @@ export function LoginFarcaster() {
                 </div>
             ) : (
                 <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
-                    {url ? (
+                    {profileError ? (
+                        <div className=" absolute inset-0 flex flex-col items-center justify-center">
+                            {profileError.profile ? (
+                                <div className=" mb-4 flex flex-col items-center justify-center">
+                                    <ProfileAvatar
+                                        className=" mb-2"
+                                        profile={profileError.profile}
+                                        size={64}
+                                        enableSourceIcon={false}
+                                    />
+                                    <p className=" text-base">{profileError.profile.displayName}</p>
+                                    <p className=" text-xs">@{profileError.profile.handle}</p>
+                                </div>
+                            ) : null}
+                            <p className=" mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
+                            <ClickableButton
+                                className=" rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
+                                onClick={() => {
+                                    setSignType(null);
+                                    setScanned(false);
+                                    setProfileError(null);
+                                    resetCountdown();
+                                }}
+                            >
+                                <Trans>Back</Trans>
+                            </ClickableButton>
+                        </div>
+                    ) : url ? (
                         <>
                             <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
                                 {count === 0 ? (

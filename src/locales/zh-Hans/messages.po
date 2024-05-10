@@ -33,6 +33,9 @@ msgstr "引用"
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr ""
 
+msgid "New connect with Warpcast"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -113,9 +116,6 @@ msgstr "更换钱包"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
-
-msgid "Connect with Warpcast"
-msgstr ""
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
@@ -380,6 +380,9 @@ msgstr "<0>你</0> 已转发"
 
 msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
+
+msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -741,6 +744,9 @@ msgstr ""
 msgid "Notifications"
 msgstr "通知"
 
+msgid "Back"
+msgstr ""
+
 msgid "Posting..."
 msgstr ""
 
@@ -929,9 +935,6 @@ msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"
-
-msgid "Failed to restore farcaster profile from Firefly. Please confirm your profile has connected to Firefly."
-msgstr ""
 
 msgid "Recasted"
 msgstr "已转发"

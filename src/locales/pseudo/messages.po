@@ -28,6 +28,9 @@ msgstr ""
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr ""
 
+msgid "New connect with Warpcast"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -107,9 +110,6 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "OpenGraph"
-msgstr ""
-
-msgid "Connect with Warpcast"
 msgstr ""
 
 msgid "Wrong wallet"
@@ -374,6 +374,9 @@ msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to create image payload."
+msgstr ""
+
+msgid "You didn't connect with Firefly before, need to connect first to fully log in."
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -736,6 +739,9 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
+msgid "Back"
+msgstr ""
+
 msgid "Posting..."
 msgstr ""
 
@@ -923,9 +929,6 @@ msgid "Confirm you want to unmute @{0}?"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
-msgstr ""
-
-msgid "Failed to restore farcaster profile from Firefly. Please confirm your profile has connected to Firefly."
 msgstr ""
 
 msgid "Recasted"
