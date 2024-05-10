@@ -134,7 +134,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                                 {content}
                             </ArticleMarkup>
                             <div
-                                className=" absolute bottom-0 left-0 h-[60px] w-full"
+                                className=" absolute bottom-0 left-0 h-[30px] w-full md:h-[60px]"
                                 style={{
                                     background: `linear-gradient(
                             to top,
