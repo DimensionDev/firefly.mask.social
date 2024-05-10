@@ -8,7 +8,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Farcaster]: 'Farcaster',
         [Source.Twitter]: 'X',
         [Source.Article]: 'Articles',
-        [Source.Wallet]: 'Wallet',
+        [Source.Wallet]: 'Wallets',
     },
     (source) => {
         throw new Error(`Unknown social platform: ${source}`);
