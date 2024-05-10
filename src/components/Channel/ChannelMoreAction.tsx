@@ -8,6 +8,7 @@ import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
@@ -75,6 +76,18 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                             </MenuButton>
                         )}
                     </Menu.Item>
+                    {currentProfile ? (
+                        <Menu.Item>
+                            {({ close }) => (
+                                <MuteChannelButton
+                                    channel={channel}
+                                    busy={isBusy}
+                                    onStatusChange={changeChannelStatus}
+                                    onClick={close}
+                                />
+                            )}
+                        </Menu.Item>
+                    ) : null}
                 </Menu.Items>
             </Transition>
         </Menu>

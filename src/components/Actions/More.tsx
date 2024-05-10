@@ -12,6 +12,7 @@ import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -163,7 +164,18 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     )}
                                 </Menu.Item>
                             ) : null}
-
+                            {channel && currentProfile ? (
+                                <Menu.Item>
+                                    {({ close }) => (
+                                        <MuteChannelButton
+                                            busy={muting}
+                                            channel={channel}
+                                            onStatusChange={changeChannelStatus}
+                                            onClick={close}
+                                        />
+                                    )}
+                                </Menu.Item>
+                            ) : null}
                             <Menu.Item>
                                 {({ close }) => (
                                     <BlockUserButton
