@@ -67,6 +67,9 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
     const isProfilePage = pathname === PageRoute.Profile;
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+
+    if (profiles.length <= 1) return null;
+
     return (
         <div className="scrollable-tab flex gap-2 px-5">
             {profiles.map((profile, index) => {
