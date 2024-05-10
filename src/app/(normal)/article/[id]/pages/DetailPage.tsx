@@ -120,7 +120,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         </div>
 
                         <Link rel="noreferrer noopener" target="_blank" href={authorUrl} className="mt-3 text-sm">
-                            <div className="text-secondary">
+                            <div className="mt-1 text-secondary">
                                 <Trans>AUTHOR ADDRESS</Trans>
                             </div>
                             <div>{article.author.id}</div>

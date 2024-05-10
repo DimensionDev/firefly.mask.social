@@ -62,8 +62,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
 
     const content = useMemo(() => {
         if (IS_SAFARI && IS_APPLE) {
-            const results = article.content.split('\n');
-            return `${results.slice(0, 5).join('')}${results.length > 5 ? '...' : ''}`;
+            return article.content.split('\n').slice(0, 5).join('');
         }
         return article.content;
     }, [article.content]);
