@@ -12,7 +12,7 @@ export function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2In
     const ret: Post = {
         publicationId: item.id,
         postId: item.id,
-        type,
+        type: repliedTweet ? 'Comment' : 'Post',
         source: Source.Twitter,
         author: {
             profileId: item.author_id!,
