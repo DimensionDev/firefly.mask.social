@@ -97,7 +97,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 {article.origin ? (
                     <Link
                         href={article.origin}
-                        className="text-sm text-link hover:underline"
+                        className="text-xs text-link hover:underline"
                         rel="noreferrer noopener"
                         target="_blank"
                     >
