@@ -5,10 +5,10 @@ import type { Source } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
-type Matcher = string | ((post: Draft<Post> | undefined) => boolean);
+export type Matcher = string | ((post: Draft<Post> | null | undefined) => boolean);
 
 export function patchPostQueryData(source: Source, postId: Matcher, patcher: Patcher) {
-    const matcher = typeof postId === 'string' ? (post: Draft<Post> | undefined) => post?.postId === postId : postId;
+    const matcher: Matcher = typeof postId === 'string' ? (post) => post?.postId === postId : postId;
 
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {
         if (!old) return old;
