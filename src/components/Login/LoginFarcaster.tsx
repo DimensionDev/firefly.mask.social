@@ -183,8 +183,7 @@ export function LoginFarcaster() {
                         // we need to restore the staled session and keep everything untouched
                         if (staledSession) FireflySession.restore(staledSession);
 
-                        enqueueErrorMessage(t`Failed to restore farcaster profile from Firefly.`);
-                        throw new Error('Failed to restore farcaster profile from Firefly.');
+                        throw new Error(t`Failed to restore farcaster profile from Firefly.`);
                     }
 
                     return restoredSession as FarcasterSession;
