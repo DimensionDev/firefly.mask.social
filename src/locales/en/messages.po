@@ -568,6 +568,9 @@ msgstr "What's happening..."
 msgid "Like"
 msgstr "Like"
 
+msgid "You didn't connect with Firefly before, need to connect first."
+msgstr "You didn't connect with Firefly before, need to connect first."
+
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
 
@@ -744,6 +747,9 @@ msgstr "Skip for now"
 
 msgid "Notifications"
 msgstr "Notifications"
+
+msgid "Back"
+msgstr "Back"
 
 msgid "Posting..."
 msgstr "Posting..."

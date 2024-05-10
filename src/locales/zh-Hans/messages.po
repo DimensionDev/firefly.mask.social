@@ -573,6 +573,9 @@ msgstr "正在发生..."
 msgid "Like"
 msgstr "点赞"
 
+msgid "You didn't connect with Firefly before, need to connect first."
+msgstr ""
+
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
@@ -749,6 +752,9 @@ msgstr ""
 
 msgid "Notifications"
 msgstr "通知"
+
+msgid "Back"
+msgstr ""
 
 msgid "Posting..."
 msgstr ""
