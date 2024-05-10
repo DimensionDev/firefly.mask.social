@@ -1,4 +1,4 @@
-import { compact, first } from 'lodash-es';
+import { compact, first, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
@@ -15,8 +15,8 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const { oembedUrls, oembedUrl } = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url)));
-    const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
+    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url)));
+    const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
     if (cast.embeds.length) {
         const firstAsset = first(cast.embeds);
@@ -27,7 +27,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
         return {
             content: cast.text,
-            oembedUrl,
+            oembedUrl: last(oembedUrls),
             oembedUrls,
             asset: {
                 type: assetType,
