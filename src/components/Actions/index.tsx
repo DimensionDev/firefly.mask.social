@@ -70,7 +70,9 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
             disabled={disabled}
         />,
-        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} />,
+        post.source !== Source.Twitter ? (
+            <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} />
+        ) : null,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
