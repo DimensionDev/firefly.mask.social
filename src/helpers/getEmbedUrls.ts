@@ -3,8 +3,6 @@ import { compact, last, uniqBy } from 'lodash-es';
 import { EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 
-
-
 const fixUrls = (urls: Array<string | undefined>) => {
     return uniqBy(compact(urls), (x) => x).map(fixUrlProtocol);
 };
