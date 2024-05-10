@@ -70,6 +70,9 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
+msgid "Download Image"
+msgstr ""
+
 msgid "Searching channel"
 msgstr ""
 
@@ -124,6 +127,9 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
+msgid "NFT Standard"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr ""
 
@@ -164,6 +170,9 @@ msgid "Device Logged In"
 msgstr ""
 
 msgid "Username"
+msgstr ""
+
+msgid "Blockchain"
 msgstr ""
 
 msgid "No results for \"{searchKeyword}\""
@@ -235,6 +244,12 @@ msgstr ""
 msgid "{count, plural, one {Bookmark} other {{0}}}"
 msgstr ""
 
+msgid "Items"
+msgstr ""
+
+msgid "Minting Txn Hash"
+msgstr ""
+
 msgid "Audio Cover"
 msgstr ""
 
@@ -242,6 +257,9 @@ msgid "Recent"
 msgstr ""
 
 msgid "Block"
+msgstr ""
+
+msgid "Owners"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -352,6 +370,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "Owned By"
+msgstr ""
+
 msgid "Collected"
 msgstr ""
 
@@ -406,6 +427,9 @@ msgstr ""
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
+msgid "Description"
+msgstr ""
+
 msgid "Malformed session."
 msgstr ""
 
@@ -455,6 +479,9 @@ msgid "Suggested Channels"
 msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
+msgstr ""
+
+msgid "NFT Contract"
 msgstr ""
 
 msgid "Failed to follow."
@@ -511,6 +538,9 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "Creator"
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}"
 msgstr ""
 
@@ -530,6 +560,9 @@ msgid "Farcaster"
 msgstr ""
 
 msgid "commented"
+msgstr ""
+
+msgid "Minting Date"
 msgstr ""
 
 msgid "The page could not be found."
@@ -595,6 +628,9 @@ msgstr ""
 msgid "One click to connect your account status."
 msgstr ""
 
+msgid "Top Collectors"
+msgstr ""
+
 msgid "Quote"
 msgstr ""
 
@@ -602,6 +638,9 @@ msgid "Failed to bookmark post."
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
+msgstr ""
+
+msgid "Floor Price"
 msgstr ""
 
 msgid "Unliked"
@@ -676,10 +715,16 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr ""
 
+msgid "POAPs"
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
 msgid "Leaving Firefly"
+msgstr ""
+
+msgid "24H Volume"
 msgstr ""
 
 msgid "No Lens profile was found. Please try using a different wallet."
@@ -757,6 +802,9 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr ""
 
+msgid "Properties"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr ""
 
@@ -830,6 +878,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
 msgid "Claim on {0}: {1}"
+msgstr ""
+
+msgid "NFT ID"
 msgstr ""
 
 msgid "Failed to unmirror post."
@@ -955,6 +1006,9 @@ msgstr ""
 msgid "Mirror"
 msgstr ""
 
+msgid "Last Sale"
+msgstr ""
+
 msgid "Terms of Service"
 msgstr ""
 
@@ -982,10 +1036,16 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
+msgid "Overflow"
+msgstr ""
+
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Copy Address"
 msgstr ""
 
 msgid "Likes"
