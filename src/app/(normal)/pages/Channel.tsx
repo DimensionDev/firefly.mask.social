@@ -34,7 +34,7 @@ export function ChannelPage({ channel }: ChannelPageProps) {
 
             <Info channel={channel} source={channel.source} />
 
-            <hr className=" divider w-full border-primaryMain" />
+            <hr className=" divider w-full border-line" />
 
             <Suspense fallback={<Loading />}>
                 <PostList source={channel.source} channelId={channel.id} />
