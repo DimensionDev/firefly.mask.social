@@ -376,6 +376,9 @@ msgstr "<0>You</0> mirrored"
 msgid "Failed to create image payload."
 msgstr "Failed to create image payload."
 
+msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr "You didn't connect with Firefly before, need to connect first to fully log in."
+
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
 
@@ -517,9 +520,6 @@ msgstr "The file \"{0}\" exceeds the size limit."
 msgid "Invalid URL."
 msgstr "Invalid URL."
 
-msgid "Failed to restore farcaster profile from Firefly."
-msgstr "Failed to restore farcaster profile from Firefly."
-
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
@@ -567,9 +567,6 @@ msgstr "What's happening..."
 
 msgid "Like"
 msgstr "Like"
-
-msgid "You didn't connect with Firefly before, need to connect first."
-msgstr "You didn't connect with Firefly before, need to connect first."
 
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."

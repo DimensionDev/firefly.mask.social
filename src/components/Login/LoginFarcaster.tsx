@@ -200,7 +200,7 @@ export function LoginFarcaster() {
                         setProfileError(
                             new ProfileError(
                                 profile,
-                                t`You didn't connect with Firefly before, need to connect first.`,
+                                t`You didn't connect with Firefly before, need to connect first to fully log in.`,
                             ),
                         );
                         throw new AbortError();

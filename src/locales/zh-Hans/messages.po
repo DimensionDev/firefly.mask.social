@@ -381,6 +381,9 @@ msgstr "<0>你</0> 已转发"
 msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
 
+msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
+
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
 
@@ -522,9 +525,6 @@ msgstr ""
 msgid "Invalid URL."
 msgstr "无效 URL"
 
-msgid "Failed to restore farcaster profile from Firefly."
-msgstr ""
-
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -572,9 +572,6 @@ msgstr "正在发生..."
 
 msgid "Like"
 msgstr "点赞"
-
-msgid "You didn't connect with Firefly before, need to connect first."
-msgstr ""
 
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"

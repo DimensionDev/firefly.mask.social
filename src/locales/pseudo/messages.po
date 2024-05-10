@@ -376,6 +376,9 @@ msgstr ""
 msgid "Failed to create image payload."
 msgstr ""
 
+msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
+
 msgid "Failed to unvote post."
 msgstr ""
 
@@ -517,9 +520,6 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
-msgid "Failed to restore farcaster profile from Firefly."
-msgstr ""
-
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -566,9 +566,6 @@ msgid "What's happening..."
 msgstr ""
 
 msgid "Like"
-msgstr ""
-
-msgid "You didn't connect with Firefly before, need to connect first."
 msgstr ""
 
 msgid "Please input the frame url to be revalidated."
