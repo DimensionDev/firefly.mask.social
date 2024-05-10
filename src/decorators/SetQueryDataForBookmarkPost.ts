@@ -70,7 +70,7 @@ export function SetQueryDataForBookmarkPost(source: Source) {
                         const result = await m.call(target.prototype, postId, ...args);
                         return result;
                     } catch (error) {
-                        // revert
+                        // rolling back
                         toggleBookmark(source, postId, !status);
                         throw error;
                     }

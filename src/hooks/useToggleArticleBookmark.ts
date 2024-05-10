@@ -32,7 +32,7 @@ export function useToggleArticleBookmark() {
                 enqueueErrorMessage(hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`, {
                     error,
                 });
-                // revert
+                // rolling back
                 toggleBookmark(Source.Article, article.id, !!hasBookmarked);
                 throw error;
             }
