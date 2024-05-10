@@ -56,7 +56,7 @@ export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.Articl
 export const SORTED_PROFILE_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Wallet];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
 export const SORTED_BOOKMARK_SOURCES =
-    env.shared.NODE_ENV === 'development'
+    env.shared.NODE_ENV === NODE_ENV.Development
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]
         : [Source.Farcaster, Source.Lens];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
