@@ -97,7 +97,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                         )}
                     </span>
                 </div>
-                <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line p-3">
+                <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-secondaryLine bg-bg p-3">
                     {cover.data ? (
                         <ImageAsset
                             disableLoadHandler
@@ -120,7 +120,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     ) : null}
                     <div
                         className={classNames('line-clamp-2 text-base font-bold leading-[20px]', {
-                            'max-h-[40px]': !!IS_SAFARI && !!IS_APPLE,
+                            'max-h-[40px]': IS_SAFARI && IS_APPLE,
                         })}
                     >
                         {article.title}
