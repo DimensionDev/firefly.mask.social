@@ -1,10 +1,9 @@
-import { compact, first, last, uniqBy } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
-import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
 import {
@@ -15,15 +14,8 @@ import {
     ProfileStatus,
 } from '@/providers/types/SocialMedia.js';
 
-const fixUrls = (urls: Array<string | undefined>) => {
-    return uniqBy(compact(urls), (x) => x).map(fixUrlProtocol);
-};
-
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const email_regex = new RegExp(EMAIL_REGEX, 'g');
-    const matchedUrls = fixUrls([...cast.text.replaceAll(email_regex, '').matchAll(URL_REGEX)].map((x) => x[0]));
-    const oembedUrls = fixUrls([...matchedUrls, ...cast.embeds.map((x) => x.url)]);
-    const oembedUrl = last(oembedUrls);
+    const { oembedUrls, oembedUrl } = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url)));
     const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
 
     if (cast.embeds.length) {
