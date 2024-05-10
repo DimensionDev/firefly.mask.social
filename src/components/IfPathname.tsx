@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation.js';
 import type { ReactNode } from 'react';
 
+import type { PageRoute } from '@/constants/enum.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface RE {
@@ -12,8 +13,8 @@ interface RE {
 
 interface IfPathname {
     exact?: boolean;
-    isOneOf?: Array<`/${string}` | RE>;
-    isNotOneOf?: Array<`/${string}` | RE>;
+    isOneOf?: Array<`/${string}` | RE | PageRoute>;
+    isNotOneOf?: Array<`/${string}` | RE | PageRoute>;
     children: ReactNode;
 }
 

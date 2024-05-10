@@ -11,7 +11,7 @@ import { forwardRef } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getProfileStoreAll } from '@/helpers/getProfileStoreAll.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
@@ -90,7 +90,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
             dispatch?.close();
             await delay(300);
-            router.push('/');
+            router.push(PageRoute.Home);
         },
     });
 

@@ -3,6 +3,7 @@ import { t } from '@lingui/macro';
 import { IfPathname } from '@/components/IfPathname.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
+import { PageRoute } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -23,10 +24,10 @@ export default function NotFound() {
                 </div>
             </main>
             <aside className=" sticky top-0 z-[1] h-full w-96 px-4 lg:block">
-                <IfPathname isNotOneOf={['/settings']}>
+                <IfPathname isNotOneOf={[PageRoute.Settings]}>
                     <AsideSearchBar />
                 </IfPathname>
-                <IfPathname isOneOf={['/search']}>
+                <IfPathname isOneOf={[PageRoute.Search]}>
                     <SearchFilter />
                 </IfPathname>
             </aside>
