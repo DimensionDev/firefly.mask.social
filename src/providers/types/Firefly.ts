@@ -32,6 +32,7 @@ export interface Cast {
     rootParentCast?: Cast;
     root_parent_hash?: string;
     threads?: Cast[];
+    quotedCast?: Cast;
 }
 
 export interface User {

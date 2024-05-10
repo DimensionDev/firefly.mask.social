@@ -60,9 +60,10 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 }
 
 export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
+    const postType = cast.quotedCast ? 'Quote' : type ?? cast.parentCast ? 'Comment' : 'Post';
     return {
         publicationId: cast.hash,
-        type: type ?? cast.parentCast ? 'Comment' : 'Post',
+        type: postType,
         postId: cast.hash,
         parentPostId: cast.parent_hash,
         parentAuthor: cast.parentCast ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
@@ -102,6 +103,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
         threads: cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
         channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
+        quoteOn: cast.quotedCast ? formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
         __original__: cast,
     };
 }
