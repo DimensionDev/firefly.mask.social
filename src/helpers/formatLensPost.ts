@@ -274,9 +274,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     if (result.__typename === 'Mirror') {
         const mediaObjects = getMediaObjects(result.mirrorOn.metadata);
         const content = formatContent(result.mirrorOn.metadata);
-
-        const { oembedUrls } = getEmbedUrls(content?.content ?? '', []);
-        const oembedUrl = last(oembedUrls);
+        const oembedUrls = getEmbedUrls(content?.content ?? '', []);
 
         const canAct =
             !!result.mirrorOn.openActionModules?.length &&
@@ -295,7 +293,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 locale: result.mirrorOn.metadata.locale,
                 content: {
                     ...content,
-                    oembedUrl,
+                    oembedUrl: last(oembedUrls),
                 },
                 contentURI: result.mirrorOn.metadata.rawURI,
             },
