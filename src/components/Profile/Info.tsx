@@ -6,7 +6,7 @@ import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -65,7 +65,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                             pathname: `/profile/${profile?.profileId}/following`,
                             query: { source: resolveSourceInURL(source) },
                         }}
-                        className={classNames('gap-1 hover:underline')}
+                        className={classNames('gap-1 hover:underline', {
+                            'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
+                        })}
                     >
                         <span className=" font-bold text-lightMain">{nFormatter(followingCount)} </span>
                         <span className=" text-secondary">
@@ -78,7 +80,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                             pathname: `/profile/${profile?.profileId}/followers`,
                             query: { source: resolveSourceInURL(source) },
                         }}
-                        className={classNames('gap-1 hover:underline')}
+                        className={classNames('gap-1 hover:underline', {
+                            'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
+                        })}
                     >
                         <span className=" font-bold text-lightMain">{nFormatter(followerCount)} </span>
                         <span className=" text-secondary">
