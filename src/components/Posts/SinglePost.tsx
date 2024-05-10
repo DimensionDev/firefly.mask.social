@@ -49,6 +49,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const postLink = getPostUrl(post);
 
     const show = useMemo(() => {
+        if (post.source === Source.Twitter) return false;
         if (!post.isThread || isPostPage) return false;
 
         if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
