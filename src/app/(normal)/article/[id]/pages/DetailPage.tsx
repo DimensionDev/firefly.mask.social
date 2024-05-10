@@ -97,14 +97,14 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 {article.origin ? (
                     <Link
                         href={article.origin}
-                        className="text-sm text-link hover:underline"
+                        className="text-xs text-link hover:underline"
                         rel="noreferrer noopener"
                         target="_blank"
                     >
                         <Trans>View Source</Trans>
                     </Link>
                 ) : null}
-                <div className="my-5 mt-2 border-b border-secondaryLine">
+                <div className="my-5 mt-2 border-b border-line">
                     <ArticleHeader article={article} className="items-center pb-2" />
                 </div>
                 <ArticleMarkup
@@ -114,8 +114,8 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                     {article.content}
                 </ArticleMarkup>
                 {authorUrl ? (
-                    <div className="mt-4 rounded-2xl border border-secondaryLine bg-bg p-2">
-                        <div className="border-b border-secondaryLine pb-2 text-sm">
+                    <div className="mb-4 mt-4 rounded-2xl border border-line bg-bg p-2">
+                        <div className="border-b border-line pb-2 text-sm">
                             <Trans>This entry has been permanently stored on-chain and signed by its creator</Trans>
                         </div>
 
