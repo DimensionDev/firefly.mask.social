@@ -486,9 +486,6 @@ msgstr "确认退出该账号吗？"
 msgid "Failed to recast."
 msgstr ""
 
-msgid "Followings"
-msgstr "正在关注"
-
 msgid "No post found"
 msgstr "未找到帖子"
 
@@ -711,9 +708,6 @@ msgstr "未找到 Lens profile。请尝试其他钱包。"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
-msgid "Follower"
-msgstr "粉丝"
-
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
@@ -880,6 +874,9 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Post added to your Bookmarks"
+msgstr ""
+
+msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Cancel mirror successfully"
