@@ -6,6 +6,7 @@ import DownloadIcon from '@/assets/download.svg';
 import LinkIcon from '@/assets/link.svg';
 import { Image } from '@/components/Image.js';
 import { CopyButton } from '@/components/NFTDetail/CopyButton.js';
+import { Link } from '@/esm/Link.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;
@@ -15,7 +16,6 @@ export interface NFTInfoProps {
     tokenId: string;
     collection?: {
         name: string;
-        link?: string;
         icon?: string;
     };
     floorPrice?: ReactNode;
@@ -52,7 +52,10 @@ export function NFTInfo(props: NFTInfoProps) {
                 <div className="mb-6 space-y-4">
                     <div className="space-y-2">
                         {collection ? (
-                            <div className="flex h-6 items-center text-lg font-bold leading-6">
+                            <Link
+                                href={`/nft/${contractAddress}`}
+                                className="flex h-6 items-center text-lg font-bold leading-6"
+                            >
                                 {collection.icon ? (
                                     <img
                                         alt={collection.name}
@@ -61,12 +64,8 @@ export function NFTInfo(props: NFTInfoProps) {
                                     />
                                 ) : null}
                                 {collection.name}
-                                {collection.link ? (
-                                    <a href={collection.link} target="_blank">
-                                        <LinkIcon className="ml-1 h-6 w-6 text-secondary" />
-                                    </a>
-                                ) : null}
-                            </div>
+                                <LinkIcon className="ml-1 h-6 w-6 text-secondary" />
+                            </Link>
                         ) : null}
                         <div className="mt-2 text-2xl font-medium leading-[30px]">{name}</div>
                     </div>

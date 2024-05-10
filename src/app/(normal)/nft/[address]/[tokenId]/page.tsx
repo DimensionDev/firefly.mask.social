@@ -1,15 +1,29 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import { notFound } from 'next/navigation.js';
 import { useMemo, useState } from 'react';
 
 import ComeBack from '@/assets/comeback.svg';
+import { Loading } from '@/components/Loading.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
-import { type Tab, Tabs } from '@/components/NFTDetail/Tabs.js';
+import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+
+const tabs = [
+    {
+        label: t`Overflow`,
+        value: 'overflow',
+    },
+    {
+        label: t`Properties`,
+        value: 'properties',
+    },
+] as const;
 
 export default function Page({
     params: { address, tokenId },
@@ -20,9 +34,9 @@ export default function Page({
     };
 }) {
     const comeback = useComeBack();
-    const [currentTab, setCurrentTab] = useState<Tab>('overflow');
+    const [currentTab, setCurrentTab] = useState<(typeof tabs)[number]['value']>('overflow');
 
-    const { data } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: ['sample-hash-asset', address, tokenId],
         queryFn() {
             return SimpleHashEVM.getAsset(address, tokenId);
@@ -52,6 +66,14 @@ export default function Page({
         [data, currentTab],
     );
 
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        notFound();
+    }
+
     return (
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
@@ -67,13 +89,18 @@ export default function Page({
                     contractAddress={data?.contract?.address ?? ''}
                     collection={{
                         name: data?.contract?.name ?? '',
-                        link: data?.link,
                         icon: data?.collection?.iconURL ?? undefined,
                     }}
                     floorPrice={floorPrice}
                     lastSale={floorPrice} // TODO: lastSale
                 />
-                <Tabs currentTab={currentTab} onChange={setCurrentTab} />
+                <Tabs value={currentTab} onChange={setCurrentTab}>
+                    {tabs.map((tab) => (
+                        <Tab value={tab.value} key={tab.value}>
+                            {tab.label}
+                        </Tab>
+                    ))}
+                </Tabs>
                 {tabPanel}
             </div>
         </div>

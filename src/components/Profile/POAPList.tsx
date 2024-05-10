@@ -1,7 +1,7 @@
 import { createIndicator } from '@masknet/shared-base';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -14,7 +14,7 @@ import { classNames } from '@/helpers/classNames.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
-        <div ref={ref} {...props} className={classNames('grid grid-cols-3 gap-3.5 px-5', className)}>
+        <div ref={ref} {...props} className={classNames('grid grid-cols-3 gap-3.5', className)}>
             {children}
         </div>
     );
@@ -24,7 +24,14 @@ const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ c
     return <div {...props}>{children}</div>;
 });
 
-function getItemContent(index: number, item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>) {
+export function getNFTItemContent(
+    index: number,
+    item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>,
+    options?: {
+        isPoap?: boolean;
+        isShowOwner?: boolean;
+    },
+) {
     return (
         <Link
             href={`/nft/${item.id}/${item.tokenId}`}
@@ -32,7 +39,12 @@ function getItemContent(index: number, item: NonFungibleAsset<ChainId.Mainnet, S
             className="flex flex-col rounded-lg bg-lightBg pb-1 sm:rounded-2xl sm:border sm:border-line sm:bg-white sm:p-2.5 sm:dark:bg-black"
         >
             <div className="relative aspect-square h-auto w-full overflow-hidden">
-                <PoapIcon className="absolute left-0 top-0 h-6 w-6" />
+                {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
+                {options?.isShowOwner && item.owner?.address ? (
+                    <div className="font- absolute left-2 top-2 rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md">
+                        {formatEthereumAddress(item.owner?.address, 4)}
+                    </div>
+                ) : null}
                 <Image
                     width={500}
                     height={500}
@@ -47,6 +59,11 @@ function getItemContent(index: number, item: NonFungibleAsset<ChainId.Mainnet, S
         </Link>
     );
 }
+
+export const POAPGridListComponent = {
+    List: GridList,
+    Item: GridItem,
+};
 
 export function POAPList(props: { address: string }) {
     const { address } = props;
@@ -66,12 +83,11 @@ export function POAPList(props: { address: string }) {
             queryResult={queryResult}
             className="mt-5"
             VirtualGridListProps={{
-                components: {
-                    List: GridList,
-                    Item: GridItem,
-                },
+                components: POAPGridListComponent,
                 itemContent: (index, item) => {
-                    return getItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>);
+                    return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                        isPoap: true,
+                    });
                 },
             }}
         />

@@ -75,6 +75,7 @@ export enum ProfileTabType {
 
 export enum WalletProfileTabType {
     Articles = 'Articles',
+    POAPs = 'POAPs',
 }
 
 export enum EngagementType {

@@ -5,14 +5,18 @@ import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 
 import { Image } from '@/components/Image.js';
 
-export function ChainIcon(props: { chainId: number }) {
-    const networkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, props.chainId);
+export function ChainIcon(props: { chainId: number; size?: number }) {
+    const { chainId, size = 22 } = props;
+    const networkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
     return (
         <Image
             src={networkDescriptor?.icon ?? ''}
-            className="h-[22px] w-[22px]"
-            width={22}
-            height={22}
+            width={chainId}
+            height={chainId}
+            style={{
+                width: `${size}px`,
+                height: `${size}px`,
+            }}
             alt={`Blockchain: ${props.chainId}`}
         />
     );

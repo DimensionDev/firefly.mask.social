@@ -55,6 +55,10 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 flags: 'i',
                             },
                             {
+                                r: '/nft/[^/]+$',
+                                flags: 'i',
+                            },
+                            {
                                 r: '/nft/[^/]+/\\w+$',
                                 flags: 'i',
                             },
