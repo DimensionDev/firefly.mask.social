@@ -114,7 +114,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                     {article.content}
                 </ArticleMarkup>
                 {authorUrl ? (
-                    <div className="mt-4 rounded-2xl border border-line bg-bg p-2 mb-4">
+                    <div className="mb-4 mt-4 rounded-2xl border border-line bg-bg p-2">
                         <div className="border-b border-line pb-2 text-sm">
                             <Trans>This entry has been permanently stored on-chain and signed by its creator</Trans>
                         </div>
