@@ -165,6 +165,9 @@ msgstr ">>>>>>> released"
 msgid "comment"
 msgstr "评论"
 
+msgid "Bookmarks"
+msgstr ""
+
 msgid "Confirm"
 msgstr "确认"
 

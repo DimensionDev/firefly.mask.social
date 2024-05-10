@@ -160,6 +160,9 @@ msgstr ">>>>>>> released"
 msgid "comment"
 msgstr ""
 
+msgid "Bookmarks"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
