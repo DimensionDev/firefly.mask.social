@@ -44,7 +44,15 @@ export function SourceTabs() {
         );
     }
 
-    const sources = pathname === '/bookmark' ? SORTED_BOOKMARK_SOURCES : SORTED_HOME_SOURCES;
+    const sources =
+        pathname === '/bookmark'
+            ? SORTED_BOOKMARK_SOURCES
+            : SORTED_HOME_SOURCES.filter((x) => {
+                  if (x !== Source.Article) return true;
+                  if (pathname === PageRoute.Home || (pathname === PageRoute.Following && !!fireflySession))
+                      return true;
+                  return false;
+              });
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
