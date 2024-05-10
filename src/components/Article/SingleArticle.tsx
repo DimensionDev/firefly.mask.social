@@ -104,7 +104,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                             src={cover.data}
                             width={510}
                             height={260}
-                            className="mb-3 w-full cursor-pointer rounded-lg object-cover"
+                            className=" mb-3 w-full cursor-pointer rounded-lg object-cover"
                             alt={cover.data}
                             onClick={(event) => {
                                 event.stopPropagation();
