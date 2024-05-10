@@ -22,8 +22,6 @@ export function mergeThreadPostsFOrTweet(posts: Post[]) {
         return true;
     });
 
-    console.log(posts, filtered);
-
     return uniqBy(filtered, (x) => {
         if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
         if (x.type !== 'Comment' || !x.root) return x.publicationId;
