@@ -80,6 +80,10 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     ]);
     const actionLength = actions.length;
 
+    if (post.source === Source.Twitter) {
+        return null;
+    }
+
     return (
         <ClickableArea
             className={classNames('mt-2 grid grid-flow-col items-center', className, {

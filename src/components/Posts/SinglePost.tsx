@@ -12,6 +12,7 @@ import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -60,8 +61,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer border-b border-line bg-bottom px-3 py-2 hover:bg-bg md:px-4 md:py-3"
+            className={classNames('border-b border-line bg-bottom px-3 py-2 hover:bg-bg md:px-4 md:py-3', {
+                'cursor-pointer': post.source !== Source.Twitter,
+            })}
             onClick={() => {
+                if (post.source === Source.Twitter) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
