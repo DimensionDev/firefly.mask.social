@@ -17,7 +17,8 @@ import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
+import { EngagementType, NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -164,7 +165,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     )}
                                 </Menu.Item>
                             ) : null}
-                            {channel && currentProfile ? (
+                            {channel && currentProfile && env.shared.NODE_ENV === NODE_ENV.Development ? (
                                 <Menu.Item>
                                     {({ close }) => (
                                         <MuteChannelButton

@@ -75,14 +75,14 @@ async function login(
         // skip if the error is abort error
         if (isAbortedError(error)) return;
 
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
-            error,
-        });
-
         const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
 
         // if login timed out, we will let the user refresh the QR code
         if (message.toLowerCase().includes('farcaster login timed out')) return;
+
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+            error,
+        });
 
         // user rejected request
         if (message.toLowerCase().includes('user rejected the request')) return;
@@ -309,7 +309,7 @@ export function LoginFarcaster() {
                     </div>
                 </div>
             ) : (
-                <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
+                <div className="relative flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
                     {profileError ? (
                         <div className=" absolute inset-0 flex flex-col items-center justify-center">
                             {profileError.profile ? (
