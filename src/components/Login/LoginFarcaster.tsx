@@ -98,7 +98,7 @@ export function LoginFarcaster() {
     const options = useMemo(() => {
         return [
             {
-                label: t`Connect with Warpcast`,
+                label: t`New connect with Warpcast`,
                 type: FarcasterSignType.GrantPermission,
                 developmentOnly: false,
                 isFreeOfTransactionFee: false,

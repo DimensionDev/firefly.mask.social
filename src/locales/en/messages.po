@@ -28,6 +28,9 @@ msgstr "Quote Post"
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {1 second} other {{count} seconds}}"
 
+msgid "New connect with Warpcast"
+msgstr "New connect with Warpcast"
+
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -108,9 +111,6 @@ msgstr "Change Wallet"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
-
-msgid "Connect with Warpcast"
-msgstr "Connect with Warpcast"
 
 msgid "Wrong wallet"
 msgstr "Wrong wallet"

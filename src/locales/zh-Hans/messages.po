@@ -33,6 +33,9 @@ msgstr "引用"
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr ""
 
+msgid "New connect with Warpcast"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -113,9 +116,6 @@ msgstr "更换钱包"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
-
-msgid "Connect with Warpcast"
-msgstr ""
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
