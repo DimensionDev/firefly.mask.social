@@ -68,7 +68,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                 hideOnClick
                                 interactive
                                 content={
-                                    <div className="flex flex-wrap gap-x-[15px] rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
+                                    <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
                                         {profile.ens.map((ens) => {
                                             return (
                                                 <div className="flex items-center gap-[5px]" key={ens}>
