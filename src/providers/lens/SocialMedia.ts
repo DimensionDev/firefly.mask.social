@@ -840,7 +840,7 @@ class LensSocialMedia implements Provider {
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await lensSessionHolder.sdk.profile.followers({
             of: profileId,
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         return createPageable(
@@ -853,7 +853,7 @@ class LensSocialMedia implements Provider {
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await lensSessionHolder.sdk.profile.following({
             for: profileId,
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         return createPageable(
