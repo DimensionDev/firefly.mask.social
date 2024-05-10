@@ -891,9 +891,6 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
-msgid "Confirm to log out these accounts?"
-msgstr "确认登出这些账号？"
-
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 

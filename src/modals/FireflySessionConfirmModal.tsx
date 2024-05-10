@@ -95,7 +95,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                         ConfirmModalRef.close(true);
                     }}
                 >
-                    <Trans>Confirm</Trans>
+                    <Trans>Login</Trans>
                 </ClickableButton>
             </div>
         </div>

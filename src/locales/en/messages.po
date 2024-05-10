@@ -886,9 +886,6 @@ msgstr "Cancel mirror successfully"
 msgid "Unmute"
 msgstr "Unmute"
 
-msgid "Confirm to log out these accounts?"
-msgstr "Confirm to log out these accounts?"
-
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
