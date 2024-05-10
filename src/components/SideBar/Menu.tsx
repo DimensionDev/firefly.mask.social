@@ -91,8 +91,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     selectedIcon: WalletIcon,
                                 },
                                 {
-                                    href: PageRoute.Bookmark,
-                                    name: <Trans>Bookmark</Trans>,
+                                    href: PageRoute.Bookmarks,
+                                    name: <Trans>Bookmarks</Trans>,
                                     icon: BookmarkIcon,
                                     selectedIcon: BookmarkSelectedIcon,
                                 },

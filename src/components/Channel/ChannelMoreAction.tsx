@@ -9,6 +9,8 @@ import urlcat from 'urlcat';
 import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
@@ -76,7 +78,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                             </MenuButton>
                         )}
                     </Menu.Item>
-                    {currentProfile ? (
+                    {currentProfile && env.shared.NODE_ENV === NODE_ENV.Development ? (
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteChannelButton

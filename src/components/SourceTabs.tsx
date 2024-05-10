@@ -23,7 +23,7 @@ export function SourceTabs() {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    if (pathname !== '/' && currentSource === Source.Farcaster) {
+    if (pathname !== PageRoute.Home && currentSource === Source.Farcaster) {
         updateCurrentSource(Source.Farcaster);
         replaceSearchParams(
             new URLSearchParams({
@@ -33,7 +33,7 @@ export function SourceTabs() {
     }
 
     if (
-        (pathname === '/following' && currentSource === Source.Article && !fireflySession) ||
+        (pathname === PageRoute.Following && currentSource === Source.Article && !fireflySession) ||
         (pathname !== PageRoute.Following && pathname !== PageRoute.Home && currentSource === Source.Article)
     ) {
         updateCurrentSource(Source.Farcaster);
@@ -45,7 +45,7 @@ export function SourceTabs() {
     }
 
     const sources =
-        pathname === '/bookmark'
+        pathname === PageRoute.Bookmarks
             ? SORTED_BOOKMARK_SOURCES
             : SORTED_HOME_SOURCES.filter((x) => {
                   if (x !== Source.Article) return true;

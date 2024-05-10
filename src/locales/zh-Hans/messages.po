@@ -160,10 +160,13 @@ msgid "Retry"
 msgstr ""
 
 msgid "Show less"
-msgstr ">>>>>>> released"
+msgstr ""
 
 msgid "comment"
 msgstr "评论"
+
+msgid "Bookmarks"
+msgstr ""
 
 msgid "Confirm"
 msgstr "确认"
