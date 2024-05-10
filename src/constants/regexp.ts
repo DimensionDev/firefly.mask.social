@@ -28,3 +28,5 @@ export const OLD_MASK_SOCIAL_PROFILE_PATH_REGEX = /\/profile\/(\w+)\/([\w-]+)/i;
 export const MASK_SOCIAL_POST_PATH_REGEX = /\/post\/([\w-]+)/i;
 
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
+
+export const TWITTER_NORML_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)$/;
