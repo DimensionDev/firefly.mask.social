@@ -171,9 +171,9 @@ export interface Post {
      * the current post itself represents the end of the thread.
      * and `commentOn` represents the post to which the current post is a reply.
      */
-    commentOn?: Post;
-    root?: Post;
-    quoteOn?: Post;
+    commentOn?: Post | null;
+    root?: Post | null;
+    quoteOn?: Post | null;
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;
@@ -234,7 +234,7 @@ export interface BaseNotification {
 export interface MirrorNotification extends BaseNotification {
     type: NotificationType.Mirror;
     mirrors: Profile[];
-    post?: Post;
+    post?: Post | null;
 }
 
 export interface QuoteNotification extends BaseNotification {
@@ -246,13 +246,13 @@ export interface QuoteNotification extends BaseNotification {
 export interface ReactionNotification extends BaseNotification {
     type: NotificationType.Reaction;
     reactors: Profile[];
-    post?: Post;
+    post?: Post | null;
 }
 
 export interface CommentNotification extends BaseNotification {
     type: NotificationType.Comment;
-    comment?: Post;
-    post?: Post;
+    comment?: Post | null;
+    post?: Post | null;
 }
 
 export interface FollowNotification extends BaseNotification {
@@ -262,7 +262,7 @@ export interface FollowNotification extends BaseNotification {
 
 export interface MentionNotification extends BaseNotification {
     type: NotificationType.Mention;
-    post?: Post;
+    post?: Post | null;
 }
 
 export interface ActedNotification extends BaseNotification {

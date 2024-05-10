@@ -1,13 +1,13 @@
-import { type Draft, produce } from 'immer';
+import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Post, Profile, Provider } from '@/providers/types/SocialMedia.js';
+import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import type { Profile, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
-    const matcher = (post: Draft<Post> | undefined) => post?.author.profileId === profileId;
+    const matcher: Matcher = (post) => post?.author.profileId === profileId;
     patchPostQueryData(source, matcher, (draft) => {
         if (draft.author.profileId !== profileId) return;
         draft.author.viewerContext = {

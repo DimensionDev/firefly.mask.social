@@ -51,8 +51,12 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     return defaultContent;
 }
 
-export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
+/**
+ * Return null if cast is detected
+ */
+export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post | null {
     const postType = cast.quotedCast ? 'Quote' : type ?? cast.parentCast ? 'Comment' : 'Post';
+    if (cast.deleted_at) return null;
     return {
         publicationId: cast.hash,
         type: postType,
@@ -93,7 +97,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         canComment: true,
         commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
         root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
-        threads: cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
+        threads: compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment'))),
         channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
         quoteOn: cast.quotedCast ? formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
         __original__: cast,
