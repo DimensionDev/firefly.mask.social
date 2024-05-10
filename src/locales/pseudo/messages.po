@@ -155,9 +155,12 @@ msgid "Retry"
 msgstr ""
 
 msgid "Show less"
-msgstr ">>>>>>> released"
+msgstr ""
 
 msgid "comment"
+msgstr ""
+
+msgid "Bookmarks"
 msgstr ""
 
 msgid "Confirm"

@@ -160,6 +160,9 @@ msgstr "Show less"
 msgid "comment"
 msgstr "comment"
 
+msgid "Bookmarks"
+msgstr "Bookmarks"
+
 msgid "Confirm"
 msgstr "Confirm"
 

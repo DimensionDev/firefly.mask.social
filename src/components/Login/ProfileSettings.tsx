@@ -104,18 +104,16 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
     return (
         <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
-            <div className=" flex flex-col">
-                <ClickableButton
-                    key={currentProfile.profileId}
-                    className="flex items-center justify-between gap-3 py-3 outline-none md:px-5"
-                    disabled={source === Source.Farcaster}
-                >
-                    <ProfileAvatar profile={currentProfile} clickable linkable />
-                    <ProfileName profile={currentProfile} />
+            <ClickableButton
+                key={currentProfile.profileId}
+                className="flex min-w-0 items-center justify-between gap-3 py-3 outline-none md:px-5"
+                disabled={source === Source.Farcaster}
+            >
+                <ProfileAvatar profile={currentProfile} clickable linkable />
+                <ProfileName profile={currentProfile} />
 
-                    <OnlineStatusIndicator />
-                </ClickableButton>
-            </div>
+                <OnlineStatusIndicator />
+            </ClickableButton>
             <div className=" flex flex-col md:mx-5">
                 <ClickableButton
                     className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
