@@ -36,7 +36,7 @@ import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 class ProfileError extends Error {
     constructor(
-        public profile: Profile,
+        public profile: Profile | null,
         public override message: string,
     ) {
         super(message);
@@ -190,19 +190,30 @@ export function LoginFarcaster() {
                     const restoredSession = sessions.find(
                         (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
                     );
+
                     if (!restoredSession) {
                         // the current profile did not connect to firefly
                         // we need to restore the staled session and keep everything untouched
                         if (staledSession) FireflySession.restore(staledSession);
 
-                        const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+                        try {
+                            const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
-                        setProfileError(
-                            new ProfileError(
-                                profile,
-                                t`You didn't connect with Firefly before, need to connect first to fully log in.`,
-                            ),
-                        );
+                            setProfileError(
+                                new ProfileError(
+                                    profile,
+                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                                ),
+                            );
+                        } catch {
+                            setProfileError(
+                                new ProfileError(
+                                    null,
+                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                                ),
+                            );
+                        }
+
                         throw new AbortError();
                     }
 
