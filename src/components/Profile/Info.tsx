@@ -10,6 +10,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getLargetTwitterAvatar } from '@/helpers/getLargetTwitterAvatar.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -29,7 +30,12 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
     return (
         <div className="flex gap-3 p-3">
             {profile?.pfp ? (
-                <Avatar src={profile.pfp} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
+                <Avatar
+                    src={source === Source.Twitter ? getLargetTwitterAvatar(profile.pfp) : profile.pfp}
+                    alt="avatar"
+                    size={80}
+                    className=" h-20 w-20 rounded-full"
+                />
             ) : (
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
