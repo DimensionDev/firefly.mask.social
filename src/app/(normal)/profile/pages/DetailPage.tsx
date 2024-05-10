@@ -33,7 +33,6 @@ export function ProfileDetailPage({ params: { id: identity }, searchParams: { so
         return <Loading />;
     }
 
-
     return (
         <ProfileContext.Provider initialState={{ source: currentSource, identity }}>
             <ProfilePage profiles={profiles} />
