@@ -71,8 +71,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                 {enableConfirmButton ? (
                                     <ClickableButton
                                         className={classNames(
-                                            ' flex flex-1 items-center justify-center rounded-full  py-2 font-bold text-lightBottom',
-                                            variant === 'normal' ? 'bg-main' : 'bg-commonDanger',
+                                            ' flex flex-1 items-center justify-center rounded-full  py-2 font-bold',
+                                            variant === 'normal'
+                                                ? 'bg-main text-primaryBottom'
+                                                : 'bg-commonDanger text-lightBottom',
                                         )}
                                         onClick={() => dispatch?.close(true)}
                                     >
