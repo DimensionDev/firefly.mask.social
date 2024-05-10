@@ -65,7 +65,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 'cursor-pointer': post.source !== Source.Twitter,
             })}
             onClick={() => {
-                if (post.source === Source.Twitter) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
