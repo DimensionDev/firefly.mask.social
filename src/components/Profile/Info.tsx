@@ -65,9 +65,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                             pathname: `/profile/${profile?.profileId}/following`,
                             query: { source: resolveSourceInURL(source) },
                         }}
-                        className={classNames('flex gap-1 hover:underline')}
+                        className={classNames('gap-1 hover:underline')}
                     >
-                        <span className=" font-bold text-lightMain">{nFormatter(followingCount)}</span>
+                        <span className=" font-bold text-lightMain">{nFormatter(followingCount)} </span>
                         <span className=" text-secondary">
                             <Trans>Following</Trans>
                         </span>
@@ -78,9 +78,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                             pathname: `/profile/${profile?.profileId}/followers`,
                             query: { source: resolveSourceInURL(source) },
                         }}
-                        className={classNames('flex gap-1 hover:underline')}
+                        className={classNames('gap-1 hover:underline')}
                     >
-                        <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
+                        <span className=" font-bold text-lightMain">{nFormatter(followerCount)} </span>
                         <span className=" text-secondary">
                             {plural(followerCount, {
                                 zero: 'Follower',
