@@ -191,7 +191,7 @@ export function LoginFarcaster() {
                         (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
                     );
 
-                    if (!restoredSession) {
+                    if (!restoredSession || Math.random() < 1) {
                         // the current profile did not connect to firefly
                         // we need to restore the staled session and keep everything untouched
                         if (staledSession) FireflySession.restore(staledSession);
@@ -314,7 +314,12 @@ export function LoginFarcaster() {
                         <div className=" absolute inset-0 flex flex-col items-center justify-center">
                             {profileError.profile ? (
                                 <div className=" mb-4">
-                                    <ProfileAvatar className=" mb-2" profile={profileError.profile} size={64} />
+                                    <ProfileAvatar
+                                        className=" mb-2"
+                                        profile={profileError.profile}
+                                        size={64}
+                                        enableSourceIcon={false}
+                                    />
                                     <p className=" text-base">{profileError.profile.displayName || 'YangKun'}</p>
                                     <p className=" text-xs">@{profileError.profile.handle || 'yangkun'}</p>
                                 </div>
