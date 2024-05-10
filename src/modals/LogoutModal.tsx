@@ -4,6 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
+import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { signOut } from 'next-auth/react';
 import { forwardRef } from 'react';
@@ -30,20 +31,18 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
             const profileStoreAll = getProfileStoreAll();
-            const profiles = props?.source
-                ? profileStoreAll[props.source].profiles
-                : SORTED_SOCIAL_SOURCES.flatMap((x) => profileStoreAll[x].profiles);
+            const profiles = compact(
+                props?.source
+                    ? [profileStoreAll[props.source].currentProfile]
+                    : SORTED_SOCIAL_SOURCES.flatMap((x) => profileStoreAll[x].currentProfile),
+            );
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Log out`,
                 content: (
                     <>
                         <div className="text-[15px] font-medium leading-normal text-lightMain">
-                            {profiles.length > 1 ? (
-                                <Trans>Confirm to log out these accounts?</Trans>
-                            ) : (
-                                <Trans>Confirm to log out this account?</Trans>
-                            )}
+                            <Trans>Confirm to log out this account?</Trans>
                         </div>
                         {profiles.map((profile) => (
                             <div

@@ -886,9 +886,6 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
-msgid "Confirm to log out these accounts?"
-msgstr ""
-
 msgid "Your Lens account is now connected"
 msgstr ""
 
