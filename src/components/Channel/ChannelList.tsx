@@ -31,6 +31,7 @@ export function ChannelList({ source }: ChannelListProps) {
         <ListInPage
             key={source}
             queryResult={queryResult}
+            className="no-scrollbar"
             VirtualListProps={{
                 useWindowScroll: false,
                 listKey: `${ScrollListKey.Channel}:trending`,

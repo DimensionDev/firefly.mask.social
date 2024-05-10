@@ -29,7 +29,7 @@ export function Info({ channel, source }: InfoProps) {
 
             <div className=" relative flex flex-1 flex-col gap-[6px]">
                 {channel && isMedium ? (
-                    <div className=" absolute right-0 top-4">
+                    <div className=" absolute right-0 top-0">
                         <ChannelMoreAction channel={channel} />
                     </div>
                 ) : null}

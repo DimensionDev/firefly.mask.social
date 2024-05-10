@@ -52,7 +52,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
     const followerCount = channel.followerCount ?? 0;
 
     return (
-        <div className="h-[198px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
+        <div className="h-[182px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
             <div className="flex gap-[10px]">
                 {channel.imageUrl ? (
                     <Avatar
