@@ -58,7 +58,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-[17px] text-main"
+                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -74,7 +74,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                                 }}
                             >
                                 <LinkIcon width={24} height={24} />
-                                <span className="text-[17px] font-bold leading-[22px] text-main">
+                                <span className="font-bold leading-[22px] text-main">
                                     <Trans>Copy Link</Trans>
                                 </span>
                             </MenuButton>

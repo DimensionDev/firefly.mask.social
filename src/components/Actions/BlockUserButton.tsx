@@ -49,7 +49,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
             ) : (
                 <SpeakerXMarkIcon width={24} height={24} />
             )}
-            <span className="text-[17px] font-bold leading-[22px] text-main">
+            <span className="font-bold leading-[22px] text-main">
                 {muted ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
             </span>
         </MenuButton>
