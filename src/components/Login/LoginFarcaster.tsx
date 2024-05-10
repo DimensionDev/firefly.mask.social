@@ -327,7 +327,11 @@ export function LoginFarcaster() {
                             <p className=" mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
                             <ClickableButton
                                 className=" rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
-                                onClick={() => setSignType(null)}
+                                onClick={() => {
+                                    setSignType(null);
+                                    setScanned(null);
+                                    setProfileError(null);
+                                }}
                             >
                                 <Trans>Back</Trans>
                             </ClickableButton>
