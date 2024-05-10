@@ -12,6 +12,7 @@ import { TwitterProvider } from '@/esm/TwitterProvider.js';
 const providers: Provider[] = [
     TwitterProvider({
         id: 'twitter',
+        version: '2.0',
         clientId: env.internal.TWITTER_CLIENT_ID,
         clientSecret: env.internal.TWITTER_CLIENT_SECRET,
     }),
