@@ -22,7 +22,7 @@ interface PageProps {
 export function ProfileDetailPage({ params: { id: identity }, searchParams: { source } }: PageProps) {
     const currentSource = resolveSource(source);
 
-    const { data: profiles, isLoading } = useQuery({
+    const { data: profiles = [], isLoading } = useQuery({
         queryKey: ['all-profiles', currentSource, identity],
         queryFn: async () => {
             return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, currentSource);
@@ -33,9 +33,6 @@ export function ProfileDetailPage({ params: { id: identity }, searchParams: { so
         return <Loading />;
     }
 
-    if (!profiles?.length) {
-        notFound();
-    }
 
     return (
         <ProfileContext.Provider initialState={{ source: currentSource, identity }}>

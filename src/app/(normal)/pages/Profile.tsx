@@ -35,34 +35,33 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const pathname = usePathname();
     const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
 
-    const currentProfile = profiles.find((x) => {
-        if (source === Source.Wallet) return isSameAddress(identity, x.identity);
-        return x.identity.toLowerCase() === identity?.toLowerCase();
-    });
-
     const walletProfile = useMemo(() => {
-        return currentProfile?.source === Source.Wallet ? (currentProfile?.__origin__ as WalletProfile) : undefined;
-    }, [currentProfile]);
+        return source === Source.Wallet
+            ? (profiles.find((x) => x.source === Source.Wallet && isSameAddress(x.identity, identity))?.__origin__ as
+                  | WalletProfile
+                  | undefined)
+            : undefined;
+    }, [source, profiles, identity]);
 
     const { data: profile = null, isLoading } = useQuery({
-        queryKey: ['profile', source, currentProfile?.identity],
+        queryKey: ['profile', source, identity],
         queryFn: async () => {
-            if (!currentProfile || currentProfile.source === Source.Wallet) return null;
+            if (!identity || source === Source.Wallet) return null;
             // can't access the profile If not login Twitter.
-            if (currentProfile.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
-            const socialSource = narrowToSocialSource(currentProfile.source);
+            if (source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
+            const socialSource = narrowToSocialSource(source);
 
-            return getProfileById(socialSource, currentProfile.identity);
+            return getProfileById(socialSource, identity);
         },
     });
 
     const { data: relations } = useQuery({
-        enabled: currentProfile?.source === Source.Wallet,
-        queryKey: ['relation', identity, currentProfile],
+        enabled: source === Source.Wallet,
+        queryKey: ['relation', identity, source],
         queryFn: async () => {
-            if (currentProfile?.source !== Source.Wallet || !identity) return EMPTY_LIST;
+            if (source !== Source.Wallet || !identity) return EMPTY_LIST;
 
-            return FireflySocialMediaProvider.getNextIDRelations('ethereum', currentProfile.identity);
+            return FireflySocialMediaProvider.getNextIDRelations('ethereum', identity);
         },
     });
 
@@ -82,7 +81,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         !profile &&
         !walletProfile &&
         !isLoading &&
-        !(currentProfile?.source === Source.Twitter && !currentTwitterProfile)
+        (!(source === Source.Twitter && !currentTwitterProfile) || !profiles.length)
     ) {
         notFound();
     }
