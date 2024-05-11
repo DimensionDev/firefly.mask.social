@@ -388,6 +388,9 @@ importers:
       '@types/twemoji-parser':
         specifier: ^13.1.4
         version: 13.1.4
+      '@types/twitter-text':
+        specifier: ^3.1.7
+        version: 3.1.7
       '@types/use-subscription':
         specifier: ^1.0.0
         version: 1.0.0
@@ -481,6 +484,9 @@ importers:
       svgo-loader:
         specifier: ^4.0.0
         version: 4.0.0
+      twitter-text:
+        specifier: ^3.1.0
+        version: 3.1.0
       vitest:
         specifier: ^0.34.6
         version: 0.34.6(@vitest/ui@0.34.3)
