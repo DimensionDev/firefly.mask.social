@@ -60,6 +60,9 @@ msgstr "发现"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
+msgid "Followed @{0} on {sourceName}"
+msgstr ""
+
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -360,6 +363,9 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
+msgid "Failed to unfollow @{0} on {sourceName}"
+msgstr ""
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
@@ -447,6 +453,9 @@ msgstr "帖子已经被隐藏"
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Failed to follow @{0} on {sourceName}"
+msgstr ""
+
 msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
@@ -473,9 +482,6 @@ msgstr "<0>{0}</0> 点赞"
 
 msgid "Suggested Channels"
 msgstr ""
-
-msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
-msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 {source} 取消关注 @{handle} 失败} other {在 {source} 关注 @{handle} 失败}}"
 
 msgid "Failed to follow."
 msgstr "关注失败"
@@ -909,6 +915,9 @@ msgstr "Mask Network"
 msgid "View Engagements"
 msgstr ""
 
+msgid "Unfollowed @{0} on {sourceName}"
+msgstr ""
+
 msgid "Your Lens account is now connected."
 msgstr "你的 Lens 账号已经连接。"
 
@@ -923,9 +932,6 @@ msgstr "取消转帖"
 
 msgid "No matching users"
 msgstr "未找到匹配用户"
-
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source} 取消关注 @{handle}} other {在 {source} 关注 @{handle}}}"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""

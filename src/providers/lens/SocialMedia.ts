@@ -35,6 +35,7 @@ import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
+import { SetQueryDataForFollowUser } from '@/decorators/SetQueryDataForFollowUser.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -70,6 +71,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForCommentPost(Source.Lens)
 @SetQueryDataForDeletePost(Source.Lens)
 @SetQueryDataForBlockUser(Source.Lens)
+@SetQueryDataForFollowUser(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -758,7 +760,7 @@ class LensSocialMedia implements Provider {
 
     getReactors!: (postId: string) => Promise<Pageable<Profile>>;
 
-    async follow(profileId: string): Promise<void> {
+    async follow(profileId: string): Promise<boolean> {
         const result = await lensSessionHolder.sdk.profile.follow({
             follow: [
                 {
@@ -796,12 +798,14 @@ class LensSocialMedia implements Provider {
             }
 
             await waitUntilComplete(lensSessionHolder.sdk, broadcastValue.txHash);
+            return false;
         } else {
             await waitUntilComplete(lensSessionHolder.sdk, resultValue.txHash);
         }
+        return true;
     }
 
-    async unfollow(profileId: string): Promise<void> {
+    async unfollow(profileId: string): Promise<boolean> {
         const result = await lensSessionHolder.sdk.profile.unfollow({
             unfollow: [profileId],
         });
@@ -832,9 +836,11 @@ class LensSocialMedia implements Provider {
             }
 
             await waitUntilComplete(lensSessionHolder.sdk, broadcastValue.txHash);
+            return false;
         } else {
             await waitUntilComplete(lensSessionHolder.sdk, resultValue.txHash);
         }
+        return true;
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {

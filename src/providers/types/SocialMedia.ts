@@ -571,17 +571,15 @@ export interface Provider {
      * Allows the current logged user to follow another user by specifying their profile ID.
      *
      * @param profileId The ID of the user to follow.
-     * @returns A promise that resolves to void.
      */
-    follow: (profileId: string) => Promise<void>;
+    follow: (profileId: string) => Promise<boolean>;
 
     /**
      * Allows the current logged user to unfollow another user by specifying their profile ID.
      *
      * @param profileId The ID of the user to unfollow.
-     * @returns A promise that resolves to void.
      */
-    unfollow: (profileId: string) => Promise<void>;
+    unfollow: (profileId: string) => Promise<boolean>;
 
     /**
      * Retrieves followers of a user by their profile ID.

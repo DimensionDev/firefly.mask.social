@@ -7,6 +7,7 @@ import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
+import { SetQueryDataForFollowUser } from '@/decorators/SetQueryDataForFollowUser.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -29,6 +30,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForCommentPost(Source.Farcaster)
 @SetQueryDataForDeletePost(Source.Farcaster)
 @SetQueryDataForBlockUser(Source.Farcaster)
+@SetQueryDataForFollowUser(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {

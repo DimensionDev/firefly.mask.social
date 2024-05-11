@@ -47,14 +47,15 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     const isMyPost = isSameProfile(author, currentProfile);
 
-    const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
+    const isFollowing = !!author.viewerContext?.following;
+    const [{ loading: togglingFollow }, handleToggle] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
     const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
     const [{ loading: muting }, changeChannelStatus] = useChangeChannelStatus(currentProfile);
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
-    const isBusy = loading || reporting || blocking;
+    const isBusy = togglingFollow || reporting || blocking;
     return (
         <Menu
             className=" relative"
@@ -113,7 +114,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     }}
                                 >
                                     {deleting ? (
-                                        <LoadingIcon width={16} height={16} className="animate-spin text-danger" />
+                                        <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
                                     ) : (
                                         <TrashIcon width={24} height={24} />
                                     )}
@@ -136,14 +137,16 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             });
                                         }}
                                     >
-                                        {isFollowed ? (
+                                        {togglingFollow ? (
+                                            <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
+                                        ) : isFollowing ? (
                                             <UnFollowUserIcon width={24} height={24} />
                                         ) : (
                                             <FollowUserIcon width={24} height={24} />
                                         )}
                                         <span className="font-bold leading-[22px] text-main">
                                             <Select
-                                                value={isFollowed ? 'unfollow' : 'follow'}
+                                                value={isFollowing ? 'unfollow' : 'follow'}
                                                 _follow="Follow"
                                                 _unfollow="Unfollow"
                                                 other="Follow"

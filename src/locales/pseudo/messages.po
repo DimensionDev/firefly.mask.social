@@ -55,6 +55,9 @@ msgstr ""
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
+msgid "Followed @{0} on {sourceName}"
+msgstr ""
+
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -355,6 +358,9 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
+msgid "Failed to unfollow @{0} on {sourceName}"
+msgstr ""
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
@@ -442,6 +448,9 @@ msgstr ""
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Failed to follow @{0} on {sourceName}"
+msgstr ""
+
 msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
@@ -467,9 +476,6 @@ msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "Suggested Channels"
-msgstr ""
-
-msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "Failed to follow."
@@ -904,6 +910,9 @@ msgstr ""
 msgid "View Engagements"
 msgstr ""
 
+msgid "Unfollowed @{0} on {sourceName}"
+msgstr ""
+
 msgid "Your Lens account is now connected."
 msgstr ""
 
@@ -917,9 +926,6 @@ msgid "Cancel Recast"
 msgstr ""
 
 msgid "No matching users"
-msgstr ""
-
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"

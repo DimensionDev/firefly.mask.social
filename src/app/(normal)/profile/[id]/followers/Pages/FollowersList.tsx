@@ -17,7 +17,7 @@ export function FollowersList({ profileId, source }: { profileId: string; source
     const comeback = useComeBack();
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['followers', source, profileId],
+        queryKey: ['profiles', source, 'followers', profileId],
         queryFn({ pageParam }) {
             const provider = resolveSocialMediaProvider(resolveSocialSource(source));
             return provider.getFollowers(profileId, createIndicator(undefined, pageParam));

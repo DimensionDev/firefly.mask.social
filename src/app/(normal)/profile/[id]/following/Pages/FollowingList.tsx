@@ -17,7 +17,7 @@ export function FollowingList({ profileId, source }: { profileId: string; source
     const comeback = useComeBack();
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['following', source, profileId],
+        queryKey: ['profiles', source, 'following', profileId],
         async queryFn({ pageParam }) {
             const provider = resolveSocialMediaProvider(resolveSocialSource(source));
             return provider.getFollowings(profileId, createIndicator(undefined, pageParam));

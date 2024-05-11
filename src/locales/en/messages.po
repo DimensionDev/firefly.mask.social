@@ -55,6 +55,9 @@ msgstr "Discover"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 
+msgid "Followed @{0} on {sourceName}"
+msgstr "Followed @{0} on {sourceName}"
+
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 
@@ -355,6 +358,9 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
+msgid "Failed to unfollow @{0} on {sourceName}"
+msgstr "Failed to unfollow @{0} on {sourceName}"
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "Failed to upload. More than {maxImageCount} images"
 
@@ -442,6 +448,9 @@ msgstr "Post has been hidden"
 msgid "Your post has published successfully."
 msgstr "Your post has published successfully."
 
+msgid "Failed to follow @{0} on {sourceName}"
+msgstr "Failed to follow @{0} on {sourceName}"
+
 msgid "Confirm you want to unmute /{0}?"
 msgstr "Confirm you want to unmute /{0}?"
 
@@ -468,9 +477,6 @@ msgstr "<0>{0}</0> liked"
 
 msgid "Suggested Channels"
 msgstr "Suggested Channels"
-
-msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
-msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 
 msgid "Failed to follow."
 msgstr "Failed to follow."
@@ -904,6 +910,9 @@ msgstr "Mask Network"
 msgid "View Engagements"
 msgstr "View Engagements"
 
+msgid "Unfollowed @{0} on {sourceName}"
+msgstr "Unfollowed @{0} on {sourceName}"
+
 msgid "Your Lens account is now connected."
 msgstr "Your Lens account is now connected."
 
@@ -918,9 +927,6 @@ msgstr "Cancel Recast"
 
 msgid "No matching users"
 msgstr "No matching users"
-
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"

@@ -449,7 +449,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to follow.`);
-        return;
+        return true;
     }
 
     async unfollow(profileId: string) {
@@ -478,7 +478,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unfollow.`);
-        return;
+        return true;
     }
 
     async validateMessage(messageBytes: string) {
