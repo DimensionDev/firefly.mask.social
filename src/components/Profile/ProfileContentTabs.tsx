@@ -1,8 +1,10 @@
+'use client';
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { memo, Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation.js';
+import { memo, Suspense } from 'react';
+import urlcat from 'urlcat';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { ChannelList } from '@/components/Profile/ChannelList.js';
 import { CollectedList } from '@/components/Profile/CollectedList.js';
@@ -12,7 +14,9 @@ import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { ProfileTabType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 const ContentList = memo(function ContentList({
     type,
@@ -48,13 +52,7 @@ interface TabsProps {
 }
 
 export function ProfileContentTabs({ profileId, source }: TabsProps) {
-    const [currentTab, setCurrentTab] = useState(ProfileTabType.Feed);
-
-    const computedCurrentTab =
-        (source === Source.Lens && currentTab === ProfileTabType.Channels) ||
-        (source === Source.Farcaster && currentTab === ProfileTabType.Collected)
-            ? ProfileTabType.Feed
-            : currentTab;
+    const tab = (useSearchParams().get('type') as ProfileTabType) || ProfileTabType.Feed;
 
     return (
         <>
@@ -88,19 +86,20 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                     .filter((x) => SORTED_PROFILE_TAB_TYPE[source].includes(x.type))
                     .map(({ type, title }) => (
                         <div key={type} className=" flex flex-col">
-                            <ClickableButton
+                            <Link
+                                href={urlcat(`/profile/${profileId}`, { source: resolveSourceInURL(source), type })}
+                                replace
                                 className={classNames(
                                     'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
-                                    computedCurrentTab === type ? ' text-main' : ' text-third hover:text-main',
+                                    tab === type ? ' text-main' : ' text-third hover:text-main',
                                 )}
-                                onClick={() => setCurrentTab(type)}
                             >
                                 {title}
-                            </ClickableButton>
+                            </Link>
                             <span
                                 className={classNames(
                                     ' h-1 w-full rounded-full bg-[#9250FF] transition-all',
-                                    computedCurrentTab !== type ? ' hidden' : '',
+                                    tab !== type ? ' hidden' : '',
                                 )}
                             />
                         </div>
@@ -108,7 +107,7 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
             </div>
 
             <Suspense fallback={<Loading />}>
-                <ContentList type={computedCurrentTab} source={source} profileId={profileId} />
+                <ContentList type={tab} source={source} profileId={profileId} />
             </Suspense>
         </>
     );
