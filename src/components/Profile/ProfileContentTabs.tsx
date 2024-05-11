@@ -89,6 +89,7 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                             <Link
                                 href={urlcat(`/profile/${profileId}`, { source: resolveSourceInURL(source), type })}
                                 replace
+                                shallow
                                 className={classNames(
                                     'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
                                     tab === type ? ' text-main' : ' text-third hover:text-main',
@@ -106,7 +107,7 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                     ))}
             </div>
 
-            <Suspense fallback={<Loading />}>
+            <Suspense key={tab} fallback={<Loading />}>
                 <ContentList type={tab} source={source} profileId={profileId} />
             </Suspense>
         </>
