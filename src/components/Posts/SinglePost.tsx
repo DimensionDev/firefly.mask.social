@@ -66,6 +66,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 'cursor-pointer': post.source !== Source.Twitter,
             })}
             onClick={() => {
+                if (post.source === Source.Twitter) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
@@ -75,9 +76,14 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 return;
             }}
         >
-            {!isComment ? <FeedActionType post={post} /> : null}
+            {!isComment ? <FeedActionType post={post} listKey={listKey} index={index} /> : null}
 
-            <PostHeader post={post} />
+            <PostHeader
+                post={post}
+                onClickProfileLink={() => {
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                }}
+            />
 
             <PostBody post={post} showMore={showMore} />
             {!!post.channel && post.type === 'Post' && !isChannelPage ? <ChannelAnchor channel={post.channel} /> : null}

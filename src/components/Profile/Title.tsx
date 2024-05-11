@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ComeBackIcon from '@/assets/comeback.svg';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
+import { Source } from '@/constants/enum.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -37,7 +38,7 @@ export function Title({ profile, displayName, isSingleProfile }: TitleProps) {
                 </span>
             </div>
 
-            {profile ? (
+            {profile && profile.source !== Source.Twitter ? (
                 reached || !isMedium ? (
                     <>
                         <FollowButton className="ml-auto" profile={profile} />

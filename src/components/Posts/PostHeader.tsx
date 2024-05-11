@@ -16,9 +16,10 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface PostHeaderProps {
     post: Post;
     isQuote?: boolean;
+    onClickProfileLink?: () => void;
 }
 
-export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
+export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false, onClickProfileLink }) {
     const currentProfile = useCurrentProfile(post.source);
 
     const isMyPost = isSameProfile(post.author, currentProfile);
@@ -26,7 +27,14 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     return (
         <div className="flex items-start gap-3">
-            <Link href={profileLink} className="z-[1]" onClick={(event) => event.stopPropagation()}>
+            <Link
+                href={profileLink}
+                className="z-[1]"
+                onClick={(event) => {
+                    onClickProfileLink?.();
+                    event.stopPropagation();
+                }}
+            >
                 <Avatar
                     className={classNames({
                         'h-10 w-10': !isQuote,
