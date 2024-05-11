@@ -29,11 +29,11 @@ export function useToggleFollow(profile: Profile) {
 
             if (following) {
                 const result = await provider.unfollow(profile.profileId);
-                enqueueSuccessMessage(t`Followed @${profile.handle} on ${sourceName}`);
+                enqueueSuccessMessage(t`Unfollowed @${profile.handle} on ${sourceName}`);
                 return result;
             } else {
                 const result = await provider.follow(profile.profileId);
-                enqueueSuccessMessage(t`Unfollowed @${profile.handle} on ${sourceName}`);
+                enqueueSuccessMessage(t`Followed @${profile.handle} on ${sourceName}`);
                 return result;
             }
         } catch (error) {

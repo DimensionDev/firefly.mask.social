@@ -60,10 +60,10 @@ export function SetQueryDataForBookmarkPost(source: Source) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];
-            const status = key === 'bookmark';
 
             Object.defineProperty(target.prototype, key, {
                 value: async (postId: string, ...args: unknown[]) => {
+                    const status = key === 'bookmark';
                     toggleBookmark(source, postId, status);
                     const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
                     try {
