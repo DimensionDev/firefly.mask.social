@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro';
+import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 
-import CopyIcon from '@/assets/copy.svg';
+import LinkIcon from '@/assets/link-square.svg';
 import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
@@ -60,7 +61,13 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         <span className="hidden sm:inline">{address}</span>
                         <span className="inline sm:hidden">{formatEthereumAddress(address, 4)}</span>
                         <CopyButton value={address} />
-                        <CopyIcon className="ml-1.5 h-3 w-3 text-secondary" />
+                        <a
+                            className="ml-1.5 h-3 w-3"
+                            href={EVMExplorerResolver.addressLink(chainId, address)}
+                            target="_blank"
+                        >
+                            <LinkIcon className="h-3 w-3 text-secondary" />
+                        </a>
                     </div>
                     <div className="flex items-center space-x-2 whitespace-nowrap text-sm leading-[22px]">
                         {nftCount ? (
