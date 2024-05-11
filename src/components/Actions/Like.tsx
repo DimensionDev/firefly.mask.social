@@ -70,7 +70,7 @@ export const Like = memo<LikeProps>(function Like({
                     error,
                 });
             }
-            toggleLike(source, postId);
+            toggleLike(source, postId, !hasLiked);
             throw error;
         }
     }, [postId, source, hasLiked, queryClient, isLogin, authorId, isComment]);
