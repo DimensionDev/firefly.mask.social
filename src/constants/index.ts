@@ -88,9 +88,14 @@ export const S3_BUCKET = {
 };
 
 export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
-    [Source.Lens]: 5000,
     [Source.Farcaster]: 320,
+    [Source.Lens]: 5000,
     [Source.Twitter]: 280,
+};
+export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
+    [Source.Farcaster]: 2,
+    [Source.Lens]: 4,
+    [Source.Twitter]: 4,
 };
 export const DANGER_CHAR_LIMIT: Record<SocialSource, number> = {
     [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.9),
