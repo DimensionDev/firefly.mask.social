@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
+import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
 import { isHomeChannel } from '@/helpers/channel.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -49,7 +50,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
                 ],
                 (x) => x.url.toLowerCase(),
-            ),
+            ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
             parentChannelKey: isHomeChannel(currentChannel) ? undefined : currentChannel?.id,
             parentChannelUrl: isHomeChannel(currentChannel) ? undefined : currentChannel?.parentUrl,
