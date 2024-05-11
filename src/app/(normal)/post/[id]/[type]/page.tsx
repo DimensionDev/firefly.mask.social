@@ -54,7 +54,7 @@ export default function Page(props: Props) {
 
     return (
         <>
-            <div className=" flex items-center gap-5 border-b border-lightLineSecond px-5 dark:border-line">
+            <div className=" sticky top-0 z-20 flex items-center gap-5 border-b border-lightLineSecond bg-primaryBottom px-5 dark:border-line">
                 <ComeBack width={24} height={24} className="mr-2 cursor-pointer" onClick={comeback} />
                 {[
                     {

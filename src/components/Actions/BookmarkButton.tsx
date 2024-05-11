@@ -1,8 +1,8 @@
-import { BookmarkIcon } from '@heroicons/react/24/outline';
-import { BookmarkIcon as BookmarkActiveIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
+import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
+import BookmarkIcon from '@/assets/bookmark.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
