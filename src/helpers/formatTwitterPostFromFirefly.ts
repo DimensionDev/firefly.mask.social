@@ -1,4 +1,5 @@
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { compact } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
@@ -9,6 +10,31 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const repliedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'replied_to')?.id;
     const repliedTweet = repliedTweetId ? includes?.tweets?.find((tweet) => tweet.id === repliedTweetId) : undefined;
     const isRetweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
+    const attachments = compact(
+        item.attachments?.media_keys?.map((key) => {
+            const media = includes?.media?.find((m) => m.media_key === key);
+            let asset: Attachment | null = null;
+            if (!media) return asset;
+            const coverUri = media.preview_image_url;
+            if (media.type === 'video' && media.variants?.[0].url) {
+                asset = {
+                    type: 'Video',
+                    uri: media.variants?.[0].url,
+                };
+            }
+            if (media.url) {
+                asset = {
+                    type: 'Image',
+                    uri: media.url,
+                };
+                if (coverUri) {
+                    asset.coverUri = coverUri;
+                }
+            }
+            return asset;
+        }),
+    );
+
     const ret: Post = {
         publicationId: item.id,
         postId: item.id,
@@ -31,26 +57,8 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             locale: item.lang!,
             content: {
                 content: item.text,
-                attachments: item.attachments?.media_keys
-                    ?.map((key) => {
-                        const media = includes?.media?.find((m) => m.media_key === key);
-                        if (!media) return null;
-                        const coverUri = media.preview_image_url;
-                        if (media.type === 'video') {
-                            return {
-                                type: 'Image',
-                                uri: media.variants?.[0].url,
-                                coverUri,
-                            };
-                        }
-                        return {
-                            type: 'Image',
-                            uri: media.url,
-                            coverUri,
-                        };
-                    })
-                    .filter((media) => media)
-                    .map((media) => media as Attachment),
+                asset: attachments?.[0],
+                attachments,
             },
         },
     };
