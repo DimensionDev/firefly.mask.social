@@ -45,7 +45,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
-                        {!isMyProfile && profile && isMedium ? (
+                        {!isMyProfile && profile && isMedium && source !== Source.Twitter ? (
                             <>
                                 <div className="ml-auto ">
                                     {profile.viewerContext?.blocking ? (
