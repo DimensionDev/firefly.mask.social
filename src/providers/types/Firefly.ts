@@ -26,7 +26,7 @@ export interface Cast {
     liked: boolean;
     recasted: boolean;
     bookmarked: boolean;
-    author: User;
+    author?: User;
     recastedBy?: User;
     timestamp?: string;
     rootParentCast?: Cast;

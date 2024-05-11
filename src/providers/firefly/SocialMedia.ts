@@ -55,7 +55,6 @@ import {
     type Notification,
     NotificationType,
     type Post,
-    type PostType,
     type Profile,
     type Provider,
     SessionType,
@@ -665,29 +664,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const casts = resolveFireflyResponseData(response);
-        const data = casts.map((cast) => {
-            return {
-                publicationId: cast.hash,
-                type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
-                source: Source.Farcaster,
-                postId: cast.hash,
-                parentPostId: cast.parent_hash,
-                timestamp: Number(cast.created_at),
-                author: formatFarcasterProfileFromFirefly(cast.author),
-                metadata: {
-                    locale: '',
-                    content: {
-                        content: cast.text,
-                    },
-                },
-                stats: {
-                    comments: Number(cast.replyCount),
-                    mirrors: cast.recastCount,
-                    quotes: cast.recastCount,
-                    reactions: cast.likeCount,
-                },
-            } satisfies Post;
-        });
+        const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
         return createPageable(data, createIndicator(indicator), undefined);
     }
 

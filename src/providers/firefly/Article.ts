@@ -88,7 +88,6 @@ class FireflyArticle implements Provider {
 
     async getFollowingArticles(indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/timeline/articles');
-
         const response = await fireflySessionHolder.fetch<GetFollowingArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
