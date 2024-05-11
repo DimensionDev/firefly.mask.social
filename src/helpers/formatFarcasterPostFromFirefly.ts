@@ -1,6 +1,7 @@
 import { compact, first, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
@@ -62,9 +63,9 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         type: postType,
         postId: cast.hash,
         parentPostId: cast.parent_hash,
-        parentAuthor: cast.parentCast ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
+        parentAuthor: cast.parentCast?.author ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
         timestamp: cast.timestamp ? new Date(cast.timestamp).getTime() : undefined,
-        author: formatFarcasterProfileFromFirefly(cast.author),
+        author: cast.author ? formatFarcasterProfileFromFirefly(cast.author) : createDummyProfile(Source.Farcaster),
         metadata: {
             locale: '',
             content: formatContent(cast),
@@ -72,8 +73,8 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         stats: {
             comments: Number(cast.replyCount),
             mirrors: cast.recastCount,
+            quotes: cast.recastCount,
             reactions: cast.likeCount,
-            quotes: 0,
         },
         mentions: cast.mentions_user.map<Profile>((x) => {
             return {
