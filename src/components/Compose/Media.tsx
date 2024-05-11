@@ -65,6 +65,7 @@ export function Media({ close }: MediaProps) {
     const disabledVideo =
         !!video ||
         availableSources.includes(Source.Farcaster) ||
+        availableSources.includes(Source.Twitter) ||
         (availableSources.includes(Source.Lens) && images.length > 0);
 
     return (
