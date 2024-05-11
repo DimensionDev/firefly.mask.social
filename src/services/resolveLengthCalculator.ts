@@ -1,5 +1,5 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
-import { parseTweet } from 'twitter-text';
+import twitter from 'twitter-text';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 
@@ -13,7 +13,7 @@ function calculateLengthForFarcaster(text: string) {
 
 // learn more: https://github.com/twitter/twitter-text/tree/master/js
 function calculateLengthForTwitter(text: string) {
-    const { weightedLength } = parseTweet(text);
+    const { weightedLength } = twitter.parseTweet(text);
     return weightedLength;
 }
 
