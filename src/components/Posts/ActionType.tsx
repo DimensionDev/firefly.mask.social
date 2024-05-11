@@ -22,9 +22,11 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 export interface FeedActionType {
     post: Post;
     isThread?: boolean;
+    listKey?: string;
+    index?: number;
 }
 
-export const FeedActionType = memo<FeedActionType>(function FeedActionType({ post, isThread }) {
+export const FeedActionType = memo<FeedActionType>(function FeedActionType({ post, isThread, listKey, index }) {
     const currentProfile = useCurrentProfile(post.source);
 
     const isComment = post.type === 'Comment';
@@ -160,9 +162,11 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 </div>
             ) : null}
 
-            {!post.mirrors?.length && showThread && post.root && !isThread ? <ThreadBody post={post.root} /> : null}
+            {!post.mirrors?.length && showThread && post.root && !isThread ? (
+                <ThreadBody post={post.root} listKey={listKey} index={index} />
+            ) : null}
             {!post.mirrors?.length && showThread && post.commentOn && !isThread ? (
-                <ThreadBody post={post.commentOn} />
+                <ThreadBody post={post.commentOn} listKey={listKey} index={index} />
             ) : null}
         </ClickableArea>
     );
