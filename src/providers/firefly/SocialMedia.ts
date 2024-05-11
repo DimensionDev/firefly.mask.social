@@ -361,41 +361,47 @@ class FireflySocialMedia implements Provider {
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
-            fid: profileId,
-            size: 10,
-            cursor: indicator?.id,
-        });
-        const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
-            method: 'GET',
-        });
-        const { list, next_cursor } = resolveFireflyResponseData(response);
-        const data = list.map(formatFarcasterProfileFromFirefly);
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
+                fid: profileId,
+                size: 10,
+                cursor: indicator?.id,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
+                method: 'GET',
+            });
+            const { list, next_cursor } = resolveFireflyResponseData(response);
+            const data = list.map(formatFarcasterProfileFromFirefly);
 
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
-        );
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+            );
+        });
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
-            fid: profileId,
-            size: 10,
-            cursor: indicator?.id,
-        });
-        const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
-            method: 'GET',
-        });
-        const { list, next_cursor } = resolveFireflyResponseData(response);
-        const data = list.map(formatFarcasterProfileFromFirefly);
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
+                fid: profileId,
+                size: 10,
+                cursor: indicator?.id,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
+                method: 'GET',
+            });
+            const { list, next_cursor } = resolveFireflyResponseData(response);
+            const data = list.map(formatFarcasterProfileFromFirefly);
 
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
-        );
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+            );
+        });
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
