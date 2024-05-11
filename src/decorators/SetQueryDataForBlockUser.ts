@@ -25,6 +25,8 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
             };
         });
     });
+
+    queryClient.setQueryData(['profile-is-muted', source, profileId], status);
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockUser', 'unblockUser'] as const;

@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { useIsMuted } from '@/hooks/useIsMuted.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -19,7 +20,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
     { busy, profile, onConfirm, onToggleBlock, ...rest }: Props,
     ref,
 ) {
-    const muted = profile.viewerContext?.blocking;
+    const muted = useIsMuted(profile);
     return (
         <MenuButton
             {...rest}

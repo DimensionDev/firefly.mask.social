@@ -25,6 +25,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BlockRelationResponse,
     type BlockUserResponse,
     type BookmarkResponse,
     type Cast,
@@ -802,6 +803,18 @@ class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
+    }
+
+    async getIsMuted(profileId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
+        const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
+            }),
+        });
+        const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
+        return blocked;
     }
 }
 

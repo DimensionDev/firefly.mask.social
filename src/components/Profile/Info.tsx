@@ -1,6 +1,5 @@
 import { plural, Trans } from '@lingui/macro';
 
-import { UnmuteButton } from '@/components/Actions/UnmuteButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
@@ -48,11 +47,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                         {!isMyProfile && profile && isMedium && source !== Source.Twitter ? (
                             <>
                                 <div className="ml-auto ">
-                                    {profile.viewerContext?.blocking ? (
-                                        <UnmuteButton profile={profile} />
-                                    ) : (
-                                        <FollowButton profile={profile} />
-                                    )}
+                                    <FollowButton profile={profile} />
                                 </div>
                                 <ProfileMoreAction profile={profile} />
                             </>

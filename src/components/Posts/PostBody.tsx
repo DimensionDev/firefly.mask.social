@@ -23,6 +23,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
+import { useIsMuted } from '@/hooks/useIsMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {
@@ -63,6 +64,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [post, postViewed]);
 
+    const muted = useIsMuted(post.author);
+
     if (post.isEncrypted) {
         return (
             <div
@@ -86,7 +89,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    if (post.isHidden || post.author.viewerContext?.blocking) {
+    if (post.isHidden || muted) {
         return (
             <div
                 className={classNames({
@@ -105,11 +108,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     )}
                 >
                     <EyeSlash width={16} height={16} />
-                    {post.author.viewerContext?.blocking ? (
-                        <Trans>The author is muted by you.</Trans>
-                    ) : (
-                        <Trans>Post has been hidden</Trans>
-                    )}
+                    {muted ? <Trans>The author is muted by you.</Trans> : <Trans>Post has been hidden</Trans>}
                 </div>
             </div>
         );
