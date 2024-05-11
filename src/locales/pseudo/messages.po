@@ -298,6 +298,9 @@ msgstr ""
 msgid "URL is required."
 msgstr ""
 
+msgid "Remove from Bookmarks"
+msgstr ""
+
 msgid "The file not found"
 msgstr ""
 
@@ -863,9 +866,6 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
-msgstr ""
-
-msgid "Unbookmark"
 msgstr ""
 
 msgid "Claim on {0}: {1}"

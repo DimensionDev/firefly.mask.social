@@ -303,6 +303,9 @@ msgstr ""
 msgid "URL is required."
 msgstr "请选择 URL"
 
+msgid "Remove from Bookmarks"
+msgstr ""
+
 msgid "The file not found"
 msgstr ""
 
@@ -869,9 +872,6 @@ msgstr "取消关注"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
-
-msgid "Unbookmark"
-msgstr ""
 
 msgid "Claim on {0}: {1}"
 msgstr ""

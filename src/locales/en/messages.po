@@ -298,6 +298,9 @@ msgstr "Your post was deleted."
 msgid "URL is required."
 msgstr "URL is required."
 
+msgid "Remove from Bookmarks"
+msgstr "Remove from Bookmarks"
+
 msgid "The file not found"
 msgstr "The file not found"
 
@@ -864,9 +867,6 @@ msgstr "Unfollow"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
-
-msgid "Unbookmark"
-msgstr "Unbookmark"
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
