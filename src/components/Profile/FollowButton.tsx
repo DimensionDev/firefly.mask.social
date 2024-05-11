@@ -2,8 +2,10 @@ import { t } from '@lingui/macro';
 import { memo, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { UnmuteButton } from '@/components/Actions/UnmuteButton.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsMuted } from '@/hooks/useIsMuted.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -24,6 +26,12 @@ export const FollowButton = memo(function FollowButton({ profile, className, ...
 
     const buttonText = isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`;
     const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;
+
+    const muted = useIsMuted(profile);
+
+    if (muted) {
+        return <UnmuteButton profile={profile} />;
+    }
 
     return (
         <ClickableButton

@@ -1,4 +1,4 @@
-import type { Source } from '@/constants/enum.js';
+import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
 export interface Cast {
@@ -382,5 +382,13 @@ export type BlockUserResponse = Response<
         address: string;
         snsId: string;
         snsPlatform: string;
+    }>
+>;
+
+export type BlockRelationResponse = Response<
+    Array<{
+        snsId: string;
+        snsPlatform: FireflyPlatform;
+        blocked: boolean;
     }>
 >;

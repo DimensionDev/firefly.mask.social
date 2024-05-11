@@ -21,8 +21,6 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
         });
     });
 
-    queryClient.invalidateQueries({ queryKey: ['posts', source, 'bookmark'] });
-
     // Articles
     queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles', 'discover'] }, (old) => {
         if (!old) return old;
@@ -68,6 +66,8 @@ export function SetQueryDataForBookmarkPost(source: Source) {
                     const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
                     try {
                         const result = await m.call(target.prototype, postId, ...args);
+                        queryClient.invalidateQueries({ queryKey: ['posts', source, 'bookmark'] });
+
                         return result;
                     } catch (error) {
                         // rolling back
