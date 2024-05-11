@@ -575,14 +575,13 @@ class FireflySocialMedia implements Provider {
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             // TODO: replace to prod url
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster_for_fid');
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
             const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    fid: profileId,
                     size: 25,
                     needRootParentHash: true,
-                    sourceFid: session?.profileId,
+                    sourceFid: profileId,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
                 }),
             });
