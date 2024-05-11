@@ -70,7 +70,7 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                     },
                     {
                         type: ProfileTabType.Liked,
-                        title: <Trans>Liked</Trans>,
+                        title: <Trans>Likes</Trans>,
                     },
                     {
                         type: ProfileTabType.Media,
