@@ -14,7 +14,7 @@ function getLikeReactorContent(index: number, profile: Profile, listKey: string)
 
 export function LikeList({ postId, type, source }: PostEngagementListProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['engagements', source, type, postId],
+        queryKey: ['profiles', source, 'engagements', type, postId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getLikeReactors(postId, createIndicator(undefined, pageParam));

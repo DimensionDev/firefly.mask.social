@@ -89,14 +89,16 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async follow(profileId: string): Promise<void> {
+    async follow(profileId: string): Promise<boolean> {
         const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, { method: 'POST' });
         if (!response.success) throw new Error(response.error.message);
+        return true;
     }
 
-    async unfollow(profileId: string): Promise<void> {
+    async unfollow(profileId: string): Promise<boolean> {
         const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unfollow/${profileId}`, { method: 'POST' });
         if (!response.success) throw new Error(response.error.message);
+        return true;
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

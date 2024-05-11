@@ -5,15 +5,15 @@ import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-export function toggleLike(source: SocialSource, postId: string) {
+export function toggleLike(source: SocialSource, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
-        draft.hasLiked = !draft.hasLiked;
+        draft.hasLiked = status;
         draft.stats = produce(draft.stats, (old) => {
             return {
                 ...old,
                 comments: old?.comments || 0,
                 mirrors: old?.mirrors || 0,
-                reactions: (old?.reactions || 0) + (draft?.hasLiked ? 1 : -1),
+                reactions: (old?.reactions || 0) + (status ? 1 : -1),
             };
         });
     });
@@ -28,11 +28,16 @@ export function SetQueryDataForLikePost(source: SocialSource) {
 
             Object.defineProperty(target.prototype, key, {
                 value: async (postId: string, ...args: unknown[]) => {
-                    toggleLike(source, postId);
-                    const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
-                    const result = await m.call(target.prototype, postId, ...args);
-
-                    return result;
+                    const status = key === 'upvotePost';
+                    try {
+                        toggleLike(source, postId, status);
+                        const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
+                        return await m.call(target.prototype, postId, ...args);
+                    } catch (err) {
+                        // rolling back
+                        toggleLike(source, postId, !status);
+                        throw err;
+                    }
                 },
             });
         }

@@ -1,9 +1,9 @@
-import { BookmarkIcon } from '@heroicons/react/24/outline';
-import { BookmarkIcon as BookmarkActiveIcon } from '@heroicons/react/24/solid';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
+import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
+import BookmarkIcon from '@/assets/bookmark.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';

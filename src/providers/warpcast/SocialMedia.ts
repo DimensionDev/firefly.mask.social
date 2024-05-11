@@ -534,7 +534,7 @@ class WarpcastSocialMedia implements Provider {
             true,
         );
         if (!success) throw new Error('Follow Failed');
-        return;
+        return true;
     }
 
     async unfollow(profileId: string) {
@@ -551,7 +551,7 @@ class WarpcastSocialMedia implements Provider {
         );
 
         if (!success) throw new Error('Unfollow Failed');
-        return;
+        return true;
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
