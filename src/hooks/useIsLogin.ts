@@ -8,7 +8,7 @@ export function useIsLogin(source?: SocialSource) {
     const currentProfileAll = useCurrentProfileAll();
 
     return useMemo(() => {
-        if (source) return currentProfileAll[source]?.profileId;
+        if (source) return !!currentProfileAll[source]?.profileId;
         return SORTED_SOCIAL_SOURCES.some((x) => !!currentProfileAll[x]?.profileId);
     }, [source, currentProfileAll]);
 }
