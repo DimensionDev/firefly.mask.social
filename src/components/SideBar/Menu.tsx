@@ -1,12 +1,13 @@
 'use client';
 
-import { BookmarkIcon, PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
-import { BookmarkIcon as BookmarkSelectedIcon } from '@heroicons/react/24/solid';
+import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
+import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
+import BookmarkIcon from '@/assets/bookmark.svg';
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
 import FollowingSelectedIcon from '@/assets/following.selected.svg';
