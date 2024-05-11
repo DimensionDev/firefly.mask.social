@@ -868,6 +868,9 @@ msgstr ""
 msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
+msgid "We're updating our connection with X. Posting on X will be limited for now."
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr ""
 

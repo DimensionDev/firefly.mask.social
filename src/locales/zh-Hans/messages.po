@@ -873,6 +873,9 @@ msgstr "取消关注"
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
 
+msgid "We're updating our connection with X. Posting on X will be limited for now."
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr ""
 

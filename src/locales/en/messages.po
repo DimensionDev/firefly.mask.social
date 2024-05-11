@@ -868,6 +868,9 @@ msgstr "Unfollow"
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
 
+msgid "We're updating our connection with X. Posting on X will be limited for now."
+msgstr "We're updating our connection with X. Posting on X will be limited for now."
+
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
 
