@@ -457,9 +457,6 @@ msgstr "Failed to unmute /{0}."
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
-msgid "Confirm you want to mute @{0}?"
-msgstr "Confirm you want to mute @{0}?"
-
 msgid "Compose"
 msgstr "Compose"
 
@@ -546,6 +543,9 @@ msgstr "Your Farcaster account is now connected."
 
 msgid "Connect to {source}"
 msgstr "Connect to {source}"
+
+msgid "Posts from @{0} will now be hidden in your home timeline"
+msgstr "Posts from @{0} will now be hidden in your home timeline"
 
 msgid "Farcaster"
 msgstr "Farcaster"
