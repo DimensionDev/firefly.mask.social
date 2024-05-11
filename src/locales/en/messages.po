@@ -595,6 +595,9 @@ msgstr "Mute successfully."
 msgid "Show More"
 msgstr "Show More"
 
+msgid "since"
+msgstr "since"
+
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
