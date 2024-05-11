@@ -31,7 +31,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
                         variant: 'normal',
                         content: (
                             <div className="text-main">
-                                <Trans>Confirm you want to mute @{profile.handle}?</Trans>
+                                <Trans>Posts from @{profile.handle} will now be hidden in your home timeline</Trans>
                             </div>
                         ),
                     });
