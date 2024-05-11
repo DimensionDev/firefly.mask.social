@@ -56,11 +56,10 @@ export function Info({ channel, source }: InfoProps) {
                         </span>
                     </div>
                     <div className="flex gap-1">
-                        <span className="text-secondary">
-                            <Trans>since</Trans>
-                        </span>
-
-                        <strong>{dayjs(channel.timestamp).format('MMM DD, YYYY')}</strong>
+                        <Trans>
+                            <span className="text-secondary">since </span>{' '}
+                            <strong>{dayjs(channel.timestamp).format('MMM DD, YYYY')}</strong>
+                        </Trans>
                     </div>
                 </div>
             </div>

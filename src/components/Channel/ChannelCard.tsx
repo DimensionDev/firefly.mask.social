@@ -89,13 +89,12 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                             </span>
                         </div>
                         <div className="flex gap-1">
-                            <span className="text-secondary">
-                                <Trans>since</Trans>
-                            </span>
-
-                            <strong className="text-lightMain">
-                                {dayjs(channel.timestamp).format('MMM DD, YYYY')}
-                            </strong>
+                            <Trans>
+                                <span className="text-secondary">since </span>{' '}
+                                <strong className="text-lightMain">
+                                    {dayjs(channel.timestamp).format('MMM DD, YYYY')}
+                                </strong>
+                            </Trans>
                         </div>
                     </div>
                 </div>
