@@ -61,8 +61,6 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         queryClient.setQueryData(['article-detail', article.id], article);
     });
 
-    const content = article.content.split('\n').slice(0, 5).join('');
-
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
@@ -125,13 +123,13 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     >
                         {article.title}
                     </div>
-                    {content ? (
+                    {article.content ? (
                         <div className="h-[100px]">
                             <ArticleMarkup
                                 disableImage
                                 className="markup linkify break-words text-sm leading-[18px] text-second"
                             >
-                                {content}
+                                {article.content}
                             </ArticleMarkup>
                             <div
                                 className=" absolute bottom-0 left-0 h-[100px] w-full"
