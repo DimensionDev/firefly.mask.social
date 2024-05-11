@@ -6,16 +6,13 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ profile }) {
     return (
         <Link
-            href={{
-                pathname: `/profile/${profile?.profileId}`,
-                query: { source: resolveSourceInURL(profile.source) },
-            }}
+            href={getProfileUrl(profile)}
             className="grid gap-2.5 border-b border-line py-3 pl-3 pr-5"
             style={{ gridTemplateColumns: '70px calc(100% - 70px - 100px - 20px) 100px' }}
         >
