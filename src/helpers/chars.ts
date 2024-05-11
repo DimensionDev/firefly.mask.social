@@ -1,5 +1,6 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/index.js';
+import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
 /**
  * chars with metadata
@@ -46,14 +47,7 @@ export function writeChars(chars: Chars, newChars: Chars) {
 }
 
 function calculateLength(text: string, availableSources: SocialSource[]): number {
-    return Array.from(text).reduce((acc, char) => {
-        if (char.charCodeAt(0) > 128) {
-            // learn more: https://www.notion.so/mask/Compose-post-83dd1d8deaff402093d52a49eed551be?pvs=4
-            return acc + (availableSources.includes(Source.Farcaster) ? 3 : 2);
-        } else {
-            return acc + 1;
-        }
-    }, 0);
+    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(text)));
 }
 
 export function measureChars(chars: Chars, availableSources: SocialSource[]) {

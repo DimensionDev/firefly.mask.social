@@ -125,6 +125,7 @@
         "@types/react-dom": "^18.2.18",
         "@types/react-slick": "^0.23.13",
         "@types/twemoji-parser": "^13.1.4",
+        "@types/twitter-text": "^3.1.7",
         "@types/use-subscription": "^1.0.0",
         "@types/uuid": "^9.0.3",
         "@typescript-eslint/eslint-plugin": "^6.10.0",
@@ -156,6 +157,7 @@
         "stream-browserify": "^3.0.0",
         "stream-http": "^2.8.3",
         "svgo-loader": "^4.0.0",
+        "twitter-text": "^3.1.0",
         "vitest": "^0.34.6",
         "zlib-browserify": "^0.0.3"
     },
