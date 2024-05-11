@@ -35,7 +35,11 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disab
                 className="rounded-full p-1.5 hover:bg-warn/[.20] hover:text-warn"
                 aria-label="Bookmark"
             >
-                <Tooltip disabled={disabled} placement="top" content={hasBookmarked ? t`Unbookmark` : t`Bookmark`}>
+                <Tooltip
+                    disabled={disabled}
+                    placement="top"
+                    content={hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`}
+                >
                     {hasBookmarked ? (
                         <BookmarkActiveIcon width={16} height={16} className="text-warn" />
                     ) : (
