@@ -922,6 +922,9 @@ msgstr ""
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr ""
 
+msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
 msgid "Log in to Farcaster account"
 msgstr ""
 

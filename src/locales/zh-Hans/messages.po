@@ -927,6 +927,9 @@ msgstr "未找到匹配用户"
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source} 取消关注 @{handle}} other {在 {source} 关注 @{handle}}}"
 
+msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
