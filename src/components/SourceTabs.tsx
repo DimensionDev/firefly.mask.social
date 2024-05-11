@@ -25,11 +25,6 @@ export function SourceTabs() {
 
     if (pathname !== PageRoute.Home && currentSource === Source.Farcaster) {
         updateCurrentSource(Source.Farcaster);
-        replaceSearchParams(
-            new URLSearchParams({
-                source: resolveSourceInURL(Source.Farcaster),
-            }),
-        );
     }
 
     if (
@@ -37,11 +32,6 @@ export function SourceTabs() {
         (pathname !== PageRoute.Following && pathname !== PageRoute.Home && currentSource === Source.Article)
     ) {
         updateCurrentSource(Source.Farcaster);
-        replaceSearchParams(
-            new URLSearchParams({
-                source: resolveSourceInURL(Source.Farcaster),
-            }),
-        );
     }
 
     const sources =
