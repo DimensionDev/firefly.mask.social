@@ -1,4 +1,5 @@
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { compact } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
@@ -9,8 +10,8 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const repliedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'replied_to')?.id;
     const repliedTweet = repliedTweetId ? includes?.tweets?.find((tweet) => tweet.id === repliedTweetId) : undefined;
     const isRetweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
-    const attachments = item.attachments?.media_keys
-        ?.map((key) => {
+    const attachments = compact(
+        item.attachments?.media_keys?.map((key) => {
             const media = includes?.media?.find((m) => m.media_key === key);
             let asset: Attachment | null = null;
             if (!media) return asset;
@@ -31,9 +32,8 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 }
             }
             return asset;
-        })
-        .filter((media) => media)
-        .map((media) => media as Attachment);
+        }),
+    );
 
     const ret: Post = {
         publicationId: item.id,
