@@ -19,7 +19,7 @@ interface GridListInPageProps<T = unknown> {
     noResultsFallbackRequired?: boolean;
     VirtualGridListProps?: VirtualGridListProps<T>;
     NoResultsFallbackProps?: NoResultsFallbackProps;
-    className?: string
+    className?: string;
 }
 
 export function GridListInPage<T = unknown>({
