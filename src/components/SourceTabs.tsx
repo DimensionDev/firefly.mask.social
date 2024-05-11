@@ -23,10 +23,6 @@ export function SourceTabs() {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    if (pathname !== PageRoute.Home && currentSource === Source.Farcaster) {
-        updateCurrentSource(Source.Farcaster);
-    }
-
     if (
         (pathname === PageRoute.Following && currentSource === Source.Article && !fireflySession) ||
         (pathname !== PageRoute.Following && pathname !== PageRoute.Home && currentSource === Source.Article)
