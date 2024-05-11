@@ -37,7 +37,7 @@ export const BookmarkButton = forwardRef<HTMLButtonElement, Props>(function Book
                 <BookmarkIcon width={24} height={24} />
             )}
             <span className="font-bold leading-[22px] text-main">
-                {hasBookmarked ? <Trans>Unbookmark</Trans> : <Trans>Bookmark</Trans>}
+                {hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>}
             </span>
         </MenuButton>
     );
