@@ -9,9 +9,9 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 
 interface Props {
     source: SocialSource;
