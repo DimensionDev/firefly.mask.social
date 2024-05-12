@@ -43,6 +43,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FRAMES: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_COMPOSE_WARNINGS: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // public use of hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
@@ -70,6 +71,7 @@ export const env = {
 
         NEXT_PUBLIC_FRAMES: process.env.NEXT_PUBLIC_FRAMES,
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,
+        NEXT_PUBLIC_COMPOSE_WARNINGS: process.env.NEXT_PUBLIC_COMPOSE_WARNINGS,
         NEXT_PUBLIC_REACT_DEV_TOOLS: process.env.NEXT_PUBLIC_REACT_DEV_TOOLS,
 
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
