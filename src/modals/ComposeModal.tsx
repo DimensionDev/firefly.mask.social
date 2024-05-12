@@ -27,7 +27,8 @@ import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -252,7 +253,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                     <ComposeAction />
 
-                    {warningsOpen ? (
+                    {warningsOpen && env.external.NEXT_PUBLIC_COMPOSE_WARNINGS === STATUS.Enabled ? (
                         <div className=" flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
                             <ExclamationTriangleIcon className="hidden text-white md:block" width={24} height={24} />
                             <p className=" text-left text-xs text-white md:text-center">
