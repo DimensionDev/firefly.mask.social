@@ -651,6 +651,9 @@ msgstr "访问 mask.io"
 msgid "No comments found"
 msgstr "未发现评论"
 
+msgid "Unfollow @{0}"
+msgstr ""
+
 msgid "Discard"
 msgstr "放弃"
 
@@ -930,6 +933,9 @@ msgstr "移除"
 msgid "Post remove from your Bookmarks"
 msgstr ""
 
+msgid "Follow @{0}"
+msgstr ""
+
 msgid "Cancel Recast"
 msgstr "取消转帖"
 
@@ -995,9 +1001,6 @@ msgstr "转推"
 
 msgid "Followers"
 msgstr "粉丝"
-
-msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
-msgstr "{0, select, follow {关注} unfollow {取消关注} other {关注}}"
 
 msgid "Media"
 msgstr "多媒体"

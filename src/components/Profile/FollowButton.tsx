@@ -22,8 +22,7 @@ interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
 export const FollowButton = memo(function FollowButton({ profile, className, ...rest }: FollowButtonProps) {
     const [hovering, setHovering] = useState(false);
     const isFollowing = !!profile.viewerContext?.following;
-    const [togglingFollow, toggleFollow] = useToggleFollow(profile);
-    const loading = togglingFollow;
+    const [loading, toggleFollow] = useToggleFollow(profile);
 
     const buttonText = isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`;
     const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;
