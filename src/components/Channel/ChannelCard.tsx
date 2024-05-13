@@ -1,4 +1,5 @@
-import { plural } from '@lingui/macro';
+import { plural, Trans } from '@lingui/macro';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
 import React, { memo, useCallback } from 'react';
 
@@ -28,7 +29,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
     if (loading) {
         return (
-            <div className="h-[198px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
+            <div className="h-[182px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
                 <div className="animate-pulse">
                     <div className="flex w-full gap-[10px]">
                         <div className="h-20 w-20 rounded-full bg-slate-700" />
@@ -52,7 +53,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
     const followerCount = channel.followerCount ?? 0;
 
     return (
-        <div className="h-[198px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
+        <div className="h-[182px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
             <div className="flex gap-[10px]">
                 {channel.imageUrl ? (
                     <Avatar
@@ -77,14 +78,24 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         /{channel?.id}
                     </div>
 
-                    <div className=" flex gap-1">
-                        <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
-                        <span className=" text-secondary">
-                            {plural(followerCount, {
-                                one: 'Follower',
-                                other: 'Followers',
-                            })}
-                        </span>
+                    <div className=" flex justify-between gap-3 text-[15px]">
+                        <div className="flex gap-1">
+                            <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
+                            <span className=" text-secondary">
+                                {plural(followerCount, {
+                                    one: 'Follower',
+                                    other: 'Followers',
+                                })}
+                            </span>
+                        </div>
+                        <div className="flex gap-1">
+                            <Trans>
+                                <span className="text-secondary">since </span>{' '}
+                                <strong className="text-lightMain">
+                                    {dayjs(channel.timestamp).format('MMM DD, YYYY')}
+                                </strong>
+                            </Trans>
+                        </div>
                     </div>
                 </div>
             </div>

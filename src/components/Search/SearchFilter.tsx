@@ -21,7 +21,7 @@ export const SearchFilter = memo(function SearchFilter() {
             <h2 className=" hidden rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:block md:bg-lightBg md:text-sm">
                 <Trans>Search Filter</Trans>
             </h2>
-            <div className=" rounded-xl md:my-4 md:border md:border-line">
+            <div className=" rounded-xl md:mt-4 md:border md:border-line">
                 <fieldset className=" pr-1 md:px-4 md:pb-1 md:pt-2">
                     {[
                         {

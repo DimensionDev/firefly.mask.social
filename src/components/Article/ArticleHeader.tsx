@@ -3,11 +3,14 @@ import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { SourceInURL } from '@/constants/enum.js';
+import { NODE_ENV, SourceInURL } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import type { Article } from '@/providers/types/Article.js';
 
 interface ArticleHeaderProps {
@@ -20,6 +23,9 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
         address: article.author.id,
         source: SourceInURL.Wallet,
     });
+
+    const Icon = resolveArticlePlatformIcon(article.platform);
+
     return (
         <div className={classNames('flex items-start gap-3', className)}>
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
@@ -43,10 +49,12 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                     {formatEthereumAddress(article.author.id, 4)}
                 </Link>
             </div>
-            <div className="ml-auto flex items-center space-x-2 self-baseline">
+            <div className="ml-auto flex items-center space-x-2">
+                {Icon ? <Icon width={20} height={20} /> : null}
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={article.timestamp} />
                 </span>
+                {env.shared.NODE_ENV === NODE_ENV.Development ? <ArticleMoreAction article={article} /> : null}
                 {/* TODO: report and mute */}
             </div>
         </div>

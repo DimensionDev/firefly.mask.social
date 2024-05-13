@@ -70,13 +70,19 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
             disabled={disabled}
         />,
-        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} />,
+        post.source !== Source.Twitter ? (
+            <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} />
+        ) : null,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
         <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
     ]);
     const actionLength = actions.length;
+
+    if (post.source === Source.Twitter) {
+        return null;
+    }
 
     return (
         <ClickableArea

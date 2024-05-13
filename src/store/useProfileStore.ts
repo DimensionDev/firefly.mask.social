@@ -6,6 +6,7 @@ import { immer } from 'zustand/middleware/immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -20,6 +21,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { resolveFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
     profiles: Profile[];
@@ -29,7 +31,7 @@ export interface ProfileState {
     updateCurrentProfile: (profile: Profile, session: Session) => void;
     refreshCurrentProfile: () => void;
     refreshProfiles: () => void;
-    clearCurrentProfile: () => void;
+    clear: () => void;
 }
 
 export interface ProfileStatePersisted {
@@ -79,6 +81,10 @@ function createState(
                     );
                     if (!updatedProfiles.length) return;
 
+                    // might be logged out
+                    const profileSession = get().currentProfileSession;
+                    if (!profileSession) return;
+
                     set((state) => {
                         const currentProfile = profiles.find((p) => isSameProfile(p, profile));
                         if (currentProfile) state.currentProfile = currentProfile;
@@ -86,11 +92,12 @@ function createState(
                         state.profiles = updatedProfiles;
                     });
                 },
-                clearCurrentProfile: () =>
+                clear: () =>
                     set((state) => {
                         queryClient.resetQueries({
                             queryKey: ['profile', 'is-following', Source.Farcaster],
                         });
+                        state.profiles = [];
                         state.currentProfile = null;
                         state.currentProfileSession = null;
                     }),
@@ -139,14 +146,14 @@ const useLensStateBase = createState(
 
             if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
                 console.warn('[lens store] clean the local store because the client cannot recover properly');
-                state?.clearCurrentProfile();
+                state?.clear();
                 return;
             }
 
             const authenticated = await lensSessionHolder.sdk.authentication.isAuthenticated();
             if (!authenticated) {
                 console.warn('[lens store] clean the local profile because the client session is broken');
-                state?.clearCurrentProfile();
+                state?.clear();
                 return;
             }
         },
@@ -165,14 +172,14 @@ const useTwitterStateBase = createState(
 
                 if (!me) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');
-                    state?.clearCurrentProfile();
+                    state?.clear();
                     return;
                 }
 
                 state?.updateProfiles([me]);
                 state?.updateCurrentProfile(me, TwitterSession.from(me));
             } catch {
-                state?.clearCurrentProfile();
+                state?.clear();
             }
         },
     },
@@ -185,9 +192,16 @@ const useFireflyStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined') return;
 
-            const session = state?.currentProfileSession;
+            const session = state?.currentProfileSession || (await resolveFireflySessionAll());
+
             if (session) {
+                const profile = createDummyProfile(Source.Farcaster);
+                state?.updateCurrentProfile(profile, session);
+                state?.updateProfiles([profile]);
                 fireflySessionHolder.resumeSession(session as FireflySession);
+            } else {
+                console.warn('[firefly store] clean the local store because no session found from the server.');
+                state?.clear();
             }
         },
     },

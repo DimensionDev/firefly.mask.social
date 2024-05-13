@@ -1,14 +1,13 @@
 import { t } from '@lingui/macro';
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
-import type { TweetV2PaginableTimelineResult } from 'twitter-api-v2';
-import type { UserV2 } from 'twitter-api-v2/dist/esm/types/v2/user.v2.types.js';
+import type { TweetV2, TweetV2PaginableTimelineResult, UserV2 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatTweetsPage } from '@/helpers/formatTwitterPostFromFirefly.js';
+import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPostFromFirefly.js';
 import { formatTwitterProfileFromFirefly } from '@/helpers/formatTwitterProfileFromFirefly.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import {
@@ -90,14 +89,16 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async follow(profileId: string): Promise<void> {
+    async follow(profileId: string): Promise<boolean> {
         const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, { method: 'POST' });
         if (!response.success) throw new Error(response.error.message);
+        return true;
     }
 
-    async unfollow(profileId: string): Promise<void> {
+    async unfollow(profileId: string): Promise<boolean> {
         const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unfollow/${profileId}`, { method: 'POST' });
         if (!response.success) throw new Error(response.error.message);
+        return true;
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -109,7 +110,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, 'Post', indicator);
+        return formatTweetsPage(response.data, indicator);
     }
 
     discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -121,9 +122,13 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        return {
-            postId,
-        } as unknown as Post;
+        const response = await fetchJSON<ResponseJSON<TweetV2>>(`/api/twitter/${postId}`);
+        if (!response.success) throw new Error(response.error.message);
+        const post = tweetV2ToPost(response.data);
+        if (response.data.author_id) {
+            post.author = await this.getProfileById(response.data.author_id);
+        }
+        return post;
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
@@ -151,7 +156,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, 'Post', indicator);
+        return formatTweetsPage(response.data, indicator);
     }
 
     async getLikedPostsByProfileId(
@@ -166,7 +171,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        const postWithPageable = formatTweetsPage(response.data, 'Post', indicator);
+        const postWithPageable = formatTweetsPage(response.data, indicator);
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
 
@@ -182,11 +187,11 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, 'Post', indicator);
+        return formatTweetsPage(response.data, indicator);
     }
 
-    getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Not implemented');
+    async getCommentsById(_postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        return createPageable([], createIndicator(indicator));
     }
 
     getThreadByPostId(postId: string): Promise<Post[]> {
@@ -379,7 +384,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(t`Failed to fetch bookmarks.`);
-        return formatTweetsPage(response.data, 'Post', indicator);
+        return formatTweetsPage(response.data, indicator);
     }
 }
 

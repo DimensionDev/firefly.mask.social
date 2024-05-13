@@ -4,6 +4,9 @@ import { useAsyncFn } from 'react-use';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { getIsMuted } from '@/hooks/useIsMuted.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useBlockedUsersState } from '@/store/useBlockedUsersStore.js';
 
@@ -12,9 +15,14 @@ import { useBlockedUsersState } from '@/store/useBlockedUsersStore.js';
  */
 export function useToggleBlock(operator: Profile | null) {
     const { blockUser } = useBlockedUsersState();
+    const isLogin = useIsLogin(operator?.source);
     return useAsyncFn(
         async (profile: Profile) => {
-            const blocking = profile.viewerContext?.blocking;
+            if (!isLogin) {
+                LoginModalRef.open({ source: profile.source });
+                return false;
+            }
+            const blocking = getIsMuted(profile);
             const sourceName = resolveSourceName(profile.source);
             try {
                 const provider = resolveSocialMediaProvider(profile.source);
@@ -38,6 +46,6 @@ export function useToggleBlock(operator: Profile | null) {
                 throw error;
             }
         },
-        [operator, blockUser],
+        [isLogin, operator, blockUser],
     );
 }

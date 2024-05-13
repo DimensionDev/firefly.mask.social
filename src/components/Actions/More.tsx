@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChartBarIcon } from '@heroicons/react/24/outline';
-import { Select, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
 import { Fragment, memo } from 'react';
@@ -11,13 +11,13 @@ import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
+import { EngagementType, NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -46,14 +46,15 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     const isMyPost = isSameProfile(author, currentProfile);
 
-    const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
+    const isFollowing = !!author.viewerContext?.following;
+    const [togglingFollow, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
     const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
     const [{ loading: muting }, changeChannelStatus] = useChangeChannelStatus(currentProfile);
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
-    const isBusy = loading || reporting || blocking;
+    const isBusy = togglingFollow || reporting || blocking;
     return (
         <Menu
             className=" relative"
@@ -96,7 +97,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col space-y-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
+                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -105,53 +106,44 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     {isMyPost ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <ClickableButton
-                                    className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                <MenuButton
                                     onClick={async () => {
                                         close();
                                         if (id) deletePost(id);
                                     }}
                                 >
                                     {deleting ? (
-                                        <LoadingIcon width={16} height={16} className="animate-spin text-danger" />
+                                        <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
                                     ) : (
                                         <TrashIcon width={24} height={24} />
                                     )}
-                                    <span className="text-[17px] font-bold leading-[22px] text-main">
+                                    <span className="font-bold leading-[22px] text-main">
                                         <Trans>Delete</Trans>
                                     </span>
-                                </ClickableButton>
+                                </MenuButton>
                             )}
                         </Menu.Item>
                     ) : (
                         <>
                             <Menu.Item>
                                 {({ close }) => (
-                                    <ClickableButton
-                                        className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                    <MenuButton
                                         onClick={async () => {
                                             close();
-                                            await handleToggle();
-                                            queryClient.invalidateQueries({
-                                                queryKey: [source, 'post-detail', id],
-                                            });
+                                            toggleFollow.mutate();
                                         }}
                                     >
-                                        {isFollowed ? (
+                                        {togglingFollow ? (
+                                            <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
+                                        ) : isFollowing ? (
                                             <UnFollowUserIcon width={24} height={24} />
                                         ) : (
                                             <FollowUserIcon width={24} height={24} />
                                         )}
-                                        <span className="text-[17px] font-bold leading-[22px] text-main">
-                                            <Select
-                                                value={isFollowed ? 'unfollow' : 'follow'}
-                                                _follow="Follow"
-                                                _unfollow="Unfollow"
-                                                other="Follow"
-                                            />{' '}
-                                            @{author.handle}
+                                        <span className="font-bold leading-[22px] text-main">
+                                            {isFollowing ? t`Unfollow @${author.handle}` : t`Follow @${author.handle}`}
                                         </span>
-                                    </ClickableButton>
+                                    </MenuButton>
                                 )}
                             </Menu.Item>
                             {source === Source.Lens ? (
@@ -166,7 +158,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     )}
                                 </Menu.Item>
                             ) : null}
-                            {channel && currentProfile ? (
+                            {channel && currentProfile && env.shared.NODE_ENV === NODE_ENV.Development ? (
                                 <Menu.Item>
                                     {({ close }) => (
                                         <MuteChannelButton
@@ -193,12 +185,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     {id ? (
                         <Menu.Item
                             as={Link}
+                            shallow
                             href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
-                            className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                            className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <ChartBarIcon width={24} height={24} />
-                            <span className="text-[17px] font-bold leading-[22px] text-main">
+                            <span className="font-bold leading-[22px] text-main">
                                 <Trans>View Engagements</Trans>
                             </span>
                         </Menu.Item>

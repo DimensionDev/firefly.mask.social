@@ -18,7 +18,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
         const limit = Number(queryParams.limit ?? '25');
         const { data } = await client.v2.homeTimeline({
             ...TWITTER_TIMELINE_OPTIONS,
-            pagination_token: queryParams.cursor ?? undefined,
+            pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: limit,
         });
         return createSuccessResponseJSON(data);

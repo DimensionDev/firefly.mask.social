@@ -44,7 +44,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
     // TODO No API to fetch recasts for now.
-    [Source.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
+    [Source.Farcaster]: [EngagementType.Quotes, EngagementType.Recasts, EngagementType.Likes],
     [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
@@ -52,7 +52,13 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
     [Source.Twitter]: [SearchType.Posts, SearchType.Users],
 };
+export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.Article] as const;
+export const SORTED_PROFILE_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Wallet];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
+export const SORTED_BOOKMARK_SOURCES =
+    env.shared.NODE_ENV === NODE_ENV.Development
+        ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]
+        : [Source.Farcaster, Source.Lens];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
@@ -69,7 +75,7 @@ export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
 
-export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
+export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Production;
 export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
 export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
 
@@ -82,9 +88,14 @@ export const S3_BUCKET = {
 };
 
 export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
-    [Source.Lens]: 5000,
     [Source.Farcaster]: 320,
+    [Source.Lens]: 5000,
     [Source.Twitter]: 280,
+};
+export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
+    [Source.Farcaster]: 2,
+    [Source.Lens]: 4,
+    [Source.Twitter]: 4,
 };
 export const DANGER_CHAR_LIMIT: Record<SocialSource, number> = {
     [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.9),

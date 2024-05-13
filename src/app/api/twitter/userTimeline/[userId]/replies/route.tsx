@@ -19,7 +19,7 @@ export const GET = compose<(request: NextRequest, context: { params: { userId: s
         const { data } = await client.v2.userTimeline(userId, {
             ...TWITTER_TIMELINE_OPTIONS,
             exclude: ['replies'],
-            pagination_token: queryParams.cursor ?? undefined,
+            pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: limit,
         });
         return createSuccessResponseJSON(data);

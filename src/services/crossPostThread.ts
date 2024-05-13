@@ -39,6 +39,7 @@ async function getParentPostById(source: SocialSource, postId: string) {
         case Source.Twitter:
             return { postId } as unknown as Post;
         case Source.Lens:
+            await delay(1000);
             return { postId } as unknown as Post;
         default:
             safeUnreachable(source);

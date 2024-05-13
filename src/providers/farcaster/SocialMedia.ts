@@ -2,11 +2,12 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
-import { BookmarkType, Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
+import { SetQueryDataForFollowUser } from '@/decorators/SetQueryDataForFollowUser.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -29,6 +30,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForCommentPost(Source.Farcaster)
 @SetQueryDataForDeletePost(Source.Farcaster)
 @SetQueryDataForBlockUser(Source.Farcaster)
+@SetQueryDataForFollowUser(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -288,13 +290,18 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.blockUser(profileId);
     }
     async unblockUser(profileId: string) {
-        return FireflySocialMediaProvider.blockUser(profileId);
+        return FireflySocialMediaProvider.unblockUser(profileId);
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getPostsQuoteOn(postId, indicator);
     }
-    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
-        return FireflySocialMediaProvider.bookmark(postId, profileId, postType);
+    async bookmark(
+        postId: string,
+        platform?: FireflyPlatform,
+        profileId?: string,
+        postType?: BookmarkType,
+    ): Promise<boolean> {
+        return FireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
         return FireflySocialMediaProvider.unbookmark(postId);

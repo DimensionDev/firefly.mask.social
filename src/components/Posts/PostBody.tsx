@@ -7,13 +7,13 @@ import { forwardRef, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
-import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Frame } from '@/components/Frame/index.js';
 import { Markup } from '@/components/Markup/Markup.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
+import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
@@ -23,6 +23,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
+import { useIsMuted } from '@/hooks/useIsMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {
@@ -63,6 +64,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [post, postViewed]);
 
+    const muted = useIsMuted(post.author);
+
     if (post.isEncrypted) {
         return (
             <div
@@ -86,32 +89,18 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    if (post.isHidden || post.author.viewerContext?.blocking) {
+    if (post.isHidden || muted) {
         return (
-            <div
+            <CollapsedContent
                 className={classNames({
                     'pl-[52px]': !disablePadding,
                     'my-2': !isQuote,
                 })}
                 ref={ref}
-            >
-                <div
-                    className={classNames(
-                        'flex items-center gap-1 rounded-lg border-primaryMain  py-[6px] text-[15px]',
-                        {
-                            border: !isQuote,
-                            'px-3': !isQuote,
-                        },
-                    )}
-                >
-                    <EyeSlash width={16} height={16} />
-                    {post.author.viewerContext?.blocking ? (
-                        <Trans>The author is muted by you.</Trans>
-                    ) : (
-                        <Trans>Post has been hidden</Trans>
-                    )}
-                </div>
-            </div>
+                authorMuted={muted}
+                isQuote={isQuote}
+                disableIndent={disablePadding}
+            />
         );
     }
 
@@ -123,7 +112,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     className={classNames(
                         'linkify line-clamp-5 w-full self-stretch break-words text-[15px] opacity-75',
                         {
-                            'max-h-[7.8rem]': !!IS_SAFARI && !!IS_APPLE,
+                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
                     )}
                 >
@@ -152,7 +141,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <Markup
                 post={post}
                 className={classNames(
-                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && !!IS_SAFARI && !!IS_APPLE },
+                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && IS_SAFARI && IS_APPLE },
                     'markup linkify break-words text-[15px]',
                 )}
             >
@@ -208,7 +197,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         ) : null}
                     </Frame>
                 ))
-            ) : post.metadata.content?.oembedUrl ? (
+            ) : post.metadata.content?.oembedUrl && !post.quoteOn ? (
                 <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
             ) : null}
 

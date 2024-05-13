@@ -6,6 +6,7 @@ import React, { forwardRef, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
+import { classNames } from '@/helpers/classNames.js';
 
 export interface ConfirmModalOpenProps {
     title?: string;
@@ -14,6 +15,8 @@ export interface ConfirmModalOpenProps {
     cancelButtonText?: string;
     enableConfirmButton?: boolean;
     enableCancelButton?: boolean;
+    enableCloseButton?: boolean;
+    variant?: 'normal' | 'danger';
 }
 
 export type ConfirmModalCloseProps = boolean;
@@ -26,13 +29,17 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
         const [cancelButtonText, setCancelButtonText] = useState<string>();
         const [enableConfirmButton, setEnableConfirmButton] = useState<boolean>(true);
         const [enableCancelButton, setEnableCancelButton] = useState<boolean>(false);
+        const [enableCloseButton, setEnableCloseButton] = useState<boolean>(true);
+        const [variant, setVariant] = useState<ConfirmModalOpenProps['variant']>('danger');
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {
                 setTitle(props.title);
+                setVariant(props.variant || 'danger');
                 setContent(props.content);
                 setEnableConfirmButton(props.enableConfirmButton ?? true);
                 setEnableCancelButton(props.enableCancelButton ?? false);
+                setEnableCloseButton(props.enableCloseButton ?? true);
                 setConfirmButtonText(props.confirmButtonText);
                 setCancelButtonText(props.cancelButtonText);
             },
@@ -40,9 +47,9 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
 
         return (
             <Modal open={open} onClose={() => dispatch?.close(false)}>
-                <div className="relative w-[355px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
-                    <div className="inline-flex h-[56px] w-[355px] items-center justify-center gap-2 rounded-t-[12px] p-4">
-                        <CloseButton onClick={() => dispatch?.close(false)} />
+                <div className="relative w-[355px] max-w-[90vw] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                    <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
+                        {enableCloseButton ? <CloseButton onClick={() => dispatch?.close(false)} /> : null}
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                             {title ? title : <Trans>Confirmation</Trans>}
                         </div>
@@ -55,7 +62,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                             <div className=" flex flex-row gap-3">
                                 {enableCancelButton ? (
                                     <ClickableButton
-                                        className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-[11px] font-bold text-lightBottom"
+                                        className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-2 font-bold text-lightBottom"
                                         onClick={() => dispatch?.close(false)}
                                     >
                                         {cancelButtonText || t`Cancel`}
@@ -63,7 +70,12 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                 ) : null}
                                 {enableConfirmButton ? (
                                     <ClickableButton
-                                        className=" flex flex-1 items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
+                                        className={classNames(
+                                            ' flex flex-1 items-center justify-center rounded-full  py-2 font-bold',
+                                            variant === 'normal'
+                                                ? 'bg-main text-primaryBottom'
+                                                : 'bg-commonDanger text-lightBottom',
+                                        )}
                                         onClick={() => dispatch?.close(true)}
                                     >
                                         {confirmButtonText || t`Confirm`}

@@ -13,6 +13,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -67,9 +68,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
                     // restore profiles exclude lens
                     await FireflySessionConfirmModalRef.openAndWaitForClose({
+                        source: Source.Lens,
                         sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
                         onDetected(profiles) {
-                            if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
+                            if (!profiles.length)
+                                enqueueInfoMessage(t`No device accounts detected.`, {
+                                    environment: NODE_ENV.Development,
+                                });
                             LoginModalRef.close();
                         },
                     });
@@ -101,7 +106,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             className="flex flex-col overflow-auto rounded-[12px] md:max-h-[535px] md:w-[600px] md:pb-[80px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="hide-scrollbar mb-[50px] flex w-full flex-col gap-4 overflow-auto md:min-h-[300px] md:p-4">
+            <div className="no-scrollbar mb-[50px] flex w-full flex-col gap-4 overflow-auto md:min-h-[300px] md:p-4">
                 {profiles.length ? (
                     <>
                         <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6">

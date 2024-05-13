@@ -1,4 +1,5 @@
-import { plural } from '@lingui/macro';
+import { plural, Trans } from '@lingui/macro';
+import dayjs from 'dayjs';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
@@ -27,9 +28,9 @@ export function Info({ channel, source }: InfoProps) {
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
+            <div className=" relative flex flex-1 flex-col gap-[6px]">
                 {channel && isMedium ? (
-                    <div className=" absolute right-0 top-4">
+                    <div className=" absolute right-0 top-0">
                         <ChannelMoreAction channel={channel} />
                     </div>
                 ) : null}
@@ -44,7 +45,7 @@ export function Info({ channel, source }: InfoProps) {
 
                 <BioMarkup className="text-[15px]">{channel?.description ?? '-'}</BioMarkup>
 
-                <div className=" flex gap-3 text-[15px]">
+                <div className=" flex justify-between gap-3 text-[15px]">
                     <div className=" flex gap-1">
                         <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
                         <span className=" text-secondary">
@@ -53,6 +54,12 @@ export function Info({ channel, source }: InfoProps) {
                                 other: 'Followers',
                             })}
                         </span>
+                    </div>
+                    <div className="flex gap-1">
+                        <Trans>
+                            <span className="text-secondary">since </span>{' '}
+                            <strong>{dayjs(channel.timestamp).format('MMM DD, YYYY')}</strong>
+                        </Trans>
                     </div>
                 </div>
             </div>

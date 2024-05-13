@@ -60,7 +60,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                         {profile.ens.length ? (
                             <Tippy
                                 maxWidth={304}
-                                className="ens-card"
+                                className="tippy-card"
                                 placement="bottom"
                                 duration={200}
                                 arrow={false}
@@ -68,12 +68,14 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                 hideOnClick
                                 interactive
                                 content={
-                                    <div className="flex flex-wrap gap-x-[15px] rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
+                                    <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
                                         {profile.ens.map((ens) => {
                                             return (
                                                 <div className="flex items-center gap-[5px]" key={ens}>
                                                     <MiniEnsIcon width={16} height={16} />
-                                                    <span className="text-[10px] font-bold leading-4">{ens}</span>
+                                                    <span className="text-[10px] font-bold leading-4 text-main">
+                                                        {ens}
+                                                    </span>
                                                 </div>
                                             );
                                         })}

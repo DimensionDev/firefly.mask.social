@@ -5,6 +5,7 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isMyProfile } from '@/helpers/isMyProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -38,9 +39,11 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 />
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
-                    <p className="flex-start flex items-center text-sm font-bold leading-5 md:mt-2">
-                        <span className="mr-2 text-xl">{profile.displayName}</span>
-                        <SocialSourceIcon source={profile.source} />
+                    <p className="flex-start flex items-center text-sm font-bold leading-5">
+                        <span className="overflow-hide mr-2 text-ellipsis whitespace-nowrap text-xl">
+                            {profile.displayName}
+                        </span>
+                        <SocialSourceIcon className="shrink-0" source={profile.source} />
                     </p>
                     {profile.handle ? <p className="text-sm text-secondary">@{profile.handle}</p> : null}
                     {profile.bio ? (
@@ -54,11 +57,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 </div>
             </Link>
 
-            {!noFollowButton ? (
-                <div>
-                    <FollowButton profile={profile} />
-                </div>
-            ) : null}
+            {!noFollowButton && !isMyProfile(profile) ? <FollowButton className="ml-2" profile={profile} /> : null}
         </div>
     );
 }

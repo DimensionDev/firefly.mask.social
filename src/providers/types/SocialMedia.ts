@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { BookmarkType, RestrictionType, SocialSource } from '@/constants/enum.js';
+import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -171,9 +171,9 @@ export interface Post {
      * the current post itself represents the end of the thread.
      * and `commentOn` represents the post to which the current post is a reply.
      */
-    commentOn?: Post;
-    root?: Post;
-    quoteOn?: Post;
+    commentOn?: Post | null;
+    root?: Post | null;
+    quoteOn?: Post | null;
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;
@@ -234,7 +234,7 @@ export interface BaseNotification {
 export interface MirrorNotification extends BaseNotification {
     type: NotificationType.Mirror;
     mirrors: Profile[];
-    post?: Post;
+    post?: Post | null;
 }
 
 export interface QuoteNotification extends BaseNotification {
@@ -246,13 +246,13 @@ export interface QuoteNotification extends BaseNotification {
 export interface ReactionNotification extends BaseNotification {
     type: NotificationType.Reaction;
     reactors: Profile[];
-    post?: Post;
+    post?: Post | null;
 }
 
 export interface CommentNotification extends BaseNotification {
     type: NotificationType.Comment;
-    comment?: Post;
-    post?: Post;
+    comment?: Post | null;
+    post?: Post | null;
 }
 
 export interface FollowNotification extends BaseNotification {
@@ -262,7 +262,7 @@ export interface FollowNotification extends BaseNotification {
 
 export interface MentionNotification extends BaseNotification {
     type: NotificationType.Mention;
-    post?: Post;
+    post?: Post | null;
 }
 
 export interface ActedNotification extends BaseNotification {
@@ -571,17 +571,15 @@ export interface Provider {
      * Allows the current logged user to follow another user by specifying their profile ID.
      *
      * @param profileId The ID of the user to follow.
-     * @returns A promise that resolves to void.
      */
-    follow: (profileId: string) => Promise<void>;
+    follow: (profileId: string) => Promise<boolean>;
 
     /**
      * Allows the current logged user to unfollow another user by specifying their profile ID.
      *
      * @param profileId The ID of the user to unfollow.
-     * @returns A promise that resolves to void.
      */
-    unfollow: (profileId: string) => Promise<void>;
+    unfollow: (profileId: string) => Promise<boolean>;
 
     /**
      * Retrieves followers of a user by their profile ID.
@@ -662,35 +660,83 @@ export interface Provider {
     getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
 
     /**
-     * Report a user
+     * Report spam or inappropriate profile content.
+     * @param profileId
+     * @returns
      */
     reportUser: (profileId: string) => Promise<boolean>;
+
     /**
-     * Report a post
+     * Report spam or inappropriate post content.
+     * @param post
+     * @returns
      */
     reportPost: (post: Post) => Promise<boolean>;
 
+    /**
+     * Block a profile.
+     * @param profileId
+     * @returns
+     */
     blockUser: (profileId: string) => Promise<boolean>;
 
+    /**
+     * Unblock a profile.
+     * @param profileId
+     * @returns
+     */
     unblockUser: (profileId: string) => Promise<boolean>;
 
+    /**
+     * Retrieve profiles who liked the specified post.
+     * @param postId
+     * @param indicator
+     * @returns
+     */
     getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
     /**
-     * Including Reposts, Recasts, Mirrors, Retweets
+     * Retrieve profiles who re-posted the specified post.
+     * @param postId
+     * @param indicator
+     * @returns
      */
     getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
+    /**
+     * Retrieve posts that quote on the specified post.
+     * @param postId
+     * @param indicator
+     * @returns
+     */
     getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
     /**
+     * Save a post to bookmarks.
+     *
      * @param postId
+     * @param platform - farcaster only
      * @param profileId - farcaster only
      * @param postType - farcaster only
      */
-    bookmark: (postId: string, profileId?: string, postType?: BookmarkType) => Promise<boolean>;
+    bookmark: (
+        postId: string,
+        platform?: FireflyPlatform,
+        profileId?: string,
+        postType?: BookmarkType,
+    ) => Promise<boolean>;
 
+    /**
+     * Remove a post from bookmarks.
+     * @param postId
+     * @returns
+     */
     unbookmark: (postId: string) => Promise<boolean>;
 
+    /**
+     * Get bookmarks
+     * @param indicator
+     * @returns
+     */
     getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

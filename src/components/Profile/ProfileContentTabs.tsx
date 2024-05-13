@@ -47,7 +47,7 @@ interface TabsProps {
     source: SocialSource;
 }
 
-export function Tabs({ profileId, source }: TabsProps) {
+export function ProfileContentTabs({ profileId, source }: TabsProps) {
     const [currentTab, setCurrentTab] = useState(ProfileTabType.Feed);
 
     const computedCurrentTab =
@@ -58,7 +58,7 @@ export function Tabs({ profileId, source }: TabsProps) {
 
     return (
         <>
-            <div className=" flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
+            <div className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
                 {[
                     {
                         type: ProfileTabType.Feed,
@@ -70,7 +70,7 @@ export function Tabs({ profileId, source }: TabsProps) {
                     },
                     {
                         type: ProfileTabType.Liked,
-                        title: <Trans>Liked</Trans>,
+                        title: <Trans>Likes</Trans>,
                     },
                     {
                         type: ProfileTabType.Media,
@@ -90,7 +90,7 @@ export function Tabs({ profileId, source }: TabsProps) {
                         <div key={type} className=" flex flex-col">
                             <ClickableButton
                                 className={classNames(
-                                    ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
+                                    'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
                                     computedCurrentTab === type ? ' text-main' : ' text-third hover:text-main',
                                 )}
                                 onClick={() => setCurrentTab(type)}

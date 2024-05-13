@@ -16,6 +16,7 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
         (event: SyntheticEvent<HTMLImageElement>) => {
             if (disableLoadHandler) return;
             const height = event.currentTarget.height;
+
             if (height < 50 || height > 682) {
                 setImageProps({
                     style: {
@@ -25,19 +26,19 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
                         maxHeight: 682,
                     },
                 });
-                return;
+            } else {
+                setImageProps({
+                    style: {
+                        minHeight: 50,
+                        maxHeight: 682,
+                    },
+                });
             }
-
-            setImageProps({
-                style: {
-                    minHeight: 50,
-                    maxHeight: 682,
-                },
-            });
         },
         [disableLoadHandler],
     );
 
     if (!mounted) return;
+
     return <Image onLoad={handleLoad} {...props} {...imageProps} alt={props.alt || ''} />;
 });

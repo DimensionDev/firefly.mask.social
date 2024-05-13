@@ -11,7 +11,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
     return (
         <>
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[61px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
-                <div className="sticky top-0 z-40 bg-primaryBottom pb-[1px]">
+                <div className="sticky top-0 z-40 bg-primaryBottom">
                     {/* add navigator bar for profile page */}
                     <IfPathname isOneOf={['/profile']} exact>
                         <NavigatorBar />
@@ -74,18 +74,18 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 {children}
                 {modal}
             </main>
-            <aside className="sticky top-0 z-[1] hidden h-full w-96 px-4 md:min-w-[384px] lg:block">
+            <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col px-4 md:min-w-[384px] lg:flex">
                 <IfPathname isNotOneOf={['/settings']}>
                     <AsideSearchBar />
                 </IfPathname>
-                <IfPathname isOneOf={['/search']}>
-                    <SearchFilter />
-                </IfPathname>
-                <div className="mt-6">
-                    <SuggestedChannels source={Source.Farcaster} />
-                </div>
 
-                <div className="mt-6">
+                <div className=" no-scrollbar flex flex-1 flex-col gap-6 overflow-auto">
+                    <IfPathname isOneOf={['/search']}>
+                        <SearchFilter />
+                    </IfPathname>
+
+                    <SuggestedChannels source={Source.Farcaster} />
+
                     <mask-calendar-widget />
                 </div>
             </aside>

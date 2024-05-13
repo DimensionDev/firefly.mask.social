@@ -19,10 +19,16 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr ""
 
+msgid "Muted"
+msgstr ""
+
 msgid "Quote Post"
 msgstr ""
 
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr ""
+
+msgid "New connect with Warpcast"
 msgstr ""
 
 msgid "Report @{0}"
@@ -47,6 +53,9 @@ msgid "Discover"
 msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
+msgstr ""
+
+msgid "Followed @{0} on {sourceName}"
 msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
@@ -74,6 +83,9 @@ msgid "Download Image"
 msgstr ""
 
 msgid "Searching channel"
+msgstr ""
+
+msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
 msgid "Act"
@@ -106,9 +118,6 @@ msgstr ""
 msgid "OpenGraph"
 msgstr ""
 
-msgid "Connect with Warpcast"
-msgstr ""
-
 msgid "Wrong wallet"
 msgstr ""
 
@@ -136,6 +145,9 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
+msgid "<0>Posted</0>an article"
+msgstr ""
+
 msgid "Offline"
 msgstr ""
 
@@ -152,9 +164,12 @@ msgid "Retry"
 msgstr ""
 
 msgid "Show less"
-msgstr ">>>>>>> released"
+msgstr ""
 
 msgid "comment"
+msgstr ""
+
+msgid "Bookmarks"
 msgstr ""
 
 msgid "Confirm"
@@ -203,9 +218,6 @@ msgid "Missing IPFS hash for image or video."
 msgstr ""
 
 msgid "Reconnect with Firefly"
-msgstr ""
-
-msgid "Revise on"
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."
@@ -307,7 +319,13 @@ msgstr ""
 msgid "Failed to mirror."
 msgstr ""
 
+msgid "Your post was deleted."
+msgstr ""
+
 msgid "URL is required."
+msgstr ""
+
+msgid "Remove from Bookmarks"
 msgstr ""
 
 msgid "The file not found"
@@ -340,6 +358,9 @@ msgstr ""
 msgid "Frame"
 msgstr ""
 
+msgid "Unmuting"
+msgstr ""
+
 msgid "Search Filter"
 msgstr ""
 
@@ -352,6 +373,9 @@ msgstr ""
 msgid "Invalid compose type: {type}."
 msgstr ""
 
+msgid "View Source"
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -362,6 +386,12 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Failed to unfollow @{0} on {sourceName}"
+msgstr ""
+
+msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
@@ -386,6 +416,9 @@ msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to create image payload."
+msgstr ""
+
+msgid "You didn't connect with Firefly before, need to connect first to fully log in."
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -451,6 +484,9 @@ msgstr ""
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Failed to follow @{0} on {sourceName}"
+msgstr ""
+
 msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
@@ -464,9 +500,6 @@ msgid "Failed to unmute /{0}."
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
-msgstr ""
-
-msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
 msgid "Compose"
@@ -496,7 +529,7 @@ msgstr ""
 msgid "Confirm to log out this account?"
 msgstr ""
 
-msgid "Followings"
+msgid "Failed to recast."
 msgstr ""
 
 msgid "No post found"
@@ -532,6 +565,9 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
+msgid "<0>Revised</0>an article"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -557,6 +593,9 @@ msgid "Your Farcaster account is now connected."
 msgstr ""
 
 msgid "Connect to {source}"
+msgstr ""
+
+msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
 
 msgid "Farcaster"
@@ -610,9 +649,6 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
-msgid "{count, plural, one {# view} other {{0}}}"
-msgstr ""
-
 msgid "Failed to parse session."
 msgstr ""
 
@@ -623,6 +659,9 @@ msgid "Your frame URL."
 msgstr ""
 
 msgid "Cancel recast successfully"
+msgstr ""
+
+msgid "Article remove from your Bookmarks"
 msgstr ""
 
 msgid "Failed to unfollow."
@@ -658,6 +697,9 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
+msgid "Unfollow @{0}"
+msgstr ""
+
 msgid "Discard"
 msgstr ""
 
@@ -685,9 +727,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Post on"
-msgstr ""
-
 msgid "Failed to like the post."
 msgstr ""
 
@@ -698,6 +737,9 @@ msgid "Unable to retrieve post details."
 msgstr ""
 
 msgid "Failed to publish post."
+msgstr ""
+
+msgid "{0} View"
 msgstr ""
 
 msgid "recasted your"
@@ -736,9 +778,6 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "Follower"
-msgstr ""
-
 msgid "The frame server failed to process the request."
 msgstr ""
 
@@ -757,6 +796,9 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
+msgid "Failed to delete post."
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
 
@@ -767,6 +809,9 @@ msgid "Skip for now"
 msgstr ""
 
 msgid "Notifications"
+msgstr ""
+
+msgid "Back"
 msgstr ""
 
 msgid "Posting..."
@@ -844,6 +889,9 @@ msgstr ""
 msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
+msgid "Failed to retweet."
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -871,6 +919,9 @@ msgstr ""
 msgid "Dark Mode"
 msgstr ""
 
+msgid "Article added to your Bookmarks"
+msgstr ""
+
 msgid "Online"
 msgstr ""
 
@@ -878,6 +929,9 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
+msgstr ""
+
+msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
 msgid "Claim on {0}: {1}"
@@ -901,13 +955,13 @@ msgstr ""
 msgid "Post added to your Bookmarks"
 msgstr ""
 
+msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Unmute"
-msgstr ""
-
-msgid "Confirm to log out these accounts?"
 msgstr ""
 
 msgid "Your Lens account is now connected"
@@ -925,6 +979,9 @@ msgstr ""
 msgid "View Engagements"
 msgstr ""
 
+msgid "Unfollowed @{0} on {sourceName}"
+msgstr ""
+
 msgid "Your Lens account is now connected."
 msgstr ""
 
@@ -934,16 +991,22 @@ msgstr ""
 msgid "Post remove from your Bookmarks"
 msgstr ""
 
+msgid "Follow @{0}"
+msgstr ""
+
 msgid "Cancel Recast"
 msgstr ""
 
 msgid "No matching users"
 msgstr ""
 
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
 msgid "Log in to Farcaster account"
+msgstr ""
+
+msgid "Confirm you want to unmute @{0}?"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
@@ -962,6 +1025,9 @@ msgid "Mirrors"
 msgstr ""
 
 msgid "Video"
+msgstr ""
+
+msgid "{0} Views"
 msgstr ""
 
 msgid "Language"
@@ -992,9 +1058,6 @@ msgid "Recast"
 msgstr ""
 
 msgid "Followers"
-msgstr ""
-
-msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"

@@ -3,8 +3,9 @@ import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { useIsMuted } from '@/hooks/useIsMuted.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -16,22 +17,22 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function BlockUserButton(
-    { busy, profile, className, onConfirm, onToggleBlock: onToggleBlock, ...rest }: Props,
+    { busy, profile, onConfirm, onToggleBlock, ...rest }: Props,
     ref,
 ) {
-    const blocking = profile.viewerContext?.blocking;
+    const muted = useIsMuted(profile);
     return (
-        <ClickableButton
-            className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
+        <MenuButton
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
-                if (!blocking) {
+                if (!muted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                        title: t`Block`,
+                        title: t`Mute @${profile.handle}`,
+                        variant: 'normal',
                         content: (
                             <div className="text-main">
-                                <Trans>Confirm you want to mute @{profile.handle}?</Trans>
+                                <Trans>Posts from @{profile.handle} will now be hidden in your home timeline</Trans>
                             </div>
                         ),
                     });
@@ -44,14 +45,14 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
         >
             {busy ? (
                 <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
-            ) : blocking ? (
+            ) : muted ? (
                 <SpeakerWaveIcon width={24} height={24} />
             ) : (
                 <SpeakerXMarkIcon width={24} height={24} />
             )}
-            <span className="text-[17px] font-bold leading-[22px] text-main">
-                {blocking ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
+            <span className="font-bold leading-[22px] text-main">
+                {muted ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
             </span>
-        </ClickableButton>
+        </MenuButton>
     );
 });

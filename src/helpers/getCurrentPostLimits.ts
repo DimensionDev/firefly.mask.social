@@ -8,6 +8,7 @@ export function getCurrentPostLimits(availableSources: SocialSource[]) {
             DANGER_CHAR_LIMIT: DANGER_CHAR_LIMIT[Source.Farcaster],
             SAFE_CHAR_LIMIT: SAFE_CHAR_LIMIT[Source.Farcaster],
         };
+
     return {
         MAX_CHAR_SIZE_PER_POST: Math.min(...availableSources.map((x) => MAX_CHAR_SIZE_PER_POST[x])),
         DANGER_CHAR_LIMIT: Math.min(...availableSources.map((x) => DANGER_CHAR_LIMIT[x])),

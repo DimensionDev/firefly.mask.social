@@ -16,10 +16,11 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export function FollowersList({ profileId, source }: { profileId: string; source: SocialSourceInURL }) {
     const comeback = useComeBack();
 
+    const socialSource = resolveSocialSource(source);
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['followers', source, profileId],
+        queryKey: ['profiles', socialSource, 'followers', profileId],
         queryFn({ pageParam }) {
-            const provider = resolveSocialMediaProvider(resolveSocialSource(source));
+            const provider = resolveSocialMediaProvider(socialSource);
             return provider.getFollowers(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

@@ -19,7 +19,7 @@ export enum PageRoute {
     Following = '/following',
     Notifications = '/notifications',
     Profile = '/profile',
-    Bookmark = '/bookmark',
+    Bookmarks = '/bookmarks',
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',

@@ -54,11 +54,5 @@ export async function createSessionByRelayService(callback?: (url: string) => vo
     // once key request is signed, we will get the fid
     await FireflySession.fromAndRestore(session, signal);
 
-    // polling failed
-    if (!session.profileId)
-        throw new Error(
-            'Failed to query the signed key request status after several attempts. Please try again later.',
-        );
-
     return session;
 }

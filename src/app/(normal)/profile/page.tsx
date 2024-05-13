@@ -1,27 +1,19 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+import { compact, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { SourceTabs } from '@/components/SourceTabs.js';
 import { Source } from '@/constants/enum.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 export default function Page() {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-
-    const currentProfile = useCurrentProfile(currentSocialSource);
+    const { currentProfileTabState } = useProfileTabState();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
@@ -58,7 +50,7 @@ export default function Page() {
                 ? {
                       identity: currentFarcasterProfile.profileId,
                       source: Source.Farcaster,
-                      displayName: currentFarcasterProfile.displayName,
+                      displayName: currentFarcasterProfile.handle,
                       __origin__: null,
                   }
                 : undefined,
@@ -73,29 +65,22 @@ export default function Page() {
         ]);
     }, [currentLensProfile, currentFarcasterProfile, currentTwitterProfile]);
 
-    useUpdateCurrentVisitingProfile(currentProfile);
-
     if (isLoading) {
         return <Loading />;
-    }
-
-    if (!currentProfile) {
-        return (
-            <div>
-                <SourceTabs />
-                <NotLoginFallback source={currentSocialSource} />
-            </div>
-        );
     }
 
     return (
         <ProfileContext.Provider
             initialState={{
-                source: currentProfile.source,
-                identity: currentSource === Source.Lens ? currentProfile?.handle : currentProfile?.profileId,
+                source: currentProfileTabState.source,
+                identity:
+                    currentProfileTabState.identity ||
+                    defaultProfiles.find((x) => x.source === currentProfileTabState.source)?.identity,
             }}
         >
-            <ProfilePage hiddenTitle profiles={profiles ? [...profiles, ...defaultProfiles] : defaultProfiles} />
+            <ProfilePage
+                profiles={profiles ? uniqBy([...profiles, ...defaultProfiles], (x) => x.identity) : defaultProfiles}
+            />
         </ProfileContext.Provider>
     );
 }

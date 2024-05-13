@@ -19,5 +19,6 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         hash: article.hash,
         timestamp: article.timestamp,
         coverUrl: article.cover_img_url,
+        hasBookmarked: article.has_bookmarked,
     };
 }

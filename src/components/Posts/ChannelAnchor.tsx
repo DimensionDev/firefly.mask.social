@@ -19,7 +19,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
     const router = useRouter();
     const content = useMemo(() => {
         return (
-            <ClickableArea className="my-2 flex justify-end">
+            <ClickableArea>
                 <div
                     onClick={() => {
                         if (!channel) return;
@@ -32,27 +32,33 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
                     ) : (
                         <SocialSourceIcon className="rounded-full" source={channel.source} size={16} />
                     )}
-                    <span className="text-[15px] text-secondary">/{channel.id}</span>
+                    <span className="text-[12px] leading-[16px] text-main">/{channel.id}</span>
                 </div>
             </ClickableArea>
         );
     }, [channel, router]);
 
-    return isMedium ? (
-        <Tippy
-            maxWidth={400}
-            className="channel-card"
-            placement="bottom"
-            duration={200}
-            arrow={false}
-            trigger="mouseenter"
-            hideOnClick
-            interactive
-            content={<ChannelCard channel={channel} />}
-        >
-            <div>{content}</div>
-        </Tippy>
-    ) : (
-        content
+    return (
+        <div className="my-2 flex justify-end">
+            {isMedium ? (
+                <Tippy
+                    appendTo={() => document.body}
+                    offset={[100, 0]}
+                    maxWidth={400}
+                    className="tippy-card"
+                    placement="bottom-end"
+                    duration={200}
+                    arrow={false}
+                    trigger="mouseenter"
+                    hideOnClick
+                    interactive
+                    content={<ChannelCard channel={channel} />}
+                >
+                    <div>{content}</div>
+                </Tippy>
+            ) : (
+                content
+            )}
+        </div>
     );
 });

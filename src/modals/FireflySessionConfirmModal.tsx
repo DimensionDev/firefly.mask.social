@@ -41,7 +41,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
             <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-lightMain">
                 <Trans>One click to connect your account status.</Trans>
             </p>
-            <ul className=" flex max-h-[288px] flex-col gap-3 overflow-auto py-2">
+            <ul className=" flex max-h-[288px] flex-col gap-3 overflow-auto pb-4 pt-2">
                 {pairs
                     .sort((a, b) => {
                         const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
@@ -75,7 +75,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
             </ul>
             <div className=" flex gap-2">
                 <ClickableButton
-                    className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-[11px] font-bold text-lightBottom"
+                    className=" flex flex-1 items-center justify-center rounded-full border border-main py-2 font-bold text-main"
                     onClick={() => {
                         onClose?.();
                         ConfirmModalRef.close(false);
@@ -84,7 +84,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                     <Trans>Skip for now</Trans>
                 </ClickableButton>
                 <ClickableButton
-                    className=" flex flex-1 items-center justify-center rounded-full bg-main py-[11px] font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
+                    className=" flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
                         Object.entries(selectedPairs).forEach(([_, x]) => {
@@ -95,7 +95,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                         ConfirmModalRef.close(true);
                     }}
                 >
-                    <Trans>Confirm</Trans>
+                    <Trans>Login</Trans>
                 </ClickableButton>
             </div>
         </div>
@@ -103,9 +103,10 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
 }
 
 export type FireflySessionOpenConfirmModalProps = {
+    source: SocialSource;
     sessions?: Array<LensSession | FarcasterSession>;
     onDetected?: (profiles: Profile[]) => void;
-} | void;
+};
 
 // true - indicates the user restored sessions
 // false - indicates the users rejected the session restore
@@ -119,13 +120,25 @@ export const FireflySessionConfirmModal = forwardRef<
             try {
                 const currentProfileAll = getCurrentProfileAll();
 
-                // if there is a session already logged in, skip the restore
                 const sessions = (props?.sessions ?? []).filter((x) => {
                     const source = resolveSocialSourceFromSessionType(x.type);
-                    return !isSameProfile(currentProfileAll[source], {
-                        source,
-                        profileId: x.profileId,
-                    } as unknown as Profile);
+
+                    // if the session shares the same source with the current profile, skip the restore
+                    if (source === props?.source) {
+                        return false;
+                    }
+
+                    // if there is a session already logged in, skip the restore
+                    if (
+                        isSameProfile(currentProfileAll[source], {
+                            source,
+                            profileId: x.profileId,
+                        } as unknown as Profile)
+                    ) {
+                        return false;
+                    }
+
+                    return true;
                 });
 
                 // no session to restore
@@ -165,8 +178,10 @@ export const FireflySessionConfirmModal = forwardRef<
                             onClose={() => dispatch?.close(false)}
                         />
                     ),
+
                     enableCancelButton: false,
                     enableConfirmButton: false,
+                    enableCloseButton: false,
                 });
 
                 dispatch?.close(confirmed);

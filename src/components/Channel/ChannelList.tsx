@@ -7,8 +7,8 @@ import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-const getChannelItemContent = (index: number, channel: Channel) => {
-    return <ChannelInList key={channel.id} channel={channel} />;
+const getChannelItemContent = (index: number, channel: Channel, listKey: string) => {
+    return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;
 };
 
 interface ChannelListProps {
@@ -17,27 +17,27 @@ interface ChannelListProps {
 
 export function ChannelList({ source }: ChannelListProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['channels', source, 'channels-of'],
-
+        queryKey: ['channels', source, 'trending'],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             return provider.discoverChannels(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            return data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-        },
+        select: (data) => data.pages.flatMap((x) => x.data) || EMPTY_LIST,
     });
 
     return (
         <ListInPage
             key={source}
             queryResult={queryResult}
+            className="no-scrollbar"
             VirtualListProps={{
-                listKey: `${ScrollListKey.Channel}`,
+                useWindowScroll: false,
+                listKey: `${ScrollListKey.Channel}:trending`,
                 computeItemKey: (index, channel) => `${channel.id}-${index}`,
-                itemContent: getChannelItemContent,
+                itemContent: (index, channel) =>
+                    getChannelItemContent(index, channel, `${ScrollListKey.Channel}:trending`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

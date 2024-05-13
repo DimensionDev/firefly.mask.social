@@ -6,7 +6,12 @@ import { EMPTY_LIST } from '@/constants/index.js';
  * @returns
  */
 export const q = (document: Document, s: string) => {
-    return document.querySelector(`meta[name="${s}"]`) || document.querySelector(`meta[property="${s}"]`);
+    return document.querySelector(`meta[name="${s}"],meta[property="${s}"]`);
+};
+
+export const qAny = (document: Document, names: string[]) => {
+    const selector = names.map((name) => `meta[name="${name}"],meta[property="${name}"]`).join(',');
+    return document.querySelector(selector);
 };
 
 /**

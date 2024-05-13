@@ -1,6 +1,6 @@
 import type { PageIndicator } from '@masknet/shared-base';
 
-import type { Source } from '@/constants/enum.js';
+import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
 export interface Cast {
@@ -28,12 +28,13 @@ export interface Cast {
     liked: boolean;
     recasted: boolean;
     bookmarked: boolean;
-    author: User;
+    author?: User;
     recastedBy?: User;
     timestamp?: string;
     rootParentCast?: Cast;
     root_parent_hash?: string;
     threads?: Cast[];
+    quotedCast?: Cast;
 }
 
 export interface User {
@@ -163,6 +164,7 @@ export interface Article {
     related_urls: string[];
     article_id: string;
     cover_img_url: string | null;
+    has_bookmarked?: boolean;
 }
 
 export interface Response<T> {
@@ -227,17 +229,14 @@ export type FarcasterLoginResponse = Response<{
     accountId?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
-    fid: string;
+    fid: string | number;
 }>;
 
 export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
-export type ChannelResponse = Response<{
-    blocked: boolean;
-    channel: ChannelBrief;
-}>;
+export type ChannelResponse = Response<ChannelBrief>;
 
 export type ChannelsResponse = Response<Channel[]>;
 
@@ -263,6 +262,11 @@ export type CastsOfChannelResponse = Response<{
     casts: Cast[];
     cursor: string;
     channel: Channel;
+}>;
+
+export type PostQuotesResponse = Response<{
+    quotes: Cast[];
+    cursor: string;
 }>;
 
 export type SearchChannelsResponse = Response<{
@@ -367,7 +371,7 @@ export interface Relation {
 
 export type RelationResponse = Response<Relation[]>;
 
-export type BookmarkResponse = Response<{
+export type BookmarkResponse<T> = Response<{
     cursor: number;
     list: Array<{
         account_id: string;
@@ -375,9 +379,26 @@ export type BookmarkResponse = Response<{
         platform: string;
         platform_id: string;
         post_id: string;
-        post_content: Cast;
+        post_content: T;
     }>;
 }>;
+
+export type BlockUserResponse = Response<
+    Array<{
+        id: string;
+        address: string;
+        snsId: string;
+        snsPlatform: string;
+    }>
+>;
+
+export type BlockRelationResponse = Response<
+    Array<{
+        snsId: string;
+        snsPlatform: FireflyPlatform;
+        blocked: boolean;
+    }>
+>;
 
 export interface NFTCollectionsParams {
     limit?: number;

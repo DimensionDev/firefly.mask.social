@@ -15,6 +15,7 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
+import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
@@ -34,10 +35,12 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
+    const checkPostMedias = useCheckPostMedias();
 
     const [percentage, setPercentage] = useState(0);
     const [{ loading, error }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
+            if (checkPostMedias()) return;
             if (posts.length > 1) {
                 await crossPostThread({
                     isRetry,
@@ -51,7 +54,7 @@ export function ComposeSend(props: ComposeSendProps) {
             await delay(300);
             ComposeModalRef.close();
         },
-        [type, post, posts.length > 1],
+        [type, post, posts.length > 1, checkPostMedias],
     );
 
     const disabled = loading || error || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);

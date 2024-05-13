@@ -1,36 +1,49 @@
 'use client';
 
-import { groupBy, keys } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { startTransition } from 'react';
+import { startTransition, useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import type { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
+import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
+import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 interface ProfileSourceTabs {
     profiles: FireFlyProfile[];
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
+    const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
     const { update, source } = ProfileContext.useContainer();
 
-    const tabs = keys(groupBy(profiles, (x) => x.source)) as Source[];
-
     const pathname = usePathname();
+    const isProfilePage = pathname === PageRoute.Profile;
+    const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
 
-    const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+    const tabs = useMemo(() => {
+        return SORTED_PROFILE_SOURCES.filter((source) => {
+            if (isProfilePage) {
+                if (source === Source.Wallet) return profiles.some((x) => x.source === Source.Wallet);
+                return true;
+            }
+            return profiles.some((x) => x.source === source);
+        });
+    }, [profiles, isProfilePage]);
 
     return (
         <div className=" border-b border-line bg-primaryBottom px-4">
-            <nav className="no-scrollbar -mb-px flex  max-w-full space-x-4 overflow-x-auto" aria-label="Tabs">
+            <nav className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
                 {tabs.map((value) => (
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
@@ -44,17 +57,32 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                 startTransition(() => {
                                     scrollTo(0, 0);
 
-                                    const target = profiles.find((x) => x.source === value);
-                                    if (!target) return;
+                                    const currentProfile =
+                                        value !== Source.Wallet && value !== Source.Article && isProfilePage
+                                            ? getCurrentProfile(narrowToSocialSource(value))
+                                            : undefined;
+
+                                    const target = currentProfile
+                                        ? {
+                                              source: currentProfile.source,
+                                              identity: getProfileIdentity(currentProfile),
+                                          }
+                                        : profiles.find((x) => x.source === value);
+
+                                    if (isProfilePage)
+                                        updateCurrentProfileState({ source: value, identity: target?.identity ?? '' });
+
                                     update?.({
-                                        source: target.source,
-                                        identity: target.identity,
+                                        source: value,
+                                        identity: target?.identity,
                                     });
                                     replaceSearchParams(
                                         new URLSearchParams({
-                                            source: resolveSourceInURL(target.source),
+                                            source: resolveSourceInURL(value),
                                         }),
-                                        isOtherProfile ? urlcat('/profile/:id', { id: target.identity }) : undefined,
+                                        isOtherProfile && target
+                                            ? urlcat('/profile/:id', { id: target.identity })
+                                            : undefined,
                                     );
                                 })
                             }

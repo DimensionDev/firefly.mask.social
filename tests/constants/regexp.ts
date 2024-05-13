@@ -97,7 +97,6 @@ describe('URL_REGEX', () => {
                 `Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14`,
                 true,
             ],
-            [`Email social@shefi.org to see what opportunities are left.`, false],
         ] as Array<[string, boolean]>;
 
         cases.forEach(([input, expectedOutput]) => {

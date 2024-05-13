@@ -228,7 +228,7 @@ export async function crossPost(
                 errors: compact(allErrors),
                 persist: true,
             });
-            throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
+            throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(', ')}.`);
         } else {
             enqueueSuccessMessage(t`Your post has published successfully.`);
         }

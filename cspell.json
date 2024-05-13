@@ -17,6 +17,7 @@
         "immer",
         "ipfs",
         "Jamo",
+        "keybase",
         "lingui",
         "linkedom",
         "merkle",
@@ -49,6 +50,7 @@
         "unliked",
         "unlonely",
         "unmirror",
+        "Unmuting",
         "unretweet",
         "unvote",
         "upvotes",
@@ -58,8 +60,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "keybase"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",

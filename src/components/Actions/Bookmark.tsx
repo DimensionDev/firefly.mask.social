@@ -1,13 +1,13 @@
-import { BookmarkIcon } from '@heroicons/react/24/outline';
-import { BookmarkIcon as BookmarkActiveIcon } from '@heroicons/react/24/solid';
-import { plural, t } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
+import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
+import BookmarkIcon from '@/assets/bookmark.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -20,15 +20,11 @@ interface BookmarkProps {
 export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disabled = false, post }) {
     const { hasBookmarked } = post;
 
-    const tooltip = plural(count, {
-        one: `Bookmark`,
-        other: t`${humanize(count)} Bookmarks`,
-    });
-    const mutation = useToggleBookmark();
+    const mutation = useToggleBookmark(post.source);
 
     return (
         <ClickableArea
-            className={classNames('flex cursor-pointer items-center space-x-1 md:space-x-2', {
+            className={classNames('flex cursor-pointer items-center space-x-1 text-main md:space-x-2', {
                 'cursor-not-allowed opacity-50': disabled,
             })}
             onClick={() => mutation.mutate(post)}
@@ -36,14 +32,18 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disab
             <motion.button
                 disabled={disabled}
                 whileTap={{ scale: 0.9 }}
-                className="rounded-full p-1.5 hover:bg-warn/[.20] hover:text-warn"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
                 aria-label="Bookmark"
             >
-                <Tooltip disabled={disabled} placement="top" content={tooltip}>
+                <Tooltip
+                    disabled={disabled}
+                    placement="top"
+                    content={hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`}
+                >
                     {hasBookmarked ? (
-                        <BookmarkActiveIcon width={16} height={16} className="text-warn" />
+                        <BookmarkActiveIcon width={20} height={20} className="text-warn" />
                     ) : (
-                        <BookmarkIcon width={16} height={16} />
+                        <BookmarkIcon width={20} height={20} />
                     )}
                 </Tooltip>
             </motion.button>

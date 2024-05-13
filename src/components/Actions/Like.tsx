@@ -57,8 +57,8 @@ export const Like = memo<LikeProps>(function Like({
                 ? provider.unvotePost(postId, Number(authorId))
                 : provider.upvotePost(postId, Number(authorId));
 
-            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
             await promise;
+            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
             return;
         } catch (error) {
             if (isComment) {
@@ -70,7 +70,7 @@ export const Like = memo<LikeProps>(function Like({
                     error,
                 });
             }
-            toggleLike(source, postId);
+            toggleLike(source, postId, !hasLiked);
             throw error;
         }
     }, [postId, source, hasLiked, queryClient, isLogin, authorId, isComment]);
@@ -90,7 +90,7 @@ export const Like = memo<LikeProps>(function Like({
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-danger/[.20]"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
                 >
                     {loading ? (
                         <LoadingIcon width={16} height={16} className="animate-spin text-danger" />

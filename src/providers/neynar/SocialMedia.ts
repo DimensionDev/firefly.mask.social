@@ -172,11 +172,11 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async follow(profileId: string) {
+    async follow(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
-    async unfollow(profileId: string) {
+    async unfollow(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 

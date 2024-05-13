@@ -1,10 +1,10 @@
-import { compact, first, last, uniqBy } from 'lodash-es';
+import { compact, first, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { URL_REGEX } from '@/constants/regexp.js';
-import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
 import {
@@ -15,15 +15,9 @@ import {
     ProfileStatus,
 } from '@/providers/types/SocialMedia.js';
 
-const fixUrls = (urls: Array<string | undefined>) => {
-    return uniqBy(compact(urls), (x) => x).map(fixUrlProtocol);
-};
-
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const matchedUrls = fixUrls([...cast.text.matchAll(URL_REGEX)].map((x) => x[0]));
-    const oembedUrls = fixUrls([...matchedUrls, ...cast.embeds.map((x) => x.url)]);
-    const oembedUrl = last(oembedUrls);
-    const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
+    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url)));
+    const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
     if (cast.embeds.length) {
         const firstAsset = first(cast.embeds);
@@ -34,7 +28,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
         return {
             content: cast.text,
-            oembedUrl,
+            oembedUrl: last(oembedUrls),
             oembedUrls,
             asset: {
                 type: assetType,
@@ -58,15 +52,20 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     return defaultContent;
 }
 
-export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
+/**
+ * Return null if cast is detected
+ */
+export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post | null {
+    const postType = cast.quotedCast ? 'Quote' : type ?? cast.parentCast ? 'Comment' : 'Post';
+    if (cast.deleted_at) return null;
     return {
         publicationId: cast.hash,
-        type: type ?? cast.parentCast ? 'Comment' : 'Post',
+        type: postType,
         postId: cast.hash,
         parentPostId: cast.parent_hash,
-        parentAuthor: cast.parentCast ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
+        parentAuthor: cast.parentCast?.author ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
         timestamp: cast.timestamp ? new Date(cast.timestamp).getTime() : undefined,
-        author: formatFarcasterProfileFromFirefly(cast.author),
+        author: cast.author ? formatFarcasterProfileFromFirefly(cast.author) : createDummyProfile(Source.Farcaster),
         metadata: {
             locale: '',
             content: formatContent(cast),
@@ -74,8 +73,8 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         stats: {
             comments: Number(cast.replyCount),
             mirrors: cast.recastCount,
+            quotes: cast.recastCount,
             reactions: cast.likeCount,
-            quotes: 0,
         },
         mentions: cast.mentions_user.map<Profile>((x) => {
             return {
@@ -99,8 +98,9 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         canComment: true,
         commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
         root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
-        threads: cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
+        threads: compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment'))),
         channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
+        quoteOn: cast.quotedCast ? formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
         __original__: cast,
     };
 }

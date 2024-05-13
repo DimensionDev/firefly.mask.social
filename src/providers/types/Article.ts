@@ -25,6 +25,7 @@ export interface Article {
     timestamp: string;
     id: string;
     coverUrl: string | null;
+    hasBookmarked?: boolean;
 }
 
 export interface Provider {

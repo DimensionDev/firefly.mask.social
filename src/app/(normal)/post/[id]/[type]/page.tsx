@@ -3,6 +3,7 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { memo, Suspense } from 'react';
 
+import ComeBack from '@/assets/comeback.svg';
 import { LikeList } from '@/components/Engagement/LikeList.js';
 import { QuoteList } from '@/components/Engagement/QuoteList.js';
 import { RepostList } from '@/components/Engagement/RepostList.js';
@@ -12,6 +13,7 @@ import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { useComeBack } from '@/hooks/useComeback.js';
 
 interface ContentListProps {
     postId: string;
@@ -47,9 +49,13 @@ export default function Page(props: Props) {
     const { type: engagementType, id } = props.params;
     const sourceInURL = props.searchParams.source;
     const source = resolveSocialSource(sourceInURL);
+
+    const comeback = useComeBack();
+
     return (
         <>
-            <div className=" flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
+            <div className=" sticky top-0 z-20 flex items-center gap-5 border-b border-lightLineSecond bg-primaryBottom px-5 dark:border-line">
+                <ComeBack width={24} height={24} className="mr-2 cursor-pointer" onClick={comeback} />
                 {[
                     {
                         type: EngagementType.Mirrors,

@@ -25,7 +25,10 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BlockRelationResponse,
+    type BlockUserResponse,
     type BookmarkResponse,
+    type Cast,
     type CastResponse,
     type CastsOfChannelResponse,
     type CastsResponse,
@@ -39,6 +42,7 @@ import {
     type NFTCollectionsResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
+    type PostQuotesResponse,
     type ReactorsResponse,
     type RelationResponse,
     type SearchCastsResponse,
@@ -55,7 +59,6 @@ import {
     type Notification,
     NotificationType,
     type Post,
-    type PostType,
     type Profile,
     type Provider,
     SessionType,
@@ -75,10 +78,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
 
-        return {
-            ...formatBriefChannelFromFirefly(data.channel),
-            blocked: data.blocked,
-        };
+        return formatBriefChannelFromFirefly(data);
     }
 
     async getChannelsByProfileId(
@@ -98,7 +98,7 @@ class FireflySocialMedia implements Provider {
     // no cursor in response
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
-            size: 20,
+            size: 25,
             cursor: indicator?.id,
         });
         const response = await fetchJSON<DiscoverChannelsResponse>(url, {
@@ -106,7 +106,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
         const channels = data.map((x) => x.channel).map(formatChannelFromFirefly);
-        return createPageable(channels, createIndicator(indicator));
+        return createPageable(channels, createIndicator(indicator), undefined);
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -121,11 +121,11 @@ class FireflySocialMedia implements Provider {
                 size: 20,
                 cursor: indicator?.id,
             });
-            const response = await fetchJSON<CastsOfChannelResponse>(url, {
+            const response = await fireflySessionHolder.fetch<CastsOfChannelResponse>(url, {
                 method: 'GET',
             });
             const data = resolveFireflyResponseData(response);
-            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+            const posts = compact(data.casts.map((x) => formatFarcasterPostFromFirefly(x)));
 
             return createPageable(
                 posts,
@@ -233,11 +233,11 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async follow(profileId: string) {
+    async follow(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
-    async unfollow(profileId: string) {
+    async unfollow(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
@@ -252,9 +252,9 @@ class FireflySocialMedia implements Provider {
                 cursor: indicator?.id,
                 sourceFid: session?.profileId,
             });
-            const response = await fetchJSON<CastsResponse>(url);
+            const response = await fireflySessionHolder.fetch<CastsResponse>(url);
             const data = resolveFireflyResponseData(response);
-            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+            const posts = compact(data.casts.map((x) => formatFarcasterPostFromFirefly(x)));
 
             return createPageable(
                 posts,
@@ -271,18 +271,19 @@ class FireflySocialMedia implements Provider {
                 fid: session?.profileId,
                 needRootParentHash: true,
             });
-            const { data: cast } = await fetchJSON<CastResponse>(url, {
+            const { data: cast } = await fireflySessionHolder.fetch<CastResponse>(url, {
                 method: 'GET',
             });
 
-            if (!cast || cast.deleted_at) throw new Error('Post not found');
-            return formatFarcasterPostFromFirefly(cast);
+            const post = cast ? formatFarcasterPostFromFirefly(cast) : null;
+            if (!post) throw new Error('Post not found');
+            return post;
         });
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const response = await fetchJSON<UserResponse>(
+            const response = await fireflySessionHolder.fetch<UserResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
                     fid: profileId,
                     sourceFid: session?.profileId,
@@ -364,33 +365,47 @@ class FireflySocialMedia implements Provider {
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
-            fid: profileId,
-            size: 10,
-            cursor: indicator?.id,
-        });
-        const response = await fetchJSON<UsersResponse>(url, {
-            method: 'GET',
-        });
-        const { list, next_cursor } = resolveFireflyResponseData(response);
-        const data = list.map(formatFarcasterProfileFromFirefly);
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
+                fid: profileId,
+                size: 10,
+                cursor: indicator?.id,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
+                method: 'GET',
+            });
+            const { list, next_cursor } = resolveFireflyResponseData(response);
+            const data = list.map(formatFarcasterProfileFromFirefly);
 
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+            );
+        });
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
-            fid: profileId,
-            size: 10,
-            cursor: indicator?.id,
-        });
-        const response = await fetchJSON<UsersResponse>(url, {
-            method: 'GET',
-        });
-        const { list, next_cursor } = resolveFireflyResponseData(response);
-        const data = list.map(formatFarcasterProfileFromFirefly);
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
+                fid: profileId,
+                size: 10,
+                cursor: indicator?.id,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
+                method: 'GET',
+            });
+            const { list, next_cursor } = resolveFireflyResponseData(response);
+            const data = list.map(formatFarcasterProfileFromFirefly);
 
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+            );
+        });
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -400,13 +415,13 @@ class FireflySocialMedia implements Provider {
             size: 25,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
-        const response = await fetchJSON<CommentsResponse>(url, {
+        const response = await fireflySessionHolder.fetch<CommentsResponse>(url, {
             method: 'GET',
         });
         const { comments, cursor } = resolveFireflyResponseData(response);
 
         return createPageable(
-            comments.map((item) => formatFarcasterPostFromFirefly(item)),
+            compact(comments.map((item) => formatFarcasterPostFromFirefly(item))),
             indicator ?? createIndicator(indicator),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
@@ -415,7 +430,7 @@ class FireflySocialMedia implements Provider {
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/casts');
-            const response = await fetchJSON<CastsResponse>(url, {
+            const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
                     fids: [profileId],
@@ -425,7 +440,7 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
 
             return createPageable(
                 data,
@@ -438,7 +453,7 @@ class FireflySocialMedia implements Provider {
     async getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/likes');
-            const response = await fetchJSON<CastsResponse>(url, {
+            const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
                     fids: [profileId],
@@ -448,7 +463,7 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
 
             return createPageable(
                 data,
@@ -462,7 +477,7 @@ class FireflySocialMedia implements Provider {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
 
-            const response = await fetchJSON<CastsResponse>(url, {
+            const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
                     fids: [profileId],
@@ -474,7 +489,7 @@ class FireflySocialMedia implements Provider {
             });
 
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
 
             return createPageable(
                 data,
@@ -491,7 +506,7 @@ class FireflySocialMedia implements Provider {
             sourceFid: profileId,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
-        const response = await fetchJSON<NotificationResponse>(url, { method: 'GET' });
+        const response = await fireflySessionHolder.fetch<NotificationResponse>(url, { method: 'GET' });
         const data = resolveFireflyResponseData(response);
         const result = data.notifications.map<Notification | undefined>((notification) => {
             const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
@@ -563,19 +578,18 @@ class FireflySocialMedia implements Provider {
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             // TODO: replace to prod url
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster_for_fid');
-            const response = await fetchJSON<CastsResponse>(url, {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
+            const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    fid: profileId,
                     size: 25,
                     needRootParentHash: true,
-                    sourceFid: session?.profileId,
+                    sourceFid: profileId,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
+            const data = compact(casts.map((x) => formatFarcasterPostFromFirefly(x)));
 
             return createPageable(
                 data,
@@ -593,13 +607,17 @@ class FireflySocialMedia implements Provider {
                 sourceFid: session?.profileId,
                 cursor: indicator?.id,
             });
-            const response = await fetchJSON<ReactorsResponse>(url, {
+            const response = await fireflySessionHolder.fetch<ReactorsResponse>(url, {
                 method: 'GET',
             });
             const { items, nextCursor } = resolveFireflyResponseData(response);
 
             const data = items.map(formatFarcasterProfileFromFirefly);
-            return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                nextCursor ? createNextIndicator(indicator, nextCursor) : undefined,
+            );
         });
     }
 
@@ -611,13 +629,17 @@ class FireflySocialMedia implements Provider {
                 sourceFid: session?.profileId,
                 cursor: indicator?.id,
             });
-            const response = await fetchJSON<ReactorsResponse>(url, {
+            const response = await fireflySessionHolder.fetch<ReactorsResponse>(url, {
                 method: 'GET',
             });
             const { items, nextCursor } = resolveFireflyResponseData(response);
 
             const data = items.map(formatFarcasterProfileFromFirefly);
-            return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                nextCursor ? createNextIndicator(indicator, nextCursor) : undefined,
+            );
         });
     }
 
@@ -628,7 +650,7 @@ class FireflySocialMedia implements Provider {
             size: 25,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<SearchProfileResponse>(url, {
+        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
@@ -647,34 +669,12 @@ class FireflySocialMedia implements Provider {
             keyword: q,
             limit: 25,
         });
-        const response = await fetchJSON<SearchCastsResponse>(url, {
+        const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url, {
             method: 'GET',
         });
         const casts = resolveFireflyResponseData(response);
-        const data = casts.map((cast) => {
-            return {
-                publicationId: cast.hash,
-                type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
-                source: Source.Farcaster,
-                postId: cast.hash,
-                parentPostId: cast.parent_hash,
-                timestamp: Number(cast.created_at),
-                author: formatFarcasterProfileFromFirefly(cast.author),
-                metadata: {
-                    locale: '',
-                    content: {
-                        content: cast.text,
-                    },
-                },
-                stats: {
-                    comments: Number(cast.replyCount),
-                    mirrors: cast.recastCount,
-                    quotes: cast.recastCount,
-                    reactions: cast.likeCount,
-                },
-            } satisfies Post;
-        });
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, ''));
+        const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+        return createPageable(data, createIndicator(indicator), undefined);
     }
 
     async getUploadMediaToken(token: string) {
@@ -708,7 +708,7 @@ class FireflySocialMedia implements Provider {
         return farcasterSessionHolder.withSession(async (session) => {
             const post = localPost ?? (await this.getPostById(postId));
 
-            const response = await fetchJSON<ThreadResponse>(
+            const response = await fireflySessionHolder.fetch<ThreadResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
                     sourceFid: session?.profileId,
                     hash: postId,
@@ -719,7 +719,7 @@ class FireflySocialMedia implements Provider {
                 },
             );
             const data = resolveFireflyResponseData(response);
-            return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
+            return compact([post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))]);
         });
     }
     async reportUser(profileId: string): Promise<boolean> {
@@ -730,26 +730,61 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async blockUser(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/block');
+        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                fid: profileId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to mute user');
     }
     async unblockUser(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/unblock');
+        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                fid: profileId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to mute user');
     }
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/quotes', {
+            hash: postId,
+            size: 20,
+            cursor: indicator?.id,
+            needRootParentHash: true,
+        });
+        const response = await fireflySessionHolder.fetch<PostQuotesResponse>(url, {
+            method: 'GET',
+        });
+        const data = resolveFireflyResponseData(response);
+        const posts = compact(data.quotes.map((x) => formatFarcasterPostFromFirefly(x)));
+
+        return createPageable(
+            posts,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
     }
-    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
+    async bookmark(
+        postId: string,
+        platform?: FireflyPlatform,
+        profileId?: string,
+        postType?: BookmarkType,
+    ): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/create');
         const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: FireflyPlatform.Farcaster,
+                platform: platform ?? FireflyPlatform.Farcaster,
                 platform_id: profileId,
                 post_type: postType,
                 post_id: postId,
@@ -776,17 +811,19 @@ class FireflySocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id || undefined,
         });
-        const response = await fireflySessionHolder.fetch<BookmarkResponse>(url);
+        const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
 
         const posts = response.data?.list.map((x) => {
+            const formatted = formatFarcasterPostFromFirefly(x.post_content);
+            if (!formatted) return null;
             return {
-                ...formatFarcasterPostFromFirefly(x.post_content),
+                ...formatted,
                 hasBookmarked: true,
             };
         });
 
         return createPageable(
-            posts || [],
+            posts ? compact(posts) : [],
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
@@ -805,6 +842,18 @@ class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
+    }
+
+    async getIsMuted(profileId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
+        const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
+            }),
+        });
+        const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
+        return blocked;
     }
 }
 

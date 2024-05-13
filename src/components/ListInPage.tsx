@@ -8,6 +8,7 @@ import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoR
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualList, type VirtualListProps } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
+import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -18,6 +19,7 @@ interface ListInPageProps<T = unknown> {
     noResultsFallbackRequired?: boolean;
     VirtualListProps?: VirtualListProps<T>;
     NoResultsFallbackProps?: NoResultsFallbackProps;
+    className?: string;
 }
 
 export function ListInPage<T = unknown>({
@@ -26,6 +28,7 @@ export function ListInPage<T = unknown>({
     noResultsFallbackRequired = true,
     VirtualListProps,
     NoResultsFallbackProps,
+    className,
 }: ListInPageProps<T>) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
@@ -71,13 +74,12 @@ export function ListInPage<T = unknown>({
             endReached={onEndReached}
             itemSize={(el: HTMLElement) => {
                 if (!itemsRendered.current) itemsRendered.current = true;
-
                 return el.getBoundingClientRect().height;
             }}
             {...VirtualListProps}
             context={Context}
             components={Components}
-            className={'max-md:no-scrollbar'}
+            className={classNames('max-md:no-scrollbar', className)}
         />
     );
 }

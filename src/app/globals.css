@@ -12,6 +12,17 @@
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }
+
+    .scrollable-tab {
+        overflow-x: auto;
+        max-width: 100%;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .scrollable-tab::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 :root {
@@ -212,17 +223,6 @@ ul {
     padding: 8px !important;
 }
 
-@layer components {
-    .hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-}
-
 input[type='search']::-webkit-search-decoration,
 input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-results-button,
@@ -325,11 +325,7 @@ body {
     }
 }
 
-.channel-card {
-    background: none !important;
-}
-
-.ens-card {
+.tippy-card {
     background: none !important;
 }
 

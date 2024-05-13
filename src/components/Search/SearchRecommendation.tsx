@@ -57,7 +57,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             return {
                 // Only the first 5 results are displayed
                 indicator: createIndicator(),
-                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 4) : [])),
+                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 3) : [])),
             };
         },
         enabled: !!debouncedKeyword,
@@ -150,7 +150,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             {fetchChannelLoading || (keyword && channel) ? (
                 <>
                     <h2 className="border-t border-line p-3 pb-2 text-sm">
-                        <Trans>Channel</Trans>
+                        <Trans>Channels</Trans>
                     </h2>
                 </>
             ) : null}

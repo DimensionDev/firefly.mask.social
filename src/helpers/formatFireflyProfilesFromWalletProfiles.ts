@@ -15,7 +15,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
         ...profiles.farcasterProfiles.map((x) => ({
             identity: `${x.fid}`,
             source: Source.Farcaster,
-            displayName: x.display_name,
+            displayName: x.username,
             __origin__: x,
         })),
         ...profiles.lensProfilesV3.map((x) => ({

@@ -14,7 +14,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTag({ title, source }) {
     const isMedium = useIsMedium();
     const router = useRouter();
-    const channelId = title?.slice(1);
+    const channelId = title?.trim().slice(1);
     const [viewed, setViewed] = useState(false);
 
     const { observe } = useInView({
@@ -26,7 +26,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     useEffect(() => {
         if (!title) return;
-        router.prefetch(getFarcasterChannelUrlById(title.slice(1)));
+        router.prefetch(getFarcasterChannelUrlById(title.trim().slice(1)));
     }, [title, router]);
 
     const data = useQuery({
@@ -59,7 +59,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
     return isMedium ? (
         <Tippy
             maxWidth={400}
-            className="channel-card"
+            className="tippy-card"
             placement="bottom"
             duration={200}
             arrow={false}

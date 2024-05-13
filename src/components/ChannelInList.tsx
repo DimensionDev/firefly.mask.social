@@ -58,7 +58,7 @@ export function ChannelInList({ channel, noFollowButton = true, dense = false, l
                         >
                             {channel.name}
                         </span>
-                        <SocialSourceIcon source={channel.source} size={isSmall || dense ? 14 : 20} />
+                        <SocialSourceIcon source={channel.source} size={isSmall || dense ? 16 : 20} />
                     </p>
                     <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
                         <p className="truncate">/{channel.id}</p>

@@ -16,6 +16,7 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             url: SITE_URL,
         },
         twitter: {
+            card: 'summary',
             title: SITE_NAME,
             description: SITE_DESCRIPTION,
             creator: '@thefireflyapp',

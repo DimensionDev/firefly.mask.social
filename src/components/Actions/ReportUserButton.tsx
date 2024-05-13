@@ -3,8 +3,8 @@ import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -17,12 +17,11 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function ReportUserButton(
-    { busy, profile, className, onConfirm, onReport, ...rest }: Props,
+    { busy, profile, onConfirm, onReport, ...rest }: Props,
     ref,
 ) {
     return (
-        <ClickableButton
-            className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
+        <MenuButton
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
@@ -49,9 +48,9 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
             ) : (
                 <FlagIcon width={24} height={24} />
             )}
-            <span className="text-[17px] font-bold leading-[22px] text-main">
+            <span className="font-bold leading-[22px] text-main">
                 <Trans>Report @{profile.handle}</Trans>
             </span>
-        </ClickableButton>
+        </MenuButton>
     );
 });

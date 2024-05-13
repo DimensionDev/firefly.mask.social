@@ -1,42 +1,49 @@
 'use client';
 
-import { compact } from 'lodash-es';
 import { usePathname, useSearchParams } from 'next/navigation.js';
 import { startTransition } from 'react';
 
-import { SearchType, Source } from '@/constants/enum.js';
+import { PageRoute, SearchType, Source } from '@/constants/enum.js';
+import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SourceTabs() {
     const currentSource = useGlobalState.use.currentSource();
     const updateCurrentSource = useGlobalState.use.updateCurrentSource();
 
+    const { currentProfileSession: fireflySession } = useFireflyStateStore();
     const { updateSearchType } = useSearchStateStore();
 
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    if (pathname !== '/' && currentSource === Source.Farcaster) {
+    if (
+        (pathname === PageRoute.Following && currentSource === Source.Article && !fireflySession) ||
+        (pathname !== PageRoute.Following && pathname !== PageRoute.Home && currentSource === Source.Article)
+    ) {
         updateCurrentSource(Source.Farcaster);
-        replaceSearchParams(
-            new URLSearchParams({
-                source: resolveSourceInURL(Source.Farcaster),
-            }),
-        );
     }
+
+    const sources =
+        pathname === PageRoute.Bookmarks
+            ? SORTED_BOOKMARK_SOURCES
+            : SORTED_HOME_SOURCES.filter((x) => {
+                  if (x !== Source.Article) return true;
+                  if (pathname === PageRoute.Home || (pathname === PageRoute.Following && !!fireflySession))
+                      return true;
+                  return false;
+              });
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
-            <nav className="-mb-px flex space-x-4" aria-label="Tabs">
-                {compact([
-                    Source.Farcaster,
-                    Source.Lens,
-                    pathname === '/' || pathname === '/following' ? Source.Article : undefined,
-                ]).map((value) => (
+            <nav className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
+                {sources.map((value) => (
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <a
                             className={classNames(
@@ -69,7 +76,7 @@ export function SourceTabs() {
                                 })
                             }
                         >
-                            {value}
+                            {resolveSourceName(value)}
                         </a>
                     </li>
                 ))}

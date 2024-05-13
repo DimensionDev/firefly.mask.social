@@ -117,7 +117,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
-    useDocumentTitle(post ? createPageTitle(t`Post by ${post.author.displayName}`) : SITE_NAME);
+    useDocumentTitle(post?.author ? createPageTitle(t`Post by ${post.author.displayName}`) : SITE_NAME);
     useUpdateCurrentVisitingPost(post);
 
     if (!post) return;

@@ -33,7 +33,7 @@ export function WalletTabs({ address }: WalletTabsProps) {
 
     return (
         <>
-            <div className=" flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
+            <div className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
                 {[
                     {
                         type: WalletProfileTabType.Articles,

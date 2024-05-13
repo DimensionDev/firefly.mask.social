@@ -1,12 +1,17 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Source } from '@/constants/enum.js';
-import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { LogoutModalRef } from '@/modals/controls.js';
+import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface AccountCardProps {
     profile: Profile;
@@ -14,7 +19,24 @@ interface AccountCardProps {
 }
 
 export function AccountCard({ profile, isCurrent }: AccountCardProps) {
-    const { login } = useSwitchLensAccount();
+    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+
+    const [{ loading }, login] = useAsyncFn(
+        async (profile: Profile) => {
+            try {
+                const session = await createSessionForProfileId(profile.profileId);
+                updateCurrentProfile(profile, session);
+                resolveSessionHolder(profile.source)?.resumeSession(session);
+                enqueueSuccessMessage(t`Your Lens account is now connected`);
+            } catch (error) {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                    error,
+                });
+                throw error;
+            }
+        },
+        [updateCurrentProfile],
+    );
 
     return (
         <div

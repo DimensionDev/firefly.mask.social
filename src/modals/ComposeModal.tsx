@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog } from '@headlessui/react';
+import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
@@ -12,7 +13,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
-import { forwardRef, useCallback, useRef } from 'react';
+import { forwardRef, useCallback, useRef, useState } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
@@ -25,7 +26,9 @@ import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Tooltip } from '@/components/Tooltip.js';
+import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -86,6 +89,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const currentProfileAll = useCurrentProfileAll();
         const profile = useCurrentProfile(currentSocialSource);
+
+        const [warningsOpen, setWarningsOpen] = useState(true);
 
         const {
             type,
@@ -247,6 +252,25 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     </div>
 
                     <ComposeAction />
+
+                    {warningsOpen && env.external.NEXT_PUBLIC_COMPOSE_WARNINGS === STATUS.Enabled ? (
+                        <div className=" flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
+                            <ExclamationTriangleIcon className="hidden text-white md:block" width={24} height={24} />
+                            <p className=" text-left text-xs text-white md:text-center">
+                                <Trans>
+                                    We&apos;re updating our connection with X. Posting on X will be limited for now.
+                                </Trans>
+                            </p>
+                            <Tooltip content={t`Close`} placement="top">
+                                <XCircleIcon
+                                    className="cursor-pointer text-white"
+                                    width={24}
+                                    height={24}
+                                    onClick={() => setWarningsOpen(false)}
+                                />
+                            </Tooltip>
+                        </div>
+                    ) : null}
 
                     {isMedium ? <ComposeSend /> : null}
                 </div>

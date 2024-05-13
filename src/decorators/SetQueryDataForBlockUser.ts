@@ -1,14 +1,14 @@
-import { type Draft, produce } from 'immer';
+import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { deletePostsOfUserFromQueryData } from '@/helpers/deletePostsOfUserFromQueryData.js';
-import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Post, Profile, Provider } from '@/providers/types/SocialMedia.js';
+import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
+import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
-    const matcher = (post: Draft<Post> | undefined) => post?.author.profileId === profileId;
+    const matcher: Matcher = (post) => post?.author.profileId === profileId;
     patchPostQueryData(source, matcher, (draft) => {
         if (draft.author.profileId !== profileId) return;
         draft.author.viewerContext = {
@@ -26,6 +26,17 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
             };
         });
     });
+
+    patchNotificationQueryDataOnAuthor(source, (profile) => {
+        if (profile.profileId === profileId) {
+            profile.viewerContext = {
+                ...profile.viewerContext,
+                blocking: status,
+            };
+        }
+    });
+
+    queryClient.setQueryData(['profile-is-muted', source, profileId], status);
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockUser', 'unblockUser'] as const;
@@ -41,9 +52,6 @@ export function SetQueryDataForBlockUser(source: SocialSource) {
                     const result = await m?.call(target.prototype, profileId);
                     if (!result) return false;
 
-                    if (key === 'blockUser') {
-                        deletePostsOfUserFromQueryData(source, profileId);
-                    }
                     setBlockStatus(source, profileId, key === 'blockUser');
 
                     return result;

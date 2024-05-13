@@ -10,9 +10,10 @@ import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { FarcasterSignType } from '@/constants/enum.js';
+import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -23,14 +24,29 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isAbortedError } from '@/helpers/isAbortedError.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
-async function login(createSession: () => Promise<FarcasterSession>, signal?: AbortSignal) {
+class ProfileError extends Error {
+    constructor(
+        public profile: Profile | null,
+        public override message: string,
+    ) {
+        super(message);
+    }
+}
+
+async function login(
+    createSession: () => Promise<FarcasterSession>,
+    options?: { skipSyncSessions?: boolean; signal?: AbortSignal },
+) {
     try {
         const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
@@ -40,25 +56,33 @@ async function login(createSession: () => Promise<FarcasterSession>, signal?: Ab
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
 
         // restore profile exclude farcaster
-        await FireflySessionConfirmModalRef.openAndWaitForClose({
-            sessions: await syncSessionFromFirefly(signal),
-            onDetected(profiles) {
-                if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
-                LoginModalRef.close();
-            },
-        });
+        if (!options?.skipSyncSessions) {
+            await FireflySessionConfirmModalRef.openAndWaitForClose({
+                source: Source.Farcaster,
+                sessions: await syncSessionFromFirefly(options?.signal),
+                onDetected(profiles) {
+                    if (!profiles.length)
+                        enqueueInfoMessage(t`No device accounts detected.`, {
+                            environment: NODE_ENV.Development,
+                        });
+                    LoginModalRef.close();
+                },
+            });
+        } else {
+            LoginModalRef.close();
+        }
     } catch (error) {
         // skip if the error is abort error
         if (isAbortedError(error)) return;
-
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
-            error,
-        });
 
         const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
 
         // if login timed out, we will let the user refresh the QR code
         if (message.toLowerCase().includes('farcaster login timed out')) return;
+
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+            error,
+        });
 
         // user rejected request
         if (message.toLowerCase().includes('user rejected the request')) return;
@@ -74,7 +98,7 @@ export function LoginFarcaster() {
     const options = useMemo(() => {
         return [
             {
-                label: t`Connect with Warpcast`,
+                label: t`New connect with Warpcast`,
                 type: FarcasterSignType.GrantPermission,
                 developmentOnly: false,
                 isFreeOfTransactionFee: false,
@@ -98,6 +122,9 @@ export function LoginFarcaster() {
 
     const [url, setUrl] = useState('');
     const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);
+
+    const [scanned, setScanned] = useState(false);
+    const [profileError, setProfileError] = useState<ProfileError | null>(null);
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
@@ -120,7 +147,7 @@ export function LoginFarcaster() {
                         },
                         controllerRef.current?.signal,
                     ),
-                controllerRef.current?.signal,
+                { signal: controllerRef.current?.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -136,19 +163,63 @@ export function LoginFarcaster() {
 
         try {
             await login(
-                () =>
-                    createSessionByRelayService(
+                async () => {
+                    const staledSession = fireflySessionHolder.session;
+
+                    const session = await createSessionByRelayService(
                         (url) => {
                             resetCountdown();
                             startCountdown();
+                            setScanned(false);
 
                             const device = getMobileDevice();
                             if (device === 'unknown') setUrl(url);
                             else location.href = url;
                         },
                         controllerRef.current?.signal,
-                    ),
-                controllerRef.current?.signal,
+                    );
+
+                    // let the user see the qr code has been scanned and display a loading icon
+                    setScanned(true);
+                    setProfileError(null);
+
+                    // for relay service we need to sync the session from firefly
+                    // and find out the the signer key of the connected profile
+                    const sessions = await syncSessionFromFirefly(controllerRef.current?.signal);
+
+                    const restoredSession = sessions.find(
+                        (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
+                    );
+
+                    if (!restoredSession) {
+                        // the current profile did not connect to firefly
+                        // we need to restore the staled session and keep everything untouched
+                        if (staledSession) FireflySession.restore(staledSession);
+
+                        try {
+                            const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+
+                            setProfileError(
+                                new ProfileError(
+                                    profile,
+                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                                ),
+                            );
+                        } catch {
+                            setProfileError(
+                                new ProfileError(
+                                    null,
+                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                                ),
+                            );
+                        }
+
+                        throw new AbortError();
+                    }
+
+                    return restoredSession as FarcasterSession;
+                },
+                { skipSyncSessions: true, signal: controllerRef.current?.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -166,7 +237,7 @@ export function LoginFarcaster() {
                     const client = await getWalletClientRequired(config);
                     return createSessionByCustodyWallet(client);
                 },
-                controllerRef.current?.signal,
+                { signal: controllerRef.current?.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -211,7 +282,7 @@ export function LoginFarcaster() {
                         <span className=" flex flex-1 items-center">
                             {label}
                             {isFreeOfTransactionFee ? (
-                                <span className=" ml-2 rounded-md border border-lightBottom px-1 text-xs font-bold text-lightBottom">
+                                <span className=" ml-2 rounded-md border border-main px-1 text-xs font-bold text-main">
                                     {t`FREE`}
                                 </span>
                             ) : null}
@@ -238,8 +309,35 @@ export function LoginFarcaster() {
                     </div>
                 </div>
             ) : (
-                <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
-                    {url ? (
+                <div className="relative flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
+                    {profileError ? (
+                        <div className=" absolute inset-0 flex flex-col items-center justify-center">
+                            {profileError.profile ? (
+                                <div className=" mb-4 flex flex-col items-center justify-center">
+                                    <ProfileAvatar
+                                        className=" mb-2"
+                                        profile={profileError.profile}
+                                        size={64}
+                                        enableSourceIcon={false}
+                                    />
+                                    <p className=" text-base">{profileError.profile.displayName}</p>
+                                    <p className=" text-xs">@{profileError.profile.handle}</p>
+                                </div>
+                            ) : null}
+                            <p className=" mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
+                            <ClickableButton
+                                className=" rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
+                                onClick={() => {
+                                    setSignType(null);
+                                    setScanned(false);
+                                    setProfileError(null);
+                                    resetCountdown();
+                                }}
+                            >
+                                <Trans>Back</Trans>
+                            </ClickableButton>
+                        </div>
+                    ) : url ? (
                         <>
                             <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
                                 {count === 0 ? (
@@ -266,8 +364,12 @@ export function LoginFarcaster() {
                                 ) : null}
                             </div>
                             <div
-                                className=" relative flex cursor-pointer items-center justify-center"
+                                className={classNames(' relative flex items-center justify-center', {
+                                    'cursor-pointer': !scanned,
+                                })}
                                 onClick={() => {
+                                    if (scanned) return;
+
                                     controllerRef.current?.abort(new AbortError());
 
                                     switch (signType) {
@@ -286,11 +388,16 @@ export function LoginFarcaster() {
                             >
                                 <QRCode
                                     className={classNames({
-                                        'blur-md': count === 0,
+                                        'blur-md': count === 0 || scanned,
                                     })}
                                     value={url}
                                     size={360}
                                 />
+                                {scanned ? (
+                                    <div className=" absolute inset-0 flex flex-col items-center justify-center">
+                                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                                    </div>
+                                ) : null}
                             </div>
                         </>
                     ) : (

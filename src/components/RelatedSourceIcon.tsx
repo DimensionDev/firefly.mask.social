@@ -14,7 +14,7 @@ interface RelatedSourceIconProps extends React.SVGProps<SVGSVGElement> {
 }
 
 export function RelatedSourceIcon({ source, size = 20, ...props }: RelatedSourceIconProps) {
-    const isDarkMode = useDarkMode();
+    const { isDarkMode } = useDarkMode();
     const style = {
         width: size,
         height: size,

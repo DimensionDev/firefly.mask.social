@@ -1,5 +1,5 @@
 export const URL_REGEX =
-    /(?<!@)\b((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)]*)?)/gi;
+    /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)]*)?)/gi;
 
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))/;
@@ -8,7 +8,7 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
 
-export const CHANNEL_REGEX = /(?<=\s)\/[\w-]+\b/g;
+export const CHANNEL_REGEX = /\/[A-Za-z0-9-]+/gi;
 
 export const MIRROR_HOSTNAME_REGEXP = /mirror\.xyz|.+\.mirror\.xyz/i;
 
@@ -28,3 +28,5 @@ export const OLD_MASK_SOCIAL_PROFILE_PATH_REGEX = /\/profile\/(\w+)\/([\w-]+)/i;
 export const MASK_SOCIAL_POST_PATH_REGEX = /\/post\/([\w-]+)/i;
 
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
+/* cspell:disable */
+export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)$/;
