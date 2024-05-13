@@ -22,7 +22,6 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             return compact([
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
                 remarkBreaks,
-
                 linkifyRegex(URL_REGEX),
                 post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 linkifyRegex(HASHTAG_REGEX),
@@ -32,7 +31,6 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
-
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat
             // as a mention rather than link
