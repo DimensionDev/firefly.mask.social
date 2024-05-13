@@ -660,28 +660,60 @@ export interface Provider {
     getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
 
     /**
-     * Report a user
+     * Report spam or inappropriate profile content.
+     * @param profileId
+     * @returns
      */
     reportUser: (profileId: string) => Promise<boolean>;
+
     /**
-     * Report a post
+     * Report spam or inappropriate post content.
+     * @param post
+     * @returns
      */
     reportPost: (post: Post) => Promise<boolean>;
 
+    /**
+     * Block a profile.
+     * @param profileId
+     * @returns
+     */
     blockUser: (profileId: string) => Promise<boolean>;
 
+    /**
+     * Unblock a profile.
+     * @param profileId
+     * @returns
+     */
     unblockUser: (profileId: string) => Promise<boolean>;
 
+    /**
+     * Retrieve profiles who liked the specified post.
+     * @param postId
+     * @param indicator
+     * @returns
+     */
     getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
     /**
-     * Including Reposts, Recasts, Mirrors, Retweets
+     * Retrieve profiles who reposted the specified post.
+     * @param postId
+     * @param indicator
+     * @returns
      */
     getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
+    /**
+     * Retrive posts that quote on the specified post.
+     * @param postId
+     * @param indicator
+     * @returns
+     */
     getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
     /**
+     * Save a post to bookmarks.
+     *
      * @param postId
      * @param platform - farcaster only
      * @param profileId - farcaster only
@@ -694,7 +726,17 @@ export interface Provider {
         postType?: BookmarkType,
     ) => Promise<boolean>;
 
+    /**
+     * Remove a post from bookmarks.
+     * @param postId
+     * @returns
+     */
     unbookmark: (postId: string) => Promise<boolean>;
 
+    /**
+     * Get bookmarks
+     * @param indicator
+     * @returns
+     */
     getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }
