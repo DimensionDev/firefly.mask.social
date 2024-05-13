@@ -295,6 +295,9 @@ msgstr "Confirmation"
 msgid "Failed to mute /{0}."
 msgstr "Failed to mute /{0}."
 
+msgid "Address"
+msgstr "Address"
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
@@ -643,6 +646,9 @@ msgstr "Show More"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
+msgid "%Of supply owned"
+msgstr "%Of supply owned"
+
 msgid "Share"
 msgstr "Share"
 
@@ -924,6 +930,9 @@ msgstr "You cannot reply to @{author} on {0}."
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
+
+msgid "Owned"
+msgstr "Owned"
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
