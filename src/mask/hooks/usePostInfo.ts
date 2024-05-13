@@ -17,8 +17,8 @@ import urlcat from 'urlcat';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function usePostInfo(post: Post) {
     return useMemo((): PostContext => {
