@@ -207,7 +207,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         ) : null}
                     </Frame>
                 ))
-            ) : post.metadata.content?.oembedUrl ? (
+            ) : post.metadata.content?.oembedUrl && !post.quoteOn ? (
                 <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
             ) : null}
 

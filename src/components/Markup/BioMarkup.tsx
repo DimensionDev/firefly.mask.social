@@ -30,11 +30,12 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
-            source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+
             linkifyRegex(MENTION_REGEX),
             linkifyRegex(HASHTAG_REGEX),
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
             linkifyRegex(URL_REGEX),
+            source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
         ]);
     }, [source]);
     if (!children) return null;
