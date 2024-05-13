@@ -28,7 +28,7 @@ export const Views = memo<ViewsProps>(function Collect({ count = 0, disabled = f
                         event.preventDefault();
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-bg"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-bg"
                 >
                     <ViewsIcon width={20} height={20} />
                 </motion.button>
