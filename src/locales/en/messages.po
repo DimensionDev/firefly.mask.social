@@ -175,6 +175,9 @@ msgstr "Username"
 msgid "Blockchain"
 msgstr "Blockchain"
 
+msgid "NFTs"
+msgstr "NFTs"
+
 msgid "No results for \"{searchKeyword}\""
 msgstr "No results for \"{searchKeyword}\""
 

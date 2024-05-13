@@ -180,6 +180,9 @@ msgstr ""
 msgid "Blockchain"
 msgstr ""
 
+msgid "NFTs"
+msgstr ""
+
 msgid "No results for \"{searchKeyword}\""
 msgstr "{searchKeyword} 搜索无结果"
 

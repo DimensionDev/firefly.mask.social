@@ -175,6 +175,9 @@ msgstr ""
 msgid "Blockchain"
 msgstr ""
 
+msgid "NFTs"
+msgstr ""
+
 msgid "No results for \"{searchKeyword}\""
 msgstr ""
 
