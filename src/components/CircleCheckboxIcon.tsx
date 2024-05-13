@@ -7,19 +7,21 @@ interface Props extends React.HTMLProps<SVGAElement> {
 }
 
 export function CircleCheckboxIcon({ size = 40, checked, ...props }: Props) {
-    {
-        checked ? (
-            <YesIcon width={size} height={size} {...props} />
-        ) : (
-            <div
-                className="flex items-center justify-center"
-                style={{
-                    width: size,
-                    height: size,
-                }}
-            >
-                <DisableNoIcon width={size / 2} height={size / 2} {...props} />
-            </div>
-        );
-    }
+    return (
+        <>
+            {checked ? (
+                <YesIcon width={size} height={size} {...props} />
+            ) : (
+                <div
+                    className="flex items-center justify-center"
+                    style={{
+                        width: size,
+                        height: size,
+                    }}
+                >
+                    <DisableNoIcon width={size / 2} height={size / 2} {...props} />
+                </div>
+            )}
+        </>
+    );
 }
