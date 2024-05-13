@@ -57,11 +57,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
     if (title.startsWith('#')) return <Hashtag title={title} />;
 
-    /**
-     * Because Safari does not support lookahead assertions,
-     * we must match the space at the beginning to correctly match the channel tag.
-     */
-    if (title.startsWith(' /')) {
+    if (title.startsWith('/')) {
         return <ChannelTag title={title} source={source} />;
     }
 
