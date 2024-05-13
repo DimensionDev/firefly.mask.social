@@ -22,7 +22,8 @@ interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
 export const FollowButton = memo(function FollowButton({ profile, className, ...rest }: FollowButtonProps) {
     const [hovering, setHovering] = useState(false);
     const isFollowing = !!profile.viewerContext?.following;
-    const [{ loading }, handleToggle] = useToggleFollow(profile);
+    const [togglingFollow, toggleFollow] = useToggleFollow(profile);
+    const loading = togglingFollow;
 
     const buttonText = isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`;
     const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;
@@ -49,7 +50,7 @@ export const FollowButton = memo(function FollowButton({ profile, className, ...
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
-                handleToggle();
+                toggleFollow.mutate();
             }}
         >
             {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
