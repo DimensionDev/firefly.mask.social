@@ -4,6 +4,7 @@ import { t } from '@lingui/macro';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { useMemo, useState } from 'react';
 
@@ -47,9 +48,11 @@ export default function Page({
         },
     });
     const floorPrice = useMemo(() => {
-        const floor = data?.collection?.floorPrices?.[0];
-        if (!floor) return undefined;
-        return `${formatAmount(floor.value, -floor.payment_token.decimals)} ${floor.payment_token.symbol}`;
+        const firstFloorPrice = first(data?.collection?.floorPrices);
+        if (!firstFloorPrice) return;
+        return `${formatAmount(firstFloorPrice.value, -firstFloorPrice.payment_token.decimals)} ${
+            firstFloorPrice.payment_token.symbol
+        }`;
     }, [data]);
 
     const tabPanel = useMemo(

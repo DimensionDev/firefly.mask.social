@@ -4,6 +4,7 @@ import { t } from '@lingui/macro';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { useMemo, useState } from 'react';
 
@@ -39,7 +40,7 @@ export default function Page({ params }: { params: { address: string }; searchPa
     });
 
     const floorPrice = useMemo(() => {
-        const firstFloorPrice = data?.floor_prices?.[0];
+        const firstFloorPrice = first(data?.floor_prices);
         if (!firstFloorPrice) return;
         return `${formatAmount(firstFloorPrice.value, -firstFloorPrice.payment_token.decimals)} ${
             firstFloorPrice.payment_token.symbol
