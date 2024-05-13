@@ -32,7 +32,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disab
             <motion.button
                 disabled={disabled}
                 whileTap={{ scale: 0.9 }}
-                className="rounded-full p-1.5 hover:bg-warn/[.20] hover:text-warn"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
                 aria-label="Bookmark"
             >
                 <Tooltip
@@ -41,9 +41,9 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disab
                     content={hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`}
                 >
                     {hasBookmarked ? (
-                        <BookmarkActiveIcon width={16} height={16} className="text-warn" />
+                        <BookmarkActiveIcon width={20} height={20} className="text-warn" />
                     ) : (
-                        <BookmarkIcon width={16} height={16} />
+                        <BookmarkIcon width={20} height={20} />
                     )}
                 </Tooltip>
             </motion.button>

@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChartBarIcon } from '@heroicons/react/24/outline';
-import { Select, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
 import { Fragment, memo } from 'react';
