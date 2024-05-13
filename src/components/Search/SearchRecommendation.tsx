@@ -20,7 +20,7 @@ import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
