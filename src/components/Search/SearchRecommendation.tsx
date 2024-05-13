@@ -14,6 +14,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -23,18 +24,16 @@ import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
-import { Link } from '@/esm/Link.js';
 
 interface SearchRecommendationProps {
     keyword: string;
     fullScreen?: boolean;
     onSearch?: (state: SearchState) => void;
-    onSelect?: (result: Profile | Channel) => void;
     onClear?: () => void;
 }
 
 export function SearchRecommendation(props: SearchRecommendationProps) {
-    const { keyword, fullScreen = false, onSearch, onSelect, onClear } = props;
+    const { keyword, fullScreen = false, onSearch, onClear } = props;
 
     const debouncedKeyword = useDebounce(keyword, 300);
 
