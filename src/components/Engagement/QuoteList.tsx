@@ -4,7 +4,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { PostEngagementListProps } from '@/components/Engagement/type.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ScrollListKey } from '@/constants/enum.js';
+import { EngagementType, ScrollListKey } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -14,7 +14,10 @@ function getPostContent(index: number, post: Post) {
 
 export function QuoteList({ postId, type, source }: PostEngagementListProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['profiles', source, 'engagements', type, postId],
+        queryKey:
+            type === EngagementType.Quotes
+                ? ['posts', source, 'engagements', type, postId]
+                : ['profiles', source, 'engagements', type, postId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getPostsQuoteOn(postId, createIndicator(undefined, pageParam));

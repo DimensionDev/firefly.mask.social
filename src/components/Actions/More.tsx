@@ -185,6 +185,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     {id ? (
                         <Menu.Item
                             as={Link}
+                            shallow
                             href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
                             className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}

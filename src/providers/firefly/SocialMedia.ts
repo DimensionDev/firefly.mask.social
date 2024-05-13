@@ -40,6 +40,7 @@ import {
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
+    type PostQuotesResponse,
     type ReactorsResponse,
     type RelationResponse,
     type SearchCastsResponse,
@@ -753,7 +754,23 @@ class FireflySocialMedia implements Provider {
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/quotes', {
+            hash: postId,
+            size: 20,
+            cursor: indicator?.id,
+            needRootParentHash: true,
+        });
+        const response = await fireflySessionHolder.fetch<PostQuotesResponse>(url, {
+            method: 'GET',
+        });
+        const data = resolveFireflyResponseData(response);
+        const posts = compact(data.quotes.map((x) => formatFarcasterPostFromFirefly(x)));
+
+        return createPageable(
+            posts,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
     }
     async bookmark(
         postId: string,
