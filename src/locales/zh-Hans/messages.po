@@ -19,7 +19,7 @@ msgstr ""
 "X-Crowdin-File-ID: 836\n"
 
 msgid "Login required to post on {sourceName}."
-msgstr "请先登录{sourceName}。"
+msgstr "请先登录 {sourceName}。"
 
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
@@ -58,7 +58,7 @@ msgid "Discover"
 msgstr "发现"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
-msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
+msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
 
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
@@ -109,7 +109,7 @@ msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
 msgid "Found arweaveTxId is empty."
-msgstr "ArweaveTxId 为空"
+msgstr "ArweaveTxId 为空。"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -136,7 +136,7 @@ msgid "Debug Console"
 msgstr "诊断命令行"
 
 msgid "Failed to mute @{0} on {sourceName}"
-msgstr "在{sourceName} 上屏蔽 @{0}"
+msgstr "在 {sourceName} 上屏蔽 @{0}"
 
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
@@ -163,7 +163,7 @@ msgid "Retry"
 msgstr "重试"
 
 msgid "Show less"
-msgstr ">>>>>>> released"
+msgstr "收起"
 
 msgid "comment"
 msgstr "评论"
@@ -214,7 +214,7 @@ msgid "Reconnect with Firefly"
 msgstr "使用 Firefly 重连"
 
 msgid "Only up to 2 images can be chosen."
-msgstr "至多可以选择2张图片。"
+msgstr "至多可以选择 2 张图片。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
@@ -229,7 +229,7 @@ msgid "Connected Accounts"
 msgstr "已链接的账号"
 
 msgid "Confirm you want to report @{0}?"
-msgstr "确认要举报 @{0}?"
+msgstr "确认要举报 @{0}？"
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -295,7 +295,7 @@ msgid "Follow System"
 msgstr "跟随系统"
 
 msgid "Failed to mirror."
-msgstr "转帖失败"
+msgstr "转帖失败。"
 
 msgid "Your post was deleted."
 msgstr "帖子已删除。"
@@ -349,7 +349,7 @@ msgid "Unmute /{0}"
 msgstr "取消屏蔽 /{0}"
 
 msgid "Invalid compose type: {type}."
-msgstr "无效的发帖类型： {type}."
+msgstr "无效的发帖类型：{type}。"
 
 msgid "View Source"
 msgstr "查看原文"
@@ -379,7 +379,7 @@ msgid "Reply"
 msgstr "回复"
 
 msgid "Confirm you want to mute /{0}?"
-msgstr "确认要屏蔽/{0}?"
+msgstr "确认要屏蔽/{0}？"
 
 msgid "Collected"
 msgstr "已收藏"
@@ -460,7 +460,7 @@ msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
 
 msgid "Confirm you want to unmute /{0}?"
-msgstr "确认取消屏蔽 /{0}?"
+msgstr "确认取消屏蔽 /{0}？"
 
 msgid "Bookmark"
 msgstr "收藏"
@@ -472,7 +472,7 @@ msgid "Failed to unmute /{0}."
 msgstr "取消屏蔽失败/{0}。"
 
 msgid "Please confirm the login with Warpcast."
-msgstr "请确认使用Warpcast登录。"
+msgstr "请确认使用 Warpcast 登录。"
 
 msgid "Compose"
 msgstr "发帖"
@@ -487,7 +487,7 @@ msgid "Suggested Channels"
 msgstr "建议频道"
 
 msgid "Failed to follow."
-msgstr "关注失败"
+msgstr "关注失败。"
 
 msgid "Mute"
 msgstr "屏蔽"
@@ -529,7 +529,7 @@ msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
 
 msgid "Invalid URL."
-msgstr "无效 URL"
+msgstr "无效的 URL。"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -721,7 +721,7 @@ msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
 
 msgid "No Lens profile was found. Please try using a different wallet."
-msgstr "未找到 Lens profile。请尝试其他钱包。"
+msgstr "未找到 Lens 账号。请尝试其他钱包。"
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
@@ -832,7 +832,7 @@ msgid "{0} and others"
 msgstr "{0} 和 其他"
 
 msgid "Failed to unmute @{0} on {sourceName}"
-msgstr "在{sourceName} 上屏蔽 @{0} 失败"
+msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 
 msgid "Failed to retweet."
 msgstr "转帖失败。"
@@ -877,7 +877,7 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
-msgstr "我们正在更新X的连接。X上的发帖功能目前受限。"
+msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
@@ -949,7 +949,7 @@ msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
 msgid "Confirm you want to unmute @{0}?"
-msgstr "确认取消屏蔽 @{0}?"
+msgstr "确认取消屏蔽 @{0}？"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"
@@ -1045,7 +1045,7 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
-msgstr "一条thread至少包含2个帖子。"
+msgstr "一条 thread 至少包含 2 个帖子。"
 
 msgid "Likes"
 msgstr "点赞"
