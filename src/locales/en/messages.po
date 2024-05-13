@@ -646,6 +646,9 @@ msgstr "Visit mask.io"
 msgid "No comments found"
 msgstr "No comments found"
 
+msgid "Unfollow @{0}"
+msgstr "Unfollow @{0}"
+
 msgid "Discard"
 msgstr "Discard"
 
@@ -925,6 +928,9 @@ msgstr "Remove"
 msgid "Post remove from your Bookmarks"
 msgstr "Post remove from your Bookmarks"
 
+msgid "Follow @{0}"
+msgstr "Follow @{0}"
+
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
 
@@ -990,9 +996,6 @@ msgstr "Recast"
 
 msgid "Followers"
 msgstr "Followers"
-
-msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
-msgstr "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 
 msgid "Media"
 msgstr "Media"
