@@ -9,7 +9,7 @@ import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGEX, CHANNEL_REGEX, EMAIL_REGEX } from '@/constants/regexp.js';
+import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { createLensProfileFromHandle } from '@/helpers/createLensProfileFromHandle.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
@@ -57,7 +57,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
     if (title.startsWith('#')) return <Hashtag title={title} />;
 
-    if (title.startsWith('/') && CHANNEL_REGEX.test(title)) {
+    if (title.startsWith('/')) {
         return <ChannelTag title={title} source={source} />;
     }
 
