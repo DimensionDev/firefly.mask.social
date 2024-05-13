@@ -1,4 +1,5 @@
-import { EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import type { InfiniteData } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 
