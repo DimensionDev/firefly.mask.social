@@ -14,10 +14,7 @@ function getPostContent(index: number, post: Post) {
 
 export function QuoteList({ postId, type, source }: PostEngagementListProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey:
-            type === EngagementType.Quotes
-                ? ['posts', source, 'engagements', type, postId]
-                : ['profiles', source, 'engagements', type, postId],
+        queryKey: [type === EngagementType.Quotes ? 'posts' : 'profiles', source, 'engagements', type, postId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getPostsQuoteOn(postId, createIndicator(undefined, pageParam));
