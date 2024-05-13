@@ -102,6 +102,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             {records.map((record) => (
                                 <Link
                                     className="flex cursor-pointer items-center text-ellipsis px-4 hover:bg-bg"
+                                    key={record}
                                     href={`/search?q=${record}`}
                                     onClick={() => {
                                         addRecord(record);
