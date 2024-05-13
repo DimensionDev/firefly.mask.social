@@ -153,6 +153,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                     fullScreen
                     keyword={searchKeyword}
                     onSearch={() => setShowRecommendation(false)}
+                    onSelect={() => setShowRecommendation(false)}
                     onClear={() => inputRef.current?.focus()}
                 />
             ) : null}

@@ -79,6 +79,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     <SearchRecommendation
                         keyword={inputText}
                         onSearch={() => setShowRecommendation(false)}
+                        onSelect={() => setShowRecommendation(false)}
                         onClear={() => inputRef.current?.focus()}
                     />
                 ) : null}
