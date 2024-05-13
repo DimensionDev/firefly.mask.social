@@ -1,6 +1,6 @@
 'use client';
 
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -86,7 +86,7 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
             return FireflySocialMediaProvider.getNFTCollections({ walletAddress: address, indicator });
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page.data ?? []),
+        select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
     });
 
     return (

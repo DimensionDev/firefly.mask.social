@@ -39,10 +39,10 @@ export default function Page({ params }: { params: { address: string }; searchPa
     });
 
     const floorPrice = useMemo(() => {
-        const floorPrice = data?.floor_prices?.[0];
-        if (!floorPrice) return undefined;
-        return `${formatAmount(floorPrice.value, -floorPrice.payment_token.decimals)} ${
-            floorPrice.payment_token.symbol
+        const firstFloorPrice = data?.floor_prices?.[0];
+        if (!firstFloorPrice) return;
+        return `${formatAmount(firstFloorPrice.value, -firstFloorPrice.payment_token.decimals)} ${
+            firstFloorPrice.payment_token.symbol
         }`;
     }, [data?.floor_prices]);
 
