@@ -1,23 +1,31 @@
-import { produce } from 'immer';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Provider } from '@/providers/types/SocialMedia.js';
+import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-function toggleMirror(source: SocialSource, postId: string) {
+function patchPostStats(stats: Post['stats'], status: boolean) {
+    return {
+        ...stats,
+        comments: stats?.comments || 0,
+        reactions: stats?.reactions || 0,
+        mirrors: (stats?.mirrors || 0) + (status ? 1 : -1),
+    };
+}
+
+function toggleMirror(source: SocialSource, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         // You can mirror many times on Lens.
-        const mirrored = source === Source.Lens || !draft.hasMirrored;
+        const mirrored = source === Source.Lens || status;
         draft.hasMirrored = mirrored;
-        draft.stats = produce(draft.stats, (old) => {
-            return {
-                ...old,
-                comments: old?.comments || 0,
-                reactions: old?.reactions || 0,
-                mirrors: (old?.mirrors || 0) + (mirrored ? 1 : -1),
-            };
-        });
+        draft.stats = patchPostStats(draft.stats, mirrored);
+    });
+
+    patchNotificationQueryDataOnPost(source, (post) => {
+        if (post.postId === postId) {
+            post.hasMirrored = status;
+            post.stats = patchPostStats(post.stats, status);
+        }
     });
 }
 
@@ -36,7 +44,7 @@ export function SetQueryDataForMirrorPost(source: SocialSource) {
                     ) => ReturnType<Exclude<Provider[K], undefined>>;
                     const result = await m.call(target.prototype, postId, ...args);
 
-                    toggleMirror(source, postId);
+                    toggleMirror(source, postId, key === 'mirrorPost');
 
                     return result;
                 },

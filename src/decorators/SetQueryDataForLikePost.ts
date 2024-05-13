@@ -1,21 +1,29 @@
-import { produce } from 'immer';
-
 import type { SocialSource } from '@/constants/enum.js';
+import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Provider } from '@/providers/types/SocialMedia.js';
+import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
+
+function patchPostStats(stats: Post['stats'], status: boolean) {
+    return {
+        ...stats,
+        comments: stats?.comments || 0,
+        mirrors: stats?.mirrors || 0,
+        reactions: (stats?.reactions || 0) + (status ? 1 : -1),
+    };
+}
 
 export function toggleLike(source: SocialSource, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         draft.hasLiked = status;
-        draft.stats = produce(draft.stats, (old) => {
-            return {
-                ...old,
-                comments: old?.comments || 0,
-                mirrors: old?.mirrors || 0,
-                reactions: (old?.reactions || 0) + (status ? 1 : -1),
-            };
-        });
+        draft.stats = patchPostStats(draft.stats, status);
+    });
+
+    patchNotificationQueryDataOnPost(source, (post) => {
+        if (post.postId === postId) {
+            post.hasLiked = status;
+            post.stats = patchPostStats(post.stats, status);
+        }
     });
 }
 

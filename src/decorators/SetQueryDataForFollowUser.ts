@@ -2,8 +2,9 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, Source } from '@/constants/enum.js';
+import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Profile, Provider } from '@/providers/types/SocialMedia.js';
+import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function setFollowStatus(source: Source, profileId: string, status: boolean) {
@@ -46,6 +47,15 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
 
     queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source] }, profilesPatcher);
     queryClient.setQueriesData<PagesData>({ queryKey: ['search', SearchType.Users], type: 'active' }, profilesPatcher);
+
+    patchNotificationQueryDataOnAuthor(source, (profile) => {
+        if (profile.profileId === profileId) {
+            profile.viewerContext = {
+                ...profile.viewerContext,
+                following: status,
+            };
+        }
+    });
 }
 
 const METHODS_BE_OVERRIDDEN = ['follow', 'unfollow'] as const;

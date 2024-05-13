@@ -7,13 +7,13 @@ import { forwardRef, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
-import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Frame } from '@/components/Frame/index.js';
 import { Markup } from '@/components/Markup/Markup.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
+import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
@@ -91,26 +91,16 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     if (post.isHidden || muted) {
         return (
-            <div
+            <CollapsedContent
                 className={classNames({
                     'pl-[52px]': !disablePadding,
                     'my-2': !isQuote,
                 })}
                 ref={ref}
-            >
-                <div
-                    className={classNames(
-                        'flex items-center gap-1 rounded-lg border-primaryMain  py-[6px] text-[15px]',
-                        {
-                            border: !isQuote,
-                            'px-3': !isQuote,
-                        },
-                    )}
-                >
-                    <EyeSlash width={16} height={16} />
-                    {muted ? <Trans>The author is muted by you.</Trans> : <Trans>Post has been hidden</Trans>}
-                </div>
-            </div>
+                authorMuted={muted}
+                isQuote={isQuote}
+                disableIndent={disablePadding}
+            />
         );
     }
 

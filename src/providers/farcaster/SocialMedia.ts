@@ -293,7 +293,7 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.unblockUser(profileId);
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getPostsQuoteOn(postId, indicator);
     }
     async bookmark(
         postId: string,
