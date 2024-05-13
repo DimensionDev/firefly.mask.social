@@ -256,9 +256,6 @@ msgstr "Failed to detect device accounts."
 msgid "Add another post..."
 msgstr "Add another post..."
 
-msgid "{count, plural, one {Bookmark} other {{0}}}"
-msgstr "{count, plural, one {Bookmark} other {{0}}}"
-
 msgid "Items"
 msgstr "Items"
 
@@ -270,9 +267,6 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
-
-msgid "Block"
-msgstr "Block"
 
 msgid "Owners"
 msgstr "Owners"
@@ -513,9 +507,6 @@ msgstr "<0>{0}</0> liked"
 
 msgid "Suggested Channels"
 msgstr "Suggested Channels"
-
-msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
-msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 
 msgid "NFT Contract"
 msgstr "NFT Contract"

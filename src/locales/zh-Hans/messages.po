@@ -261,9 +261,6 @@ msgstr "检测设备账号失败。"
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
-msgid "{count, plural, one {Bookmark} other {{0}}}"
-msgstr ""
-
 msgid "Items"
 msgstr ""
 
@@ -275,9 +272,6 @@ msgstr "音频封面"
 
 msgid "Recent"
 msgstr "最近"
-
-msgid "Block"
-msgstr ""
 
 msgid "Owners"
 msgstr ""
@@ -1124,4 +1118,3 @@ msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

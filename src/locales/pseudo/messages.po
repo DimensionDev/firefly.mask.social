@@ -256,9 +256,6 @@ msgstr ""
 msgid "Add another post..."
 msgstr ""
 
-msgid "{count, plural, one {Bookmark} other {{0}}}"
-msgstr ""
-
 msgid "Items"
 msgstr ""
 
@@ -269,9 +266,6 @@ msgid "Audio Cover"
 msgstr ""
 
 msgid "Recent"
-msgstr ""
-
-msgid "Block"
 msgstr ""
 
 msgid "Owners"
@@ -512,9 +506,6 @@ msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "Suggested Channels"
-msgstr ""
-
-msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "NFT Contract"
