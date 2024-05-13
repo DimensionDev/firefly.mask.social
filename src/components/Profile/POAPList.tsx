@@ -1,3 +1,5 @@
+'use client';
+
 import { createIndicator } from '@masknet/shared-base';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
@@ -14,7 +16,7 @@ import { classNames } from '@/helpers/classNames.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
-        <div ref={ref} {...props} className={classNames('grid grid-cols-3 gap-3.5', className)}>
+        <div ref={ref} {...props} className={classNames('grid grid-cols-3 gap-3.5 sm:grid-cols-4', className)}>
             {children}
         </div>
     );
@@ -34,9 +36,14 @@ export function getNFTItemContent(
 ) {
     return (
         <Link
-            href={`/nft/${item.id}/${item.tokenId}`}
+            href={{
+                pathname: `/nft/${item.id}/${item.tokenId}`,
+                query: {
+                    chainId: item.chainId,
+                },
+            }}
             key={`${index}-${item.id}-${item.tokenId}`}
-            className="flex flex-col rounded-lg bg-lightBg pb-1 sm:rounded-2xl sm:border sm:border-line sm:bg-white sm:p-2.5 sm:dark:bg-black"
+            className="flex flex-col rounded-lg bg-lightBg pb-1 sm:rounded-2xl"
         >
             <div className="relative aspect-square h-auto w-full overflow-hidden">
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
@@ -48,7 +55,7 @@ export function getNFTItemContent(
                 <Image
                     width={500}
                     height={500}
-                    className="h-full w-full rounded-lg object-cover sm:rounded-xl"
+                    className="h-full w-full rounded-lg object-cover"
                     src={item.metadata?.imageURL ?? ''}
                     alt="nft_image"
                 />
@@ -79,17 +86,19 @@ export function POAPList(props: { address: string }) {
     });
 
     return (
-        <GridListInPage
-            queryResult={queryResult}
-            className="mt-5"
-            VirtualGridListProps={{
-                components: POAPGridListComponent,
-                itemContent: (index, item) => {
-                    return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
-                        isPoap: true,
-                    });
-                },
-            }}
-        />
+        <div className="px-3">
+            <GridListInPage
+                queryResult={queryResult}
+                className="mt-5"
+                VirtualGridListProps={{
+                    components: POAPGridListComponent,
+                    itemContent: (index, item) => {
+                        return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                            isPoap: true,
+                        });
+                    },
+                }}
+            />
+        </div>
     );
 }

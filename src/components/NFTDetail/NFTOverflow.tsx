@@ -76,7 +76,9 @@ export function NFTOverflow(props: NFTOverflowProps) {
                             }
                         />
                     ) : null}
-                    {props.tokenId ? <DetailsGroup field={t`NFT ID`} value={`#${props.tokenId}`} /> : null}
+                    {props.tokenId ? (
+                        <DetailsGroup field={t`NFT ID`} value={<span className="break-all">#{props.tokenId}</span>} />
+                    ) : null}
                     {props.chainId ? (
                         <DetailsGroup field={t`Blockchain`} value={<ChainIcon chainId={props.chainId} />} />
                     ) : null}

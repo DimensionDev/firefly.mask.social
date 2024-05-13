@@ -1,3 +1,5 @@
+'use client';
+
 import { createIndicator } from '@masknet/shared-base';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
@@ -7,14 +9,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 
-export function NFTList(props: { address: string }) {
-    const { address } = props;
+export function NFTList(props: { address: string; chainId?: ChainId }) {
+    const { address, chainId } = props;
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',
-        queryKey: ['nft-list', address],
+        queryKey: ['nft-list', address, chainId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            return SimpleHashEVM.getAssetsByCollection(address, { indicator });
+            return SimpleHashEVM.getAssetsByCollection(address, { indicator, chainId });
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? []),

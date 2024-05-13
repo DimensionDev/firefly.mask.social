@@ -13,6 +13,7 @@ import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import type { SearchParams } from '@/types/index.js';
 
 const tabs = [
     {
@@ -27,19 +28,22 @@ const tabs = [
 
 export default function Page({
     params: { address, tokenId },
+    searchParams,
 }: {
     params: {
         address: string;
         tokenId: string;
     };
+    searchParams: SearchParams;
 }) {
     const comeback = useComeBack();
     const [currentTab, setCurrentTab] = useState<(typeof tabs)[number]['value']>('overflow');
+    const chainId = searchParams.chainId as string | undefined;
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ['sample-hash-asset', address, tokenId],
+        queryKey: ['sample-hash-asset', address, tokenId, chainId],
         queryFn() {
-            return SimpleHashEVM.getAsset(address, tokenId);
+            return SimpleHashEVM.getAsset(address, tokenId, { chainId: chainId ? parseInt(chainId, 10) : undefined });
         },
     });
     const floorPrice = useMemo(() => {
@@ -92,7 +96,6 @@ export default function Page({
                         icon: data?.collection?.iconURL ?? undefined,
                     }}
                     floorPrice={floorPrice}
-                    lastSale={floorPrice} // TODO: lastSale
                 />
                 <Tabs value={currentTab} onChange={setCurrentTab}>
                     {tabs.map((tab) => (
