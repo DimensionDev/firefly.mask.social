@@ -696,7 +696,7 @@ export interface Provider {
     getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
     /**
-     * Retrieve profiles who reposted the specified post.
+     * Retrieve profiles who re-posted the specified post.
      * @param postId
      * @param indicator
      * @returns
@@ -704,7 +704,7 @@ export interface Provider {
     getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
     /**
-     * Retrive posts that quote on the specified post.
+     * Retrieve posts that quote on the specified post.
      * @param postId
      * @param indicator
      * @returns
