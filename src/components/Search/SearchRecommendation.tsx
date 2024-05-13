@@ -4,7 +4,6 @@ import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -15,6 +14,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -23,7 +23,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
+import { type SearchState } from '@/store/useSearchStore.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -36,12 +36,10 @@ interface SearchRecommendationProps {
 export function SearchRecommendation(props: SearchRecommendationProps) {
     const { keyword, fullScreen = false, onSearch, onSelect, onClear } = props;
 
-    const router = useRouter();
     const debouncedKeyword = useDebounce(keyword, 300);
 
     const currentSource = useGlobalState.use.currentSource();
 
-    const { updateState } = useSearchStateStore();
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 
     const { data: profiles, isLoading } = useQuery({
@@ -102,12 +100,12 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     {records.length ? (
                         <ul className="my-4">
                             {records.map((record) => (
-                                <li
-                                    key={record}
+                                <Link
                                     className="flex cursor-pointer items-center text-ellipsis px-4 hover:bg-bg"
+                                    key={record}
+                                    href={`/search?q=${record}`}
                                     onClick={() => {
                                         addRecord(record);
-                                        updateState({ q: record });
                                         onSearch?.({ q: record });
                                     }}
                                 >
@@ -119,7 +117,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                         tooltip={t`Remove`}
                                         onClick={() => removeRecord(record)}
                                     />
-                                </li>
+                                </Link>
                             ))}
                         </ul>
                     ) : null}
@@ -132,8 +130,9 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <Trans>Publications</Trans>
                     </h2>
 
-                    <div
+                    <Link
                         className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
+                        href={`/search?q=${keyword}&type=${SearchType.Posts}`}
                         onClick={() =>
                             onSearch?.({
                                 type: SearchType.Posts,
@@ -143,7 +142,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     >
                         <SearchIcon width={18} height={18} className="shrink-0" />
                         <span className=" ml-4 text-ellipsis">{keyword}</span>
-                    </div>
+                    </Link>
                 </>
             ) : null}
 
@@ -168,12 +167,10 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         </div>
                     ) : (
                         <div className="py-2" key={channel.id}>
-                            <div
-                                className="cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
-                                onClick={() => {
-                                    router.push(getChannelUrl(channel));
-                                    onSelect?.(channel);
-                                }}
+                            <Link
+                                className="block cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
+                                href={getChannelUrl(channel)}
+                                onClick={() => onSelect?.(channel)}
                             >
                                 <div className="flex flex-row items-center">
                                     <Avatar
@@ -190,7 +187,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     )}
                 </>
@@ -217,13 +214,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             ) : keyword && profiles?.data.length ? (
                 <div className="py-2">
                     {profiles.data.slice(0, MAX_RECOMMEND_PROFILE_SIZE).map((profile) => (
-                        <div
-                            className="cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg "
+                        <Link
+                            className="block cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg "
                             key={profile.handle}
-                            onClick={() => {
-                                router.push(getProfileUrl(profile));
-                                onSelect?.(profile);
-                            }}
+                            href={getProfileUrl(profile)}
+                            onClick={() => onSelect?.(profile)}
                         >
                             <div className="flex flex-row items-center">
                                 <Avatar
@@ -241,7 +236,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     <div className=" font-normal text-secondary">@{profile.handle}</div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             ) : null}
