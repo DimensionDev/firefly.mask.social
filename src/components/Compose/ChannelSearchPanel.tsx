@@ -2,11 +2,10 @@ import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { Fragment, useState } from 'react';
 
-import DisableNoIcon from '@/assets/disable-no.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
-import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
@@ -71,13 +70,7 @@ export function ChannelSearchPanel() {
                                         {channel.name}
                                     </span>
                                 </div>
-                                {isSelected ? (
-                                    <YesIcon width={40} height={40} />
-                                ) : (
-                                    <div className="flex h-10 w-10 items-center justify-center">
-                                        <DisableNoIcon width={20} height={20} />
-                                    </div>
-                                )}
+                                <CircleCheckboxIcon checked={isSelected} />
                             </div>
                         </Fragment>
                     );

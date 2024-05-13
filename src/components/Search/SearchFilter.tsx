@@ -3,8 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
-import DisableNoIcon from '@/assets/disable-no.svg';
-import YesIcon from '@/assets/yes.svg';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { SearchType } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -53,13 +52,7 @@ export const SearchFilter = memo(function SearchFilter() {
                             >
                                 <span className=" flex-1 py-2 font-bold leading-6 dark:text-white">{filter.label}</span>
 
-                                {filter.type === searchType ? (
-                                    <YesIcon width={40} height={40} />
-                                ) : (
-                                    <div className="flex h-10 w-10 items-center justify-center">
-                                        <DisableNoIcon width={20} height={20} />
-                                    </div>
-                                )}
+                                <CircleCheckboxIcon checked={filter.type === searchType} />
                             </Link>
                         ))}
                 </div>

@@ -1,5 +1,4 @@
-import DisableNoIcon from '@/assets/disable-no.svg';
-import YesIcon from '@/assets/yes.svg';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar, type ProfileAvatarProps } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
@@ -30,13 +29,7 @@ export function ProfileInList({ isSelected, onSelect, profile, ProfileAvatarProp
                 <ProfileAvatar profile={profile} size={48} {...ProfileAvatarProps} />
             </div>
             <ProfileName profile={profile} />
-            {isSelected ? (
-                <YesIcon width={40} height={40} />
-            ) : (
-                <div className="flex h-10 w-10 items-center justify-center">
-                    <DisableNoIcon width={20} height={20} />
-                </div>
-            )}
+            <CircleCheckboxIcon checked={isSelected} />
         </ClickableButton>
     );
 }
