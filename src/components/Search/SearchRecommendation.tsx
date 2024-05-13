@@ -4,7 +4,6 @@ import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -24,6 +23,7 @@ import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
+import { Link } from '@/esm/Link.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -36,7 +36,6 @@ interface SearchRecommendationProps {
 export function SearchRecommendation(props: SearchRecommendationProps) {
     const { keyword, fullScreen = false, onSearch, onSelect, onClear } = props;
 
-    const router = useRouter();
     const debouncedKeyword = useDebounce(keyword, 300);
 
     const currentSource = useGlobalState.use.currentSource();
@@ -168,12 +167,9 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         </div>
                     ) : (
                         <div className="py-2" key={channel.id}>
-                            <div
+                            <Link
                                 className="cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
-                                onClick={() => {
-                                    router.push(getChannelUrl(channel));
-                                    onSelect?.(channel);
-                                }}
+                                href={getChannelUrl(channel)}
                             >
                                 <div className="flex flex-row items-center">
                                     <Avatar
@@ -190,7 +186,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     )}
                 </>
@@ -217,13 +213,10 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             ) : keyword && profiles?.data.length ? (
                 <div className="py-2">
                     {profiles.data.slice(0, MAX_RECOMMEND_PROFILE_SIZE).map((profile) => (
-                        <div
+                        <Link
                             className="cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg "
                             key={profile.handle}
-                            onClick={() => {
-                                router.push(getProfileUrl(profile));
-                                onSelect?.(profile);
-                            }}
+                            href={getProfileUrl(profile)}
                         >
                             <div className="flex flex-row items-center">
                                 <Avatar
@@ -241,7 +234,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     <div className=" font-normal text-secondary">@{profile.handle}</div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             ) : null}
