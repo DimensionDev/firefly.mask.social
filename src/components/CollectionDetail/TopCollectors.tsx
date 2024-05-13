@@ -1,4 +1,5 @@
-import { createIndicator } from '@masknet/shared-base';
+import { Trans } from '@lingui/macro';
+import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
@@ -72,7 +73,7 @@ export function TopCollectors(props: TopCollectorsProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? []),
+        select: (data) => data.pages.flatMap((page) => page?.data ?? EMPTY_LIST),
     });
 
     return (
@@ -87,17 +88,19 @@ export function TopCollectors(props: TopCollectorsProps) {
                     return (
                         <tr className="text-[15px] font-bold leading-6">
                             <th className="pb-2 pr-2 text-left">#</th>
-                            <th className="px-2 pb-2 text-left">Address</th>
+                            <th className="px-2 pb-2 text-left">
+                                <Trans>Address</Trans>
+                            </th>
                             <th
                                 className={classNames('px-2 pb-2 text-right', {
                                     'sm:text-center': !!totalQuantity,
                                 })}
                             >
-                                Owned
+                                <Trans>Owned</Trans>
                             </th>
                             {totalQuantity ? (
                                 <th className="hidden w-[195px] pb-2 pl-2 text-right sm:table-cell">
-                                    %Of supply owned
+                                    <Trans>%Of supply owned</Trans>
                                 </th>
                             ) : null}
                         </tr>

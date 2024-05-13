@@ -1,6 +1,6 @@
 'use client';
 
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
@@ -19,7 +19,7 @@ export function NFTList(props: { address: string; chainId?: ChainId }) {
             return SimpleHashEVM.getAssetsByCollection(address, { indicator, chainId });
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page.data ?? []),
+        select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
     });
 
     return (

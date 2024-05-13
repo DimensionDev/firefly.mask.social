@@ -1,6 +1,7 @@
 'use client';
 
-import { resolveChainId } from '@masknet/web3-providers';
+import { SimpleHash } from '@masknet/web3-providers/helpers';
+import { first } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
@@ -14,10 +15,9 @@ export function NFTs(props: { address: string }) {
     const [selectedCollection, setSelectedCollection] = useState<CollectionDetails | null>(null);
 
     const [selectedCollectionContractChainId, selectedCollectionContractAddress] = useMemo(() => {
-        if (!selectedCollection) return [null, null];
-        if (!selectedCollection.top_contracts?.[0]) return [null, null];
+        if (!selectedCollection || !first(selectedCollection.top_contracts)) return [null, null];
         const [chain, address] = selectedCollection.top_contracts[0].split('.');
-        return [resolveChainId(chain), address];
+        return [SimpleHash.resolveChainId(chain), address];
     }, [selectedCollection]);
 
     return (
