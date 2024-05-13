@@ -262,6 +262,11 @@ export type CastsOfChannelResponse = Response<{
     channel: Channel;
 }>;
 
+export type PostQuotesResponse = Response<{
+    quotes: Cast[];
+    cursor: string;
+}>;
+
 export type SearchChannelsResponse = Response<{
     channels: ChannelBrief[];
     cursor: string;

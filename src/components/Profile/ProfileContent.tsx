@@ -9,7 +9,6 @@ import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
 import { WalletTabs } from '@/components/Profile/WalletTabs.js';
 import { PageRoute, Source } from '@/constants/enum.js';
-import { isMyProfile } from '@/helpers/isMyProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import type { FireFlyProfile, Relation, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -35,12 +34,7 @@ export function ProfileContent({ loading, source, walletProfile, profile, profil
             return <WalletInfo profile={walletProfile} relations={relations} />;
         }
         if (profile) {
-            const isMyself = isMyProfile(
-                profile.source,
-                profile.source === Source.Lens ? profile.handle : profile.profileId,
-            );
-
-            return <Info profile={profile} isMyProfile={isMyself} source={profile.source} />;
+            return <Info profile={profile} />;
         }
 
         return null;
