@@ -23,10 +23,10 @@ import type {
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';

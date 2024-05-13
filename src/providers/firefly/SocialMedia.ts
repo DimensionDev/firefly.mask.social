@@ -2,10 +2,10 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
-    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
