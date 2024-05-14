@@ -847,9 +847,6 @@ msgstr "Failed to mirror post."
 msgid "Failed to create firefly session."
 msgstr "Failed to create firefly session."
 
-msgid "Properties"
-msgstr "Properties"
-
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
 
@@ -1101,9 +1098,6 @@ msgstr "<0/> mentioned you in a <1><2/></1>"
 
 msgid "Login"
 msgstr "Login"
-
-msgid "Overflow"
-msgstr "Overflow"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"

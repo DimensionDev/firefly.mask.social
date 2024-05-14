@@ -852,9 +852,6 @@ msgstr "转发失败"
 msgid "Failed to create firefly session."
 msgstr "创建 firefly 会话失败。"
 
-msgid "Properties"
-msgstr ""
-
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
@@ -1106,9 +1103,6 @@ msgstr "<0/> 在 <1><2/></1> 提及了你"
 
 msgid "Login"
 msgstr "登录"
-
-msgid "Overflow"
-msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"

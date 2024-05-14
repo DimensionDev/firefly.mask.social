@@ -847,9 +847,6 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr ""
 
-msgid "Properties"
-msgstr ""
-
 msgid "Delegate Signing (Recommend)"
 msgstr ""
 
@@ -1100,9 +1097,6 @@ msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Login"
-msgstr ""
-
-msgid "Overflow"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
