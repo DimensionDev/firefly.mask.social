@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation.js';
-import { startTransition } from 'react';
+import { startTransition, useLayoutEffect } from 'react';
 
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES } from '@/constants/index.js';
@@ -23,13 +23,6 @@ export function SourceTabs() {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    if (
-        (pathname === PageRoute.Following && currentSource === Source.Article && !fireflySession) ||
-        (pathname !== PageRoute.Following && pathname !== PageRoute.Home && currentSource === Source.Article)
-    ) {
-        updateCurrentSource(Source.Farcaster);
-    }
-
     const sources =
         pathname === PageRoute.Bookmarks
             ? SORTED_BOOKMARK_SOURCES
@@ -39,6 +32,12 @@ export function SourceTabs() {
                       return true;
                   return false;
               });
+
+    const shouldReset = !sources.includes(currentSource);
+
+    useLayoutEffect(() => {
+        updateCurrentSource(Source.Farcaster);
+    }, [shouldReset, updateCurrentSource]);
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">

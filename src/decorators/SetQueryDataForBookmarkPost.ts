@@ -46,13 +46,13 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
 
     if (!status) {
         queryClient.setQueryData<{ pages: Array<{ data: Array<Post | Article> }> }>(
-            ['posts', source, 'bookmark'],
+            ['posts', 'article', 'bookmark'],
             (old) => {
                 if (!old) return old;
                 return produce(old, (draft) => {
                     draft.pages.forEach((page) => {
                         page.data = page.data.filter((post) => {
-                            if ('id' in post) return post.id === postId; // Article
+                            if ('id' in post) return post.id !== postId; // Article
                             else return post.postId !== postId; // Post
                         });
                     });
