@@ -40,7 +40,7 @@ export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
             }}
         >
             {collapsed ? (
-                <Tooltip content={account.address} placement="right">
+                <Tooltip content={account.address || text} placement="right">
                     <WalletIcon className="flex-shrink-0" width={20} height={20} />
                 </Tooltip>
             ) : (
