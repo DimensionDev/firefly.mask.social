@@ -4,13 +4,13 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
-import { ScrollListKey } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 export function ArticleBookmarkList() {
     const query = useSuspenseInfiniteQuery({
-        queryKey: ['posts', 'article', 'bookmark'],
+        queryKey: ['posts', Source.Article, 'bookmark'],
         queryFn: async ({ pageParam }) => {
             try {
                 const result = await FireflyArticleProvider.getBookmarks(createIndicator(undefined, pageParam));
