@@ -1,31 +1,18 @@
 'use client';
 
-import { t } from '@lingui/macro';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import ComeBack from '@/assets/comeback.svg';
 import { Loading } from '@/components/Loading.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
-import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import type { SearchParams } from '@/types/index.js';
-
-const tabs = [
-    {
-        label: t`Overflow`,
-        value: 'overflow',
-    },
-    {
-        label: t`Properties`,
-        value: 'properties',
-    },
-] as const;
 
 export default function Page({
     params: { address, tokenId },
@@ -38,11 +25,10 @@ export default function Page({
     searchParams: SearchParams;
 }) {
     const comeback = useComeBack();
-    const [currentTab, setCurrentTab] = useState<(typeof tabs)[number]['value']>('overflow');
     const chainId = searchParams.chainId as string | undefined;
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ['sample-hash-asset', address, tokenId, chainId],
+        queryKey: ['simple-hash-asset', address, tokenId, chainId],
         queryFn() {
             return SimpleHashEVM.getAsset(address, tokenId, { chainId: chainId ? parseInt(chainId, 10) : undefined });
         },
@@ -55,29 +41,11 @@ export default function Page({
         }`;
     }, [data]);
 
-    const tabPanel = useMemo(
-        () =>
-            ({
-                overflow: (
-                    <NFTOverflow
-                        description={data?.metadata?.description ?? ''}
-                        tokenId={data?.tokenId}
-                        contractAddress={data?.contract?.address ?? ''}
-                        creator={data?.creator?.address}
-                        chainId={data?.chainId}
-                        schemaType={data?.contract?.schema}
-                    />
-                ),
-                properties: <div>properties</div>,
-            })[currentTab],
-        [data, currentTab],
-    );
-
     if (isLoading) {
         return <Loading />;
     }
 
-    if (error) {
+    if (error || !data) {
         notFound();
     }
 
@@ -100,14 +68,14 @@ export default function Page({
                     }}
                     floorPrice={floorPrice}
                 />
-                <Tabs value={currentTab} onChange={setCurrentTab}>
-                    {tabs.map((tab) => (
-                        <Tab value={tab.value} key={tab.value}>
-                            {tab.label}
-                        </Tab>
-                    ))}
-                </Tabs>
-                {tabPanel}
+                <NFTOverflow
+                    description={data?.metadata?.description ?? ''}
+                    tokenId={data?.tokenId}
+                    contractAddress={data?.contract?.address ?? ''}
+                    creator={data?.creator?.address}
+                    chainId={data?.chainId}
+                    schemaType={data?.contract?.schema}
+                />
             </div>
         </div>
     );
