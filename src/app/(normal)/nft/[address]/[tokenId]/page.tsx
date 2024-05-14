@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { SimpleHashEVM } from '@masknet/web3-providers';
 import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -14,6 +13,7 @@ import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import type { SearchParams } from '@/types/index.js';
 
 const tabs = [
@@ -42,9 +42,11 @@ export default function Page({
     const chainId = searchParams.chainId as string | undefined;
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ['sample-hash-asset', address, tokenId, chainId],
+        queryKey: ['nft', address, tokenId, chainId],
         queryFn() {
-            return SimpleHashEVM.getAsset(address, tokenId, { chainId: chainId ? parseInt(chainId, 10) : undefined });
+            return SimpleHashWalletProfileProvider.getNFT(address, tokenId, {
+                chainId: chainId ? parseInt(chainId) : undefined,
+            });
         },
     });
     const floorPrice = useMemo(() => {

@@ -1,7 +1,6 @@
 'use client';
 
 import { createIndicator } from '@masknet/shared-base';
-import { SimpleHashEVM } from '@masknet/web3-providers';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -13,6 +12,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
@@ -79,7 +79,7 @@ export function POAPList(props: { address: string }) {
         queryKey: ['poap-list', address],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            return SimpleHashEVM.getAssets(address!, { indicator });
+            return SimpleHashWalletProfileProvider.getPOAPs(address, { indicator });
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? []),

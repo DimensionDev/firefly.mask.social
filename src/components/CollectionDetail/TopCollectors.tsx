@@ -9,6 +9,7 @@ import { Image } from '@/components/Image.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export interface TopCollectorsProps {
     address: string;
@@ -69,7 +70,7 @@ export function TopCollectors(props: TopCollectorsProps) {
         queryKey: ['top-collectors', address],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            return SimpleHashEVM.getTopCollectorsByContract(address, { indicator, chainId });
+            return SimpleHashWalletProfileProvider.getTopCollectors(address, { indicator, chainId });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
