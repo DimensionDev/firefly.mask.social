@@ -75,6 +75,14 @@ export default {
                         key: 'X-Frame-Options',
                         value: 'DENY',
                     },
+                    {
+                        key: 'X-Content-Type-Options',
+                        value: 'nosniff', // Prevent MIME type sniffing
+                    },
+                    {
+                        key: 'X-XSS-Protection',
+                        value: '1; mode=block', // Prevent rendering
+                    },
                 ],
             },
             {
