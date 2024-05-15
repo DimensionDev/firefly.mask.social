@@ -571,6 +571,9 @@ msgstr ""
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "What's happening..."
 msgstr ""
 
