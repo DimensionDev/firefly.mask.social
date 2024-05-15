@@ -17,6 +17,7 @@ import urlcat from 'urlcat';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function usePostInfo(post: Post) {
@@ -30,13 +31,16 @@ export function usePostInfo(post: Post) {
         );
 
         const mentionedLinks = post.metadata.content?.content?.match(URL_REGEX) || EMPTY_LIST;
+        const url = parseURL(urlcat(SITE_URL, getPostUrl(post)));
+        const avatarURL = parseURL(post.author.pfp);
 
         return {
             author: createConstantSubscription(author),
             handle: createConstantSubscription(post.author.fullHandle),
             source: post.source,
             coAuthors: EMPTY_ARRAY,
-            avatarURL: createConstantSubscription(new URL(post.author.pfp)),
+            url: createConstantSubscription(url),
+            avatarURL: createConstantSubscription(avatarURL),
             nickname: createConstantSubscription(post.author.displayName),
             site: EnhanceableSite.Firefly,
             postID: createConstantSubscription(post.postId),
@@ -50,7 +54,6 @@ export function usePostInfo(post: Post) {
             suggestedInjectionPoint: document.body,
             comment: undefined,
             identifier: createConstantSubscription(author ? new PostIdentifier(author, post.postId) : null),
-            url: createConstantSubscription(new URL(urlcat(SITE_URL, getPostUrl(post)))),
             mentionedLinks: createConstantSubscription(mentionedLinks),
             postMetadataImages: createConstantSubscription(imageUris),
             rawMessage: createConstantSubscription(makeTypedMessageTuple([makeTypedMessageEmpty()])),
