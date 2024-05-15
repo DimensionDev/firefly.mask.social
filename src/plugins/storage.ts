@@ -1,6 +1,10 @@
+import { parseJSON } from '@masknet/web3-providers/helpers';
+
 const hasOPFS = typeof navigator?.storage?.getDirectory === 'function';
 const ls = typeof window === 'undefined' ? undefined : window.localStorage;
 const cacheFileName = 'opfs-storage-v1.txt';
+
+type StorageStructure = Record<string, string>;
 
 const getOPFSAccessHandle = async () => {
     if (!hasOPFS) throw new Error('OPFS is not supported');
@@ -32,7 +36,7 @@ export class OPFSStorageProvider {
     static async setItem(key: string, value: string) {
         try {
             const content = await readFromOPFS();
-            const data = JSON.parse(content || '{}');
+            const data = parseJSON<StorageStructure>(content) ?? {};
             data[key] = value;
             await writeToOPFS(JSON.stringify(data));
         } catch {
@@ -42,7 +46,7 @@ export class OPFSStorageProvider {
     static async getItem(key: string) {
         try {
             const content = await readFromOPFS();
-            const data = JSON.parse(content || '{}');
+            const data = parseJSON<StorageStructure>(content) ?? {};
             return data[key] ?? null;
         } catch {
             return ls?.getItem(key);
@@ -51,7 +55,7 @@ export class OPFSStorageProvider {
     static async removeItem(key: string) {
         try {
             const content = await readFromOPFS();
-            const data = JSON.parse(content || '{}');
+            const data = parseJSON<StorageStructure>(content) ?? {};
             delete data[key];
             await writeToOPFS(JSON.stringify(data));
         } catch {

@@ -50,6 +50,8 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
     NEXT_PUBLIC_SENTRY_DSN: z.string(),
+
+    NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 });
 
 export const env = {
@@ -78,5 +80,6 @@ export const env = {
         NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
 
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
+        NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
     }),
 };
