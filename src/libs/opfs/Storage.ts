@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { parseJSON } from '@masknet/web3-providers/helpers';
 
 const hasOPFS = typeof navigator?.storage?.getDirectory === 'function';

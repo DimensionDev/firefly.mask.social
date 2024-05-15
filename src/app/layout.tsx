@@ -1,11 +1,13 @@
+/* cspell:disable */
+
 import '@/app/globals.css';
 
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 import { lazy } from 'react';
 
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
-import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -52,6 +54,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Polyfills />
                 <Script src="/js/browser-detector.js" defer />
                 <meta name="theme-color" content="#ffffff" />
+                <GoogleTagManager gtmId="GTM-WZZF2ZCF" />
+                <GoogleAnalytics gaId="G-5VSBSKJ6JM" />
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
@@ -63,7 +67,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </div>
                     <Modals />
                 </Providers>
-                <GA />
                 <SpeedInsights />
                 <BeforeUnload />
                 <Script
