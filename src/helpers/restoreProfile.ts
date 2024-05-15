@@ -26,8 +26,3 @@ export function restoreProfile(
     store?.getState().updateCurrentProfile(currentProfile, session);
     resolveSessionHolderFromSessionType(session.type)?.resumeSession(session);
 }
-
-export function restoreSessionForFirefly(session: FireflySession | null) {
-    if (!session) return;
-    resolveSessionHolderFromSessionType(session.type)?.resumeSession(session);
-}
