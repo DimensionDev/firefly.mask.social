@@ -47,7 +47,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
                     maxWidth={400}
                     className="tippy-card"
                     placement="bottom-end"
-                    duration={200}
+                    duration={500}
                     arrow={false}
                     trigger="mouseenter"
                     hideOnClick

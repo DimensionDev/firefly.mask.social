@@ -32,9 +32,10 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ iden
         <Tippy
             appendTo={() => document.body}
             maxWidth={400}
+            offset={[-100, 0]}
             className="tippy-card"
             placement="bottom"
-            duration={200}
+            duration={500}
             arrow={false}
             trigger="mouseenter"
             hideOnClick
