@@ -6,6 +6,8 @@ import { createRequire } from 'module';
 import CopyPlugin from 'copy-webpack-plugin';
 import { execSync } from 'child_process';
 
+import { POLICY_SETTINGS } from './csp.js';
+
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
 const outputPath = fileURLToPath(new URL('./public', import.meta.url));
@@ -74,6 +76,18 @@ export default {
                     {
                         key: 'X-Frame-Options',
                         value: 'DENY',
+                    },
+                    {
+                        key: 'X-Content-Type-Options',
+                        value: 'nosniff', // Prevent MIME type sniffing
+                    },
+                    {
+                        key: 'X-XSS-Protection',
+                        value: '1; mode=block', // Prevent rendering
+                    },
+                    {
+                        key: 'Content-Security-Policy-Report-Only',
+                        value: POLICY_SETTINGS,
                     },
                 ],
             },
