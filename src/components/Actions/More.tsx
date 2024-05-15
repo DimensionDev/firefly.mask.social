@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChartBarIcon } from '@heroicons/react/24/outline';
-import { Select, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
 import { Fragment, memo } from 'react';
@@ -15,7 +15,6 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EngagementType, NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -48,7 +47,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isMyPost = isSameProfile(author, currentProfile);
 
     const isFollowing = !!author.viewerContext?.following;
-    const [{ loading: togglingFollow }, handleToggle] = useToggleFollow(author);
+    const [togglingFollow, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
     const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
@@ -131,10 +130,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     <MenuButton
                                         onClick={async () => {
                                             close();
-                                            await handleToggle();
-                                            queryClient.invalidateQueries({
-                                                queryKey: [source, 'post-detail', id],
-                                            });
+                                            toggleFollow.mutate();
                                         }}
                                     >
                                         {togglingFollow ? (
@@ -145,13 +141,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             <FollowUserIcon width={24} height={24} />
                                         )}
                                         <span className="font-bold leading-[22px] text-main">
-                                            <Select
-                                                value={isFollowing ? 'unfollow' : 'follow'}
-                                                _follow="Follow"
-                                                _unfollow="Unfollow"
-                                                other="Follow"
-                                            />{' '}
-                                            @{author.handle}
+                                            {isFollowing ? t`Unfollow @${author.handle}` : t`Follow @${author.handle}`}
                                         </span>
                                     </MenuButton>
                                 )}
@@ -195,6 +185,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     {id ? (
                         <Menu.Item
                             as={Link}
+                            shallow
                             href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
                             className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}

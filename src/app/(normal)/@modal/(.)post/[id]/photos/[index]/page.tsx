@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
@@ -17,7 +18,6 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

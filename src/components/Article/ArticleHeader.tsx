@@ -6,8 +6,7 @@ import urlcat from 'urlcat';
 import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { NODE_ENV, SourceInURL } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
@@ -54,7 +53,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={article.timestamp} />
                 </span>
-                {env.shared.NODE_ENV === NODE_ENV.Development ? <ArticleMoreAction article={article} /> : null}
+                <ArticleMoreAction article={article} />
                 {/* TODO: report and mute */}
             </div>
         </div>

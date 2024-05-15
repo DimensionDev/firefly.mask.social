@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
@@ -7,7 +8,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';

@@ -4,12 +4,18 @@ import { useMutation } from '@tanstack/react-query';
 import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { toggleBookmark } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { LoginModalRef } from '@/modals/controls.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 
 export function useToggleArticleBookmark() {
     return useMutation({
         mutationFn: async (article: Article) => {
+            if (!fireflySessionHolder.session) {
+                LoginModalRef.open();
+                return;
+            }
             const { hasBookmarked } = article;
             try {
                 if (hasBookmarked) {

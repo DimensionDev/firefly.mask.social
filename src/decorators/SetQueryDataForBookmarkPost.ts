@@ -2,23 +2,26 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { Source } from '@/constants/enum.js';
+import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Article } from '@/providers/types/Article.js';
-import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
+
+function patchPostStats(stats: Post['stats'], status: boolean) {
+    return {
+        ...stats,
+        comments: stats?.comments || 0,
+        mirrors: stats?.mirrors || 0,
+        reactions: stats?.reactions || 0,
+        bookmarks: (stats?.bookmarks || 0) + (status ? 1 : -1),
+    };
+}
 
 export function toggleBookmark(source: Source, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         draft.hasBookmarked = status;
-        draft.stats = produce(draft.stats, (old) => {
-            return {
-                ...old,
-                comments: old?.comments || 0,
-                mirrors: old?.mirrors || 0,
-                reactions: old?.reactions || 0,
-                bookmarks: (old?.bookmarks || 0) + (status ? 1 : -1),
-            };
-        });
+        draft.stats = patchPostStats(draft.stats, status);
     });
 
     // Articles
@@ -34,6 +37,13 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
         });
     });
 
+    patchNotificationQueryDataOnPost(source, (post) => {
+        if (post.postId === postId) {
+            post.hasBookmarked = status;
+            post.stats = patchPostStats(post.stats, status);
+        }
+    });
+
     if (!status) {
         queryClient.setQueryData<{ pages: Array<{ data: Array<Post | Article> }> }>(
             ['posts', source, 'bookmark'],
@@ -42,7 +52,7 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
                 return produce(old, (draft) => {
                     draft.pages.forEach((page) => {
                         page.data = page.data.filter((post) => {
-                            if ('id' in post) return post.id === postId; // Article
+                            if ('id' in post) return post.id !== postId; // Article
                             else return post.postId !== postId; // Post
                         });
                     });

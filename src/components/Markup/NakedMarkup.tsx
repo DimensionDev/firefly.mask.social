@@ -22,8 +22,8 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             return compact([
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
                 remarkBreaks,
-                post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 linkifyRegex(URL_REGEX),
+                post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 linkifyRegex(HASHTAG_REGEX),
             ]);
         const handles = post.mentions.map((x) => x.fullHandle);
@@ -31,12 +31,12 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
-            post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat
             // as a mention rather than link
             linkifyRegex(mentionRe),
             linkifyRegex(URL_REGEX),
+            post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
             linkifyRegex(HASHTAG_REGEX),
         ]);
     }, [post?.mentions, post?.source]);

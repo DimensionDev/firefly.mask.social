@@ -33,9 +33,6 @@ export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HU
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
-export const EMPTY_LIST = Object.freeze([]) as never[];
-export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
-
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
     [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
@@ -44,7 +41,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
     // TODO No API to fetch recasts for now.
-    [Source.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
+    [Source.Farcaster]: [EngagementType.Quotes, EngagementType.Recasts, EngagementType.Likes],
     [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
@@ -58,7 +55,7 @@ export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twit
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]
-        : [Source.Farcaster, Source.Lens];
+        : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 

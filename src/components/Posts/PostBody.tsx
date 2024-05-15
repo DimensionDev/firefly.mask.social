@@ -1,24 +1,25 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
-import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Frame } from '@/components/Frame/index.js';
 import { Markup } from '@/components/Markup/Markup.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
+import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -91,26 +92,16 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     if (post.isHidden || muted) {
         return (
-            <div
+            <CollapsedContent
                 className={classNames({
                     'pl-[52px]': !disablePadding,
                     'my-2': !isQuote,
                 })}
                 ref={ref}
-            >
-                <div
-                    className={classNames(
-                        'flex items-center gap-1 rounded-lg border-primaryMain  py-[6px] text-[15px]',
-                        {
-                            border: !isQuote,
-                            'px-3': !isQuote,
-                        },
-                    )}
-                >
-                    <EyeSlash width={16} height={16} />
-                    {muted ? <Trans>The author is muted by you.</Trans> : <Trans>Post has been hidden</Trans>}
-                </div>
-            </div>
+                authorMuted={muted}
+                isQuote={isQuote}
+                disableIndent={disablePadding}
+            />
         );
     }
 
@@ -202,12 +193,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 post.metadata.content.oembedUrls.slice(MAX_FRAME_SIZE_PER_POST * -1).map((oembedUrl, i, urls) => (
                     <Frame key={oembedUrl} url={oembedUrl} postId={post.postId}>
                         {/* oembed for the last url */}
-                        {i === urls.length - 1 ? (
+                        {i === urls.length - 1 && !post.quoteOn ? (
                             <Oembed url={oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
                         ) : null}
                     </Frame>
                 ))
-            ) : post.metadata.content?.oembedUrl ? (
+            ) : post.metadata.content?.oembedUrl && !post.quoteOn ? (
                 <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
             ) : null}
 

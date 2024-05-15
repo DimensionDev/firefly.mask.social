@@ -5,24 +5,24 @@ import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { isMyProfile } from '@/helpers/isMyProfile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
-    isMyProfile: boolean;
-    profile?: Profile;
-    source: SocialSource;
+    profile: Profile;
 }
 
-export function Info({ isMyProfile, profile, source }: InfoProps) {
-    const followingCount = profile?.followingCount ?? 0;
-    const followerCount = profile?.followerCount ?? 0;
+export function Info({ profile }: InfoProps) {
+    const source = profile.source;
+    const followingCount = profile.followingCount ?? 0;
+    const followerCount = profile.followerCount ?? 0;
 
     const isMedium = useIsMedium();
 
@@ -44,7 +44,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
-                        {!isMyProfile && profile && isMedium && source !== Source.Twitter ? (
+                        {profile && !isMyProfile(profile) && isMedium && source !== Source.Twitter ? (
                             <>
                                 <div className="ml-auto ">
                                     <FollowButton profile={profile} />

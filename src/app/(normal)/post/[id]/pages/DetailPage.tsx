@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { createPageable } from '@masknet/shared-base';
+import { createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
@@ -14,7 +14,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { type SocialSourceInURL, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
+import { MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

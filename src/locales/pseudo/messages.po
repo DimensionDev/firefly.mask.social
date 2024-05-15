@@ -646,6 +646,9 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
+msgid "Unfollow @{0}"
+msgstr ""
+
 msgid "Discard"
 msgstr ""
 
@@ -925,6 +928,9 @@ msgstr ""
 msgid "Post remove from your Bookmarks"
 msgstr ""
 
+msgid "Follow @{0}"
+msgstr ""
+
 msgid "Cancel Recast"
 msgstr ""
 
@@ -989,9 +995,6 @@ msgid "Recast"
 msgstr ""
 
 msgid "Followers"
-msgstr ""
-
-msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"

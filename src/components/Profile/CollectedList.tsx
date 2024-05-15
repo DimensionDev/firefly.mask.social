@@ -1,10 +1,9 @@
-import { createIndicator, createPageable } from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';

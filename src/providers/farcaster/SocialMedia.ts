@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
-import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
 import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
@@ -293,7 +294,7 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.unblockUser(profileId);
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getPostsQuoteOn(postId, indicator);
     }
     async bookmark(
         postId: string,

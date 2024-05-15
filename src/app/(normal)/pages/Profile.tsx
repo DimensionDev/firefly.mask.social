@@ -1,6 +1,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
@@ -12,7 +13,7 @@ import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
 import { PageRoute, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';

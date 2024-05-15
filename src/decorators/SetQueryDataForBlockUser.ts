@@ -2,8 +2,9 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Profile, Provider } from '@/providers/types/SocialMedia.js';
+import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
@@ -24,6 +25,15 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
                 blocking: status,
             };
         });
+    });
+
+    patchNotificationQueryDataOnAuthor(source, (profile) => {
+        if (profile.profileId === profileId) {
+            profile.viewerContext = {
+                ...profile.viewerContext,
+                blocking: status,
+            };
+        }
     });
 
     queryClient.setQueryData(['profile-is-muted', source, profileId], status);
