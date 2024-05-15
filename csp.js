@@ -28,4 +28,3 @@ if (process.env.NODE_ENV === 'development') {
 export const POLICY_SETTINGS = Object.entries(cspConfig)
     .map(([key, value]) => `${key} ${value.join(' ')}`)
     .join('; ');
-
