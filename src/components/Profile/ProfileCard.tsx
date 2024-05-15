@@ -46,7 +46,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
     }
 
     return (
-        <ClickableArea className="flex  h-[238px] w-[400px] flex-col gap-y-3 rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
+        <ClickableArea className="flex w-[400px] flex-col gap-y-3 rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
             <div className="flex gap-[10px]">
                 <Link href={url}>
                     <Avatar
@@ -115,7 +115,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                 </BioMarkup>
             </Link>
 
-            <FollowButton style={{ height: 40 }} className="w-full" profile={profile} />
+            <FollowButton style={{ height: 40 }} className="min-h-[40px] w-full" profile={profile} />
         </ClickableArea>
     );
 });
