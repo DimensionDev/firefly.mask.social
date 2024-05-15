@@ -70,7 +70,10 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
                 <div className="flex flex-1 flex-col justify-between">
                     <div className=" flex items-center gap-[6px]">
-                        <span onClick={handleNavigateToDetail} className="cursor-pointer text-lg font-bold text-lightMain">
+                        <span
+                            onClick={handleNavigateToDetail}
+                            className="cursor-pointer text-lg font-bold text-lightMain"
+                        >
                             {channel?.name}
                         </span>
                         <SocialSourceIcon source={channel.source} size={18} />
@@ -82,9 +85,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         <span> /{channel?.id}</span>
                         <div className="flex items-center gap-2">
                             <UserIcon width={18} height={18} />
-                            <span className=" text-[15px] leading-6 text-lightMain">
-                                {nFormatter(followerCount)}
-                            </span>
+                            <span className=" text-[15px] leading-6 text-lightMain">{nFormatter(followerCount)}</span>
                         </div>
                     </div>
 
