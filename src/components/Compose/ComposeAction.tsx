@@ -48,7 +48,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { availableSources, chars, images, video, restriction, isRootPost, parentPost, channel } = useCompositePost();
+    const { availableSources, chars, images, video, restriction, parentPost, channel } = useCompositePost();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
 
@@ -210,7 +210,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={!isRootPost || availableSources.some((x) => !!parentPost[x])}
+                                disabled={availableSources.some((x) => !!parentPost[x])}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources
@@ -236,10 +236,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button
-                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={!isRootPost}
-                            >
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
                                 <span className=" text-[15px] font-bold">
                                     <ReplyRestrictionText type={restriction} />
                                 </span>
@@ -258,10 +255,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     <Popover as="div" className="relative">
                         {(_) => (
                             <>
-                                <Popover.Button
-                                    className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                    disabled={!isRootPost}
-                                >
+                                <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
                                     <span className=" text-[15px] font-bold">
                                         {compact(
                                             SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
