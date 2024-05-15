@@ -204,7 +204,7 @@ export function MentionsPlugin(): JSX.Element | null {
 
     return (
         <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
-            anchorClassName="!fixed"
+            anchorClassName="!fixed z-[100]"
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
                 return anchorElementRef.current && options.length
                     ? createPortal(
