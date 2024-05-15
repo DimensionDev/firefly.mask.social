@@ -11,6 +11,38 @@ const __dirname = fileURLToPath(dirname(import.meta.url));
 const outputPath = fileURLToPath(new URL('./public', import.meta.url));
 const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
+const isDev = process.env.NODE_ENV === 'development';
+const cspConfig = {
+    'default-src': ['https:', 'wss:', "'self'"],
+    'script-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        'https://www.googletagmanager.com/',
+        'https://cdn.jsdelivr.net',
+        'https://*.vercel-scripts.com',
+        'https://*.firefly.land/',
+    ],
+    'style-src': ["'self'", "'unsafe-inline'"],
+    'worker-src': ["'self'", 'blob:'],
+};
+
+// Add Sentry DSN to CSP report-uri
+if (process.env.NEXT_PUBLIC_SENTRY_REPORT_URL) {
+    cspConfig['report-uri'] = [process.env.NEXT_PUBLIC_SENTRY_REPORT_URL];
+}
+
+if (isDev) {
+    Object.entries(cspConfig).forEach(([key, value]) => {
+        if (key === 'report-uri') return;
+        value.push('http://localhost:3000', 'ws://localhost:3000');
+    });
+}
+
+const cspHeaderContent = Object.entries(cspConfig)
+    .map(([key, value]) => `${key} ${value.join(' ')}`)
+    .join('; ');
+
 /** @type {import('next').NextConfig} */
 export default {
     // Note: we run tsc and eslint in other places
@@ -82,6 +114,10 @@ export default {
                     {
                         key: 'X-XSS-Protection',
                         value: '1; mode=block', // Prevent rendering
+                    },
+                    {
+                        key: 'Content-Security-Policy-Report-Only',
+                        value: cspHeaderContent,
                     },
                 ],
             },
