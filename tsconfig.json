@@ -151,7 +151,7 @@
             "@masknet/plugin-calendar/register": ["./src/maskbook/packages/plugins/Calendar/src/register.ts"]
         }
     },
-    "include": ["globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
     "exclude": [
         "node_modules",
         "src/service-workers",
