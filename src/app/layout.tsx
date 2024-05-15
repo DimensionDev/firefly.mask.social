@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import '@/app/globals.css';
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
@@ -52,9 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Polyfills />
                 <Script src="/js/browser-detector.js" defer />
                 <meta name="theme-color" content="#ffffff" />
-                {/* cspell: disable-next-line */}
                 <GoogleTagManager gtmId="GTM-WZZF2ZCF" />
-                {/* cspell: disable-next-line */}
                 <GoogleAnalytics gaId="G-5VSBSKJ6JM" />
             </head>
             <body className={`${inter.variable} font-inter`}>
