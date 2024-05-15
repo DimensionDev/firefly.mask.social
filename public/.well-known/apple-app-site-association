@@ -5,9 +5,16 @@
             {
                 "appID": "L57MZV93G4.io.mask.Mask",
                 "paths": [
-                    "*"
+                    "/post/*",
+                    "/profile/*",
+                    "/"
                 ]
             }
+        ]
+    },
+    "webcredentials": {
+        "apps": [
+            "L57MZV93G4.io.mask.Mask"
         ]
     }
 }
