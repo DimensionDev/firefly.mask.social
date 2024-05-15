@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-13 09:43\n"
+"PO-Revision-Date: 2024-05-14 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -370,7 +370,7 @@ msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上取消关注 @{0} 失败"
 
 msgid "Failed to upload. More than {maxImageCount} images"
-msgstr ""
+msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -652,7 +652,7 @@ msgid "No comments found"
 msgstr "未发现评论"
 
 msgid "Unfollow @{0}"
-msgstr ""
+msgstr "取消关注 @{0}"
 
 msgid "Discard"
 msgstr "放弃"
@@ -934,7 +934,7 @@ msgid "Post remove from your Bookmarks"
 msgstr "帖子已经从您的收藏中移除"
 
 msgid "Follow @{0}"
-msgstr ""
+msgstr "关注 @{0}"
 
 msgid "Cancel Recast"
 msgstr "取消转帖"
@@ -1055,3 +1055,4 @@ msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
