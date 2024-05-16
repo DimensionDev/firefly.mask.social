@@ -138,6 +138,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                                 <ThreadBody
                                     post={post}
                                     disableAnimate
+                                    showTranslate
                                     key={post.postId}
                                     isLast={index === allPosts.length - 1}
                                 />
@@ -151,7 +152,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                     </>
                 ) : (
                     <>
-                        <SinglePost post={post} disableAnimate isDetail />
+                        <SinglePost post={post} disableAnimate isDetail showTranslate />
                         <PostActions
                             disablePadding
                             post={post}
