@@ -57,25 +57,25 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                     />
                 </Link>
 
-                <div className="flex flex-1 flex-col justify-between">
+                <div className="flex flex-1 flex-col gap-[6px]">
                     <div className=" flex items-center gap-2">
-                        <Link href={url} className="cursor-pointer text-xl text-lightMain">
+                        <Link href={url} className="cursor-pointer text-xl leading-6 text-lightMain">
                             {profile.displayName}
                         </Link>
-                        <SocialSourceIcon source={profile.source} size={20} />
+                        <SocialSourceIcon source={profile.source} size={18} />
                     </div>
 
-                    <Link href={url} className="cursor-pointer text-[15px] text-secondary">
+                    <Link href={url} className="cursor-pointer text-[15px] leading-6 text-secondary">
                         @{profile.handle}
                     </Link>
 
-                    <div className=" flex justify-between gap-3 text-[15px]">
+                    <div className="flex gap-3 text-[15px]">
                         <Link
                             href={{
                                 pathname: `/profile/${profile?.profileId}/followers`,
                                 query: { source: resolveSourceInURL(profile.source) },
                             }}
-                            className={classNames('gap-1 hover:underline', {
+                            className={classNames('gap-1 leading-[22px] hover:underline', {
                                 'pointer-events-none':
                                     profile.source !== Source.Farcaster && profile.source !== Source.Lens,
                             })}
@@ -95,7 +95,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                                 pathname: `/profile/${profile?.profileId}/following`,
                                 query: { source: resolveSourceInURL(profile.source) },
                             }}
-                            className={classNames('gap-1 hover:underline', {
+                            className={classNames('gap-1 leading-[22px] hover:underline', {
                                 'pointer-events-none':
                                     profile.source !== Source.Farcaster && profile.source !== Source.Lens,
                             })}

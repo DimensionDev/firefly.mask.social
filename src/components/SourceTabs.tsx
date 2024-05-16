@@ -36,7 +36,7 @@ export function SourceTabs() {
     const shouldReset = !sources.includes(currentSource);
 
     useLayoutEffect(() => {
-        updateCurrentSource(Source.Farcaster);
+        if (shouldReset) updateCurrentSource(Source.Farcaster);
     }, [shouldReset, updateCurrentSource]);
 
     return (
