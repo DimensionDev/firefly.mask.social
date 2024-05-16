@@ -91,6 +91,9 @@ msgstr ""
 msgid "More"
 msgstr ""
 
+msgid "Translate post"
+msgstr ""
+
 msgid "Searching users"
 msgstr ""
 
@@ -646,6 +649,9 @@ msgstr ""
 msgid "Visit mask.io"
 msgstr ""
 
+msgid "Translated{append}"
+msgstr ""
+
 msgid "No comments found"
 msgstr ""
 
@@ -995,6 +1001,9 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "Recast"
+msgstr ""
+
+msgid "Translating..."
 msgstr ""
 
 msgid "Followers"

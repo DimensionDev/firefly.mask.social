@@ -96,6 +96,9 @@ msgstr "收藏"
 msgid "More"
 msgstr "更多"
 
+msgid "Translate post"
+msgstr ""
+
 msgid "Searching users"
 msgstr "查找用户中"
 
@@ -651,6 +654,9 @@ msgstr "请点击并刷新二维码尝试重新登录。"
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
+msgid "Translated{append}"
+msgstr ""
+
 msgid "No comments found"
 msgstr "未发现评论"
 
@@ -1001,6 +1007,9 @@ msgstr "<0>你</0> 已转帖"
 
 msgid "Recast"
 msgstr "转推"
+
+msgid "Translating..."
+msgstr ""
 
 msgid "Followers"
 msgstr "粉丝"

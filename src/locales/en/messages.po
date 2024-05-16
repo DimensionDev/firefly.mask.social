@@ -91,6 +91,9 @@ msgstr "Act"
 msgid "More"
 msgstr "More"
 
+msgid "Translate post"
+msgstr "Translate post"
+
 msgid "Searching users"
 msgstr "Searching users"
 
@@ -646,6 +649,9 @@ msgstr "Please click and refresh the QR code to log in again."
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
+msgid "Translated{append}"
+msgstr "Translated{append}"
+
 msgid "No comments found"
 msgstr "No comments found"
 
@@ -996,6 +1002,9 @@ msgstr "<0>You</0> recasted"
 
 msgid "Recast"
 msgstr "Recast"
+
+msgid "Translating..."
+msgstr "Translating..."
 
 msgid "Followers"
 msgstr "Followers"

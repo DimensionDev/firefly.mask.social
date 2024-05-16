@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
-import { memo, useMemo, useState } from 'react';
+import { memo, useEffect, useRef } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { getBrowserLanguage, isSameLanguageWithBrowser } from '@/helpers/getBrowserLanguage.js';
@@ -16,57 +16,65 @@ interface ContentWithTranslatorProps {
 }
 
 export const ContentTranslator = memo<ContentWithTranslatorProps>(function ContentTranslator({ content, cacheKey = content, resultRenderer }) {
-    const [enableTranslate, setEnableTranslate] = useState<boolean>(false);
+    const contentLangCache = useRef<string | null>(null);
     const isLogin = useIsLogin();
 
-    const { data: contentLanguage } = useQuery({
-        queryKey: ['language-detector', cacheKey],
-        enabled: isLogin,
-        queryFn: () => getContentLanguage(content),
-    })
-    const { data, isLoading, refetch } = useQuery({
-        queryKey: ['content-translator', cacheKey],
-        enabled: enableTranslate,
-        queryFn: async () => {
-            const browserLanguage = getBrowserLanguage();
-            const result = await translate(browserLanguage, content);
-            return result;
+    const [{ value: data, loading }, handleTranslate] = useAsyncFn(
+        async (detectOnly: boolean = false) => {
+            try {
+                if (!contentLangCache.current) {
+                    // detect content language only once
+                    contentLangCache.current = await getContentLanguage(content);
+                }
+                if (detectOnly) return { contentLanguage: contentLangCache.current, translated: null };
+                const browserLanguage = getBrowserLanguage();
+                const result = await translate(browserLanguage, content);
+                return { contentLanguage: contentLangCache.current, translated: result };
+            } catch {
+                /**
+                 * return null if failed to translate, so that the button will be shown again
+                 * no need to alert error message here
+                */
+                return { contentLanguage: null, translated: null };
+            }
         },
-    })
+        [content]
+    )
 
-    const buttonLabel = useMemo(() => {
-        const result = data?.translations?.[0]?.text;
-        if (result && enableTranslate) {
-            const detectedLanguage = data?.detectedLanguage;
-            const append = detectedLanguage ? ` from ${getLangNameFromLocal(detectedLanguage)}` : ''
-            return t`Translated${append}`;
+    useEffect(() => {
+        if (!isLogin) return;
+        handleTranslate(true);
+    }, [isLogin])
+
+    const translatedText = data?.translated?.translations?.[0]?.text;
+
+    const buttonLabel = (() => {
+        if (translatedText) {
+            const detectedLanguage = data?.translated?.detectedLanguage;
+            const contentLangName = getLangNameFromLocal(detectedLanguage ?? '');
+            return contentLangName ? t`Translated from ${contentLangName}` : t`Translated`;
         }
-        return isLoading ? t`Translating...` : t`Translate post`;
-    }, [isLoading, data, enableTranslate])
-    const translatedContent = useMemo(() => {
-        const result = data?.translations?.[0]?.text;
-        if (!resultRenderer || !result || !enableTranslate) return null
-        return resultRenderer(result);
-    }, [data, enableTranslate, resultRenderer])
+        return loading ? t`Translating...` : t`Translate post`;
+    })();
+    const translatedContent = (() => {
+        if (!resultRenderer || !translatedText) return null
+        return resultRenderer(translatedText);
+    })();
 
     const onTranslate = () => {
-        if (isLoading || (enableTranslate && data?.translations?.length)) return;
-        setEnableTranslate(true);
-        // refetch when error occurs
-        if (enableTranslate) {
-            refetch();
-        }
+        if (loading || translatedText) return;
+        handleTranslate();
     }
 
-    const isValidContentLang = !!contentLanguage && contentLanguage !== 'N/A';
-    const isSameLanguage = isValidContentLang && isSameLanguageWithBrowser(contentLanguage);
+    const isValidContentLang = !!data?.contentLanguage && data?.contentLanguage !== 'N/A';
+    const isSameLanguage = isValidContentLang && isSameLanguageWithBrowser(data?.contentLanguage);
 
     if (!isLogin || !isValidContentLang || isSameLanguage) return null;
 
     return (
         <>
             <div className='my-1.5'>
-                <ClickableButton className="text-sm text-[#8E96FF]" onClick={onTranslate}>
+                <ClickableButton className="text-sm text-link" onClick={onTranslate}>
                     {buttonLabel}
                 </ClickableButton>
             </div>
