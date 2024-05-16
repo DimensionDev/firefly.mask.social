@@ -85,9 +85,6 @@ msgstr "Searching channel"
 msgid "Failed to upload. Video is not supported yet"
 msgstr "Failed to upload. Video is not supported yet"
 
-msgid "Act"
-msgstr "Act"
-
 msgid "More"
 msgstr "More"
 
@@ -960,6 +957,9 @@ msgstr "Failed to fetch the latest state after several attempts. Please try agai
 
 msgid "Profile"
 msgstr "Profile"
+
+msgid "Collect"
+msgstr "Collect"
 
 msgid "Mirrors"
 msgstr "Mirrors"

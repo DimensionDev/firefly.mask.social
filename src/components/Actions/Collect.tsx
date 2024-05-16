@@ -21,7 +21,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={t`Act`} placement="top" disabled={disabled}>
+            <Tooltip content={t`Collect`} placement="top" disabled={disabled}>
                 <motion.button
                     className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-primaryPink/[.20] "
                     whileTap={{ scale: 0.9 }}
