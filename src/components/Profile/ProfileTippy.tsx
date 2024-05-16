@@ -10,9 +10,10 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 export interface ProfileTippyProps extends PropsWithChildren {
     identity: string;
     source: SocialSource;
+    className?: string;
 }
 
-export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ identity, source, children }) {
+export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ identity, source, children, className }) {
     const isMedium = useIsMedium();
 
     const { data: profile = null, isLoading } = useQuery({
@@ -40,7 +41,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ iden
             interactive
             content={<ProfileCard profile={profile} loading={isLoading} />}
         >
-            <div>{children}</div>
+            <div className={className}>{children}</div>
         </Tippy>
     );
 });
