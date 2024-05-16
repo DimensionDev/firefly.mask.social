@@ -90,9 +90,6 @@ msgstr "查询频道中"
 msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
 
-msgid "Act"
-msgstr "收藏"
-
 msgid "More"
 msgstr "更多"
 
@@ -962,6 +959,9 @@ msgstr "获取状态失败。请稍后重试。"
 
 msgid "Profile"
 msgstr "个人信息"
+
+msgid "Collect"
+msgstr ""
 
 msgid "Mirrors"
 msgstr "转帖"
