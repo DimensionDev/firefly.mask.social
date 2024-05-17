@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-15 12:01\n"
+"PO-Revision-Date: 2024-05-16 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -88,9 +88,6 @@ msgid "Searching channel"
 msgstr ""
 
 msgid "Failed to upload. Video is not supported yet"
-msgstr ""
-
-msgid "Act"
 msgstr ""
 
 msgid "More"
@@ -964,6 +961,9 @@ msgid "Failed to fetch the latest state after several attempts. Please try again
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Collect"
 msgstr ""
 
 msgid "Mirrors"
