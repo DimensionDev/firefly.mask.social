@@ -345,6 +345,9 @@ msgstr "屏蔽中"
 msgid "Search Filter"
 msgstr "查询规则"
 
+msgid "Translated from {contentLangName}"
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
@@ -639,6 +642,9 @@ msgstr "一键同步你的账号。"
 msgid "Quote"
 msgstr "引用"
 
+msgid "Translated"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
@@ -653,9 +659,6 @@ msgstr "请点击并刷新二维码尝试重新登录。"
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
-
-msgid "Translated{append}"
-msgstr ""
 
 msgid "No comments found"
 msgstr "未发现评论"

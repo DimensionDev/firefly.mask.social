@@ -340,6 +340,9 @@ msgstr ""
 msgid "Search Filter"
 msgstr ""
 
+msgid "Translated from {contentLangName}"
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr ""
 
@@ -634,6 +637,9 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "Translated"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -647,9 +653,6 @@ msgid "Please click and refresh the QR code to log in again."
 msgstr ""
 
 msgid "Visit mask.io"
-msgstr ""
-
-msgid "Translated{append}"
 msgstr ""
 
 msgid "No comments found"

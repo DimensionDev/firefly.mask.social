@@ -340,6 +340,9 @@ msgstr "Unmuting"
 msgid "Search Filter"
 msgstr "Search Filter"
 
+msgid "Translated from {contentLangName}"
+msgstr "Translated from {contentLangName}"
+
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
 
@@ -634,6 +637,9 @@ msgstr "One click to connect your account status."
 msgid "Quote"
 msgstr "Quote"
 
+msgid "Translated"
+msgstr "Translated"
+
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
@@ -648,9 +654,6 @@ msgstr "Please click and refresh the QR code to log in again."
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
-
-msgid "Translated{append}"
-msgstr "Translated{append}"
 
 msgid "No comments found"
 msgstr "No comments found"
