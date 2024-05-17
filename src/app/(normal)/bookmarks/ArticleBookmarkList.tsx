@@ -1,4 +1,5 @@
 'use client';
+
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -22,7 +23,7 @@ export function ArticleBookmarkList() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select: (data) => data.pages.flatMap((x) => x.data),

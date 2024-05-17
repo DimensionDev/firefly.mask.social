@@ -30,7 +30,7 @@ export const DiscoverPostList = memo(function DiscoverPostList() {
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
-            if (currentSource === Source.Article) return createPageable(EMPTY_LIST, undefined);
+            if (currentSource === Source.Article) return createPageable<Post>(EMPTY_LIST, createIndicator());
             const posts = await discoverPosts(currentSocialSource, createIndicator(undefined, pageParam));
             if (currentSource === Source.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
             return posts;

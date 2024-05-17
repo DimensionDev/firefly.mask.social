@@ -24,7 +24,7 @@ export function RepostList({ postId, type, source }: PostEngagementListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select(data) {
