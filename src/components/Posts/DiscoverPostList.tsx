@@ -26,7 +26,7 @@ export const DiscoverPostList = memo(function DiscoverPostList() {
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', 'discover', currentSource],
+        queryKey: ['posts', currentSource, 'discover'],
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
