@@ -16,10 +16,8 @@ interface DetectionResponse {
  * @returns - Content language or N/A when detect failed.
  *
  */
-export async function getContentLanguage(
-    text: string,
-): Promise<string> {
-    const url = urlcat(FIREFLY_ROOT_URL, '/ai/detect-language')
+export async function getContentLanguage(text: string): Promise<string> {
+    const url = urlcat(FIREFLY_ROOT_URL, '/ai/detect-language');
     const { data } = await fireflySessionHolder.fetch<DetectionResponse>(url, {
         method: 'POST',
         body: JSON.stringify({ text }),

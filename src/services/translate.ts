@@ -36,7 +36,7 @@ export async function translate(
     detectedLanguage: Language;
     translations: Translation[];
 }> {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/translate')
+    const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/translate');
     const { data } = await fetchJSON<TranslationResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
