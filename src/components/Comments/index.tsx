@@ -8,6 +8,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
@@ -22,7 +23,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'comments', postId],
         queryFn: async ({ pageParam }) => {
-            if (!postId) return createPageable(EMPTY_LIST, undefined);
+            if (!postId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));

@@ -6,6 +6,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ProfileTabType, ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface LikedFeedListProps {
     profileId: string;
@@ -13,11 +14,11 @@ interface LikedFeedListProps {
 }
 
 export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
-    const query = useSuspenseInfiniteQuery({
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'liked-posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
             const posts = await provider.getLikedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
@@ -25,7 +26,7 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select: getPostsSelector(source),
@@ -34,7 +35,7 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
     return (
         <ListInPage
             key={source}
-            queryResult={query}
+            queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${ProfileTabType.Liked}:${profileId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
