@@ -216,7 +216,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         }, [posts.length]);
 
         return (
-            <Modal open={open} onClose={onClose} className="flex-col">
+            <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false}>
                 <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
