@@ -829,6 +829,9 @@ msgstr "Add"
 msgid "No device accounts detected."
 msgstr "No device accounts detected."
 
+msgid "Failed to translate"
+msgstr "Failed to translate"
+
 msgid "Log out all"
 msgstr "Log out all"
 
