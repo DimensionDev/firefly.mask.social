@@ -7,6 +7,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostListProps {
     channelId: string;
@@ -32,8 +33,10 @@ export function PostList({ channelId, source }: PostListProps) {
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
-            const posts = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return mergeThreadPosts(source, posts);
+            return mergeThreadPosts(
+                source,
+                data.pages.flatMap((x) => x.data as Post[]),
+            );
         },
     });
 

@@ -26,7 +26,7 @@ export const DiscoverPostList = memo(function DiscoverPostList() {
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', currentSource, 'discover'],
+        queryKey: ['posts', 'discover', currentSource],
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
@@ -45,7 +45,7 @@ export const DiscoverPostList = memo(function DiscoverPostList() {
             key={currentSource}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:${currentSource}`,
+                listKey: `${ScrollListKey.Discover}:${currentSource}:posts`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, `${ScrollListKey.Discover}:${currentSource}`),

@@ -22,7 +22,7 @@ export const DiscoverArticleList = memo(function DiscoverArticleList() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((x) => x.data || EMPTY_LIST),
+        select: (data) => data.pages.flatMap((x) => x.data || []),
     });
 
     return (
@@ -30,10 +30,10 @@ export const DiscoverArticleList = memo(function DiscoverArticleList() {
             key={currentSource}
             queryResult={articleQueryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:${currentSource}`,
+                listKey: `${ScrollListKey.Discover}:${Source.Article}`,
                 computeItemKey: (index, article) => `${article.id}-${index}`,
                 itemContent: (index, article) =>
-                    getArticleItemContent(index, article, `${ScrollListKey.Discover}:${currentSource}`),
+                    getArticleItemContent(index, article, `${ScrollListKey.Discover}:${Source.Article}`),
             }}
             NoResultsFallbackProps={{
                 className: 'pt-[228px]',

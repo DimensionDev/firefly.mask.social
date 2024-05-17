@@ -25,7 +25,7 @@ export function ArticleBookmarkList() {
             if (lastPage?.data.length === 0) return undefined;
             return lastPage?.nextIndicator?.id;
         },
-        select: (data) => data.pages.flatMap((x) => x.data || []),
+        select: (data) => data.pages.flatMap((x) => x.data),
     });
 
     return (
@@ -34,10 +34,10 @@ export function ArticleBookmarkList() {
             key="article"
             queryResult={query}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Bookmark}:article`,
+                listKey: `${ScrollListKey.Bookmark}:${Source.Article}`,
                 computeItemKey: (index, article) => `${article.id}-${article.hash}-${index}`,
                 itemContent: (index, article) =>
-                    getArticleItemContent(index, article, `${ScrollListKey.Bookmark}:article`),
+                    getArticleItemContent(index, article, `${ScrollListKey.Bookmark}:${Source.Article}`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

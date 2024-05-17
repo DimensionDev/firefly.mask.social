@@ -22,7 +22,7 @@ export const FollowingArticleList = memo(function FollowingArticleList() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((x) => x.data || EMPTY_LIST),
+        select: (data) => data.pages.flatMap((x) => x.data || []),
     });
 
     return (
@@ -30,10 +30,10 @@ export const FollowingArticleList = memo(function FollowingArticleList() {
             key={currentSource}
             queryResult={articleQueryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Following}:${currentSource}`,
+                listKey: `${ScrollListKey.Following}:${Source.Article}`,
                 computeItemKey: (index, article) => `${article.id}-${index}`,
                 itemContent: (index, article) =>
-                    getArticleItemContent(index, article, `${ScrollListKey.Following}:${currentSource}`),
+                    getArticleItemContent(index, article, `${ScrollListKey.Following}:${Source.Article}`),
             }}
             NoResultsFallbackProps={{
                 className: 'pt-[228px]',

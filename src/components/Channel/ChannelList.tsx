@@ -1,4 +1,4 @@
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
@@ -24,7 +24,7 @@ export function ChannelList({ source }: ChannelListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((x) => x.data) || EMPTY_LIST,
+        select: (data) => data.pages.flatMap((x) => x.data) || [],
     });
 
     return (

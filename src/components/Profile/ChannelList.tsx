@@ -28,7 +28,7 @@ export function ChannelList({ source, profileId }: ChannelListProps) {
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
-            return data.pages.flatMap((x) => x.data) || EMPTY_LIST;
+            return data.pages.flatMap((x) => x.data) || [];
         },
     });
 

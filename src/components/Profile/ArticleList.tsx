@@ -1,4 +1,4 @@
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -12,13 +12,13 @@ interface ArticleListProps {
 
 export function ArticleList({ address }: ArticleListProps) {
     const articleQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['profile', 'articles', address],
+        queryKey: ['articles', 'profile', address],
         queryFn: async ({ pageParam }) => {
             return FireflyArticleProvider.discoverArticlesByAddress(address, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((x) => x.data || EMPTY_LIST),
+        select: (data) => data.pages.flatMap((x) => x.data),
     });
 
     return (
