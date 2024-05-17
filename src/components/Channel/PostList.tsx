@@ -32,12 +32,11 @@ export function PostList({ channelId, source }: PostListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            return mergeThreadPosts(
+        select: (data) =>
+            mergeThreadPosts(
                 source,
-                data.pages.flatMap((x) => x.data as Post[]),
-            );
-        },
+                data.pages.flatMap((x) => x.data),
+            ),
     });
 
     return (

@@ -23,7 +23,7 @@ export const FollowingArticleList = memo(function FollowingArticleList() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((x) => x.data || []),
+        select: (data) => data.pages.flatMap((x) => x.data),
     });
 
     return (
