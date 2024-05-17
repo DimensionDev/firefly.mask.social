@@ -3,7 +3,7 @@ import { memo, useRef } from 'react';
 import { useAsyncFn, useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PostMarkup } from '@/components/Posts/PostMarkup.js';
+import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { getBrowserLanguage, isSameLanguageWithBrowser } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -17,7 +17,11 @@ interface ContentWithTranslatorProps {
     canShowMore: boolean;
 }
 
-export const ContentTranslator = memo<ContentWithTranslatorProps>(function ContentTranslator({ content, post, canShowMore }) {
+export const ContentTranslator = memo<ContentWithTranslatorProps>(function ContentTranslator({
+    content,
+    post,
+    canShowMore,
+}) {
     const contentLangCache = useRef<string | null>(null);
     const isLogin = useIsLogin();
 
@@ -32,13 +36,13 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
             const result = await translate(browserLanguage, content);
             return { contentLanguage: contentLangCache.current, translated: result };
         },
-        [content]
-    )
+        [content],
+    );
 
     useMount(() => {
         if (!isLogin) return;
         handleTranslate(true);
-    })
+    });
 
     const translatedText = data?.translated?.translations?.[0]?.text;
 
@@ -55,7 +59,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     const onTranslate = () => {
         if (loading || translatedText) return;
         handleTranslate();
-    }
+    };
 
     const isValidContentLang = !!contentLangCache.current && contentLangCache.current !== 'N/A';
     const isSameLanguage = isValidContentLang && isSameLanguageWithBrowser(contentLangCache.current ?? '');
@@ -64,7 +68,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
 
     return (
         <>
-            <div className='my-1.5'>
+            <div className="my-1.5">
                 <ClickableButton className="text-sm text-link" onClick={onTranslate}>
                     {buttonLabel}
                 </ClickableButton>
