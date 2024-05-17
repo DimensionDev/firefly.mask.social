@@ -45,7 +45,7 @@ export const DiscoverPostList = memo(function DiscoverPostList() {
             key={currentSource}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:${currentSource}:posts`,
+                listKey: `${ScrollListKey.Discover}:${currentSource}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, `${ScrollListKey.Discover}:${currentSource}`),
