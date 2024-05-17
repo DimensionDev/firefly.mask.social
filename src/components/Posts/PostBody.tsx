@@ -4,18 +4,18 @@ import { Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useCallback, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
 import { Frame } from '@/components/Frame/index.js';
-import { Markup } from '@/components/Markup/Markup.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
+import { PostMarkup } from '@/components/Posts/PostMarkup.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
@@ -73,18 +73,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const postContent = (endingLinkCollapsed
         ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
         : post.metadata.content?.content) ?? '';
-
-    const renderPostContent = useCallback((content: string) => (
-        <Markup
-            post={post}
-            className={classNames(
-                { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && IS_SAFARI && IS_APPLE },
-                'markup linkify break-words text-[15px]',
-            )}
-        >
-            {content}
-        </Markup>
-    ), [post, canShowMore])
 
     if (post.isEncrypted) {
         return (
@@ -158,9 +146,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             <div ref={observe} />
-            {renderPostContent(postContent)}
+            <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+
             {showTranslate && trimify(postContent) ? (
-                <ContentTranslator content={trimify(postContent)} cacheKey={post.postId} resultRenderer={renderPostContent} />
+                <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
             {postViewed ? (

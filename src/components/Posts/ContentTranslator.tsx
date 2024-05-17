@@ -1,50 +1,44 @@
 import { t } from '@lingui/macro';
-import { memo, useEffect, useRef } from 'react';
-import { useAsyncFn } from 'react-use';
+import { memo, useRef } from 'react';
+import { useAsyncFn, useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { PostMarkup } from '@/components/Posts/PostMarkup.js';
 import { getBrowserLanguage, isSameLanguageWithBrowser } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { getContentLanguage } from '@/services/getContentLanguage.js';
 import { translate } from '@/services/translate.js';
 
 interface ContentWithTranslatorProps {
     content: string;
-    cacheKey?: string;
-    resultRenderer?: (result: string) => JSX.Element | string;
+    post: Post;
+    canShowMore: boolean;
 }
 
-export const ContentTranslator = memo<ContentWithTranslatorProps>(function ContentTranslator({ content, cacheKey = content, resultRenderer }) {
+export const ContentTranslator = memo<ContentWithTranslatorProps>(function ContentTranslator({ content, post, canShowMore }) {
     const contentLangCache = useRef<string | null>(null);
     const isLogin = useIsLogin();
 
-    const [{ value: data, loading }, handleTranslate] = useAsyncFn(
+    const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(
         async (detectOnly: boolean = false) => {
-            try {
-                if (!contentLangCache.current) {
-                    // detect content language only once
-                    contentLangCache.current = await getContentLanguage(content);
-                }
-                if (detectOnly) return { contentLanguage: contentLangCache.current, translated: null };
-                const browserLanguage = getBrowserLanguage();
-                const result = await translate(browserLanguage, content);
-                return { contentLanguage: contentLangCache.current, translated: result };
-            } catch {
-                /**
-                 * return null if failed to translate, so that the button will be shown again
-                 * no need to alert error message here
-                */
-                return { contentLanguage: null, translated: null };
+            if (!contentLangCache.current) {
+                // detect content language only once
+                contentLangCache.current = await getContentLanguage(content);
             }
+            if (detectOnly) return { contentLanguage: contentLangCache.current, translated: null };
+            const browserLanguage = getBrowserLanguage();
+            const result = await translate(browserLanguage, content);
+            return { contentLanguage: contentLangCache.current, translated: result };
         },
         [content]
     )
 
-    useEffect(() => {
+    useMount(() => {
         if (!isLogin) return;
         handleTranslate(true);
-    }, [isLogin])
+    })
 
     const translatedText = data?.translated?.translations?.[0]?.text;
 
@@ -54,11 +48,8 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
             const contentLangName = getLangNameFromLocal(detectedLanguage ?? '');
             return contentLangName ? t`Translated from ${contentLangName}` : t`Translated`;
         }
+        if (error && !loading) return t`Failed to translate`;
         return loading ? t`Translating...` : t`Translate post`;
-    })();
-    const translatedContent = (() => {
-        if (!resultRenderer || !translatedText) return null
-        return resultRenderer(translatedText);
     })();
 
     const onTranslate = () => {
@@ -66,8 +57,8 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
         handleTranslate();
     }
 
-    const isValidContentLang = !!data?.contentLanguage && data?.contentLanguage !== 'N/A';
-    const isSameLanguage = isValidContentLang && isSameLanguageWithBrowser(data?.contentLanguage);
+    const isValidContentLang = !!contentLangCache.current && contentLangCache.current !== 'N/A';
+    const isSameLanguage = isValidContentLang && isSameLanguageWithBrowser(contentLangCache.current ?? '');
 
     if (!isLogin || !isValidContentLang || isSameLanguage) return null;
 
@@ -78,7 +69,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
                     {buttonLabel}
                 </ClickableButton>
             </div>
-            {translatedContent}
+            {translatedText ? <PostMarkup post={post} content={translatedText} canShowMore={canShowMore} /> : null}
         </>
     );
 });
