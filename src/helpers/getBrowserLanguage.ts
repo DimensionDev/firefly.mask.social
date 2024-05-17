@@ -1,6 +1,6 @@
 import { find } from 'lodash-es';
 
-import { Language } from '@/constants/enum.js';
+import { Language } from '@/services/translate.js';
 
 export const getBrowserLanguage = () => {
     const browserLanguage = navigator.language ?? '';
