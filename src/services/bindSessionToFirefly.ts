@@ -56,7 +56,7 @@ export async function bindSessionToFirefly(session: Session, signal?: AbortSigna
         case SessionType.Lens:
             return await bindLensSessionToFirefly(session as LensSession, signal);
         case SessionType.Twitter:
-            throw new Error('Not Allowed.');
+            throw new Error('Not implemented.');
         case SessionType.Firefly:
             throw new Error('Not Allowed.');
         default:
