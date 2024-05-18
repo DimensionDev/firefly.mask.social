@@ -42,6 +42,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 
 /**
  * Bind a lens or farcaster session to the currently logged-in Firefly session.
+ * ! Make sure resume firefly session before calling this function.
  * @param session
  * @param signal
  * @returns
