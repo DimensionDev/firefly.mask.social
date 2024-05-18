@@ -20,12 +20,14 @@ interface ThreadBodyProps {
     isLast?: boolean;
     listKey?: string;
     index?: number;
+    showTranslate?: boolean;
 }
 
 export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     post,
     disableAnimate,
     isLast = false,
+    showTranslate = false,
     listKey,
     index,
 }) {
@@ -66,7 +68,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 />
 
                 <div className={'w-full max-w-[calc(100%_-_53px)] pb-5'}>
-                    <PostBody post={post} disablePadding />
+                    <PostBody post={post} disablePadding showTranslate={showTranslate} />
                     <PostActions post={post} disabled={post.isHidden} disablePadding />
                 </div>
             </div>

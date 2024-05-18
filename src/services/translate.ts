@@ -1,5 +1,8 @@
 /* cspell:disable */
 
+import urlcat from 'urlcat';
+
+import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 // Learn more supported languages here:
@@ -146,13 +149,13 @@ export interface Translation {
 }
 
 interface TranslationResponse {
-    data: {
+    data: Array<{
         detectedLanguage: {
             language: Language;
             score: number;
         };
         translations: Translation[];
-    };
+    }>;
 }
 
 /**
@@ -170,7 +173,8 @@ export async function translate(
     detectedLanguage: Language;
     translations: Translation[];
 }> {
-    const { data } = await fetchJSON<TranslationResponse>(`/v1/misc/translate`, {
+    const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/translate');
+    const { data } = await fetchJSON<TranslationResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             toLanguage: to,
@@ -179,7 +183,7 @@ export async function translate(
     });
 
     return {
-        detectedLanguage: data.detectedLanguage.language,
-        translations: data.translations,
+        detectedLanguage: data[0]?.detectedLanguage.language,
+        translations: data[0]?.translations,
     };
 }

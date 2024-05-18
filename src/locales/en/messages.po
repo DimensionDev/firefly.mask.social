@@ -88,6 +88,9 @@ msgstr "Failed to upload. Video is not supported yet"
 msgid "More"
 msgstr "More"
 
+msgid "Translate post"
+msgstr "Translate post"
+
 msgid "Searching users"
 msgstr "Searching users"
 
@@ -333,6 +336,9 @@ msgstr "Unmuting"
 
 msgid "Search Filter"
 msgstr "Search Filter"
+
+msgid "Translated from {contentLangName}"
+msgstr "Translated from {contentLangName}"
 
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
@@ -628,6 +634,9 @@ msgstr "One click to connect your account status."
 msgid "Quote"
 msgstr "Quote"
 
+msgid "Translated"
+msgstr "Translated"
+
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
@@ -817,6 +826,9 @@ msgstr "Add"
 msgid "No device accounts detected."
 msgstr "No device accounts detected."
 
+msgid "Failed to translate"
+msgstr "Failed to translate"
+
 msgid "Log out all"
 msgstr "Log out all"
 
@@ -996,6 +1008,9 @@ msgstr "<0>You</0> recasted"
 
 msgid "Recast"
 msgstr "Recast"
+
+msgid "Translating..."
+msgstr "Translating..."
 
 msgid "Followers"
 msgstr "Followers"

@@ -10,11 +10,12 @@ import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
 import { Frame } from '@/components/Frame/index.js';
-import { Markup } from '@/components/Markup/Markup.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
+import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
+import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
@@ -24,6 +25,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
+import { trimify } from '@/helpers/trimify.js';
 import { useIsMuted } from '@/hooks/useIsMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -32,10 +34,11 @@ interface PostBodyProps {
     isQuote?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
+    showTranslate?: boolean;
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, showMore = false, disablePadding = false },
+    { post, isQuote = false, showMore = false, disablePadding = false, showTranslate = false },
     ref,
 ) {
     const router = useRouter();
@@ -66,6 +69,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }, [post, postViewed]);
 
     const muted = useIsMuted(post.author);
+
+    const postContent =
+        (endingLinkCollapsed
+            ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
+            : post.metadata.content?.content) ?? '';
 
     if (post.isEncrypted) {
         return (
@@ -139,17 +147,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             <div ref={observe} />
-            <Markup
-                post={post}
-                className={classNames(
-                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && IS_SAFARI && IS_APPLE },
-                    'markup linkify break-words text-[15px]',
-                )}
-            >
-                {endingLinkCollapsed
-                    ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
-                    : post.metadata.content?.content}
-            </Markup>
+            <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+
+            {showTranslate && trimify(postContent) ? (
+                <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
+            ) : null}
 
             {postViewed ? (
                 payloads?.payloadFromImageAttachment || payloads?.payloadFromText ? (

@@ -88,6 +88,9 @@ msgstr ""
 msgid "More"
 msgstr ""
 
+msgid "Translate post"
+msgstr ""
+
 msgid "Searching users"
 msgstr ""
 
@@ -332,6 +335,9 @@ msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
+msgstr ""
+
+msgid "Translated from {contentLangName}"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -628,6 +634,9 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "Translated"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -817,6 +826,9 @@ msgstr ""
 msgid "No device accounts detected."
 msgstr ""
 
+msgid "Failed to translate"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -995,6 +1007,9 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "Recast"
+msgstr ""
+
+msgid "Translating..."
 msgstr ""
 
 msgid "Followers"

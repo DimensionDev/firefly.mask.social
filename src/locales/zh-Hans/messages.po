@@ -93,6 +93,9 @@ msgstr "视频还未支持上传。"
 msgid "More"
 msgstr "更多"
 
+msgid "Translate post"
+msgstr ""
+
 msgid "Searching users"
 msgstr "查找用户中"
 
@@ -338,6 +341,9 @@ msgstr "屏蔽中"
 
 msgid "Search Filter"
 msgstr "查询规则"
+
+msgid "Translated from {contentLangName}"
+msgstr ""
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -633,6 +639,9 @@ msgstr "一键同步你的账号。"
 msgid "Quote"
 msgstr "引用"
 
+msgid "Translated"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
@@ -822,6 +831,9 @@ msgstr "添加"
 msgid "No device accounts detected."
 msgstr "未检测到设备账号。"
 
+msgid "Failed to translate"
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -1001,6 +1013,9 @@ msgstr "<0>你</0> 已转帖"
 
 msgid "Recast"
 msgstr "转推"
+
+msgid "Translating..."
+msgstr ""
 
 msgid "Followers"
 msgstr "粉丝"
