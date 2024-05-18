@@ -10,10 +10,12 @@ import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
+import { createInitPurePoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
+import type { PurePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
@@ -56,6 +58,8 @@ export interface CompositePost {
 
     // only available in farcaster now
     channel: Record<SocialSource, Channel | null>;
+
+    poll: PurePoll | null;
 }
 
 interface ComposeState {
@@ -106,6 +110,8 @@ interface ComposeState {
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
     updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
+    updatePoll: (poll: PurePoll | null, cursor?: Cursor) => void;
+    initPoll: (cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -143,6 +149,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
             [Source.Lens]: null,
             [Source.Twitter]: null,
         },
+        poll: null,
     };
 }
 
@@ -474,6 +481,28 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 ),
             );
         },
+        updatePoll: (poll, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll,
+                    }),
+                    cursor,
+                ),
+            ),
+        initPoll: (cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll: createInitPurePoll(),
+                    }),
+                    cursor,
+                ),
+            ),
         clear: () =>
             set((state) =>
                 Object.assign(state, {

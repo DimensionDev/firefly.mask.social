@@ -20,11 +20,12 @@ import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
+import { PollButton } from '@/components/Poll/PollButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
@@ -48,7 +49,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { availableSources, chars, images, video, restriction, parentPost, channel } = useCompositePost();
+    const { availableSources, chars, images, video, restriction, parentPost, channel, poll } = useCompositePost();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
 
@@ -92,7 +93,9 @@ export function ComposeAction(props: ComposeActionProps) {
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);
-    const mediaDisabled = !!video || images.length >= maxImageCount;
+    const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
+
+    const showPoll = availableSources.some((x) => SORTED_POLL_SOURCES.includes(x)) && type === 'compose';
 
     return (
         <div className=" px-4 pb-4">
@@ -101,7 +104,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     {({ close }) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <Tooltip content={t`Media`} placement="top">
+                                <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>
                                     <GalleryIcon
                                         className={classNames(
                                             ' text-main',
@@ -135,6 +138,8 @@ export function ComposeAction(props: ComposeActionProps) {
                         onClick={() => insertText('#')}
                     />
                 </Tooltip>
+
+                {showPoll ? <PollButton /> : null}
 
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>

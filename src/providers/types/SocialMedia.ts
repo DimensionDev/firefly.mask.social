@@ -177,6 +177,7 @@ export interface Post {
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;
+    poll?: Poll;
     /**
      * Lens only
      * To mirror a post on momoka, need to invoke with the client method mirrorOnMomoka
@@ -309,6 +310,11 @@ export interface Channel {
     hosts?: Profile[];
     blocked?: boolean;
     __original__?: unknown;
+}
+
+export interface Poll {
+    duration_minutes: number;
+    options: string[];
 }
 
 export interface Provider {

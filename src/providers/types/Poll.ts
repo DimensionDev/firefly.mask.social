@@ -8,6 +8,13 @@ export interface Poll {
     options: string[];
 }
 
+export interface PollPureOption {
+    id: string;
+    text: string;
+}
+
+export type PurePoll = Pick<Poll, 'validInDays'> & { options: PollPureOption[] }
+
 export interface Provider {
     /**
      * Creates a new poll

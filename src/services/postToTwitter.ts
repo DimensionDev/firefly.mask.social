@@ -3,6 +3,7 @@ import { t } from '@lingui/macro';
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { getPollFixedValidInDays } from '@/helpers/createPoll.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
@@ -28,6 +29,10 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
+        const poll: Post['poll'] = postType === 'Post' && compositePost.poll ? {
+            options: compositePost.poll.options.map(option => option.text),
+            duration_minutes: getPollFixedValidInDays(compositePost.poll.validInDays, Source.Twitter) * 24 * 60,
+        } : undefined
         return {
             publicationId: '',
             type: postType,
@@ -43,6 +48,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',
             source: Source.Twitter,
+            poll,
         } satisfies Post;
     };
 

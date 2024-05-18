@@ -1,0 +1,97 @@
+import { t, Trans } from '@lingui/macro';
+
+import AddIcon from '@/assets/add.svg';
+import CloseIcon from '@/assets/close.svg';
+import MinusIcon from '@/assets/minus.svg';
+import PollIcon from '@/assets/poll.svg';
+import { ValidInDaysSelector } from '@/components/Poll/ValidInDaysSelector.js';
+import { POLL_OPTIONS_MIN_COUNT,POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
+import { classNames } from '@/helpers/classNames.js';
+import { createPollInitOption, getPollOptionsMaxLength } from '@/helpers/createPoll.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
+import type { PollPureOption } from '@/providers/types/Poll.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+
+interface ComposePollProps {
+    post: CompositePost;
+    readonly?: boolean;
+}
+
+export function ComposePoll({ post, readonly }: ComposePollProps) {
+    const { updatePoll } = useComposeStateStore();
+    const { availableSources } = useCompositePost();
+
+    const { poll } = post;
+
+    if (!poll) return null;
+
+    const optionsMaxLength = getPollOptionsMaxLength(availableSources)
+    const addDisabled = readonly || poll.options.length >= optionsMaxLength;
+
+    const removeOption = (option: PollPureOption) => {
+        if (readonly) return;
+        const newOptions = poll.options.filter((o) => o.id !== option.id);
+        updatePoll({ ...poll, options: newOptions });
+    };
+    const addOption = () => {
+        if (addDisabled) return;
+        updatePoll({ ...poll, options: [...poll.options, createPollInitOption()] });
+    }
+    const onOptionChange = (option: PollPureOption, text: string) => {
+        const newOptions = poll.options.map((o) => (o.id === option.id ? { ...o, text } : o));
+        updatePoll({ ...poll, options: newOptions });
+    };
+
+    return (
+        <div className="rounded-2xl border border-lightMain p-3 mt-3">
+            <div className="flex items-center justify-between text-lightMain">
+                <div className="flex items-center gap-2">
+                    <PollIcon width={24} height={24} />
+                    <span className="text-lg font-bold">
+                        <Trans>Poll</Trans>
+                    </span>
+                </div>
+                {!readonly ? (
+                    <CloseIcon width={20} height={20} className="cursor-pointer" onClick={() => updatePoll(null)} />
+                ) : null}
+            </div>
+            <div>
+                {poll.options.map((option, index) => (
+                    <div
+                        className="mt-4 flex h-12 items-center rounded-2xl bg-[#f5f5f5] px-3.5 text-[15px] text-lightMain"
+                        key={option.id}
+                    >
+                        <input
+                            className="h-full flex-1 border-0 bg-transparent placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
+                            value={option.text}
+                            placeholder={t`Choice ${index + 1}`}
+                            onChange={(e) => onOptionChange(option, e.target.value)}
+                            readOnly={readonly}
+                            maxLength={POLL_PEER_OPTION_MAX_CHARS}
+                        />
+                        {index >= POLL_OPTIONS_MIN_COUNT && (
+                            <MinusIcon
+                                width={20}
+                                height={20}
+                                className={readonly ? '' : 'cursor-pointer'}
+                                onClick={() => removeOption(option)}
+                            />
+                        )}
+                    </div>
+                ))}
+            </div>
+            <div className='flex items-center justify-between mt-4'>
+                <div
+                    className={classNames('flex items-center gap-2 text-lightMain', addDisabled ? 'opacity-50' : 'cursor-pointer')}
+                    onClick={addOption}
+                >
+                    <AddIcon width={20} height={20} />
+                    <span className='text-[15px]'>
+                        <Trans>Add another option</Trans>
+                    </span>
+                </div>
+                <ValidInDaysSelector post={post} readonly={readonly} />
+            </div>
+        </div>
+    );
+}
