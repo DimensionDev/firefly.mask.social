@@ -75,10 +75,12 @@ function convertMetricToSession(metric: Metrics[0]) {
 
 /**
  * Download and decrypt metrics from Firefly, then convert them to sessions.
- * ! Make sure resume firefly session before calling this function.
  * @returns
  */
 export async function syncSessionFromFirefly(signal?: AbortSignal) {
+    // Ensure that the Firefly session is resumed before calling this function.
+    fireflySessionHolder.assertSession();
+
     const cipher = await downloadMetricsFromFirefly(signal);
     if (!cipher) return [];
 

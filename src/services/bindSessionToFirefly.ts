@@ -42,12 +42,14 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 
 /**
  * Bind a lens or farcaster session to the currently logged-in Firefly session.
- * ! Make sure resume firefly session before calling this function.
  * @param session
  * @param signal
  * @returns
  */
 export async function bindSessionToFirefly(session: Session, signal?: AbortSignal) {
+    // Ensure that the Firefly session is resumed before calling this function.
+    fireflySessionHolder.assertSession();
+
     switch (session.type) {
         case SessionType.Farcaster:
             return await bindFarcasterSessionToFirefly(session as FarcasterSession, signal);
