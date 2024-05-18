@@ -69,7 +69,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
 
 /**
  * Restore firefly session from all social sources.
- * @returns 
+ * @returns
  */
 export async function resolveFireflySessionAll() {
     for (const source of SORTED_SOCIAL_SOURCES) {

@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
@@ -60,6 +61,7 @@ export async function bindSessionToFirefly(session: Session, signal?: AbortSigna
         case SessionType.Firefly:
             throw new Error('Not Allowed.');
         default:
+            safeUnreachable(session.type);
             throw new Error('Unknown session type');
     }
 }
