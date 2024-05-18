@@ -12,6 +12,12 @@ import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/type
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
+/**
+ * Restore firefly session from a lens or farcaster session.
+ * @param session
+ * @param signal
+ * @returns
+ */
 export async function restoreFireflySession(session: Session, signal?: AbortSignal) {
     const type = session.type;
 

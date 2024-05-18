@@ -234,6 +234,25 @@ export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
+export type BindResponse = Response<{
+    account_id: string;
+    account_raw_id: number;
+    twitters: Array<{
+        id: string;
+        handle: string;
+    }>;
+    wallets: Array<{
+        _id: number;
+        id: string; // the wallet address as id
+        createdAt: string;
+        connectedAt: string;
+        updatedAt: string;
+        address: string;
+        chain: string;
+        ens: unknown;
+    }>;
+}>;
+
 export type ChannelResponse = Response<ChannelBrief>;
 
 export type ChannelsResponse = Response<Channel[]>;
