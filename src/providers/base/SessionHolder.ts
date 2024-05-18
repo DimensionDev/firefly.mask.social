@@ -12,6 +12,15 @@ export class SessionHolder<T extends Session> {
         return this.internalSession;
     }
 
+    assertSession(message?: string) {
+        try {
+            return this.sessionRequired;
+        } catch (error: unknown) {
+            if (typeof message === 'string') throw new Error(message);
+            throw error;
+        }
+    }
+
     resumeSession(session: T) {
         this.internalSession = session;
     }
