@@ -57,6 +57,9 @@ msgstr "社区"
 msgid "Discover"
 msgstr "发现"
 
+msgid "Ask a question"
+msgstr ""
+
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
 
@@ -119,6 +122,9 @@ msgstr "OpenGraph"
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
+
+msgid "Poll"
+msgstr ""
 
 msgid "Casts"
 msgstr "帖子"
@@ -191,6 +197,9 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
+
+msgid "Custom"
+msgstr ""
 
 msgid "Password"
 msgstr "密码"
@@ -395,6 +404,9 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Choice {0}"
+msgstr ""
 
 msgid "Detecting..."
 msgstr "检测中..."
@@ -852,11 +864,17 @@ msgstr "未知会话类型。"
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr "在您的手机设备上，打开<0>摄像头</0> 使用 Warpcast 在<1>{0}</1>中扫描二维码。"
 
+msgid "{validInDays} day"
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
 msgid "Only people you follow"
 msgstr "只有你关注的人"
+
+msgid "Add another option"
+msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -908,6 +926,9 @@ msgstr "取消屏蔽"
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
+
+msgid "{validInDays} days"
+msgstr ""
 
 msgid "Click to copy"
 msgstr "点击复制"
@@ -1058,4 +1079,3 @@ msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

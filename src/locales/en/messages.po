@@ -52,6 +52,9 @@ msgstr "Communities"
 msgid "Discover"
 msgstr "Discover"
 
+msgid "Ask a question"
+msgstr "Ask a question"
+
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 
@@ -114,6 +117,9 @@ msgstr "OpenGraph"
 
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
+
+msgid "Poll"
+msgstr "Poll"
 
 msgid "Casts"
 msgstr "Casts"
@@ -186,6 +192,9 @@ msgstr "Page not found"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+
+msgid "Custom"
+msgstr "Custom"
 
 msgid "Password"
 msgstr "Password"
@@ -390,6 +399,9 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Choice {0}"
+msgstr "Choice {0}"
 
 msgid "Detecting..."
 msgstr "Detecting..."
@@ -847,11 +859,17 @@ msgstr "Unknown session type."
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 
+msgid "{validInDays} day"
+msgstr "{validInDays} day"
+
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
 msgid "Only people you follow"
 msgstr "Only people you follow"
+
+msgid "Add another option"
+msgstr "Add another option"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
@@ -903,6 +921,9 @@ msgstr "Unmute"
 
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
+
+msgid "{validInDays} days"
+msgstr "{validInDays} days"
 
 msgid "Click to copy"
 msgstr "Click to copy"
