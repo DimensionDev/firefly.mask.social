@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-16 12:01\n"
+"PO-Revision-Date: 2024-05-18 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -91,6 +91,9 @@ msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
 msgid "More"
+msgstr ""
+
+msgid "Translate post"
 msgstr ""
 
 msgid "Searching users"
@@ -337,6 +340,9 @@ msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
+msgstr ""
+
+msgid "Translated from {contentLangName}"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -633,6 +639,9 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "Translated"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -822,6 +831,9 @@ msgstr ""
 msgid "No device accounts detected."
 msgstr ""
 
+msgid "Failed to translate"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -1000,6 +1012,9 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "Recast"
+msgstr ""
+
+msgid "Translating..."
 msgstr ""
 
 msgid "Followers"
