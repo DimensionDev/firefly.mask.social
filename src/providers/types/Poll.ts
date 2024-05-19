@@ -13,7 +13,7 @@ export interface PollPureOption {
     text: string;
 }
 
-export type PurePoll = Pick<Poll, 'validInDays'> & { options: PollPureOption[] }
+export type PurePoll = Pick<Poll, 'validInDays'> & { options: PollPureOption[] };
 
 export interface Provider {
     /**

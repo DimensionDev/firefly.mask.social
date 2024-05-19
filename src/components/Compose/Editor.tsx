@@ -62,7 +62,13 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                     >
                         <Select
                             value={type}
-                            _compose={hasPoll ? t`Ask a question` : index === 0 ? t`What's happening...` : t`Add another post...`}
+                            _compose={
+                                hasPoll
+                                    ? t`Ask a question`
+                                    : index === 0
+                                      ? t`What's happening...`
+                                      : t`Add another post...`
+                            }
                             _quote={t`Add a comment`}
                             _reply={t`Post your reply`}
                             other={index === 0 ? t`What's happening...` : t`Add another post...`}

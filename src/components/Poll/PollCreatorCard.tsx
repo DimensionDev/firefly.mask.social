@@ -7,7 +7,7 @@ import CloseIcon from '@/assets/close.svg';
 import MinusIcon from '@/assets/minus.svg';
 import PollIcon from '@/assets/poll.svg';
 import { ValidInDaysSelector } from '@/components/Poll/ValidInDaysSelector.js';
-import { POLL_OPTIONS_MIN_COUNT,POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
+import { POLL_OPTIONS_MIN_COUNT, POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createPollInitOption, getPollOptionsMaxLength } from '@/helpers/createPoll.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -19,21 +19,21 @@ interface PollCreatorCardProps {
     readonly?: boolean;
 }
 
-export const PollCreatorCard =  memo<PollCreatorCardProps>(function PollCreatorCard({ post, readonly }) {
+export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCard({ post, readonly }) {
     const pollCardRef = useRef<HTMLDivElement>(null);
     const { updatePoll } = useComposeStateStore();
     const { availableSources } = useCompositePost();
 
     useMount(() => {
         // scroll into view when first mount
-        pollCardRef.current?.scrollIntoView({ block: 'center' })
-    })
+        pollCardRef.current?.scrollIntoView({ block: 'center' });
+    });
 
     const { poll } = post;
 
     if (!poll) return null;
 
-    const optionsMaxLength = getPollOptionsMaxLength(availableSources)
+    const optionsMaxLength = getPollOptionsMaxLength(availableSources);
     const addDisabled = readonly || poll.options.length >= optionsMaxLength;
 
     const removeOption = (option: PollPureOption) => {
@@ -44,7 +44,7 @@ export const PollCreatorCard =  memo<PollCreatorCardProps>(function PollCreatorC
     const addOption = () => {
         if (addDisabled) return;
         updatePoll({ ...poll, options: [...poll.options, createPollInitOption()] });
-    }
+    };
     const onOptionChange = (option: PollPureOption, text: string) => {
         const newOptions = poll.options.map((o) => (o.id === option.id ? { ...o, text } : o));
         updatePoll({ ...poll, options: newOptions });
@@ -53,7 +53,7 @@ export const PollCreatorCard =  memo<PollCreatorCardProps>(function PollCreatorC
     return (
         <div
             ref={pollCardRef}
-            className="rounded-2xl border border-lightMain p-3 mt-14 bg-lightBottom dark:bg-darkBottom"
+            className="mt-14 rounded-2xl border border-lightMain bg-lightBottom p-3 dark:bg-darkBottom"
         >
             <div className="flex items-center justify-between text-lightMain">
                 <div className="flex items-center gap-2">
@@ -92,13 +92,16 @@ export const PollCreatorCard =  memo<PollCreatorCardProps>(function PollCreatorC
                     </div>
                 ))}
             </div>
-            <div className='flex items-center justify-between mt-4'>
+            <div className="mt-4 flex items-center justify-between">
                 <div
-                    className={classNames('flex items-center gap-2 text-lightMain', addDisabled ? 'opacity-50' : 'cursor-pointer')}
+                    className={classNames(
+                        'flex items-center gap-2 text-lightMain',
+                        addDisabled ? 'opacity-50' : 'cursor-pointer',
+                    )}
                     onClick={addOption}
                 >
                     <AddIcon width={20} height={20} />
-                    <span className='text-[15px]'>
+                    <span className="text-[15px]">
                         <Trans>Add another option</Trans>
                     </span>
                 </div>

@@ -1,4 +1,4 @@
-import { Source } from "@/constants/enum.js";
+import { Source } from '@/constants/enum.js';
 
 // poll default options count
 export const POLL_OPTIONS_MIN_COUNT = 2;
@@ -21,4 +21,4 @@ export const POLL_MAX_VALID_IN_DAYS = {
     [Source.Lens]: Infinity,
     [Source.Farcaster]: Infinity,
     [Source.Twitter]: 6,
-}
+};

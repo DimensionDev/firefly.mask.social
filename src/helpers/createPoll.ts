@@ -1,7 +1,12 @@
 import { v4 as uuid } from 'uuid';
 
-import { type SocialSource,Source } from '@/constants/enum.js';
-import { POLL_DEFAULT_VALID_IN_DAYS, POLL_MAX_VALID_IN_DAYS, POLL_OPTIONS_MAX_COUNT, POLL_OPTIONS_MIN_COUNT } from '@/constants/poll.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import {
+    POLL_DEFAULT_VALID_IN_DAYS,
+    POLL_MAX_VALID_IN_DAYS,
+    POLL_OPTIONS_MAX_COUNT,
+    POLL_OPTIONS_MIN_COUNT,
+} from '@/constants/poll.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { PollPureOption, PurePoll } from '@/providers/types/Poll.js';
 
@@ -28,15 +33,15 @@ export const shouldShowCustomDaysInput = (availableSources: SocialSource[]) => {
         return false;
     }
     return true;
-}
+};
 
 export const isValidPoll = (poll: PurePoll) => {
     if (!poll.options.length) return false;
     if (poll.options.some((o) => !trimify(o.text))) return false;
     return true;
-}
+};
 
 export const getPollFixedValidInDays = (validInDays: number, source: SocialSource) => {
     const maxDays = POLL_MAX_VALID_IN_DAYS[source];
     return Math.min(maxDays, validInDays);
-}
+};

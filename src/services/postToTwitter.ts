@@ -29,10 +29,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
-        const poll: Post['poll'] = postType === 'Post' && compositePost.poll ? {
-            options: compositePost.poll.options.map(option => option.text),
-            duration_minutes: getPollFixedValidInDays(compositePost.poll.validInDays, Source.Twitter) * 24 * 60,
-        } : undefined
+        const poll: Post['poll'] =
+            postType === 'Post' && compositePost.poll
+                ? {
+                      options: compositePost.poll.options.map((option) => option.text),
+                      duration_minutes:
+                          getPollFixedValidInDays(compositePost.poll.validInDays, Source.Twitter) * 24 * 60,
+                  }
+                : undefined;
         return {
             publicationId: '',
             type: postType,
