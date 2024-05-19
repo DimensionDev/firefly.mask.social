@@ -1,4 +1,6 @@
 import { t, Trans } from '@lingui/macro';
+import { memo, useRef } from 'react';
+import { useMount } from 'react-use';
 
 import AddIcon from '@/assets/add.svg';
 import CloseIcon from '@/assets/close.svg';
@@ -12,14 +14,20 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import type { PollPureOption } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
-interface ComposePollProps {
+interface PollCreatorCardProps {
     post: CompositePost;
     readonly?: boolean;
 }
 
-export function ComposePoll({ post, readonly }: ComposePollProps) {
+export const PollCreatorCard =  memo<PollCreatorCardProps>(function PollCreatorCard({ post, readonly }) {
+    const pollCardRef = useRef<HTMLDivElement>(null);
     const { updatePoll } = useComposeStateStore();
     const { availableSources } = useCompositePost();
+
+    useMount(() => {
+        // scroll into view when first mount
+        pollCardRef.current?.scrollIntoView({ block: 'center' })
+    })
 
     const { poll } = post;
 
@@ -43,7 +51,10 @@ export function ComposePoll({ post, readonly }: ComposePollProps) {
     };
 
     return (
-        <div className="rounded-2xl border border-lightMain p-3 mt-3">
+        <div
+            ref={pollCardRef}
+            className="rounded-2xl border border-lightMain p-3 mt-14 bg-lightBottom dark:bg-darkBottom"
+        >
             <div className="flex items-center justify-between text-lightMain">
                 <div className="flex items-center gap-2">
                     <PollIcon width={24} height={24} />
@@ -58,7 +69,7 @@ export function ComposePoll({ post, readonly }: ComposePollProps) {
             <div>
                 {poll.options.map((option, index) => (
                     <div
-                        className="mt-4 flex h-12 items-center rounded-2xl bg-[#f5f5f5] px-3.5 text-[15px] text-lightMain"
+                        className="mt-4 flex h-12 items-center rounded-2xl bg-lightBg px-3.5 text-[15px] text-lightMain"
                         key={option.id}
                     >
                         <input
@@ -68,6 +79,7 @@ export function ComposePoll({ post, readonly }: ComposePollProps) {
                             onChange={(e) => onOptionChange(option, e.target.value)}
                             readOnly={readonly}
                             maxLength={POLL_PEER_OPTION_MAX_CHARS}
+                            autoFocus={index === 0}
                         />
                         {index >= POLL_OPTIONS_MIN_COUNT && (
                             <MinusIcon
@@ -94,4 +106,4 @@ export function ComposePoll({ post, readonly }: ComposePollProps) {
             </div>
         </div>
     );
-}
+});

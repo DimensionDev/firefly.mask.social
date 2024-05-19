@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { memo } from 'react';
 
 import PollIcon from '@/assets/poll.svg';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -6,7 +7,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-export function PollButton() {
+export const PollButton =  memo(function PollButton() {
     const { video, images, poll } = useCompositePost();
     const { initPoll } = useComposeStateStore();
 
@@ -25,4 +26,4 @@ export function PollButton() {
             <PollIcon width={24} height={24} />
         </span>
     </Tooltip>
-}
+});

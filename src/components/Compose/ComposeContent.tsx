@@ -6,7 +6,7 @@ import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
 import { FrameUI } from '@/components/Frame/index.js';
 import { OembedUI } from '@/components/Oembed/index.js';
-import { ComposePoll } from '@/components/Poll/ComposePoll.js';
+import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -40,7 +40,7 @@ export function ComposeContent(props: ComposeContentProps) {
             {cursor === id ? <Editor post={props.post} replying={replying} /> : <Placeholder post={props.post} />}
 
             {/* poll */}
-            {poll ? <ComposePoll post={props.post} readonly={cursor !== props.post.id} /> : null}
+            {poll ? <PollCreatorCard post={props.post} readonly={cursor !== props.post.id} /> : null}
 
             {/* image */}
             {images.length > 0 && (
