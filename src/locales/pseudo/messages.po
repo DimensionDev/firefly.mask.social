@@ -397,9 +397,6 @@ msgstr ""
 msgid "Failed to unvote post."
 msgstr ""
 
-msgid "Translate Post"
-msgstr ""
-
 msgid "Detecting..."
 msgstr ""
 

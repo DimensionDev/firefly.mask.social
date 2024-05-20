@@ -402,9 +402,6 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
 
-msgid "Translate Post"
-msgstr ""
-
 msgid "Detecting..."
 msgstr "检测中..."
 

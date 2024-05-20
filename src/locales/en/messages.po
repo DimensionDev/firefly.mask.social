@@ -397,9 +397,6 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
 
-msgid "Translate Post"
-msgstr "Translate Post"
-
 msgid "Detecting..."
 msgstr "Detecting..."
 

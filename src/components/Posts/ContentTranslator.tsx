@@ -57,7 +57,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
         return (
             <div className="my-1.5">
                 <ClickableButton className="text-sm text-link" onClick={() => setCollapsed(false)}>
-                    <Trans>Translate Post</Trans>
+                    <Trans>Translate post</Trans>
                 </ClickableButton>
             </div>
         );
