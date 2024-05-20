@@ -1,6 +1,11 @@
 import type { Session } from '@/providers/types/Session.js';
+import { Emitter } from '@servie/events';
+import { useSubscription, type Subscription } from 'use-subscription';
 
 export class SessionHolder<T extends Session> {
+    protected emitter = new Emitter<{
+        update: [T | null];
+    }>();
     protected internalSession: T | null = null;
 
     get session() {
@@ -10,6 +15,18 @@ export class SessionHolder<T extends Session> {
     get sessionRequired() {
         if (!this.internalSession) throw new Error('No session found.');
         return this.internalSession;
+    }
+
+    get subscription() {
+        return {
+            getCurrentValue: () => this.internalSession,
+            subscribe: (callback: () => void) => {
+                return this.emitter.on('update', (session) => {
+                    if (this.internalSession === session) return;
+                    callback();
+                });
+            },
+        } satisfies Subscription<T | null>;
     }
 
     assertSession(message?: string) {
@@ -23,10 +40,12 @@ export class SessionHolder<T extends Session> {
 
     resumeSession(session: T) {
         this.internalSession = session;
+        this.emitter.emit('update', session);
     }
 
     removeSession() {
         this.internalSession = null;
+        this.emitter.emit('update', null);
     }
 
     withSession<K extends (session: T | null) => unknown>(callback: K, required = false) {
