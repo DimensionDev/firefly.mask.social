@@ -5,7 +5,8 @@ import type { Session } from '@/providers/types/Session.js';
 
 export class SessionHolder<T extends Session> {
     protected emitter = new Emitter<{
-        update: [unknown]; // T | null
+        // the actual type is T | null, use unknown to avoid type errors
+        update: [unknown];
     }>();
     protected internalSession: T | null = null;
 
