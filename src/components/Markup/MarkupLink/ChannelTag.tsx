@@ -7,9 +7,7 @@ import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { Tippy } from '@/esm/Tippy.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getFarcasterChannelUrlById } from '@/helpers/getFarcasterChannelUrlById.js';
-import { isNumberic } from '@/helpers/isNumberic.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
@@ -43,32 +41,23 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     const content = useMemo(() => {
         if (!channelId) return;
-
         return (
             <ClickableArea
-                className={classNames('cursor-pointer', {
-                    'text-link hover:underline': isNumberic(channelId) ? !!data.data : true,
-                })}
+                className="cursor-pointer text-link hover:underline"
                 as="span"
                 onClick={() => {
-                    /**
-                     * For channels where the channelId is purely numerical,
-                     * it needs to be determined whether the data that can be
-                     * requested confirms whether this channel exists. */
-                    if (isNumberic(channelId) && !data.data) return;
                     router.push(getFarcasterChannelUrlById(channelId));
                 }}
             >
                 {title}
             </ClickableArea>
         );
-    }, [title, channelId, router, data.data]);
+    }, [title, channelId, router]);
 
     if (!channelId) return;
 
     return isMedium ? (
         <Tippy
-            disabled={isNumberic(channelId) && !data.data}
             appendTo={() => document.body}
             maxWidth={400}
             className="tippy-card"
