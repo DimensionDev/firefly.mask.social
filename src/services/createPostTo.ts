@@ -3,18 +3,18 @@ import { safeUnreachable } from '@masknet/kit';
 import { first } from 'lodash-es';
 
 import { type SocialSource } from '@/constants/enum.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
 type Options = Record<
     ComposeType,
-    (images: MediaObject[], videos: MediaObject[], poll?: Post['poll']) => Promise<string>
+    (images: MediaObject[], videos: MediaObject[], poll?: Poll) => Promise<string>
 > & {
     uploadImages?: () => Promise<MediaObject[]>;
     uploadVideos?: () => Promise<MediaObject[]>;
-    createPoll?: () => Promise<Post['poll']>;
+    createPoll?: () => Promise<Poll | undefined>;
 };
 
 export function createPostTo(source: SocialSource, options: Options) {

@@ -18,7 +18,11 @@ const TweetSchema = z.object({
     mediaIds: z.array(z.string()).optional(),
     poll: z
         .object({
-            options: z.array(z.string()),
+            options: z.array(
+                z.object({
+                    label: z.string(),
+                })
+            ),
             validInDays: z.number(),
         })
         .optional(),
@@ -57,7 +61,7 @@ async function composeTweet(rawTweet: unknown) {
 
     if (tweet.poll) {
         composedTweet.poll = {
-            options: tweet.poll.options,
+            options: tweet.poll.options.map(option => option.label),
             // convert days to minutes in server
             duration_minutes: getPollFixedValidInDays(tweet.poll.validInDays, Source.Twitter) * 24 * 60,
         };

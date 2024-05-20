@@ -10,7 +10,7 @@ import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
-import { createInitPurePoll } from '@/helpers/createPoll.js';
+import { createInitPoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
@@ -498,7 +498,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     state,
                     (post) => ({
                         ...post,
-                        poll: createInitPurePoll(),
+                        poll: createInitPoll(),
                     }),
                     cursor,
                 ),

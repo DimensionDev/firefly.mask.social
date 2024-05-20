@@ -5,6 +5,7 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToTwitter } from '@/services/uploadToTwitter.js';
@@ -27,7 +28,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     const { currentProfile } = useTwitterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[], poll?: Post['poll']) => {
+    const composeDraft = (postType: PostType, images: MediaObject[], poll?: Poll) => {
         return {
             publicationId: '',
             type: postType,
@@ -57,11 +58,11 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             }));
         },
         createPoll: async () => {
-            if (!poll) return undefined;
+            if (!poll) return;
             return {
-                options: poll.options.map((option) => option.label),
+                options: poll.options.map((option) => ({ label: option.label })),
                 validInDays: poll.validInDays,
-            } as unknown as Post['poll'];
+            };
         },
         compose: (images, _, poll) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, poll)),
         reply: (images, _, poll) => {

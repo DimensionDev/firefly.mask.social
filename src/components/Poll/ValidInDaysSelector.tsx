@@ -35,9 +35,10 @@ export function ValidInDaysSelector({ post: { poll }, readonly }: ValidInDaysSel
         const isValidDays = NUMBER_BIGGER_THAN_ZERO.test(value);
         const days = parseInt(value, 10);
         if (!isValidDays || days <= defaultMaxDays) {
-            return setInputValue('');
+            setInputValue('');
+        } else {
+            onValidInDaysChange(days);
         }
-        onValidInDaysChange(days);
     };
 
     return (

@@ -1,8 +1,10 @@
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { useState } from 'react';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -14,10 +16,10 @@ export function PollCard({ post }: PollCardProps) {
     const [userVote] = useState<string>();
     const profile = useCurrentProfile(post.source);
 
-    const options = post.poll?.options || [];
+    const options = post.poll?.options || EMPTY_LIST;
     const voteCount = options.reduce((sum, current) => sum + (current.votes ?? 0), 0);
 
-    const createByCurrentUser = profile?.profileId === post.author?.profileId;
+    const createByCurrentUser = isSameProfile(profile, post.author);
     const isVoteStopped = post.poll?.votingStatus === 'closed';
     const voteDisabled = isVoteStopped || !!profile || createByCurrentUser;
 

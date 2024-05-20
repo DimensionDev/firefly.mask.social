@@ -14,7 +14,7 @@ export const createPollInitOption = (): PollPureOption => {
     return { id: uuid(), label: '' };
 };
 
-export const createInitPurePoll = () => {
+export const createInitPoll = () => {
     return {
         validInDays: POLL_DEFAULT_VALID_IN_DAYS,
         options: Array.from({ length: POLL_OPTIONS_MIN_COUNT }).map(() => createPollInitOption()),
