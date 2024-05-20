@@ -916,7 +916,7 @@ msgid "Mask Network"
 msgstr "Mask Network"
 
 msgid "View Engagements"
-msgstr "查看参与情况"
+msgstr "查看互动情况"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"
