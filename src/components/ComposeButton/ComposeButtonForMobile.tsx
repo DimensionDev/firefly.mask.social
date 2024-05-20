@@ -5,6 +5,7 @@ import ReplyIcon from '@/assets/reply.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -16,10 +17,12 @@ export function ComposeButtonForMobile() {
 
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
 
     const isLogin = useIsLogin();
     const isCurrentLogin = useIsLogin(currentSocialSource);
     const currentPost = useCurrentVisitingPost();
+    const currentChannel = useCurrentVisitingChannel();
 
     if (!isLogin) return null;
     if (isPostPage && !isCurrentLogin) return null;
@@ -31,6 +34,7 @@ export function ComposeButtonForMobile() {
                 ComposeModalRef.open({
                     type: isPostPage ? 'reply' : 'compose',
                     post: isPostPage ? currentPost : undefined,
+                    channel: isChannelPage ? currentChannel : undefined,
                 });
             }}
         >

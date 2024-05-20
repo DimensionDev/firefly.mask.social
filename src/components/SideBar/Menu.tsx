@@ -28,6 +28,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -42,10 +43,14 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const updateSidebarOpen = useNavigatorState.use.updateSidebarOpen();
+    const { updateSidebarOpen } = useNavigatorState();
 
     const isLogin = useIsLogin();
     const pathname = usePathname();
+
+    const currentChannel = useCurrentVisitingChannel();
+    const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
+
     const isMyProfile = useIsMyProfile(
         currentSocialSource,
         isRoutePathname(pathname, '/profile') ? pathname.split('/')[3] ?? '' : '',
@@ -153,6 +158,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                                 onClick={() =>
                                                     ComposeModalRef.open({
                                                         type: 'compose',
+                                                        channel: isChannelPage ? currentChannel : undefined,
                                                     })
                                                 }
                                             >
@@ -167,6 +173,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             onClick={() => {
                                                 ComposeModalRef.open({
                                                     type: 'compose',
+                                                    channel: isChannelPage ? currentChannel : undefined,
                                                 });
                                             }}
                                         >
