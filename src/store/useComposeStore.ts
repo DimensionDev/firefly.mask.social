@@ -103,9 +103,9 @@ interface ComposeState {
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
+    updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
-    updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;

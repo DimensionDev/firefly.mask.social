@@ -1,13 +1,22 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
+import { Suspense, useMemo } from 'react';
+import { useDocumentTitle } from 'usehooks-ts';
 
-import { ChannelPage } from '@/app/(normal)/pages/Channel.js';
+import { Info } from '@/components/Channel/Info.js';
+import { PostList } from '@/components/Channel/PostList.js';
+import { Title } from '@/components/Channel/Title.js';
 import { Loading } from '@/components/Loading.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { useUpdateCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 interface PageProps {
     params: {
@@ -29,6 +38,17 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
         },
     });
 
+    const title = useMemo(() => {
+        if (!channel) return SITE_NAME;
+        const fragments = [channel.name];
+        if (channel.id) fragments.push(`(/${channel.id})`);
+        return createPageTitle(fragments.join(' '));
+    }, [channel]);
+
+    useDocumentTitle(title);
+    useNavigatorTitle(t`Channel`);
+    useUpdateCurrentVisitingChannel(channel);
+
     if (isLoading) {
         return <Loading />;
     }
@@ -37,5 +57,17 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
         notFound();
     }
 
-    return <ChannelPage channel={channel} />;
+    return (
+        <div>
+            <Title channel={channel} />
+
+            <Info channel={channel} source={channel.source} />
+
+            <hr className=" divider w-full border-line" />
+
+            <Suspense fallback={<Loading />}>
+                <PostList source={channel.source} channelId={channel.id} />
+            </Suspense>
+        </div>
+    );
 }
