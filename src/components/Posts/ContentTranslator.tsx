@@ -1,7 +1,9 @@
-import { t } from '@lingui/macro';
-import { memo, useRef } from 'react';
+import { Trans } from '@lingui/macro';
+import { first } from 'lodash-es';
+import { memo, useRef, useState } from 'react';
 import { useAsyncFn, useMount } from 'react-use';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { getBrowserLanguage, isSameLanguageWithBrowser } from '@/helpers/getBrowserLanguage.js';
@@ -22,56 +24,65 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     post,
     canShowMore,
 }) {
-    const contentLangCache = useRef<string | null>(null);
+    const [collapsed, setCollapsed] = useState(false);
+    const contentLanguageRef = useRef<string | null>(null);
     const isLogin = useIsLogin();
 
-    const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(
-        async (detectOnly: boolean = false) => {
-            if (!contentLangCache.current) {
-                // detect content language only once
-                contentLangCache.current = await getContentLanguage(content);
-            }
-            if (detectOnly) return { contentLanguage: contentLangCache.current, translated: null };
-            const browserLanguage = getBrowserLanguage();
-            const result = await translate(browserLanguage, content);
-            return { contentLanguage: contentLangCache.current, translated: result };
-        },
-        [content],
-    );
+    const [_, handleDetect] = useAsyncFn(async () => {
+        contentLanguageRef.current = await getContentLanguage(content);
+    }, []);
+
+    const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(async () => {
+        const { detectedLanguage, translations } = await translate(getBrowserLanguage(), content);
+        return {
+            contentLanguage: getLangNameFromLocal(detectedLanguage ?? ''),
+            translatedText: first(translations)?.text,
+        };
+    }, [content]);
 
     useMount(() => {
         if (!isLogin) return;
-        handleTranslate(true);
+        handleDetect();
     });
 
-    const translatedText = data?.translated?.translations?.[0]?.text;
-
-    const buttonLabel = (() => {
-        if (translatedText) {
-            const detectedLanguage = data?.translated?.detectedLanguage;
-            const contentLangName = getLangNameFromLocal(detectedLanguage ?? '');
-            return contentLangName ? t`Translated from ${contentLangName}` : t`Translated`;
-        }
-        if (error && !loading) return t`Failed to translate`;
-        return loading ? t`Translating...` : t`Translate post`;
-    })();
-
-    const onTranslate = () => {
-        if (loading || translatedText) return;
-        handleTranslate();
-    };
-
-    const isValidContentLang = !!contentLangCache.current && contentLangCache.current !== 'N/A';
-    const isSameLanguage = isValidContentLang && isSameLanguageWithBrowser(contentLangCache.current ?? '');
+    const isValidContentLang = !!contentLanguageRef.current && contentLanguageRef.current !== 'N/A';
+    const isSameLanguage = isValidContentLang && isSameLanguageWithBrowser(contentLanguageRef.current ?? '');
 
     if (!isLogin || !isValidContentLang || isSameLanguage) return null;
+
+    const translatedText = data?.translatedText;
+    const contentLanguage = data?.contentLanguage;
+
+    if (collapsed) {
+        return (
+            <div className="my-1.5">
+                <ClickableButton className="text-sm text-link" onClick={() => setCollapsed(false)}>
+                    <Trans>Translate post</Trans>
+                </ClickableButton>
+            </div>
+        );
+    }
 
     return (
         <>
             <div className="my-1.5">
-                <ClickableButton className="text-sm text-link" onClick={onTranslate}>
-                    {buttonLabel}
-                </ClickableButton>
+                {translatedText ? (
+                    <ClickableButton className="text-sm text-link" onClick={() => setCollapsed(true)}>
+                        {contentLanguage ? <Trans>Translated from {contentLanguage}</Trans> : <Trans>Translated</Trans>}
+                    </ClickableButton>
+                ) : loading ? (
+                    <div className=" flex h-[40px] items-center justify-center">
+                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                    </div>
+                ) : (
+                    <ClickableButton className="text-sm text-link" onClick={handleTranslate}>
+                        {error ? (
+                            <Trans>Failed to translate post. Please retry later.</Trans>
+                        ) : (
+                            <Trans>Translate post</Trans>
+                        )}
+                    </ClickableButton>
+                )}
             </div>
             {translatedText ? <PostMarkup post={post} content={translatedText} canShowMore={canShowMore} /> : null}
         </>

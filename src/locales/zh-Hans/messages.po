@@ -42,6 +42,9 @@ msgstr "报告 @{0}"
 msgid "Retweet"
 msgstr "转帖"
 
+msgid "Failed to translate post. Please retry later."
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
@@ -341,9 +344,6 @@ msgstr "屏蔽中"
 
 msgid "Search Filter"
 msgstr "查询规则"
-
-msgid "Translated from {contentLangName}"
-msgstr ""
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -723,6 +723,9 @@ msgstr "显示更多"
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
+msgid "Translated from {contentLanguage}"
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
 
@@ -830,9 +833,6 @@ msgstr "添加"
 
 msgid "No device accounts detected."
 msgstr "未检测到设备账号。"
-
-msgid "Failed to translate"
-msgstr ""
 
 msgid "Log out all"
 msgstr "登出所有"
@@ -1014,9 +1014,6 @@ msgstr "<0>你</0> 已转帖"
 msgid "Recast"
 msgstr "转推"
 
-msgid "Translating..."
-msgstr ""
-
 msgid "Followers"
 msgstr "粉丝"
 
@@ -1073,4 +1070,3 @@ msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
