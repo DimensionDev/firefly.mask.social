@@ -8,10 +8,7 @@ import { type CompositePost, useComposeStateStore } from '@/store/useComposeStor
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-type Options = Record<
-    ComposeType,
-    (images: MediaObject[], videos: MediaObject[], poll?: Poll) => Promise<string>
-> & {
+type Options = Record<ComposeType, (images: MediaObject[], videos: MediaObject[], poll?: Poll) => Promise<string>> & {
     uploadImages?: () => Promise<MediaObject[]>;
     uploadVideos?: () => Promise<MediaObject[]>;
     createPoll?: () => Promise<Poll | undefined>;
