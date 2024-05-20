@@ -74,13 +74,13 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
                     <div className=" flex h-[40px] items-center justify-center">
                         <LoadingIcon className="animate-spin" width={24} height={24} />
                     </div>
-                ) : error ? (
-                    <ClickableButton className="text-sm text-link" onClick={handleTranslate}>
-                        <Trans>Failed to translate post. Please retry later.</Trans>
-                    </ClickableButton>
                 ) : (
                     <ClickableButton className="text-sm text-link" onClick={handleTranslate}>
-                        <Trans>Translate post</Trans>
+                        {error ? (
+                            <Trans>Failed to translate post. Please retry later.</Trans>
+                        ) : (
+                            <Trans>Translate post</Trans>
+                        )}
                     </ClickableButton>
                 )}
             </div>
