@@ -17,7 +17,7 @@ export function PollCard({ post }: PollCardProps) {
     const options = post.poll?.options || [];
     const voteCount = options.reduce((sum, current) => sum + (current.votes ?? 0), 0);
 
-    const createByCurrentUser = profile?.profileId === post.author?.profileId
+    const createByCurrentUser = profile?.profileId === post.author?.profileId;
     const isVoteStopped = post.poll?.votingStatus === 'closed';
     const voteDisabled = isVoteStopped || !!profile || createByCurrentUser;
 

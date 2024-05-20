@@ -8,7 +8,7 @@ import {
     POLL_OPTIONS_MIN_COUNT,
 } from '@/constants/poll.js';
 import { trimify } from '@/helpers/trimify.js';
-import type { Poll,PollPureOption } from '@/providers/types/Poll.js';
+import type { Poll, PollPureOption } from '@/providers/types/Poll.js';
 
 export const createPollInitOption = (): PollPureOption => {
     return { id: uuid(), label: '' };

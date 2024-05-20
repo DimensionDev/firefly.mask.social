@@ -15,7 +15,7 @@ export const PollButton = memo(function PollButton() {
     const pollDisabled = !!video || images.length > 0 || !!poll;
 
     return (
-        <Tooltip content={t`Poll`} placement="top" disabled={pollDisabled} className='leading-4'>
+        <Tooltip content={t`Poll`} placement="top" disabled={pollDisabled} className="leading-4">
             <ClickableButton
                 disabled={pollDisabled}
                 className={classNames('text-main', pollDisabled ? 'cursor-not-allowed opacity-50' : '')}

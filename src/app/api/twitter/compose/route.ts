@@ -16,10 +16,12 @@ const TweetSchema = z.object({
     quoteTwitterId: z.string().optional(),
     inReplyToTweetId: z.string().optional(),
     mediaIds: z.array(z.string()).optional(),
-    poll: z.object({
-        options: z.array(z.string()),
-        validInDays: z.number(),
-    }).optional(),
+    poll: z
+        .object({
+            options: z.array(z.string()),
+            validInDays: z.number(),
+        })
+        .optional(),
 });
 
 async function composeTweet(rawTweet: unknown) {
