@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-18 12:01\n"
+"PO-Revision-Date: 2024-05-20 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -40,6 +40,9 @@ msgid "Report @{0}"
 msgstr ""
 
 msgid "Retweet"
+msgstr ""
+
+msgid "Failed to translate post. Please retry later."
 msgstr ""
 
 msgid "Failed to fetch as Blob."
@@ -340,9 +343,6 @@ msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
-msgstr ""
-
-msgid "Translated from {contentLangName}"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -723,6 +723,9 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr ""
 
+msgid "Translated from {contentLanguage}"
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
@@ -829,9 +832,6 @@ msgid "Add"
 msgstr ""
 
 msgid "No device accounts detected."
-msgstr ""
-
-msgid "Failed to translate"
 msgstr ""
 
 msgid "Log out all"
@@ -1012,9 +1012,6 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "Recast"
-msgstr ""
-
-msgid "Translating..."
 msgstr ""
 
 msgid "Followers"
