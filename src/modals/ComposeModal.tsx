@@ -46,7 +46,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -74,6 +74,7 @@ export interface ComposeModalProps {
         payloadImage: string;
         claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
     };
+    channel?: Channel | null;
 }
 export type ComposeModalCloseProps = {
     disableClear?: boolean;
@@ -102,6 +103,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateChars,
             updateTypedMessage,
             updateRpPayload,
+            updateChannel,
             clear,
         } = useComposeStateStore();
 
@@ -112,7 +114,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: ({ type, source, typedMessage, post, chars, rpPayload }) => {
+            onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel }) => {
                 updateType(type || 'compose');
                 updateAvailableSources(source ? [source] : getCurrentAvailableSources());
                 if (typedMessage) updateTypedMessage(typedMessage);
@@ -122,6 +124,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     setEditorContent(readChars(chars, true));
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
+                if (channel) updateChannel(channel.source, channel);
             },
             onClose: (props) => {
                 if (props?.disableClear) return;
