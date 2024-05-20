@@ -3,7 +3,6 @@ import { t } from '@lingui/macro';
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getPollFixedValidInDays } from '@/helpers/createPoll.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
@@ -60,14 +59,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
         createPoll: async () => {
             if (!poll) return undefined;
             return {
-                options: poll.options.map((option) => option.text),
-                duration_minutes: getPollFixedValidInDays(poll.validInDays, Source.Twitter) * 24 * 60,
-            };
+                options: poll.options.map((option) => option.label),
+                validInDays: poll.validInDays,
+            } as unknown as Post['poll'];
         },
         compose: (images, _, poll) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, poll)),
-        reply: (images) => {
+        reply: (images, _, poll) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images));
+            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, poll));
         },
         quote: (images) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);

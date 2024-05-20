@@ -1,11 +1,16 @@
 import type { Pageable } from '@masknet/shared-base';
 
 export interface Poll {
-    pollId?: string;
-    startAt?: string;
-    expiredAt?: string;
+    id?: string;
+    options: Array<{
+        id?: string;
+        position?: number;
+        label: string;
+        votes?: number;
+    }>;
     validInDays: number;
-    options: Array<{ id: string, text: string }>;
+    endDatetime?: string;
+    votingStatus?: string;
 }
 
 export type PollPureOption = Poll['options'][number];

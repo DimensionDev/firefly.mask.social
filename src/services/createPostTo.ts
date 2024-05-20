@@ -37,7 +37,7 @@ export function createPostTo(source: SocialSource, options: Options) {
                 }
                 case 'reply':
                     if (!parentPost) throw new Error(t`No parent post found.`);
-                    const commentId = await options.reply(uploadedImages, uploadedVideos);
+                    const commentId = await options.reply(uploadedImages, uploadedVideos, poll);
                     return commentId;
                 case 'quote': {
                     if (!parentPost) throw new Error(t`No parent post found.`);

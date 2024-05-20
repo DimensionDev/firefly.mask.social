@@ -3,7 +3,9 @@ import { NextRequest } from 'next/server.js';
 import { type SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
+import { Source } from '@/constants/enum.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { getPollFixedValidInDays } from '@/helpers/createPoll.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
@@ -16,7 +18,7 @@ const TweetSchema = z.object({
     mediaIds: z.array(z.string()).optional(),
     poll: z.object({
         options: z.array(z.string()),
-        duration_minutes: z.number(),
+        validInDays: z.number(),
     }).optional(),
 });
 
@@ -52,7 +54,11 @@ async function composeTweet(rawTweet: unknown) {
     }
 
     if (tweet.poll) {
-        composedTweet.poll = tweet.poll;
+        composedTweet.poll = {
+            options: tweet.poll.options,
+            // convert days to minutes in server
+            duration_minutes: getPollFixedValidInDays(tweet.poll.validInDays, Source.Twitter) * 24 * 60,
+        };
     }
 
     return composedTweet;

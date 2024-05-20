@@ -13,6 +13,7 @@ import { Frame } from '@/components/Frame/index.js';
 import { Markup } from '@/components/Markup/Markup.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { Oembed } from '@/components/Oembed/index.js';
+import { PollCard } from '@/components/Poll/PollCard.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -177,6 +178,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     </div>
                 </div>
             ) : null}
+
+            {post.poll ? <PollCard post={post} /> : null}
 
             {/* TODO: exclude the payload image from attachments */}
             {showAttachments &&

@@ -1,6 +1,7 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
 import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
+import type { Poll } from '@/providers/types/Poll.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -310,11 +311,6 @@ export interface Channel {
     hosts?: Profile[];
     blocked?: boolean;
     __original__?: unknown;
-}
-
-export interface Poll {
-    duration_minutes: number;
-    options: string[];
 }
 
 export interface Provider {

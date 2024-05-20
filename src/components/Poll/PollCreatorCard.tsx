@@ -45,8 +45,8 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
         if (addDisabled) return;
         updatePoll({ ...poll, options: [...poll.options, createPollInitOption()] });
     };
-    const onOptionChange = (option: PollPureOption, text: string) => {
-        const newOptions = poll.options.map((o) => (o.id === option.id ? { ...o, text } : o));
+    const onOptionChange = (option: PollPureOption, label: string) => {
+        const newOptions = poll.options.map((o) => (o.id === option.id ? { ...o, label } : o));
         updatePoll({ ...poll, options: newOptions });
     };
 
@@ -74,7 +74,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                     >
                         <input
                             className="h-full flex-1 border-0 bg-transparent placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
-                            value={option.text}
+                            value={option.label}
                             placeholder={t`Choice ${index + 1}`}
                             onChange={(e) => onOptionChange(option, e.target.value)}
                             readOnly={readonly}
