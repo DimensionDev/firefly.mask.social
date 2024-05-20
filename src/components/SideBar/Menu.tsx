@@ -42,14 +42,12 @@ interface MenuProps {
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
+    const currentChannel = useCurrentVisitingChannel();
 
     const { updateSidebarOpen } = useNavigatorState();
 
     const isLogin = useIsLogin();
     const pathname = usePathname();
-
-    const currentChannel = useCurrentVisitingChannel();
-    const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
 
     const isMyProfile = useIsMyProfile(
         currentSocialSource,
@@ -158,7 +156,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                                 onClick={() =>
                                                     ComposeModalRef.open({
                                                         type: 'compose',
-                                                        channel: isChannelPage ? currentChannel : undefined,
+                                                        channel: currentChannel,
                                                     })
                                                 }
                                             >
@@ -173,7 +171,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             onClick={() => {
                                                 ComposeModalRef.open({
                                                     type: 'compose',
-                                                    channel: isChannelPage ? currentChannel : undefined,
+                                                    channel: currentChannel,
                                                 });
                                             }}
                                         >

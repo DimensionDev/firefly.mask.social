@@ -17,7 +17,6 @@ export function ComposeButtonForMobile() {
 
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-    const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
 
     const isLogin = useIsLogin();
     const isCurrentLogin = useIsLogin(currentSocialSource);
@@ -33,8 +32,8 @@ export function ComposeButtonForMobile() {
             onClick={() => {
                 ComposeModalRef.open({
                     type: isPostPage ? 'reply' : 'compose',
-                    post: isPostPage ? currentPost : undefined,
-                    channel: isChannelPage ? currentChannel : undefined,
+                    post: currentPost,
+                    channel: currentChannel,
                 });
             }}
         >

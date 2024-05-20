@@ -15,8 +15,8 @@ import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useUpdateCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 interface PageProps {
     params: {
