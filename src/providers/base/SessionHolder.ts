@@ -1,10 +1,11 @@
-import type { Session } from '@/providers/types/Session.js';
 import { Emitter } from '@servie/events';
-import { useSubscription, type Subscription } from 'use-subscription';
+import { type Subscription } from 'use-subscription';
+
+import type { Session } from '@/providers/types/Session.js';
 
 export class SessionHolder<T extends Session> {
     protected emitter = new Emitter<{
-        update: [T | null];
+        update: [unknown]; // T | null
     }>();
     protected internalSession: T | null = null;
 
