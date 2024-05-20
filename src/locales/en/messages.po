@@ -37,6 +37,9 @@ msgstr "Report @{0}"
 msgid "Retweet"
 msgstr "Retweet"
 
+msgid "Failed to translate post. Please retry later."
+msgstr "Failed to translate post. Please retry later."
+
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -337,9 +340,6 @@ msgstr "Unmuting"
 msgid "Search Filter"
 msgstr "Search Filter"
 
-msgid "Translated from {contentLangName}"
-msgstr "Translated from {contentLangName}"
-
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
 
@@ -396,6 +396,9 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Translate Post"
+msgstr "Translate Post"
 
 msgid "Detecting..."
 msgstr "Detecting..."
@@ -718,6 +721,9 @@ msgstr "Show more"
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
 
+msgid "Translated from {contentLanguage}"
+msgstr "Translated from {contentLanguage}"
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
 
@@ -825,9 +831,6 @@ msgstr "Add"
 
 msgid "No device accounts detected."
 msgstr "No device accounts detected."
-
-msgid "Failed to translate"
-msgstr "Failed to translate"
 
 msgid "Log out all"
 msgstr "Log out all"
@@ -1008,9 +1011,6 @@ msgstr "<0>You</0> recasted"
 
 msgid "Recast"
 msgstr "Recast"
-
-msgid "Translating..."
-msgstr "Translating..."
 
 msgid "Followers"
 msgstr "Followers"
