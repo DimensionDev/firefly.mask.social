@@ -143,7 +143,7 @@ export enum Language {
     Zulu = 'zu',
 }
 
-export interface Translation {
+interface Translation {
     text: string;
     to: Language;
 }
