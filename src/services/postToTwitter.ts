@@ -15,7 +15,7 @@ import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
-    const { chars, images, postId, parentPost, restriction } = compositePost;
+    const { chars, images, postId, parentPost, restriction, poll } = compositePost;
 
     const twitterPostId = postId.Twitter;
     const twitterParentPost = parentPost.Twitter;
@@ -28,15 +28,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     const { currentProfile } = useTwitterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[]) => {
-        const poll: Post['poll'] =
-            postType === 'Post' && compositePost.poll
-                ? {
-                      options: compositePost.poll.options.map((option) => option.text),
-                      duration_minutes:
-                          getPollFixedValidInDays(compositePost.poll.validInDays, Source.Twitter) * 24 * 60,
-                  }
-                : undefined;
+    const composeDraft = (postType: PostType, images: MediaObject[], poll?: Post['poll']) => {
         return {
             publicationId: '',
             type: postType,
@@ -65,7 +57,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                 file: x.file,
             }));
         },
-        compose: (images) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images)),
+        createPoll: async () => {
+            if (!poll) return undefined;
+            return {
+                options: poll.options.map((option) => option.text),
+                duration_minutes: getPollFixedValidInDays(poll.validInDays, Source.Twitter) * 24 * 60,
+            };
+        },
+        compose: (images, _, poll) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, poll)),
         reply: (images) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
             return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images));

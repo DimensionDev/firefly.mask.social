@@ -312,6 +312,7 @@ class TwitterSocialMedia implements Provider {
                 replySettings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
+                poll: post.poll,
             }),
         });
 

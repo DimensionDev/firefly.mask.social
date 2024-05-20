@@ -8,7 +8,7 @@ import {
     POLL_OPTIONS_MIN_COUNT,
 } from '@/constants/poll.js';
 import { trimify } from '@/helpers/trimify.js';
-import type { PollPureOption, PurePoll } from '@/providers/types/Poll.js';
+import type { Poll,PollPureOption } from '@/providers/types/Poll.js';
 
 export const createPollInitOption = (): PollPureOption => {
     return { id: uuid(), text: '' };
@@ -35,7 +35,7 @@ export const shouldShowCustomDaysInput = (availableSources: SocialSource[]) => {
     return true;
 };
 
-export const isValidPoll = (poll: PurePoll) => {
+export const isValidPoll = (poll: Poll) => {
     if (!poll.options.length) return false;
     if (poll.options.some((o) => !trimify(o.text))) return false;
     return true;

@@ -15,7 +15,7 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
-import type { PurePoll } from '@/providers/types/Poll.js';
+import type { Poll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
@@ -59,7 +59,7 @@ export interface CompositePost {
     // only available in farcaster now
     channel: Record<SocialSource, Channel | null>;
 
-    poll: PurePoll | null;
+    poll: Poll | null;
 }
 
 interface ComposeState {
@@ -110,7 +110,7 @@ interface ComposeState {
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
     updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
-    updatePoll: (poll: PurePoll | null, cursor?: Cursor) => void;
+    updatePoll: (poll: Poll | null, cursor?: Cursor) => void;
     initPoll: (cursor?: Cursor) => void;
 
     // reset the editor

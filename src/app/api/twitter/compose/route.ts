@@ -14,6 +14,10 @@ const TweetSchema = z.object({
     quoteTwitterId: z.string().optional(),
     inReplyToTweetId: z.string().optional(),
     mediaIds: z.array(z.string()).optional(),
+    poll: z.object({
+        options: z.array(z.string()),
+        duration_minutes: z.number(),
+    }).optional(),
 });
 
 async function composeTweet(rawTweet: unknown) {
@@ -45,6 +49,10 @@ async function composeTweet(rawTweet: unknown) {
 
     if (tweet.quoteTwitterId) {
         composedTweet.quote_tweet_id = tweet.quoteTwitterId;
+    }
+
+    if (tweet.poll) {
+        composedTweet.poll = tweet.poll;
     }
 
     return composedTweet;
