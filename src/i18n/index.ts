@@ -5,16 +5,20 @@ import dayjs from 'dayjs';
 import { messages as en } from '@/locales/en/messages.mjs';
 // @ts-ignore
 import { messages as zhHans } from '@/locales/zh-Hans/messages.mjs';
+// @ts-ignore
+import { messages as zhHant } from '@/locales/zh-Hant/messages.mjs';
 import { Locale } from '@/types/index.js';
 
 const locales: Record<Locale, Messages> = {
     [Locale.en]: en,
     [Locale.zhHans]: zhHans,
+    [Locale.zhHant]: zhHant,
 };
 
 export const supportedLocales: Record<Locale, string> = {
     [Locale.en]: 'English',
     [Locale.zhHans]: '简体中文',
+    [Locale.zhHant]: '繁體中文',
 };
 
 export const defaultLocale = Locale.en;

@@ -60,6 +60,9 @@ msgstr "社群"
 msgid "Discover"
 msgstr "發現"
 
+msgid "Ask a question"
+msgstr ""
+
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
 
@@ -125,6 +128,9 @@ msgstr ""
 
 msgid "Wrong wallet"
 msgstr "錯誤的錢包"
+
+msgid "Poll"
+msgstr ""
 
 msgid "Casts"
 msgstr ""
@@ -196,6 +202,9 @@ msgid "Page not found"
 msgstr "找不到網頁"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "Custom"
 msgstr ""
 
 msgid "Password"
@@ -400,6 +409,9 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Choice {0}"
 msgstr ""
 
 msgid "Detecting..."
@@ -864,11 +876,17 @@ msgstr "未知的對話型別"
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用程序並掃描QR碼"
 
+msgid "{validInDays} day"
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
 
 msgid "Only people you follow"
 msgstr "僅限你跟隨的帳戶"
+
+msgid "Add another option"
+msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
@@ -1014,6 +1032,9 @@ msgstr ""
 msgid "Recast"
 msgstr ""
 
+msgid "Translating..."
+msgstr ""
+
 msgid "Followers"
 msgstr ""
 
@@ -1033,6 +1054,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
 msgstr ""
 
 msgid "Post"
@@ -1070,4 +1094,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-
