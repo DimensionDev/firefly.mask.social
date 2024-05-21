@@ -43,15 +43,10 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
             // If the cache be undefined, the query is first query.
             if (cache === undefined) {
                 const provider = resolveSocialMediaProvider(source);
+                const result = await provider.getChannelById(channelId);
+                addChannel(source, channelId, result ? result : null);
 
-                try {
-                    const result = await provider.getChannelById(channelId);
-                    addChannel(source, channelId, result);
-
-                    return result;
-                } catch {
-                    addChannel(source, channelId, null);
-                }
+                return result;
             }
 
             return cache;
