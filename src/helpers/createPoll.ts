@@ -10,14 +10,14 @@ import {
 import { trimify } from '@/helpers/trimify.js';
 import type { Poll, PollOption } from '@/providers/types/Poll.js';
 
-export const createPollInitOption = (): PollOption => {
+export const createPollOption = (): PollOption => {
     return { id: uuid(), label: '' };
 };
 
-export const createInitPoll = () => {
+export const createPoll = () => {
     return {
         validInDays: POLL_DEFAULT_VALID_IN_DAYS,
-        options: Array.from({ length: POLL_OPTIONS_MIN_COUNT }).map(() => createPollInitOption()),
+        options: Array.from({ length: POLL_OPTIONS_MIN_COUNT }).map(() => createPollOption()),
     };
 };
 

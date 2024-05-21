@@ -10,7 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ValidInDaysSelector } from '@/components/Poll/ValidInDaysSelector.js';
 import { POLL_OPTIONS_MIN_COUNT, POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createPollInitOption, getPollOptionsMaxLength } from '@/helpers/createPoll.js';
+import { createPollOption, getPollOptionsMaxLength } from '@/helpers/createPoll.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import type { PollOption } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -42,7 +42,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
         updatePoll({ ...poll, options: newOptions });
     };
     const addOption = () => {
-        updatePoll({ ...poll, options: [...poll.options, createPollInitOption()] });
+        updatePoll({ ...poll, options: [...poll.options, createPollOption()] });
     };
     const onOptionChange = (option: PollOption, label: string) => {
         const newOptions = poll.options.map((o) => (o.id === option.id ? { ...o, label } : o));

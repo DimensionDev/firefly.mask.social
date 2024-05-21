@@ -10,7 +10,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const PollButton = memo(function PollButton() {
     const { video, images, poll } = useCompositePost();
-    const { initPoll } = useComposeStateStore();
+    const { createPoll } = useComposeStateStore();
 
     const pollDisabled = !!video || images.length > 0 || !!poll;
 
@@ -19,7 +19,7 @@ export const PollButton = memo(function PollButton() {
             <ClickableButton
                 disabled={pollDisabled}
                 className={classNames('text-main', pollDisabled ? 'cursor-not-allowed opacity-50' : '')}
-                onClick={initPoll}
+                onClick={createPoll}
             >
                 <PollIcon width={24} height={24} />
             </ClickableButton>
