@@ -1,3 +1,4 @@
+import { sumBy } from 'lodash-es';
 import { useState } from 'react';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
@@ -22,8 +23,8 @@ export function PollCard({ post }: PollCardProps) {
     const voteDisabled = post.poll?.votingStatus === 'closed' || !profile || isSameProfile(profile, post.author);
 
     const toResultRate = (current: number) => {
-        const voteCount = poll.options.reduce((sum, current) => sum + (current.votes ?? 0), 0);
-        return parseFloat(((current / voteCount) * 100).toFixed(2));
+        const voteCount = sumBy(poll.options, (option) => option.votes ?? 0);
+        return voteCount ? parseFloat(((current / voteCount) * 100).toFixed(2)) : 0;
     };
     const handleVote = (optionLabel: string) => {
         enqueueErrorMessage('Not implemented yet');
