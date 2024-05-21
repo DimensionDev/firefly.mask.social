@@ -154,9 +154,6 @@ msgstr "Username is required."
 msgid "Copied"
 msgstr "Copied"
 
-msgid "{validInDays, plural, one {# day} other {# days}}"
-msgstr "{validInDays, plural, one {# day} other {# days}}"
-
 msgid "Your posts have published successfully."
 msgstr "Your posts have published successfully."
 
@@ -862,6 +859,9 @@ msgstr "Unknown session type."
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 
+msgid "{validInDays} day"
+msgstr "{validInDays} day"
+
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
@@ -921,6 +921,9 @@ msgstr "Unmute"
 
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
+
+msgid "{validInDays} days"
+msgstr "{validInDays} days"
 
 msgid "Click to copy"
 msgstr "Click to copy"
