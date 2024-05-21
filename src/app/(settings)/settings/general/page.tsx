@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { getEnumAsArray } from '@masknet/kit';
 import { Appearance } from '@masknet/public-api';
 import { useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
@@ -12,10 +13,9 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+import { supportedLocales } from '@/i18n/index.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { Locale } from '@/types/index.js';
-import { getEnumAsArray } from '@masknet/kit';
-import { supportedLocales } from '@/i18n/index.js';
 
 export default function General() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
