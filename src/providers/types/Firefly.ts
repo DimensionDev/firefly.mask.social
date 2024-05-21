@@ -234,7 +234,10 @@ export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
-export type ChannelResponse = Response<ChannelBrief>;
+export type ChannelResponse = Response<{
+    channel: ChannelBrief;
+    blocked: boolean;
+}>;
 
 export type ChannelsResponse = Response<Channel[]>;
 
@@ -389,6 +392,12 @@ export type BlockUserResponse = Response<
         snsPlatform: string;
     }>
 >;
+
+export type BlockChannelResponse = Response<{
+    identifiers: Array<{ channel_id: string; account_id: string }>;
+    generatedMaps: Array<{ create_at: string; update_at: string }>;
+    raw: Array<{ create_at: string; update_at: string }>;
+}>;
 
 export type BlockRelationResponse = Response<
     Array<{

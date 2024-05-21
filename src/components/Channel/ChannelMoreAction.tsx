@@ -9,13 +9,11 @@ import urlcat from 'urlcat';
 import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
-import { NODE_ENV } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import { useChangeChannelStatus } from '@/hooks/useChangeChannelStatus.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useToggleBlockChannel } from '@/hooks/useToggleBlockChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -25,10 +23,8 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 
 export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ channel, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
-    const currentProfile = useCurrentProfile(channel.source);
-    const [{ loading: muting }, changeChannelStatus] = useChangeChannelStatus(currentProfile);
-
-    const isBusy = muting;
+    const isLogin = useIsLogin(channel.source);
+    const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleBlockChannel();
 
     return (
         <Menu className={classNames('relative', className)} as="div" {...rest}>
@@ -38,7 +34,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                 className="flex items-center text-secondary"
                 aria-label="More"
             >
-                {isBusy ? (
+                {channelBlocking ? (
                     <span className="inline-flex h-8 w-8 animate-spin items-center justify-center">
                         <LoadingIcon width={16} height={16} />
                     </span>
@@ -78,13 +74,13 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                             </MenuButton>
                         )}
                     </Menu.Item>
-                    {currentProfile && env.shared.NODE_ENV === NODE_ENV.Development ? (
+                    {isLogin ? (
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteChannelButton
                                     channel={channel}
-                                    busy={isBusy}
-                                    onStatusChange={changeChannelStatus}
+                                    busy={channelBlocking}
+                                    onToggleBlock={toggleBlockChannel}
                                     onClick={close}
                                 />
                             )}
