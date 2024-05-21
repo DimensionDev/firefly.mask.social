@@ -23,7 +23,7 @@ export function PollCard({ post }: PollCardProps) {
     const voteDisabled = post.poll?.votingStatus === 'closed' || !profile || isSameProfile(profile, post.author);
 
     const toResultRate = (current: number) => {
-        const voteCount = sumBy(poll.options, option => option.votes ?? 0);
+        const voteCount = sumBy(poll.options, (option) => option.votes ?? 0);
         return voteCount ? parseFloat(((current / voteCount) * 100).toFixed(2)) : 0;
     };
     const handleVote = (optionLabel: string) => {
