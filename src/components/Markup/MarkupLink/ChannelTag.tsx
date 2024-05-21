@@ -10,6 +10,7 @@ import { Tippy } from '@/esm/Tippy.js';
 import { getFarcasterChannelUrlById } from '@/helpers/getFarcasterChannelUrlById.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useChannelStoreState } from '@/store/useChannelStore.js';
 
 export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTag({ title, source }) {
     const isMedium = useIsMedium();
@@ -17,6 +18,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
     const channelId = title?.trim().slice(1);
     const [viewed, setViewed] = useState(false);
 
+    const { allChannelData, addChannel } = useChannelStoreState();
     const { observe } = useInView({
         rootMargin: '0px 0px',
         onChange: async ({ inView }) => {
@@ -31,11 +33,23 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     const data = useQuery({
         enabled: !!channelId && !!source && viewed,
-        queryKey: ['channel', source, channelId],
+        queryKey: ['channel', 'tag', source, channelId],
         queryFn: async () => {
             if (!channelId || !source) return;
-            const provider = resolveSocialMediaProvider(source);
-            return provider.getChannelById(channelId);
+            const cache = allChannelData[source][channelId];
+            // If the cache be null, the channel handle does not exist.
+            if (cache === null) return;
+
+            // If the cache is undefined, it indicates the first query.
+            if (cache === undefined) {
+                const provider = resolveSocialMediaProvider(source);
+                const result = await provider.getChannelById(channelId);
+                addChannel(source, channelId, result ? result : null);
+
+                return result;
+            }
+
+            return cache;
         },
     });
 
@@ -55,6 +69,8 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
     }, [title, channelId, router]);
 
     if (!channelId) return;
+
+    if (!data.isLoading && !data.data) return title;
 
     return isMedium ? (
         <Tippy
