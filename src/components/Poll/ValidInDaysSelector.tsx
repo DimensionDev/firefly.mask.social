@@ -1,6 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
-import { plural, Plural, t, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 import { Fragment, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';

@@ -60,7 +60,8 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
         createPoll: async () => {
             if (!poll) return;
             return {
-                options: poll.options.map((option) => ({ label: option.label })),
+                id: '',
+                options: poll.options.map((option) => ({ id: option.id, label: option.label })),
                 validInDays: poll.validInDays,
             };
         },

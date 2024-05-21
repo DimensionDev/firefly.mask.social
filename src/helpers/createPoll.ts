@@ -16,6 +16,7 @@ export const createPollOption = (): PollOption => {
 
 export const createPoll = (): Poll => {
     return {
+        id: '',
         validInDays: POLL_DEFAULT_VALID_IN_DAYS,
         options: Array.from({ length: POLL_OPTIONS_MIN_COUNT }).map(() => createPollOption()),
     };

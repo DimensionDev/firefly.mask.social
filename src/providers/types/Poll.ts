@@ -1,14 +1,14 @@
 import type { Pageable } from '@masknet/shared-base';
 
 export interface PollOption {
-    id?: string;
+    id: string;
     position?: number;
     label: string;
     votes?: number;
 }
 
 export interface Poll {
-    id?: string;
+    id: string;
     options: PollOption[];
     validInDays: number;
     endDatetime?: string;

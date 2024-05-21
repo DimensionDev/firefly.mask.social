@@ -927,9 +927,6 @@ msgstr "取消屏蔽"
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 
-msgid "{validInDays} days"
-msgstr ""
-
 msgid "Click to copy"
 msgstr "点击复制"
 
@@ -1043,6 +1040,9 @@ msgstr "服务条款"
 
 msgid "Already posted on {sourceName}."
 msgstr "已经在 {sourceName} 发贴。"
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
+msgstr ""
 
 msgid "Post"
 msgstr "发帖"

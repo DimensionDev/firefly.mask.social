@@ -922,9 +922,6 @@ msgstr ""
 msgid "Your Lens account is now connected"
 msgstr ""
 
-msgid "{validInDays} days"
-msgstr ""
-
 msgid "Click to copy"
 msgstr ""
 
@@ -1037,6 +1034,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
 msgstr ""
 
 msgid "Post"

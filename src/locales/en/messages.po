@@ -922,9 +922,6 @@ msgstr "Unmute"
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
-msgid "{validInDays} days"
-msgstr "{validInDays} days"
-
 msgid "Click to copy"
 msgstr "Click to copy"
 
@@ -1038,6 +1035,9 @@ msgstr "Terms of Service"
 
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
+msgstr "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
 
 msgid "Post"
 msgstr "Post"
