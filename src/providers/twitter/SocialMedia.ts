@@ -33,6 +33,14 @@ class TwitterSocialMedia implements Provider {
         return postId;
     }
 
+    async blockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
     commentPost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }

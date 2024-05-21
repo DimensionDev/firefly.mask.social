@@ -70,7 +70,7 @@ export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProf
     };
 }
 
-export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
+export function formatBriefChannelFromFirefly(channel: ChannelBrief, blocked?: boolean): Channel {
     const formatted: Channel = {
         source: Source.Farcaster,
         id: channel.id,
@@ -82,6 +82,7 @@ export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
         followerCount: channel.follower_count ?? 0,
         timestamp: channel.created_at * 1000,
         __original__: channel,
+        blocked,
     };
 
     if (channel.lead) {

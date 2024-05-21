@@ -690,6 +690,20 @@ export interface Provider {
     unblockUser: (profileId: string) => Promise<boolean>;
 
     /**
+     * Block a channel.
+     * @param channelId
+     * @returns
+     */
+    blockChannel: (channelId: string) => Promise<boolean>;
+
+    /**
+     * Unblock a profile.
+     * @param profileId
+     * @returns
+     */
+    unblockChannel: (channelId: string) => Promise<boolean>;
+
+    /**
      * Retrieve profiles who liked the specified post.
      * @param postId
      * @param indicator
