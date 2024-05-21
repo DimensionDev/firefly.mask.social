@@ -39,10 +39,10 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Twitter]: [ProfileTabType.Feed],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
-    [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
+    [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
     // TODO No API to fetch recasts for now.
-    [Source.Farcaster]: [EngagementType.Quotes, EngagementType.Recasts, EngagementType.Likes],
-    [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
+    [Source.Farcaster]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Recasts],
+    [Source.Twitter]: [EngagementType.Likes, EngagementType.Quotes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Lens]: [SearchType.Posts, SearchType.Users],
