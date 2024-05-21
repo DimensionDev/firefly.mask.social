@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 import { describe, expect, test } from 'vitest';
 
-import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { CHANNEL_REGEX, HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 describe('MENTION_REGEXP', () => {
     test('should match a mention', () => {
@@ -162,6 +162,27 @@ describe('URL_REGEX', () => {
             URL_REGEX.lastIndex = 0;
 
             const result = first(input.match(URL_REGEX) || []);
+            expect(result).toBe(expectedOutput);
+        });
+    });
+
+    test('Should match a channel', () => {
+        const cases = [
+            [`Test for uppercase /Bitcoin`, false],
+            [`Test for lowercase /bitcoin`, true],
+            [`Test for redpacket channel /firefly-garden`, true],
+            /**
+             * Because the channel handle contains pure numbers,
+             * we cannot correctly distinguish between the channel and date on regular expressions.
+             */
+            [`Test for the date /2024/05`, true],
+        ] as Array<[string, boolean]>;
+
+        cases.forEach(([input, expectedOutput]) => {
+            // reset the regex
+            CHANNEL_REGEX.lastIndex = 0;
+
+            const result = CHANNEL_REGEX.test(input);
             expect(result).toBe(expectedOutput);
         });
     });
