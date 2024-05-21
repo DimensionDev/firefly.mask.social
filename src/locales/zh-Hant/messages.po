@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-21 12:01\n"
+"PO-Revision-Date: 2024-05-21 13:40\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -559,19 +559,19 @@ msgid "Settings"
 msgstr "設定"
 
 msgid "Unmuted @{0} on {sourceName}"
-msgstr ""
+msgstr "在{sourceName} 上已取消對 @{0} 的靜音"
 
 msgid "Details"
-msgstr ""
+msgstr "詳細資訊"
 
 msgid "Detect device accounts"
-msgstr ""
+msgstr "偵測設備上的帳戶"
 
 msgid "Your Farcaster account is now connected."
-msgstr ""
+msgstr "您的 Farcaster 帳戶現已連接。"
 
 msgid "Connect to {source}"
-msgstr ""
+msgstr "已連接到{source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
@@ -580,13 +580,13 @@ msgid "Farcaster"
 msgstr ""
 
 msgid "commented"
-msgstr ""
+msgstr "已評論"
 
 msgid "The page could not be found."
-msgstr ""
+msgstr "無法找到頁面"
 
 msgid "No matching channel"
-msgstr ""
+msgstr "未找到對應的頻道"
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -607,25 +607,25 @@ msgid "General"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
-msgstr ""
+msgstr "該行為無法撤銷，您會失去這份草稿"
 
 msgid "Publications"
-msgstr ""
+msgstr "發表"
 
 msgid "Your website URL."
-msgstr ""
+msgstr "你的網站鏈接"
 
 msgid "Visit firefly.social"
-msgstr ""
+msgstr "訪問 firefly.social"
 
 msgid "Display"
-msgstr ""
+msgstr "顯示"
 
 msgid "Mute successfully."
-msgstr ""
+msgstr "已成功靜音"
 
 msgid "Show More"
-msgstr ""
+msgstr "顯示更多"
 
 msgid "Failed to parse session."
 msgstr ""
@@ -667,7 +667,7 @@ msgid "Please click and refresh the QR code to log in again."
 msgstr ""
 
 msgid "Visit mask.io"
-msgstr ""
+msgstr "訪問 mask.io"
 
 msgid "No comments found"
 msgstr ""
@@ -685,7 +685,7 @@ msgid "Failed to recast post"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr ""
+msgstr "在 X 上追蹤 @thefireflyapp"
 
 msgid "Light Mode"
 msgstr ""
@@ -739,7 +739,7 @@ msgid "Translated from {contentLanguage}"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"
-msgstr ""
+msgstr "在 X 上追蹤 @realMaskNetwork"
 
 msgid "Leaving Firefly"
 msgstr ""
@@ -1066,7 +1066,7 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
-msgstr ""
+msgstr "跟隨中"
 
 msgid "<0>{0}</0> recasted"
 msgstr ""
@@ -1094,3 +1094,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+
