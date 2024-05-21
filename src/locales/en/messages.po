@@ -892,9 +892,6 @@ msgstr "Post added to your Bookmarks"
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 
-msgid "Cancel mirror successfully"
-msgstr "Cancel mirror successfully"
-
 msgid "Unmute"
 msgstr "Unmute"
 
