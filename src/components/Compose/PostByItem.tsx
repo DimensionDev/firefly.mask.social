@@ -118,7 +118,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 )
             ) : currentProfile.source === Source.Lens ? (
                 <ClickableButton
-                    className=" font-bold text-blueBottom disabled:cursor-not-allowed disabled:opacity-50"
+                    className=" font-bold text-blueBottom"
                     disabled={loading}
                     onClick={() => loginLens(profile)}
                 >

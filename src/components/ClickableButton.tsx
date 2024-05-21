@@ -1,3 +1,4 @@
+import { classNames } from '@/helpers/classNames.js';
 import type React from 'react';
 import { forwardRef } from 'react';
 
@@ -13,6 +14,7 @@ export const ClickableButton = forwardRef<HTMLButtonElement, ClickableButtonProp
     return (
         <button
             {...props}
+            className={classNames(props.className, 'disabled:cursor-not-allowed disabled:opacity-50')}
             ref={ref}
             onClick={(ev) => {
                 if (props.disabled) return;

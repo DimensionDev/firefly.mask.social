@@ -116,7 +116,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
             </ClickableButton>
             <div className=" flex flex-col md:mx-5">
                 <ClickableButton
-                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
+                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
                     onClick={async () => {
                         if (source === Source.Twitter)
                             await signOut({
@@ -133,7 +133,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 </ClickableButton>
                 {canDetect ? (
                     <ClickableButton
-                        className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg "
+                        className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
                         disabled={loading}
                         onClick={() => onDetect(source)}
                     >

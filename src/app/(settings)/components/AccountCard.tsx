@@ -56,7 +56,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                 </ClickableButton>
             ) : (
                 <ClickableButton
-                    className="text-right text-[15px] font-bold leading-none text-main disabled:cursor-not-allowed disabled:opacity-50"
+                    className="text-right text-[15px] font-bold leading-none text-main"
                     disabled={profile.source === Source.Farcaster}
                     onClick={() => {
                         login(profile);

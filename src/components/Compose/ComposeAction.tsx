@@ -196,7 +196,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {visibleLength && type === 'compose' && !isMedium ? (
                     <ClickableButton
-                        className=" text-main disabled:opacity-50"
+                        className=" text-main"
                         disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                         onClick={() => {
                             addPostInThread();

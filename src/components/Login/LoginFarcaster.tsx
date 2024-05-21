@@ -262,7 +262,7 @@ export function LoginFarcaster() {
                 </p>
                 {options.map(({ label, type, isFreeOfTransactionFee }) => (
                     <ClickableButton
-                        className=" flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg disabled:cursor-not-allowed disabled:opacity-50"
+                        className=" flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg"
                         key={type}
                         onClick={() => {
                             setSignType(type);
