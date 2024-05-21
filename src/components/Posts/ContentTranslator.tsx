@@ -3,7 +3,6 @@ import { first } from 'lodash-es';
 import { memo, useRef, useState } from 'react';
 import { useAsyncFn, useMount } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { getBrowserLanguage, isSameLanguageWithBrowser } from '@/helpers/getBrowserLanguage.js';
@@ -65,17 +64,17 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
 
     return (
         <>
-            <div className="my-1.5">
+            <div className="my-1.5 text-sm text-link">
                 {translatedText ? (
-                    <ClickableButton className="text-sm text-link" onClick={() => setCollapsed(true)}>
+                    <ClickableButton onClick={() => setCollapsed(true)}>
                         {contentLanguage ? <Trans>Translated from {contentLanguage}</Trans> : <Trans>Translated</Trans>}
                     </ClickableButton>
                 ) : loading ? (
-                    <div className=" flex h-[40px] items-center justify-center">
-                        <LoadingIcon className="animate-spin" width={24} height={24} />
-                    </div>
+                    <span>
+                        <Trans>Translating...</Trans>
+                    </span>
                 ) : (
-                    <ClickableButton className="text-sm text-link" onClick={handleTranslate}>
+                    <ClickableButton onClick={handleTranslate}>
                         {error ? (
                             <Trans>Failed to translate post. Please retry later.</Trans>
                         ) : (
