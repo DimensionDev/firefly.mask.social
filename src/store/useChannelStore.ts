@@ -21,7 +21,7 @@ const useChannelStore = create<ChannelState, [['zustand/persist', ChannelState],
             },
             addChannel: (source: SocialSource, key: string, channel: Channel | null) => {
                 set((state) => {
-                    if (state.allChannelData[source][key] !== undefined) return;
+                    if (state.allChannelData[source]?.[key] !== undefined) return;
                     state.allChannelData[source][key] = channel;
                 });
             },
