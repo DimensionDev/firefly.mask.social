@@ -8,7 +8,7 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
 
-export const CHANNEL_REGEX = /(^|\s)\/[a-z0-9-]+/g;
+export const CHANNEL_REGEX = /(^|\s)\/[a-z0-9-/]+/g;
 
 export const MIRROR_HOSTNAME_REGEXP = /mirror\.xyz|.+\.mirror\.xyz/i;
 

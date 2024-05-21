@@ -56,6 +56,8 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     if (!channelId) return;
 
+    if (channelId.includes('/')) return channelId;
+
     return isMedium ? (
         <Tippy
             appendTo={() => document.body}
