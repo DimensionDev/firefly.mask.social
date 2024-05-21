@@ -10,6 +10,7 @@
         "bowser",
         "cacheable",
         "canonicalize",
+        "datetime",
         "deeplink",
         "enhanceable",
         "farcaster",

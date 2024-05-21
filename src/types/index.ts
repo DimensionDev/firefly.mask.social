@@ -29,6 +29,7 @@ export type ThemeMode = 'light' | 'dark' | 'default';
 export enum Locale {
     en = 'en',
     zhHans = 'zh-Hans',
+    zhHant = 'zh-Hant',
 }
 
 export type SearchParams = Record<string, string | string[] | undefined>;
