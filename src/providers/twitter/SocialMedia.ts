@@ -7,8 +7,8 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPostFromFirefly.js';
-import { formatTwitterProfileFromFirefly } from '@/helpers/formatTwitterProfileFromFirefly.js';
+import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
+import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import {
     type Channel,
@@ -134,13 +134,13 @@ class TwitterSocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterProfileFromFirefly(response.data);
+        return formatTwitterProfile(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterProfileFromFirefly(response.data);
+        return formatTwitterProfile(response.data);
     }
 
     getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
