@@ -14,6 +14,8 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { Locale } from '@/types/index.js';
+import { getEnumAsArray } from '@masknet/kit';
+import { supportedLocales } from '@/i18n/index.js';
 
 export default function General() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
@@ -65,21 +67,12 @@ export default function General() {
             </Subtitle>
 
             <div className=" flex flex-col gap-5">
-                {[
-                    {
-                        value: Locale.en,
-                        label: 'English',
-                    },
-                    {
-                        value: Locale.zhHans,
-                        label: '简体中文',
-                    },
-                ].map((option, index) => (
+                {getEnumAsArray(Locale).map((option, index) => (
                     <OptionButton
                         key={index}
                         selected={option.value === locale}
                         darkMode={mode === Appearance.default ? isDarkOS : mode === Appearance.dark}
-                        label={option.label}
+                        label={supportedLocales[option.value]}
                         onClick={async () => {
                             const data = new FormData();
                             data.append('locale', option.value);
