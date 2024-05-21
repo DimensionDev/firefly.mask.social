@@ -1,7 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource } from '@/constants/enum.js';
-import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import {
     POLL_DEFAULT_VALID_IN_DAYS,
     POLL_MAX_VALID_IN_DAYS,

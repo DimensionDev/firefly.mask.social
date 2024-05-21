@@ -4,12 +4,12 @@ import { t, Trans } from '@lingui/macro';
 import { Fragment, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Source } from '@/constants/enum.js';
 import { POLL_VALID_IN_DAYS_DEFAULT_LIST } from '@/constants/poll.js';
 import { NUMBER_BIGGER_THAN_ZERO } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { Source } from '@/constants/enum.js';
 
 interface ValidInDaysSelectorProps {
     post: CompositePost;
