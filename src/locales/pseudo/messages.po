@@ -154,6 +154,9 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "{validInDays, plural, one {# day} other {# days}}"
+msgstr ""
+
 msgid "Your posts have published successfully."
 msgstr ""
 
@@ -859,9 +862,6 @@ msgstr ""
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr ""
 
-msgid "{validInDays} day"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr ""
 
@@ -920,9 +920,6 @@ msgid "Unmute"
 msgstr ""
 
 msgid "Your Lens account is now connected"
-msgstr ""
-
-msgid "{validInDays} days"
 msgstr ""
 
 msgid "Click to copy"
