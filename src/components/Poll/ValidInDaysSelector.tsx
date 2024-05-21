@@ -18,16 +18,13 @@ interface ValidInDaysSelectorProps {
 
 export function ValidInDaysSelector({ post: { poll }, readonly }: ValidInDaysSelectorProps) {
     const validInDays = poll?.validInDays ?? 0;
-    const daysList = POLL_VALID_IN_DAYS_DEFAULT_LIST
-    const [inputValue, setInputValue] = useState<string>(
-        daysList.includes(validInDays) ? '' : `${validInDays}`,
-    );
+    const daysList = POLL_VALID_IN_DAYS_DEFAULT_LIST;
+    const [inputValue, setInputValue] = useState<string>(daysList.includes(validInDays) ? '' : `${validInDays}`);
     const { updatePoll } = useComposeStateStore();
     const { availableSources } = useCompositePost();
 
     if (!poll) return null;
 
-    
     const showCustomDaysInput = shouldShowCustomDaysInput(availableSources);
     const defaultMaxDays = daysList[daysList.length - 1];
 
@@ -95,7 +92,7 @@ export function ValidInDaysSelector({ post: { poll }, readonly }: ValidInDaysSel
                                         }}
                                     >
                                         <input
-                                            type='number'
+                                            type="number"
                                             min={defaultMaxDays + 1}
                                             value={inputValue}
                                             className="h-7 w-full border-0 bg-transparent leading-7 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"

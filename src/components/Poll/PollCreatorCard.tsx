@@ -82,11 +82,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                         />
                         {index >= POLL_OPTIONS_MIN_COUNT && (
                             <ClickableButton disabled={readonly}>
-                                <MinusIcon
-                                    width={20}
-                                    height={20}
-                                    onClick={() => removeOption(option)}
-                                />
+                                <MinusIcon width={20} height={20} onClick={() => removeOption(option)} />
                             </ClickableButton>
                         )}
                     </div>

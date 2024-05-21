@@ -21,10 +21,12 @@ const TweetSchema = z.object({
         .object({
             options: z.array(
                 z.object({
-                    label: z.string().max(
-                        POLL_PEER_OPTION_MAX_CHARS,
-                        `Poll option must be less than ${POLL_PEER_OPTION_MAX_CHARS} characters`,
-                    ),
+                    label: z
+                        .string()
+                        .max(
+                            POLL_PEER_OPTION_MAX_CHARS,
+                            `Poll option must be less than ${POLL_PEER_OPTION_MAX_CHARS} characters`,
+                        ),
                 }),
             ),
             validInDays: z.number().int().positive(),
