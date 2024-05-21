@@ -159,9 +159,6 @@ msgstr "用户名为必填。"
 msgid "Copied"
 msgstr "已复制"
 
-msgid "{validInDays, plural, one {# day} other {# days}}"
-msgstr ""
-
 msgid "Your posts have published successfully."
 msgstr "发布成功。"
 
@@ -867,6 +864,9 @@ msgstr "未知会话类型。"
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr "在您的手机设备上，打开<0>摄像头</0> 使用 Warpcast 在<1>{0}</1>中扫描二维码。"
 
+msgid "{validInDays} day"
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
@@ -926,6 +926,9 @@ msgstr "取消屏蔽"
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
+
+msgid "{validInDays} days"
+msgstr ""
 
 msgid "Click to copy"
 msgstr "点击复制"
