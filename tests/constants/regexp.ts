@@ -168,22 +168,26 @@ describe('URL_REGEX', () => {
 
     test('Should match a channel', () => {
         const cases = [
-            [`Test for uppercase /Bitcoin`, false],
-            [`Test for lowercase /bitcoin`, true],
-            [`Test for redpacket channel /firefly-garden`, true],
-            /**
-             * Because the channel handle contains pure numbers,
-             * we cannot correctly distinguish between the channel and date on regular expressions.
-             */
-            [`Test for the date /2024/05`, true],
-        ] as Array<[string, boolean]>;
+            ['/Bitcoin', null],
+            ['/BitCoin', null],
+            ['/bitcoin', '/bitcoin'],
+            ['/bitcoin2', '/bitcoin2'],
+            ['/bitcoin/2', null],
+            ['prefix /bitcoin suffix', ' /bitcoin'],
+            ['prefix/bitcoin suffix', null],
+            ['prefix /bitcoin思', ' /bitcoin'],
+            ['prefix /bitcoin🤔', ' /bitcoin'],
+            ['prefix /bitcoinMASK', ' /bitcoin'],
+            ['/firefly-garden', '/firefly-garden'],
+            ['/firefly-garden2', '/firefly-garden2'],
+            ['/2024/05', null],
+            ['/2024/05/05', null],
+        ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
-            // reset the regex
             CHANNEL_REGEX.lastIndex = 0;
-
-            const result = CHANNEL_REGEX.test(input);
-            expect(result).toBe(expectedOutput);
+            const [matched] = input.match(CHANNEL_REGEX) ?? [null];
+            expect(matched).toBe(expectedOutput);
         });
     });
 });
