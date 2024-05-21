@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-20 12:01\n"
+"PO-Revision-Date: 2024-05-21 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -58,6 +58,9 @@ msgid "Communities"
 msgstr ""
 
 msgid "Discover"
+msgstr ""
+
+msgid "Ask a question"
 msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
@@ -124,6 +127,9 @@ msgid "OpenGraph"
 msgstr ""
 
 msgid "Wrong wallet"
+msgstr ""
+
+msgid "Poll"
 msgstr ""
 
 msgid "Casts"
@@ -196,6 +202,9 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "Custom"
 msgstr ""
 
 msgid "Password"
@@ -400,6 +409,9 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Choice {0}"
 msgstr ""
 
 msgid "Detecting..."
@@ -864,10 +876,16 @@ msgstr ""
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr ""
 
+msgid "{validInDays} day"
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr ""
 
 msgid "Only people you follow"
+msgstr ""
+
+msgid "Add another option"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -1014,6 +1032,9 @@ msgstr ""
 msgid "Recast"
 msgstr ""
 
+msgid "Translating..."
+msgstr ""
+
 msgid "Followers"
 msgstr ""
 
@@ -1033,6 +1054,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
 msgstr ""
 
 msgid "Post"
