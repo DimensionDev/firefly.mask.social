@@ -30,7 +30,7 @@ class Loader extends BaseLoader<OpenGraph> {
     }
 
     protected override parse(content: string) {
-        return super.parse(content).slice(0, MAX_OG_SIZE_PER_POST);
+        return super.parse(content).slice(MAX_OG_SIZE_PER_POST * -1);
     }
 }
 

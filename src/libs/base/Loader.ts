@@ -34,12 +34,29 @@ export abstract class BaseLoader<T> {
      * @param content
      * @returns
      */
-    async load(content: string, signal?: AbortSignal): Promise<T[]> {
+    async load(
+        content: string,
+        signal?: AbortSignal,
+    ): Promise<
+        Array<{
+            value: T;
+            url: string;
+        }>
+    > {
         const urls = this.parse(content);
         if (!urls.length) return [];
 
         const allSettled = await Promise.allSettled(urls.map((x) => this.fetchCached(x, signal)));
-        return compact(allSettled.map((x) => (x.status === 'fulfilled' && x.value ? x.value : null)));
+        return compact(
+            allSettled.map((x, i) =>
+                x.status === 'fulfilled' && x.value
+                    ? {
+                          value: x.value,
+                          url: urls[i],
+                      }
+                    : null,
+            ),
+        );
     }
 
     /**
@@ -47,7 +64,12 @@ export abstract class BaseLoader<T> {
      * @param content
      * @returns
      */
-    async occupancyLoad(content: string): Promise<T[]> {
+    async occupancyLoad(content: string): Promise<
+        Array<{
+            value: T;
+            url: string;
+        }>
+    > {
         this.ab?.abort();
         this.ab = new AbortController();
         return this.load(content, this.ab.signal);

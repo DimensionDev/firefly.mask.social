@@ -67,6 +67,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsMuted(post.author);
 
+    console.log('DEBUG: test');
+    console.log(post.metadata.content?.oembedUrls);
+
     if (post.isEncrypted) {
         return (
             <div
@@ -190,7 +193,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled ? (
-                post.metadata.content.oembedUrls.slice(MAX_FRAME_SIZE_PER_POST * -1).map((oembedUrl, i, urls) => (
+                post.metadata.content.oembedUrls.slice(0, MAX_FRAME_SIZE_PER_POST).map((oembedUrl, i, urls) => (
                     <Frame key={oembedUrl} url={oembedUrl} postId={post.postId}>
                         {/* oembed for the last url */}
                         {i === urls.length - 1 && !post.quoteOn ? (

@@ -103,9 +103,8 @@ interface ComposeState {
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
+    loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
     updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
-    loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
-    loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
 
     // reset the editor
     clear: () => void;
@@ -444,23 +443,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 ),
             );
         },
-        loadFramesFromChars: async (cursor) => {
+        loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
             const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
-
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        frames,
-                    }),
-                    cursor,
-                ),
-            );
-        },
-        loadOpenGraphsFromChars: async (cursor) => {
-            const chars = pick(get(), (x) => x.chars);
             const openGraphs = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
 
             set((state) =>
@@ -468,7 +453,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     state,
                     (post) => ({
                         ...post,
-                        openGraphs,
+                        frames: frames.map((x) => x.value),
+                        openGraphs: openGraphs.map((x) => x.value),
                     }),
                     cursor,
                 ),
