@@ -31,11 +31,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
     });
 
     const { poll } = post;
-
     if (!poll) return null;
-
-    const optionsMaxLength = getPollOptionsMaxLength(availableSources);
-    const addDisabled = readonly || poll.options.length >= optionsMaxLength;
 
     const removeOption = (option: PollOption) => {
         const newOptions = poll.options.filter((o) => o.id !== option.id);
@@ -90,11 +86,8 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
             </div>
             <div className="mt-4 flex items-center justify-between">
                 <ClickableButton
-                    disabled={addDisabled}
-                    className={classNames(
-                        'flex items-center gap-2 text-lightMain',
-                        addDisabled ? 'opacity-50' : 'cursor-pointer',
-                    )}
+                    disabled={readonly || poll.options.length >= getPollOptionsMaxLength(availableSources)}
+                    className="flex cursor-pointer items-center gap-2 text-lightMain disabled:opacity-50"
                     onClick={addOption}
                 >
                     <AddIcon width={20} height={20} />
@@ -102,7 +95,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                         <Trans>Add another option</Trans>
                     </span>
                 </ClickableButton>
-                <ValidInDaysSelector post={post} readonly={readonly} />
+                {post.poll ? <ValidInDaysSelector post={post} readonly={readonly} /> : null}
             </div>
         </div>
     );
