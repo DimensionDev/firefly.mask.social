@@ -7,6 +7,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.jsx';
 
 interface PollCardProps {
     post: Post;
@@ -25,7 +26,7 @@ export function PollCard({ post }: PollCardProps) {
         return parseFloat(((current / voteCount) * 100).toFixed(2));
     };
     const handleVote = (optionLabel: string) => {
-        // TODO: handle vote
+        enqueueErrorMessage('Not implemented yet');
     };
 
     return (
