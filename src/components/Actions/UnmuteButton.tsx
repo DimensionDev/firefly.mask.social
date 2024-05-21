@@ -34,7 +34,7 @@ export const UnmuteButton = memo(function UnmuteButton({ profile, className, ...
     return (
         <ClickableButton
             className={classNames(
-                ' flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger bg-danger px-2 text-[15px] font-semibold text-white transition-all disabled:cursor-not-allowed  disabled:opacity-50',
+                ' flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger bg-danger px-2 text-[15px] font-semibold text-white transition-all',
                 buttonState === MuteLabel.Muted ? 'border-[1.5px]' : '',
                 buttonState === MuteLabel.Unmute ? 'border-[1.5px] border-danger border-opacity-50' : '',
                 className,

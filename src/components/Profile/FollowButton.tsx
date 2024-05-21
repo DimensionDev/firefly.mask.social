@@ -36,7 +36,7 @@ export const FollowButton = memo(function FollowButton({ profile, className, ...
     return (
         <ClickableButton
             className={classNames(
-                ' flex h-8 min-w-[100px] items-center justify-center rounded-full px-2 text-[15px] font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-50',
+                ' flex h-8 min-w-[100px] items-center justify-center rounded-full px-2 text-[15px] font-semibold transition-all',
                 buttonState === State.Follow ? ' bg-main text-primaryBottom hover:opacity-80' : '',
                 buttonState === State.Following ? ' border-[1.5px] border-lightMain text-lightMain' : '',
                 buttonState === State.Unfollow
