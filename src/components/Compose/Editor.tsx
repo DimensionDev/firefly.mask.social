@@ -33,7 +33,6 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
 
     const { chars } = post;
     const index = posts.findIndex((x) => x.id === post.id);
-    const hasPoll = !!post.poll;
 
     useDebounce(
         () => {
@@ -63,7 +62,7 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                         <Select
                             value={type}
                             _compose={
-                                hasPoll
+                                post.poll
                                     ? t`Ask a question`
                                     : index === 0
                                       ? t`What's happening...`

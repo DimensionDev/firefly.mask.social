@@ -4,6 +4,7 @@ import { type SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
 import { Source } from '@/constants/enum.js';
+import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { getPollFixedValidInDays } from '@/helpers/createPoll.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
@@ -20,10 +21,13 @@ const TweetSchema = z.object({
         .object({
             options: z.array(
                 z.object({
-                    label: z.string(),
+                    label: z.string().max(
+                        POLL_PEER_OPTION_MAX_CHARS,
+                        `Poll option must be less than ${POLL_PEER_OPTION_MAX_CHARS} characters`,
+                    ),
                 }),
             ),
-            validInDays: z.number(),
+            validInDays: z.number().int().positive(),
         })
         .optional(),
 });

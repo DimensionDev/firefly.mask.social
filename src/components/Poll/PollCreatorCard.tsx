@@ -6,12 +6,13 @@ import AddIcon from '@/assets/add.svg';
 import CloseIcon from '@/assets/close.svg';
 import MinusIcon from '@/assets/minus.svg';
 import PollIcon from '@/assets/poll.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ValidInDaysSelector } from '@/components/Poll/ValidInDaysSelector.js';
 import { POLL_OPTIONS_MIN_COUNT, POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createPollInitOption, getPollOptionsMaxLength } from '@/helpers/createPoll.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import type { PollPureOption } from '@/providers/types/Poll.js';
+import type { PollOption } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface PollCreatorCardProps {
@@ -36,16 +37,14 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
     const optionsMaxLength = getPollOptionsMaxLength(availableSources);
     const addDisabled = readonly || poll.options.length >= optionsMaxLength;
 
-    const removeOption = (option: PollPureOption) => {
-        if (readonly) return;
+    const removeOption = (option: PollOption) => {
         const newOptions = poll.options.filter((o) => o.id !== option.id);
         updatePoll({ ...poll, options: newOptions });
     };
     const addOption = () => {
-        if (addDisabled) return;
         updatePoll({ ...poll, options: [...poll.options, createPollInitOption()] });
     };
-    const onOptionChange = (option: PollPureOption, label: string) => {
+    const onOptionChange = (option: PollOption, label: string) => {
         const newOptions = poll.options.map((o) => (o.id === option.id ? { ...o, label } : o));
         updatePoll({ ...poll, options: newOptions });
     };
@@ -82,18 +81,20 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                             autoFocus={index === 0}
                         />
                         {index >= POLL_OPTIONS_MIN_COUNT && (
-                            <MinusIcon
-                                width={20}
-                                height={20}
-                                className={readonly ? '' : 'cursor-pointer'}
-                                onClick={() => removeOption(option)}
-                            />
+                            <ClickableButton disabled={readonly}>
+                                <MinusIcon
+                                    width={20}
+                                    height={20}
+                                    onClick={() => removeOption(option)}
+                                />
+                            </ClickableButton>
                         )}
                     </div>
                 ))}
             </div>
             <div className="mt-4 flex items-center justify-between">
-                <div
+                <ClickableButton
+                    disabled={addDisabled}
                     className={classNames(
                         'flex items-center gap-2 text-lightMain',
                         addDisabled ? 'opacity-50' : 'cursor-pointer',
@@ -104,7 +105,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                     <span className="text-[15px]">
                         <Trans>Add another option</Trans>
                     </span>
-                </div>
+                </ClickableButton>
                 <ValidInDaysSelector post={post} readonly={readonly} />
             </div>
         </div>
