@@ -170,6 +170,7 @@ describe('URL_REGEX', () => {
         const cases = [
             ['/Bitcoin', null],
             ['/BitCoin', null],
+            ['/bitCoin', null],
             ['/bitcoin', '/bitcoin'],
             ['/bitcoin2', '/bitcoin2'],
             ['/bitcoin/2', null],
@@ -177,7 +178,7 @@ describe('URL_REGEX', () => {
             ['prefix/bitcoin suffix', null],
             ['prefix /bitcoin思', ' /bitcoin'],
             ['prefix /bitcoin🤔', ' /bitcoin'],
-            ['prefix /bitcoinMASK', ' /bitcoin'],
+            ['prefix /bitcoinMASK', null],
             ['/firefly-garden', '/firefly-garden'],
             ['/firefly-garden2', '/firefly-garden2'],
             ['/2024/05', null],
