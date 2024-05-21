@@ -25,7 +25,7 @@ export const isSameLanguageWithBrowser = (locale: string) => {
 export const getTargetLanguage = (locale: string) => {
     const appLocale = getLocaleFromCookies();
     if (!locale || locale === 'N/A') return null;
-    if (locale !== appLocale) return (appLocale as unknown as Language);
+    if (locale !== appLocale) return appLocale as unknown as Language;
     if (!isSameLanguageWithBrowser(locale)) return getBrowserLanguage();
     return null;
 };
