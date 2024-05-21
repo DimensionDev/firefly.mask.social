@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-21 13:40\n"
+"PO-Revision-Date: 2024-05-21 15:56\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -130,7 +130,7 @@ msgid "Wrong wallet"
 msgstr "錯誤的錢包"
 
 msgid "Poll"
-msgstr ""
+msgstr "投票"
 
 msgid "Casts"
 msgstr ""
@@ -205,7 +205,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # other
 msgstr ""
 
 msgid "Custom"
-msgstr ""
+msgstr "自訂"
 
 msgid "Password"
 msgstr "密碼"
@@ -223,16 +223,16 @@ msgid "Missing IPFS hash for image or video."
 msgstr ""
 
 msgid "Reconnect with Firefly"
-msgstr ""
+msgstr "通過 Firefly 重新連接"
 
 msgid "Only up to 2 images can be chosen."
-msgstr ""
+msgstr "最多只能選擇 2 張圖像"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
-msgstr ""
+msgstr "您需要連接 {source} 帳戶才可使用此功能"
 
 msgid "Search"
 msgstr "搜尋"
@@ -253,13 +253,13 @@ msgid "Failed to unlike the post."
 msgstr "點贊評論失敗"
 
 msgid "Mirror again"
-msgstr ""
+msgstr "重新鏡像"
 
 msgid "Failed to detect device accounts."
-msgstr ""
+msgstr "偵測設備帳戶失敗"
 
 msgid "Add another post..."
-msgstr ""
+msgstr "加入另一則貼文..."
 
 msgid "Audio Cover"
 msgstr ""
@@ -274,7 +274,7 @@ msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr ""
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "連接錢包"
 
 msgid "Feed"
 msgstr "信息源"
@@ -295,7 +295,7 @@ msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
 
 msgid "No wallet client found. Please connect your wallet."
-msgstr ""
+msgstr "未找到錢包用戶。請連接您的錢包。"
 
 msgid "Frame Validator"
 msgstr ""
@@ -304,16 +304,16 @@ msgid "Copy Link"
 msgstr "複製連結"
 
 msgid "Follow System"
-msgstr ""
+msgstr "預設"
 
 msgid "Failed to mirror."
-msgstr ""
+msgstr "鏡像失敗"
 
 msgid "Your post was deleted."
-msgstr ""
+msgstr "您的貼文已被刪除"
 
 msgid "URL is required."
-msgstr "需要 URL"
+msgstr "需要連結"
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
@@ -352,7 +352,7 @@ msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
-msgstr ""
+msgstr "進階搜尋"
 
 msgid "Try searching for something else."
 msgstr ""
@@ -379,7 +379,7 @@ msgid "Comment cannot be empty."
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 上跟隨 @{0} 失敗"
 
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上傳失敗。圖像數量超過{maxImageCount} 張。"
@@ -418,16 +418,16 @@ msgid "Detecting..."
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "隱私政策"
 
 msgid "Switch"
 msgstr ""
 
 msgid "Follow"
-msgstr ""
+msgstr "跟隨"
 
 msgid "Add account"
-msgstr ""
+msgstr "新增账户"
 
 msgid "{0} Comments"
 msgstr ""
@@ -442,7 +442,7 @@ msgid "Only people you mention"
 msgstr ""
 
 msgid "Cancel retweet successfully"
-msgstr ""
+msgstr "成功取消轉發"
 
 msgid "Allow replies from"
 msgstr ""
@@ -457,10 +457,10 @@ msgid "Malformed session."
 msgstr ""
 
 msgid "Failed to login."
-msgstr ""
+msgstr "登入失敗."
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr ""
+msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼"
 
 msgid "Unlike"
 msgstr "取消喜歡"
@@ -472,16 +472,16 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 上跟隨 @{0} 失敗"
 
 msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
 msgid "Bookmark"
-msgstr ""
+msgstr "書籤"
 
 msgid "Everyone"
-msgstr ""
+msgstr "所有人"
 
 msgid "Failed to unmute /{0}."
 msgstr ""
@@ -499,10 +499,10 @@ msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "Suggested Channels"
-msgstr ""
+msgstr "推薦頻道"
 
 msgid "Failed to follow."
-msgstr ""
+msgstr "跟隨失敗"
 
 msgid "Mute"
 msgstr ""
@@ -553,7 +553,7 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "Articles"
-msgstr ""
+msgstr "文章"
 
 msgid "Settings"
 msgstr "設定"
@@ -592,7 +592,7 @@ msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to a
 msgstr ""
 
 msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr ""
+msgstr "{0, plural, one {跟隨者} other {跟隨者}}"
 
 msgid "What's happening..."
 msgstr ""
@@ -601,10 +601,10 @@ msgid "Like"
 msgstr "喜歡"
 
 msgid "Please input the frame url to be revalidated."
-msgstr ""
+msgstr "請輸入框架連結以重新識別有效性"
 
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
@@ -613,7 +613,7 @@ msgid "Publications"
 msgstr "發表"
 
 msgid "Your website URL."
-msgstr "你的網站鏈接"
+msgstr "你的網站連結"
 
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
@@ -631,7 +631,7 @@ msgid "Failed to parse session."
 msgstr ""
 
 msgid "Share"
-msgstr ""
+msgstr "分享"
 
 msgid "Your frame URL."
 msgstr ""
@@ -643,7 +643,7 @@ msgid "Article remove from your Bookmarks"
 msgstr ""
 
 msgid "Failed to unfollow."
-msgstr ""
+msgstr "取消跟隨失敗"
 
 msgid "One click to connect your account status."
 msgstr ""
@@ -673,40 +673,40 @@ msgid "No comments found"
 msgstr ""
 
 msgid "Unfollow @{0}"
-msgstr ""
+msgstr "取消跟隨 @{0}"
 
 msgid "Discard"
-msgstr ""
+msgstr "捨棄"
 
 msgid "Sign"
-msgstr ""
+msgstr "簽署"
 
 msgid "Failed to recast post"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr "在 X 上追蹤 @thefireflyapp"
+msgstr "在 X 上跟隨 @thefireflyapp"
 
 msgid "Light Mode"
-msgstr ""
+msgstr "淺色模式"
 
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 msgid "There is no data available for display."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 msgid "Failed to like the post."
 msgstr "點贊評論失敗"
 
 msgid "Mirrored"
-msgstr ""
+msgstr "已鏡像"
 
 msgid "Unable to retrieve post details."
 msgstr ""
@@ -727,7 +727,7 @@ msgid "The user rejected the request."
 msgstr ""
 
 msgid "Please input the url to be revalidated."
-msgstr ""
+msgstr "請輸入連結以重新識別有效性"
 
 msgid "Show more"
 msgstr ""
@@ -739,7 +739,7 @@ msgid "Translated from {contentLanguage}"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"
-msgstr "在 X 上追蹤 @realMaskNetwork"
+msgstr "在 X 上跟隨 @realMaskNetwork"
 
 msgid "Leaving Firefly"
 msgstr ""
@@ -799,7 +799,7 @@ msgid "Switch account"
 msgstr ""
 
 msgid "Sign in with Custody Wallet"
-msgstr ""
+msgstr "通過託管錢包登入"
 
 msgid "Mention"
 msgstr "提到"
@@ -874,7 +874,7 @@ msgid "Unknown session type."
 msgstr "未知的對話型別"
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
-msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用程序並掃描QR碼"
+msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼"
 
 msgid "{validInDays} day"
 msgstr ""
@@ -928,7 +928,7 @@ msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
 
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr ""
+msgstr "{followerCount, plural, one {跟隨者} other {跟隨者}}"
 
 msgid "Cancel mirror successfully"
 msgstr "成功取消鏡像"
@@ -1036,7 +1036,7 @@ msgid "Translating..."
 msgstr ""
 
 msgid "Followers"
-msgstr ""
+msgstr "跟隨者"
 
 msgid "Media"
 msgstr ""
@@ -1094,3 +1094,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+
