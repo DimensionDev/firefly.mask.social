@@ -100,8 +100,6 @@ export function ComposeAction(props: ComposeActionProps) {
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
-    const showPoll = availableSources.some((x) => SORTED_POLL_SOURCES.includes(x)) && type === 'compose';
-
     return (
         <div className=" px-4 pb-4">
             <div className=" relative flex h-9 items-center gap-3">
@@ -111,10 +109,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>
                                     <GalleryIcon
-                                        className={classNames(
-                                            ' text-main',
-                                            mediaDisabled ? ' cursor-no-drop opacity-50' : ' cursor-pointer',
-                                        )}
+                                        className=" cursor-pointer text-main disabled:cursor-not-allowed disabled:opacity-50"
                                         width={24}
                                         height={24}
                                     />
@@ -144,7 +139,9 @@ export function ComposeAction(props: ComposeActionProps) {
                     />
                 </Tooltip>
 
-                {showPoll ? <PollButton /> : null}
+                {availableSources.some((x) => SORTED_POLL_SOURCES.includes(x)) && type === 'compose' ? (
+                    <PollButton />
+                ) : null}
 
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
