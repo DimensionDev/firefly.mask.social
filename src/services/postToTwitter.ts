@@ -13,6 +13,7 @@ import { type CompositePost } from '@/store/useComposeStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
+import { first } from 'lodash-es';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
     const { chars, images, postId, parentPost, restriction, poll } = compositePost;
@@ -28,7 +29,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     const { currentProfile } = useTwitterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[], poll?: Poll) => {
+    const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
         return {
             publicationId: '',
             type: postType,
@@ -44,11 +45,21 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',
             source: Source.Twitter,
-            poll,
+            poll: first(polls),
         } satisfies Post;
     };
 
     const postTo = createPostTo(Source.Twitter, {
+        uploadPolls: async () => {
+            if (!poll) return [];
+            return [
+                {
+                    id: '',
+                    options: poll.options.map((option) => ({ id: option.id, label: option.label })),
+                    validInDays: poll.validInDays,
+                },
+            ];
+        },
         uploadImages: async () => {
             const uploaded = await uploadToTwitter(images.map((x) => x.file));
             return uploaded.map((x) => ({
@@ -57,18 +68,10 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                 file: x.file,
             }));
         },
-        createPoll: async () => {
-            if (!poll) return;
-            return {
-                id: '',
-                options: poll.options.map((option) => ({ id: option.id, label: option.label })),
-                validInDays: poll.validInDays,
-            };
-        },
-        compose: (images, _, poll) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, poll)),
-        reply: (images, _, poll) => {
+        compose: (images, _, polls) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, polls)),
+        reply: (images, _, polls) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, poll));
+            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, polls));
         },
         quote: (images) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);

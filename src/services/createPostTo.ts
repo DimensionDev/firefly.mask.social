@@ -8,10 +8,13 @@ import { type CompositePost, useComposeStateStore } from '@/store/useComposeStor
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-type Options = Record<ComposeType, (images: MediaObject[], videos: MediaObject[], poll?: Poll) => Promise<string>> & {
+type Options = Record<
+    ComposeType,
+    (images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => Promise<string>
+> & {
+    uploadPolls?: () => Promise<Poll[]>;
     uploadImages?: () => Promise<MediaObject[]>;
     uploadVideos?: () => Promise<MediaObject[]>;
-    createPoll?: () => Promise<Poll | undefined>;
 };
 
 export function createPostTo(source: SocialSource, options: Options) {
@@ -20,7 +23,7 @@ export function createPostTo(source: SocialSource, options: Options) {
     return async (type: ComposeType, post: CompositePost) => {
         const uploadedImages: MediaObject[] = (await options.uploadImages?.()) ?? [];
         const uploadedVideos: MediaObject[] = (await options.uploadVideos?.()) ?? [];
-        const poll = await options.createPoll?.();
+        const polls = (await options.uploadPolls?.()) ?? [];
 
         updatePostInThread(post.id, (x) => ({
             ...x,
@@ -32,12 +35,12 @@ export function createPostTo(source: SocialSource, options: Options) {
             const parentPost = post.parentPost[source];
             switch (type) {
                 case 'compose': {
-                    const postId = await options.compose(uploadedImages, uploadedVideos, poll);
+                    const postId = await options.compose(uploadedImages, uploadedVideos, polls);
                     return postId;
                 }
                 case 'reply':
                     if (!parentPost) throw new Error(t`No parent post found.`);
-                    const commentId = await options.reply(uploadedImages, uploadedVideos, poll);
+                    const commentId = await options.reply(uploadedImages, uploadedVideos, polls);
                     return commentId;
                 case 'quote': {
                     if (!parentPost) throw new Error(t`No parent post found.`);
