@@ -17,6 +17,7 @@ export const Tooltip = memo<TooltipProps>(function Tooltip({
     placement = 'right',
     className = '',
     withDelay = false,
+    ...rest
 }) {
     return (
         <Tippy
@@ -25,6 +26,7 @@ export const Tooltip = memo<TooltipProps>(function Tooltip({
             delay={[withDelay ? 500 : 0, 0]}
             className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block"
             content={<span>{content}</span>}
+            {...rest}
         >
             <span className={className}>{children}</span>
         </Tippy>

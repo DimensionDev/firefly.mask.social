@@ -3,7 +3,10 @@ import { NextRequest } from 'next/server.js';
 import { type SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
+import { Source } from '@/constants/enum.js';
+import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { getPollFixedValidInDays } from '@/helpers/createPoll.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
@@ -14,6 +17,21 @@ const TweetSchema = z.object({
     quoteTwitterId: z.string().optional(),
     inReplyToTweetId: z.string().optional(),
     mediaIds: z.array(z.string()).optional(),
+    poll: z
+        .object({
+            options: z.array(
+                z.object({
+                    label: z
+                        .string()
+                        .max(
+                            POLL_PEER_OPTION_MAX_CHARS,
+                            `Poll option must be less than ${POLL_PEER_OPTION_MAX_CHARS} characters`,
+                        ),
+                }),
+            ),
+            validInDays: z.number().int().positive(),
+        })
+        .optional(),
 });
 
 async function composeTweet(rawTweet: unknown) {
@@ -45,6 +63,14 @@ async function composeTweet(rawTweet: unknown) {
 
     if (tweet.quoteTwitterId) {
         composedTweet.quote_tweet_id = tweet.quoteTwitterId;
+    }
+
+    if (tweet.poll) {
+        composedTweet.poll = {
+            options: tweet.poll.options.map((option) => option.label),
+            // convert days to minutes in server
+            duration_minutes: getPollFixedValidInDays(tweet.poll.validInDays, Source.Twitter) * 24 * 60,
+        };
     }
 
     return composedTweet;

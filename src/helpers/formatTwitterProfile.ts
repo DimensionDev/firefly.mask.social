@@ -3,7 +3,7 @@ import type { UserV2 } from 'twitter-api-v2';
 import { Source } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function formatTwitterProfileFromFirefly(data: UserV2): Profile {
+export function formatTwitterProfile(data: UserV2): Profile {
     const following = data?.connection_status?.some((status) => status === 'following');
     return {
         fullHandle: data.name,

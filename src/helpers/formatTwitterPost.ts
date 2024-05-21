@@ -1,5 +1,5 @@
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { compact } from 'lodash-es';
+import { compact, find, first } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
@@ -79,6 +79,19 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         }
         if (ret.root) {
             ret.isThread = true;
+        }
+    }
+    if (item.attachments?.poll_ids?.length) {
+        const poll = find(includes?.polls ?? [], (poll) => poll.id === first(item.attachments?.poll_ids));
+
+        if (poll) {
+            ret.poll = {
+                id: poll.id,
+                options: poll.options.map((x) => ({ ...x, id: x.label })),
+                validInDays: poll.duration_minutes ? Math.floor(poll.duration_minutes / 60 / 24) : 0,
+                votingStatus: poll.voting_status,
+                endDatetime: poll.end_datetime,
+            };
         }
     }
     return ret;

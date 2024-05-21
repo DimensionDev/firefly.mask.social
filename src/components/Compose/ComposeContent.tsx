@@ -6,6 +6,7 @@ import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
 import { FrameUI } from '@/components/Frame/index.js';
 import { OembedUI } from '@/components/Oembed/index.js';
+import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -17,7 +18,7 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, video, frames, openGraphs } = props.post;
+    const { id, parentPost, images, video, frames, openGraphs, poll } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens;
@@ -37,6 +38,9 @@ export function ComposeContent(props: ComposeContentProps) {
             ) : null}
 
             {cursor === id ? <Editor post={props.post} replying={replying} /> : <Placeholder post={props.post} />}
+
+            {/* poll */}
+            {poll ? <PollCreatorCard post={props.post} readonly={cursor !== props.post.id} /> : null}
 
             {/* image */}
             {images.length > 0 && (
