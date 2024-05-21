@@ -165,7 +165,9 @@ describe('URL_REGEX', () => {
             expect(result).toBe(expectedOutput);
         });
     });
+});
 
+describe('CHANNEL_REGEX', () => {
     test('Should match a channel', () => {
         const cases = [
             ['/Bitcoin', null],
