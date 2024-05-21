@@ -18,7 +18,7 @@ export const POLL_OPTIONS_MAX_COUNT = {
 };
 
 export const POLL_MAX_VALID_IN_DAYS = {
-    [Source.Lens]: Infinity,
-    [Source.Farcaster]: Infinity,
+    [Source.Lens]: Number.MAX_SAFE_INTEGER,
+    [Source.Farcaster]: Number.MAX_SAFE_INTEGER,
     [Source.Twitter]: 6,
 };

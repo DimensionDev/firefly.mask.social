@@ -1,6 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
+import { plural, Trans } from '@lingui/macro';
 import { Fragment, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -50,7 +50,12 @@ export function ValidInDaysSelector({ post: { poll }, readonly }: ValidInDaysSel
                         disabled={readonly}
                         className="flex h-6 items-center gap-2 rounded-full border border-lightMain px-3 text-[13px] font-bold text-lightMain"
                     >
-                        <span>{validInDays === 1 ? t`${validInDays} day` : t`${validInDays} days`}</span>
+                        <span>
+                            {plural(validInDays, {
+                                one: '# day',
+                                other: '# days'
+                            })}
+                        </span>
                         {<ChevronUpIcon className={classNames('h-5 w-5 transition-all', open ? ' rotate-180' : '')} />}
                     </Popover.Button>
                     <Transition
