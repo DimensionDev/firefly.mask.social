@@ -1,4 +1,3 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { useState } from 'react';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
@@ -17,12 +16,13 @@ export function PollCard({ post }: PollCardProps) {
     const [userVote] = useState<string>();
     const profile = useCurrentProfile(post.source);
 
-    const options = post.poll?.options || EMPTY_LIST;
-    const voteCount = options.reduce((sum, current) => sum + (current.votes ?? 0), 0);
+    const { poll } = post;
+    if (!poll) return null;
 
     const voteDisabled = post.poll?.votingStatus === 'closed' || !profile || isSameProfile(profile, post.author);
 
     const toResultRate = (current: number) => {
+        const voteCount = poll.options.reduce((sum, current) => sum + (current.votes ?? 0), 0);
         return parseFloat(((current / voteCount) * 100).toFixed(2));
     };
     const handleVote = (optionLabel: string) => {
@@ -31,7 +31,7 @@ export function PollCard({ post }: PollCardProps) {
 
     return (
         <div>
-            {options.map((option, index) => {
+            {poll.options.map((option, index) => {
                 const rate = toResultRate(option.votes ?? 0);
                 const voteBarWidth = voteDisabled ? (rate > 0 ? `${rate}%` : '20px') : 0;
                 return (
