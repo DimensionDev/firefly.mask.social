@@ -10,7 +10,7 @@ import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
-import { createInitPoll } from '@/helpers/createPoll.js';
+import { createPoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
@@ -110,8 +110,8 @@ interface ComposeState {
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
     updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
+    createPoll: (cursor?: Cursor) => void;
     updatePoll: (poll: Poll | null, cursor?: Cursor) => void;
-    initPoll: (cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -481,6 +481,17 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 ),
             );
         },
+        createPoll: (cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll: createPoll(),
+                    }),
+                    cursor,
+                ),
+            ),
         updatePoll: (poll, cursor) =>
             set((state) =>
                 next(
@@ -488,17 +499,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         poll,
-                    }),
-                    cursor,
-                ),
-            ),
-        initPoll: (cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        poll: createInitPoll(),
                     }),
                     cursor,
                 ),
