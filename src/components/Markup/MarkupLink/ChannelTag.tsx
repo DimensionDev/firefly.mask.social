@@ -36,20 +36,16 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
         queryKey: ['channel', 'tag', source, channelId],
         queryFn: async () => {
             if (!channelId || !source) return;
-            const cache = allChannelData[source][channelId];
-            // If the cache be null, the channel handle does not exist.
-            if (cache === null) return;
-
-            // If the cache is undefined, it indicates the first query.
-            if (cache === undefined) {
+            try {
                 const provider = resolveSocialMediaProvider(source);
                 const result = await provider.getChannelById(channelId);
                 addChannel(source, channelId, result ? result : null);
 
                 return result;
+            } catch {
+                addChannel(source, channelId, null);
+                return;
             }
-
-            return cache;
         },
     });
 
@@ -68,9 +64,9 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
         );
     }, [title, channelId, router]);
 
-    if (!channelId) return;
+    if (!channelId || !source) return;
 
-    if (!data.isLoading && !data.data) return title;
+    if (allChannelData[source][channelId] === null) return title;
 
     return isMedium ? (
         <Tippy
