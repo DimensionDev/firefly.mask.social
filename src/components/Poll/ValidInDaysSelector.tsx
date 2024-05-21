@@ -1,15 +1,15 @@
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
-import { plural, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { Fragment, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { POLL_VALID_IN_DAYS_DEFAULT_LIST } from '@/constants/poll.js';
 import { NUMBER_BIGGER_THAN_ZERO } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
-import { shouldShowCustomDaysInput } from '@/helpers/createPoll.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { Source } from '@/constants/enum.js';
 
 interface ValidInDaysSelectorProps {
     post: CompositePost;
@@ -19,13 +19,15 @@ interface ValidInDaysSelectorProps {
 export function ValidInDaysSelector({ post: { poll }, readonly }: ValidInDaysSelectorProps) {
     const validInDays = poll?.validInDays ?? 0;
     const daysList = POLL_VALID_IN_DAYS_DEFAULT_LIST;
-    const [inputValue, setInputValue] = useState<string>(daysList.includes(validInDays) ? '' : `${validInDays}`);
+
+    const [inputValue, setInputValue] = useState<string>(
+        POLL_VALID_IN_DAYS_DEFAULT_LIST.includes(validInDays) ? '' : `${validInDays}`,
+    );
     const { updatePoll } = useComposeStateStore();
     const { availableSources } = useCompositePost();
 
     if (!poll) return null;
 
-    const showCustomDaysInput = shouldShowCustomDaysInput(availableSources);
     const defaultMaxDays = daysList[daysList.length - 1];
 
     const onValidInDaysChange = (days: number) => {
@@ -50,12 +52,7 @@ export function ValidInDaysSelector({ post: { poll }, readonly }: ValidInDaysSel
                         disabled={readonly}
                         className="flex h-6 items-center gap-2 rounded-full border border-lightMain px-3 text-[13px] font-bold text-lightMain"
                     >
-                        <span>
-                            {plural(validInDays, {
-                                one: '# day',
-                                other: '# days'
-                            })}
-                        </span>
+                        <span>{validInDays === 1 ? t`${validInDays} day` : t`${validInDays} days`}</span>
                         {<ChevronUpIcon className={classNames('h-5 w-5 transition-all', open ? ' rotate-180' : '')} />}
                     </Popover.Button>
                     <Transition
@@ -84,7 +81,7 @@ export function ValidInDaysSelector({ post: { poll }, readonly }: ValidInDaysSel
                                     {day}
                                 </ClickableButton>
                             ))}
-                            {showCustomDaysInput ? (
+                            {!availableSources.includes(Source.Twitter) ? (
                                 <div className="flex items-center gap-2 px-4 text-sm font-bold text-lightMain">
                                     <span>
                                         <Trans>Custom</Trans>

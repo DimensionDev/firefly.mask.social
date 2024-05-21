@@ -102,7 +102,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                         <Trans>Add another option</Trans>
                     </span>
                 </ClickableButton>
-                <ValidInDaysSelector post={post} readonly={readonly} />
+                {post.poll ? <ValidInDaysSelector post={post} readonly={readonly} /> : null}
             </div>
         </div>
     );

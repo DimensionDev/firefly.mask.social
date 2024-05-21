@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import {
     POLL_DEFAULT_VALID_IN_DAYS,
     POLL_MAX_VALID_IN_DAYS,
@@ -14,7 +15,7 @@ export const createPollOption = (): PollOption => {
     return { id: uuid(), label: '' };
 };
 
-export const createPoll = () => {
+export const createPoll = (): Poll => {
     return {
         validInDays: POLL_DEFAULT_VALID_IN_DAYS,
         options: Array.from({ length: POLL_OPTIONS_MIN_COUNT }).map(() => createPollOption()),
@@ -22,17 +23,7 @@ export const createPoll = () => {
 };
 
 export const getPollOptionsMaxLength = (availableSources: SocialSource[]) => {
-    if (availableSources.length === 1 && availableSources[0] === Source.Lens) {
-        return POLL_OPTIONS_MAX_COUNT[Source.Lens];
-    }
-    return POLL_OPTIONS_MAX_COUNT[Source.Farcaster];
-};
-
-export const shouldShowCustomDaysInput = (availableSources: SocialSource[]) => {
-    if (availableSources.length === 1 && availableSources[0] === Source.Twitter) {
-        return false;
-    }
-    return true;
+    return Math.min(...availableSources.map((x) => POLL_OPTIONS_MAX_COUNT[x]));
 };
 
 export const isValidPoll = (poll: Poll) => {
