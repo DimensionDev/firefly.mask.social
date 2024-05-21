@@ -178,13 +178,20 @@ describe('CHANNEL_REGEX', () => {
             ['/bitcoin/2', null],
             ['prefix /bitcoin suffix', ' /bitcoin'],
             ['prefix/bitcoin suffix', null],
-            ['prefix /bitcoin思', ' /bitcoin'],
-            ['prefix /bitcoin🤔', ' /bitcoin'],
             ['prefix /bitcoinMASK', null],
+            ['prefix /bitcoin面具', ' /bitcoin'],
+            ['prefix /bitcoin🎭', ' /bitcoin'],
             ['/firefly-garden', '/firefly-garden'],
             ['/firefly-garden2', '/firefly-garden2'],
+            ['/2024', '/2024'],
+            ['/2024-bitcoin', '/2024-bitcoin'],
+            ['/2024a', '/2024a'],
+            ['/2024MASK', null],
+            ['/2024面具', '/2024'],
+            ['/2024🎭', '/2024'],
             ['/2024/05', null],
             ['/2024/05/05', null],
+            ['/2024-05-05', '/2024-05-05'],
         ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
