@@ -1009,6 +1009,9 @@ msgstr "<0>You</0> recasted"
 msgid "Recast"
 msgstr "Recast"
 
+msgid "Translating..."
+msgstr "Translating..."
+
 msgid "Followers"
 msgstr "Followers"
 
