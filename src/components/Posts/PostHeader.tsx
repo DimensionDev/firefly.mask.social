@@ -2,6 +2,7 @@ import { memo } from 'react';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
+import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
@@ -27,25 +28,27 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     return (
         <div className="flex items-start gap-3">
-            <Link
-                href={profileLink}
-                className="z-[1]"
-                onClick={(event) => {
-                    onClickProfileLink?.();
-                    event.stopPropagation();
-                }}
-            >
-                <Avatar
-                    className={classNames({
-                        'h-10 w-10': !isQuote,
-                        'h-6 w-6': isQuote,
-                    })}
-                    src={post.author.pfp}
-                    size={isQuote ? 24 : 40}
-                    alt={post.author.profileId}
-                    fallbackUrl={post.source === Source.Lens ? getLennyURL(post.author.handle) : undefined}
-                />
-            </Link>
+            <ProfileTippy source={post.author.source} identity={post.author.profileId} profile={post.author}>
+                <Link
+                    href={profileLink}
+                    className="z-[1]"
+                    onClick={(event) => {
+                        onClickProfileLink?.();
+                        event.stopPropagation();
+                    }}
+                >
+                    <Avatar
+                        className={classNames({
+                            'h-10 w-10': !isQuote,
+                            'h-6 w-6': isQuote,
+                        })}
+                        src={post.author.pfp}
+                        size={isQuote ? 24 : 40}
+                        alt={post.author.profileId}
+                        fallbackUrl={post.source === Source.Lens ? getLennyURL(post.author.handle) : undefined}
+                    />
+                </Link>
+            </ProfileTippy>
 
             <div
                 className={classNames('flex flex-1 items-center gap-2 overflow-hidden', {
