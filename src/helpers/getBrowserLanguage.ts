@@ -1,5 +1,6 @@
 import { find } from 'lodash-es';
 
+import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { Language } from '@/services/translate.js';
 
 export const getBrowserLanguage = () => {
@@ -19,4 +20,12 @@ export const isSameLanguageWithBrowser = (locale: string) => {
     const browserLanguageLowerCase = browserLanguage.toLowerCase();
     const localLowerCase = locale.toLowerCase();
     return browserLanguageLowerCase.startsWith(localLowerCase);
+};
+
+export const getTargetLanguage = (locale: string) => {
+    const appLocale = getLocaleFromCookies();
+    if (!locale || locale === 'N/A') return null;
+    if (locale !== appLocale) return (appLocale as unknown as Language);
+    if (!isSameLanguageWithBrowser(locale)) return getBrowserLanguage();
+    return null;
 };
