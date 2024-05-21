@@ -26,7 +26,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
     };
 
     const content = (
-        <div className="relative" style={style}>
+        <div className="relative z-0" style={style}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
                 <Avatar src={profile.pfp} size={size} alt={profile.displayName} />
             </div>
@@ -42,7 +42,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
 
     return linkable ? (
         <Link
-            className={classNames('flex items-start justify-start ', {
+            className={classNames('flex items-start justify-start md:mx-auto lg:m-0', {
                 'cursor-pointer': clickable,
             })}
             style={style}
@@ -53,7 +53,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
         </Link>
     ) : (
         <div
-            className={classNames('flex items-start justify-start ', {
+            className={classNames('flex items-start justify-start md:mx-auto lg:m-0', {
                 'cursor-pointer': clickable,
             })}
             style={style}
