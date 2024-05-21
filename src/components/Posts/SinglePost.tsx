@@ -88,7 +88,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             />
 
             <PostBody post={post} showMore={showMore} showTranslate={showTranslate} />
-            {!!post.channel && post.type === 'Post' && !isChannelPage ? <ChannelAnchor channel={post.channel} /> : null}
+            {!!post.channel && !isComment && !isChannelPage ? <ChannelAnchor channel={post.channel} /> : null}
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
             {show ? (

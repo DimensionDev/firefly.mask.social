@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 import { describe, expect, test } from 'vitest';
 
-import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { CHANNEL_REGEX, HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 describe('MENTION_REGEXP', () => {
     test('should match a mention', () => {
@@ -163,6 +163,41 @@ describe('URL_REGEX', () => {
 
             const result = first(input.match(URL_REGEX) || []);
             expect(result).toBe(expectedOutput);
+        });
+    });
+});
+
+describe('CHANNEL_REGEX', () => {
+    test('Should match a channel', () => {
+        const cases = [
+            ['/Bitcoin', null],
+            ['/BitCoin', null],
+            ['/bitCoin', null],
+            ['/bitcoin', '/bitcoin'],
+            ['/bitcoin2', '/bitcoin2'],
+            ['/bitcoin/2', null],
+            ['prefix /bitcoin suffix', ' /bitcoin'],
+            ['prefix/bitcoin suffix', null],
+            ['prefix /bitcoinMASK', null],
+            ['prefix /bitcoin面具', ' /bitcoin'],
+            ['prefix /bitcoin🎭', ' /bitcoin'],
+            ['/firefly-garden', '/firefly-garden'],
+            ['/firefly-garden2', '/firefly-garden2'],
+            ['/2024', '/2024'],
+            ['/2024-bitcoin', '/2024-bitcoin'],
+            ['/2024a', '/2024a'],
+            ['/2024MASK', null],
+            ['/2024面具', '/2024'],
+            ['/2024🎭', '/2024'],
+            ['/2024/05', null],
+            ['/2024/05/05', null],
+            ['/2024-05-05', '/2024-05-05'],
+        ] as Array<[string, string | null]>;
+
+        cases.forEach(([input, expectedOutput]) => {
+            CHANNEL_REGEX.lastIndex = 0;
+            const [matched] = input.match(CHANNEL_REGEX) ?? [null];
+            expect(matched).toBe(expectedOutput);
         });
     });
 });
