@@ -66,7 +66,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     if (!channelId || !source) return;
 
-    if (allChannelData[source]?.[channelId] === null) return title;
+    if (allChannelData[source][channelId] === null) return title;
 
     return isMedium ? (
         <Tippy
