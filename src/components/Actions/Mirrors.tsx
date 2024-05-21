@@ -84,7 +84,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                 }
                 case Source.Lens: {
                     const result = await LensSocialMediaProvider.mirrorPost(postId);
-                    enqueueSuccessMessage(mirrored ? t`Cancel mirror successfully` : t`Mirrored`);
+                    // lens only supports mirroring
+                    enqueueSuccessMessage(t`Mirrored`);
                     return result;
                 }
                 case Source.Twitter:
