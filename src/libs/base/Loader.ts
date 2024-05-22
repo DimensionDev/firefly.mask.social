@@ -1,24 +1,10 @@
-import { compact, uniqBy } from 'lodash-es';
-
-import { URL_REGEX } from '@/constants/regexp.js';
-import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
+import { compact } from 'lodash-es';
 
 export abstract class BaseLoader<T> {
     protected ab: AbortController | null = null;
     protected map = new Map<string, Promise<T | null>>();
 
     protected abstract fetch(url: string, signal?: AbortSignal): Promise<T | null>;
-
-    protected parse(content: string): string[] {
-        if (!content) return [];
-
-        URL_REGEX.lastIndex = 0;
-
-        return uniqBy(
-            [...content.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0])),
-            (x) => x.toLowerCase(),
-        );
-    }
 
     protected fetchCached(url: string, signal?: AbortSignal): Promise<T | null> {
         if (!this.map?.has(url)) {
@@ -35,7 +21,7 @@ export abstract class BaseLoader<T> {
      * @returns
      */
     async load(
-        content: string,
+        urls: string[],
         signal?: AbortSignal,
     ): Promise<
         Array<{
@@ -43,7 +29,6 @@ export abstract class BaseLoader<T> {
             url: string;
         }>
     > {
-        const urls = this.parse(content);
         if (!urls.length) return [];
 
         const allSettled = await Promise.allSettled(urls.map((x) => this.fetchCached(x, signal)));
@@ -64,7 +49,7 @@ export abstract class BaseLoader<T> {
      * @param content
      * @returns
      */
-    async occupancyLoad(content: string): Promise<
+    async occupancyLoad(urls: string[]): Promise<
         Array<{
             value: T;
             url: string;
@@ -72,6 +57,6 @@ export abstract class BaseLoader<T> {
     > {
         this.ab?.abort();
         this.ab = new AbortController();
-        return this.load(content, this.ab.signal);
+        return this.load(urls, this.ab.signal);
     }
 }

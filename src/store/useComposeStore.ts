@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { uniq } from 'lodash-es';
+import { difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
@@ -8,10 +8,11 @@ import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { MAX_FRAME_SIZE_PER_POST, MAX_OG_SIZE_PER_POST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { parseURLs } from '@/helpers/parseURLs.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
@@ -445,16 +446,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
-            const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
-            const openGraphs = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
+            const urls = parseURLs(readChars(chars, true));
+            const frames = await FrameLoader.occupancyLoad(urls);
+            const openGraphs = await OpenGraphLoader.occupancyLoad(
+                difference(
+                    urls,
+                    frames.map((x) => x.url),
+                ),
+            );
 
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        frames: frames.map((x) => x.value),
-                        openGraphs: openGraphs.map((x) => x.value),
+                        frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
+                        openGraphs: openGraphs.map((x) => x.value).slice(0, MAX_OG_SIZE_PER_POST),
                     }),
                     cursor,
                 ),
