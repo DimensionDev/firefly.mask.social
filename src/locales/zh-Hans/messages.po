@@ -555,6 +555,9 @@ msgstr "点赞"
 msgid "Users"
 msgstr "用户"
 
+msgid "Describe a bug or suggest an improvement"
+msgstr ""
+
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
 
@@ -788,9 +791,6 @@ msgstr "图片"
 
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
-
-msgid "Discribe a bug or suggest an improvement"
-msgstr ""
 
 msgid "Muted @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"

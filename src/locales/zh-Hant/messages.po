@@ -555,6 +555,9 @@ msgstr "已喜歡"
 msgid "Users"
 msgstr ""
 
+msgid "Describe a bug or suggest an improvement"
+msgstr ""
+
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
@@ -787,9 +790,6 @@ msgid "Image"
 msgstr ""
 
 msgid "Failed to delete post."
-msgstr ""
-
-msgid "Discribe a bug or suggest an improvement"
 msgstr ""
 
 msgid "Muted @{0} on {sourceName}"
