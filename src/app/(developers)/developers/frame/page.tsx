@@ -9,18 +9,15 @@ import urlcat from 'urlcat';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Frame as FrameUI } from '@/components/Frame/index.js';
-import { URL_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { isValidUrl } from '@/helpers/isValidUrl.js';
 
 export default function Frame() {
     const [url, setUrl] = useState('');
 
     const [{ value: cacheRemoved, error, loading }, onSubmit] = useAsyncFn(async () => {
-        if (!url) throw new Error(t`URL is required.`);
-
-        URL_REGEX.lastIndex = 0;
-        if (!URL_REGEX.test(url)) throw new Error(t`Invalid URL.`);
+        if (!isValidUrl(url)) throw new Error(t`Invalid URL.`);
 
         await fetchJSON(
             urlcat('/api/frame', {
@@ -71,7 +68,7 @@ export default function Frame() {
 
             {cacheRemoved === true ? (
                 <div className=" w-full max-w-[500px]">
-                    <FrameUI url={url} postId="" />
+                    <FrameUI urls={[url]} postId="" />
                 </div>
             ) : error ? (
                 <div className=" w-full">{error.message}</div>
