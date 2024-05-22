@@ -33,7 +33,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div className=" rounded-lg bg-lightBg">
+        <div className=" rounded-lg border border-line dark:border-0 dark:bg-lightBg">
             <AsideTitle>
                 <Trans>Suggested Channels</Trans>
             </AsideTitle>
