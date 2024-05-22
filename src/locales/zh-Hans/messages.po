@@ -897,9 +897,6 @@ msgstr "帖子已经添加到您的收藏中"
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 
-msgid "Cancel mirror successfully"
-msgstr "取消转发成功"
-
 msgid "Unmute"
 msgstr "取消屏蔽"
 

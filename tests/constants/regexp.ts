@@ -1,30 +1,30 @@
 import { first } from 'lodash-es';
 import { describe, expect, test } from 'vitest';
 
-import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { CHANNEL_REGEX, HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 describe('MENTION_REGEXP', () => {
     test('should match a mention', () => {
         const cases = [
-            ['@handle', true],
-            ['handle', false],
-            ['handle@', false],
-            ['handle @', false],
-            ['@handle_name', true],
-            ['handle @name', true],
-            ['@handle.lens', true],
-            ['@lens/handle', true],
-            ['@club/handle', true],
-            ['@yup_io', true],
-            [['This is message', 'with a @mention'].join('\n'), true],
-        ] as Array<[string, boolean]>;
+            ['@handle', '@handle'],
+            ['handle', null],
+            ['handle@', null],
+            ['handle @', null],
+            ['@handle_name', '@handle_name'],
+            ['handle @name', '@name'],
+            ['@handle.lens', '@handle.lens'],
+            ['@lens/handle', '@lens/handle'],
+            ['@club/handle', '@club/handle'],
+            ['@yup_io', '@yup_io'],
+            [['This is message', 'with a @mention'].join('\n'), '@mention'],
+        ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
             // reset the regex
             MENTION_REGEX.lastIndex = 0;
 
-            const result = MENTION_REGEX.test(input);
-            expect(result).toBe(expectedOutput);
+            const [matched] = input.match(MENTION_REGEX) ?? [null];
+            expect(matched).toBe(expectedOutput);
         });
     });
 });
@@ -32,21 +32,22 @@ describe('MENTION_REGEXP', () => {
 describe('HASHTAG_REGEXP', () => {
     test('should match a hashtag', () => {
         const cases = [
-            ['#hello', true],
-            ['hello', false],
-            ['hello#', false],
-            ['hello #', false],
-            ['#hello_world', true],
-            ['hello #world', true],
-            [['This is message', 'with a #hashtag'].join('\n'), true],
-        ] as Array<[string, boolean]>;
+            ['#hello', '#hello'],
+            ['hello', null],
+            ['hello#', null],
+            ['hello #', null],
+            ['#hello_world', '#hello_world'],
+            ['hello #world', ' #world'],
+            ['/frame#dev', null],
+            [['This is message', 'with a #hashtag'].join('\n'), ' #hashtag'],
+        ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
             // reset the regex
             HASHTAG_REGEX.lastIndex = 0;
 
-            const result = HASHTAG_REGEX.test(input);
-            expect(result).toBe(expectedOutput);
+            const [matched] = input.match(HASHTAG_REGEX) ?? [null];
+            expect(matched).toBe(expectedOutput);
         });
     });
 });
@@ -64,13 +65,13 @@ describe('URL_REGEX', () => {
             
                     Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022
                 `,
-                true,
+                'https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022',
             ],
             [
                 `
                     hat matures, we're excited about supporting efforts to enshrine account abstraction into the protocol itself (e.g. 3074) — we prefer
                 `,
-                false,
+                null,
             ],
             [
                 `
@@ -83,27 +84,27 @@ describe('URL_REGEX', () => {
                     }
                     app.twitscription.xyz/tokens?v=2&mint=𝐅
                     🌔🍰📂😇🚑
-                    https://frames.twitscription.xyz                
+                    https://frames.twitscription.xyz
                 `,
-                true,
+                'app.twitscription.xyz/tokens?v=2&mint=𝐅',
             ],
             [
                 `
                     Geth v1.13.14 out, featuring minor blob pool polishes and the reduction of the blob pool capacity from 10GB to 2.5GB to avoid unexpected surprises during/after the Cancun fork.
                 `,
-                false,
+                null,
             ],
             [
-                `Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14`,
-                true,
+                'Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
+                'https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
             ],
-        ] as Array<[string, boolean]>;
+        ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
             URL_REGEX.lastIndex = 0;
 
-            const result = URL_REGEX.test(input);
-            expect(result).toBe(expectedOutput);
+            const [matched] = input.match(URL_REGEX) ?? [null];
+            expect(matched).toBe(expectedOutput);
         });
     });
 
@@ -163,6 +164,41 @@ describe('URL_REGEX', () => {
 
             const result = first(input.match(URL_REGEX) || []);
             expect(result).toBe(expectedOutput);
+        });
+    });
+});
+
+describe('CHANNEL_REGEX', () => {
+    test('should match a channel handle', () => {
+        const cases = [
+            ['/Bitcoin', null],
+            ['/BitCoin', null],
+            ['/bitCoin', null],
+            ['/bitcoin', '/bitcoin'],
+            ['/bitcoin2', '/bitcoin2'],
+            ['/bitcoin/2', null],
+            ['prefix /bitcoin suffix', ' /bitcoin'],
+            ['prefix/bitcoin suffix', null],
+            ['prefix /bitcoinMASK', null],
+            ['prefix /bitcoin面具', ' /bitcoin'],
+            ['prefix /bitcoin🎭', ' /bitcoin'],
+            ['/firefly-garden', '/firefly-garden'],
+            ['/firefly-garden2', '/firefly-garden2'],
+            ['/2024', '/2024'],
+            ['/2024-bitcoin', '/2024-bitcoin'],
+            ['/2024a', '/2024a'],
+            ['/2024MASK', null],
+            ['/2024面具', '/2024'],
+            ['/2024🎭', '/2024'],
+            ['/2024/05', null],
+            ['/2024/05/05', null],
+            ['/2024-05-05', '/2024-05-05'],
+        ] as Array<[string, string | null]>;
+
+        cases.forEach(([input, expectedOutput]) => {
+            CHANNEL_REGEX.lastIndex = 0;
+            const [matched] = input.match(CHANNEL_REGEX) ?? [null];
+            expect(matched).toBe(expectedOutput);
         });
     });
 });

@@ -84,7 +84,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                 }
                 case Source.Lens: {
                     const result = await LensSocialMediaProvider.mirrorPost(postId);
-                    enqueueSuccessMessage(mirrored ? t`Cancel mirror successfully` : t`Mirrored`);
+                    // lens only supports mirroring
+                    enqueueSuccessMessage(t`Mirrored`);
                     return result;
                 }
                 case Source.Twitter:
@@ -195,7 +196,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
             >
                 <Tooltip
                     disabled={disabled}
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full rounded-full hover:bg-secondarySuccess/[.20] "
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20] "
                     placement="top"
                     content={shares ? `${humanize(shares)} ${content}` : content}
                     withDelay

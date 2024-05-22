@@ -4,6 +4,7 @@ import { EMPTY_LIST } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
 import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
+import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -32,6 +33,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForDeletePost(Source.Farcaster)
 @SetQueryDataForBlockUser(Source.Farcaster)
 @SetQueryDataForFollowUser(Source.Farcaster)
+@SetQueryDataForBlockChannel(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -293,6 +295,15 @@ class FarcasterSocialMedia implements Provider {
     async unblockUser(profileId: string) {
         return FireflySocialMediaProvider.unblockUser(profileId);
     }
+
+    async blockChannel(channelId: string): Promise<boolean> {
+        return FireflySocialMediaProvider.blockChannel(channelId);
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
+        return FireflySocialMediaProvider.unblockChannel(channelId);
+    }
+
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getPostsQuoteOn(postId, indicator);
     }
