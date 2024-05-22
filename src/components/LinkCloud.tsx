@@ -23,7 +23,6 @@ export function LinkCloud() {
             </span>
             {[
                 { name: 'Twitter', link: 'https://twitter.com/intent/user?screen_name=thefireflyapp' },
-                { name: 'Firefly', link: 'https://firefly.social' },
                 { name: 'Discord', link: 'https://discord.com/invite/pufMbBGQZN' },
                 { name: 'Telegram', link: 'https://t.me/+mz9T_4YOYhoyYmYx' },
                 { name: 'Policy', link: 'https://legal.mask.io/maskbook/privacy-policy-browser.html' },
