@@ -465,6 +465,9 @@ msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二�
 msgid "Unlike"
 msgstr "取消点赞"
 
+msgid "Discord"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
 
@@ -527,6 +530,9 @@ msgstr "获取收藏失败。"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Telegram"
+msgstr ""
 
 msgid "Retweeted"
 msgstr "已转帖"
@@ -629,6 +635,9 @@ msgstr "显示更多"
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
+
+msgid "Feedback"
+msgstr ""
 
 msgid "Share"
 msgstr "分享"

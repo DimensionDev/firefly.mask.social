@@ -30,7 +30,7 @@ export default function Communities() {
                 {[
                     {
                         content: t`Follow @thefireflyapp on X`,
-                        link: 'https://twitter.com/intent/user?screen_name=thefireflyapp',
+                        link: 'https://x.com/intent/user?screen_name=thefireflyapp',
                         logo: XLightIcon,
                     },
                     {
@@ -61,7 +61,7 @@ export default function Communities() {
                 {[
                     {
                         content: t`Follow @realMaskNetwork on X`,
-                        link: 'https://twitter.com/intent/user?screen_name=realMaskNetwork',
+                        link: 'https://x.com/intent/user?screen_name=realMaskNetwork',
                         logo: XLightIcon,
                     },
                     {
