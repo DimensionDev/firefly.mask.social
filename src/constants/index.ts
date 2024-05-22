@@ -14,7 +14,7 @@ import {
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
-export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
+export const SITE_NAME = 'Firefly: All in one social app';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
