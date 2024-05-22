@@ -66,9 +66,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsMuted(post.author);
 
-    console.log('DEBUG: test');
-    console.log(post.metadata.content?.oembedUrls);
-
     if (post.isEncrypted) {
         return (
             <div
