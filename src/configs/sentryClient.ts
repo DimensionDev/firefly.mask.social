@@ -2,6 +2,9 @@ import * as Sentry from '@sentry/browser';
 
 export const feedbackIntegration = Sentry.feedbackIntegration({
     id: 'sentry-feedback',
+    colorScheme: 'system',
+    isNameRequired: false,
+    isEmailRequired: false,
     autoInject: false,
     showBranding: false,
 });

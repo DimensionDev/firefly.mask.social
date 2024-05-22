@@ -14,7 +14,17 @@ export function LinkCloud() {
     useMount(() => {
         if (feedbackEl.current && !attached.current) {
             attached.current = true;
-            feedbackIntegration.attachTo(feedbackEl.current);
+            feedbackIntegration.attachTo(feedbackEl.current, {
+                formTitle: t`Feedback`,
+                nameLabel: t`Name (optional)`,
+                namePlaceholder: t`Your name`,
+                emailLabel: t`Email (optional)`,
+                emailPlaceholder: t`your.email@example.org`,
+                messageLabel: t`Description`,
+                messagePlaceholder: t`Describe a bug or suggest an improvement`,
+                submitButtonLabel: t`Send Feedback`,
+                cancelButtonLabel: t`Cancel`,
+            });
         }
     });
 
@@ -33,11 +43,11 @@ export function LinkCloud() {
                     link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
                 },
             ].map(({ name, link }) => (
-                <Link href={link} key={link} className="outline-offset-4" target="_blank">
+                <Link href={link} key={link} className="outline-offset-4 hover:underline" target="_blank">
                     {name}
                 </Link>
             ))}
-            <span className="cursor-pointer" ref={feedbackEl}>
+            <span className="cursor-pointer hover:underline" ref={feedbackEl}>
                 <Trans>Feedback</Trans>
             </span>
         </div>

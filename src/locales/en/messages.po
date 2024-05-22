@@ -409,6 +409,9 @@ msgstr "Failed to unvote post."
 msgid "Choice {0}"
 msgstr "Choice {0}"
 
+msgid "Send Feedback"
+msgstr "Send Feedback"
+
 msgid "Detecting..."
 msgstr "Detecting..."
 
@@ -447,6 +450,9 @@ msgstr "No one likes this post yet."
 
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
+
+msgid "Description"
+msgstr "Description"
 
 msgid "Malformed session."
 msgstr "Malformed session."
@@ -498,6 +504,9 @@ msgstr "<0>{0}</0> liked"
 
 msgid "Suggested Channels"
 msgstr "Suggested Channels"
+
+msgid "Email (optional)"
+msgstr "Email (optional)"
 
 msgid "Failed to follow."
 msgstr "Failed to follow."
@@ -775,6 +784,9 @@ msgstr "Image"
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
 
+msgid "Discribe a bug or suggest an improvement"
+msgstr "Discribe a bug or suggest an improvement"
+
 msgid "Muted @{0} on {sourceName}"
 msgstr "Muted @{0} on {sourceName}"
 
@@ -913,6 +925,9 @@ msgstr "You cannot reply to @{author} on {0}."
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
 
+msgid "Your name"
+msgstr "Your name"
+
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
 
@@ -936,6 +951,9 @@ msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}
 
 msgid "Cancel mirror successfully"
 msgstr "Cancel mirror successfully"
+
+msgid "your.email@example.org"
+msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "Unmute"
@@ -1032,6 +1050,9 @@ msgstr "<0/> commented on your <1><2/></1>"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
+
+msgid "Name (optional)"
+msgstr "Name (optional)"
 
 msgid "Recast"
 msgstr "Recast"

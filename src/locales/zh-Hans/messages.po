@@ -414,6 +414,9 @@ msgstr "无法对帖子进行投票。"
 msgid "Choice {0}"
 msgstr ""
 
+msgid "Send Feedback"
+msgstr ""
+
 msgid "Detecting..."
 msgstr "检测中..."
 
@@ -452,6 +455,9 @@ msgstr "还未有人点赞。"
 
 msgid "Your posts have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
+
+msgid "Description"
+msgstr ""
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
@@ -503,6 +509,9 @@ msgstr "<0>{0}</0> 点赞"
 
 msgid "Suggested Channels"
 msgstr "建议频道"
+
+msgid "Email (optional)"
+msgstr ""
 
 msgid "Failed to follow."
 msgstr "关注失败"
@@ -780,6 +789,9 @@ msgstr "图片"
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
+msgid "Discribe a bug or suggest an improvement"
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
@@ -918,6 +930,9 @@ msgstr "你不能在 {0} 上评论 {author}"
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
+msgid "Your name"
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
 
@@ -941,6 +956,9 @@ msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}
 
 msgid "Cancel mirror successfully"
 msgstr "取消转发成功"
+
+msgid "your.email@example.org"
+msgstr ""
 
 msgid "Unmute"
 msgstr "取消屏蔽"
@@ -1037,6 +1055,9 @@ msgstr "<0/> 评论了你的 <1><2/></1>"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
+
+msgid "Name (optional)"
+msgstr ""
 
 msgid "Recast"
 msgstr "转推"

@@ -414,6 +414,9 @@ msgstr ""
 msgid "Choice {0}"
 msgstr ""
 
+msgid "Send Feedback"
+msgstr ""
+
 msgid "Detecting..."
 msgstr ""
 
@@ -451,6 +454,9 @@ msgid "No one likes this post yet."
 msgstr "還沒有人點贊這條貼文"
 
 msgid "Your posts have published successfully on {0}."
+msgstr ""
+
+msgid "Description"
 msgstr ""
 
 msgid "Malformed session."
@@ -503,6 +509,9 @@ msgstr ""
 
 msgid "Suggested Channels"
 msgstr "推薦頻道"
+
+msgid "Email (optional)"
+msgstr ""
 
 msgid "Failed to follow."
 msgstr "跟隨失敗"
@@ -780,6 +789,9 @@ msgstr ""
 msgid "Failed to delete post."
 msgstr ""
 
+msgid "Discribe a bug or suggest an improvement"
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
 
@@ -918,6 +930,9 @@ msgstr "你無法在 {0} 上回覆 @{author}"
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發帖目前收到限制。"
 
+msgid "Your name"
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr ""
 
@@ -941,6 +956,9 @@ msgstr "{followerCount, plural, one {跟隨者} other {跟隨者}}"
 
 msgid "Cancel mirror successfully"
 msgstr "成功取消鏡像"
+
+msgid "your.email@example.org"
+msgstr ""
 
 msgid "Unmute"
 msgstr "取消靜音"
@@ -1036,6 +1054,9 @@ msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"
+msgstr ""
+
+msgid "Name (optional)"
 msgstr ""
 
 msgid "Recast"
