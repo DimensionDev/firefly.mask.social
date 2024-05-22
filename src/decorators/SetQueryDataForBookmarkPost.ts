@@ -37,6 +37,13 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
         });
     });
 
+    queryClient.setQueryData<Article>(['article-detail', postId], (old) => {
+        return produce(old, (draft) => {
+            if (!draft) return;
+            draft.hasBookmarked = !draft.hasBookmarked;
+        });
+    });
+
     patchNotificationQueryDataOnPost(source, (post) => {
         if (post.postId === postId) {
             post.hasBookmarked = status;
