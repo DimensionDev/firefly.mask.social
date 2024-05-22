@@ -17,7 +17,9 @@ export const ClickableButton = forwardRef<HTMLButtonElement, ClickableButtonProp
     return (
         <button
             {...props}
-            className={classNames('disabled:cursor-not-allowed disabled:opacity-50', props.className)}
+            className={classNames(props.className, {
+                'disabled:cursor-not-allowed disabled:opacity-50': !!props.disabled,
+            })}
             ref={ref}
             onClick={(ev) => {
                 if (props.disabled) return;
