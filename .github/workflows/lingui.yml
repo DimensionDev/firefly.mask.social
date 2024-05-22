@@ -34,6 +34,9 @@ jobs:
       - name: Run Lingui
         run: npm run lingui
 
+      - name: Check code style with Prettier
+        run: npx prettier ./src/locales/ -w
+
       - name: Check for changes in src/locales/*.po
         id: check-changes
         run: echo "::set-output name=changes::$(git diff --name-only -- 'src/locales/*.po')"
