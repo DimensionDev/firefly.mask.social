@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
+import { attemptUntil } from '@masknet/web3-shared-base';
 import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
@@ -19,6 +20,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { isUndefined } from 'lodash-es';
 
 interface FrameUIProps {
     frame: Frame;
@@ -93,13 +95,13 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
 }
 
 interface FrameProps {
-    url: string;
+    urls: string[];
     postId: string;
     children?: React.ReactNode;
     onData?: (frame: Frame) => void;
 }
 
-export function Frame({ postId, url, onData, children }: FrameProps) {
+export function Frame({ postId, urls, onData, children }: FrameProps) {
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const {
@@ -107,16 +109,25 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
         error,
         data,
     } = useQuery({
-        queryKey: ['frame', url],
+        queryKey: ['frame', ...urls],
         queryFn: () => {
-            if (!url || isValidDomain(url)) return;
-            return fetchJSON<ResponseJSON<LinkDigested>>(
-                urlcat('/api/frame', {
-                    link: url,
+            return attemptUntil(
+                urls.map((x) => () => {
+                    if (!x || isValidDomain(x)) return;
+                    return fetchJSON<ResponseJSON<LinkDigested>>(
+                        urlcat('/api/frame', {
+                            link: x,
+                        }),
+                    );
                 }),
+                undefined,
+                (response) => {
+                    if (isUndefined(response)) return true;
+                    return !response?.success;
+                },
             );
         },
-        enabled: !!url,
+        enabled: !!urls.length,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
