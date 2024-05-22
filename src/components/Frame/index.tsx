@@ -13,6 +13,7 @@ import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
+import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
@@ -111,6 +112,12 @@ export function Frame({ postId, urls, onData, children }: FrameProps) {
     } = useQuery({
         queryKey: ['frame', ...urls],
         queryFn: () => {
+            // TODO: if multiple frames are supported, we should refactor this part
+            if (MAX_FRAME_SIZE_PER_POST > 1 && urls.length > 1)
+                console.warn(
+                    '[frame]: Multiple frames found for this post. Only the first available frame will be used.',
+                );
+
             return attemptUntil(
                 urls.map((x) => () => {
                     if (!x || isValidDomain(x)) return;
