@@ -24,7 +24,7 @@ interface VoteResultProps {
     userChoice?: string;
 }
 
-function VoteButton ({ option, post }: VoteButtonProps) {
+function VoteButton({ option, post }: VoteButtonProps) {
     const isLogin = useIsLogin(post.source);
 
     const handleVote = () => {
@@ -32,37 +32,37 @@ function VoteButton ({ option, post }: VoteButtonProps) {
     };
 
     return (
-        <div className='mt-3'>
+        <div className="mt-3">
             <ClickableButton
                 disabled={!isLogin}
-                className='h-10 leading-10 w-full text-center text-base font-bold text-lightMain rounded-[10px] border border-lightMain disabled:!cursor-default disabled:!opacity-100 hover:bg-secondaryMain'
+                className="h-10 w-full rounded-[10px] border border-lightMain text-center text-base font-bold leading-10 text-lightMain hover:bg-secondaryMain disabled:!cursor-default disabled:!opacity-100"
                 onClick={handleVote}
-            >{option.label}</ClickableButton>
+            >
+                {option.label}
+            </ClickableButton>
         </div>
     );
 }
 
-function VoteResult ({ option, totalVotes, userChoice }: VoteResultProps) {
+function VoteResult({ option, totalVotes, userChoice }: VoteResultProps) {
     const { label, votes = 0 } = option;
     const currentRate = totalVotes ? parseFloat(((votes / totalVotes) * 100).toFixed(2)) : 0;
 
     return (
-        <div className='relative h-10 mt-3'>
+        <div className="relative mt-3 h-10">
             <div
-                className='absolute h-full bg-secondaryMain rounded-[10px]'
-                style={{ width: currentRate ? `${currentRate}%` : '20px'}}
+                className="absolute h-full rounded-[10px] bg-secondaryMain"
+                style={{ width: currentRate ? `${currentRate}%` : '20px' }}
             />
-            <div className='absolute z-10 h-full w-full flex justify-between items-center pl-5 text-base font-bold text-lightMain'>
+            <div className="absolute z-10 flex h-full w-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span className="flex items-center gap-2">
                     <span>{label}</span>
-                        {userChoice === label ? (
-                            <RightAnswerIcon className="mr-2" width={20} height={20} />
-                        ) : null}
-                    </span>
+                    {userChoice === label ? <RightAnswerIcon className="mr-2" width={20} height={20} /> : null}
+                </span>
                 <span>{currentRate}%</span>
             </div>
         </div>
-    )
+    );
 }
 
 export function PollCard({ post }: PollCardProps) {

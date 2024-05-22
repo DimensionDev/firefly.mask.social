@@ -1,4 +1,4 @@
-import { type SocialSource,Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 
 // poll default options count
 export const POLL_OPTIONS_MIN_COUNT = 2;
