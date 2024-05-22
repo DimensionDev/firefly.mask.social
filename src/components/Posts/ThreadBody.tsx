@@ -10,7 +10,6 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -33,7 +32,6 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const router = useRouter();
 
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const link = getPostUrl(post);
 
@@ -47,7 +45,8 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 if (post.source === Source.Twitter) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
-                if (!isPostPage) router.push(link);
+                if (link.includes(pathname)) return;
+                router.push(link);
             }}
         >
             <FeedActionType post={post} isThread />
