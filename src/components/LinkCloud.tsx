@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { useMount } from 'react-use';
 
 import { feedbackIntegration } from '@/configs/sentryClient.js';
+import { Link } from '@/esm/Link.js';
 
 export function LinkCloud() {
     const feedbackEl = useRef<HTMLSpanElement>(null);
@@ -29,9 +30,9 @@ export function LinkCloud() {
                 { name: t`Privacy Policy`, link: 'https://legal.mask.io/maskbook/privacy-policy-browser.html' },
                 { name: t`Terms of Service`, link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html' },
             ].map(({ name, link }) => (
-                <a href={link} key={link} className="outline-offset-4">
+                <Link href={link} key={link} className="outline-offset-4" target='_blank'>
                     {name}
-                </a>
+                </Link>
             ))}
             <span className="cursor-pointer" ref={feedbackEl}>
                 <Trans>Feedback</Trans>
