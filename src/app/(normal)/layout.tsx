@@ -80,9 +80,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
 
                     <SuggestedChannels source={Source.Farcaster} />
 
-                    {!IS_PRODUCTION && (
-                        <mask-calendar-widget />
-                    )}
+                    {!IS_PRODUCTION && <mask-calendar-widget />}
 
                     <LinkCloud />
                 </div>
