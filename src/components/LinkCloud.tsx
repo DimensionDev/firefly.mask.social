@@ -21,7 +21,7 @@ export function LinkCloud() {
                 emailLabel: t`Email (optional)`,
                 emailPlaceholder: t`your.email@example.org`,
                 messageLabel: t`Description`,
-                messagePlaceholder: t`Discribe a bug or suggest an improvement`,
+                messagePlaceholder: t`Describe a bug or suggest an improvement`,
                 submitButtonLabel: t`Send Feedback`,
                 cancelButtonLabel: t`Cancel`,
             });
