@@ -1,5 +1,12 @@
 import * as Sentry from '@sentry/browser';
 
+
+export const feedbackIntegration = Sentry.feedbackIntegration({
+    id: 'sentry-feedback',
+    autoInject: false,
+    showBranding: false,
+});
+
 class SentryClient {
     private initialized = false;
 
@@ -12,7 +19,9 @@ class SentryClient {
                 dsn: `${process.env.NEXT_PUBLIC_SENTRY_DSN}`,
 
                 release: `${process.version}`,
-                integrations: [],
+                integrations: [
+                    feedbackIntegration,
+                ],
 
                 tracesSampleRate: 1.0,
                 tracePropagationTargets: [],

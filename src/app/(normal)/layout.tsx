@@ -1,11 +1,13 @@
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
+import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
 import { Source } from '@/constants/enum.js';
+import { IS_PRODUCTION } from '@/constants/index.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -78,7 +80,11 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
 
                     <SuggestedChannels source={Source.Farcaster} />
 
-                    <mask-calendar-widget />
+                    {!IS_PRODUCTION && (
+                        <mask-calendar-widget />
+                    )}
+
+                    <LinkCloud />
                 </div>
             </aside>
             <ComposeButton />
