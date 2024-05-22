@@ -312,9 +312,6 @@ msgstr "转帖失败。"
 msgid "Your post was deleted."
 msgstr "帖子已删除。"
 
-msgid "URL is required."
-msgstr "请选择 URL"
-
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 

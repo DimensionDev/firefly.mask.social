@@ -111,7 +111,6 @@ export const MAX_SEARCH_RECORD_SIZE = 5;
 export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 
 // POST
-export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
 
 export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;

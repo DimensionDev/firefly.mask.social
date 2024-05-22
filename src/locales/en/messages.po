@@ -307,9 +307,6 @@ msgstr "Failed to mirror."
 msgid "Your post was deleted."
 msgstr "Your post was deleted."
 
-msgid "URL is required."
-msgstr "URL is required."
-
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
 

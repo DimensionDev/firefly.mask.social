@@ -307,9 +307,6 @@ msgstr ""
 msgid "Your post was deleted."
 msgstr ""
 
-msgid "URL is required."
-msgstr ""
-
 msgid "Remove from Bookmarks"
 msgstr ""
 
