@@ -44,6 +44,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_WARNINGS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_CALENDAR_WIDGET: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // public use of hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string(),

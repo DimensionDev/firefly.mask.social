@@ -33,11 +33,11 @@ export function LinkCloud() {
                     link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
                 },
             ].map(({ name, link }) => (
-                <Link href={link} key={link} className="outline-offset-4" target="_blank">
+                <Link href={link} key={link} className="outline-offset-4 hover:underline" target="_blank">
                     {name}
                 </Link>
             ))}
-            <span className="cursor-pointer" ref={feedbackEl}>
+            <span className="cursor-pointer hover:underline" ref={feedbackEl}>
                 <Trans>Feedback</Trans>
             </span>
         </div>

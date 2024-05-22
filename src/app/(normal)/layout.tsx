@@ -7,7 +7,7 @@ import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.j
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
 import { Source } from '@/constants/enum.js';
-import { IS_PRODUCTION } from '@/constants/index.js';
+import { env } from '@/constants/env.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -80,7 +80,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
 
                     <SuggestedChannels source={Source.Farcaster} />
 
-                    {!IS_PRODUCTION && <mask-calendar-widget />}
+                    {env.external.NEXT_PUBLIC_CALENDAR_WIDGET ? <mask-calendar-widget /> : null}
 
                     <LinkCloud />
                 </div>
