@@ -312,9 +312,6 @@ msgstr "鏡像失敗"
 msgid "Your post was deleted."
 msgstr "您的貼文已被刪除"
 
-msgid "URL is required."
-msgstr "需要連結"
-
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
 
@@ -555,6 +552,9 @@ msgstr "已喜歡"
 msgid "Users"
 msgstr ""
 
+msgid "Describe a bug or suggest an improvement"
+msgstr ""
+
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
@@ -789,9 +789,6 @@ msgstr ""
 msgid "Failed to delete post."
 msgstr ""
 
-msgid "Discribe a bug or suggest an improvement"
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
 
@@ -953,9 +950,6 @@ msgstr "貼文已加入你的書籤"
 
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {跟隨者} other {跟隨者}}"
-
-msgid "Cancel mirror successfully"
-msgstr "成功取消鏡像"
 
 msgid "your.email@example.org"
 msgstr ""
@@ -1124,4 +1118,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

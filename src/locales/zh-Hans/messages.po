@@ -552,6 +552,9 @@ msgstr "点赞"
 msgid "Users"
 msgstr "用户"
 
+msgid "Describe a bug or suggest an improvement"
+msgstr ""
+
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
 
@@ -786,9 +789,6 @@ msgstr "图片"
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
-msgid "Discribe a bug or suggest an improvement"
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
@@ -950,9 +950,6 @@ msgstr "帖子已经添加到您的收藏中"
 
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
-
-msgid "Cancel mirror successfully"
-msgstr "取消转发成功"
 
 msgid "your.email@example.org"
 msgstr ""
@@ -1121,4 +1118,3 @@ msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

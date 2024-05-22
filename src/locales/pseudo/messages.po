@@ -547,6 +547,9 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
+msgid "Describe a bug or suggest an improvement"
+msgstr ""
+
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
@@ -781,9 +784,6 @@ msgstr ""
 msgid "Failed to delete post."
 msgstr ""
 
-msgid "Discribe a bug or suggest an improvement"
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
 
@@ -944,9 +944,6 @@ msgid "Post added to your Bookmarks"
 msgstr ""
 
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr ""
-
-msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "your.email@example.org"
