@@ -4,6 +4,7 @@ import { openWindow } from '@masknet/shared-base-ui';
 import { attemptUntil } from '@masknet/web3-shared-base';
 import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import { isUndefined } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -20,7 +21,6 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { isUndefined } from 'lodash-es';
 
 interface FrameUIProps {
     frame: Frame;
