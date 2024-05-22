@@ -12,7 +12,7 @@ import { MAX_FRAME_SIZE_PER_POST, SORTED_SOCIAL_SOURCES } from '@/constants/inde
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { parseURLs } from '@/helpers/parseURLs.js';
+import { matchUrls } from '@/helpers/matchUrls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
@@ -446,7 +446,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
-            const urls = parseURLs(readChars(chars, true));
+            const urls = matchUrls(readChars(chars, true));
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(
