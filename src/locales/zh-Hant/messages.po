@@ -465,6 +465,9 @@ msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用�
 msgid "Unlike"
 msgstr "取消喜歡"
 
+msgid "Discord"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr ""
 
@@ -526,6 +529,9 @@ msgid "Failed to fetch bookmarks."
 msgstr "獲取書籤失敗。"
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Telegram"
 msgstr ""
 
 msgid "Retweeted"
@@ -628,6 +634,9 @@ msgid "Show More"
 msgstr "顯示更多"
 
 msgid "Failed to parse session."
+msgstr ""
+
+msgid "Feedback"
 msgstr ""
 
 msgid "Share"

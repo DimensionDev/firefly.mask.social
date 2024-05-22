@@ -460,6 +460,9 @@ msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan
 msgid "Unlike"
 msgstr "Unlike"
 
+msgid "Discord"
+msgstr "Discord"
+
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
@@ -522,6 +525,9 @@ msgstr "Failed to fetch bookmarks."
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
+
+msgid "Telegram"
+msgstr "Telegram"
 
 msgid "Retweeted"
 msgstr "Retweeted"
@@ -624,6 +630,9 @@ msgstr "Show More"
 
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
+
+msgid "Feedback"
+msgstr "Feedback"
 
 msgid "Share"
 msgstr "Share"
