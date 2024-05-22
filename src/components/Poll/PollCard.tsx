@@ -21,7 +21,11 @@ export function PollCard({ post }: PollCardProps) {
     const { poll } = post;
     if (!poll) return null;
 
-    const voteDisabled = !POLL_ACTION_ENABLED[post.source] || post.poll?.votingStatus === 'closed' || !profile || isSameProfile(profile, post.author);
+    const voteDisabled =
+        !POLL_ACTION_ENABLED[post.source] ||
+        post.poll?.votingStatus === 'closed' ||
+        !profile ||
+        isSameProfile(profile, post.author);
 
     const toResultRate = (current: number) => {
         const voteCount = sumBy(poll.options, (option) => option.votes ?? 0);
