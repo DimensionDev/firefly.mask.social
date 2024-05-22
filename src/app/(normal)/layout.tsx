@@ -6,7 +6,7 @@ import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
-import { Source } from '@/constants/enum.js';
+import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
@@ -80,7 +80,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
 
                     <SuggestedChannels source={Source.Farcaster} />
 
-                    {env.external.NEXT_PUBLIC_CALENDAR_WIDGET ? <mask-calendar-widget /> : null}
+                    {env.external.NEXT_PUBLIC_CALENDAR_WIDGET === STATUS.Enabled ? <mask-calendar-widget /> : null}
 
                     <LinkCloud />
                 </div>

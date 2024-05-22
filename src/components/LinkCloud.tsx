@@ -14,7 +14,17 @@ export function LinkCloud() {
     useMount(() => {
         if (feedbackEl.current && !attached.current) {
             attached.current = true;
-            feedbackIntegration.attachTo(feedbackEl.current);
+            feedbackIntegration.attachTo(feedbackEl.current, {
+                formTitle: t`Feedback`,
+                nameLabel: t`Name (optional)`,
+                namePlaceholder: t`Your name`,
+                emailLabel: t`Email (optional)`,
+                emailPlaceholder: t`your.email@example.org`,
+                messageLabel: t`Description`,
+                messagePlaceholder: t`Discribe a bug or suggest an improvement`,
+                submitButtonLabel: t`Send Feedback`,
+                cancelButtonLabel: t`Cancel`,
+            });
         }
     });
 
