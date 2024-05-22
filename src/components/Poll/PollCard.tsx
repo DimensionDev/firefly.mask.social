@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { POLL_ACTION_ENABLED } from '@/constants/poll.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -20,7 +21,7 @@ export function PollCard({ post }: PollCardProps) {
     const { poll } = post;
     if (!poll) return null;
 
-    const voteDisabled = post.poll?.votingStatus === 'closed' || !profile || isSameProfile(profile, post.author);
+    const voteDisabled = !POLL_ACTION_ENABLED[post.source] || post.poll?.votingStatus === 'closed' || !profile || isSameProfile(profile, post.author);
 
     const toResultRate = (current: number) => {
         const voteCount = sumBy(poll.options, (option) => option.votes ?? 0);
@@ -50,7 +51,7 @@ export function PollCard({ post }: PollCardProps) {
                         <ClickableButton
                             disabled={voteDisabled}
                             className={classNames(
-                                'absolute left-0 top-0 z-10 flex h-full w-full items-center rounded-[10px] pl-5 pr-2 text-base font-bold text-lightMain',
+                                'absolute left-0 top-0 z-10 flex h-full w-full items-center rounded-[10px] pl-5 pr-2 text-base font-bold text-lightMain disabled:cursor-default disabled:opacity-100',
                                 voteDisabled ? 'justify-between' : 'justify-center hover:bg-lightBg',
                             )}
                             onClick={() => {

@@ -22,3 +22,9 @@ export const POLL_MAX_VALID_IN_DAYS = {
     [Source.Farcaster]: Number.MAX_SAFE_INTEGER,
     [Source.Twitter]: 6,
 };
+
+export const POLL_ACTION_ENABLED = {
+    [Source.Lens]: false,
+    [Source.Farcaster]: false,
+    [Source.Twitter]: false,
+};
