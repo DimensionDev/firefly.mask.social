@@ -24,14 +24,13 @@ export const FollowButton = memo(function FollowButton({ profile, className, ...
     const isFollowing = !!profile.viewerContext?.following;
     const [loading, toggleFollow] = useToggleFollow(profile);
 
-    const buttonText = isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`;
-    const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;
-
     const muted = useIsMuted(profile);
 
     if (muted) {
         return <UnmuteButton profile={profile} />;
     }
+    const buttonText = isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`;
+    const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;
 
     return (
         <ClickableButton

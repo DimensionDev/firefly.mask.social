@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
@@ -201,15 +200,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     content={shares ? `${humanize(shares)} ${content}` : content}
                     withDelay
                 >
-                    {loading ? (
-                        <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
-                    ) : (
-                        <MirrorIcon
-                            width={16}
-                            height={16}
-                            className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
-                        />
-                    )}
+                    <MirrorIcon
+                        width={16}
+                        height={16}
+                        className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
+                    />
                 </Tooltip>
                 {shares ? (
                     <span

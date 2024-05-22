@@ -1,12 +1,10 @@
 import { t } from '@lingui/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { memo } from 'react';
-import { useAsyncFn } from 'react-use';
+import { memo, useCallback } from 'react';
 
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -42,7 +40,7 @@ export const Like = memo<LikeProps>(function Like({
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
 
-    const [{ loading }, handleClick] = useAsyncFn(async () => {
+    const handleClick = useCallback(async () => {
         if (!postId) return null;
 
         if (!isLogin) {
@@ -92,13 +90,7 @@ export const Like = memo<LikeProps>(function Like({
                     whileTap={{ scale: 0.9 }}
                     className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
                 >
-                    {loading ? (
-                        <LoadingIcon width={16} height={16} className="animate-spin text-danger" />
-                    ) : hasLiked ? (
-                        <LikedIcon width={16} height={16} />
-                    ) : (
-                        <LikeIcon width={16} height={16} />
-                    )}
+                    {hasLiked ? <LikedIcon width={16} height={16} /> : <LikeIcon width={16} height={16} />}
                 </motion.button>
             </Tooltip>
             {count ? (
