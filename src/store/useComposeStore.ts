@@ -8,7 +8,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { MAX_FRAME_SIZE_PER_POST, MAX_OG_SIZE_PER_POST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { MAX_FRAME_SIZE_PER_POST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -450,7 +450,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(
-                    urls,
+                    urls.slice(-1),
                     frames.map((x) => x.url),
                 ),
             );
@@ -461,7 +461,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
-                        openGraphs: openGraphs.map((x) => x.value).slice(0, MAX_OG_SIZE_PER_POST),
+                        openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
                     }),
                     cursor,
                 ),
