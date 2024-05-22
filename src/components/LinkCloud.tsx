@@ -28,9 +28,12 @@ export function LinkCloud() {
                 { name: t`Discord`, link: 'https://discord.com/invite/pufMbBGQZN' },
                 { name: t`Telegram`, link: 'https://t.me/+mz9T_4YOYhoyYmYx' },
                 { name: t`Privacy Policy`, link: 'https://legal.mask.io/maskbook/privacy-policy-browser.html' },
-                { name: t`Terms of Service`, link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html' },
+                {
+                    name: t`Terms of Service`,
+                    link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
+                },
             ].map(({ name, link }) => (
-                <Link href={link} key={link} className="outline-offset-4" target='_blank'>
+                <Link href={link} key={link} className="outline-offset-4" target="_blank">
                     {name}
                 </Link>
             ))}
