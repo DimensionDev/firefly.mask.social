@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-21 12:01\n"
+"PO-Revision-Date: 2024-05-22 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -465,6 +465,9 @@ msgstr ""
 msgid "Unlike"
 msgstr ""
 
+msgid "Discord"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr ""
 
@@ -526,6 +529,9 @@ msgid "Failed to fetch bookmarks."
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Telegram"
 msgstr ""
 
 msgid "Retweeted"
@@ -628,6 +634,9 @@ msgid "Show More"
 msgstr ""
 
 msgid "Failed to parse session."
+msgstr ""
+
+msgid "Feedback"
 msgstr ""
 
 msgid "Share"
