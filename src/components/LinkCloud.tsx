@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { useRef } from 'react';
 import { useMount } from 'react-use';
 
@@ -22,18 +23,18 @@ export function LinkCloud() {
                 © {2024} {'Firefly'}
             </span>
             {[
-                { name: 'Twitter', link: 'https://twitter.com/intent/user?screen_name=thefireflyapp' },
+                { name: 'X', link: 'https://x.com/intent/user?screen_name=thefireflyapp' },
                 { name: 'Discord', link: 'https://discord.com/invite/pufMbBGQZN' },
                 { name: 'Telegram', link: 'https://t.me/+mz9T_4YOYhoyYmYx' },
-                { name: 'Policy', link: 'https://legal.mask.io/maskbook/privacy-policy-browser.html' },
-                { name: 'Terms', link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html' },
+                { name: 'Privacy Policy', link: 'https://legal.mask.io/maskbook/privacy-policy-browser.html' },
+                { name: 'Terms of Service', link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html' },
             ].map(({ name, link }) => (
                 <a href={link} key={link} className="outline-offset-4">
-                    {name}
+                    <Trans>{name}</Trans>
                 </a>
             ))}
             <span className="cursor-pointer" ref={feedbackEl}>
-                Feedback
+                <Trans>Feedback</Trans>
             </span>
         </div>
     );
