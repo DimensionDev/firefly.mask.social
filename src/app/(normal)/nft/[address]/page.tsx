@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { SimpleHashEVM } from '@masknet/web3-providers';
 import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -16,6 +15,7 @@ import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 const tabs = [
     {
@@ -35,7 +35,7 @@ export default function Page({ params }: { params: { address: string }; searchPa
     const { data, isLoading, error } = useQuery({
         queryKey: ['collection-info', address],
         queryFn() {
-            return SimpleHashEVM.getCollectionByContractAddress(address);
+            return SimpleHashWalletProfileProvider.getCollection(address);
         },
     });
 

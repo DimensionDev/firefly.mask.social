@@ -27,13 +27,7 @@ export function NFTInfo(props: NFTInfoProps) {
     return (
         <div className="flex flex-col gap-5 sm:flex-row">
             <div className="w-full sm:w-[300px]">
-                <Image
-                    width={300}
-                    height={300}
-                    src={imageURL}
-                    alt={name}
-                    className="h-[300px] w-full rounded-[20px] object-cover"
-                />
+                <Image width={300} height={300} src={imageURL} alt={name} className="rounded-[20px] object-cover" />
                 <div className="mt-4 flex justify-center gap-2">
                     <a
                         className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 text-[10px] leading-[14px]"
@@ -57,9 +51,11 @@ export function NFTInfo(props: NFTInfoProps) {
                                 className="flex h-6 items-center text-lg font-bold leading-6"
                             >
                                 {collection.icon ? (
-                                    <img
+                                    <Image
+                                        width={20}
+                                        height={20}
                                         alt={collection.name}
-                                        className="mr-2 h-5 w-5 rounded-md shadow"
+                                        className="mr-2 rounded-md shadow"
                                         src={collection.icon}
                                     />
                                 ) : null}
