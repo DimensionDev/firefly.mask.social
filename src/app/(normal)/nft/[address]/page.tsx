@@ -1,9 +1,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { useMemo, useState } from 'react';
 
@@ -15,6 +13,7 @@ import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { useNFTFloorPrice } from '@/hooks/useNFTFloorPrice.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export default function Page({ params }: { params: { address: string }; searchParams: { source: SourceInURL } }) {
@@ -42,13 +41,7 @@ export default function Page({ params }: { params: { address: string }; searchPa
         },
     });
 
-    const floorPrice = useMemo(() => {
-        const firstFloorPrice = first(data?.floor_prices);
-        if (!firstFloorPrice) return;
-        return `${formatAmount(firstFloorPrice.value, -firstFloorPrice.payment_token.decimals)} ${
-            firstFloorPrice.payment_token.symbol
-        }`;
-    }, [data?.floor_prices]);
+    const floorPrice = useNFTFloorPrice(data?.floor_prices);
 
     if (isLoading) {
         return <Loading />;

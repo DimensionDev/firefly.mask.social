@@ -1,8 +1,6 @@
 'use client';
 
-import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { useMemo } from 'react';
 
@@ -12,6 +10,7 @@ import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { useNFTFloorPrice } from '@/hooks/useNFTFloorPrice.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import type { SearchParams } from '@/types/index.js';
 
@@ -41,13 +40,7 @@ export default function Page({
         },
     });
 
-    const floorPrice = useMemo(() => {
-        const firstFloorPrice = first(data?.collection?.floorPrices);
-        if (!firstFloorPrice) return;
-        return `${formatAmount(firstFloorPrice.value, -firstFloorPrice.payment_token.decimals)} ${
-            firstFloorPrice.payment_token.symbol
-        }`;
-    }, [data]);
+    const floorPrice = useNFTFloorPrice(data?.collection?.floorPrices);
 
     if (isLoading) {
         return <Loading />;
