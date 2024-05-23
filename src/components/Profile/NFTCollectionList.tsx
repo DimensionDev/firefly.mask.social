@@ -54,7 +54,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
                     />
                 ))}
                 {images.length === 3 && distinctNFTCount !== 4 && distinctNFTCount > 3 ? (
-                    <div className="bg-card flex h-full w-full items-center justify-center rounded-lg text-xs font-normal leading-4 sm:rounded-xl">
+                    <div className="flex h-full w-full items-center justify-center rounded-lg bg-card text-xs font-normal leading-4 sm:rounded-xl">
                         +{distinctNFTCount - 3}
                     </div>
                 ) : null}
