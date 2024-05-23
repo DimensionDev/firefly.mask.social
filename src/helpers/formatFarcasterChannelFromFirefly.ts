@@ -29,6 +29,8 @@ export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile):
 }
 
 export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
+    const createdAt = channel.createdAt ?? channel.created_at ?? 0;
+
     const formatted: Channel = {
         source: Source.Farcaster,
         id: channel.id,
@@ -38,7 +40,7 @@ export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
         url: channel.url,
         parentUrl: channel.parent_url,
         followerCount: channel.follower_count ?? 0,
-        timestamp: channel.created_at * 1000,
+        timestamp: createdAt * 1000,
         __original__: channel,
     };
     if (channel.lead) {
@@ -70,7 +72,9 @@ export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProf
     };
 }
 
-export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
+export function formatBriefChannelFromFirefly(channel: ChannelBrief, blocked?: boolean): Channel {
+    const createdAt = channel.createdAt ?? channel.created_at ?? 0;
+
     const formatted: Channel = {
         source: Source.Farcaster,
         id: channel.id,
@@ -80,8 +84,9 @@ export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
         parentUrl: channel.parent_url,
         imageUrl: channel.image_url,
         followerCount: channel.follower_count ?? 0,
-        timestamp: channel.created_at * 1000,
+        timestamp: createdAt * 1000,
         __original__: channel,
+        blocked,
     };
 
     if (channel.lead) {

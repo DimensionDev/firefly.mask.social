@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-13 09:43\n"
+"PO-Revision-Date: 2024-05-23 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -42,6 +42,9 @@ msgstr "报告 @{0}"
 msgid "Retweet"
 msgstr "转帖"
 
+msgid "Failed to translate post. Please retry later."
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
@@ -56,6 +59,9 @@ msgstr "社区"
 
 msgid "Discover"
 msgstr "发现"
+
+msgid "Ask a question"
+msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
@@ -93,11 +99,11 @@ msgstr "查询频道中"
 msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
 
-msgid "Act"
-msgstr "收藏"
-
 msgid "More"
 msgstr "更多"
+
+msgid "Translate post"
+msgstr ""
 
 msgid "Searching users"
 msgstr "查找用户中"
@@ -125,6 +131,9 @@ msgstr "OpenGraph"
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
+
+msgid "Poll"
+msgstr ""
 
 msgid "Casts"
 msgstr "帖子"
@@ -206,6 +215,9 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
+
+msgid "Custom"
+msgstr ""
 
 msgid "Password"
 msgstr "密码"
@@ -324,9 +336,6 @@ msgstr "转帖失败。"
 msgid "Your post was deleted."
 msgstr "帖子已删除。"
 
-msgid "URL is required."
-msgstr "请选择 URL"
-
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 
@@ -394,7 +403,7 @@ msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上取消关注 @{0} 失败"
 
 msgid "Failed to upload. More than {maxImageCount} images"
-msgstr ""
+msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -425,6 +434,12 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Choice {0}"
+msgstr ""
+
+msgid "Send Feedback"
+msgstr ""
 
 msgid "Detecting..."
 msgstr "检测中..."
@@ -480,6 +495,9 @@ msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二�
 msgid "Unlike"
 msgstr "取消点赞"
 
+msgid "Discord"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
 
@@ -519,8 +537,11 @@ msgstr "建议频道"
 msgid "NFT Contract"
 msgstr ""
 
+msgid "Email (optional)"
+msgstr ""
+
 msgid "Failed to follow."
-msgstr "关注失败。"
+msgstr "关注失败"
 
 msgid "Mute"
 msgstr "屏蔽"
@@ -546,6 +567,9 @@ msgstr "获取收藏失败。"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
+msgid "Telegram"
+msgstr ""
+
 msgid "Retweeted"
 msgstr "已转帖"
 
@@ -557,6 +581,9 @@ msgstr "点赞"
 
 msgid "Users"
 msgstr "用户"
+
+msgid "Describe a bug or suggest an improvement"
+msgstr ""
 
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
@@ -615,6 +642,9 @@ msgstr "没有匹配到频道"
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
 
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "What's happening..."
 msgstr "正在发生..."
 
@@ -654,6 +684,9 @@ msgstr "未能解析会话"
 msgid "%Of supply owned"
 msgstr ""
 
+msgid "Feedback"
+msgstr ""
+
 msgid "Share"
 msgstr "分享"
 
@@ -678,6 +711,9 @@ msgstr ""
 msgid "Quote"
 msgstr "引用"
 
+msgid "Translated"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
@@ -700,7 +736,7 @@ msgid "No comments found"
 msgstr "未发现评论"
 
 msgid "Unfollow @{0}"
-msgstr ""
+msgstr "取消关注 @{0}"
 
 msgid "Discard"
 msgstr "放弃"
@@ -763,6 +799,9 @@ msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
 msgid "POAPs"
+msgstr ""
+
+msgid "Translated from {contentLanguage}"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"
@@ -906,11 +945,17 @@ msgstr "未知会话类型。"
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr "在您的手机设备上，打开<0>摄像头</0> 使用 Warpcast 在<1>{0}</1>中扫描二维码。"
 
+msgid "{validInDays} day"
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
 msgid "Only people you follow"
 msgstr "只有你关注的人"
+
+msgid "Add another option"
+msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -934,6 +979,9 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
 msgid "Owned"
+msgstr ""
+
+msgid "Your name"
 msgstr ""
 
 msgid "Claim on {0}: {1}"
@@ -960,8 +1008,8 @@ msgstr "帖子已经添加到您的收藏中"
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 
-msgid "Cancel mirror successfully"
-msgstr "取消转发成功"
+msgid "your.email@example.org"
+msgstr ""
 
 msgid "Unmute"
 msgstr "取消屏蔽"
@@ -979,7 +1027,7 @@ msgid "Mask Network"
 msgstr "Mask Network"
 
 msgid "View Engagements"
-msgstr "查看参与情况"
+msgstr "查看互动情况"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"
@@ -994,7 +1042,7 @@ msgid "Post remove from your Bookmarks"
 msgstr "帖子已经从您的收藏中移除"
 
 msgid "Follow @{0}"
-msgstr ""
+msgstr "关注 @{0}"
 
 msgid "Cancel Recast"
 msgstr "取消转帖"
@@ -1022,6 +1070,9 @@ msgstr "获取状态失败。请稍后重试。"
 
 msgid "Profile"
 msgstr "个人信息"
+
+msgid "Collect"
+msgstr ""
 
 msgid "Mirrors"
 msgstr "转帖"
@@ -1056,8 +1107,14 @@ msgstr "<0/> 评论了你的 <1><2/></1>"
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
 
+msgid "Name (optional)"
+msgstr ""
+
 msgid "Recast"
 msgstr "转推"
+
+msgid "Translating..."
+msgstr ""
 
 msgid "Followers"
 msgstr "粉丝"
@@ -1082,6 +1139,9 @@ msgstr "服务条款"
 
 msgid "Already posted on {sourceName}."
 msgstr "已经在 {sourceName} 发贴。"
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
+msgstr ""
 
 msgid "Post"
 msgstr "发帖"

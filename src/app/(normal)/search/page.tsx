@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
@@ -67,11 +67,11 @@ export default function Page() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select(data) {
-            return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post | Channel>) || EMPTY_LIST);
+            return compact(data.pages.flatMap((x) => (x?.data ?? []) as Array<Profile | Post | Channel>));
         },
     });
 

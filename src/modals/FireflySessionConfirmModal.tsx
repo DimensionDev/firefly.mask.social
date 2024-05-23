@@ -84,7 +84,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                     <Trans>Skip for now</Trans>
                 </ClickableButton>
                 <ClickableButton
-                    className=" flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
+                    className=" flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
                         Object.entries(selectedPairs).forEach(([_, x]) => {

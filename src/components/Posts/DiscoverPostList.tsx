@@ -1,13 +1,13 @@
 'use client';
 
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -30,7 +30,7 @@ export const DiscoverPostList = memo(function DiscoverPostList() {
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
-            if (currentSource === Source.Article) return createPageable(EMPTY_LIST, undefined);
+            if (currentSource === Source.Article) return createPageable<Post>(EMPTY_LIST, createIndicator());
             const posts = await discoverPosts(currentSocialSource, createIndicator(undefined, pageParam));
             if (currentSource === Source.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
             return posts;

@@ -1,4 +1,5 @@
-import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -246,6 +247,13 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async unblockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async blockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

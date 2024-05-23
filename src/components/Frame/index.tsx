@@ -1,8 +1,10 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
+import { attemptUntil } from '@masknet/web3-shared-base';
 import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import { isUndefined } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -11,6 +13,7 @@ import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
+import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
@@ -93,13 +96,13 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
 }
 
 interface FrameProps {
-    url: string;
+    urls: string[];
     postId: string;
     children?: React.ReactNode;
     onData?: (frame: Frame) => void;
 }
 
-export function Frame({ postId, url, onData, children }: FrameProps) {
+export function Frame({ postId, urls, onData, children }: FrameProps) {
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const {
@@ -107,16 +110,31 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
         error,
         data,
     } = useQuery({
-        queryKey: ['frame', url],
+        queryKey: ['frame', ...urls],
         queryFn: () => {
-            if (!url || isValidDomain(url)) return;
-            return fetchJSON<ResponseJSON<LinkDigested>>(
-                urlcat('/api/frame', {
-                    link: url,
+            // TODO: if multiple frames are supported, we should refactor this part
+            if (MAX_FRAME_SIZE_PER_POST > 1 && urls.length > 1)
+                console.warn(
+                    '[frame]: Multiple frames found for this post. Only the first available frame will be used.',
+                );
+
+            return attemptUntil(
+                urls.map((x) => () => {
+                    if (!x || isValidDomain(x)) return;
+                    return fetchJSON<ResponseJSON<LinkDigested>>(
+                        urlcat('/api/frame', {
+                            link: x,
+                        }),
+                    );
                 }),
+                undefined,
+                (response) => {
+                    if (isUndefined(response)) return true;
+                    return !response?.success;
+                },
             );
         },
-        enabled: !!url,
+        enabled: !!urls.length,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,

@@ -14,7 +14,7 @@ import {
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
-export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
+export const SITE_NAME = 'Firefly: All in one social app';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
@@ -33,19 +33,16 @@ export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HU
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
-export const EMPTY_LIST = Object.freeze([]) as never[];
-export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
-
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
     [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
     [Source.Twitter]: [ProfileTabType.Feed],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
-    [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
+    [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
     // TODO No API to fetch recasts for now.
-    [Source.Farcaster]: [EngagementType.Quotes, EngagementType.Recasts, EngagementType.Likes],
-    [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
+    [Source.Farcaster]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Recasts],
+    [Source.Twitter]: [EngagementType.Likes, EngagementType.Quotes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Lens]: [SearchType.Posts, SearchType.Users],
@@ -58,9 +55,10 @@ export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twit
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]
-        : [Source.Farcaster, Source.Lens];
+        : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
+export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
@@ -113,7 +111,6 @@ export const MAX_SEARCH_RECORD_SIZE = 5;
 export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 
 // POST
-export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
 
 export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;

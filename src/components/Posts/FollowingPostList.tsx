@@ -54,7 +54,7 @@ export const FollowingPostList = memo(function FollowingPostList() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select: getPostsSelector(currentSocialSource),

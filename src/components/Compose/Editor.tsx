@@ -29,18 +29,17 @@ interface EditorProps {
 }
 
 export const Editor = memo(function Editor({ post, replying }: EditorProps) {
-    const { type, posts, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
+    const { type, posts, updateChars, loadComponentsFromChars } = useComposeStateStore();
 
     const { chars } = post;
     const index = posts.findIndex((x) => x.id === post.id);
 
     useDebounce(
         () => {
-            loadFramesFromChars();
-            loadOpenGraphsFromChars();
+            loadComponentsFromChars();
         },
         300,
-        [chars, loadFramesFromChars, loadOpenGraphsFromChars],
+        [chars, loadComponentsFromChars],
     );
 
     return (
@@ -61,7 +60,13 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                     >
                         <Select
                             value={type}
-                            _compose={index === 0 ? t`What's happening...` : t`Add another post...`}
+                            _compose={
+                                post.poll
+                                    ? t`Ask a question`
+                                    : index === 0
+                                      ? t`What's happening...`
+                                      : t`Add another post...`
+                            }
                             _quote={t`Add a comment`}
                             _reply={t`Post your reply`}
                             other={index === 0 ? t`What's happening...` : t`Add another post...`}

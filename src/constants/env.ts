@@ -44,12 +44,15 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_WARNINGS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_CALENDAR_WIDGET: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // public use of hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
     NEXT_PUBLIC_SENTRY_DSN: z.string(),
+
+    NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 });
 
 export const env = {
@@ -78,5 +81,6 @@ export const env = {
         NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
 
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
+        NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
     }),
 };

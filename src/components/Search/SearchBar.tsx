@@ -60,7 +60,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={() => router.back()} />
             ) : null}
             <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
-                <SearchIcon width={18} height={18} className="shrink-0" />
+                <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
                 <form
                     className="w-full flex-1"
                     onSubmit={(ev) => {

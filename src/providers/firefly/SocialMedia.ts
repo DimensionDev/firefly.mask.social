@@ -2,10 +2,10 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
-    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -25,6 +25,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BlockChannelResponse,
     type BlockRelationResponse,
     type BlockUserResponse,
     type BookmarkResponse,
@@ -70,15 +71,15 @@ class FireflySocialMedia implements Provider {
     }
 
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel', {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel_v2', {
             channelHandle,
         });
-        const response = await fetchJSON<ChannelResponse>(url, {
+        const response = await fireflySessionHolder.fetch<ChannelResponse>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
 
-        return formatBriefChannelFromFirefly(data);
+        return formatBriefChannelFromFirefly(data.channel, data.blocked);
     }
 
     async getChannelsByProfileId(
@@ -145,7 +146,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const channels = data.channels.map(formatBriefChannelFromFirefly);
+        const channels = data.channels.map((x) => formatBriefChannelFromFirefly(x));
 
         return createPageable(
             channels,
@@ -409,22 +410,24 @@ class FireflySocialMedia implements Provider {
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        // TODO: pass fid
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/comments', {
-            hash: postId,
-            size: 25,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
-        const response = await fireflySessionHolder.fetch<CommentsResponse>(url, {
-            method: 'GET',
-        });
-        const { comments, cursor } = resolveFireflyResponseData(response);
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/comments', {
+                hash: postId,
+                size: 25,
+                fid: session?.profileId,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            });
+            const response = await fireflySessionHolder.fetch<CommentsResponse>(url, {
+                method: 'GET',
+            });
+            const { comments, cursor } = resolveFireflyResponseData(response);
 
-        return createPageable(
-            compact(comments.map((item) => formatFarcasterPostFromFirefly(item))),
-            indicator ?? createIndicator(indicator),
-            cursor ? createNextIndicator(indicator, cursor) : undefined,
-        );
+            return createPageable(
+                compact(comments.map((item) => formatFarcasterPostFromFirefly(item))),
+                indicator ?? createIndicator(indicator),
+                cursor ? createNextIndicator(indicator, cursor) : undefined,
+            );
+        });
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
@@ -577,7 +580,6 @@ class FireflySocialMedia implements Provider {
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            // TODO: replace to prod url
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
             const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
@@ -751,6 +753,35 @@ class FireflySocialMedia implements Provider {
         if (response) return true;
         throw new Error('Failed to mute user');
     }
+
+    async blockChannel(channelId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
+
+        const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                channel_id: channelId,
+            }),
+        });
+
+        if (response) return true;
+        throw new Error('Failed to mute channel');
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
+
+        const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                channel_id: channelId,
+            }),
+        });
+
+        if (response) return true;
+        throw new Error('Failed to mute channel');
+    }
+
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }

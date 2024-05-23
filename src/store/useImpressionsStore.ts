@@ -1,8 +1,8 @@
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { create } from 'zustand';
 
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 

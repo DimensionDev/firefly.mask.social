@@ -1,6 +1,7 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
 import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
+import type { Poll } from '@/providers/types/Poll.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -177,6 +178,7 @@ export interface Post {
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;
+    poll?: Poll;
     /**
      * Lens only
      * To mirror a post on momoka, need to invoke with the client method mirrorOnMomoka
@@ -686,6 +688,20 @@ export interface Provider {
      * @returns
      */
     unblockUser: (profileId: string) => Promise<boolean>;
+
+    /**
+     * Block a channel.
+     * @param channelId
+     * @returns
+     */
+    blockChannel: (channelId: string) => Promise<boolean>;
+
+    /**
+     * Unblock a profile.
+     * @param profileId
+     * @returns
+     */
+    unblockChannel: (channelId: string) => Promise<boolean>;
 
     /**
      * Retrieve profiles who liked the specified post.

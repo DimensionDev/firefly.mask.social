@@ -28,6 +28,12 @@ async function downloadMetricsFromFirefly(signal?: AbortSignal) {
     return data?.ciphertext;
 }
 
+/**
+ * Decrypt the metrics from Firefly.
+ * @param cipher
+ * @param signal
+ * @returns
+ */
 async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
     const response = await fetchJSON<ResponseJSON<Metrics>>('/api/firefly/decrypt-metrics', {
         method: 'POST',
@@ -68,10 +74,13 @@ function convertMetricToSession(metric: Metrics[0]) {
 }
 
 /**
- * Make sure resume firefly session before calling this function.
+ * Download and decrypt metrics from Firefly, then convert them to sessions.
  * @returns
  */
 export async function syncSessionFromFirefly(signal?: AbortSignal) {
+    // Ensure that the Firefly session is resumed before calling this function.
+    fireflySessionHolder.assertSession();
+
     const cipher = await downloadMetricsFromFirefly(signal);
     if (!cipher) return [];
 

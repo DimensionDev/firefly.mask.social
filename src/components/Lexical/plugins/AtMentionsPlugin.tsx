@@ -5,6 +5,7 @@ import {
     MenuOption,
     useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical/index.js';
 import { first } from 'lodash-es';
@@ -14,7 +15,7 @@ import { useDebounce } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -203,6 +204,7 @@ export function MentionsPlugin(): JSX.Element | null {
 
     return (
         <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
+            anchorClassName="z-[100]"
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
                 return anchorElementRef.current && options.length
                     ? createPortal(

@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -37,6 +37,28 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
         });
     });
 
+    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>(
+        { queryKey: ['articles', 'following', Source.Article] },
+        (old) => {
+            if (!old) return old;
+
+            return produce(old, (draft) => {
+                draft.pages.forEach((page) => {
+                    page.data.forEach((article) => {
+                        if (article.id === postId) article.hasBookmarked = status;
+                    });
+                });
+            });
+        },
+    );
+
+    queryClient.setQueryData<Article>(['article-detail', postId], (old) => {
+        return produce(old, (draft) => {
+            if (!draft) return;
+            draft.hasBookmarked = status;
+        });
+    });
+
     patchNotificationQueryDataOnPost(source, (post) => {
         if (post.postId === postId) {
             post.hasBookmarked = status;
@@ -46,13 +68,13 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
 
     if (!status) {
         queryClient.setQueryData<{ pages: Array<{ data: Array<Post | Article> }> }>(
-            ['posts', source, 'bookmark'],
+            ['posts', 'article', 'bookmark'],
             (old) => {
                 if (!old) return old;
                 return produce(old, (draft) => {
                     draft.pages.forEach((page) => {
                         page.data = page.data.filter((post) => {
-                            if ('id' in post) return post.id === postId; // Article
+                            if ('id' in post) return post.id !== postId; // Article
                             else return post.postId !== postId; // Post
                         });
                     });

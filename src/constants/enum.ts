@@ -100,7 +100,7 @@ export enum ScrollListKey {
     Search = 'search-list',
     Comment = 'comment-list',
     Channel = 'channel-post-list',
-    Profile = 'profile-post-list',
+    Profile = 'profile-list',
     Bookmark = 'bookmark',
     Collected = 'profile-collected-list',
     Engagement = 'post-engagement',

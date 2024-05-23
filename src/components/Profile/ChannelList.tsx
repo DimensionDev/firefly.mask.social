@@ -21,15 +21,13 @@ export function ChannelList({ source, profileId }: ChannelListProps) {
         queryKey: ['channels', source, 'channels-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable<Channel>(EMPTY_LIST, createIndicator());
             const provider = resolveSocialMediaProvider(source);
             return provider.getChannelsByProfileId(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            return data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-        },
+        select: (data) => data.pages.flatMap((x) => x.data),
     });
 
     return (

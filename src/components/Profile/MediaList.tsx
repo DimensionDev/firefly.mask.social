@@ -6,6 +6,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ProfileTabType, ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface MediaListProps {
@@ -20,7 +21,7 @@ export function MediaList({ profileId, source }: MediaListProps) {
         queryKey: ['posts', source, 'posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId || source !== Source.Lens) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId || source !== Source.Lens) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const posts = await LensSocialMediaProvider.getMediaPostsByProfileId(
                 profileId,
@@ -35,7 +36,7 @@ export function MediaList({ profileId, source }: MediaListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select: getPostsSelector(source),

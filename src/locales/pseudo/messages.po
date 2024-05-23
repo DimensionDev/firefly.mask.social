@@ -37,6 +37,9 @@ msgstr ""
 msgid "Retweet"
 msgstr ""
 
+msgid "Failed to translate post. Please retry later."
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -50,6 +53,9 @@ msgid "Communities"
 msgstr ""
 
 msgid "Discover"
+msgstr ""
+
+msgid "Ask a question"
 msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
@@ -88,10 +94,10 @@ msgstr ""
 msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
-msgid "Act"
+msgid "More"
 msgstr ""
 
-msgid "More"
+msgid "Translate post"
 msgstr ""
 
 msgid "Searching users"
@@ -119,6 +125,9 @@ msgid "OpenGraph"
 msgstr ""
 
 msgid "Wrong wallet"
+msgstr ""
+
+msgid "Poll"
 msgstr ""
 
 msgid "Casts"
@@ -200,6 +209,9 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "Custom"
 msgstr ""
 
 msgid "Password"
@@ -319,9 +331,6 @@ msgstr ""
 msgid "Your post was deleted."
 msgstr ""
 
-msgid "URL is required."
-msgstr ""
-
 msgid "Remove from Bookmarks"
 msgstr ""
 
@@ -421,6 +430,12 @@ msgstr ""
 msgid "Failed to unvote post."
 msgstr ""
 
+msgid "Choice {0}"
+msgstr ""
+
+msgid "Send Feedback"
+msgstr ""
+
 msgid "Detecting..."
 msgstr ""
 
@@ -475,6 +490,9 @@ msgstr ""
 msgid "Unlike"
 msgstr ""
 
+msgid "Discord"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr ""
 
@@ -514,6 +532,9 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
+msgid "Email (optional)"
+msgstr ""
+
 msgid "Failed to follow."
 msgstr ""
 
@@ -541,6 +562,9 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
+msgid "Telegram"
+msgstr ""
+
 msgid "Retweeted"
 msgstr ""
 
@@ -551,6 +575,9 @@ msgid "liked"
 msgstr ""
 
 msgid "Users"
+msgstr ""
+
+msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
 msgid "The file \"{0}\" exceeds the size limit."
@@ -610,6 +637,9 @@ msgstr ""
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "What's happening..."
 msgstr ""
 
@@ -649,6 +679,9 @@ msgstr ""
 msgid "%Of supply owned"
 msgstr ""
 
+msgid "Feedback"
+msgstr ""
+
 msgid "Share"
 msgstr ""
 
@@ -671,6 +704,9 @@ msgid "Top Collectors"
 msgstr ""
 
 msgid "Quote"
+msgstr ""
+
+msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
@@ -758,6 +794,9 @@ msgid "Something went wrong. Please try again."
 msgstr ""
 
 msgid "POAPs"
+msgstr ""
+
+msgid "Translated from {contentLanguage}"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"
@@ -901,10 +940,16 @@ msgstr ""
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr ""
 
+msgid "{validInDays} day"
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr ""
 
 msgid "Only people you follow"
+msgstr ""
+
+msgid "Add another option"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -931,6 +976,9 @@ msgstr ""
 msgid "Owned"
 msgstr ""
 
+msgid "Your name"
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr ""
 
@@ -955,7 +1003,7 @@ msgstr ""
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
-msgid "Cancel mirror successfully"
+msgid "your.email@example.org"
 msgstr ""
 
 msgid "Unmute"
@@ -1018,6 +1066,9 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+msgid "Collect"
+msgstr ""
+
 msgid "Mirrors"
 msgstr ""
 
@@ -1051,7 +1102,13 @@ msgstr ""
 msgid "<0>You</0> recasted"
 msgstr ""
 
+msgid "Name (optional)"
+msgstr ""
+
 msgid "Recast"
+msgstr ""
+
+msgid "Translating..."
 msgstr ""
 
 msgid "Followers"
@@ -1076,6 +1133,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
 msgstr ""
 
 msgid "Post"

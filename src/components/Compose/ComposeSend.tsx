@@ -98,7 +98,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     />
                 ) : null}
                 <ClickableButton
-                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
                     disabled={disabled}
                     onClick={() => handlePost(!!error)}
                 >
@@ -125,7 +125,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
             {visibleLength && type === 'compose' ? (
                 <ClickableButton
-                    className=" text-main disabled:opacity-50"
+                    className=" text-main"
                     disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                     onClick={() => {
                         addPostInThread();
@@ -145,7 +145,7 @@ export function ComposeSend(props: ComposeSendProps) {
             <ClickableButton
                 disabled={disabled}
                 className={classNames(
-                    'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
+                    'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white dark:bg-white dark:text-black',
                     {
                         'bg-commonDanger': !!error,
                     },

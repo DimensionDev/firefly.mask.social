@@ -4,7 +4,6 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 interface ArticleListProps {
@@ -19,7 +18,7 @@ export function ArticleList({ address }: ArticleListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((x) => x.data || EMPTY_LIST),
+        select: (data) => data.pages.flatMap((x) => x.data),
     });
 
     return (

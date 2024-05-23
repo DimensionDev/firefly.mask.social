@@ -40,7 +40,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
 
     return (
         <div
-            className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg bg-white bg-bottom px-3 py-2 dark:bg-bg"
+            className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 dark:bg-bg"
             style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
         >
             <ProfileAvatar profile={profile} size={36} />
@@ -56,7 +56,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                 </ClickableButton>
             ) : (
                 <ClickableButton
-                    className="text-right text-[15px] font-bold leading-none text-main disabled:cursor-not-allowed disabled:opacity-50"
+                    className="text-right text-[15px] font-bold leading-none text-main"
                     disabled={profile.source === Source.Farcaster}
                     onClick={() => {
                         login(profile);

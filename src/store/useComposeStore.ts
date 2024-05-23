@@ -1,5 +1,6 @@
+import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { uniq } from 'lodash-es';
+import { difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
@@ -7,12 +8,15 @@ import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { MAX_FRAME_SIZE_PER_POST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
+import { createPoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { matchUrls } from '@/helpers/matchUrls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
+import type { Poll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
@@ -55,6 +59,8 @@ export interface CompositePost {
 
     // only available in farcaster now
     channel: Record<SocialSource, Channel | null>;
+
+    poll: Poll | null;
 }
 
 interface ComposeState {
@@ -102,9 +108,10 @@ interface ComposeState {
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
-    loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
-    loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
+    loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
     updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
+    createPoll: (cursor?: Cursor) => void;
+    updatePoll: (poll: Poll | null, cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -142,6 +149,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
             [Source.Lens]: null,
             [Source.Twitter]: null,
         },
+        poll: null,
     };
 }
 
@@ -443,36 +451,51 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 ),
             );
         },
-        loadFramesFromChars: async (cursor) => {
+        loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
-            const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
+            const urls = matchUrls(readChars(chars, true));
+            const frames = await FrameLoader.occupancyLoad(urls);
+            const openGraphs = await OpenGraphLoader.occupancyLoad(
+                difference(
+                    urls.slice(-1),
+                    frames.map((x) => x.url),
+                ),
+            );
 
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        frames,
+                        frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
+                        openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
                     }),
                     cursor,
                 ),
             );
         },
-        loadOpenGraphsFromChars: async (cursor) => {
-            const chars = pick(get(), (x) => x.chars);
-            const openGraphs = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
-
+        createPoll: (cursor) =>
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        openGraphs,
+                        poll: createPoll(),
                     }),
                     cursor,
                 ),
-            );
-        },
+            ),
+        updatePoll: (poll, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll,
+                    }),
+                    cursor,
+                ),
+            ),
         clear: () =>
             set((state) =>
                 Object.assign(state, {

@@ -30,6 +30,7 @@ export interface SinglePostProps {
     isDetail?: boolean;
     listKey?: string;
     index?: number;
+    showTranslate?: boolean;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -37,6 +38,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     showMore = false,
     isComment = false,
     isDetail = false,
+    showTranslate = false,
     listKey,
     index,
 }) {
@@ -85,8 +87,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 }}
             />
 
-            <PostBody post={post} showMore={showMore} />
-            {!!post.channel && post.type === 'Post' && !isChannelPage ? <ChannelAnchor channel={post.channel} /> : null}
+            <PostBody post={post} showMore={showMore} showTranslate={showTranslate} />
+            {!!post.channel && !isComment && !isChannelPage ? <ChannelAnchor channel={post.channel} /> : null}
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
             {show ? (

@@ -1,8 +1,9 @@
-import { plural, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
 import React, { memo, useCallback } from 'react';
 
+import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -29,7 +30,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
     if (loading) {
         return (
-            <div className="h-[182px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
+            <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
                 <div className="animate-pulse">
                     <div className="flex w-full gap-[10px]">
                         <div className="h-20 w-20 rounded-full bg-slate-700" />
@@ -53,7 +54,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
     const followerCount = channel.followerCount ?? 0;
 
     return (
-        <div className="h-[182px] w-[400px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
+        <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-6">
             <div className="flex gap-[10px]">
                 {channel.imageUrl ? (
                     <Avatar
@@ -68,34 +69,33 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                 )}
 
                 <div className="flex flex-1 flex-col justify-between">
-                    <div className=" flex items-center gap-2">
-                        <span onClick={handleNavigateToDetail} className="cursor-pointer text-xl text-lightMain">
+                    <div className=" flex items-center gap-[6px]">
+                        <span
+                            onClick={handleNavigateToDetail}
+                            className="cursor-pointer text-lg font-bold text-lightMain"
+                        >
                             {channel?.name}
                         </span>
-                        <SocialSourceIcon source={channel.source} size={20} />
+                        <SocialSourceIcon source={channel.source} size={18} />
                     </div>
-                    <div onClick={handleNavigateToDetail} className="cursor-pointer text-[15px] text-secondary">
-                        /{channel?.id}
+                    <div
+                        onClick={handleNavigateToDetail}
+                        className="flex cursor-pointer items-center gap-2 text-[15px] text-secondary"
+                    >
+                        <span> /{channel?.id}</span>
+                        <div className="flex items-center gap-2">
+                            <UserIcon width={18} height={18} />
+                            <span className=" text-[15px] leading-6 text-lightMain">{nFormatter(followerCount)}</span>
+                        </div>
                     </div>
 
-                    <div className=" flex justify-between gap-3 text-[15px]">
-                        <div className="flex gap-1">
-                            <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
-                            <span className=" text-secondary">
-                                {plural(followerCount, {
-                                    one: 'Follower',
-                                    other: 'Followers',
-                                })}
-                            </span>
-                        </div>
-                        <div className="flex gap-1">
-                            <Trans>
-                                <span className="text-secondary">since </span>{' '}
-                                <strong className="text-lightMain">
-                                    {dayjs(channel.timestamp).format('MMM DD, YYYY')}
-                                </strong>
-                            </Trans>
-                        </div>
+                    <div className="flex gap-1">
+                        <Trans>
+                            <span className="text-secondary">since </span>{' '}
+                            <strong className="text-lightMain">
+                                {dayjs(channel.timestamp).format('MMM DD, YYYY')}
+                            </strong>
+                        </Trans>
                     </div>
                 </div>
             </div>

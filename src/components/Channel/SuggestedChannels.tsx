@@ -1,13 +1,13 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { PageRoute, type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
@@ -33,7 +33,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div className=" rounded-lg bg-lightBg">
+        <div className=" rounded-lg border border-line dark:border-0 dark:bg-lightBg">
             <AsideTitle>
                 <Trans>Suggested Channels</Trans>
             </AsideTitle>

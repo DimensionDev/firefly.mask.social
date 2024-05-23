@@ -18,7 +18,13 @@ export function Placeholder(props: PlaceholderProps) {
             {content ? (
                 content
             ) : (
-                <span className=" text-secondary">{index === 0 ? t`What's happening...` : t`Add another post...`}</span>
+                <span className=" text-secondary">
+                    {props.post.poll
+                        ? t`Ask a question`
+                        : index === 0
+                          ? t`What's happening...`
+                          : t`Add another post...`}
+                </span>
             )}
         </div>
     );

@@ -33,7 +33,7 @@ export default function Notification() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),

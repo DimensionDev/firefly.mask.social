@@ -1,12 +1,12 @@
-import { createIndicator, createPageable } from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface CollectedListProps {
@@ -19,7 +19,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'bookmarks', profileId],
         queryFn: async ({ pageParam }) => {
-            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
             const posts = await provider.getCollectedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
@@ -33,7 +33,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return undefined;
+            if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
         select: getPostsSelector(source),

@@ -37,6 +37,9 @@ msgstr "Report @{0}"
 msgid "Retweet"
 msgstr "Retweet"
 
+msgid "Failed to translate post. Please retry later."
+msgstr "Failed to translate post. Please retry later."
+
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -51,6 +54,9 @@ msgstr "Communities"
 
 msgid "Discover"
 msgstr "Discover"
+
+msgid "Ask a question"
+msgstr "Ask a question"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
@@ -88,11 +94,11 @@ msgstr "Searching channel"
 msgid "Failed to upload. Video is not supported yet"
 msgstr "Failed to upload. Video is not supported yet"
 
-msgid "Act"
-msgstr "Act"
-
 msgid "More"
 msgstr "More"
+
+msgid "Translate post"
+msgstr "Translate post"
 
 msgid "Searching users"
 msgstr "Searching users"
@@ -120,6 +126,9 @@ msgstr "OpenGraph"
 
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
+
+msgid "Poll"
+msgstr "Poll"
 
 msgid "Casts"
 msgstr "Casts"
@@ -201,6 +210,9 @@ msgstr "Page not found"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+
+msgid "Custom"
+msgstr "Custom"
 
 msgid "Password"
 msgstr "Password"
@@ -319,9 +331,6 @@ msgstr "Failed to mirror."
 msgid "Your post was deleted."
 msgstr "Your post was deleted."
 
-msgid "URL is required."
-msgstr "URL is required."
-
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
 
@@ -421,6 +430,12 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
 
+msgid "Choice {0}"
+msgstr "Choice {0}"
+
+msgid "Send Feedback"
+msgstr "Send Feedback"
+
 msgid "Detecting..."
 msgstr "Detecting..."
 
@@ -475,6 +490,9 @@ msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan
 msgid "Unlike"
 msgstr "Unlike"
 
+msgid "Discord"
+msgstr "Discord"
+
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
@@ -514,6 +532,9 @@ msgstr "Suggested Channels"
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
+msgid "Email (optional)"
+msgstr "Email (optional)"
+
 msgid "Failed to follow."
 msgstr "Failed to follow."
 
@@ -541,6 +562,9 @@ msgstr "Failed to fetch bookmarks."
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
+msgid "Telegram"
+msgstr "Telegram"
+
 msgid "Retweeted"
 msgstr "Retweeted"
 
@@ -552,6 +576,9 @@ msgstr "liked"
 
 msgid "Users"
 msgstr "Users"
+
+msgid "Describe a bug or suggest an improvement"
+msgstr "Describe a bug or suggest an improvement"
 
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "The file \"{0}\" exceeds the size limit."
@@ -610,6 +637,9 @@ msgstr "No matching channel"
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+
 msgid "What's happening..."
 msgstr "What's happening..."
 
@@ -649,6 +679,9 @@ msgstr "Failed to parse session."
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 
+msgid "Feedback"
+msgstr "Feedback"
+
 msgid "Share"
 msgstr "Share"
 
@@ -672,6 +705,9 @@ msgstr "Top Collectors"
 
 msgid "Quote"
 msgstr "Quote"
+
+msgid "Translated"
+msgstr "Translated"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
@@ -759,6 +795,9 @@ msgstr "Something went wrong. Please try again."
 
 msgid "POAPs"
 msgstr "POAPs"
+
+msgid "Translated from {contentLanguage}"
+msgstr "Translated from {contentLanguage}"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
@@ -901,11 +940,17 @@ msgstr "Unknown session type."
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 
+msgid "{validInDays} day"
+msgstr "{validInDays} day"
+
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
 msgid "Only people you follow"
 msgstr "Only people you follow"
+
+msgid "Add another option"
+msgstr "Add another option"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
@@ -931,6 +976,9 @@ msgstr "We're updating our connection with X. Posting on X will be limited for n
 msgid "Owned"
 msgstr "Owned"
 
+msgid "Your name"
+msgstr "Your name"
+
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
 
@@ -955,8 +1003,8 @@ msgstr "Post added to your Bookmarks"
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 
-msgid "Cancel mirror successfully"
-msgstr "Cancel mirror successfully"
+msgid "your.email@example.org"
+msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "Unmute"
@@ -1018,6 +1066,9 @@ msgstr "Failed to fetch the latest state after several attempts. Please try agai
 msgid "Profile"
 msgstr "Profile"
 
+msgid "Collect"
+msgstr "Collect"
+
 msgid "Mirrors"
 msgstr "Mirrors"
 
@@ -1051,8 +1102,14 @@ msgstr "<0/> commented on your <1><2/></1>"
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
 
+msgid "Name (optional)"
+msgstr "Name (optional)"
+
 msgid "Recast"
 msgstr "Recast"
+
+msgid "Translating..."
+msgstr "Translating..."
 
 msgid "Followers"
 msgstr "Followers"
@@ -1077,6 +1134,9 @@ msgstr "Terms of Service"
 
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."
+
+msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
+msgstr "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
 
 msgid "Post"
 msgstr "Post"

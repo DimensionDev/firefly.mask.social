@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { createPageable } from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
@@ -14,7 +14,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { type SocialSourceInURL, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
+import { MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -23,6 +23,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -83,9 +84,9 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
         queryKey: ['posts', currentSource, 'thread-detail', post.postId, post.root?.postId],
         queryFn: async () => {
             const root = post.root ? post.root : post.commentOn ? post.commentOn : post;
-            if (!root?.stats?.comments) return createPageable(EMPTY_LIST, undefined);
+            if (!root?.stats?.comments) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
-            if (!isSameProfile(root.author, post.author)) return createPageable(EMPTY_LIST, undefined);
+            if (!isSameProfile(root.author, post.author)) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(currentSource);
             const posts = await provider.getThreadByPostId(root.postId, root.postId === post.postId ? post : undefined);
@@ -138,6 +139,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                                 <ThreadBody
                                     post={post}
                                     disableAnimate
+                                    showTranslate
                                     key={post.postId}
                                     isLast={index === allPosts.length - 1}
                                 />
@@ -151,7 +153,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                     </>
                 ) : (
                     <>
-                        <SinglePost post={post} disableAnimate isDetail />
+                        <SinglePost post={post} disableAnimate isDetail showTranslate />
                         <PostActions
                             disablePadding
                             post={post}

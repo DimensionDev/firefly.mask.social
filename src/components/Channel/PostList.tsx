@@ -6,6 +6,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostListProps {
@@ -18,7 +19,7 @@ export function PostList({ channelId, source }: PostListProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', channelId],
         queryFn: async ({ pageParam }) => {
-            if (!channelId) return createPageable(EMPTY_LIST, undefined);
+            if (!channelId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
             const posts = await provider.getPostsByChannelId(channelId, createIndicator(undefined, pageParam));
@@ -31,10 +32,11 @@ export function PostList({ channelId, source }: PostListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            const posts = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return mergeThreadPosts(source, posts);
-        },
+        select: (data) =>
+            mergeThreadPosts(
+                source,
+                data.pages.flatMap((x) => x.data),
+            ),
     });
 
     return (

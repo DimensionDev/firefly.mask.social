@@ -7,8 +7,8 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPostFromFirefly.js';
-import { formatTwitterProfileFromFirefly } from '@/helpers/formatTwitterProfileFromFirefly.js';
+import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
+import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import {
     type Channel,
@@ -31,6 +31,14 @@ class TwitterSocialMedia implements Provider {
         const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, { method: 'POST' });
         if (!response.success) throw new Error(response.error.message);
         return postId;
+    }
+
+    async blockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
     }
 
     commentPost(postId: string, post: Post): Promise<string> {
@@ -134,13 +142,13 @@ class TwitterSocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterProfileFromFirefly(response.data);
+        return formatTwitterProfile(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterProfileFromFirefly(response.data);
+        return formatTwitterProfile(response.data);
     }
 
     getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -312,6 +320,7 @@ class TwitterSocialMedia implements Provider {
                 replySettings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
+                poll: post.poll,
             }),
         });
 

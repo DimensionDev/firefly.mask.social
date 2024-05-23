@@ -8,6 +8,7 @@ import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
+import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
@@ -36,7 +37,11 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 if (!handle) return title;
 
                 const link = getProfileUrl(createLensProfileFromHandle(handle));
-                return <MentionLink handle={handle} link={link} />;
+                return (
+                    <ProfileTippy className="inline-block" source={Source.Lens} identity={handle}>
+                        <MentionLink handle={handle} link={link} />
+                    </ProfileTippy>
+                );
             }
 
             case Source.Farcaster: {
@@ -44,7 +49,11 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 if (!profile) return title;
 
                 const link = getProfileUrl(profile);
-                return <MentionLink handle={profile.handle} link={link} />;
+                return (
+                    <ProfileTippy className="inline-block" source={Source.Farcaster} identity={profile.profileId}>
+                        <MentionLink handle={profile.handle} link={link} />
+                    </ProfileTippy>
+                );
             }
 
             case Source.Twitter:
@@ -55,13 +64,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         }
     }
 
-    if (title.startsWith('#')) return <Hashtag title={title} />;
+    if (title.trim().startsWith('#')) return <Hashtag title={title.trim()} />;
 
-    /**
-     * Because Safari does not support lookahead assertions,
-     * we must match the space at the beginning to correctly match the channel tag.
-     */
-    if (title.startsWith(' /')) {
+    if (title.trim().startsWith('/')) {
         return <ChannelTag title={title} source={source} />;
     }
 
