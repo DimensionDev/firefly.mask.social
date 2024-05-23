@@ -54,7 +54,7 @@ export default function Page({ params }: { params: { address: string }; searchPa
         return <Loading />;
     }
 
-    if (error) {
+    if (error || !data) {
         notFound();
     }
 

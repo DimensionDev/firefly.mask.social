@@ -47,7 +47,7 @@ export default function Page({
         return <Loading />;
     }
 
-    if (error || !data) {
+    if (error || !data?.metadata) {
         notFound();
     }
 
