@@ -22,9 +22,9 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
         if (!collection.nftPreviews) return [];
         let previewImages = collection.nftPreviews;
         if (collection.nftPreviews.length === 4 && distinctNFTCount === 4) {
-            previewImages = previewImages?.slice(0, 4);
+            previewImages = previewImages.slice(0, 4);
         } else {
-            previewImages = previewImages?.slice(0, 3);
+            previewImages = previewImages.slice(0, 3);
         }
         if (distinctNFTCount > 4) {
             if (previewImages.length < 3) previewImages = [...previewImages, ...previewImages, ...previewImages];
@@ -40,8 +40,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
         >
             <div
                 className={classNames('relative grid aspect-square h-auto w-full gap-1.5 overflow-hidden', {
-                    'grid-cols-2': images.length > 1,
-                    'grid-rows-2': images.length > 1,
+                    'grid-cols-2 grid-rows-2': images.length > 1,
                 })}
             >
                 {images.map((url, i) => (

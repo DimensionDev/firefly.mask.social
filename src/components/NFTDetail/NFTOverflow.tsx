@@ -1,3 +1,5 @@
+'use client';
+
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
@@ -28,24 +30,24 @@ export function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
 }
 
 export function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
-    return (
-        <span className="break-all">
-            {props.chainId ? (
+    if (props.chainId) {
+        const resolveExplorerLink = {
+            address: EVMExplorerResolver.addressLink.bind(EVMExplorerResolver),
+            tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
+        }[props.type];
+        return (
+            <span className="break-all">
                 <a
-                    href={{
-                        address: EVMExplorerResolver.addressLink.bind(EVMExplorerResolver),
-                        tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
-                    }[props.type](props.chainId, props.address)}
+                    href={resolveExplorerLink(props.chainId, props.address)}
                     target="_blank"
                     className="text-[#9250FE] hover:underline"
                 >
                     {props.address}
                 </a>
-            ) : (
-                props.address
-            )}
-        </span>
-    );
+            </span>
+        );
+    }
+    return <span className="break-all">{props.address}</span>;
 }
 
 export function NFTOverflow(props: NFTOverflowProps) {

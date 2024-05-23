@@ -633,14 +633,6 @@ export interface NftPreview {
     previews: Previews;
     image_url: string;
     image_properties: ImageProperties;
-    video_url: any;
-    video_properties: any;
-    audio_url: any;
-    audio_properties: any;
-    model_url: any;
-    model_properties: any;
-    other_url: any;
-    other_properties: any;
     background_color?: string;
     external_url?: string;
     created_date: string;
