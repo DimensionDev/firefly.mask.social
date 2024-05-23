@@ -10,6 +10,7 @@ import ComeBack from '@/assets/comeback.svg';
 import { Loading } from '@/components/Loading.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
+import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import type { SearchParams } from '@/types/index.js';
@@ -25,16 +26,21 @@ export default function Page({
     searchParams: SearchParams;
 }) {
     const comeback = useComeBack();
-    const chainId = searchParams.chainId as string | undefined;
+    const chainId: number | undefined = useMemo(() => {
+        const searchChainId = searchParams.chainId as string | undefined;
+        if (!searchChainId) return undefined;
+        return searchChainId ? Number.parseInt(searchChainId, 10) : undefined;
+    }, [searchParams.chainId]);
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['nft', address, tokenId, chainId],
         queryFn() {
             return SimpleHashWalletProfileProvider.getNFT(address, tokenId, {
-                chainId: chainId ? Number.parseInt(chainId, 10) : undefined,
+                chainId,
             });
         },
     });
+
     const floorPrice = useMemo(() => {
         const firstFloorPrice = first(data?.collection?.floorPrices);
         if (!firstFloorPrice) return;
@@ -70,6 +76,14 @@ export default function Page({
                     }}
                     floorPrice={floorPrice}
                 />
+                {data?.traits && data.traits.length > 0 ? (
+                    <NFTProperties
+                        items={data.traits.map((trait) => ({
+                            label: trait.type,
+                            value: trait.value,
+                        }))}
+                    />
+                ) : null}
                 <NFTOverflow
                     description={data?.metadata?.description ?? ''}
                     tokenId={data?.tokenId}

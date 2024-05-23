@@ -24,8 +24,11 @@ class SimpleHashWalletProfile implements Provider {
         return SimpleHashEVM.getAssets(address, options);
     }
 
-    async getCollection(contractAddress: string): Promise<SimpleHash.Collection | null> {
-        const collection = await SimpleHashEVM.getCollectionByContractAddress(contractAddress);
+    async getCollection(
+        contractAddress: string,
+        options?: BaseHubOptions<ChainId>,
+    ): Promise<SimpleHash.Collection | null> {
+        const collection = await SimpleHashEVM.getCollectionByContractAddress(contractAddress, options);
         return collection || null;
     }
 
