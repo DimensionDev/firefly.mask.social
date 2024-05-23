@@ -111,6 +111,8 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                 return createPageable(await provider.getThreadByPostId(root.postId), undefined);
             }
 
+            if (!posts.some((x) => x.postId === post.postId)) return createPageable(EMPTY_LIST, undefined);
+
             return createPageable(posts, undefined);
         },
         initialPageParam: '',
