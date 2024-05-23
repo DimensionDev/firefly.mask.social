@@ -598,7 +598,7 @@ export interface CollectionRoyalty {
     recipients: Recipient[];
 }
 
-export interface Collection2 {
+export interface NftPreviewCollection {
     collection_id: string;
     name: string;
     description?: string;
@@ -672,7 +672,7 @@ export interface NftPreview {
     owner_count: number;
     owners: Owner[];
     contract: Contract;
-    collection: Collection2;
+    collection: NftPreviewCollection;
     last_sale?: LastSale;
     first_created: FirstCreated;
     rarity: Rarity;
