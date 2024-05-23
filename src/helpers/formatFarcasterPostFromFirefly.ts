@@ -52,11 +52,18 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     return defaultContent;
 }
 
+function getPostTypeByCast(cast: Cast) {
+    if (cast.quotedCast) return 'Quote';
+    if (cast.recastedBy) return 'Mirror';
+    if (cast.parentCast) return 'Comment';
+    return 'Post';
+}
+
 /**
  * Return null if cast is detected
  */
 export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post | null {
-    const postType = cast.quotedCast ? 'Quote' : type ?? cast.parentCast ? 'Comment' : 'Post';
+    const postType = type ?? getPostTypeByCast(cast);
     if (cast.deleted_at) return null;
     return {
         publicationId: cast.hash,
