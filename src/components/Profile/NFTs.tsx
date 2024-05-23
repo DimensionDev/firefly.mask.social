@@ -1,6 +1,6 @@
 'use client';
 
-import { SimpleHash } from '@masknet/web3-providers/helpers';
+import { simplehash } from '@masknet/web3-providers/helpers';
 import { first } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
@@ -18,7 +18,7 @@ export function NFTs(props: { address: string }) {
         const firstTopContract = first(selectedCollection?.top_contracts);
         if (!firstTopContract) return [null, null];
         const [chain, address] = firstTopContract.split('.');
-        return [SimpleHash.resolveChainId(chain), address];
+        return [simplehash.resolveChainId(chain), address];
     }, [selectedCollection]);
 
     return (
