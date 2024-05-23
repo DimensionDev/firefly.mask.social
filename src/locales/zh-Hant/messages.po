@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-22 12:01\n"
+"PO-Revision-Date: 2024-05-23 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -748,7 +748,7 @@ msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
 
 msgid "Show more"
-msgstr ""
+msgstr "顯示更多"
 
 msgid "Something went wrong. Please try again."
 msgstr ""
@@ -772,7 +772,7 @@ msgid "The frame server failed to process the request."
 msgstr ""
 
 msgid "Report"
-msgstr ""
+msgstr "檢舉"
 
 msgid "Post by {0}"
 msgstr ""
@@ -1118,3 +1118,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-22 12:01\n"
+"PO-Revision-Date: 2024-05-23 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -312,9 +312,6 @@ msgstr ""
 msgid "Your post was deleted."
 msgstr ""
 
-msgid "URL is required."
-msgstr ""
-
 msgid "Remove from Bookmarks"
 msgstr ""
 
@@ -414,6 +411,9 @@ msgstr ""
 msgid "Choice {0}"
 msgstr ""
 
+msgid "Send Feedback"
+msgstr ""
+
 msgid "Detecting..."
 msgstr ""
 
@@ -451,6 +451,9 @@ msgid "No one likes this post yet."
 msgstr ""
 
 msgid "Your posts have published successfully on {0}."
+msgstr ""
+
+msgid "Description"
 msgstr ""
 
 msgid "Malformed session."
@@ -504,6 +507,9 @@ msgstr ""
 msgid "Suggested Channels"
 msgstr ""
 
+msgid "Email (optional)"
+msgstr ""
+
 msgid "Failed to follow."
 msgstr ""
 
@@ -544,6 +550,9 @@ msgid "liked"
 msgstr ""
 
 msgid "Users"
+msgstr ""
+
+msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
 msgid "The file \"{0}\" exceeds the size limit."
@@ -918,6 +927,9 @@ msgstr ""
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
+msgid "Your name"
+msgstr ""
+
 msgid "Claim on {0}: {1}"
 msgstr ""
 
@@ -939,7 +951,7 @@ msgstr ""
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
-msgid "Cancel mirror successfully"
+msgid "your.email@example.org"
 msgstr ""
 
 msgid "Unmute"
@@ -1036,6 +1048,9 @@ msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"
+msgstr ""
+
+msgid "Name (optional)"
 msgstr ""
 
 msgid "Recast"
