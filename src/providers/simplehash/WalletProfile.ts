@@ -20,7 +20,7 @@ class SimpleHashWalletProfile implements Provider {
         return SimpleHashEVM.getAssetsByCollection(contractAddress, options);
     }
 
-    getPOAPs(address: string, options?: BaseHubOptions<ChainId>) {
+    getPOAPs(address: string, options?: BaseHubOptions<ChainId> & { contractAddress?: string }) {
         return SimpleHashEVM.getAssets(address, options);
     }
 

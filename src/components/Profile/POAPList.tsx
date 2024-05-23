@@ -10,6 +10,7 @@ import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
@@ -43,7 +44,7 @@ export function getNFTItemContent(
                 },
             }}
             key={`${index}-${item.id}-${item.tokenId}`}
-            className="flex flex-col rounded-lg bg-lightBg pb-1 sm:rounded-2xl"
+            className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
         >
             <div className="relative aspect-square h-auto w-full overflow-hidden">
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
@@ -79,7 +80,11 @@ export function POAPList(props: { address: string }) {
         queryKey: ['poap-list', address],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            return SimpleHashWalletProfileProvider.getPOAPs(address, { indicator });
+            return SimpleHashWalletProfileProvider.getPOAPs(address, {
+                indicator,
+                chainId: ChainId.xDai,
+                contractAddress: POAP_CONTRACT_ADDRESS,
+            });
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
