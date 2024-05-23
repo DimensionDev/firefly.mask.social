@@ -15,8 +15,9 @@ export function NFTs(props: { address: string }) {
     const [selectedCollection, setSelectedCollection] = useState<CollectionDetails | null>(null);
 
     const [selectedCollectionContractChainId, selectedCollectionContractAddress] = useMemo(() => {
-        if (!selectedCollection || !first(selectedCollection.top_contracts)) return [null, null];
-        const [chain, address] = selectedCollection.top_contracts[0].split('.');
+        const firstTopContract = first(selectedCollection?.top_contracts);
+        if (!firstTopContract) return [null, null];
+        const [chain, address] = firstTopContract.split('.');
         return [SimpleHash.resolveChainId(chain), address];
     }, [selectedCollection]);
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -82,7 +82,7 @@ export function POAPList(props: { address: string }) {
             return SimpleHashWalletProfileProvider.getPOAPs(address, { indicator });
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page.data ?? []),
+        select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
     });
 
     return (

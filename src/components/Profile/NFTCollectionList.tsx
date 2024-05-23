@@ -19,7 +19,7 @@ export interface NFTCollectionItemProps {
 export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
     const distinctNFTCount = collection.collection_details.distinct_nft_count;
     const images = useMemo(() => {
-        if (!collection.nftPreviews) return [];
+        if (!collection.nftPreviews) return EMPTY_LIST;
         let previewImages = collection.nftPreviews;
         if (collection.nftPreviews.length === 4 && distinctNFTCount === 4) {
             previewImages = previewImages.slice(0, 4);
