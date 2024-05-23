@@ -46,7 +46,7 @@ export function Tab({ children, value }: { children: ReactNode; value: string })
         <li className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
             <a
                 className={classNames(
-                    currentTab === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
+                    currentTab === value ? 'border-b-2 border-farcasterPrimary text-main' : 'text-third',
                     'h-[43px] px-4 text-center text-sm font-bold leading-[43px] hover:cursor-pointer hover:text-main sm:text-xl',
                     'md:h-[60px] md:py-[18px] md:leading-6',
                 )}

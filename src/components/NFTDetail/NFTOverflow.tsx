@@ -43,7 +43,7 @@ export function EVMExplorerLink(props: { address: string; chainId?: number; type
                         href: resolveExplorerLink(props.chainId, props.address),
                     }}
                     target="_blank"
-                    className="text-[#9250FE] hover:underline"
+                    className="text-farcasterPrimary hover:underline"
                 >
                     {props.address}
                 </Link>

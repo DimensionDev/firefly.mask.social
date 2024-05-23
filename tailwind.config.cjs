@@ -52,6 +52,7 @@ module.exports = {
                 success: 'var(--color-success)',
                 collected: 'rgb(var(--color-collected) / <alpha-value>)',
                 darkBottom: 'var(--color-dark-bottom)',
+                card: 'var(--color-card)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

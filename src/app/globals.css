@@ -123,6 +123,7 @@
     --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
+    --color-card: white;
 }
 
 .dark .plyr__control {
