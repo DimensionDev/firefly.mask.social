@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { useMemo } from 'react';
 
 import ComeBack from '@/assets/comeback.svg';
 import { Loading } from '@/components/Loading.js';
@@ -25,11 +24,7 @@ export default function Page({
     searchParams: SearchParams;
 }) {
     const comeback = useComeBack();
-    const chainId: number | undefined = useMemo(() => {
-        const searchChainId = searchParams.chainId as string | undefined;
-        if (!searchChainId) return undefined;
-        return searchChainId ? Number.parseInt(searchChainId, 10) : undefined;
-    }, [searchParams.chainId]);
+    const chainId = searchParams.chainId ? Number.parseInt(searchParams.chainId as string, 10) : undefined;
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['nft', address, tokenId, chainId],
@@ -54,22 +49,22 @@ export default function Page({
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
-                <h2 className="text-xl font-black leading-6">{data?.metadata?.name}</h2>
+                <h2 className="text-xl font-black leading-6">{data.metadata.name}</h2>
             </div>
             <div className="space-y-6 p-5">
                 <NFTInfo
-                    imageURL={data?.metadata?.imageURL ?? ''}
-                    name={data?.metadata?.name ?? ''}
-                    tokenId={data?.metadata?.tokenId ?? ''}
-                    ownerAddress={data?.owner?.address}
-                    contractAddress={data?.contract?.address ?? ''}
+                    imageURL={data.metadata.imageURL ?? ''}
+                    name={data.metadata.name ?? ''}
+                    tokenId={data.metadata.tokenId ?? ''}
+                    ownerAddress={data.owner?.address}
+                    contractAddress={data.contract?.address ?? ''}
                     collection={{
-                        name: data?.contract?.name ?? '',
-                        icon: data?.collection?.iconURL ?? undefined,
+                        name: data.contract?.name ?? '',
+                        icon: data.collection?.iconURL ?? undefined,
                     }}
                     floorPrice={floorPrice}
                 />
-                {data?.traits && data.traits.length > 0 ? (
+                {data.traits && data.traits.length > 0 ? (
                     <NFTProperties
                         items={data.traits.map((trait) => ({
                             label: trait.type,
@@ -78,12 +73,12 @@ export default function Page({
                     />
                 ) : null}
                 <NFTOverflow
-                    description={data?.metadata?.description ?? ''}
-                    tokenId={data?.tokenId}
-                    contractAddress={data?.contract?.address ?? ''}
-                    creator={data?.creator?.address}
-                    chainId={data?.chainId}
-                    schemaType={data?.contract?.schema}
+                    description={data.metadata.description ?? ''}
+                    tokenId={data.tokenId}
+                    contractAddress={data.contract?.address ?? ''}
+                    creator={data.creator?.address}
+                    chainId={data.chainId}
+                    schemaType={data.contract?.schema}
                 />
             </div>
         </div>

@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
+import { compact } from 'lodash-es';
 import type { ReactNode } from 'react';
 
 export interface NFTPropertiesItem {
@@ -19,10 +20,11 @@ export function NFTProperties(props: NFTPropertiesProps) {
             </h3>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3">
                 {props.items.map(({ value, label }, i) => {
-                    const key =
-                        [typeof label === 'string' ? label : label, typeof value === 'string' ? value : value]
-                            .filter((e) => e)
-                            .join('') || `${i}`;
+                    const key = compact([
+                        typeof label === 'string' ? label : label,
+                        typeof value === 'string' ? value : value,
+                        `${i}`,
+                    ]).join('');
                     return (
                         <div
                             key={key}

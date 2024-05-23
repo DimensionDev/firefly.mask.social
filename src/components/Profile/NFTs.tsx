@@ -1,13 +1,14 @@
 'use client';
 
-import { simplehash } from '@masknet/web3-providers/helpers';
 import { first } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTList } from '@/components/CollectionDetail/NFTList.js';
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
+import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChainId.js';
 import type { CollectionDetails } from '@/providers/types/Firefly.js';
 
 export function NFTs(props: { address: string }) {
@@ -18,7 +19,7 @@ export function NFTs(props: { address: string }) {
         const firstTopContract = first(selectedCollection?.top_contracts);
         if (!firstTopContract) return [null, null];
         const [chain, address] = firstTopContract.split('.');
-        return [simplehash.resolveChainId(chain), address];
+        return [resolveSimpleHashChainId(chain), address];
     }, [selectedCollection]);
 
     return (
@@ -26,12 +27,12 @@ export function NFTs(props: { address: string }) {
             {selectedCollection && selectedCollectionContractAddress && selectedCollectionContractChainId ? (
                 <>
                     <div className="mb-2 flex flex-row items-center">
-                        <button
+                        <ClickableButton
                             className="mr-2 rounded-full bg-lightBg p-2"
                             onClick={() => setSelectedCollection(null)}
                         >
                             <UndoSVG className="h-4 w-4" />
-                        </button>
+                        </ClickableButton>
                         {selectedCollection.image_url ? (
                             <Image
                                 className="mr-2 h-6 w-6 rounded-full object-cover"
