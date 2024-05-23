@@ -854,7 +854,7 @@ class FireflySocialMedia implements Provider {
         });
 
         return createPageable(
-            posts ? compact(posts) : [],
+            posts ? compact(posts) : EMPTY_LIST,
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
@@ -869,7 +869,7 @@ class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<NFTCollectionsResponse>(url);
         return createPageable(
-            response.data?.collections ?? [],
+            response.data?.collections ?? EMPTY_LIST,
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
