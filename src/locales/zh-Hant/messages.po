@@ -891,6 +891,9 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr "創建 firefly 對話失敗"
 
+msgid "Properties"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr "指定簽名（推薦）"
 
