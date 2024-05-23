@@ -16,17 +16,11 @@ class SimpleHashWalletProfile implements Provider {
         return asset || null;
     }
 
-    getNFTs(
-        contractAddress: string,
-        options?: BaseHubOptions<ChainId>,
-    ): Promise<Pageable<NonFungibleAsset<ChainId, SchemaType>>> {
+    getNFTs(contractAddress: string, options?: BaseHubOptions<ChainId>) {
         return SimpleHashEVM.getAssetsByCollection(contractAddress, options);
     }
 
-    getPOAPs(
-        address: string,
-        options?: BaseHubOptions<ChainId>,
-    ): Promise<Pageable<NonFungibleAsset<ChainId, SchemaType>>> {
+    getPOAPs(address: string, options?: BaseHubOptions<ChainId>) {
         return SimpleHashEVM.getAssets(address, options);
     }
 
@@ -35,10 +29,7 @@ class SimpleHashWalletProfile implements Provider {
         return collection || null;
     }
 
-    async getTopCollectors(
-        contractAddress: string,
-        options?: BaseHubOptions<ChainId>,
-    ): Promise<Pageable<SimpleHash.TopCollector, PageIndicator>> {
+    async getTopCollectors(contractAddress: string, options?: BaseHubOptions<ChainId>) {
         const response = await SimpleHashEVM.getTopCollectorsByContract(contractAddress, options);
         return response as Pageable<SimpleHash.TopCollector, PageIndicator>;
     }

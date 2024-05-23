@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
-import { SimpleHashEVM } from '@masknet/web3-providers';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';

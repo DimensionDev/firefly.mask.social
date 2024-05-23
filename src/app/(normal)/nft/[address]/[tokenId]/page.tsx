@@ -45,7 +45,7 @@ export default function Page({
         queryKey: ['nft', address, tokenId, chainId],
         queryFn() {
             return SimpleHashWalletProfileProvider.getNFT(address, tokenId, {
-                chainId: chainId ? parseInt(chainId) : undefined,
+                chainId: chainId ? Number.parseInt(chainId, 10) : undefined,
             });
         },
     });
