@@ -6,6 +6,7 @@ import { SchemaType } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { Link } from '@/esm/Link.js';
 
 export interface NFTOverflowProps {
     description: string;
@@ -37,13 +38,15 @@ export function EVMExplorerLink(props: { address: string; chainId?: number; type
         }[props.type];
         return (
             <span className="break-all">
-                <a
-                    href={resolveExplorerLink(props.chainId, props.address)}
+                <Link
+                    href={{
+                        href: resolveExplorerLink(props.chainId, props.address),
+                    }}
                     target="_blank"
                     className="text-[#9250FE] hover:underline"
                 >
                     {props.address}
-                </a>
+                </Link>
             </span>
         );
     }
