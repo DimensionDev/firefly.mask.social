@@ -428,3 +428,5 @@ export type BlockRelationResponse = Response<
         blocked: boolean;
     }>
 >;
+
+export type ReportResponse = Response<void>;

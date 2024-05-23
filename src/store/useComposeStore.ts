@@ -59,7 +59,6 @@ export interface CompositePost {
 
     // only available in farcaster now
     channel: Record<SocialSource, Channel | null>;
-
     poll: Poll | null;
 }
 
