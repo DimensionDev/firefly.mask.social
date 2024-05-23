@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/macro';
 import { formatAmount } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';

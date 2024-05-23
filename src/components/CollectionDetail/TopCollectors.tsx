@@ -81,9 +81,12 @@ export function TopCollectors(props: TopCollectorsProps) {
             queryResult={queryResult}
             VirtualTableListProps={{
                 components: {
+                    // eslint-disable-next-line react/no-unstable-nested-components
                     Table: (props) => <table className="w-full px-3" {...props} />,
+                    // eslint-disable-next-line react/no-unstable-nested-components
                     TableRow: (props) => <tr className="text-center text-base font-normal leading-[30px]" {...props} />,
                 },
+                // eslint-disable-next-line react/no-unstable-nested-components
                 fixedHeaderContent: () => {
                     return (
                         <tr className="text-[15px] font-bold leading-6">
