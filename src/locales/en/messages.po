@@ -529,11 +529,11 @@ msgstr "<0>{0}</0> liked"
 msgid "Suggested Channels"
 msgstr "Suggested Channels"
 
-msgid "NFT Contract"
-msgstr "NFT Contract"
-
 msgid "Email (optional)"
 msgstr "Email (optional)"
+
+msgid "NFT Contract"
+msgstr "NFT Contract"
 
 msgid "Failed to follow."
 msgstr "Failed to follow."
@@ -676,11 +676,11 @@ msgstr "Show More"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
-msgid "%Of supply owned"
-msgstr "%Of supply owned"
-
 msgid "Feedback"
 msgstr "Feedback"
+
+msgid "%Of supply owned"
+msgstr "%Of supply owned"
 
 msgid "Share"
 msgstr "Share"
@@ -793,11 +793,11 @@ msgstr "Show more"
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
 
-msgid "POAPs"
-msgstr "POAPs"
-
 msgid "Translated from {contentLanguage}"
 msgstr "Translated from {contentLanguage}"
+
+msgid "POAPs"
+msgstr "POAPs"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
@@ -973,11 +973,11 @@ msgstr "You cannot reply to @{author} on {0}."
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
 
-msgid "Owned"
-msgstr "Owned"
-
 msgid "Your name"
 msgstr "Your name"
+
+msgid "Owned"
+msgstr "Owned"
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"

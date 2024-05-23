@@ -529,10 +529,10 @@ msgstr ""
 msgid "Suggested Channels"
 msgstr ""
 
-msgid "NFT Contract"
+msgid "Email (optional)"
 msgstr ""
 
-msgid "Email (optional)"
+msgid "NFT Contract"
 msgstr ""
 
 msgid "Failed to follow."
@@ -676,10 +676,10 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr ""
 
-msgid "%Of supply owned"
+msgid "Feedback"
 msgstr ""
 
-msgid "Feedback"
+msgid "%Of supply owned"
 msgstr ""
 
 msgid "Share"
@@ -793,10 +793,10 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr ""
 
-msgid "POAPs"
+msgid "Translated from {contentLanguage}"
 msgstr ""
 
-msgid "Translated from {contentLanguage}"
+msgid "POAPs"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"
@@ -973,10 +973,10 @@ msgstr ""
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
-msgid "Owned"
+msgid "Your name"
 msgstr ""
 
-msgid "Your name"
+msgid "Owned"
 msgstr ""
 
 msgid "Claim on {0}: {1}"
