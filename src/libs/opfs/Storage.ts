@@ -2,15 +2,16 @@
 
 import { parseJSON } from '@/helpers/parseJSON.js';
 
-const hasOPFS = typeof navigator?.storage?.getDirectory === 'function';
 const ls = typeof window === 'undefined' ? undefined : window.localStorage;
+const storage = typeof navigator === 'undefined' ? undefined : navigator.storage;
 const cacheFileName = 'opfs-storage-v1.txt';
 
 type StorageStructure = Record<string, string>;
 
 const getOPFSAccessHandle = async () => {
+    const hasOPFS = typeof storage?.getDirectory === 'function';
     if (!hasOPFS) throw new Error('OPFS is not supported');
-    const opfsRoot = await navigator.storage.getDirectory();
+    const opfsRoot = await storage.getDirectory();
     const fileHandle = await opfsRoot.getFileHandle(cacheFileName, { create: true });
     return fileHandle;
 };

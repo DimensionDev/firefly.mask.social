@@ -4,6 +4,7 @@
  * @returns the user's locale or 'en-US' as default
  */
 export function getUserLocale() {
+    if (typeof navigator === 'undefined') return 'en';
     const locale = navigator.languages?.length ? navigator.languages[0] : navigator.language;
     return locale ? locale.split('-')[0] : 'en';
 }
