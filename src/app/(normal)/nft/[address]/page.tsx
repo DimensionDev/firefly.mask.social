@@ -17,18 +17,21 @@ import type { SourceInURL } from '@/constants/enum.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-const tabs = [
-    {
-        label: t`Items`,
-        value: 'items',
-    },
-    {
-        label: t`Top Collectors`,
-        value: 'topCollectors',
-    },
-] as const;
-
 export default function Page({ params }: { params: { address: string }; searchParams: { source: SourceInURL } }) {
+    const tabs = useMemo(
+        () =>
+            [
+                {
+                    label: t`Items`,
+                    value: 'items',
+                },
+                {
+                    label: t`Top Collectors`,
+                    value: 'topCollectors',
+                },
+            ] as const,
+        [],
+    );
     const comeback = useComeBack();
     const [currentTab, setCurrentTab] = useState<(typeof tabs)[number]['value']>('items');
     const { address } = params;
