@@ -106,7 +106,8 @@
             "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
             "@masknet/web3-hooks-evm": ["./src/maskbook/packages/web3-hooks/evm/src/index.ts"],
             "@masknet/web3-providers": ["./src/maskbook/packages/web3-providers/src/entry.ts"],
-            "@masknet/web3-providers/helpers": ["./src/maskbook/packages/web3-providers/src/entry-helpers.ts"],
+            // disable cause of deep dependency chain
+            // "@masknet/web3-providers/helpers": ["./src/maskbook/packages/web3-providers/src/entry-helpers.ts"],
             "@masknet/web3-providers/types": ["./src/maskbook/packages/web3-providers/src/entry-types.ts"],
             "@masknet/web3-shared-base": ["./src/maskbook/packages/web3-shared/base/src/index.ts"],
             "@masknet/web3-shared-evm": ["./src/maskbook/packages/web3-shared/evm/src/index.ts"],

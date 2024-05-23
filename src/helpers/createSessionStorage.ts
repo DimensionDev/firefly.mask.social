@@ -1,7 +1,7 @@
-import { parseJSON } from '@masknet/web3-providers/helpers';
 import { z } from 'zod';
 import type { PersistStorage } from 'zustand/middleware';
 
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

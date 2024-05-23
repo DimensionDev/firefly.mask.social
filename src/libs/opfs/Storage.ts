@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { parseJSON } from '@masknet/web3-providers/helpers';
+import { parseJSON } from '@/helpers/parseJSON.js';
 
 const hasOPFS = typeof navigator?.storage?.getDirectory === 'function';
 const ls = typeof window === 'undefined' ? undefined : window.localStorage;

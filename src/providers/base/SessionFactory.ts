@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
