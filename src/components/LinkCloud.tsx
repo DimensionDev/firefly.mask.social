@@ -29,7 +29,7 @@ export function LinkCloud() {
     });
 
     return (
-        <div className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-sm text-lightMain lg:px-0">
+        <div className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-xs text-lightSecond lg:px-0">
             <span className=" font-bold text-gray-500">
                 © {2024} {'Firefly'}
             </span>
@@ -47,8 +47,11 @@ export function LinkCloud() {
                     {name}
                 </Link>
             ))}
+            <Link className="cursor-pointer hover:underline" href="/developers/frame">
+                <Trans>Developers</Trans>
+            </Link>
             <span className="cursor-pointer hover:underline" ref={feedbackEl}>
-                <Trans>Feedback</Trans>
+                <Trans>Send a Feedback</Trans>
             </span>
         </div>
     );
