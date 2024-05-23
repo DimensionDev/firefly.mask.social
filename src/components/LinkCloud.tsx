@@ -47,8 +47,11 @@ export function LinkCloud() {
                     {name}
                 </Link>
             ))}
+            <Link className="cursor-pointer hover:underline" href="/developers/frame">
+                <Trans>Developers</Trans>
+            </Link>
             <span className="cursor-pointer hover:underline" ref={feedbackEl}>
-                <Trans>Feedback</Trans>
+                <Trans>Send a Feedback</Trans>
             </span>
         </div>
     );
