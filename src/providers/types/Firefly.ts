@@ -474,16 +474,12 @@ export interface CollectionDetails {
     external_url?: string;
     twitter_username?: string;
     discord_url?: string;
-    instagram_username: any;
+    instagram_username: string;
     medium_username?: string;
     telegram_url?: string;
     marketplace_pages: MarketplacePage[];
-    metaplex_mint: any;
-    metaplex_candy_machine: any;
-    metaplex_first_verified_creator: any;
     spam_score: number;
     floor_prices: FloorPrice[];
-    top_bids: any[];
     distinct_owner_count: number;
     distinct_nft_count: number;
     total_quantity: number;
@@ -522,7 +518,7 @@ export interface ExtraMetadata {
     canvas_url?: string;
     content?: Content;
     image_original_url: string;
-    animation_original_url: any;
+    animation_original_url?: string;
     metadata_original_url?: string;
     tokenId?: string;
     namehash?: string;
@@ -610,16 +606,12 @@ export interface NftPreviewCollection {
     external_url?: string;
     twitter_username?: string;
     discord_url?: string;
-    instagram_username: any;
+    instagram_username?: string;
     medium_username?: string;
     telegram_url?: string;
     marketplace_pages: MarketplacePage[];
-    metaplex_mint: any;
-    metaplex_candy_machine: any;
-    metaplex_first_verified_creator: any;
     spam_score: number;
     floor_prices: FloorPrice[];
-    top_bids: any[];
     distinct_owner_count: number;
     distinct_nft_count: number;
     total_quantity: number;
@@ -629,7 +621,7 @@ export interface NftPreviewCollection {
 }
 
 export interface LastSale {
-    from_address: any;
+    from_address: null | string;
     to_address: string;
     quantity: number;
     quantity_string: string;
