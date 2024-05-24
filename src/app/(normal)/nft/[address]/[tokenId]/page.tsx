@@ -66,6 +66,7 @@ export default function Page({
                     collection={{
                         name: data.contract?.name ?? '',
                         icon: data.collection?.iconURL ?? undefined,
+                        id: data.contract?.address,
                     }}
                     floorPrice={floorPrice}
                     chainId={chainId}

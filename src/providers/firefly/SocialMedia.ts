@@ -886,6 +886,16 @@ class FireflySocialMedia implements Provider {
         const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
         return blocked;
     }
+
+    async reportSpamNFT(collectionId: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
+        await fireflySessionHolder.fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                collection_id: collectionId,
+            }),
+        });
+    }
 }
 
 export const FireflySocialMediaProvider = new FireflySocialMedia();
