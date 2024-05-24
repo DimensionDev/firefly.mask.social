@@ -7,9 +7,8 @@ import { SchemaType } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { CopyButton } from '@/components/NFTDetail/CopyButton.js';
-import { Link } from '@/esm/Link.js';
 import { resolveChain } from '@/maskbook/packages/web3-providers/src/SimpleHash/helpers.js';
 
 export interface NFTOverflowProps {
@@ -44,15 +43,13 @@ export function EVMExplorerLink(props: { address: string; chainId?: number; type
                 <span className="ml-1">
                     <CopyButton value={props.address} />
                 </span>
-                <Link
-                    href={{
-                        href: resolveExplorerLink(props.chainId, props.address),
-                    }}
+                <a
+                    href={resolveExplorerLink(props.chainId, props.address)}
                     target="_blank"
                     className="ml-1 inline-block"
                 >
                     <LinkIcon className="h-3 w-3" />
-                </Link>
+                </a>
             </span>
         );
     }

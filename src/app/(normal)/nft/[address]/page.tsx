@@ -72,6 +72,7 @@ export default function Page({
                     nftCount={data.distinct_nft_count}
                     ownerCount={data.distinct_owner_count}
                     floorPrice={floorPrice}
+                    chainId={chainId}
                 />
             ) : null}
             <div className="px-3 pb-3">

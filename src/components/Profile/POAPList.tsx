@@ -17,7 +17,11 @@ import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletPr
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
-        <div ref={ref} {...props} className={classNames('grid grid-cols-3 gap-3.5 sm:grid-cols-4', className)}>
+        <div
+            ref={ref}
+            {...props}
+            className={classNames('grid grid-cols-3 gap-3.5 md:grid-cols-4 lg:grid-cols-3', className)}
+        >
             {children}
         </div>
     );

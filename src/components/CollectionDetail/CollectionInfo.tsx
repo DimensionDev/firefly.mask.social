@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { TextOverflowTooltip } from '@masknet/theme';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 
@@ -55,7 +56,9 @@ export function CollectionInfo(props: CollectionInfoProps) {
                 <div className="ml-2.5 w-full max-w-[calc(100%-100px)] flex-1 space-y-1">
                     <div className="flex items-center text-xl font-bold leading-6 ">
                         <ChainIcon chainId={chainId} size={24} />
-                        <div className="ml-2 w-[calc(100%-32px)] truncate">{name}</div>
+                        <TextOverflowTooltip title={name}>
+                            <div className="ml-2 w-[calc(100%-32px)] truncate">{name}</div>
+                        </TextOverflowTooltip>
                     </div>
                     <div className="text-normal flex items-center text-sm leading-[14px] text-secondary">
                         <span className="hidden sm:inline">{address}</span>

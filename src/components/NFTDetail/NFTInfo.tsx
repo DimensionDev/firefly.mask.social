@@ -82,15 +82,14 @@ export function NFTInfo(props: NFTInfoProps) {
                                 <Trans>Owned By</Trans>
                             </div>
                             {chainId ? (
-                                <Link
-                                    href={{
-                                        href: EVMExplorerResolver.addressLink(chainId, ownerAddress),
-                                    }}
+                                <a
+                                    href={EVMExplorerResolver.addressLink(chainId, ownerAddress)}
+                                    target="_blank"
                                     className="flex items-center text-base font-bold leading-[14px]"
                                 >
                                     {formatEthereumAddress(ownerAddress, 4)}
                                     <LinkIcon className="ml-1 h-4 w-4 text-secondary" />
-                                </Link>
+                                </a>
                             ) : (
                                 <div className="text-base font-bold leading-[14px]">
                                     {formatEthereumAddress(ownerAddress, 4)}
