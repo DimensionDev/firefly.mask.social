@@ -6,6 +6,8 @@ on:
       - '**'
       - '!main'
       - '!released'
+  workflow_dispatch:
+
 jobs:
   eslint:
     runs-on: ubuntu-latest
