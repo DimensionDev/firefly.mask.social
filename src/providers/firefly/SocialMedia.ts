@@ -39,6 +39,8 @@ import {
     type DiscoverChannelsResponse,
     type FireFlyProfile,
     type FriendshipResponse,
+    type NFTCollectionsParams,
+    type NFTCollectionsResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
@@ -852,7 +854,22 @@ class FireflySocialMedia implements Provider {
         });
 
         return createPageable(
-            posts ? compact(posts) : [],
+            posts ? compact(posts) : EMPTY_LIST,
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+        );
+    }
+
+    async getNFTCollections(params: NFTCollectionsParams) {
+        const { indicator, walletAddress, limit } = params ?? {};
+        const url = urlcat(FIREFLY_ROOT_URL, 'v2/user/nftCollections', {
+            walletAddress,
+            limit: limit || 25,
+            cursor: indicator?.id || undefined,
+        });
+        const response = await fireflySessionHolder.fetch<NFTCollectionsResponse>(url);
+        return createPageable(
+            response.data?.collections ?? EMPTY_LIST,
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );

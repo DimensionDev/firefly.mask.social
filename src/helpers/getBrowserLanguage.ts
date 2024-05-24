@@ -4,7 +4,7 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { Language } from '@/services/translate.js';
 
 export const getBrowserLanguage = () => {
-    const browserLanguage = navigator.language ?? '';
+    const browserLanguage = typeof navigator === 'undefined' ? '' : navigator.language;
     const browserLanguageLowerCase = browserLanguage.toLowerCase();
     // corner case: zh-cn to Chinese_Simplified
     if (browserLanguageLowerCase === 'zh-cn') return Language.Chinese_Simplified;

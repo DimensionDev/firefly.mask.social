@@ -1,6 +1,6 @@
-import { parseJSON } from '@masknet/web3-providers/helpers';
 import { createRoot } from 'react-dom/client';
 
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { Widget } from '@/mask/custom-elements/Widget.js';
 
 export class WidgetWithProps<T> extends Widget {

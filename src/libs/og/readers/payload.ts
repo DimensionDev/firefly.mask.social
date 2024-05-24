@@ -1,5 +1,4 @@
-import { parseJSON } from '@masknet/web3-providers/helpers';
-
+import { parseJSON } from '@/helpers/parseJSON.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 import { type FarcasterPayload, type MirrorPayload, PayloadType } from '@/types/og.js';
 

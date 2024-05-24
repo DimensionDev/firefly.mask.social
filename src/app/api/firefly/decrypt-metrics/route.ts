@@ -1,4 +1,3 @@
-import { parseJSON } from '@masknet/web3-providers/helpers';
 import crypto from 'crypto';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
@@ -6,6 +5,7 @@ import { z } from 'zod';
 import { env } from '@/constants/env.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 
 const CipherSchema = z.object({
     text: z.string(),

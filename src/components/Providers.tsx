@@ -67,7 +67,7 @@ export function Providers(props: { children: React.ReactNode }) {
 
     useEffectOnce(() => {
         if ('serviceWorker' in navigator) {
-            (navigator.serviceWorker as ServiceWorkerContainer).register('/sw.js', { scope: '/' }).catch(console.error);
+            navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(console.error);
         }
     });
 
