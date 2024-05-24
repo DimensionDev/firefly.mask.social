@@ -2,11 +2,13 @@ import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
+import { FRAME_SERVER_URL, MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -16,7 +18,7 @@ import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, parentPost, images, frames, openGraphs, postId, channel } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, postId, channel, poll } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -29,7 +31,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const { currentProfile } = useFarcasterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[]) => {
+    const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
         const currentChannel = channel[Source.Farcaster];
         return {
             publicationId: '',
@@ -48,6 +50,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...images.map((media) => ({ url: media.s3!, mimeType: media.file.type })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
+                    ...(polls ?? []).map((poll) => ({ url: `${FRAME_SERVER_URL}/polls/${poll.id}` })),
                 ],
                 (x) => x.url.toLowerCase(),
             ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),
@@ -69,13 +72,18 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 }),
             );
         },
-        compose: (images) => {
-            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images));
+        uploadPolls: async () => {
+            if (!poll) return [];
+            const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars));
+            return [pollStub];
         },
-        reply: (images) => {
+        compose: (images, _, polls) => {
+            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, polls));
+        },
+        reply: (images, _, polls) => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             // for farcaster, post id is read from post.commentOn.postId
-            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images));
+            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, polls));
         },
         quote: () => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
