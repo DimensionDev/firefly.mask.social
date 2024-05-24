@@ -32,7 +32,8 @@ export function LinkCloud() {
         <div className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-xs text-lightSecond lg:px-0">
             <span className=" font-bold text-gray-500">© {2024} Firefly</span>
             {[
-                { name: t`Communities`, link: '/settings/communities' },
+                { name: t`Communities`, link: '/settings/communities', self: true },
+                { name: t`Developers`, link: '/developers/frame', self: true },
                 {
                     name: t`Privacy Policy`,
                     link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
@@ -45,16 +46,18 @@ export function LinkCloud() {
                     name: t`Download app`,
                     link: 'https://firefly.social/#download',
                 },
-            ].map(({ name, link }) => (
-                <Link href={link} key={link} className="outline-offset-4 hover:underline" target="_blank">
+            ].map(({ name, link, self }) => (
+                <Link
+                    href={link}
+                    key={link}
+                    className="outline-offset-4 hover:underline font-medium"
+                    target={self ? '_self' : '_blank'}
+                >
                     {name}
                 </Link>
             ))}
-            <Link className="cursor-pointer hover:underline" href="/developers/frame">
-                <Trans>Developers</Trans>
-            </Link>
-            <span className="cursor-pointer hover:underline" ref={feedbackEl}>
-                <Trans>Send a Feedback</Trans>
+            <span className="cursor-pointer hover:underline font-medium" ref={feedbackEl}>
+                <Trans>Feedback</Trans>
             </span>
         </div>
     );
