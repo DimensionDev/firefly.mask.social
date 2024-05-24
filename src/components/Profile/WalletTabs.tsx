@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { memo, Suspense, useState } from 'react';
+import { memo, Suspense } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
@@ -9,6 +9,7 @@ import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { WalletProfileTabType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 
 const ContentList = memo(function ContentList({ type, address }: { type: WalletProfileTabType; address: string }) {
     switch (type) {
@@ -29,7 +30,10 @@ interface WalletTabsProps {
 }
 
 export function WalletTabs({ address }: WalletTabsProps) {
-    const [currentTab, setCurrentTab] = useState(WalletProfileTabType.Articles);
+    const [currentTab, setCurrentTab] = useStateWithSearchParams<WalletProfileTabType>(
+        'wallet_tab',
+        WalletProfileTabType.Articles,
+    );
 
     return (
         <>

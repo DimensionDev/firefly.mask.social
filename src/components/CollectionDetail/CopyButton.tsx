@@ -22,7 +22,7 @@ export function CopyButton(props: { value: string }) {
     return (
         <Tooltip content={copied ? t`Copied` : t`Copy`} placement="top" hideOnClick={false} interactive>
             <button onClick={handleCopy}>
-                <CopyIcon className="ml-1.5 h-3 w-3 text-secondary" />
+                <CopyIcon className="ml-1 h-3 w-3" />
             </button>
         </Tooltip>
     );

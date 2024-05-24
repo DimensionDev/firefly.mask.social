@@ -1,17 +1,14 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { NetworkPluginID } from '@masknet/shared-base';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { CopyButton } from '@/components/NFTDetail/CopyButton.js';
-import { Link } from '@/esm/Link.js';
-// eslint-disable-next-line no-restricted-imports
-import { resolveChain } from '@/maskbook/packages/web3-providers/src/SimpleHash/helpers.js';
+import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 
 export interface NFTOverflowProps {
     description: string;
@@ -45,15 +42,13 @@ export function EVMExplorerLink(props: { address: string; chainId?: number; type
                 <span className="ml-1">
                     <CopyButton value={props.address} />
                 </span>
-                <Link
-                    href={{
-                        href: resolveExplorerLink(props.chainId, props.address),
-                    }}
+                <a
+                    href={resolveExplorerLink(props.chainId, props.address)}
                     target="_blank"
                     className="ml-1 inline-block"
                 >
                     <LinkIcon className="h-3 w-3" />
-                </Link>
+                </a>
             </span>
         );
     }
@@ -108,9 +103,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                                     <span className="mr-1">
                                         <ChainIcon chainId={props.chainId} size={20} />
                                     </span>
-                                    <span className="capitalize">
-                                        {resolveChain(NetworkPluginID.PLUGIN_EVM, props.chainId)}
-                                    </span>
+                                    <span className="capitalize">{resolveSimpleHashChain(props.chainId)}</span>
                                 </div>
                             }
                         />

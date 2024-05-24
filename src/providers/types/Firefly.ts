@@ -681,5 +681,5 @@ export interface Collection {
     last_acquired_date: string;
     nft_ids: string[];
     collection_details: CollectionDetails;
-    nftPreviews: NftPreview[];
+    nftPreviews?: NftPreview[];
 }
