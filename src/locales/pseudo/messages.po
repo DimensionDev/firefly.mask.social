@@ -85,9 +85,6 @@ msgstr ""
 msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
-msgid "Act"
-msgstr ""
-
 msgid "More"
 msgstr ""
 
@@ -293,9 +290,6 @@ msgid "Failed to mirror."
 msgstr ""
 
 msgid "Your post was deleted."
-msgstr ""
-
-msgid "URL is required."
 msgstr ""
 
 msgid "Remove from Bookmarks"
@@ -895,9 +889,6 @@ msgstr ""
 msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
-msgid "Cancel mirror successfully"
-msgstr ""
-
 msgid "Unmute"
 msgstr ""
 
@@ -956,6 +947,9 @@ msgid "Failed to fetch the latest state after several attempts. Please try again
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Collect"
 msgstr ""
 
 msgid "Mirrors"

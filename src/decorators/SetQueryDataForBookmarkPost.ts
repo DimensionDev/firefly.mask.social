@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -34,6 +34,28 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
                     if (article.id === postId) article.hasBookmarked = status;
                 });
             });
+        });
+    });
+
+    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>(
+        { queryKey: ['articles', 'following', Source.Article] },
+        (old) => {
+            if (!old) return old;
+
+            return produce(old, (draft) => {
+                draft.pages.forEach((page) => {
+                    page.data.forEach((article) => {
+                        if (article.id === postId) article.hasBookmarked = status;
+                    });
+                });
+            });
+        },
+    );
+
+    queryClient.setQueryData<Article>(['article-detail', postId], (old) => {
+        return produce(old, (draft) => {
+            if (!draft) return;
+            draft.hasBookmarked = status;
         });
     });
 

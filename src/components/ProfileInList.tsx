@@ -34,7 +34,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 <Avatar
                     className="mr-3 shrink-0 rounded-full border"
                     src={profile.pfp}
-                    size={isSmall ? 40 : 78}
+                    size={isSmall ? 40 : 44}
                     alt={profile.displayName}
                 />
 

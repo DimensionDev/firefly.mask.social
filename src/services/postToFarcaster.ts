@@ -3,8 +3,8 @@ import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
-import { isHomeChannel } from '@/helpers/channel.js';
 import { readChars } from '@/helpers/chars.js';
+import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';

@@ -1,6 +1,5 @@
 import urlcat from 'urlcat';
 
-import { MAX_OG_SIZE_PER_POST } from '@/constants/index.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { BaseLoader } from '@/libs/base/Loader.js';
@@ -27,10 +26,6 @@ class Loader extends BaseLoader<OpenGraph> {
                 }
             });
         });
-    }
-
-    protected override parse(content: string) {
-        return super.parse(content).slice(0, MAX_OG_SIZE_PER_POST);
     }
 }
 

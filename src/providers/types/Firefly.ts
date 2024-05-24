@@ -104,7 +104,8 @@ export interface Channel {
     image_url: string;
     name: string;
     // e.g., 1689888729
-    created_at: number;
+    createdAt?: number;
+    created_at?: number;
     description: string;
     follower_count?: number;
     url: string;
@@ -128,7 +129,9 @@ export interface ChannelProfileBrief {
 
 export interface ChannelBrief {
     // e.g., 1710554170
-    created_at: number;
+    created_at?: number;
+    // Different interfaces have different field names.
+    createdAt?: number;
     description: string;
     id: string;
     image_url: string;
@@ -234,7 +237,10 @@ export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
-export type ChannelResponse = Response<ChannelBrief>;
+export type ChannelResponse = Response<{
+    channel: ChannelBrief;
+    blocked: boolean;
+}>;
 
 export type ChannelsResponse = Response<Channel[]>;
 
@@ -389,6 +395,12 @@ export type BlockUserResponse = Response<
         snsPlatform: string;
     }>
 >;
+
+export type BlockChannelResponse = Response<{
+    identifiers: Array<{ channel_id: string; account_id: string }>;
+    generatedMaps: Array<{ create_at: string; update_at: string }>;
+    raw: Array<{ create_at: string; update_at: string }>;
+}>;
 
 export type BlockRelationResponse = Response<
     Array<{

@@ -39,10 +39,10 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Twitter]: [ProfileTabType.Feed],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
-    [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
+    [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
     // TODO No API to fetch recasts for now.
-    [Source.Farcaster]: [EngagementType.Quotes, EngagementType.Recasts, EngagementType.Likes],
-    [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
+    [Source.Farcaster]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Recasts],
+    [Source.Twitter]: [EngagementType.Likes, EngagementType.Quotes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Lens]: [SearchType.Posts, SearchType.Users],
@@ -110,7 +110,6 @@ export const MAX_SEARCH_RECORD_SIZE = 5;
 export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 
 // POST
-export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
 
 export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;

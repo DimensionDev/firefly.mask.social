@@ -6,26 +6,20 @@ import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { useBlockedChannelState } from '@/store/useBlockedChannelStore.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     busy?: boolean;
     channel: Channel;
-    onStatusChange?(channel: Channel): Promise<boolean>;
+    onToggleBlock?(channel: Channel): Promise<boolean>;
 }
 
 export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function MuteChannelButton(
-    { busy, channel, onStatusChange, ...rest }: Props,
+    { busy, channel, onToggleBlock, ...rest }: Props,
     ref,
 ) {
-    const { allBlockedChannels } = useBlockedChannelState();
-    const currentProfile = useCurrentProfile(channel.source);
-    const muted =
-        currentProfile &&
-        allBlockedChannels[`${currentProfile.source}:${currentProfile.profileId}`]?.includes(channel.id);
+    const muted = channel.blocked;
 
     return (
         <MenuButton
@@ -44,8 +38,8 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                         </div>
                     ),
                 });
-                if (!onStatusChange || !confirmed) return;
-                const result = await onStatusChange(channel);
+                if (!onToggleBlock || !confirmed) return;
+                const result = await onToggleBlock(channel);
                 if (result === false) {
                     enqueueErrorMessage(
                         muted ? t`Failed to unmute /${channel.id}.` : t`Failed to mute /${channel.id}.`,

@@ -1090,6 +1090,15 @@ class LensSocialMedia implements Provider {
         });
         return result.isSuccess();
     }
+
+    async blockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
         const result = await lensSessionHolder.sdk.publication.reactions.fetch({
             cursor: indicator?.id ? indicator.id : undefined,

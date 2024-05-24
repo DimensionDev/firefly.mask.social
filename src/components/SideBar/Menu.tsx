@@ -28,6 +28,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -41,11 +42,13 @@ interface MenuProps {
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
+    const currentChannel = useCurrentVisitingChannel();
 
-    const updateSidebarOpen = useNavigatorState.use.updateSidebarOpen();
+    const { updateSidebarOpen } = useNavigatorState();
 
     const isLogin = useIsLogin();
     const pathname = usePathname();
+
     const isMyProfile = useIsMyProfile(
         currentSocialSource,
         isRoutePathname(pathname, '/profile') ? pathname.split('/')[3] ?? '' : '',
@@ -153,6 +156,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                                 onClick={() =>
                                                     ComposeModalRef.open({
                                                         type: 'compose',
+                                                        channel: currentChannel,
                                                     })
                                                 }
                                             >
@@ -167,6 +171,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             onClick={() => {
                                                 ComposeModalRef.open({
                                                     type: 'compose',
+                                                    channel: currentChannel,
                                                 });
                                             }}
                                         >
