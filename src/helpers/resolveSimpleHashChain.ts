@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { ChainId } from '@masknet/web3-shared-evm';
 
 const EVM_CHAIN: { [key in ChainId]?: string } = {
