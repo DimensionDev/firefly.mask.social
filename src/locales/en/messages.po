@@ -208,6 +208,9 @@ msgstr "Password"
 msgid "Liked"
 msgstr "Liked"
 
+msgid "Term of Service"
+msgstr "Term of Service"
+
 msgid "Please switch to the correct network in your wallet."
 msgstr "Please switch to the correct network in your wallet."
 
@@ -463,9 +466,6 @@ msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan
 msgid "Unlike"
 msgstr "Unlike"
 
-msgid "Discord"
-msgstr "Discord"
-
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
@@ -531,9 +531,6 @@ msgstr "Failed to fetch bookmarks."
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
-
-msgid "Telegram"
-msgstr "Telegram"
 
 msgid "Retweeted"
 msgstr "Retweeted"
@@ -883,6 +880,9 @@ msgstr "Developers"
 msgid "Share to"
 msgstr "Share to"
 
+msgid "Download app"
+msgstr "Download app"
+
 msgid "Unknown session type."
 msgstr "Unknown session type."
 
@@ -1068,9 +1068,6 @@ msgstr "mirrored your"
 
 msgid "Mirror"
 msgstr "Mirror"
-
-msgid "Terms of Service"
-msgstr "Terms of Service"
 
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."

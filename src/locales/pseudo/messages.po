@@ -208,6 +208,9 @@ msgstr ""
 msgid "Liked"
 msgstr ""
 
+msgid "Term of Service"
+msgstr ""
+
 msgid "Please switch to the correct network in your wallet."
 msgstr ""
 
@@ -463,9 +466,6 @@ msgstr ""
 msgid "Unlike"
 msgstr ""
 
-msgid "Discord"
-msgstr ""
-
 msgid "Post has been hidden"
 msgstr ""
 
@@ -530,9 +530,6 @@ msgid "Failed to fetch bookmarks."
 msgstr ""
 
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "Telegram"
 msgstr ""
 
 msgid "Retweeted"
@@ -883,6 +880,9 @@ msgstr ""
 msgid "Share to"
 msgstr ""
 
+msgid "Download app"
+msgstr ""
+
 msgid "Unknown session type."
 msgstr ""
 
@@ -1067,9 +1067,6 @@ msgid "mirrored your"
 msgstr ""
 
 msgid "Mirror"
-msgstr ""
-
-msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
