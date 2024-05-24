@@ -8,6 +8,7 @@ import DownloadIcon from '@/assets/download.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
 import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 
@@ -20,6 +21,7 @@ export interface NFTInfoProps {
     collection?: {
         name: string;
         icon?: string;
+        id?: string;
     };
     floorPrice?: ReactNode;
     chainId?: ChainId;
@@ -40,7 +42,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     height={250}
                     src={imageURL}
                     alt={name}
-                    className="h-full w-full max-w-[250px] rounded-[20px] object-cover shadow-lightS3"
+                    className="shadow-lightS3 h-full w-full max-w-[250px] rounded-[20px] object-cover"
                 />
             </div>
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
@@ -119,6 +121,7 @@ export function NFTInfo(props: NFTInfoProps) {
                             <DownloadIcon className="h-3 w-3" />
                             <Trans>Download Image</Trans>
                         </a>
+                        {collection?.id ? <ReportSpamButton collectionId={collection?.id} /> : null}
                     </div>
                 </div>
             </div>
