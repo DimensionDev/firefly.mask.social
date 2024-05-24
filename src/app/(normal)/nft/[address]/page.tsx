@@ -3,7 +3,7 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import ComeBack from '@/assets/comeback.svg';
 import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js';
@@ -17,20 +17,16 @@ import { useNFTFloorPrice } from '@/hooks/useNFTFloorPrice.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export default function Page({ params }: { params: { address: string }; searchParams: { source: SourceInURL } }) {
-    const tabs = useMemo(
-        () =>
-            [
-                {
-                    label: t`Items`,
-                    value: 'items',
-                },
-                {
-                    label: t`Top Collectors`,
-                    value: 'topCollectors',
-                },
-            ] as const,
-        [],
-    );
+    const tabs = [
+        {
+            label: t`Items`,
+            value: 'items',
+        },
+        {
+            label: t`Top Collectors`,
+            value: 'topCollectors',
+        },
+    ] as const;
     const comeback = useComeBack();
     const [currentTab, setCurrentTab] = useState<(typeof tabs)[number]['value']>('items');
     const { address } = params;
