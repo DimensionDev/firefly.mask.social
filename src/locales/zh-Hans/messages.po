@@ -1134,9 +1134,6 @@ msgstr "转发了你的"
 msgid "Mirror"
 msgstr "转发"
 
-msgid "Last Sale"
-msgstr ""
-
 msgid "Already posted on {sourceName}."
 msgstr "已经在 {sourceName} 发贴。"
 
@@ -1169,9 +1166,6 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
 msgstr "一条 thread 至少包含 2 个帖子。"
-
-msgid "Copy Address"
-msgstr ""
 
 msgid "Likes"
 msgstr "点赞"
