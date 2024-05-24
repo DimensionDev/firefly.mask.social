@@ -31,7 +31,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const { currentProfile } = useFarcasterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[], polls: Poll[]) => {
+    const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
         const currentChannel = channel[Source.Farcaster];
         return {
             publicationId: '',
@@ -50,7 +50,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...images.map((media) => ({ url: media.s3!, mimeType: media.file.type })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
-                    ...polls.map((poll) => ({ url: `${FRAME_SERVER_URL}/polls/${poll.id}` })),
+                    ...(polls ?? []).map((poll) => ({ url: `${FRAME_SERVER_URL}/polls/${poll.id}` })),
                 ],
                 (x) => x.url.toLowerCase(),
             ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),
@@ -78,12 +78,12 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             return [pollStub];
         },
         compose: (images, _, polls) => {
-            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, polls ?? []));
+            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, polls));
         },
         reply: (images, _, polls) => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             // for farcaster, post id is read from post.commentOn.postId
-            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, polls ?? []));
+            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, polls));
         },
         quote: () => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
