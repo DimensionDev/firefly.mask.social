@@ -52,7 +52,7 @@ function convertMetricToSession(metric: Metrics[0]) {
                 (x) =>
                     new FarcasterSession(
                         `${x.fid}`,
-                        x.signer_private_key,
+                        x.signer_private_key.startsWith('0x') ? x.signer_private_key : `0x${x.signer_private_key}`,
                         x.login_time,
                         x.login_time,
                         // the signerRequestToken cannot recover from the metric
