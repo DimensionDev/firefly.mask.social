@@ -11,6 +11,7 @@ import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
+import { BookmarkButton } from '@/components/Actions/BookmarkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
@@ -30,16 +31,16 @@ import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import { useToggleBlockChannel } from '@/hooks/useToggleBlockChannel.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
     source: SocialSource;
     author: Profile;
     channel?: Channel;
-    id?: string;
+    post?: Post;
 }
 
-export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, id, channel }) {
+export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, post, channel }) {
     const isLogin = useIsLogin(source);
     const currentProfile = useCurrentProfile(source);
 
@@ -108,7 +109,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 <MenuButton
                                     onClick={async () => {
                                         close();
-                                        if (id) deletePost(id);
+                                        if (post?.postId) deletePost(post.postId);
                                     }}
                                 >
                                     {deleting ? (
@@ -181,11 +182,14 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             </Menu.Item>
                         </>
                     )}
-                    {id ? (
+                    {post && post.source !== Source.Twitter ? (
+                        <Menu.Item>{({ close }) => <BookmarkButton post={post} onClick={close} />}</Menu.Item>
+                    ) : null}
+                    {post?.postId ? (
                         <Menu.Item
                             as={Link}
                             shallow
-                            href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
+                            href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
                             className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >

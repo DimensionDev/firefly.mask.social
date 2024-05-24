@@ -325,7 +325,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <MoreAction
                         source={notification.source}
                         author={notification.comment.author}
-                        id={notification.comment.postId}
+                        post={notification.comment}
                     />
                 );
             case NotificationType.Mention:
@@ -336,7 +336,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <MoreAction
                         source={notification.post.source}
                         author={notification.post.author}
-                        id={notification.post.postId}
+                        post={notification.post}
                     />
                 );
             case NotificationType.Follow:
