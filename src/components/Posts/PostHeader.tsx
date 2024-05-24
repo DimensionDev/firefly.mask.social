@@ -80,7 +80,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                     <TimestampFormatter time={post.timestamp} />
                 </span>
                 {!isQuote && post.source !== Source.Twitter ? (
-                    <MoreAction channel={post.channel} source={post.source} author={post.author} id={post.postId} />
+                    <MoreAction channel={post.channel} source={post.source} author={post.author} post={post} />
                 ) : null}
             </div>
         </div>
