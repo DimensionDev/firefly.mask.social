@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { NetworkPluginID } from '@masknet/shared-base';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
@@ -9,7 +8,7 @@ import type { ReactNode } from 'react';
 import LinkIcon from '@/assets/link-square.svg';
 import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { resolveChain } from '@/maskbook/packages/web3-providers/src/SimpleHash/helpers.js';
+import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 
 export interface NFTOverflowProps {
     description: string;
@@ -104,9 +103,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                                     <span className="mr-1">
                                         <ChainIcon chainId={props.chainId} size={20} />
                                     </span>
-                                    <span className="capitalize">
-                                        {resolveChain(NetworkPluginID.PLUGIN_EVM, props.chainId)}
-                                    </span>
+                                    <span className="capitalize">{resolveSimpleHashChain(props.chainId)}</span>
                                 </div>
                             }
                         />
