@@ -58,7 +58,7 @@ export const SORTED_BOOKMARK_SOURCES =
         : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
-export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter];
+export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
@@ -78,6 +78,8 @@ export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV
 export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
 
 export const EVER_API = 'https://endpoint.4everland.co';
+
+export const FRAME_SERVER_URL = 'https://polls.mask.social';
 
 // S3 bucket
 export const S3_BUCKET = {
