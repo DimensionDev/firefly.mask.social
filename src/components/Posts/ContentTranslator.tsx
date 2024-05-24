@@ -24,9 +24,10 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     canShowMore,
 }) {
     const [collapsed, setCollapsed] = useState(false);
-    const [translationConfig, setTranslationConfig] = useState<
-        Record<'original' | 'target', Language | null>
-    >({ original: null, target: null });
+    const [translationConfig, setTranslationConfig] = useState<Record<'original' | 'target', Language | null>>({
+        original: null,
+        target: null,
+    });
     const isLogin = useIsLogin();
 
     const [_, handleDetect] = useAsyncFn(async () => {
