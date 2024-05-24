@@ -8,12 +8,12 @@ class FarcasterPoll implements Provider {
             id: newPollId,
             options: poll.options,
             validInDays: poll.validInDays,
-        }
+        };
     }
 
     vote(pollId: string, option: PollOption): Promise<void> {
         throw new Error('Method not implemented.');
-    };
+    }
 
     getPollById(pollId: string): Promise<Poll> {
         throw new Error('Method not implemented.');

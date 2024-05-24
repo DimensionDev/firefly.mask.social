@@ -74,7 +74,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         },
         uploadPolls: async () => {
             if (!poll) return [];
-            const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars))
+            const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars));
             return [pollStub];
         },
         compose: (images, _, polls) => {

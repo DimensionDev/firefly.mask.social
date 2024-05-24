@@ -7,7 +7,7 @@ class LensPoll implements Provider {
 
     vote(pollId: string, option: PollOption): Promise<void> {
         throw new Error('Method not implemented.');
-    };
+    }
 
     getPollById(pollId: string): Promise<Poll> {
         throw new Error('Method not implemented.');
