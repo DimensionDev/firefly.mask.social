@@ -8,7 +8,7 @@ export function resolveNftUrl(
         chainId?: ChainId | string | number | null;
     },
 ) {
-    let basePath = `/nft${contractAddress}`;
+    let basePath = `/nft/${contractAddress}`;
     if (options?.tokenId) {
         basePath = `${basePath}/${options?.tokenId}`;
     }
