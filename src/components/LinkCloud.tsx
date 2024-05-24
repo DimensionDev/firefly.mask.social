@@ -37,7 +37,7 @@ export function LinkCloud() {
                 { name: t`Communities`, link: '/settings/communities' },
                 {
                     name: t`Privacy Policy`,
-                    link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a'
+                    link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
                 },
                 {
                     name: t`Term of Service`,
@@ -45,8 +45,8 @@ export function LinkCloud() {
                 },
                 {
                     name: t`Download app`,
-                    link: 'https://firefly.social/#download'
-                }
+                    link: 'https://firefly.social/#download',
+                },
             ].map(({ name, link }) => (
                 <Link href={link} key={link} className="outline-offset-4 hover:underline" target="_blank">
                     {name}
