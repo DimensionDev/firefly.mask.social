@@ -91,7 +91,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     <Trans>The user declined the request.</Trans>
                 </div>,
                 {
-                    error,
+                    noReport: true,
                 },
             );
             throw error;

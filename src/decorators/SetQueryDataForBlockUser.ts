@@ -49,10 +49,14 @@ export function SetQueryDataForBlockUser(source: SocialSource) {
             Object.defineProperty(target.prototype, key, {
                 value: async (profileId: string) => {
                     const m = method as (profileId: string) => Promise<boolean>;
+                    const status = key === 'blockUser';
+                    setBlockStatus(source, profileId, status);
                     const result = await m?.call(target.prototype, profileId);
-                    if (!result) return false;
-
-                    setBlockStatus(source, profileId, key === 'blockUser');
+                    if (!result) {
+                        // rolling back
+                        setBlockStatus(source, profileId, !status);
+                        return false;
+                    }
 
                     return result;
                 },

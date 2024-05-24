@@ -79,7 +79,6 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                             {({ close }) => (
                                 <MuteChannelButton
                                     channel={channel}
-                                    busy={channelBlocking}
                                     onToggleBlock={toggleBlockChannel}
                                     onClick={close}
                                 />
