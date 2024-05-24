@@ -1,5 +1,6 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
@@ -8,6 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTList } from '@/components/CollectionDetail/NFTList.js';
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChainId.js';
 import type { CollectionDetails } from '@/providers/types/Firefly.js';
 
@@ -31,7 +33,9 @@ export function NFTs(props: { address: string }) {
                             className="mr-2 rounded-full bg-lightBg p-2"
                             onClick={() => setSelectedCollection(null)}
                         >
-                            <UndoSVG className="h-4 w-4" />
+                            <Tooltip content={t`Back`}>
+                                <UndoSVG className="h-4 w-4" />
+                            </Tooltip>
                         </ClickableButton>
                         {selectedCollection.image_url ? (
                             <Image
