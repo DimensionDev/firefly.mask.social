@@ -61,8 +61,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "Celo"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",
