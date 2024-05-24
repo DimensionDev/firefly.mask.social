@@ -844,7 +844,7 @@ msgid "Unknown session type."
 msgstr "未知会话类型。"
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
-msgstr "在您的手机设备上，打开<0>摄像头</0> 使用 Warpcast 在<1>{0}</1>中扫描二维码。"
+msgstr "在您的手机设备上，打开<0>摄像头</0> 使用 Warpcast 在 <1>{0}</1> 内扫描二维码。"
 
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
