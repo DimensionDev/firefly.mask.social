@@ -51,6 +51,9 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
 
+msgid "Report Spam"
+msgstr ""
+
 msgid "Mute /{0}"
 msgstr "將 @{0} 靜音"
 
@@ -150,6 +153,9 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
 
+msgid "Confirm to report this Collection?"
+msgstr ""
+
 msgid "NFT Standard"
 msgstr ""
 
@@ -244,6 +250,9 @@ msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖像"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
+msgstr ""
+
+msgid "Report Failed"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
@@ -382,6 +391,9 @@ msgid "Try searching for something else."
 msgstr ""
 
 msgid "Unmute /{0}"
+msgstr ""
+
+msgid "Report spam"
 msgstr ""
 
 msgid "Invalid compose type: {type}."
