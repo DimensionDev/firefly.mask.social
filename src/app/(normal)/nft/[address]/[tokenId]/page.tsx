@@ -51,7 +51,7 @@ export default function Page({
             <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
                 <TextOverflowTooltip title={data.metadata.name}>
-                    <h2 className="max-w-[calc(100%-24px)] truncate text-xl font-black leading-6">
+                    <h2 className="max-w-[calc(100%-24px-32px)] truncate text-xl font-black leading-6">
                         {data.metadata.name}
                     </h2>
                 </TextOverflowTooltip>
