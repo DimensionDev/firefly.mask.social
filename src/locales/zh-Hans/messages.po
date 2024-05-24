@@ -213,6 +213,9 @@ msgstr "密码"
 msgid "Liked"
 msgstr "已点赞"
 
+msgid "Term of Service"
+msgstr ""
+
 msgid "Please switch to the correct network in your wallet."
 msgstr "请在钱包中切换到正确的网络。"
 
@@ -468,9 +471,6 @@ msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二�
 msgid "Unlike"
 msgstr "取消点赞"
 
-msgid "Discord"
-msgstr ""
-
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
 
@@ -536,9 +536,6 @@ msgstr "获取收藏失败。"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
-
-msgid "Telegram"
-msgstr ""
 
 msgid "Retweeted"
 msgstr "已转帖"
@@ -888,6 +885,9 @@ msgstr "开发者"
 msgid "Share to"
 msgstr "分享到"
 
+msgid "Download app"
+msgstr ""
+
 msgid "Unknown session type."
 msgstr "未知会话类型。"
 
@@ -1074,9 +1074,6 @@ msgstr "转发了你的"
 msgid "Mirror"
 msgstr "转发"
 
-msgid "Terms of Service"
-msgstr "服务条款"
-
 msgid "Already posted on {sourceName}."
 msgstr "已经在 {sourceName} 发贴。"
 
@@ -1121,4 +1118,3 @@ msgstr "<0/> 引用了你的 <1><2/></1>"
 
 msgid "Send a Feedback"
 msgstr "提交反馈"
-
