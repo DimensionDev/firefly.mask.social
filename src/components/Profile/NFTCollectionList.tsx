@@ -12,6 +12,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChainId.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Collection } from '@/providers/types/Firefly.js';
@@ -43,12 +44,10 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
             const tokenId = nftPreview.nft_id.split('.')?.[2];
             return (
                 <Link
-                    href={{
-                        pathname: `/nft/${nftPreview.contract_address}/${tokenId}`,
-                        query: {
-                            chainId,
-                        },
-                    }}
+                    href={resolveNftUrl(nftPreview.contract_address, {
+                        tokenId,
+                        chainId,
+                    })}
                     className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
                 >
                     <div className="relative aspect-square h-auto w-full overflow-hidden">

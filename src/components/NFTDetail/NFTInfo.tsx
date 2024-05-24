@@ -3,13 +3,13 @@ import { TextOverflowTooltip } from '@masknet/theme';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
-import urlcat from 'urlcat';
 
 import DownloadIcon from '@/assets/download.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;
@@ -40,7 +40,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     height={250}
                     src={imageURL}
                     alt={name}
-                    className="h-full w-full max-w-[250px] rounded-[20px] object-cover shadow-lightS3"
+                    className="shadow-lightS3 h-full w-full max-w-[250px] rounded-[20px] object-cover"
                 />
             </div>
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
@@ -48,9 +48,13 @@ export function NFTInfo(props: NFTInfoProps) {
                     <div className="flex w-full flex-col items-center justify-center space-y-3 sm:justify-start">
                         {collection ? (
                             <Link
-                                href={urlcat(`/nft/${contractAddress}`, {
-                                    chainId,
-                                })}
+                                href={
+                                    contractAddress
+                                        ? resolveNftUrl(contractAddress, {
+                                              chainId,
+                                          })
+                                        : ''
+                                }
                                 className="flex h-5 w-full items-center text-base font-bold leading-6"
                             >
                                 {collection.icon ? (

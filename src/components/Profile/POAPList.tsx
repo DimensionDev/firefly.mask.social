@@ -13,6 +13,7 @@ import { Image } from '@/components/Image.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
@@ -41,12 +42,10 @@ export function getNFTItemContent(
 ) {
     return (
         <Link
-            href={{
-                pathname: `/nft/${item.id}/${item.tokenId}`,
-                query: {
-                    chainId: item.chainId,
-                },
-            }}
+            href={resolveNftUrl(item.id, {
+                tokenId: item.tokenId,
+                chainId: item.chainId,
+            })}
             key={`${index}-${item.id}-${item.tokenId}`}
             className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
         >
