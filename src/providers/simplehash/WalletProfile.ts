@@ -20,6 +20,10 @@ class SimpleHashWalletProfile implements Provider {
         return SimpleHashEVM.getAssetsByCollection(contractAddress, options);
     }
 
+    getNFTsByCollectionIdAndOwner(collectionId: string, owner: string, options?: BaseHubOptions<ChainId>) {
+        return SimpleHashEVM.getAssetsByCollectionAndOwner(collectionId, owner, options);
+    }
+
     getPOAPs(address: string, options?: BaseHubOptions<ChainId> & { contractAddress?: string }) {
         return SimpleHashEVM.getAssets(address, options);
     }

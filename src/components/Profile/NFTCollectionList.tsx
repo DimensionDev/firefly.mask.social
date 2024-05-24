@@ -1,43 +1,88 @@
 'use client';
 
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChainId.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Collection } from '@/providers/types/Firefly.js';
 
 export interface NFTCollectionItemProps {
     collection: Collection;
-    onClick?: (collection: Collection) => void;
+    onClick?: (chainId: ChainId, collectionId: string, collection: Collection) => void;
 }
 
 export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
-    const distinctNFTCount = collection.collection_details.distinct_nft_count;
+    const distinctNFTCount = collection.distinct_nfts_owned;
     const images = useMemo(() => {
-        if (!collection.nftPreviews) return EMPTY_LIST;
-        let previewImages = collection.nftPreviews;
-        if (collection.nftPreviews.length === 4 && distinctNFTCount === 4) {
-            previewImages = previewImages.slice(0, 4);
-        } else {
+        let previewImages = collection.nftPreviews ?? [];
+        if (distinctNFTCount > 4 && previewImages.length >= 4) {
             previewImages = previewImages.slice(0, 3);
-        }
-        if (distinctNFTCount > 4) {
-            if (previewImages.length < 3) previewImages = [...previewImages, ...previewImages, ...previewImages];
-            else if (previewImages.length < 2) previewImages = [...previewImages, ...previewImages];
         }
         return previewImages.map((preview) => preview.previews.image_medium_url);
     }, [distinctNFTCount, collection.nftPreviews]);
 
+    const chainId = useMemo(() => {
+        const chain = first(collection.collection_details.chains);
+        if (!chain) return null;
+        return resolveSimpleHashChainId(chain);
+    }, [collection.collection_details.chains]);
+
+    if (collection.nftPreviews?.length === 1 && distinctNFTCount === 1) {
+        const nftPreview = first(collection.nftPreviews);
+        if (nftPreview) {
+            const tokenId = nftPreview.nft_id.split('.')?.[2];
+            return (
+                <Link
+                    href={{
+                        pathname: `/nft/${nftPreview.contract_address}/${tokenId}`,
+                        query: {
+                            chainId,
+                        },
+                    }}
+                    className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
+                >
+                    <div className="relative aspect-square h-auto w-full overflow-hidden">
+                        <Image
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            src={nftPreview.image_url}
+                            alt="nft_image"
+                        />
+                    </div>
+                    <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
+                        {nftPreview.name}
+                    </div>
+                </Link>
+            );
+        }
+    }
+
     return (
         <div
-            className="flex cursor-pointer flex-col rounded-lg bg-lightBg p-1.5 pb-1 sm:rounded-2xl"
-            onClick={() => onClick?.(collection)}
+            className="relative flex cursor-pointer flex-col rounded-lg bg-lightBg p-1.5 pb-1 sm:rounded-2xl"
+            onClick={() => {
+                console.log(chainId, collection);
+                if (chainId) {
+                    onClick?.(chainId, collection.collection_id, collection);
+                }
+            }}
         >
+            {chainId ? (
+                <div className="absolute left-1 top-1 z-10">
+                    <ChainIcon chainId={chainId} size={20} />
+                </div>
+            ) : null}
             <div
                 className={classNames('relative grid aspect-square h-auto w-full gap-1.5 overflow-hidden', {
                     'grid-cols-2 grid-rows-2': images.length > 1,
@@ -54,7 +99,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
                     />
                 ))}
                 {images.length === 3 && distinctNFTCount !== 4 && distinctNFTCount > 3 ? (
-                    <div className="flex h-full w-full items-center justify-center rounded-lg bg-card text-xs font-normal leading-4 sm:rounded-xl">
+                    <div className="drak:bg-primaryBottom flex h-full w-full items-center justify-center rounded-lg bg-lightBottom text-xs font-normal leading-4 sm:rounded-xl">
                         +{distinctNFTCount - 3}
                     </div>
                 ) : null}
@@ -72,7 +117,7 @@ export function getNFTItemContent(index: number, props: NFTCollectionItemProps) 
 
 export interface NFTCollectionListProps {
     address: string;
-    onClickCollection?: (collection: Collection) => void;
+    onClickCollection?: NFTCollectionItemProps['onClick'];
 }
 
 export function NFTCollectionList(props: NFTCollectionListProps) {
