@@ -51,6 +51,9 @@ msgstr "获取 Blob 失败。"
 msgid "Unmute successfully."
 msgstr "取消屏蔽成功。"
 
+msgid "Report Spam"
+msgstr ""
+
 msgid "Mute /{0}"
 msgstr "屏蔽 /{0}"
 
@@ -150,6 +153,9 @@ msgstr "诊断命令行"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
+msgid "Confirm to report this Collection?"
+msgstr ""
+
 msgid "NFT Standard"
 msgstr ""
 
@@ -245,6 +251,9 @@ msgstr "至多可以选择 2 张图片。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
+
+msgid "Report Failed"
+msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "你需要连接你的 {source} 账号才能使用此功能。"
@@ -383,6 +392,9 @@ msgstr "试试搜索其他东西。"
 
 msgid "Unmute /{0}"
 msgstr "取消屏蔽 /{0}"
+
+msgid "Report spam"
+msgstr ""
 
 msgid "Invalid compose type: {type}."
 msgstr "无效的发帖类型：{type}。"

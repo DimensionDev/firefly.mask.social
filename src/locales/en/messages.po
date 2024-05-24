@@ -46,6 +46,9 @@ msgstr "Failed to fetch as Blob."
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
 
+msgid "Report Spam"
+msgstr "Report Spam"
+
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
 
@@ -145,6 +148,9 @@ msgstr "Debug Console"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "Failed to mute @{0} on {sourceName}"
 
+msgid "Confirm to report this Collection?"
+msgstr "Confirm to report this Collection?"
+
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
@@ -240,6 +246,9 @@ msgstr "Only up to 2 images can be chosen."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
+
+msgid "Report Failed"
+msgstr "Report Failed"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "You need to connect your {source} account to use this feature."
@@ -378,6 +387,9 @@ msgstr "Try searching for something else."
 
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
+
+msgid "Report spam"
+msgstr "Report spam"
 
 msgid "Invalid compose type: {type}."
 msgstr "Invalid compose type: {type}."
