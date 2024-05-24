@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { memo, useState } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { UnmuteButton } from '@/components/Actions/UnmuteButton.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -51,7 +50,6 @@ export const FollowButton = memo(function FollowButton({ profile, className, ...
                 toggleFollow.mutate();
             }}
         >
-            {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
             {buttonText}
         </ClickableButton>
     );

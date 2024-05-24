@@ -46,14 +46,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isMyPost = isSameProfile(author, currentProfile);
 
     const isFollowing = !!author.viewerContext?.following;
-    const [togglingFollow, toggleFollow] = useToggleFollow(author);
+    const [, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
-    const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
-    const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleBlockChannel();
+    const [, reportUser] = useReportUser(currentProfile);
+    const [, toggleBlock] = useToggleBlock(currentProfile);
+    const [, toggleBlockChannel] = useToggleBlockChannel();
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
-    const isBusy = togglingFollow || reporting || blocking || channelBlocking;
     return (
         <Menu
             className=" relative"
@@ -76,15 +75,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     }
                 }}
             >
-                {isBusy ? (
-                    <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
-                        <LoadingIcon width={16} height={16} />
-                    </span>
-                ) : (
-                    <Tooltip content={t`More`} placement="top">
-                        <MoreIcon width={24} height={24} />
-                    </Tooltip>
-                )}
+                <Tooltip content={t`More`} placement="top">
+                    <MoreIcon width={24} height={24} />
+                </Tooltip>
             </Menu.Button>
             <Transition
                 as={Fragment}
@@ -132,9 +125,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             toggleFollow.mutate();
                                         }}
                                     >
-                                        {togglingFollow ? (
-                                            <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
-                                        ) : isFollowing ? (
+                                        {isFollowing ? (
                                             <UnFollowUserIcon width={24} height={24} />
                                         ) : (
                                             <FollowUserIcon width={24} height={24} />
@@ -148,12 +139,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             {source === Source.Lens ? (
                                 <Menu.Item>
                                     {({ close }) => (
-                                        <ReportUserButton
-                                            busy={reporting}
-                                            profile={author}
-                                            onReport={reportUser}
-                                            onClick={close}
-                                        />
+                                        <ReportUserButton profile={author} onReport={reportUser} onClick={close} />
                                     )}
                                 </Menu.Item>
                             ) : null}
@@ -161,7 +147,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 <Menu.Item>
                                     {({ close }) => (
                                         <MuteChannelButton
-                                            busy={channelBlocking}
                                             channel={channel}
                                             onToggleBlock={toggleBlockChannel}
                                             onClick={close}
@@ -171,12 +156,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             ) : null}
                             <Menu.Item>
                                 {({ close }) => (
-                                    <BlockUserButton
-                                        busy={blocking}
-                                        profile={author}
-                                        onToggleBlock={toggleBlock}
-                                        onClick={close}
-                                    />
+                                    <BlockUserButton profile={author} onToggleBlock={toggleBlock} onClick={close} />
                                 )}
                             </Menu.Item>
                         </>
