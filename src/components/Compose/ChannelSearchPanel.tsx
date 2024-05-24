@@ -71,9 +71,7 @@ export function ChannelSearchPanel() {
                             <div
                                 className="flex h-[32px] cursor-pointer items-center justify-between pl-3 pr-1 transition duration-150 ease-in hover:bg-lightBg"
                                 onClick={() => {
-                                    if (!isSelected) {
-                                        updateChannel(channel.source, channel);
-                                    }
+                                    if (!isSelected) updateChannel(channel);
                                 }}
                             >
                                 <div
