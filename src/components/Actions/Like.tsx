@@ -9,7 +9,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { toggleLike } from '@/decorators/SetQueryDataForLikePost.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -68,10 +67,9 @@ export const Like = memo<LikeProps>(function Like({
                     error,
                 });
             }
-            toggleLike(source, postId, !hasLiked);
             throw error;
         }
-    }, [postId, source, hasLiked, queryClient, isLogin, authorId, isComment]);
+    }, [postId, source, hasLiked, isLogin, authorId, isComment]);
 
     return (
         <ClickableArea
