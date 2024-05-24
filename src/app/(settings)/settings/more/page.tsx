@@ -20,13 +20,13 @@ export default function More() {
             <div className=" flex w-full flex-col gap-4">
                 {[
                     {
-                        href: 'https://legal.mask.io/maskbook/privacy-policy-browser.html',
+                        href: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
                         title: t`Privacy Policy`,
                         icon: <SecurityIcon width={24} height={24} />,
                     },
                     {
-                        href: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
-                        title: t`Terms of Service`,
+                        href: 'https://mask.notion.site/Term-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
+                        title: t`Term of Service`,
                         icon: <DocumentsIcon width={24} height={24} />,
                     },
                 ].map((document) => (
