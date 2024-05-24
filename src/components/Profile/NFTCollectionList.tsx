@@ -72,7 +72,6 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
         <div
             className="relative flex cursor-pointer flex-col rounded-lg bg-lightBg p-1.5 pb-1 sm:rounded-2xl"
             onClick={() => {
-                console.log(chainId, collection);
                 if (chainId) {
                     onClick?.(chainId, collection.collection_id, collection);
                 }
