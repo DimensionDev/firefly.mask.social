@@ -5,6 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
@@ -52,13 +53,8 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     const postTo = createPostTo(Source.Twitter, {
         uploadPolls: async () => {
             if (!poll) return [];
-            return [
-                {
-                    id: '',
-                    options: poll.options.map((option) => ({ id: option.id, label: option.label })),
-                    validInDays: poll.validInDays,
-                },
-            ];
+            const pollStub = await TwitterPollProvider.createPoll(poll);
+            return [pollStub];
         },
         uploadImages: async () => {
             const uploaded = await uploadToTwitter(images.map((x) => x.file));

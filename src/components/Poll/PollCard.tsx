@@ -4,6 +4,7 @@ import { Fragment, useState } from 'react';
 import RightAnswerIcon from '@/assets/right-answer.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { POLL_ACTION_ENABLED } from '@/constants/poll.js';
+import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -21,7 +22,7 @@ interface VoteButtonProps {
 interface VoteResultProps {
     option: PollOption;
     totalVotes: number;
-    userChoice?: string;
+    isUserVoted: boolean;
 }
 
 function VoteButton({ option, post }: VoteButtonProps) {
@@ -35,7 +36,7 @@ function VoteButton({ option, post }: VoteButtonProps) {
         <div className="mt-3">
             <ClickableButton
                 disabled={!isLogin}
-                className="h-10 w-full rounded-[10px] border border-lightMain text-center text-base font-bold leading-10 text-lightMain hover:bg-secondaryMain disabled:!cursor-default disabled:!opacity-100"
+                className="h-10 w-full rounded-[10px] border border-lightMain text-center text-base font-bold leading-10 text-lightMain hover:text-link hover:border-link disabled:!cursor-default disabled:!opacity-100"
                 onClick={handleVote}
             >
                 {option.label}
@@ -44,20 +45,23 @@ function VoteButton({ option, post }: VoteButtonProps) {
     );
 }
 
-function VoteResult({ option, totalVotes, userChoice }: VoteResultProps) {
+function VoteResult({ option, totalVotes, isUserVoted }: VoteResultProps) {
     const { label, votes = 0 } = option;
     const currentRate = totalVotes ? parseFloat(((votes / totalVotes) * 100).toFixed(2)) : 0;
 
     return (
         <div className="relative mt-3 h-10">
             <div
-                className="absolute h-full rounded-[10px] bg-secondaryMain"
+                className={classNames(
+                    "absolute h-full rounded-[10px]",
+                    isUserVoted ? 'bg-link' : 'bg-secondaryMain'
+                )}
                 style={{ width: currentRate ? `${currentRate}%` : '20px' }}
             />
             <div className="absolute z-10 flex h-full w-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span className="flex items-center gap-2">
                     <span>{label}</span>
-                    {userChoice === label ? <RightAnswerIcon className="mr-2" width={20} height={20} /> : null}
+                    {isUserVoted ? <RightAnswerIcon className="mr-2" width={20} height={20} /> : null}
                 </span>
                 <span>{currentRate}%</span>
             </div>
@@ -85,7 +89,7 @@ export function PollCard({ post }: PollCardProps) {
             {poll.options.map((option, index) => (
                 <Fragment key={index}>
                     {showResultsOnly ? (
-                        <VoteResult option={option} totalVotes={totalVotes} userChoice={userVote} />
+                        <VoteResult option={option} totalVotes={totalVotes} isUserVoted={userVote === option.label} />
                     ) : (
                         <VoteButton option={option} post={post} />
                     )}
