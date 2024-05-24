@@ -24,7 +24,7 @@ export function useStateWithSearchParams<Value extends string>(key: string, init
                 router.push(href);
             }
         },
-        [router.replace, pathname],
+        [router, searchParam, pathname, key],
     );
     return [state as Value, update] as const;
 }
