@@ -1,12 +1,16 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { NetworkPluginID } from '@masknet/shared-base';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
 
+import LinkIcon from '@/assets/link-square.svg';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { CopyButton } from '@/components/NFTDetail/CopyButton.js';
 import { Link } from '@/esm/Link.js';
+import { resolveChain } from '@/maskbook/packages/web3-providers/src/SimpleHash/helpers.js';
 
 export interface NFTOverflowProps {
     description: string;
@@ -21,11 +25,9 @@ export interface NFTOverflowProps {
 
 export function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (
-        <div className="flex w-full gap-[30px]">
-            <div className="w-[144px] min-w-[144px] whitespace-nowrap text-base font-normal leading-[22px] text-secondary">
-                {props.field}:
-            </div>
-            <div className="flex-1 text-base font-medium leading-[22px]">{props.value}</div>
+        <div className="flex w-full gap-[30px] text-base font-normal leading-6">
+            <div className="w-[144px] min-w-[144px] whitespace-nowrap text-secondary">{props.field}:</div>
+            <div className="flex-1 text-base">{props.value}</div>
         </div>
     );
 }
@@ -38,14 +40,18 @@ export function EVMExplorerLink(props: { address: string; chainId?: number; type
         }[props.type];
         return (
             <span className="break-all">
+                {props.address}
+                <span className="ml-1">
+                    <CopyButton value={props.address} />
+                </span>
                 <Link
                     href={{
                         href: resolveExplorerLink(props.chainId, props.address),
                     }}
                     target="_blank"
-                    className="text-farcasterPrimary hover:underline"
+                    className="ml-1 inline-block"
                 >
-                    {props.address}
+                    <LinkIcon className="h-3 w-3" />
                 </Link>
             </span>
         );
@@ -60,7 +66,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                 <h3 className="text-lg font-bold leading-6">
                     <Trans>Description</Trans>
                 </h3>
-                <p className="text-sm font-normal leading-5">{props.description}</p>
+                <p className="w-full break-words text-sm font-normal leading-5 sm:break-normal">{props.description}</p>
             </div>
             <div className="space-y-2">
                 <h3 className="text-lg font-bold leading-6">
@@ -71,13 +77,22 @@ export function NFTOverflow(props: NFTOverflowProps) {
                         <DetailsGroup
                             field={t`NFT Standard`}
                             value={
-                                {
-                                    [SchemaType.Native]: 'Native',
-                                    [SchemaType.ERC721]: 'ERC721',
-                                    [SchemaType.ERC1155]: 'ERC1155',
-                                    [SchemaType.ERC20]: 'ERC20',
-                                    [SchemaType.SBT]: 'SBT',
-                                }[props.schemaType]
+                                <div className="flex items-center">
+                                    {props.chainId ? (
+                                        <span className="mr-1">
+                                            <ChainIcon size={20} chainId={props.chainId} />
+                                        </span>
+                                    ) : null}
+                                    {
+                                        {
+                                            [SchemaType.Native]: 'Native',
+                                            [SchemaType.ERC721]: 'ERC721',
+                                            [SchemaType.ERC1155]: 'ERC1155',
+                                            [SchemaType.ERC20]: 'ERC20',
+                                            [SchemaType.SBT]: 'SBT',
+                                        }[props.schemaType]
+                                    }
+                                </div>
                             }
                         />
                     ) : null}
@@ -85,7 +100,19 @@ export function NFTOverflow(props: NFTOverflowProps) {
                         <DetailsGroup field={t`NFT ID`} value={<span className="break-all">#{props.tokenId}</span>} />
                     ) : null}
                     {props.chainId ? (
-                        <DetailsGroup field={t`Blockchain`} value={<ChainIcon chainId={props.chainId} />} />
+                        <DetailsGroup
+                            field={t`Blockchain`}
+                            value={
+                                <div className="flex items-center">
+                                    <span className="mr-1">
+                                        <ChainIcon chainId={props.chainId} size={20} />
+                                    </span>
+                                    <span className="capitalize">
+                                        {resolveChain(NetworkPluginID.PLUGIN_EVM, props.chainId)}
+                                    </span>
+                                </div>
+                            }
+                        />
                     ) : null}
                     {props.contractAddress ? (
                         <DetailsGroup
@@ -102,7 +129,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     {props.creator ? (
                         <DetailsGroup
                             field={t`Creator`}
-                            value={<EVMExplorerLink address={props.creator} type="address" />}
+                            value={<EVMExplorerLink address={props.creator} type="address" chainId={props.chainId} />}
                         />
                     ) : null}
                     {props.mintingTxnHash ? (

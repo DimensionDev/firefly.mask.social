@@ -1,5 +1,6 @@
 'use client';
 
+import { TextOverflowTooltip } from '@masknet/theme';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
@@ -49,7 +50,11 @@ export default function Page({
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
-                <h2 className="text-xl font-black leading-6">{data.metadata.name}</h2>
+                <TextOverflowTooltip title={data.metadata.name}>
+                    <h2 className="max-w-[calc(100%-24px)] truncate text-xl font-black leading-6">
+                        {data.metadata.name}
+                    </h2>
+                </TextOverflowTooltip>
             </div>
             <div className="space-y-6 p-5">
                 <NFTInfo
@@ -63,6 +68,7 @@ export default function Page({
                         icon: data.collection?.iconURL ?? undefined,
                     }}
                     floorPrice={floorPrice}
+                    chainId={chainId}
                 />
                 {data.traits && data.traits.length > 0 ? (
                     <NFTProperties

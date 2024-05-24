@@ -1,11 +1,14 @@
 import { Trans } from '@lingui/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { TextOverflowTooltip } from '@masknet/theme';
+import { EVMExplorerResolver } from '@masknet/web3-providers';
+import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
+import urlcat from 'urlcat';
 
 import DownloadIcon from '@/assets/download.svg';
-import LinkIcon from '@/assets/link.svg';
+import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
-import { CopyButton } from '@/components/NFTDetail/CopyButton.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
 
 export interface NFTInfoProps {
@@ -19,79 +22,101 @@ export interface NFTInfoProps {
         icon?: string;
     };
     floorPrice?: ReactNode;
-    lastSale?: ReactNode;
+    chainId?: ChainId;
 }
 
 export function NFTInfo(props: NFTInfoProps) {
-    const { imageURL, name, tokenId, collection, ownerAddress, contractAddress, floorPrice, lastSale } = props;
+    const { imageURL, name, tokenId, collection, ownerAddress, chainId, contractAddress, floorPrice } = props;
     return (
-        <div className="flex flex-col gap-5 sm:flex-row">
-            <div className="w-full sm:w-[300px]">
-                <Image width={300} height={300} src={imageURL} alt={name} className="rounded-[20px] object-cover" />
-                <div className="mt-4 flex justify-center gap-2">
-                    <a
-                        className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 text-[10px] leading-[14px]"
-                        href={imageURL}
-                        target="_blank"
-                        download={imageURL}
-                    >
-                        <DownloadIcon className="h-3 w-3" />
-                        <Trans>Download Image</Trans>
-                    </a>
-
-                    {contractAddress ? <CopyButton value={contractAddress} /> : null}
-                </div>
+        <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
+            <div className="relative mx-auto flex h-[250px] w-[250px] items-center justify-center sm:min-w-[250px]">
+                {chainId ? (
+                    <div className="absolute left-3 top-3">
+                        <ChainIcon chainId={chainId} size={24} />
+                    </div>
+                ) : null}
+                <Image
+                    width={250}
+                    height={250}
+                    src={imageURL}
+                    alt={name}
+                    className="shadow-lightS3 h-full w-full max-w-[250px] rounded-[20px] object-cover"
+                />
             </div>
-            <div className="flex flex-1 flex-col sm:pb-10">
-                <div className="mb-6 space-y-4">
-                    <div className="space-y-2">
+            <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
+                <div className="w-full space-y-3">
+                    <div className="flex w-full flex-col items-center justify-center space-y-3 sm:justify-start">
                         {collection ? (
                             <Link
-                                href={`/nft/${contractAddress}`}
-                                className="flex h-6 items-center text-lg font-bold leading-6"
+                                href={urlcat(`/nft/${contractAddress}`, {
+                                    chainId,
+                                })}
+                                className="flex h-5 w-full items-center text-base font-bold leading-6"
                             >
                                 {collection.icon ? (
                                     <Image
                                         width={20}
                                         height={20}
                                         alt={collection.name}
-                                        className="mr-2 rounded-md shadow"
+                                        className="mr-1 h-5 w-5 rounded-md shadow"
                                         src={collection.icon}
                                     />
                                 ) : null}
-                                {collection.name}
-                                <LinkIcon className="ml-1 h-6 w-6 text-secondary" />
+                                <TextOverflowTooltip title={collection.name}>
+                                    <div className="max-w-[calc(100%-20px-16px-8px-8px)] truncate">
+                                        {collection.name}
+                                    </div>
+                                </TextOverflowTooltip>
+                                <LinkIcon className="min-w-4 ml-1 h-4 w-4 text-secondary" />
                             </Link>
                         ) : null}
-                        <div className="mt-2 text-2xl font-medium leading-[30px]">{name}</div>
+                        <TextOverflowTooltip title={name}>
+                            <div className="mt-2 line-clamp-2 w-full text-center text-lg font-bold leading-6 sm:text-left">
+                                {name}
+                            </div>
+                        </TextOverflowTooltip>
                     </div>
                     {ownerAddress ? (
-                        <div className="space-y-1.5">
-                            <div className="text-base font-medium leading-[22px] text-secondary">
+                        <div className="space-y-1">
+                            <div className="text-base font-normal leading-6 text-secondary">
                                 <Trans>Owned By</Trans>
                             </div>
-                            <div className="text-lg font-bold">{formatEthereumAddress(ownerAddress, 4)}</div>
+                            {chainId ? (
+                                <Link
+                                    href={{
+                                        href: EVMExplorerResolver.addressLink(chainId, ownerAddress),
+                                    }}
+                                    className="flex items-center text-base font-bold leading-[14px]"
+                                >
+                                    {formatEthereumAddress(ownerAddress, 4)}
+                                    <LinkIcon className="ml-1 h-4 w-4 text-secondary" />
+                                </Link>
+                            ) : (
+                                <div className="text-base font-bold leading-[14px]">
+                                    {formatEthereumAddress(ownerAddress, 4)}
+                                </div>
+                            )}
                         </div>
                     ) : null}
-                </div>
-                <div className="mt-auto flex justify-between">
                     {floorPrice ? (
-                        <div className="space-y-1.5">
-                            <div className="text-base font-medium leading-[22px] text-secondary">
+                        <div className="space-y-1">
+                            <div className="text-base font-normal leading-6 text-secondary">
                                 <Trans>Floor Price</Trans>
                             </div>
-                            <div className="text-lg font-bold leading-6">{floorPrice}</div>
+                            <div className="text-base font-bold leading-[14px]">{floorPrice}</div>
                         </div>
                     ) : null}
-                    {lastSale && floorPrice ? <div className="mx-2 h-[54px] w-[1px] bg-line" /> : null}
-                    {lastSale ? (
-                        <div className="space-y-1.5">
-                            <div className="leading-5.5 text-base font-medium text-secondary">
-                                <Trans>Last Sale</Trans>
-                            </div>
-                            <div className="text-lg font-bold leading-6">{lastSale}</div>
-                        </div>
-                    ) : null}
+                    <div className="flex space-x-2">
+                        <a
+                            className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 text-[10px] leading-[14px]"
+                            href={imageURL}
+                            target="_blank"
+                            download={imageURL}
+                        >
+                            <DownloadIcon className="h-3 w-3" />
+                            <Trans>Download Image</Trans>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

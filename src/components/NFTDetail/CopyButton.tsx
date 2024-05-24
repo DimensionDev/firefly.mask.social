@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { useCallback, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
@@ -21,12 +21,8 @@ export function CopyButton(props: { value: string }) {
 
     return (
         <Tooltip content={copied ? t`Copied` : t`Copy`} placement="top" hideOnClick={false} interactive>
-            <button
-                className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 text-[10px] leading-[14px]"
-                onClick={handleCopy}
-            >
+            <button className="inline-block cursor-pointer select-none" onClick={handleCopy}>
                 <CopyIcon className="h-3 w-3" />
-                <Trans>Copy Address</Trans>
             </button>
         </Tooltip>
     );
