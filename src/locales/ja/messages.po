@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-23 00:04\n"
+"PO-Revision-Date: 2024-05-23 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1117,5 +1117,8 @@ msgid "Mint button is not available yet."
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
+msgstr ""
+
+msgid "Send a Feedback"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-23 00:04\n"
+"PO-Revision-Date: 2024-05-23 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -224,6 +224,9 @@ msgstr "密碼"
 
 msgid "Liked"
 msgstr "已喜歡"
+
+msgid "Term of Service"
+msgstr ""
 
 msgid "Please switch to the correct network in your wallet."
 msgstr ""
@@ -495,9 +498,6 @@ msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用�
 msgid "Unlike"
 msgstr "取消喜歡"
 
-msgid "Discord"
-msgstr ""
-
 msgid "Post has been hidden"
 msgstr ""
 
@@ -565,9 +565,6 @@ msgid "Failed to fetch bookmarks."
 msgstr "獲取書籤失敗。"
 
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "Telegram"
 msgstr ""
 
 msgid "Retweeted"
@@ -942,6 +939,9 @@ msgstr ""
 msgid "Share to"
 msgstr "分享至"
 
+msgid "Download app"
+msgstr ""
+
 msgid "Unknown session type."
 msgstr "未知的對話型別"
 
@@ -1135,9 +1135,6 @@ msgid "Mirror"
 msgstr ""
 
 msgid "Last Sale"
-msgstr ""
-
-msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."

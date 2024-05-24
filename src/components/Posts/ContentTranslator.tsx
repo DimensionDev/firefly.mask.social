@@ -24,28 +24,33 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     canShowMore,
 }) {
     const [collapsed, setCollapsed] = useState(false);
-    const [targetLanguage, setTargetLanguage] = useState<Language | null>(null);
+    const [translationConfig, setTranslationConfig] = useState<
+        Record<'original' | 'target', Language | null>
+    >({ original: null, target: null });
     const isLogin = useIsLogin();
 
     const [_, handleDetect] = useAsyncFn(async () => {
         const originalLanguage = await getContentLanguage(content);
-        setTargetLanguage(getTargetLanguage(originalLanguage));
+        setTranslationConfig({
+            original: originalLanguage,
+            target: getTargetLanguage(originalLanguage),
+        });
     }, []);
 
     const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(async () => {
-        const { detectedLanguage, translations } = await translate(targetLanguage!, content);
+        const { translations } = await translate(translationConfig.target!, content);
         return {
-            contentLanguage: getLangNameFromLocal(detectedLanguage ?? ''),
+            contentLanguage: getLangNameFromLocal(translationConfig.original!),
             translatedText: first(translations)?.text,
         };
-    }, [content, targetLanguage]);
+    }, [content, translationConfig]);
 
     useMount(() => {
         if (!isLogin) return;
         handleDetect();
     });
 
-    if (!isLogin || !targetLanguage) return null;
+    if (!isLogin || !translationConfig.target) return null;
 
     const translatedText = data?.translatedText;
     const contentLanguage = data?.contentLanguage;
