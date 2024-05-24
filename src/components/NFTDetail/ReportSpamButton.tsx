@@ -30,6 +30,7 @@ export function ReportSpamButton(props: { collectionId: string }) {
                     enqueueErrorMessage(getSnackbarMessageFromError(error, t`Report Failed`), {
                         error,
                     });
+                    throw error;
                 }
             }}
         >
