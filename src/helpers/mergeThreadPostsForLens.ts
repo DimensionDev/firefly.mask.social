@@ -1,5 +1,6 @@
 import { uniqBy } from 'lodash-es';
 
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -10,7 +11,7 @@ export function mergeThreadPostsForLens(posts: Post[]) {
         if (
             !post.root &&
             isSameProfile(post.author, post.commentOn?.author) &&
-            arr.some((x) => x.root?.postId === post.commentOn?.postId)
+            arr.some((x) => isSamePost(x.root, post.commentOn))
         )
             return false;
 
@@ -26,7 +27,7 @@ export function mergeThreadPostsForLens(posts: Post[]) {
     }).map((post) => {
         if (
             post.type === 'Comment' &&
-            post.firstComment?.postId === post.postId &&
+            isSamePost(post.firstComment, post) &&
             isSameProfile(post.commentOn?.author, post.author) &&
             isSameProfile(post.root?.author, post.author)
         ) {

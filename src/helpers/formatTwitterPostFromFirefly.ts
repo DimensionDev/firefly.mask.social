@@ -3,6 +3,7 @@ import { compact } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
@@ -74,7 +75,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         } else if (endCommentOn) {
             ret.root = endCommentOn;
         }
-        if (ret.root?.postId === ret.commentOn?.postId) {
+        if (isSamePost(ret.root, ret.commentOn)) {
             delete ret.root;
         }
         if (ret.root) {
