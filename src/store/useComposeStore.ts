@@ -92,6 +92,7 @@ interface ComposeState {
     enableSource: (source: SocialSource) => void;
     disableSource: (source: SocialSource) => void;
     updateRestriction: (restriction: RestrictionType) => void;
+    updateChannel: (channel: Channel) => void;
 
     // operations upon the current editable post
     updatePostId: (source: SocialSource, postId: string, cursor?: Cursor) => void;
@@ -109,7 +110,6 @@ interface ComposeState {
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
-    updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
     createPoll: (cursor?: Cursor) => void;
     updatePoll: (poll: Poll | null, cursor?: Cursor) => void;
 
@@ -314,6 +314,17 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     restriction,
                 })),
             })),
+        updateChannel: (channel) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    channel: {
+                        ...x.channel,
+                        [channel.source]: channel,
+                    },
+                })),
+            })),
         updateChars: (charsOrUpdater, cursor) =>
             set((state) =>
                 next(
@@ -431,21 +442,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         availableSources: sources,
-                    }),
-                    cursor,
-                ),
-            );
-        },
-        updateChannel(source, channel, cursor) {
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        channel: {
-                            ...post.channel,
-                            [source]: channel,
-                        },
                     }),
                     cursor,
                 ),
