@@ -10,7 +10,6 @@ import LinkIcon from '@/assets/link-square.svg';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { CopyButton } from '@/components/NFTDetail/CopyButton.js';
 import { Link } from '@/esm/Link.js';
-
 // eslint-disable-next-line no-restricted-imports
 import { resolveChain } from '@/maskbook/packages/web3-providers/src/SimpleHash/helpers.js';
 
