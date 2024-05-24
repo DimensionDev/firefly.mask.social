@@ -1,6 +1,7 @@
 import { compact, first, last } from 'lodash-es';
 
 import { MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -17,11 +18,9 @@ export function mergeThreadPostsForFarcaster(posts: Post[]) {
         if (x.type !== 'Comment') return true;
         if (
             (x.root?.postId &&
-                threads.some((thread) => thread.postId === x.root?.postId && isSameProfile(thread.author, x.author))) ||
+                threads.some((thread) => isSamePost(thread, x.root) && isSameProfile(thread.author, x.author))) ||
             (x.commentOn?.postId &&
-                threads.some(
-                    (thread) => thread.postId === x.commentOn?.postId && isSameProfile(thread.author, x.author),
-                ))
+                threads.some((thread) => isSamePost(thread, x.commentOn) && isSameProfile(thread.author, x.author)))
         )
             return false;
 
