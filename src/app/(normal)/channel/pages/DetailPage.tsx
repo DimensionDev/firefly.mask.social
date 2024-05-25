@@ -66,7 +66,7 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
             <hr className=" divider w-full border-line" />
 
             <Suspense fallback={<Loading />}>
-                <PostList source={channel.source} channelId={channel.id} />
+                <PostList source={channel.source} channel={channel} />
             </Suspense>
         </div>
     );

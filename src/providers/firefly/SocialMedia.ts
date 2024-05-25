@@ -844,14 +844,16 @@ class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
 
-        const posts = response.data?.list.map((x) => {
-            const formatted = formatFarcasterPostFromFirefly(x.post_content);
-            if (!formatted) return null;
-            return {
-                ...formatted,
-                hasBookmarked: true,
-            };
-        });
+        const posts = response.data?.list
+            .filter((x) => !!x.post_content)
+            .map((x) => {
+                const formatted = formatFarcasterPostFromFirefly(x.post_content);
+                if (!formatted) return null;
+                return {
+                    ...formatted,
+                    hasBookmarked: true,
+                };
+            });
 
         return createPageable(
             posts ? compact(posts) : EMPTY_LIST,
