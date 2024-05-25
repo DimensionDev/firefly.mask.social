@@ -42,7 +42,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     height={250}
                     src={imageURL}
                     alt={name}
-                    className="shadow-lightS3 h-full w-full max-w-[250px] rounded-[20px] object-cover"
+                    className="h-full w-full max-w-[250px] rounded-[20px] object-cover shadow-lightS3"
                 />
             </div>
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">

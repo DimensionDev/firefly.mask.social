@@ -50,13 +50,13 @@ export function LinkCloud() {
                 <Link
                     href={link}
                     key={link}
-                    className="outline-offset-4 hover:underline font-medium"
+                    className="font-medium outline-offset-4 hover:underline"
                     target={self ? '_self' : '_blank'}
                 >
                     {name}
                 </Link>
             ))}
-            <span className="cursor-pointer hover:underline font-medium" ref={feedbackEl}>
+            <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl}>
                 <Trans>Feedback</Trans>
             </span>
         </div>
