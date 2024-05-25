@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-24 12:01\n"
+"PO-Revision-Date: 2024-05-25 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -49,6 +49,9 @@ msgid "Failed to fetch as Blob."
 msgstr ""
 
 msgid "Unmute successfully."
+msgstr ""
+
+msgid "Report Spam"
 msgstr ""
 
 msgid "Mute /{0}"
@@ -150,6 +153,9 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
+msgid "Confirm to report this Collection?"
+msgstr ""
+
 msgid "NFT Standard"
 msgstr ""
 
@@ -244,6 +250,9 @@ msgid "Only up to 2 images can be chosen."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
+msgstr ""
+
+msgid "Report Failed"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
@@ -382,6 +391,9 @@ msgid "Try searching for something else."
 msgstr ""
 
 msgid "Unmute /{0}"
+msgstr ""
+
+msgid "Report spam"
 msgstr ""
 
 msgid "Invalid compose type: {type}."
