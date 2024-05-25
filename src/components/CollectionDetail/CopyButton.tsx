@@ -10,7 +10,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 export function CopyButton(props: { value: string }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const [copied, setCopied] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
     const handleCopy = useCallback(() => {
         copyToClipboard(props.value);

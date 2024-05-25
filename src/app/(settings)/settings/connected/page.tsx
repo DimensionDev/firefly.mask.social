@@ -22,7 +22,7 @@ import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 export default function Connected() {
     const { address } = useAccount();
 
-    const timerRef = useRef<NodeJS.Timeout>();
+    const timerRef = useRef<NodeJS.Timeout>(null);
 
     const profilesAll = useProfilesAll();
     const currentProfileAll = useCurrentProfileAll();

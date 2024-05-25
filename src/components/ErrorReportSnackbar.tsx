@@ -56,7 +56,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
 
     const [, copyToClipboard] = useCopyToClipboard();
     const [copied, setCopied] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
     const handleCopy = useCallback(() => {
         copyToClipboard(text);

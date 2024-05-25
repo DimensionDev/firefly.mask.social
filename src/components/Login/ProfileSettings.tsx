@@ -38,7 +38,7 @@ interface ProfileSettingsProps {
 }
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
-    const controllerRef = useRef<AbortController>();
+    const controllerRef = useRef<AbortController>(null);
     const { currentProfile, refreshProfiles } = useProfileStore(source);
 
     const [{ loading }, onDetect] = useAsyncFn(
