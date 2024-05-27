@@ -12,6 +12,7 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
+import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSearchChannels } from '@/hooks/useSearchChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -20,9 +21,12 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 export function ChannelSearchPanel() {
     const [inputText, setInputText] = useState('');
     const { updateChannel } = useComposeStateStore();
-    const { channel: selectedChannel } = useCompositePost();
+    const { channel: selectedChannel, typedMessage } = useCompositePost();
 
-    const { data, isLoading, isError } = useSearchChannels(inputText);
+    const { data, isLoading, isError } = useSearchChannels(
+        inputText,
+        hasRpPayload(typedMessage) ?? false,
+    );
 
     const InputBox = (
         <div className="relative mx-3 flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
