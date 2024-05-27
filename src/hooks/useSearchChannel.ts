@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { compact, uniq } from 'lodash-es';
+import { compact, uniqBy } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
@@ -12,14 +12,14 @@ async function searchChannels(source: SocialSource, keyword: string, hasRedPacke
     if (!keyword) {
         const defaultChannels = await provider.searchChannels('');
         if (source === Source.Farcaster) {
-            return uniq(compact([
+            return uniqBy(compact([
                 HOME_CHANNEL,
                 hasRedPacket ? {
                     ...FF_GARDEN_CHANNEL,
                     followerCount: (await provider.getChannelById(FF_GARDEN_CHANNEL.id)).followerCount,
                 } : null,
                 ...defaultChannels.data
-            ]))
+            ]), 'id')
         }
         return defaultChannels.data;
     }
