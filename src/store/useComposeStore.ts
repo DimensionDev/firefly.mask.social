@@ -13,6 +13,7 @@ import { type Chars, readChars } from '@/helpers/chars.js';
 import { createPoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
@@ -246,6 +247,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     const availableSources = uniq([...x.availableSources, source]);
                     return {
                         ...x,
+                        restriction: isValidRestrictionType(x.restriction, availableSources)
+                            ? x.restriction
+                            : RestrictionType.Everyone,
                         availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
                     };
                 }),
