@@ -12,14 +12,19 @@ async function searchChannels(source: SocialSource, keyword: string, hasRedPacke
     if (!keyword) {
         const defaultChannels = await provider.searchChannels('');
         if (source === Source.Farcaster) {
-            return uniqBy(compact([
-                HOME_CHANNEL,
-                hasRedPacket ? {
-                    ...FF_GARDEN_CHANNEL,
-                    followerCount: (await provider.getChannelById(FF_GARDEN_CHANNEL.id)).followerCount,
-                } : null,
-                ...defaultChannels.data
-            ]), 'id')
+            return uniqBy(
+                compact([
+                    HOME_CHANNEL,
+                    hasRedPacket
+                        ? {
+                              ...FF_GARDEN_CHANNEL,
+                              followerCount: (await provider.getChannelById(FF_GARDEN_CHANNEL.id)).followerCount,
+                          }
+                        : null,
+                    ...defaultChannels.data,
+                ]),
+                'id',
+            );
         }
         return defaultChannels.data;
     }
