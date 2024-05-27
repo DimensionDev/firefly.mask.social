@@ -1,6 +1,6 @@
 import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/addThread.svg';
@@ -57,33 +57,7 @@ export function ComposeSend(props: ComposeSendProps) {
         [type, post, posts.length > 1, checkPostMedias],
     );
 
-    const disabled = loading || error || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
-
-    const submitButtonText = useMemo(() => {
-        if (loading)
-            return (
-                <>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                    <span>
-                        <Trans>Posting...</Trans>
-                    </span>
-                </>
-            );
-        if (error)
-            return (
-                <span>
-                    <Trans>Retry</Trans>
-                </span>
-            );
-        return (
-            <>
-                <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
-                <span>
-                    <Plural value={posts.length} one={<Trans>Post</Trans>} other={<Trans>Post All</Trans>} />
-                </span>
-            </>
-        );
-    }, [loading, error, posts.length]);
+    const disabled = loading || (posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post));
 
     if (!isMedium) {
         return (
@@ -150,7 +124,9 @@ export function ComposeSend(props: ComposeSendProps) {
                         'bg-commonDanger': !!error,
                     },
                 )}
-                onClick={() => handlePost(!!error)}
+                onClick={() => {
+                    handlePost(!!error);
+                }}
             >
                 {posts.length > 1 && loading ? (
                     <span
@@ -161,7 +137,25 @@ export function ComposeSend(props: ComposeSendProps) {
                         }}
                     />
                 ) : null}
-                {submitButtonText}
+                {loading ? (
+                    <>
+                        <LoadingIcon width={16} height={16} className="animate-spin" />
+                        <span>
+                            <Trans>Posting...</Trans>
+                        </span>
+                    </>
+                ) : error ? (
+                    <span>
+                        <Trans>Retry</Trans>
+                    </span>
+                ) : (
+                    <>
+                        <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                        <span>
+                            <Plural value={posts.length} one={<Trans>Post</Trans>} other={<Trans>Post All</Trans>} />
+                        </span>
+                    </>
+                )}
             </ClickableButton>
         </div>
     );
