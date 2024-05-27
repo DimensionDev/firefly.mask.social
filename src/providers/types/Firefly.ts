@@ -404,7 +404,7 @@ export type BookmarkResponse<T> = Response<{
         platform: string;
         platform_id: string;
         post_id: string;
-        post_content: T;
+        post_content?: T;
     }>;
 }>;
 
