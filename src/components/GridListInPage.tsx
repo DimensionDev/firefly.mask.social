@@ -33,7 +33,7 @@ export function GridListInPage<T = unknown>({
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const itemsRendered = useRef(false);
+    const itemsRendered = useRef(true);
     const isLogin = useIsLogin(currentSocialSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
