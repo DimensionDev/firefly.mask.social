@@ -4,10 +4,10 @@ import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
 
-import DownloadIcon from '@/assets/download.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
 import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
 import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
@@ -112,15 +112,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         </div>
                     ) : null}
                     <div className="flex space-x-2">
-                        <a
-                            className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 text-[10px] leading-[14px]"
-                            href={imageURL}
-                            target="_blank"
-                            download={imageURL}
-                        >
-                            <DownloadIcon className="h-3 w-3" />
-                            <Trans>Download Image</Trans>
-                        </a>
+                        <DownloadImageButton url={imageURL} />
                         {collection?.id ? <ReportSpamButton collectionId={collection?.id} /> : null}
                     </div>
                 </div>

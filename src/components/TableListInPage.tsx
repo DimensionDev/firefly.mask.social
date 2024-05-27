@@ -73,6 +73,10 @@ export function TableListInPage<T = unknown>({
             data={data}
             endReached={onEndReached}
             {...VirtualTableListProps}
+            itemSize={(el: HTMLElement) => {
+                if (!itemsRendered.current) itemsRendered.current = true;
+                return el.getBoundingClientRect().height;
+            }}
             context={Context}
             components={Components}
             className={classNames('max-md:no-scrollbar', className)}

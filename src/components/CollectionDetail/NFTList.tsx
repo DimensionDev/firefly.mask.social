@@ -15,7 +15,10 @@ export function NFTList(props: { address: string; chainId?: ChainId }) {
         initialPageParam: '',
         queryKey: ['nft-list', address, chainId],
         async queryFn({ pageParam }) {
-            const indicator = createIndicator(undefined, pageParam);
+            const indicator = createIndicator(
+                pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
+                pageParam,
+            );
             return SimpleHashWalletProfileProvider.getNFTs(address, { indicator, chainId });
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
