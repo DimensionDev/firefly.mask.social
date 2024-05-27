@@ -102,7 +102,7 @@ export function formatTweetsPage(
     data: TweetV2PaginableTimelineResult,
     currentIndicator?: PageIndicator,
 ): Pageable<Post, PageIndicator> {
-    const posts = data.data?.map((item) => tweetV2ToPost(item, data.includes)) || [];
+    const posts = data.data.map((item) => tweetV2ToPost(item, data.includes));
     return createPageable(
         posts,
         createIndicator(currentIndicator),

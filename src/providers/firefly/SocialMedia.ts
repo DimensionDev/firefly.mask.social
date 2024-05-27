@@ -424,7 +424,7 @@ class FireflySocialMedia implements Provider {
 
             return createPageable(
                 compact(comments.map((item) => formatFarcasterPostFromFirefly(item))),
-                indicator ?? createIndicator(indicator),
+                createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
         });
@@ -595,7 +595,7 @@ class FireflySocialMedia implements Provider {
 
             return createPageable(
                 data,
-                indicator ?? createIndicator(),
+                createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
         }, true);
@@ -844,18 +844,20 @@ class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
 
-        const posts = response.data?.list.map((x) => {
-            if (!x.post_content) return null;
-            const formatted = formatFarcasterPostFromFirefly(x.post_content);
-            if (!formatted) return null;
-            return {
-                ...formatted,
-                hasBookmarked: true,
-            };
-        });
+        const posts = compact(
+            response.data?.list.map((x) => {
+                if (!x.post_content) return null;
+                const formatted = formatFarcasterPostFromFirefly(x.post_content);
+                if (!formatted) return null;
+                return {
+                    ...formatted,
+                    hasBookmarked: true,
+                };
+            }),
+        );
 
         return createPageable(
-            posts ? compact(posts) : EMPTY_LIST,
+            posts,
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
