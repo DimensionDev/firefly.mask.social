@@ -1,15 +1,17 @@
 const cspConfig = {
-    'default-src': ['https:', 'wss:', "'self'"],
+    'default-src': ["'self'", 'https:', 'wss:', 'data:', 'blob:'],
     'script-src': [
         "'self'",
         "'unsafe-inline'",
         "'unsafe-eval'",
-        'https://www.googletagmanager.com/',
-        'https://cdn.jsdelivr.net',
-        'https://*.vercel-scripts.com',
-        'https://*.firefly.land/',
+        'www.googletagmanager.com/',
+        'cdn.jsdelivr.net',
+        '*.vercel-scripts.com',
+        '*.firefly.land/',
+        'vercel.live',
     ],
-    'style-src': ["'self'", "'unsafe-inline'"],
+    'image-src': ["'self'", 'https:', 'data:', 'blob:'],
+    'style-src': ["'self'", "'unsafe-inline'", 'vercel.live', 'fonts.googleapis.com'],
     'worker-src': ["'self'", 'blob:'],
 };
 
