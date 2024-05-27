@@ -82,7 +82,16 @@ export function POAPList(props: { address: string }) {
         initialPageParam: '',
         queryKey: ['poap-list', address],
         async queryFn({ pageParam }) {
-            const indicator = createIndicator(undefined, pageParam);
+            const indicator = createIndicator(
+                pageParam
+                    ? {
+                          index: 1,
+                          __type__: 'PageIndicator',
+                          id: pageParam,
+                      }
+                    : undefined,
+                pageParam,
+            );
             return SimpleHashWalletProfileProvider.getPOAPs(address, {
                 indicator,
                 chainId: ChainId.xDai,
