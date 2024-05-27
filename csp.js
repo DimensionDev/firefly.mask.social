@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 const cspConfig = {
     'default-src': ["'self'", 'https:', 'wss:', 'data:', 'blob:'],
     'script-src': [

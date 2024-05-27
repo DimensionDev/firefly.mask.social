@@ -26,11 +26,7 @@ function getTextUpToAnchor(selection: RangeSelection): QueryText | null {
     const prevSiblingText = prevSibling?.getTextContent() ?? '';
     MENTION_REGEX.lastIndex = 0;
 
-    if (
-        anchorOffset === 0
-        && $isAutoLinkNode(prevSibling)
-        && MENTION_REGEX.test(prevSiblingText)
-    ) {
+    if (anchorOffset === 0 && $isAutoLinkNode(prevSibling) && MENTION_REGEX.test(prevSiblingText)) {
         return { text: prevSiblingText, matchedNode: prevSibling };
     }
     return null;
