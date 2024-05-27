@@ -181,10 +181,8 @@ export function MentionsPlugin(): JSX.Element | null {
 
     const checkForMentionMatch = useCallback(
         (text: string) => {
-            const {
-                text: queryText = '',
-                matchedNode
-            } = getSafeMentionQueryText(text, editor, isUpdatingMentionTag.current) ?? {};
+            const { text: queryText = '', matchedNode } =
+                getSafeMentionQueryText(text, editor, isUpdatingMentionTag.current) ?? {};
             const slashMatch = checkForSlashTriggerMatch(queryText, editor);
 
             if (matchedNode) {
@@ -203,22 +201,25 @@ export function MentionsPlugin(): JSX.Element | null {
     const onSelectOption = useCallback(
         (selectedOption: MentionTypeaheadOption, nodeToReplace: null | TextNode, closeMenu: () => void) => {
             isUpdatingMentionTag.current = true;
-            editor.update(() => {
-                const mentionNode = $createMentionNode(selectedOption.fullHandle);
-                if (nodeToReplace) {
-                    nodeToReplace.replace(mentionNode);
-                } else if (matchedNodeCache.current) {
-                    matchedNodeCache.current.replace(mentionNode);
-                }
-                mentionNode.select().insertText(' ');
-                closeMenu();
-            }, {
-                onUpdate: () => {
-                    isUpdatingMentionTag.current = false;
-                    matchedNodeCache.current = null;
+            editor.update(
+                () => {
+                    const mentionNode = $createMentionNode(selectedOption.fullHandle);
+                    if (nodeToReplace) {
+                        nodeToReplace.replace(mentionNode);
+                    } else if (matchedNodeCache.current) {
+                        matchedNodeCache.current.replace(mentionNode);
+                    }
+                    mentionNode.select().insertText(' ');
+                    closeMenu();
                 },
-                discrete: true,
-            });
+                {
+                    onUpdate: () => {
+                        isUpdatingMentionTag.current = false;
+                        matchedNodeCache.current = null;
+                    },
+                    discrete: true,
+                },
+            );
         },
         [editor],
     );
