@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
 import type { TweetV2, TweetV2PaginableTimelineResult, UserV2 } from 'twitter-api-v2';
@@ -199,7 +199,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getCommentsById(_postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return createPageable([], createIndicator(indicator));
+        return createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
     getThreadByPostId(postId: string): Promise<Post[]> {

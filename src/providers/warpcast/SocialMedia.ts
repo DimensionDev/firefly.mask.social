@@ -146,7 +146,7 @@ class WarpcastSocialMedia implements Provider {
 
         return createPageable(
             data,
-            indicator ?? createIndicator(),
+            createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
     }
@@ -163,7 +163,7 @@ class WarpcastSocialMedia implements Provider {
 
         return createPageable(
             data,
-            indicator ?? createIndicator(),
+            createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
     }
@@ -382,7 +382,7 @@ class WarpcastSocialMedia implements Provider {
         const data = result.feed.map(formatWarpcastPostFromFeed).filter((post) => post.type === 'Comment');
         return createPageable(
             data,
-            indicator ?? createIndicator(),
+            createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
     }
@@ -621,23 +621,25 @@ class WarpcastSocialMedia implements Provider {
             },
             true,
         );
-        const data = result.notifications.map<Notification | undefined>((notification) => {
-            const notificationId = `${notification.type}_${notification.id}`;
-            const post = notification.content.cast ? formatWarpcastPost(notification.content.cast) : undefined;
-            const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
-            if (notification.type === 'cast-reply') {
-                return {
-                    source: Source.Farcaster,
-                    notificationId,
-                    type: NotificationType.Comment,
-                    post,
-                    timestamp,
-                };
-            }
-            return;
-        });
+        const data = compact(
+            result.notifications.map<Notification | undefined>((notification) => {
+                const notificationId = `${notification.type}_${notification.id}`;
+                const post = notification.content.cast ? formatWarpcastPost(notification.content.cast) : undefined;
+                const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
+                if (notification.type === 'cast-reply') {
+                    return {
+                        source: Source.Farcaster,
+                        notificationId,
+                        type: NotificationType.Comment,
+                        post,
+                        timestamp,
+                    };
+                }
+                return;
+            }),
+        );
         return createPageable(
-            compact(data),
+            data,
             createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
