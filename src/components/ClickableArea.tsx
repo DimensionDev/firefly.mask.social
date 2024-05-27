@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { createElement, type JSX } from 'react';
 
 export interface ClickableAreaProps extends React.HTMLAttributes<HTMLDivElement> {
     as?: keyof JSX.IntrinsicElements;

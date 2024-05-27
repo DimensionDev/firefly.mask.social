@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 export class Widget extends HTMLElement {

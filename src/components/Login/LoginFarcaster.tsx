@@ -118,7 +118,7 @@ export function LoginFarcaster() {
         ].filter((x) => (IS_PRODUCTION ? !x.developmentOnly : true));
     }, []);
 
-    const controllerRef = useRef<AbortController>();
+    const controllerRef = useRef<AbortController>(null);
 
     const [url, setUrl] = useState('');
     const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);

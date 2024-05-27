@@ -9,7 +9,7 @@ import { EMPTY_LIST } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical/index.js';
 import { first } from 'lodash-es';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState, type JSX } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounce } from 'usehooks-ts';
 
