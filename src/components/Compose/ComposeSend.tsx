@@ -1,6 +1,6 @@
 import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/addThread.svg';
