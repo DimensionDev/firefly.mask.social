@@ -41,6 +41,10 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     commentPost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -353,6 +357,9 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async unblockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getBlockedUsers(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

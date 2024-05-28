@@ -690,6 +690,13 @@ export interface Provider {
     unblockUser: (profileId: string) => Promise<boolean>;
 
     /**
+     * Retrieves profiles that the current logged user has blocked.
+     * @param indicator
+     * @returns
+     */
+    getBlockedUsers: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
      * Block a channel.
      * @param channelId
      * @returns
@@ -702,6 +709,13 @@ export interface Provider {
      * @returns
      */
     unblockChannel: (channelId: string) => Promise<boolean>;
+
+    /**
+     * Retrieves channels that the current logged user has blocked.
+     * @param indicator
+     * @returns
+     */
+    getBlockedChannels: (indicator?: PageIndicator) => Promise<Pageable<Channel, PageIndicator>>;
 
     /**
      * Retrieve profiles who liked the specified post.

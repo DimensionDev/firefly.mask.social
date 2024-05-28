@@ -660,11 +660,19 @@ class WarpcastSocialMedia implements Provider {
         return true;
     }
 
+    async getBlockedUsers(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     async blockChannel(channelId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
