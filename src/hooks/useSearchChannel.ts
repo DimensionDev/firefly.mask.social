@@ -47,7 +47,7 @@ export function useSearchChannels(keyword: string, hasRedPacket: boolean) {
         queryFn: async () => {
             const allSettled = await Promise.allSettled(
                 SORTED_CHANNEL_SOURCES.map((x) =>
-                    searchChannels(x, debouncedKeyword, { hasRedPacket, profileId: profiles[x]?.profileId ?? ''}),
+                    searchChannels(x, debouncedKeyword, { hasRedPacket, profileId: profiles[x]?.profileId ?? '' }),
                 ),
             );
             return allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
