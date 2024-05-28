@@ -3,11 +3,14 @@ import type { NextRequest } from 'next/server.js';
 
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
+import type { NextRequestContext } from '@/types/index.js';
 
-export function withTwitterRequestErrorHandler(handler: (request: NextRequest, ...other: any[]) => Promise<Response>) {
-    return async (request: NextRequest, ...other: any[]) => {
+export function withTwitterRequestErrorHandler(
+    handler: (request: NextRequest, context?: NextRequestContext) => Promise<Response>,
+) {
+    return async (request: NextRequest, context?: NextRequestContext) => {
         try {
-            return await handler(request, ...other);
+            return await handler(request, context);
         } catch (error) {
             return createErrorResponseJSON(getTwitterErrorMessage(error), {
                 status: StatusCodes.INTERNAL_SERVER_ERROR,
