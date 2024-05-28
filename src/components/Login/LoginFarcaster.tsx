@@ -350,7 +350,8 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                 ) : signType === FarcasterSignType.GrantPermission ? (
                                     <Trans>
                                         On your mobile device with Warpcast, open the{' '}
-                                        <span className="font-bold">Camera</span> app and scan the QR code.
+                                        <span className="font-bold">Camera</span> app and scan the QR code. Approve a
+                                        new Farcaster signer to Firefly.
                                     </Trans>
                                 ) : signType === FarcasterSignType.RelayService ? (
                                     <Trans>
@@ -364,7 +365,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                                 })}
                                             </span>
                                         }
-                                        .
+                                        . Approve a new Farcaster signer to Firefly.
                                     </Trans>
                                 ) : null}
                             </div>

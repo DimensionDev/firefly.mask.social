@@ -184,6 +184,9 @@ msgstr "Show less"
 msgid "comment"
 msgstr "comment"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
@@ -498,9 +501,6 @@ msgstr "Malformed session."
 
 msgid "Failed to login."
 msgstr "Failed to login."
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 
 msgid "Unlike"
 msgstr "Unlike"
@@ -895,6 +895,9 @@ msgstr "Failed to mirror post."
 msgid "Failed to create firefly session."
 msgstr "Failed to create firefly session."
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+
 msgid "Properties"
 msgstr "Properties"
 
@@ -951,9 +954,6 @@ msgstr "Download app"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 
 msgid "{validInDays} day"
 msgstr "{validInDays} day"
