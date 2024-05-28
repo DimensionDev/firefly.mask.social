@@ -193,6 +193,9 @@ msgstr ""
 msgid "The author is muted by you."
 msgstr ""
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr ""
 
@@ -203,6 +206,9 @@ msgid "Username"
 msgstr ""
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
 msgstr ""
 
 msgid "NFTs"
@@ -418,6 +424,9 @@ msgstr ""
 msgid "AUTHOR ADDRESS"
 msgstr ""
 
+msgid "Farcaster Users"
+msgstr ""
+
 msgid "Reply"
 msgstr ""
 
@@ -469,10 +478,16 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
+msgid "Farcaster Channels"
+msgstr ""
+
 msgid "Replies"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "{0} @{1}"
 msgstr ""
 
 msgid "Only people you mention"
@@ -569,6 +584,9 @@ msgid "Lens"
 msgstr ""
 
 msgid "Failed to fetch bookmarks."
+msgstr ""
+
+msgid "Confirm you want to {0} @{1}?"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -719,6 +737,9 @@ msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
+msgstr ""
+
+msgid "{0} /{1}"
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
@@ -922,6 +943,9 @@ msgstr ""
 msgid "No device accounts detected."
 msgstr ""
 
+msgid "Confirm you want to {0} /{1}?"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -992,6 +1016,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "Owned"
+msgstr ""
+
+msgid "X Users"
 msgstr ""
 
 msgid "Claim on {0}: {1}"
@@ -1124,6 +1151,9 @@ msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
+msgstr ""
+
+msgid "Lens Users"
 msgstr ""
 
 msgid "Followers"

@@ -198,6 +198,9 @@ msgstr "确认"
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
@@ -208,6 +211,9 @@ msgid "Username"
 msgstr "用户名"
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
 msgstr ""
 
 msgid "NFTs"
@@ -423,6 +429,9 @@ msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
+msgid "Farcaster Users"
+msgstr ""
+
 msgid "Reply"
 msgstr "回复"
 
@@ -474,11 +483,17 @@ msgstr "添加账号"
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
+msgid "Farcaster Channels"
+msgstr ""
+
 msgid "Replies"
 msgstr "回复"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "{0} @{1}"
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -575,6 +590,9 @@ msgstr "Lens"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
+
+msgid "Confirm you want to {0} @{1}?"
+msgstr ""
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -725,6 +743,9 @@ msgstr ""
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
+
+msgid "{0} /{1}"
+msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
@@ -927,6 +948,9 @@ msgstr "添加"
 msgid "No device accounts detected."
 msgstr "未检测到设备账号。"
 
+msgid "Confirm you want to {0} /{1}?"
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -997,6 +1021,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "Owned"
+msgstr ""
+
+msgid "X Users"
 msgstr ""
 
 msgid "Claim on {0}: {1}"
@@ -1129,6 +1156,9 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
+msgstr ""
+
+msgid "Lens Users"
 msgstr ""
 
 msgid "Followers"

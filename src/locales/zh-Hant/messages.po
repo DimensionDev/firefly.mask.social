@@ -198,6 +198,9 @@ msgstr "確認"
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
@@ -208,6 +211,9 @@ msgid "Username"
 msgstr "用戶名"
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
 msgstr ""
 
 msgid "NFTs"
@@ -423,6 +429,9 @@ msgstr "上傳失敗。圖像數量超過{maxImageCount} 張。"
 msgid "AUTHOR ADDRESS"
 msgstr ""
 
+msgid "Farcaster Users"
+msgstr ""
+
 msgid "Reply"
 msgstr ""
 
@@ -474,10 +483,16 @@ msgstr "新增账户"
 msgid "{0} Comments"
 msgstr ""
 
+msgid "Farcaster Channels"
+msgstr ""
+
 msgid "Replies"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "{0} @{1}"
 msgstr ""
 
 msgid "Only people you mention"
@@ -575,6 +590,9 @@ msgstr ""
 
 msgid "Failed to fetch bookmarks."
 msgstr "獲取書籤失敗。"
+
+msgid "Confirm you want to {0} @{1}?"
+msgstr ""
 
 msgid "Failed to upvote post."
 msgstr ""
@@ -724,6 +742,9 @@ msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
+msgstr ""
+
+msgid "{0} /{1}"
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
@@ -927,6 +948,9 @@ msgstr ""
 msgid "No device accounts detected."
 msgstr ""
 
+msgid "Confirm you want to {0} /{1}?"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -997,6 +1021,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "Owned"
+msgstr ""
+
+msgid "X Users"
 msgstr ""
 
 msgid "Claim on {0}: {1}"
@@ -1129,6 +1156,9 @@ msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
+msgstr ""
+
+msgid "Lens Users"
 msgstr ""
 
 msgid "Followers"
