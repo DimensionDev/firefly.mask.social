@@ -6,7 +6,7 @@ import { classNames } from '@/helpers/classNames.js';
 
 export interface ShowMoreCommentsProps {
     avatarUrls?: string[];
-    maxAvatarCount?: number | false;
+    maxAvatarCount?: number; // show all avatar urls when it is 0. default to 3
     isOpen?: boolean;
     onClick?: () => void;
     className?: string;
