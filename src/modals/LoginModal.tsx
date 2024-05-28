@@ -9,7 +9,7 @@ import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { BackButton } from '@/components/BackIcon.js';
+import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
