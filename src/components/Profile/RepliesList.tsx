@@ -34,8 +34,8 @@ export function RepliesList({ profileId, source }: RepliesListProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return;
-            return lastPage?.nextIndicator?.id;
+            if (!lastPage?.data.length) return;
+            return lastPage.nextIndicator?.id;
         },
         select: getPostsSelector(source),
     });

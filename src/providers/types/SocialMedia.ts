@@ -172,9 +172,9 @@ export interface Post {
      * the current post itself represents the end of the thread.
      * and `commentOn` represents the post to which the current post is a reply.
      */
-    commentOn?: Post | null;
-    root?: Post | null;
-    quoteOn?: Post | null;
+    commentOn?: Post;
+    root?: Post;
+    quoteOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;

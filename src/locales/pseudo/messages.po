@@ -247,6 +247,9 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
@@ -341,9 +344,6 @@ msgid "Follow System"
 msgstr ""
 
 msgid "Failed to mirror."
-msgstr ""
-
-msgid "Your post was deleted."
 msgstr ""
 
 msgid "Remove from Bookmarks"
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Unlike"
 msgstr ""
 
-msgid "Post has been hidden"
+msgid "Post was deleted"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -518,6 +518,9 @@ msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
 msgid "Bookmark"
+msgstr ""
+
+msgid "Post has been deleted"
 msgstr ""
 
 msgid "Everyone"
@@ -842,9 +845,6 @@ msgid "Casts + Replies"
 msgstr ""
 
 msgid "Image"
-msgstr ""
-
-msgid "Failed to delete post."
 msgstr ""
 
 msgid "Muted @{0} on {sourceName}"

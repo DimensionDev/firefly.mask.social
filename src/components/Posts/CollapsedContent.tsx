@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { forwardRef, type HTMLProps } from 'react';
 
 import EyeSlash from '@/assets/eye-slash.svg';
+import TrashIcon from '@/assets/trash.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -21,8 +22,8 @@ export const CollapsedContent = forwardRef<HTMLDivElement, Props>(function Colla
                     isQuote ? '' : 'border px-3',
                 )}
             >
-                <EyeSlash width={16} height={16} />
-                {muted ? <Trans>The author is muted by you.</Trans> : <Trans>Post has been hidden</Trans>}
+                {muted ? <EyeSlash width={16} height={16} /> : <TrashIcon width={16} height={16} />}
+                {muted ? <Trans>The author is muted by you.</Trans> : <Trans>Post has been deleted</Trans>}
             </div>
         </div>
     );
