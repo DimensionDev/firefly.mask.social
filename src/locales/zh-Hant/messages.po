@@ -687,6 +687,9 @@ msgstr "已成功靜音"
 msgid "Show More"
 msgstr "顯示更多"
 
+msgid "Show more comments"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 

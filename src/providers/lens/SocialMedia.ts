@@ -4,6 +4,7 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
+    HiddenCommentsType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
@@ -1173,6 +1174,31 @@ class LensSocialMedia implements Provider {
             );
         }
         throw new Error('Failed to fetch bookmarks');
+    }
+
+    async getHiddenComments(postId: string, indicator?: PageIndicator) {
+        const result = await lensSessionHolder.sdk.publication.fetchAll({
+            limit: LimitType.TwentyFive,
+            where: {
+                commentOn: {
+                    hiddenComments: HiddenCommentsType.Hide,
+                    id: postId,
+                    ranking: {
+                        filter: CommentRankingFilterType.NoneRelevant,
+                    },
+                },
+                customFilters: [CustomFiltersType.Gardeners],
+            },
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        if (!result) throw new Error(t`No comments found`);
+
+        return createPageable(
+            result.items.map(formatLensPost),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 }
 

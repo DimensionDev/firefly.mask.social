@@ -1,10 +1,10 @@
-import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 
-interface VirtualListFooterProps {
+export interface VirtualListFooterProps {
     context?: {
         hasNextPage?: boolean;
         fetchNextPage?: () => Promise<void>;
@@ -27,12 +27,7 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
         },
     });
 
-    if (!context?.hasNextPage)
-        return (
-            <div className="flex items-center justify-center p-6 text-base text-secondary">
-                <Trans>You&apos;ve hit rock bottom.</Trans>
-            </div>
-        );
+    if (!context?.hasNextPage) return <VirtualListFooterBottomText />;
 
     if (!context.itemsRendered) return null;
 

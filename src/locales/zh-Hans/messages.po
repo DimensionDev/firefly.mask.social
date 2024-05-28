@@ -687,6 +687,9 @@ msgstr "屏蔽成功。"
 msgid "Show More"
 msgstr "显示更多"
 
+msgid "Show more comments"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 

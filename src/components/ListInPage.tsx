@@ -13,23 +13,25 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface ListInPageProps<T = unknown> {
+interface ListInPageProps<T = unknown, C = unknown> {
     queryResult: UseSuspenseInfiniteQueryResult<T[]>;
     loginRequired?: boolean;
     noResultsFallbackRequired?: boolean;
-    VirtualListProps?: VirtualListProps<T>;
+    VirtualListProps?: Omit<VirtualListProps<T, C>, 'context'> & {
+        context?: Omit<C, 'hasNextPage' | 'fetchNextPage' | 'isFetching' | 'itemsRendered'>;
+    };
     NoResultsFallbackProps?: NoResultsFallbackProps;
     className?: string;
 }
 
-export function ListInPage<T = unknown>({
+export function ListInPage<T = unknown, C = unknown>({
     queryResult,
     loginRequired = false,
     noResultsFallbackRequired = true,
     VirtualListProps,
     NoResultsFallbackProps,
     className,
-}: ListInPageProps<T>) {
+}: ListInPageProps<T, C>) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
@@ -54,11 +56,11 @@ export function ListInPage<T = unknown>({
     }
 
     // force type casting to avoid type error
-    const List = VirtualList<T>;
+    const List = VirtualList<T, C>;
     const Components = {
         Footer: VirtualListFooter,
         ...(VirtualListProps?.components ?? {}),
-    } as Components<T>;
+    } as Components<T, C>;
     const Context = {
         hasNextPage,
         fetchNextPage,
@@ -76,8 +78,8 @@ export function ListInPage<T = unknown>({
                 if (!itemsRendered.current) itemsRendered.current = true;
                 return el.getBoundingClientRect().height;
             }}
-            {...VirtualListProps}
-            context={Context}
+            {...(VirtualListProps as VirtualListProps<T, C>)}
+            context={Context as C}
             components={Components}
             className={classNames('max-md:no-scrollbar', className)}
         />

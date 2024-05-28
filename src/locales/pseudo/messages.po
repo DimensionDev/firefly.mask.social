@@ -682,6 +682,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "Show more comments"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
