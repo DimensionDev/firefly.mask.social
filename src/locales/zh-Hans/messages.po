@@ -189,6 +189,9 @@ msgstr "收起"
 msgid "comment"
 msgstr "评论"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+msgstr "在您装有 Warpcast 的手机上，打开<0>相机</0>在 <1>{0}</1> 内扫描二维码，授权 Firefly 连接您的账号。"
+
 msgid "Bookmarks"
 msgstr "收藏"
 
@@ -503,9 +506,6 @@ msgstr "会话格式错误。"
 
 msgid "Failed to login."
 msgstr "登录失败。"
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
 
 msgid "Unlike"
 msgstr "取消点赞"
@@ -903,6 +903,9 @@ msgstr "转发失败"
 msgid "Failed to create firefly session."
 msgstr "创建 firefly 会话失败。"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr "在您装有 Warpcast 的手机上，打开<0>相机</0>扫描二维码，授权 Firefly 连接您的账号。"
+
 msgid "Properties"
 msgstr ""
 
@@ -959,9 +962,6 @@ msgstr ""
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
-msgstr "在您的手机设备上，打开<0>摄像头</0> 使用 Warpcast 在 <1>{0}</1> 内扫描二维码。"
 
 msgid "{validInDays} day"
 msgstr ""
