@@ -3,7 +3,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { useMemo, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useMemo, useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
@@ -94,7 +94,12 @@ async function login(
     }
 }
 
-export function LoginFarcaster() {
+interface LoginFarcasterProps {
+    signType: FarcasterSignType | null;
+    setSignType: Dispatch<SetStateAction<FarcasterSignType | null>>;
+}
+
+export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     const options = useMemo(() => {
         return [
             {
@@ -121,10 +126,10 @@ export function LoginFarcaster() {
     const controllerRef = useRef<AbortController>();
 
     const [url, setUrl] = useState('');
-    const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);
 
     const [scanned, setScanned] = useState(false);
     const [profileError, setProfileError] = useState<ProfileError | null>(null);
+
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
