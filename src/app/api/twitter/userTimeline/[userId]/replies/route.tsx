@@ -1,6 +1,7 @@
 import { compose } from '@masknet/shared-base';
 import { NextRequest } from 'next/server.js';
 
+import { MalformedError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
@@ -8,11 +9,15 @@ import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchPara
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/Pageable.js';
+import type { NextRequestContext } from '@/types/index.js';
 
-export const GET = compose<(request: NextRequest, context: { params: { userId: string } }) => Promise<Response>>(
+export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
-    async (request, { params: { userId } }) => {
+    async (request, context) => {
+        const userId = context?.params.userId;
+        if (!userId) throw new MalformedError('userId not found');
+
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
         const limit = Number(queryParams.limit ?? '25');
