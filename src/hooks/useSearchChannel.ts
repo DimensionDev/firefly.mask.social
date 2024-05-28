@@ -10,12 +10,12 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 
 interface SearchExtraOptions {
     hasRedPacket: boolean;
-    profileId: string;
+    profileId?: string;
 }
 
 async function searchChannels(source: SocialSource, keyword: string, { hasRedPacket, profileId }: SearchExtraOptions) {
     const provider = resolveSocialMediaProvider(source);
-    if (!keyword) {
+    if (!keyword && profileId) {
         const defaultChannels = await provider.getChannelsByProfileId(profileId);
         if (source === Source.Farcaster) {
             return uniqBy(
@@ -47,7 +47,7 @@ export function useSearchChannels(keyword: string, hasRedPacket: boolean) {
         queryFn: async () => {
             const allSettled = await Promise.allSettled(
                 SORTED_CHANNEL_SOURCES.map((x) =>
-                    searchChannels(x, debouncedKeyword, { hasRedPacket, profileId: profiles[x]?.profileId ?? '' }),
+                    searchChannels(x, debouncedKeyword, { hasRedPacket, profileId: profiles[x]?.profileId }),
                 ),
             );
             return allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
