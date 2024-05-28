@@ -24,7 +24,7 @@ export function PostBy(props: PostByProps) {
                 {SORTED_SOCIAL_SOURCES.filter((source) => (poll ? SORTED_POLL_SOURCES.includes(source) : true)).map(
                     (source) => (
                         <PostByItem key={source} source={source} />
-                    )
+                    ),
                 )}
             </Popover.Panel>
         </Transition>
