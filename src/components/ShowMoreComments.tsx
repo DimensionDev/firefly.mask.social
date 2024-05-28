@@ -1,3 +1,5 @@
+import { Trans } from '@lingui/macro';
+
 import LineArrowUpSVG from '@/assets/line-arrow-up.svg';
 import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -35,7 +37,9 @@ export function ShowMoreComments(props: ShowMoreCommentsProps) {
                     ))}
                 </div>
             ) : null}
-            <div className="mx-3 text-[15px] font-bold leading-6">Show more comments</div>
+            <div className="mx-3 text-[15px] font-bold leading-6">
+                <Trans>Show more comments</Trans>
+            </div>
             <LineArrowUpSVG
                 className={classNames('h-5 w-5 duration-100', {
                     'rotate-180': isOpen,
