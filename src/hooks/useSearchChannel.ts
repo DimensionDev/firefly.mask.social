@@ -6,11 +6,12 @@ import { FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 
-async function searchChannels(source: SocialSource, keyword: string, hasRedPacket: boolean) {
+async function searchChannels(source: SocialSource, keyword: string, hasRedPacket: boolean, profileId: string) {
     const provider = resolveSocialMediaProvider(source);
     if (!keyword) {
-        const defaultChannels = await provider.searchChannels('');
+        const defaultChannels = await provider.getChannelsByProfileId(profileId);
         if (source === Source.Farcaster) {
             return uniqBy(
                 compact([
@@ -34,11 +35,13 @@ async function searchChannels(source: SocialSource, keyword: string, hasRedPacke
 
 export function useSearchChannels(keyword: string, hasRedPacket: boolean) {
     const debouncedKeyword = useDebounce(keyword, 300);
+    const profiles = useCurrentProfileAll();
+
     return useQuery({
         queryKey: ['searchChannels', debouncedKeyword, `${hasRedPacket}`],
         queryFn: async () => {
             const allSettled = await Promise.allSettled(
-                SORTED_CHANNEL_SOURCES.map((x) => searchChannels(x, debouncedKeyword, hasRedPacket)),
+                SORTED_CHANNEL_SOURCES.map((x) => searchChannels(x, debouncedKeyword, hasRedPacket, profiles[x]?.profileId ?? '')),
             );
             return allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
         },
