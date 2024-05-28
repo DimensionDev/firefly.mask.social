@@ -13,6 +13,9 @@ const EVM_CHAIN: { [key in ChainId]?: string } = {
     [ChainId.Base]: 'base',
     [ChainId.Scroll]: 'scroll',
     [ChainId.Celo]: 'celo',
+    [ChainId.Zora]: 'zora',
+    [ChainId.ZkSyncEra]: 'zksync-era',
+    [ChainId.Linea]: 'linea',
 };
 
 export function resolveSimpleHashChain(chain: ChainId) {

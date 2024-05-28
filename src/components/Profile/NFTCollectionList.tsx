@@ -48,8 +48,13 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
                         tokenId,
                         chainId,
                     })}
-                    className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
+                    className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
                 >
+                    {chainId ? (
+                        <div className="absolute left-1 top-1 z-10">
+                            <ChainIcon chainId={chainId} size={20} />
+                        </div>
+                    ) : null}
                     <div className="relative aspect-square h-auto w-full overflow-hidden">
                         <Image
                             width={500}

@@ -10,6 +10,7 @@ import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -38,6 +39,7 @@ export function getNFTItemContent(
     options?: {
         isPoap?: boolean;
         isShowOwner?: boolean;
+        isShowChainIcon?: boolean;
     },
 ) {
     return (
@@ -50,6 +52,9 @@ export function getNFTItemContent(
             className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
         >
             <div className="relative aspect-square h-auto w-full overflow-hidden">
+                {options?.isShowChainIcon ? (
+                    <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
+                ) : null}
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
                 {options?.isShowOwner && item.owner?.address ? (
                     <div className="font- absolute left-2 top-2 rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md">

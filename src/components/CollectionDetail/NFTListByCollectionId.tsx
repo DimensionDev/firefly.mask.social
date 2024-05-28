@@ -36,7 +36,7 @@ export function NFTListByCollectionId(props: { collectionId: string; owner: stri
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
                     return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
-                        isShowOwner: true,
+                        isShowChainIcon: true,
                     });
                 },
             }}
