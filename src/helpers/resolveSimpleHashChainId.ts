@@ -28,6 +28,12 @@ export const resolveSimpleHashChainId: (chainId: string) => ChainId | undefined 
             return ChainId.Scroll;
         case 'celo':
             return ChainId.Celo;
+        case 'zora':
+            return ChainId.Zora;
+        case 'zksync-era':
+            return ChainId.ZkSyncEra;
+        case 'linea':
+            return ChainId.Linea;
         default:
             return undefined;
     }
