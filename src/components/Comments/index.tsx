@@ -4,7 +4,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import MessageIcon from '@/assets/message.svg';
-import { CommentsFooter } from '@/components/Comments/CommentsFooter.js';
+import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/CommentsFooter.js';
 import { LensHideComments } from '@/components/LensHideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
@@ -58,7 +58,9 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                         source,
                     },
                     components: {
-                        Footer: CommentsFooter as any,
+                        Footer({ context }) {
+                            return <CommentsFooter context={context as CommentsFooterProps['context']} />;
+                        },
                     },
                 }}
                 NoResultsFallbackProps={{
