@@ -4,6 +4,8 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import MessageIcon from '@/assets/message.svg';
+import { CommentsFooter } from '@/components/Comments/CommentsFooter.js';
+import { LensHideComments } from '@/components/LensHideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
@@ -42,19 +44,31 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
     });
 
     return (
-        <ListInPage
-            key={source}
-            queryResult={queryResult}
-            VirtualListProps={{
-                listKey: `${ScrollListKey.Comment}:${postId}`,
-                computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) =>
-                    getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
-            }}
-            NoResultsFallbackProps={{
-                icon: <MessageIcon width={24} height={24} />,
-                message: <Trans>Be the first one to comment!</Trans>,
-            }}
-        />
+        <>
+            <ListInPage
+                key={source}
+                queryResult={queryResult}
+                VirtualListProps={{
+                    listKey: `${ScrollListKey.Comment}:${postId}`,
+                    computeItemKey: (index, post) => `${post.postId}-${index}`,
+                    itemContent: (index, post) =>
+                        getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
+                    context: {
+                        postId,
+                        source,
+                    },
+                    components: {
+                        Footer: CommentsFooter as any,
+                    },
+                }}
+                NoResultsFallbackProps={{
+                    icon: <MessageIcon width={24} height={24} />,
+                    message: <Trans>Be the first one to comment!</Trans>,
+                }}
+            />
+            {queryResult.data.length <= 0 && source === Source.Lens ? (
+                <LensHideComments postId={postId} className="border-t-[1px] border-t-line" />
+            ) : null}
+        </>
     );
 });
