@@ -247,6 +247,9 @@ msgstr "Reconnect with Firefly"
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
+msgid "Failed to delete"
+msgstr "Failed to delete"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
@@ -261,9 +264,6 @@ msgstr "Search"
 
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
-
-msgid "Confirm you want to report @{0}?"
-msgstr "Confirm you want to report @{0}?"
 
 msgid "Select Account"
 msgstr "Select Account"
@@ -342,9 +342,6 @@ msgstr "Follow System"
 
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
-
-msgid "Your post was deleted."
-msgstr "Your post was deleted."
 
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
@@ -505,8 +502,8 @@ msgstr "Failed to login."
 msgid "Unlike"
 msgstr "Unlike"
 
-msgid "Post has been hidden"
-msgstr "Post has been hidden"
+msgid "Post was deleted"
+msgstr "Post was deleted"
 
 msgid "Your post has published successfully."
 msgstr "Your post has published successfully."
@@ -519,6 +516,9 @@ msgstr "Confirm you want to unmute /{0}?"
 
 msgid "Bookmark"
 msgstr "Bookmark"
+
+msgid "Post has been deleted"
+msgstr "Post has been deleted"
 
 msgid "Everyone"
 msgstr "Everyone"
@@ -844,9 +844,6 @@ msgstr "Casts + Replies"
 msgid "Image"
 msgstr "Image"
 
-msgid "Failed to delete post."
-msgstr "Failed to delete post."
-
 msgid "Muted @{0} on {sourceName}"
 msgstr "Muted @{0} on {sourceName}"
 
@@ -942,6 +939,9 @@ msgstr "Failed to unmute @{0} on {sourceName}"
 
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
+
+msgid "Confirm to report this user?"
+msgstr "Confirm to report this user?"
 
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."

@@ -252,6 +252,9 @@ msgstr "通過 Firefly 重新連接"
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖像"
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
@@ -266,9 +269,6 @@ msgstr "搜尋"
 
 msgid "Connected Accounts"
 msgstr "已連接的帳戶"
-
-msgid "Confirm you want to report @{0}?"
-msgstr "確認對 @{0} 的檢舉？"
 
 msgid "Select Account"
 msgstr "選定帳戶"
@@ -347,9 +347,6 @@ msgstr "預設"
 
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
-
-msgid "Your post was deleted."
-msgstr "您的貼文已被刪除"
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
@@ -510,7 +507,7 @@ msgstr "登入失敗."
 msgid "Unlike"
 msgstr "取消喜歡"
 
-msgid "Post has been hidden"
+msgid "Post was deleted"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -524,6 +521,9 @@ msgstr ""
 
 msgid "Bookmark"
 msgstr "書籤"
+
+msgid "Post has been deleted"
+msgstr ""
 
 msgid "Everyone"
 msgstr "所有人"
@@ -849,9 +849,6 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-msgid "Failed to delete post."
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
 
@@ -946,6 +943,9 @@ msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Failed to retweet."
+msgstr ""
+
+msgid "Confirm to report this user?"
 msgstr ""
 
 msgid "Please switch to the wallet used for login."

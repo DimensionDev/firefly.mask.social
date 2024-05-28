@@ -126,7 +126,7 @@ class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const data = resolveFireflyResponseData(response);
-            const posts = compact(data.casts.map((x) => formatFarcasterPostFromFirefly(x)));
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
                 posts,
@@ -255,7 +255,7 @@ class FireflySocialMedia implements Provider {
             });
             const response = await fireflySessionHolder.fetch<CastsResponse>(url);
             const data = resolveFireflyResponseData(response);
-            const posts = compact(data.casts.map((x) => formatFarcasterPostFromFirefly(x)));
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
                 posts,
@@ -423,7 +423,7 @@ class FireflySocialMedia implements Provider {
             const { comments, cursor } = resolveFireflyResponseData(response);
 
             return createPageable(
-                compact(comments.map((item) => formatFarcasterPostFromFirefly(item))),
+                comments.map((item) => formatFarcasterPostFromFirefly(item)),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -443,7 +443,7 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
                 data,
@@ -466,7 +466,7 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
                 data,
@@ -492,7 +492,7 @@ class FireflySocialMedia implements Provider {
             });
 
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
                 data,
@@ -591,7 +591,7 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((x) => formatFarcasterPostFromFirefly(x)));
+            const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
                 data,
@@ -675,7 +675,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const casts = resolveFireflyResponseData(response);
-        const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+        const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
         return createPageable(data, createIndicator(indicator), undefined);
     }
 
@@ -721,7 +721,7 @@ class FireflySocialMedia implements Provider {
                 },
             );
             const data = resolveFireflyResponseData(response);
-            return compact([post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))]);
+            return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
         });
     }
     async reportUser(profileId: string): Promise<boolean> {
@@ -797,7 +797,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const posts = compact(data.quotes.map((x) => formatFarcasterPostFromFirefly(x)));
+        const posts = data.quotes.map((x) => formatFarcasterPostFromFirefly(x));
 
         return createPageable(
             posts,
