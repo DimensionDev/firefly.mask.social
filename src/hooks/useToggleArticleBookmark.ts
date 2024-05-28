@@ -1,12 +1,11 @@
 import { t } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
 
-import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
-import { toggleBookmark } from '@/decorators/SetQueryDataForBookmarkPost.js';
+import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 
 export function useToggleArticleBookmark() {
@@ -19,18 +18,16 @@ export function useToggleArticleBookmark() {
             const { hasBookmarked } = article;
             try {
                 if (hasBookmarked) {
-                    const result = await FireflySocialMediaProvider.unbookmark(article.id);
+                    const result = await FarcasterSocialMediaProvider.unbookmark(article.id);
                     enqueueSuccessMessage(t`Article remove from your Bookmarks`);
-                    toggleBookmark(Source.Article, article.id, false);
                     return result;
                 } else {
-                    const result = await FireflySocialMediaProvider.bookmark(
+                    const result = await FarcasterSocialMediaProvider.bookmark(
                         article.id,
                         FireflyPlatform.Article,
                         article.author.id,
                         BookmarkType.Text,
                     );
-                    toggleBookmark(Source.Article, article.id, true);
                     enqueueSuccessMessage(t`Article added to your Bookmarks`);
                     return result;
                 }
@@ -38,8 +35,6 @@ export function useToggleArticleBookmark() {
                 enqueueErrorMessage(hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`, {
                     error,
                 });
-                // rolling back
-                toggleBookmark(Source.Article, article.id, !!hasBookmarked);
                 throw error;
             }
         },
