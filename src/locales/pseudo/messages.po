@@ -265,9 +265,6 @@ msgstr ""
 msgid "Connected Accounts"
 msgstr ""
 
-msgid "Confirm you want to report @{0}?"
-msgstr ""
-
 msgid "Select Account"
 msgstr ""
 
@@ -941,6 +938,9 @@ msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Failed to retweet."
+msgstr ""
+
+msgid "Confirm to report this user?"
 msgstr ""
 
 msgid "Please switch to the wallet used for login."

@@ -270,9 +270,6 @@ msgstr "搜索"
 msgid "Connected Accounts"
 msgstr "已链接的账号"
 
-msgid "Confirm you want to report @{0}?"
-msgstr "确认要举报 @{0}？"
-
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -947,6 +944,9 @@ msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 
 msgid "Failed to retweet."
 msgstr "转帖失败。"
+
+msgid "Confirm to report this user?"
+msgstr ""
 
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
