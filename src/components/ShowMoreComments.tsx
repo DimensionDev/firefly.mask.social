@@ -1,15 +1,14 @@
 import { Trans } from '@lingui/macro';
+import type { HTMLProps } from 'react';
 
 import LineArrowUpSVG from '@/assets/line-arrow-up.svg';
 import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export interface ShowMoreCommentsProps {
+export interface ShowMoreCommentsProps extends HTMLProps<HTMLDivElement> {
     avatarUrls?: string[];
     maxAvatarCount?: number; // show all avatar urls when it is 0. default to 3
     isOpen?: boolean;
-    onClick?: () => void;
-    className?: string;
 }
 
 export function ShowMoreComments(props: ShowMoreCommentsProps) {
@@ -21,7 +20,7 @@ export function ShowMoreComments(props: ShowMoreCommentsProps) {
                 'flex w-full cursor-pointer items-center justify-center border-b-[1px] border-b-line py-3 text-link',
                 className,
             )}
-            onClick={() => onClick?.()}
+            onClick={onClick}
         >
             {avatarUrls && avatarUrls.length > 0 ? (
                 <div className="flex space-x-[-4px]">
