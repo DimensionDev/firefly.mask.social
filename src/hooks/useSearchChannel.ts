@@ -8,7 +8,12 @@ import { SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 
-async function searchChannels(source: SocialSource, keyword: string, hasRedPacket: boolean, profileId: string) {
+interface SearchExtraOptions {
+    hasRedPacket: boolean;
+    profileId: string;
+}
+
+async function searchChannels(source: SocialSource, keyword: string, { hasRedPacket, profileId }: SearchExtraOptions) {
     const provider = resolveSocialMediaProvider(source);
     if (!keyword) {
         const defaultChannels = await provider.getChannelsByProfileId(profileId);
@@ -42,7 +47,7 @@ export function useSearchChannels(keyword: string, hasRedPacket: boolean) {
         queryFn: async () => {
             const allSettled = await Promise.allSettled(
                 SORTED_CHANNEL_SOURCES.map((x) =>
-                    searchChannels(x, debouncedKeyword, hasRedPacket, profiles[x]?.profileId ?? ''),
+                    searchChannels(x, debouncedKeyword, { hasRedPacket, profileId: profiles[x]?.profileId ?? ''}),
                 ),
             );
             return allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
