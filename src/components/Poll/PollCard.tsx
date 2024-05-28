@@ -36,7 +36,7 @@ function VoteButton({ option, post }: VoteButtonProps) {
         <div className="mt-3">
             <ClickableButton
                 disabled={!isLogin}
-                className="h-10 w-full rounded-[10px] border border-lightMain text-center text-base font-bold leading-10 text-lightMain hover:border-link hover:text-link disabled:!cursor-default disabled:!opacity-100"
+                className="h-10 w-full rounded-[5px] border border-lightMain text-center text-base font-bold leading-10 text-lightMain hover:border-link hover:text-link disabled:!cursor-default disabled:!opacity-100"
                 onClick={handleVote}
             >
                 {option.label}
@@ -52,8 +52,8 @@ function VoteResult({ option, totalVotes, isUserVoted }: VoteResultProps) {
     return (
         <div className="relative mt-3 h-10">
             <div
-                className={classNames('absolute h-full rounded-[10px]', isUserVoted ? 'bg-link' : 'bg-secondaryMain')}
-                style={{ width: currentRate ? `${currentRate}%` : '20px' }}
+                className={classNames('absolute h-full rounded-[5px]', isUserVoted ? 'bg-link' : 'bg-secondaryMain')}
+                style={{ width: currentRate ? `${currentRate}%` : '10px' }}
             />
             <div className="absolute z-10 flex h-full w-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span className="flex items-center gap-2">
