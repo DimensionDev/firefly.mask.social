@@ -429,9 +429,6 @@ msgstr "回复"
 msgid "Confirm you want to mute /{0}?"
 msgstr "确认要屏蔽/{0}？"
 
-msgid "{0}"
-msgstr ""
-
 msgid "Owned By"
 msgstr ""
 
