@@ -44,10 +44,11 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
                 <Tippy
                     appendTo={() => document.body}
                     offset={[100, 0]}
-                    maxWidth={400}
+                    maxWidth={350}
                     className="tippy-card"
                     placement="bottom-end"
                     duration={500}
+                    delay={500}
                     arrow={false}
                     trigger="mouseenter"
                     hideOnClick

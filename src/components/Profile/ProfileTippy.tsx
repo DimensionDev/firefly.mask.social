@@ -40,10 +40,11 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
     return (
         <Tippy
             appendTo={() => document.body}
-            maxWidth={400}
+            maxWidth={350}
             className="tippy-card"
             placement="bottom"
             duration={500}
+            delay={500}
             arrow={false}
             trigger="mouseenter"
             hideOnClick
