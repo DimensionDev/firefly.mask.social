@@ -6,6 +6,7 @@ import { startTransition, useLayoutEffect } from 'react';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -28,7 +29,11 @@ export function SourceTabs() {
             ? SORTED_BOOKMARK_SOURCES
             : SORTED_HOME_SOURCES.filter((x) => {
                   if (x !== Source.Article) return true;
-                  if (pathname === PageRoute.Home || (pathname === PageRoute.Following && !!fireflySession))
+                  if (
+                      pathname === PageRoute.Home ||
+                      (pathname === PageRoute.Following && !!fireflySession) ||
+                      isRoutePathname(pathname, '/post/:detail/photos/:index', true)
+                  )
                       return true;
                   return false;
               });
@@ -38,6 +43,8 @@ export function SourceTabs() {
     useLayoutEffect(() => {
         if (shouldReset) updateCurrentSource(Source.Farcaster);
     }, [shouldReset, updateCurrentSource]);
+
+    if (searchParams.get('hiddenTabs')) return null;
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">

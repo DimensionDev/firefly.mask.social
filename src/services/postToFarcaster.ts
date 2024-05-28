@@ -85,9 +85,13 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             // for farcaster, post id is read from post.commentOn.postId
             return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, polls));
         },
-        quote: () => {
+        quote: (images, _, polls) => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
-            return FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost.postId);
+            return FarcasterSocialMediaProvider.quotePost(
+                farcasterParentPost.postId,
+                composeDraft('Quote', images, polls),
+                farcasterParentPost.author.profileId,
+            );
         },
     });
 

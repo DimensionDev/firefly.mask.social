@@ -1,5 +1,5 @@
 export const URL_REGEX =
-    /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)]*)?)/gi;
+    /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)>]*)?)/gi;
 
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))/;
@@ -21,7 +21,7 @@ export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conver
 export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 
 export const MASK_SOCIAL_DETAIL_REGEX =
-    /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.|firefly-canary\.)?mask\.social|\.vercel\.app)\/post\/([\w-]+)$/i;
+    /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.|firefly-canary\.)?mask\.social|\.vercel\.app)\/post\/([\w-]+)(\?.*)?$/i;
 
 export const OLD_MASK_SOCIAL_POST_PATH_REGEX = /\/post\/(lens|farcaster)\/([\w-]+)/i;
 
