@@ -62,9 +62,8 @@ function getPostTypeByCast(cast: Cast) {
 /**
  * Return null if cast is detected
  */
-export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post | null {
+export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
     const postType = type ?? getPostTypeByCast(cast);
-    if (cast.deleted_at) return null;
     return {
         publicationId: cast.hash,
         type: postType,
@@ -73,6 +72,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         parentAuthor: cast.parentCast?.author ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
         timestamp: cast.timestamp ? new Date(cast.timestamp).getTime() : undefined,
         author: cast.author ? formatFarcasterProfileFromFirefly(cast.author) : createDummyProfile(Source.Farcaster),
+        isHidden: !!cast.deleted_at,
         metadata: {
             locale: '',
             content: formatContent(cast),
