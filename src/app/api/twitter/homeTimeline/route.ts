@@ -5,15 +5,15 @@ import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
-import { pageableSchemas } from '@/helpers/pageableSchemas.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { Pageable } from '@/schemas/Pageable.js';
 
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request: NextRequest) => {
-        const queryParams = getSearchParamsFromRequestWithZodObject(request, pageableSchemas);
+        const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
         const limit = Number(queryParams.limit ?? '25');
         const { data } = await client.v2.homeTimeline({
