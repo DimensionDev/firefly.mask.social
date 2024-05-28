@@ -21,7 +21,7 @@ export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conver
 export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 
 export const MASK_SOCIAL_DETAIL_REGEX =
-    /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.|firefly-canary\.)?mask\.social|\.vercel\.app)\/post\/([\w-]+)$/i;
+    /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.|firefly-canary\.)?mask\.social|\.vercel\.app)\/post\/([\w-]+)(\?.*)?$/i;
 
 export const OLD_MASK_SOCIAL_POST_PATH_REGEX = /\/post\/(lens|farcaster)\/([\w-]+)/i;
 

@@ -2,7 +2,7 @@ import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import MirrorIcon from '@/assets/mirror.svg';
@@ -32,6 +32,7 @@ interface MirrorProps {
 }
 
 export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, postId, disabled = false, post }) {
+    const [open, setOpen] = useState(false);
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
     const mirrored = !!post.hasMirrored;
@@ -128,12 +129,13 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
     return (
         <Tippy
+            visible={open}
+            onClickOutside={() => setOpen(false)}
             appendTo={() => document.body}
             offset={[-30, -6]}
             placement="top"
             className="tippy-card"
             duration={200}
-            trigger="click"
             arrow={false}
             interactive
             content={
@@ -143,31 +145,30 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                             'text-secondarySuccess': mirrored,
                         })}
                         onClick={() => {
-                            close();
+                            setOpen(false);
                             handleMirror();
                         }}
                     >
                         <MirrorLargeIcon width={24} height={24} />
                         <span className="font-medium">{mirrorActionText}</span>
                     </div>
-                    {source === Source.Lens ? (
-                        <div
-                            className="flex cursor-pointer items-center md:space-x-2"
-                            onClick={() => {
-                                close();
-                                ComposeModalRef.open({
-                                    type: 'quote',
-                                    post,
-                                    source,
-                                });
-                            }}
-                        >
-                            <QuoteDownIcon width={24} height={24} />
-                            <span className="font-medium">
-                                <Trans>Quote Post</Trans>
-                            </span>
-                        </div>
-                    ) : null}
+
+                    <div
+                        className="flex cursor-pointer items-center md:space-x-2"
+                        onClick={() => {
+                            setOpen(false);
+                            ComposeModalRef.open({
+                                type: 'quote',
+                                post,
+                                source,
+                            });
+                        }}
+                    >
+                        <QuoteDownIcon width={24} height={24} />
+                        <span className="font-medium">
+                            <Trans>Quote Post</Trans>
+                        </span>
+                    </div>
                 </div>
             }
         >
@@ -183,6 +184,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                         LoginModalRef.open({ source: post.source });
                         return;
                     }
+                    setOpen(true);
                     return;
                 }}
                 className={classNames(
