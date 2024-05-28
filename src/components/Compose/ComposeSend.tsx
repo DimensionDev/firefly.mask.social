@@ -88,7 +88,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            {visibleLength ? (
+            {visibleLength && post.availableSources.length ? (
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                     <CountdownCircle width={24} height={24} className="flex-shrink-0" />
                     <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? ' text-danger' : ''}>
