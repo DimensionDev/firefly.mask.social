@@ -18,7 +18,7 @@ interface ListInPageProps<T = unknown, C = unknown> {
     loginRequired?: boolean;
     noResultsFallbackRequired?: boolean;
     VirtualListProps?: Omit<VirtualListProps<T, C>, 'context'> & {
-        context: Omit<C, 'hasNextPage' | 'fetchNextPage' | 'isFetching' | 'itemsRendered'>;
+        context?: Omit<C, 'hasNextPage' | 'fetchNextPage' | 'isFetching' | 'itemsRendered'>;
     };
     NoResultsFallbackProps?: NoResultsFallbackProps;
     className?: string;
