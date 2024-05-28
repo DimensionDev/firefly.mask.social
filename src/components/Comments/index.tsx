@@ -45,7 +45,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
 
     return (
         <>
-            <ListInPage
+            <ListInPage<Post, CommentsFooterProps['context']>
                 key={source}
                 queryResult={queryResult}
                 VirtualListProps={{
@@ -58,9 +58,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                         source,
                     },
                     components: {
-                        Footer({ context }) {
-                            return <CommentsFooter context={context as CommentsFooterProps['context']} />;
-                        },
+                        Footer: CommentsFooter,
                     },
                 }}
                 NoResultsFallbackProps={{
