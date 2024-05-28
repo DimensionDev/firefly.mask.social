@@ -4,9 +4,9 @@ import { memo, useLayoutEffect, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import FireflyIcon from '@/assets/firefly.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
 import MenuIcon from '@/assets/menu.svg';
+import { BackButton } from '@/components/BackIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
@@ -65,16 +65,15 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
                 {searchMode || enableFixedBack ? (
                     <div className=" flex h-[30px] w-[30px] shrink-0 justify-center">
-                        <ClickableButton
+                        <BackButton
+                            size={30}
                             onClick={() => {
                                 if (isSearchPage || enableFixedBack) router.back();
                                 if (!enableSearch) return;
                                 setSearchMode(false);
                                 setShowRecommendation(false);
                             }}
-                        >
-                            <LeftArrowIcon />
-                        </ClickableButton>
+                        />
                     </div>
                 ) : (
                     <div className=" flex h-[30px] shrink-0 justify-start">

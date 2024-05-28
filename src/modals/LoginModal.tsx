@@ -8,9 +8,8 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { BackButton } from '@/components/BackIcon.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
@@ -148,9 +147,12 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
                     {source === Source.Farcaster ? (
-                        <ClickableButton onClick={() => setSource(undefined)}>
-                            <LeftArrowIcon width={24} height={24} />
-                        </ClickableButton>
+                        <BackButton
+                            onClick={() => {
+                                if (signType) setSignType(null);
+                                else setSource(null);
+                            }}
+                        />
                     ) : (
                         <CloseButton onClick={() => dispatch?.close()} />
                     )}
