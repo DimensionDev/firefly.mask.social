@@ -85,13 +85,5 @@ export async function syncSessionFromFirefly(signal?: AbortSignal) {
     if (!cipher) return [];
 
     const metrics = await decryptMetricsFromFirefly(cipher, signal);
-    const sessions = metrics.flatMap<FarcasterSession | LensSession>(convertMetricToSession);
-
-    console.log('DEBUG: sessions');
-    console.log({
-        metrics,
-        sessions,
-    });
-
-    return sessions;
+    return metrics.flatMap<FarcasterSession | LensSession>(convertMetricToSession);
 }

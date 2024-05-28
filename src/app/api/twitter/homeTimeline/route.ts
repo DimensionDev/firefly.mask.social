@@ -5,9 +5,9 @@ import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
-import { Pageable } from '@/schemas/Pageable.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { Pageable } from '@/schemas/Pageable.js';
 
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),

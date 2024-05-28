@@ -13,7 +13,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
     withTwitterRequestErrorHandler,
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
-
         const client = await createTwitterClientV2(request);
         const limit = queryParams.limit || 25;
         const { data } = await client.v2.bookmarks({

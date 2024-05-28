@@ -1,6 +1,7 @@
 import { compose } from '@masknet/shared-base';
 import { NextRequest } from 'next/server.js';
 
+import { MalformedError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
@@ -9,7 +10,6 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/Pageable.js';
 import type { NextRequestContext } from '@/types/index.js';
-import { MalformedError } from '@/constants/error.js';
 
 export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
