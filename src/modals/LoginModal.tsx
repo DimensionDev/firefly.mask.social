@@ -37,7 +37,6 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
 
     const [source, setSource] = useState<SocialSource>();
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
-    const [isDirectly, setIsDirectly] = useState(false);
     const [currentAccount, setCurrentAccount] = useState<string>('');
 
     const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: SocialSource) => {
@@ -102,12 +101,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
         onOpen: async (props) => {
             if (!props?.source) return;
             await handleLogin(props.source);
-            setIsDirectly(true);
         },
         onClose: async () => {
             // setSource will trigger a re-render, so we need to delay the setSource(undefined) to avoid the re-render
             await delay(300);
-            setIsDirectly(false);
             setSource(undefined);
         },
     });
@@ -150,7 +147,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
-                    {source === Source.Farcaster && !isDirectly ? (
+                    {source === Source.Farcaster ? (
                         <ClickableButton onClick={() => setSource(undefined)}>
                             <LeftArrowIcon width={24} height={24} />
                         </ClickableButton>

@@ -125,6 +125,7 @@ export function LoginFarcaster() {
 
     const [scanned, setScanned] = useState(false);
     const [profileError, setProfileError] = useState<ProfileError | null>(null);
+
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
