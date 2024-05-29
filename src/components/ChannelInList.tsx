@@ -2,6 +2,7 @@ import { isUndefined } from 'lodash-es';
 
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
@@ -41,27 +42,33 @@ export function ChannelInList({ channel, noFollowButton = true, dense = false, l
                 }}
                 href={getChannelUrl(channel)}
             >
-                <Avatar
-                    className="mr-3 shrink-0 rounded-full border"
-                    src={channel.imageUrl}
-                    size={isSmall || dense ? 40 : 70}
-                    alt={channel.name}
-                />
+                <ChannelTippy channel={channel}>
+                    <Avatar
+                        className="mr-3 shrink-0 rounded-full border"
+                        src={channel.imageUrl}
+                        size={isSmall || dense ? 40 : 70}
+                        alt={channel.name}
+                    />
+                </ChannelTippy>
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
                     <p className="flex-start flex items-center text-sm font-bold leading-5 ">
-                        <span
-                            className={classNames('mr-2', {
-                                'text-xl': !dense,
-                                'text-l': dense,
-                            })}
-                        >
-                            {channel.name}
-                        </span>
+                        <ChannelTippy channel={channel}>
+                            <span
+                                className={classNames('mr-2', {
+                                    'text-xl': !dense,
+                                    'text-l': dense,
+                                })}
+                            >
+                                {channel.name}
+                            </span>
+                        </ChannelTippy>
                         <SocialSourceIcon source={channel.source} size={isSmall || dense ? 16 : 20} />
                     </p>
                     <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
-                        <p className="truncate">/{channel.id}</p>
+                        <ChannelTippy channel={channel}>
+                            <p className="truncate">/{channel.id}</p>
+                        </ChannelTippy>
                         <UserIcon
                             width={isSmall || dense ? 14 : 18}
                             height={isSmall || dense ? 14 : 18}

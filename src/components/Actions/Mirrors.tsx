@@ -47,7 +47,12 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     other: 'Mirrors or Quotes',
                 });
             case Source.Farcaster:
-                return t`Recast`;
+                return plural(shares, {
+                    0: 'Recast or Quote',
+                    zero: 'Recast or Quote',
+                    one: 'Recast or Quote',
+                    other: 'Recasts or Quotes',
+                });
             case Source.Twitter:
                 return t`Retweet`;
             default:

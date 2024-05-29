@@ -259,7 +259,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
-            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) && type === 'compose' ? (
+            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) && (type === 'compose' || type === 'quote') ? (
                 <div className=" flex h-9 items-center justify-between pb-safe">
                     <span className=" text-[15px] text-secondary">
                         <Trans>Channels</Trans>
