@@ -16,13 +16,17 @@ export enum STATUS {
 
 export enum PageRoute {
     Home = '/',
+    Post = '/post',
+    Photos = '/photos',
     Following = '/following',
+    Followers = '/followers',
     Notifications = '/notifications',
     Profile = '/profile',
     Bookmarks = '/bookmarks',
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',
+    Channel = '/channel',
     ChannelTrending = '/trending',
 }
 

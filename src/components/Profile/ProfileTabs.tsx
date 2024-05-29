@@ -66,7 +66,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const pathname = usePathname();
 
     const isProfilePage = pathname === PageRoute.Profile;
-    const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+    const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
 
     if (profiles.length <= 1) return null;
 

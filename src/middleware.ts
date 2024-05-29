@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
+import { PageRoute } from '@/constants/enum.js';
 import { OLD_MASK_SOCIAL_POST_PATH_REGEX, OLD_MASK_SOCIAL_PROFILE_PATH_REGEX } from '@/constants/regexp.js';
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
-    const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
-    const isProfile = pathname.startsWith('/profile');
-    const isFollowing = pathname.startsWith('/profile') && pathname.endsWith('/following');
-    const isFollowers = pathname.startsWith('/profile') && pathname.endsWith('/followers');
+    const isPost = pathname.startsWith(PageRoute.Post) && !pathname.includes(PageRoute.Photos);
+    const isProfile = pathname.startsWith(PageRoute.Profile);
+    const isFollowing = pathname.startsWith(PageRoute.Profile) && pathname.endsWith(PageRoute.Following);
+    const isFollowers = pathname.startsWith(PageRoute.Profile) && pathname.endsWith(PageRoute.Followers);
 
     if (isFollowing || isFollowers) {
         return NextResponse.next({

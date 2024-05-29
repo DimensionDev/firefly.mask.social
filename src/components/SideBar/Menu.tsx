@@ -51,7 +51,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
     const isMyProfile = useIsMyProfile(
         currentSocialSource,
-        isRoutePathname(pathname, '/profile') ? pathname.split('/')[3] ?? '' : '',
+        isRoutePathname(pathname, PageRoute.Profile) ? pathname.split('/')[3] ?? '' : '',
     );
 
     const checkIsSelected = (href: `/${string}`) =>
@@ -108,7 +108,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 },
                             ].map((item) => {
                                 const isSelected =
-                                    item.href === '/' ? pathname === '/' : checkIsSelected(item.href as `/${string}`);
+                                    item.href === '/'
+                                        ? pathname === PageRoute.Home
+                                        : checkIsSelected(item.href as `/${string}`);
                                 const Icon = isSelected ? item.selectedIcon : item.icon;
 
                                 return (

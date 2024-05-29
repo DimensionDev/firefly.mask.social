@@ -8,6 +8,7 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import SearchIcon from '@/assets/search.svg';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
+import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -25,7 +26,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const { addRecord } = useSearchHistoryStateStore();
 
     const pathname = usePathname();
-    const isSearchPage = isRoutePathname(pathname, '/search');
+    const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
 
     const rootRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -90,12 +91,12 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
 export function HeaderSearchBar() {
     const pathname = usePathname();
-    const isSearchPage = isRoutePathname(pathname, '/search');
+    const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
     return isSearchPage ? <SearchBar source="header" /> : null;
 }
 
 export function AsideSearchBar() {
     const pathname = usePathname();
-    const isSearchPage = !isRoutePathname(pathname, '/search');
+    const isSearchPage = !isRoutePathname(pathname, PageRoute.Search);
     return isSearchPage ? <SearchBar source="secondary" /> : null;
 }
