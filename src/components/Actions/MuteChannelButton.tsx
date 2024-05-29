@@ -35,6 +35,7 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                             )}
                         </div>
                     ),
+                    variant: 'normal',
                 });
                 if (!onToggleBlock || !confirmed) return;
                 const result = await onToggleBlock(channel);

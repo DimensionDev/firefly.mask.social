@@ -19,8 +19,9 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url)));
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
-    if (cast.embeds.length) {
-        const firstAsset = first(cast.embeds);
+    const attachments = cast.embeds.filter((x) => !!x.url);
+    if (attachments.length) {
+        const firstAsset = first(attachments);
         if (!firstAsset?.url) return defaultContent;
 
         const assetType = getResourceType(firstAsset.url);
@@ -35,7 +36,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
                 uri: firstAsset.url,
             } satisfies Attachment,
             attachments: compact<Attachment>(
-                cast.embeds.map((x) => {
+                attachments.map((x) => {
                     if (!x.url) return;
 
                     const type = getResourceType(x.url);

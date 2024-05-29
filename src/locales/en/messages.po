@@ -403,9 +403,6 @@ msgstr "and"
 msgid "Channel"
 msgstr "Channel"
 
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
@@ -420,6 +417,9 @@ msgstr "AUTHOR ADDRESS"
 
 msgid "Reply"
 msgstr "Reply"
+
+msgid "Mirror or Quote"
+msgstr "Mirror or Quote"
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
@@ -595,6 +595,9 @@ msgstr "The file \"{0}\" exceeds the size limit."
 msgid "Invalid URL."
 msgstr "Invalid URL."
 
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
@@ -745,6 +748,9 @@ msgstr "No comments found"
 msgid "Unfollow @{0}"
 msgstr "Unfollow @{0}"
 
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+
 msgid "Discard"
 msgstr "Discard"
 
@@ -795,6 +801,9 @@ msgstr "Quotes"
 
 msgid "The user rejected the request."
 msgstr "The user rejected the request."
+
+msgid "Recast or Quote"
+msgstr "Recast or Quote"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
