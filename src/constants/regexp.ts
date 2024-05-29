@@ -34,3 +34,5 @@ export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
 export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)$/;
 
 export const NUMBER_BIGGER_THAN_ZERO = /^[1-9]\d*$/;
+
+export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
