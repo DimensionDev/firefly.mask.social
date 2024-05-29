@@ -13,7 +13,7 @@ export function NFTListByCollectionId(props: { collectionId: string; owner: stri
     const { collectionId, owner, chainId } = props;
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',
-        queryKey: ['nft-list-by-collection-id', owner, chainId],
+        queryKey: ['nft-list-by-collection-id', collectionId, owner, chainId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(
                 pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
@@ -36,7 +36,7 @@ export function NFTListByCollectionId(props: { collectionId: string; owner: stri
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
                     return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
-                        isShowOwner: true,
+                        isShowChainIcon: true,
                     });
                 },
             }}

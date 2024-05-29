@@ -24,12 +24,13 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
             onClick={async () => {
                 rest.onClick?.();
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Report`,
+                    title: t`Report @${profile.handle}`,
                     content: (
                         <div className="text-main">
-                            <Trans>Confirm you want to report @{profile.handle}?</Trans>
+                            <Trans>Confirm to report this user?</Trans>
                         </div>
                     ),
+                    variant: 'normal',
                 });
                 if (!confirmed) return;
                 onConfirm?.();

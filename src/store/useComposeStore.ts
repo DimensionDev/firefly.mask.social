@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { difference, uniq } from 'lodash-es';
+import { clone, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
@@ -8,7 +8,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { MAX_FRAME_SIZE_PER_POST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { MAX_FRAME_SIZE_PER_POST, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createPoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -194,6 +194,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     {
                         ...createInitSinglePostState(cursor),
                         availableSources: state.posts[0].availableSources,
+                        channel: clone(state.posts[0].channel),
                     },
                     ...state.posts.slice(index + 1), // corrected slicing here
                 ];
@@ -481,6 +482,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         poll: createPoll(),
+                        // only keep the sources that support poll
+                        availableSources: post.availableSources.filter((x) => SORTED_POLL_SOURCES.includes(x)),
                     }),
                     cursor,
                 ),
@@ -492,6 +495,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         poll,
+                        // revert sources when poll is removed
+                        availableSources: poll ? post.availableSources : getCurrentAvailableSources(),
                     }),
                     cursor,
                 ),

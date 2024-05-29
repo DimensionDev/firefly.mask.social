@@ -8,6 +8,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -66,7 +67,16 @@ function convertMetricToSession(metric: Metrics[0]) {
                 (x) => new LensSession(x.profile_id, x.token, x.login_time, x.login_time, x.refresh_token),
             );
         case 'twitter':
-            return [];
+            return metric.login_metadata.map(
+                (x) =>
+                    new TwitterSession(x.client_id, '', x.login_time, x.login_time, {
+                        clientId: x.client_id,
+                        consumerKey: x.consumer_key,
+                        consumerSecret: x.consumer_secret,
+                        accessToken: x.access_token,
+                        accessTokenSecret: x.access_token_secret,
+                    }),
+            );
         default:
             safeUnreachable(platform);
             return [];
@@ -85,5 +95,5 @@ export async function syncSessionFromFirefly(signal?: AbortSignal) {
     if (!cipher) return [];
 
     const metrics = await decryptMetricsFromFirefly(cipher, signal);
-    return metrics.flatMap<FarcasterSession | LensSession>(convertMetricToSession);
+    return metrics.flatMap<FarcasterSession | LensSession | TwitterSession>(convertMetricToSession);
 }

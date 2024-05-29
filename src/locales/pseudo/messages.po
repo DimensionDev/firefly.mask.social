@@ -184,6 +184,9 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "Bookmarks"
 msgstr ""
 
@@ -250,6 +253,9 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
@@ -263,9 +269,6 @@ msgid "Search"
 msgstr ""
 
 msgid "Connected Accounts"
-msgstr ""
-
-msgid "Confirm you want to report @{0}?"
 msgstr ""
 
 msgid "Select Account"
@@ -346,9 +349,6 @@ msgstr ""
 msgid "Failed to mirror."
 msgstr ""
 
-msgid "Your post was deleted."
-msgstr ""
-
 msgid "Remove from Bookmarks"
 msgstr ""
 
@@ -409,9 +409,6 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
-
 msgid "Comment cannot be empty."
 msgstr ""
 
@@ -430,7 +427,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}?"
+msgid "Mirror or Quote"
 msgstr ""
 
 msgid "Owned By"
@@ -514,13 +511,10 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr ""
-
 msgid "Unlike"
 msgstr ""
 
-msgid "Post has been hidden"
+msgid "Post was deleted"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -529,10 +523,10 @@ msgstr ""
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr ""
 
-msgid "Confirm you want to unmute /{0}?"
+msgid "Bookmark"
 msgstr ""
 
-msgid "Bookmark"
+msgid "Post has been deleted"
 msgstr ""
 
 msgid "Everyone"
@@ -611,6 +605,9 @@ msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "Invalid URL."
+msgstr ""
+
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -700,6 +697,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "Show more comments"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -763,6 +763,9 @@ msgstr ""
 msgid "Unfollow @{0}"
 msgstr ""
 
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
 msgid "Discard"
 msgstr ""
 
@@ -814,6 +817,9 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "Recast or Quote"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr ""
 
@@ -860,9 +866,6 @@ msgid "Casts + Replies"
 msgstr ""
 
 msgid "Image"
-msgstr ""
-
-msgid "Failed to delete post."
 msgstr ""
 
 msgid "Muted @{0} on {sourceName}"
@@ -916,6 +919,9 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -935,6 +941,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
@@ -961,6 +970,9 @@ msgstr ""
 msgid "Failed to retweet."
 msgstr ""
 
+msgid "Confirm to report this user?"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -974,9 +986,6 @@ msgid "Download app"
 msgstr ""
 
 msgid "Unknown session type."
-msgstr ""
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr ""
 
 msgid "{validInDays} day"
@@ -1082,6 +1091,9 @@ msgid "Follow @{0}"
 msgstr ""
 
 msgid "Cancel Recast"
+msgstr ""
+
+msgid "Malformed twitter session payload."
 msgstr ""
 
 msgid "No matching users"

@@ -37,6 +37,8 @@ export function ComposeSend(props: ComposeSendProps) {
     const setEditorContent = useSetEditorContent();
     const checkPostMedias = useCheckPostMedias();
 
+    const hasThread = (post.images.length > 0 || visibleLength) && type === 'compose';
+
     const [percentage, setPercentage] = useState(0);
     const [{ loading, error }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
@@ -88,7 +90,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            {visibleLength ? (
+            {visibleLength && post.availableSources.length ? (
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                     <CountdownCircle width={24} height={24} className="flex-shrink-0" />
                     <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? ' text-danger' : ''}>
@@ -97,7 +99,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 </div>
             ) : null}
 
-            {visibleLength && type === 'compose' ? (
+            {hasThread ? (
                 <ClickableButton
                     className=" text-main"
                     disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}

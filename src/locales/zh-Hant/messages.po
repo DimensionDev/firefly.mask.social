@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-25 00:04\n"
+"PO-Revision-Date: 2024-05-29 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -189,6 +189,9 @@ msgstr "顯示更少"
 msgid "comment"
 msgstr "評論"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
+
 msgid "Bookmarks"
 msgstr "書籤"
 
@@ -255,6 +258,9 @@ msgstr "通過 Firefly 重新連接"
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖像"
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
@@ -269,9 +275,6 @@ msgstr "搜尋"
 
 msgid "Connected Accounts"
 msgstr "已連接的帳戶"
-
-msgid "Confirm you want to report @{0}?"
-msgstr "確認對 @{0} 的檢舉？"
 
 msgid "Select Account"
 msgstr "選定帳戶"
@@ -351,9 +354,6 @@ msgstr "預設"
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
 
-msgid "Your post was deleted."
-msgstr "您的貼文已被刪除"
-
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
 
@@ -414,9 +414,6 @@ msgstr ""
 msgid "Channel"
 msgstr "頻道"
 
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
-
 msgid "Comment cannot be empty."
 msgstr ""
 
@@ -435,7 +432,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}?"
+msgid "Mirror or Quote"
 msgstr ""
 
 msgid "Owned By"
@@ -519,13 +516,10 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登入失敗."
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼"
-
 msgid "Unlike"
 msgstr "取消喜歡"
 
-msgid "Post has been hidden"
+msgid "Post was deleted"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -534,11 +528,11 @@ msgstr ""
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上跟隨 @{0} 失敗"
 
-msgid "Confirm you want to unmute /{0}?"
-msgstr ""
-
 msgid "Bookmark"
 msgstr "書籤"
+
+msgid "Post has been deleted"
+msgstr ""
 
 msgid "Everyone"
 msgstr "所有人"
@@ -616,6 +610,9 @@ msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "Invalid URL."
+msgstr ""
+
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -705,6 +702,9 @@ msgstr "已成功靜音"
 msgid "Show More"
 msgstr "顯示更多"
 
+msgid "Show more comments"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -768,6 +768,9 @@ msgstr ""
 msgid "Unfollow @{0}"
 msgstr "取消跟隨 @{0}"
 
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
 msgid "Discard"
 msgstr "捨棄"
 
@@ -819,6 +822,9 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "Recast or Quote"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
 
@@ -865,9 +871,6 @@ msgid "Casts + Replies"
 msgstr ""
 
 msgid "Image"
-msgstr ""
-
-msgid "Failed to delete post."
 msgstr ""
 
 msgid "Muted @{0} on {sourceName}"
@@ -921,6 +924,9 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr "創建 firefly 對話失敗"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
+
 msgid "Properties"
 msgstr ""
 
@@ -940,6 +946,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
@@ -966,6 +975,9 @@ msgstr ""
 msgid "Failed to retweet."
 msgstr ""
 
+msgid "Confirm to report this user?"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -980,9 +992,6 @@ msgstr ""
 
 msgid "Unknown session type."
 msgstr "未知的對話型別"
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
-msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼"
 
 msgid "{validInDays} day"
 msgstr ""
@@ -1087,6 +1096,9 @@ msgid "Follow @{0}"
 msgstr "跟隨 @{0}"
 
 msgid "Cancel Recast"
+msgstr ""
+
+msgid "Malformed twitter session payload."
 msgstr ""
 
 msgid "No matching users"

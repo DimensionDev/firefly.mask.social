@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const pageableSchemas = z.object({
+export const Pageable = z.object({
     cursor: z.string().optional(),
     limit: z.coerce
         .number()

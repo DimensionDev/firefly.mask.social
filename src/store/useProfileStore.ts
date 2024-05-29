@@ -10,6 +10,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { restoreProfile } from '@/helpers/restoreProfile.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -18,6 +19,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -168,16 +170,19 @@ const useTwitterStateBase = createState(
             if (typeof window === 'undefined') return;
 
             try {
-                const me = await TwitterSocialMediaProvider.me();
+                const session = state?.currentProfileSession as TwitterSession | null;
+                if (session) twitterSessionHolder.resumeSession(session);
 
-                if (!me) {
+                const payload = session ? session.payload : await TwitterSocialMediaProvider.login();
+                const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
+
+                if (!me || !payload) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');
                     state?.clear();
                     return;
                 }
 
-                state?.updateProfiles([me]);
-                state?.updateCurrentProfile(me, TwitterSession.from(me));
+                restoreProfile(me, [me], TwitterSession.from(me, payload));
             } catch {
                 state?.clear();
             }

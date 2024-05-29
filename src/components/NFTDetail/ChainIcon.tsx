@@ -2,11 +2,17 @@
 
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
+import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 
-export function ChainIcon(props: { chainId: number; size?: number }) {
-    const { chainId, size = 22 } = props;
+interface ChainIconProps extends HTMLProps<HTMLImageElement> {
+    chainId: number;
+    size?: number;
+}
+
+export function ChainIcon(props: ChainIconProps) {
+    const { chainId, size = 22, className } = props;
     const networkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
     return (
         <Image
@@ -18,6 +24,7 @@ export function ChainIcon(props: { chainId: number; size?: number }) {
                 height: `${size}px`,
             }}
             alt={`Blockchain: ${props.chainId}`}
+            className={className}
         />
     );
 }

@@ -16,6 +16,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
@@ -149,7 +150,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     {({ close }) => (
                                         <MuteChannelButton
                                             channel={channel}
-                                            onToggleBlock={toggleBlockChannel}
+                                            onToggleBlock={async (channel: Channel) => {
+                                                const result = await toggleBlockChannel(channel);
+                                                queryClient.refetchQueries({
+                                                    queryKey: ['posts', channel.source],
+                                                });
+                                                return result;
+                                            }}
                                             onClick={close}
                                         />
                                     )}
