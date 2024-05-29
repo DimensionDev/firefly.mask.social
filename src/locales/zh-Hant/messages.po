@@ -129,9 +129,6 @@ msgstr ""
 msgid "Change Wallet"
 msgstr "更換錢包"
 
-msgid "Post from /{0} will now be hidden in your home timeline"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr ""
 
@@ -928,6 +925,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"

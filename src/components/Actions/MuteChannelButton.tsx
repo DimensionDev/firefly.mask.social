@@ -24,18 +24,17 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
-                let confirmed = true;
-                if (!muted) {
-                    confirmed = await ConfirmModalRef.openAndWaitForClose({
-                        title: muted ? t`Unmute` : t`Mute`,
-                        content: (
-                            <div className="text-main">
-                                <Trans>Post from /{channel.id} will now be hidden in your home timeline</Trans>
-                            </div>
-                        ),
-                        variant: 'normal',
-                    });
-                }
+                const confirmed = !muted
+                    ? await ConfirmModalRef.openAndWaitForClose({
+                          title: muted ? t`Unmute` : t`Mute`,
+                          content: (
+                              <div className="text-main">
+                                  <Trans>Post from /{channel.id} will be hidden in your home timeline</Trans>
+                              </div>
+                          ),
+                          variant: 'normal',
+                      })
+                    : true;
 
                 if (!onToggleBlock || !confirmed) return;
                 const result = await onToggleBlock(channel);

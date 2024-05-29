@@ -124,9 +124,6 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
-msgid "Post from /{0} will now be hidden in your home timeline"
-msgstr "Post from /{0} will now be hidden in your home timeline"
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -924,6 +921,9 @@ msgstr "Channels"
 
 msgid "Firefly"
 msgstr "Firefly"
+
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr "Post from /{0} will be hidden in your home timeline"
 
 msgid "Add"
 msgstr "Add"

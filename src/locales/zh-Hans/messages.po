@@ -129,9 +129,6 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
-msgid "Post from /{0} will now be hidden in your home timeline"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -929,6 +926,9 @@ msgstr "频道"
 
 msgid "Firefly"
 msgstr "Firefly"
+
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr ""
 
 msgid "Add"
 msgstr "添加"
