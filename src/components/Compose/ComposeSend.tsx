@@ -37,7 +37,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const setEditorContent = useSetEditorContent();
     const checkPostMedias = useCheckPostMedias();
 
-    const hasThead = (post.images.length > 0 || visibleLength) && type === 'compose';
+    const hasThread = (post.images.length > 0 || visibleLength) && type === 'compose';
 
     const [percentage, setPercentage] = useState(0);
     const [{ loading, error }, handlePost] = useAsyncFn(
@@ -99,7 +99,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 </div>
             ) : null}
 
-            {hasThead ? (
+            {hasThread ? (
                 <ClickableButton
                     className=" text-main"
                     disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
