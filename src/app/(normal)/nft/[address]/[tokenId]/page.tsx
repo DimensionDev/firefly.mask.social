@@ -1,6 +1,7 @@
 'use client';
 
 import { TextOverflowTooltip } from '@masknet/theme';
+import { SchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
@@ -61,7 +62,7 @@ export default function Page({
                     imageURL={data.metadata.imageURL ?? ''}
                     name={data.metadata.name ?? ''}
                     tokenId={data.metadata.tokenId ?? ''}
-                    ownerAddress={data.owner?.address}
+                    ownerAddress={data.contract?.schema === SchemaType.ERC1155 ? undefined : data.owner?.address}
                     contractAddress={data.contract?.address ?? ''}
                     collection={{
                         name: data.contract?.name ?? '',

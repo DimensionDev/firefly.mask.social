@@ -41,7 +41,7 @@ export function ShowMoreComments(props: ShowMoreCommentsProps) {
             </div>
             <LineArrowUpSVG
                 className={classNames('h-5 w-5 duration-100', {
-                    'rotate-180': isOpen,
+                    'rotate-180': !isOpen,
                 })}
             />
         </div>
