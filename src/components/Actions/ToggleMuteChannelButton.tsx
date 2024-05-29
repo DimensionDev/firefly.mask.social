@@ -13,7 +13,11 @@ interface ToggleMuteButtonProps extends Omit<ClickableButtonProps, 'children'> {
     defaultMuted?: boolean;
 }
 
-export const ToggleMuteChannelButton = memo(function ToggleMuteChannelButton({ channel, defaultMuted = true, ...rest }: ToggleMuteButtonProps) {
+export const ToggleMuteChannelButton = memo(function ToggleMuteChannelButton({
+    channel,
+    defaultMuted = true,
+    ...rest
+}: ToggleMuteButtonProps) {
     // FIXME:  we can use channel.blocked instead of defaultMuted
     const [isMuted, setIsMuted] = useToggle(defaultMuted);
 
@@ -24,7 +28,9 @@ export const ToggleMuteChannelButton = memo(function ToggleMuteChannelButton({ c
             title: t`${isMuted ? 'Unmute' : 'Mute'} /${channel.name}`,
             content: (
                 <div className="text-main">
-                    <Trans>Confirm you want to {isMuted ? 'unmute' : 'mute'} /{channel.name}?</Trans>
+                    <Trans>
+                        Confirm you want to {isMuted ? 'unmute' : 'mute'} /{channel.name}?
+                    </Trans>
                 </div>
             ),
         });
@@ -33,12 +39,5 @@ export const ToggleMuteChannelButton = memo(function ToggleMuteChannelButton({ c
         if (result) setIsMuted(!isMuted);
     };
 
-    return (
-        <ToggleMuteButton
-            {...rest}
-            isMuted={isMuted}
-            loading={loading}
-            onClick={onToggle}
-        />
-    );
+    return <ToggleMuteButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;
 });

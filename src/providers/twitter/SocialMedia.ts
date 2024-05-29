@@ -2,7 +2,13 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
-import type { TweetV2, TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult, UserV2TimelineResult } from 'twitter-api-v2';
+import type {
+    TweetV2,
+    TweetV2PaginableTimelineResult,
+    UserV2,
+    UserV2MuteResult,
+    UserV2TimelineResult,
+} from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
@@ -356,25 +362,21 @@ class TwitterSocialMedia implements Provider {
     async blockUser(profileId: string): Promise<boolean> {
         const session = await getSession();
         if (!session) throw new Error('No session found');
-        const response = await fetchJSON<ResponseJSON<UserV2MuteResult['data']>>(
-            `/api/twitter/mute/${profileId}`,
-            { method: 'POST' }
-        );
+        const response = await fetchJSON<ResponseJSON<UserV2MuteResult['data']>>(`/api/twitter/mute/${profileId}`, {
+            method: 'POST',
+        });
         if (!response.success) throw new Error(response.error.message);
         return response.data.muting === true;
     }
     async unblockUser(profileId: string): Promise<boolean> {
         const session = await getSession();
         if (!session) throw new Error('No session found');
-        const response = await fetchJSON<ResponseJSON<UserV2MuteResult['data']>>(
-            `/api/twitter/mute/${profileId}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
+        const response = await fetchJSON<ResponseJSON<UserV2MuteResult['data']>>(`/api/twitter/mute/${profileId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
         if (!response.success) throw new Error(response.error.message);
         return response.data.muting === false;
     }

@@ -181,7 +181,7 @@ export type UsersResponse = Response<UsersData>;
 export type BlockUsersResponse = Response<{
     blocks: User[];
     page: number;
-}>
+}>;
 
 export type UserResponse = Response<User>;
 

@@ -5,7 +5,6 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
-
 enum MuteLabel {
     Mute = 'Mute',
     Unmute = 'Unmute',
@@ -16,16 +15,19 @@ interface ToggleMuteButtonProps extends Omit<ClickableButtonProps, 'children'> {
     isMuted: boolean;
 }
 
-export const ToggleMuteButton = ({
-    loading,
-    isMuted,
-    className,
-    ...rest
-}: ToggleMuteButtonProps) => {
+export const ToggleMuteButton = ({ loading, isMuted, className, ...rest }: ToggleMuteButtonProps) => {
     const hoverableElement = (hovered: boolean) => {
         const buttonText = isMuted
-            ? loading ? t`Unmuting` : hovered ? t`Unmute` : t`Muted`
-            : loading ? t`Muting` : hovered ? t`Mute` : t`Mute`;
+            ? loading
+                ? t`Unmuting`
+                : hovered
+                  ? t`Unmute`
+                  : t`Muted`
+            : loading
+              ? t`Muting`
+              : hovered
+                ? t`Mute`
+                : t`Mute`;
         const buttonState = hovered ? MuteLabel.Unmute : MuteLabel.Muted;
 
         return (

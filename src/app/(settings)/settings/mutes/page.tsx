@@ -11,8 +11,8 @@ export default function Page() {
     const menus = useMuteMenuList();
 
     return (
-        <div className='p-6 md:min-w-[280px]'>
-            <div className='hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:block'>
+        <div className="p-6 md:min-w-[280px]">
+            <div className="hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:block">
                 <Trans>Mutes</Trans>
             </div>
             <div>

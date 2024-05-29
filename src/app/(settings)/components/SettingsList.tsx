@@ -22,9 +22,7 @@ export function SettingsList() {
                 { name: <Trans>Mutes</Trans>, link: '/mutes', isHidden: !muteMenuList.length },
                 { name: <Trans>More</Trans>, link: '/more' },
             ].map(({ name, link, isHidden }) => {
-                return isHidden ? null : (
-                    <TextLink key={link} name={name} link={`/settings${link}`} />
-                );
+                return isHidden ? null : <TextLink key={link} name={name} link={`/settings${link}`} />;
             })}
         </div>
     );

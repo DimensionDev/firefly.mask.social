@@ -1,10 +1,9 @@
-
 import { t } from '@lingui/macro';
 import { filter } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { MuteMenuId, type SocialSource, Source } from '@/constants/enum.js';
-import { useCurrentProfileAll } from "@/hooks/useCurrentProfileAll.js";
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 
 export interface MuteMenu {
     id: MuteMenuId;
@@ -46,9 +45,9 @@ export const useMuteMenuList = (): MuteMenu[] => {
                 source: Source.Twitter,
                 type: 'user',
                 disabled: false,
-            }
+            },
         ];
-        return filter(fullMuteMenuList, (menu) => !!profiles[menu.source] && !menu.disabled)
+        return filter(fullMuteMenuList, (menu) => !!profiles[menu.source] && !menu.disabled);
     }, [profiles]);
 
     return menuList;

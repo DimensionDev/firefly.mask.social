@@ -14,7 +14,11 @@ interface ToggleMuteUserButtonProps extends Omit<ClickableButtonProps, 'children
     defaultMuted?: boolean;
 }
 
-export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({ profile, defaultMuted = true, ...rest }: ToggleMuteUserButtonProps) {
+export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({
+    profile,
+    defaultMuted = true,
+    ...rest
+}: ToggleMuteUserButtonProps) {
     // FIXME: we can use profile.viewerContext?.blocking instead of defaultMuted
     const [isMuted, setIsMuted] = useToggle(defaultMuted);
 
@@ -26,7 +30,9 @@ export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({ profile
             title: t`${isMuted ? 'Unmute' : 'Mute'} @${profile.handle}`,
             content: (
                 <div className="text-main">
-                    <Trans>Confirm you want to {isMuted ? 'unmute' : 'mute'} @{profile.handle}?</Trans>
+                    <Trans>
+                        Confirm you want to {isMuted ? 'unmute' : 'mute'} @{profile.handle}?
+                    </Trans>
                 </div>
             ),
         });
@@ -35,12 +41,5 @@ export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({ profile
         if (result) setIsMuted(!isMuted);
     };
 
-    return (
-        <ToggleMuteButton
-            {...rest}
-            isMuted={isMuted}
-            loading={loading}
-            onClick={onToggle}
-        />
-    );
+    return <ToggleMuteButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;
 });

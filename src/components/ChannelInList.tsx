@@ -22,7 +22,14 @@ interface ChannelInListProps {
     noMuteButton?: boolean;
 }
 
-export function ChannelInList({ channel, noFollowButton = true, noMuteButton = true, dense = false, listKey, index }: ChannelInListProps) {
+export function ChannelInList({
+    channel,
+    noFollowButton = true,
+    noMuteButton = true,
+    dense = false,
+    listKey,
+    index,
+}: ChannelInListProps) {
     const isSmall = useIsSmall('max');
     const setScrollIndex = useGlobalState.use.setScrollIndex();
 

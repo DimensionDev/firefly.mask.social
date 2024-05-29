@@ -1,14 +1,14 @@
 import { createIndicator } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { MutedProfileItem } from '@/components/Profile/MutedProfileItem.js';
-import { ScrollListKey, type SocialSource } from "@/constants/enum.js";
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MutedProfilesProps {
-    source: SocialSource
+    source: SocialSource;
 }
 
 const getProfileItemContent = (index: number, profile: Profile, listKey: string) => {

@@ -1,10 +1,10 @@
 'use client';
 
-import { find } from "lodash-es";
+import { find } from 'lodash-es';
 
-import { MutedListPage } from "@/app/(settings)/settings/mutes/[id]/pages/MutedListPage.js";
-import type { MuteMenuId } from "@/constants/enum.js";
-import { useMuteMenuList } from "@/hooks/useMuteMenuList.js";
+import { MutedListPage } from '@/app/(settings)/settings/mutes/[id]/pages/MutedListPage.js';
+import type { MuteMenuId } from '@/constants/enum.js';
+import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 
 interface PageProps {
     params: {
@@ -20,7 +20,5 @@ export default function Page({ params: { id } }: PageProps) {
         return null;
     }
 
-    return (
-        <MutedListPage currentMenu={currentMenu} />
-    );
+    return <MutedListPage currentMenu={currentMenu} />;
 }

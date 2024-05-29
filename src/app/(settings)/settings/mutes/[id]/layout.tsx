@@ -1,5 +1,3 @@
-
-
 import { t } from '@lingui/macro';
 
 import { MuteMenuId } from '@/constants/enum.js';
@@ -19,9 +17,9 @@ export async function generateMetadata({ params: { id } }: PageProps) {
         [MuteMenuId.FarcasterChannels]: t`Farcaster Channels`,
         [MuteMenuId.LensUsers]: t`Lens Users`,
         [MuteMenuId.XUsers]: t`X Users`,
-    }
+    };
     return createSiteMetadata({
-        title: createPageTitle(transSSR(menuNameMap[id]))
+        title: createPageTitle(transSSR(menuNameMap[id])),
     });
 }
 

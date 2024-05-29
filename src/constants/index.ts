@@ -163,11 +163,5 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
 };
 
 export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
-    'user.fields': [
-        'description',
-        'username',
-        'name',
-        'profile_image_url',
-        'public_metrics',
-    ]
-}
+    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics'],
+};
