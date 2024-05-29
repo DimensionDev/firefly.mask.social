@@ -6,5 +6,5 @@ export const getLangNameFromLocal = (locale: string) => {
     const matchedLang = find(Object.entries(Language), ([_, value]) => {
         return `${value}`.startsWith(locale);
     });
-    return matchedLang?.[0];
+    return matchedLang ? matchedLang[0].split('_')[0] : undefined;
 };
