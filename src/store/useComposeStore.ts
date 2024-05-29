@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { difference, uniq } from 'lodash-es';
+import { clone, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
@@ -194,6 +194,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     {
                         ...createInitSinglePostState(cursor),
                         availableSources: state.posts[0].availableSources,
+                        channel: clone(state.posts[0].channel),
                     },
                     ...state.posts.slice(index + 1), // corrected slicing here
                 ];
