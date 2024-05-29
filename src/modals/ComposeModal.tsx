@@ -1,34 +1,45 @@
 'use client';
 
 import { Dialog } from '@headlessui/react';
-import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
+import { safeUnreachable } from '@masknet/kit';
 import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+import {
+    createMemoryHistory,
+    createRootRoute,
+    createRoute,
+    createRouter,
+    Outlet,
+    rootRouteId,
+    RouterProvider,
+    useMatch,
+    useMatchRoute,
+    useRouter,
+} from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
-import { forwardRef, useCallback, useRef, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 
+import DraftIcon from '@/assets/draft.svg';
+import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { CloseButton } from '@/components/CloseButton.js';
-import { ComposeAction } from '@/components/Compose/ComposeAction.js';
-import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
-import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
+import { ComposeUI } from '@/components/Compose/ComposeUI.js';
+import { DraftList } from '@/components/Compose/DraftList.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -80,18 +91,90 @@ export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
 
+const rootRoute = createRootRoute({
+    component: ComposeRouteRoot,
+});
+
+const composeRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/',
+    component: ComposeUI,
+});
+
+const draftRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: 'draft',
+    component: DraftList,
+});
+
+const routeTree = rootRoute.addChildren([composeRoute, draftRoute]);
+
+const memoryHistory = createMemoryHistory({
+    initialEntries: ['/'],
+});
+
+const router = createRouter({
+    routeTree,
+    history: memoryHistory,
+});
+
+function ComposeRouteRoot() {
+    const { type } = useComposeStateStore();
+    const isMedium = useIsMedium();
+    const router = useRouter();
+    const matchRoute = useMatchRoute();
+    const { context } = useMatch({ from: rootRouteId });
+
+    const title = useMemo(() => {
+        if (matchRoute({ to: '/draft' })) return t`Draft`;
+        switch (type) {
+            case 'compose':
+                return t`Compose`;
+            case 'quote':
+                return `Quote`;
+            case 'reply':
+                return 'reply';
+            default:
+                safeUnreachable(type);
+                return t`Compose`;
+        }
+    }, [matchRoute, type]);
+
+    return (
+        <>
+            <Dialog.Title as="h3" className=" relative h-14 shrink-0 pt-safe">
+                {matchRoute({ to: '/draft' }) ? (
+                    <LeftArrowIcon
+                        onClick={() => router.history.back()}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer"
+                    />
+                ) : (
+                    <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={context.onClose} />
+                )}
+
+                <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
+                    {title}
+                </span>
+                <DraftIcon
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
+                    onClick={() => router.history.push('/draft')}
+                />
+                {isMedium ? null : <ComposeSend />}
+            </Dialog.Title>
+            <Outlet />
+        </>
+    );
+}
+
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
         const currentSource = useGlobalState.use.currentSource();
         const currentSocialSource = narrowToSocialSource(currentSource);
 
         const contentRef = useRef<HTMLDivElement>(null);
-        const isMedium = useIsMedium();
 
         const currentProfileAll = useCurrentProfileAll();
         const profile = useCurrentProfile(currentSocialSource);
-
-        const [warningsOpen, setWarningsOpen] = useState(true);
 
         const {
             type,
@@ -105,6 +188,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateRpPayload,
             updateChannel,
             clear,
+            cursor,
+            addDraft,
         } = useComposeStateStore();
 
         const compositePost = useCompositePost();
@@ -134,21 +219,36 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         });
 
         const onClose = useCallback(async () => {
+            const posts = useComposeStateStore.getState().posts;
             if (posts.some((x) => !isEmptyPost(x))) {
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Discard`,
+                    title: t`Save Post?`,
                     content: (
-                        <div className=" text-main">
-                            <Trans>This can’t be undone and you’ll lose your draft.</Trans>
+                        <div className="text-main">
+                            <Trans>You can save this to send later from your drafts.</Trans>
                         </div>
                     ),
+                    enableCancelButton: true,
+                    cancelButtonText: t`Discard`,
+                    confirmButtonText: t`Save`,
+                    variant: 'normal',
                 });
 
-                if (confirmed) ComposeModalRef.close();
+                if (confirmed) {
+                    addDraft({
+                        savedOn: new Date(),
+                        cursor,
+                        posts,
+                        type,
+                    });
+                    ComposeModalRef.close();
+                } else {
+                    dispatch?.close();
+                }
             } else {
                 dispatch?.close();
             }
-        }, [posts, dispatch]);
+        }, [dispatch, addDraft, cursor, type]);
 
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
@@ -228,54 +328,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         </div>
                     ) : null}
 
-                    {/* Title */}
-                    <Dialog.Title as="h3" className=" relative h-14 shrink-0 pt-safe">
-                        <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={onClose} />
-
-                        <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
-                            {type === 'compose' ? (
-                                <Trans>Compose</Trans>
-                            ) : type === 'quote' ? (
-                                <Trans>Quote</Trans>
-                            ) : type === 'reply' ? (
-                                <Trans>Reply</Trans>
-                            ) : null}
-                        </span>
-
-                        {isMedium ? null : <ComposeSend />}
-                    </Dialog.Title>
-
-                    <div className=" flex flex-col overflow-auto px-4 pb-4">
-                        <div
-                            ref={contentRef}
-                            className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
-                        >
-                            {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
-                        </div>
-                    </div>
-
-                    <ComposeAction />
-
-                    {warningsOpen && env.external.NEXT_PUBLIC_COMPOSE_WARNINGS === STATUS.Enabled ? (
-                        <div className=" flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
-                            <ExclamationTriangleIcon className="hidden text-white md:block" width={24} height={24} />
-                            <p className=" text-left text-xs text-white md:text-center">
-                                <Trans>
-                                    We&apos;re updating our connection with X. Posting on X will be limited for now.
-                                </Trans>
-                            </p>
-                            <Tooltip content={t`Close`} placement="top">
-                                <XCircleIcon
-                                    className="cursor-pointer text-white"
-                                    width={24}
-                                    height={24}
-                                    onClick={() => setWarningsOpen(false)}
-                                />
-                            </Tooltip>
-                        </div>
-                    ) : null}
-
-                    {isMedium ? <ComposeSend /> : null}
+                    <RouterProvider router={router} context={{ onClose }} />
                 </div>
             </Modal>
         );
