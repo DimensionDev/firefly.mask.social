@@ -17,7 +17,7 @@ interface CollectProps {
 export const Collect = memo<CollectProps>(function Collect({ count, disabled = false, collected }) {
     return (
         <ClickableArea
-            className={classNames('flex items-center text-main hover:text-primaryPink md:space-x-2', {
+            className={classNames('flex w-min items-center text-main hover:text-primaryPink md:space-x-2', {
                 'opacity-50': disabled,
             })}
         >

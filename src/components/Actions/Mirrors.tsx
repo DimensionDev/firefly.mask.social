@@ -203,7 +203,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     return;
                 }}
                 className={classNames(
-                    'relative flex cursor-pointer items-center text-main hover:text-secondarySuccess',
+                    'relative flex w-min cursor-pointer items-center text-main hover:text-secondarySuccess md:space-x-2',
                     {
                         'text-secondarySuccess': mirrored,
                         'opacity-50': !!disabled,

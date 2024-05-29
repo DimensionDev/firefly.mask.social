@@ -426,9 +426,6 @@ msgstr "回复"
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}?"
-msgstr "确认要屏蔽/{0}？"
-
 msgid "Owned By"
 msgstr ""
 
@@ -515,9 +512,6 @@ msgstr "发布成功。"
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
-
-msgid "Confirm you want to unmute /{0}?"
-msgstr "确认取消屏蔽 /{0}？"
 
 msgid "Bookmark"
 msgstr "收藏"
@@ -932,6 +926,9 @@ msgstr "频道"
 
 msgid "Firefly"
 msgstr "Firefly"
+
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr ""
 
 msgid "Add"
 msgstr "添加"

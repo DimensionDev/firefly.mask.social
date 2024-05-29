@@ -421,9 +421,6 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}?"
-msgstr ""
-
 msgid "Owned By"
 msgstr ""
 
@@ -509,9 +506,6 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
-msgstr ""
-
-msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
 msgid "Bookmark"
@@ -926,6 +920,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
