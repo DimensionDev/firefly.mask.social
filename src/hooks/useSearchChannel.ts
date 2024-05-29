@@ -13,10 +13,16 @@ interface SearchExtraOptions {
     profileId?: string;
 }
 
+const PROFILE_CHANNELS_LIMIT = 10;
+
 async function searchChannels(source: SocialSource, keyword: string, { hasRedPacket, profileId }: SearchExtraOptions) {
     const provider = resolveSocialMediaProvider(source);
     if (!keyword && profileId) {
-        const defaultChannels = await provider.getChannelsByProfileId(profileId);
+        const profileChannels = await provider.getChannelsByProfileId(profileId);
+        const commonChannels = [
+            ...profileChannels.data.slice(0, PROFILE_CHANNELS_LIMIT),
+            ...(await provider.discoverChannels()).data,
+        ];
         if (source === Source.Farcaster) {
             return uniqBy(
                 compact([
@@ -27,12 +33,12 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
                               followerCount: (await provider.getChannelById(FF_GARDEN_CHANNEL.id)).followerCount,
                           }
                         : null,
-                    ...defaultChannels.data,
+                    ...commonChannels,
                 ]),
                 'id',
             );
         }
-        return defaultChannels.data;
+        return uniqBy(compact(commonChannels), 'id');
     }
     const response = await provider.searchChannels(keyword);
     return response.data;
