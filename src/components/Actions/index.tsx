@@ -38,15 +38,16 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     }, [publicationViews, post]);
 
     const actions = compact([
-        <Comment
-            key="comment"
-            disabled={disabled}
-            count={post.stats?.comments}
-            canComment={post.canComment}
-            source={post.source}
-            author={post.author.handle}
-            post={post}
-        />,
+        <div key="comment">
+            <Comment
+                disabled={disabled}
+                count={post.stats?.comments}
+                canComment={post.canComment}
+                source={post.source}
+                author={post.author.handle}
+                post={post}
+            />
+        </div>,
         <div key="mirror">
             <Mirror
                 disabled={disabled}

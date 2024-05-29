@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { memo, type PropsWithChildren } from 'react';
+import { memo, type PropsWithChildren, useState } from 'react';
 
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -22,13 +22,14 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
     className,
     profile: defaultProfile,
 }) {
+    const [enabled, setEnabled] = useState(false);
     const isMedium = useIsMedium();
 
     const { data: profile, isLoading } = useQuery({
-        enabled: !!identity && !!source && isMedium,
+        enabled: !!identity && !!source && isMedium && enabled,
         queryKey: ['profile', source, identity],
-        initialData: defaultProfile,
         queryFn: async () => {
+            if (defaultProfile) return defaultProfile;
             if (!identity || !source) return;
             const provider = resolveSocialMediaProvider(source);
             return source === Source.Lens ? provider.getProfileByHandle(identity) : provider.getProfileById(identity);
@@ -47,6 +48,9 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
             delay={500}
             arrow={false}
             trigger="mouseenter"
+            onTrigger={() => {
+                setEnabled(true);
+            }}
             hideOnClick
             interactive
             content={<ProfileCard profile={profile} loading={isLoading} />}
