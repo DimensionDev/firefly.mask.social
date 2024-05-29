@@ -585,6 +585,9 @@ msgstr "已轉發"
 msgid "Post your reply"
 msgstr "發布您的回覆"
 
+msgid "{shares, plural, =0 {Recast or Quote} zero {Recast or Quote} one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
 msgid "liked"
 msgstr "已喜歡"
 
