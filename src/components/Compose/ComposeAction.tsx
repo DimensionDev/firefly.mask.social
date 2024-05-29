@@ -221,12 +221,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources
-                                        .filter(
-                                            (x) =>
-                                                !!currentProfileAll[x] &&
-                                                SORTED_SOCIAL_SOURCES.includes(x) &&
-                                                (poll ? SORTED_POLL_SOURCES.includes(x) : true),
-                                        )
+                                        .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
                                         .map((y) => (
                                             <SocialSourceIcon key={y} source={y} size={20} />
                                         ))}
