@@ -2,6 +2,7 @@ import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHol
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import {
     useFarcasterStateStore,
@@ -13,7 +14,7 @@ import {
 export function restoreProfile(
     currentProfile: Profile,
     profiles: Profile[],
-    session: FarcasterSession | LensSession | FireflySession,
+    session: FarcasterSession | LensSession | TwitterSession | FireflySession,
 ) {
     const store = {
         [SessionType.Farcaster]: useFarcasterStateStore,

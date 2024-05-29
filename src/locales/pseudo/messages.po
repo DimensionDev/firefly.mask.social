@@ -1060,6 +1060,9 @@ msgstr ""
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "Malformed twitter session payload."
+msgstr ""
+
 msgid "No matching users"
 msgstr ""
 

@@ -8,7 +8,9 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     }
 
     override fetch<T>(url: string, options?: RequestInit, required = false) {
-        return this.internalSession || required
+        if (required && !this.internalSession?.token) throw new Error('Farcaster session is required');
+
+        return this.internalSession?.token
             ? fetchJSON<T>(url, {
                   ...options,
                   headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },

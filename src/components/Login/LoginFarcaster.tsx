@@ -22,13 +22,14 @@ import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isAbortedError } from '@/helpers/isAbortedError.js';
+import { isSameSession } from '@/helpers/isSameSession.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
@@ -192,9 +193,8 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                     // and find out the the signer key of the connected profile
                     const sessions = await syncSessionFromFirefly(controllerRef.current?.signal);
 
-                    const restoredSession = sessions.find(
-                        (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
-                    );
+                    // if the user has signed into Firefly before, a synced session could be found.
+                    const restoredSession = sessions.find((x) => isSameSession(x, session));
 
                     if (!restoredSession) {
                         // the current profile did not connect to firefly
