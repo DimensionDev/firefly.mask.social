@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-25 00:04\n"
+"PO-Revision-Date: 2024-05-29 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -189,6 +189,9 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "Bookmarks"
 msgstr ""
 
@@ -249,6 +252,9 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
@@ -262,9 +268,6 @@ msgid "Search"
 msgstr ""
 
 msgid "Connected Accounts"
-msgstr ""
-
-msgid "Confirm you want to report @{0}?"
 msgstr ""
 
 msgid "Select Account"
@@ -343,9 +346,6 @@ msgid "Follow System"
 msgstr ""
 
 msgid "Failed to mirror."
-msgstr ""
-
-msgid "Your post was deleted."
 msgstr ""
 
 msgid "Remove from Bookmarks"
@@ -504,13 +504,10 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr ""
-
 msgid "Unlike"
 msgstr ""
 
-msgid "Post has been hidden"
+msgid "Post was deleted"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -523,6 +520,9 @@ msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
 msgid "Bookmark"
+msgstr ""
+
+msgid "Post has been deleted"
 msgstr ""
 
 msgid "Everyone"
@@ -687,6 +687,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "Show more comments"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -846,9 +849,6 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-msgid "Failed to delete post."
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
 
@@ -900,6 +900,9 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -942,6 +945,9 @@ msgstr ""
 msgid "Failed to retweet."
 msgstr ""
 
+msgid "Confirm to report this user?"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -955,9 +961,6 @@ msgid "Download app"
 msgstr ""
 
 msgid "Unknown session type."
-msgstr ""
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr ""
 
 msgid "{validInDays} day"
