@@ -1066,6 +1066,9 @@ msgstr "Follow @{0}"
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
 
+msgid "Malformed twitter session payload."
+msgstr "Malformed twitter session payload."
+
 msgid "No matching users"
 msgstr "No matching users"
 

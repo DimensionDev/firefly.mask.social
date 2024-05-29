@@ -1071,6 +1071,9 @@ msgstr "关注 @{0}"
 msgid "Cancel Recast"
 msgstr "取消转帖"
 
+msgid "Malformed twitter session payload."
+msgstr ""
+
 msgid "No matching users"
 msgstr "未找到匹配用户"
 
@@ -1123,7 +1126,7 @@ msgid "No parent post found."
 msgstr "未找到上级帖子。"
 
 msgid "Please confirm the login with X."
-msgstr "请确认X登陆成功。"
+msgstr "请在 X 确认登陆。"
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"

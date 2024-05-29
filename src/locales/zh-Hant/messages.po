@@ -1071,6 +1071,9 @@ msgstr "跟隨 @{0}"
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "Malformed twitter session payload."
+msgstr ""
+
 msgid "No matching users"
 msgstr "沒有符合的用戶"
 

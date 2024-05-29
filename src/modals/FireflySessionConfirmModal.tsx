@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { compact } from 'lodash-es';
+import { compact, values } from 'lodash-es';
 import { forwardRef, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -16,11 +16,12 @@ import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface Pair {
     profile: Profile;
-    session: FarcasterSession | LensSession;
+    session: FarcasterSession | LensSession | TwitterSession;
 }
 
 interface ProfileModalProps {
@@ -87,10 +88,10 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                     className=" flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
-                        Object.entries(selectedPairs).forEach(([_, x]) => {
-                            if (!x) return;
+                        compact(values(selectedPairs)).map(async (x) => {
                             restoreProfile(x.profile, [x.profile], x.session);
                         });
+
                         onConfirm?.();
                         ConfirmModalRef.close(true);
                     }}
@@ -102,11 +103,11 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
     );
 }
 
-export type FireflySessionOpenConfirmModalProps = {
+export interface FireflySessionOpenConfirmModalProps {
     source: SocialSource;
-    sessions?: Array<LensSession | FarcasterSession>;
+    sessions?: Array<LensSession | FarcasterSession | TwitterSession>;
     onDetected?: (profiles: Profile[]) => void;
-};
+}
 
 // true - indicates the user restored sessions
 // false - indicates the users rejected the session restore
@@ -119,12 +120,11 @@ export const FireflySessionConfirmModal = forwardRef<
         async onOpen(props) {
             try {
                 const currentProfileAll = getCurrentProfileAll();
-
-                const sessions = (props?.sessions ?? []).filter((x) => {
+                const sessions = props.sessions?.filter((x) => {
                     const source = resolveSocialSourceFromSessionType(x.type);
 
                     // if the session shares the same source with the current profile, skip the restore
-                    if (source === props?.source) {
+                    if (source === props.source) {
                         return false;
                     }
 
@@ -133,7 +133,7 @@ export const FireflySessionConfirmModal = forwardRef<
                         isSameProfile(currentProfileAll[source], {
                             source,
                             profileId: x.profileId,
-                        } as unknown as Profile)
+                        } as Profile)
                     ) {
                         return false;
                     }
@@ -142,9 +142,9 @@ export const FireflySessionConfirmModal = forwardRef<
                 });
 
                 // no session to restore
-                if (!sessions.length) {
+                if (!sessions?.length) {
                     dispatch?.close(false);
-                    props?.onDetected?.([]);
+                    props.onDetected?.([]);
                     return;
                 }
 
@@ -167,7 +167,7 @@ export const FireflySessionConfirmModal = forwardRef<
                 );
 
                 // profiles detected, invoke the callback before showing the confirm modal
-                props?.onDetected?.(pairs.map((x) => x.profile));
+                props.onDetected?.(pairs.map((x) => x.profile));
 
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
