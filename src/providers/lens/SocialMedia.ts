@@ -1096,7 +1096,7 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.whoHaveBeenBlocked({
             cursor: indicator?.id,
             limit: LimitType.TwentyFive,
-        })
+        });
         if (!result.isSuccess()) {
             throw new Error('Failed to fetch blocked profiles');
         }
