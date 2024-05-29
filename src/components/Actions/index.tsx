@@ -47,28 +47,32 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             author={post.author.handle}
             post={post}
         />,
-        <Mirror
-            key="mirror"
-            disabled={disabled}
-            shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
-            source={post.source}
-            postId={post.postId}
-            post={post}
-        />,
+        <div key="mirror">
+            <Mirror
+                disabled={disabled}
+                shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
+                source={post.source}
+                postId={post.postId}
+                post={post}
+            />
+        </div>,
 
         post.source !== Source.Farcaster && post.canAct ? (
-            <Collect key="collect" count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
+            <div key="collect">
+                <Collect count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
+            </div>
         ) : null,
-        <Like
-            key="like"
-            isComment={isComment}
-            count={post.stats?.reactions}
-            hasLiked={post.hasLiked}
-            postId={post.postId}
-            source={post.source}
-            authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-            disabled={disabled}
-        />,
+        <div key="like">
+            <Like
+                isComment={isComment}
+                count={post.stats?.reactions}
+                hasLiked={post.hasLiked}
+                postId={post.postId}
+                source={post.source}
+                authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
+                disabled={disabled}
+            />
+        </div>,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),

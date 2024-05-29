@@ -73,7 +73,7 @@ export const Like = memo<LikeProps>(function Like({
 
     return (
         <ClickableArea
-            className={classNames('flex cursor-pointer items-center text-main hover:text-danger md:space-x-2', {
+            className={classNames('flex w-min cursor-pointer items-center text-main hover:text-danger md:space-x-2', {
                 'font-bold text-danger': !!hasLiked,
                 'opacity-50': disabled,
             })}
