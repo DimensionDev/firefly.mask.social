@@ -1,4 +1,3 @@
-
 import { NUMBER_STRING_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
 
