@@ -19,7 +19,6 @@ export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({
     defaultMuted = true,
     ...rest
 }: ToggleMuteUserButtonProps) {
-    // FIXME: we can use profile.viewerContext?.blocking instead of defaultMuted
     const [isMuted, setIsMuted] = useToggle(defaultMuted);
 
     const currentProfile = useCurrentProfile(profile.source);
@@ -37,7 +36,7 @@ export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({
             ),
         });
         if (!confirmed) return;
-        const result = await toggleBlock(profile);
+        const result = await toggleBlock(profile, isMuted);
         if (result) setIsMuted(!isMuted);
     };
 

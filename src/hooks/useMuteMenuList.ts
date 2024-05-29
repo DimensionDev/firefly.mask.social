@@ -37,7 +37,7 @@ export const useMuteMenuList = (): MuteMenu[] => {
                 name: t`Lens Users`,
                 source: Source.Lens,
                 type: 'user',
-                disabled: true,
+                disabled: false,
             },
             {
                 id: MuteMenuId.XUsers,

@@ -17,12 +17,12 @@ export function useToggleBlock(operator: Profile | null) {
     const { blockUser } = useBlockedUsersState();
     const isLogin = useIsLogin(operator?.source);
     return useAsyncFn(
-        async (profile: Profile) => {
+        async (profile: Profile, blocked?: boolean) => {
             if (!isLogin) {
                 LoginModalRef.open({ source: profile.source });
                 return false;
             }
-            const blocking = getIsMuted(profile);
+            const blocking = blocked ?? getIsMuted(profile);
             const sourceName = resolveSourceName(profile.source);
             try {
                 const provider = resolveSocialMediaProvider(profile.source);

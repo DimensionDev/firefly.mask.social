@@ -20,7 +20,8 @@ export function MutedProfiles({ source }: MutedProfilesProps) {
         queryKey: ['profiles', source, 'muted-list'],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-            return provider.getBlockedProfiles(createIndicator(undefined, pageParam));
+            const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
+            return provider.getBlockedProfiles(indicator);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

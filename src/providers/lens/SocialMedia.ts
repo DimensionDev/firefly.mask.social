@@ -1093,7 +1093,21 @@ class LensSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        const result = await lensSessionHolder.sdk.profile.whoHaveBeenBlocked({
+            cursor: indicator?.id,
+            limit: LimitType.TwentyFive,
+        })
+        if (!result.isSuccess()) {
+            throw new Error('Failed to fetch blocked profiles');
+        }
+
+        const wrappedResult = result.unwrap();
+
+        return createPageable(
+            wrappedResult.items.map(formatLensProfile),
+            createIndicator(indicator),
+            wrappedResult.pageInfo.next ? createNextIndicator(indicator, wrappedResult.pageInfo.next) : undefined,
+        );
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
