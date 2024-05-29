@@ -38,18 +38,28 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
     const mirrored = !!post.hasMirrored;
 
     const content = useMemo(() => {
+        if (shares === 0) {
+            switch (source) {
+                case Source.Lens:
+                    return t`Mirror or Quote`;
+                case Source.Farcaster:
+                    return t`Recast or Quote`;
+                case Source.Twitter:
+                    return t`Retweet`;
+                default:
+                    safeUnreachable(source);
+                    return '';
+            }
+        }
+
         switch (source) {
             case Source.Lens:
                 return plural(shares, {
-                    0: 'Mirror or Quote',
-                    zero: 'Mirror or Quote',
                     one: 'Mirror or Quote',
                     other: 'Mirrors or Quotes',
                 });
             case Source.Farcaster:
                 return plural(shares, {
-                    0: 'Recast or Quote',
-                    zero: 'Recast or Quote',
                     one: 'Recast or Quote',
                     other: 'Recasts or Quotes',
                 });
