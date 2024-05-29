@@ -408,9 +408,6 @@ msgstr "和"
 msgid "Channel"
 msgstr "频道"
 
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-
 msgid "Comment cannot be empty."
 msgstr "评论不能为空。"
 
@@ -425,6 +422,9 @@ msgstr "作者地址"
 
 msgid "Reply"
 msgstr "回复"
+
+msgid "Mirror or Quote"
+msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "确认要屏蔽/{0}？"
@@ -585,9 +585,6 @@ msgstr "已转帖"
 msgid "Post your reply"
 msgstr "发送你的回复"
 
-msgid "{shares, plural, =0 {Recast or Quote} zero {Recast or Quote} one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr ""
-
 msgid "liked"
 msgstr "点赞"
 
@@ -602,6 +599,9 @@ msgstr "文件\"{0}\"超过了大小限制。"
 
 msgid "Invalid URL."
 msgstr "无效的 URL。"
+
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -753,6 +753,9 @@ msgstr "未发现评论"
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
 
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
 msgid "Discard"
 msgstr "放弃"
 
@@ -803,6 +806,9 @@ msgstr "引用"
 
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
+
+msgid "Recast or Quote"
+msgstr ""
 
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
