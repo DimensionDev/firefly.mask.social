@@ -1084,13 +1084,13 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
-        return result.isSuccess();
+        return result.isSuccess().valueOf();
     }
     async unblockUser(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.unblock({
             profiles: [profileId],
         });
-        return result.isSuccess();
+        return result.isSuccess().valueOf();
     }
 
     async blockChannel(channelId: string): Promise<boolean> {

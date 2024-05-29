@@ -51,14 +51,19 @@ export function SetQueryDataForBlockUser(source: SocialSource) {
                     const m = method as (profileId: string) => Promise<boolean>;
                     const status = key === 'blockUser';
                     setBlockStatus(source, profileId, status);
-                    const result = await m?.call(target.prototype, profileId);
-                    if (!result) {
+                    try {
+                        const result = await m?.call(target.prototype, profileId);
+                        if (!result) {
+                            // rolling back
+                            setBlockStatus(source, profileId, !status);
+                            return false;
+                        }
+                        return result;
+                    } catch (err) {
                         // rolling back
                         setBlockStatus(source, profileId, !status);
-                        return false;
+                        throw err;
                     }
-
-                    return result;
                 },
             });
         }
