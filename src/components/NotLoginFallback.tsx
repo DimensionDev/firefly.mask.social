@@ -24,29 +24,31 @@ const resolveConnectButtonClass = createLookupTableResolver<SocialSource, string
 );
 
 interface NotLoginFallbackProps {
-    source: SocialSource;
+    source?: SocialSource;
 }
 
-export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallback({ source }) {
-    const fallbackUrl = resolveFallbackImageUrl(source);
-
+export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source }) {
     return (
         <div className="flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]">
-            <Image src={fallbackUrl} width={200} height={200} alt={`${source} login`} />
-            <span className="leading-3.5 px-6 text-base text-secondary">
-                {t`You need to connect your ${source} account to use this feature.`}
-            </span>
+            {source ? (
+                <>
+                    <Image src={resolveFallbackImageUrl(source)} width={200} height={200} alt={`${source} login`} />
+                    <span className="leading-3.5 px-6 text-base text-secondary">
+                        {t`You need to connect your ${source} account to use this feature.`}
+                    </span>
+                </>
+            ) : null}
             <ClickableButton
                 className={classNames(
                     'rounded-[10px] bg-transparent px-5 py-3.5 text-sm font-bold shadow-sm ring-1 ring-inset',
-                    resolveConnectButtonClass(source),
+                    source ? resolveConnectButtonClass(source) : undefined,
                 )}
                 onClick={async () => {
                     if (source === Source.Lens) await getWalletClientRequired(config);
                     LoginModalRef.open({ source });
                 }}
             >
-                {t`Connect to ${source}`}
+                {source ? t`Connect to ${source}` : t`Connect`}
             </ClickableButton>
         </div>
     );
