@@ -17,7 +17,7 @@ const getChannelItemContent = (index: number, channel: Channel, listKey: string)
 
 export function MutedChannels({ source }: MutedChannelsProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['mutes-list', source, 'channel'],
+        queryKey: ['channels', source, 'muted-list'],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getBlockedChannels(createIndicator(undefined, pageParam));

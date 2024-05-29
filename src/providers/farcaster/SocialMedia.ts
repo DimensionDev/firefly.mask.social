@@ -296,8 +296,8 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.unblockUser(profileId);
     }
 
-    async getBlockedUsers(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedUsers(indicator);
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return FireflySocialMediaProvider.getBlockedProfiles(indicator);
     }
 
     async blockChannel(channelId: string): Promise<boolean> {

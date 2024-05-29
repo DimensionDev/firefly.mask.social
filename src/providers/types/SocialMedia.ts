@@ -694,7 +694,7 @@ export interface Provider {
      * @param indicator
      * @returns
      */
-    getBlockedUsers: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+    getBlockedProfiles: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
     /**
      * Block a channel.

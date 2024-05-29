@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
-import type { TweetV2, TweetV2PaginableTimelineResult, UserV2 } from 'twitter-api-v2';
+import type { TweetV2, TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult, UserV2TimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
@@ -354,13 +354,45 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async blockUser(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const response = await fetchJSON<ResponseJSON<UserV2MuteResult['data']>>(
+            `/api/twitter/mute/${profileId}`,
+            { method: 'POST' }
+        );
+        if (!response.success) throw new Error(response.error.message);
+        return response.data.muting === true;
     }
     async unblockUser(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const response = await fetchJSON<ResponseJSON<UserV2MuteResult['data']>>(
+            `/api/twitter/mute/${profileId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        if (!response.success) throw new Error(response.error.message);
+        return response.data.muting === false;
     }
-    async getBlockedUsers(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(`/api/twitter/mute`, {
+            limit: 20,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<ResponseJSON<UserV2TimelineResult>>(url);
+        if (!response.success) throw new Error(response.error.message);
+        const profiles = response.data.data.map(formatTwitterProfile);
+        return createPageable(
+            profiles,
+            createIndicator(indicator),
+            response.data.meta.next_token ? createIndicator(undefined, response.data.meta.next_token) : undefined,
+        );
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');

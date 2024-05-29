@@ -9,11 +9,11 @@ import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface MutedUserItemProps {
+interface MutedProfileItemProps {
     profile: Profile;
 }
 
-export const MutedUserItem = memo<MutedUserItemProps>(function MutedUserItem({ profile }) {
+export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfileItem({ profile }) {
     return (
         <Link
             href={getProfileUrl(profile)}

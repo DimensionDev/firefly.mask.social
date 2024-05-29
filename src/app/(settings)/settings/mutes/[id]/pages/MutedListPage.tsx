@@ -3,18 +3,16 @@ import { Suspense } from 'react';
 import ComebackIcon from '@/assets/comeback.svg';
 import { MutedChannels } from '@/components/Channel/MutedChannels.js';
 import { Loading } from '@/components/Loading.js';
-import { MutedUsers } from '@/components/Profile/MutedUsers.js';
-import type { MuteMenu } from "@/helpers/getFullMuteMenuList.js";
+import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';
 import { useComeBack } from "@/hooks/useComeback.js";
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+import { type MuteMenu } from '@/hooks/useMuteMenuList.js';
 
 
 interface MutedListProps {
     currentMenu: MuteMenu;
 }
 
-export function MutedListPage({ currentMenu: { name, source, type } }: MutedListProps) {
-    useNavigatorTitle(name);
+export function MutedListPage({ currentMenu: { name, type, source } }: MutedListProps) {
     const comeback = useComeBack();
 
     return (
@@ -30,7 +28,7 @@ export function MutedListPage({ currentMenu: { name, source, type } }: MutedList
                     {
                         type === 'channel'
                             ? <MutedChannels source={source} />
-                            : <MutedUsers source={source} />
+                            : <MutedProfiles source={source} />
                     }
                 </Suspense>
             </div>

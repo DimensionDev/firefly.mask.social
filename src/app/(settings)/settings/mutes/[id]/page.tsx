@@ -3,16 +3,18 @@
 import { find } from "lodash-es";
 
 import { MutedListPage } from "@/app/(settings)/settings/mutes/[id]/pages/MutedListPage.js";
-import { getFullMuteMenuList } from "@/helpers/getFullMuteMenuList.js";
+import type { MuteMenuId } from "@/constants/enum.js";
+import { useMuteMenuList } from "@/hooks/useMuteMenuList.js";
 
 interface PageProps {
     params: {
-        id: string;
+        id: MuteMenuId;
     };
 }
 
 export default function Page({ params: { id } }: PageProps) {
-    const currentMenu = find(getFullMuteMenuList(), menu => menu.id === id);
+    const muteMenuList = useMuteMenuList();
+    const currentMenu = find(muteMenuList, { id });
 
     if (!currentMenu || currentMenu.disabled) {
         return null;

@@ -1,9 +1,10 @@
 
-import { find } from 'lodash-es';
 
+import { t } from '@lingui/macro';
+
+import { MuteMenuId } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getFullMuteMenuList } from '@/helpers/getFullMuteMenuList.js';
 import { transSSR } from '@/helpers/transSSR.js';
 
 interface PageProps {
@@ -13,9 +14,14 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params: { id } }: PageProps) {
-    const pageTitle = find(getFullMuteMenuList(), menu => menu.id === id)?.name ?? '';
+    const menuNameMap: Record<string, string> = {
+        [MuteMenuId.FarcasterUsers]: t`Farcaster Users`,
+        [MuteMenuId.FarcasterChannels]: t`Farcaster Channels`,
+        [MuteMenuId.LensUsers]: t`Lens Users`,
+        [MuteMenuId.XUsers]: t`X Users`,
+    }
     return createSiteMetadata({
-        title: createPageTitle(transSSR(pageTitle)),
+        title: createPageTitle(transSSR(menuNameMap[id]))
     });
 }
 

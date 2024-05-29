@@ -28,7 +28,6 @@ import {
     type BlockChannelResponse,
     type BlockRelationResponse,
     type BlockUserResponse,
-    type BlockUsersResponse,
     type BookmarkResponse,
     type Cast,
     type CastResponse,
@@ -755,22 +754,8 @@ class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute user');
     }
 
-    async getBlockedUsers(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blocklist', {
-            size: 20,
-            page: indicator?.id,
-        });
-        const response = await fireflySessionHolder.fetch<BlockUsersResponse>(url, {
-            method: 'GET',
-        });
-        const data = resolveFireflyResponseData(response);
-        // FIXME: the interface does not return the correct type
-        const users = data.blocks as unknown as Profile[];
-        return createPageable(
-            users,
-            createIndicator(indicator),
-            undefined
-        );
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     async blockChannel(channelId: string): Promise<boolean> {

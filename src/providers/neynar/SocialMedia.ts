@@ -249,7 +249,7 @@ class NeynarSocialMedia implements Provider {
     async unblockUser(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async getBlockedUsers(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
     async blockChannel(channelId: string): Promise<boolean> {
