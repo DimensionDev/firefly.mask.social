@@ -7,8 +7,16 @@ describe('formatFloorPrice', () => {
         expect(formatFloorPrice(0.0000000001020321421421)).toBe('< 0.000001');
     });
 
+    it('should return less than 0.0000009', () => {
+        expect(formatFloorPrice(0.0000009)).toBe('< 0.000001');
+    });
+
     it('should test case 0.1', () => {
         expect(formatFloorPrice(0.1)).toBe('0.1');
+    });
+
+    it('should test case 1000', () => {
+        expect(formatFloorPrice(1000)).toBe('1,000');
     });
 
     it('should test case 10000', () => {
