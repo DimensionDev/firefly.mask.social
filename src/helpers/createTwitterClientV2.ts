@@ -1,26 +1,17 @@
 import type { NextRequest } from 'next/server.js';
-import { getServerSession } from 'next-auth';
-import { getToken, type JWT } from 'next-auth/jwt';
-import { TwitterApi, type TwitterApiTokens } from 'twitter-api-v2';
+import { TwitterApi } from 'twitter-api-v2';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
-import { env } from '@/constants/env.js';
+import { UnauthorizedError } from '@/constants/error.js';
+import { createTwitterSessionPayload } from '@/helpers/createTwitterSessionPayload.js';
 
 export async function createTwitterClientV2(request: NextRequest) {
-    const token: JWT = await getToken({
-        req: request,
-        secret: env.internal.NEXTAUTH_SECRET,
+    const payload = await createTwitterSessionPayload(request);
+    if (!payload) throw new UnauthorizedError();
+
+    return new TwitterApi({
+        appKey: payload.consumerKey,
+        appSecret: payload.consumerSecret,
+        accessToken: payload.accessToken,
+        accessSecret: payload.accessTokenSecret,
     });
-    const session = await getServerSession(authOptions);
-
-    if (!token || !session) throw new Error('Unauthorized');
-    if (!token.twitter.oauthToken || !token.twitter.oauthTokenSecret) throw new Error('No Twitter token found');
-
-    const tokens: TwitterApiTokens = {
-        appKey: env.internal.TWITTER_CLIENT_ID,
-        appSecret: env.internal.TWITTER_CLIENT_SECRET,
-        accessToken: token.twitter.oauthToken,
-        accessSecret: token.twitter.oauthTokenSecret,
-    };
-    return new TwitterApi(tokens);
 }

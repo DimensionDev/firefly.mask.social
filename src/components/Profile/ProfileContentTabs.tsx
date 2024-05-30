@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { memo, Suspense, useState } from 'react';
+import { memo, Suspense } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
@@ -13,6 +13,7 @@ import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { ProfileTabType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 
 const ContentList = memo(function ContentList({
     type,
@@ -48,7 +49,7 @@ interface TabsProps {
 }
 
 export function ProfileContentTabs({ profileId, source }: TabsProps) {
-    const [currentTab, setCurrentTab] = useState(ProfileTabType.Feed);
+    const [currentTab, setCurrentTab] = useStateWithSearchParams<ProfileTabType>('profile_tab', ProfileTabType.Feed);
 
     const computedCurrentTab =
         (source === Source.Lens && currentTab === ProfileTabType.Channels) ||

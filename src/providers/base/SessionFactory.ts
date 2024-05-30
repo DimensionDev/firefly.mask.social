@@ -1,14 +1,29 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+
+const SessionSchema = z.object({
+    profileId: z.string(),
+    token: z.string(),
+    createdAt: z.number().nonnegative(),
+    expiresAt: z.number().nonnegative(),
+});
+
+const TwitterSessionPayloadSchema = z.object({
+    clientId: z.string(),
+    accessToken: z.string(),
+    accessTokenSecret: z.string(),
+    consumerKey: z.string(),
+    consumerSecret: z.string(),
+});
 
 export class SessionFactory {
     /**
@@ -23,6 +38,7 @@ export class SessionFactory {
         const json = atob(fragments[1]) as string;
         // for lens session, the second part is the refresh token
         // for farcaster session, the second part is the signer request token
+        // for twitter session, the second part is payload in base64 encoded
         // for firefly session, the second part is the parent session in base64 encoded
         const secondPart = fragments[2] ?? '';
         // for farcaster session, the third part is the channel token
@@ -37,14 +53,7 @@ export class SessionFactory {
         }>(json);
         if (!session) throw new Error(t`Failed to parse session.`);
 
-        const schema = z.object({
-            profileId: z.string(),
-            token: z.string(),
-            createdAt: z.number().nonnegative(),
-            expiresAt: z.number().nonnegative(),
-        });
-
-        const output = schema.safeParse(session);
+        const output = SessionSchema.safeParse(session);
         if (!output.success) {
             console.error([`[session factory] zod validation failure: ${output.error}`]);
             throw new Error(t`Malformed session.`);
@@ -70,7 +79,15 @@ export class SessionFactory {
                         thirdPart,
                     );
                 case SessionType.Twitter:
-                    return new TwitterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
+                    const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));
+                    if (!parsed.success) throw new Error(t`Malformed twitter session payload.`);
+                    return new TwitterSession(
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        parsed.data,
+                    );
                 case SessionType.Firefly:
                     return new FireflySession(
                         session.profileId,

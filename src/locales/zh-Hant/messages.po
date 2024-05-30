@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-23 00:04\n"
+"PO-Revision-Date: 2024-05-30 12:37\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -51,6 +51,9 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
 
+msgid "Report Spam"
+msgstr ""
+
 msgid "Mute /{0}"
 msgstr "將 @{0} 靜音"
 
@@ -89,6 +92,9 @@ msgstr "除錯連接"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允許 Lens Manager 無需在每次交互時都簽名，即可進行貼文發布、點贊、評論等操作。"
+
+msgid "Download Image"
+msgstr ""
 
 msgid "Searching channel"
 msgstr "搜尋頻道"
@@ -147,6 +153,9 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
 
+msgid "NFT Standard"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr "點贊評論失敗"
 
@@ -177,6 +186,9 @@ msgstr "顯示更少"
 msgid "comment"
 msgstr "評論"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
+
 msgid "Bookmarks"
 msgstr "書籤"
 
@@ -186,6 +198,9 @@ msgstr "確認"
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
@@ -194,6 +209,15 @@ msgstr "設備已登入"
 
 msgid "Username"
 msgstr "用戶名"
+
+msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
+msgstr ""
+
+msgid "NFTs"
+msgstr ""
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "“{searchKeyword}” 無搜尋結果"
@@ -213,6 +237,9 @@ msgstr "密碼"
 msgid "Liked"
 msgstr "已喜歡"
 
+msgid "Term of Service"
+msgstr ""
+
 msgid "Please switch to the correct network in your wallet."
 msgstr ""
 
@@ -228,7 +255,13 @@ msgstr "通過 Firefly 重新連接"
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖像"
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
+msgstr ""
+
+msgid "Report Failed"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
@@ -239,9 +272,6 @@ msgstr "搜尋"
 
 msgid "Connected Accounts"
 msgstr "已連接的帳戶"
-
-msgid "Confirm you want to report @{0}?"
-msgstr "確認對 @{0} 的檢舉？"
 
 msgid "Select Account"
 msgstr "選定帳戶"
@@ -261,11 +291,20 @@ msgstr "偵測設備帳戶失敗"
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
 
+msgid "Items"
+msgstr ""
+
+msgid "Minting Txn Hash"
+msgstr ""
+
 msgid "Audio Cover"
 msgstr ""
 
 msgid "Recent"
 msgstr "最近"
+
+msgid "Owners"
+msgstr ""
 
 msgid "OpenGraph Validator"
 msgstr ""
@@ -291,6 +330,9 @@ msgstr "確認"
 msgid "Failed to mute /{0}."
 msgstr ""
 
+msgid "Address"
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
 
@@ -308,9 +350,6 @@ msgstr "預設"
 
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
-
-msgid "Your post was deleted."
-msgstr "您的貼文已被刪除"
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
@@ -357,10 +396,19 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
+msgid "{0} Channels"
+msgstr ""
+
+msgid "Report spam"
+msgstr ""
+
 msgid "Invalid compose type: {type}."
 msgstr ""
 
 msgid "View Source"
+msgstr ""
+
+msgid "Are you sure you want to report this collection?"
 msgstr ""
 
 msgid "and"
@@ -368,9 +416,6 @@ msgstr ""
 
 msgid "Channel"
 msgstr "頻道"
-
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
 
 msgid "Comment cannot be empty."
 msgstr ""
@@ -387,7 +432,10 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}?"
+msgid "Mirror or Quote"
+msgstr ""
+
+msgid "Owned By"
 msgstr ""
 
 msgid "Collected"
@@ -438,6 +486,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "{0} @{1}"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr ""
 
@@ -456,22 +507,19 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+msgid "Hide more comments"
+msgstr ""
+
 msgid "Malformed session."
 msgstr ""
 
 msgid "Failed to login."
 msgstr "登入失敗."
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼"
-
 msgid "Unlike"
 msgstr "取消喜歡"
 
-msgid "Discord"
-msgstr ""
-
-msgid "Post has been hidden"
+msgid "Post was deleted"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -480,11 +528,11 @@ msgstr ""
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上跟隨 @{0} 失敗"
 
-msgid "Confirm you want to unmute /{0}?"
-msgstr ""
-
 msgid "Bookmark"
 msgstr "書籤"
+
+msgid "Post has been deleted"
+msgstr ""
 
 msgid "Everyone"
 msgstr "所有人"
@@ -508,6 +556,9 @@ msgid "Suggested Channels"
 msgstr "推薦頻道"
 
 msgid "Email (optional)"
+msgstr ""
+
+msgid "NFT Contract"
 msgstr ""
 
 msgid "Failed to follow."
@@ -534,10 +585,10 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr "獲取書籤失敗。"
 
-msgid "Failed to upvote post."
+msgid "Confirm you want to {0} @{1}?"
 msgstr ""
 
-msgid "Telegram"
+msgid "Failed to upvote post."
 msgstr ""
 
 msgid "Retweeted"
@@ -561,6 +612,9 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -572,6 +626,9 @@ msgstr "文章"
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "Creator"
+msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的靜音"
@@ -597,6 +654,9 @@ msgstr ""
 msgid "commented"
 msgstr "已評論"
 
+msgid "Minting Date"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr "無法找到頁面"
 
@@ -617,6 +677,9 @@ msgstr "喜歡"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入框架連結以重新識別有效性"
+
+msgid "Connect your wallet to enable all features"
+msgstr ""
 
 msgid "General"
 msgstr "一般"
@@ -642,10 +705,16 @@ msgstr "已成功靜音"
 msgid "Show More"
 msgstr "顯示更多"
 
+msgid "Show more comments"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
 msgid "Feedback"
+msgstr ""
+
+msgid "%Of supply owned"
 msgstr ""
 
 msgid "Share"
@@ -666,6 +735,9 @@ msgstr "取消跟隨失敗"
 msgid "One click to connect your account status."
 msgstr ""
 
+msgid "Top Collectors"
+msgstr ""
+
 msgid "Quote"
 msgstr ""
 
@@ -675,7 +747,13 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr ""
 
+msgid "{0} /{1}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
+msgstr ""
+
+msgid "Floor Price"
 msgstr ""
 
 msgid "Unliked"
@@ -692,6 +770,9 @@ msgstr ""
 
 msgid "Unfollow @{0}"
 msgstr "取消跟隨 @{0}"
+
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
 
 msgid "Discard"
 msgstr "捨棄"
@@ -744,6 +825,9 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "Recast or Quote"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
 
@@ -756,10 +840,16 @@ msgstr ""
 msgid "Translated from {contentLanguage}"
 msgstr ""
 
+msgid "POAPs"
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上跟隨 @realMaskNetwork"
 
 msgid "Leaving Firefly"
+msgstr ""
+
+msgid "24H Volume"
 msgstr ""
 
 msgid "No Lens profile was found. Please try using a different wallet."
@@ -784,9 +874,6 @@ msgid "Casts + Replies"
 msgstr ""
 
 msgid "Image"
-msgstr ""
-
-msgid "Failed to delete post."
 msgstr ""
 
 msgid "Muted @{0} on {sourceName}"
@@ -840,6 +927,12 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr "創建 firefly 對話失敗"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
+
+msgid "Properties"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr "指定簽名（推薦）"
 
@@ -858,10 +951,16 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr ""
+
 msgid "Add"
 msgstr ""
 
 msgid "No device accounts detected."
+msgstr ""
+
+msgid "Confirm you want to {0} /{1}?"
 msgstr ""
 
 msgid "Log out all"
@@ -888,11 +987,11 @@ msgstr ""
 msgid "Share to"
 msgstr "分享至"
 
+msgid "Download app"
+msgstr ""
+
 msgid "Unknown session type."
 msgstr "未知的對話型別"
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
-msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼"
 
 msgid "{validInDays} day"
 msgstr ""
@@ -930,7 +1029,13 @@ msgstr "我們正在更新與 X 的連接。在 X 上的發帖目前收到限制
 msgid "Your name"
 msgstr ""
 
+msgid "Owned"
+msgstr ""
+
 msgid "Claim on {0}: {1}"
+msgstr ""
+
+msgid "NFT ID"
 msgstr ""
 
 msgid "Failed to unmirror post."
@@ -990,6 +1095,9 @@ msgstr "跟隨 @{0}"
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "Malformed twitter session payload."
+msgstr ""
+
 msgid "No matching users"
 msgstr "沒有符合的用戶"
 
@@ -1001,6 +1109,9 @@ msgstr "登入 Farcaster 帳戶"
 
 msgid "Confirm you want to unmute @{0}?"
 msgstr "確認解除對 @{0} 的靜音？"
+
+msgid "{0} Users"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
@@ -1060,7 +1171,7 @@ msgid "Translating..."
 msgstr ""
 
 msgid "Followers"
-msgstr "跟隨者"
+msgstr "追蹤者"
 
 msgid "Media"
 msgstr ""
@@ -1072,9 +1183,6 @@ msgid "mirrored your"
 msgstr ""
 
 msgid "Mirror"
-msgstr ""
-
-msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
@@ -1090,7 +1198,7 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
-msgstr "跟隨中"
+msgstr "追蹤中"
 
 msgid "<0>{0}</0> recasted"
 msgstr ""
@@ -1110,6 +1218,9 @@ msgstr ""
 msgid "A thread must have at least two posts."
 msgstr ""
 
+msgid "Are you sure you want to report this user?"
+msgstr ""
+
 msgid "Likes"
 msgstr ""
 
@@ -1119,5 +1230,3 @@ msgstr ""
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
 
-msgid "Send a Feedback"
-msgstr ""

@@ -12,17 +12,22 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
+import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSearchChannels } from '@/hooks/useSearchChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-export function ChannelSearchPanel() {
+interface ChannelSearchPanelProps {
+    onSelected?: () => void;
+}
+
+export function ChannelSearchPanel({ onSelected }: ChannelSearchPanelProps) {
     const [inputText, setInputText] = useState('');
     const { updateChannel } = useComposeStateStore();
-    const { channel: selectedChannel } = useCompositePost();
+    const { channel: selectedChannel, typedMessage } = useCompositePost();
 
-    const { data, isLoading, isError } = useSearchChannels(inputText);
+    const { data, isLoading, isError } = useSearchChannels(inputText, hasRpPayload(typedMessage) ?? false);
 
     const InputBox = (
         <div className="relative mx-3 flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
@@ -71,9 +76,8 @@ export function ChannelSearchPanel() {
                             <div
                                 className="flex h-[32px] cursor-pointer items-center justify-between pl-3 pr-1 transition duration-150 ease-in hover:bg-lightBg"
                                 onClick={() => {
-                                    if (!isSelected) {
-                                        updateChannel(channel.source, channel);
-                                    }
+                                    if (!isSelected) updateChannel(channel);
+                                    onSelected?.();
                                 }}
                             >
                                 <div

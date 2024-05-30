@@ -29,6 +29,10 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 r: '/post/[^/]+/\\w+$',
                                 flags: 'i',
                             },
+                            {
+                                r: '/article/[^/]+$',
+                                flags: 'i',
+                            },
                             '/profile',
                             '/channel',
                         ]}
@@ -54,6 +58,14 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             },
                             {
                                 r: '/profile/[^/]+$',
+                                flags: 'i',
+                            },
+                            {
+                                r: '/nft/[^/]+$',
+                                flags: 'i',
+                            },
+                            {
+                                r: '/nft/[^/]+/\\w+$',
                                 flags: 'i',
                             },
                             '/channel',

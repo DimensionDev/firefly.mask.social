@@ -22,9 +22,9 @@ export function useDeletePost(source: SocialSource) {
                 if (isRoutePathname(pathname, '/post')) {
                     navBack();
                 }
-                enqueueSuccessMessage(t`Your post was deleted.`);
+                enqueueSuccessMessage(t`Post was deleted`);
             } catch (error) {
-                enqueueErrorMessage(t`Failed to delete post.`, {
+                enqueueErrorMessage(t`Failed to delete`, {
                     error,
                 });
             }

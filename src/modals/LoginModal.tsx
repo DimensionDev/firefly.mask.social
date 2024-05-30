@@ -8,9 +8,8 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
@@ -20,7 +19,7 @@ import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -35,10 +34,14 @@ export interface LoginModalProps {
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
 
-    const [source, setSource] = useState<SocialSource>();
+    const [source, setSource] = useState<SocialSource | null>(null);
+
+    // for lens only
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
-    const [isDirectly, setIsDirectly] = useState(false);
-    const [currentAccount, setCurrentAccount] = useState<string>('');
+    const [currentAccount, setCurrentAccount] = useState('');
+
+    // for farcaster only
+    const [signType, setSignType] = useState<FarcasterSignType | null>(null);
 
     const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: SocialSource) => {
         try {
@@ -91,7 +94,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     <Trans>The user declined the request.</Trans>
                 </div>,
                 {
-                    error,
+                    noReport: true,
                 },
             );
             throw error;
@@ -102,13 +105,11 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
         onOpen: async (props) => {
             if (!props?.source) return;
             await handleLogin(props.source);
-            setIsDirectly(true);
         },
         onClose: async () => {
-            // setSource will trigger a re-render, so we need to delay the setSource(undefined) to avoid the re-render
+            // setSource will trigger a re-render, so we need to delay the setSource(null) to avoid the re-render
             await delay(300);
-            setIsDirectly(false);
-            setSource(undefined);
+            setSource(null);
         },
     });
 
@@ -138,7 +139,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             }
         >
             {source === Source.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
-            {source === Source.Farcaster ? <LoginFarcaster /> : null}
+            {source === Source.Farcaster ? <LoginFarcaster signType={signType} setSignType={setSignType} /> : null}
             {source === Source.Twitter ? <LoginTwitter /> : null}
         </Suspense>
     );
@@ -150,10 +151,13 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
-                    {source === Source.Farcaster && !isDirectly ? (
-                        <ClickableButton onClick={() => setSource(undefined)}>
-                            <LeftArrowIcon width={24} height={24} />
-                        </ClickableButton>
+                    {source === Source.Farcaster ? (
+                        <BackButton
+                            onClick={() => {
+                                if (signType) setSignType(null);
+                                else setSource(null);
+                            }}
+                        />
                     ) : (
                         <CloseButton onClick={() => dispatch?.close()} />
                     )}

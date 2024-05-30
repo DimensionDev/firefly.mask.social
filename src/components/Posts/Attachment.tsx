@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
 import Music from '@/assets/music.svg';
@@ -11,6 +12,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
@@ -48,6 +50,8 @@ interface AttachmentsProps {
 
 export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, post, isQuote = false }) {
     const imageAttachments = attachments.filter((x) => x.type === 'Image').slice(0, 4);
+    const pathname = usePathname();
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
 
     if (isQuote && asset?.type === 'Video' && asset.coverUri) {
         return (
@@ -111,7 +115,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     onClick={(event) => event.stopPropagation()}
                 >
                     <Link
-                        href={getPostImageUrl(post, 1)}
+                        href={getPostImageUrl(post, 1, isPostPage)}
                         scroll={false}
                         onClick={(event) => {
                             event.stopPropagation();
@@ -155,7 +159,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                 })}
                             >
                                 <Link
-                                    href={getPostImageUrl(post, index + 1)}
+                                    href={getPostImageUrl(post, index + 1, isPostPage)}
                                     onClick={(event) => {
                                         event.stopPropagation();
                                     }}

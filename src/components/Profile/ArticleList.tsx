@@ -12,7 +12,7 @@ interface ArticleListProps {
 
 export function ArticleList({ address }: ArticleListProps) {
     const articleQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['profile', 'articles', address],
+        queryKey: ['articles', 'profile', address],
         queryFn: async ({ pageParam }) => {
             return FireflyArticleProvider.discoverArticlesByAddress(address, createIndicator(undefined, pageParam));
         },

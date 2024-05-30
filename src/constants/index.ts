@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import type { TweetV2UserTimelineParams } from 'twitter-api-v2';
+import type { TweetV2UserTimelineParams, UserV2TimelineParams } from 'twitter-api-v2';
 
 import {
     EngagementType,
@@ -79,6 +79,8 @@ export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Pre
 
 export const EVER_API = 'https://endpoint.4everland.co';
 
+export const FRAME_SERVER_URL = 'https://polls.mask.social';
+
 // S3 bucket
 export const S3_BUCKET = {
     HEY_MEDIA: 'hey-media',
@@ -133,6 +135,7 @@ export const DEFAULT_TOKEN_ADDRESS = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const PUBLIC_ACT_PROXY_ADDRESS = '0x53582b1b7BE71622E7386D736b6baf87749B7a2B';
 export const TOKEN_HANDLE_REGISTRY = '0xD4F2F33680FCCb36748FA9831851643781608844';
+export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 
 export const ALLOWED_IMAGES_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'] as const;
 
@@ -157,4 +160,8 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
     'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
     'user.fields': ['profile_image_url', 'name', 'username'],
+};
+
+export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
+    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics'],
 };

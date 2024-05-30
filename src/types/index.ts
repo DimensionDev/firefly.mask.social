@@ -40,3 +40,8 @@ export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>
 export interface ClassType<T> extends Function {
     new (...args: unknown[]): T;
 }
+
+// learn more: https://nextjs.org/docs/app/api-reference/file-conventions/route#context-optional
+export interface NextRequestContext {
+    params: Record<string, string | undefined>;
+}

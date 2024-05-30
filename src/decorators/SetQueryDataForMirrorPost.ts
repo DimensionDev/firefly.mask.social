@@ -42,9 +42,8 @@ export function SetQueryDataForMirrorPost(source: SocialSource) {
                         postId: string,
                         ...args: unknown[]
                     ) => ReturnType<Exclude<Provider[K], undefined>>;
-                    const result = await m.call(target.prototype, postId, ...args);
-
                     toggleMirror(source, postId, key === 'mirrorPost');
+                    const result = await m.call(target.prototype, postId, ...args);
 
                     return result;
                 },

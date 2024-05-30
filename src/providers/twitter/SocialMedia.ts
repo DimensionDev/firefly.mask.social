@@ -1,15 +1,21 @@
 import { t } from '@lingui/macro';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
-import { getSession } from 'next-auth/react';
-import type { TweetV2, TweetV2PaginableTimelineResult, UserV2 } from 'twitter-api-v2';
+import type {
+    TweetV2,
+    TweetV2PaginableTimelineResult,
+    UserV2,
+    UserV2MuteResult,
+    UserV2TimelineResult,
+} from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
+import { TwitterSession, type TwitterSessionPayload } from '@/providers/twitter/Session.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import {
     type Channel,
     type Notification,
@@ -23,12 +29,16 @@ import type { ResponseJSON } from '@/types/index.js';
 
 class TwitterSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
-        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, { method: 'POST' });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
+            method: 'POST',
+        });
         if (!response.success) throw new Error(response.error.message);
     }
 
     async mirrorPost(postId: string): Promise<string> {
-        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, { method: 'POST' });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, {
+            method: 'POST',
+        });
         if (!response.success) throw new Error(response.error.message);
         return postId;
     }
@@ -38,6 +48,10 @@ class TwitterSocialMedia implements Provider {
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -98,25 +112,27 @@ class TwitterSocialMedia implements Provider {
     }
 
     async follow(profileId: string): Promise<boolean> {
-        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, { method: 'POST' });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, {
+            method: 'POST',
+        });
         if (!response.success) throw new Error(response.error.message);
         return true;
     }
 
     async unfollow(profileId: string): Promise<boolean> {
-        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unfollow/${profileId}`, { method: 'POST' });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unfollow/${profileId}`, {
+            method: 'POST',
+        });
         if (!response.success) throw new Error(response.error.message);
         return true;
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const session = await getSession();
-        if (!session) throw new Error('No session found');
         const url = urlcat(`/api/twitter/homeTimeline`, {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
     }
@@ -130,7 +146,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const response = await fetchJSON<ResponseJSON<TweetV2>>(`/api/twitter/${postId}`);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2>>(`/api/twitter/${postId}`);
         if (!response.success) throw new Error(response.error.message);
         const post = tweetV2ToPost(response.data);
         if (response.data.author_id) {
@@ -140,13 +156,21 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterProfile(response.data);
+    }
+
+    async getProfileByIdWithSessionPayload(profileId: string, payload: TwitterSessionPayload): Promise<Profile> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`, {
+            headers: TwitterSession.payloadToHeaders(payload),
+        });
         if (!response.success) throw new Error(response.error.message);
         return formatTwitterProfile(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
-        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
         return formatTwitterProfile(response.data);
     }
@@ -156,13 +180,11 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const session = await getSession();
-        if (!session) throw new Error('No session found');
         const url = urlcat(`/api/twitter/userTimeline/${profileId}`, {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
     }
@@ -171,14 +193,13 @@ class TwitterSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const session = await getSession();
-        if (!session) throw new Error('No session found');
         const url = urlcat(`/api/twitter/userTimeline/${profileId}/liked`, {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
         if (!response.success) throw new Error(response.error.message);
+
         const postWithPageable = formatTweetsPage(response.data, indicator);
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
@@ -187,19 +208,17 @@ class TwitterSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const session = await getSession();
-        if (!session) throw new Error('No session found');
         const url = urlcat(`/api/twitter/userTimeline/${profileId}/replies`, {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
     }
 
     async getCommentsById(_postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return createPageable([], createIndicator(indicator));
+        return createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
     getThreadByPostId(postId: string): Promise<Post[]> {
@@ -207,12 +226,16 @@ class TwitterSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string): Promise<void> {
-        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/like/${postId}`, { method: 'POST' });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/like/${postId}`, {
+            method: 'POST',
+        });
         if (!response.success) throw new Error(response.error.message);
     }
 
     async unvotePost(postId: string): Promise<void> {
-        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unlike/${postId}`, { method: 'POST' });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unlike/${postId}`, {
+            method: 'POST',
+        });
         if (!response.success) throw new Error(response.error.message);
     }
 
@@ -256,15 +279,21 @@ class TwitterSocialMedia implements Provider {
         return SessionType.Twitter;
     }
 
-    async me(): Promise<Profile> {
-        const session = await getSession();
-        if (!session) throw new Error('No session found');
+    async login(): Promise<TwitterSessionPayload | null> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TwitterSessionPayload>>('/api/twitter/login', {
+            method: 'POST',
+        });
+        if (!response.success) return null;
+        return response.data;
+    }
 
-        const response = await fetchJSON<
+    async me(): Promise<Profile> {
+        const response = await twitterSessionHolder.fetch<
             ResponseJSON<{
                 id: string;
                 name: string;
                 username: string;
+                profile_image_url: string;
             }>
         >('/api/twitter/me');
         if (!response.success) throw new Error('Failed to fetch user profile');
@@ -274,7 +303,7 @@ class TwitterSocialMedia implements Provider {
             displayName: response.data.name,
             handle: response.data.username,
             fullHandle: response.data.username,
-            pfp: session.user?.image ?? '',
+            pfp: '',
             followerCount: 0,
             followingCount: 0,
             status: ProfileStatus.Active,
@@ -284,7 +313,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async quotePost(postId: string, post: Post): Promise<string> {
-        const response = await fetchJSON<
+        const response = await twitterSessionHolder.fetch<
             ResponseJSON<{
                 id: string;
             }>
@@ -306,7 +335,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<string> {
-        const response = await fetchJSON<
+        const response = await twitterSessionHolder.fetch<
             ResponseJSON<{
                 id: string;
             }>
@@ -329,7 +358,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async deletePost(tweetId: string): Promise<boolean> {
-        const response = await fetchJSON<
+        const response = await twitterSessionHolder.fetch<
             ResponseJSON<{
                 deleted: boolean;
             }>
@@ -350,10 +379,43 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async blockUser(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
+            `/api/twitter/mute/${profileId}`,
+            {
+                method: 'POST',
+            },
+            true,
+        );
+        if (!response.success) throw new Error(response.error.message);
+        return response.data.muting === true;
     }
     async unblockUser(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
+            `/api/twitter/mute/${profileId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+            true,
+        );
+        if (!response.success) throw new Error(response.error.message);
+        return response.data.muting === false;
+    }
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const url = urlcat(`/api/twitter/mute`, {
+            limit: 20,
+            cursor: indicator?.id,
+        });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2TimelineResult>>(url, {}, true);
+        if (!response.success) throw new Error(response.error.message);
+        const profiles = (response.data.data ?? []).map(formatTwitterProfile);
+        return createPageable(
+            profiles,
+            createIndicator(indicator),
+            response.data.meta.next_token ? createIndicator(undefined, response.data.meta.next_token) : undefined,
+        );
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
@@ -365,7 +427,7 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async bookmark(tweetId: string): Promise<boolean> {
-        const response = await fetchJSON<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -376,7 +438,7 @@ class TwitterSocialMedia implements Provider {
         return response.data;
     }
     async unbookmark(tweetId: string): Promise<boolean> {
-        const response = await fetchJSON<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -391,7 +453,7 @@ class TwitterSocialMedia implements Provider {
             cursor: indicator?.id || undefined,
             limit: 25,
         });
-        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(t`Failed to fetch bookmarks.`);
         return formatTweetsPage(response.data, indicator);
     }

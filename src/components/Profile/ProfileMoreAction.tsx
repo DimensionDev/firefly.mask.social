@@ -6,7 +6,6 @@ import { Fragment, memo } from 'react';
 import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
@@ -27,10 +26,8 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
-    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
-    const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
-
-    const isBusy = reporting || blocking;
+    const [, reportUser] = useReportUser(currentProfile);
+    const [, toggleBlock] = useToggleBlock(currentProfile);
 
     return (
         <Menu className={classNames('relative', className as string)} as="div" {...rest}>
@@ -40,13 +37,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                 className="flex items-center text-secondary"
                 aria-label="More"
             >
-                {isBusy ? (
-                    <span className="inline-flex h-8 w-8 animate-spin items-center justify-center">
-                        <LoadingIcon width={16} height={16} />
-                    </span>
-                ) : (
-                    <EllipsisHorizontalCircleIcon width={32} height={32} />
-                )}
+                <EllipsisHorizontalCircleIcon width={32} height={32} />
             </Menu.Button>
             <Transition
                 as={Fragment}
@@ -84,23 +75,13 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                     {profile.source === Source.Lens ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <ReportUserButton
-                                    busy={reporting}
-                                    onConfirm={close}
-                                    profile={profile}
-                                    onReport={reportUser}
-                                />
+                                <ReportUserButton onConfirm={close} profile={profile} onReport={reportUser} />
                             )}
                         </Menu.Item>
                     ) : null}
                     <Menu.Item>
                         {({ close }) => (
-                            <BlockUserButton
-                                busy={blocking}
-                                onConfirm={close}
-                                profile={profile}
-                                onToggleBlock={toggleBlock}
-                            />
+                            <BlockUserButton onConfirm={close} profile={profile} onToggleBlock={toggleBlock} />
                         )}
                     </Menu.Item>
                 </Menu.Items>

@@ -6,7 +6,7 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { first } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
@@ -116,10 +116,12 @@ class FireflyArticle implements Provider {
         });
         const response = await fireflySessionHolder.fetch<BookmarkResponse<FFArticle>>(url);
 
-        const posts = response.data?.list.map((x) => formatArticleFromFirefly(x.post_content));
+        const posts = compact(
+            response.data?.list.map((x) => (x.post_content ? formatArticleFromFirefly(x.post_content) : null)),
+        );
 
         return createPageable(
-            posts || [],
+            posts,
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );

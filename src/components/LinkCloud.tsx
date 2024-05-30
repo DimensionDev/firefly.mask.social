@@ -30,28 +30,34 @@ export function LinkCloud() {
 
     return (
         <div className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-xs text-lightSecond lg:px-0">
-            <span className=" font-bold text-gray-500">
-                © {2024} {'Firefly'}
-            </span>
+            <span className=" font-bold text-gray-500">© {2024} Firefly</span>
             {[
-                { name: t`X`, link: 'https://x.com/intent/user?screen_name=thefireflyapp' },
-                { name: t`Discord`, link: 'https://discord.com/invite/pufMbBGQZN' },
-                { name: t`Telegram`, link: 'https://t.me/+mz9T_4YOYhoyYmYx' },
-                { name: t`Privacy Policy`, link: 'https://legal.mask.io/maskbook/privacy-policy-browser.html' },
+                { name: t`Communities`, link: '/settings/communities', self: true },
+                { name: t`Developers`, link: '/developers/frame', self: true },
                 {
-                    name: t`Terms of Service`,
-                    link: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
+                    name: t`Privacy Policy`,
+                    link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
                 },
-            ].map(({ name, link }) => (
-                <Link href={link} key={link} className="outline-offset-4 hover:underline" target="_blank">
+                {
+                    name: t`Term of Service`,
+                    link: 'https://mask.notion.site/Term-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
+                },
+                {
+                    name: t`Download app`,
+                    link: 'https://firefly.social/#download',
+                },
+            ].map(({ name, link, self }) => (
+                <Link
+                    href={link}
+                    key={link}
+                    className="font-medium outline-offset-4 hover:underline"
+                    target={self ? '_self' : '_blank'}
+                >
                     {name}
                 </Link>
             ))}
-            <Link className="cursor-pointer hover:underline" href="/developers/frame">
-                <Trans>Developers</Trans>
-            </Link>
-            <span className="cursor-pointer hover:underline" ref={feedbackEl}>
-                <Trans>Send a Feedback</Trans>
+            <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl}>
+                <Trans>Feedback</Trans>
             </span>
         </div>
     );

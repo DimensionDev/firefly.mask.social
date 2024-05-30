@@ -11,10 +11,12 @@ import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
+import { BookmarkButton } from '@/components/Actions/BookmarkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
@@ -30,30 +32,29 @@ import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import { useToggleBlockChannel } from '@/hooks/useToggleBlockChannel.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
     source: SocialSource;
     author: Profile;
     channel?: Channel;
-    id?: string;
+    post?: Post;
 }
 
-export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, id, channel }) {
+export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, post, channel }) {
     const isLogin = useIsLogin(source);
     const currentProfile = useCurrentProfile(source);
 
     const isMyPost = isSameProfile(author, currentProfile);
 
     const isFollowing = !!author.viewerContext?.following;
-    const [togglingFollow, toggleFollow] = useToggleFollow(author);
+    const [, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
-    const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
-    const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleBlockChannel();
+    const [, reportUser] = useReportUser(currentProfile);
+    const [, toggleBlock] = useToggleBlock(currentProfile);
+    const [, toggleBlockChannel] = useToggleBlockChannel();
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
-    const isBusy = togglingFollow || reporting || blocking || channelBlocking;
     return (
         <Menu
             className=" relative"
@@ -76,15 +77,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     }
                 }}
             >
-                {isBusy ? (
-                    <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
-                        <LoadingIcon width={16} height={16} />
-                    </span>
-                ) : (
-                    <Tooltip content={t`More`} placement="top">
-                        <MoreIcon width={24} height={24} />
-                    </Tooltip>
-                )}
+                <Tooltip content={t`More`} placement="top">
+                    <MoreIcon width={24} height={24} />
+                </Tooltip>
             </Menu.Button>
             <Transition
                 as={Fragment}
@@ -108,7 +103,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 <MenuButton
                                     onClick={async () => {
                                         close();
-                                        if (id) deletePost(id);
+                                        if (post?.postId) deletePost(post.postId);
                                     }}
                                 >
                                     {deleting ? (
@@ -132,9 +127,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             toggleFollow.mutate();
                                         }}
                                     >
-                                        {togglingFollow ? (
-                                            <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
-                                        ) : isFollowing ? (
+                                        {isFollowing ? (
                                             <UnFollowUserIcon width={24} height={24} />
                                         ) : (
                                             <FollowUserIcon width={24} height={24} />
@@ -148,12 +141,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             {source === Source.Lens ? (
                                 <Menu.Item>
                                     {({ close }) => (
-                                        <ReportUserButton
-                                            busy={reporting}
-                                            profile={author}
-                                            onReport={reportUser}
-                                            onClick={close}
-                                        />
+                                        <ReportUserButton profile={author} onReport={reportUser} onClick={close} />
                                     )}
                                 </Menu.Item>
                             ) : null}
@@ -161,9 +149,14 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 <Menu.Item>
                                     {({ close }) => (
                                         <MuteChannelButton
-                                            busy={channelBlocking}
                                             channel={channel}
-                                            onToggleBlock={toggleBlockChannel}
+                                            onToggleBlock={async (channel: Channel) => {
+                                                const result = await toggleBlockChannel(channel);
+                                                queryClient.refetchQueries({
+                                                    queryKey: ['posts', channel.source],
+                                                });
+                                                return result;
+                                            }}
                                             onClick={close}
                                         />
                                     )}
@@ -171,21 +164,19 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             ) : null}
                             <Menu.Item>
                                 {({ close }) => (
-                                    <BlockUserButton
-                                        busy={blocking}
-                                        profile={author}
-                                        onToggleBlock={toggleBlock}
-                                        onClick={close}
-                                    />
+                                    <BlockUserButton profile={author} onToggleBlock={toggleBlock} onClick={close} />
                                 )}
                             </Menu.Item>
                         </>
                     )}
-                    {id ? (
+                    {post && post.source !== Source.Twitter ? (
+                        <Menu.Item>{({ close }) => <BookmarkButton post={post} onClick={close} />}</Menu.Item>
+                    ) : null}
+                    {post?.postId ? (
                         <Menu.Item
                             as={Link}
                             shallow
-                            href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
+                            href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
                             className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >

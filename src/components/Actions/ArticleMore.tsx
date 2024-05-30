@@ -5,7 +5,7 @@ import { Fragment, memo } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
-import { BookmarkButton } from '@/components/Actions/BookmarkButton.js';
+import { ArticleBookmarkButton } from '@/components/Actions/ArticleBookmarkButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -63,7 +63,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                 >
                     <Menu.Item>
                         {({ close }) => (
-                            <BookmarkButton
+                            <ArticleBookmarkButton
                                 busy={mutation.isPending}
                                 article={article}
                                 onToggleBookmark={() => mutation.mutate(article)}

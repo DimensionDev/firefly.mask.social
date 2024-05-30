@@ -4,6 +4,7 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
+    HiddenCommentsType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
@@ -25,7 +26,7 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { first, flatMap, uniqWith } from 'lodash-es';
+import { compact, first, flatMap, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 
@@ -43,6 +44,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -545,7 +547,7 @@ class LensSocialMedia implements Provider {
 
         return createPageable(
             result.items.map(formatLensPost),
-            indicator ?? createIndicator(),
+            createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
@@ -562,7 +564,7 @@ class LensSocialMedia implements Provider {
 
         return createPageable(
             result.items.map(formatLensPost),
-            indicator ?? createIndicator(),
+            createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
@@ -596,7 +598,7 @@ class LensSocialMedia implements Provider {
 
         return createPageable(
             result.items.map(formatLensPostByFeed),
-            indicator ?? createIndicator(),
+            createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
@@ -614,7 +616,7 @@ class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            uniqWith(result.items.map(formatLensPost), (a, b) => a.postId === b.postId),
+            uniqWith(result.items.map(formatLensPost), isSamePost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -895,7 +897,7 @@ class LensSocialMedia implements Provider {
 
         const result = response.unwrap();
 
-        const data = result.items.map((item) => {
+        const data = result.items.map<Notification | null>((item) => {
             if (item.__typename === 'MirrorNotification') {
                 if (item.mirrors.length === 0) throw new Error('No mirror found');
 
@@ -982,11 +984,11 @@ class LensSocialMedia implements Provider {
                 };
             }
 
-            return;
+            return null;
         });
 
         return createPageable(
-            data.filter((item) => typeof item !== 'undefined') as Notification[],
+            compact(data),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1082,13 +1084,31 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
-        return result.isSuccess();
+        return result.isSuccess().valueOf();
     }
     async unblockUser(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.unblock({
             profiles: [profileId],
         });
-        return result.isSuccess();
+        return result.isSuccess().valueOf();
+    }
+
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const result = await lensSessionHolder.sdk.profile.whoHaveBeenBlocked({
+            cursor: indicator?.id,
+            limit: LimitType.TwentyFive,
+        });
+        if (!result.isSuccess()) {
+            throw new Error('Failed to fetch blocked profiles');
+        }
+
+        const wrappedResult = result.unwrap();
+
+        return createPageable(
+            wrappedResult.items.map(formatLensProfile),
+            createIndicator(indicator),
+            wrappedResult.pageInfo.next ? createNextIndicator(indicator, wrappedResult.pageInfo.next) : undefined,
+        );
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
@@ -1096,6 +1116,10 @@ class LensSocialMedia implements Provider {
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -1112,7 +1136,7 @@ class LensSocialMedia implements Provider {
         const profiles = result.items.map((item) => formatLensProfile(item.profile));
         return createPageable(
             profiles,
-            indicator || createIndicator(),
+            createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
@@ -1124,10 +1148,10 @@ class LensSocialMedia implements Provider {
             },
         });
         if (!result) throw new Error(t`No one likes this post yet.`);
-        const profiles = result.items.map((profile) => formatLensProfile(profile));
+        const profiles = result.items.map(formatLensProfile);
         return createPageable(
             profiles,
-            indicator || createIndicator(),
+            createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
@@ -1143,7 +1167,7 @@ class LensSocialMedia implements Provider {
         const posts = result.items.map(formatLensPost);
         return createPageable(
             posts,
-            indicator || createIndicator(),
+            createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
@@ -1167,11 +1191,36 @@ class LensSocialMedia implements Provider {
             const profiles = value.items.map(formatLensPost);
             return createPageable(
                 profiles,
-                indicator || createIndicator(),
+                createIndicator(indicator),
                 value.pageInfo.next ? createNextIndicator(indicator, value.pageInfo.next) : undefined,
             );
         }
         throw new Error('Failed to fetch bookmarks');
+    }
+
+    async getHiddenComments(postId: string, indicator?: PageIndicator) {
+        const result = await lensSessionHolder.sdk.publication.fetchAll({
+            limit: LimitType.TwentyFive,
+            where: {
+                commentOn: {
+                    hiddenComments: HiddenCommentsType.Hide,
+                    id: postId,
+                    ranking: {
+                        filter: CommentRankingFilterType.NoneRelevant,
+                    },
+                },
+                customFilters: [CustomFiltersType.Gardeners],
+            },
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        if (!result) throw new Error(t`No comments found`);
+
+        return createPageable(
+            result.items.map(formatLensPost),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 }
 

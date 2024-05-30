@@ -121,8 +121,61 @@ class HubbleSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    quotePost(postId: string, post: Post): Promise<string> {
-        throw new Error('Method not implemented.');
+    async quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
+        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
+        if (!postId || !post || !profileId) throw new Error(t`Failed to quote post.`);
+
+        const { messageBytes } = await encodeMessageData(
+            () => {
+                const data: {
+                    castAddBody: CastAddBody;
+                } = {
+                    castAddBody: {
+                        ...result,
+                        embedsDeprecated: [],
+                        embeds: [
+                            {
+                                castId: {
+                                    fid: toInteger(profileId),
+                                    hash: toBytes(postId),
+                                },
+                            },
+                            ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
+                        ],
+                        parentCastId: undefined,
+                        parentUrl: undefined,
+                    },
+                };
+
+                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
+                    data.castAddBody.parentCastId = {
+                        fid: toInteger(post.commentOn.author.profileId),
+                        hash: toBytes(post.commentOn.postId),
+                    };
+                } else if (post.parentChannelUrl) {
+                    data.castAddBody.parentUrl = post.parentChannelUrl;
+                }
+                return data;
+            },
+            async (messageData, signer) => {
+                return Factories.CastAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
+            method: 'POST',
+            body: messageBytes,
+        });
+        if (!data) throw new Error(t`Failed to quote post.`);
+        return hash;
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
@@ -591,6 +644,11 @@ class HubbleSocialMedia implements Provider {
     async unblockUser(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
+
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     async blockChannel(channelId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
@@ -598,6 +656,11 @@ class HubbleSocialMedia implements Provider {
     async unblockChannel(channelId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }

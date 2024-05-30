@@ -46,6 +46,9 @@ msgstr "Failed to fetch as Blob."
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
 
+msgid "Report Spam"
+msgstr "Report Spam"
+
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
 
@@ -84,6 +87,9 @@ msgstr "Debug Connection"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
+
+msgid "Download Image"
+msgstr "Download Image"
 
 msgid "Searching channel"
 msgstr "Searching channel"
@@ -142,6 +148,9 @@ msgstr "Debug Console"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "Failed to mute @{0} on {sourceName}"
 
+msgid "NFT Standard"
+msgstr "NFT Standard"
+
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
@@ -172,6 +181,9 @@ msgstr "Show less"
 msgid "comment"
 msgstr "comment"
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
+
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
@@ -181,6 +193,9 @@ msgstr "Confirm"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
+msgid "Muting"
+msgstr "Muting"
+
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
@@ -189,6 +204,15 @@ msgstr "Device Logged In"
 
 msgid "Username"
 msgstr "Username"
+
+msgid "Blockchain"
+msgstr "Blockchain"
+
+msgid "Mutes"
+msgstr "Mutes"
+
+msgid "NFTs"
+msgstr "NFTs"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "No results for \"{searchKeyword}\""
@@ -208,6 +232,9 @@ msgstr "Password"
 msgid "Liked"
 msgstr "Liked"
 
+msgid "Term of Service"
+msgstr "Term of Service"
+
 msgid "Please switch to the correct network in your wallet."
 msgstr "Please switch to the correct network in your wallet."
 
@@ -223,8 +250,14 @@ msgstr "Reconnect with Firefly"
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
+msgid "Failed to delete"
+msgstr "Failed to delete"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
+
+msgid "Report Failed"
+msgstr "Report Failed"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "You need to connect your {source} account to use this feature."
@@ -234,9 +267,6 @@ msgstr "Search"
 
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
-
-msgid "Confirm you want to report @{0}?"
-msgstr "Confirm you want to report @{0}?"
 
 msgid "Select Account"
 msgstr "Select Account"
@@ -256,11 +286,20 @@ msgstr "Failed to detect device accounts."
 msgid "Add another post..."
 msgstr "Add another post..."
 
+msgid "Items"
+msgstr "Items"
+
+msgid "Minting Txn Hash"
+msgstr "Minting Txn Hash"
+
 msgid "Audio Cover"
 msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
+
+msgid "Owners"
+msgstr "Owners"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -286,6 +325,9 @@ msgstr "Confirmation"
 msgid "Failed to mute /{0}."
 msgstr "Failed to mute /{0}."
 
+msgid "Address"
+msgstr "Address"
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
@@ -303,9 +345,6 @@ msgstr "Follow System"
 
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
-
-msgid "Your post was deleted."
-msgstr "Your post was deleted."
 
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
@@ -352,20 +391,26 @@ msgstr "Try searching for something else."
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
 
+msgid "{0} Channels"
+msgstr "{0} Channels"
+
+msgid "Report spam"
+msgstr "Report spam"
+
 msgid "Invalid compose type: {type}."
 msgstr "Invalid compose type: {type}."
 
 msgid "View Source"
 msgstr "View Source"
 
+msgid "Are you sure you want to report this collection?"
+msgstr "Are you sure you want to report this collection?"
+
 msgid "and"
 msgstr "and"
 
 msgid "Channel"
 msgstr "Channel"
-
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
@@ -382,8 +427,11 @@ msgstr "AUTHOR ADDRESS"
 msgid "Reply"
 msgstr "Reply"
 
-msgid "Confirm you want to mute /{0}?"
-msgstr "Confirm you want to mute /{0}?"
+msgid "Mirror or Quote"
+msgstr "Mirror or Quote"
+
+msgid "Owned By"
+msgstr "Owned By"
 
 msgid "Collected"
 msgstr "Collected"
@@ -433,6 +481,9 @@ msgstr "Replies"
 msgid "Comment"
 msgstr "Comment"
 
+msgid "{0} @{1}"
+msgstr "{0} @{1}"
+
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
@@ -451,23 +502,20 @@ msgstr "Your posts have published successfully on {0}."
 msgid "Description"
 msgstr "Description"
 
+msgid "Hide more comments"
+msgstr "Hide more comments"
+
 msgid "Malformed session."
 msgstr "Malformed session."
 
 msgid "Failed to login."
 msgstr "Failed to login."
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-
 msgid "Unlike"
 msgstr "Unlike"
 
-msgid "Discord"
-msgstr "Discord"
-
-msgid "Post has been hidden"
-msgstr "Post has been hidden"
+msgid "Post was deleted"
+msgstr "Post was deleted"
 
 msgid "Your post has published successfully."
 msgstr "Your post has published successfully."
@@ -475,11 +523,11 @@ msgstr "Your post has published successfully."
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "Failed to follow @{0} on {sourceName}"
 
-msgid "Confirm you want to unmute /{0}?"
-msgstr "Confirm you want to unmute /{0}?"
-
 msgid "Bookmark"
 msgstr "Bookmark"
+
+msgid "Post has been deleted"
+msgstr "Post has been deleted"
 
 msgid "Everyone"
 msgstr "Everyone"
@@ -505,6 +553,9 @@ msgstr "Suggested Channels"
 msgid "Email (optional)"
 msgstr "Email (optional)"
 
+msgid "NFT Contract"
+msgstr "NFT Contract"
+
 msgid "Failed to follow."
 msgstr "Failed to follow."
 
@@ -529,11 +580,11 @@ msgstr "Lens"
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
 
+msgid "Confirm you want to {0} @{1}?"
+msgstr "Confirm you want to {0} @{1}?"
+
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
-
-msgid "Telegram"
-msgstr "Telegram"
 
 msgid "Retweeted"
 msgstr "Retweeted"
@@ -556,6 +607,9 @@ msgstr "The file \"{0}\" exceeds the size limit."
 msgid "Invalid URL."
 msgstr "Invalid URL."
 
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
@@ -567,6 +621,9 @@ msgstr "Articles"
 
 msgid "Settings"
 msgstr "Settings"
+
+msgid "Creator"
+msgstr "Creator"
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "Unmuted @{0} on {sourceName}"
@@ -592,6 +649,9 @@ msgstr "Farcaster"
 msgid "commented"
 msgstr "commented"
 
+msgid "Minting Date"
+msgstr "Minting Date"
+
 msgid "The page could not be found."
 msgstr "The page could not be found."
 
@@ -612,6 +672,9 @@ msgstr "Like"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
+
+msgid "Connect your wallet to enable all features"
+msgstr "Connect your wallet to enable all features"
 
 msgid "General"
 msgstr "General"
@@ -637,11 +700,17 @@ msgstr "Mute successfully."
 msgid "Show More"
 msgstr "Show More"
 
+msgid "Show more comments"
+msgstr "Show more comments"
+
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
 msgid "Feedback"
 msgstr "Feedback"
+
+msgid "%Of supply owned"
+msgstr "%Of supply owned"
 
 msgid "Share"
 msgstr "Share"
@@ -661,6 +730,9 @@ msgstr "Failed to unfollow."
 msgid "One click to connect your account status."
 msgstr "One click to connect your account status."
 
+msgid "Top Collectors"
+msgstr "Top Collectors"
+
 msgid "Quote"
 msgstr "Quote"
 
@@ -670,8 +742,14 @@ msgstr "Translated"
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
+msgid "{0} /{1}"
+msgstr "{0} /{1}"
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
+
+msgid "Floor Price"
+msgstr "Floor Price"
 
 msgid "Unliked"
 msgstr "Unliked"
@@ -687,6 +765,9 @@ msgstr "No comments found"
 
 msgid "Unfollow @{0}"
 msgstr "Unfollow @{0}"
+
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
 msgid "Discard"
 msgstr "Discard"
@@ -739,6 +820,9 @@ msgstr "Quotes"
 msgid "The user rejected the request."
 msgstr "The user rejected the request."
 
+msgid "Recast or Quote"
+msgstr "Recast or Quote"
+
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
 
@@ -751,11 +835,17 @@ msgstr "Something went wrong. Please try again."
 msgid "Translated from {contentLanguage}"
 msgstr "Translated from {contentLanguage}"
 
+msgid "POAPs"
+msgstr "POAPs"
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
 
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
+
+msgid "24H Volume"
+msgstr "24H Volume"
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "No Lens profile was found. Please try using a different wallet."
@@ -780,9 +870,6 @@ msgstr "Casts + Replies"
 
 msgid "Image"
 msgstr "Image"
-
-msgid "Failed to delete post."
-msgstr "Failed to delete post."
 
 msgid "Muted @{0} on {sourceName}"
 msgstr "Muted @{0} on {sourceName}"
@@ -835,6 +922,12 @@ msgstr "Failed to mirror post."
 msgid "Failed to create firefly session."
 msgstr "Failed to create firefly session."
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+
+msgid "Properties"
+msgstr "Properties"
+
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
 
@@ -853,11 +946,17 @@ msgstr "Channels"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr "Post from /{0} will be hidden in your home timeline"
+
 msgid "Add"
 msgstr "Add"
 
 msgid "No device accounts detected."
 msgstr "No device accounts detected."
+
+msgid "Confirm you want to {0} /{1}?"
+msgstr "Confirm you want to {0} /{1}?"
 
 msgid "Log out all"
 msgstr "Log out all"
@@ -883,11 +982,11 @@ msgstr "Developers"
 msgid "Share to"
 msgstr "Share to"
 
+msgid "Download app"
+msgstr "Download app"
+
 msgid "Unknown session type."
 msgstr "Unknown session type."
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 
 msgid "{validInDays} day"
 msgstr "{validInDays} day"
@@ -925,8 +1024,14 @@ msgstr "We're updating our connection with X. Posting on X will be limited for n
 msgid "Your name"
 msgstr "Your name"
 
+msgid "Owned"
+msgstr "Owned"
+
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
+
+msgid "NFT ID"
+msgstr "NFT ID"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
@@ -985,6 +1090,9 @@ msgstr "Follow @{0}"
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
 
+msgid "Malformed twitter session payload."
+msgstr "Malformed twitter session payload."
+
 msgid "No matching users"
 msgstr "No matching users"
 
@@ -996,6 +1104,9 @@ msgstr "Log in to Farcaster account"
 
 msgid "Confirm you want to unmute @{0}?"
 msgstr "Confirm you want to unmute @{0}?"
+
+msgid "{0} Users"
+msgstr "{0} Users"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
@@ -1069,9 +1180,6 @@ msgstr "mirrored your"
 msgid "Mirror"
 msgstr "Mirror"
 
-msgid "Terms of Service"
-msgstr "Terms of Service"
-
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."
 
@@ -1105,6 +1213,9 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."
 
+msgid "Are you sure you want to report this user?"
+msgstr "Are you sure you want to report this user?"
+
 msgid "Likes"
 msgstr "Likes"
 
@@ -1113,6 +1224,3 @@ msgstr "Mint button is not available yet."
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> quoted your <1><2/></1>"
-
-msgid "Send a Feedback"
-msgstr "Send a Feedback"

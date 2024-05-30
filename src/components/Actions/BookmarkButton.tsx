@@ -3,35 +3,32 @@ import { forwardRef } from 'react';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import type { Article } from '@/providers/types/Article.js';
+import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
-    busy?: boolean;
-    article: Article;
+    post: Post;
     onConfirm?(): void;
-    onToggleBookmark?(article: Article): void;
 }
 
 export const BookmarkButton = forwardRef<HTMLButtonElement, Props>(function BookmarkButton(
-    { busy, article, onConfirm, onToggleBookmark, ...rest }: Props,
+    { post, onConfirm, ...rest }: Props,
     ref,
 ) {
-    const { hasBookmarked } = article;
+    const mutation = useToggleBookmark(post.source);
+    const { hasBookmarked } = post;
     return (
         <MenuButton
             {...rest}
             onClick={async () => {
+                await mutation.mutateAsync(post);
                 rest.onClick?.();
-                onToggleBookmark?.(article);
             }}
             ref={ref}
         >
-            {busy ? (
-                <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
-            ) : hasBookmarked ? (
+            {hasBookmarked ? (
                 <BookmarkActiveIcon width={24} height={24} className="text-warn" />
             ) : (
                 <BookmarkIcon width={24} height={24} />

@@ -39,6 +39,8 @@ import {
     type DiscoverChannelsResponse,
     type FireFlyProfile,
     type FriendshipResponse,
+    type NFTCollectionsParams,
+    type NFTCollectionsResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
@@ -124,7 +126,7 @@ class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const data = resolveFireflyResponseData(response);
-            const posts = compact(data.casts.map((x) => formatFarcasterPostFromFirefly(x)));
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
                 posts,
@@ -253,7 +255,7 @@ class FireflySocialMedia implements Provider {
             });
             const response = await fireflySessionHolder.fetch<CastsResponse>(url);
             const data = resolveFireflyResponseData(response);
-            const posts = compact(data.casts.map((x) => formatFarcasterPostFromFirefly(x)));
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
                 posts,
@@ -421,8 +423,8 @@ class FireflySocialMedia implements Provider {
             const { comments, cursor } = resolveFireflyResponseData(response);
 
             return createPageable(
-                compact(comments.map((item) => formatFarcasterPostFromFirefly(item))),
-                indicator ?? createIndicator(indicator),
+                comments.map((item) => formatFarcasterPostFromFirefly(item)),
+                createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
         });
@@ -441,7 +443,7 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
                 data,
@@ -464,7 +466,7 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
                 data,
@@ -490,7 +492,7 @@ class FireflySocialMedia implements Provider {
             });
 
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
                 data,
@@ -589,11 +591,11 @@ class FireflySocialMedia implements Provider {
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
-            const data = compact(casts.map((x) => formatFarcasterPostFromFirefly(x)));
+            const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
                 data,
-                indicator ?? createIndicator(),
+                createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
         }, true);
@@ -665,16 +667,17 @@ class FireflySocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
-            keyword: q,
-            limit: 25,
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
+                keyword: q,
+                limit: 25,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url);
+            const casts = resolveFireflyResponseData(response);
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+            return createPageable(data, createIndicator(indicator), undefined);
         });
-        const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url, {
-            method: 'GET',
-        });
-        const casts = resolveFireflyResponseData(response);
-        const data = compact(casts.map((cast) => formatFarcasterPostFromFirefly(cast)));
-        return createPageable(data, createIndicator(indicator), undefined);
     }
 
     async getUploadMediaToken(token: string) {
@@ -719,7 +722,7 @@ class FireflySocialMedia implements Provider {
                 },
             );
             const data = resolveFireflyResponseData(response);
-            return compact([post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))]);
+            return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
         });
     }
     async reportUser(profileId: string): Promise<boolean> {
@@ -752,6 +755,10 @@ class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute user');
     }
 
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     async blockChannel(channelId: string): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
 
@@ -780,6 +787,10 @@ class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute channel');
     }
 
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
@@ -795,7 +806,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const posts = compact(data.quotes.map((x) => formatFarcasterPostFromFirefly(x)));
+        const posts = data.quotes.map((x) => formatFarcasterPostFromFirefly(x));
 
         return createPageable(
             posts,
@@ -842,32 +853,63 @@ class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
 
-        const posts = response.data?.list.map((x) => {
-            const formatted = formatFarcasterPostFromFirefly(x.post_content);
-            if (!formatted) return null;
-            return {
-                ...formatted,
-                hasBookmarked: true,
-            };
-        });
+        const posts = compact(
+            response.data?.list.map((x) => {
+                if (!x.post_content) return null;
+                const formatted = formatFarcasterPostFromFirefly(x.post_content);
+                if (!formatted) return null;
+                return {
+                    ...formatted,
+                    hasBookmarked: true,
+                };
+            }),
+        );
 
         return createPageable(
-            posts ? compact(posts) : [],
+            posts,
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+        );
+    }
+
+    async getNFTCollections(params: NFTCollectionsParams) {
+        const { indicator, walletAddress, limit } = params ?? {};
+        const url = urlcat(FIREFLY_ROOT_URL, 'v2/user/nftCollections', {
+            walletAddress,
+            limit: limit || 25,
+            cursor: indicator?.id || undefined,
+        });
+        const response = await fireflySessionHolder.fetch<NFTCollectionsResponse>(url);
+        return createPageable(
+            response.data?.collections ?? EMPTY_LIST,
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
     }
 
     async getIsMuted(profileId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
-        const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
+        return farcasterSessionHolder.withSession(async (session) => {
+            if (!session) return false;
+            const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
+            const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
+                }),
+            });
+            const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
+            return blocked;
+        });
+    }
+
+    async reportSpamNFT(collectionId: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
+        await fireflySessionHolder.fetch(url, {
             method: 'POST',
             body: JSON.stringify({
-                conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
+                collection_id: collectionId,
             }),
         });
-        const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
-        return blocked;
     }
 }
 

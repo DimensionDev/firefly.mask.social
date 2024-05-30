@@ -19,8 +19,9 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url)));
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
-    if (cast.embeds.length) {
-        const firstAsset = first(cast.embeds);
+    const attachments = cast.embeds.filter((x) => !!x.url);
+    if (attachments.length) {
+        const firstAsset = first(attachments);
         if (!firstAsset?.url) return defaultContent;
 
         const assetType = getResourceType(firstAsset.url);
@@ -35,7 +36,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
                 uri: firstAsset.url,
             } satisfies Attachment,
             attachments: compact<Attachment>(
-                cast.embeds.map((x) => {
+                attachments.map((x) => {
                     if (!x.url) return;
 
                     const type = getResourceType(x.url);
@@ -52,12 +53,18 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     return defaultContent;
 }
 
+function getPostTypeByCast(cast: Cast) {
+    if (cast.quotedCast) return 'Quote';
+    if (cast.recastedBy) return 'Mirror';
+    if (cast.parentCast) return 'Comment';
+    return 'Post';
+}
+
 /**
  * Return null if cast is detected
  */
-export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post | null {
-    const postType = cast.quotedCast ? 'Quote' : type ?? cast.parentCast ? 'Comment' : 'Post';
-    if (cast.deleted_at) return null;
+export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
+    const postType = type ?? getPostTypeByCast(cast);
     return {
         publicationId: cast.hash,
         type: postType,
@@ -66,6 +73,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         parentAuthor: cast.parentCast?.author ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
         timestamp: cast.timestamp ? new Date(cast.timestamp).getTime() : undefined,
         author: cast.author ? formatFarcasterProfileFromFirefly(cast.author) : createDummyProfile(Source.Farcaster),
+        isHidden: !!cast.deleted_at,
         metadata: {
             locale: '',
             content: formatContent(cast),

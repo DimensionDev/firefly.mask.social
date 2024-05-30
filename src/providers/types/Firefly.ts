@@ -1,3 +1,5 @@
+import type { PageIndicator } from '@masknet/shared-base';
+
 import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
@@ -175,6 +177,11 @@ export interface Response<T> {
 }
 
 export type UsersResponse = Response<UsersData>;
+
+export type BlockUsersResponse = Response<{
+    blocks: User[];
+    page: number;
+}>;
 
 export type UserResponse = Response<User>;
 
@@ -402,7 +409,7 @@ export type BookmarkResponse<T> = Response<{
         platform: string;
         platform_id: string;
         post_id: string;
-        post_content: T;
+        post_content?: T;
     }>;
 }>;
 
@@ -430,3 +437,256 @@ export type BlockRelationResponse = Response<
 >;
 
 export type ReportResponse = Response<void>;
+
+export interface NFTCollectionsParams {
+    limit?: number;
+    indicator?: PageIndicator;
+    twitterId?: string;
+    walletAddress?: string;
+    lensHandle?: string;
+    farcasterUsername?: string;
+    fid?: string;
+    lensProfileId?: string;
+}
+
+export type NFTCollectionsResponse = Response<{
+    cursor: string;
+    collections: Collection[];
+}>;
+
+export interface ImageProperties {
+    width: number;
+    height: number;
+    size?: number;
+    mime_type: string;
+}
+
+export interface MarketplacePage {
+    marketplace_id: string;
+    marketplace_name: string;
+    marketplace_collection_id: string;
+    collection_url: string;
+    verified: boolean;
+}
+
+export interface CollectionDetails {
+    collection_id: string;
+    name: string;
+    description?: string;
+    image_url: string;
+    image_properties: ImageProperties;
+    banner_image_url?: string;
+    category?: string;
+    is_nsfw?: boolean;
+    external_url?: string;
+    twitter_username?: string;
+    discord_url?: string;
+    instagram_username: string;
+    medium_username?: string;
+    telegram_url?: string;
+    marketplace_pages: MarketplacePage[];
+    spam_score: number;
+    floor_prices: FloorPrice[];
+    distinct_owner_count: number;
+    distinct_nft_count: number;
+    total_quantity: number;
+    chains: string[];
+    top_contracts: string[];
+    collection_royalties: CollectionRoyalty[];
+}
+
+export interface Previews {
+    image_small_url: string;
+    image_medium_url: string;
+    image_large_url: string;
+    image_opengraph_url: string;
+    blurhash: string;
+    predominant_color: string;
+}
+
+export interface Properties {
+    number: number;
+    name: string;
+}
+
+export interface Content {
+    mime: string;
+    uri: string;
+}
+
+export interface Attribute {
+    trait_type: string;
+    value: string;
+    display_type?: string;
+}
+
+export interface ExtraMetadata {
+    attributes: Attribute[];
+    canvas_url?: string;
+    content?: Content;
+    image_original_url: string;
+    animation_original_url?: string;
+    metadata_original_url?: string;
+    tokenId?: string;
+    namehash?: string;
+    image_url?: string;
+    dna?: string;
+    edition?: number;
+    date?: number;
+    compiler?: string;
+    is_normalized?: boolean;
+    name_length?: number;
+    version?: number;
+    background_image?: string;
+    segment_length?: number;
+    last_request_date?: number;
+    properties?: Properties;
+}
+
+export interface Owner {
+    owner_address: string;
+    quantity: number;
+    quantity_string: string;
+    first_acquired_date: string;
+    last_acquired_date: string;
+}
+
+export interface Contract {
+    type: string;
+    name?: string;
+    symbol?: string;
+    deployed_by: string;
+    deployed_via_contract?: string;
+    owned_by?: string;
+    has_multiple_collections: boolean;
+}
+
+export interface Rarity {
+    rank?: number;
+    score?: number;
+    unique_attributes?: number;
+}
+
+export interface Recipient {
+    address: string;
+    percentage: number;
+    basis_points: number;
+}
+
+export interface Royalty {
+    source: string;
+    total_creator_fee_basis_points: number;
+    recipients: Recipient[];
+}
+
+export interface PaymentToken {
+    payment_token_id: string;
+    name: string;
+    symbol: string;
+    address?: string;
+    decimals: number;
+}
+
+export interface FloorPrice {
+    marketplace_id: string;
+    marketplace_name: string;
+    value: number;
+    payment_token: PaymentToken;
+    value_usd_cents: number;
+}
+
+export interface CollectionRoyalty {
+    source: string;
+    total_creator_fee_basis_points: number;
+    recipients: Recipient[];
+}
+
+export interface NftPreviewCollection {
+    collection_id: string;
+    name: string;
+    description?: string;
+    image_url: string;
+    image_properties: ImageProperties;
+    banner_image_url?: string;
+    category?: string;
+    is_nsfw?: boolean;
+    external_url?: string;
+    twitter_username?: string;
+    discord_url?: string;
+    instagram_username?: string;
+    medium_username?: string;
+    telegram_url?: string;
+    marketplace_pages: MarketplacePage[];
+    spam_score: number;
+    floor_prices: FloorPrice[];
+    distinct_owner_count: number;
+    distinct_nft_count: number;
+    total_quantity: number;
+    chains: string[];
+    top_contracts: string[];
+    collection_royalties: CollectionRoyalty[];
+}
+
+export interface LastSale {
+    from_address: null | string;
+    to_address: string;
+    quantity: number;
+    quantity_string: string;
+    timestamp: string;
+    transaction: string;
+    marketplace_id: string;
+    marketplace_name: string;
+    is_bundle_sale: boolean;
+    payment_token: PaymentToken;
+    unit_price: number;
+    total_price: number;
+    unit_price_usd_cents: number;
+}
+
+export interface FirstCreated {
+    minted_to: string;
+    quantity: number;
+    quantity_string?: string;
+    timestamp: string;
+    block_number: number;
+    transaction: string;
+    transaction_initiator: string;
+}
+
+export interface NftPreview {
+    nft_id: string;
+    chain: string;
+    contract_address: string;
+    token_id: string;
+    name: string;
+    description?: string;
+    previews: Previews;
+    image_url: string;
+    image_properties: ImageProperties;
+    background_color?: string;
+    external_url?: string;
+    created_date: string;
+    status: string;
+    token_count: number;
+    owner_count: number;
+    owners: Owner[];
+    contract: Contract;
+    collection: NftPreviewCollection;
+    last_sale?: LastSale;
+    first_created: FirstCreated;
+    rarity: Rarity;
+    royalty: Royalty[];
+    extra_metadata: ExtraMetadata;
+}
+
+export interface Collection {
+    collection_id: string;
+    distinct_nfts_owned: number;
+    distinct_nfts_owned_string: string;
+    total_copies_owned: number;
+    total_copies_owned_string: string;
+    last_acquired_date: string;
+    nft_ids: string[];
+    collection_details: CollectionDetails;
+    nftPreviews?: NftPreview[];
+}

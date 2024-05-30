@@ -52,6 +52,7 @@ module.exports = {
                 success: 'var(--color-success)',
                 collected: 'rgb(var(--color-collected) / <alpha-value>)',
                 darkBottom: 'var(--color-dark-bottom)',
+                card: 'var(--color-card)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -63,6 +64,7 @@ module.exports = {
                 messageShadow: '0px 0px 16px 0px rgba(101, 119, 134, 0.20)',
                 accountCardShadowLight: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)',
                 accountCardShadowDark: '0px 0px 20px 0px rgba(255, 255, 255, 0.12)',
+                lightS3: '0px 10px 24px 0px rgba(0, 0, 0, 0.06)',
             },
             fontFamily: {
                 inter: ['var(--font-inter)'],

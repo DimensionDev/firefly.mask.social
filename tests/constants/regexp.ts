@@ -98,6 +98,10 @@ describe('URL_REGEX', () => {
                 'Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
                 'https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
             ],
+            [
+                `@lens/ris_707 - dance cult\n\nhttps://hey.xyz/posts/0x042e3c-0x01-DA-95038467\n\n#visualsound\n`,
+                'https://hey.xyz/posts/0x042e3c-0x01-DA-95038467',
+            ],
         ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {

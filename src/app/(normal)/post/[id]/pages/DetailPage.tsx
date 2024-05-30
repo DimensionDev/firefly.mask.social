@@ -17,6 +17,7 @@ import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -89,7 +90,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             if (!isSameProfile(root.author, post.author)) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(currentSource);
-            const posts = await provider.getThreadByPostId(root.postId, root.postId === post.postId ? post : undefined);
+            const posts = await provider.getThreadByPostId(root.postId, isSamePost(root, post) ? post : undefined);
 
             /**
              * The data of Lens is stored in Redis.
@@ -110,6 +111,8 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                 if (response.status !== 200) return createPageable(posts, undefined);
                 return createPageable(await provider.getThreadByPostId(root.postId), undefined);
             }
+
+            if (!posts.some((x) => isSamePost(x, post))) return createPageable(EMPTY_LIST, undefined);
 
             return createPageable(posts, undefined);
         },

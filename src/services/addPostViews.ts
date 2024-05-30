@@ -1,10 +1,11 @@
 import { hydrateLeafwatchViewerId } from '@/store/useLeafwatchPersistStore.js';
 
 export function addPostViews(id: string) {
+    const controller = typeof navigator === 'undefined' ? undefined : navigator.serviceWorker.controller;
     const viewerId = hydrateLeafwatchViewerId();
 
-    if (id && (navigator as Navigator).serviceWorker?.controller) {
-        (navigator as Navigator).serviceWorker.controller?.postMessage({
+    if (id && controller) {
+        controller.postMessage({
             type: 'PUBLICATION_VISIBLE',
             id,
             viewerId,

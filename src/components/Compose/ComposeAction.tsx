@@ -254,13 +254,14 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
-            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) && type === 'compose' ? (
+            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) &&
+            (type === 'compose' || type === 'quote') ? (
                 <div className=" flex h-9 items-center justify-between pb-safe">
                     <span className=" text-[15px] text-secondary">
                         <Trans>Channels</Trans>
                     </span>
                     <Popover as="div" className="relative">
-                        {(_) => (
+                        {({ close }) => (
                             <>
                                 <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
                                     <span className=" text-[15px] font-bold">
@@ -272,7 +273,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                     </span>
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 </Popover.Button>
-                                <ChannelSearchPanel />
+                                <ChannelSearchPanel onSelected={close} />
                             </>
                         )}
                     </Popover>

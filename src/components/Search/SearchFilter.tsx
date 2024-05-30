@@ -16,7 +16,7 @@ export const SearchFilter = memo(function SearchFilter() {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const { searchKeyword, searchType } = useSearchStateStore();
+    const { searchKeyword, searchType, updateSearchType } = useSearchStateStore();
 
     return (
         <div>
@@ -45,7 +45,12 @@ export const SearchFilter = memo(function SearchFilter() {
                                 key={filter.type}
                                 className="flex cursor-pointer items-center text-sm"
                                 href={`/search?q=${searchKeyword}&type=${filter.type}`}
-                                onClick={() => {
+                                onClick={(event) => {
+                                    if (!searchKeyword) {
+                                        event.stopPropagation();
+                                        event.preventDefault();
+                                        updateSearchType(filter.type);
+                                    }
                                     // in mobile view, close the popover after selecting a filter
                                     DraggablePopoverRef.close();
                                 }}

@@ -1,17 +1,24 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { memo, Suspense, useState } from 'react';
+import { memo, Suspense } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
+import { NFTs } from '@/components/Profile/NFTs.js';
+import { POAPList } from '@/components/Profile/POAPList.js';
 import { WalletProfileTabType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 
 const ContentList = memo(function ContentList({ type, address }: { type: WalletProfileTabType; address: string }) {
     switch (type) {
         case WalletProfileTabType.Articles:
             return <ArticleList address={address} />;
+        case WalletProfileTabType.POAPs:
+            return <POAPList address={address} />;
+        case WalletProfileTabType.NFTs:
+            return <NFTs address={address} />;
         default:
             safeUnreachable(type);
             return null;
@@ -23,7 +30,10 @@ interface WalletTabsProps {
 }
 
 export function WalletTabs({ address }: WalletTabsProps) {
-    const [currentTab, setCurrentTab] = useState(WalletProfileTabType.Articles);
+    const [currentTab, setCurrentTab] = useStateWithSearchParams<WalletProfileTabType>(
+        'wallet_tab',
+        WalletProfileTabType.Articles,
+    );
 
     return (
         <>
@@ -32,6 +42,14 @@ export function WalletTabs({ address }: WalletTabsProps) {
                     {
                         type: WalletProfileTabType.Articles,
                         title: <Trans>Articles</Trans>,
+                    },
+                    {
+                        type: WalletProfileTabType.POAPs,
+                        title: <Trans>POAPs</Trans>,
+                    },
+                    {
+                        type: WalletProfileTabType.NFTs,
+                        title: <Trans>NFTs</Trans>,
                     },
                 ].map(({ type, title }) => (
                     <div key={type} className=" flex flex-col">

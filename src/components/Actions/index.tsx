@@ -2,7 +2,6 @@ import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
-import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { Collect } from '@/components/Actions/Collect.js';
 import { Comment } from '@/components/Actions/Comment.js';
 import { Like } from '@/components/Actions/Like.js';
@@ -39,40 +38,42 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     }, [publicationViews, post]);
 
     const actions = compact([
-        <Comment
-            key="comment"
-            disabled={disabled}
-            count={post.stats?.comments}
-            canComment={post.canComment}
-            source={post.source}
-            author={post.author.handle}
-            post={post}
-        />,
-        <Mirror
-            key="mirror"
-            disabled={disabled}
-            shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
-            source={post.source}
-            postId={post.postId}
-            post={post}
-        />,
+        <div key="comment">
+            <Comment
+                disabled={disabled}
+                count={post.stats?.comments}
+                canComment={post.canComment}
+                source={post.source}
+                author={post.author.handle}
+                post={post}
+            />
+        </div>,
+        <div key="mirror">
+            <Mirror
+                disabled={disabled}
+                shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
+                source={post.source}
+                postId={post.postId}
+                post={post}
+            />
+        </div>,
 
         post.source !== Source.Farcaster && post.canAct ? (
-            <Collect key="collect" count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
+            <div key="collect">
+                <Collect count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
+            </div>
         ) : null,
-        <Like
-            key="like"
-            isComment={isComment}
-            count={post.stats?.reactions}
-            hasLiked={post.hasLiked}
-            postId={post.postId}
-            source={post.source}
-            authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-            disabled={disabled}
-        />,
-        post.source !== Source.Twitter ? (
-            <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} />
-        ) : null,
+        <div key="like">
+            <Like
+                isComment={isComment}
+                count={post.stats?.reactions}
+                hasLiked={post.hasLiked}
+                postId={post.postId}
+                source={post.source}
+                authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
+                disabled={disabled}
+            />
+        </div>,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),

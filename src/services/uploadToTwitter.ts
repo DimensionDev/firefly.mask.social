@@ -1,4 +1,4 @@
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 
 interface UploadMediaResponse {
     data: {
@@ -13,16 +13,10 @@ export async function uploadToTwitter(files: File[]) {
             const formData = new FormData();
             formData.append('file', x);
 
-            return fetchJSON<UploadMediaResponse>(
-                '/api/twitter/uploadMedia',
-                {
-                    method: 'POST',
-                    body: formData,
-                },
-                {
-                    noDefaultContentType: true,
-                },
-            );
+            return twitterSessionHolder.fetch<UploadMediaResponse>('/api/twitter/uploadMedia', {
+                method: 'POST',
+                body: formData,
+            });
         }),
     );
     return medias.map((x, i) => ({

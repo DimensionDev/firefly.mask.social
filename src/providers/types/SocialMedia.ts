@@ -81,7 +81,7 @@ export interface MediaObject {
 }
 
 export interface Attachment {
-    type: 'Image' | 'Video' | 'Audio';
+    type: 'Image' | 'Video' | 'Audio' | 'Poll';
     uri: string;
     coverUri?: string;
     artist?: string;
@@ -172,9 +172,9 @@ export interface Post {
      * the current post itself represents the end of the thread.
      * and `commentOn` represents the post to which the current post is a reply.
      */
-    commentOn?: Post | null;
-    root?: Post | null;
-    quoteOn?: Post | null;
+    commentOn?: Post;
+    root?: Post;
+    quoteOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;
@@ -690,6 +690,13 @@ export interface Provider {
     unblockUser: (profileId: string) => Promise<boolean>;
 
     /**
+     * Retrieves profiles that the current logged user has blocked.
+     * @param indicator
+     * @returns
+     */
+    getBlockedProfiles: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
      * Block a channel.
      * @param channelId
      * @returns
@@ -702,6 +709,13 @@ export interface Provider {
      * @returns
      */
     unblockChannel: (channelId: string) => Promise<boolean>;
+
+    /**
+     * Retrieves channels that the current logged user has blocked.
+     * @param indicator
+     * @returns
+     */
+    getBlockedChannels: (indicator?: PageIndicator) => Promise<Pageable<Channel, PageIndicator>>;
 
     /**
      * Retrieve profiles who liked the specified post.

@@ -3,7 +3,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { useMemo, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useMemo, useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
@@ -22,13 +22,14 @@ import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isAbortedError } from '@/helpers/isAbortedError.js';
+import { isSameSession } from '@/helpers/isSameSession.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
@@ -94,7 +95,12 @@ async function login(
     }
 }
 
-export function LoginFarcaster() {
+interface LoginFarcasterProps {
+    signType: FarcasterSignType | null;
+    setSignType: Dispatch<SetStateAction<FarcasterSignType | null>>;
+}
+
+export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     const options = useMemo(() => {
         return [
             {
@@ -121,10 +127,10 @@ export function LoginFarcaster() {
     const controllerRef = useRef<AbortController>();
 
     const [url, setUrl] = useState('');
-    const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);
 
     const [scanned, setScanned] = useState(false);
     const [profileError, setProfileError] = useState<ProfileError | null>(null);
+
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
@@ -187,9 +193,8 @@ export function LoginFarcaster() {
                     // and find out the the signer key of the connected profile
                     const sessions = await syncSessionFromFirefly(controllerRef.current?.signal);
 
-                    const restoredSession = sessions.find(
-                        (x) => session.type === SessionType.Farcaster && x.profileId === session.profileId,
-                    );
+                    // if the user has signed into Firefly before, a synced session could be found.
+                    const restoredSession = sessions.find((x) => isSameSession(x, session));
 
                     if (!restoredSession) {
                         // the current profile did not connect to firefly
@@ -345,7 +350,8 @@ export function LoginFarcaster() {
                                 ) : signType === FarcasterSignType.GrantPermission ? (
                                     <Trans>
                                         On your mobile device with Warpcast, open the{' '}
-                                        <span className="font-bold">Camera</span> app and scan the QR code.
+                                        <span className="font-bold">Camera</span> app and scan the QR code. Approve a
+                                        new Farcaster signer to Firefly.
                                     </Trans>
                                 ) : signType === FarcasterSignType.RelayService ? (
                                     <Trans>
@@ -359,7 +365,7 @@ export function LoginFarcaster() {
                                                 })}
                                             </span>
                                         }
-                                        .
+                                        . Approve a new Farcaster signer to Firefly.
                                     </Trans>
                                 ) : null}
                             </div>

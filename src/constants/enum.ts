@@ -75,6 +75,8 @@ export enum ProfileTabType {
 
 export enum WalletProfileTabType {
     Articles = 'Articles',
+    POAPs = 'POAPs',
+    NFTs = 'NFTs',
 }
 
 export enum EngagementType {
@@ -102,6 +104,8 @@ export enum ScrollListKey {
     Bookmark = 'bookmark',
     Collected = 'profile-collected-list',
     Engagement = 'post-engagement',
+    NFTList = 'nft-list',
+    TopCollectors = 'top-collectors',
 }
 
 export enum FarcasterSignType {
@@ -123,3 +127,10 @@ export enum BookmarkType {
 }
 
 export { SourceInURL as FireflyPlatform };
+
+export enum MuteMenuId {
+    FarcasterUsers = '1',
+    FarcasterChannels = '2',
+    LensUsers = '3',
+    XUsers = '4',
+}

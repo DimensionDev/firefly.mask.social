@@ -1,3 +1,4 @@
+import type { AutoLinkNode } from '@lexical/link/index.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import {
@@ -9,7 +10,7 @@ import { EMPTY_LIST } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical/index.js';
 import { first } from 'lodash-es';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounce } from 'usehooks-ts';
 
@@ -17,6 +18,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
@@ -131,6 +133,8 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
 });
 export function MentionsPlugin(): JSX.Element | null {
     const currentProfileAll = useCurrentProfileAll();
+    const isUpdatingMentionTag = useRef<boolean>(false);
+    const matchedNodeCache = useRef<AutoLinkNode | null>(null);
 
     const { availableSources } = useCompositePost();
 
@@ -177,27 +181,45 @@ export function MentionsPlugin(): JSX.Element | null {
 
     const checkForMentionMatch = useCallback(
         (text: string) => {
-            const slashMatch = checkForSlashTriggerMatch(text, editor);
+            const { text: queryText = '', matchedNode } =
+                getSafeMentionQueryText(text, editor, isUpdatingMentionTag.current) ?? {};
+            const slashMatch = checkForSlashTriggerMatch(queryText, editor);
+
+            if (matchedNode) {
+                matchedNodeCache.current = matchedNode;
+            }
 
             if (slashMatch !== null) {
                 return null;
             }
 
-            return getPossibleQueryMatch(text);
+            return getPossibleQueryMatch(queryText);
         },
         [checkForSlashTriggerMatch, editor],
     );
 
     const onSelectOption = useCallback(
         (selectedOption: MentionTypeaheadOption, nodeToReplace: null | TextNode, closeMenu: () => void) => {
-            editor.update(() => {
-                const mentionNode = $createMentionNode(selectedOption.fullHandle);
-                if (nodeToReplace) {
-                    nodeToReplace.replace(mentionNode);
-                }
-                mentionNode.select().insertText(' ');
-                closeMenu();
-            });
+            isUpdatingMentionTag.current = true;
+            editor.update(
+                () => {
+                    const mentionNode = $createMentionNode(selectedOption.fullHandle);
+                    if (nodeToReplace) {
+                        nodeToReplace.replace(mentionNode);
+                    } else if (matchedNodeCache.current) {
+                        matchedNodeCache.current.replace(mentionNode);
+                    }
+                    mentionNode.select().insertText(' ');
+                    closeMenu();
+                },
+                {
+                    onUpdate: () => {
+                        isUpdatingMentionTag.current = false;
+                        matchedNodeCache.current = null;
+                    },
+                    discrete: true,
+                },
+            );
         },
         [editor],
     );

@@ -1,12 +1,14 @@
 import { Popover, Transition } from '@headlessui/react';
+import { getEnumAsArray } from '@masknet/kit';
 import { last } from 'lodash-es';
 import { Fragment } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
-import { RestrictionType, Source } from '@/constants/enum.js';
+import { RestrictionType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 
 interface ReplyRestrictionProps {
@@ -16,22 +18,13 @@ interface ReplyRestrictionProps {
 
 export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const { availableSources } = useCompositePost();
-    const twitterOnly = availableSources.length === 1 && availableSources.includes(Source.Twitter);
 
-    const items = [
-        {
-            type: RestrictionType.Everyone,
-            disabled: false,
-        },
-        {
-            type: RestrictionType.OnlyPeopleYouFollow,
-            disabled: availableSources.length ? availableSources.includes(Source.Farcaster) : false,
-        },
-        {
-            type: RestrictionType.MentionedUsers,
-            disabled: !twitterOnly,
-        },
-    ];
+    const items = getEnumAsArray(RestrictionType).map(({ value: type }) => {
+        return {
+            type,
+            disabled: !isValidRestrictionType(type, availableSources),
+        };
+    });
 
     return (
         <Transition

@@ -24,8 +24,7 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
         draft.stats = patchPostStats(draft.stats, status);
     });
 
-    // Articles
-    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles', 'discover'] }, (old) => {
+    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles'] }, (old) => {
         if (!old) return old;
 
         return produce(old, (draft) => {
@@ -36,21 +35,6 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
             });
         });
     });
-
-    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>(
-        { queryKey: ['articles', 'following', Source.Article] },
-        (old) => {
-            if (!old) return old;
-
-            return produce(old, (draft) => {
-                draft.pages.forEach((page) => {
-                    page.data.forEach((article) => {
-                        if (article.id === postId) article.hasBookmarked = status;
-                    });
-                });
-            });
-        },
-    );
 
     queryClient.setQueryData<Article>(['article-detail', postId], (old) => {
         return produce(old, (draft) => {
@@ -68,7 +52,7 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
 
     if (!status) {
         queryClient.setQueryData<{ pages: Array<{ data: Array<Post | Article> }> }>(
-            ['posts', 'article', 'bookmark'],
+            ['posts', Source.Article, 'bookmark'],
             (old) => {
                 if (!old) return old;
                 return produce(old, (draft) => {

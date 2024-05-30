@@ -124,7 +124,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     setEditorContent(readChars(chars, true));
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
-                if (channel) updateChannel(channel.source, channel);
+                if (channel) updateChannel(channel);
             },
             onClose: (props) => {
                 if (props?.disableClear) return;

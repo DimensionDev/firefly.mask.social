@@ -83,6 +83,12 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     selectedIcon: NotificationSelectedIcon,
                                 },
                                 {
+                                    href: PageRoute.Bookmarks,
+                                    name: <Trans>Bookmarks</Trans>,
+                                    icon: BookmarkIcon,
+                                    selectedIcon: BookmarkSelectedIcon,
+                                },
+                                {
                                     href: PageRoute.Profile,
                                     name: <Trans>Profile</Trans>,
                                     icon: ProfileIcon,
@@ -93,12 +99,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     name: <Trans>Connect</Trans>,
                                     icon: WalletIcon,
                                     selectedIcon: WalletIcon,
-                                },
-                                {
-                                    href: PageRoute.Bookmarks,
-                                    name: <Trans>Bookmarks</Trans>,
-                                    icon: BookmarkIcon,
-                                    selectedIcon: BookmarkSelectedIcon,
                                 },
                                 {
                                     href: PageRoute.Settings,

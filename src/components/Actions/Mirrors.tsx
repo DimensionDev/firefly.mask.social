@@ -2,10 +2,9 @@ import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
@@ -33,21 +32,37 @@ interface MirrorProps {
 }
 
 export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, postId, disabled = false, post }) {
+    const [open, setOpen] = useState(false);
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
     const mirrored = !!post.hasMirrored;
 
     const content = useMemo(() => {
+        if (shares === 0) {
+            switch (source) {
+                case Source.Lens:
+                    return t`Mirror or Quote`;
+                case Source.Farcaster:
+                    return t`Recast or Quote`;
+                case Source.Twitter:
+                    return t`Retweet`;
+                default:
+                    safeUnreachable(source);
+                    return '';
+            }
+        }
+
         switch (source) {
             case Source.Lens:
                 return plural(shares, {
-                    0: 'Mirror or Quote',
-                    zero: 'Mirror or Quote',
                     one: 'Mirror or Quote',
                     other: 'Mirrors or Quotes',
                 });
             case Source.Farcaster:
-                return t`Recast`;
+                return plural(shares, {
+                    one: 'Recast or Quote',
+                    other: 'Recasts or Quotes',
+                });
             case Source.Twitter:
                 return t`Retweet`;
             default:
@@ -129,12 +144,13 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
     return (
         <Tippy
+            visible={open}
+            onClickOutside={() => setOpen(false)}
             appendTo={() => document.body}
             offset={[-30, -6]}
             placement="top"
             className="tippy-card"
             duration={200}
-            trigger="click"
             arrow={false}
             interactive
             content={
@@ -144,31 +160,30 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                             'text-secondarySuccess': mirrored,
                         })}
                         onClick={() => {
-                            close();
+                            setOpen(false);
                             handleMirror();
                         }}
                     >
                         <MirrorLargeIcon width={24} height={24} />
                         <span className="font-medium">{mirrorActionText}</span>
                     </div>
-                    {source === Source.Lens ? (
-                        <div
-                            className="flex cursor-pointer items-center md:space-x-2"
-                            onClick={() => {
-                                close();
-                                ComposeModalRef.open({
-                                    type: 'quote',
-                                    post,
-                                    source,
-                                });
-                            }}
-                        >
-                            <QuoteDownIcon width={24} height={24} />
-                            <span className="font-medium">
-                                <Trans>Quote Post</Trans>
-                            </span>
-                        </div>
-                    ) : null}
+
+                    <div
+                        className="flex cursor-pointer items-center md:space-x-2"
+                        onClick={() => {
+                            setOpen(false);
+                            ComposeModalRef.open({
+                                type: 'quote',
+                                post,
+                                source,
+                            });
+                        }}
+                    >
+                        <QuoteDownIcon width={24} height={24} />
+                        <span className="font-medium">
+                            <Trans>Quote Post</Trans>
+                        </span>
+                    </div>
                 </div>
             }
         >
@@ -184,10 +199,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                         LoginModalRef.open({ source: post.source });
                         return;
                     }
+                    setOpen(true);
                     return;
                 }}
                 className={classNames(
-                    'relative flex cursor-pointer items-center text-main hover:text-secondarySuccess',
+                    'relative flex w-min cursor-pointer items-center text-main hover:text-secondarySuccess md:space-x-2',
                     {
                         'text-secondarySuccess': mirrored,
                         'opacity-50': !!disabled,
@@ -201,15 +217,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     content={shares ? `${humanize(shares)} ${content}` : content}
                     withDelay
                 >
-                    {loading ? (
-                        <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
-                    ) : (
-                        <MirrorIcon
-                            width={16}
-                            height={16}
-                            className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
-                        />
-                    )}
+                    <MirrorIcon
+                        width={16}
+                        height={16}
+                        className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
+                    />
                 </Tooltip>
                 {shares ? (
                     <span

@@ -1,6 +1,6 @@
 import { uniq } from 'lodash-es';
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -39,7 +39,6 @@ const useBlockedUsersStore = create<
         })),
         {
             name: 'firefly-blocked-users',
-            storage: createJSONStorage(() => localStorage),
         },
     ),
 );
