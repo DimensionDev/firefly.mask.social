@@ -11,10 +11,12 @@ import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
@@ -57,9 +59,15 @@ export function getNFTItemContent(
                 ) : null}
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
                 {options?.isShowOwner && item.owner?.address ? (
-                    <div className="font- absolute left-2 top-2 rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md">
-                        {formatEthereumAddress(item.owner?.address, 4)}
-                    </div>
+                    <Link
+                        href={resolveProfileUrl(Source.Wallet, item.owner.address)}
+                        className="absolute left-2 top-2 rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
+                        onClickCapture={(e) => {
+                            e.stopPropagation();
+                        }}
+                    >
+                        {formatEthereumAddress(item.owner.address, 4)}
+                    </Link>
                 ) : null}
                 <Image
                     width={500}
