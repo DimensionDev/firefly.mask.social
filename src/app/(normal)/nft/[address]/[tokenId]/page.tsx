@@ -10,8 +10,8 @@ import { Loading } from '@/components/Loading.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
+import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { useNFTFloorPrice } from '@/hooks/useNFTFloorPrice.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import type { SearchParams } from '@/types/index.js';
 
@@ -36,8 +36,6 @@ export default function Page({
             });
         },
     });
-
-    const floorPrice = useNFTFloorPrice(data?.collection?.floorPrices);
 
     if (isLoading) {
         return <Loading />;
@@ -69,7 +67,7 @@ export default function Page({
                         icon: data.collection?.iconURL ?? undefined,
                         id: data.contract?.address,
                     }}
-                    floorPrice={floorPrice}
+                    floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
                 />
                 {data.traits && data.traits.length > 0 ? (
