@@ -502,6 +502,9 @@ msgstr "Your posts have published successfully on {0}."
 msgid "Description"
 msgstr "Description"
 
+msgid "Hide more comments"
+msgstr "Hide more comments"
+
 msgid "Malformed session."
 msgstr "Malformed session."
 
