@@ -14,7 +14,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
             return urlcat(FIREFLY_STAMP_URL, '/twitter/:id', { id: profileId });
         case Source.Wallet:
         case Source.Article:
-            return urlcat(FIREFLY_STAMP_URL, '/avatar/:address', { address: profileId });
+            return urlcat(FIREFLY_STAMP_URL, '/:address', { address: profileId });
         default:
             safeUnreachable(source);
             return '';
