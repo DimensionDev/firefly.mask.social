@@ -13,6 +13,9 @@
 
         var browser = window.bowser.getParser(window.navigator.userAgent);
         var isValidBrowser = browser.satisfies({
+            ios: {
+                safari: '>=16',
+            },
             macos: {
                 safari: '>=16',
             },
