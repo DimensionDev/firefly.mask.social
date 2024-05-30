@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-30 00:05\n"
+"PO-Revision-Date: 2024-05-30 12:37\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -153,9 +153,6 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
-msgid "Confirm to report this Collection?"
-msgstr ""
-
 msgid "NFT Standard"
 msgstr ""
 
@@ -201,6 +198,9 @@ msgstr ""
 msgid "The author is muted by you."
 msgstr ""
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr ""
 
@@ -211,6 +211,9 @@ msgid "Username"
 msgstr ""
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
 msgstr ""
 
 msgid "NFTs"
@@ -393,6 +396,9 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
+msgid "{0} Channels"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -400,6 +406,9 @@ msgid "Invalid compose type: {type}."
 msgstr ""
 
 msgid "View Source"
+msgstr ""
+
+msgid "Are you sure you want to report this collection?"
 msgstr ""
 
 msgid "and"
@@ -477,6 +486,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "{0} @{1}"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr ""
 
@@ -493,6 +505,9 @@ msgid "Your posts have published successfully on {0}."
 msgstr ""
 
 msgid "Description"
+msgstr ""
+
+msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
@@ -568,6 +583,9 @@ msgid "Lens"
 msgstr ""
 
 msgid "Failed to fetch bookmarks."
+msgstr ""
+
+msgid "Confirm you want to {0} @{1}?"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -660,6 +678,9 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr ""
 
+msgid "Connect your wallet to enable all features"
+msgstr ""
+
 msgid "General"
 msgstr ""
 
@@ -724,6 +745,9 @@ msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
+msgstr ""
+
+msgid "{0} /{1}"
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
@@ -936,6 +960,9 @@ msgstr ""
 msgid "No device accounts detected."
 msgstr ""
 
+msgid "Confirm you want to {0} /{1}?"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -949,9 +976,6 @@ msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Failed to retweet."
-msgstr ""
-
-msgid "Confirm to report this user?"
 msgstr ""
 
 msgid "Please switch to the wallet used for login."
@@ -1086,6 +1110,9 @@ msgstr ""
 msgid "Confirm you want to unmute @{0}?"
 msgstr ""
 
+msgid "{0} Users"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
@@ -1189,6 +1216,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
