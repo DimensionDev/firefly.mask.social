@@ -1,12 +1,13 @@
 import { Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { Image } from '@/components/Image.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -32,10 +33,7 @@ export function getTopCollectorsItemContent(
     return (
         <>
             <td className="min-w-[40px] pb-5 pr-2 text-left">{index}</td>
-            <td
-                className="min-w-[150px] max-w-[200px] px-2 pb-5"
-                title={item.owner_ens_name ? item.owner_ens_name : item.owner_address}
-            >
+            <td className="min-w-[150px] max-w-[200px] px-2 pb-5">
                 <div className="flex w-full items-center">
                     <Image
                         src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
@@ -44,14 +42,16 @@ export function getTopCollectorsItemContent(
                         height={30}
                         className="mr-2 min-w-[30px] rounded-full"
                     />
-                    <div className="max-w-[calc(100%-38px)] truncate text-left" title={item.owner_address}>
-                        <Tooltip content={addressOrEns}>
-                            <span>
-                                {item.owner_ens_name
-                                    ? item.owner_ens_name
-                                    : formatEthereumAddress(item.owner_address, 4)}
-                            </span>
-                        </Tooltip>
+                    <div className="max-w-[calc(100%-38px)] text-left" title={item.owner_address}>
+                        {item.owner_ens_name ? (
+                            <TextOverflowTooltip title={addressOrEns} placement="right">
+                                <div className="w-full truncate">{item.owner_ens_name}</div>
+                            </TextOverflowTooltip>
+                        ) : (
+                            <Tooltip title={addressOrEns} placement="right">
+                                <span>{formatEthereumAddress(item.owner_address, 4)}</span>
+                            </Tooltip>
+                        )}
                     </div>
                 </div>
             </td>
@@ -61,7 +61,7 @@ export function getTopCollectorsItemContent(
                 })}
             >
                 <div className="min-w-[160px] truncate">
-                    <Tooltip content={item.distinct_nfts_owned}>
+                    <Tooltip title={item.distinct_nfts_owned} placement="right">
                         <span>{nFormatter(item.distinct_nfts_owned)}</span>
                     </Tooltip>
                 </div>
