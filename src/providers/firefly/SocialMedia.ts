@@ -888,15 +888,18 @@ class FireflySocialMedia implements Provider {
     }
 
     async getIsMuted(profileId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
-        const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
-            }),
+        return farcasterSessionHolder.withSession(async (session) => {
+            if (!session) return false;
+            const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
+            const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
+                }),
+            });
+            const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
+            return blocked;
         });
-        const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
-        return blocked;
     }
 
     async reportSpamNFT(collectionId: string) {
