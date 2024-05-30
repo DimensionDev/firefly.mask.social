@@ -49,7 +49,7 @@ export function ListInPage<T = unknown, C = unknown>({
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={currentSource === Source.Article ? undefined : currentSocialSource} />;
+        return <NotLoginFallback source={currentSource === Source.Article ? currentSource : currentSocialSource} />;
     }
 
     if (noResultsFallbackRequired && !data.length) {
