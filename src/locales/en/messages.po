@@ -673,6 +673,9 @@ msgstr "Like"
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
 
+msgid "Connect your wallet to enable all features"
+msgstr "Connect your wallet to enable all features"
+
 msgid "General"
 msgstr "General"
 
