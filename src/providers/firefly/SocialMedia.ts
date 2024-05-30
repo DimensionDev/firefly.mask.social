@@ -667,16 +667,17 @@ class FireflySocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
-            keyword: q,
-            limit: 25,
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
+                keyword: q,
+                limit: 25,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url);
+            const casts = resolveFireflyResponseData(response);
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+            return createPageable(data, createIndicator(indicator), undefined);
         });
-        const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url, {
-            method: 'GET',
-        });
-        const casts = resolveFireflyResponseData(response);
-        const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
-        return createPageable(data, createIndicator(indicator), undefined);
     }
 
     async getUploadMediaToken(token: string) {
