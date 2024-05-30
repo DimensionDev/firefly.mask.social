@@ -17,6 +17,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useEnsNameWithChainbase } from '@/hooks/useEnsNameWithChainbase.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
@@ -34,6 +35,19 @@ const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ c
 const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ children, ...props }, ref) {
     return <div {...props}>{children}</div>;
 });
+
+function Owner({ address }: { address: string }) {
+    const { data: ensName } = useEnsNameWithChainbase(address);
+    return (
+        <Link
+            href={resolveProfileUrl(Source.Wallet, ensName ? ensName : address)}
+            className="absolute left-2 top-2 max-w-[100px] truncate rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
+            onClickCapture={(e) => e.stopPropagation()}
+        >
+            {ensName ? ensName : formatEthereumAddress(address, 4)}
+        </Link>
+    );
+}
 
 export function getNFTItemContent(
     index: number,
@@ -58,17 +72,7 @@ export function getNFTItemContent(
                     <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
                 ) : null}
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
-                {options?.isShowOwner && item.owner?.address ? (
-                    <Link
-                        href={resolveProfileUrl(Source.Wallet, item.owner.address)}
-                        className="absolute left-2 top-2 rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
-                        onClickCapture={(e) => {
-                            e.stopPropagation();
-                        }}
-                    >
-                        {formatEthereumAddress(item.owner.address, 4)}
-                    </Link>
-                ) : null}
+                {options?.isShowOwner && item.owner?.address ? <Owner address={item.owner.address} /> : null}
                 <Image
                     width={500}
                     height={500}
