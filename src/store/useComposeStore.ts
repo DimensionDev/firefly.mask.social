@@ -188,13 +188,15 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 const cursor = uuid();
                 const index = state.posts.findIndex((x) => x.id === state.cursor);
+                const rootPost = state.posts[0];
 
                 const nextPosts = [
                     ...state.posts.slice(0, index + 1),
                     {
                         ...createInitSinglePostState(cursor),
-                        availableSources: state.posts[0].availableSources,
-                        channel: clone(state.posts[0].channel),
+                        availableSources: rootPost.availableSources,
+                        restriction: rootPost.restriction,
+                        channel: clone(rootPost.channel),
                     },
                     ...state.posts.slice(index + 1), // corrected slicing here
                 ];
