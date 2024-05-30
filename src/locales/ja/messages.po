@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-29 12:01\n"
+"PO-Revision-Date: 2024-05-30 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -426,9 +426,6 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}?"
-msgstr ""
-
 msgid "Owned By"
 msgstr ""
 
@@ -514,9 +511,6 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
-msgstr ""
-
-msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
 msgid "Bookmark"
@@ -933,6 +927,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr ""
+
 msgid "Add"
 msgstr ""
 
@@ -1072,6 +1069,9 @@ msgid "Follow @{0}"
 msgstr ""
 
 msgid "Cancel Recast"
+msgstr ""
+
+msgid "Malformed twitter session payload."
 msgstr ""
 
 msgid "No matching users"
