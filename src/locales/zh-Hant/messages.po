@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-30 00:05\n"
+"PO-Revision-Date: 2024-05-30 12:37\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1171,7 +1171,7 @@ msgid "Translating..."
 msgstr ""
 
 msgid "Followers"
-msgstr "跟隨者"
+msgstr "追蹤者"
 
 msgid "Media"
 msgstr ""
@@ -1198,7 +1198,7 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
-msgstr "跟隨中"
+msgstr "追蹤中"
 
 msgid "<0>{0}</0> recasted"
 msgstr ""
@@ -1229,3 +1229,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+
