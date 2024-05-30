@@ -140,6 +140,8 @@ interface ComposeState extends ComposeBaseState {
     // drafts
     drafts: Draft[];
     addDraft: (draft: Draft) => void;
+    removeDraft: (cursor: string) => void;
+    applyDraft: (draft: Draft) => void;
 }
 
 function createInitSinglePostState(cursor: Cursor): CompositePost {
@@ -210,9 +212,24 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
             drafts: EMPTY_LIST,
             addDraft: (draft: Draft) =>
                 set((state) => {
-                    state.drafts = [...state.drafts, draft] as Array<WritableDraft<Draft>>;
+                    const index = state.drafts.findIndex((x) => x.cursor === draft.cursor);
+                    if (index === -1) {
+                        state.drafts.push(draft as WritableDraft<Draft>);
+                    } else {
+                        state.drafts[index] = draft as WritableDraft<Draft>;
+                    }
                 }),
-
+            removeDraft: (cursor: string) => {
+                set((state) => {
+                    state.drafts = state.drafts.filter((x) => x.cursor !== cursor);
+                });
+            },
+            applyDraft: (draft: Draft) =>
+                set((state) => {
+                    state.type = draft.type;
+                    state.cursor = draft.cursor;
+                    state.posts = draft.posts as WritableDraft<CompositePost[]>;
+                }),
             addPostInThread: () =>
                 set((state) => {
                     const cursor = uuid();
@@ -533,13 +550,14 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                     ),
                 ),
             clear: () =>
-                set((state) =>
+                set((state) => {
+                    const id = uuid();
                     Object.assign(state, {
                         type: 'compose',
-                        cursor: initialPostCursor,
-                        posts: [createInitSinglePostState(initialPostCursor)],
-                    }),
-                ),
+                        cursor: id,
+                        posts: [createInitSinglePostState(id)],
+                    });
+                }),
         })),
         {
             storage,

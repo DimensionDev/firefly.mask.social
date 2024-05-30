@@ -191,7 +191,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             cursor,
             addDraft,
         } = useComposeStateStore();
-
+        console.log(posts);
         const compositePost = useCompositePost();
         const { typedMessage, rpPayload, id } = compositePost;
 
@@ -214,6 +214,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             onClose: (props) => {
                 if (props?.disableClear) return;
                 clear();
+                router.navigate({ to: '/' });
                 editor.update(() => $getRoot().clear());
             },
         });
@@ -319,7 +320,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         }, [posts.length]);
 
         return (
-            <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false}>
+            <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false} disableDialogClose>
                 <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (

@@ -47,7 +47,13 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
 
         return (
             <Modal open={open} onClose={() => dispatch?.close(false)}>
-                <div className="relative w-[355px] max-w-[90vw] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                <div
+                    className="relative w-[355px] max-w-[90vw] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950"
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        event.preventDefault();
+                    }}
+                >
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
                         {enableCloseButton ? <CloseButton onClick={() => dispatch?.close(false)} /> : null}
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
