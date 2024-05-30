@@ -951,9 +951,6 @@ msgstr ""
 msgid "Failed to retweet."
 msgstr ""
 
-msgid "Confirm to report this user?"
-msgstr ""
-
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -1189,6 +1186,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"

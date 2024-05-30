@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { EMPTY_LIST } from '@masknet/shared-base';
-import { attemptUntil } from '@masknet/web3-shared-base';
+import { type Pageable, type PageIndicator } from '@masknet/shared-base';
 
 import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
@@ -256,13 +254,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return attemptUntil<Pageable<Post, PageIndicator>>(
-            [
-                async () => WarpcastSocialMediaProvider.searchPosts(q, indicator),
-                async () => FireflySocialMediaProvider.searchPosts(q, indicator),
-            ],
-            createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
-        );
+        return FireflySocialMediaProvider.searchPosts(q, indicator);
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {

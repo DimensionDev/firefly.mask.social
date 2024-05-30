@@ -1,12 +1,15 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { Source } from '@/constants/enum.js';
+import { SearchType, type Source } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
 export type Matcher = string | ((post: Draft<Post> | null | undefined) => boolean);
 
+/**
+ * Patch all post lists, including post searching result
+ */
 export function patchPostQueryData(source: Source, postId: Matcher, patcher: Patcher) {
     const matcher: Matcher = typeof postId === 'string' ? (post) => post?.postId === postId : postId;
 
@@ -22,7 +25,9 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
         });
     });
 
-    queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>({ queryKey: ['posts', source] }, (old) => {
+    type Data = { pages: Array<{ data: Post[] }> };
+
+    const PostsPatcher = (old: Data | undefined) => {
         if (!old?.pages) return old;
 
         return produce(old, (draft) => {
@@ -37,5 +42,8 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
                 }
             }
         });
-    });
+    };
+
+    queryClient.setQueriesData<Data>({ queryKey: ['posts', source] }, PostsPatcher);
+    queryClient.setQueriesData<Data>({ queryKey: ['search', SearchType.Posts] }, PostsPatcher);
 }
