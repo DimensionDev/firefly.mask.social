@@ -20,10 +20,6 @@ interface ProfileCardProps {
 }
 
 export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile, loading }) {
-    if (!profile) return null;
-
-    const url = getProfileUrl(profile);
-
     if (loading) {
         return (
             <div className="h-[182px] w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
@@ -44,6 +40,10 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
             </div>
         );
     }
+
+    if (!profile) return null;
+
+    const url = getProfileUrl(profile);
 
     return (
         <ClickableArea className="flex w-[350px] flex-col gap-y-3 rounded-2xl border border-secondaryLine bg-primaryBottom p-4">

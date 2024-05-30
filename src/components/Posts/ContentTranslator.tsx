@@ -7,6 +7,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { getTargetLanguage } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
+import { isValidContentToTranslate } from '@/helpers/isValidContentToTranslate.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getContentLanguage } from '@/services/getContentLanguage.js';
@@ -47,7 +48,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     }, [content, translationConfig]);
 
     useMount(() => {
-        if (!isLogin) return;
+        if (!isLogin || !isValidContentToTranslate(content)) return;
         handleDetect();
     });
 

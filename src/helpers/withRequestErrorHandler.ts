@@ -34,6 +34,7 @@ export function withRequestErrorHandler(options?: { throwError?: boolean }) {
                         status: StatusCodes.INTERNAL_SERVER_ERROR,
                     });
                 }
+
                 throw error;
             }
         };

@@ -38,8 +38,8 @@ export const authOptions: AuthOptions = {
     debug: env.shared.NODE_ENV === NODE_ENV.Development,
     providers,
     callbacks: {
-        jwt: async ({ token, user, account, profile, trigger, session }) => {
-            console.log('[jwt]:', { token, user, account, profile, trigger, session });
+        jwt: async ({ token, account, session, ...rest }) => {
+            console.log('[jwt]:', { token, account, session, ...rest });
 
             // export tokens to session
             if (account && session) {

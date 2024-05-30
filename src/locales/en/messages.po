@@ -196,6 +196,9 @@ msgstr "Confirm"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
+msgid "Muting"
+msgstr "Muting"
+
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
@@ -207,6 +210,9 @@ msgstr "Username"
 
 msgid "Blockchain"
 msgstr "Blockchain"
+
+msgid "Mutes"
+msgstr "Mutes"
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -388,6 +394,9 @@ msgstr "Try searching for something else."
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
 
+msgid "{0} Channels"
+msgstr "{0} Channels"
+
 msgid "Report spam"
 msgstr "Report spam"
 
@@ -402,9 +411,6 @@ msgstr "and"
 
 msgid "Channel"
 msgstr "Channel"
-
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
@@ -421,8 +427,8 @@ msgstr "AUTHOR ADDRESS"
 msgid "Reply"
 msgstr "Reply"
 
-msgid "Confirm you want to mute /{0}?"
-msgstr "Confirm you want to mute /{0}?"
+msgid "Mirror or Quote"
+msgstr "Mirror or Quote"
 
 msgid "Owned By"
 msgstr "Owned By"
@@ -475,6 +481,9 @@ msgstr "Replies"
 msgid "Comment"
 msgstr "Comment"
 
+msgid "{0} @{1}"
+msgstr "{0} @{1}"
+
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
@@ -510,9 +519,6 @@ msgstr "Your post has published successfully."
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "Failed to follow @{0} on {sourceName}"
-
-msgid "Confirm you want to unmute /{0}?"
-msgstr "Confirm you want to unmute /{0}?"
 
 msgid "Bookmark"
 msgstr "Bookmark"
@@ -571,6 +577,9 @@ msgstr "Lens"
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
 
+msgid "Confirm you want to {0} @{1}?"
+msgstr "Confirm you want to {0} @{1}?"
+
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
@@ -594,6 +603,9 @@ msgstr "The file \"{0}\" exceeds the size limit."
 
 msgid "Invalid URL."
 msgstr "Invalid URL."
+
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
@@ -724,6 +736,9 @@ msgstr "Translated"
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
+msgid "{0} /{1}"
+msgstr "{0} /{1}"
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
@@ -744,6 +759,9 @@ msgstr "No comments found"
 
 msgid "Unfollow @{0}"
 msgstr "Unfollow @{0}"
+
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
 msgid "Discard"
 msgstr "Discard"
@@ -795,6 +813,9 @@ msgstr "Quotes"
 
 msgid "The user rejected the request."
 msgstr "The user rejected the request."
+
+msgid "Recast or Quote"
+msgstr "Recast or Quote"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
@@ -919,11 +940,17 @@ msgstr "Channels"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr "Post from /{0} will be hidden in your home timeline"
+
 msgid "Add"
 msgstr "Add"
 
 msgid "No device accounts detected."
 msgstr "No device accounts detected."
+
+msgid "Confirm you want to {0} /{1}?"
+msgstr "Confirm you want to {0} /{1}?"
 
 msgid "Log out all"
 msgstr "Log out all"
@@ -939,9 +966,6 @@ msgstr "Failed to unmute @{0} on {sourceName}"
 
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
-
-msgid "Confirm to report this user?"
-msgstr "Confirm to report this user?"
 
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
@@ -1060,6 +1084,9 @@ msgstr "Follow @{0}"
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
 
+msgid "Malformed twitter session payload."
+msgstr "Malformed twitter session payload."
+
 msgid "No matching users"
 msgstr "No matching users"
 
@@ -1071,6 +1098,9 @@ msgstr "Log in to Farcaster account"
 
 msgid "Confirm you want to unmute @{0}?"
 msgstr "Confirm you want to unmute @{0}?"
+
+msgid "{0} Users"
+msgstr "{0} Users"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
@@ -1176,6 +1206,9 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."
+
+msgid "Are you sure you want to report this user?"
+msgstr "Are you sure you want to report this user?"
 
 msgid "Likes"
 msgstr "Likes"

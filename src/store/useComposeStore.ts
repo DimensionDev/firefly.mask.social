@@ -62,23 +62,21 @@ export interface CompositePost {
     // tracking error
     postError: Record<SocialSource, Error | null>;
 
+    // shared properties
     restriction: RestrictionType;
-    // use the same value of root post
     availableSources: SocialSource[];
+    channel: Record<SocialSource, Channel | null>;
+
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
+    poll: Poll | null;
+    rpPayload: RedPacketPayload | null;
     // parsed frames from urls in chars
     frames: Frame[];
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
-    rpPayload: RedPacketPayload | null;
-
-    // only available in farcaster now
-    channel: Record<SocialSource, Channel | null>;
-
-    poll: Poll | null;
 }
 
 export interface ComposeBaseState {
@@ -214,6 +212,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 set((state) => {
                     state.drafts = [...state.drafts, draft] as Array<WritableDraft<Draft>>;
                 }),
+
             addPostInThread: () =>
                 set((state) => {
                     const cursor = uuid();

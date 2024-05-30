@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import type { TweetV2UserTimelineParams } from 'twitter-api-v2';
+import type { TweetV2UserTimelineParams, UserV2TimelineParams } from 'twitter-api-v2';
 
 import {
     EngagementType,
@@ -160,4 +160,8 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
     'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
     'user.fields': ['profile_image_url', 'name', 'username'],
+};
+
+export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
+    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics'],
 };

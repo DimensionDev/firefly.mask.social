@@ -38,16 +38,31 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
     const mirrored = !!post.hasMirrored;
 
     const content = useMemo(() => {
+        if (shares === 0) {
+            switch (source) {
+                case Source.Lens:
+                    return t`Mirror or Quote`;
+                case Source.Farcaster:
+                    return t`Recast or Quote`;
+                case Source.Twitter:
+                    return t`Retweet`;
+                default:
+                    safeUnreachable(source);
+                    return '';
+            }
+        }
+
         switch (source) {
             case Source.Lens:
                 return plural(shares, {
-                    0: 'Mirror or Quote',
-                    zero: 'Mirror or Quote',
                     one: 'Mirror or Quote',
                     other: 'Mirrors or Quotes',
                 });
             case Source.Farcaster:
-                return t`Recast`;
+                return plural(shares, {
+                    one: 'Recast or Quote',
+                    other: 'Recasts or Quotes',
+                });
             case Source.Twitter:
                 return t`Retweet`;
             default:
@@ -188,7 +203,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     return;
                 }}
                 className={classNames(
-                    'relative flex cursor-pointer items-center text-main hover:text-secondarySuccess',
+                    'relative flex w-min cursor-pointer items-center text-main hover:text-secondarySuccess md:space-x-2',
                     {
                         'text-secondarySuccess': mirrored,
                         'opacity-50': !!disabled,

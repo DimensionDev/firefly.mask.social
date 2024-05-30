@@ -7,6 +7,7 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
+import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Frame as FrameUI } from '@/components/Frame/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -32,7 +33,7 @@ export default function Frame() {
     }, [url]);
 
     return (
-        <div className="flex w-full flex-col items-center p-6">
+        <Section>
             <Headline>
                 <Trans>Frame</Trans>
             </Headline>
@@ -73,6 +74,6 @@ export default function Frame() {
             ) : error ? (
                 <div className=" w-full">{error.message}</div>
             ) : null}
-        </div>
+        </Section>
     );
 }

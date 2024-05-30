@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-29 00:04\n"
+"PO-Revision-Date: 2024-05-29 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -201,6 +201,9 @@ msgstr "确认"
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
@@ -211,6 +214,9 @@ msgid "Username"
 msgstr "用户名"
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
 msgstr ""
 
 msgid "NFTs"
@@ -393,6 +399,9 @@ msgstr "试试搜索其他东西。"
 msgid "Unmute /{0}"
 msgstr "取消屏蔽 /{0}"
 
+msgid "{0} Channels"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -407,9 +416,6 @@ msgstr "和"
 
 msgid "Channel"
 msgstr "频道"
-
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 
 msgid "Comment cannot be empty."
 msgstr "评论不能为空。"
@@ -426,8 +432,8 @@ msgstr "作者地址"
 msgid "Reply"
 msgstr "回复"
 
-msgid "Confirm you want to mute /{0}?"
-msgstr "确认要屏蔽/{0}？"
+msgid "Mirror or Quote"
+msgstr ""
 
 msgid "Owned By"
 msgstr ""
@@ -480,6 +486,9 @@ msgstr "回复"
 msgid "Comment"
 msgstr "评论"
 
+msgid "{0} @{1}"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
@@ -515,9 +524,6 @@ msgstr "发布成功。"
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
-
-msgid "Confirm you want to unmute /{0}?"
-msgstr "确认取消屏蔽 /{0}？"
 
 msgid "Bookmark"
 msgstr "收藏"
@@ -576,6 +582,9 @@ msgstr "Lens"
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
+msgid "Confirm you want to {0} @{1}?"
+msgstr ""
+
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
@@ -599,6 +608,9 @@ msgstr "文件\"{0}\"超过了大小限制。"
 
 msgid "Invalid URL."
 msgstr "无效的 URL。"
+
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -729,6 +741,9 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
+msgid "{0} /{1}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
@@ -749,6 +764,9 @@ msgstr "未发现评论"
 
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
+
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
 
 msgid "Discard"
 msgstr "放弃"
@@ -800,6 +818,9 @@ msgstr "引用"
 
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
+
+msgid "Recast or Quote"
+msgstr ""
 
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
@@ -924,11 +945,17 @@ msgstr "频道"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr ""
+
 msgid "Add"
 msgstr "添加"
 
 msgid "No device accounts detected."
 msgstr "未检测到设备账号。"
+
+msgid "Confirm you want to {0} /{1}?"
+msgstr ""
 
 msgid "Log out all"
 msgstr "登出所有"
@@ -944,9 +971,6 @@ msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 
 msgid "Failed to retweet."
 msgstr "转帖失败。"
-
-msgid "Confirm to report this user?"
-msgstr ""
 
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
@@ -1065,6 +1089,9 @@ msgstr "关注 @{0}"
 msgid "Cancel Recast"
 msgstr "取消转帖"
 
+msgid "Malformed twitter session payload."
+msgstr ""
+
 msgid "No matching users"
 msgstr "未找到匹配用户"
 
@@ -1076,6 +1103,9 @@ msgstr "登录到 Farcaster 账号"
 
 msgid "Confirm you want to unmute @{0}?"
 msgstr "确认取消屏蔽 @{0}？"
+
+msgid "{0} Users"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"
@@ -1117,7 +1147,7 @@ msgid "No parent post found."
 msgstr "未找到上级帖子。"
 
 msgid "Please confirm the login with X."
-msgstr "请确认X登陆成功。"
+msgstr "请在 X 确认登陆。"
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
@@ -1181,6 +1211,9 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
 msgstr "一条 thread 至少包含 2 个帖子。"
+
+msgid "Are you sure you want to report this user?"
+msgstr ""
 
 msgid "Likes"
 msgstr "点赞"

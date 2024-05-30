@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-29 00:04\n"
+"PO-Revision-Date: 2024-05-29 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -201,6 +201,9 @@ msgstr "確認"
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
@@ -211,6 +214,9 @@ msgid "Username"
 msgstr "用戶名"
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
 msgstr ""
 
 msgid "NFTs"
@@ -393,6 +399,9 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
+msgid "{0} Channels"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -407,9 +416,6 @@ msgstr ""
 
 msgid "Channel"
 msgstr "頻道"
-
-msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
 
 msgid "Comment cannot be empty."
 msgstr ""
@@ -426,7 +432,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}?"
+msgid "Mirror or Quote"
 msgstr ""
 
 msgid "Owned By"
@@ -480,6 +486,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "{0} @{1}"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr ""
 
@@ -515,9 +524,6 @@ msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上跟隨 @{0} 失敗"
-
-msgid "Confirm you want to unmute /{0}?"
-msgstr ""
 
 msgid "Bookmark"
 msgstr "書籤"
@@ -576,6 +582,9 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr "獲取書籤失敗。"
 
+msgid "Confirm you want to {0} @{1}?"
+msgstr ""
+
 msgid "Failed to upvote post."
 msgstr ""
 
@@ -598,6 +607,9 @@ msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "Invalid URL."
+msgstr ""
+
+msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -729,6 +741,9 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr ""
 
+msgid "{0} /{1}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -749,6 +764,9 @@ msgstr ""
 
 msgid "Unfollow @{0}"
 msgstr "取消跟隨 @{0}"
+
+msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
 
 msgid "Discard"
 msgstr "捨棄"
@@ -799,6 +817,9 @@ msgid "Quotes"
 msgstr ""
 
 msgid "The user rejected the request."
+msgstr ""
+
+msgid "Recast or Quote"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -924,10 +945,16 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Post from /{0} will be hidden in your home timeline"
+msgstr ""
+
 msgid "Add"
 msgstr ""
 
 msgid "No device accounts detected."
+msgstr ""
+
+msgid "Confirm you want to {0} /{1}?"
 msgstr ""
 
 msgid "Log out all"
@@ -943,9 +970,6 @@ msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Failed to retweet."
-msgstr ""
-
-msgid "Confirm to report this user?"
 msgstr ""
 
 msgid "Please switch to the wallet used for login."
@@ -1065,6 +1089,9 @@ msgstr "跟隨 @{0}"
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "Malformed twitter session payload."
+msgstr ""
+
 msgid "No matching users"
 msgstr "沒有符合的用戶"
 
@@ -1076,6 +1103,9 @@ msgstr "登入 Farcaster 帳戶"
 
 msgid "Confirm you want to unmute @{0}?"
 msgstr "確認解除對 @{0} 的靜音？"
+
+msgid "{0} Users"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
@@ -1180,6 +1210,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
