@@ -166,6 +166,9 @@ export const FireflySessionConfirmModal = forwardRef<
                     ),
                 );
 
+                // not valid profile detected
+                if (!pairs.length) return;
+
                 // profiles detected, invoke the callback before showing the confirm modal
                 props.onDetected?.(pairs.map((x) => x.profile));
 
