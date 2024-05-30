@@ -11,11 +11,19 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         if (required && !this.internalSession?.payload) throw new Error('Twitter session is required');
 
         return this.internalSession?.payload
-            ? fetchJSON<T>(url, {
-                  ...options,
-                  headers: TwitterSession.payloadToHeaders(this.internalSession.payload),
-              })
-            : fetchJSON<T>(url, options);
+            ? fetchJSON<T>(
+                  url,
+                  {
+                      ...options,
+                      headers: TwitterSession.payloadToHeaders(this.internalSession.payload),
+                  },
+                  {
+                      noDefaultContentType: true,
+                  },
+              )
+            : fetchJSON<T>(url, options, {
+                  noDefaultContentType: true,
+              });
     }
 }
 
