@@ -288,12 +288,20 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.unblockUser(profileId);
     }
 
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return FireflySocialMediaProvider.getBlockedProfiles(indicator);
+    }
+
     async blockChannel(channelId: string): Promise<boolean> {
         return FireflySocialMediaProvider.blockChannel(channelId);
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
         return FireflySocialMediaProvider.unblockChannel(channelId);
+    }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

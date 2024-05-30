@@ -754,6 +754,10 @@ class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute user');
     }
 
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     async blockChannel(channelId: string): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
 
@@ -780,6 +784,10 @@ class FireflySocialMedia implements Provider {
 
         if (response) return true;
         throw new Error('Failed to mute channel');
+    }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

@@ -178,6 +178,11 @@ export interface Response<T> {
 
 export type UsersResponse = Response<UsersData>;
 
+export type BlockUsersResponse = Response<{
+    blocks: User[];
+    page: number;
+}>;
+
 export type UserResponse = Response<User>;
 
 export type ReactorsResponse = Response<{

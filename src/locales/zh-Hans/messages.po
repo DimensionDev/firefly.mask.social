@@ -201,6 +201,9 @@ msgstr "确认"
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
+msgid "Muting"
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
@@ -211,6 +214,9 @@ msgid "Username"
 msgstr "用户名"
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "Mutes"
 msgstr ""
 
 msgid "NFTs"
@@ -393,6 +399,9 @@ msgstr "试试搜索其他东西。"
 msgid "Unmute /{0}"
 msgstr "取消屏蔽 /{0}"
 
+msgid "{0} Channels"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -476,6 +485,9 @@ msgstr "回复"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "{0} @{1}"
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -569,6 +581,9 @@ msgstr "Lens"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
+
+msgid "Confirm you want to {0} @{1}?"
+msgstr ""
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -725,6 +740,9 @@ msgstr ""
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
+
+msgid "{0} /{1}"
+msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
@@ -936,6 +954,9 @@ msgstr "添加"
 msgid "No device accounts detected."
 msgstr "未检测到设备账号。"
 
+msgid "Confirm you want to {0} /{1}?"
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -1082,6 +1103,9 @@ msgstr "登录到 Farcaster 账号"
 
 msgid "Confirm you want to unmute @{0}?"
 msgstr "确认取消屏蔽 @{0}？"
+
+msgid "{0} Users"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"

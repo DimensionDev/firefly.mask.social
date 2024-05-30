@@ -196,6 +196,9 @@ msgstr "Confirm"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
+msgid "Muting"
+msgstr "Muting"
+
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
@@ -207,6 +210,9 @@ msgstr "Username"
 
 msgid "Blockchain"
 msgstr "Blockchain"
+
+msgid "Mutes"
+msgstr "Mutes"
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -388,6 +394,9 @@ msgstr "Try searching for something else."
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
 
+msgid "{0} Channels"
+msgstr "{0} Channels"
+
 msgid "Report spam"
 msgstr "Report spam"
 
@@ -471,6 +480,9 @@ msgstr "Replies"
 
 msgid "Comment"
 msgstr "Comment"
+
+msgid "{0} @{1}"
+msgstr "{0} @{1}"
 
 msgid "Only people you mention"
 msgstr "Only people you mention"
@@ -564,6 +576,9 @@ msgstr "Lens"
 
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
+
+msgid "Confirm you want to {0} @{1}?"
+msgstr "Confirm you want to {0} @{1}?"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
@@ -720,6 +735,9 @@ msgstr "Translated"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
+
+msgid "{0} /{1}"
+msgstr "{0} /{1}"
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
@@ -931,6 +949,9 @@ msgstr "Add"
 msgid "No device accounts detected."
 msgstr "No device accounts detected."
 
+msgid "Confirm you want to {0} /{1}?"
+msgstr "Confirm you want to {0} /{1}?"
+
 msgid "Log out all"
 msgstr "Log out all"
 
@@ -1077,6 +1098,9 @@ msgstr "Log in to Farcaster account"
 
 msgid "Confirm you want to unmute @{0}?"
 msgstr "Confirm you want to unmute @{0}?"
+
+msgid "{0} Users"
+msgstr "{0} Users"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"

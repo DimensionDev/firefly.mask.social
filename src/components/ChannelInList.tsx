@@ -1,6 +1,7 @@
 import { isUndefined } from 'lodash-es';
 
 import UserIcon from '@/assets/user.svg';
+import { ToggleMuteChannelButton } from '@/components/Actions/ToggleMuteChannelButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
@@ -19,9 +20,17 @@ interface ChannelInListProps {
     index?: number;
     dense?: boolean;
     noFollowButton?: boolean;
+    noMuteButton?: boolean;
 }
 
-export function ChannelInList({ channel, noFollowButton = true, dense = false, listKey, index }: ChannelInListProps) {
+export function ChannelInList({
+    channel,
+    noFollowButton = true,
+    noMuteButton = true,
+    dense = false,
+    listKey,
+    index,
+}: ChannelInListProps) {
     const isSmall = useIsSmall('max');
     const setScrollIndex = useGlobalState.use.setScrollIndex();
 
@@ -90,6 +99,12 @@ export function ChannelInList({ channel, noFollowButton = true, dense = false, l
             {!noFollowButton ? (
                 <div>
                     <FollowButton channel={channel} />
+                </div>
+            ) : null}
+
+            {!noMuteButton ? (
+                <div>
+                    <ToggleMuteChannelButton channel={channel} />
                 </div>
             ) : null}
         </div>

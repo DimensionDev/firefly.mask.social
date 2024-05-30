@@ -127,3 +127,10 @@ export enum BookmarkType {
 }
 
 export { SourceInURL as FireflyPlatform };
+
+export enum MuteMenuId {
+    FarcasterUsers = '1',
+    FarcasterChannels = '2',
+    LensUsers = '3',
+    XUsers = '4',
+}

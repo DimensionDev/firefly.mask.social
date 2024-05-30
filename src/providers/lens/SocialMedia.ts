@@ -1093,11 +1093,33 @@ class LensSocialMedia implements Provider {
         return result.isSuccess().valueOf();
     }
 
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const result = await lensSessionHolder.sdk.profile.whoHaveBeenBlocked({
+            cursor: indicator?.id,
+            limit: LimitType.TwentyFive,
+        });
+        if (!result.isSuccess()) {
+            throw new Error('Failed to fetch blocked profiles');
+        }
+
+        const wrappedResult = result.unwrap();
+
+        return createPageable(
+            wrappedResult.items.map(formatLensProfile),
+            createIndicator(indicator),
+            wrappedResult.pageInfo.next ? createNextIndicator(indicator, wrappedResult.pageInfo.next) : undefined,
+        );
+    }
+
     async blockChannel(channelId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
