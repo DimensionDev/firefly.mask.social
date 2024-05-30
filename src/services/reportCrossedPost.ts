@@ -5,8 +5,9 @@ import { v4 as uuid } from 'uuid';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { ReportResponse } from '@/providers/types/Firefly.js';
+import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 
 interface Report {
     // client uuid for distinguishing logs
@@ -35,9 +36,14 @@ const resolvePlatform = createLookupTableResolver<SocialSource, string>(
 export async function reportCrossedPost(post: CompositePost) {
     // a post shared across multiple platforms will have the same relation ID
     const relationId = uuid();
+    const currentProfileAll = getCurrentProfileAll();
+
     const reports = SORTED_SOCIAL_SOURCES.map<Report | null>((x) => {
         const postId = post.postId[x];
         if (!postId) return null;
+
+        const profileId = currentProfileAll[x]?.profileId;
+        if (!profileId) return null;
 
         return {
             ua_type: 'web',
@@ -46,7 +52,7 @@ export async function reportCrossedPost(post: CompositePost) {
             post_time: getUnixTime(Date.now()),
             post_id: postId,
             // TODO: profile id of the author
-            platform_id: '',
+            platform_id: profileId,
             platform: resolvePlatform(x),
         };
     });
@@ -55,7 +61,7 @@ export async function reportCrossedPost(post: CompositePost) {
         reports.map((x) => {
             if (!x) return Promise.resolve(null);
             // cspell: disable-next-line
-            return fireflySessionHolder.fetch<ReportResponse>('/v1/logpush', {
+            return fireflySessionHolder.fetch<ReportCrossPostResponse>('/v1/logpush', {
                 method: 'POST',
                 body: JSON.stringify(x),
             });
