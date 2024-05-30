@@ -1,6 +1,6 @@
-import { isLessThan } from '@masknet/web3-shared-base';
-
 import { removeTrailingZeros } from '@/helpers/removeTrailingZeros.js';
+// eslint-disable-next-line no-restricted-imports
+import { isLessThan } from '@/maskbook/packages/web3-shared/base/src/helpers/number.js';
 
 /**
  * @param value 0-1
