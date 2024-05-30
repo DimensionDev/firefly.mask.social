@@ -19,7 +19,7 @@ export function ReportSpamButton(props: { collectionId: string }) {
                     variant: 'normal',
                     content: (
                         <div className="text-main">
-                            <Trans>Confirm to report this Collection?</Trans>
+                            <Trans>Are you sure you want to report this collection?</Trans>
                         </div>
                     ),
                 });

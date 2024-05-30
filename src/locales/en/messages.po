@@ -148,9 +148,6 @@ msgstr "Debug Console"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "Failed to mute @{0} on {sourceName}"
 
-msgid "Confirm to report this Collection?"
-msgstr "Confirm to report this Collection?"
-
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
@@ -405,6 +402,9 @@ msgstr "Invalid compose type: {type}."
 
 msgid "View Source"
 msgstr "View Source"
+
+msgid "Are you sure you want to report this collection?"
+msgstr "Are you sure you want to report this collection?"
 
 msgid "and"
 msgstr "and"

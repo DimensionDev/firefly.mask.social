@@ -153,9 +153,6 @@ msgstr "诊断命令行"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
-msgid "Confirm to report this Collection?"
-msgstr ""
-
 msgid "NFT Standard"
 msgstr ""
 
@@ -410,6 +407,9 @@ msgstr "无效的发帖类型：{type}。"
 
 msgid "View Source"
 msgstr "查看原文"
+
+msgid "Are you sure you want to report this collection?"
+msgstr ""
 
 msgid "and"
 msgstr "和"
