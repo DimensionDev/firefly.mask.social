@@ -6,6 +6,7 @@ import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
+import { useEnsName } from 'wagmi';
 
 import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -35,6 +36,19 @@ const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ c
     return <div {...props}>{children}</div>;
 });
 
+function Owner({ address }: { address: `0x${string}` }) {
+    const { data: ensName } = useEnsName({ address, chainId: ChainId.Mainnet });
+    return (
+        <Link
+            href={resolveProfileUrl(Source.Wallet, ensName ? ensName : address)}
+            className="absolute left-2 top-2 max-w-[100px] truncate rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
+            onClickCapture={(e) => e.stopPropagation()}
+        >
+            {ensName ? ensName : formatEthereumAddress(address, 4)}
+        </Link>
+    );
+}
+
 export function getNFTItemContent(
     index: number,
     item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>,
@@ -59,15 +73,7 @@ export function getNFTItemContent(
                 ) : null}
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
                 {options?.isShowOwner && item.owner?.address ? (
-                    <Link
-                        href={resolveProfileUrl(Source.Wallet, item.owner.address)}
-                        className="absolute left-2 top-2 rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
-                        onClickCapture={(e) => {
-                            e.stopPropagation();
-                        }}
-                    >
-                        {formatEthereumAddress(item.owner.address, 4)}
-                    </Link>
+                    <Owner address={item.owner.address as `0x${string}`} />
                 ) : null}
                 <Image
                     width={500}

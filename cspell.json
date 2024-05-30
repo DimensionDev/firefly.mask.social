@@ -62,7 +62,8 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand"
+        "zustand",
+        "chainbase"
     ],
     "ignoreWords": [
         "DEVNET",

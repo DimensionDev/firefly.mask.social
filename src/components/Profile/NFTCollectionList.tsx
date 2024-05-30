@@ -38,7 +38,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
         return resolveSimpleHashChainId(chain);
     }, [collection.collection_details.chains]);
 
-    if (collection.nftPreviews?.length === 1 && distinctNFTCount === 1) {
+    if (collection.nftPreviews?.length === 1) {
         const nftPreview = first(collection.nftPreviews);
         if (nftPreview) {
             const tokenId = nftPreview.nft_id.split('.')?.[2];
