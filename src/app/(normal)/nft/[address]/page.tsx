@@ -13,8 +13,8 @@ import { TopCollectors } from '@/components/CollectionDetail/TopCollectors.js';
 import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import type { SourceInURL } from '@/constants/enum.js';
+import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { useNFTFloorPrice } from '@/hooks/useNFTFloorPrice.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export default function Page({
@@ -45,8 +45,6 @@ export default function Page({
         },
     });
 
-    const floorPrice = useNFTFloorPrice(data?.floor_prices);
-
     if (isLoading) {
         return <Loading />;
     }
@@ -71,7 +69,7 @@ export default function Page({
                     imageUrl={data.image_url}
                     nftCount={data.distinct_nft_count}
                     ownerCount={data.distinct_owner_count}
-                    floorPrice={floorPrice}
+                    floorPrice={getFloorPrice(data?.floor_prices)}
                     chainId={chainId}
                 />
             ) : null}
