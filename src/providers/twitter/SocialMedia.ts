@@ -14,7 +14,7 @@ import { Source } from '@/constants/enum.js';
 import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
-import type { TwitterSessionPayload } from '@/providers/twitter/Session.js';
+import { TwitterSession, type TwitterSessionPayload } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import {
     type Channel,
@@ -157,6 +157,14 @@ class TwitterSocialMedia implements Provider {
 
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterProfile(response.data);
+    }
+
+    async getProfileByIdWithSessionPayload(profileId: string, payload: TwitterSessionPayload): Promise<Profile> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`, {
+            headers: TwitterSession.payloadToHeaders(payload),
+        });
         if (!response.success) throw new Error(response.error.message);
         return formatTwitterProfile(response.data);
     }
