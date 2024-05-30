@@ -20,6 +20,7 @@ describe('formatFloorPrice', () => {
     });
 
     it('should test case `10000000.00000000121321243123`', () => {
+        // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
         expect(formatFloorPrice(10000000.00000000121321243123)).toBe('10,000,000');
     });
 
