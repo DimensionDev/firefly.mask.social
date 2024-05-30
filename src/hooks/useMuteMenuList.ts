@@ -3,8 +3,8 @@ import { filter } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { MuteMenuId, type SocialSource, Source } from '@/constants/enum.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 
 export interface MuteMenu {
     id: MuteMenuId;

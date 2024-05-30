@@ -3,8 +3,8 @@ import { t } from '@lingui/macro';
 import { MuteMenuId, Source } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { transSSR } from '@/helpers/transSSR.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { transSSR } from '@/helpers/transSSR.js';
 
 interface PageProps {
     params: {
