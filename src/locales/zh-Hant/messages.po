@@ -507,6 +507,9 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+msgid "Hide more comments"
+msgstr ""
+
 msgid "Malformed session."
 msgstr ""
 
