@@ -56,20 +56,24 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                     'max-w-[calc(100%-40px-88px)]': !isQuote && isMyPost,
                 })}
             >
-                <Link
-                    href={profileLink}
-                    className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
-                    onClick={(event) => event.stopPropagation()}
-                >
-                    {post.author.displayName}
-                </Link>
-                <Link
-                    href={profileLink}
-                    className="truncate text-clip text-[15px] leading-6 text-secondary"
-                    onClick={(event) => event.stopPropagation()}
-                >
-                    @{post.author.handle}
-                </Link>
+                <ProfileTippy profile={post.author} source={post.author.source} identity={post.author.profileId}>
+                    <Link
+                        href={profileLink}
+                        className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        {post.author.displayName}
+                    </Link>
+                </ProfileTippy>
+                <ProfileTippy profile={post.author} source={post.author.source} identity={post.author.profileId}>
+                    <Link
+                        href={profileLink}
+                        className="truncate text-clip text-[15px] leading-6 text-secondary"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        @{post.author.handle}
+                    </Link>
+                </ProfileTippy>
             </div>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
                 <SocialSourceIcon
