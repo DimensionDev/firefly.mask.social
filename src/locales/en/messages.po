@@ -946,9 +946,6 @@ msgstr "Failed to unmute @{0} on {sourceName}"
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
 
-msgid "Confirm to report this user?"
-msgstr "Confirm to report this user?"
-
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
 
@@ -1185,6 +1182,9 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."
+
+msgid "Are you sure you want to report this user?"
+msgstr "Are you sure you want to report this user?"
 
 msgid "Likes"
 msgstr "Likes"

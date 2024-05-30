@@ -951,9 +951,6 @@ msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 msgid "Failed to retweet."
 msgstr "转帖失败。"
 
-msgid "Confirm to report this user?"
-msgstr ""
-
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
 
@@ -1190,6 +1187,9 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
 msgstr "一条 thread 至少包含 2 个帖子。"
+
+msgid "Are you sure you want to report this user?"
+msgstr ""
 
 msgid "Likes"
 msgstr "点赞"

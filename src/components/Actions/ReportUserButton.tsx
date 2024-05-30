@@ -27,7 +27,7 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
                     title: t`Report @${profile.handle}`,
                     content: (
                         <div className="text-main">
-                            <Trans>Confirm to report this user?</Trans>
+                            <Trans>Are you sure you want to report this user?</Trans>
                         </div>
                     ),
                     variant: 'normal',
