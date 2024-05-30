@@ -1,4 +1,4 @@
-'use clinet';
+'use client';
 
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
