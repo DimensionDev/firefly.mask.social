@@ -1,6 +1,8 @@
-import { formatAmount } from '@masknet/web3-shared-evm';
+import { BigNumber } from 'bignumber.js';
 import { first } from 'lodash-es';
 import { useMemo } from 'react';
+
+import { formatFloorPrice } from '@/helpers/formatFloorPrice.js';
 
 export function useNFTFloorPrice<
     F extends { value: number | string; payment_token: { decimals: number; symbol: string } },
@@ -8,8 +10,8 @@ export function useNFTFloorPrice<
     return useMemo(() => {
         const firstFloorPrice = first(floorPrices);
         if (!firstFloorPrice) return;
-        return `${formatAmount(firstFloorPrice.value, -firstFloorPrice.payment_token.decimals)} ${
-            firstFloorPrice.payment_token.symbol
-        }`;
+        return formatFloorPrice(
+            BigNumber(firstFloorPrice.value).shiftedBy(-firstFloorPrice.payment_token.decimals).toNumber(),
+        );
     }, [floorPrices]);
 }
