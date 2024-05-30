@@ -11,7 +11,7 @@ export function useNFTFloorPrice<
         const firstFloorPrice = first(floorPrices);
         if (!firstFloorPrice) return;
         return `${formatFloorPrice(
-            BigNumber(firstFloorPrice.value).shiftedBy(-firstFloorPrice.payment_token.decimals).toNumber(),
+            BigNumber(firstFloorPrice.value).shiftedBy(-firstFloorPrice.payment_token.decimals),
         )} ${firstFloorPrice.payment_token.symbol}`;
     }, [floorPrices]);
 }
