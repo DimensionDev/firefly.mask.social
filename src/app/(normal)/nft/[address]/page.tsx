@@ -76,7 +76,7 @@ export default function Page({
                 />
             ) : null}
             <div className="px-3 pb-3">
-                <Tabs value={currentTab} onChange={setCurrentTab}>
+                <Tabs value={currentTab} onChange={setCurrentTab} variant="second">
                     {tabs.map((tab) => (
                         <Tab value={tab.value} key={tab.value}>
                             {tab.label}
