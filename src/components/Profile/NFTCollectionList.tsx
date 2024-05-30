@@ -130,7 +130,21 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
         queryKey: ['nft-collection-list', address],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            return FireflySocialMediaProvider.getNFTCollections({ walletAddress: address, indicator });
+            const response = await FireflySocialMediaProvider.getNFTCollections({ walletAddress: address, indicator });
+            return {
+                ...response,
+                data: response.data.flatMap((item) => {
+                    if (item.nftPreviews && item.nftPreviews.length <= 3) {
+                        return item.nftPreviews.map((preview) => {
+                            return {
+                                ...item,
+                                nftPreviews: [preview],
+                            };
+                        });
+                    }
+                    return item;
+                }),
+            };
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
