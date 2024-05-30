@@ -17,7 +17,8 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { type Profile,SessionType } from '@/providers/types/SocialMedia.js';
 
 interface Pair {
     profile: Profile;
@@ -151,6 +152,13 @@ export const FireflySessionConfirmModal = forwardRef<
                 // convert session to profile
                 const allSettled = await Promise.allSettled(
                     sessions.map((x) => {
+                        if (x.type === SessionType.Twitter) {
+                            const session = x as TwitterSession;
+                            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
+                                x.profileId,
+                                session.payload,
+                            );
+                        }
                         const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
                         return provider.getProfileById(x.profileId);
                     }),
