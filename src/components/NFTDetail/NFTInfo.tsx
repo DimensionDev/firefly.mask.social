@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
+import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
@@ -14,7 +15,6 @@ import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useEnsNameWithChainbase } from '@/hooks/useEnsNameWithChainbase.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;
@@ -33,7 +33,10 @@ export interface NFTInfoProps {
 
 export function NFTInfo(props: NFTInfoProps) {
     const { imageURL, name, tokenId, collection, ownerAddress, chainId, contractAddress, floorPrice } = props;
-    const { data: ensName } = useEnsNameWithChainbase(props.ownerAddress);
+    const { data: ensName } = useEnsName({
+        chainId: ChainId.Mainnet,
+        address: props.ownerAddress as `0x${string}`,
+    });
 
     return (
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">

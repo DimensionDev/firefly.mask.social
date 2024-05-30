@@ -6,6 +6,7 @@ import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
+import { useEnsName } from 'wagmi';
 
 import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -17,7 +18,6 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useEnsNameWithChainbase } from '@/hooks/useEnsNameWithChainbase.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
@@ -36,8 +36,8 @@ const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ c
     return <div {...props}>{children}</div>;
 });
 
-function Owner({ address }: { address: string }) {
-    const { data: ensName } = useEnsNameWithChainbase(address);
+function Owner({ address }: { address: `0x${string}` }) {
+    const { data: ensName } = useEnsName({ address, chainId: ChainId.Mainnet });
     return (
         <Link
             href={resolveProfileUrl(Source.Wallet, ensName ? ensName : address)}
@@ -72,7 +72,9 @@ export function getNFTItemContent(
                     <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
                 ) : null}
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
-                {options?.isShowOwner && item.owner?.address ? <Owner address={item.owner.address} /> : null}
+                {options?.isShowOwner && item.owner?.address ? (
+                    <Owner address={item.owner.address as `0x${string}`} />
+                ) : null}
                 <Image
                     width={500}
                     height={500}
