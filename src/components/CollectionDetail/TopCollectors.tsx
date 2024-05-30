@@ -60,9 +60,11 @@ export function getTopCollectorsItemContent(
                     'sm:text-center': !!totalQuantity,
                 })}
             >
-                <Tooltip content={item.distinct_nfts_owned}>
-                    <div className="min-w-[160px] truncate">{nFormatter(item.distinct_nfts_owned)}</div>
-                </Tooltip>
+                <div className="min-w-[160px] truncate">
+                    <Tooltip content={item.distinct_nfts_owned}>
+                        <span>{nFormatter(item.distinct_nfts_owned)}</span>
+                    </Tooltip>
+                </div>
             </td>
             {totalQuantity ? (
                 <td
