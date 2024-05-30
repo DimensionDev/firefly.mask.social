@@ -124,7 +124,8 @@
         "typeahead",
         "typecheck",
         "upvote",
-        "usehooks"
+        "usehooks",
+        "bignumber"
     ],
     "flagWords": [],
     "ignorePaths": [
