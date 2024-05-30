@@ -10,8 +10,8 @@ export function useNFTFloorPrice<
     return useMemo(() => {
         const firstFloorPrice = first(floorPrices);
         if (!firstFloorPrice) return;
-        return formatFloorPrice(
+        return `${formatFloorPrice(
             BigNumber(firstFloorPrice.value).shiftedBy(-firstFloorPrice.payment_token.decimals).toNumber(),
-        );
+        )} ${firstFloorPrice.payment_token.symbol}`;
     }, [floorPrices]);
 }
