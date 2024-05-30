@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
 
-import type { Source } from '@/constants/enum.js';
+import type { SocialSource, Source } from '@/constants/enum.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
-export function resolveProfileUrl(source: Source, handle: string) {
+export function resolveProfileUrl(source: SocialSource | Source.Wallet, handle: string) {
     return urlcat(`/profile/${handle}`, {
         source: resolveSourceInURL(source),
     });
