@@ -43,7 +43,7 @@ async function getNextFrame(
         const post = async () => {
             const url = urlcat('/api/frame', {
                 url: frame.url,
-                action,
+                action: button.action,
                 'post-url': button.target || frame.postUrl || frame.url,
             });
             const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
