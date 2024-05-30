@@ -28,7 +28,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     return (
         <div className="flex items-start gap-3">
-            <ProfileTippy source={post.author.source} identity={post.author.profileId} profile={post.author}>
+            <ProfileTippy source={post.author.source} identity={post.author.profileId}>
                 <Link
                     href={profileLink}
                     className="z-[1]"
@@ -56,7 +56,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                     'max-w-[calc(100%-40px-88px)]': !isQuote && isMyPost,
                 })}
             >
-                <ProfileTippy profile={post.author} source={post.author.source} identity={post.author.profileId}>
+                <ProfileTippy source={post.author.source} identity={post.author.profileId}>
                     <Link
                         href={profileLink}
                         className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
@@ -65,7 +65,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                         {post.author.displayName}
                     </Link>
                 </ProfileTippy>
-                <ProfileTippy profile={post.author} source={post.author.source} identity={post.author.profileId}>
+                <ProfileTippy source={post.author.source} identity={post.author.profileId}>
                     <Link
                         href={profileLink}
                         className="truncate text-clip text-[15px] leading-6 text-secondary"

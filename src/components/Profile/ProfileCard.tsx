@@ -25,16 +25,16 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
             <div className="h-[182px] w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
                 <div className="animate-pulse">
                     <div className="flex w-full gap-[10px]">
-                        <div className="h-20 w-20 rounded-full bg-slate-700" />
+                        <div className="h-20 w-20 rounded-full bg-third" />
                         <div className="flex flex-1 flex-col justify-between">
-                            <div className="h-3 w-[120px] rounded bg-slate-700" />
-                            <div className="h-3 w-[120px] rounded bg-slate-700" />
-                            <div className="h-3 w-[120px] rounded bg-slate-700" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
+                            <div className="h-3 w-[120px] rounded bg-third" />
                         </div>
                     </div>
                     <div className="mt-3 space-y-4">
-                        <div className="h-3 w-full rounded bg-slate-700" />
-                        <div className="h-3 w-full rounded bg-slate-700" />
+                        <div className="h-3 w-full rounded bg-third" />
+                        <div className="h-3 w-full rounded bg-third" />
                     </div>
                 </div>
             </div>
