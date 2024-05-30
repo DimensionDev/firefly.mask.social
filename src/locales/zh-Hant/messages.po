@@ -678,6 +678,9 @@ msgstr "喜歡"
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入框架連結以重新識別有效性"
 
+msgid "Connect your wallet to enable all features"
+msgstr ""
+
 msgid "General"
 msgstr "一般"
 
