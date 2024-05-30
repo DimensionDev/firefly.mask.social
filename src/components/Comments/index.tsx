@@ -67,7 +67,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 }}
             />
             {queryResult.data.length <= 0 && source === Source.Lens ? (
-                <LensHideComments postId={postId} className="border-t-[1px] border-t-line" />
+                <LensHideComments exclude={exclude} postId={postId} className="border-t-[1px] border-t-line" />
             ) : null}
         </>
     );
