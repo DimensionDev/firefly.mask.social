@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 
 import { MuteMenuId, type SocialSource, Source } from '@/constants/enum.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export interface MuteMenu {
     id: MuteMenuId;
@@ -20,28 +21,28 @@ export const useMuteMenuList = (): MuteMenu[] => {
         const fullMuteMenuList: MuteMenu[] = [
             {
                 id: MuteMenuId.FarcasterUsers,
-                name: t`Farcaster Users`,
+                name: t`${resolveSourceName(Source.Farcaster)} Users`,
                 source: Source.Farcaster,
                 type: 'user',
                 disabled: true,
             },
             {
                 id: MuteMenuId.FarcasterChannels,
-                name: t`Farcaster Channels`,
+                name: t`${resolveSourceName(Source.Farcaster)} Channels`,
                 source: Source.Farcaster,
                 type: 'channel',
                 disabled: true,
             },
             {
                 id: MuteMenuId.LensUsers,
-                name: t`Lens Users`,
+                name: t`${resolveSourceName(Source.Lens)} Users`,
                 source: Source.Lens,
                 type: 'user',
                 disabled: false,
             },
             {
                 id: MuteMenuId.XUsers,
-                name: t`X Users`,
+                name: t`${resolveSourceName(Source.Twitter)} Users`,
                 source: Source.Twitter,
                 type: 'user',
                 disabled: false,

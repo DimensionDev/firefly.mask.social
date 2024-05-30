@@ -394,6 +394,9 @@ msgstr "Try searching for something else."
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
 
+msgid "{0} Channels"
+msgstr "{0} Channels"
+
 msgid "Report spam"
 msgstr "Report spam"
 
@@ -420,9 +423,6 @@ msgstr "Failed to upload. More than {maxImageCount} images"
 
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
-
-msgid "Farcaster Users"
-msgstr "Farcaster Users"
 
 msgid "Reply"
 msgstr "Reply"
@@ -474,9 +474,6 @@ msgstr "Add account"
 
 msgid "{0} Comments"
 msgstr "{0} Comments"
-
-msgid "Farcaster Channels"
-msgstr "Farcaster Channels"
 
 msgid "Replies"
 msgstr "Replies"
@@ -1027,9 +1024,6 @@ msgstr "Your name"
 msgid "Owned"
 msgstr "Owned"
 
-msgid "X Users"
-msgstr "X Users"
-
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
 
@@ -1108,6 +1102,9 @@ msgstr "Log in to Farcaster account"
 msgid "Confirm you want to unmute @{0}?"
 msgstr "Confirm you want to unmute @{0}?"
 
+msgid "{0} Users"
+msgstr "{0} Users"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 
@@ -1164,9 +1161,6 @@ msgstr "Recast"
 
 msgid "Translating..."
 msgstr "Translating..."
-
-msgid "Lens Users"
-msgstr "Lens Users"
 
 msgid "Followers"
 msgstr "Followers"

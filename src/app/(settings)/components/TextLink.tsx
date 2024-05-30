@@ -5,7 +5,7 @@ import { Link } from '@/esm/Link.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface TextLinkProps {
-    name: JSX.Element | string;
+    name: React.ReactNode;
     link: `/${string}`;
 }
 

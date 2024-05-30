@@ -399,6 +399,9 @@ msgstr "试试搜索其他东西。"
 msgid "Unmute /{0}"
 msgstr "取消屏蔽 /{0}"
 
+msgid "{0} Channels"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -425,9 +428,6 @@ msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
-
-msgid "Farcaster Users"
-msgstr ""
 
 msgid "Reply"
 msgstr "回复"
@@ -479,9 +479,6 @@ msgstr "添加账号"
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
-
-msgid "Farcaster Channels"
-msgstr ""
 
 msgid "Replies"
 msgstr "回复"
@@ -1032,9 +1029,6 @@ msgstr ""
 msgid "Owned"
 msgstr ""
 
-msgid "X Users"
-msgstr ""
-
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
 
@@ -1113,6 +1107,9 @@ msgstr "登录到 Farcaster 账号"
 msgid "Confirm you want to unmute @{0}?"
 msgstr "确认取消屏蔽 @{0}？"
 
+msgid "{0} Users"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"
 
@@ -1168,9 +1165,6 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
-msgstr ""
-
-msgid "Lens Users"
 msgstr ""
 
 msgid "Followers"

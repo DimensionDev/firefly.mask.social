@@ -394,6 +394,9 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
+msgid "{0} Channels"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -419,9 +422,6 @@ msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
-msgstr ""
-
-msgid "Farcaster Users"
 msgstr ""
 
 msgid "Reply"
@@ -473,9 +473,6 @@ msgid "Add account"
 msgstr ""
 
 msgid "{0} Comments"
-msgstr ""
-
-msgid "Farcaster Channels"
 msgstr ""
 
 msgid "Replies"
@@ -1027,9 +1024,6 @@ msgstr ""
 msgid "Owned"
 msgstr ""
 
-msgid "X Users"
-msgstr ""
-
 msgid "Claim on {0}: {1}"
 msgstr ""
 
@@ -1108,6 +1102,9 @@ msgstr ""
 msgid "Confirm you want to unmute @{0}?"
 msgstr ""
 
+msgid "{0} Users"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
@@ -1163,9 +1160,6 @@ msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
-msgstr ""
-
-msgid "Lens Users"
 msgstr ""
 
 msgid "Followers"

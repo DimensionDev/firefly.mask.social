@@ -399,6 +399,9 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
+msgid "{0} Channels"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -424,9 +427,6 @@ msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上傳失敗。圖像數量超過{maxImageCount} 張。"
 
 msgid "AUTHOR ADDRESS"
-msgstr ""
-
-msgid "Farcaster Users"
 msgstr ""
 
 msgid "Reply"
@@ -478,9 +478,6 @@ msgid "Add account"
 msgstr "新增账户"
 
 msgid "{0} Comments"
-msgstr ""
-
-msgid "Farcaster Channels"
 msgstr ""
 
 msgid "Replies"
@@ -1032,9 +1029,6 @@ msgstr ""
 msgid "Owned"
 msgstr ""
 
-msgid "X Users"
-msgstr ""
-
 msgid "Claim on {0}: {1}"
 msgstr ""
 
@@ -1113,6 +1107,9 @@ msgstr "登入 Farcaster 帳戶"
 msgid "Confirm you want to unmute @{0}?"
 msgstr "確認解除對 @{0} 的靜音？"
 
+msgid "{0} Users"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
@@ -1168,9 +1165,6 @@ msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
-msgstr ""
-
-msgid "Lens Users"
 msgstr ""
 
 msgid "Followers"
