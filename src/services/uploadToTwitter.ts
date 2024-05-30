@@ -1,4 +1,3 @@
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 
 interface UploadMediaResponse {
