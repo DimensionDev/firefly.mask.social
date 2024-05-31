@@ -615,6 +615,9 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "Poll currently only supports on {0}"
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 

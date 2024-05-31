@@ -610,6 +610,9 @@ msgstr "Invalid URL."
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
+msgid "Poll currently only supports on {0}"
+msgstr "Poll currently only supports on {0}"
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 

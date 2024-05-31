@@ -615,6 +615,9 @@ msgstr "无效的 URL。"
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "Poll currently only supports on {0}"
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
