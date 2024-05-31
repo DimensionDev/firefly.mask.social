@@ -3,11 +3,12 @@ import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { FIREFLY_ROOT_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
+import urlcat from 'urlcat';
 
 interface Report {
     // client uuid for distinguishing logs
@@ -61,7 +62,7 @@ async function report(post: CompositePost) {
         reports.map((x) => {
             if (!x) return Promise.resolve(null);
             // cspell: disable-next-line
-            return fireflySessionHolder.fetch<ReportCrossPostResponse>('/v1/logpush', {
+            return fireflySessionHolder.fetch<ReportCrossPostResponse>(urlcat(FIREFLY_ROOT_URL, '/api/logpush'), {
                 method: 'POST',
                 body: JSON.stringify(x),
             });
