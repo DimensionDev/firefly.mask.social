@@ -86,5 +86,5 @@ export async function reportCrossedPost(post: CompositePost) {
 }
 
 export async function reportCrossedPostThread(posts: CompositePost[]) {
-    requestIdleCallback(() => Promise.allSettled(posts.map(report)));
+    posts.forEach(reportCrossedPost);
 }
