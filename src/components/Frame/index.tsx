@@ -27,8 +27,8 @@ async function getNextFrame(
     input?: string,
 ) {
     try {
-        const confirm = () =>
-            ConfirmModalRef.openAndWaitForClose({
+        function confirmBeforeLeaving() {
+            return ConfirmModalRef.openAndWaitForClose({
                 title: t`Leaving Firefly`,
                 content: (
                     <div className=" text-main">
@@ -39,8 +39,9 @@ async function getNextFrame(
                     </div>
                 ),
             });
+        }
 
-        const post = async () => {
+        async function postAction<T>() {
             const url = urlcat('/api/frame', {
                 url: frame.url,
                 action: button.action,
@@ -55,19 +56,19 @@ async function getNextFrame(
                 latestFrame && frame.state ? frame.state : undefined,
             );
 
-            return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
+            return fetchJSON<ResponseJSON<T>>(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(packet),
             });
-        };
+        }
 
         switch (button.action) {
             case ActionType.Post:
-                const postResponse = await post();
-                const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
+                const postResponse = await postAction<LinkDigested>();
+                const nextFrame = postResponse.success ? postResponse.data.frame : null;
 
                 if (!nextFrame) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
@@ -85,20 +86,18 @@ async function getNextFrame(
 
                 return nextFrame;
             case ActionType.PostRedirect:
-                const postRedirectResponse = await post();
-                const redirectUrl = postRedirectResponse.success
-                    ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
-                    : null;
+                const postRedirectResponse = await postAction<{ redirectUrl: string }>();
+                const redirectUrl = postRedirectResponse.success ? postRedirectResponse.data.redirectUrl : null;
                 if (!redirectUrl) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
                     return;
                 }
 
-                if (await confirm()) openWindow(redirectUrl, '_blank');
+                if (await confirmBeforeLeaving()) openWindow(redirectUrl, '_blank');
                 return;
             case ActionType.Link:
                 if (!button.target) return;
-                if (await confirm()) openWindow(button.target, '_blank');
+                if (await confirmBeforeLeaving()) openWindow(button.target, '_blank');
                 return;
             case ActionType.Mint:
                 enqueueErrorMessage(t`Mint button is not available yet.`);
