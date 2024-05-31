@@ -5,7 +5,7 @@ import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type Dispatch, type SetStateAction, useMemo, useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
-import { useAsyncFn, useUnmount } from 'react-use';
+import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -127,7 +127,6 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     const controllerRef = useRef<AbortController>();
 
     const [url, setUrl] = useState('');
-
     const [scanned, setScanned] = useState(false);
     const [profileError, setProfileError] = useState<ProfileError | null>(null);
 
@@ -251,6 +250,13 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
             throw error;
         }
     }, []);
+
+    useMount(() => {
+        setUrl('');
+        setScanned(false);
+        setProfileError(null);
+        resetCountdown();
+    });
 
     useUnmount(() => {
         controllerRef.current?.abort(new AbortError());
