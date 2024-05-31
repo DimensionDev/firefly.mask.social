@@ -26,18 +26,20 @@ import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } f
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import { trimify } from '@/helpers/trimify.js';
+import { useIsMuted } from '@/hooks/useIsMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {
     post: Post;
     isQuote?: boolean;
+    isDetail?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, showMore = false, disablePadding = false, showTranslate = false },
+    { post, isQuote = false, isDetail = false, showMore = false, disablePadding = false, showTranslate = false },
     ref,
 ) {
     const router = useRouter();
@@ -67,7 +69,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [post, postViewed]);
 
-    const muted = post.author.viewerContext?.blocking;
+    const muted = useIsMuted(post.author, isDetail);
 
     const postContent =
         (endingLinkCollapsed
