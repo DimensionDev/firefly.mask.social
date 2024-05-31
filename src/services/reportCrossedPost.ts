@@ -1,5 +1,6 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 import dayjs from 'dayjs';
+import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -8,7 +9,6 @@ import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
-import urlcat from 'urlcat';
 
 interface Report {
     // client uuid for distinguishing logs
