@@ -122,7 +122,7 @@ const router = createRouter({
 function ComposeRouteRoot() {
     const { type } = useComposeStateStore();
     const isMedium = useIsMedium();
-    const router = useRouter();
+    const { history } = useRouter();
     const { context } = useMatch({ from: rootRouteId });
 
     const isDraft = router.history.location.href === '/draft';
@@ -147,7 +147,7 @@ function ComposeRouteRoot() {
             <Dialog.Title as="h3" className=" relative h-14 shrink-0 pt-safe">
                 {isDraft ? (
                     <LeftArrowIcon
-                        onClick={() => router.history.back()}
+                        onClick={() => history.replace('/')}
                         className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
                     />
                 ) : (
@@ -164,14 +164,14 @@ function ComposeRouteRoot() {
                             width={18}
                             height={18}
                             className="cursor-pointer text-fourMain"
-                            onClick={() => router.history.push('/draft')}
+                            onClick={() => history.push('/draft')}
                         />
                     ) : null}
                 </span>
                 {isMedium ? (
                     <DraftIcon
                         className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                        onClick={() => router.history.push('/draft')}
+                        onClick={() => history.push('/draft')}
                     />
                 ) : null}
                 {isMedium || isDraft ? null : <ComposeSend />}
