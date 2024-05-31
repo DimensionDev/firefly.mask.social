@@ -84,7 +84,3 @@ async function report(post: CompositePost) {
 export async function reportCrossedPost(post: CompositePost) {
     requestIdleCallback(() => report(post));
 }
-
-export async function reportCrossedPostThread(posts: CompositePost[]) {
-    posts.forEach(reportCrossedPost);
-}

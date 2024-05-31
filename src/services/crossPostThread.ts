@@ -9,7 +9,7 @@ import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
-import { reportCrossedPostThread } from '@/services/reportCrossedPost.js';
+import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
@@ -151,5 +151,5 @@ export async function crossPostThread({
     }
 
     // report crossed posts thread
-    reportCrossedPostThread(updatedPosts);
+    updatedPosts.forEach(reportCrossedPost);
 }
