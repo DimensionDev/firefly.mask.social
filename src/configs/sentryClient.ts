@@ -1,3 +1,4 @@
+import { env } from '@/constants/env.js';
 import * as Sentry from '@sentry/browser';
 
 export const feedbackIntegration = Sentry.feedbackIntegration({
@@ -20,7 +21,8 @@ class SentryClient {
             Sentry.init({
                 dsn: `${process.env.NEXT_PUBLIC_SENTRY_DSN}`,
 
-                release: `${process.version}`,
+                release: env.shared.VERSION,
+                environment: env.shared.NODE_ENV,
                 integrations: [feedbackIntegration],
 
                 tracesSampleRate: 1.0,
