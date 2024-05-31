@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
+import { noop } from 'lodash-es';
 import React, { forwardRef, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -16,6 +17,8 @@ export interface ConfirmModalOpenProps {
     enableConfirmButton?: boolean;
     enableCancelButton?: boolean;
     enableCloseButton?: boolean;
+    onCancel?: () => void;
+    onConfirm?: () => void;
     variant?: 'normal' | 'danger';
 }
 
@@ -30,6 +33,9 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
         const [enableConfirmButton, setEnableConfirmButton] = useState<boolean>(true);
         const [enableCancelButton, setEnableCancelButton] = useState<boolean>(false);
         const [enableCloseButton, setEnableCloseButton] = useState<boolean>(true);
+
+        const [onCancel, setOnCancel] = useState(() => noop);
+        const [onConfirm, setOnConfirm] = useState(() => noop);
         const [variant, setVariant] = useState<ConfirmModalOpenProps['variant']>('danger');
 
         const [open, dispatch] = useSingletonModal(ref, {
@@ -40,6 +46,8 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                 setEnableConfirmButton(props.enableConfirmButton ?? true);
                 setEnableCancelButton(props.enableCancelButton ?? false);
                 setEnableCloseButton(props.enableCloseButton ?? true);
+                setOnCancel(() => props.onCancel ?? noop);
+                setOnConfirm(() => props.onConfirm ?? noop);
                 setConfirmButtonText(props.confirmButtonText);
                 setCancelButtonText(props.cancelButtonText);
             },
@@ -69,7 +77,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                 {enableCancelButton ? (
                                     <ClickableButton
                                         className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
-                                        onClick={() => dispatch?.close(false)}
+                                        onClick={() => {
+                                            onCancel();
+                                            dispatch?.close(false);
+                                        }}
                                     >
                                         {cancelButtonText || t`Cancel`}
                                     </ClickableButton>
@@ -82,7 +93,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                                 ? 'bg-main text-primaryBottom'
                                                 : 'bg-commonDanger text-lightBottom',
                                         )}
-                                        onClick={() => dispatch?.close(true)}
+                                        onClick={() => {
+                                            onConfirm();
+                                            dispatch?.close(true);
+                                        }}
                                     >
                                         {confirmButtonText || t`Confirm`}
                                     </ClickableButton>

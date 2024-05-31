@@ -25,10 +25,12 @@ import {
     useRouter,
 } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
+import { compact, values } from 'lodash-es';
 import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 
 import DraftIcon from '@/assets/draft.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -42,7 +44,7 @@ import { Modal } from '@/components/Modal.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -152,11 +154,11 @@ function ComposeRouteRoot() {
                     <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={context.onClose} />
                 )}
 
-                <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
+                <span className=" text-main4 flex h-full w-full items-center justify-center text-lg font-bold capitalize">
                     {title}
                 </span>
                 <DraftIcon
-                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
                     onClick={() => router.history.push('/draft')}
                 />
                 {isMedium ? null : <ComposeSend />}
@@ -188,10 +190,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateRpPayload,
             updateChannel,
             clear,
-            cursor,
-            addDraft,
         } = useComposeStateStore();
-        console.log(posts);
         const compositePost = useCompositePost();
         const { typedMessage, rpPayload, id } = compositePost;
 
@@ -220,15 +219,25 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         });
 
         const onClose = useCallback(async () => {
-            const posts = useComposeStateStore.getState().posts;
+            const { posts, cursor, type, addDraft, currentDraftId } = useComposeStateStore.getState();
+            const { availableSources } = compositePost;
             if (posts.some((x) => !isEmptyPost(x))) {
+                const hasError = posts.some((x) => !!compact(values(x.postError)).length);
+
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Save Post?`,
+                    title: hasError ? t`Save failed post?` : t`Save Post?`,
                     content: (
                         <div className="text-main">
-                            <Trans>You can save this to send later from your drafts.</Trans>
+                            {hasError ? (
+                                <Trans>
+                                    You can save the failed parts of posts and send them later from your Drafts.
+                                </Trans>
+                            ) : (
+                                <Trans>You can save this to send later from your drafts.</Trans>
+                            )}
                         </div>
                     ),
+                    enableCloseButton: false,
                     enableCancelButton: true,
                     cancelButtonText: t`Discard`,
                     confirmButtonText: t`Save`,
@@ -237,11 +246,16 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 if (confirmed) {
                     addDraft({
+                        id: currentDraftId ?? uuid(),
                         savedOn: new Date(),
                         cursor,
                         posts,
                         type,
+                        avaialableProfiles: compact(values(currentProfileAll)).filter((x) =>
+                            availableSources.includes(x.source),
+                        ),
                     });
+                    enqueueSuccessMessage(t`Your draft was saved`);
                     ComposeModalRef.close();
                 } else {
                     dispatch?.close();
@@ -249,7 +263,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             } else {
                 dispatch?.close();
             }
-        }, [dispatch, addDraft, cursor, type]);
+        }, [dispatch, currentProfileAll, compositePost]);
 
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {

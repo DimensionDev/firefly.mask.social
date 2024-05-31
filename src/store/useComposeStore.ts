@@ -21,7 +21,7 @@ import { matchUrls } from '@/helpers/matchUrls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Poll } from '@/providers/types/Poll.js';
-import type { Channel, Post } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
@@ -82,15 +82,17 @@ export interface CompositePost {
 export interface ComposeBaseState {
     type: ComposeType;
     posts: CompositePost[];
-
     // tracking the current editable post
     cursor: Cursor;
 }
 
 export interface Draft extends ComposeBaseState {
     savedOn: Date;
+    id: string;
+    avaialableProfiles: Profile[];
 }
 interface ComposeState extends ComposeBaseState {
+    currentDraftId?: string;
     // helpers
     computed: {
         // if the current editable post is deleted
@@ -180,6 +182,14 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
     };
 }
 
+export function createInitPostState() {
+    return {
+        [Source.Farcaster]: null,
+        [Source.Lens]: null,
+        [Source.Twitter]: null,
+    };
+}
+
 const pick = <T>(s: ComposeState, _: (post: CompositePost) => T, cursor = s.cursor): T =>
     _(s.posts.find((x) => x.id === cursor)!);
 
@@ -212,16 +222,16 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
             drafts: EMPTY_LIST,
             addDraft: (draft: Draft) =>
                 set((state) => {
-                    const index = state.drafts.findIndex((x) => x.cursor === draft.cursor);
+                    const index = state.drafts.findIndex((x) => x.id === draft.id);
                     if (index === -1) {
                         state.drafts.push(draft as WritableDraft<Draft>);
                     } else {
                         state.drafts[index] = draft as WritableDraft<Draft>;
                     }
                 }),
-            removeDraft: (cursor: string) => {
+            removeDraft: (id: string) => {
                 set((state) => {
-                    state.drafts = state.drafts.filter((x) => x.cursor !== cursor);
+                    state.drafts = state.drafts.filter((x) => x.id !== id);
                 });
             },
             applyDraft: (draft: Draft) =>
@@ -229,6 +239,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                     state.type = draft.type;
                     state.cursor = draft.cursor;
                     state.posts = draft.posts as WritableDraft<CompositePost[]>;
+                    state.currentDraftId = draft.id;
                 }),
             addPostInThread: () =>
                 set((state) => {
@@ -554,6 +565,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                     const id = uuid();
                     Object.assign(state, {
                         type: 'compose',
+                        currentDraftId: undefined,
                         cursor: id,
                         posts: [createInitSinglePostState(id)],
                     });
