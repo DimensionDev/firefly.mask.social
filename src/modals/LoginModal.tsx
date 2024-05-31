@@ -6,7 +6,7 @@ import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Suspense, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { useAsyncFn, useMount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { BackButton } from '@/components/BackButton.js';
@@ -143,6 +143,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             {source === Source.Twitter ? <LoginTwitter /> : null}
         </Suspense>
     );
+
+    useMount(() => {
+        setSignType(null);
+    });
 
     return isMedium ? (
         <Modal open={open} onClose={() => dispatch?.close()}>
