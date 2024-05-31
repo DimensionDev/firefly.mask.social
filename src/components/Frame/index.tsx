@@ -46,6 +46,20 @@ const TransactionSchema = z.custom<TransactionResponse>((value) => {
     return true;
 });
 
+function confirmBeforeLeaving() {
+    return ConfirmModalRef.openAndWaitForClose({
+        title: t`Leaving Firefly`,
+        content: (
+            <div className=" text-main">
+                <Trans>
+                    Please be cautious when connecting your wallet, as malicious websites may attempt to access your
+                    funds.
+                </Trans>
+            </div>
+        ),
+    });
+}
+
 async function getNextFrame(
     postId: string,
     frame: Frame,
@@ -53,42 +67,28 @@ async function getNextFrame(
     button: FrameButton,
     input?: string,
 ) {
+    async function postAction<T>(additional?: Additional) {
+        const url = urlcat('/api/frame', {
+            url: frame.url,
+            action: button.action,
+            'post-url': button.target || frame.postUrl || frame.url,
+        });
+        const packet = await generateFrameSignaturePacket(postId, frame, button.index, input, {
+            // for initial frame should not provide state
+            state: latestFrame && frame.state ? frame.state : undefined,
+            ...additional,
+        });
+
+        return fetchJSON<ResponseJSON<T>>(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(packet),
+        });
+    }
+
     try {
-        function confirmBeforeLeaving() {
-            return ConfirmModalRef.openAndWaitForClose({
-                title: t`Leaving Firefly`,
-                content: (
-                    <div className=" text-main">
-                        <Trans>
-                            Please be cautious when connecting your wallet, as malicious websites may attempt to access
-                            your funds.
-                        </Trans>
-                    </div>
-                ),
-            });
-        }
-
-        async function postAction<T>(additional?: Additional) {
-            const url = urlcat('/api/frame', {
-                url: frame.url,
-                action: button.action,
-                'post-url': button.target || frame.postUrl || frame.url,
-            });
-            const packet = await generateFrameSignaturePacket(postId, frame, button.index, input, {
-                // for initial frame should not provide state
-                state: latestFrame && frame.state ? frame.state : undefined,
-                ...additional,
-            });
-
-            return fetchJSON<ResponseJSON<T>>(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(packet),
-            });
-        }
-
         switch (button.action) {
             case ActionType.Post:
                 const postResponse = await postAction<LinkDigestedResponse>();
@@ -128,7 +128,7 @@ async function getNextFrame(
                 return;
             case ActionType.Transaction:
                 const txResponse = await postAction<TransactionResponse>();
-                if (!txResponse.success) throw new Error('Failded to parse transaction.');
+                if (!txResponse.success) throw new Error('Failed to parse transaction.');
 
                 const profile = getCurrentProfile(Source.Farcaster);
                 if (!profile) throw new Error('Profile not found');
