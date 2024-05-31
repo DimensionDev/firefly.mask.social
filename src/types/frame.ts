@@ -1,4 +1,4 @@
-import type { Abi, AbiItem } from 'viem';
+import type { AbiItem } from 'viem';
 
 export type Index = 1 | 2 | 3 | 4;
 
