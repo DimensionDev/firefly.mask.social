@@ -78,6 +78,9 @@ export interface TransactionParams {
     // value of ether to send with the transaction in wei. Optional.
     value?: string;
     data?: `0x${string}`;
+
+    // parsed on the client side
+    parsedValue: bigint;
 }
 
 export interface TransactionResponse {
@@ -88,12 +91,15 @@ export interface TransactionResponse {
     // learn more: https://www.notion.so/warpcast/Frame-Transactions-Public-9d9f9f4f527249519a41bd8d16165f73?pvs=4#c1c3182208ce4ae4a7ffa72129b9795a
     attribution?: boolean;
     params: TransactionParams;
+
+    // parsed on the client side
+    parsedChainId: ChainId;
 }
 
 export interface LinkDigestedResponse {
     frame: Frame;
 }
 
-export interface RedirectionResponse {
+export interface RedirectUrlResponse {
     redirectUrl: string;
 }

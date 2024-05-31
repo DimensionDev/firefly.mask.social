@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
+import { getEnumAsArray, safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
 import { attemptUntil } from '@masknet/web3-shared-base';
 import { isValidDomain } from '@masknet/web3-shared-evm';
@@ -8,22 +8,43 @@ import { isUndefined } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
+import { encodePacked } from 'viem';
+import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
+import { config } from '@/configs/wagmiClient.js';
+import { Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import { type Additional, generateFrameSignaturePacket } from '@/services/generateFrameSignaturePacket.js';
 import {
     ActionType,
     type Frame,
     type FrameButton,
     type LinkDigestedResponse,
-    type RedirectionResponse,
+    MethodType,
+    type RedirectUrlResponse,
+    type TransactionResponse,
 } from '@/types/frame.js';
+import { ChainId } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
+
+function parseChainId(chainId: `eip155:${number}`): ChainId {
+    const chainIdParsed = Number.parseInt(chainId.split(':')[1], 10);
+    if (isNaN(chainIdParsed) || chainIdParsed <= 0) throw new Error(`Invalid chain ID: ${chainId}`);
+    if (!getEnumAsArray(ChainId).find((x) => x.value === chainIdParsed))
+        throw new Error(`Unsupported chain ID: ${chainId}`);
+    return chainIdParsed;
+}
+
+const TransactionSchema = z.custom<TransactionResponse>((value) => {
+    return true;
+});
 
 async function getNextFrame(
     postId: string,
@@ -47,20 +68,17 @@ async function getNextFrame(
             });
         }
 
-        async function postAction<T>() {
+        async function postAction<T>(additional?: Additional) {
             const url = urlcat('/api/frame', {
                 url: frame.url,
                 action: button.action,
                 'post-url': button.target || frame.postUrl || frame.url,
             });
-            const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
-                postId,
-                frame,
-                button.index,
-                input,
+            const packet = await generateFrameSignaturePacket(postId, frame, button.index, input, {
                 // for initial frame should not provide state
-                latestFrame && frame.state ? frame.state : undefined,
-            );
+                state: latestFrame && frame.state ? frame.state : undefined,
+                ...additional,
+            });
 
             return fetchJSON<ResponseJSON<T>>(url, {
                 method: 'POST',
@@ -92,8 +110,8 @@ async function getNextFrame(
 
                 return nextFrame;
             case ActionType.PostRedirect:
-                const postRedirectResponse = await postAction<RedirectionResponse>();
-                const redirectUrl = postRedirectResponse.success ? postRedirectResponse.data.redirectUrl : null;
+                const redirectUrlResponse = await postAction<RedirectUrlResponse>();
+                const redirectUrl = redirectUrlResponse.success ? redirectUrlResponse.data.redirectUrl : null;
                 if (!redirectUrl) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
                     return;
@@ -109,8 +127,40 @@ async function getNextFrame(
                 enqueueErrorMessage(t`Mint button is not available yet.`);
                 return;
             case ActionType.Transaction:
-                enqueueErrorMessage(t`Transaction button is not available yet.`);
-                return;
+                const txResponse = await postAction<TransactionResponse>();
+                if (!txResponse.success) throw new Error('Failded to parse transaction.');
+
+                const profile = getCurrentProfile(Source.Farcaster);
+                if (!profile) throw new Error('Profile not found');
+
+                const transaction = TransactionSchema.parse(txResponse.data);
+                const client = await getWalletClientRequired(config);
+
+                if (client.chain.id !== transaction.parsedChainId) {
+                    await client.switchChain({
+                        id: transaction.parsedChainId,
+                    });
+                }
+
+                if (transaction.method === MethodType.ETH_SEND_TRANSACTION) {
+                    const transactionId = await client.sendTransaction({
+                        to: transaction.params.to,
+                        data:
+                            transaction.params.data ||
+                            (transaction.attribution !== false
+                                ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
+                                : undefined),
+                        value: transaction.params.parsedValue,
+                    });
+
+                    const response = await postAction<LinkDigestedResponse>({
+                        transactionId,
+                    });
+                    return response.success ? response.data.frame : null;
+                } else {
+                    enqueueErrorMessage(t`Unknown transaction method: ${transaction.method}.`);
+                    return;
+                }
             default:
                 safeUnreachable(button.action);
                 return;
