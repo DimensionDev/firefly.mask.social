@@ -1,35 +1,38 @@
 'use client';
 
+import { EMPTY_OBJECT } from '@masknet/shared-base';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
-import { type Components } from 'react-virtuoso';
+import { type TableComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { VirtualTableFooter } from '@/components/VirtualList/VirtualTableFooter.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { VirtualTableList, type VirtualTableListProps } from '@/components/VirtualList/VirtualTableList.js';
 import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface TableListInPageProps<T = unknown> {
+interface TableListInPageProps<T = unknown, C = unknown> {
     queryResult: UseSuspenseInfiniteQueryResult<T[]>;
     loginRequired?: boolean;
     noResultsFallbackRequired?: boolean;
-    VirtualTableListProps?: VirtualTableListProps<T>;
+    VirtualTableListProps?: Omit<VirtualTableListProps<T, C>, 'context'> & {
+        context?: Omit<C, 'hasNextPage' | 'fetchNextPage' | 'isFetching' | 'itemsRendered'>;
+    };
     NoResultsFallbackProps?: NoResultsFallbackProps;
     className?: string;
 }
 
-export function TableListInPage<T = unknown>({
+export function TableListInPage<T = unknown, C = unknown>({
     queryResult,
     loginRequired = false,
     noResultsFallbackRequired = true,
     VirtualTableListProps,
     NoResultsFallbackProps,
     className,
-}: TableListInPageProps<T>) {
+}: TableListInPageProps<T, C>) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
@@ -54,33 +57,32 @@ export function TableListInPage<T = unknown>({
     }
 
     // force type casting to avoid type error
-    const List = VirtualTableList<T>;
-    const Components = {
-        TableFoot: VirtualTableFooter,
-        ...(VirtualTableListProps?.components ?? {}),
-    } as Components<T>;
+    const List = VirtualTableList<T, C>;
+    const Components = (VirtualTableListProps?.components ?? EMPTY_OBJECT) as TableComponents<T, C>;
     const Context = {
         hasNextPage,
         fetchNextPage,
         isFetching,
         itemsRendered: itemsRendered.current,
-        ...(VirtualTableListProps?.context ?? {}),
+        ...(VirtualTableListProps?.context ?? EMPTY_OBJECT),
     };
 
     return (
-        <List
-            useWindowScroll
-            data={data}
-            endReached={onEndReached}
-            {...VirtualTableListProps}
-            itemSize={(el: HTMLElement) => {
-                if (!itemsRendered.current) itemsRendered.current = true;
-                return el.getBoundingClientRect().height;
-            }}
-            fixedFooterContent={() => null}
-            context={Context}
-            components={Components}
-            className={classNames('max-md:no-scrollbar', className)}
-        />
+        <div className={className}>
+            <List
+                useWindowScroll
+                data={data}
+                endReached={onEndReached}
+                {...VirtualTableListProps}
+                itemSize={(el: HTMLElement) => {
+                    if (!itemsRendered.current) itemsRendered.current = true;
+                    return el.getBoundingClientRect().height;
+                }}
+                context={Context as C}
+                components={Components}
+                className={classNames('max-md:no-scrollbar', VirtualTableListProps?.className)}
+            />
+            <VirtualListFooter context={Context} />
+        </div>
     );
 }
