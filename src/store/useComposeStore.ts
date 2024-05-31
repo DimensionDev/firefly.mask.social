@@ -495,8 +495,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         poll,
-                        // revert sources when poll is removed
-                        availableSources: poll ? post.availableSources : getCurrentAvailableSources(),
                     }),
                     cursor,
                 ),
