@@ -77,6 +77,7 @@ export function TableListInPage<T = unknown>({
                 if (!itemsRendered.current) itemsRendered.current = true;
                 return el.getBoundingClientRect().height;
             }}
+            fixedFooterContent={() => null}
             context={Context}
             components={Components}
             className={classNames('max-md:no-scrollbar', className)}
