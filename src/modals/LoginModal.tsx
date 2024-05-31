@@ -34,6 +34,7 @@ export interface LoginModalProps {
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
 
+    // shared
     const [source, setSource] = useState<SocialSource | null>(null);
 
     // for lens only
@@ -73,11 +74,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     return;
                 }
                 case Source.Farcaster:
-                    setProfiles(EMPTY_LIST);
+                    setSignType(null);
                     setSource(selectedSource);
                     return;
                 case Source.Twitter:
-                    setProfiles(EMPTY_LIST);
                     setSource(selectedSource);
                     return;
                 default:
