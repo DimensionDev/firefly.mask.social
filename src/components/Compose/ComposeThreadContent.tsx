@@ -30,7 +30,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
     return (
         <div>
             {posts.map((x, i) => {
-                const isSuccessed = !!compact(values(x.postId)).length;
+                const isSuccessFully = !!compact(values(x.postId)).length;
                 const isError = !!compact(values(x.postError)).length;
 
                 return (
@@ -66,7 +66,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                         {currentProfile ? (
                             <div className="relative">
                                 <ProfileAvatar profile={currentProfile} enableSourceIcon={false} />
-                                {isSuccessed ? (
+                                {isSuccessFully ? (
                                     <YesIcon className="absolute right-0 top-0 z-10" width={15} height={15} />
                                 ) : null}
                                 {isError ? (

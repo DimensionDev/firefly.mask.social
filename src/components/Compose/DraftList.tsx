@@ -58,8 +58,8 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
     const isDisabled = useMemo(() => {
         const currentAllProfiles = compact(values(currentProfileAll));
 
-        return !draft.avaialableProfiles.some((x) => currentAllProfiles.some((profile) => isSameProfile(profile, x)));
-    }, [currentProfileAll, draft.avaialableProfiles]);
+        return !draft.availableProfiles.some((x) => currentAllProfiles.some((profile) => isSameProfile(profile, x)));
+    }, [currentProfileAll, draft.availableProfiles]);
 
     const hasError = draft.posts.some((x) => !!compact(values(x.postError)).length);
 
@@ -83,7 +83,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 onClick={() => {
                     if (isDisabled) {
                         enqueueErrorMessage(
-                            t`Cannot choose due to account mismatch. Please login ${draft.avaialableProfiles
+                            t`Cannot choose due to account mismatch. Please login ${draft.availableProfiles
                                 .map((x) => `@${x.handle}`)
                                 .join(t` or `)}`,
                         );
@@ -162,7 +162,7 @@ export const DraftList = memo(function DraftList() {
     const handleApply = useCallback(
         async (draft: Draft, full = false) => {
             const currentAllProfiles = compact(values(currentProfileAll));
-            const avaialableProfiles = draft.avaialableProfiles.filter((x) =>
+            const availableProfiles = draft.availableProfiles.filter((x) =>
                 currentAllProfiles.some((profile) => isSameProfile(profile, x)),
             );
             applyDraft({
@@ -176,7 +176,7 @@ export const DraftList = memo(function DraftList() {
                               parentPost: createInitPostState(),
                           }
                         : {}),
-                    availableSources: avaialableProfiles.map((x) => x.source),
+                    availableSources: availableProfiles.map((x) => x.source),
                 })),
             });
             const post = draft.posts.find((x) => x.id === draft.cursor);

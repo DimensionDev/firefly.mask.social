@@ -251,7 +251,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         cursor,
                         posts,
                         type,
-                        avaialableProfiles: compact(values(currentProfileAll)).filter((x) =>
+                        availableProfiles: compact(values(currentProfileAll)).filter((x) =>
                             availableSources.includes(x.source),
                         ),
                     });

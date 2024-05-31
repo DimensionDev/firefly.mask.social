@@ -58,6 +58,9 @@ msgstr "Communities"
 msgid "Discover"
 msgstr "Discover"
 
+msgid "Cannot choose due to account mismatch. Please login {0}"
+msgstr "Cannot choose due to account mismatch. Please login {0}"
+
 msgid "Ask a question"
 msgstr "Ask a question"
 
@@ -127,6 +130,9 @@ msgstr "Change Wallet"
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
+msgid "You can save the failed parts of posts and send them later from your Drafts."
+msgstr "You can save the failed parts of posts and send them later from your Drafts."
+
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
@@ -193,6 +199,9 @@ msgstr "Bookmarks"
 msgid "Confirm"
 msgstr "Confirm"
 
+msgid "[Video]"
+msgstr "[Video]"
+
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
@@ -244,6 +253,9 @@ msgstr "Please switch to the correct network in your wallet."
 msgid "Type something here..."
 msgstr "Type something here..."
 
+msgid "Save Post?"
+msgstr "Save Post?"
+
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
 
@@ -277,6 +289,9 @@ msgstr "Select Account"
 msgid "mirror"
 msgstr "mirror"
 
+msgid "POST"
+msgstr "POST"
+
 msgid "Failed to unlike the post."
 msgstr "Failed to unlike the post."
 
@@ -300,6 +315,9 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
+
+msgid "Save failed post?"
+msgstr "Save failed post?"
 
 msgid "Owners"
 msgstr "Owners"
@@ -331,11 +349,17 @@ msgstr "Failed to mute /{0}."
 msgid "Address"
 msgstr "Address"
 
+msgid "[Photo]"
+msgstr "[Photo]"
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
 msgid "No wallet client found. Please connect your wallet."
 msgstr "No wallet client found. Please connect your wallet."
+
+msgid "THREAD POST"
+msgstr "THREAD POST"
 
 msgid "Frame Validator"
 msgstr "Frame Validator"
@@ -388,6 +412,9 @@ msgstr "Unmuting"
 msgid "Search Filter"
 msgstr "Search Filter"
 
+msgid "Resend full or remaining?"
+msgstr "Resend full or remaining?"
+
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
 
@@ -427,9 +454,6 @@ msgstr "Failed to upload. More than {maxImageCount} images"
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
 
-msgid "Reply"
-msgstr "Reply"
-
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
 
@@ -450,6 +474,9 @@ msgstr "Failed to create image payload."
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
 msgstr "You didn't connect with Firefly before, need to connect first to fully log in."
+
+msgid "[LuckyDrop]"
+msgstr "[LuckyDrop]"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
@@ -679,6 +706,9 @@ msgstr "Please input the frame url to be revalidated."
 msgid "General"
 msgstr "General"
 
+msgid "REPLY<0>to <1>@{0}</1></0>"
+msgstr "REPLY<0>to <1>@{0}</1></0>"
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
 
@@ -721,6 +751,9 @@ msgstr "Share"
 msgid "Your frame URL."
 msgstr "Your frame URL."
 
+msgid "Remaining"
+msgstr "Remaining"
+
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
 
@@ -732,9 +765,6 @@ msgstr "One click to connect your account status."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
-
-msgid "Quote"
-msgstr "Quote"
 
 msgid "Translated"
 msgstr "Translated"
@@ -823,6 +853,9 @@ msgstr "The user rejected the request."
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
 
+msgid "Draft"
+msgstr "Draft"
+
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
 
@@ -847,11 +880,17 @@ msgstr "Leaving Firefly"
 msgid "24H Volume"
 msgstr "24H Volume"
 
+msgid "Full"
+msgstr "Full"
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "No Lens profile was found. Please try using a different wallet."
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
+
+msgid "You can save this to send later from your drafts."
+msgstr "You can save this to send later from your drafts."
 
 msgid "The frame server failed to process the request."
 msgstr "The frame server failed to process the request."
@@ -1099,6 +1138,9 @@ msgstr "Malformed twitter session payload."
 msgid "No matching users"
 msgstr "No matching users"
 
+msgid "Save"
+msgstr "Save"
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
 
@@ -1122,6 +1164,9 @@ msgstr "Failed to fetch the latest state after several attempts. Please try agai
 
 msgid "Profile"
 msgstr "Profile"
+
+msgid "QUOTE"
+msgstr "QUOTE"
 
 msgid "Collect"
 msgstr "Collect"
@@ -1212,6 +1257,9 @@ msgstr "Login"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
+
+msgid "Your draft was saved"
+msgstr "Your draft was saved"
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."

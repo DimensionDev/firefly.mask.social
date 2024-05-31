@@ -89,7 +89,7 @@ export interface ComposeBaseState {
 export interface Draft extends ComposeBaseState {
     savedOn: Date;
     id: string;
-    avaialableProfiles: Profile[];
+    availableProfiles: Profile[];
 }
 interface ComposeState extends ComposeBaseState {
     currentDraftId?: string;
