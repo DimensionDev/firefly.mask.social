@@ -21,7 +21,7 @@ export const PollButton = memo(function PollButton() {
         <Tooltip
             content={
                 !isPollSupported
-                    ? t`Poll currently only supports on ${SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')}`
+                    ? t`Poll is currently only supported on ${SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')}`
                     : t`Poll`
             }
             placement="top"
