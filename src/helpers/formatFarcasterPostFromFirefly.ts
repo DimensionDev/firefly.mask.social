@@ -81,7 +81,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         stats: {
             comments: Number(cast.replyCount),
             mirrors: cast.recastCount,
-            quotes: cast.recastCount,
+            quotes: cast.quotedCount,
             reactions: cast.likeCount,
         },
         mentions: cast.mentions_user.map<Profile>((x) => {
