@@ -151,7 +151,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                         <CommentList
                             postId={post.postId}
                             source={currentSource}
-                            exclude={allPosts.map((x) => x.postId)}
+                            excludePostIds={allPosts.map((x) => x.postId)}
                         />
                     </>
                 ) : (

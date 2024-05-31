@@ -13,10 +13,11 @@ interface LensShowMoreCommentsProps {
     postId: string;
     fallback?: PropsWithChildren['children'];
     className?: string;
+    excludePostIds?: string[];
 }
 
 export function LensHideComments(props: LensShowMoreCommentsProps) {
-    const { postId, fallback = null, className } = props;
+    const { postId, fallback = null, className, excludePostIds = [] } = props;
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['lens-hidden-comments', postId],
         async queryFn() {
@@ -25,7 +26,7 @@ export function LensHideComments(props: LensShowMoreCommentsProps) {
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select(data) {
-            return data.pages.flatMap((x) => x.data);
+            return data.pages.flatMap((x) => x.data).filter((x) => !excludePostIds.includes(x.postId));
         },
     });
 
