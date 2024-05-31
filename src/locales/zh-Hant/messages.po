@@ -687,6 +687,9 @@ msgstr "一般"
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
 
+msgid "Article removed from your Bookmarks"
+msgstr ""
+
 msgid "Publications"
 msgstr "發表"
 
@@ -724,9 +727,6 @@ msgid "Your frame URL."
 msgstr ""
 
 msgid "Cancel recast successfully"
-msgstr ""
-
-msgid "Article remove from your Bookmarks"
 msgstr ""
 
 msgid "Failed to unfollow."
@@ -1232,4 +1232,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

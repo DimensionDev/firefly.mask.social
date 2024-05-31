@@ -687,6 +687,9 @@ msgstr "通用"
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
+msgid "Article removed from your Bookmarks"
+msgstr ""
+
 msgid "Publications"
 msgstr "帖子"
 
@@ -725,9 +728,6 @@ msgstr "您 Frame 的 URL。"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
-
-msgid "Article remove from your Bookmarks"
-msgstr "文章已经从您的收藏中移除"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
@@ -1232,4 +1232,3 @@ msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

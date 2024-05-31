@@ -682,6 +682,9 @@ msgstr ""
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
+msgid "Article removed from your Bookmarks"
+msgstr ""
+
 msgid "Publications"
 msgstr ""
 
@@ -719,9 +722,6 @@ msgid "Your frame URL."
 msgstr ""
 
 msgid "Cancel recast successfully"
-msgstr ""
-
-msgid "Article remove from your Bookmarks"
 msgstr ""
 
 msgid "Failed to unfollow."
