@@ -136,9 +136,6 @@ msgstr "Poll"
 msgid "Casts"
 msgstr "Casts"
 
-msgid "Transaction button is not available yet."
-msgstr "Transaction button is not available yet."
-
 msgid "Trending Channels"
 msgstr "Trending Channels"
 
@@ -375,6 +372,9 @@ msgstr "post"
 
 msgid "Hashtag"
 msgstr "Hashtag"
+
+msgid "Unknown transaction method: {0}."
+msgstr "Unknown transaction method: {0}."
 
 msgid "Frame"
 msgstr "Frame"

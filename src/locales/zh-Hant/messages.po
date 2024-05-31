@@ -141,9 +141,6 @@ msgstr "投票"
 msgid "Casts"
 msgstr ""
 
-msgid "Transaction button is not available yet."
-msgstr "交易按鈕暫未開放"
-
 msgid "Trending Channels"
 msgstr "流行頻道"
 
@@ -379,6 +376,9 @@ msgid "post"
 msgstr ""
 
 msgid "Hashtag"
+msgstr ""
+
+msgid "Unknown transaction method: {0}."
 msgstr ""
 
 msgid "Frame"
