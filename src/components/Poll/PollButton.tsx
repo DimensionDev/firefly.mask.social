@@ -13,17 +13,26 @@ export const PollButton = memo(function PollButton() {
     const { video, images, poll, availableSources } = useCompositePost();
     const { createPoll } = useComposeStateStore();
 
-    const isPollSupported = availableSources.length > 0 && availableSources.every((x) => SORTED_POLL_SOURCES.includes(x));
+    const isPollSupported =
+        availableSources.length > 0 && availableSources.every((x) => SORTED_POLL_SOURCES.includes(x));
     const hasConflictContent = !!video || images.length > 0 || !!poll;
 
     return (
         <Tooltip
-            content={!isPollSupported ? t`Poll currently only supports on ${SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')}` : t`Poll`}
+            content={
+                !isPollSupported
+                    ? t`Poll currently only supports on ${SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')}`
+                    : t`Poll`
+            }
             placement="top"
             disabled={!isPollSupported ? false : hasConflictContent}
             className="leading-4"
         >
-            <ClickableButton disabled={!isPollSupported || hasConflictContent} className="text-main" onClick={createPoll}>
+            <ClickableButton
+                disabled={!isPollSupported || hasConflictContent}
+                className="text-main"
+                onClick={createPoll}
+            >
                 <PollIcon width={24} height={24} />
             </ClickableButton>
         </Tooltip>

@@ -25,11 +25,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import {
-    MAX_POST_SIZE_PER_THREAD,
-    SORTED_CHANNEL_SOURCES,
-    SORTED_SOCIAL_SOURCES,
-} from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
@@ -109,8 +105,8 @@ export function ComposeAction(props: ComposeActionProps) {
                                 <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>
                                     <GalleryIcon
                                         className={classNames(
-                                            "text-main",
-                                            mediaDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+                                            'text-main',
+                                            mediaDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                                         )}
                                         width={24}
                                         height={24}

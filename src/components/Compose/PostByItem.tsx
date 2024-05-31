@@ -86,8 +86,8 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
     return profiles.map((profile) => (
         <div
             className={classNames(
-                "flex h-10 items-center justify-between border-b border-secondaryLine last:border-none",
-                disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+                'flex h-10 items-center justify-between border-b border-secondaryLine last:border-none',
+                disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
             )}
             key={profile.profileId}
             onClick={() => {
