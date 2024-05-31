@@ -160,6 +160,9 @@ msgstr ""
 msgid "<0>Posted</0>an article"
 msgstr ""
 
+msgid "Poll is currently only supported on {0}"
+msgstr ""
+
 msgid "Offline"
 msgstr ""
 
@@ -608,9 +611,6 @@ msgid "Invalid URL."
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
-
-msgid "Poll currently only supports on {0}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"

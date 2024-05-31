@@ -165,6 +165,9 @@ msgstr "登录失败"
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
 
+msgid "Poll is currently only supported on {0}"
+msgstr ""
+
 msgid "Offline"
 msgstr "离线"
 
@@ -613,9 +616,6 @@ msgid "Invalid URL."
 msgstr "无效的 URL。"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
-
-msgid "Poll currently only supports on {0}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
