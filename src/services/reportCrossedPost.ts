@@ -33,7 +33,7 @@ const resolvePlatform = createLookupTableResolver<SocialSource, string>(
     },
 );
 
-export async function reportCrossedPost(post: CompositePost) {
+async function report(post: CompositePost) {
     // a post shared across multiple platforms will have the same relation ID
     const relationId = uuid();
     const currentProfileAll = getCurrentProfileAll();
@@ -75,6 +75,12 @@ export async function reportCrossedPost(post: CompositePost) {
             console.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.reason);
         } else if (x.value?.code !== 0) {
             console.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.value?.error);
+        } else {
+            console.info(`[report]: report ${source} post: ${post.postId[source]} successfully.`);
         }
     });
+}
+
+export async function reportCrossedPost(post: CompositePost) {
+    requestIdleCallback(() => report(post));
 }
