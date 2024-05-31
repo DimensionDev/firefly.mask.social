@@ -150,6 +150,6 @@ export async function crossPostThread({
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 
-    // report cross posts thread
+    // report crossed posts thread
     reportCrossedPostThread(updatedPosts);
 }
