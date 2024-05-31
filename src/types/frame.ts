@@ -53,10 +53,6 @@ export interface Frame {
     state?: string;
 }
 
-export interface LinkDigested {
-    frame: Frame;
-}
-
 /**
  * Supported chain IDs
  */
@@ -84,7 +80,7 @@ export interface TransactionParams {
     data?: `0x${string}`;
 }
 
-export interface TransactionTargetResponse {
+export interface TransactionResponse {
     // a CAIP-2 chain ID to identify the tx network
     chainId: `eip155:${ChainId}`;
     method: MethodType;
@@ -92,4 +88,12 @@ export interface TransactionTargetResponse {
     // learn more: https://www.notion.so/warpcast/Frame-Transactions-Public-9d9f9f4f527249519a41bd8d16165f73?pvs=4#c1c3182208ce4ae4a7ffa72129b9795a
     attribution?: boolean;
     params: TransactionParams;
+}
+
+export interface LinkDigestedResponse {
+    frame: Frame;
+}
+
+export interface RedirectionResponse {
+    redirectUrl: string;
 }

@@ -16,7 +16,13 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
-import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
+import {
+    ActionType,
+    type Frame,
+    type FrameButton,
+    type LinkDigestedResponse,
+    type RedirectionResponse,
+} from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 async function getNextFrame(
@@ -67,7 +73,7 @@ async function getNextFrame(
 
         switch (button.action) {
             case ActionType.Post:
-                const postResponse = await postAction<LinkDigested>();
+                const postResponse = await postAction<LinkDigestedResponse>();
                 const nextFrame = postResponse.success ? postResponse.data.frame : null;
 
                 if (!nextFrame) {
@@ -86,7 +92,7 @@ async function getNextFrame(
 
                 return nextFrame;
             case ActionType.PostRedirect:
-                const postRedirectResponse = await postAction<{ redirectUrl: string }>();
+                const postRedirectResponse = await postAction<RedirectionResponse>();
                 const redirectUrl = postRedirectResponse.success ? postRedirectResponse.data.redirectUrl : null;
                 if (!redirectUrl) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
@@ -143,7 +149,7 @@ export function Frame({ postId, urls, onData, children }: FrameProps) {
             return attemptUntil(
                 urls.map((x) => () => {
                     if (!x || isValidDomain(x)) return;
-                    return fetchJSON<ResponseJSON<LinkDigested>>(
+                    return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                         urlcat('/api/frame', {
                             link: x,
                         }),
