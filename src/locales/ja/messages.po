@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-30 12:37\n"
+"PO-Revision-Date: 2024-05-31 07:36\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -163,6 +163,9 @@ msgid "Failed to login"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
+msgstr ""
+
+msgid "Poll is currently only supported on {0}"
 msgstr ""
 
 msgid "Offline"
@@ -678,9 +681,6 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr ""
 
-msgid "Connect your wallet to enable all features"
-msgstr ""
-
 msgid "General"
 msgstr ""
 
@@ -883,6 +883,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Login to enable all features"
 msgstr ""
 
 msgid "Notifications"
