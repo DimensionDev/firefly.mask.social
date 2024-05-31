@@ -1,5 +1,5 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
-import { getUnixTime } from 'date-fns';
+import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -49,7 +49,7 @@ export async function reportCrossedPost(post: CompositePost) {
             ua_type: 'web',
             relation_id: relationId,
             // TODO: post time of the original post
-            post_time: getUnixTime(Date.now()),
+            post_time: dayjs(Date.now()).unix(),
             post_id: postId,
             // TODO: profile id of the author
             platform_id: profileId,
