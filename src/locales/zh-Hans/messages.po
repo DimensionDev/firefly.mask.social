@@ -681,9 +681,6 @@ msgstr "点赞"
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
-msgid "Connect your wallet to enable all features"
-msgstr ""
-
 msgid "General"
 msgstr "通用"
 
@@ -887,6 +884,9 @@ msgstr "复制"
 
 msgid "Skip for now"
 msgstr "跳过"
+
+msgid "Login to enable all features"
+msgstr ""
 
 msgid "Notifications"
 msgstr "通知"

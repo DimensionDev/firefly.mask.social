@@ -34,10 +34,15 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
     const isArticle = source === Source.Article;
     return (
         <div className="flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]">
-            <Image src={fallbackImageUrl} width={200} height={200} alt={`${source} login`} />
+            <Image
+                src={fallbackImageUrl}
+                width={isArticle ? 302 : 200}
+                height={isArticle ? 208 : 200}
+                alt={`${source} login`}
+            />
             <span className="leading-3.5 px-6 text-base text-secondary">
                 {isArticle
-                    ? t`Connect your wallet to enable all features`
+                    ? t`Login to enable all features`
                     : t`You need to connect your ${source} account to use this feature.`}
             </span>
             <ClickableButton
