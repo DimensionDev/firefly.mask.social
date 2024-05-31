@@ -19,6 +19,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -139,6 +140,8 @@ interface CrossPostOptions {
     skipRefreshFeeds?: boolean;
     // skip check published result and showing success or error messages
     skipCheckPublished?: boolean;
+    // skip report crossed post
+    skipReportCrossedPost?: boolean;
 }
 
 export async function crossPost(
@@ -150,6 +153,7 @@ export async function crossPost(
         skipIfNoParentPost = false,
         skipCheckPublished = false,
         skipRefreshFeeds = false,
+        skipReportCrossedPost = false,
     }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
@@ -268,6 +272,9 @@ export async function crossPost(
     } catch (error) {
         console.error(`[cross post]: failed to set query data: ${error}`);
     }
+
+    // report crossed post
+    if (!skipReportCrossedPost) reportCrossedPost(updatedCompositePost);
 
     return updatedCompositePost;
 }
