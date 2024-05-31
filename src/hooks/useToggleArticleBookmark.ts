@@ -19,7 +19,7 @@ export function useToggleArticleBookmark() {
             try {
                 if (hasBookmarked) {
                     const result = await FarcasterSocialMediaProvider.unbookmark(article.id);
-                    enqueueSuccessMessage(t`Article remove from your Bookmarks`);
+                    enqueueSuccessMessage(t`Article removed from your Bookmarks`);
                     return result;
                 } else {
                     const result = await FarcasterSocialMediaProvider.bookmark(

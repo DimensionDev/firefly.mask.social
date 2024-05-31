@@ -18,7 +18,11 @@ import { useSearchChannels } from '@/hooks/useSearchChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-export function ChannelSearchPanel() {
+interface ChannelSearchPanelProps {
+    onSelected?: () => void;
+}
+
+export function ChannelSearchPanel({ onSelected }: ChannelSearchPanelProps) {
     const [inputText, setInputText] = useState('');
     const { updateChannel } = useComposeStateStore();
     const { channel: selectedChannel, typedMessage } = useCompositePost();
@@ -73,6 +77,7 @@ export function ChannelSearchPanel() {
                                 className="flex h-[32px] cursor-pointer items-center justify-between pl-3 pr-1 transition duration-150 ease-in hover:bg-lightBg"
                                 onClick={() => {
                                     if (!isSelected) updateChannel(channel);
+                                    onSelected?.();
                                 }}
                             >
                                 <div

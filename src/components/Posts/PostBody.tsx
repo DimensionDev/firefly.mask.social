@@ -32,13 +32,14 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface PostBodyProps {
     post: Post;
     isQuote?: boolean;
+    isDetail?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, showMore = false, disablePadding = false, showTranslate = false },
+    { post, isQuote = false, isDetail = false, showMore = false, disablePadding = false, showTranslate = false },
     ref,
 ) {
     const router = useRouter();
@@ -68,7 +69,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [post, postViewed]);
 
-    const muted = useIsMuted(post.author);
+    const muted = useIsMuted(post.author, isDetail);
 
     const postContent =
         (endingLinkCollapsed

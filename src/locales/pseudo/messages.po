@@ -148,9 +148,6 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
-msgid "Confirm to report this Collection?"
-msgstr ""
-
 msgid "NFT Standard"
 msgstr ""
 
@@ -161,6 +158,9 @@ msgid "Failed to login"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
+msgstr ""
+
+msgid "Poll is currently only supported on {0}"
 msgstr ""
 
 msgid "Offline"
@@ -406,6 +406,9 @@ msgstr ""
 msgid "View Source"
 msgstr ""
 
+msgid "Are you sure you want to report this collection?"
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -500,6 +503,9 @@ msgid "Your posts have published successfully on {0}."
 msgstr ""
 
 msgid "Description"
+msgstr ""
+
+msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
@@ -676,6 +682,9 @@ msgstr ""
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
+msgid "Article removed from your Bookmarks"
+msgstr ""
+
 msgid "Publications"
 msgstr ""
 
@@ -713,9 +722,6 @@ msgid "Your frame URL."
 msgstr ""
 
 msgid "Cancel recast successfully"
-msgstr ""
-
-msgid "Article remove from your Bookmarks"
 msgstr ""
 
 msgid "Failed to unfollow."
@@ -872,6 +878,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Login to enable all features"
 msgstr ""
 
 msgid "Notifications"

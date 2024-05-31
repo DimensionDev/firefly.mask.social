@@ -18,7 +18,7 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
-import { type Profile,SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
 interface Pair {
     profile: Profile;

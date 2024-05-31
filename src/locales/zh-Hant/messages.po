@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-29 12:01\n"
+"PO-Revision-Date: 2024-05-31 07:36\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -153,9 +153,6 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
 
-msgid "Confirm to report this Collection?"
-msgstr ""
-
 msgid "NFT Standard"
 msgstr ""
 
@@ -166,6 +163,9 @@ msgid "Failed to login"
 msgstr "登入失敗"
 
 msgid "<0>Posted</0>an article"
+msgstr ""
+
+msgid "Poll is currently only supported on {0}"
 msgstr ""
 
 msgid "Offline"
@@ -411,6 +411,9 @@ msgstr ""
 msgid "View Source"
 msgstr ""
 
+msgid "Are you sure you want to report this collection?"
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -505,6 +508,9 @@ msgid "Your posts have published successfully on {0}."
 msgstr ""
 
 msgid "Description"
+msgstr ""
+
+msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
@@ -681,6 +687,9 @@ msgstr "一般"
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
 
+msgid "Article removed from your Bookmarks"
+msgstr ""
+
 msgid "Publications"
 msgstr "發表"
 
@@ -718,9 +727,6 @@ msgid "Your frame URL."
 msgstr ""
 
 msgid "Cancel recast successfully"
-msgstr ""
-
-msgid "Article remove from your Bookmarks"
 msgstr ""
 
 msgid "Failed to unfollow."
@@ -877,6 +883,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Login to enable all features"
 msgstr ""
 
 msgid "Notifications"
@@ -1165,7 +1174,7 @@ msgid "Translating..."
 msgstr ""
 
 msgid "Followers"
-msgstr "跟隨者"
+msgstr "追蹤者"
 
 msgid "Media"
 msgstr ""
@@ -1192,7 +1201,7 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
-msgstr "跟隨中"
+msgstr "追蹤中"
 
 msgid "<0>{0}</0> recasted"
 msgstr ""

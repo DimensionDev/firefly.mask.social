@@ -48,7 +48,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
             delay={500}
             arrow={false}
             trigger="mouseenter"
-            onTrigger={() => {
+            onShow={() => {
                 setEnabled(true);
             }}
             hideOnClick

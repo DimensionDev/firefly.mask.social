@@ -148,9 +148,6 @@ msgstr "Debug Console"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "Failed to mute @{0} on {sourceName}"
 
-msgid "Confirm to report this Collection?"
-msgstr "Confirm to report this Collection?"
-
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
@@ -162,6 +159,9 @@ msgstr "Failed to login"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
+
+msgid "Poll is currently only supported on {0}"
+msgstr "Poll is currently only supported on {0}"
 
 msgid "Offline"
 msgstr "Offline"
@@ -406,6 +406,9 @@ msgstr "Invalid compose type: {type}."
 msgid "View Source"
 msgstr "View Source"
 
+msgid "Are you sure you want to report this collection?"
+msgstr "Are you sure you want to report this collection?"
+
 msgid "and"
 msgstr "and"
 
@@ -501,6 +504,9 @@ msgstr "Your posts have published successfully on {0}."
 
 msgid "Description"
 msgstr "Description"
+
+msgid "Hide more comments"
+msgstr "Hide more comments"
 
 msgid "Malformed session."
 msgstr "Malformed session."
@@ -676,6 +682,9 @@ msgstr "General"
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
 
+msgid "Article removed from your Bookmarks"
+msgstr "Article removed from your Bookmarks"
+
 msgid "Publications"
 msgstr "Publications"
 
@@ -714,9 +723,6 @@ msgstr "Your frame URL."
 
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
-
-msgid "Article remove from your Bookmarks"
-msgstr "Article remove from your Bookmarks"
 
 msgid "Failed to unfollow."
 msgstr "Failed to unfollow."
@@ -873,6 +879,9 @@ msgstr "Copy"
 
 msgid "Skip for now"
 msgstr "Skip for now"
+
+msgid "Login to enable all features"
+msgstr "Login to enable all features"
 
 msgid "Notifications"
 msgstr "Notifications"

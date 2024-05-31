@@ -1,13 +1,18 @@
 import { Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { Image } from '@/components/Image.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
-import { ScrollListKey } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatPercentage } from '@/helpers/formatPercentage.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export interface TopCollectorsProps {
@@ -24,23 +29,29 @@ export function getTopCollectorsItemContent(
     },
 ) {
     const { totalQuantity } = options || {};
+    const addressOrEns = item.owner_ens_name ? item.owner_ens_name : item.owner_address;
     return (
         <>
-            <td className="min-w-[55px] pb-5 pr-2 text-left">{index}</td>
-            <td
-                className="max-w-[120px] px-2 pb-5"
-                title={item.owner_ens_name ? item.owner_ens_name : item.owner_address}
-            >
+            <td className="min-w-[40px] pb-5 pr-2 text-left">{index}</td>
+            <td className="min-w-[150px] max-w-[200px] px-2 pb-5">
                 <div className="flex w-full items-center">
                     <Image
-                        src={item.owner_image}
+                        src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                         alt={item.owner_address}
                         width={30}
                         height={30}
-                        className="mr-2 rounded-full"
+                        className="mr-2 min-w-[30px] rounded-full"
                     />
-                    <div className="max-w-[calc(100%-38px)] truncate text-left">
-                        {item.owner_ens_name ? item.owner_ens_name : formatEthereumAddress(item.owner_address, 4)}
+                    <div className="max-w-[calc(100%-38px)] text-left" title={item.owner_address}>
+                        {item.owner_ens_name ? (
+                            <TextOverflowTooltip title={addressOrEns} placement="right">
+                                <div className="w-full truncate">{item.owner_ens_name}</div>
+                            </TextOverflowTooltip>
+                        ) : (
+                            <Tooltip title={addressOrEns} placement="right">
+                                <span>{formatEthereumAddress(item.owner_address, 4)}</span>
+                            </Tooltip>
+                        )}
                     </div>
                 </div>
             </td>
@@ -49,14 +60,18 @@ export function getTopCollectorsItemContent(
                     'sm:text-center': !!totalQuantity,
                 })}
             >
-                {item.total_copies_owned}
+                <div className="min-w-[160px] truncate">
+                    <Tooltip title={item.distinct_nfts_owned} placement="right">
+                        <span>{nFormatter(item.distinct_nfts_owned)}</span>
+                    </Tooltip>
+                </div>
             </td>
             {totalQuantity ? (
                 <td
                     className="hidden w-[195px] pb-5 pl-2 text-right sm:table-cell"
                     title={`${item.distinct_nfts_owned}`}
                 >
-                    {((item.distinct_nfts_owned / totalQuantity) * 100).toFixed(2).replace(/\.0+$/, '')}%
+                    {formatPercentage(item.distinct_nfts_owned / totalQuantity)}
                 </td>
             ) : null}
         </>
@@ -102,7 +117,7 @@ export function TopCollectors(props: TopCollectorsProps) {
                                 <Trans>Owned</Trans>
                             </th>
                             {totalQuantity ? (
-                                <th className="hidden w-[195px] pb-2 pl-2 text-right sm:table-cell">
+                                <th className="hidden w-[195px] whitespace-nowrap pb-2 pl-2 text-right sm:table-cell">
                                     <Trans>%Of supply owned</Trans>
                                 </th>
                             ) : null}

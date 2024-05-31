@@ -410,7 +410,7 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2TimelineResult>>(url, {}, true);
         if (!response.success) throw new Error(response.error.message);
-        const profiles = response.data.data.map(formatTwitterProfile);
+        const profiles = (response.data.data ?? []).map(formatTwitterProfile);
         return createPageable(
             profiles,
             createIndicator(indicator),

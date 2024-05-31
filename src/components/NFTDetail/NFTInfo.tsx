@@ -1,16 +1,20 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
+import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
 import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;
@@ -29,6 +33,11 @@ export interface NFTInfoProps {
 
 export function NFTInfo(props: NFTInfoProps) {
     const { imageURL, name, tokenId, collection, ownerAddress, chainId, contractAddress, floorPrice } = props;
+    const { data: ensName } = useEnsName({
+        chainId: ChainId.Mainnet,
+        address: props.ownerAddress as `0x${string}`,
+    });
+
     return (
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
             <div className="relative mx-auto flex h-[250px] w-[250px] items-center justify-center sm:min-w-[250px]">
@@ -88,14 +97,14 @@ export function NFTInfo(props: NFTInfoProps) {
                                 <Trans>Owned By</Trans>
                             </div>
                             {chainId ? (
-                                <a
-                                    href={EVMExplorerResolver.addressLink(chainId, ownerAddress)}
+                                <Link
+                                    href={resolveProfileUrl(Source.Wallet, ownerAddress)}
                                     target="_blank"
                                     className="flex items-center text-base font-bold leading-[14px]"
                                 >
-                                    {formatEthereumAddress(ownerAddress, 4)}
+                                    {ensName ? ensName : formatEthereumAddress(ownerAddress, 4)}
                                     <LinkIcon className="ml-1 h-4 w-4 text-secondary" />
-                                </a>
+                                </Link>
                             ) : (
                                 <div className="text-base font-bold leading-[14px]">
                                     {formatEthereumAddress(ownerAddress, 4)}

@@ -4,7 +4,7 @@ import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
-import { FrameUI } from '@/components/Frame/index.js';
+import { Card as FrameUI } from '@/components/Frame/Card.js';
 import { OembedUI } from '@/components/Oembed/index.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { Quote } from '@/components/Posts/Quote.js';

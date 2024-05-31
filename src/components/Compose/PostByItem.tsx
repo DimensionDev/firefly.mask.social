@@ -26,9 +26,10 @@ import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
     source: SocialSource;
+    disabled?: boolean;
 }
 
-export function PostByItem({ source }: PostByItemProps) {
+export function PostByItem({ source, disabled = false }: PostByItemProps) {
     const profiles = useProfiles(source);
     const currentProfile = useCurrentProfile(source);
 
@@ -84,10 +85,13 @@ export function PostByItem({ source }: PostByItemProps) {
 
     return profiles.map((profile) => (
         <div
-            className="flex h-10 cursor-pointer items-center justify-between border-b border-secondaryLine last:border-none"
+            className={classNames(
+                'flex h-10 items-center justify-between border-b border-secondaryLine last:border-none',
+                disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+            )}
             key={profile.profileId}
             onClick={() => {
-                if (!isSameProfile(currentProfile, profile)) return;
+                if (!isSameProfile(currentProfile, profile) || disabled) return;
                 if (availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
                 else enableSource(currentProfile.source);
             }}

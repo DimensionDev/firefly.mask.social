@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-29 12:01\n"
+"PO-Revision-Date: 2024-05-31 07:36\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -153,9 +153,6 @@ msgstr "诊断命令行"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
-msgid "Confirm to report this Collection?"
-msgstr ""
-
 msgid "NFT Standard"
 msgstr ""
 
@@ -167,6 +164,9 @@ msgstr "登录失败"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
+
+msgid "Poll is currently only supported on {0}"
+msgstr ""
 
 msgid "Offline"
 msgstr "离线"
@@ -411,6 +411,9 @@ msgstr "无效的发帖类型：{type}。"
 msgid "View Source"
 msgstr "查看原文"
 
+msgid "Are you sure you want to report this collection?"
+msgstr ""
+
 msgid "and"
 msgstr "和"
 
@@ -505,6 +508,9 @@ msgid "Your posts have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
 msgid "Description"
+msgstr ""
+
+msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
@@ -681,6 +687,9 @@ msgstr "通用"
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
+msgid "Article removed from your Bookmarks"
+msgstr ""
+
 msgid "Publications"
 msgstr "帖子"
 
@@ -719,9 +728,6 @@ msgstr "您 Frame 的 URL。"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
-
-msgid "Article remove from your Bookmarks"
-msgstr "文章已经从您的收藏中移除"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
@@ -878,6 +884,9 @@ msgstr "复制"
 
 msgid "Skip for now"
 msgstr "跳过"
+
+msgid "Login to enable all features"
+msgstr ""
 
 msgid "Notifications"
 msgstr "通知"

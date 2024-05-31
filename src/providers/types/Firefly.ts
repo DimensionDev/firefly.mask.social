@@ -23,6 +23,8 @@ export interface Cast {
     deleted_at: string | null;
     likeCount: number;
     recastCount: number;
+    quotedCount: number;
+    /** numeric string */
     replyCount: string;
     parentCast?: Cast;
     liked: boolean;
@@ -435,6 +437,8 @@ export type BlockRelationResponse = Response<
         blocked: boolean;
     }>
 >;
+
+export type ReportCrossPostResponse = Response<void>;
 
 export interface NFTCollectionsParams {
     limit?: number;
