@@ -143,7 +143,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 interactive
                 disabled={!hasError}
                 content={
-                    <div className="bg-tooltipBg flex flex-col rounded-lg px-3 py-1 opacity-80">
+                    <div className="flex flex-col rounded-lg bg-tooltipBg px-3 py-1 opacity-80">
                         {post.availableSources.map((x) => {
                             const name = resolveSourceName(x);
                             const errorIndex = posts.findIndex((post) => post.postError[x]);
