@@ -26,7 +26,6 @@ import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } f
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import { trimify } from '@/helpers/trimify.js';
-import { useIsMuted } from '@/hooks/useIsMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {
@@ -68,7 +67,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [post, postViewed]);
 
-    const muted = useIsMuted(post.author);
+    const muted = post.author.viewerContext?.blocking;
 
     const postContent =
         (endingLinkCollapsed
