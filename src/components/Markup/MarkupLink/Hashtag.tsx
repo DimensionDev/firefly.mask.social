@@ -8,7 +8,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { PageRoute, SearchType } from '@/constants/enum.js';
 
-export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ title }) {
+export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ title, source }) {
     const router = useRouter();
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
             as="span"
             onClick={() => {
                 scrollTo(0, 0);
-                router.push(urlcat(PageRoute.Search, { q: `#${tag}`, type: SearchType.Posts }));
+                router.push(urlcat(PageRoute.Search, { q: `#${tag}`, type: SearchType.Posts, source }));
             }}
         >
             {title}

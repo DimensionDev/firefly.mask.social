@@ -28,7 +28,7 @@ export function Info({ profile }: InfoProps) {
 
     return (
         <div className="flex gap-3 p-3">
-            {profile?.pfp ? (
+            {profile.pfp ? (
                 <Avatar
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
                     alt="avatar"
@@ -42,7 +42,7 @@ export function Info({ profile }: InfoProps) {
             <div className="relative flex flex-1 flex-col gap-[6px]">
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2">
-                        <span className="text-xl font-black text-lightMain">{profile?.displayName}</span>
+                        <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
                         {profile && !isMyProfile(profile) && isMedium && source !== Source.Twitter ? (
                             <>
@@ -53,17 +53,17 @@ export function Info({ profile }: InfoProps) {
                             </>
                         ) : null}
                     </div>
-                    <span className="text-[15px] text-secondary">@{profile?.handle}</span>
+                    <span className="text-[15px] text-secondary">@{profile.handle}</span>
                 </div>
 
-                <BioMarkup className="text-[15px]" source={profile?.source}>
-                    {profile?.bio ?? '-'}
+                <BioMarkup className="text-[15px]" source={profile.source}>
+                    {profile.bio ?? '-'}
                 </BioMarkup>
 
                 <div className="flex gap-3 text-[15px]">
                     <Link
                         href={{
-                            pathname: `/profile/${profile?.profileId}/following`,
+                            pathname: `/profile/${profile.profileId}/following`,
                             query: { source: resolveSourceInURL(source) },
                         }}
                         className={classNames('gap-1 hover:underline', {
@@ -78,7 +78,7 @@ export function Info({ profile }: InfoProps) {
 
                     <Link
                         href={{
-                            pathname: `/profile/${profile?.profileId}/followers`,
+                            pathname: `/profile/${profile.profileId}/followers`,
                             query: { source: resolveSourceInURL(source) },
                         }}
                         className={classNames('gap-1 hover:underline', {

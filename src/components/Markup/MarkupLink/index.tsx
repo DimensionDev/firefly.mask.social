@@ -64,7 +64,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         }
     }
 
-    if (title.trim().startsWith('#')) return <Hashtag title={title.trim()} />;
+    if (title.trim().startsWith('#')) return <Hashtag title={title.trim()} source={source} />;
 
     if (title.trim().startsWith('/')) {
         return <ChannelTag title={title} source={source} />;
