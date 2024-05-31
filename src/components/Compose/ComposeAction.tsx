@@ -28,7 +28,6 @@ import { env } from '@/constants/env.js';
 import {
     MAX_POST_SIZE_PER_THREAD,
     SORTED_CHANNEL_SOURCES,
-    SORTED_POLL_SOURCES,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -109,7 +108,10 @@ export function ComposeAction(props: ComposeActionProps) {
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>
                                     <GalleryIcon
-                                        className=" cursor-pointer text-main disabled:cursor-not-allowed disabled:opacity-50"
+                                        className={classNames(
+                                            "text-main",
+                                            mediaDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+                                        )}
                                         width={24}
                                         height={24}
                                     />
@@ -139,9 +141,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     />
                 </Tooltip>
 
-                {availableSources.some((x) => SORTED_POLL_SOURCES.includes(x)) && type === 'compose' ? (
-                    <PollButton />
-                ) : null}
+                {type === 'compose' ? <PollButton /> : null}
 
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
