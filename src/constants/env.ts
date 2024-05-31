@@ -50,8 +50,8 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
+    // for sentry
     NEXT_PUBLIC_SENTRY_DSN: z.string(),
-
     NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 });
 
