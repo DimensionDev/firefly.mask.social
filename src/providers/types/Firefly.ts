@@ -23,6 +23,8 @@ export interface Cast {
     deleted_at: string | null;
     likeCount: number;
     recastCount: number;
+    quotedCount: number;
+    /** numeric string */
     replyCount: string;
     parentCast?: Cast;
     liked: boolean;
