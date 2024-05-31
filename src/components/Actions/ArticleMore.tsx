@@ -6,6 +6,7 @@ import { Fragment, memo } from 'react';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import { ArticleBookmarkButton } from '@/components/Actions/ArticleBookmarkButton.js';
+import { ArticleWatchButton } from '@/components/Actions/ArticleWatchButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -71,6 +72,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                             />
                         )}
                     </Menu.Item>
+                    <Menu.Item>{({ close }) => <ArticleWatchButton article={article} onClick={close} />}</Menu.Item>
                 </Menu.Items>
             </Transition>
         </Menu>

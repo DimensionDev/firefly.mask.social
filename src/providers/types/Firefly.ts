@@ -685,3 +685,15 @@ export interface Collection {
     collection_details: CollectionDetails;
     nftPreviews?: NftPreview[];
 }
+
+export enum WatchType {
+    Wallet = 'wallet',
+    MaskX = 'maskx',
+    Twitter = 'twitter',
+}
+
+export type TwitterFollowStatusResponse = Response<{
+    isFollowed: boolean;
+}>;
+
+export type WalletsFollowStatusResponse = Response<Record<string, boolean>>;

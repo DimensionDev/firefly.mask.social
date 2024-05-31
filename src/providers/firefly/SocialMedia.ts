@@ -45,14 +45,18 @@ import {
     type PostQuotesResponse,
     type ReactorsResponse,
     type RelationResponse,
+    type Response,
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
     type ThreadResponse,
+    type TwitterFollowStatusResponse,
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
     type WalletProfileResponse,
+    type WalletsFollowStatusResponse,
+    WatchType,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -909,6 +913,46 @@ class FireflySocialMedia implements Provider {
             });
             const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
             return blocked;
+        });
+    }
+
+    /**
+     * @param {WatchType} type
+     * @param {string} id - id for masx, userId for twtter, address for wallet
+     */
+    async watch(type: WatchType, id: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
+            toObjectId: id,
+            type,
+        });
+        const response = await fireflySessionHolder.fetch<Response<void>>(url, { method: 'put' });
+        return response;
+    }
+
+    async getIsWatch(type: WatchType, id: string): Promise<boolean> {
+        if (type === WatchType.MaskX) {
+            throw new TypeError(`${type} is not supported yet.`);
+        }
+        if (type === WatchType.Twitter) {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', { twitterId: id });
+            const res = await fireflySessionHolder.fetch<TwitterFollowStatusResponse>(url);
+            return !!res.data?.isFollowed;
+        } else if (type === WatchType.Wallet) {
+            const url = urlcat(FIREFLY_ROOT_URL, { addresses: [id] });
+            const res = await fireflySessionHolder.fetch<WalletsFollowStatusResponse>(url);
+            if (!res.data) return false;
+            return !!res.data[id];
+        }
+        return false;
+    }
+
+    async reportSpamNFT(collectionId: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
+        await fireflySessionHolder.fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                collection_id: collectionId,
+            }),
         });
     }
 }
