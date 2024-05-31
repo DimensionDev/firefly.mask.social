@@ -2,11 +2,11 @@
 
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
-import type { Components } from 'react-virtuoso';
+import { type Components } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
+import { VirtualTableFooter } from '@/components/VirtualList/VirtualTableFooter.js';
 import { VirtualTableList, type VirtualTableListProps } from '@/components/VirtualList/VirtualTableList.js';
 import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
@@ -56,7 +56,7 @@ export function TableListInPage<T = unknown>({
     // force type casting to avoid type error
     const List = VirtualTableList<T>;
     const Components = {
-        Footer: VirtualListFooter,
+        TableFoot: VirtualTableFooter,
         ...(VirtualTableListProps?.components ?? {}),
     } as Components<T>;
     const Context = {

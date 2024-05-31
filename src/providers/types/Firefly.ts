@@ -436,6 +436,8 @@ export type BlockRelationResponse = Response<
     }>
 >;
 
+export type ReportCrossPostResponse = Response<void>;
+
 export interface NFTCollectionsParams {
     limit?: number;
     indicator?: PageIndicator;

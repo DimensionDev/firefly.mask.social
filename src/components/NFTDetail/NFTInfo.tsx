@@ -102,8 +102,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                     target="_blank"
                                     className="flex items-center text-base font-bold leading-[14px]"
                                 >
-                                    {ensName ? `${ensName} / ` : ''}
-                                    {formatEthereumAddress(ownerAddress, 4)}
+                                    {ensName ? ensName : formatEthereumAddress(ownerAddress, 4)}
                                     <LinkIcon className="ml-1 h-4 w-4 text-secondary" />
                                 </Link>
                             ) : (

@@ -16,10 +16,10 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 export interface CommentListProps {
     postId: string;
     source: SocialSource;
-    exclude?: string[];
+    excludePostIds?: string[];
 }
 
-export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
+export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, excludePostIds = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -39,7 +39,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select(data) {
-            return data.pages.flatMap((x) => x.data).filter((x) => !exclude.includes(x.postId));
+            return data.pages.flatMap((x) => x.data).filter((x) => !excludePostIds.includes(x.postId));
         },
     });
 
@@ -67,7 +67,11 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 }}
             />
             {queryResult.data.length <= 0 && source === Source.Lens ? (
-                <LensHideComments postId={postId} className="border-t-[1px] border-t-line" />
+                <LensHideComments
+                    excludePostIds={excludePostIds}
+                    postId={postId}
+                    className="border-t-[1px] border-t-line"
+                />
             ) : null}
         </>
     );
