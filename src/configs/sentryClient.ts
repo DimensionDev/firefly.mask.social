@@ -1,5 +1,6 @@
-import { env } from '@/constants/env.js';
 import * as Sentry from '@sentry/browser';
+
+import { env } from '@/constants/env.js';
 
 export const feedbackIntegration = Sentry.feedbackIntegration({
     id: 'sentry-feedback',
