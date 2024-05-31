@@ -32,9 +32,9 @@ export function getTopCollectorsItemContent(
     const addressOrEns = item.owner_ens_name ? item.owner_ens_name : item.owner_address;
     return (
         <>
-            <td className="w-[40px] pb-5 pr-2 text-left">{index}</td>
-            <td className="max-w-[200px] px-2 pb-5">
-                <div className="flex w-full max-w-[200px] items-center">
+            <td className="pb-5 pr-2 text-left">{index}</td>
+            <td className="px-2 pb-5">
+                <div className="flex w-full items-center">
                     <Image
                         src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                         alt={item.owner_address}
@@ -67,7 +67,7 @@ export function getTopCollectorsItemContent(
                 </div>
             </td>
             {totalQuantity ? (
-                <td className="hidden pb-5 pl-2 text-right sm:table-cell" title={`${item.distinct_nfts_owned}`}>
+                <td className="hidden pb-5 pl-2 text-right sm:table-cell">
                     {formatPercentage(item.distinct_nfts_owned / totalQuantity)}
                 </td>
             ) : null}
@@ -94,7 +94,7 @@ export function TopCollectors(props: TopCollectorsProps) {
             VirtualTableListProps={{
                 components: {
                     // eslint-disable-next-line react/no-unstable-nested-components
-                    Table: (props) => <table className="w-full px-3" {...props} />,
+                    Table: (props) => <table className="w-full table-fixed px-3" {...props} />,
                     // eslint-disable-next-line react/no-unstable-nested-components
                     TableRow: (props) => <tr className="text-center text-base font-normal leading-[30px]" {...props} />,
                 },
@@ -102,19 +102,19 @@ export function TopCollectors(props: TopCollectorsProps) {
                 fixedHeaderContent: () => {
                     return (
                         <tr className="text-[15px] font-bold leading-6">
-                            <th className="pb-2 pr-2 text-left">#</th>
+                            <th className="w-10 pb-2 pr-2 text-left">#</th>
                             <th className="px-2 pb-2 text-left">
                                 <Trans>Address</Trans>
                             </th>
                             <th
-                                className={classNames('px-2 pb-2 text-right', {
+                                className={classNames('w-[100px] px-2 pb-2 text-right', {
                                     'sm:text-center': !!totalQuantity,
                                 })}
                             >
                                 <Trans>Owned</Trans>
                             </th>
                             {totalQuantity ? (
-                                <th className="hidden whitespace-nowrap pb-2 pl-2 text-right sm:table-cell">
+                                <th className="hidden w-[160px] whitespace-nowrap pb-2 pl-2 text-right sm:table-cell">
                                     <Trans>%Of supply owned</Trans>
                                 </th>
                             ) : null}
