@@ -40,7 +40,7 @@ function Owner({ address }: { address: `0x${string}` }) {
     const { data: ensName } = useEnsName({ address, chainId: ChainId.Mainnet });
     return (
         <Link
-            href={resolveProfileUrl(Source.Wallet, ensName ? ensName : address)}
+            href={resolveProfileUrl(Source.Wallet, address)}
             className="absolute left-2 top-2 max-w-[100px] truncate rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
             onClickCapture={(e) => e.stopPropagation()}
         >

@@ -98,7 +98,7 @@ export function NFTInfo(props: NFTInfoProps) {
                             </div>
                             {chainId ? (
                                 <Link
-                                    href={resolveProfileUrl(Source.Wallet, ensName ? ensName : ownerAddress)}
+                                    href={resolveProfileUrl(Source.Wallet, ownerAddress)}
                                     target="_blank"
                                     className="flex items-center text-base font-bold leading-[14px]"
                                 >
