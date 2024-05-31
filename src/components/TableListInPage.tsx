@@ -1,5 +1,6 @@
 'use client';
 
+import { EMPTY_OBJECT } from '@masknet/shared-base';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
 import { type TableComponents } from 'react-virtuoso';
@@ -57,13 +58,13 @@ export function TableListInPage<T = unknown, C = unknown>({
 
     // force type casting to avoid type error
     const List = VirtualTableList<T, C>;
-    const Components = (VirtualTableListProps?.components ?? {}) as TableComponents<T, C>;
+    const Components = (VirtualTableListProps?.components ?? EMPTY_OBJECT) as TableComponents<T, C>;
     const Context = {
         hasNextPage,
         fetchNextPage,
         isFetching,
         itemsRendered: itemsRendered.current,
-        ...(VirtualTableListProps?.context ?? {}),
+        ...(VirtualTableListProps?.context ?? EMPTY_OBJECT),
     };
 
     return (
