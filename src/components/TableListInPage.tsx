@@ -2,11 +2,11 @@
 
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
-import { type Components } from 'react-virtuoso';
+import { type TableComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { VirtualTableFooter } from '@/components/VirtualList/VirtualTableFooter.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { VirtualTableList, type VirtualTableListProps } from '@/components/VirtualList/VirtualTableList.js';
 import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
@@ -55,10 +55,7 @@ export function TableListInPage<T = unknown>({
 
     // force type casting to avoid type error
     const List = VirtualTableList<T>;
-    const Components = {
-        TableFoot: VirtualTableFooter,
-        ...(VirtualTableListProps?.components ?? {}),
-    } as Components<T>;
+    const Components = (VirtualTableListProps?.components ?? {}) as TableComponents<T>;
     const Context = {
         hasNextPage,
         fetchNextPage,
@@ -68,19 +65,21 @@ export function TableListInPage<T = unknown>({
     };
 
     return (
-        <List
-            useWindowScroll
-            data={data}
-            endReached={onEndReached}
-            {...VirtualTableListProps}
-            itemSize={(el: HTMLElement) => {
-                if (!itemsRendered.current) itemsRendered.current = true;
-                return el.getBoundingClientRect().height;
-            }}
-            fixedFooterContent={() => null}
-            context={Context}
-            components={Components}
-            className={classNames('max-md:no-scrollbar', className)}
-        />
+        <div className={className}>
+            <List
+                useWindowScroll
+                data={data}
+                endReached={onEndReached}
+                {...VirtualTableListProps}
+                itemSize={(el: HTMLElement) => {
+                    if (!itemsRendered.current) itemsRendered.current = true;
+                    return el.getBoundingClientRect().height;
+                }}
+                context={Context}
+                components={Components}
+                className={classNames('max-md:no-scrollbar', VirtualTableListProps?.className)}
+            />
+            <VirtualListFooter context={Context} />
+        </div>
     );
 }
