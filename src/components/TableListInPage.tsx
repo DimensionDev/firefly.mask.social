@@ -78,7 +78,6 @@ export function TableListInPage<T = unknown>({
                 return el.getBoundingClientRect().height;
             }}
             fixedFooterContent={() => null}
-            // eslint-disable-next-line react/no-unstable-nested-components
             context={Context}
             components={Components}
             className={classNames('max-md:no-scrollbar', className)}
