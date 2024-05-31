@@ -9,6 +9,7 @@ import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
+import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
@@ -88,7 +89,6 @@ export async function crossPostThread({
 }) {
     const { posts } = useComposeStateStore.getState();
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
-    const shouldSendPostCount = posts.length;
 
     progressCallback?.(0, 0, posts.length);
 
@@ -105,6 +105,7 @@ export async function crossPostThread({
             skipIfNoParentPost: true,
             skipRefreshFeeds: index !== posts.length - 1,
             skipCheckPublished: true,
+            skipReportCrossedPost: true,
         });
         progressCallback?.((index + 1) / posts.length, index, posts.length);
     }
@@ -148,4 +149,7 @@ export async function crossPostThread({
     } else {
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
+
+    // report crossed posts thread
+    updatedPosts.forEach(reportCrossedPost);
 }

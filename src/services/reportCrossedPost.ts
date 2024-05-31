@@ -1,5 +1,5 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
-import { getUnixTime } from 'date-fns';
+import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -33,7 +33,7 @@ const resolvePlatform = createLookupTableResolver<SocialSource, string>(
     },
 );
 
-export async function reportCrossedPost(post: CompositePost) {
+async function report(post: CompositePost) {
     // a post shared across multiple platforms will have the same relation ID
     const relationId = uuid();
     const currentProfileAll = getCurrentProfileAll();
@@ -49,7 +49,7 @@ export async function reportCrossedPost(post: CompositePost) {
             ua_type: 'web',
             relation_id: relationId,
             // TODO: post time of the original post
-            post_time: getUnixTime(Date.now()),
+            post_time: dayjs(Date.now()).unix(),
             post_id: postId,
             // TODO: profile id of the author
             platform_id: profileId,
@@ -75,6 +75,12 @@ export async function reportCrossedPost(post: CompositePost) {
             console.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.reason);
         } else if (x.value?.code !== 0) {
             console.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.value?.error);
+        } else {
+            console.info(`[report]: report ${source} post: ${post.postId[source]} successfully.`);
         }
     });
+}
+
+export async function reportCrossedPost(post: CompositePost) {
+    requestIdleCallback(() => report(post));
 }
