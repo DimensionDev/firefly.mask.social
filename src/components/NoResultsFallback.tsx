@@ -12,7 +12,7 @@ export interface NoResultsFallbackProps extends HTMLProps<HTMLDivElement> {
 export function NoResultsFallback({ icon, message, className, ...rest }: NoResultsFallbackProps) {
     return (
         <div className={classNames('flex flex-col items-center py-12 text-secondary', className)} {...rest}>
-            {icon ?? <GhostHoleIcon width={200} height="auto" className="text-secondaryMain" />}
+            {icon ?? <GhostHoleIcon width={200} height={143} className="text-secondaryMain" />}
             <div className="mt-3 break-words break-all text-center text-[15px] font-bold">
                 {message ?? (
                     <div className="mt-10">

@@ -149,7 +149,11 @@ export const DraftList = memo(function DraftList() {
         async (id: string) => {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Delete`,
-                content: t`This can’t be undone and you’ll lose your draft.`,
+                content: (
+                    <div className="text-fourMain">
+                        <Trans>This can’t be undone and you’ll lose your draft.</Trans>
+                    </div>
+                ),
                 confirmButtonText: t`Confirm`,
             });
 

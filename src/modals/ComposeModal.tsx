@@ -21,7 +21,6 @@ import {
     rootRouteId,
     RouterProvider,
     useMatch,
-    useMatchRoute,
     useRouter,
 } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
@@ -124,11 +123,12 @@ function ComposeRouteRoot() {
     const { type } = useComposeStateStore();
     const isMedium = useIsMedium();
     const router = useRouter();
-    const matchRoute = useMatchRoute();
     const { context } = useMatch({ from: rootRouteId });
 
+    const isDraft = router.history.location.href === '/draft';
+
     const title = useMemo(() => {
-        if (matchRoute({ to: '/draft' })) return t`Draft`;
+        if (isDraft) return t`Draft`;
         switch (type) {
             case 'compose':
                 return t`Compose`;
@@ -140,28 +140,41 @@ function ComposeRouteRoot() {
                 safeUnreachable(type);
                 return t`Compose`;
         }
-    }, [matchRoute, type]);
+    }, [isDraft, type]);
 
     return (
         <>
             <Dialog.Title as="h3" className=" relative h-14 shrink-0 pt-safe">
-                {matchRoute({ to: '/draft' }) ? (
+                {isDraft ? (
                     <LeftArrowIcon
                         onClick={() => router.history.back()}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
                     />
                 ) : (
-                    <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={context.onClose} />
+                    <CloseButton
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-fourMain"
+                        onClick={context.onClose}
+                    />
                 )}
 
-                <span className=" text-main4 flex h-full w-full items-center justify-center text-lg font-bold capitalize">
+                <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
                     {title}
+                    {!isMedium && !isDraft ? (
+                        <DraftIcon
+                            width={18}
+                            height={18}
+                            className="cursor-pointer text-fourMain"
+                            onClick={() => router.history.push('/draft')}
+                        />
+                    ) : null}
                 </span>
-                <DraftIcon
-                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                    onClick={() => router.history.push('/draft')}
-                />
-                {isMedium ? null : <ComposeSend />}
+                {isMedium ? (
+                    <DraftIcon
+                        className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
+                        onClick={() => router.history.push('/draft')}
+                    />
+                ) : null}
+                {isMedium || isDraft ? null : <ComposeSend />}
             </Dialog.Title>
             <Outlet />
         </>
