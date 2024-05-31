@@ -676,9 +676,6 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr ""
 
-msgid "Connect your wallet to enable all features"
-msgstr ""
-
 msgid "General"
 msgstr ""
 
@@ -881,6 +878,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Login to enable all features"
 msgstr ""
 
 msgid "Notifications"
