@@ -120,24 +120,20 @@ interface ComposeState extends ComposeBaseState {
     clear: () => void;
 }
 
-function createInitSinglePostState(cursor: Cursor): CompositePost {
+export function createInitPostState(): Record<SocialSource, null> {
+    return {
+        [Source.Farcaster]: null,
+        [Source.Lens]: null,
+        [Source.Twitter]: null,
+    };
+}
+
+export function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
-        postId: {
-            [Source.Farcaster]: null,
-            [Source.Lens]: null,
-            [Source.Twitter]: null,
-        },
-        postError: {
-            [Source.Farcaster]: null,
-            [Source.Lens]: null,
-            [Source.Twitter]: null,
-        },
-        parentPost: {
-            [Source.Farcaster]: null,
-            [Source.Lens]: null,
-            [Source.Twitter]: null,
-        },
+        postId: createInitPostState(),
+        postError: createInitPostState(),
+        parentPost: createInitPostState(),
         availableSources: getCurrentAvailableSources(),
         restriction: RestrictionType.Everyone,
         chars: '',
@@ -156,14 +152,6 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
     };
 }
 
-export function createInitPostState() {
-    return {
-        [Source.Farcaster]: null,
-        [Source.Lens]: null,
-        [Source.Twitter]: null,
-    };
-}
-
 const pick = <T>(s: ComposeState, _: (post: CompositePost) => T, cursor = s.cursor): T =>
     _(s.posts.find((x) => x.id === cursor)!);
 
@@ -174,7 +162,7 @@ const next = (s: ComposeState, _: (post: CompositePost) => CompositePost, cursor
 
 const initialPostCursor = uuid();
 
-const useComposeStateBase = create<ComposeState, [['zustand/immer', never]]>(
+const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
     immer<ComposeState>((set, get) => ({
         type: 'compose',
         cursor: initialPostCursor,
@@ -202,6 +190,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', never]]>(
                     {
                         ...createInitSinglePostState(cursor),
                         availableSources: state.posts[0].availableSources,
+                        restriction: state.posts[0].restriction,
                         channel: clone(state.posts[0].channel),
                     },
                     ...state.posts.slice(index + 1), // corrected slicing here
@@ -342,12 +331,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', never]]>(
             set((state) =>
                 next(
                     state,
-                    (post) => {
-                        return {
-                            ...post,
-                            chars: typeof charsOrUpdater === 'function' ? charsOrUpdater(post.chars) : charsOrUpdater,
-                        };
-                    },
+                    (post) => ({
+                        ...post,
+                        chars: typeof charsOrUpdater === 'function' ? charsOrUpdater(post.chars) : charsOrUpdater,
+                    }),
                     cursor,
                 ),
             ),
