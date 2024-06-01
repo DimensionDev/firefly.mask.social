@@ -77,6 +77,7 @@ export interface DraftBaseState extends ComposeBaseState {
     savedOn: Date;
     availableProfiles: Profile[];
 }
+
 interface ComposeState extends ComposeBaseState {
     currentDraftId?: string;
     // helpers
@@ -128,7 +129,7 @@ interface ComposeState extends ComposeBaseState {
     // drafts
     drafts: DraftBaseState[];
     addDraft: (draft: DraftBaseState) => void;
-    removeDraft: (cursor: string) => void;
+    removeDraft: (id: string) => void;
     applyDraft: (draft: DraftBaseState) => void;
 }
 
