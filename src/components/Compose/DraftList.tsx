@@ -17,12 +17,13 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { createInitPostState, type DraftBaseState, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type Draft,useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DraftListItemProps {
-    draft: DraftBaseState;
+    draft: Draft;
     handleRemove: (cursor: string) => Promise<void>;
-    handleApply: (draft: DraftBaseState, full?: boolean) => void;
+    handleApply: (draft: Draft, full?: boolean) => void;
 }
 
 const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, handleRemove, handleApply }) {
@@ -141,7 +142,8 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
 export const DraftList = memo(function DraftList() {
     const currentProfileAll = useCurrentProfileAll();
-    const { drafts, removeDraft, applyDraft, updateChars } = useComposeStateStore();
+    const { drafts, removeDraft } = useComposeDraftStateStore();
+    const { updateChars, apply } = useComposeStateStore();
     const setEditorContent = useSetEditorContent();
 
     const router = useRouter();
@@ -164,12 +166,12 @@ export const DraftList = memo(function DraftList() {
     );
 
     const handleApply = useCallback(
-        async (draft: DraftBaseState, full = false) => {
+        async (draft: Draft, full = false) => {
             const currentAllProfiles = compact(values(currentProfileAll));
             const availableProfiles = draft.availableProfiles.filter((x) =>
                 currentAllProfiles.some((profile) => isSameProfile(profile, x)),
             );
-            applyDraft({
+            apply({
                 ...draft,
                 posts: draft.posts.map((x) => ({
                     ...x,
@@ -190,7 +192,7 @@ export const DraftList = memo(function DraftList() {
             }
             router.history.push('/');
         },
-        [applyDraft, router, setEditorContent, updateChars, currentProfileAll],
+        [apply, router, setEditorContent, updateChars, currentProfileAll],
     );
 
     if (!drafts.length) {

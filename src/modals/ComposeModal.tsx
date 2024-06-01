@@ -60,6 +60,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
+import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -232,7 +233,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         });
 
         const onClose = useCallback(async () => {
-            const { posts, cursor, type, addDraft, currentDraftId } = useComposeStateStore.getState();
+            const { addDraft } = useComposeDraftStateStore.getState();
+            const { posts, cursor, draftId, type } = useComposeStateStore.getState();
             const { availableSources } = compositePost;
             if (posts.some((x) => !isEmptyPost(x))) {
                 const hasError = posts.some((x) => !!compact(values(x.postError)).length);
@@ -259,7 +261,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 if (confirmed) {
                     addDraft({
-                        id: currentDraftId ?? uuid(),
+                        id: draftId ?? uuid(),
                         savedOn: new Date(),
                         cursor,
                         posts,
