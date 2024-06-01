@@ -17,12 +17,12 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { createInitPostState, type Draft, useComposeStateStore } from '@/store/useComposeStore.js';
+import { createInitPostState, type DraftBaseState, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DraftListItemProps {
-    draft: Draft;
+    draft: DraftBaseState;
     handleRemove: (cursor: string) => Promise<void>;
-    handleApply: (draft: Draft, full?: boolean) => void;
+    handleApply: (draft: DraftBaseState, full?: boolean) => void;
 }
 
 const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, handleRemove, handleApply }) {
@@ -164,7 +164,7 @@ export const DraftList = memo(function DraftList() {
     );
 
     const handleApply = useCallback(
-        async (draft: Draft, full = false) => {
+        async (draft: DraftBaseState, full = false) => {
             const currentAllProfiles = compact(values(currentProfileAll));
             const availableProfiles = draft.availableProfiles.filter((x) =>
                 currentAllProfiles.some((profile) => isSameProfile(profile, x)),
