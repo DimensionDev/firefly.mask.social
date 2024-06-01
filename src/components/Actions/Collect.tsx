@@ -23,7 +23,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
         >
             <Tooltip content={t`Collect`} placement="top" disabled={disabled}>
                 <motion.button
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-primaryPink/[.20] "
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-primaryPink/[.20]"
                     whileTap={{ scale: 0.9 }}
                     disabled={disabled}
                     onClick={(ev) => {

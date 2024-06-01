@@ -85,7 +85,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     <AsideSearchBar />
                 </IfPathname>
 
-                <div className=" no-scrollbar flex flex-1 flex-col gap-6 overflow-auto">
+                <div className="no-scrollbar flex flex-1 flex-col gap-6 overflow-auto">
                     <IfPathname isOneOf={['/search']}>
                         <SearchFilter />
                     </IfPathname>

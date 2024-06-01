@@ -78,14 +78,14 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             className={classNames(
                 'absolute inset-x-0 top-[40px] z-[1000] flex w-full flex-col overflow-hidden bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
                 {
-                    ['mt-2 rounded-2xl ']: !fullScreen,
+                    ['mt-2 rounded-2xl']: !fullScreen,
                     ['bottom-0 mt-3 h-[calc(100vh-40px)] border-none']: fullScreen,
                 },
             )}
         >
             {records.length && !keyword ? (
                 <>
-                    <h2 className=" flex p-3 pb-2 text-sm">
+                    <h2 className="flex p-3 pb-2 text-sm">
                         <Trans>Recent</Trans>
                         <ClickableButton
                             className="ml-auto font-bold text-[#246BFD]"
@@ -126,12 +126,12 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
 
             {keyword ? (
                 <>
-                    <h2 className=" p-3 pb-2 text-sm">
+                    <h2 className="p-3 pb-2 text-sm">
                         <Trans>Publications</Trans>
                     </h2>
 
                     <Link
-                        className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
+                        className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
                         href={`/search?q=${keyword}&type=${SearchType.Posts}`}
                         onClick={() =>
                             onSearch?.({
@@ -141,7 +141,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         }
                     >
                         <SearchIcon width={18} height={18} className="shrink-0" />
-                        <span className=" ml-4 text-ellipsis">{keyword}</span>
+                        <span className="ml-4 text-ellipsis">{keyword}</span>
                     </Link>
                 </>
             ) : null}
@@ -195,8 +195,8 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
 
             {isLoading || (keyword && profiles?.data) ? (
                 <>
-                    {records.length ? <hr className=" border-b border-t-0 border-line" /> : null}
-                    <h2 className=" p-3 pb-2 text-sm">
+                    {records.length ? <hr className="border-b border-t-0 border-line" /> : null}
+                    <h2 className="p-3 pb-2 text-sm">
                         <Trans>Profiles</Trans>
                     </h2>
                 </>
@@ -215,7 +215,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 <div className="py-2">
                     {profiles.data.slice(0, MAX_RECOMMEND_PROFILE_SIZE).map((profile) => (
                         <Link
-                            className="block cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg "
+                            className="block cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
                             key={profile.handle}
                             href={getProfileUrl(profile)}
                             onClick={() => onSelect?.(profile)}
@@ -233,7 +233,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                         <span className="mr-1">{profile.displayName}</span>
                                         <SocialSourceIcon source={profile.source} />
                                     </div>
-                                    <div className=" font-normal text-secondary">@{profile.handle}</div>
+                                    <div className="font-normal text-secondary">@{profile.handle}</div>
                                 </div>
                             </div>
                         </Link>

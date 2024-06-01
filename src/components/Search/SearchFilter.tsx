@@ -20,11 +20,11 @@ export const SearchFilter = memo(function SearchFilter() {
 
     return (
         <div>
-            <h2 className=" hidden rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:block md:bg-lightBg md:text-sm">
+            <h2 className="hidden rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:block md:bg-lightBg md:text-sm">
                 <Trans>Search Filter</Trans>
             </h2>
-            <div className=" rounded-xl md:mt-4 md:border md:border-line">
-                <div className=" pr-1 md:px-4 md:pb-1 md:pt-2">
+            <div className="rounded-xl md:mt-4 md:border md:border-line">
+                <div className="pr-1 md:px-4 md:pb-1 md:pt-2">
                     {[
                         {
                             type: SearchType.Posts,
@@ -55,7 +55,7 @@ export const SearchFilter = memo(function SearchFilter() {
                                     DraggablePopoverRef.close();
                                 }}
                             >
-                                <span className=" flex-1 py-2 font-bold leading-6 dark:text-white">{filter.label}</span>
+                                <span className="flex-1 py-2 font-bold leading-6 dark:text-white">{filter.label}</span>
 
                                 <CircleCheckboxIcon checked={filter.type === searchType} />
                             </Link>

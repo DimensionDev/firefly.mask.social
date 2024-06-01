@@ -59,10 +59,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                     <div className="flex flex-col gap-3 p-6">
                         {content}
                         {enableCancelButton || enableConfirmButton ? (
-                            <div className=" flex flex-row gap-3">
+                            <div className="flex flex-row gap-3">
                                 {enableCancelButton ? (
                                     <ClickableButton
-                                        className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-2 font-bold text-lightBottom"
+                                        className="flex flex-1 items-center justify-center rounded-full border border-lightBottom py-2 font-bold text-lightBottom"
                                         onClick={() => dispatch?.close(false)}
                                     >
                                         {cancelButtonText || t`Cancel`}
@@ -71,7 +71,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                 {enableConfirmButton ? (
                                     <ClickableButton
                                         className={classNames(
-                                            ' flex flex-1 items-center justify-center rounded-full  py-2 font-bold',
+                                            'flex flex-1 items-center justify-center rounded-full py-2 font-bold',
                                             variant === 'normal'
                                                 ? 'bg-main text-primaryBottom'
                                                 : 'bg-commonDanger text-lightBottom',

@@ -30,7 +30,7 @@ export function LinkCloud() {
 
     return (
         <div className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-xs text-lightSecond lg:px-0">
-            <span className=" font-bold text-gray-500">© {2024} Firefly</span>
+            <span className="font-bold text-gray-500">© {2024} Firefly</span>
             {[
                 { name: t`Communities`, link: '/settings/communities', self: true },
                 { name: t`Developers`, link: '/developers/frame', self: true },

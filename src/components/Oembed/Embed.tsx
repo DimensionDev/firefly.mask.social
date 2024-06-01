@@ -16,7 +16,7 @@ export function Embed({ og }: EmbedProps) {
                 target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
-                <div className=" rounded-xl border bg-white text-main dark:border-gray-700 dark:bg-black">
+                <div className="rounded-xl border bg-white text-main dark:border-gray-700 dark:bg-black">
                     {og.isLarge && og.image ? (
                         <Image
                             className="divider aspect-2 w-full rounded-xl object-cover"

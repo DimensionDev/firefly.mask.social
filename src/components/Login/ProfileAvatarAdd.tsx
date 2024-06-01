@@ -21,7 +21,7 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
     };
 
     return (
-        <div className="relative z-0 cursor-pointer md:mx-auto lg:m-0 " style={style} {...divProps}>
+        <div className="relative z-0 cursor-pointer md:mx-auto lg:m-0" style={style} {...divProps}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
                 <SocialSourceIcon source={source} size={size} />
             </div>

@@ -89,11 +89,11 @@ export function ComposeSend(props: ComposeSendProps) {
     }
 
     return (
-        <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
+        <div className="flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             {visibleLength && post.availableSources.length ? (
-                <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                <div className="flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                     <CountdownCircle width={24} height={24} className="flex-shrink-0" />
-                    <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? ' text-danger' : ''}>
+                    <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? 'text-danger' : ''}>
                         {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                     </span>
                 </div>
@@ -101,7 +101,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
             {hasThread ? (
                 <ClickableButton
-                    className=" text-main"
+                    className="text-main"
                     disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                     onClick={() => {
                         addPostInThread();

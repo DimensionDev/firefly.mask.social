@@ -31,7 +31,7 @@ async function getNextFrame(
             ConfirmModalRef.openAndWaitForClose({
                 title: t`Leaving Firefly`,
                 content: (
-                    <div className=" text-main">
+                    <div className="text-main">
                         <Trans>
                             Please be cautious when connecting your wallet, as malicious websites may attempt to access
                             your funds.

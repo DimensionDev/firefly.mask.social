@@ -262,12 +262,12 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     if (!signType || signType === FarcasterSignType.CustodyWallet) {
         return (
             <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
-                <p className=" pb-2 text-left text-sm">
+                <p className="pb-2 text-left text-sm">
                     <Trans>You can sign in to Farcaster with the following options.</Trans>
                 </p>
                 {options.map(({ label, type, isFreeOfTransactionFee }) => (
                     <ClickableButton
-                        className=" flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg"
+                        className="flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg"
                         key={type}
                         onClick={() => {
                             setSignType(type);
@@ -284,10 +284,10 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                             }
                         }}
                     >
-                        <span className=" flex flex-1 items-center">
+                        <span className="flex flex-1 items-center">
                             {label}
                             {isFreeOfTransactionFee ? (
-                                <span className=" ml-2 rounded-md border border-main px-1 text-xs font-bold text-main">
+                                <span className="ml-2 rounded-md border border-main px-1 text-xs font-bold text-main">
                                     {t`FREE`}
                                 </span>
                             ) : null}
@@ -309,29 +309,29 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
-                    <div className=" mt-2 text-center text-sm leading-[16px] text-lightSecond">
+                    <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                         <Trans>Please confirm the login with Warpcast.</Trans>
                     </div>
                 </div>
             ) : (
                 <div className="relative flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
                     {profileError ? (
-                        <div className=" absolute inset-0 flex flex-col items-center justify-center">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
                             {profileError.profile ? (
-                                <div className=" mb-4 flex flex-col items-center justify-center">
+                                <div className="mb-4 flex flex-col items-center justify-center">
                                     <ProfileAvatar
-                                        className=" mb-2"
+                                        className="mb-2"
                                         profile={profileError.profile}
                                         size={64}
                                         enableSourceIcon={false}
                                     />
-                                    <p className=" text-base">{profileError.profile.displayName}</p>
-                                    <p className=" text-xs">@{profileError.profile.handle}</p>
+                                    <p className="text-base">{profileError.profile.displayName}</p>
+                                    <p className="text-xs">@{profileError.profile.handle}</p>
                                 </div>
                             ) : null}
-                            <p className=" mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
+                            <p className="mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
                             <ClickableButton
-                                className=" rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
+                                className="rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
                                 onClick={() => {
                                     setSignType(null);
                                     setScanned(false);
@@ -344,7 +344,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         </div>
                     ) : url ? (
                         <>
-                            <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
+                            <div className="text-center text-[12px] leading-[16px] text-lightSecond">
                                 {count === 0 ? (
                                     <Trans>Please click and refresh the QR code to log in again.</Trans>
                                 ) : signType === FarcasterSignType.GrantPermission ? (
@@ -370,7 +370,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                 ) : null}
                             </div>
                             <div
-                                className={classNames(' relative flex items-center justify-center', {
+                                className={classNames('relative flex items-center justify-center', {
                                     'cursor-pointer': !scanned,
                                 })}
                                 onClick={() => {
@@ -400,7 +400,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     size={360}
                                 />
                                 {scanned ? (
-                                    <div className=" absolute inset-0 flex flex-col items-center justify-center">
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
                                         <LoadingIcon className="animate-spin" width={24} height={24} />
                                     </div>
                                 ) : null}

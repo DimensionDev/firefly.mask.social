@@ -38,13 +38,13 @@ export default function Frame() {
                 <Trans>Frame</Trans>
             </Headline>
 
-            <div className=" mb-2 w-full">
+            <div className="mb-2 w-full">
                 <Trans>Please input the frame url to be revalidated.</Trans>
             </div>
 
-            <div className=" mb-2 flex w-full flex-row gap-2">
+            <div className="mb-2 flex w-full flex-row gap-2">
                 <input
-                    className=" flex-1 rounded-md border border-line bg-transparent"
+                    className="flex-1 rounded-md border border-line bg-transparent"
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
@@ -53,7 +53,7 @@ export default function Frame() {
                 />
                 <ClickableButton
                     className={classNames(
-                        ' flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
+                        'flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
                         {
                             'text-primaryMain': loading,
                             'hover:cursor-pointer': !loading,
@@ -68,11 +68,11 @@ export default function Frame() {
             </div>
 
             {cacheRemoved === true ? (
-                <div className=" w-full max-w-[500px]">
+                <div className="w-full max-w-[500px]">
                     <FrameUI urls={[url]} postId="" />
                 </div>
             ) : error ? (
-                <div className=" w-full">{error.message}</div>
+                <div className="w-full">{error.message}</div>
             ) : null}
         </Section>
     );
