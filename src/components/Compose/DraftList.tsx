@@ -75,7 +75,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 >
                     {title}
                 </div>
-                <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={() => handleRemove(draft.id)} />
+                <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={() => handleRemove(draft.draftId)} />
             </div>
             <div
                 className={classNames('my-2 cursor-pointer text-fourMain', {
@@ -210,7 +210,7 @@ export const DraftList = memo(function DraftList() {
             })
                 .reverse()
                 .map((draft) => (
-                    <DraftListItem draft={draft} key={draft.id} handleRemove={handleRemove} handleApply={handleApply} />
+                    <DraftListItem draft={draft} key={draft.draftId} handleRemove={handleRemove} handleApply={handleApply} />
                 ))}
         </div>
     );

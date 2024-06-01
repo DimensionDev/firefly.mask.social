@@ -234,7 +234,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
-            const { posts, cursor, draftId, type } = useComposeStateStore.getState();
+            const { posts, cursor, draftId = uuid(), type } = useComposeStateStore.getState();
             const { availableSources } = compositePost;
             if (posts.some((x) => !isEmptyPost(x))) {
                 const hasError = posts.some((x) => !!compact(values(x.postError)).length);
@@ -261,7 +261,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 if (confirmed) {
                     addDraft({
-                        id: draftId ?? uuid(),
+                        draftId,
                         savedOn: new Date(),
                         cursor,
                         posts,

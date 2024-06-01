@@ -10,7 +10,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import type { ComposeBaseState } from '@/store/useComposeStore.js';
 
 export interface Draft extends ComposeBaseState {
-    id: string;
+    draftId: string;
     savedOn: Date;
     availableProfiles: Profile[];
 }
@@ -23,20 +23,20 @@ interface ComposeDraftState {
 
 const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
-        immer<ComposeDraftState>((set, get) => ({
+        immer<ComposeDraftState>((set) => ({
             drafts: EMPTY_LIST,
             addDraft: (draft: Draft) =>
                 set((state) => {
-                    const index = state.drafts.findIndex((x) => x.id === draft.id);
+                    const index = state.drafts.findIndex((x) => x.draftId === draft.draftId);
                     if (index === -1) {
                         state.drafts.push(draft as WritableDraft<Draft>);
                     } else {
                         state.drafts[index] = draft as WritableDraft<Draft>;
                     }
                 }),
-            removeDraft: (id: string) => {
+            removeDraft: (draftId: string) => {
                 set((state) => {
-                    state.drafts = state.drafts.filter((x) => x.id !== id);
+                    state.drafts = state.drafts.filter((x) => x.draftId !== draftId);
                 });
             },
         })),

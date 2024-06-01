@@ -509,7 +509,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', never]]>(
                     cursor,
                 ),
             ),
-        apply: (state) => set((state) => {}),
+        apply: (state) =>
+            set((nextState) => {
+                state.type = nextState.type;
+                state.cursor = nextState.cursor;
+                state.posts = nextState.posts;
+                state.draftId = nextState.draftId;
+            }),
         clear: () =>
             set((state) => {
                 const id = uuid();
