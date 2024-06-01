@@ -1,18 +1,18 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { type Draft as WritableDraft } from 'immer';
-import localforage from 'localforage';
 import { clone, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
-import { persist, type PersistStorage } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
+import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createPoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -27,20 +27,6 @@ import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
-
-const storageInstance = localforage.createInstance({
-    name: 'firefly-draft-storage',
-});
-
-const storage: PersistStorage<{ drafts: Draft[] }> = {
-    getItem: (name: string) => {
-        return storageInstance.getItem(name);
-    },
-    setItem: (name: string, value: unknown) => {
-        storageInstance.setItem(name, value);
-    },
-    removeItem: (name: string) => storageInstance.removeItem(name),
-};
 
 // post id for tracking the current editable post
 type Cursor = string;
@@ -86,11 +72,12 @@ export interface ComposeBaseState {
     cursor: Cursor;
 }
 
-export interface Draft extends ComposeBaseState {
-    savedOn: Date;
+export interface DraftBaseState extends ComposeBaseState {
     id: string;
+    savedOn: Date;
     availableProfiles: Profile[];
 }
+
 interface ComposeState extends ComposeBaseState {
     currentDraftId?: string;
     // helpers
@@ -140,10 +127,10 @@ interface ComposeState extends ComposeBaseState {
     clear: () => void;
 
     // drafts
-    drafts: Draft[];
-    addDraft: (draft: Draft) => void;
-    removeDraft: (cursor: string) => void;
-    applyDraft: (draft: Draft) => void;
+    drafts: DraftBaseState[];
+    addDraft: (draft: DraftBaseState) => void;
+    removeDraft: (id: string) => void;
+    applyDraft: (draft: DraftBaseState) => void;
 }
 
 function createInitSinglePostState(cursor: Cursor): CompositePost {
@@ -220,13 +207,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 },
             },
             drafts: EMPTY_LIST,
-            addDraft: (draft: Draft) =>
+            addDraft: (draft: DraftBaseState) =>
                 set((state) => {
                     const index = state.drafts.findIndex((x) => x.id === draft.id);
                     if (index === -1) {
-                        state.drafts.push(draft as WritableDraft<Draft>);
+                        state.drafts.push(draft as WritableDraft<DraftBaseState>);
                     } else {
-                        state.drafts[index] = draft as WritableDraft<Draft>;
+                        state.drafts[index] = draft as WritableDraft<DraftBaseState>;
                     }
                 }),
             removeDraft: (id: string) => {
@@ -234,7 +221,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                     state.drafts = state.drafts.filter((x) => x.id !== id);
                 });
             },
-            applyDraft: (draft: Draft) =>
+            applyDraft: (draft: DraftBaseState) =>
                 set((state) => {
                     state.type = draft.type;
                     state.cursor = draft.cursor;
@@ -572,7 +559,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 }),
         })),
         {
-            storage,
+            storage: createPersistStorage<{ drafts: DraftBaseState[] }>('firefly-compose-state'),
             partialize: (state) => ({ drafts: state.drafts }),
             name: 'firefly-compose-state',
         },
