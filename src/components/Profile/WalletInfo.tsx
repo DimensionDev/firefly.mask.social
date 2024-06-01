@@ -35,11 +35,11 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
 
     return (
         <div className="flex gap-3 p-3">
-            <Avatar src={profile.avatar} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
-            <div className=" relative flex flex-1 flex-col ">
+            <Avatar src={profile.avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
+            <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-[8px]">
                     <div className="flex items-center gap-2">
-                        <span className=" text-xl font-black text-lightMain">
+                        <span className="text-xl font-black text-lightMain">
                             {profile.primary_ens || formatEthereumAddress(profile.address, 4)}
                         </span>
                     </div>

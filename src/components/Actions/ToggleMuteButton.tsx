@@ -33,7 +33,7 @@ export const ToggleMuteButton = ({ loading, isMuted, className, ...rest }: Toggl
         return (
             <ClickableButton
                 className={classNames(
-                    ' flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger px-2 text-[15px] font-semibold transition-all',
+                    'flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger px-2 text-[15px] font-semibold transition-all',
                     buttonState === MuteLabel.Muted ? 'border-[1.5px]' : '',
                     buttonState === MuteLabel.Unmute ? 'border-[1.5px] border-danger border-opacity-50' : '',
                     isMuted ? 'bg-danger text-white' : 'text-danger',

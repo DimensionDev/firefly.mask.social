@@ -61,7 +61,7 @@ export function ChannelInList({
                 </ChannelTippy>
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
-                    <p className="flex-start flex items-center text-sm font-bold leading-5 ">
+                    <p className="flex-start flex items-center text-sm font-bold leading-5">
                         <ChannelTippy channel={channel}>
                             <span
                                 className={classNames('mr-2', {

@@ -58,7 +58,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                 </Link>
 
                 <div className="flex flex-1 flex-col gap-[6px]">
-                    <div className=" flex items-center gap-2">
+                    <div className="flex items-center gap-2">
                         <Link href={url} className="cursor-pointer text-xl leading-6 text-lightMain">
                             {profile.displayName}
                         </Link>
@@ -80,8 +80,8 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                                     profile.source !== Source.Farcaster && profile.source !== Source.Lens,
                             })}
                         >
-                            <span className=" font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
-                            <span className=" text-secondary">
+                            <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
+                            <span className="text-secondary">
                                 {plural(profile.followerCount, {
                                     zero: 'Follower',
                                     one: 'Follower',
@@ -100,8 +100,8 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                                     profile.source !== Source.Farcaster && profile.source !== Source.Lens,
                             })}
                         >
-                            <span className=" font-bold text-lightMain">{nFormatter(profile.followingCount)} </span>
-                            <span className=" text-secondary">
+                            <span className="font-bold text-lightMain">{nFormatter(profile.followingCount)} </span>
+                            <span className="text-secondary">
                                 <Trans>Following</Trans>
                             </span>
                         </Link>

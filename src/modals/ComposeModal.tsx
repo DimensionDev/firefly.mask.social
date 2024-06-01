@@ -138,7 +138,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Discard`,
                     content: (
-                        <div className=" text-main">
+                        <div className="text-main">
                             <Trans>This can’t be undone and you’ll lose your draft.</Trans>
                         </div>
                     ),
@@ -223,16 +223,16 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
-                        <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
+                        <div className="absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
                             <LoadingIcon className="animate-spin" width={24} height={24} />
                         </div>
                     ) : null}
 
                     {/* Title */}
-                    <Dialog.Title as="h3" className=" relative h-14 shrink-0 pt-safe">
+                    <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
                         <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={onClose} />
 
-                        <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
+                        <span className="flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
                             {type === 'compose' ? (
                                 <Trans>Compose</Trans>
                             ) : type === 'quote' ? (
@@ -245,7 +245,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         {isMedium ? null : <ComposeSend />}
                     </Dialog.Title>
 
-                    <div className=" flex flex-col overflow-auto px-4 pb-4">
+                    <div className="flex flex-col overflow-auto px-4 pb-4">
                         <div
                             ref={contentRef}
                             className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
@@ -257,9 +257,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     <ComposeAction />
 
                     {warningsOpen && env.external.NEXT_PUBLIC_COMPOSE_WARNINGS === STATUS.Enabled ? (
-                        <div className=" flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
+                        <div className="flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
                             <ExclamationTriangleIcon className="hidden text-white md:block" width={24} height={24} />
-                            <p className=" text-left text-xs text-white md:text-center">
+                            <p className="text-left text-xs text-white md:text-center">
                                 <Trans>
                                     We&apos;re updating our connection with X. Posting on X will be limited for now.
                                 </Trans>

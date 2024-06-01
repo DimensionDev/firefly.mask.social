@@ -20,13 +20,13 @@ export function Card({ frame, readonly = false, loading = false, onButtonClick }
 
     return (
         <div
-            className=" mt-4 w-full rounded-xl border border-line bg-bg p-2 text-sm"
+            className="mt-4 w-full rounded-xl border border-line bg-bg p-2 text-sm"
             onClick={(e) => e.stopPropagation()}
         >
             <div className="relative w-full">
                 {loading ? (
                     <div
-                        className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
+                        className="z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
                         style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
                     />
                 ) : null}

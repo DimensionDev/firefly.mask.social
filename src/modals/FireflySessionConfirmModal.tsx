@@ -43,7 +43,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
             <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-lightMain">
                 <Trans>One click to connect your account status.</Trans>
             </p>
-            <ul className=" flex max-h-[288px] flex-col gap-3 overflow-auto pb-4 pt-2">
+            <ul className="flex max-h-[288px] flex-col gap-3 overflow-auto pb-4 pt-2">
                 {pairs
                     .sort((a, b) => {
                         const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
@@ -75,9 +75,9 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                         />
                     ))}
             </ul>
-            <div className=" flex gap-2">
+            <div className="flex gap-2">
                 <ClickableButton
-                    className=" flex flex-1 items-center justify-center rounded-full border border-main py-2 font-bold text-main"
+                    className="flex flex-1 items-center justify-center rounded-full border border-main py-2 font-bold text-main"
                     onClick={() => {
                         onClose?.();
                         ConfirmModalRef.close(false);
@@ -86,7 +86,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                     <Trans>Skip for now</Trans>
                 </ClickableButton>
                 <ClickableButton
-                    className=" flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
+                    className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
                         compact(values(selectedPairs)).map(async (x) => {

@@ -90,7 +90,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     </div>
                 ) : (
                     <div className="flex h-[120px] w-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
-                        <span className=" text-primaryBottom opacity-50">
+                        <span className="text-primaryBottom opacity-50">
                             <Music width={24} height={24} />
                         </span>
                         <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">

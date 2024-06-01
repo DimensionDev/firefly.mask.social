@@ -17,7 +17,7 @@ export default function More() {
                 <Trans>More</Trans>
             </Headline>
 
-            <div className=" flex w-full flex-col gap-4">
+            <div className="flex w-full flex-col gap-4">
                 {[
                     {
                         href: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',

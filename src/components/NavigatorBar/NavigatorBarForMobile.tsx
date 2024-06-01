@@ -62,9 +62,9 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     return (
         <>
-            <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
+            <header className="flex items-center gap-4 px-4 py-[7px] text-main">
                 {searchMode || enableFixedBack ? (
-                    <div className=" flex h-[30px] w-[30px] shrink-0 justify-center">
+                    <div className="flex h-[30px] w-[30px] shrink-0 justify-center">
                         <BackButton
                             size={30}
                             onClick={() => {
@@ -76,9 +76,9 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         />
                     </div>
                 ) : (
-                    <div className=" flex h-[30px] shrink-0 justify-start">
+                    <div className="flex h-[30px] shrink-0 justify-start">
                         <ClickableButton
-                            className=" flex items-center justify-center"
+                            className="flex items-center justify-center"
                             onClick={() => {
                                 updateSidebarOpen(true);
                             }}
@@ -95,10 +95,10 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </ClickableButton>
                     </div>
                 )}
-                <h1 className=" flex h-10 flex-1 items-center justify-center">
+                <h1 className="flex h-10 flex-1 items-center justify-center">
                     {searchMode ? (
                         <form
-                            className=" flex flex-1 items-center rounded-md bg-lightBg px-3"
+                            className="flex flex-1 items-center rounded-md bg-lightBg px-3"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
                                 handleInputSubmit({ q: inputText });
@@ -115,14 +115,14 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                     ) : (
                         <>
                             {currentProfiles.length && title ? (
-                                <span className=" text-[20px] font-bold leading-[24px]">{title}</span>
+                                <span className="text-[20px] font-bold leading-[24px]">{title}</span>
                             ) : (
                                 <FireflyIcon />
                             )}
                         </>
                     )}
                 </h1>
-                <div className=" flex h-[30px] w-[30px] justify-center">
+                <div className="flex h-[30px] w-[30px] justify-center">
                     {enableSearch ? (
                         searchMode ? (
                             <ClickableButton

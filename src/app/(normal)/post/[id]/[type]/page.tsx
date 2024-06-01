@@ -54,7 +54,7 @@ export default function Page(props: Props) {
 
     return (
         <>
-            <div className=" sticky top-0 z-20 flex items-center gap-5 border-b border-lightLineSecond bg-primaryBottom px-5 dark:border-line">
+            <div className="sticky top-0 z-20 flex items-center gap-5 border-b border-lightLineSecond bg-primaryBottom px-5 dark:border-line">
                 <ComeBack width={24} height={24} className="mr-2 cursor-pointer" onClick={comeback} />
                 {[
                     {
@@ -76,12 +76,12 @@ export default function Page(props: Props) {
                 ]
                     .filter((x) => SORTED_ENGAGEMENT_TAB_TYPE[source].includes(x.type))
                     .map(({ type, title }) => (
-                        <div key={type} className=" flex flex-col">
+                        <div key={type} className="flex flex-col">
                             <Link
                                 replace
                                 className={classNames(
-                                    ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                                    engagementType === type ? ' text-main' : ' text-third hover:text-main',
+                                    'flex h-[46px] items-center px-[14px] font-extrabold transition-all',
+                                    engagementType === type ? 'text-main' : 'text-third hover:text-main',
                                 )}
                                 href={`/post/${id}/${type}?source=${sourceInURL}`}
                             >
@@ -89,8 +89,8 @@ export default function Page(props: Props) {
                             </Link>
                             <span
                                 className={classNames(
-                                    ' h-1 w-full rounded-full bg-[#9250FF] transition-all',
-                                    engagementType !== type ? ' hidden' : '',
+                                    'h-1 w-full rounded-full bg-[#9250FF] transition-all',
+                                    engagementType !== type ? 'hidden' : '',
                                 )}
                             />
                         </div>

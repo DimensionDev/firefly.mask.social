@@ -103,7 +103,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)));
 
     return (
-        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
+        <div className="flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
             <div
                 key={currentProfile.profileId}
                 className="flex min-w-0 items-center justify-between gap-3 py-3 outline-none md:px-5"
@@ -113,7 +113,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
                 <OnlineStatusIndicator />
             </div>
-            <div className=" flex flex-col md:mx-5">
+            <div className="flex flex-col md:mx-5">
                 <ClickableButton
                     className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
                     onClick={async () => {
@@ -126,7 +126,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     }}
                 >
                     <UserAddIcon width={24} height={24} />
-                    <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
+                    <span className="pl-2 text-[17px] font-bold leading-[22px] text-main">
                         <Trans>Switch account</Trans>
                     </span>
                 </ClickableButton>
@@ -141,20 +141,20 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         ) : (
                             <CloudIcon width={24} height={24} />
                         )}
-                        <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
+                        <span className="pl-2 text-[17px] font-bold leading-[22px] text-main">
                             {loading ? <Trans>Detecting...</Trans> : <Trans>Detect device accounts</Trans>}
                         </span>
                     </ClickableButton>
                 ) : null}
                 <ClickableButton
-                    className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg "
+                    className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
                     onClick={() => {
                         LogoutModalRef.open({ source });
                         onClose?.();
                     }}
                 >
                     <LogOutIcon width={24} height={24} />
-                    <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
+                    <span className="pl-2 text-[17px] font-bold leading-[22px] text-danger">
                         <Trans>Log out</Trans>
                     </span>
                 </ClickableButton>

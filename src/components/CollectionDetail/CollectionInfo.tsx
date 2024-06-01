@@ -54,7 +54,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                     alt={name}
                 />
                 <div className="ml-2.5 w-full max-w-[calc(100%-100px)] flex-1 space-y-1">
-                    <div className="flex items-center text-xl font-bold leading-6 ">
+                    <div className="flex items-center text-xl font-bold leading-6">
                         <ChainIcon chainId={chainId} size={24} />
                         <TextOverflowTooltip title={name}>
                             <div className="ml-2 w-[calc(100%-32px)] truncate">{name}</div>

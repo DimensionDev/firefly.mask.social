@@ -88,11 +88,11 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                 ]
                     .filter((x) => SORTED_PROFILE_TAB_TYPE[source].includes(x.type))
                     .map(({ type, title }) => (
-                        <div key={type} className=" flex flex-col">
+                        <div key={type} className="flex flex-col">
                             <ClickableButton
                                 className={classNames(
                                     'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
-                                    computedCurrentTab === type ? ' text-main' : ' text-third hover:text-main',
+                                    computedCurrentTab === type ? 'text-main' : 'text-third hover:text-main',
                                 )}
                                 onClick={() => setCurrentTab(type)}
                             >
@@ -100,8 +100,8 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                             </ClickableButton>
                             <span
                                 className={classNames(
-                                    ' h-1 w-full rounded-full bg-[#9250FF] transition-all',
-                                    computedCurrentTab !== type ? ' hidden' : '',
+                                    'h-1 w-full rounded-full bg-[#9250FF] transition-all',
+                                    computedCurrentTab !== type ? 'hidden' : '',
                                 )}
                             />
                         </div>

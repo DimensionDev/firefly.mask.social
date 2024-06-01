@@ -35,7 +35,7 @@ export default function General() {
                 <Trans>Display</Trans>
             </Subtitle>
 
-            <div className=" flex flex-col gap-5">
+            <div className="flex flex-col gap-5">
                 {[
                     {
                         value: Appearance.default,
@@ -66,7 +66,7 @@ export default function General() {
                 <Trans>Language</Trans>
             </Subtitle>
 
-            <div className=" flex flex-col gap-5">
+            <div className="flex flex-col gap-5">
                 {getEnumAsArray(Locale).map((option, index) => (
                     <OptionButton
                         key={index}

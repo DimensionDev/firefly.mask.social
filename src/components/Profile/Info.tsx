@@ -33,20 +33,20 @@ export function Info({ profile }: InfoProps) {
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
                     alt="avatar"
                     size={80}
-                    className=" h-20 w-20 rounded-full"
+                    className="h-20 w-20 rounded-full"
                 />
             ) : (
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className=" relative flex flex-1 flex-col gap-[6px]">
-                <div className=" flex flex-col">
-                    <div className=" flex items-center gap-2">
-                        <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
+            <div className="relative flex flex-1 flex-col gap-[6px]">
+                <div className="flex flex-col">
+                    <div className="flex items-center gap-2">
+                        <span className="text-xl font-black text-lightMain">{profile?.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
                         {profile && !isMyProfile(profile) && isMedium && source !== Source.Twitter ? (
                             <>
-                                <div className="ml-auto ">
+                                <div className="ml-auto">
                                     <FollowButton profile={profile} />
                                 </div>
                                 <ProfileMoreAction profile={profile} />
@@ -70,8 +70,8 @@ export function Info({ profile }: InfoProps) {
                             'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
                         })}
                     >
-                        <span className=" font-bold text-lightMain">{nFormatter(followingCount)} </span>
-                        <span className=" text-secondary">
+                        <span className="font-bold text-lightMain">{nFormatter(followingCount)} </span>
+                        <span className="text-secondary">
                             <Trans>Following</Trans>
                         </span>
                     </Link>
@@ -85,8 +85,8 @@ export function Info({ profile }: InfoProps) {
                             'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
                         })}
                     >
-                        <span className=" font-bold text-lightMain">{nFormatter(followerCount)} </span>
-                        <span className=" text-secondary">
+                        <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
+                        <span className="text-secondary">
                             {plural(followerCount, {
                                 zero: 'Follower',
                                 one: 'Follower',

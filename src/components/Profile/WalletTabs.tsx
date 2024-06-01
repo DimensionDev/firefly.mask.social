@@ -52,11 +52,11 @@ export function WalletTabs({ address }: WalletTabsProps) {
                         title: <Trans>NFTs</Trans>,
                     },
                 ].map(({ type, title }) => (
-                    <div key={type} className=" flex flex-col">
+                    <div key={type} className="flex flex-col">
                         <ClickableButton
                             className={classNames(
-                                ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                                currentTab === type ? ' text-main' : ' text-third hover:text-main',
+                                'flex h-[46px] items-center px-[14px] font-extrabold transition-all',
+                                currentTab === type ? 'text-main' : 'text-third hover:text-main',
                             )}
                             onClick={() => setCurrentTab(type)}
                         >
@@ -64,8 +64,8 @@ export function WalletTabs({ address }: WalletTabsProps) {
                         </ClickableButton>
                         <span
                             className={classNames(
-                                ' h-1 w-full rounded-full bg-[#9250FF] transition-all',
-                                currentTab !== type ? ' hidden' : '',
+                                'h-1 w-full rounded-full bg-[#9250FF] transition-all',
+                                currentTab !== type ? 'hidden' : '',
                             )}
                         />
                     </div>

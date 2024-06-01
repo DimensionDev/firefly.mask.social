@@ -96,12 +96,12 @@ export function ComposeAction(props: ComposeActionProps) {
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
     return (
-        <div className=" px-4 pb-4">
-            <div className=" relative flex h-9 items-center gap-3">
+        <div className="px-4 pb-4">
+            <div className="relative flex h-9 items-center gap-3">
                 <Popover as="div" className="relative">
                     {({ close }) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                            <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>
                                     <GalleryIcon
                                         className={classNames(
@@ -121,7 +121,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 <Tooltip content={t`Mention`} placement="top">
                     <AtIcon
-                        className=" cursor-pointer text-main"
+                        className="cursor-pointer text-main"
                         width={24}
                         height={24}
                         onClick={() => insertText('@')}
@@ -130,7 +130,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 <Tooltip content={t`Hashtag`} placement="top">
                     <NumberSignIcon
-                        className=" cursor-pointer text-main"
+                        className="cursor-pointer text-main"
                         width={24}
                         height={24}
                         onClick={() => insertText('#')}
@@ -183,7 +183,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 </div>
 
                 {visibleLength && !isMedium ? (
-                    <div className=" ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                    <div className="ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                         <span className={classNames(length > MAX_CHAR_SIZE_PER_POST ? 'text-danger' : '')}>
                             {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                         </span>
@@ -192,7 +192,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {visibleLength && type === 'compose' && !isMedium ? (
                     <ClickableButton
-                        className=" text-main"
+                        className="text-main"
                         disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                         onClick={() => {
                             addPostInThread();
@@ -204,15 +204,15 @@ export function ComposeAction(props: ComposeActionProps) {
                 ) : null}
             </div>
 
-            <div className=" flex h-9 items-center justify-between">
-                <span className=" text-[15px] text-secondary">
+            <div className="flex h-9 items-center justify-between">
+                <span className="text-[15px] text-secondary">
                     <Trans>Share to</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
                             <Popover.Button
-                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                                 disabled={availableSources.some((x) => !!parentPost[x])}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
@@ -232,15 +232,15 @@ export function ComposeAction(props: ComposeActionProps) {
                 </Popover>
             </div>
 
-            <div className=" flex h-9 items-center justify-between pb-safe">
-                <span className=" text-[15px] text-secondary">
+            <div className="flex h-9 items-center justify-between pb-safe">
+                <span className="text-[15px] text-secondary">
                     <Trans>Allow replies from</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
-                                <span className=" text-[15px] font-bold">
+                            <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+                                <span className="text-[15px] font-bold">
                                     <ReplyRestrictionText type={restriction} />
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
@@ -252,15 +252,15 @@ export function ComposeAction(props: ComposeActionProps) {
             </div>
             {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) &&
             (type === 'compose' || type === 'quote') ? (
-                <div className=" flex h-9 items-center justify-between pb-safe">
-                    <span className=" text-[15px] text-secondary">
+                <div className="flex h-9 items-center justify-between pb-safe">
+                    <span className="text-[15px] text-secondary">
                         <Trans>Channels</Trans>
                     </span>
                     <Popover as="div" className="relative">
                         {({ close }) => (
                             <>
-                                <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
-                                    <span className=" text-[15px] font-bold">
+                                <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+                                    <span className="text-[15px] font-bold">
                                         {compact(
                                             SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
                                                 (source) => channel[source]?.name,

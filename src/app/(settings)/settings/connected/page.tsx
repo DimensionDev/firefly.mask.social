@@ -71,7 +71,7 @@ export default function Connected() {
                             </Tooltip>
                         </div>
                     </div>
-                    <div className=" flex w-full flex-col gap-4">
+                    <div className="flex w-full flex-col gap-4">
                         {profilesAll.Lens.map((profile) => (
                             <AccountCard
                                 key={profile.profileId}
@@ -90,7 +90,7 @@ export default function Connected() {
                             <Trans>Farcaster</Trans>
                         </span>
                     </div>
-                    <div className=" flex w-full flex-col gap-4">
+                    <div className="flex w-full flex-col gap-4">
                         {profilesAll.Farcaster.map((profile) => (
                             <AccountCard
                                 key={profile.profileId}
@@ -109,7 +109,7 @@ export default function Connected() {
                             <Trans>X</Trans>
                         </span>
                     </div>
-                    <div className=" flex w-full flex-col gap-4">
+                    <div className="flex w-full flex-col gap-4">
                         {profilesAll.Twitter.map((profile) => (
                             <AccountCard
                                 key={profile.profileId}

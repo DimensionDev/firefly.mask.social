@@ -21,34 +21,34 @@ export function Info({ channel, source }: InfoProps) {
     const isMedium = useIsMedium();
 
     return (
-        <div className=" flex gap-3 p-3">
+        <div className="flex gap-3 p-3">
             {channel.imageUrl ? (
-                <Avatar src={channel.imageUrl} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
+                <Avatar src={channel.imageUrl} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
             ) : (
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className=" relative flex flex-1 flex-col gap-[6px]">
+            <div className="relative flex flex-1 flex-col gap-[6px]">
                 {channel && isMedium ? (
-                    <div className=" absolute right-0 top-0">
+                    <div className="absolute right-0 top-0">
                         <ChannelMoreAction channel={channel} />
                     </div>
                 ) : null}
 
-                <div className=" flex flex-col">
-                    <div className=" flex items-center gap-2">
-                        <span className=" text-xl font-black text-lightMain">{channel?.name}</span>
+                <div className="flex flex-col">
+                    <div className="flex items-center gap-2">
+                        <span className="text-xl font-black text-lightMain">{channel?.name}</span>
                         <SocialSourceIcon source={source} size={20} />
                     </div>
-                    <span className=" text-[15px] text-secondary">/{channel?.id}</span>
+                    <span className="text-[15px] text-secondary">/{channel?.id}</span>
                 </div>
 
                 <BioMarkup className="text-[15px]">{channel?.description ?? '-'}</BioMarkup>
 
-                <div className=" flex justify-between gap-3 text-[15px]">
-                    <div className=" flex gap-1">
-                        <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
-                        <span className=" text-secondary">
+                <div className="flex justify-between gap-3 text-[15px]">
+                    <div className="flex gap-1">
+                        <span className="font-bold text-lightMain">{nFormatter(followerCount)}</span>
+                        <span className="text-secondary">
                             {plural(followerCount, {
                                 one: 'Follower',
                                 other: 'Followers',
