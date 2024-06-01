@@ -11,7 +11,7 @@ import type { ComposeBaseState } from '@/store/useComposeStore.js';
 
 export interface Draft extends ComposeBaseState {
     draftId: string;
-    savedOn: Date;
+    createdAt: Date;
     availableProfiles: Profile[];
 }
 

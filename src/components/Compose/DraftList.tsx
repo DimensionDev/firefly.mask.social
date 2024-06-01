@@ -133,7 +133,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                         .map((y) => <SocialSourceIcon key={y} source={y} size={20} />)}
                 </span>
                 <span className="text-[13px] font-medium leading-[24px] text-secondary">
-                    {dayjs(draft.savedOn).format('DD MMM, YYYY [at] h:mm A')}
+                    {dayjs(draft.createdAt).format('DD MMM, YYYY [at] h:mm A')}
                 </span>
             </div>
         </div>
@@ -206,7 +206,7 @@ export const DraftList = memo(function DraftList() {
     return (
         <div className="min-h-[528px] px-6">
             {sortBy(drafts, (x) => {
-                return dayjs(x.savedOn).unix();
+                return dayjs(x.createdAt).unix();
             })
                 .reverse()
                 .map((draft) => (

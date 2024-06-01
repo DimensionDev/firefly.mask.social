@@ -262,7 +262,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 if (confirmed) {
                     addDraft({
                         draftId,
-                        savedOn: new Date(),
+                        createdAt: new Date(),
                         cursor,
                         posts,
                         type,
