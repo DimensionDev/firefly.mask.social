@@ -17,7 +17,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { type Draft,useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DraftListItemProps {
