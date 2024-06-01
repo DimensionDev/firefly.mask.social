@@ -29,9 +29,13 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
                 set((state) => {
                     const index = state.drafts.findIndex((x) => x.draftId === draft.draftId);
                     if (index === -1) {
-                        state.drafts.push(draft as WritableDraft<Draft>);
+                        state.drafts = [...state.drafts, draft] as WritableDraft<Draft>[];
                     } else {
-                        state.drafts[index] = draft as WritableDraft<Draft>;
+                        state.drafts = [
+                            ...state.drafts.slice(0, index),
+                            draft,
+                            ...state.drafts.slice(index + 1),
+                        ] as WritableDraft<Draft>[];
                     }
                 }),
             removeDraft: (draftId: string) => {
