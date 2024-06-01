@@ -210,7 +210,12 @@ export const DraftList = memo(function DraftList() {
             })
                 .reverse()
                 .map((draft) => (
-                    <DraftListItem draft={draft} key={draft.draftId} handleRemove={handleRemove} handleApply={handleApply} />
+                    <DraftListItem
+                        draft={draft}
+                        key={draft.draftId}
+                        handleRemove={handleRemove}
+                        handleApply={handleApply}
+                    />
                 ))}
         </div>
     );
