@@ -17,12 +17,13 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { createInitPostState, type DraftBaseState, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DraftListItemProps {
-    draft: DraftBaseState;
+    draft: Draft;
     handleRemove: (cursor: string) => Promise<void>;
-    handleApply: (draft: DraftBaseState, full?: boolean) => void;
+    handleApply: (draft: Draft, full?: boolean) => void;
 }
 
 const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, handleRemove, handleApply }) {
@@ -74,7 +75,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 >
                     {title}
                 </div>
-                <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={() => handleRemove(draft.id)} />
+                <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={() => handleRemove(draft.draftId)} />
             </div>
             <div
                 className={classNames('my-2 cursor-pointer text-fourMain', {
@@ -132,7 +133,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                         .map((y) => <SocialSourceIcon key={y} source={y} size={20} />)}
                 </span>
                 <span className="text-[13px] font-medium leading-[24px] text-secondary">
-                    {dayjs(draft.savedOn).format('DD MMM, YYYY [at] h:mm A')}
+                    {dayjs(draft.createdAt).format('DD MMM, YYYY [at] h:mm A')}
                 </span>
             </div>
         </div>
@@ -141,7 +142,8 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
 export const DraftList = memo(function DraftList() {
     const currentProfileAll = useCurrentProfileAll();
-    const { drafts, removeDraft, applyDraft, updateChars } = useComposeStateStore();
+    const { drafts, removeDraft } = useComposeDraftStateStore();
+    const { updateChars, apply } = useComposeStateStore();
     const setEditorContent = useSetEditorContent();
 
     const router = useRouter();
@@ -164,12 +166,12 @@ export const DraftList = memo(function DraftList() {
     );
 
     const handleApply = useCallback(
-        async (draft: DraftBaseState, full = false) => {
+        async (draft: Draft, full = false) => {
             const currentAllProfiles = compact(values(currentProfileAll));
             const availableProfiles = draft.availableProfiles.filter((x) =>
                 currentAllProfiles.some((profile) => isSameProfile(profile, x)),
             );
-            applyDraft({
+            apply({
                 ...draft,
                 posts: draft.posts.map((x) => ({
                     ...x,
@@ -190,7 +192,7 @@ export const DraftList = memo(function DraftList() {
             }
             router.history.push('/');
         },
-        [applyDraft, router, setEditorContent, updateChars, currentProfileAll],
+        [apply, router, setEditorContent, updateChars, currentProfileAll],
     );
 
     if (!drafts.length) {
@@ -204,11 +206,16 @@ export const DraftList = memo(function DraftList() {
     return (
         <div className="min-h-[528px] px-6">
             {sortBy(drafts, (x) => {
-                return dayjs(x.savedOn).unix();
+                return dayjs(x.createdAt).unix();
             })
                 .reverse()
                 .map((draft) => (
-                    <DraftListItem draft={draft} key={draft.id} handleRemove={handleRemove} handleApply={handleApply} />
+                    <DraftListItem
+                        draft={draft}
+                        key={draft.draftId}
+                        handleRemove={handleRemove}
+                        handleApply={handleApply}
+                    />
                 ))}
         </div>
     );

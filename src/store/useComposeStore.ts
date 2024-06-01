@@ -1,18 +1,15 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { type Draft as WritableDraft } from 'immer';
 import { clone, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
-import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createPoll } from '@/helpers/createPoll.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -21,7 +18,7 @@ import { matchUrls } from '@/helpers/matchUrls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Poll } from '@/providers/types/Poll.js';
-import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
@@ -70,16 +67,11 @@ export interface ComposeBaseState {
     posts: CompositePost[];
     // tracking the current editable post
     cursor: Cursor;
-}
-
-export interface DraftBaseState extends ComposeBaseState {
-    id: string;
-    savedOn: Date;
-    availableProfiles: Profile[];
+    // tracking the current applied draft id
+    draftId?: string;
 }
 
 interface ComposeState extends ComposeBaseState {
-    currentDraftId?: string;
     // helpers
     computed: {
         // if the current editable post is deleted
@@ -124,13 +116,8 @@ interface ComposeState extends ComposeBaseState {
     updatePoll: (poll: Poll | null, cursor?: Cursor) => void;
 
     // reset the editor
+    apply: (state: ComposeBaseState) => void;
     clear: () => void;
-
-    // drafts
-    drafts: DraftBaseState[];
-    addDraft: (draft: DraftBaseState) => void;
-    removeDraft: (id: string) => void;
-    applyDraft: (draft: DraftBaseState) => void;
 }
 
 function createInitSinglePostState(cursor: Cursor): CompositePost {
@@ -187,383 +174,359 @@ const next = (s: ComposeState, _: (post: CompositePost) => CompositePost, cursor
 
 const initialPostCursor = uuid();
 
-const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
-    persist(
-        immer<ComposeState>((set, get) => ({
-            type: 'compose',
-            cursor: initialPostCursor,
-            posts: [createInitSinglePostState(initialPostCursor)],
-            computed: {
-                get nextAvailablePost() {
-                    const { cursor, posts } = get();
+const useComposeStateBase = create<ComposeState, [['zustand/immer', never]]>(
+    immer<ComposeState>((set, get) => ({
+        type: 'compose',
+        cursor: initialPostCursor,
+        posts: [createInitSinglePostState(initialPostCursor)],
+        computed: {
+            get nextAvailablePost() {
+                const { cursor, posts } = get();
 
-                    const index = posts.findIndex((x) => x.id === cursor);
-                    if (index === -1) return null;
+                const index = posts.findIndex((x) => x.id === cursor);
+                if (index === -1) return null;
 
-                    const nextPosts = posts.filter((x) => x.id !== cursor);
-                    if (nextPosts.length === 0) return null;
+                const nextPosts = posts.filter((x) => x.id !== cursor);
+                if (nextPosts.length === 0) return null;
 
-                    return nextPosts[Math.max(0, index - 1)];
-                },
+                return nextPosts[Math.max(0, index - 1)];
             },
-            drafts: EMPTY_LIST,
-            addDraft: (draft: DraftBaseState) =>
-                set((state) => {
-                    const index = state.drafts.findIndex((x) => x.id === draft.id);
-                    if (index === -1) {
-                        state.drafts.push(draft as WritableDraft<DraftBaseState>);
-                    } else {
-                        state.drafts[index] = draft as WritableDraft<DraftBaseState>;
-                    }
-                }),
-            removeDraft: (id: string) => {
-                set((state) => {
-                    state.drafts = state.drafts.filter((x) => x.id !== id);
-                });
-            },
-            applyDraft: (draft: DraftBaseState) =>
-                set((state) => {
-                    state.type = draft.type;
-                    state.cursor = draft.cursor;
-                    state.posts = draft.posts as WritableDraft<CompositePost[]>;
-                    state.currentDraftId = draft.id;
-                }),
-            addPostInThread: () =>
-                set((state) => {
-                    const cursor = uuid();
-                    const index = state.posts.findIndex((x) => x.id === state.cursor);
-
-                    const nextPosts = [
-                        ...state.posts.slice(0, index + 1),
-                        {
-                            ...createInitSinglePostState(cursor),
-                            availableSources: state.posts[0].availableSources,
-                            channel: clone(state.posts[0].channel),
-                        },
-                        ...state.posts.slice(index + 1), // corrected slicing here
-                    ];
-
-                    return {
-                        ...state,
-                        posts: nextPosts,
-                        // focus the new added post
-                        cursor,
-                    };
-                }),
-            removePostInThread: (cursor) =>
-                set((state) => {
-                    const next = state.computed.nextAvailablePost;
-                    if (!next) return state;
-
-                    return {
-                        ...state,
-                        posts: state.posts.filter((x) => x.id !== cursor),
-                        cursor: next.id,
-                    };
-                }),
-            updatePostInThread: (cursor, post) =>
-                set((state) =>
-                    next(
-                        state,
-                        (x) =>
-                            x.id === cursor
-                                ? typeof post === 'function'
-                                    ? post(x)
-                                    : {
-                                          ...x,
-                                          ...post,
-                                      }
-                                : x,
-                        cursor,
-                    ),
-                ),
-            updateCursor: (cursor) =>
-                set((state) => {
-                    state.cursor = cursor;
-                }),
-            updateType: (type) =>
-                set((state) => {
-                    state.type = type;
-                }),
-            enableSource: (source) =>
-                set((state) => ({
-                    ...state,
-                    posts: state.posts.map((x) => {
-                        const availableSources = uniq([...x.availableSources, source]);
-                        return {
-                            ...x,
-                            restriction: isValidRestrictionType(x.restriction, availableSources)
-                                ? x.restriction
-                                : RestrictionType.Everyone,
-                            availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
-                        };
-                    }),
-                })),
-            disableSource: (source) =>
-                set((state) => ({
-                    ...state,
-                    posts: state.posts.map((x) => {
-                        const availableSources = x.availableSources.filter((s) => s !== source);
-                        return {
-                            ...x,
-                            availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
-                        };
-                    }),
-                })),
-            updateParentPost: (source, parentPost, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            parentPost: {
-                                [Source.Lens]: null,
-                                [Source.Farcaster]: null,
-                                [Source.Twitter]: null,
-                                // a post can only have one parent post in specific platform
-                                [source]: parentPost,
-                            },
-                        }),
-                        cursor,
-                    ),
-                ),
-            updatePostId: (source, postId, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            postId: {
-                                ...post.postId,
-                                [source]: postId,
-                            },
-                        }),
-                        cursor,
-                    ),
-                ),
-            updatePostError: (source, postError, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            postId: {
-                                ...post.postId,
-                                [source]: postError,
-                            },
-                        }),
-                        cursor,
-                    ),
-                ),
-            updateRestriction: (restriction) =>
-                set((state) => ({
-                    ...state,
-                    posts: state.posts.map((x) => ({
-                        ...x,
-                        restriction,
-                    })),
-                })),
-            updateChannel: (channel) =>
-                set((state) => ({
-                    ...state,
-                    posts: state.posts.map((x) => ({
-                        ...x,
-                        channel: {
-                            ...x.channel,
-                            [channel.source]: channel,
-                        },
-                    })),
-                })),
-            updateChars: (charsOrUpdater, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => {
-                            return {
-                                ...post,
-                                chars:
-                                    typeof charsOrUpdater === 'function' ? charsOrUpdater(post.chars) : charsOrUpdater,
-                            };
-                        },
-                        cursor,
-                    ),
-                ),
-            updateTypedMessage: (typedMessage, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            typedMessage,
-                        }),
-                        cursor,
-                    ),
-                ),
-            updateImages: (imagesOrUpdater, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            images:
-                                typeof imagesOrUpdater === 'function' ? imagesOrUpdater(post.images) : imagesOrUpdater,
-                        }),
-                        cursor,
-                    ),
-                ),
-            updateVideo: (video, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            video,
-                        }),
-                        cursor,
-                    ),
-                ),
-            addImage: (image, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            images: [...post.images, image],
-                        }),
-                        cursor,
-                    ),
-                ),
-            removeImage: (target, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            images: post.images.filter((image) => image.file !== target.file),
-                        }),
-                        cursor,
-                    ),
-                ),
-            addFrame: (frame, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            frames: [...post.frames, frame],
-                        }),
-                        cursor,
-                    ),
-                ),
-            removeFrame: (target, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            frames: post.frames.filter((frame) => frame !== target),
-                        }),
-                        cursor,
-                    ),
-                ),
-            removeOpenGraph: (target, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            openGraphs: post.openGraphs.filter((openGraph) => openGraph !== target),
-                        }),
-                        cursor,
-                    ),
-                ),
-            updateRpPayload: (payload, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            rpPayload: payload,
-                        }),
-                        cursor,
-                    ),
-                ),
-            updateAvailableSources: (sources, cursor) => {
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            availableSources: sources,
-                        }),
-                        cursor,
-                    ),
-                );
-            },
-            loadComponentsFromChars: async (cursor) => {
-                const chars = pick(get(), (x) => x.chars);
-                const urls = matchUrls(readChars(chars, true));
-                const frames = await FrameLoader.occupancyLoad(urls);
-                const openGraphs = await OpenGraphLoader.occupancyLoad(
-                    difference(
-                        urls.slice(-1),
-                        frames.map((x) => x.url),
-                    ),
-                );
-
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
-                            openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
-                        }),
-                        cursor,
-                    ),
-                );
-            },
-            createPoll: (cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            poll: createPoll(),
-                            // only keep the sources that support poll
-                            availableSources: post.availableSources.filter((x) => SORTED_POLL_SOURCES.includes(x)),
-                        }),
-                        cursor,
-                    ),
-                ),
-            updatePoll: (poll, cursor) =>
-                set((state) =>
-                    next(
-                        state,
-                        (post) => ({
-                            ...post,
-                            poll,
-                        }),
-                        cursor,
-                    ),
-                ),
-            clear: () =>
-                set((state) => {
-                    const id = uuid();
-                    Object.assign(state, {
-                        type: 'compose',
-                        currentDraftId: undefined,
-                        cursor: id,
-                        posts: [createInitSinglePostState(id)],
-                    });
-                }),
-        })),
-        {
-            storage: createPersistStorage<{ drafts: DraftBaseState[] }>('firefly-compose-state'),
-            partialize: (state) => ({ drafts: state.drafts }),
-            name: 'firefly-compose-state',
         },
-    ),
+        addPostInThread: () =>
+            set((state) => {
+                const cursor = uuid();
+                const index = state.posts.findIndex((x) => x.id === state.cursor);
+
+                const nextPosts = [
+                    ...state.posts.slice(0, index + 1),
+                    {
+                        ...createInitSinglePostState(cursor),
+                        availableSources: state.posts[0].availableSources,
+                        channel: clone(state.posts[0].channel),
+                    },
+                    ...state.posts.slice(index + 1), // corrected slicing here
+                ];
+
+                return {
+                    ...state,
+                    posts: nextPosts,
+                    // focus the new added post
+                    cursor,
+                };
+            }),
+        removePostInThread: (cursor) =>
+            set((state) => {
+                const next = state.computed.nextAvailablePost;
+                if (!next) return state;
+
+                return {
+                    ...state,
+                    posts: state.posts.filter((x) => x.id !== cursor),
+                    cursor: next.id,
+                };
+            }),
+        updatePostInThread: (cursor, post) =>
+            set((state) =>
+                next(
+                    state,
+                    (x) =>
+                        x.id === cursor
+                            ? typeof post === 'function'
+                                ? post(x)
+                                : {
+                                      ...x,
+                                      ...post,
+                                  }
+                            : x,
+                    cursor,
+                ),
+            ),
+        updateCursor: (cursor) =>
+            set((state) => {
+                state.cursor = cursor;
+            }),
+        updateType: (type) =>
+            set((state) => {
+                state.type = type;
+            }),
+        enableSource: (source) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => {
+                    const availableSources = uniq([...x.availableSources, source]);
+                    return {
+                        ...x,
+                        restriction: isValidRestrictionType(x.restriction, availableSources)
+                            ? x.restriction
+                            : RestrictionType.Everyone,
+                        availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
+                    };
+                }),
+            })),
+        disableSource: (source) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => {
+                    const availableSources = x.availableSources.filter((s) => s !== source);
+                    return {
+                        ...x,
+                        availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
+                    };
+                }),
+            })),
+        updateParentPost: (source, parentPost, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        parentPost: {
+                            [Source.Lens]: null,
+                            [Source.Farcaster]: null,
+                            [Source.Twitter]: null,
+                            // a post can only have one parent post in specific platform
+                            [source]: parentPost,
+                        },
+                    }),
+                    cursor,
+                ),
+            ),
+        updatePostId: (source, postId, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        postId: {
+                            ...post.postId,
+                            [source]: postId,
+                        },
+                    }),
+                    cursor,
+                ),
+            ),
+        updatePostError: (source, postError, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        postId: {
+                            ...post.postId,
+                            [source]: postError,
+                        },
+                    }),
+                    cursor,
+                ),
+            ),
+        updateRestriction: (restriction) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    restriction,
+                })),
+            })),
+        updateChannel: (channel) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    channel: {
+                        ...x.channel,
+                        [channel.source]: channel,
+                    },
+                })),
+            })),
+        updateChars: (charsOrUpdater, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => {
+                        return {
+                            ...post,
+                            chars: typeof charsOrUpdater === 'function' ? charsOrUpdater(post.chars) : charsOrUpdater,
+                        };
+                    },
+                    cursor,
+                ),
+            ),
+        updateTypedMessage: (typedMessage, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        typedMessage,
+                    }),
+                    cursor,
+                ),
+            ),
+        updateImages: (imagesOrUpdater, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        images: typeof imagesOrUpdater === 'function' ? imagesOrUpdater(post.images) : imagesOrUpdater,
+                    }),
+                    cursor,
+                ),
+            ),
+        updateVideo: (video, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        video,
+                    }),
+                    cursor,
+                ),
+            ),
+        addImage: (image, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        images: [...post.images, image],
+                    }),
+                    cursor,
+                ),
+            ),
+        removeImage: (target, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        images: post.images.filter((image) => image.file !== target.file),
+                    }),
+                    cursor,
+                ),
+            ),
+        addFrame: (frame, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        frames: [...post.frames, frame],
+                    }),
+                    cursor,
+                ),
+            ),
+        removeFrame: (target, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        frames: post.frames.filter((frame) => frame !== target),
+                    }),
+                    cursor,
+                ),
+            ),
+        removeOpenGraph: (target, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        openGraphs: post.openGraphs.filter((openGraph) => openGraph !== target),
+                    }),
+                    cursor,
+                ),
+            ),
+        updateRpPayload: (payload, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        rpPayload: payload,
+                    }),
+                    cursor,
+                ),
+            ),
+        updateAvailableSources: (sources, cursor) => {
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        availableSources: sources,
+                    }),
+                    cursor,
+                ),
+            );
+        },
+        loadComponentsFromChars: async (cursor) => {
+            const chars = pick(get(), (x) => x.chars);
+            const urls = matchUrls(readChars(chars, true));
+            const frames = await FrameLoader.occupancyLoad(urls);
+            const openGraphs = await OpenGraphLoader.occupancyLoad(
+                difference(
+                    urls.slice(-1),
+                    frames.map((x) => x.url),
+                ),
+            );
+
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
+                        openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
+                    }),
+                    cursor,
+                ),
+            );
+        },
+        createPoll: (cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll: createPoll(),
+                        // only keep the sources that support poll
+                        availableSources: post.availableSources.filter((x) => SORTED_POLL_SOURCES.includes(x)),
+                    }),
+                    cursor,
+                ),
+            ),
+        updatePoll: (poll, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll,
+                    }),
+                    cursor,
+                ),
+            ),
+        apply: (state) =>
+            set((nextState) => {
+                state.type = nextState.type;
+                state.cursor = nextState.cursor;
+                state.posts = nextState.posts;
+                state.draftId = nextState.draftId;
+            }),
+        clear: () =>
+            set((state) => {
+                const id = uuid();
+                Object.assign(state, {
+                    type: 'compose',
+                    currentDraftId: undefined,
+                    cursor: id,
+                    posts: [createInitSinglePostState(id)],
+                });
+            }),
+    })),
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
