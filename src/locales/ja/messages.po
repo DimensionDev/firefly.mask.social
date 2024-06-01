@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-31 07:36\n"
+"PO-Revision-Date: 2024-05-31 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -687,6 +687,9 @@ msgstr ""
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
+msgid "Article removed from your Bookmarks"
+msgstr ""
+
 msgid "Publications"
 msgstr ""
 
@@ -724,9 +727,6 @@ msgid "Your frame URL."
 msgstr ""
 
 msgid "Cancel recast successfully"
-msgstr ""
-
-msgid "Article remove from your Bookmarks"
 msgstr ""
 
 msgid "Failed to unfollow."
