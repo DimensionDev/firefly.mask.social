@@ -509,22 +509,21 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', never]]>(
                     cursor,
                 ),
             ),
-        apply: (state) =>
-            set((nextState) => {
-                state.type = nextState.type;
-                state.cursor = nextState.cursor;
-                state.posts = nextState.posts;
-                state.draftId = nextState.draftId;
+        apply: (nextState) =>
+            set((state) => {
+                Object.assign(state, nextState);
             }),
         clear: () =>
             set((state) => {
                 const id = uuid();
-                Object.assign(state, {
+                const nextState = {
                     type: 'compose',
-                    currentDraftId: undefined,
                     cursor: id,
+                    draftId: undefined,
                     posts: [createInitSinglePostState(id)],
-                });
+                } satisfies ComposeBaseState;
+
+                Object.assign(state, nextState);
             }),
     })),
 );
