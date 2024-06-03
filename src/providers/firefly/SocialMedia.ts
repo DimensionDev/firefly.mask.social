@@ -53,6 +53,7 @@ import {
     type UsersResponse,
     type WalletProfileResponse,
 } from '@/providers/types/Firefly.js';
+import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
 import {
     type Channel,
     type Notification,
@@ -883,6 +884,50 @@ class FireflySocialMedia implements Provider {
             const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
             return blocked;
         });
+    }
+
+    async discoverNFTs({
+        indicator,
+        limit = 25,
+    }: {
+        indicator?: PageIndicator;
+        limit?: number;
+    } = {}) {
+        const page = Number.parseInt(indicator?.id || '0', 10);
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/discover/feeds', {
+            size: limit,
+            offset: (page + 1) * limit,
+        });
+        const response = await fireflySessionHolder.fetch<DiscoverNFTResponse>(url, {
+            method: 'GET',
+        });
+        return createPageable(
+            response.data.feeds,
+            indicator,
+            response.data.hasMore ? createIndicator(undefined, `${page + 1}`) : undefined,
+        );
+    }
+
+    async getFollowingNFTs({
+        limit,
+        indicator,
+    }: {
+        limit?: number;
+        indicator?: PageIndicator;
+    } = {}) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/nft');
+        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                size: limit,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            }),
+        });
+        return createPageable(
+            response.data.result,
+            indicator,
+            response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
+        );
     }
 }
 

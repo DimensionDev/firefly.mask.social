@@ -11,6 +11,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Twitter]: Source.Twitter,
         [SourceInURL.Article]: Source.Article,
         [SourceInURL.Wallet]: Source.Wallet,
+        [SourceInURL.NFTs]: Source.NFTs,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);

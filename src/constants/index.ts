@@ -49,7 +49,7 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
     [Source.Twitter]: [SearchType.Posts, SearchType.Users],
 };
-export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.Article] as const;
+export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
 export const SORTED_PROFILE_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Wallet];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
 export const SORTED_BOOKMARK_SOURCES =
