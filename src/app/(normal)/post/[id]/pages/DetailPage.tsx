@@ -129,7 +129,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
 
     return (
         <div className="min-h-screen">
-            <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
+            <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
