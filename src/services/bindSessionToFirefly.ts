@@ -6,6 +6,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -41,6 +42,10 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
     return data;
 }
 
+async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: AbortSignal) {
+    throw new Error('Not implemented.');
+}
+
 /**
  * Bind a lens or farcaster session to the currently logged-in Firefly session.
  * @param session
@@ -57,7 +62,7 @@ export async function bindSessionToFirefly(session: Session, signal?: AbortSigna
         case SessionType.Lens:
             return await bindLensSessionToFirefly(session as LensSession, signal);
         case SessionType.Twitter:
-            throw new Error('Not implemented.');
+            return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Firefly:
             throw new Error('Not Allowed.');
         default:

@@ -14,8 +14,8 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChainId.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Collection } from '@/providers/types/Firefly.js';
+import { getAllNFTCollections } from '@/services/getAllNFTCollections.js';
 
 export interface NFTCollectionItemProps {
     collection: Collection;
@@ -130,7 +130,7 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
         queryKey: ['nft-collection-list', address],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            const response = await FireflySocialMediaProvider.getNFTCollections({ walletAddress: address, indicator });
+            const response = await getAllNFTCollections({ walletAddress: address, indicator });
             return {
                 ...response,
                 data: response.data.flatMap((item) => {
