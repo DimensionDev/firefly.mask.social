@@ -37,7 +37,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                     <div
                         key={x.id}
                         className={classNames(
-                            ' ease relative my-3 flex gap-2 transition-opacity',
+                            'ease relative my-3 flex gap-2 transition-opacity',
                             cursor === x.id ? 'min-h-[100px]' : 'min-h-0',
                             cursor !== x.id ? 'opacity-50' : 'opacity-100',
                         )}
@@ -48,7 +48,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                     >
                         {cursor === x.id && isEmptyPost(x) && i !== 0 ? (
                             <CloseButton
-                                className=" absolute right-0 top-2 z-10"
+                                className="absolute right-0 top-2 z-10"
                                 onClick={() => {
                                     const next = computed.nextAvailablePost;
                                     if (!next) return;
@@ -61,7 +61,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                             />
                         ) : null}
                         {i < posts.length - 1 ? (
-                            <div className=" absolute bottom-0 left-[19px] top-0 h-full w-[2px] bg-secondaryMain" />
+                            <div className="absolute bottom-0 left-[19px] top-0 h-full w-[2px] bg-secondaryMain" />
                         ) : null}
                         {currentProfile ? (
                             <div className="relative">
@@ -74,7 +74,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                                 ) : null}
                             </div>
                         ) : null}
-                        <div className=" mb-3 mt-2 flex-1">
+                        <div className="mb-3 mt-2 flex-1">
                             <ComposeContent post={x} />
                         </div>
                     </div>

@@ -18,18 +18,19 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
 
     return (
         <div
-            className={classNames(
-                ' group relative overflow-hidden rounded-2xl',
-                size <= 2 ? ' h-72' : size === 3 && index === 2 ? ' h-72' : ' h-[138px]',
-                size === 1 ? ' col-span-2' : '',
-                size === 3 && index === 1 ? 'col-start-1' : '',
-                size === 3 && index === 2 ? 'col-start-2 row-span-2 row-start-1' : '',
-            )}
+            className={classNames(' group relative overflow-hidden rounded-2xl', {
+                'col-span-2': size === 1,
+                'h-72': size <= 2 || (size === 3 && index === 2),
+                'col-start-1': size === 3 && index === 1,
+                'col-start-2 row-span-2 row-start-1': size === 3 && index === 2,
+                'aspect-square': size >= 5,
+                'h-auto': size >= 5,
+            })}
         >
-            <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
+            <Image src={blobURL} alt={image.file.name} fill className="object-cover" />
 
             {!readonly ? (
-                <RemoveButton className=" absolute right-1 top-1 z-10" onClick={() => removeImage(image)} />
+                <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(image)} />
             ) : null}
         </div>
     );

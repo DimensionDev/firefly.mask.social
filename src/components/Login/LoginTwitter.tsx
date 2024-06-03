@@ -14,7 +14,7 @@ export function LoginTwitter() {
     return (
         <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
             <LoadingIcon className="animate-spin" width={24} height={24} />
-            <div className=" mt-2 text-center text-sm leading-[16px] text-lightSecond">
+            <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                 <Trans>Please confirm the login with X.</Trans>
             </div>
         </div>

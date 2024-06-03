@@ -102,7 +102,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                             src={cover.data}
                             width={510}
                             height={260}
-                            className=" mb-3 w-full cursor-pointer rounded-lg object-cover"
+                            className="mb-3 w-full cursor-pointer rounded-lg object-cover"
                             alt={cover.data}
                             onClick={(event) => {
                                 event.stopPropagation();
@@ -132,7 +132,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                                 {article.content}
                             </ArticleMarkup>
                             <div
-                                className=" absolute bottom-0 left-0 h-[100px] w-full"
+                                className="absolute bottom-0 left-0 h-[100px] w-full"
                                 style={{
                                     background: `linear-gradient(
                             to top,

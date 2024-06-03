@@ -94,7 +94,7 @@ export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
 };
 export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Farcaster]: 2,
-    [Source.Lens]: 4,
+    [Source.Lens]: 20,
     [Source.Twitter]: 4,
 };
 export const DANGER_CHAR_LIMIT: Record<SocialSource, number> = {

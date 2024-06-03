@@ -19,11 +19,11 @@ export function TrendingChannelPage({ searchParams: { source = SourceInURL.Farca
     const currentSource = resolveSocialSource(source);
 
     return (
-        <div className=" flex h-screen flex-col">
+        <div className="flex h-screen flex-col">
             <PageTitle>
                 <Trans>Trending Channels</Trans>
             </PageTitle>
-            <div className=" no-scrollbar flex-1 overflow-auto">
+            <div className="no-scrollbar flex-1 overflow-auto">
                 <Suspense fallback={<Loading />}>
                     <ChannelList source={currentSource} />
                 </Suspense>

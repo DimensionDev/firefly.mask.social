@@ -23,7 +23,7 @@ export default function Settings() {
 
     // mobile
     return (
-        <main className=" flex min-h-screen w-full">
+        <main className="flex min-h-screen w-full">
             <ToolkitList />
         </main>
     );

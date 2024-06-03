@@ -33,11 +33,11 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div className=" rounded-lg border border-line dark:border-0 dark:bg-lightBg">
+        <div className="rounded-lg border border-line dark:border-0 dark:bg-lightBg">
             <AsideTitle>
                 <Trans>Suggested Channels</Trans>
             </AsideTitle>
-            <div className=" flex flex-col">
+            <div className="flex flex-col">
                 {suggestedChannels.map((channel) => (
                     <ChannelInList key={channel.id} channel={channel} noFollowButton dense />
                 ))}

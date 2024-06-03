@@ -60,13 +60,13 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
             />
             <div className="flex">
                 <div
-                    className={classNames('ml-5 mr-8 border-[0.8px] ', {
+                    className={classNames('ml-5 mr-8 border-[0.8px]', {
                         'border-transparent bg-transparent dark:border-transparent dark:bg-none': isLast,
                         'border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700': !isLast,
                     })}
                 />
 
-                <div className={'w-full max-w-[calc(100%_-_53px)] pb-5'}>
+                <div className="w-full max-w-[calc(100%_-_53px)] pb-5">
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />
                     <PostActions post={post} disabled={post.isHidden} disablePadding />
                 </div>

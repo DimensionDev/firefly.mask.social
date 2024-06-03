@@ -57,7 +57,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     return (
         <Menu
-            className=" relative"
+            className="relative"
             as="div"
             onClick={(e) => {
                 e.stopPropagation();

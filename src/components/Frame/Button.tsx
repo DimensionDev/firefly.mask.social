@@ -28,7 +28,7 @@ export function Button({ button, disabled = false, onClick }: Props) {
         >
             <span>{button.text}</span>
             {[ActionType.PostRedirect, ActionType.Link].includes(button.action) ? (
-                <ArrowTopRightOnSquareIcon className=" ml-1" width={20} height={20} />
+                <ArrowTopRightOnSquareIcon className="ml-1" width={20} height={20} />
             ) : null}
         </ClickableButton>
     );

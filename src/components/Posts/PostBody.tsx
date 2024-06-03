@@ -191,6 +191,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     post={post}
                     asset={post.metadata.content?.asset}
                     attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
+                    isDetail={isDetail}
                 />
             ) : null}
 

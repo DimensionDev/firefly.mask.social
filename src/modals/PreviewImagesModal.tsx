@@ -47,7 +47,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
         return (
             <Modal open={open} backdrop={false} onClose={() => dispatch?.close()}>
                 <div
-                    className=" preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 transition-all"
+                    className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 transition-all"
                     onClick={() => dispatch?.close()}
                 >
                     {open ? (

@@ -1147,9 +1147,6 @@ msgstr ""
 msgid "Log in to Farcaster account"
 msgstr ""
 
-msgid "Confirm you want to unmute @{0}?"
-msgstr ""
-
 msgid "{0} Users"
 msgstr ""
 

@@ -6,7 +6,7 @@ import ReportSpamIcon from '@/assets/report-spam.svg';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { reportNFT } from '@/services/reportNFT.js';
 
 export function ReportSpamButton(props: { collectionId: string }) {
     const { collectionId } = props;
@@ -25,7 +25,7 @@ export function ReportSpamButton(props: { collectionId: string }) {
                 });
                 if (!confirmed) return;
                 try {
-                    await FireflySocialMediaProvider.reportSpamNFT(collectionId);
+                    await reportNFT(collectionId);
                 } catch (error) {
                     enqueueErrorMessage(getSnackbarMessageFromError(error, t`Report Failed`), {
                         error,

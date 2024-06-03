@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-31 07:36\n"
+"PO-Revision-Date: 2024-05-31 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Crowdin-File-ID: 836\n"
 
 msgid "Login required to post on {sourceName}."
-msgstr "需要登入後在{sourceName} 發布貼文"
+msgstr "需要登入後在{sourceName} 發佈貼文"
 
 msgid "Be the first one to comment!"
 msgstr "來留下第一條評論吧！"
@@ -76,7 +76,7 @@ msgid "Followed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已關注 @{0}"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
-msgstr "{followerCount, plural, one {跟隨者} other {跟隨者}}"
+msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 
 msgid "Failed to unbookmark post."
 msgstr "從書籤中移除失敗。"
@@ -94,7 +94,7 @@ msgid "Debug Connection"
 msgstr "除錯連接"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
-msgstr "允許 Lens Manager 無需在每次交互時都簽名，即可進行貼文發布、點贊、評論等操作。"
+msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼文發佈、按讚、留言等操作。"
 
 msgid "Download Image"
 msgstr ""
@@ -103,7 +103,7 @@ msgid "Searching channel"
 msgstr "搜尋頻道"
 
 msgid "Failed to upload. Video is not supported yet"
-msgstr "上傳失敗。暫不支持視頻上傳。"
+msgstr "上傳失敗。暫不接受影片上傳。"
 
 msgid "More"
 msgstr "更多"
@@ -115,10 +115,10 @@ msgid "Searching users"
 msgstr "搜尋用戶"
 
 msgid "Collect Action is not supported yet."
-msgstr "暫未支持收集功能。"
+msgstr "暫未接受收集功能。"
 
 msgid "This entry has been permanently stored on-chain and signed by its creator"
-msgstr "這個紀錄已被它的創作者簽名並永久存儲在鏈上。"
+msgstr "這個紀錄已被它的創作者簽名並永久儲存在鏈上。"
 
 msgid "Join our Discord"
 msgstr "加入我們的 Discord 社群"
@@ -148,10 +148,10 @@ msgid "Casts"
 msgstr ""
 
 msgid "Transaction button is not available yet."
-msgstr "交易按鈕暫未開放"
+msgstr "交易鍵暫未開放"
 
 msgid "Trending Channels"
-msgstr "流行頻道"
+msgstr "熱門頻道"
 
 msgid "Debug Console"
 msgstr ""
@@ -163,7 +163,7 @@ msgid "NFT Standard"
 msgstr ""
 
 msgid "Failed to like the comment."
-msgstr "點贊評論失敗"
+msgstr "按讚留言失敗"
 
 msgid "Failed to login"
 msgstr "登入失敗"
@@ -184,7 +184,7 @@ msgid "Copied"
 msgstr "已複製"
 
 msgid "Your posts have published successfully."
-msgstr "你的貼文已成功發布"
+msgstr "你的貼文已成功發佈"
 
 msgid "Retry"
 msgstr "重試"
@@ -193,7 +193,7 @@ msgid "Show less"
 msgstr "顯示更少"
 
 msgid "comment"
-msgstr "評論"
+msgstr "留言"
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
 msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
@@ -217,7 +217,7 @@ msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
 msgid "Device Logged In"
-msgstr "設備已登入"
+msgstr "裝置已登入"
 
 msgid "Username"
 msgstr "用戶名"
@@ -268,7 +268,7 @@ msgid "Reconnect with Firefly"
 msgstr "通過 Firefly 重新連接"
 
 msgid "Only up to 2 images can be chosen."
-msgstr "最多只能選擇 2 張圖像"
+msgstr "最多只能選擇 2 張圖片"
 
 msgid "Failed to delete"
 msgstr ""
@@ -298,13 +298,13 @@ msgid "POST"
 msgstr ""
 
 msgid "Failed to unlike the post."
-msgstr "點贊評論失敗"
+msgstr "點讚評論失敗"
 
 msgid "Mirror again"
 msgstr "重新鏡像"
 
 msgid "Failed to detect device accounts."
-msgstr "偵測設備帳戶失敗"
+msgstr "偵測裝置帳戶失敗"
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
@@ -337,7 +337,7 @@ msgid "Connect Wallet"
 msgstr "連接錢包"
 
 msgid "Feed"
-msgstr "信息源"
+msgstr "資訊來源"
 
 msgid "Recasts"
 msgstr ""
@@ -451,10 +451,10 @@ msgid "Comment cannot be empty."
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}"
-msgstr "在 {sourceName} 上跟隨 @{0} 失敗"
+msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
 msgid "Failed to upload. More than {maxImageCount} images"
-msgstr "上傳失敗。圖像數量超過{maxImageCount} 張。"
+msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
 
 msgid "AUTHOR ADDRESS"
 msgstr ""
@@ -502,10 +502,10 @@ msgid "Switch"
 msgstr ""
 
 msgid "Follow"
-msgstr "跟隨"
+msgstr "追蹤"
 
 msgid "Add account"
-msgstr "新增账户"
+msgstr "新增帳户"
 
 msgid "{0} Comments"
 msgstr ""
@@ -529,7 +529,7 @@ msgid "Allow replies from"
 msgstr ""
 
 msgid "No one likes this post yet."
-msgstr "還沒有人點贊這條貼文"
+msgstr "還沒有人按讚這條貼文"
 
 msgid "Your posts have published successfully on {0}."
 msgstr ""
@@ -547,7 +547,7 @@ msgid "Failed to login."
 msgstr "登入失敗."
 
 msgid "Unlike"
-msgstr "取消喜歡"
+msgstr "取消按讚"
 
 msgid "Post was deleted"
 msgstr ""
@@ -556,7 +556,7 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
-msgstr "在 {sourceName} 上跟隨 @{0} 失敗"
+msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
 msgid "Bookmark"
 msgstr "書籤"
@@ -592,7 +592,7 @@ msgid "NFT Contract"
 msgstr ""
 
 msgid "Failed to follow."
-msgstr "跟隨失敗"
+msgstr "追蹤失敗"
 
 msgid "Mute"
 msgstr ""
@@ -613,7 +613,7 @@ msgid "Lens"
 msgstr ""
 
 msgid "Failed to fetch bookmarks."
-msgstr "獲取書籤失敗。"
+msgstr "加入書籤失敗。"
 
 msgid "Confirm you want to {0} @{1}?"
 msgstr ""
@@ -625,7 +625,7 @@ msgid "Retweeted"
 msgstr "已轉發"
 
 msgid "Post your reply"
-msgstr "發布您的回覆"
+msgstr "發佈您的回覆"
 
 msgid "liked"
 msgstr "已喜歡"
@@ -667,7 +667,7 @@ msgid "Details"
 msgstr "詳細資訊"
 
 msgid "Detect device accounts"
-msgstr "偵測設備上的帳戶"
+msgstr "偵測裝置上的帳戶"
 
 msgid "Your Farcaster account is now connected."
 msgstr "您的 Farcaster 帳戶現已連接。"
@@ -697,7 +697,7 @@ msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to a
 msgstr ""
 
 msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr "{0, plural, one {跟隨者} other {跟隨者}}"
+msgstr "{0, plural, one {追蹤者} other {追蹤者}}"
 
 msgid "What's happening..."
 msgstr ""
@@ -706,7 +706,7 @@ msgid "Like"
 msgstr "喜歡"
 
 msgid "Please input the frame url to be revalidated."
-msgstr "請輸入框架連結以重新識別有效性"
+msgstr "請輸入連結以重新識別有效性"
 
 msgid "General"
 msgstr "一般"
@@ -763,7 +763,7 @@ msgid "Cancel recast successfully"
 msgstr ""
 
 msgid "Failed to unfollow."
-msgstr "取消跟隨失敗"
+msgstr "取消追蹤失敗"
 
 msgid "One click to connect your account status."
 msgstr ""
@@ -799,7 +799,7 @@ msgid "No comments found"
 msgstr ""
 
 msgid "Unfollow @{0}"
-msgstr "取消跟隨 @{0}"
+msgstr "取消追蹤 @{0}"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
@@ -814,7 +814,7 @@ msgid "Failed to recast post"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr "在 X 上跟隨 @thefireflyapp"
+msgstr "在 X 上追蹤@thefireflyapp"
 
 msgid "Light Mode"
 msgstr "淺色模式"
@@ -832,7 +832,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Failed to like the post."
-msgstr "點贊評論失敗"
+msgstr "按讚評論失敗"
 
 msgid "Mirrored"
 msgstr "已鏡像"
@@ -982,7 +982,7 @@ msgid "Sign the transaction to verify you are the owner of the selected profile.
 msgstr ""
 
 msgid "Refresh"
-msgstr "刷新"
+msgstr "重新整理"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
 msgstr ""
@@ -1033,7 +1033,7 @@ msgid "Download app"
 msgstr ""
 
 msgid "Unknown session type."
-msgstr "未知的對話型別"
+msgstr "未知的對話類別"
 
 msgid "{validInDays} day"
 msgstr ""
@@ -1042,7 +1042,7 @@ msgid "Failed to quote post."
 msgstr "引用貼文失敗"
 
 msgid "Only people you follow"
-msgstr "僅限你跟隨的帳戶"
+msgstr "僅限你追蹤的帳戶"
 
 msgid "Add another option"
 msgstr ""
@@ -1051,7 +1051,7 @@ msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
 
 msgid "Dark Mode"
-msgstr "暗黑模式"
+msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入你的書籤"
@@ -1060,13 +1060,13 @@ msgid "Online"
 msgstr "線上"
 
 msgid "Unfollow"
-msgstr "取消跟隨"
+msgstr "取消追蹤"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你無法在 {0} 上回覆 @{author}"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
-msgstr "我們正在更新與 X 的連接。在 X 上的發帖目前收到限制。"
+msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
 
 msgid "Your name"
 msgstr ""
@@ -1120,7 +1120,7 @@ msgid "View Engagements"
 msgstr "查看互動數據"
 
 msgid "Unfollowed @{0} on {sourceName}"
-msgstr "在{sourceName} 上已取消對 @{0} 的關注"
+msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
 
 msgid "Your Lens account is now connected."
 msgstr "您的 Lens 帳戶現已連接。"
@@ -1132,7 +1132,7 @@ msgid "Post remove from your Bookmarks"
 msgstr "貼文已從你的書籤中移除"
 
 msgid "Follow @{0}"
-msgstr "跟隨 @{0}"
+msgstr "追蹤 @{0}"
 
 msgid "Cancel Recast"
 msgstr ""
@@ -1151,9 +1151,6 @@ msgstr ""
 
 msgid "Log in to Farcaster account"
 msgstr "登入 Farcaster 帳戶"
-
-msgid "Confirm you want to unmute @{0}?"
-msgstr "確認解除對 @{0} 的靜音？"
 
 msgid "{0} Users"
 msgstr ""
@@ -1180,7 +1177,7 @@ msgid "Mirrors"
 msgstr ""
 
 msgid "Video"
-msgstr "視頻"
+msgstr "影片"
 
 msgid "{0} Views"
 msgstr "{0} 次查看"

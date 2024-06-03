@@ -44,7 +44,7 @@ export function Modal({
                 <Dialog.Panel className="fixed inset-0 overflow-y-auto">
                     <div
                         className={classNames(
-                            ' flex min-h-full items-center justify-center p-0 text-center md:p-4',
+                            'flex min-h-full items-center justify-center p-0 text-center md:p-4',
                             className,
                         )}
                         ref={ref}
