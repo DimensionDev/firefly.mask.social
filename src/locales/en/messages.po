@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "Do you want to retry with the full or remaining content?"
+msgstr "Do you want to retry with the full or remaining content?"
+
 msgid "Login required to post on {sourceName}."
 msgstr "Login required to post on {sourceName}."
 
@@ -57,9 +60,6 @@ msgstr "Communities"
 
 msgid "Discover"
 msgstr "Discover"
-
-msgid "Cannot choose due to account mismatch. Please login {0}"
-msgstr "Cannot choose due to account mismatch. Please login {0}"
 
 msgid "Ask a question"
 msgstr "Ask a question"
@@ -406,6 +406,9 @@ msgstr "Hashtag"
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Cannot choose due to account mismatch."
+msgstr "Cannot choose due to account mismatch."
+
 msgid "Unmuting"
 msgstr "Unmuting"
 
@@ -453,6 +456,9 @@ msgstr "Failed to upload. More than {maxImageCount} images"
 
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
+
+msgid "Reply"
+msgstr "Reply"
 
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
@@ -765,6 +771,9 @@ msgstr "One click to connect your account status."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
+
+msgid "Quote"
+msgstr "Quote"
 
 msgid "Translated"
 msgstr "Translated"

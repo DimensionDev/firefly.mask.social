@@ -18,6 +18,9 @@ msgstr ""
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
+msgid "Do you want to retry with the full or remaining content?"
+msgstr ""
+
 msgid "Login required to post on {sourceName}."
 msgstr "请先登录 {sourceName}。"
 
@@ -62,9 +65,6 @@ msgstr "社区"
 
 msgid "Discover"
 msgstr "发现"
-
-msgid "Cannot choose due to account mismatch. Please login {0}"
-msgstr ""
 
 msgid "Ask a question"
 msgstr ""
@@ -411,6 +411,9 @@ msgstr "#"
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Cannot choose due to account mismatch."
+msgstr ""
+
 msgid "Unmuting"
 msgstr "屏蔽中"
 
@@ -458,6 +461,9 @@ msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
+
+msgid "Reply"
+msgstr ""
 
 msgid "Mirror or Quote"
 msgstr ""
@@ -769,6 +775,9 @@ msgid "One click to connect your account status."
 msgstr "一键同步你的账号。"
 
 msgid "Top Collectors"
+msgstr ""
+
+msgid "Quote"
 msgstr ""
 
 msgid "Translated"
