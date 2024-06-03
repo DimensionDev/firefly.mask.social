@@ -83,9 +83,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 })}
                 onClick={() => {
                     if (isDisabled) {
-                        enqueueErrorMessage(
-                           t`Cannot choose due to account mismatch.`,
-                        );
+                        enqueueErrorMessage(t`Cannot choose due to account mismatch.`);
                         return;
                     }
 

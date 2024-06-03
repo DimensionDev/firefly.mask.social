@@ -22,7 +22,7 @@ export const ComposeUI = memo(function ComposeUI() {
 
     return (
         <>
-            <div className=" flex flex-col overflow-auto px-4 pb-4">
+            <div className="flex flex-col overflow-auto px-4 pb-4">
                 <div
                     ref={contentRef}
                     className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
@@ -34,9 +34,9 @@ export const ComposeUI = memo(function ComposeUI() {
             <ComposeAction />
 
             {warningsOpen && env.external.NEXT_PUBLIC_COMPOSE_WARNINGS === STATUS.Enabled ? (
-                <div className=" flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
+                <div className="flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
                     <ExclamationTriangleIcon className="hidden text-white md:block" width={24} height={24} />
-                    <p className=" text-left text-xs text-white md:text-center">
+                    <p className="text-left text-xs text-white md:text-center">
                         <Trans>We&apos;re updating our connection with X. Posting on X will be limited for now.</Trans>
                     </p>
                     <Tooltip content={t`Close`} placement="top">

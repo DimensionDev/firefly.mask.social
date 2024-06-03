@@ -145,7 +145,7 @@ function ComposeRouteRoot() {
 
     return (
         <>
-            <Dialog.Title as="h3" className=" relative h-14 shrink-0 pt-safe">
+            <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
                 {isDraft ? (
                     <LeftArrowIcon
                         onClick={() => history.replace('/')}
