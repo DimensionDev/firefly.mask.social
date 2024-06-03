@@ -24,7 +24,7 @@ export const useMuteMenuList = (): MuteMenu[] => {
                 name: t`${resolveSourceName(Source.Farcaster)} Users`,
                 source: Source.Farcaster,
                 type: 'user',
-                disabled: true,
+                disabled: false,
             },
             {
                 id: MuteMenuId.FarcasterChannels,

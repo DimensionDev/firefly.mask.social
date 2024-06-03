@@ -26,6 +26,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type BlockChannelResponse,
+    type BlockedUsersResponse,
     type BlockRelationResponse,
     type BlockUserResponse,
     type BookmarkResponse,
@@ -754,7 +755,18 @@ class FireflySocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blocklist', {
+            size: 20,
+            page: indicator?.id ?? 1,
+        });
+        const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
+        const fids = response.data?.blocks.map((x) => x.snsId);
+        const profiles: Profile[] = fids?.length ? await NeynarSocialMediaProvider.getProfilesByIds(fids) : EMPTY_LIST;
+        return createPageable(
+            profiles,
+            createIndicator(indicator),
+            response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
+        );
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
