@@ -13,6 +13,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
+import { useSession } from 'next-auth/react';
 import { forwardRef, useCallback, useRef, useState } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
@@ -82,6 +83,12 @@ export type ComposeModalCloseProps = {
 
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
+        const session = useSession();
+        console.log('DEBUG: session');
+        console.log({
+            session,
+        });
+
         const currentSource = useGlobalState.use.currentSource();
         const currentSocialSource = narrowToSocialSource(currentSource);
 
