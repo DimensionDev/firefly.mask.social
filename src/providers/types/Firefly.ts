@@ -1,5 +1,3 @@
-import type { PageIndicator } from '@masknet/shared-base';
-
 import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
@@ -439,17 +437,6 @@ export type BlockRelationResponse = Response<
 >;
 
 export type ReportCrossPostResponse = Response<void>;
-
-export interface NFTCollectionsParams {
-    limit?: number;
-    indicator?: PageIndicator;
-    twitterId?: string;
-    walletAddress?: string;
-    lensHandle?: string;
-    farcasterUsername?: string;
-    fid?: string;
-    lensProfileId?: string;
-}
 
 export type NFTCollectionsResponse = Response<{
     cursor: string;

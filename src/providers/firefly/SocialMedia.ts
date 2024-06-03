@@ -39,8 +39,6 @@ import {
     type DiscoverChannelsResponse,
     type FireFlyProfile,
     type FriendshipResponse,
-    type NFTCollectionsParams,
-    type NFTCollectionsResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
@@ -872,21 +870,6 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    async getNFTCollections(params: NFTCollectionsParams) {
-        const { indicator, walletAddress, limit } = params ?? {};
-        const url = urlcat(FIREFLY_ROOT_URL, 'v2/user/nftCollections', {
-            walletAddress,
-            limit: limit || 25,
-            cursor: indicator?.id || undefined,
-        });
-        const response = await fireflySessionHolder.fetch<NFTCollectionsResponse>(url);
-        return createPageable(
-            response.data?.collections ?? EMPTY_LIST,
-            createIndicator(indicator),
-            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
-        );
-    }
-
     async getIsMuted(profileId: string): Promise<boolean> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return false;
@@ -899,16 +882,6 @@ class FireflySocialMedia implements Provider {
             });
             const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
             return blocked;
-        });
-    }
-
-    async reportSpamNFT(collectionId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
-        await fireflySessionHolder.fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                collection_id: collectionId,
-            }),
         });
     }
 }
