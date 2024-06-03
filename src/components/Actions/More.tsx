@@ -103,7 +103,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 <MenuButton
                                     onClick={async () => {
                                         close();
-                                        if (post?.postId) deletePost(post.postId);
+                                        if (post?.postId) deletePost(post);
                                     }}
                                 >
                                     {deleting ? (
