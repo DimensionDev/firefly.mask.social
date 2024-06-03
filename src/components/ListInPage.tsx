@@ -41,7 +41,6 @@ export function ListInPage<T = unknown, C = unknown>({
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, isLoading } = queryResult;
 
-
     const onEndReached = useCallback(async () => {
         if (!hasNextPage || isFetching || isFetchingNextPage) {
             return;

@@ -18,7 +18,7 @@ export function MediaList({ profileId, source }: MediaListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'posts-of', 'medias',profileId],
+        queryKey: ['posts', source, 'posts-of', 'medias', profileId],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId || source !== Source.Lens) return createPageable<Post>(EMPTY_LIST, createIndicator());
