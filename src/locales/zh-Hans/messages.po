@@ -1110,9 +1110,6 @@ msgstr "<0>从 </0> <1>{0}</1>"
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
-msgid "Confirm you want to unmute @{0}?"
-msgstr "确认取消屏蔽 @{0}？"
-
 msgid "{0} Users"
 msgstr ""
 

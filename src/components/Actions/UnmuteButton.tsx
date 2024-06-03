@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { memo, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -7,7 +7,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMuted } from '@/hooks/useIsMuted.js';
 import { useToggleBlock } from '@/hooks/useToggleBlock.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum MuteLabel {
@@ -50,15 +49,6 @@ export const UnmuteButton = memo(function UnmuteButton({ profile, className, ...
                 setMuteHover(false);
             }}
             onClick={async () => {
-                const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Unmute @${profile.handle}`,
-                    content: (
-                        <div className="text-main">
-                            <Trans>Confirm you want to unmute @{profile.handle}?</Trans>
-                        </div>
-                    ),
-                });
-                if (!confirmed) return;
                 toggleBlock(profile);
             }}
         >

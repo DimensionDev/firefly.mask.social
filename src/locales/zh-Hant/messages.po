@@ -1110,9 +1110,6 @@ msgstr ""
 msgid "Log in to Farcaster account"
 msgstr "登入 Farcaster 帳戶"
 
-msgid "Confirm you want to unmute @{0}?"
-msgstr "確認解除對 @{0} 的靜音？"
-
 msgid "{0} Users"
 msgstr ""
 

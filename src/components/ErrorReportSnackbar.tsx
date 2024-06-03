@@ -30,12 +30,12 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
         closeSnackbar(id);
     }, [id, closeSnackbar]);
 
-    const title = message;
+    const [title, setTitle] = useState(message);
     const body = detail;
 
     const githubReportLink = useMemo(() => {
         const url = new URLSearchParams();
-        url.set('title', title as string);
+        url.set('title', typeof title !== 'object' ? `${title}` : 'Something wrong');
         url.set(
             'body',
             [
@@ -74,7 +74,15 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
                             <div className="mr-1 inline-block p-2 text-white">
                                 <XCircleIcon className="h-[20px] w-[20px] text-white" />
                             </div>
-                            <div>{message}</div>
+                            <div
+                                ref={(node) => {
+                                    // convert jsx to string is too complicated, but in favor of DOM api, it's simple
+                                    if (typeof message !== 'object' || !node) return;
+                                    setTitle(node.innerText.replaceAll('\n', ' '));
+                                }}
+                            >
+                                {message}
+                            </div>
                         </div>
                         <ClickableButton className="p-2" onClick={handleDismiss}>
                             <CloseIcon width={16} height={16} />
