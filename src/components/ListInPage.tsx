@@ -39,7 +39,7 @@ export function ListInPage<T = unknown, C = unknown>({
     const itemsRendered = useRef(false);
     const isLogin = useIsLogin(currentSocialSource);
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, isLoading } = queryResult;
 
     const onEndReached = useCallback(async () => {
         if (!hasNextPage || isFetching || isFetchingNextPage) {

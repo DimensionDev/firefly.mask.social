@@ -6,7 +6,7 @@ export const EMAIL_REGEX =
 
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
-export const HASHTAG_REGEX = /(^|\s)(#\w*[A-Za-z]\w*)/g;
+export const HASHTAG_REGEX = /(^|\s)(#\S+)/g;
 
 // for safari does not support negative lookbehind
 // since we cannot eliminate the space before the channel, we will trim it later
