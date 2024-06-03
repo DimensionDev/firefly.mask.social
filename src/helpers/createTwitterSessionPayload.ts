@@ -19,8 +19,8 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
 
     return {
         clientId: token.twitter.oauthToken.split('-')[0],
-        consumerKey: env.internal.TWITTER_CLIENT_ID,
-        consumerSecret: env.internal.TWITTER_CLIENT_SECRET,
+        consumerKey: 'TWITTER_CLIENT_ID', // to be replaced
+        consumerSecret: 'TWITTER_CLIENT_SECRET', // to be replaced
         accessToken: token.twitter.oauthToken,
         accessTokenSecret: token.twitter.oauthTokenSecret,
     };

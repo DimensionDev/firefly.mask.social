@@ -9,6 +9,8 @@ export function LoginTwitter() {
         signIn('twitter', {
             redirect: false,
         });
+
+        // after twitter logined, continue to src/store/useProfileStore.ts
     });
 
     return (

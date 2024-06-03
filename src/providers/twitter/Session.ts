@@ -1,5 +1,6 @@
 import { signOut } from 'next-auth/react';
 
+import { env } from '@/constants/env.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
@@ -48,7 +49,14 @@ export class TwitterSession extends BaseSession implements Session {
         const consumerKey = headers.get('X-Consumer-Key') || '';
         const consumerSecret = headers.get('X-Consumer-Secret') || '';
         if (!clientId || !accessToken || !accessTokenSecret || !consumerKey || !consumerSecret) return null;
-        return { clientId, accessToken, accessTokenSecret, consumerKey, consumerSecret };
+        return {
+            clientId,
+            accessToken,
+            accessTokenSecret,
+            consumerKey: consumerKey === 'TWITTER_CLIENT_ID' ? env.internal.TWITTER_CLIENT_ID : consumerKey,
+            consumerSecret:
+                consumerSecret === 'TWITTER_CLIENT_SECRET' ? env.internal.TWITTER_CLIENT_SECRET : consumerSecret,
+        };
     }
 
     static payloadToHeaders(payload: TwitterSessionPayload): Record<string, string> {
