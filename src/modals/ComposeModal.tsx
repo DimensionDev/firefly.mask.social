@@ -134,9 +134,9 @@ function ComposeRouteRoot() {
             case 'compose':
                 return t`Compose`;
             case 'quote':
-                return `Quote`;
+                return t`Quote`;
             case 'reply':
-                return 'reply';
+                return t`Reply`;
             default:
                 safeUnreachable(type);
                 return t`Compose`;

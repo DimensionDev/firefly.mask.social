@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
-import { compact, first, sortBy, values } from 'lodash-es';
+import { compact, first, orderBy, values } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
 
 import Trash from '@/assets/trash2.svg';
@@ -84,9 +84,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 onClick={() => {
                     if (isDisabled) {
                         enqueueErrorMessage(
-                            t`Cannot choose due to account mismatch. Please login ${draft.availableProfiles
-                                .map((x) => `@${x.handle}`)
-                                .join(t` or `)}`,
+                           t`Cannot choose due to account mismatch.`,
                         );
                         return;
                     }
@@ -96,7 +94,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                             title: t`Resend full or remaining?`,
                             content: (
                                 <div className="text-main">
-                                    Do you want to retry with the full or remaining content?
+                                    <Trans>Do you want to retry with the full or remaining content?</Trans>
                                 </div>
                             ),
                             enableCancelButton: true,
@@ -205,9 +203,13 @@ export const DraftList = memo(function DraftList() {
 
     return (
         <div className="min-h-[528px] px-6">
-            {sortBy(drafts, (x) => {
-                return dayjs(x.createdAt).unix();
-            })
+            {orderBy(
+                drafts,
+                (x) => {
+                    return dayjs(x.createdAt).unix();
+                },
+                'asc',
+            )
                 .reverse()
                 .map((draft) => (
                     <DraftListItem
