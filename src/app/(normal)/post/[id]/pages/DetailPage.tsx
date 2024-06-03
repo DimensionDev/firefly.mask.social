@@ -10,6 +10,7 @@ import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import ComeBack from '@/assets/comeback.svg';
+import { Info } from '@/components/Channel/Info.js';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
@@ -134,6 +135,9 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                     <Trans>Details</Trans>
                 </h2>
             </div>
+            {post.channel ? (
+                <Info channel={post.channel} source={post.source} className="border-b border-line px-4 py-3" />
+            ) : null}
             <div>
                 {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
