@@ -8,6 +8,7 @@ import { Card as FrameUI } from '@/components/Frame/Card.js';
 import { OembedUI } from '@/components/Oembed/index.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -44,7 +45,12 @@ export function ComposeContent(props: ComposeContentProps) {
 
             {/* image */}
             {images.length > 0 && (
-                <div className="relative grid grid-cols-2 gap-2 py-3">
+                <div
+                    className={classNames(
+                        'relative grid gap-2 py-3',
+                        images.length <= 4 ? 'grid-cols-2' : 'grid-cols-5',
+                    )}
+                >
                     {images.map((image, index) => (
                         <ComposeImage
                             key={`${image.file.name}_${index}`}
