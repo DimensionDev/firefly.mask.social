@@ -12,6 +12,7 @@ module.exports = {
         extend: {
             colors: {
                 main: 'rgb(var(--color-main) / <alpha-value>)',
+                mainLight: 'rgb(var(--color-main-light) / <alpha-value>)',
                 link: 'rgb(var(--color-link) / <alpha-value>)',
                 primaryBottom: 'rgb(var(--color-bottom) / <alpha-value>)',
                 secondarySuccess: 'rgb(var(--color-secondary-success) / <alpha-value>)',
