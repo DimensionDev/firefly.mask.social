@@ -1,5 +1,7 @@
 'use client';
 
+import '@/polyfills/index.js';
+
 import { Script } from '@/esm/Script.js';
 
 export function Polyfills() {
