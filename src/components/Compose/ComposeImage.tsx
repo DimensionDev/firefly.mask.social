@@ -18,7 +18,7 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
 
     return (
         <div
-            className={classNames(' group relative overflow-hidden rounded-2xl', {
+            className={classNames('group relative overflow-hidden rounded-2xl', {
                 'col-span-2': size === 1,
                 'h-72': size <= 2 || (size === 3 && index === 2),
                 'col-start-1': size === 3 && index === 1,
