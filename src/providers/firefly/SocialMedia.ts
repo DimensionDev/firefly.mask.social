@@ -761,10 +761,7 @@ class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
         const fids = response.data?.blocks.map((x) => x.snsId);
-        let profiles: Profile[] = EMPTY_LIST;
-        if (fids?.length) {
-            profiles = await NeynarSocialMediaProvider.getProfilesByIds(fids);
-        }
+        const profiles: Profile[] = fids?.length ? await NeynarSocialMediaProvider.getProfilesByIds(fids) : EMPTY_LIST;
         return createPageable(
             profiles,
             createIndicator(indicator),
