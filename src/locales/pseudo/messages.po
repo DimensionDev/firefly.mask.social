@@ -172,6 +172,9 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
 msgid "Your posts have published successfully."
 msgstr ""
 
@@ -239,6 +242,9 @@ msgid "Term of Service"
 msgstr ""
 
 msgid "Please switch to the correct network in your wallet."
+msgstr ""
+
+msgid "Token ID"
 msgstr ""
 
 msgid "Type something here..."
@@ -1024,6 +1030,9 @@ msgstr ""
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
+msgid "Collection"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1220,6 +1229,9 @@ msgid "Likes"
 msgstr ""
 
 msgid "Mint button is not available yet."
+msgstr ""
+
+msgid "Minted"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
