@@ -42,7 +42,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
                 return (
                     <Trans>
-                        REPLY 
+                        REPLY
                         <span>
                             to <Link href={profileUrl}>@{post?.author.handle}</Link>
                         </span>
@@ -156,7 +156,7 @@ export const DraftList = memo(function DraftList() {
             });
 
             if (!confirmed) return;
-            if(draftId) clear()
+            if (draftId) clear();
             removeDraft(id);
         },
         [removeDraft, draftId, clear],

@@ -42,7 +42,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                             cursor !== x.id ? 'opacity-50' : 'opacity-100',
                         )}
                         onClick={() => {
-                            if(isSuccessFully) return
+                            if (isSuccessFully) return;
                             updateCursor(x.id);
                             if (cursor !== x.id) setEditorContent(readChars(x.chars, true));
                         }}

@@ -236,16 +236,24 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
             const { posts, cursor, draftId, type } = useComposeStateStore.getState();
-            const compositePost = getCompositePost(cursor)
-            const { availableSources  = EMPTY_LIST } = compositePost ?? {};
+            const compositePost = getCompositePost(cursor);
+            const { availableSources = EMPTY_LIST } = compositePost ?? {};
             if (posts.some((x) => !isEmptyPost(x))) {
                 const hasError = posts.some((x) => !!compact(values(x.postError)).length);
-                const errorsSource  = [...new Set(flatten(posts.map(x => {
-                    // Failed source obtained
-                    return compact(Object.entries(x.postError).map(([key, value]) => value ? key : undefined))
-                })))] as SocialSource[]
+                const errorsSource = [
+                    ...new Set(
+                        flatten(
+                            posts.map((x) => {
+                                // Failed source obtained
+                                return compact(
+                                    Object.entries(x.postError).map(([key, value]) => (value ? key : undefined)),
+                                );
+                            }),
+                        ),
+                    ),
+                ] as SocialSource[];
 
-                const sources = hasError ? errorsSource : availableSources
+                const sources = hasError ? errorsSource : availableSources;
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: hasError ? t`Save failed post?` : t`Save Post?`,
                     content: (
@@ -271,11 +279,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         draftId: draftId || uuid(),
                         createdAt: new Date(),
                         cursor,
-                        posts: hasError ? posts.map(x => ({ ...x, availableSources: sources, postId: createInitPostState() })) : posts,
+                        posts: hasError
+                            ? posts.map((x) => ({ ...x, availableSources: sources, postId: createInitPostState() }))
+                            : posts,
                         type,
-                        availableProfiles: compact(values(currentProfileAll)).filter((x) =>
-                            sources.includes(x.source),
-                        ),
+                        availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
                     });
                     enqueueSuccessMessage(t`Your draft was saved`);
                     ComposeModalRef.close();

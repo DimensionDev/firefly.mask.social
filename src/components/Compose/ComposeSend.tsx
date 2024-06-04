@@ -32,7 +32,7 @@ interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
     const { type, posts, addPostInThread, draftId } = useComposeStateStore();
-    const { removeDraft } = useComposeDraftStateStore()
+    const { removeDraft } = useComposeDraftStateStore();
     const post = useCompositePost();
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
@@ -60,7 +60,7 @@ export function ComposeSend(props: ComposeSendProps) {
             }
             await delay(300);
             // If the draft is applied and sent successfully, remove the draft.
-            if(draftId) removeDraft(draftId)
+            if (draftId) removeDraft(draftId);
             ComposeModalRef.close();
         },
         [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft],
