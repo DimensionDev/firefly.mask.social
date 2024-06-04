@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider as SessionProviderReact } from 'next-auth/react';
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
 
@@ -8,8 +8,8 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
  * @param props
  * @returns
  */
-export async function ServerProviders(props: { children: React.ReactNode }) {
+export async function SessionProvider(props: { children: React.ReactNode }) {
     const session = await getServerSession(authOptions);
 
-    return <SessionProvider session={session}>{props.children}</SessionProvider>;
+    return <SessionProviderReact session={session}>{props.children}</SessionProviderReact>;
 }
