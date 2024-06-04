@@ -583,6 +583,9 @@ msgstr "The user declined the request."
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
 
+msgid "REPLY <0>to <1>@{0}</1></0>"
+msgstr "REPLY <0>to <1>@{0}</1></0>"
+
 msgid "Suggested Channels"
 msgstr "Suggested Channels"
 
@@ -711,9 +714,6 @@ msgstr "Please input the frame url to be revalidated."
 
 msgid "General"
 msgstr "General"
-
-msgid "REPLY<0>to <1>@{0}</1></0>"
-msgstr "REPLY<0>to <1>@{0}</1></0>"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
