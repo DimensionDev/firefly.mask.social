@@ -8,7 +8,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { safeUnreachable } from '@masknet/kit';
-import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
+import { EMPTY_LIST, ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
@@ -24,7 +24,7 @@ import {
     useRouter,
 } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
-import { compact, values } from 'lodash-es';
+import { compact, flatten, values } from 'lodash-es';
 import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
@@ -45,6 +45,7 @@ import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/c
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
@@ -61,7 +62,7 @@ import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -235,10 +236,16 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
             const { posts, cursor, draftId, type } = useComposeStateStore.getState();
-            const { availableSources } = compositePost;
+            const compositePost = getCompositePost(cursor)
+            const { availableSources  = EMPTY_LIST } = compositePost ?? {};
             if (posts.some((x) => !isEmptyPost(x))) {
                 const hasError = posts.some((x) => !!compact(values(x.postError)).length);
+                const errorsSource  = [...new Set(flatten(posts.map(x => {
+                    // Failed source obtained
+                    return compact(Object.entries(x.postError).map(([key, value]) => value ? key : undefined))
+                })))] as SocialSource[]
 
+                const sources = hasError ? errorsSource : availableSources
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: hasError ? t`Save failed post?` : t`Save Post?`,
                     content: (
@@ -264,10 +271,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         draftId: draftId || uuid(),
                         createdAt: new Date(),
                         cursor,
-                        posts,
+                        posts: hasError ? posts.map(x => ({ ...x, availableSources: sources, postId: createInitPostState() })) : posts,
                         type,
                         availableProfiles: compact(values(currentProfileAll)).filter((x) =>
-                            availableSources.includes(x.source),
+                            sources.includes(x.source),
                         ),
                     });
                     enqueueSuccessMessage(t`Your draft was saved`);
@@ -278,7 +285,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             } else {
                 dispatch?.close();
             }
-        }, [dispatch, currentProfileAll, compositePost]);
+        }, [dispatch, currentProfileAll]);
 
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {

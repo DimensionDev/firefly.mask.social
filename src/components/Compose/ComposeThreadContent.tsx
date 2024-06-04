@@ -30,7 +30,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
     return (
         <div>
             {posts.map((x, i) => {
-                const isSuccessFully = !!compact(values(x.postId)).length;
+                const isSuccessFully = compact(values(x.postId)).length === x.availableSources.length;
                 const isError = !!compact(values(x.postError)).length;
 
                 return (
@@ -42,6 +42,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                             cursor !== x.id ? 'opacity-50' : 'opacity-100',
                         )}
                         onClick={() => {
+                            if(isSuccessFully) return
                             updateCursor(x.id);
                             if (cursor !== x.id) setEditorContent(readChars(x.chars, true));
                         }}

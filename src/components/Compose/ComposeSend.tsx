@@ -25,12 +25,14 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
+import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
-    const { type, posts, addPostInThread } = useComposeStateStore();
+    const { type, posts, addPostInThread, draftId } = useComposeStateStore();
+    const { removeDraft } = useComposeDraftStateStore()
     const post = useCompositePost();
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
@@ -57,9 +59,11 @@ export function ComposeSend(props: ComposeSendProps) {
                 });
             }
             await delay(300);
+            // If the draft is applied and sent successfully, remove the draft.
+            if(draftId) removeDraft(draftId)
             ComposeModalRef.close();
         },
-        [type, post, posts.length > 1, checkPostMedias],
+        [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft],
     );
 
     const hasError = useMemo(() => {

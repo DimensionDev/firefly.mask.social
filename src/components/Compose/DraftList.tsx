@@ -42,7 +42,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
                 return (
                     <Trans>
-                        REPLY
+                        REPLY 
                         <span>
                             to <Link href={profileUrl}>@{post?.author.handle}</Link>
                         </span>
@@ -87,7 +87,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                         return;
                     }
 
-                    if (hasError) {
+                    if (hasError && draft.posts.length > 1) {
                         ConfirmModalRef.open({
                             title: t`Resend full or remaining?`,
                             content: (
@@ -139,7 +139,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 export const DraftList = memo(function DraftList() {
     const currentProfileAll = useCurrentProfileAll();
     const { drafts, removeDraft } = useComposeDraftStateStore();
-    const { updateChars, apply } = useComposeStateStore();
+    const { updateChars, apply, draftId, clear } = useComposeStateStore();
     const setEditorContent = useSetEditorContent();
 
     const router = useRouter();
@@ -156,9 +156,10 @@ export const DraftList = memo(function DraftList() {
             });
 
             if (!confirmed) return;
+            if(draftId) clear()
             removeDraft(id);
         },
-        [removeDraft],
+        [removeDraft, draftId, clear],
     );
 
     const handleApply = useCallback(
