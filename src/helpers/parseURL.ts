@@ -1,5 +1,3 @@
-import { canParseURL } from '@/helpers/canParseURL.js';
-
 /**
  * Parses the input URL string and returns a URL object.
  * If the input URL is invalid, it tries prepending "https://" and parses again.
@@ -9,7 +7,7 @@ import { canParseURL } from '@/helpers/canParseURL.js';
  * @returns {URL | null} - The parsed URL object or null if parsing fails.
  */
 export function parseURL(url: string) {
-    if (canParseURL(url)) return new URL(url);
-    if (canParseURL(`https://${url}`)) return new URL(`https://${url}`);
+    if (URL.canParse(url)) return new URL(url);
+    if (URL.canParse(`https://${url}`)) return new URL(`https://${url}`);
     return null;
 }

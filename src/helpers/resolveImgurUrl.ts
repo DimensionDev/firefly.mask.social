@@ -1,8 +1,6 @@
-import { canParseURL } from '@/helpers/canParseURL.js';
-
 export function resolveImgurUrl(url: string | undefined) {
     if (!url) return url;
-    if (!canParseURL(url)) return url;
+    if (!URL.canParse(url)) return url;
 
     const u = new URL(url);
     if (u.protocol !== 'https:') return url;
