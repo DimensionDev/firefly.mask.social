@@ -195,7 +195,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     />
                                 </Link>
                                 {isLast && moreImageCount > 0 ? (
-                                    <div className="bg-mainLight/50 absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg text-white">
+                                    <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                         <div className="text-2xl font-bold">+{moreImageCount}</div>
                                     </div>
                                 ) : null}
