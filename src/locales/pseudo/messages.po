@@ -169,6 +169,9 @@ msgstr ""
 msgid "Username is required."
 msgstr ""
 
+msgid "<0>Sent</0> an NFT"
+msgstr ""
+
 msgid "Copied"
 msgstr ""
 
@@ -874,6 +877,9 @@ msgstr ""
 msgid "Casts + Replies"
 msgstr ""
 
+msgid "<0>Minted</0> an NFT"
+msgstr ""
+
 msgid "Image"
 msgstr ""
 
@@ -1177,6 +1183,9 @@ msgstr ""
 msgid "Followers"
 msgstr ""
 
+msgid "<0>Sent</0> an NFT to <1>{0}</1>"
+msgstr ""
+
 msgid "Media"
 msgstr ""
 
@@ -1229,9 +1238,6 @@ msgid "Likes"
 msgstr ""
 
 msgid "Mint button is not available yet."
-msgstr ""
-
-msgid "Minted"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
