@@ -7,11 +7,10 @@ import { type ReactNode, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { Image } from '@/components/Image.js';
-import { NFTFeedAction } from '@/components/NFTs/NFTFeedAction.js';
+import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFeedAction.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
-import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 const variants = {
     enter: (direction: number) => {
@@ -61,7 +60,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
     const collectionName = data?.collection?.name;
 
     return (
-        <div className="flex h-full w-full space-x-2">
+        <div className="mt-auto flex h-[120px] w-full space-x-2">
             {isLoading ? (
                 <div className="aspect-square h-full animate-pulse rounded-xl bg-main/40" />
             ) : (
@@ -69,7 +68,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                     src={data?.metadata?.imageURL || ''}
                     width={120}
                     height={120}
-                    className="aspect-square h-full rounded-xl"
+                    className="aspect-square h-full rounded-xl object-cover"
                     alt={address}
                 />
             )}
@@ -77,7 +76,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                 <NFTFeedFieldGroup field={t`Name`} value={<>{tokenName}</>} isLoading={isLoading} />
                 <NFTFeedFieldGroup field={t`Collection`} value={collectionName} isLoading={isLoading} />
                 <NFTFeedFieldGroup field={t`Token ID`} value={data?.tokenId ?? tokenId} />
-                {!isLoading && !data?.collection?.floorPrices ? null : (
+                {!isLoading && data?.collection?.floorPrices?.length === 0 ? null : (
                     <NFTFeedFieldGroup
                         isLoading={isLoading}
                         field={t`Floor Price`}
@@ -94,26 +93,26 @@ enum Direction {
     Right = 1,
 }
 
-interface NFTFeedBodyProps {
-    tokenList: Array<{ id: string }>;
-    contractAddress: string;
-    action: NFTFeedTransAction;
+export interface NFTFeedBodyProps {
+    tokenList: Array<{ id: string; contractAddress: string } & NFTFeedActionProps>;
     onChangeIndex?: (index: number) => void;
     index?: number;
+    chainId?: ChainId;
 }
 
-export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, contractAddress, action }: NFTFeedBodyProps) {
+export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NFTFeedBodyProps) {
     const [direction, setDirection] = useState<Direction>(Direction.Left);
     const token = tokenList[index];
 
+    if (!token) return null;
+
     return (
         <div className="-mt-2 w-full space-y-1.5 pl-[52px]">
-            <NFTFeedAction action={action} />
-            <div className="relative flex h-[120px] w-full overflow-hidden">
+            <div className="relative flex h-[150px] w-full overflow-hidden">
                 <AnimatePresence initial={false}>
                     <motion.div
-                        key={`${contractAddress}-${token.id}-${index}`}
-                        className="absolute left-0 top-0 h-full w-full"
+                        key={`${token.contractAddress}-${token.id}-${index}`}
+                        className="bottom absolute left-0 h-full w-full space-y-1.5"
                         custom={direction}
                         variants={variants}
                         initial="enter"
@@ -124,16 +123,18 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, contractAddre
                             opacity: { duration: 0.2 },
                         }}
                     >
-                        <NFTItem address={contractAddress} tokenId={token.id} />
+                        <NFTFeedAction action={token.action} transferTo={token.transferTo} />
+                        <NFTItem address={token.contractAddress} tokenId={token.id} chainId={chainId} />
                     </motion.div>
                 </AnimatePresence>
             </div>
             {tokenList.length > 1 ? (
                 <div className="mt-1.5 flex h-[18px] justify-between overflow-hidden text-lightSecond">
                     <button
-                        className={classNames('duration-50 rounded-full hover:bg-main/10 active:bg-main/5', {
-                            'cursor-not-allowed opacity-50': index <= 0,
-                        })}
+                        className={classNames(
+                            'duration-50 rounded-full',
+                            index <= 0 ? 'cursor-not-allowed opacity-50' : 'hover:bg-main/10 active:bg-main/5',
+                        )}
                         onClickCapture={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
@@ -158,9 +159,12 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, contractAddre
                         ))}
                     </div>
                     <button
-                        className={classNames('duration-50 rounded-full hover:bg-main/10 active:bg-main/5', {
-                            'cursor-not-allowed opacity-50': index >= tokenList.length - 1,
-                        })}
+                        className={classNames(
+                            'duration-50 rounded-full',
+                            index >= tokenList.length - 1
+                                ? 'cursor-not-allowed opacity-50'
+                                : 'hover:bg-main/10 active:bg-main/5',
+                        )}
                         onClickCapture={(e) => {
                             e.preventDefault();
                             e.stopPropagation();

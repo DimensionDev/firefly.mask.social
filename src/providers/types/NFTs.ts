@@ -14,6 +14,7 @@ export enum NFTFeedTransAction {
     Transfer = 'transfer',
     Trade = 'trade',
     Burn = 'burn',
+    Acquired = 'acquired',
 }
 
 export interface NFTOwnerDisplayInfo {
@@ -72,7 +73,7 @@ export interface FollowingNFT {
 
 export interface FollowingNFTAction {
     tag: string;
-    type: string;
+    type: NFTFeedTransAction;
     index: number;
     address_from: string;
     address_to: string;

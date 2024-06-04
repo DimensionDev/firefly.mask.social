@@ -2,28 +2,27 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
-import { NFTFeedBody } from '@/components/NFTs/NFTFeedBody.js';
+import { NFTFeedBody, type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
-import { NFTFeedTransAction, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
+import { type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export interface SingleNFTFeedProps {
+    ownerAddress: string;
     disableAnimate?: boolean;
     listKey?: string;
     index?: number;
-    contractAddress: string;
-    tokenList: Array<{ id: string }>;
+    tokenList: NFTFeedBodyProps['tokenList'];
     chainId: ChainId;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
-    action: NFTFeedTransAction;
 }
 
-export function SingleNFTFeed({
-    contractAddress,
+export const SingleNFTFeed = memo(function SingleNFTFeed({
+    ownerAddress,
     tokenList,
     chainId,
     displayInfo,
@@ -31,12 +30,18 @@ export function SingleNFTFeed({
     listKey,
     index,
     time,
-    action,
 }: SingleNFTFeedProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
-    const nftUrl = resolveNftUrl(contractAddress);
     const [activeTokenIndex, setActiveTokenIndex] = useState(0);
+    const nftUrl = useMemo(() => {
+        const token = tokenList[activeTokenIndex];
+        if (!token) return null;
+        return resolveNftUrl(token.contractAddress, {
+            chainId,
+            tokenId: token.id,
+        });
+    }, [activeTokenIndex, chainId, tokenList]);
 
     return (
         <motion.article
@@ -48,20 +53,19 @@ export function SingleNFTFeed({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                router.push(nftUrl);
+                if (nftUrl) router.push(nftUrl);
             }}
             onMouseEnter={() => {
-                router.prefetch(nftUrl);
+                if (nftUrl) router.prefetch(nftUrl);
             }}
         >
-            <NFTFeedHeader address={contractAddress} chainId={chainId} displayInfo={displayInfo} time={time} />
+            <NFTFeedHeader address={ownerAddress} chainId={chainId} displayInfo={displayInfo} time={time} />
             <NFTFeedBody
                 index={activeTokenIndex}
                 onChangeIndex={setActiveTokenIndex}
                 tokenList={tokenList}
-                contractAddress={contractAddress}
-                action={action}
+                chainId={chainId}
             />
         </motion.article>
     );
-}
+});
