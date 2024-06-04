@@ -703,3 +703,10 @@ export type WalletsFollowStatusResponse = Response<
         is_followed: boolean;
     }>
 >;
+
+export interface ReportPostParams {
+    platform: FireflyPlatform;
+    platform_id: string;
+    post_type: 'text' | 'video' | 'audio' | 'image';
+    post_id: string;
+}

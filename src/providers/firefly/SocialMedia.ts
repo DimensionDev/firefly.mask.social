@@ -24,6 +24,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import type { Article } from '@/providers/types/Article.js';
 import {
     type BlockChannelResponse,
     type BlockedUsersResponse,
@@ -46,6 +47,7 @@ import {
     type PostQuotesResponse,
     type ReactorsResponse,
     type RelationResponse,
+    type ReportPostParams,
     type Response,
     type SearchCastsResponse,
     type SearchChannelsResponse,
@@ -733,8 +735,23 @@ class FireflySocialMedia implements Provider {
         // TODO Mocking result for now.
         return true;
     }
+    private async report_post(params: ReportPostParams) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/report/post/create');
+        return fireflySessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify(params),
+        });
+    }
     async reportPost(post: Post): Promise<boolean> {
         throw new Error('Method not implemented.');
+    }
+    async reportArticle(article: Article) {
+        return this.report_post({
+            platform: FireflyPlatform.Article,
+            platform_id: article.author.id,
+            post_type: 'text',
+            post_id: article.id,
+        });
     }
     private async block(field: BlockFields, profileId: string): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/block');
