@@ -18,10 +18,14 @@ export const ArticleWatchButton = forwardRef<HTMLButtonElement, Props>(function 
     { article, ...rest }: Props,
     ref,
 ) {
-    const { data: isWatched } = useIsWatched(WatchType.Wallet, article.author.id);
+    const { data: isWatched, refetch } = useIsWatched(WatchType.Wallet, article.author.id);
     const mutation = useMutation({
         mutationFn: () => {
+            if (isWatched) return FireflySocialMediaProvider.unwatch(WatchType.Wallet, article.author.id);
             return FireflySocialMediaProvider.watch(WatchType.Wallet, article.author.id);
+        },
+        onSettled() {
+            refetch();
         },
     });
     return (
@@ -33,7 +37,7 @@ export const ArticleWatchButton = forwardRef<HTMLButtonElement, Props>(function 
             }}
             ref={ref}
         >
-            {isWatched ? <EyeIcon /> : <EyeSlashIcon />}
+            {isWatched ? <EyeSlashIcon width={24} height={24} /> : <EyeIcon width={24} height={24} />}
             <span className="font-bold leading-[22px] text-main">
                 {isWatched ? <Trans>Unwatch</Trans> : <Trans>Watch</Trans>}
             </span>

@@ -696,4 +696,9 @@ export type TwitterFollowStatusResponse = Response<{
     isFollowed: boolean;
 }>;
 
-export type WalletsFollowStatusResponse = Response<Record<string, boolean>>;
+export type WalletsFollowStatusResponse = Response<
+    Array<{
+        address: string;
+        is_followed: boolean;
+    }>
+>;

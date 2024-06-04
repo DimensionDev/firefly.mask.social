@@ -928,6 +928,18 @@ class FireflySocialMedia implements Provider {
         const response = await fireflySessionHolder.fetch<Response<void>>(url, { method: 'put' });
         return response;
     }
+    /**
+     * @param {WatchType} type
+     * @param {string} id - id for masx, userId for twtter, address for wallet
+     */
+    async unwatch(type: WatchType, id: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
+            toObjectId: id,
+            type,
+        });
+        const response = await fireflySessionHolder.fetch<Response<void>>(url, { method: 'delete' });
+        return response;
+    }
 
     async getIsWatch(type: WatchType, id: string): Promise<boolean> {
         if (type === WatchType.MaskX) {
