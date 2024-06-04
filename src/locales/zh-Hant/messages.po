@@ -177,6 +177,9 @@ msgstr ""
 msgid "Copied"
 msgstr "已複製"
 
+msgid "Name"
+msgstr ""
+
 msgid "Your posts have published successfully."
 msgstr "你的貼文已成功發佈"
 
@@ -244,6 +247,9 @@ msgid "Term of Service"
 msgstr ""
 
 msgid "Please switch to the correct network in your wallet."
+msgstr ""
+
+msgid "Token ID"
 msgstr ""
 
 msgid "Type something here..."
@@ -1029,6 +1035,9 @@ msgstr "你無法在 {0} 上回覆 @{author}"
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
 
+msgid "Collection"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1225,6 +1234,9 @@ msgid "Likes"
 msgstr ""
 
 msgid "Mint button is not available yet."
+msgstr ""
+
+msgid "Minted"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"

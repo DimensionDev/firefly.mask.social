@@ -177,6 +177,9 @@ msgstr "用户名为必填。"
 msgid "Copied"
 msgstr "已复制"
 
+msgid "Name"
+msgstr ""
+
 msgid "Your posts have published successfully."
 msgstr "发布成功。"
 
@@ -245,6 +248,9 @@ msgstr ""
 
 msgid "Please switch to the correct network in your wallet."
 msgstr "请在钱包中切换到正确的网络。"
+
+msgid "Token ID"
+msgstr ""
 
 msgid "Type something here..."
 msgstr "从这里开始..."
@@ -1029,6 +1035,9 @@ msgstr "你不能在 {0} 上评论 {author}"
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
+msgid "Collection"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1226,6 +1235,9 @@ msgstr "点赞"
 
 msgid "Mint button is not available yet."
 msgstr "Mint 按钮还未开放。"
+
+msgid "Minted"
+msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
