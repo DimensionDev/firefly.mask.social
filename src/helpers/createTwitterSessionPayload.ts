@@ -4,10 +4,11 @@ import { getToken, type JWT } from 'next-auth/jwt';
 import { env } from '@/constants/env.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 
-function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
+async function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
     const payload = TwitterSession.payloadFromHeaders(request.headers);
-    if (payload) return payload;
-    return null;
+    if (!payload) return null;
+
+    return TwitterSession.revealPayload(payload);
 }
 
 async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
@@ -19,13 +20,19 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
 
     return {
         clientId: token.twitter.oauthToken.split('-')[0],
-        consumerKey: 'TWITTER_CLIENT_ID', // to be replaced
-        consumerSecret: 'TWITTER_CLIENT_SECRET', // to be replaced
+        consumerKey: env.internal.TWITTER_CLIENT_ID,
+        consumerSecret: env.internal.TWITTER_CLIENT_SECRET,
         accessToken: token.twitter.oauthToken,
         accessTokenSecret: token.twitter.oauthTokenSecret,
     };
 }
 
 export async function createTwitterSessionPayload(request: NextRequest) {
-    return createTwitterSessionPayloadFromHeaders(request) || (await createTwitterSessionPayloadFromJWT(request));
+    const fromHeaders = await createTwitterSessionPayloadFromHeaders(request);
+    if (fromHeaders) return fromHeaders;
+
+    const fromJWT = await createTwitterSessionPayloadFromJWT(request);
+    if (fromJWT) return fromJWT;
+
+    return null;
 }

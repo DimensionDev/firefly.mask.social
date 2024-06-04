@@ -62,6 +62,7 @@ export enum KeyType {
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
     GetFollowings = 'getFollowings',
+    ConsumerSecret = 'consumerSecret',
 }
 
 export enum ProfileTabType {

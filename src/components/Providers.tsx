@@ -7,7 +7,6 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { usePathname } from 'next/navigation.js';
-import { SessionProvider } from 'next-auth/react';
 import { SnackbarProvider } from 'notistack';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -106,9 +105,7 @@ export function Providers(props: { children: React.ReactNode }) {
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
                                 {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                <LivepeerConfig client={livepeerClient}>
-                                    <SessionProvider>{props.children}</SessionProvider>
-                                </LivepeerConfig>
+                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
                             </WagmiProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>

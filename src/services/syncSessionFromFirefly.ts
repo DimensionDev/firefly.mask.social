@@ -10,6 +10,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 /**
@@ -95,5 +96,15 @@ export async function syncSessionFromFirefly(signal?: AbortSignal) {
     if (!cipher) return [];
 
     const metrics = await decryptMetricsFromFirefly(cipher, signal);
-    return metrics.flatMap<FarcasterSession | LensSession | TwitterSession>(convertMetricToSession);
+    const sessions = metrics.flatMap<FarcasterSession | LensSession | TwitterSession>(convertMetricToSession);
+
+    // save consumer secret to KV
+    await Promise.all(
+        sessions.map(async (session) => {
+            if (session.type !== SessionType.Twitter) return session;
+            return TwitterSession.recordPayload((session as TwitterSession).payload);
+        }),
+    );
+
+    return sessions;
 }
