@@ -588,9 +588,6 @@ msgstr ""
 msgid "<0>{0}</0> liked"
 msgstr ""
 
-msgid "REPLY <0>to <1>@{0}</1></0>"
-msgstr ""
-
 msgid "Suggested Channels"
 msgstr "推薦頻道"
 
@@ -719,6 +716,9 @@ msgstr "請輸入連結以重新識別有效性"
 
 msgid "General"
 msgstr "一般"
+
+msgid "REPLY<0>to <1>@{0}</1></0>"
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"

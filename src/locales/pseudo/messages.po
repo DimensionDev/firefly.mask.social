@@ -583,9 +583,6 @@ msgstr ""
 msgid "<0>{0}</0> liked"
 msgstr ""
 
-msgid "REPLY <0>to <1>@{0}</1></0>"
-msgstr ""
-
 msgid "Suggested Channels"
 msgstr ""
 
@@ -713,6 +710,9 @@ msgid "Please input the frame url to be revalidated."
 msgstr ""
 
 msgid "General"
+msgstr ""
+
+msgid "REPLY<0>to <1>@{0}</1></0>"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."

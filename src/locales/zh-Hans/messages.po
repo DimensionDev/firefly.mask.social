@@ -588,9 +588,6 @@ msgstr "用户取消了请求。"
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
 
-msgid "REPLY <0>to <1>@{0}</1></0>"
-msgstr ""
-
 msgid "Suggested Channels"
 msgstr "建议频道"
 
@@ -719,6 +716,9 @@ msgstr "请输入 URL 重新验证。"
 
 msgid "General"
 msgstr "通用"
+
+msgid "REPLY<0>to <1>@{0}</1></0>"
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
