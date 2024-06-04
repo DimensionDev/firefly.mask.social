@@ -419,6 +419,7 @@ export type BookmarkResponse<T> = Response<{
     }>;
 }>;
 
+export type BlockFields = 'twitterId' | 'lensId' | 'fid' | 'address';
 export type BlockUserResponse = Response<
     Array<{
         id: string;

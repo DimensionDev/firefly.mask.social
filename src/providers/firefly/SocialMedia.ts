@@ -27,6 +27,7 @@ import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type BlockChannelResponse,
     type BlockedUsersResponse,
+    type BlockFields,
     type BlockRelationResponse,
     type BlockUserResponse,
     type BookmarkResponse,
@@ -735,27 +736,33 @@ class FireflySocialMedia implements Provider {
     async reportPost(post: Post): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async blockUser(profileId: string): Promise<boolean> {
+    private async block(field: BlockFields, profileId: string): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/block');
         const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                fid: profileId,
+                [field]: profileId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to block user');
+    }
+    private async unblock(field: BlockFields, profileId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/unblock');
+        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                [field]: profileId,
             }),
         });
         if (response) return true;
         throw new Error('Failed to mute user');
     }
+    async blockUser(profileId: string): Promise<boolean> {
+        return this.block('fid', profileId);
+    }
     async unblockUser(profileId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/unblock');
-        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                fid: profileId,
-            }),
-        });
-        if (response) return true;
-        throw new Error('Failed to mute user');
+        return this.unblock('fid', profileId);
     }
 
     async getBlockedProfiles(
@@ -803,6 +810,13 @@ class FireflySocialMedia implements Provider {
 
         if (response) return true;
         throw new Error('Failed to mute channel');
+    }
+
+    async blockAddress(address: string) {
+        return this.block('address', address);
+    }
+    async unblockAddress(address: string) {
+        return this.unblock('address', address);
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
@@ -901,14 +915,14 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    async getIsMuted(profileId: string): Promise<boolean> {
+    async getIsMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return false;
             const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
             const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
+                    conditions: [{ snsPlatform: platform, snsId: profileId }],
                 }),
             });
             const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
@@ -950,10 +964,17 @@ class FireflySocialMedia implements Provider {
             const res = await fireflySessionHolder.fetch<TwitterFollowStatusResponse>(url);
             return !!res.data?.isFollowed;
         } else if (type === WatchType.Wallet) {
-            const url = urlcat(FIREFLY_ROOT_URL, { addresses: [id] });
-            const res = await fireflySessionHolder.fetch<WalletsFollowStatusResponse>(url);
+            const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow/wallet');
+            const res = await fireflySessionHolder.fetch<WalletsFollowStatusResponse>(url, {
+                method: 'post',
+                body: JSON.stringify({
+                    addresses: [id],
+                }),
+            });
             if (!res.data) return false;
-            return !!res.data[id];
+            const address = id.toLowerCase();
+            const is_followed = res.data.find((x) => address === x.address.toLowerCase())?.is_followed;
+            return !!is_followed;
         }
         return false;
     }

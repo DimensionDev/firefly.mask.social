@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -15,7 +15,7 @@ export function useIsMuted(profile: Profile | undefined, enabled = true) {
         queryKey: ['profile-is-muted', profileId],
         queryFn: () => {
             if (!profileId) return false;
-            return FireflySocialMediaProvider.getIsMuted(profileId);
+            return FireflySocialMediaProvider.getIsMuted(FireflyPlatform.Farcaster, profileId);
         },
     });
     return isFarcaster ? data : !!profile?.viewerContext?.blocking;
