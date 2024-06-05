@@ -239,7 +239,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             const compositePost = getCompositePost(cursor);
             const { availableSources = EMPTY_LIST } = compositePost ?? {};
             if (posts.some((x) => !isEmptyPost(x))) {
-                const hasError = posts.some((x) => !!compact(values(x.postError)).length);
                 const errorsSource = [
                     ...new Set(
                         flatten(
@@ -252,6 +251,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         ),
                     ),
                 ] as SocialSource[];
+                const hasError = !!errorsSource.length
 
                 const sources = hasError ? errorsSource : availableSources;
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({

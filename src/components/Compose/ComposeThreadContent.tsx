@@ -30,7 +30,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
     return (
         <div>
             {posts.map((x, i) => {
-                const isSuccessFully = compact(values(x.postId)).length === x.availableSources.length;
+                const isSucceed = compact(values(x.postId)).length === x.availableSources.length;
                 const isError = !!compact(values(x.postError)).length;
 
                 return (
@@ -42,7 +42,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                             cursor !== x.id ? 'opacity-50' : 'opacity-100',
                         )}
                         onClick={() => {
-                            if (isSuccessFully) return;
+                            if (isSucceed) return;
                             updateCursor(x.id);
                             if (cursor !== x.id) setEditorContent(readChars(x.chars, true));
                         }}
@@ -67,7 +67,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                         {currentProfile ? (
                             <div className="relative">
                                 <ProfileAvatar profile={currentProfile} enableSourceIcon={false} />
-                                {isSuccessFully ? (
+                                {isSucceed ? (
                                     <YesIcon className="absolute right-0 top-0 z-10" width={15} height={15} />
                                 ) : null}
                                 {isError ? (
