@@ -8,7 +8,6 @@ import { classNames } from '@/helpers/classNames.js';
 interface Props extends HTMLProps<HTMLDivElement> {
     authorMuted?: boolean;
     isQuote: boolean;
-    disableIndent: boolean;
 }
 export const CollapsedContent = forwardRef<HTMLDivElement, Props>(function CollapsedContent(
     { isQuote, authorMuted: muted, ...rest },

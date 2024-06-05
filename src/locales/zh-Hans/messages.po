@@ -285,6 +285,9 @@ msgstr "搜索"
 msgid "Connected Accounts"
 msgstr "已链接的账号"
 
+msgid "Watch"
+msgstr ""
+
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -377,6 +380,9 @@ msgstr "跟随系统"
 
 msgid "Failed to mirror."
 msgstr "转帖失败。"
+
+msgid "Mute {identity}"
+msgstr ""
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
@@ -627,6 +633,9 @@ msgstr "获取收藏失败。"
 msgid "Confirm you want to {0} @{1}?"
 msgstr ""
 
+msgid "Are you sure you want to report this article?"
+msgstr ""
+
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
@@ -873,6 +882,9 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
+msgid "Unwatch"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
@@ -917,6 +929,9 @@ msgstr "报告"
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
+
+msgid "Articles from @{identity} will now be hidden in your home timeline"
+msgstr ""
 
 msgid "quote"
 msgstr "引用"
@@ -1004,6 +1019,9 @@ msgstr "频道"
 
 msgid "Firefly"
 msgstr "Firefly"
+
+msgid "Report Article"
+msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""

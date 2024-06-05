@@ -109,7 +109,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 ref={ref}
                 authorMuted={muted}
                 isQuote={isQuote}
-                disableIndent={disablePadding}
             />
         );
     }

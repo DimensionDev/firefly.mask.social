@@ -168,6 +168,14 @@ export interface Article {
     article_id: string;
     cover_img_url: string | null;
     has_bookmarked?: boolean;
+    followingSources: Array<{
+        handle: string | null;
+        id: string;
+        name: string | null;
+        socialId: string | null;
+        type: WatchType;
+        walletAddress: string | null;
+    }>;
 }
 
 export interface Response<T> {

@@ -1,12 +1,12 @@
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { useIsMutedAddress } from '@/hooks/useIsMutedAddress.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 
@@ -18,21 +18,34 @@ export const ArticleMuteButton = forwardRef<HTMLButtonElement, Props>(function A
     { article, ...rest }: Props,
     ref,
 ) {
-    const { data: muted, isPending, refetch } = useIsMutedAddress(article.author.id);
+    const muted = article.author.isMuted;
     const mutation = useMutation({
         mutationFn: () => {
             if (muted) return FireflySocialMediaProvider.unblockAddress(article.author.id);
             return FireflySocialMediaProvider.blockAddress(article.author.id);
         },
-        onSuccess() {
-            refetch();
-        },
     });
-    const loading = isPending || mutation.isPending;
+    const loading = mutation.isPending;
     return (
         <MenuButton
             {...rest}
             onClick={async () => {
+                const identity = article.author.handle || article.author.id;
+                if (!muted) {
+                    const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                        title: t`Mute ${identity}`,
+                        variant: 'normal',
+                        content: (
+                            <div className="text-main">
+                                <Trans>Articles from @{identity} will now be hidden in your home timeline</Trans>
+                            </div>
+                        ),
+                    });
+                    if (!confirmed) {
+                        rest.onClick?.();
+                        return;
+                    }
+                }
                 await mutation.mutateAsync();
                 rest.onClick?.();
             }}

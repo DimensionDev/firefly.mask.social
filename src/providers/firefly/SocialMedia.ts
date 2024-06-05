@@ -12,6 +12,7 @@ import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     formatBriefChannelFromFirefly,
@@ -70,8 +71,11 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 
-class FireflySocialMedia implements Provider {
+@SetQueryDataForWatchWallet()
+@SetQueryDataForBlockWallet()
+export class FireflySocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
     }

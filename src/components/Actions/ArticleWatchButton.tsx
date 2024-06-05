@@ -5,7 +5,6 @@ import { forwardRef } from 'react';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { useIsWatched } from '@/hooks/useIsWatched.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import { WatchType } from '@/providers/types/Firefly.js';
@@ -18,14 +17,11 @@ export const ArticleWatchButton = forwardRef<HTMLButtonElement, Props>(function 
     { article, ...rest }: Props,
     ref,
 ) {
-    const { data: isWatched, refetch } = useIsWatched(WatchType.Wallet, article.author.id);
+    const isWatched = article.author.isFollowing;
     const mutation = useMutation({
         mutationFn: () => {
             if (isWatched) return FireflySocialMediaProvider.unwatch(WatchType.Wallet, article.author.id);
             return FireflySocialMediaProvider.watch(WatchType.Wallet, article.author.id);
-        },
-        onSettled() {
-            refetch();
         },
     });
     return (
