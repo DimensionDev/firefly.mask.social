@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatAddress } from '@masknet/plugin-avatar';
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { useMemo } from 'react';
 
@@ -44,7 +45,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                     </>
                 );
             case NFTFeedTransAction.Transfer:
-                if (toAddress === ownerAddress) {
+                if (isSameAddress(toAddress, ownerAddress)) {
                     return (
                         <>
                             <AcquiredIcon width={18} height={18} />
@@ -96,7 +97,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                     </>
                 );
             case NFTFeedTransAction.Trade:
-                if (toAddress === ownerAddress) {
+                if (isSameAddress(toAddress, ownerAddress)) {
                     return (
                         <>
                             <BuyIcon width={18} height={18} />
