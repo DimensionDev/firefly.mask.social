@@ -91,7 +91,12 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
             <PostBody post={post} showMore={showMore} showTranslate={showTranslate} isDetail={isDetail} />
             {showChannelTag && !!post.channel && !isComment && !isChannelPage && !isDetail ? (
-                <ChannelAnchor channel={post.channel} />
+                <ChannelAnchor
+                    channel={post.channel}
+                    onClick={() => {
+                        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                    }}
+                />
             ) : null}
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 

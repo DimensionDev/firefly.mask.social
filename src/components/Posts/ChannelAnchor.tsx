@@ -1,19 +1,27 @@
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-interface ChannelAnchorProps {
+interface ChannelAnchorProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;
 }
 
-export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ channel }) {
+export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ channel, ...rest }) {
     return (
-        <div className="my-2 flex justify-end">
+        <div
+            {...rest}
+            className={classNames(rest.className, 'my-2 flex justify-end')}
+            onClick={(event) => {
+                rest.onClick?.(event);
+                event.stopPropagation();
+            }}
+        >
             <ChannelTippy channel={channel}>
                 <Link
                     href={getChannelUrl(channel)}
