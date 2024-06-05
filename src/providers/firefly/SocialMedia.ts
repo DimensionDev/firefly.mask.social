@@ -900,24 +900,6 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async reportProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
-    }
-
-    async reportPost(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-
-    async reportArticle(article: Article) {
-        return reportPost({
-            platform: FireflyPlatform.Article,
-            platform_id: article.author.id,
-            post_type: 'text',
-            post_id: article.id,
-        });
-    }
-
     async blockWallet(address: string) {
         return block('address', address);
     }
@@ -978,6 +960,24 @@ export class FireflySocialMedia implements Provider {
         });
         await fireflySessionHolder.fetch<Response<void>>(url, { method: 'DELETE' });
         return true;
+    }
+
+    async reportProfile(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+
+    async reportPost(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async reportArticle(article: Article) {
+        return reportPost({
+            platform: FireflyPlatform.Article,
+            platform_id: article.author.id,
+            post_type: 'text',
+            post_id: article.id,
+        });
     }
 }
 

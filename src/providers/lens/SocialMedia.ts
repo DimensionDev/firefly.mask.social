@@ -1050,42 +1050,13 @@ class LensSocialMedia implements Provider {
         return posts.items.map(formatLensPost);
     }
 
-    async reportProfile(profileId: string) {
-        const result = await lensSessionHolder.sdk.profile.report({
-            for: profileId,
-            // TODO more specific and accurate reason.
-            reason: {
-                spamReason: {
-                    reason: ProfileReportingReason.Spam,
-                    subreason: ProfileReportingSpamSubreason.SomethingElse,
-                },
-            },
-        });
-        const reported = result.isSuccess().valueOf();
-        if (!reported) return false;
-        const blocked = await this.blockProfile(profileId);
-
-        return blocked;
-    }
-    async reportPost(postId: string) {
-        const result = await lensSessionHolder.sdk.publication.report({
-            for: postId,
-            // TODO more specific and accurate reason.
-            reason: {
-                spamReason: {
-                    reason: PublicationReportingReason.Spam,
-                    subreason: PublicationReportingSpamSubreason.SomethingElse,
-                },
-            },
-        });
-        return result.isSuccess().valueOf();
-    }
     async blockProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
         return result.isSuccess().valueOf();
     }
+
     async unblockProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.unblock({
             profiles: [profileId],
@@ -1221,6 +1192,37 @@ class LensSocialMedia implements Provider {
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
+    }
+
+    async reportProfile(profileId: string) {
+        const result = await lensSessionHolder.sdk.profile.report({
+            for: profileId,
+            // TODO more specific and accurate reason.
+            reason: {
+                spamReason: {
+                    reason: ProfileReportingReason.Spam,
+                    subreason: ProfileReportingSpamSubreason.SomethingElse,
+                },
+            },
+        });
+        const reported = result.isSuccess().valueOf();
+        if (!reported) return false;
+        const blocked = await this.blockProfile(profileId);
+
+        return blocked;
+    }
+    async reportPost(postId: string) {
+        const result = await lensSessionHolder.sdk.publication.report({
+            for: postId,
+            // TODO more specific and accurate reason.
+            reason: {
+                spamReason: {
+                    reason: PublicationReportingReason.Spam,
+                    subreason: PublicationReportingSpamSubreason.SomethingElse,
+                },
+            },
+        });
+        return result.isSuccess().valueOf();
     }
 }
 

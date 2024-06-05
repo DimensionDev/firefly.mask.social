@@ -237,12 +237,6 @@ class NeynarSocialMedia implements Provider {
             return createPageable(result, createIndicator(indicator));
         });
     }
-    async reportProfile(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    async reportPost(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
     async blockProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
@@ -279,6 +273,12 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async reportProfile(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 }
