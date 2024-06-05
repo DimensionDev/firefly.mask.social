@@ -372,12 +372,6 @@ class TwitterSocialMedia implements Provider {
         if (!response.success) throw new Error(t`Failed to publish post.`);
         return response.data.deleted;
     }
-    async reportProfile(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    async reportPost(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
     async blockProfile(profileId: string): Promise<boolean> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
             `/api/twitter/mute/${profileId}`,
@@ -456,6 +450,12 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(t`Failed to fetch bookmarks.`);
         return formatTweetsPage(response.data, indicator);
+    }
+    async reportProfile(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
     }
 }
 

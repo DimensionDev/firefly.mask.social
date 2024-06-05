@@ -36,7 +36,7 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
         }
     });
 
-    queryClient.setQueryData(['profile-is-muted', source, profileId], status);
+    queryClient.setQueryData(['profile-is-blocked', source, profileId], status);
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;

@@ -662,62 +662,6 @@ export interface Provider {
     getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
 
     /**
-     * Report spam or inappropriate profile content.
-     * @param profileId
-     * @returns
-     */
-    reportProfile: (profileId: string) => Promise<boolean>;
-
-    /**
-     * Report spam or inappropriate post content.
-     * @param postId
-     * @returns
-     */
-    reportPost: (postId: string) => Promise<boolean>;
-
-    /**
-     * Block a profile.
-     * @param profileId
-     * @returns
-     */
-    blockProfile: (profileId: string) => Promise<boolean>;
-
-    /**
-     * Unblock a profile.
-     * @param profileId
-     * @returns
-     */
-    unblockProfile: (profileId: string) => Promise<boolean>;
-
-    /**
-     * Retrieves profiles that the current logged user has blocked.
-     * @param indicator
-     * @returns
-     */
-    getBlockedProfiles: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
-
-    /**
-     * Block a channel.
-     * @param channelId
-     * @returns
-     */
-    blockChannel: (channelId: string) => Promise<boolean>;
-
-    /**
-     * Unblock a profile.
-     * @param profileId
-     * @returns
-     */
-    unblockChannel: (channelId: string) => Promise<boolean>;
-
-    /**
-     * Retrieves channels that the current logged user has blocked.
-     * @param indicator
-     * @returns
-     */
-    getBlockedChannels: (indicator?: PageIndicator) => Promise<Pageable<Channel, PageIndicator>>;
-
-    /**
      * Retrieve profiles who liked the specified post.
      * @param postId
      * @param indicator
@@ -787,6 +731,13 @@ export interface Provider {
     unblockWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
 
     /**
+     * Retrieves wallet addresses that the current logged user has blocked.
+     * @param indicator
+     * @returns
+     */
+    getBlockedWallets?: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
      * Watch activities related to the specified address.
      * @param address
      * @param networkType default to EVM
@@ -798,4 +749,65 @@ export interface Provider {
      * @param networkType default to EVM
      */
     unwatchWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
+
+    /**
+     * Block a profile.
+     * @param profileId
+     * @returns
+     */
+    blockProfile?: (profileId: string) => Promise<boolean>;
+
+    /**
+     * Unblock a profile.
+     * @param profileId
+     * @returns
+     */
+    unblockProfile?: (profileId: string) => Promise<boolean>;
+
+    /**
+     * Retrieves profiles that the current logged user has blocked.
+     * @param indicator
+     * @returns
+     */
+    getBlockedProfiles?: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
+     * Block a channel.
+     * @param channelId
+     * @returns
+     */
+    blockChannel?: (channelId: string) => Promise<boolean>;
+
+    /**
+     * Unblock a profile.
+     * @param profileId
+     * @returns
+     */
+    unblockChannel?: (channelId: string) => Promise<boolean>;
+
+    /**
+     * Retrieves channels that the current logged user has blocked.
+     * @param indicator
+     * @returns
+     */
+    getBlockedChannels?: (indicator?: PageIndicator) => Promise<Pageable<Channel, PageIndicator>>;
+
+    /**
+     * Report spam or inappropriate profile content.
+     * @param profileId
+     * @returns
+     */
+    reportProfile?: (profileId: string) => Promise<boolean>;
+
+    /**
+     * Report spam or inappropriate post content.
+     * @param postId
+     * @returns
+     */
+    reportPost?: (postId: string) => Promise<boolean>;
+
+    /**
+     * Report spam or inappropriate channel content.
+     */
+    reportChannel?: (channelId: string) => Promise<boolean>;
 }
