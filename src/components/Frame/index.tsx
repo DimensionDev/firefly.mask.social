@@ -1,8 +1,8 @@
 import { t, Trans } from '@lingui/macro';
-import { getEnumAsArray, safeUnreachable } from '@masknet/kit';
+import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
 import { attemptUntil } from '@masknet/web3-shared-base';
-import { isValidDomain } from '@masknet/web3-shared-evm';
+import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 import { useEffect, useState } from 'react';
@@ -19,6 +19,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { parseChainId } from '@/helpers/parseChainId.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
@@ -31,22 +32,23 @@ import {
     type LinkDigestedResponse,
     MethodType,
     type RedirectUrlResponse,
-    type TransactionResponse,
 } from '@/types/frame.js';
-import { ChainId } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-function parseChainId(chainId: `eip155:${number}`): ChainId {
-    const chainIdParsed = Number.parseInt(chainId.split(':')[1], 10);
-    if (isNaN(chainIdParsed) || chainIdParsed <= 0) throw new Error(`Invalid chain ID: ${chainId}`);
-    if (!getEnumAsArray(ChainId).find((x) => x.value === chainIdParsed))
-        throw new Error(`Unsupported chain ID: ${chainId}`);
-    return chainIdParsed;
-}
-
-const TransactionSchema = z.custom<TransactionResponse>((value) => {
-    // parse chain id
-    return true;
+export const TransactionSchema = z.object({
+    // a CAIP-2 chain ID to identify the tx network
+    chainId: z.string().refine((x) => x.startsWith('eip155:'), { message: 'Invalid chain ID format.' }),
+    method: z.enum([MethodType.ETH_SEND_TRANSACTION]),
+    // identifying client in calldata
+    // learn more: https://www.notion.so/warpcast/Frame-Transactions-Public-9d9f9f4f527249519a41bd8d16165f73?pvs=4#c1c3182208ce4ae4a7ffa72129b9795a
+    attribution: z.boolean().optional(),
+    params: z.object({
+        // JSON ABI which must include encoded function type and should include potential error types. Can be empty.
+        abi: z.union([z.object({}), z.array(z.object({}))]).optional(),
+        to: z.string().refine((x) => isValidAddress(x), { message: 'Invalid address format.' }),
+        value: z.string().optional(),
+        data: z.string().optional(),
+    }),
 });
 
 function confirmBeforeLeaving() {
@@ -153,39 +155,42 @@ async function getNextFrame(
                 enqueueErrorMessage(t`Mint button is not available yet.`);
                 return;
             case ActionType.Transaction:
-                const txResponse = await postAction<TransactionResponse>();
+                const txResponse = await postAction<z.infer<typeof TransactionSchema>>();
                 if (!txResponse.success) throw new Error('Failed to parse transaction.');
 
                 const profile = getCurrentProfile(Source.Farcaster);
                 if (!profile) throw new Error('Profile not found');
 
                 const transaction = TransactionSchema.parse(txResponse.data);
+                const chainId = parseChainId(transaction.chainId);
                 const client = await getWalletClientRequired(config);
 
-                if (client.chain.id !== transaction.parsedChainId) {
+                if (client.chain.id !== chainId) {
                     await client.switchChain({
-                        id: transaction.parsedChainId,
+                        id: chainId,
                     });
                 }
 
-                if (transaction.method === MethodType.ETH_SEND_TRANSACTION) {
-                    const transactionId = await client.sendTransaction({
-                        to: transaction.params.to,
-                        data:
-                            transaction.params.data ||
-                            (transaction.attribution !== false
-                                ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
-                                : undefined),
-                        value: transaction.params.parsedValue,
-                    });
+                switch (transaction.method) {
+                    case MethodType.ETH_SEND_TRANSACTION: {
+                        const transactionId = await client.sendTransaction({
+                            to: transaction.params.to as `0x${string}`,
+                            data: (transaction.params.data ||
+                                (transaction.attribution !== false
+                                    ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
+                                    : undefined)) as `0x${string}` | undefined,
+                            value: transaction.params.value ? BigInt(transaction.params.value) : BigInt(0),
+                        });
 
-                    const response = await postAction<LinkDigestedResponse>({
-                        transactionId,
-                    });
-                    return response.success ? response.data.frame : null;
-                } else {
-                    enqueueErrorMessage(t`Unknown transaction method: ${transaction.method}.`);
-                    return;
+                        const response = await postAction<LinkDigestedResponse>({
+                            transactionId,
+                        });
+                        return response.success ? response.data.frame : null;
+                    }
+                    default:
+                        safeUnreachable(transaction.method);
+                        enqueueErrorMessage(t`Unknown transaction method: ${transaction.method}.`);
+                        return;
                 }
             default:
                 safeUnreachable(button.action);
