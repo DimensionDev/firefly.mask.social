@@ -754,7 +754,10 @@ class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute user');
     }
 
-    async getBlockedProfiles(indicator?: PageIndicator, source?: Exclude<SourceInURL, SourceInURL.Article>): Promise<Pageable<Profile, PageIndicator>> {
+    async getBlockedProfiles(
+        indicator?: PageIndicator,
+        source?: Exclude<SourceInURL, SourceInURL.Article>,
+    ): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blocklist', {
             size: 20,
             page: indicator?.id ?? 1,
