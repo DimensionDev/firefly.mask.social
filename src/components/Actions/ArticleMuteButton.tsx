@@ -21,8 +21,8 @@ export const ArticleMuteButton = forwardRef<HTMLButtonElement, Props>(function A
     const muted = article.author.isMuted;
     const mutation = useMutation({
         mutationFn: () => {
-            if (muted) return FireflySocialMediaProvider.unblockAddress(article.author.id);
-            return FireflySocialMediaProvider.blockAddress(article.author.id);
+            if (muted) return FireflySocialMediaProvider.unblockWallet(article.author.id);
+            return FireflySocialMediaProvider.blockWallet(article.author.id);
         },
     });
     const loading = mutation.isPending;

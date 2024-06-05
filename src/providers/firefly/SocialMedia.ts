@@ -832,13 +832,6 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute channel');
     }
 
-    async blockAddress(address: string) {
-        return this.block('address', address);
-    }
-    async unblockAddress(address: string) {
-        return this.unblock('address', address);
-    }
-
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) {
@@ -948,6 +941,14 @@ export class FireflySocialMedia implements Provider {
             const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
             return blocked;
         });
+    }
+
+    async blockWallet(address: string) {
+        return this.block('address', address);
+    }
+
+    async unblockWallet(address: string) {
+        return this.unblock('address', address);
     }
 
     async watchWallet(address: string) {

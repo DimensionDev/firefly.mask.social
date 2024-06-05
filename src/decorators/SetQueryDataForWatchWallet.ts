@@ -28,7 +28,6 @@ export function toggleWatch(address: string, status: boolean) {
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
 
 type Provider = FireflySocialMedia;
-
 export function SetQueryDataForWatchWallet() {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {

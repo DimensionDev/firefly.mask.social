@@ -1,3 +1,4 @@
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -11,12 +12,11 @@ function toggleBlock(address: string, status: boolean) {
         { queryKey: ['articles', 'discover', Source.Article] },
         (old) => {
             if (!old) return old;
-            const addr = address.toLowerCase();
             return produce(old, (draft) => {
                 for (const page of draft.pages) {
                     if (!page) continue;
                     for (const article of page.data) {
-                        if (article.author.id.toLowerCase() !== addr) continue;
+                        if (!isSameAddress(article.author.id.toLowerCase(), address)) continue;
                         article.author.isMuted = status;
                     }
                 }
@@ -25,7 +25,7 @@ function toggleBlock(address: string, status: boolean) {
     );
 }
 
-const METHODS_BE_OVERRIDDEN = ['blockAddress', 'unblockAddress'] as const;
+const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;
 
 type Provider = FireflySocialMedia;
 export function SetQueryDataForBlockWallet() {
@@ -36,7 +36,7 @@ export function SetQueryDataForBlockWallet() {
             Object.defineProperty(target.prototype, key, {
                 value: async (address: string) => {
                     const m = method as (address: string) => ReturnType<Provider[K]>;
-                    const status = key === 'blockAddress';
+                    const status = key === 'blockWallet';
                     try {
                         toggleBlock(address, status);
                         return await m.call(target.prototype, address);

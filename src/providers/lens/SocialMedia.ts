@@ -1222,14 +1222,6 @@ class LensSocialMedia implements Provider {
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
-
-    async watchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-
-    async unwatchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
 }
 
 export const LensSocialMediaProvider = new LensSocialMedia();

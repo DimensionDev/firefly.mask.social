@@ -715,13 +715,6 @@ class WarpcastSocialMedia implements Provider {
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
     }
-
-    async watchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    async unwatchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
 }
 
 export const WarpcastSocialMediaProvider = new WarpcastSocialMedia();

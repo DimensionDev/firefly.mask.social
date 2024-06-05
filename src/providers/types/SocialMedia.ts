@@ -771,15 +771,31 @@ export interface Provider {
     getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
     /**
+     * Block a wallet address.
+     * @param address
+     * @param networkType
+     * @returns
+     */
+    blockWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
+
+    /**
+     * Unblock a wallet address.
+     * @param address
+     * @param networkType
+     * @returns
+     */
+    unblockWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
+
+    /**
      * Watch activities related to the specified address.
      * @param address
      * @param networkType default to EVM
      */
-    watchWallet: (address: string, networkType?: NetworkType) => Promise<boolean>;
+    watchWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
     /**
      * Unwatch activities related to the specified address.
      * @param address
      * @param networkType default to EVM
      */
-    unwatchWallet: (address: string, networkType?: NetworkType) => Promise<boolean>;
+    unwatchWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
 }

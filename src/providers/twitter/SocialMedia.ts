@@ -457,13 +457,6 @@ class TwitterSocialMedia implements Provider {
         if (!response.success) throw new Error(t`Failed to fetch bookmarks.`);
         return formatTweetsPage(response.data, indicator);
     }
-
-    async watchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    async unwatchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
 }
 
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();

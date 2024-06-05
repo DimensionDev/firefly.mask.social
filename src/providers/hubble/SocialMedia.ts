@@ -550,12 +550,6 @@ class HubbleSocialMedia implements Provider {
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
-    async watchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    async unwatchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
 }
 
 export const HubbleSocialMediaProvider = new HubbleSocialMedia();

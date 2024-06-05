@@ -321,12 +321,6 @@ class FarcasterSocialMedia implements Provider {
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getBookmarks(indicator);
     }
-    async watchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    async unwatchWallet(address: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
 }
 
 export const FarcasterSocialMediaProvider = new FarcasterSocialMedia();
