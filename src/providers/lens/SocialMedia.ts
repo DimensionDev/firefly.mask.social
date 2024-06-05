@@ -925,7 +925,7 @@ class LensSocialMedia implements Provider {
             specVersion: '1.0.0',
             state,
             url: frame.url,
-        }
+        };
 
         const result = await lensSessionHolder.sdk.frames.signFrameAction({
             ...plainData,
@@ -934,7 +934,7 @@ class LensSocialMedia implements Provider {
         if (result.isFailure()) {
             // CredentialsExpiredError or NotAuthenticatedError
             throw result.error;
-        };
+        }
 
         const deadline = new Date();
         // 30 minutes
