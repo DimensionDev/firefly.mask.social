@@ -1,19 +1,15 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import type { Metrics } from '@/app/api/firefly/decrypt-metrics/route.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { SessionFactory } from '@/providers/base/SessionFactory.js';
 
 /**
  * Download encrypted metrics from Firefly.
