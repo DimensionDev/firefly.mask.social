@@ -251,7 +251,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         ),
                     ),
                 ] as SocialSource[];
-                const hasError = !!errorsSource.length
+                const hasError = !!errorsSource.length;
 
                 const sources = hasError ? errorsSource : availableSources;
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
