@@ -29,6 +29,34 @@ async function getNextFrame(
     source: SocialSource,
     input?: string,
 ) {
+    const createPacket = async () => {
+        switch (source) {
+            case Source.Lens:
+                return await LensSocialMediaProvider.generateFrameSignaturePacket(
+                    postId,
+                    frame,
+                    button.index,
+                    input,
+                    // for initial frame should not provide state
+                    latestFrame && frame.state ? frame.state : undefined,
+                );
+            case Source.Farcaster:
+                return await HubbleSocialMediaProvider.generateFrameSignaturePacket(
+                    postId,
+                    frame,
+                    button.index,
+                    input,
+                    // for initial frame should not provide state
+                    latestFrame && frame.state ? frame.state : undefined,
+                );
+            case Source.Twitter:
+                return null;
+            default:
+                safeUnreachable(source);
+                return null;
+        }
+    };
+
     try {
         const confirm = () =>
             ConfirmModalRef.openAndWaitForClose({
@@ -44,43 +72,17 @@ async function getNextFrame(
             });
 
         const post = async () => {
+            const packet = createPacket();
+            if (!packet) {
+                enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
+                return;
+            }
+
             const url = urlcat('/api/frame', {
                 url: frame.url,
                 action: button.action,
                 'post-url': button.target || frame.postUrl || frame.url,
             });
-            let packet = null;
-            switch (source) {
-                case Source.Lens:
-                    packet = await LensSocialMediaProvider.generateFrameSignaturePacket(
-                        postId,
-                        frame,
-                        button.index,
-                        input,
-                        // for initial frame should not provide state
-                        latestFrame && frame.state ? frame.state : undefined,
-                    );
-                    break;
-                case Source.Farcaster:
-                    packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
-                        postId,
-                        frame,
-                        button.index,
-                        input,
-                        // for initial frame should not provide state
-                        latestFrame && frame.state ? frame.state : undefined,
-                    );
-                    break;
-                case Source.Twitter:
-                    break;
-                default:
-                    safeUnreachable(source);
-            }
-
-            if (!packet) {
-                enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
-                return;
-            }
 
             return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
                 method: 'POST',
