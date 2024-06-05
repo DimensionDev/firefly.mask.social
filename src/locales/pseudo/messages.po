@@ -19,6 +19,9 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr ""
 
+msgid "Onchain Activities"
+msgstr ""
+
 msgid "Muted"
 msgstr ""
 
@@ -352,6 +355,12 @@ msgstr ""
 msgid "Copy Link"
 msgstr ""
 
+msgid "<0>Poap</0> received"
+msgstr ""
+
+msgid "<0>Sold</0> an NFT"
+msgstr ""
+
 msgid "Follow System"
 msgstr ""
 
@@ -359,6 +368,9 @@ msgid "Failed to mirror."
 msgstr ""
 
 msgid "Remove from Bookmarks"
+msgstr ""
+
+msgid "<0>Bought</0> an NFT"
 msgstr ""
 
 msgid "The file not found"
@@ -598,10 +610,16 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
+msgid "<0>Acquired</0> an NFT"
+msgstr ""
+
 msgid "Retweeted"
 msgstr ""
 
 msgid "Post your reply"
+msgstr ""
+
+msgid "<0>Sold</0> an NFT worth {0}"
 msgstr ""
 
 msgid "liked"
@@ -683,6 +701,9 @@ msgid "Like"
 msgstr ""
 
 msgid "Please input the frame url to be revalidated."
+msgstr ""
+
+msgid "<0>Bought</0> an NFT worth {0}"
 msgstr ""
 
 msgid "General"
@@ -877,9 +898,6 @@ msgstr ""
 msgid "Casts + Replies"
 msgstr ""
 
-msgid "<0>Minted</0> an NFT"
-msgstr ""
-
 msgid "Image"
 msgstr ""
 
@@ -938,6 +956,9 @@ msgid "Failed to create firefly session."
 msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
+msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
 msgid "Properties"
@@ -1039,6 +1060,9 @@ msgstr ""
 msgid "Collection"
 msgstr ""
 
+msgid "<0>Minted</0> an NFT worth {0}"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1087,6 +1111,9 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
+msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
+msgstr ""
+
 msgid "View Engagements"
 msgstr ""
 
@@ -1127,6 +1154,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "<0>Burned</0> an NFT"
 msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."

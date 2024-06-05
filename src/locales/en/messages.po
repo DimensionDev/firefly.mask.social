@@ -19,6 +19,9 @@ msgstr "Login required to post on {sourceName}."
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
+msgid "Onchain Activities"
+msgstr "Onchain Activities"
+
 msgid "Muted"
 msgstr "Muted"
 
@@ -352,6 +355,12 @@ msgstr "Frame Validator"
 msgid "Copy Link"
 msgstr "Copy Link"
 
+msgid "<0>Poap</0> received"
+msgstr "<0>Poap</0> received"
+
+msgid "<0>Sold</0> an NFT"
+msgstr "<0>Sold</0> an NFT"
+
 msgid "Follow System"
 msgstr "Follow System"
 
@@ -360,6 +369,9 @@ msgstr "Failed to mirror."
 
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
+
+msgid "<0>Bought</0> an NFT"
+msgstr "<0>Bought</0> an NFT"
 
 msgid "The file not found"
 msgstr "The file not found"
@@ -598,11 +610,17 @@ msgstr "Confirm you want to {0} @{1}?"
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
+msgid "<0>Acquired</0> an NFT"
+msgstr "<0>Acquired</0> an NFT"
+
 msgid "Retweeted"
 msgstr "Retweeted"
 
 msgid "Post your reply"
 msgstr "Post your reply"
+
+msgid "<0>Sold</0> an NFT worth {0}"
+msgstr "<0>Sold</0> an NFT worth {0}"
 
 msgid "liked"
 msgstr "liked"
@@ -684,6 +702,9 @@ msgstr "Like"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
+
+msgid "<0>Bought</0> an NFT worth {0}"
+msgstr "<0>Bought</0> an NFT worth {0}"
 
 msgid "General"
 msgstr "General"
@@ -877,9 +898,6 @@ msgstr "quote"
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
-msgid "<0>Minted</0> an NFT"
-msgstr "<0>Minted</0> an NFT"
-
 msgid "Image"
 msgstr "Image"
 
@@ -939,6 +957,9 @@ msgstr "Failed to create firefly session."
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+
+msgid "<0>Minted</0> an NFT for free"
+msgstr "<0>Minted</0> an NFT for free"
 
 msgid "Properties"
 msgstr "Properties"
@@ -1039,6 +1060,9 @@ msgstr "We're updating our connection with X. Posting on X will be limited for n
 msgid "Collection"
 msgstr "Collection"
 
+msgid "<0>Minted</0> an NFT worth {0}"
+msgstr "<0>Minted</0> an NFT worth {0}"
+
 msgid "Your name"
 msgstr "Your name"
 
@@ -1087,6 +1111,9 @@ msgstr "Unmute @{0}"
 msgid "Mask Network"
 msgstr "Mask Network"
 
+msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
+msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
+
 msgid "View Engagements"
 msgstr "View Engagements"
 
@@ -1128,6 +1155,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "<0>Burned</0> an NFT"
+msgstr "<0>Burned</0> an NFT"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "Failed to fetch the latest state after several attempts. Please try again later."
