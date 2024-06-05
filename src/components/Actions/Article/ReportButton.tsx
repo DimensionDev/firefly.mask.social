@@ -44,6 +44,7 @@ export const ArticleReportButton = forwardRef<HTMLButtonElement, Props>(function
                     await mutation.mutateAsync();
                 } catch (error) {
                     enqueueErrorMessage(t`Failed to report @${article.title}`, { error });
+                    throw error;
                 }
             }}
             ref={ref}

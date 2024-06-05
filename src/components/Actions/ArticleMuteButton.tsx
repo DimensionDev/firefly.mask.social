@@ -30,8 +30,8 @@ export const ArticleMuteButton = forwardRef<HTMLButtonElement, Props>(function A
         <MenuButton
             {...rest}
             onClick={async () => {
-                const identity = article.author.handle || article.author.id;
                 if (!muted) {
+                    const identity = article.author.handle || article.author.id;
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
                         title: t`Mute ${identity}`,
                         variant: 'normal',

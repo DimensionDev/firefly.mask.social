@@ -1,5 +1,6 @@
 import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { WatchType } from '@/providers/types/SocialMedia.js';
 
 export interface Cast {
     fid: string;
@@ -693,12 +694,6 @@ export interface Collection {
     nft_ids: string[];
     collection_details: CollectionDetails;
     nftPreviews?: NftPreview[];
-}
-
-export enum WatchType {
-    Wallet = 'wallet',
-    MaskX = 'maskx',
-    Twitter = 'twitter',
 }
 
 export type TwitterFollowStatusResponse = Response<{

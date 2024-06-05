@@ -28,6 +28,12 @@ export enum NotificationType {
     Act = 'act',
 }
 
+export enum WatchType {
+    Wallet = 'wallet',
+    MaskX = 'maskx',
+    Twitter = 'twitter',
+}
+
 export enum ProfileStatus {
     Active = 'active',
     Inactive = 'inactive',
@@ -769,4 +775,15 @@ export interface Provider {
      * @returns
      */
     getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * @param {WatchType} type
+     * @param {string} id - id for maskx, userId for twitter, address for wallet
+     */
+    watch: (type: WatchType, id: string) => Promise<boolean>;
+    /**
+     * @param {WatchType} type
+     * @param {string} id - id for maskx, userId for twitter, address for wallet
+     */
+    unwatch: (type: WatchType, id: string) => Promise<boolean>;
 }

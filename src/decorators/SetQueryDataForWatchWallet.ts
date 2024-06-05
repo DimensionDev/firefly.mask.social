@@ -4,7 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
-import { WatchType } from '@/providers/types/Firefly.js';
+import { WatchType } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 export function toggleWatch(address: string, status: boolean) {

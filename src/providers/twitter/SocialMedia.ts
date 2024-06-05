@@ -24,6 +24,7 @@ import {
     ProfileStatus,
     type Provider,
     SessionType,
+    WatchType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -456,6 +457,12 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(t`Failed to fetch bookmarks.`);
         return formatTweetsPage(response.data, indicator);
+    }
+    async watch(type: WatchType, id: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unwatch(type: WatchType, id: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
     }
 }
 

@@ -7,7 +7,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
-import { WatchType } from '@/providers/types/Firefly.js';
+import { WatchType } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     article: Article;

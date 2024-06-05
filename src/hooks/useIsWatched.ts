@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { WatchType } from '@/providers/types/Firefly.js';
+import type { WatchType } from '@/providers/types/SocialMedia.js';
 
 export function useIsWatched(type: WatchType, id: string) {
     return useQuery({

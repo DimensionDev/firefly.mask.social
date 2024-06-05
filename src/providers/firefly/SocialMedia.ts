@@ -12,6 +12,7 @@ import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -60,7 +61,6 @@ import {
     type UsersResponse,
     type WalletProfileResponse,
     type WalletsFollowStatusResponse,
-    WatchType,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -70,8 +70,8 @@ import {
     type Profile,
     type Provider,
     SessionType,
+    WatchType,
 } from '@/providers/types/SocialMedia.js';
-import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 
 @SetQueryDataForWatchWallet()
 @SetQueryDataForBlockWallet()
@@ -951,29 +951,25 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    /**
-     * @param {WatchType} type
-     * @param {string} id - id for masx, userId for twtter, address for wallet
-     */
     async watch(type: WatchType, id: string) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
             toObjectId: id,
             type,
         });
-        const response = await fireflySessionHolder.fetch<Response<void>>(url, { method: 'put' });
-        return response;
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'put' });
+        return true;
     }
     /**
      * @param {WatchType} type
-     * @param {string} id - id for masx, userId for twtter, address for wallet
+     * @param {string} id - id for maskx, userId for twitter, address for wallet
      */
     async unwatch(type: WatchType, id: string) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
             toObjectId: id,
             type,
         });
-        const response = await fireflySessionHolder.fetch<Response<void>>(url, { method: 'delete' });
-        return response;
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'delete' });
+        return true;
     }
 
     async getIsWatch(type: WatchType, id: string): Promise<boolean> {
@@ -998,16 +994,6 @@ export class FireflySocialMedia implements Provider {
             return !!is_followed;
         }
         return false;
-    }
-
-    async reportSpamNFT(collectionId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
-        await fireflySessionHolder.fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                collection_id: collectionId,
-            }),
-        });
     }
 }
 

@@ -16,6 +16,7 @@ import {
     type Profile,
     type Provider,
     SessionType,
+    WatchType,
 } from '@/providers/types/SocialMedia.js';
 
 function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
@@ -279,6 +280,12 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async watch(type: WatchType, id: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unwatch(type: WatchType, id: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 }

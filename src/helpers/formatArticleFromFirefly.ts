@@ -2,7 +2,8 @@ import { isSameAddress } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
 
 import type { Article } from '@/providers/types/Article.js';
-import { type Article as FireflyArticle, WatchType } from '@/providers/types/Firefly.js';
+import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
+import { WatchType } from '@/providers/types/SocialMedia.js';
 
 export function formatArticleFromFirefly(article: FireflyArticle): Article {
     const authorId = article.owner;

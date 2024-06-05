@@ -251,15 +251,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Mirror:
             case NotificationType.Act:
                 if (!notification.post) return;
-                if (getIsMuted(notification.post.author))
-                    return <CollapsedContent authorMuted disableIndent isQuote={false} />;
+                if (getIsMuted(notification.post.author)) return <CollapsedContent authorMuted isQuote={false} />;
                 return <Quote className="bg-bg" post={notification.post} />;
             case NotificationType.Comment:
             case NotificationType.Mention:
                 const post = notification.type === NotificationType.Comment ? notification.comment : notification.post;
                 if (!post) return;
                 const postLink = getPostUrl(post);
-                if (getIsMuted(post.author)) return <CollapsedContent authorMuted disableIndent isQuote={false} />;
+                if (getIsMuted(post.author)) return <CollapsedContent authorMuted isQuote={false} />;
                 return (
                     <Link className="mt-1" href={postLink}>
                         <Markup post={post} className="markup linkify line-clamp-5 break-words text-[15px]">
@@ -269,7 +268,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 );
             case NotificationType.Quote:
                 if (getIsMuted(notification.post.author)) {
-                    return <CollapsedContent authorMuted disableIndent isQuote={false} />;
+                    return <CollapsedContent authorMuted isQuote={false} />;
                 }
                 return (
                     <div className="mt-1">
