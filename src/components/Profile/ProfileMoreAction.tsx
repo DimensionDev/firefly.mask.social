@@ -14,7 +14,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useReportUser } from '@/hooks/useReportUser.js';
+import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -26,7 +26,7 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
-    const [, reportUser] = useReportUser(currentProfile);
+    const [, reportProfile] = useReportProfile(currentProfile);
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
 
     return (
@@ -75,7 +75,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                     {profile.source === Source.Lens ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <ReportProfileButton onConfirm={close} profile={profile} onReport={reportUser} />
+                                <ReportProfileButton onConfirm={close} profile={profile} onReport={reportProfile} />
                             )}
                         </Menu.Item>
                     ) : null}
