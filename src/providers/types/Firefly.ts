@@ -1,6 +1,5 @@
 import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
-import type { WatchType } from '@/providers/types/SocialMedia.js';
 
 export interface Cast {
     fid: string;
@@ -339,6 +338,12 @@ export enum RelationPlatform {
     reddit = 'reddit',
     keybase = 'keybase',
     github = 'github',
+}
+
+export enum WatchType {
+    Wallet = 'wallet',
+    MaskX = 'maskx',
+    Twitter = 'twitter',
 }
 
 export interface WalletProfile {

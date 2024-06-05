@@ -4,7 +4,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
-import { WatchType } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 export function toggleWatch(address: string, status: boolean) {
@@ -26,28 +25,26 @@ export function toggleWatch(address: string, status: boolean) {
     );
 }
 
-const METHODS_BE_OVERRIDDEN = ['watch', 'unwatch'] as const;
+const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
 
 type Provider = FireflySocialMedia;
+
 export function SetQueryDataForWatchWallet() {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];
 
             Object.defineProperty(target.prototype, key, {
-                value: async (watchType: WatchType, id: string) => {
-                    const m = method as (watchType: WatchType, id: string) => ReturnType<Provider[K]>;
-                    if (watchType !== WatchType.Wallet) {
-                        return m.call(target.prototype, watchType, id);
-                    }
-                    const status = key === 'watch';
+                value: async (address: string) => {
+                    const m = method as (address: string) => ReturnType<Provider[K]>;
+                    const status = key === 'watchWallet';
                     try {
-                        toggleWatch(id, status);
-                        return await m.call(target.prototype, watchType, id);
-                    } catch (err) {
+                        toggleWatch(address, status);
+                        return await m.call(target.prototype, address);
+                    } catch (error) {
                         // rolling back
-                        toggleWatch(id, !status);
-                        throw err;
+                        toggleWatch(address, !status);
+                        throw error;
                     }
                 },
             });

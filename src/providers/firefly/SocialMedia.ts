@@ -7,6 +7,7 @@ import {
 } from '@masknet/shared-base';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
+import { isValidAddress } from '@masknet/web3-shared-evm';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -55,12 +56,11 @@ import {
     type SearchChannelsResponse,
     type SearchProfileResponse,
     type ThreadResponse,
-    type TwitterFollowStatusResponse,
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
     type WalletProfileResponse,
-    type WalletsFollowStatusResponse,
+    WatchType,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -70,7 +70,6 @@ import {
     type Profile,
     type Provider,
     SessionType,
-    WatchType,
 } from '@/providers/types/SocialMedia.js';
 
 @SetQueryDataForWatchWallet()
@@ -951,49 +950,24 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async watch(type: WatchType, id: string) {
+    async watchWallet(address: string) {
+        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
-            toObjectId: id,
-            type,
+            type: WatchType.Wallet,
+            toObjectId: address,
         });
-        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'put' });
-        return true;
-    }
-    /**
-     * @param {WatchType} type
-     * @param {string} id - id for maskx, userId for twitter, address for wallet
-     */
-    async unwatch(type: WatchType, id: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
-            toObjectId: id,
-            type,
-        });
-        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'delete' });
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'PUT' });
         return true;
     }
 
-    async getIsWatch(type: WatchType, id: string): Promise<boolean> {
-        if (type === WatchType.MaskX) {
-            throw new TypeError(`${type} is not supported yet.`);
-        }
-        if (type === WatchType.Twitter) {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', { twitterId: id });
-            const res = await fireflySessionHolder.fetch<TwitterFollowStatusResponse>(url);
-            return !!res.data?.isFollowed;
-        } else if (type === WatchType.Wallet) {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow/wallet');
-            const res = await fireflySessionHolder.fetch<WalletsFollowStatusResponse>(url, {
-                method: 'post',
-                body: JSON.stringify({
-                    addresses: [id],
-                }),
-            });
-            if (!res.data) return false;
-            const address = id.toLowerCase();
-            const is_followed = res.data.find((x) => address === x.address.toLowerCase())?.is_followed;
-            return !!is_followed;
-        }
-        return false;
+    async unwatchWallet(address: string) {
+        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
+            type: WatchType.Wallet,
+            toObjectId: address,
+        });
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'DELETE' });
+        return true;
     }
 }
 

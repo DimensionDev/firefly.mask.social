@@ -62,7 +62,6 @@ import {
     type Provider,
     ReactionType,
     SessionType,
-    WatchType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -1223,10 +1222,12 @@ class LensSocialMedia implements Provider {
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
-    async watch(type: WatchType, id: string): Promise<boolean> {
+
+    async watchWallet(address: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async unwatch(type: WatchType, id: string): Promise<boolean> {
+
+    async unwatchWallet(address: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 }
