@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { BaseLoader } from '@/libs/base/Loader.js';
-import type { Frame, LinkDigested } from '@/types/frame.js';
+import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 class Loader extends BaseLoader<Frame> {
@@ -12,7 +12,7 @@ class Loader extends BaseLoader<Frame> {
             requestIdleCallback(async () => {
                 try {
                     const timeout = AbortSignal.timeout(30_000);
-                    const response = await fetchCachedJSON<ResponseJSON<LinkDigested>>(
+                    const response = await fetchCachedJSON<ResponseJSON<LinkDigestedResponse>>(
                         urlcat('/api/frame', { link: url }),
                         {
                             signal: signal ? anySignal(timeout, signal) : timeout,

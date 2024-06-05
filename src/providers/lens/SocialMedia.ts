@@ -4,7 +4,6 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
-    type FrameLensManagerEip712Request,
     HiddenCommentsType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
@@ -27,7 +26,6 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { compact, first, flatMap, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
@@ -65,7 +63,6 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { Frame, Index } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
@@ -888,70 +885,6 @@ class LensSocialMedia implements Provider {
         });
 
         return result?.operations.isFollowingMe.value ?? false;
-    }
-
-    async generateFrameSignaturePacket(
-        postId: string,
-        frame: Frame,
-        index: Index,
-        input = '',
-        // the state is not read from frame, for initial frame it should not provide state
-        state = '',
-    ): Promise<{
-        clientProtocol: string;
-        untrustedData: FrameLensManagerEip712Request & {
-            deadline: number;
-            identityToken: string;
-        };
-        trustedData: {
-            messageBytes: string;
-        };
-    }> {
-        const identityTokenResult = await lensSessionHolder.sdk.authentication.getIdentityToken();
-        if (identityTokenResult.isFailure()) {
-            throw identityTokenResult.error;
-        }
-
-        const profileId = await lensSessionHolder.sdk.authentication.getProfileId();
-        if (!profileId) throw new Error('No profile found');
-
-        const plainData: FrameLensManagerEip712Request = {
-            actionResponse: ZERO_ADDRESS,
-            buttonIndex: index,
-            inputText: input,
-            profileId,
-            pubId: postId,
-            // The EIP-721 spec version, must be 1.0.0
-            specVersion: '1.0.0',
-            state,
-            url: frame.url,
-        };
-
-        const result = await lensSessionHolder.sdk.frames.signFrameAction({
-            ...plainData,
-        });
-
-        if (result.isFailure()) {
-            // CredentialsExpiredError or NotAuthenticatedError
-            throw result.error;
-        }
-
-        const deadline = new Date();
-        // 30 minutes
-        deadline.setMinutes(deadline.getMinutes() + 30);
-        const packet = {
-            clientProtocol: 'lens@1.0.0',
-            untrustedData: {
-                ...plainData,
-                deadline: deadline.getTime(),
-                identityToken: identityTokenResult.unwrap(),
-            },
-            trustedData: {
-                messageBytes: result.value.signature,
-            },
-        };
-
-        return packet;
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {

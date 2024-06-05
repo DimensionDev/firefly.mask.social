@@ -17,14 +17,17 @@ import {
     aurora,
     avalanche,
     base,
+    baseSepolia,
     bsc,
     confluxESpace,
+    degen,
     fantom,
     gnosis,
     mainnet,
     metis,
     optimism,
     polygon,
+    zora,
 } from 'wagmi/chains';
 
 import { env } from '@/constants/env.js';
@@ -58,9 +61,11 @@ const XLayer = defineChain({
 export const chains = [
     mainnet,
     base,
+    baseSepolia,
+    bsc,
+    degen,
     polygon,
     optimism,
-    bsc,
     arbitrum,
     gnosis,
     avalanche,
@@ -69,6 +74,7 @@ export const chains = [
     fantom,
     XLayer,
     metis,
+    zora,
 ] as const satisfies Chain[];
 
 export const connectors = connectorsForWallets(
