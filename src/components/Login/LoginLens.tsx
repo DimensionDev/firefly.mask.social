@@ -49,44 +49,43 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
         async (signless: boolean) => {
             if (!profiles.length || !currentProfile) return;
 
-            if (!controllerRef.current || controllerRef.current?.signal.aborted) {
-                controllerRef.current = new AbortController();
+            controllerRef.current?.abort(new AbortError());
+            controllerRef.current = new AbortController();
 
-                try {
-                    const session = await createSessionForProfileIdFirefly(
-                        currentProfile.profileId,
-                        controllerRef.current?.signal,
-                    );
+            try {
+                const session = await createSessionForProfileIdFirefly(
+                    currentProfile.profileId,
+                    controllerRef.current?.signal,
+                );
 
-                    if (!currentProfile.signless && signless) {
-                        await updateSignless(true);
-                    }
-
-                    // restore profiles for lens
-                    restoreProfile(currentProfile, profiles, session);
-                    enqueueSuccessMessage(t`Your Lens account is now connected.`);
-
-                    // restore profiles exclude lens
-                    await FireflySessionConfirmModalRef.openAndWaitForClose({
-                        source: Source.Lens,
-                        sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
-                        onDetected(profiles) {
-                            if (!profiles.length)
-                                enqueueInfoMessage(t`No device accounts detected.`, {
-                                    environment: NODE_ENV.Development,
-                                });
-                            LoginModalRef.close();
-                        },
-                    });
-                } catch (error) {
-                    // skip if the error is abort error
-                    if (isAbortedError(error)) return;
-
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
-                        error,
-                    });
-                    throw error;
+                if (!currentProfile.signless && signless) {
+                    await updateSignless(true);
                 }
+
+                // restore profiles for lens
+                restoreProfile(currentProfile, profiles, session);
+                enqueueSuccessMessage(t`Your Lens account is now connected.`);
+
+                // restore profiles exclude lens
+                await FireflySessionConfirmModalRef.openAndWaitForClose({
+                    source: Source.Lens,
+                    sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
+                    onDetected(profiles) {
+                        if (!profiles.length)
+                            enqueueInfoMessage(t`No device accounts detected.`, {
+                                environment: NODE_ENV.Development,
+                            });
+                        LoginModalRef.close();
+                    },
+                });
+            } catch (error) {
+                // skip if the error is abort error
+                if (isAbortedError(error)) return;
+
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                    error,
+                });
+                throw error;
             }
         },
         [profiles, currentProfile],
