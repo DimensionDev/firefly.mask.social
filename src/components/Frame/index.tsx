@@ -32,7 +32,7 @@ async function getNextFrame(
     const createPacket = async () => {
         switch (source) {
             case Source.Lens:
-                return await LensSocialMediaProvider.generateFrameSignaturePacket(
+                return LensSocialMediaProvider.generateFrameSignaturePacket(
                     postId,
                     frame,
                     button.index,
@@ -41,7 +41,7 @@ async function getNextFrame(
                     latestFrame && frame.state ? frame.state : undefined,
                 );
             case Source.Farcaster:
-                return await HubbleSocialMediaProvider.generateFrameSignaturePacket(
+                return HubbleSocialMediaProvider.generateFrameSignaturePacket(
                     postId,
                     frame,
                     button.index,
@@ -71,8 +71,8 @@ async function getNextFrame(
                 ),
             });
 
-        const post = async () => {
-            const packet = createPacket();
+        async function post<T>() {
+            const packet = await createPacket();
             if (!packet) {
                 enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
                 return;
@@ -84,19 +84,19 @@ async function getNextFrame(
                 'post-url': button.target || frame.postUrl || frame.url,
             });
 
-            return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
+            return fetchJSON<ResponseJSON<T>>(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(packet),
             });
-        };
+        }
 
         switch (button.action) {
             case ActionType.Post:
-                const postResponse = await post();
-                const nextFrame = postResponse?.success ? (postResponse.data as LinkDigested).frame : null;
+                const postResponse = await post<LinkDigested>();
+                const nextFrame = postResponse?.success ? postResponse.data.frame : null;
 
                 if (!nextFrame) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
@@ -114,10 +114,8 @@ async function getNextFrame(
 
                 return nextFrame;
             case ActionType.PostRedirect:
-                const postRedirectResponse = await post();
-                const redirectUrl = postRedirectResponse?.success
-                    ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
-                    : null;
+                const postRedirectResponse = await post<{ redirectUrl: string }>();
+                const redirectUrl = postRedirectResponse?.success ? postRedirectResponse.data.redirectUrl : null;
                 if (!redirectUrl) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
                     return;
