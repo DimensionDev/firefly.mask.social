@@ -17,7 +17,7 @@ import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
-import type { Poll } from '@/providers/types/Poll.js';
+import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
@@ -54,7 +54,7 @@ export interface CompositePost {
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
-    poll: Poll | null;
+    poll: CompositePoll | null;
     rpPayload: RedPacketPayload | null;
     // parsed frames from urls in chars
     frames: Frame[];
@@ -113,7 +113,7 @@ interface ComposeState extends ComposeBaseState {
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
     createPoll: (cursor?: Cursor) => void;
-    updatePoll: (poll: Poll | null, cursor?: Cursor) => void;
+    updatePoll: (poll: CompositePoll | null, cursor?: Cursor) => void;
 
     // reset the editor
     apply: (state: ComposeBaseState) => void;

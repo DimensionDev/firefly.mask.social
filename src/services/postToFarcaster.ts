@@ -2,8 +2,9 @@ import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { FRAME_SERVER_URL, MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
+import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
+import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
@@ -50,7 +51,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...images.map((media) => ({ url: media.s3!, mimeType: media.file.type })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
-                    ...(polls ?? []).map((poll) => ({ url: `${FRAME_SERVER_URL}/polls/${poll.id}` })),
+                    ...(polls ?? []).map((poll) => ({ url: getPollFrameUrl(poll.id) })),
                 ],
                 (x) => x.url.toLowerCase(),
             ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),

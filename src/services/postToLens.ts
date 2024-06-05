@@ -1,4 +1,4 @@
-import { image, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
+import { image, MediaImageMimeType, MediaVideoMimeType, type MetadataAttribute, MetadataAttributeType, textOnly, type TextOnlyOptions , video } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
@@ -9,7 +9,10 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
+import type { Poll } from '@/providers/types/Poll.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
@@ -85,7 +88,16 @@ function createPayloadAttachments(images: MediaObject[], video: MediaObject | nu
         : undefined;
 }
 
-function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments) {
+function createPayloadAttributes(polls: Poll[] | undefined): MetadataAttribute[] | undefined {
+    if (!polls?.length) return;
+    return polls.map((poll) => ({
+        key: LensMetadataAttributeKey.Poll,
+        type: MetadataAttributeType.STRING,
+        value: poll.id,
+    }));
+}
+
+function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments, attributes?: MetadataAttribute[]) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),
@@ -127,10 +139,16 @@ function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachment
         }
     }
 
-    return textOnly({
+    const textOnlyOptions: TextOnlyOptions = {
         ...baseMetadata,
         ...localBaseMetadata,
-    });
+    };
+
+    if (attributes) {
+        textOnlyOptions.attributes = attributes;
+    }
+
+    return textOnly(textOnlyOptions);
 }
 
 export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
@@ -140,6 +158,7 @@ async function publishPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    polls?: Poll[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -155,6 +174,7 @@ async function publishPostForLens(
             },
         },
         createPayloadAttachments(images, video),
+        createPayloadAttributes(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -239,7 +259,7 @@ async function quotePostForLens(
 }
 
 export async function postToLens(type: ComposeType, compositePost: CompositePost) {
-    const { chars, images, postId, parentPost, video } = compositePost;
+    const { chars, images, postId, parentPost, video, poll } = compositePost;
 
     const lensPostId = postId.Lens;
     const lensParentPost = parentPost.Lens;
@@ -275,9 +295,14 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 }),
             );
         },
-        compose(images, videos) {
+        uploadPolls: async () => {
+            if (!poll) return [];
+            const pollStub = await LensPollProvider.createPoll(poll, readChars(chars));
+            return [pollStub];
+        },
+        compose(images, videos, polls) {
             const video = first(videos) ?? null;
-            return publishPostForLens(currentProfile.profileId, readChars(chars), images, video);
+            return publishPostForLens(currentProfile.profileId, readChars(chars), images, video, polls);
         },
         reply(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);

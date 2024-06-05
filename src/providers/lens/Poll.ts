@@ -1,8 +1,18 @@
-import type { Poll, PollOption, Provider } from '@/providers/types/Poll.js';
+import { Source } from '@/constants/enum.js';
+import type { CompositePoll, Poll, PollOption, Provider } from '@/providers/types/Poll.js';
+import { commitPoll } from '@/services/commitPoll.js';
 
 class LensPoll implements Provider {
-    createPoll(poll: Poll): Promise<Poll> {
-        throw new Error('Method not implemented.');
+    async createPoll(poll: CompositePoll, text?: string): Promise<Poll> {
+        return await commitPoll(
+            {
+                id: '',
+                options: poll.options,
+                validInDays: poll.validInDays,
+                source: Source.Lens,
+            },
+            text ?? '',
+        );
     }
 
     vote(pollId: string, option: PollOption): Promise<void> {

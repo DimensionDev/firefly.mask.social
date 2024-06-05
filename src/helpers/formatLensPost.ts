@@ -30,6 +30,8 @@ import { Source } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
+import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
@@ -83,6 +85,15 @@ function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null)
     );
 }
 
+function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
+    return metadata.attributes?.reduce<string[]>((acc, attr) => {
+        if (attr.key === LensMetadataAttributeKey.Poll) {
+            acc.push(getPollFrameUrl(attr.value))
+        }
+        return acc
+    }, []) ?? []
+}
+
 function formatContent(metadata: PublicationMetadataFragment) {
     const type = metadata.__typename;
     switch (type) {
@@ -95,6 +106,7 @@ function formatContent(metadata: PublicationMetadataFragment) {
         case 'LinkMetadataV3':
             return {
                 content: metadata.content,
+                oembedUrls: getOembedUrls(metadata),
             };
         case 'ImageMetadataV3': {
             const asset = metadata.asset.image.optimized?.uri
@@ -326,7 +338,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
     const content = formatContent(result.metadata);
 
-    const oembedUrl = last(content?.content.match(URL_REGEX) || []);
+    const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || []);
 
     const canAct =
         !!result.openActionModules?.length &&

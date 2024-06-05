@@ -92,6 +92,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 validInDays: poll.duration_minutes ? Math.floor(poll.duration_minutes / 60 / 24) : 0,
                 votingStatus: poll.voting_status,
                 endDatetime: poll.end_datetime,
+                source: Source.Twitter,
             };
         }
     }
