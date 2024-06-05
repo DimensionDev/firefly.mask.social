@@ -1,4 +1,4 @@
-import { Source } from "@/constants/enum.js";
+import { Source } from '@/constants/enum.js';
 import type { CompositePoll, Poll, PollOption, Provider } from '@/providers/types/Poll.js';
 
 class TwitterPoll implements Provider {
@@ -7,7 +7,7 @@ class TwitterPoll implements Provider {
             id: '',
             options: poll.options.map((option) => ({ id: option.id, label: option.label })),
             validInDays: poll.validInDays,
-            source: Source.Twitter
+            source: Source.Twitter,
         };
     }
 

@@ -86,12 +86,14 @@ function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null)
 }
 
 function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
-    return metadata.attributes?.reduce<string[]>((acc, attr) => {
-        if (attr.key === LensMetadataAttributeKey.Poll) {
-            acc.push(getPollFrameUrl(attr.value))
-        }
-        return acc
-    }, []) ?? []
+    return (
+        metadata.attributes?.reduce<string[]>((acc, attr) => {
+            if (attr.key === LensMetadataAttributeKey.Poll) {
+                acc.push(getPollFrameUrl(attr.value));
+            }
+            return acc;
+        }, []) ?? []
+    );
 }
 
 function formatContent(metadata: PublicationMetadataFragment) {

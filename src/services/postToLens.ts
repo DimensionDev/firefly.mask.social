@@ -1,4 +1,13 @@
-import { image, MediaImageMimeType, MediaVideoMimeType, type MetadataAttribute, MetadataAttributeType, textOnly, type TextOnlyOptions , video } from '@lens-protocol/metadata';
+import {
+    image,
+    MediaImageMimeType,
+    MediaVideoMimeType,
+    type MetadataAttribute,
+    MetadataAttributeType,
+    textOnly,
+    type TextOnlyOptions,
+    video,
+} from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';

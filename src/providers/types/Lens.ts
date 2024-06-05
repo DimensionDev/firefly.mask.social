@@ -1,3 +1,3 @@
 export enum LensMetadataAttributeKey {
-    Poll = 'pollId'
+    Poll = 'pollId',
 }
