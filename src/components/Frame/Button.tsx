@@ -1,6 +1,6 @@
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { useDetectOverflow } from '@masknet/theme';
 
+import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ActionType, type FrameButton } from '@/types/frame.js';
@@ -32,7 +32,7 @@ export function Button({ button, disabled = false, onClick }: Props) {
                 {button.text}
             </span>
             {[ActionType.PostRedirect, ActionType.Link].includes(button.action) ? (
-                <ArrowTopRightOnSquareIcon className="ml-1 flex-shrink-0" width={20} height={20} />
+                <LinkIcon className="ml-1 flex-shrink-0 text-second" width={18} height={18} />
             ) : null}
         </ClickableButton>
     );
