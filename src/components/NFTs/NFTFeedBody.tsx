@@ -41,19 +41,19 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
     const collectionName = data?.collection?.name;
 
     return (
-        <div className="mt-auto flex h-[120px] w-full space-x-2">
+        <div className="mt-auto flex w-full flex-col rounded-xl bg-lightBg p-3 sm:h-[120px] sm:flex-row sm:space-x-2 sm:rounded-none sm:bg-transparent sm:p-0">
             {isLoading ? (
-                <div className="aspect-square h-full animate-pulse rounded-xl bg-main/40" />
+                <div className="mb-2 aspect-square h-full w-full animate-pulse rounded-xl bg-main/40 sm:mb-0 sm:w-auto" />
             ) : (
                 <Image
                     src={data?.metadata?.imageURL || ''}
                     width={120}
                     height={120}
-                    className="aspect-square h-full rounded-xl object-cover"
+                    className="mb-2 aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"
                     alt={address}
                 />
             )}
-            <div className="w-[calc(100%-120px-8px)] space-y-2 rounded-xl bg-lightBg p-3 text-sm leading-[18px]">
+            <div className="h-[96px] w-full space-y-2 rounded-xl text-sm leading-[18px] sm:h-auto sm:w-[calc(100%-120px-8px)] sm:bg-lightBg sm:p-3">
                 <NFTFeedFieldGroup
                     field={t`Name`}
                     value={
@@ -102,7 +102,7 @@ export interface NFTFeedBodyProps {
 export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NFTFeedBodyProps) {
     return (
         <div className="-mt-2 w-full space-y-1.5 pl-[52px]">
-            <div className="relative flex h-[150px] w-full overflow-hidden">
+            <div className="relative flex w-full overflow-hidden sm:h-[150px]">
                 <div
                     className="absolute left-0 grid h-full duration-300"
                     style={{
@@ -117,6 +117,12 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             <NFTItem address={token.contractAddress} tokenId={token.id} chainId={chainId} />
                         </div>
                     ))}
+                </div>
+                {/* used for layout calculation height */}
+                <div className="h-full w-full space-y-1.5 sm:hidden">
+                    <div className="h-6" />
+                    <div className="aspect-square w-full" />
+                    <div className="h-[96px]" />
                 </div>
             </div>
             {tokenList.length > 1 ? (
