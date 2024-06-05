@@ -805,18 +805,14 @@ class FireflySocialMedia implements Provider {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) {
                 throw new Error('No farcaster session found');
-            };
+            }
             // FIXME: this interface is not implemented in the backend now, just document.
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/blocks', {
                 account_id: session.profileId,
             });
             const response = await fireflySessionHolder.fetch<ChannelsResponse>(url);
             const data = resolveFireflyResponseData(response);
-            return createPageable(
-                data.map(formatChannelFromFirefly),
-                createIndicator(indicator),
-                undefined,
-            );
+            return createPageable(data.map(formatChannelFromFirefly), createIndicator(indicator), undefined);
         });
     }
 
