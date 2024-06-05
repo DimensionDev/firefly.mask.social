@@ -1050,7 +1050,7 @@ class LensSocialMedia implements Provider {
         return posts.items.map(formatLensPost);
     }
 
-    async reportUser(profileId: string) {
+    async reportProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.report({
             for: profileId,
             // TODO more specific and accurate reason.
@@ -1063,7 +1063,7 @@ class LensSocialMedia implements Provider {
         });
         const reported = result.isSuccess().valueOf();
         if (!reported) return false;
-        const blocked = await this.blockUser(profileId);
+        const blocked = await this.blockProfile(profileId);
 
         return blocked;
     }
@@ -1080,13 +1080,13 @@ class LensSocialMedia implements Provider {
         });
         return result.isSuccess().valueOf();
     }
-    async blockUser(profileId: string) {
+    async blockProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
         return result.isSuccess().valueOf();
     }
-    async unblockUser(profileId: string) {
+    async unblockProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.unblock({
             profiles: [profileId],
         });

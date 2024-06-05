@@ -734,7 +734,7 @@ export class FireflySocialMedia implements Provider {
             return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
         });
     }
-    async reportUser(profileId: string): Promise<boolean> {
+    async reportProfile(profileId: string): Promise<boolean> {
         // TODO Mocking result for now.
         return true;
     }
@@ -778,10 +778,10 @@ export class FireflySocialMedia implements Provider {
         if (response) return true;
         throw new Error('Failed to mute user');
     }
-    async blockUser(profileId: string): Promise<boolean> {
+    async blockProfile(profileId: string): Promise<boolean> {
         return this.block('fid', profileId);
     }
-    async unblockUser(profileId: string): Promise<boolean> {
+    async unblockProfile(profileId: string): Promise<boolean> {
         return this.unblock('fid', profileId);
     }
 

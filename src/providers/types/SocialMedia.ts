@@ -666,7 +666,7 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    reportUser: (profileId: string) => Promise<boolean>;
+    reportProfile: (profileId: string) => Promise<boolean>;
 
     /**
      * Report spam or inappropriate post content.
@@ -680,14 +680,14 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    blockUser: (profileId: string) => Promise<boolean>;
+    blockProfile: (profileId: string) => Promise<boolean>;
 
     /**
      * Unblock a profile.
      * @param profileId
      * @returns
      */
-    unblockUser: (profileId: string) => Promise<boolean>;
+    unblockProfile: (profileId: string) => Promise<boolean>;
 
     /**
      * Retrieves profiles that the current logged user has blocked.

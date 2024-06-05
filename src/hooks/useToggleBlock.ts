@@ -25,11 +25,11 @@ export function useToggleBlock(operator: Profile | null) {
             try {
                 const provider = resolveSocialMediaProvider(profile.source);
                 if (blocking) {
-                    const result = await provider.unblockUser(profile.profileId);
+                    const result = await provider.unblockProfile(profile.profileId);
                     enqueueSuccessMessage(t`Unmuted @${profile.handle} on ${sourceName}`);
                     return result;
                 } else {
-                    const result = await provider.blockUser(profile.profileId);
+                    const result = await provider.blockProfile(profile.profileId);
                     enqueueSuccessMessage(t`Muted @${profile.handle} on ${sourceName}`);
                     return result;
                 }

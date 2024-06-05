@@ -15,7 +15,7 @@ export function useReportUser(operator: Profile | null) {
         async (profile: Profile) => {
             try {
                 const provider = resolveSocialMediaProvider(profile.source);
-                const result = await provider.reportUser(profile.profileId);
+                const result = await provider.reportProfile(profile.profileId);
                 if (result && operator) blockUser(operator, profile);
                 return result;
             } catch (error) {

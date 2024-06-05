@@ -39,7 +39,7 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
     queryClient.setQueryData(['profile-is-muted', source, profileId], status);
 }
 
-const METHODS_BE_OVERRIDDEN = ['blockUser', 'unblockUser'] as const;
+const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;
 
 export function SetQueryDataForBlockUser(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
@@ -49,7 +49,7 @@ export function SetQueryDataForBlockUser(source: SocialSource) {
             Object.defineProperty(target.prototype, key, {
                 value: async (profileId: string) => {
                     const m = method as (profileId: string) => Promise<boolean>;
-                    const status = key === 'blockUser';
+                    const status = key === 'blockProfile';
                     setBlockStatus(source, profileId, status);
                     try {
                         const result = await m?.call(target.prototype, profileId);

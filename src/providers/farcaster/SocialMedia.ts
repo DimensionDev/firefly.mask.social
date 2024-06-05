@@ -275,17 +275,17 @@ class FarcasterSocialMedia implements Provider {
     getCommentsById(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
-    async reportUser(profileId: string) {
-        return FireflySocialMediaProvider.reportUser(profileId);
+    async reportProfile(profileId: string) {
+        return FireflySocialMediaProvider.reportProfile(profileId);
     }
     async reportPost(post: Post) {
         return FireflySocialMediaProvider.reportPost(post);
     }
-    async blockUser(profileId: string) {
-        return FireflySocialMediaProvider.blockUser(profileId);
+    async blockProfile(profileId: string) {
+        return FireflySocialMediaProvider.blockProfile(profileId);
     }
-    async unblockUser(profileId: string) {
-        return FireflySocialMediaProvider.unblockUser(profileId);
+    async unblockProfile(profileId: string) {
+        return FireflySocialMediaProvider.unblockProfile(profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

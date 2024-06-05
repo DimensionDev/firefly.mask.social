@@ -502,16 +502,16 @@ class HubbleSocialMedia implements Provider {
         return true;
     }
 
-    async reportUser(profileId: string): Promise<boolean> {
+    async reportProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
     async reportPost(post: Post): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async blockUser(profileId: string): Promise<boolean> {
+    async blockProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async unblockUser(profileId: string): Promise<boolean> {
+    async unblockProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
