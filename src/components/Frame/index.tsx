@@ -10,7 +10,7 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { Card } from '@/components/Frame/Card.js';
-import { type SocialSource,Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -75,7 +75,7 @@ async function getNextFrame(
                     break;
                 default:
                     safeUnreachable(source);
-            };
+            }
 
             if (!packet) {
                 enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);

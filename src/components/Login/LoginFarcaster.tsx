@@ -145,11 +145,14 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermissionFirefly((url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
-                    }, controllerRef.current?.signal),
+                    createSessionByGrantPermissionFirefly(
+                        (url) => {
+                            const device = getMobileDevice();
+                            if (device === 'unknown') setUrl(url);
+                            else location.href = url;
+                        },
+                        controllerRef.current?.signal,
+                    ),
                 { signal: controllerRef.current?.signal },
             );
         } catch (error) {
@@ -169,15 +172,18 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                 async () => {
                     const staledSession = fireflySessionHolder.session;
 
-                    const session = await createSessionByRelayService((url) => {
-                        resetCountdown();
-                        startCountdown();
-                        setScanned(false);
+                    const session = await createSessionByRelayService(
+                        (url) => {
+                            resetCountdown();
+                            startCountdown();
+                            setScanned(false);
 
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
-                    }, controllerRef.current?.signal);
+                            const device = getMobileDevice();
+                            if (device === 'unknown') setUrl(url);
+                            else location.href = url;
+                        },
+                        controllerRef.current?.signal,
+                    );
 
                     // let the user see the qr code has been scanned and display a loading icon
                     setScanned(true);

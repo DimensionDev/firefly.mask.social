@@ -13,6 +13,7 @@ import { Frame as FrameUI } from '@/components/Frame/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { Source } from '@/constants/enum.js';
 
 export default function Frame() {
     const [url, setUrl] = useState('');
@@ -69,7 +70,7 @@ export default function Frame() {
 
             {cacheRemoved === true ? (
                 <div className="w-full max-w-[500px]">
-                    <FrameUI urls={[url]} postId="" />
+                    <FrameUI urls={[url]} postId="" source={Source.Farcaster} />
                 </div>
             ) : error ? (
                 <div className="w-full">{error.message}</div>
