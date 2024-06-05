@@ -888,7 +888,7 @@ class FireflySocialMedia implements Provider {
 
     async discoverNFTs({
         indicator,
-        limit = 25,
+        limit = 40,
     }: {
         indicator?: PageIndicator;
         limit?: number;
@@ -909,18 +909,24 @@ class FireflySocialMedia implements Provider {
     }
 
     async getFollowingNFTs({
-        limit,
+        limit = 40,
         indicator,
+        walletAddresses,
     }: {
         limit?: number;
         indicator?: PageIndicator;
+        walletAddresses?: string[];
     } = {}) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/nft');
+        const url = urlcat(
+            FIREFLY_ROOT_URL,
+            walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
+        );
         const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 size: limit,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                walletAddresses,
             }),
         });
         return createPageable(

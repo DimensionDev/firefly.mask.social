@@ -79,6 +79,7 @@ export enum WalletProfileTabType {
     Articles = 'Articles',
     POAPs = 'POAPs',
     NFTs = 'NFTs',
+    OnChainActivities = 'OnChainActivities',
 }
 
 export enum EngagementType {

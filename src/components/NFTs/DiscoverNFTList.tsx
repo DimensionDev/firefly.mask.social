@@ -1,5 +1,7 @@
 import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
@@ -7,6 +9,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { NFTFeed } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
 export function DiscoverNFTList() {
     const currentSource = useGlobalState.use.currentSource();
@@ -25,10 +28,19 @@ export function DiscoverNFTList() {
         select: (data) => data.pages.flatMap((p) => p.data),
     });
 
+    const useInvalidNFTCount = useInvalidNFTStore((state) => state.size);
+    const filteredData = useMemo(() => {
+        const invalidNFTStore = useInvalidNFTStore.getState();
+        return nftQueryResult.data.filter((feed) => {
+            const tokenId = feed.trans.token_list?.[0]?.id ?? '';
+            return !invalidNFTStore.has(feed.trans.token_address, tokenId, ChainId.Mainnet);
+        });
+    }, [nftQueryResult.data, useInvalidNFTCount]);
+
     return (
         <ListInPage
             key={currentSource}
-            queryResult={nftQueryResult} // TODO: filter spam nft collection by a spam collection store
+            queryResult={{ ...nftQueryResult, data: filteredData }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                 computeItemKey: (index, nftFeed) => `${nftFeed.id}-${index}`,

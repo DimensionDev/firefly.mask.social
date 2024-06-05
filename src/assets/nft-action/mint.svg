@@ -1,24 +1,24 @@
 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_18896_14914)">
-        <circle cx="9" cy="9" r="9" fill="url(#paint0_linear_18896_14914)"/>
-        <g clip-path="url(#clip1_18896_14914)">
-            <path d="M6.75 12.5957L12.375 6.9707L11.25 5.8457L5.625 11.4707L6.75 12.5957Z" stroke="#181818" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10.125 6.9707L11.25 8.0957" stroke="#181818" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7.875 5.8457C7.875 6.04462 7.95402 6.23538 8.09467 6.37603C8.23532 6.51669 8.42609 6.5957 8.625 6.5957C8.42609 6.5957 8.23532 6.67472 8.09467 6.81537C7.95402 6.95603 7.875 7.14679 7.875 7.3457C7.875 7.14679 7.79598 6.95603 7.65533 6.81537C7.51468 6.67472 7.32391 6.5957 7.125 6.5957C7.32391 6.5957 7.51468 6.51669 7.65533 6.37603C7.79598 6.23538 7.875 6.04462 7.875 5.8457Z" stroke="#181818" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M11.625 9.5957C11.625 9.79462 11.704 9.98538 11.8447 10.126C11.9853 10.2667 12.1761 10.3457 12.375 10.3457C12.1761 10.3457 11.9853 10.4247 11.8447 10.5654C11.704 10.706 11.625 10.8968 11.625 11.0957C11.625 10.8968 11.546 10.706 11.4053 10.5654C11.2647 10.4247 11.0739 10.3457 10.875 10.3457C11.0739 10.3457 11.2647 10.2667 11.4053 10.126C11.546 9.98538 11.625 9.79462 11.625 9.5957Z" stroke="#181818" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    <g clip-path="url(#clip0_15985_74960)">
+        <circle cx="9" cy="9" r="9" fill="url(#paint0_linear_15985_74960)"/>
+        <g clip-path="url(#clip1_15985_74960)">
+            <path d="M6.75 12.5957L12.375 6.9707L11.25 5.8457L5.625 11.4707L6.75 12.5957Z" stroke="#181A20" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10.125 6.9707L11.25 8.0957" stroke="#181A20" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.875 5.8457C7.875 6.04462 7.95402 6.23538 8.09467 6.37603C8.23532 6.51669 8.42609 6.5957 8.625 6.5957C8.42609 6.5957 8.23532 6.67472 8.09467 6.81537C7.95402 6.95603 7.875 7.14679 7.875 7.3457C7.875 7.14679 7.79598 6.95603 7.65533 6.81537C7.51468 6.67472 7.32391 6.5957 7.125 6.5957C7.32391 6.5957 7.51468 6.51669 7.65533 6.37603C7.79598 6.23538 7.875 6.04462 7.875 5.8457Z" stroke="#181A20" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.625 9.5957C11.625 9.79462 11.704 9.98538 11.8447 10.126C11.9853 10.2667 12.1761 10.3457 12.375 10.3457C12.1761 10.3457 11.9853 10.4247 11.8447 10.5654C11.704 10.706 11.625 10.8968 11.625 11.0957C11.625 10.8968 11.546 10.706 11.4053 10.5654C11.2647 10.4247 11.0739 10.3457 10.875 10.3457C11.0739 10.3457 11.2647 10.2667 11.4053 10.126C11.546 9.98538 11.625 9.79462 11.625 9.5957Z" stroke="#181A20" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
     </g>
     <defs>
-        <linearGradient id="paint0_linear_18896_14914" x1="18" y1="18" x2="5.36442e-07" y2="-5.36442e-07" gradientUnits="userSpaceOnUse">
+        <linearGradient id="paint0_linear_15985_74960" x1="18" y1="18" x2="5.36442e-07" y2="-5.36442e-07" gradientUnits="userSpaceOnUse">
             <stop stop-color="#FFB8E0"/>
             <stop offset="0.348958" stop-color="#BE9EFF"/>
             <stop offset="0.703125" stop-color="#88C0FC"/>
             <stop offset="1" stop-color="#86FF99"/>
         </linearGradient>
-        <clipPath id="clip0_18896_14914">
+        <clipPath id="clip0_15985_74960">
             <rect width="18" height="18" fill="white"/>
         </clipPath>
-        <clipPath id="clip1_18896_14914">
+        <clipPath id="clip1_15985_74960">
             <rect width="9" height="9" fill="white" transform="translate(4.5 4.7207)"/>
         </clipPath>
     </defs>

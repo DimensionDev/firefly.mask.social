@@ -63,7 +63,8 @@
         "warpcast",
         "zora",
         "zustand",
-        "chainbase"
+        "chainbase",
+        "onchain"
     ],
     "ignoreWords": [
         "DEVNET",

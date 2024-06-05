@@ -14,7 +14,7 @@ export enum NFTFeedTransAction {
     Transfer = 'transfer',
     Trade = 'trade',
     Burn = 'burn',
-    Acquired = 'acquired',
+    Poap = 'poap',
 }
 
 export interface NFTOwnerDisplayInfo {
@@ -58,7 +58,7 @@ export interface FollowingNFT {
     address_to: string;
     network: string;
     tag: string;
-    type: string;
+    type: NFTFeedTransAction;
     actions: FollowingNFTAction[];
     displayInfo: NFTOwnerDisplayInfo;
     followingSources: Array<{
@@ -71,13 +71,19 @@ export interface FollowingNFT {
     }>;
 }
 
+export interface NFTActionCost {
+    decimals: number;
+    symbol: string;
+    value: string;
+}
+
 export interface FollowingNFTAction {
     tag: string;
     type: NFTFeedTransAction;
     index: number;
     address_from: string;
     address_to: string;
-    cost: null; // TODO: confirm number or string
+    cost?: NFTActionCost;
     contract_address: string;
     token_id: string;
 }

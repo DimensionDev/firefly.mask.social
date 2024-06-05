@@ -2,8 +2,7 @@
 
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { AnimatePresence, motion } from 'framer-motion';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { Image } from '@/components/Image.js';
@@ -11,27 +10,6 @@ import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFee
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
-
-const variants = {
-    enter: (direction: number) => {
-        return {
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0,
-        };
-    },
-    center: {
-        zIndex: 1,
-        x: 0,
-        opacity: 1,
-    },
-    exit: (direction: number) => {
-        return {
-            zIndex: 0,
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0,
-        };
-    },
-};
 
 function NFTFeedFieldGroup({
     field,
@@ -88,45 +66,32 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
     );
 }
 
-enum Direction {
-    Left = -1,
-    Right = 1,
-}
-
 export interface NFTFeedBodyProps {
-    tokenList: Array<{ id: string; contractAddress: string } & NFTFeedActionProps>;
+    tokenList: Array<{ id: string; contractAddress: string; action: NFTFeedActionProps }>;
     onChangeIndex?: (index: number) => void;
     index?: number;
     chainId?: ChainId;
 }
 
 export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NFTFeedBodyProps) {
-    const [direction, setDirection] = useState<Direction>(Direction.Left);
-    const token = tokenList[index];
-
-    if (!token) return null;
-
     return (
         <div className="-mt-2 w-full space-y-1.5 pl-[52px]">
             <div className="relative flex h-[150px] w-full overflow-hidden">
-                <AnimatePresence initial={false}>
-                    <motion.div
-                        key={`${token.contractAddress}-${token.id}-${index}`}
-                        className="bottom absolute left-0 h-full w-full space-y-1.5"
-                        custom={direction}
-                        variants={variants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                            x: { type: 'spring', stiffness: 300, damping: 30 },
-                            opacity: { duration: 0.2 },
-                        }}
-                    >
-                        <NFTFeedAction action={token.action} transferTo={token.transferTo} />
-                        <NFTItem address={token.contractAddress} tokenId={token.id} chainId={chainId} />
-                    </motion.div>
-                </AnimatePresence>
+                <div
+                    className="absolute left-0 grid h-full duration-300"
+                    style={{
+                        width: `${tokenList.length * 100}%`,
+                        gridTemplateColumns: `repeat(${tokenList.length}, calc(100% / ${tokenList.length}))`,
+                        transform: `translateX(${-((index / tokenList.length) * 100)}%)`,
+                    }}
+                >
+                    {tokenList.map((token) => (
+                        <div className="h-full w-full space-y-1.5" key={token.id}>
+                            <NFTFeedAction {...token.action} />
+                            <NFTItem address={token.contractAddress} tokenId={token.id} chainId={chainId} />
+                        </div>
+                    ))}
+                </div>
             </div>
             {tokenList.length > 1 ? (
                 <div className="mt-1.5 flex h-[18px] justify-between overflow-hidden text-lightSecond">
@@ -142,7 +107,6 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                                 return;
                             }
                             onChangeIndex?.(index <= 0 ? tokenList.length - 1 : index - 1);
-                            setDirection(Direction.Left);
                         }}
                     >
                         <LineArrowUp width={18} height={18} className="-rotate-90" />
@@ -172,7 +136,6 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                                 return;
                             }
                             onChangeIndex?.(index >= tokenList.length - 1 ? 0 : index + 1);
-                            setDirection(Direction.Right);
                         }}
                     >
                         <LineArrowUp width={18} height={18} className="rotate-90" />

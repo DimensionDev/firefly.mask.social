@@ -1,3 +1,5 @@
+'use client';
+
 import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -8,16 +10,18 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FollowingNFT } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export function FollowingNFTList() {
-    const currentSource = useGlobalState.use.currentSource();
+export function FollowingNFTList({ walletAddresses }: { walletAddresses: string[] }) {
+    const currentSource =
+        walletAddresses && walletAddresses.length > 0 ? Source.NFTs : useGlobalState.use.currentSource();
 
     const nftQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['nft', 'following', currentSource],
+        queryKey: ['nft', 'following', currentSource, walletAddresses],
         networkMode: 'always',
         async queryFn({ pageParam }) {
             if (currentSource !== Source.NFTs) return createPageable<FollowingNFT>(EMPTY_LIST, createIndicator());
             return FireflySocialMediaProvider.getFollowingNFTs({
                 indicator: createIndicator(undefined, pageParam),
+                walletAddresses,
             });
         },
         initialPageParam: '',
