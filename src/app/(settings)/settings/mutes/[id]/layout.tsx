@@ -14,10 +14,10 @@ interface PageProps {
 
 export async function generateMetadata({ params: { id } }: PageProps) {
     const menuNameMap: Record<string, string> = {
-        [MuteMenuId.FarcasterUsers]: t`${resolveSourceName(Source.Farcaster)} Users`,
+        [MuteMenuId.FarcasterProfiles]: t`${resolveSourceName(Source.Farcaster)} Users`,
         [MuteMenuId.FarcasterChannels]: t`${resolveSourceName(Source.Farcaster)} Channels`,
-        [MuteMenuId.LensUsers]: t`${resolveSourceName(Source.Lens)} Users`,
-        [MuteMenuId.XUsers]: t`${resolveSourceName(Source.Twitter)} Users`,
+        [MuteMenuId.LensProfiles]: t`${resolveSourceName(Source.Lens)} Users`,
+        [MuteMenuId.XProfiles]: t`${resolveSourceName(Source.Twitter)} Users`,
     };
     return createSiteMetadata({
         title: createPageTitle(transSSR(menuNameMap[id])),

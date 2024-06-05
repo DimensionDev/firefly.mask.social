@@ -8,7 +8,7 @@ export function isValidRestrictionType(type: RestrictionType, availableSources: 
             return true;
         case RestrictionType.OnlyPeopleYouFollow:
             return availableSources.length ? !availableSources.includes(Source.Farcaster) : true;
-        case RestrictionType.MentionedUsers:
+        case RestrictionType.MentionedProfiles:
             return availableSources.length === 1 && availableSources.includes(Source.Twitter);
         default:
             safeUnreachable(type);
