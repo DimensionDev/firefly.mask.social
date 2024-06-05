@@ -34,6 +34,7 @@ export interface LoginModalProps {
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
 
+    // shared
     const [source, setSource] = useState<SocialSource | null>(null);
 
     // for lens only
@@ -73,11 +74,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     return;
                 }
                 case Source.Farcaster:
-                    setProfiles(EMPTY_LIST);
+                    setSignType(null);
                     setSource(selectedSource);
                     return;
                 case Source.Twitter:
-                    setProfiles(EMPTY_LIST);
                     setSource(selectedSource);
                     return;
                 default:
@@ -146,7 +146,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
 
     return isMedium ? (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <div className=" transform rounded-[12px] bg-bgModal transition-all">
+            <div className="transform rounded-[12px] bg-bgModal transition-all">
                 <div
                     className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}

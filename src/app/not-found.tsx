@@ -22,7 +22,7 @@ export default function NotFound() {
                     <div className="mt-11 text-sm font-bold">{t`The page could not be found.`}</div>
                 </div>
             </main>
-            <aside className=" sticky top-0 z-[1] h-full w-96 px-4 lg:block">
+            <aside className="sticky top-0 z-[1] h-full w-96 px-4 lg:block">
                 <IfPathname isNotOneOf={['/settings']}>
                     <AsideSearchBar />
                 </IfPathname>

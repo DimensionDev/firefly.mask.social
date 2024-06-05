@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { noop } from 'lodash-es';
 import React, { Fragment, useRef } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
@@ -12,9 +13,23 @@ interface ModalProps {
     children?: React.ReactNode;
     className?: string;
     disableScrollLock?: boolean;
+    /**
+     * Close the `onClose` of the dialog.
+     * The `onClose` of Dialog will respond to all click events outside the `Dialog.Panel`.
+     * Problems may occur when ConfirmModal is in use. Note, this will also close all shortcut keys for close.
+     */
+    disableDialogClose?: boolean;
 }
 
-export function Modal({ backdrop = true, open, onClose, children, className, disableScrollLock = true }: ModalProps) {
+export function Modal({
+    backdrop = true,
+    open,
+    onClose,
+    children,
+    className,
+    disableScrollLock = true,
+    disableDialogClose = false,
+}: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     return (
@@ -23,13 +38,13 @@ export function Modal({ backdrop = true, open, onClose, children, className, dis
                 initialFocus={ref}
                 as="div"
                 className="relative z-[100]"
-                onClose={onClose}
+                onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
                 <Dialog.Panel className="fixed inset-0 overflow-y-auto">
                     <div
                         className={classNames(
-                            ' flex min-h-full items-center justify-center p-0 text-center md:p-4',
+                            'flex min-h-full items-center justify-center p-0 text-center md:p-4',
                             className,
                         )}
                         ref={ref}

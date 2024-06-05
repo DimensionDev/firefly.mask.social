@@ -21,7 +21,7 @@ export function ProfileAvatarInteractive({ profile }: ProfileAvatarInteractivePr
     if (!isMedium) {
         return (
             <div
-                className=" flex justify-center"
+                className="flex justify-center"
                 onClick={async () => {
                     updateSidebarOpen(false);
                     await delay(300);
@@ -42,7 +42,7 @@ export function ProfileAvatarInteractive({ profile }: ProfileAvatarInteractivePr
                     <Popover.Button as="div">
                         <ProfileAvatar profile={profile} clickable />
                     </Popover.Button>
-                    <Popover.Panel className=" absolute top-[-12px] translate-y-[-100%]">
+                    <Popover.Panel className="absolute top-[-12px] translate-y-[-100%]">
                         <ProfileSettings source={profile.source} onClose={() => close()} />
                     </Popover.Panel>
                 </>

@@ -41,27 +41,27 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                     <Fragment key={type}>
                         <div
                             className={classNames(
-                                ' flex h-[22px] items-center justify-between',
-                                disabled ? ' cursor-no-drop' : ' cursor-pointer',
+                                'flex h-[22px] items-center justify-between',
+                                disabled ? 'cursor-no-drop' : 'cursor-pointer',
                             )}
                             onClick={() => {
                                 if (!disabled) setRestriction(type);
                             }}
                         >
                             <span
-                                className={classNames(' font-bold text-main', {
+                                className={classNames('font-bold text-main', {
                                     'opacity-50': disabled,
                                 })}
                             >
                                 <ReplyRestrictionText type={type} />
                             </span>
                             {restriction === type ? (
-                                <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                                <YesIcon width={40} height={40} className="relative -right-[10px]" />
                             ) : (
-                                <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
+                                <RadioDisableNoIcon width={20} height={20} className="text-secondaryLine" />
                             )}
                         </div>
-                        {type !== last(items)?.type && <div className=" h-px bg-line" />}
+                        {type !== last(items)?.type && <div className="h-px bg-line" />}
                     </Fragment>
                 ))}
             </Popover.Panel>

@@ -10,6 +10,7 @@ import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import ComeBack from '@/assets/comeback.svg';
+import { Info } from '@/components/Channel/Info.js';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
@@ -128,12 +129,15 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
 
     return (
         <div className="min-h-screen">
-            <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
+            <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
                 </h2>
             </div>
+            {post.channel ? (
+                <Info channel={post.channel} source={post.source} className="border-b border-line px-4 py-3" />
+            ) : null}
             <div>
                 {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>

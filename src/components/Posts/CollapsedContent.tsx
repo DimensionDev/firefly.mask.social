@@ -18,7 +18,7 @@ export const CollapsedContent = forwardRef<HTMLDivElement, Props>(function Colla
         <div {...rest} ref={ref}>
             <div
                 className={classNames(
-                    'flex items-center gap-1 rounded-lg border-primaryMain  py-[6px] text-[15px]',
+                    'flex items-center gap-1 rounded-lg border-primaryMain py-[6px] text-[15px]',
                     isQuote ? '' : 'border px-3',
                 )}
             >

@@ -13,7 +13,7 @@ import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
 import { config } from '@/configs/wagmiClient.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -21,7 +21,9 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { type Additional, generateFrameSignaturePacket } from '@/services/generateFrameSignaturePacket.js';
+import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
+import { LensFrameProvider } from '@/providers/lens/Frame.js';
+import type { Additionals } from '@/providers/types/Frame.js';
 import {
     ActionType,
     type Frame,
@@ -43,6 +45,7 @@ function parseChainId(chainId: `eip155:${number}`): ChainId {
 }
 
 const TransactionSchema = z.custom<TransactionResponse>((value) => {
+    // parse chain id
     return true;
 });
 
@@ -50,7 +53,7 @@ function confirmBeforeLeaving() {
     return ConfirmModalRef.openAndWaitForClose({
         title: t`Leaving Firefly`,
         content: (
-            <div className=" text-main">
+            <div className="text-main">
                 <Trans>
                     Please be cautious when connecting your wallet, as malicious websites may attempt to access your
                     funds.
@@ -61,23 +64,44 @@ function confirmBeforeLeaving() {
 }
 
 async function getNextFrame(
+    source: SocialSource,
     postId: string,
     frame: Frame,
     latestFrame: Frame | null,
     button: FrameButton,
     input?: string,
 ) {
-    async function postAction<T>(additional?: Additional) {
+    async function createPacket(additionals?: Additionals) {
+        switch (source) {
+            case Source.Lens:
+                return LensFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
+                    state: latestFrame && frame.state ? frame.state : undefined,
+                    ...additionals,
+                });
+            case Source.Farcaster:
+                return HubbleFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
+                    state: latestFrame && frame.state ? frame.state : undefined,
+                    ...additionals,
+                });
+            case Source.Twitter:
+                return null;
+            default:
+                safeUnreachable(source);
+                return null;
+        }
+    }
+
+    async function postAction<T>(additionals?: Additionals) {
         const url = urlcat('/api/frame', {
             url: frame.url,
             action: button.action,
             'post-url': button.target || frame.postUrl || frame.url,
         });
-        const packet = await generateFrameSignaturePacket(postId, frame, button.index, input, {
-            // for initial frame should not provide state
-            state: latestFrame && frame.state ? frame.state : undefined,
-            ...additional,
-        });
+        const packet = await createPacket(additionals);
+        if (!packet) {
+            enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
+            throw new Error('Failed to generate signature packet.');
+        }
 
         return fetchJSON<ResponseJSON<T>>(url, {
             method: 'POST',
@@ -174,13 +198,14 @@ async function getNextFrame(
 }
 
 interface FrameProps {
+    source: SocialSource;
     urls: string[];
     postId: string;
     children?: React.ReactNode;
     onData?: (frame: Frame) => void;
 }
 
-export function Frame({ postId, urls, onData, children }: FrameProps) {
+export function Frame({ postId, source, urls, onData, children }: FrameProps) {
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const {
@@ -228,7 +253,7 @@ export function Frame({ postId, urls, onData, children }: FrameProps) {
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
             if (!frame) return;
-            const nextFrame = await getNextFrame(postId, frame, latestFrame, button, input);
+            const nextFrame = await getNextFrame(source, postId, frame, latestFrame, button, input);
             if (nextFrame) setLatestFrame(nextFrame);
         },
         [frame, latestFrame, postId],

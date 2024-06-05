@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -26,6 +26,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type BlockChannelResponse,
+    type BlockedUsersResponse,
     type BlockRelationResponse,
     type BlockUserResponse,
     type BookmarkResponse,
@@ -39,8 +40,6 @@ import {
     type DiscoverChannelsResponse,
     type FireFlyProfile,
     type FriendshipResponse,
-    type NFTCollectionsParams,
-    type NFTCollectionsResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
@@ -755,8 +754,23 @@ class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute user');
     }
 
-    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+    async getBlockedProfiles(
+        indicator?: PageIndicator,
+        source?: Exclude<SourceInURL, SourceInURL.Article>,
+    ): Promise<Pageable<Profile, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blocklist', {
+            size: 20,
+            page: indicator?.id ?? 1,
+            platform: source,
+        });
+        const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
+        const fids = response.data?.blocks.map((x) => x.snsId);
+        const profiles: Profile[] = fids?.length ? await NeynarSocialMediaProvider.getProfilesByIds(fids) : EMPTY_LIST;
+        return createPageable(
+            profiles,
+            createIndicator(indicator),
+            response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
+        );
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
@@ -788,7 +802,18 @@ class FireflySocialMedia implements Provider {
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return farcasterSessionHolder.withSession(async (session) => {
+            if (!session) {
+                throw new Error('No farcaster session found');
+            }
+            // FIXME: this interface is not implemented in the backend now, just document.
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/blocks', {
+                account_id: session.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<ChannelsResponse>(url);
+            const data = resolveFireflyResponseData(response);
+            return createPageable(data.map(formatChannelFromFirefly), createIndicator(indicator), undefined);
+        });
     }
 
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -872,21 +897,6 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    async getNFTCollections(params: NFTCollectionsParams) {
-        const { indicator, walletAddress, limit } = params ?? {};
-        const url = urlcat(FIREFLY_ROOT_URL, 'v2/user/nftCollections', {
-            walletAddress,
-            limit: limit || 25,
-            cursor: indicator?.id || undefined,
-        });
-        const response = await fireflySessionHolder.fetch<NFTCollectionsResponse>(url);
-        return createPageable(
-            response.data?.collections ?? EMPTY_LIST,
-            createIndicator(indicator),
-            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
-        );
-    }
-
     async getIsMuted(profileId: string): Promise<boolean> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return false;
@@ -899,16 +909,6 @@ class FireflySocialMedia implements Provider {
             });
             const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
             return blocked;
-        });
-    }
-
-    async reportSpamNFT(collectionId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
-        await fireflySessionHolder.fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                collection_id: collectionId,
-            }),
         });
     }
 }

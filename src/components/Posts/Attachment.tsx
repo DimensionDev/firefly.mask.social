@@ -24,6 +24,11 @@ const getClass = (attachments: number) => {
             aspect: 'aspect-w-16 aspect-h-10',
             row: 'grid-cols-1 grid-rows-1',
         };
+    } else if (attachments >= 5) {
+        return {
+            aspect: 'aspect-square',
+            row: 'grid-cols-3',
+        };
     } else if (attachments === 2) {
         return {
             aspect: 'aspect-w-16 aspect-h-12',
@@ -46,12 +51,20 @@ interface AttachmentsProps {
     asset?: Attachment;
     attachments: Attachment[];
     isQuote?: boolean;
+    isDetail?: boolean;
 }
 
-export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, post, isQuote = false }) {
-    const imageAttachments = attachments.filter((x) => x.type === 'Image').slice(0, 4);
+export const Attachments = memo<AttachmentsProps>(function Attachments({
+    attachments,
+    asset,
+    post,
+    isQuote = false,
+    isDetail = false,
+}) {
+    const imageAttachments = isDetail ? attachments : attachments.filter((x) => x.type === 'Image').slice(0, 9);
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+    const moreImageCount = attachments.length - imageAttachments.length; // If it is 0 or below, there are no more images
 
     if (isQuote && asset?.type === 'Video' && asset.coverUri) {
         return (
@@ -90,7 +103,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     </div>
                 ) : (
                     <div className="flex h-[120px] w-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
-                        <span className=" text-primaryBottom opacity-50">
+                        <span className="text-primaryBottom opacity-50">
                             <Music width={24} height={24} />
                         </span>
                         <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
@@ -147,6 +160,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                 >
                     {imageAttachments.map((attachment, index) => {
                         const uri = attachment.uri ?? '';
+                        const isLast = imageAttachments.length === index + 1;
                         return (
                             <div
                                 key={index}
@@ -156,6 +170,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     'max-h-[284px]': imageAttachments.length === 3 && index === 2,
                                     'row-span-2': imageAttachments.length === 3 && index === 2,
                                     'max-h-[138px]': imageAttachments.length === 3 && index !== 2 && !isQuote,
+                                    relative: isLast && moreImageCount > 0,
                                 })}
                             >
                                 <Link
@@ -179,6 +194,11 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                         alt={formatImageUrl(uri, ATTACHMENT)}
                                     />
                                 </Link>
+                                {isLast && moreImageCount > 0 ? (
+                                    <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
+                                        <div className="text-2xl font-bold">+{moreImageCount}</div>
+                                    </div>
+                                ) : null}
                             </div>
                         );
                     })}

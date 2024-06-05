@@ -38,11 +38,11 @@ export function Popover({ open, backdrop = true, children, onClose }: PopoverPro
                     leaveFrom="translate-y-0"
                     leaveTo="translate-y-full"
                 >
-                    <Dialog.Panel className=" fixed inset-x-6 bottom-3 top-auto z-40 mx-auto flex max-w-[800px] flex-col justify-center overflow-hidden rounded-2xl border border-line bg-primaryBottom p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
-                        <div className=" absolute inset-x-0 top-0.5 z-10 m-auto flex w-20 cursor-pointer justify-center p-2">
-                            <div className=" h-1 w-12 rounded-full bg-main" />
+                    <Dialog.Panel className="fixed inset-x-6 bottom-3 top-auto z-40 mx-auto flex max-w-[800px] flex-col justify-center overflow-hidden rounded-2xl border border-line bg-primaryBottom p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+                        <div className="absolute inset-x-0 top-0.5 z-10 m-auto flex w-20 cursor-pointer justify-center p-2">
+                            <div className="h-1 w-12 rounded-full bg-main" />
                         </div>
-                        <div className=" max-h-[50vh] w-full overflow-y-auto">{children}</div>
+                        <div className="max-h-[50vh] w-full overflow-y-auto">{children}</div>
                     </Dialog.Panel>
                 </Transition.Child>
             </Dialog>

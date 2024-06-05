@@ -10,6 +10,7 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Frame as FrameUI } from '@/components/Frame/index.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
@@ -38,13 +39,13 @@ export default function Frame() {
                 <Trans>Frame</Trans>
             </Headline>
 
-            <div className=" mb-2 w-full">
+            <div className="mb-2 w-full">
                 <Trans>Please input the frame url to be revalidated.</Trans>
             </div>
 
-            <div className=" mb-2 flex w-full flex-row gap-2">
+            <div className="mb-2 flex w-full flex-row gap-2">
                 <input
-                    className=" flex-1 rounded-md border border-line bg-transparent"
+                    className="flex-1 rounded-md border border-line bg-transparent"
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
@@ -53,7 +54,7 @@ export default function Frame() {
                 />
                 <ClickableButton
                     className={classNames(
-                        ' flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
+                        'flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
                         {
                             'text-primaryMain': loading,
                             'hover:cursor-pointer': !loading,
@@ -68,11 +69,11 @@ export default function Frame() {
             </div>
 
             {cacheRemoved === true ? (
-                <div className=" w-full max-w-[500px]">
-                    <FrameUI urls={[url]} postId="" />
+                <div className="w-full max-w-[500px]">
+                    <FrameUI urls={[url]} postId="" source={Source.Farcaster} />
                 </div>
             ) : error ? (
-                <div className=" w-full">{error.message}</div>
+                <div className="w-full">{error.message}</div>
             ) : null}
         </Section>
     );

@@ -33,6 +33,8 @@ export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HU
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
+export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
+
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
     [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
@@ -94,7 +96,7 @@ export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
 };
 export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Farcaster]: 2,
-    [Source.Lens]: 4,
+    [Source.Lens]: 20,
     [Source.Twitter]: 4,
 };
 export const DANGER_CHAR_LIMIT: Record<SocialSource, number> = {

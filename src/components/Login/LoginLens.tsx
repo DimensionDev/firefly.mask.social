@@ -164,7 +164,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 )}
 
                 <div
-                    className=" absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-4"
+                    className="absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-4"
                     style={{
                         boxShadow: 'box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.05)',
                         backdropFilter: 'blur(8px)',
@@ -180,13 +180,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         }}
                     >
                         <WalletIcon width={20} height={20} />
-                        <span className=" text-[14px] font-bold leading-[18px] text-second">
+                        <span className="text-[14px] font-bold leading-[18px] text-second">
                             <Trans>Change Wallet</Trans>
                         </span>
                     </ClickableButton>
                     <ClickableButton
                         disabled={loading}
-                        className=" flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
+                        className="flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
                         {loading ? (

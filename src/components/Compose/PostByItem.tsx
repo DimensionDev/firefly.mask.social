@@ -57,14 +57,14 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     if (!currentProfile || !profiles?.length)
         return (
-            <div className=" flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
-                <div className=" flex items-center gap-2 text-main">
+            <div className="flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
+                <div className="flex items-center gap-2 text-main">
                     <SocialSourceIcon size={24} source={source} />
-                    <span className=" font-bold text-main">{resolveSourceName(source)}</span>
+                    <span className="font-bold text-main">{resolveSourceName(source)}</span>
                 </div>
 
                 <ClickableButton
-                    className=" font-bold text-blueBottom"
+                    className="font-bold text-blueBottom"
                     onClick={async () => {
                         if (source === Source.Farcaster && images.length > 2) {
                             enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
@@ -96,7 +96,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 else enableSource(currentProfile.source);
             }}
         >
-            <div className=" flex items-center gap-2">
+            <div className="flex items-center gap-2">
                 <div className="relative">
                     <Avatar src={profile.pfp} size={24} alt={profile.handle} />
                     <SocialSourceIcon
@@ -107,8 +107,8 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 </div>
                 <span
                     className={classNames(
-                        ' font-bold',
-                        isSameProfile(currentProfile, profile) ? ' text-main' : ' text-secondary',
+                        'font-bold',
+                        isSameProfile(currentProfile, profile) ? 'text-main' : 'text-secondary',
                     )}
                 >
                     @{profile.handle}
@@ -116,13 +116,13 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
             </div>
             {isSameProfile(currentProfile, profile) ? (
                 availableSources.includes(currentProfile.source) ? (
-                    <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                    <YesIcon width={40} height={40} className="relative -right-[10px]" />
                 ) : (
-                    <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
+                    <RadioDisableNoIcon width={20} height={20} className="text-secondaryLine" />
                 )
             ) : currentProfile.source === Source.Lens ? (
                 <ClickableButton
-                    className=" font-bold text-blueBottom"
+                    className="font-bold text-blueBottom"
                     disabled={loading}
                     onClick={() => loginLens(profile)}
                 >

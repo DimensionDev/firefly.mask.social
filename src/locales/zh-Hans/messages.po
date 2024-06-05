@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-30 12:37\n"
+"PO-Revision-Date: 2024-06-03 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -17,6 +17,9 @@ msgstr ""
 "X-Crowdin-Language: zh-CN\n"
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
+
+msgid "Do you want to retry with the full or remaining content?"
+msgstr ""
 
 msgid "Login required to post on {sourceName}."
 msgstr "请先登录 {sourceName}。"
@@ -132,6 +135,9 @@ msgstr "更换钱包"
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
+msgid "You can save the failed parts of posts and send them later from your Drafts."
+msgstr ""
+
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
@@ -162,6 +168,9 @@ msgstr "登录失败"
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
 
+msgid "Poll is currently only supported on {0}"
+msgstr ""
+
 msgid "Offline"
 msgstr "离线"
 
@@ -191,6 +200,9 @@ msgstr "收藏"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "[Video]"
+msgstr ""
 
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
@@ -243,6 +255,9 @@ msgstr "请在钱包中切换到正确的网络。"
 msgid "Type something here..."
 msgstr "从这里开始..."
 
+msgid "Save Post?"
+msgstr ""
+
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
 
@@ -276,6 +291,9 @@ msgstr "选择账号"
 msgid "mirror"
 msgstr "转帖"
 
+msgid "POST"
+msgstr ""
+
 msgid "Failed to unlike the post."
 msgstr "取消点赞失败。"
 
@@ -299,6 +317,12 @@ msgstr "音频封面"
 
 msgid "Recent"
 msgstr "最近"
+
+msgid "Failed to generate signature packet with source = {source}."
+msgstr ""
+
+msgid "Save failed post?"
+msgstr ""
 
 msgid "Owners"
 msgstr ""
@@ -330,11 +354,17 @@ msgstr "屏蔽 /{0} 失败。"
 msgid "Address"
 msgstr ""
 
+msgid "[Photo]"
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
 msgid "No wallet client found. Please connect your wallet."
 msgstr "未找到钱包。请尝试连接。"
+
+msgid "THREAD POST"
+msgstr ""
 
 msgid "Frame Validator"
 msgstr "Frame Validator"
@@ -384,11 +414,17 @@ msgstr ""
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Cannot choose due to account mismatch."
+msgstr ""
+
 msgid "Unmuting"
 msgstr "屏蔽中"
 
 msgid "Search Filter"
 msgstr "查询规则"
+
+msgid "Resend full or remaining?"
+msgstr ""
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -452,6 +488,9 @@ msgstr "创建图片内容失败"
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
+
+msgid "[LuckyDrop]"
+msgstr ""
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -615,9 +654,6 @@ msgstr "无效的 URL。"
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
-msgid "Poll currently only supports on {0}"
-msgstr ""
-
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
@@ -681,14 +717,17 @@ msgstr "点赞"
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
-msgid "Connect your wallet to enable all features"
-msgstr ""
-
 msgid "General"
 msgstr "通用"
 
+msgid "REPLY<0>to <1>@{0}</1></0>"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
+
+msgid "Article removed from your Bookmarks"
+msgstr ""
 
 msgid "Publications"
 msgstr "帖子"
@@ -726,11 +765,11 @@ msgstr "分享"
 msgid "Your frame URL."
 msgstr "您 Frame 的 URL。"
 
+msgid "Remaining"
+msgstr ""
+
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
-
-msgid "Article remove from your Bookmarks"
-msgstr "文章已经从您的收藏中移除"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
@@ -831,6 +870,9 @@ msgstr "用户取消了请求。"
 msgid "Recast or Quote"
 msgstr ""
 
+msgid "Draft"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
@@ -855,11 +897,17 @@ msgstr "即将离开 Firefly"
 msgid "24H Volume"
 msgstr ""
 
+msgid "Full"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "未找到 Lens 账号。请尝试其他钱包。"
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
+
+msgid "You can save this to send later from your drafts."
+msgstr ""
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
@@ -887,6 +935,9 @@ msgstr "复制"
 
 msgid "Skip for now"
 msgstr "跳过"
+
+msgid "Login to enable all features"
+msgstr ""
 
 msgid "Notifications"
 msgstr "通知"
@@ -1104,14 +1155,14 @@ msgstr ""
 msgid "No matching users"
 msgstr "未找到匹配用户"
 
+msgid "Save"
+msgstr ""
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
-
-msgid "Confirm you want to unmute @{0}?"
-msgstr "确认取消屏蔽 @{0}？"
 
 msgid "{0} Users"
 msgstr ""
@@ -1127,6 +1178,9 @@ msgstr "获取状态失败。请稍后重试。"
 
 msgid "Profile"
 msgstr "个人信息"
+
+msgid "QUOTE"
+msgstr ""
 
 msgid "Collect"
 msgstr ""
@@ -1217,6 +1271,9 @@ msgstr "登录"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
+
+msgid "Your draft was saved"
+msgstr ""
 
 msgid "A thread must have at least two posts."
 msgstr "一条 thread 至少包含 2 个帖子。"

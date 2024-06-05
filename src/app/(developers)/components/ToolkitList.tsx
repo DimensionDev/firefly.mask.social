@@ -12,7 +12,7 @@ export function ToolkitList() {
 
     return (
         <div className="flex min-h-full min-w-full flex-col p-6 md:min-w-[280px] md:border-r md:border-line">
-            <div className=" pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
+            <div className="pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
                 <Trans>Developers</Trans>
             </div>
             {[

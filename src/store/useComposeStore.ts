@@ -62,19 +62,22 @@ export interface CompositePost {
     openGraphs: OpenGraph[];
 }
 
-interface ComposeState {
+export interface ComposeBaseState {
     type: ComposeType;
     posts: CompositePost[];
+    // tracking the current editable post
+    cursor: Cursor;
+    // tracking the current applied draft id
+    draftId?: string;
+}
 
+interface ComposeState extends ComposeBaseState {
     // helpers
     computed: {
         // if the current editable post is deleted
         // the next available post will be focused
         nextAvailablePost: CompositePost | null;
     };
-
-    // tracking the current editable post
-    cursor: Cursor;
 
     // operations upon the thread
     addPostInThread: () => void;
@@ -113,27 +116,24 @@ interface ComposeState {
     updatePoll: (poll: Poll | null, cursor?: Cursor) => void;
 
     // reset the editor
+    apply: (state: ComposeBaseState) => void;
     clear: () => void;
 }
 
-function createInitSinglePostState(cursor: Cursor): CompositePost {
+export function createInitPostState(): Record<SocialSource, null> {
+    return {
+        [Source.Farcaster]: null,
+        [Source.Lens]: null,
+        [Source.Twitter]: null,
+    };
+}
+
+export function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
-        postId: {
-            [Source.Farcaster]: null,
-            [Source.Lens]: null,
-            [Source.Twitter]: null,
-        },
-        postError: {
-            [Source.Farcaster]: null,
-            [Source.Lens]: null,
-            [Source.Twitter]: null,
-        },
-        parentPost: {
-            [Source.Farcaster]: null,
-            [Source.Lens]: null,
-            [Source.Twitter]: null,
-        },
+        postId: createInitPostState(),
+        postError: createInitPostState(),
+        parentPost: createInitPostState(),
         availableSources: getCurrentAvailableSources(),
         restriction: RestrictionType.Everyone,
         chars: '',
@@ -167,7 +167,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         type: 'compose',
         cursor: initialPostCursor,
         posts: [createInitSinglePostState(initialPostCursor)],
-
         computed: {
             get nextAvailablePost() {
                 const { cursor, posts } = get();
@@ -181,20 +180,18 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 return nextPosts[Math.max(0, index - 1)];
             },
         },
-
         addPostInThread: () =>
             set((state) => {
                 const cursor = uuid();
                 const index = state.posts.findIndex((x) => x.id === state.cursor);
-                const rootPost = state.posts[0];
 
                 const nextPosts = [
                     ...state.posts.slice(0, index + 1),
                     {
                         ...createInitSinglePostState(cursor),
-                        availableSources: rootPost.availableSources,
-                        restriction: rootPost.restriction,
-                        channel: clone(rootPost.channel),
+                        availableSources: state.posts[0].availableSources,
+                        restriction: state.posts[0].restriction,
+                        channel: clone(state.posts[0].channel),
                     },
                     ...state.posts.slice(index + 1), // corrected slicing here
                 ];
@@ -499,14 +496,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
+        apply: (nextState) =>
+            set((state) => {
+                Object.assign(state, nextState);
+            }),
         clear: () =>
-            set((state) =>
-                Object.assign(state, {
+            set((state) => {
+                const id = uuid();
+                const nextState = {
                     type: 'compose',
-                    cursor: initialPostCursor,
-                    posts: [createInitSinglePostState(initialPostCursor)],
-                }),
-            ),
+                    cursor: id,
+                    draftId: undefined,
+                    posts: [createInitSinglePostState(id)],
+                } satisfies ComposeBaseState;
+
+                Object.assign(state, nextState);
+            }),
     })),
 );
 

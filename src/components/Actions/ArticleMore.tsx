@@ -20,7 +20,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const isBusy = mutation.isPending;
     return (
         <Menu
-            className=" relative"
+            className="relative"
             as="div"
             onClick={(e) => {
                 e.stopPropagation();

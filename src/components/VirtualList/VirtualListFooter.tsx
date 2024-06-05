@@ -7,7 +7,7 @@ import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualLis
 export interface VirtualListFooterProps {
     context?: {
         hasNextPage?: boolean;
-        fetchNextPage?: () => Promise<void>;
+        fetchNextPage?: () => Promise<unknown>;
         isFetching?: boolean;
         itemsRendered: boolean;
     };
