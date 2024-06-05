@@ -2,26 +2,26 @@ import { t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useToggle } from 'react-use';
 
-import { ToggleMuteButton } from '@/components/Actions/ToggleMuteButton.js';
+import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { useToggleBlockChannel } from '@/hooks/useToggleBlockChannel.js';
+import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-interface ToggleMuteButtonProps extends Omit<ClickableButtonProps, 'children'> {
+interface Props extends Omit<ClickableButtonProps, 'children'> {
     channel: Channel;
     defaultMuted?: boolean;
 }
 
-export const ToggleMuteChannelButton = memo(function ToggleMuteChannelButton({
+export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
     channel,
     defaultMuted = true,
     ...rest
-}: ToggleMuteButtonProps) {
-    // FIXME:  we can use channel.blocked instead of defaultMuted
+}: Props) {
+    // FIXME: we can use channel.blocked instead of defaultMuted
     const [isMuted, setIsMuted] = useToggle(defaultMuted);
 
-    const [{ loading }, toggleBlock] = useToggleBlockChannel();
+    const [{ loading }, toggleMutedChannel] = useToggleMutedChannel();
 
     const onToggle = async () => {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({
@@ -35,9 +35,9 @@ export const ToggleMuteChannelButton = memo(function ToggleMuteChannelButton({
             ),
         });
         if (!confirmed) return;
-        const result = await toggleBlock({ ...channel, blocked: isMuted });
+        const result = await toggleMutedChannel({ ...channel, blocked: isMuted });
         if (result) setIsMuted(!isMuted);
     };
 
-    return <ToggleMuteButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;
+    return <ToggleMutedButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;
 });

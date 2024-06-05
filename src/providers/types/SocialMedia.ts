@@ -666,28 +666,28 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    reportUser: (profileId: string) => Promise<boolean>;
+    reportProfile: (profileId: string) => Promise<boolean>;
 
     /**
      * Report spam or inappropriate post content.
-     * @param post
+     * @param postId
      * @returns
      */
-    reportPost: (post: Post) => Promise<boolean>;
+    reportPost: (postId: string) => Promise<boolean>;
 
     /**
      * Block a profile.
      * @param profileId
      * @returns
      */
-    blockUser: (profileId: string) => Promise<boolean>;
+    blockProfile: (profileId: string) => Promise<boolean>;
 
     /**
      * Unblock a profile.
      * @param profileId
      * @returns
      */
-    unblockUser: (profileId: string) => Promise<boolean>;
+    unblockProfile: (profileId: string) => Promise<boolean>;
 
     /**
      * Retrieves profiles that the current logged user has blocked.
@@ -769,4 +769,33 @@ export interface Provider {
      * @returns
      */
     getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Block a wallet address.
+     * @param address
+     * @param networkType
+     * @returns
+     */
+    blockWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
+
+    /**
+     * Unblock a wallet address.
+     * @param address
+     * @param networkType
+     * @returns
+     */
+    unblockWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
+
+    /**
+     * Watch activities related to the specified address.
+     * @param address
+     * @param networkType default to EVM
+     */
+    watchWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
+    /**
+     * Unwatch activities related to the specified address.
+     * @param address
+     * @param networkType default to EVM
+     */
+    unwatchWallet?: (address: string, networkType?: NetworkType) => Promise<boolean>;
 }

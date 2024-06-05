@@ -13,7 +13,7 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
-import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
+import { formatWarpcastProfile } from '@/helpers/formatWarpcastUser.js';
 import { removeLeadingHash } from '@/helpers/removeLeadingHash.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -226,7 +226,7 @@ class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const res = await farcasterSessionHolder.fetch<UserDetailResponse>(url);
         const user = res.result.user;
-        return formatWarpcastUser(user);
+        return formatWarpcastProfile(user);
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -236,7 +236,7 @@ class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id,
         });
         const { result, next } = await farcasterSessionHolder.fetch<LikesResponse>(url, { method: 'GET' });
-        const data = result.likes.map((like) => formatWarpcastUser(like.reactor));
+        const data = result.likes.map((like) => formatWarpcastProfile(like.reactor));
         return createPageable(
             data,
             createIndicator(indicator),
@@ -251,7 +251,7 @@ class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id,
         });
         const { result, next } = await farcasterSessionHolder.fetch<RecastersResponse>(url, { method: 'GET' });
-        const data = result.users.map(formatWarpcastUser);
+        const data = result.users.map(formatWarpcastProfile);
         return createPageable(
             data,
             createIndicator(indicator),
@@ -315,7 +315,7 @@ class WarpcastSocialMedia implements Provider {
             },
             true,
         );
-        const data = result.map(formatWarpcastUser);
+        const data = result.map(formatWarpcastProfile);
         return createPageable(
             data,
             createIndicator(indicator),
@@ -336,7 +336,7 @@ class WarpcastSocialMedia implements Provider {
             },
             true,
         );
-        const data = result.map(formatWarpcastUser);
+        const data = result.map(formatWarpcastProfile);
         return createPageable(
             data,
             createIndicator(indicator),
@@ -563,7 +563,7 @@ class WarpcastSocialMedia implements Provider {
         const { result, next } = await farcasterSessionHolder.fetch<SearchUsersResponse>(resolveCrossOriginURL(url), {
             method: 'GET',
         });
-        const data = result.users.map(formatWarpcastUser);
+        const data = result.users.map(formatWarpcastProfile);
         return createPageable(
             data,
             createIndicator(indicator),
@@ -601,7 +601,7 @@ class WarpcastSocialMedia implements Provider {
             },
             true,
         );
-        const data = result.map(formatWarpcastUser);
+        const data = result.map(formatWarpcastProfile);
         return createPageable(
             data,
             createIndicator(indicator),
@@ -644,18 +644,18 @@ class WarpcastSocialMedia implements Provider {
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
     }
-    async reportUser(profileId: string): Promise<boolean> {
+    async reportProfile(profileId: string): Promise<boolean> {
         // TODO Mocking result for now.
         return true;
     }
-    async reportPost(post: Post): Promise<boolean> {
+    async reportPost(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async blockUser(profileId: string): Promise<boolean> {
+    async blockProfile(profileId: string): Promise<boolean> {
         // TODO Mocking result for now.
         return true;
     }
-    async unblockUser(profileId: string): Promise<boolean> {
+    async unblockProfile(profileId: string): Promise<boolean> {
         // TODO Mocking result for now.
         return true;
     }

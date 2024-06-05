@@ -1,7 +1,7 @@
 import { isUndefined } from 'lodash-es';
 
 import UserIcon from '@/assets/user.svg';
-import { ToggleMuteChannelButton } from '@/components/Actions/ToggleMuteChannelButton.js';
+import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChannelButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
@@ -104,7 +104,7 @@ export function ChannelInList({
 
             {!noMuteButton ? (
                 <div>
-                    <ToggleMuteChannelButton channel={channel} />
+                    <ToggleMutedChannelButton channel={channel} />
                 </div>
             ) : null}
         </div>

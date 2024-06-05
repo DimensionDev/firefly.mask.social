@@ -3,11 +3,11 @@ import { type Pageable, type PageIndicator } from '@masknet/shared-base';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
-import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
+import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
-import { SetQueryDataForFollowUser } from '@/decorators/SetQueryDataForFollowUser.js';
+import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -29,8 +29,8 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForMirrorPost(Source.Farcaster)
 @SetQueryDataForCommentPost(Source.Farcaster)
 @SetQueryDataForDeletePost(Source.Farcaster)
-@SetQueryDataForBlockUser(Source.Farcaster)
-@SetQueryDataForFollowUser(Source.Farcaster)
+@SetQueryDataForBlockProfile(Source.Farcaster)
+@SetQueryDataForFollowProfile(Source.Farcaster)
 @SetQueryDataForBlockChannel(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
@@ -275,17 +275,17 @@ class FarcasterSocialMedia implements Provider {
     getCommentsById(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
-    async reportUser(profileId: string) {
-        return FireflySocialMediaProvider.reportUser(profileId);
+    async reportProfile(profileId: string) {
+        return FireflySocialMediaProvider.reportProfile(profileId);
     }
-    async reportPost(post: Post) {
-        return FireflySocialMediaProvider.reportPost(post);
+    async reportPost(postId: string) {
+        return FireflySocialMediaProvider.reportPost(postId);
     }
-    async blockUser(profileId: string) {
-        return FireflySocialMediaProvider.blockUser(profileId);
+    async blockProfile(profileId: string) {
+        return FireflySocialMediaProvider.blockProfile(profileId);
     }
-    async unblockUser(profileId: string) {
-        return FireflySocialMediaProvider.unblockUser(profileId);
+    async unblockProfile(profileId: string) {
+        return FireflySocialMediaProvider.unblockProfile(profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

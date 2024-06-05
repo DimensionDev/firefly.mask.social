@@ -5,37 +5,37 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { getIsMuted } from '@/hooks/useIsMuted.js';
+import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 /**
- * Block/Unblock a user
+ * Mute and unmute a profile
  */
-export function useToggleBlock(operator: Profile | null) {
+export function useToggleMutedProfile(operator: Profile | null) {
     const isLogin = useIsLogin(operator?.source);
     return useAsyncFn(
-        async (profile: Profile, blocked?: boolean) => {
+        async (profile: Profile, overrideMuted?: boolean) => {
             if (!isLogin) {
                 LoginModalRef.open({ source: profile.source });
                 return false;
             }
-            const blocking = blocked ?? getIsMuted(profile);
+            const muted = overrideMuted ?? isProfileMuted(profile);
             const sourceName = resolveSourceName(profile.source);
             try {
                 const provider = resolveSocialMediaProvider(profile.source);
-                if (blocking) {
-                    const result = await provider.unblockUser(profile.profileId);
+                if (muted) {
+                    const result = await provider.unblockProfile(profile.profileId);
                     enqueueSuccessMessage(t`Unmuted @${profile.handle} on ${sourceName}`);
                     return result;
                 } else {
-                    const result = await provider.blockUser(profile.profileId);
+                    const result = await provider.blockProfile(profile.profileId);
                     enqueueSuccessMessage(t`Muted @${profile.handle} on ${sourceName}`);
                     return result;
                 }
             } catch (error) {
                 enqueueErrorMessage(
-                    blocking
+                    muted
                         ? t`Failed to unmute @${profile.handle} on ${sourceName}`
                         : t`Failed to mute @${profile.handle} on ${sourceName}`,
                     { error },

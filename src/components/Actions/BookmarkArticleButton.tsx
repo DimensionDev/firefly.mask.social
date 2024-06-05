@@ -14,7 +14,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     onToggleBookmark?(article: Article): void;
 }
 
-export const ArticleBookmarkButton = forwardRef<HTMLButtonElement, Props>(function ArticleBookmarkButton(
+export const BookmarkArticleButton = forwardRef<HTMLButtonElement, Props>(function BookmarkArticleButton(
     { busy, article, onConfirm, onToggleBookmark, ...rest }: Props,
     ref,
 ) {

@@ -168,6 +168,14 @@ export interface Article {
     article_id: string;
     cover_img_url: string | null;
     has_bookmarked?: boolean;
+    followingSources: Array<{
+        handle: string | null;
+        id: string;
+        name: string | null;
+        socialId: string | null;
+        type: WatchType;
+        walletAddress: string | null;
+    }>;
 }
 
 export interface Response<T> {
@@ -332,6 +340,12 @@ export enum RelationPlatform {
     github = 'github',
 }
 
+export enum WatchType {
+    Wallet = 'wallet',
+    MaskX = 'maskx',
+    Twitter = 'twitter',
+}
+
 export interface WalletProfile {
     address: string;
     ens: string[];
@@ -419,6 +433,7 @@ export type BookmarkResponse<T> = Response<{
     }>;
 }>;
 
+export type BlockFields = 'twitterId' | 'lensId' | 'fid' | 'address';
 export type BlockUserResponse = Response<
     Array<{
         id: string;
@@ -684,4 +699,22 @@ export interface Collection {
     nft_ids: string[];
     collection_details: CollectionDetails;
     nftPreviews?: NftPreview[];
+}
+
+export type TwitterFollowStatusResponse = Response<{
+    isFollowed: boolean;
+}>;
+
+export type WalletsFollowStatusResponse = Response<
+    Array<{
+        address: string;
+        is_followed: boolean;
+    }>
+>;
+
+export interface ReportPostParams {
+    platform: FireflyPlatform;
+    platform_id: string;
+    post_type: 'text' | 'video' | 'audio' | 'image';
+    post_id: string;
 }

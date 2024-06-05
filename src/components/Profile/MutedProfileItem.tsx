@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { ToggleMuteUserButton } from '@/components/Actions/ToggleMuteUserButton.js';
+import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
@@ -41,7 +41,7 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
                 <div className="w-full truncate">{profile.bio}</div>
             </div>
             <div className="flex shrink-0 justify-end">
-                <ToggleMuteUserButton profile={profile} />
+                <ToggleMutedProfileButton profile={profile} />
             </div>
         </Link>
     );

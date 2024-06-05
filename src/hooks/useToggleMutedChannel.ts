@@ -6,9 +6,9 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 /**
- * Block/Unblock a channel
+ * Mute and unmute a channel
  */
-export function useToggleBlockChannel() {
+export function useToggleMutedChannel() {
     return useAsyncFn(async (channel: Channel) => {
         try {
             const provider = resolveSocialMediaProvider(channel.source);
