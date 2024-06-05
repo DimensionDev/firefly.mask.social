@@ -145,7 +145,7 @@ msgid "Poll"
 msgstr "投票"
 
 msgid "Casts"
-msgstr "<<<<<<< HEAD======="
+msgstr ""
 
 msgid "Trending Channels"
 msgstr "熱門頻道"

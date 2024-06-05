@@ -23,7 +23,7 @@ import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
-import type { Additionals } from '@/providers/types/Frame.js';
+import type { Additional } from '@/providers/types/Frame.js';
 import {
     ActionType,
     type Frame,
@@ -71,17 +71,17 @@ async function getNextFrame(
     button: FrameButton,
     input?: string,
 ) {
-    async function createPacket(additionals?: Additionals) {
+    async function createPacket(additional?: Additional) {
         switch (source) {
             case Source.Lens:
                 return LensFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
                     state: latestFrame && frame.state ? frame.state : undefined,
-                    ...additionals,
+                    ...additional,
                 });
             case Source.Farcaster:
                 return HubbleFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
                     state: latestFrame && frame.state ? frame.state : undefined,
-                    ...additionals,
+                    ...additional,
                 });
             case Source.Twitter:
                 return null;
@@ -91,13 +91,13 @@ async function getNextFrame(
         }
     }
 
-    async function postAction<T>(additionals?: Additionals) {
+    async function postAction<T>(additional?: Additional) {
         const url = urlcat('/api/frame', {
             url: frame.url,
             action: button.action,
             'post-url': button.target || frame.postUrl || frame.url,
         });
-        const packet = await createPacket(additionals);
+        const packet = await createPacket(additional);
         if (!packet) {
             enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
             throw new Error('Failed to generate signature packet.');
@@ -114,9 +114,9 @@ async function getNextFrame(
 
     try {
         switch (button.action) {
-            case ActionType.Post:
-                const postResponse = await postAction<LinkDigestedResponse>();
-                const nextFrame = postResponse.success ? postResponse.data.frame : null;
+            case ActionType.Post: {
+                const response = await postAction<LinkDigestedResponse>();
+                const nextFrame = response.success ? response.data.frame : null;
 
                 if (!nextFrame) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
@@ -133,9 +133,10 @@ async function getNextFrame(
                 }
 
                 return nextFrame;
-            case ActionType.PostRedirect:
-                const redirectUrlResponse = await postAction<RedirectUrlResponse>();
-                const redirectUrl = redirectUrlResponse.success ? redirectUrlResponse.data.redirectUrl : null;
+            }
+            case ActionType.PostRedirect: {
+                const response = await postAction<RedirectUrlResponse>();
+                const redirectUrl = response.success ? response.data.redirectUrl : null;
                 if (!redirectUrl) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
                     return;
@@ -143,6 +144,7 @@ async function getNextFrame(
 
                 if (await confirmBeforeLeaving()) openWindow(redirectUrl, '_blank');
                 return;
+            }
             case ActionType.Link:
                 if (!button.target) return;
                 if (await confirmBeforeLeaving()) openWindow(button.target, '_blank');

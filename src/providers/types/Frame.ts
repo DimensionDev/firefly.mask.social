@@ -1,6 +1,6 @@
 import type { Frame, Index } from '@/types/frame.js';
 
-export interface Additionals {
+export interface Additional {
     // for initial frame should not provide state
     state?: string;
     transactionId?: string;
@@ -12,6 +12,6 @@ export interface Provider<Signature> {
         frame: Frame,
         index: Index,
         input?: string,
-        additionals?: Additionals,
+        additional?: Additional,
     ): Promise<Signature>;
 }

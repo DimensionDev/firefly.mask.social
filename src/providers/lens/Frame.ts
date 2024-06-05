@@ -2,7 +2,7 @@ import { type FrameLensManagerEip712Request } from '@lens-protocol/client';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import type { Additionals, Provider } from '@/providers/types/Frame.js';
+import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
 import type { Frame, Index } from '@/types/frame.js';
 
@@ -12,7 +12,7 @@ class LensFrame implements Provider<FrameSignaturePacket> {
         frame: Frame,
         index: Index,
         input?: string,
-        additionals?: Additionals,
+        additional?: Additional,
     ): Promise<FrameSignaturePacket> {
         const identityTokenResult = await lensSessionHolder.sdk.authentication.getIdentityToken();
         if (identityTokenResult.isFailure()) {
@@ -30,7 +30,7 @@ class LensFrame implements Provider<FrameSignaturePacket> {
             pubId: postId,
             // The EIP-721 spec version, must be 1.0.0
             specVersion: '1.0.0',
-            state: additionals?.state ?? '',
+            state: additional?.state ?? '',
             url: frame.url,
         };
 

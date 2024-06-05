@@ -12,7 +12,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         frame: Frame,
         index: Index,
         input?: string,
-        additionals?: {
+        additional?: {
             // the state is not read from frame, for initial frame it should not provide state
             state?: string;
             transactionId?: string;
@@ -29,8 +29,8 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
                         hash: toBytes(postId),
                     },
                     inputText: input ? toBytes(input) : new Uint8Array([]),
-                    state: additionals?.state ? toBytes(additionals?.state) : new Uint8Array([]),
-                    transactionId: additionals?.transactionId ? toBytes(additionals.transactionId) : new Uint8Array([]),
+                    state: additional?.state ? toBytes(additional?.state) : new Uint8Array([]),
+                    transactionId: additional?.transactionId ? toBytes(additional.transactionId) : new Uint8Array([]),
                     address: new Uint8Array([]),
                 },
             }),
@@ -55,8 +55,8 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
                 network: messageData.network,
                 buttonIndex: index,
                 inputText: input,
-                state: additionals?.state,
-                transactionId: additionals?.transactionId,
+                state: additional?.state,
+                transactionId: additional?.transactionId,
                 castId: {
                     fid: messageData.fid,
                     hash: postId,
