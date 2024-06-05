@@ -670,10 +670,10 @@ export interface Provider {
 
     /**
      * Report spam or inappropriate post content.
-     * @param post
+     * @param postId
      * @returns
      */
-    reportPost: (post: Post) => Promise<boolean>;
+    reportPost: (postId: string) => Promise<boolean>;
 
     /**
      * Block a profile.

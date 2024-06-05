@@ -32,11 +32,11 @@ import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
-import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
+import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
-import { SetQueryDataForFollowUser } from '@/decorators/SetQueryDataForFollowUser.js';
+import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -72,8 +72,8 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForMirrorPost(Source.Lens)
 @SetQueryDataForCommentPost(Source.Lens)
 @SetQueryDataForDeletePost(Source.Lens)
-@SetQueryDataForBlockUser(Source.Lens)
-@SetQueryDataForFollowUser(Source.Lens)
+@SetQueryDataForBlockProfile(Source.Lens)
+@SetQueryDataForFollowProfile(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -1067,9 +1067,9 @@ class LensSocialMedia implements Provider {
 
         return blocked;
     }
-    async reportPost(post: Post) {
+    async reportPost(postId: string) {
         const result = await lensSessionHolder.sdk.publication.report({
-            for: post.postId,
+            for: postId,
             // TODO more specific and accurate reason.
             reason: {
                 spamReason: {

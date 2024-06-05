@@ -12,7 +12,7 @@ interface BlockedProfilesState {
     unblockProfile(operator: Profile, profile: Profile): void;
 }
 
-const useBlockedProfilessStore = create<
+const useBlockedProfilesStore = create<
     BlockedProfilesState,
     [['zustand/persist', BlockedProfilesState], ['zustand/immer', never]]
 >(
@@ -43,4 +43,4 @@ const useBlockedProfilessStore = create<
     ),
 );
 
-export const useBlockedProfilesState = createSelectors(useBlockedProfilessStore);
+export const useBlockedProfilesState = createSelectors(useBlockedProfilesStore);

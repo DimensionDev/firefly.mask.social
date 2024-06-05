@@ -240,7 +240,7 @@ class NeynarSocialMedia implements Provider {
     async reportProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async reportPost(post: Post): Promise<boolean> {
+    async reportPost(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
     async blockProfile(profileId: string): Promise<boolean> {
