@@ -40,6 +40,7 @@ export function SourceSquareIcon({ source, size = 20, forceLight, ...props }: So
             ) : (
                 <XSquareDarkIcon {...props} style={style} width={size} height={size} />
             );
+        case Source.NFTs:
         case Source.Article:
             return null;
         default:
