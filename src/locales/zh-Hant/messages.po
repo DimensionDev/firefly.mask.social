@@ -321,6 +321,9 @@ msgstr ""
 msgid "Recent"
 msgstr "最近"
 
+msgid "Failed to generate signature packet with source = {source}."
+msgstr ""
+
 msgid "Save failed post?"
 msgstr ""
 

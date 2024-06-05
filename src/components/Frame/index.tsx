@@ -10,12 +10,14 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { Card } from '@/components/Frame/Card.js';
+import { type SocialSource,Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -24,6 +26,7 @@ async function getNextFrame(
     frame: Frame,
     latestFrame: Frame | null,
     button: FrameButton,
+    source: SocialSource,
     input?: string,
 ) {
     try {
@@ -46,14 +49,38 @@ async function getNextFrame(
                 action: button.action,
                 'post-url': button.target || frame.postUrl || frame.url,
             });
-            const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
-                postId,
-                frame,
-                button.index,
-                input,
-                // for initial frame should not provide state
-                latestFrame && frame.state ? frame.state : undefined,
-            );
+            let packet = null;
+            switch (source) {
+                case Source.Lens:
+                    packet = await LensSocialMediaProvider.generateFrameSignaturePacket(
+                        postId,
+                        frame,
+                        button.index,
+                        input,
+                        // for initial frame should not provide state
+                        latestFrame && frame.state ? frame.state : undefined,
+                    );
+                    break;
+                case Source.Farcaster:
+                    packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
+                        postId,
+                        frame,
+                        button.index,
+                        input,
+                        // for initial frame should not provide state
+                        latestFrame && frame.state ? frame.state : undefined,
+                    );
+                    break;
+                case Source.Twitter:
+                    break;
+                default:
+                    safeUnreachable(source);
+            };
+
+            if (!packet) {
+                enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
+                return;
+            }
 
             return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
                 method: 'POST',
@@ -67,7 +94,7 @@ async function getNextFrame(
         switch (button.action) {
             case ActionType.Post:
                 const postResponse = await post();
-                const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
+                const nextFrame = postResponse?.success ? (postResponse.data as LinkDigested).frame : null;
 
                 if (!nextFrame) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
@@ -86,7 +113,7 @@ async function getNextFrame(
                 return nextFrame;
             case ActionType.PostRedirect:
                 const postRedirectResponse = await post();
-                const redirectUrl = postRedirectResponse.success
+                const redirectUrl = postRedirectResponse?.success
                     ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
                     : null;
                 if (!redirectUrl) {
@@ -121,11 +148,12 @@ async function getNextFrame(
 interface FrameProps {
     urls: string[];
     postId: string;
+    source: SocialSource;
     children?: React.ReactNode;
     onData?: (frame: Frame) => void;
 }
 
-export function Frame({ postId, urls, onData, children }: FrameProps) {
+export function Frame({ postId, source, urls, onData, children }: FrameProps) {
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const {
@@ -173,7 +201,7 @@ export function Frame({ postId, urls, onData, children }: FrameProps) {
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
             if (!frame) return;
-            const nextFrame = await getNextFrame(postId, frame, latestFrame, button, input);
+            const nextFrame = await getNextFrame(postId, frame, latestFrame, button, source, input);
             if (nextFrame) setLatestFrame(nextFrame);
         },
         [frame, latestFrame, postId],

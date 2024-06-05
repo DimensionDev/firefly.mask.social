@@ -316,6 +316,9 @@ msgstr "Audio Cover"
 msgid "Recent"
 msgstr "Recent"
 
+msgid "Failed to generate signature packet with source = {source}."
+msgstr "Failed to generate signature packet with source = {source}."
+
 msgid "Save failed post?"
 msgstr "Save failed post?"
 
