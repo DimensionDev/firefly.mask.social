@@ -3,12 +3,13 @@ import { getToken, type JWT } from 'next-auth/jwt';
 
 import { env } from '@/constants/env.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 
 async function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
     const payload = TwitterSession.payloadFromHeaders(request.headers);
     if (!payload) return null;
 
-    return TwitterSession.revealPayload(payload);
+    return TwitterSessionPayload.revealPayload(payload);
 }
 
 async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
