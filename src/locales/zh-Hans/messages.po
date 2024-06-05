@@ -24,6 +24,9 @@ msgstr "请先登录 {sourceName}。"
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
 
+msgid "Onchain Activities"
+msgstr ""
+
 msgid "Muted"
 msgstr "已屏蔽"
 
@@ -357,6 +360,12 @@ msgstr "Frame Validator"
 msgid "Copy Link"
 msgstr "复制链接"
 
+msgid "<0>Poap</0> received"
+msgstr ""
+
+msgid "<0>Sold</0> an NFT"
+msgstr ""
+
 msgid "Follow System"
 msgstr "跟随系统"
 
@@ -365,6 +374,9 @@ msgstr "转帖失败。"
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
+
+msgid "<0>Bought</0> an NFT"
+msgstr ""
 
 msgid "The file not found"
 msgstr "未找到文件"
@@ -603,11 +615,17 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
+msgid "<0>Acquired</0> an NFT"
+msgstr ""
+
 msgid "Retweeted"
 msgstr "已转帖"
 
 msgid "Post your reply"
 msgstr "发送你的回复"
+
+msgid "<0>Sold</0> an NFT worth {0}"
+msgstr ""
 
 msgid "liked"
 msgstr "点赞"
@@ -689,6 +707,9 @@ msgstr "点赞"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
+
+msgid "<0>Bought</0> an NFT worth {0}"
+msgstr ""
 
 msgid "General"
 msgstr "通用"
@@ -882,9 +903,6 @@ msgstr "引用"
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
-msgid "<0>Minted</0> an NFT"
-msgstr ""
-
 msgid "Image"
 msgstr "图片"
 
@@ -944,6 +962,9 @@ msgstr "创建 firefly 会话失败。"
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr "在您装有 Warpcast 的手机上，打开<0>相机</0>扫描二维码，授权 Firefly 连接您的账号。"
+
+msgid "<0>Minted</0> an NFT for free"
+msgstr ""
 
 msgid "Properties"
 msgstr ""
@@ -1044,6 +1065,9 @@ msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 msgid "Collection"
 msgstr ""
 
+msgid "<0>Minted</0> an NFT worth {0}"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1092,6 +1116,9 @@ msgstr "取消屏蔽 @{0}"
 msgid "Mask Network"
 msgstr "Mask Network"
 
+msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
+msgstr ""
+
 msgid "View Engagements"
 msgstr "查看互动情况"
 
@@ -1133,6 +1160,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其
 
 msgid "Recasted"
 msgstr "已转发"
+
+msgid "<0>Burned</0> an NFT"
+msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "获取状态失败。请稍后重试。"
