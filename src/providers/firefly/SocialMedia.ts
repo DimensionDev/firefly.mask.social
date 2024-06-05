@@ -6,7 +6,7 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { isSameAddress, isZero } from '@masknet/web3-shared-base';
+import { isZero } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -60,7 +60,6 @@ import {
     type UserResponse,
     type UsersResponse,
     type WalletProfileResponse,
-    type WalletsFollowStatusResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
 import {
