@@ -552,7 +552,7 @@ class LensSocialMedia implements Provider {
         );
     }
 
-    async getCommentsByUserId(postId: string, profileId: string, indicator?: PageIndicator) {
+    async getCommentsByProfileId(postId: string, profileId: string, indicator?: PageIndicator) {
         const result = await lensSessionHolder.sdk.publication.fetchAll({
             where: {
                 commentOn: { id: postId },

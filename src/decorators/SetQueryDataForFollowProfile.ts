@@ -46,7 +46,10 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
     };
 
     queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source] }, profilesPatcher);
-    queryClient.setQueriesData<PagesData>({ queryKey: ['search', SearchType.Users], type: 'active' }, profilesPatcher);
+    queryClient.setQueriesData<PagesData>(
+        { queryKey: ['search', SearchType.Profiles], type: 'active' },
+        profilesPatcher,
+    );
 
     patchNotificationQueryDataOnAuthor(source, (profile) => {
         if (profile.profileId === profileId) {

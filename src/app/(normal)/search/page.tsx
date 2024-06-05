@@ -25,7 +25,7 @@ const getSearchItemContent = (
     listKey: string,
 ) => {
     switch (searchType) {
-        case SearchType.Users:
+        case SearchType.Profiles:
             const profile = item as Profile;
             return <ProfileInList key={profile.profileId} profile={profile} listKey={listKey} index={index} />;
         case SearchType.Posts:
@@ -54,7 +54,7 @@ export default function Page() {
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             switch (searchType) {
-                case SearchType.Users:
+                case SearchType.Profiles:
                     return provider.searchProfiles(searchKeyword, indicator);
                 case SearchType.Posts:
                     return provider.searchPosts(searchKeyword, indicator);
@@ -84,7 +84,7 @@ export default function Page() {
                 listKey: `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`,
                 computeItemKey: (index, item) => {
                     switch (searchType) {
-                        case SearchType.Users:
+                        case SearchType.Profiles:
                             const profile = item as Profile;
                             return `${profile.profileId}_${index}`;
                         case SearchType.Posts:

@@ -46,7 +46,7 @@ export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 
 export enum SearchType {
-    Users = 'users',
+    Profiles = 'users',
     Posts = 'posts',
     Channels = 'channels',
 }
@@ -90,7 +90,7 @@ export enum EngagementType {
 export enum RestrictionType {
     Everyone = 0,
     OnlyPeopleYouFollow = 1,
-    MentionedUsers = 2,
+    MentionedProfiles = 2,
 }
 
 export enum ScrollListKey {
@@ -130,8 +130,8 @@ export enum BookmarkType {
 export { SourceInURL as FireflyPlatform };
 
 export enum MuteMenuId {
-    FarcasterUsers = '1',
+    FarcasterProfiles = '1',
     FarcasterChannels = '2',
-    LensUsers = '3',
-    XUsers = '4',
+    LensProfiles = '3',
+    XProfiles = '4',
 }
