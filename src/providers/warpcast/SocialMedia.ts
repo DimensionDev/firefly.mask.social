@@ -13,7 +13,7 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
-import { formatWarpcastProfile } from '@/helpers/formatWarpcastUser.js';
+import { formatWarpcastProfile } from '@/helpers/formatWarpcastProfile.js';
 import { removeLeadingHash } from '@/helpers/removeLeadingHash.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
