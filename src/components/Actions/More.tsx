@@ -28,8 +28,8 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
-import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import { useToggleBlockChannel } from '@/hooks/useToggleBlockChannel.js';
+import { useToggleBlockProfile } from '@/hooks/useToggleBlockProfile.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -51,7 +51,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const [, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [, reportUser] = useReportUser(currentProfile);
-    const [, toggleBlock] = useToggleBlock(currentProfile);
+    const [, toggleBlock] = useToggleBlockProfile(currentProfile);
     const [, toggleBlockChannel] = useToggleBlockChannel();
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 

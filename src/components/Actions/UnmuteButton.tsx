@@ -6,7 +6,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { classNames } from '@/helpers/classNames.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { useToggleBlock } from '@/hooks/useToggleBlock.js';
+import { useToggleBlockProfile } from '@/hooks/useToggleBlockProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum MuteLabel {
@@ -23,7 +23,7 @@ export const UnmuteButton = memo(function UnmuteButton({ profile, className, ...
     const [muteHover, setMuteHover] = useState(false);
 
     const currentProfile = useCurrentProfile(profile.source);
-    const [{ loading }, toggleBlock] = useToggleBlock(currentProfile);
+    const [{ loading }, toggleBlock] = useToggleBlockProfile(currentProfile);
     const buttonText = loading ? t`Unmuting` : muteHover ? t`Unmute` : t`Muted`;
     const buttonState = muteHover ? MuteLabel.Unmute : MuteLabel.Muted;
 

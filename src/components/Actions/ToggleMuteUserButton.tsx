@@ -5,7 +5,7 @@ import { useToggle } from 'react-use';
 import { ToggleMuteButton } from '@/components/Actions/ToggleMuteButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useToggleBlock } from '@/hooks/useToggleBlock.js';
+import { useToggleBlockProfile } from '@/hooks/useToggleBlockProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -22,7 +22,7 @@ export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({
     const [isMuted, setIsMuted] = useToggle(defaultMuted);
 
     const currentProfile = useCurrentProfile(profile.source);
-    const [{ loading }, toggleBlock] = useToggleBlock(currentProfile);
+    const [{ loading }, toggleBlock] = useToggleBlockProfile(currentProfile);
 
     const onToggle = async () => {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({

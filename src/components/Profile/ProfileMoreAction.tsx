@@ -15,7 +15,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
-import { useToggleBlock } from '@/hooks/useToggleBlock.js';
+import { useToggleBlockProfile } from '@/hooks/useToggleBlockProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -27,7 +27,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
     const [, reportUser] = useReportUser(currentProfile);
-    const [, toggleBlock] = useToggleBlock(currentProfile);
+    const [, toggleBlock] = useToggleBlockProfile(currentProfile);
 
     return (
         <Menu className={classNames('relative', className as string)} as="div" {...rest}>

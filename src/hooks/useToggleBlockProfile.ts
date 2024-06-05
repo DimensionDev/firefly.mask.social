@@ -5,26 +5,26 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { getIsMuted } from '@/hooks/useIsProfileMuted.js';
+import { getIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 /**
- * Block/Unblock a user
+ * Block/Unblock a profile
  */
-export function useToggleBlock(operator: Profile | null) {
+export function useToggleBlockProfile(operator: Profile | null) {
     const isLogin = useIsLogin(operator?.source);
     return useAsyncFn(
-        async (profile: Profile, blocked?: boolean) => {
+        async (profile: Profile, overrideMuted?: boolean) => {
             if (!isLogin) {
                 LoginModalRef.open({ source: profile.source });
                 return false;
             }
-            const blocking = blocked ?? getIsMuted(profile);
+            const muted = overrideMuted ?? getIsProfileMuted(profile);
             const sourceName = resolveSourceName(profile.source);
             try {
                 const provider = resolveSocialMediaProvider(profile.source);
-                if (blocking) {
+                if (muted) {
                     const result = await provider.unblockProfile(profile.profileId);
                     enqueueSuccessMessage(t`Unmuted @${profile.handle} on ${sourceName}`);
                     return result;
@@ -35,7 +35,7 @@ export function useToggleBlock(operator: Profile | null) {
                 }
             } catch (error) {
                 enqueueErrorMessage(
-                    blocking
+                    muted
                         ? t`Failed to unmute @${profile.handle} on ${sourceName}`
                         : t`Failed to mute @${profile.handle} on ${sourceName}`,
                     { error },
