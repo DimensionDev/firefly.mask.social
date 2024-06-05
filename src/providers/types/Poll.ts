@@ -1,5 +1,7 @@
 import type { Pageable } from '@masknet/shared-base';
 
+import type { SocialSource } from '@/constants/enum.js';
+
 export interface PollOption {
     id: string;
     position?: number;
@@ -10,9 +12,15 @@ export interface PollOption {
 export interface Poll {
     id: string;
     options: PollOption[];
+    source: SocialSource;
     validInDays: number;
     endDatetime?: string;
     votingStatus?: string;
+}
+
+export interface CompositePoll {
+    options: PollOption[];
+    validInDays: number;
 }
 
 export interface Provider {
@@ -22,7 +30,7 @@ export interface Provider {
      * @param text Optional text to associate with the poll
      * @returns
      */
-    createPoll: (poll: Poll, text?: string) => Promise<Poll>;
+    createPoll: (poll: CompositePoll, text?: string) => Promise<Poll>;
 
     /**
      * Retrieves a poll by its id

@@ -10,3 +10,7 @@ export interface FrameSignaturePacket {
         messageBytes: string;
     };
 }
+
+export enum LensMetadataAttributeKey {
+    Poll = 'pollId',
+}

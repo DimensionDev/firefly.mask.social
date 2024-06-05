@@ -1,14 +1,18 @@
-import type { Poll, PollOption, Provider } from '@/providers/types/Poll.js';
-import { createFarcasterPoll } from '@/services/createFarcasterPoll.js';
+import { Source } from '@/constants/enum.js';
+import type { CompositePoll, Poll, PollOption, Provider } from '@/providers/types/Poll.js';
+import { commitPoll } from '@/services/commitPoll.js';
 
 class FarcasterPoll implements Provider {
-    async createPoll(poll: Poll, text?: string): Promise<Poll> {
-        const newPollId = await createFarcasterPoll(poll, text ?? '');
-        return {
-            id: newPollId,
-            options: poll.options,
-            validInDays: poll.validInDays,
-        };
+    async createPoll(poll: CompositePoll, text?: string): Promise<Poll> {
+        return await commitPoll(
+            {
+                id: '',
+                options: poll.options,
+                validInDays: poll.validInDays,
+                source: Source.Farcaster,
+            },
+            text ?? '',
+        );
     }
 
     vote(pollId: string, option: PollOption): Promise<void> {

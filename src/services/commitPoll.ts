@@ -7,14 +7,14 @@ import type { ResponseJSON } from '@/types/index.js';
 
 type CreatePollResponse = ResponseJSON<{ pollId: string }>;
 
-export const createFarcasterPoll = async (poll: Poll, text: string) => {
-    const pollStub: Poll = {
-        id: '',
+export const commitPoll = async (poll: Poll, text: string): Promise<Poll> => {
+    const pollStub = {
         options: poll.options.map((x) => ({
             id: x.id,
             label: x.label,
         })),
         validInDays: poll.validInDays,
+        source: poll.source.toLowerCase(),
     };
 
     const response = await fetchJSON<CreatePollResponse>(urlcat(FRAME_SERVER_URL, '/api/poll'), {
@@ -25,5 +25,8 @@ export const createFarcasterPoll = async (poll: Poll, text: string) => {
         }),
     });
     if (!response.success) throw new Error(response.error.message);
-    return response.data.pollId;
+    return {
+        ...poll,
+        id: response.data.pollId,
+    };
 };
