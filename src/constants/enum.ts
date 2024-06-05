@@ -134,3 +134,7 @@ export enum MuteMenuId {
     LensUsers = '3',
     XUsers = '4',
 }
+
+export enum LensMetadataAttributeKey {
+    Poll = 'pollId'
+}

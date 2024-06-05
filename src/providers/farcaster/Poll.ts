@@ -1,9 +1,11 @@
+import {SourceInURL  } from '@/constants/enum.js';
 import type { Poll, PollOption, Provider } from '@/providers/types/Poll.js';
-import { createFarcasterPoll } from '@/services/createFarcasterPoll.js';
+import { createPoll } from '@/services/createPoll.js';
+
 
 class FarcasterPoll implements Provider {
     async createPoll(poll: Poll, text?: string): Promise<Poll> {
-        const newPollId = await createFarcasterPoll(poll, text ?? '');
+        const newPollId = await createPoll(poll, text ?? '', SourceInURL.Farcaster);
         return {
             id: newPollId,
             options: poll.options,
