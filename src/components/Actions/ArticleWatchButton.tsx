@@ -7,7 +7,6 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
-import { WatchType } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     article: Article;
@@ -20,8 +19,8 @@ export const ArticleWatchButton = forwardRef<HTMLButtonElement, Props>(function 
     const isWatched = article.author.isFollowing;
     const mutation = useMutation({
         mutationFn: () => {
-            if (isWatched) return FireflySocialMediaProvider.unwatch(WatchType.Wallet, article.author.id);
-            return FireflySocialMediaProvider.watch(WatchType.Wallet, article.author.id);
+            if (isWatched) return FireflySocialMediaProvider.unwatchWallet(article.author.id);
+            return FireflySocialMediaProvider.watchWallet(article.author.id);
         },
     });
     return (
