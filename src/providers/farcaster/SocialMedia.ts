@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { type Pageable, type PageIndicator } from '@masknet/shared-base';
 
-import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -289,7 +289,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedProfiles(indicator);
+        return FireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Farcaster);
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
