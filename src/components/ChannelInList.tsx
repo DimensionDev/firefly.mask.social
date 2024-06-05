@@ -1,7 +1,7 @@
 import { isUndefined } from 'lodash-es';
 
 import UserIcon from '@/assets/user.svg';
-import { ToggleMuteChannelButton } from '@/components/Actions/ToggleMuteChannelButton.js';
+import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChannelButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
@@ -61,7 +61,7 @@ export function ChannelInList({
                 </ChannelTippy>
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
-                    <p className="flex-start flex items-center text-sm font-bold leading-5">
+                    <div className="flex-start flex items-center text-sm font-bold leading-5">
                         <ChannelTippy channel={channel}>
                             <span
                                 className={classNames('mr-2', {
@@ -73,7 +73,7 @@ export function ChannelInList({
                             </span>
                         </ChannelTippy>
                         <SocialSourceIcon source={channel.source} size={isSmall || dense ? 16 : 20} />
-                    </p>
+                    </div>
                     <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>
                             <p className="truncate">/{channel.id}</p>
@@ -104,7 +104,7 @@ export function ChannelInList({
 
             {!noMuteButton ? (
                 <div>
-                    <ToggleMuteChannelButton channel={channel} />
+                    <ToggleMutedChannelButton channel={channel} />
                 </div>
             ) : null}
         </div>

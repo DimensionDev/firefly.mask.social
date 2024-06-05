@@ -21,6 +21,7 @@
         "bowser",
         "cacheable",
         "canonicalize",
+        "chainbase",
         "datetime",
         "deeplink",
         "enhanceable",
@@ -32,12 +33,14 @@
         "keybase",
         "lingui",
         "linkedom",
+        "maskx",
         "merkle",
         "metas",
         "momoka",
         "nextid",
         "neynar",
         "overscan",
+        "onchain",
         "pageable",
         "recasted",
         "recaster",
@@ -63,9 +66,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "chainbase",
-        "onchain"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",

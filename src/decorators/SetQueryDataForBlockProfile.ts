@@ -36,12 +36,12 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
         }
     });
 
-    queryClient.setQueryData(['profile-is-muted', source, profileId], status);
+    queryClient.setQueryData(['profile-is-blocked', source, profileId], status);
 }
 
-const METHODS_BE_OVERRIDDEN = ['blockUser', 'unblockUser'] as const;
+const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;
 
-export function SetQueryDataForBlockUser(source: SocialSource) {
+export function SetQueryDataForBlockProfile(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];
@@ -49,7 +49,7 @@ export function SetQueryDataForBlockUser(source: SocialSource) {
             Object.defineProperty(target.prototype, key, {
                 value: async (profileId: string) => {
                     const m = method as (profileId: string) => Promise<boolean>;
-                    const status = key === 'blockUser';
+                    const status = key === 'blockProfile';
                     setBlockStatus(source, profileId, status);
                     try {
                         const result = await m?.call(target.prototype, profileId);

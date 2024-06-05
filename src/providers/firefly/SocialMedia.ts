@@ -7,11 +7,14 @@ import {
 } from '@masknet/shared-base';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
+import { isValidAddress } from '@masknet/web3-shared-evm';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
+import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     formatBriefChannelFromFirefly,
@@ -24,9 +27,11 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import type { Article } from '@/providers/types/Article.js';
 import {
     type BlockChannelResponse,
     type BlockedUsersResponse,
+    type BlockFields,
     type BlockRelationResponse,
     type BlockUserResponse,
     type BookmarkResponse,
@@ -45,6 +50,8 @@ import {
     type PostQuotesResponse,
     type ReactorsResponse,
     type RelationResponse,
+    type ReportPostParams,
+    type Response,
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
@@ -53,6 +60,7 @@ import {
     type UserResponse,
     type UsersResponse,
     type WalletProfileResponse,
+    WatchType,
 } from '@/providers/types/Firefly.js';
 import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
 import {
@@ -65,7 +73,41 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
-class FireflySocialMedia implements Provider {
+async function reportPost(params: ReportPostParams) {
+    const url = urlcat(FIREFLY_ROOT_URL, '/v1/report/post/create');
+    return fireflySessionHolder.fetch<string>(url, {
+        method: 'POST',
+        body: JSON.stringify(params),
+    });
+}
+
+async function block(field: BlockFields, profileId: string): Promise<boolean> {
+    const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/block');
+    const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            [field]: profileId,
+        }),
+    });
+    if (response) return true;
+    throw new Error('Failed to block user');
+}
+
+async function unblock(field: BlockFields, profileId: string): Promise<boolean> {
+    const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/unblock');
+    const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            [field]: profileId,
+        }),
+    });
+    if (response) return true;
+    throw new Error('Failed to mute user');
+}
+
+@SetQueryDataForWatchWallet()
+@SetQueryDataForBlockWallet()
+export class FireflySocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
     }
@@ -725,35 +767,6 @@ class FireflySocialMedia implements Provider {
             return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
         });
     }
-    async reportUser(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
-    }
-    async reportPost(post: Post): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    async blockUser(profileId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/block');
-        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                fid: profileId,
-            }),
-        });
-        if (response) return true;
-        throw new Error('Failed to mute user');
-    }
-    async unblockUser(profileId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/unblock');
-        const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                fid: profileId,
-            }),
-        });
-        if (response) return true;
-        throw new Error('Failed to mute user');
-    }
 
     async getBlockedProfiles(
         indicator?: PageIndicator,
@@ -772,34 +785,6 @@ class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
         );
-    }
-
-    async blockChannel(channelId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
-
-        const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                channel_id: channelId,
-            }),
-        });
-
-        if (response) return true;
-        throw new Error('Failed to mute channel');
-    }
-
-    async unblockChannel(channelId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
-
-        const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
-            method: 'DELETE',
-            body: JSON.stringify({
-                channel_id: channelId,
-            }),
-        });
-
-        if (response) return true;
-        throw new Error('Failed to mute channel');
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
@@ -840,6 +825,7 @@ class FireflySocialMedia implements Provider {
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
+
     async bookmark(
         postId: string,
         platform?: FireflyPlatform,
@@ -859,6 +845,7 @@ class FireflySocialMedia implements Provider {
         if (response) return true;
         throw new Error('Failed to bookmark');
     }
+
     async unbookmark(postId: string): Promise<boolean> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/remove');
         const response = await fireflySessionHolder.fetch<string>(url, {
@@ -870,6 +857,7 @@ class FireflySocialMedia implements Provider {
         if (response) return true;
         throw new Error('Failed to bookmark');
     }
+
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
             post_type: BookmarkType.All,
@@ -898,18 +886,98 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    async getIsMuted(profileId: string): Promise<boolean> {
+    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return false;
             const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
             const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    conditions: [{ snsPlatform: FireflyPlatform.Farcaster, snsId: profileId }],
+                    conditions: [{ snsPlatform: platform, snsId: profileId }],
                 }),
             });
             const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
             return blocked;
+        });
+    }
+
+    async blockWallet(address: string) {
+        return block('address', address);
+    }
+
+    async unblockWallet(address: string) {
+        return unblock('address', address);
+    }
+
+    async blockProfile(profileId: string): Promise<boolean> {
+        return block('fid', profileId);
+    }
+
+    async unblockProfile(profileId: string): Promise<boolean> {
+        return unblock('fid', profileId);
+    }
+
+    async blockChannel(channelId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
+        const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                channel_id: channelId,
+            }),
+        });
+
+        if (response) return true;
+        throw new Error('Failed to mute channel');
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
+        const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                channel_id: channelId,
+            }),
+        });
+
+        if (response) return true;
+        throw new Error('Failed to mute channel');
+    }
+
+    async watchWallet(address: string) {
+        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
+            type: WatchType.Wallet,
+            toObjectId: address,
+        });
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'PUT' });
+        return true;
+    }
+
+    async unwatchWallet(address: string) {
+        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
+            type: WatchType.Wallet,
+            toObjectId: address,
+        });
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'DELETE' });
+        return true;
+    }
+
+    async reportProfile(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+
+    async reportPost(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async reportArticle(article: Article) {
+        return reportPost({
+            platform: FireflyPlatform.Article,
+            platform_id: article.author.id,
+            post_type: 'text',
+            post_id: article.id,
         });
     }
 

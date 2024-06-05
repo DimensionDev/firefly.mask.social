@@ -10,7 +10,7 @@ export interface MuteMenu {
     id: MuteMenuId;
     name: string;
     source: SocialSource;
-    type: 'user' | 'channel';
+    type: 'profile' | 'channel';
     disabled: boolean;
 }
 
@@ -20,10 +20,10 @@ export const useMuteMenuList = (): MuteMenu[] => {
     const menuList = useMemo(() => {
         const fullMuteMenuList: MuteMenu[] = [
             {
-                id: MuteMenuId.FarcasterUsers,
+                id: MuteMenuId.FarcasterProfiles,
                 name: t`${resolveSourceName(Source.Farcaster)} Users`,
                 source: Source.Farcaster,
-                type: 'user',
+                type: 'profile',
                 disabled: false,
             },
             {
@@ -34,17 +34,17 @@ export const useMuteMenuList = (): MuteMenu[] => {
                 disabled: true,
             },
             {
-                id: MuteMenuId.LensUsers,
+                id: MuteMenuId.LensProfiles,
                 name: t`${resolveSourceName(Source.Lens)} Users`,
                 source: Source.Lens,
-                type: 'user',
+                type: 'profile',
                 disabled: false,
             },
             {
-                id: MuteMenuId.XUsers,
+                id: MuteMenuId.XProfiles,
                 name: t`${resolveSourceName(Source.Twitter)} Users`,
                 source: Source.Twitter,
-                type: 'user',
+                type: 'profile',
                 disabled: false,
             },
         ];

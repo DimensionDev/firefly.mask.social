@@ -502,16 +502,17 @@ class HubbleSocialMedia implements Provider {
         return true;
     }
 
-    async reportUser(profileId: string): Promise<boolean> {
+    async reportProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async reportPost(post: Post): Promise<boolean> {
+    async reportPost(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async blockUser(profileId: string): Promise<boolean> {
+    async blockProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async unblockUser(profileId: string): Promise<boolean> {
+
+    async unblockProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
@@ -534,6 +535,7 @@ class HubbleSocialMedia implements Provider {
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
+
     async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
@@ -541,12 +543,15 @@ class HubbleSocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
+
     async bookmark(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
+
     async unbookmark(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
+
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }

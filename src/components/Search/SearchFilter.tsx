@@ -31,7 +31,7 @@ export const SearchFilter = memo(function SearchFilter() {
                             label: <Trans>Publications</Trans>,
                         },
                         {
-                            type: SearchType.Users,
+                            type: SearchType.Profiles,
                             label: <Trans>Users</Trans>,
                         },
                         {

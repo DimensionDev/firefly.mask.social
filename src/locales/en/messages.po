@@ -292,6 +292,9 @@ msgstr "Search"
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
 
+msgid "Watch"
+msgstr "Watch"
+
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -390,6 +393,9 @@ msgstr "Follow System"
 
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
+
+msgid "Mute {identity}"
+msgstr "Mute {identity}"
 
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
@@ -642,6 +648,9 @@ msgstr "Failed to fetch bookmarks."
 
 msgid "Confirm you want to {0} @{1}?"
 msgstr "Confirm you want to {0} @{1}?"
+
+msgid "Are you sure you want to report this article?"
+msgstr "Are you sure you want to report this article?"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
@@ -898,6 +907,9 @@ msgstr "Recast or Quote"
 msgid "Draft"
 msgstr "Draft"
 
+msgid "Unwatch"
+msgstr "Unwatch"
+
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
 
@@ -942,6 +954,9 @@ msgstr "Report"
 
 msgid "Post by {0}"
 msgstr "Post by {0}"
+
+msgid "Articles from @{identity} will now be hidden in your home timeline"
+msgstr "Articles from @{identity} will now be hidden in your home timeline"
 
 msgid "quote"
 msgstr "quote"
@@ -1032,6 +1047,9 @@ msgstr "Channels"
 
 msgid "Firefly"
 msgstr "Firefly"
+
+msgid "Report Article"
+msgstr "Report Article"
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "Post from /{0} will be hidden in your home timeline"

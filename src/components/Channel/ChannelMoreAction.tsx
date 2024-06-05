@@ -13,7 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useToggleBlockChannel } from '@/hooks/useToggleBlockChannel.js';
+import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -24,7 +24,7 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ channel, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const isLogin = useIsLogin(channel.source);
-    const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleBlockChannel();
+    const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleMutedChannel();
 
     return (
         <Menu className={classNames('relative', className)} as="div" {...rest}>
@@ -77,11 +77,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                     {isLogin ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <MuteChannelButton
-                                    channel={channel}
-                                    onToggleBlock={toggleBlockChannel}
-                                    onClick={close}
-                                />
+                                <MuteChannelButton channel={channel} onToggle={toggleBlockChannel} onClick={close} />
                             )}
                         </Menu.Item>
                     ) : null}

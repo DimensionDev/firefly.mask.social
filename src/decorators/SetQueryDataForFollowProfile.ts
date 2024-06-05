@@ -46,7 +46,10 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
     };
 
     queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source] }, profilesPatcher);
-    queryClient.setQueriesData<PagesData>({ queryKey: ['search', SearchType.Users], type: 'active' }, profilesPatcher);
+    queryClient.setQueriesData<PagesData>(
+        { queryKey: ['search', SearchType.Profiles], type: 'active' },
+        profilesPatcher,
+    );
 
     patchNotificationQueryDataOnAuthor(source, (profile) => {
         if (profile.profileId === profileId) {
@@ -60,7 +63,7 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
 
 const METHODS_BE_OVERRIDDEN = ['follow', 'unfollow'] as const;
 
-export function SetQueryDataForFollowUser(source: Source) {
+export function SetQueryDataForFollowProfile(source: Source) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];

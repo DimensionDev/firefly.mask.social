@@ -1,4 +1,4 @@
-import { FRAME_SERVER_URL } from '@/constants/index.js';
+import { isValidPollFrameUrl } from '@/helpers/isValidPollFrameUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
 
 export function getResourceType(urlString: string) {
@@ -19,7 +19,7 @@ export function getResourceType(urlString: string) {
         return 'Video';
     } else if (['mp3'].includes(fileExtension)) {
         return 'Audio';
-    } else if (parsedURL.origin.includes(FRAME_SERVER_URL)) {
+    } else if (isValidPollFrameUrl(parsedURL.origin)) {
         return 'Poll';
     } else {
         return;

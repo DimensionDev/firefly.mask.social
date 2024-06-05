@@ -19,7 +19,10 @@ export interface Article {
     author: {
         handle: string;
         avatar: string;
+        /** Wallet address */
         id: string;
+        isFollowing: boolean;
+        isMuted: boolean;
     };
     origin?: string;
     timestamp: string;

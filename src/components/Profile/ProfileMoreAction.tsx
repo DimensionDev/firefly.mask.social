@@ -6,16 +6,16 @@ import { Fragment, memo } from 'react';
 import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
-import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
+import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
+import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useReportUser } from '@/hooks/useReportUser.js';
-import { useToggleBlock } from '@/hooks/useToggleBlock.js';
+import { useReportProfile } from '@/hooks/useReportProfile.js';
+import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -26,8 +26,8 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
-    const [, reportUser] = useReportUser(currentProfile);
-    const [, toggleBlock] = useToggleBlock(currentProfile);
+    const [, reportProfile] = useReportProfile(currentProfile);
+    const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
 
     return (
         <Menu className={classNames('relative', className as string)} as="div" {...rest}>
@@ -75,13 +75,13 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                     {profile.source === Source.Lens ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <ReportUserButton onConfirm={close} profile={profile} onReport={reportUser} />
+                                <ReportProfileButton onConfirm={close} profile={profile} onReport={reportProfile} />
                             )}
                         </Menu.Item>
                     ) : null}
                     <Menu.Item>
                         {({ close }) => (
-                            <BlockUserButton onConfirm={close} profile={profile} onToggleBlock={toggleBlock} />
+                            <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />
                         )}
                     </Menu.Item>
                 </Menu.Items>
