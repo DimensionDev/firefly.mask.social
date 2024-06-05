@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { useIsMuted } from '@/hooks/useIsMuted.js';
+import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -18,7 +18,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
     { profile, onConfirm, onToggleBlock, ...rest }: Props,
     ref,
 ) {
-    const muted = useIsMuted(profile);
+    const muted = useIsProfileMuted(profile);
     return (
         <MenuButton
             {...rest}

@@ -5,7 +5,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { getIsMuted } from '@/hooks/useIsMuted.js';
+import { getIsMuted } from '@/hooks/useIsProfileMuted.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

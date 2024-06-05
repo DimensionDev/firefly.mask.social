@@ -4,7 +4,7 @@ import { memo, useState } from 'react';
 import { UnmuteButton } from '@/components/Actions/UnmuteButton.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useIsMuted } from '@/hooks/useIsMuted.js';
+import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -23,7 +23,7 @@ export const FollowButton = memo(function FollowButton({ profile, className, ...
     const isFollowing = !!profile.viewerContext?.following;
     const [loading, toggleFollow] = useToggleFollow(profile);
 
-    const muted = useIsMuted(profile);
+    const muted = useIsProfileMuted(profile);
 
     if (muted) {
         return <UnmuteButton profile={profile} />;

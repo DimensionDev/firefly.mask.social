@@ -5,7 +5,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsMuted } from '@/hooks/useIsMuted.js';
+import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -27,7 +27,7 @@ export const UnmuteButton = memo(function UnmuteButton({ profile, className, ...
     const buttonText = loading ? t`Unmuting` : muteHover ? t`Unmute` : t`Muted`;
     const buttonState = muteHover ? MuteLabel.Unmute : MuteLabel.Muted;
 
-    const muted = useIsMuted(profile);
+    const muted = useIsProfileMuted(profile);
     if (!muted) return null;
 
     return (

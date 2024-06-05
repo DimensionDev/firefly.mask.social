@@ -23,7 +23,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { getIsMuted } from '@/hooks/useIsMuted.js';
+import { getIsMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
 const resolveNotificationIcon = createLookupTableResolver<

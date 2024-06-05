@@ -6,7 +6,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function useIsMuted(profile: Profile | undefined, enabled = true) {
+export function useIsProfileMuted(profile: Profile | undefined, enabled = true) {
     const isFarcaster = profile?.source === Source.Farcaster;
     const profileId = profile?.profileId;
     const isLogin = useIsLogin(Source.Farcaster);
@@ -21,7 +21,7 @@ export function useIsMuted(profile: Profile | undefined, enabled = true) {
     return isFarcaster ? data : !!profile?.viewerContext?.blocking;
 }
 
-export function getIsMuted(profile: Profile) {
+export function getIsProfileMuted(profile: Profile) {
     const blocked = queryClient.getQueryData<boolean>(['profile-is-muted', profile.source, profile.profileId]);
     return blocked || profile.viewerContext?.blocking;
 }
