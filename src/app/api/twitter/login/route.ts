@@ -13,6 +13,6 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const payload = await createTwitterSessionPayload(request);
         if (!payload) return createSuccessResponseJSON(null);
-        return createSuccessResponseJSON(TwitterSession.concealPayload(payload));
+        return createSuccessResponseJSON(await TwitterSession.concealPayload(payload));
     },
 );

@@ -50,15 +50,15 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
+    // for sentry
     NEXT_PUBLIC_SENTRY_DSN: z.string(),
-
     NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 });
 
 export const env = {
     shared: {
         NODE_ENV: process.env.NODE_ENV as NODE_ENV,
-        VERSION: process.version || process.env.npm_package_version,
+        VERSION: process.env.npm_package_version || process.version,
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
     internal: (typeof window === 'undefined' ? InternalEnvSchema.parse(process.env) : {}) as z.infer<
