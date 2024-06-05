@@ -48,6 +48,7 @@ export function DiscoverNFTList() {
                     getSingleNFTFeedItemContent(index, nftFeed, {
                         listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                     }),
+                overscan: 2000,
             }}
             NoResultsFallbackProps={{
                 className: 'pt-[228px]',

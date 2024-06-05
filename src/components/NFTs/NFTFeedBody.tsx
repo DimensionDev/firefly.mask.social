@@ -5,10 +5,13 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { type ReactNode } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
+import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFeedAction.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
 function NFTFeedFieldGroup({
@@ -51,8 +54,31 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                 />
             )}
             <div className="w-[calc(100%-120px-8px)] space-y-2 rounded-xl bg-lightBg p-3 text-sm leading-[18px]">
-                <NFTFeedFieldGroup field={t`Name`} value={<>{tokenName}</>} isLoading={isLoading} />
-                <NFTFeedFieldGroup field={t`Collection`} value={collectionName} isLoading={isLoading} />
+                <NFTFeedFieldGroup
+                    field={t`Name`}
+                    value={
+                        <div className="flex items-center hover:underline">
+                            <div className="max-w-[calc(100%-22px)] truncate">{tokenName}</div>
+                            <LinkIcon width={18} height={18} className="ml-1 text-second" />
+                        </div>
+                    }
+                    isLoading={isLoading}
+                />
+                <NFTFeedFieldGroup
+                    field={t`Collection`}
+                    value={
+                        <Link
+                            className="flex items-center hover:underline"
+                            href={resolveNftUrl(address, {
+                                chainId,
+                            })}
+                        >
+                            <div className="max-w-[calc(100%-22px)] truncate">{collectionName}</div>
+                            <LinkIcon width={18} height={18} className="ml-1 text-second" />
+                        </Link>
+                    }
+                    isLoading={isLoading}
+                />
                 <NFTFeedFieldGroup field={t`Token ID`} value={data?.tokenId ?? tokenId} />
                 {!isLoading && data?.collection?.floorPrices?.length === 0 ? null : (
                     <NFTFeedFieldGroup
