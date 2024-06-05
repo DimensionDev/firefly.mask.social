@@ -5,14 +5,14 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { getIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
+import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 /**
- * Block/Unblock a profile
+ * Mute and unmute a profile
  */
-export function useToggleBlockProfile(operator: Profile | null) {
+export function useToggleMutedProfile(operator: Profile | null) {
     const isLogin = useIsLogin(operator?.source);
     return useAsyncFn(
         async (profile: Profile, overrideMuted?: boolean) => {
@@ -20,7 +20,7 @@ export function useToggleBlockProfile(operator: Profile | null) {
                 LoginModalRef.open({ source: profile.source });
                 return false;
             }
-            const muted = overrideMuted ?? getIsProfileMuted(profile);
+            const muted = overrideMuted ?? isProfileMuted(profile);
             const sourceName = resolveSourceName(profile.source);
             try {
                 const provider = resolveSocialMediaProvider(profile.source);

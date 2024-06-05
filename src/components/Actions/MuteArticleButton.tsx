@@ -14,7 +14,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     article: Article;
 }
 
-export const ArticleMuteButton = forwardRef<HTMLButtonElement, Props>(function ArticleMuteButton(
+export const MuteArticleButton = forwardRef<HTMLButtonElement, Props>(function MuteArticleButton(
     { article, ...rest }: Props,
     ref,
 ) {

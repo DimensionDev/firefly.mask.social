@@ -5,10 +5,10 @@ import { Fragment, memo } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
-import { ArticleReportButton } from '@/components/Actions/Article/ReportButton.js';
-import { ArticleBookmarkButton } from '@/components/Actions/ArticleBookmarkButton.js';
-import { ArticleMuteButton } from '@/components/Actions/ArticleMuteButton.js';
-import { ArticleWatchButton } from '@/components/Actions/ArticleWatchButton.js';
+import { BookmarkArticleButton } from '@/components/Actions/BookmarkArticleButton.js';
+import { MuteArticleButton } from '@/components/Actions/MuteArticleButton.js';
+import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js';
+import { WatchArticleButton } from '@/components/Actions/WatchArticleButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -66,7 +66,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                 >
                     <Menu.Item>
                         {({ close }) => (
-                            <ArticleBookmarkButton
+                            <BookmarkArticleButton
                                 busy={mutation.isPending}
                                 article={article}
                                 onToggleBookmark={() => mutation.mutate(article)}
@@ -74,9 +74,9 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                             />
                         )}
                     </Menu.Item>
-                    <Menu.Item>{({ close }) => <ArticleWatchButton article={article} onClick={close} />}</Menu.Item>
-                    <Menu.Item>{({ close }) => <ArticleMuteButton article={article} onClick={close} />}</Menu.Item>
-                    <Menu.Item>{({ close }) => <ArticleReportButton article={article} onClick={close} />}</Menu.Item>
+                    <Menu.Item>{({ close }) => <WatchArticleButton article={article} onClick={close} />}</Menu.Item>
+                    <Menu.Item>{({ close }) => <MuteArticleButton article={article} onClick={close} />}</Menu.Item>
+                    <Menu.Item>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</Menu.Item>
                 </Menu.Items>
             </Transition>
         </Menu>

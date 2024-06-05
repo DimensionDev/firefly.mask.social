@@ -2,27 +2,27 @@ import { t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useToggle } from 'react-use';
 
-import { ToggleMuteButton } from '@/components/Actions/ToggleMuteButton.js';
+import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useToggleBlockProfile } from '@/hooks/useToggleBlockProfile.js';
+import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface ToggleMuteUserButtonProps extends Omit<ClickableButtonProps, 'children'> {
+interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     defaultMuted?: boolean;
 }
 
-export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({
+export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({
     profile,
     defaultMuted = true,
     ...rest
-}: ToggleMuteUserButtonProps) {
+}: Props) {
     const [isMuted, setIsMuted] = useToggle(defaultMuted);
 
     const currentProfile = useCurrentProfile(profile.source);
-    const [{ loading }, toggleBlock] = useToggleBlockProfile(currentProfile);
+    const [{ loading }, toggleMuted] = useToggleMutedProfile(currentProfile);
 
     const onToggle = async () => {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({
@@ -36,9 +36,9 @@ export const ToggleMuteUserButton = memo(function ToggleMuteUserButton({
             ),
         });
         if (!confirmed) return;
-        const result = await toggleBlock(profile, isMuted);
+        const result = await toggleMuted(profile, isMuted);
         if (result) setIsMuted(!isMuted);
     };
 
-    return <ToggleMuteButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;
+    return <ToggleMutedButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;
 });

@@ -6,7 +6,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { classNames } from '@/helpers/classNames.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { useToggleBlockProfile } from '@/hooks/useToggleBlockProfile.js';
+import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum MuteLabel {
@@ -15,15 +15,15 @@ enum MuteLabel {
     Muted = 'Muted',
 }
 
-interface UnmuteButtonProps extends Omit<ClickableButtonProps, 'children'> {
+interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
 }
 
-export const UnmuteButton = memo(function UnmuteButton({ profile, className, ...rest }: UnmuteButtonProps) {
+export const UnmuteProfileButton = memo(function UnmuteProfileButton({ profile, className, ...rest }: Props) {
     const [muteHover, setMuteHover] = useState(false);
 
     const currentProfile = useCurrentProfile(profile.source);
-    const [{ loading }, toggleBlock] = useToggleBlockProfile(currentProfile);
+    const [{ loading }, toggleMuted] = useToggleMutedProfile(currentProfile);
     const buttonText = loading ? t`Unmuting` : muteHover ? t`Unmute` : t`Muted`;
     const buttonState = muteHover ? MuteLabel.Unmute : MuteLabel.Muted;
 
@@ -49,7 +49,7 @@ export const UnmuteButton = memo(function UnmuteButton({ profile, className, ...
                 setMuteHover(false);
             }}
             onClick={async () => {
-                toggleBlock(profile);
+                toggleMuted(profile);
             }}
         >
             {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}

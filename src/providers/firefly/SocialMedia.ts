@@ -928,7 +928,7 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
-    async getIsMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
+    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return false;
             const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');

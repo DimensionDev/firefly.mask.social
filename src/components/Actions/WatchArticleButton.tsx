@@ -12,7 +12,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     article: Article;
 }
 
-export const ArticleWatchButton = forwardRef<HTMLButtonElement, Props>(function ArticleWatchButton(
+export const WatchArticleButton = forwardRef<HTMLButtonElement, Props>(function WatchArticleButton(
     { article, ...rest }: Props,
     ref,
 ) {

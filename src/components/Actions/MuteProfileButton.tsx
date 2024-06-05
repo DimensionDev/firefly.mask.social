@@ -11,11 +11,11 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     onConfirm?(): void;
-    onToggleBlock?(profile: Profile): Promise<boolean>;
+    onToggle?(profile: Profile): Promise<boolean>;
 }
 
-export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function BlockUserButton(
-    { profile, onConfirm, onToggleBlock, ...rest }: Props,
+export const MuteProfileButton = forwardRef<HTMLButtonElement, Props>(function MuteProfileButton(
+    { profile, onConfirm, onToggle, ...rest }: Props,
     ref,
 ) {
     const muted = useIsProfileMuted(profile);
@@ -37,7 +37,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
                     if (!confirmed) return;
                     onConfirm?.();
                 }
-                await onToggleBlock?.(profile);
+                await onToggle?.(profile);
             }}
             ref={ref}
         >
