@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 export type Index = 1 | 2 | 3 | 4;
 
 export enum ActionType {
@@ -49,6 +51,28 @@ export interface Frame {
     state?: string;
 }
 
-export interface LinkDigested {
+/**
+ * Supported chain IDs
+ */
+export enum ChainId {
+    Ethereum = 1,
+    Arbitrum = 42161,
+    Base = 8453,
+    Base_Sepolia = 84532,
+    Degen = 666666666,
+    Gnosis = 100,
+    Optimism = 10,
+    Zora = 7777777,
+}
+
+export enum MethodType {
+    ETH_SEND_TRANSACTION = 'eth_sendTransaction',
+}
+
+export interface LinkDigestedResponse {
     frame: Frame;
+}
+
+export interface RedirectUrlResponse {
+    redirectUrl: string;
 }

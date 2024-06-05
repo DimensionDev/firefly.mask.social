@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "Do you want to retry with the full or remaining content?"
+msgstr ""
+
 msgid "Login required to post on {sourceName}."
 msgstr ""
 
@@ -130,6 +133,9 @@ msgstr ""
 msgid "OpenGraph"
 msgstr ""
 
+msgid "You can save the failed parts of posts and send them later from your Drafts."
+msgstr ""
+
 msgid "Wrong wallet"
 msgstr ""
 
@@ -137,9 +143,6 @@ msgid "Poll"
 msgstr ""
 
 msgid "Casts"
-msgstr ""
-
-msgid "Transaction button is not available yet."
 msgstr ""
 
 msgid "Trending Channels"
@@ -202,6 +205,9 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "[Video]"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr ""
 
@@ -256,6 +262,9 @@ msgstr ""
 msgid "Type something here..."
 msgstr ""
 
+msgid "Save Post?"
+msgstr ""
+
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
@@ -289,6 +298,9 @@ msgstr ""
 msgid "mirror"
 msgstr ""
 
+msgid "POST"
+msgstr ""
+
 msgid "Failed to unlike the post."
 msgstr ""
 
@@ -311,6 +323,12 @@ msgid "Audio Cover"
 msgstr ""
 
 msgid "Recent"
+msgstr ""
+
+msgid "Failed to generate signature packet with source = {source}."
+msgstr ""
+
+msgid "Save failed post?"
 msgstr ""
 
 msgid "Owners"
@@ -343,10 +361,16 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
+msgid "[Photo]"
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
 msgid "No wallet client found. Please connect your wallet."
+msgstr ""
+
+msgid "THREAD POST"
 msgstr ""
 
 msgid "Frame Validator"
@@ -400,13 +424,22 @@ msgstr ""
 msgid "Hashtag"
 msgstr ""
 
+msgid "Unknown transaction method: {0}."
+msgstr ""
+
 msgid "Frame"
+msgstr ""
+
+msgid "Cannot choose due to account mismatch."
 msgstr ""
 
 msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
+msgstr ""
+
+msgid "Resend full or remaining?"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -470,6 +503,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
+
+msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -709,6 +745,9 @@ msgstr ""
 msgid "General"
 msgstr ""
 
+msgid "REPLY<0>to <1>@{0}</1></0>"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
@@ -749,6 +788,9 @@ msgid "Share"
 msgstr ""
 
 msgid "Your frame URL."
+msgstr ""
+
+msgid "Remaining"
 msgstr ""
 
 msgid "Cancel recast successfully"
@@ -853,6 +895,9 @@ msgstr ""
 msgid "Recast or Quote"
 msgstr ""
 
+msgid "Draft"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr ""
 
@@ -877,10 +922,16 @@ msgstr ""
 msgid "24H Volume"
 msgstr ""
 
+msgid "Full"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
 msgid "<0>{0}</0> mirrored"
+msgstr ""
+
+msgid "You can save this to send later from your drafts."
 msgstr ""
 
 msgid "The frame server failed to process the request."
@@ -1141,6 +1192,9 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
+msgid "Save"
+msgstr ""
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
@@ -1163,6 +1217,9 @@ msgid "Failed to fetch the latest state after several attempts. Please try again
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "QUOTE"
 msgstr ""
 
 msgid "Collect"
@@ -1256,6 +1313,9 @@ msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
+msgstr ""
+
+msgid "Your draft was saved"
 msgstr ""
 
 msgid "A thread must have at least two posts."

@@ -1,5 +1,10 @@
+/* cspell:disable */
+
+import { kv } from '@vercel/kv';
 import { signOut } from 'next-auth/react';
 
+import { KeyType } from '@/constants/enum.js';
+import { HIDDEN_SECRET } from '@/constants/index.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
@@ -48,7 +53,13 @@ export class TwitterSession extends BaseSession implements Session {
         const consumerKey = headers.get('X-Consumer-Key') || '';
         const consumerSecret = headers.get('X-Consumer-Secret') || '';
         if (!clientId || !accessToken || !accessTokenSecret || !consumerKey || !consumerSecret) return null;
-        return { clientId, accessToken, accessTokenSecret, consumerKey, consumerSecret };
+        return {
+            clientId,
+            accessToken,
+            accessTokenSecret,
+            consumerKey,
+            consumerSecret,
+        };
     }
 
     static payloadToHeaders(payload: TwitterSessionPayload): Record<string, string> {
@@ -59,5 +70,32 @@ export class TwitterSession extends BaseSession implements Session {
             'X-Consumer-Key': payload.consumerKey,
             'X-Consumer-Secret': payload.consumerSecret,
         };
+    }
+
+    static async recordPayload(payload: TwitterSessionPayload) {
+        if (payload.consumerSecret === HIDDEN_SECRET) throw new Error('Cannot record hidden secret');
+
+        // save the consumer secret to KV
+        await kv.hsetnx(KeyType.ConsumerSecret, payload.consumerKey, payload.consumerSecret);
+
+        return payload;
+    }
+
+    static async concealPayload(payload: TwitterSessionPayload) {
+        if (payload.consumerSecret === HIDDEN_SECRET) return payload;
+
+        // override the real consumer secret
+        payload.consumerSecret = HIDDEN_SECRET;
+        return payload;
+    }
+
+    static async revealPayload(payload: TwitterSessionPayload) {
+        if (payload.consumerSecret !== HIDDEN_SECRET) return payload;
+
+        const secret = await kv.hget<string>(KeyType.ConsumerSecret, payload.consumerKey);
+        if (!secret) throw new Error('Consumer secret not found');
+
+        payload.consumerSecret = secret;
+        return payload;
     }
 }

@@ -5,12 +5,14 @@ import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.j
 import { createTwitterSessionPayload } from '@/helpers/createTwitterSessionPayload.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 
 export const POST = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request) => {
         const payload = await createTwitterSessionPayload(request);
-        return createSuccessResponseJSON(payload);
+        if (!payload) return createSuccessResponseJSON(null);
+        return createSuccessResponseJSON(TwitterSession.concealPayload(payload));
     },
 );

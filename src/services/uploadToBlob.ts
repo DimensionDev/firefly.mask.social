@@ -4,12 +4,11 @@ import { put } from '@vercel/blob';
 import { kv } from '@vercel/kv';
 
 import { KeyType } from '@/constants/enum.js';
-import { canParseURL } from '@/helpers/canParseURL.js';
 
 export async function uploadToBlob(pathname: string, blob: Blob) {
     try {
         const url = await kv.hget(KeyType.UploadToBlob, pathname);
-        if (typeof url === 'string' && canParseURL(url)) return url;
+        if (typeof url === 'string' && URL.canParse(url)) return url;
     } catch {
         // Ignore
     }

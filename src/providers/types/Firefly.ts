@@ -178,9 +178,15 @@ export interface Response<T> {
 
 export type UsersResponse = Response<UsersData>;
 
-export type BlockUsersResponse = Response<{
-    blocks: User[];
+export type BlockedUsersResponse = Response<{
     page: number;
+    nextPage: number;
+    blocks: Array<{
+        id: string;
+        address: string;
+        snsId: string;
+        snsPlatform: string;
+    }>;
 }>;
 
 export type UserResponse = Response<User>;

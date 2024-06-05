@@ -1,38 +1,51 @@
 'use client';
 
 import { Dialog } from '@headlessui/react';
-import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
-import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
+import { safeUnreachable } from '@masknet/kit';
+import { EMPTY_LIST, ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+import {
+    createMemoryHistory,
+    createRootRoute,
+    createRoute,
+    createRouter,
+    Outlet,
+    rootRouteId,
+    RouterProvider,
+    useMatch,
+    useRouter,
+} from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
-import { forwardRef, useCallback, useRef, useState } from 'react';
+import { compact, flatten, values } from 'lodash-es';
+import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 
+import DraftIcon from '@/assets/draft.svg';
+import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { CloseButton } from '@/components/CloseButton.js';
-import { ComposeAction } from '@/components/Compose/ComposeAction.js';
-import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
-import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
+import { ComposeUI } from '@/components/Compose/ComposeUI.js';
+import { DraftList } from '@/components/Compose/DraftList.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
@@ -48,7 +61,8 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -80,18 +94,104 @@ export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
 
+const rootRoute = createRootRoute({
+    component: ComposeRouteRoot,
+});
+
+const composeRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/',
+    component: ComposeUI,
+});
+
+const draftRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: 'draft',
+    component: DraftList,
+});
+
+const routeTree = rootRoute.addChildren([composeRoute, draftRoute]);
+
+const memoryHistory = createMemoryHistory({
+    initialEntries: ['/'],
+});
+
+const router = createRouter({
+    routeTree,
+    history: memoryHistory,
+});
+
+function ComposeRouteRoot() {
+    const { type } = useComposeStateStore();
+    const isMedium = useIsMedium();
+    const { history } = useRouter();
+    const { context } = useMatch({ from: rootRouteId });
+
+    const isDraft = router.history.location.href === '/draft';
+
+    const title = useMemo(() => {
+        if (isDraft) return t`Draft`;
+        switch (type) {
+            case 'compose':
+                return t`Compose`;
+            case 'quote':
+                return t`Quote`;
+            case 'reply':
+                return t`Reply`;
+            default:
+                safeUnreachable(type);
+                return t`Compose`;
+        }
+    }, [isDraft, type]);
+
+    return (
+        <>
+            <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
+                {isDraft ? (
+                    <LeftArrowIcon
+                        onClick={() => history.replace('/')}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
+                    />
+                ) : (
+                    <CloseButton
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-fourMain"
+                        onClick={context.onClose}
+                    />
+                )}
+
+                <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
+                    {title}
+                    {!isMedium && !isDraft ? (
+                        <DraftIcon
+                            width={18}
+                            height={18}
+                            className="cursor-pointer text-fourMain"
+                            onClick={() => history.push('/draft')}
+                        />
+                    ) : null}
+                </span>
+                {isMedium ? (
+                    <DraftIcon
+                        className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
+                        onClick={() => history.push('/draft')}
+                    />
+                ) : null}
+                {isMedium || isDraft ? null : <ComposeSend />}
+            </Dialog.Title>
+            <Outlet />
+        </>
+    );
+}
+
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
         const currentSource = useGlobalState.use.currentSource();
         const currentSocialSource = narrowToSocialSource(currentSource);
 
         const contentRef = useRef<HTMLDivElement>(null);
-        const isMedium = useIsMedium();
 
         const currentProfileAll = useCurrentProfileAll();
         const profile = useCurrentProfile(currentSocialSource);
-
-        const [warningsOpen, setWarningsOpen] = useState(true);
 
         const {
             type,
@@ -106,7 +206,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateChannel,
             clear,
         } = useComposeStateStore();
-
         const compositePost = useCompositePost();
         const { typedMessage, rpPayload, id } = compositePost;
 
@@ -129,26 +228,72 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             onClose: (props) => {
                 if (props?.disableClear) return;
                 clear();
+                router.navigate({ to: '/' });
                 editor.update(() => $getRoot().clear());
             },
         });
 
         const onClose = useCallback(async () => {
+            const { addDraft } = useComposeDraftStateStore.getState();
+            const { posts, cursor, draftId, type } = useComposeStateStore.getState();
+            const compositePost = getCompositePost(cursor);
+            const { availableSources = EMPTY_LIST } = compositePost ?? {};
             if (posts.some((x) => !isEmptyPost(x))) {
+                const errorsSource = [
+                    ...new Set(
+                        flatten(
+                            posts.map((x) => {
+                                // Failed source obtained
+                                return compact(
+                                    Object.entries(x.postError).map(([key, value]) => (value ? key : undefined)),
+                                );
+                            }),
+                        ),
+                    ),
+                ] as SocialSource[];
+                const hasError = !!errorsSource.length;
+
+                const sources = hasError ? errorsSource : availableSources;
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Discard`,
+                    title: hasError ? t`Save failed post?` : t`Save Post?`,
                     content: (
                         <div className="text-main">
-                            <Trans>This can’t be undone and you’ll lose your draft.</Trans>
+                            {hasError ? (
+                                <Trans>
+                                    You can save the failed parts of posts and send them later from your Drafts.
+                                </Trans>
+                            ) : (
+                                <Trans>You can save this to send later from your drafts.</Trans>
+                            )}
                         </div>
                     ),
+                    enableCloseButton: false,
+                    enableCancelButton: true,
+                    cancelButtonText: t`Discard`,
+                    confirmButtonText: t`Save`,
+                    variant: 'normal',
                 });
 
-                if (confirmed) ComposeModalRef.close();
+                if (confirmed) {
+                    addDraft({
+                        draftId: draftId || uuid(),
+                        createdAt: new Date(),
+                        cursor,
+                        posts: hasError
+                            ? posts.map((x) => ({ ...x, availableSources: sources, postId: createInitPostState() }))
+                            : posts,
+                        type,
+                        availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
+                    });
+                    enqueueSuccessMessage(t`Your draft was saved`);
+                    ComposeModalRef.close();
+                } else {
+                    dispatch?.close();
+                }
             } else {
                 dispatch?.close();
             }
-        }, [posts, dispatch]);
+        }, [dispatch, currentProfileAll]);
 
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
@@ -219,7 +364,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         }, [posts.length]);
 
         return (
-            <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false}>
+            <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false} disableDialogClose>
                 <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
@@ -228,54 +373,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         </div>
                     ) : null}
 
-                    {/* Title */}
-                    <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
-                        <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={onClose} />
-
-                        <span className="flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
-                            {type === 'compose' ? (
-                                <Trans>Compose</Trans>
-                            ) : type === 'quote' ? (
-                                <Trans>Quote</Trans>
-                            ) : type === 'reply' ? (
-                                <Trans>Reply</Trans>
-                            ) : null}
-                        </span>
-
-                        {isMedium ? null : <ComposeSend />}
-                    </Dialog.Title>
-
-                    <div className="flex flex-col overflow-auto px-4 pb-4">
-                        <div
-                            ref={contentRef}
-                            className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
-                        >
-                            {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
-                        </div>
-                    </div>
-
-                    <ComposeAction />
-
-                    {warningsOpen && env.external.NEXT_PUBLIC_COMPOSE_WARNINGS === STATUS.Enabled ? (
-                        <div className="flex w-full items-center justify-center gap-2 bg-orange-400 p-2">
-                            <ExclamationTriangleIcon className="hidden text-white md:block" width={24} height={24} />
-                            <p className="text-left text-xs text-white md:text-center">
-                                <Trans>
-                                    We&apos;re updating our connection with X. Posting on X will be limited for now.
-                                </Trans>
-                            </p>
-                            <Tooltip content={t`Close`} placement="top">
-                                <XCircleIcon
-                                    className="cursor-pointer text-white"
-                                    width={24}
-                                    height={24}
-                                    onClick={() => setWarningsOpen(false)}
-                                />
-                            </Tooltip>
-                        </div>
-                    ) : null}
-
-                    {isMedium ? <ComposeSend /> : null}
+                    <RouterProvider router={router} context={{ onClose }} />
                 </div>
             </Modal>
         );

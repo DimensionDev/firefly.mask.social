@@ -7,19 +7,20 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useDeletePost(source: SocialSource) {
     const router = useRouter();
     const pathname = usePathname();
     const navBack = useComeBack();
     return useAsyncFn(
-        async (postId: string) => {
+        async (post: Post) => {
             try {
                 const provider = resolveSocialMediaProvider(source);
-                const result = await provider.deletePost(postId);
-                if (!result) throw new Error(`Failed to delete post: ${postId}`);
+                const result = await provider.deletePost(post.postId);
+                if (!result) throw new Error(`Failed to delete post: ${post.postId}`);
 
-                if (isRoutePathname(pathname, '/post')) {
+                if (isRoutePathname(pathname, '/post') && post.type === 'Post') {
                     navBack();
                 }
                 enqueueSuccessMessage(t`Post was deleted`);

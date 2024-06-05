@@ -3,6 +3,7 @@
     "language": "en",
     "words": [
         "Algr",
+        "CAIP",
         "Jamo",
         "Oembed",
         "Paginable",
@@ -126,7 +127,8 @@
         "typeahead",
         "typecheck",
         "upvote",
-        "usehooks"
+        "usehooks",
+        "localforage"
     ],
     "flagWords": [],
     "ignorePaths": [

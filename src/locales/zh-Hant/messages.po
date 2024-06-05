@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-31 12:01\n"
+"PO-Revision-Date: 2024-06-03 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -17,6 +17,9 @@ msgstr ""
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
+
+msgid "Do you want to retry with the full or remaining content?"
+msgstr ""
 
 msgid "Login required to post on {sourceName}."
 msgstr "需要登入後在{sourceName} 發佈貼文"
@@ -135,6 +138,9 @@ msgstr "更換錢包"
 msgid "OpenGraph"
 msgstr ""
 
+msgid "You can save the failed parts of posts and send them later from your Drafts."
+msgstr ""
+
 msgid "Wrong wallet"
 msgstr "錯誤的錢包"
 
@@ -143,9 +149,6 @@ msgstr "投票"
 
 msgid "Casts"
 msgstr ""
-
-msgid "Transaction button is not available yet."
-msgstr "交易鍵暫未開放"
 
 msgid "Trending Channels"
 msgstr "熱門頻道"
@@ -207,6 +210,9 @@ msgstr "書籤"
 msgid "Confirm"
 msgstr "確認"
 
+msgid "[Video]"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
@@ -261,6 +267,9 @@ msgstr ""
 msgid "Type something here..."
 msgstr ""
 
+msgid "Save Post?"
+msgstr ""
+
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
@@ -294,6 +303,9 @@ msgstr "選定帳戶"
 msgid "mirror"
 msgstr "鏡像"
 
+msgid "POST"
+msgstr ""
+
 msgid "Failed to unlike the post."
 msgstr "點讚評論失敗"
 
@@ -317,6 +329,12 @@ msgstr ""
 
 msgid "Recent"
 msgstr "最近"
+
+msgid "Failed to generate signature packet with source = {source}."
+msgstr ""
+
+msgid "Save failed post?"
+msgstr ""
 
 msgid "Owners"
 msgstr ""
@@ -348,11 +366,17 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
+msgid "[Photo]"
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
 
 msgid "No wallet client found. Please connect your wallet."
 msgstr "未找到錢包用戶。請連接您的錢包。"
+
+msgid "THREAD POST"
+msgstr ""
 
 msgid "Frame Validator"
 msgstr ""
@@ -405,7 +429,13 @@ msgstr ""
 msgid "Hashtag"
 msgstr ""
 
+msgid "Unknown transaction method: {0}."
+msgstr ""
+
 msgid "Frame"
+msgstr ""
+
+msgid "Cannot choose due to account mismatch."
 msgstr ""
 
 msgid "Unmuting"
@@ -413,6 +443,9 @@ msgstr ""
 
 msgid "Search Filter"
 msgstr "進階搜尋"
+
+msgid "Resend full or remaining?"
+msgstr ""
 
 msgid "Try searching for something else."
 msgstr ""
@@ -475,6 +508,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
+
+msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -714,6 +750,9 @@ msgstr ""
 msgid "General"
 msgstr "一般"
 
+msgid "REPLY<0>to <1>@{0}</1></0>"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
 
@@ -754,6 +793,9 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Your frame URL."
+msgstr ""
+
+msgid "Remaining"
 msgstr ""
 
 msgid "Cancel recast successfully"
@@ -858,6 +900,9 @@ msgstr ""
 msgid "Recast or Quote"
 msgstr ""
 
+msgid "Draft"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
 
@@ -882,10 +927,16 @@ msgstr ""
 msgid "24H Volume"
 msgstr ""
 
+msgid "Full"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
 msgid "<0>{0}</0> mirrored"
+msgstr ""
+
+msgid "You can save this to send later from your drafts."
 msgstr ""
 
 msgid "The frame server failed to process the request."
@@ -1146,6 +1197,9 @@ msgstr ""
 msgid "No matching users"
 msgstr "沒有符合的用戶"
 
+msgid "Save"
+msgstr ""
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
@@ -1169,6 +1223,9 @@ msgstr "在多次嘗試後仍無法獲取最新動態。請稍候再嘗試。"
 
 msgid "Profile"
 msgstr "個人資料"
+
+msgid "QUOTE"
+msgstr ""
 
 msgid "Collect"
 msgstr "收集"
@@ -1261,6 +1318,9 @@ msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
+msgstr ""
+
+msgid "Your draft was saved"
 msgstr ""
 
 msgid "A thread must have at least two posts."

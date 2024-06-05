@@ -61,7 +61,7 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
         <div>
             <Title channel={channel} />
 
-            <Info channel={channel} source={channel.source} />
+            <Info channel={channel} source={channel.source} isChannelPage />
 
             <hr className="divider w-full border-line" />
 
