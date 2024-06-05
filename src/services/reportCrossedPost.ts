@@ -61,11 +61,15 @@ async function report(post: CompositePost) {
     const allSettled = await Promise.allSettled(
         reports.map((x) => {
             if (!x) return Promise.resolve(null);
-            // cspell: disable-next-line
-            return fireflySessionHolder.fetch<ReportCrossPostResponse>(urlcat(FIREFLY_ROOT_URL, '/api/logpush'), {
-                method: 'POST',
-                body: JSON.stringify(x),
-            });
+            return fireflySessionHolder.fetch<ReportCrossPostResponse>(
+                // cspell: disable-next-line
+                urlcat(FIREFLY_ROOT_URL, '/api/logpush'),
+                {
+                    method: 'POST',
+                    body: JSON.stringify(x),
+                },
+                true,
+            );
         }),
     );
 

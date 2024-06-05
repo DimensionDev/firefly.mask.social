@@ -6,6 +6,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { HIDDEN_SECRET } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -172,6 +173,12 @@ const useTwitterStateBase = createState(
             try {
                 const session = state?.currentProfileSession as TwitterSession | null;
                 if (session) twitterSessionHolder.resumeSession(session);
+
+                // clean the local store if the consumer secret is not hidden
+                if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
+                    state?.clear();
+                    return;
+                }
 
                 const payload = session ? session.payload : await TwitterSocialMediaProvider.login();
                 const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
