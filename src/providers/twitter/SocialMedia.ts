@@ -14,8 +14,9 @@ import { Source } from '@/constants/enum.js';
 import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
-import { TwitterSession, type TwitterSessionPayload } from '@/providers/twitter/Session.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
+import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import {
     type Channel,
     type Notification,
@@ -161,7 +162,7 @@ class TwitterSocialMedia implements Provider {
         return formatTwitterProfile(response.data);
     }
 
-    async getProfileByIdWithSessionPayload(profileId: string, payload: TwitterSessionPayload): Promise<Profile> {
+    async getProfileByIdWithSessionPayload(profileId: string, payload: SessionPayload): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`, {
             headers: TwitterSession.payloadToHeaders(payload),
         });
@@ -279,8 +280,8 @@ class TwitterSocialMedia implements Provider {
         return SessionType.Twitter;
     }
 
-    async login(): Promise<TwitterSessionPayload | null> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TwitterSessionPayload>>('/api/twitter/login', {
+    async login(): Promise<SessionPayload | null> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
             method: 'POST',
         });
         if (!response.success) return null;
