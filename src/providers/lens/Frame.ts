@@ -6,7 +6,7 @@ import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
 import type { Frame, Index } from '@/types/frame.js';
 
-class LensFrame implements Provider<FrameSignaturePacket> {
+class FrameProvider implements Provider<FrameSignaturePacket> {
     async generateSignaturePacket(
         postId: string,
         frame: Frame,
@@ -62,4 +62,4 @@ class LensFrame implements Provider<FrameSignaturePacket> {
     }
 }
 
-export const LensFrameProvider = new LensFrame();
+export const LensFrameProvider = new FrameProvider();
