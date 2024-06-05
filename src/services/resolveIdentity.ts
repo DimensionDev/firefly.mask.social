@@ -6,8 +6,8 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';
 
 /**
  * Resolve firefly profile to masknet identity
@@ -30,7 +30,7 @@ export async function resolveIdentity(source: SocialSource) {
             const session = farcasterSessionHolder.session;
             if (!session) break;
 
-            const { messageHash, messageSignature, signer } = await HubbleSocialMediaProvider.generateSignaturePacket();
+            const { messageHash, messageSignature, signer } = await generateSignaturePacket();
             identity.farcasterMessage = messageHash;
             identity.farcasterSignature = messageSignature;
             identity.farcasterSigner = signer;

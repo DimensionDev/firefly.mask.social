@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-03 12:01\n"
+"PO-Revision-Date: 2024-06-05 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -146,9 +146,6 @@ msgstr ""
 
 msgid "Casts"
 msgstr "帖子"
-
-msgid "Transaction button is not available yet."
-msgstr "交易按钮还未开放。"
 
 msgid "Trending Channels"
 msgstr "流行频道"
@@ -288,6 +285,9 @@ msgstr "搜索"
 msgid "Connected Accounts"
 msgstr "已链接的账号"
 
+msgid "Watch"
+msgstr ""
+
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -381,6 +381,9 @@ msgstr "跟随系统"
 msgid "Failed to mirror."
 msgstr "转帖失败。"
 
+msgid "Mute {identity}"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 
@@ -410,6 +413,9 @@ msgstr "发帖"
 
 msgid "Hashtag"
 msgstr "#"
+
+msgid "Unknown transaction method: {0}."
+msgstr ""
 
 msgid "Frame"
 msgstr "Frame"
@@ -625,6 +631,9 @@ msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
 msgid "Confirm you want to {0} @{1}?"
+msgstr ""
+
+msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -873,6 +882,9 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
+msgid "Unwatch"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
@@ -917,6 +929,9 @@ msgstr "报告"
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
+
+msgid "Articles from @{identity} will now be hidden in your home timeline"
+msgstr ""
 
 msgid "quote"
 msgstr "引用"
@@ -1004,6 +1019,9 @@ msgstr "频道"
 
 msgid "Firefly"
 msgstr "Firefly"
+
+msgid "Report Article"
+msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""

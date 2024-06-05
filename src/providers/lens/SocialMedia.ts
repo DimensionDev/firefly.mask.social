@@ -4,7 +4,6 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
-    type FrameLensManagerEip712Request,
     HiddenCommentsType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
@@ -27,18 +26,17 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { compact, first, flatMap, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
-import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
+import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
-import { SetQueryDataForFollowUser } from '@/decorators/SetQueryDataForFollowUser.js';
+import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -65,7 +63,6 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { Frame, Index } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
@@ -75,8 +72,8 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForMirrorPost(Source.Lens)
 @SetQueryDataForCommentPost(Source.Lens)
 @SetQueryDataForDeletePost(Source.Lens)
-@SetQueryDataForBlockUser(Source.Lens)
-@SetQueryDataForFollowUser(Source.Lens)
+@SetQueryDataForBlockProfile(Source.Lens)
+@SetQueryDataForFollowProfile(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -555,7 +552,7 @@ class LensSocialMedia implements Provider {
         );
     }
 
-    async getCommentsByUserId(postId: string, profileId: string, indicator?: PageIndicator) {
+    async getCommentsByProfileId(postId: string, profileId: string, indicator?: PageIndicator) {
         const result = await lensSessionHolder.sdk.publication.fetchAll({
             where: {
                 commentOn: { id: postId },
@@ -890,70 +887,6 @@ class LensSocialMedia implements Provider {
         return result?.operations.isFollowingMe.value ?? false;
     }
 
-    async generateFrameSignaturePacket(
-        postId: string,
-        frame: Frame,
-        index: Index,
-        input = '',
-        // the state is not read from frame, for initial frame it should not provide state
-        state = '',
-    ): Promise<{
-        clientProtocol: string;
-        untrustedData: FrameLensManagerEip712Request & {
-            deadline: number;
-            identityToken: string;
-        };
-        trustedData: {
-            messageBytes: string;
-        };
-    }> {
-        const identityTokenResult = await lensSessionHolder.sdk.authentication.getIdentityToken();
-        if (identityTokenResult.isFailure()) {
-            throw identityTokenResult.error;
-        }
-
-        const profileId = await lensSessionHolder.sdk.authentication.getProfileId();
-        if (!profileId) throw new Error('No profile found');
-
-        const plainData: FrameLensManagerEip712Request = {
-            actionResponse: ZERO_ADDRESS,
-            buttonIndex: index,
-            inputText: input,
-            profileId,
-            pubId: postId,
-            // The EIP-721 spec version, must be 1.0.0
-            specVersion: '1.0.0',
-            state,
-            url: frame.url,
-        };
-
-        const result = await lensSessionHolder.sdk.frames.signFrameAction({
-            ...plainData,
-        });
-
-        if (result.isFailure()) {
-            // CredentialsExpiredError or NotAuthenticatedError
-            throw result.error;
-        }
-
-        const deadline = new Date();
-        // 30 minutes
-        deadline.setMinutes(deadline.getMinutes() + 30);
-        const packet = {
-            clientProtocol: 'lens@1.0.0',
-            untrustedData: {
-                ...plainData,
-                deadline: deadline.getTime(),
-                identityToken: identityTokenResult.unwrap(),
-            },
-            trustedData: {
-                messageBytes: result.value.signature,
-            },
-        };
-
-        return packet;
-    }
-
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const response = await lensSessionHolder.sdk.notifications.fetch({
             where: {
@@ -1117,7 +1050,7 @@ class LensSocialMedia implements Provider {
         return posts.items.map(formatLensPost);
     }
 
-    async reportUser(profileId: string) {
+    async reportProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.report({
             for: profileId,
             // TODO more specific and accurate reason.
@@ -1130,13 +1063,13 @@ class LensSocialMedia implements Provider {
         });
         const reported = result.isSuccess().valueOf();
         if (!reported) return false;
-        const blocked = await this.blockUser(profileId);
+        const blocked = await this.blockProfile(profileId);
 
         return blocked;
     }
-    async reportPost(post: Post) {
+    async reportPost(postId: string) {
         const result = await lensSessionHolder.sdk.publication.report({
-            for: post.postId,
+            for: postId,
             // TODO more specific and accurate reason.
             reason: {
                 spamReason: {
@@ -1147,13 +1080,13 @@ class LensSocialMedia implements Provider {
         });
         return result.isSuccess().valueOf();
     }
-    async blockUser(profileId: string) {
+    async blockProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
         return result.isSuccess().valueOf();
     }
-    async unblockUser(profileId: string) {
+    async unblockProfile(profileId: string) {
         const result = await lensSessionHolder.sdk.profile.unblock({
             profiles: [profileId],
         });

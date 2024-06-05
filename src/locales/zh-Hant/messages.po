@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-03 12:01\n"
+"PO-Revision-Date: 2024-06-05 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -146,9 +146,6 @@ msgstr "投票"
 
 msgid "Casts"
 msgstr ""
-
-msgid "Transaction button is not available yet."
-msgstr "交易鍵暫未開放"
 
 msgid "Trending Channels"
 msgstr "熱門頻道"
@@ -288,6 +285,9 @@ msgstr "搜尋"
 msgid "Connected Accounts"
 msgstr "已連接的帳戶"
 
+msgid "Watch"
+msgstr ""
+
 msgid "Select Account"
 msgstr "選定帳戶"
 
@@ -381,6 +381,9 @@ msgstr "預設"
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
 
+msgid "Mute {identity}"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
 
@@ -409,6 +412,9 @@ msgid "post"
 msgstr ""
 
 msgid "Hashtag"
+msgstr ""
+
+msgid "Unknown transaction method: {0}."
 msgstr ""
 
 msgid "Frame"
@@ -625,6 +631,9 @@ msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
 msgid "Confirm you want to {0} @{1}?"
+msgstr ""
+
+msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -873,6 +882,9 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
+msgid "Unwatch"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
 
@@ -916,6 +928,9 @@ msgid "Report"
 msgstr "檢舉"
 
 msgid "Post by {0}"
+msgstr ""
+
+msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr ""
 
 msgid "quote"
@@ -1003,6 +1018,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "Report Article"
 msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"

@@ -9,7 +9,7 @@ export const resolveTwitterReplyRestriction = createLookupTableResolver<
     {
         [RestrictionType.Everyone]: '',
         [RestrictionType.OnlyPeopleYouFollow]: 'following',
-        [RestrictionType.MentionedUsers]: 'mentionedUsers',
+        [RestrictionType.MentionedProfiles]: 'mentionedUsers',
     },
     '',
 );

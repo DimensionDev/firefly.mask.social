@@ -10,11 +10,11 @@ import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
-import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { BookmarkButton } from '@/components/Actions/BookmarkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
-import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
+import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
+import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -27,10 +27,10 @@ import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useReportUser } from '@/hooks/useReportUser.js';
-import { useToggleBlock } from '@/hooks/useToggleBlock.js';
-import { useToggleBlockChannel } from '@/hooks/useToggleBlockChannel.js';
+import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
+import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
+import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 
@@ -50,9 +50,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isFollowing = !!author.viewerContext?.following;
     const [, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-    const [, reportUser] = useReportUser(currentProfile);
-    const [, toggleBlock] = useToggleBlock(currentProfile);
-    const [, toggleBlockChannel] = useToggleBlockChannel();
+    const [, reportProfile] = useReportProfile(currentProfile);
+    const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
+    const [, toggleMutedChannel] = useToggleMutedChannel();
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
     return (
@@ -141,7 +141,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             {source === Source.Lens ? (
                                 <Menu.Item>
                                     {({ close }) => (
-                                        <ReportUserButton profile={author} onReport={reportUser} onClick={close} />
+                                        <ReportProfileButton
+                                            profile={author}
+                                            onReport={reportProfile}
+                                            onClick={close}
+                                        />
                                     )}
                                 </Menu.Item>
                             ) : null}
@@ -150,8 +154,8 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     {({ close }) => (
                                         <MuteChannelButton
                                             channel={channel}
-                                            onToggleBlock={async (channel: Channel) => {
-                                                const result = await toggleBlockChannel(channel);
+                                            onToggle={async (channel: Channel) => {
+                                                const result = await toggleMutedChannel(channel);
                                                 queryClient.refetchQueries({
                                                     queryKey: ['posts', channel.source],
                                                 });
@@ -164,7 +168,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             ) : null}
                             <Menu.Item>
                                 {({ close }) => (
-                                    <BlockUserButton profile={author} onToggleBlock={toggleBlock} onClick={close} />
+                                    <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
                                 )}
                             </Menu.Item>
                         </>

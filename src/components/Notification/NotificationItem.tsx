@@ -23,7 +23,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { getIsMuted } from '@/hooks/useIsMuted.js';
+import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
 const resolveNotificationIcon = createLookupTableResolver<
@@ -251,15 +251,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Mirror:
             case NotificationType.Act:
                 if (!notification.post) return;
-                if (getIsMuted(notification.post.author))
-                    return <CollapsedContent authorMuted disableIndent isQuote={false} />;
+                if (isProfileMuted(notification.post.author)) return <CollapsedContent authorMuted isQuote={false} />;
                 return <Quote className="bg-bg" post={notification.post} />;
             case NotificationType.Comment:
             case NotificationType.Mention:
                 const post = notification.type === NotificationType.Comment ? notification.comment : notification.post;
                 if (!post) return;
                 const postLink = getPostUrl(post);
-                if (getIsMuted(post.author)) return <CollapsedContent authorMuted disableIndent isQuote={false} />;
+                if (isProfileMuted(post.author)) return <CollapsedContent authorMuted isQuote={false} />;
                 return (
                     <Link className="mt-1" href={postLink}>
                         <Markup post={post} className="markup linkify line-clamp-5 break-words text-[15px]">
@@ -268,8 +267,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Link>
                 );
             case NotificationType.Quote:
-                if (getIsMuted(notification.post.author)) {
-                    return <CollapsedContent authorMuted disableIndent isQuote={false} />;
+                if (isProfileMuted(notification.post.author)) {
+                    return <CollapsedContent authorMuted isQuote={false} />;
                 }
                 return (
                     <div className="mt-1">
@@ -294,13 +293,13 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
         const type = notification.type;
         switch (type) {
             case NotificationType.Comment:
-                if (!notification.comment || getIsMuted(notification.comment.author)) return null;
+                if (!notification.comment || isProfileMuted(notification.comment.author)) return null;
                 return <PostActions post={notification.comment} disablePadding />;
             case NotificationType.Mention:
-                if (!notification.post || getIsMuted(notification.post.author)) return null;
+                if (!notification.post || isProfileMuted(notification.post.author)) return null;
                 return <PostActions post={notification.post} disablePadding />;
             case NotificationType.Quote:
-                if (getIsMuted(notification.quote.author)) return null;
+                if (isProfileMuted(notification.quote.author)) return null;
                 return <PostActions post={notification.quote} disablePadding />;
             case NotificationType.Act:
                 return null;

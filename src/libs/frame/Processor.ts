@@ -14,10 +14,10 @@ import {
     getVersion,
 } from '@/libs/frame/readers/metadata.js';
 import { OpenGraphProcessor } from '@/libs/og/Processor.js';
-import type { Frame, LinkDigested } from '@/types/frame.js';
+import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 
 class Processor {
-    digestDocument = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigested | null> => {
+    digestDocument = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
         const { document } = parseHTML(html);
 
         const version = getVersion(document);
@@ -62,7 +62,7 @@ class Processor {
         };
     };
 
-    digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigested | null> => {
+    digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
         const url = parseURL(documentUrl);
         if (!url) return null;
 

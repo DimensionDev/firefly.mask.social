@@ -1,24 +1,14 @@
-import {
-    CastAddBody,
-    CastRemoveBody,
-    Factories,
-    Message,
-    MessageType,
-    ReactionType,
-    toFarcasterTime,
-} from '@farcaster/core';
+import { CastAddBody, CastRemoveBody, Factories, Message, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
-import { env } from '@/constants/env.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
-import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import {
     type Channel,
     type Notification,
@@ -27,28 +17,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { Frame, Index } from '@/types/frame.js';
-
-function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
-    const headers = {
-        'Content-Type': 'application/octet-stream',
-        ...options.headers,
-        api_key: 'TO_BE_REPLACED_LATER',
-    };
-
-    if (env.internal.HUBBLE_TOKEN) {
-        headers.api_key = env.internal.HUBBLE_TOKEN;
-    } else if (env.external.NEXT_PUBLIC_HUBBLE_TOKEN) {
-        headers.api_key = env.external.NEXT_PUBLIC_HUBBLE_TOKEN;
-    } else {
-        throw new Error('token not found.');
-    }
-
-    return fetchJSON(url, {
-        ...options,
-        headers,
-    });
-}
 
 class HubbleSocialMedia implements Provider {
     commentPost(postId: string, post: Post): Promise<string> {
@@ -170,7 +138,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
+        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -293,7 +261,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
+        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -327,7 +295,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
+        const { data } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -362,7 +330,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -396,7 +364,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -432,7 +400,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -468,7 +436,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -497,7 +465,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -526,7 +494,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -534,114 +502,16 @@ class HubbleSocialMedia implements Provider {
         return true;
     }
 
-    async validateMessage(messageBytes: string) {
-        const url = urlcat(HUBBLE_URL, '/v1/validateMessage');
-        const { valid, message } = await fetchHubbleJSON<{ valid: boolean; message: Message }>(url, {
-            method: 'POST',
-            body: Buffer.from(messageBytes, 'hex'),
-        });
-        if (valid) return true;
-        return false;
-    }
-
-    async generateSignaturePacket(): Promise<SignaturePacket> {
-        const { signer, messageDataHash, messageDataSignature } = await encodeMessageData(
-            () => {
-                return {
-                    type: MessageType.CAST_ADD,
-                    timestamp: toFarcasterTime(Date.now())._unsafeUnwrap(),
-                    castAddBody: undefined,
-                };
-            },
-            async (messageData, signer) => {
-                return Factories.CastAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-        return {
-            signer,
-            messageHash: messageDataHash,
-            messageSignature: messageDataSignature,
-        };
-    }
-
-    async generateFrameSignaturePacket(
-        postId: string,
-        frame: Frame,
-        index: Index,
-        input?: string,
-        // the state is not read from frame, for initial frame it should not provide state
-        state?: string,
-    ): Promise<FrameSignaturePacket> {
-        const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
-            (fid) => ({
-                type: MessageType.FRAME_ACTION,
-                frameActionBody: {
-                    url: toBytes(frame.url),
-                    buttonIndex: index,
-                    castId: {
-                        fid,
-                        hash: toBytes(postId),
-                    },
-                    inputText: input ? toBytes(input) : new Uint8Array([]),
-                    state: state ? toBytes(state) : new Uint8Array([]),
-                    transactionId: new Uint8Array([]),
-                    address: new Uint8Array([]),
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.FrameActionMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const packet = {
-            untrustedData: {
-                fid: messageData.fid,
-                url: frame.url,
-                messageHash: messageDataHash,
-                timestamp: messageData.timestamp,
-                network: messageData.network,
-                buttonIndex: index,
-                inputText: input,
-                state,
-                castId: {
-                    fid: messageData.fid,
-                    hash: postId,
-                },
-            },
-            trustedData: {
-                // no 0x prefix
-                messageBytes: Buffer.from(messageBytes).toString('hex'),
-            },
-        };
-
-        if (typeof packet.untrustedData.state === 'undefined') delete packet.untrustedData.state;
-
-        return packet;
-    }
-    async reportUser(profileId: string): Promise<boolean> {
+    async reportProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async reportPost(post: Post): Promise<boolean> {
+    async reportPost(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async blockUser(profileId: string): Promise<boolean> {
+    async blockProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-    async unblockUser(profileId: string): Promise<boolean> {
+    async unblockProfile(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 

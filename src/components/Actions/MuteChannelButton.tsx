@@ -10,11 +10,11 @@ import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     channel: Channel;
-    onToggleBlock?(channel: Channel): Promise<boolean>;
+    onToggle?(channel: Channel): Promise<boolean>;
 }
 
 export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function MuteChannelButton(
-    { channel, onToggleBlock, ...rest }: Props,
+    { channel, onToggle, ...rest }: Props,
     ref,
 ) {
     const muted = channel.blocked;
@@ -36,8 +36,8 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                       })
                     : true;
 
-                if (!onToggleBlock || !confirmed) return;
-                const result = await onToggleBlock(channel);
+                if (!onToggle || !confirmed) return;
+                const result = await onToggle(channel);
                 if (result === false) {
                     enqueueErrorMessage(
                         muted ? t`Failed to unmute /${channel.id}.` : t`Failed to mute /${channel.id}.`,

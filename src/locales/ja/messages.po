@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-03 12:01\n"
+"PO-Revision-Date: 2024-06-05 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -145,9 +145,6 @@ msgid "Poll"
 msgstr ""
 
 msgid "Casts"
-msgstr ""
-
-msgid "Transaction button is not available yet."
 msgstr ""
 
 msgid "Trending Channels"
@@ -321,6 +318,9 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
+msgid "Failed to generate signature packet with source = {source}."
+msgstr ""
+
 msgid "Save failed post?"
 msgstr ""
 
@@ -406,6 +406,9 @@ msgid "post"
 msgstr ""
 
 msgid "Hashtag"
+msgstr ""
+
+msgid "Unknown transaction method: {0}."
 msgstr ""
 
 msgid "Frame"

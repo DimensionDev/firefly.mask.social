@@ -1,21 +1,11 @@
 /* cspell:disable */
 
-import { kv } from '@vercel/kv';
 import { signOut } from 'next-auth/react';
 
-import { KeyType } from '@/constants/enum.js';
-import { HIDDEN_SECRET } from '@/constants/index.js';
 import { BaseSession } from '@/providers/base/Session.js';
+import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
-
-export interface TwitterSessionPayload {
-    clientId: string;
-    accessToken: string;
-    accessTokenSecret: string;
-    consumerKey: string;
-    consumerSecret: string;
-}
 
 export class TwitterSession extends BaseSession implements Session {
     constructor(
@@ -24,7 +14,7 @@ export class TwitterSession extends BaseSession implements Session {
         token: string,
         createdAt: number,
         expiresAt: number,
-        public payload: TwitterSessionPayload,
+        public payload: SessionPayload,
     ) {
         super(SessionType.Twitter, profileId, token, createdAt, expiresAt);
     }
@@ -41,7 +31,7 @@ export class TwitterSession extends BaseSession implements Session {
         return `${super.serialize()}:${btoa(JSON.stringify(this.payload))}`;
     }
 
-    static from(profile: Profile, payload: TwitterSessionPayload) {
+    static from(profile: Profile, payload: SessionPayload) {
         const now = Date.now();
         return new TwitterSession(profile.profileId, '', now, now, payload);
     }
@@ -62,7 +52,7 @@ export class TwitterSession extends BaseSession implements Session {
         };
     }
 
-    static payloadToHeaders(payload: TwitterSessionPayload): Record<string, string> {
+    static payloadToHeaders(payload: SessionPayload): Record<string, string> {
         return {
             'X-Client-Id': payload.clientId,
             'X-Access-Token': payload.accessToken,
@@ -70,32 +60,5 @@ export class TwitterSession extends BaseSession implements Session {
             'X-Consumer-Key': payload.consumerKey,
             'X-Consumer-Secret': payload.consumerSecret,
         };
-    }
-
-    static async recordPayload(payload: TwitterSessionPayload) {
-        if (payload.consumerSecret === HIDDEN_SECRET) throw new Error('Cannot record hidden secret');
-
-        // save the consumer secret to KV
-        await kv.hsetnx(KeyType.ConsumerSecret, payload.consumerKey, payload.consumerSecret);
-
-        return payload;
-    }
-
-    static async concealPayload(payload: TwitterSessionPayload) {
-        if (payload.consumerSecret === HIDDEN_SECRET) return payload;
-
-        // override the real consumer secret
-        payload.consumerSecret = HIDDEN_SECRET;
-        return payload;
-    }
-
-    static async revealPayload(payload: TwitterSessionPayload) {
-        if (payload.consumerSecret !== HIDDEN_SECRET) return payload;
-
-        const secret = await kv.hget<string>(KeyType.ConsumerSecret, payload.consumerKey);
-        if (!secret) throw new Error('Consumer secret not found');
-
-        payload.consumerSecret = secret;
-        return payload;
     }
 }

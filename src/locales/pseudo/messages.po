@@ -142,9 +142,6 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
-msgid "Transaction button is not available yet."
-msgstr ""
-
 msgid "Trending Channels"
 msgstr ""
 
@@ -283,6 +280,9 @@ msgstr ""
 msgid "Connected Accounts"
 msgstr ""
 
+msgid "Watch"
+msgstr ""
+
 msgid "Select Account"
 msgstr ""
 
@@ -376,6 +376,9 @@ msgstr ""
 msgid "Failed to mirror."
 msgstr ""
 
+msgid "Mute {identity}"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr ""
 
@@ -404,6 +407,9 @@ msgid "post"
 msgstr ""
 
 msgid "Hashtag"
+msgstr ""
+
+msgid "Unknown transaction method: {0}."
 msgstr ""
 
 msgid "Frame"
@@ -620,6 +626,9 @@ msgid "Failed to fetch bookmarks."
 msgstr ""
 
 msgid "Confirm you want to {0} @{1}?"
+msgstr ""
+
+msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -868,6 +877,9 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
+msgid "Unwatch"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr ""
 
@@ -911,6 +923,9 @@ msgid "Report"
 msgstr ""
 
 msgid "Post by {0}"
+msgstr ""
+
+msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr ""
 
 msgid "quote"
@@ -998,6 +1013,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "Report Article"
 msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"

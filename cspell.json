@@ -3,6 +3,7 @@
     "language": "en",
     "words": [
         "Algr",
+        "CAIP",
         "Jamo",
         "Oembed",
         "Paginable",
@@ -20,6 +21,7 @@
         "bowser",
         "cacheable",
         "canonicalize",
+        "chainbase",
         "datetime",
         "deeplink",
         "enhanceable",
@@ -31,6 +33,7 @@
         "keybase",
         "lingui",
         "linkedom",
+        "maskx",
         "merkle",
         "metas",
         "momoka",
@@ -62,8 +65,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "chainbase"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",

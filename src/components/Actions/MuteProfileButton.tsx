@@ -4,21 +4,21 @@ import { forwardRef } from 'react';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { useIsMuted } from '@/hooks/useIsMuted.js';
+import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     onConfirm?(): void;
-    onToggleBlock?(profile: Profile): Promise<boolean>;
+    onToggle?(profile: Profile): Promise<boolean>;
 }
 
-export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function BlockUserButton(
-    { profile, onConfirm, onToggleBlock, ...rest }: Props,
+export const MuteProfileButton = forwardRef<HTMLButtonElement, Props>(function MuteProfileButton(
+    { profile, onConfirm, onToggle, ...rest }: Props,
     ref,
 ) {
-    const muted = useIsMuted(profile);
+    const muted = useIsProfileMuted(profile);
     return (
         <MenuButton
             {...rest}
@@ -37,7 +37,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
                     if (!confirmed) return;
                     onConfirm?.();
                 }
-                await onToggleBlock?.(profile);
+                await onToggle?.(profile);
             }}
             ref={ref}
         >

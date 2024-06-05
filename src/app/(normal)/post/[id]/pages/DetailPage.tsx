@@ -102,7 +102,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                 const lastPost = last(posts);
                 if (!lastPost) return createPageable(posts, undefined);
 
-                const commentsOfLastPost = await LensSocialMediaProvider.getCommentsByUserId(
+                const commentsOfLastPost = await LensSocialMediaProvider.getCommentsByProfileId(
                     lastPost.postId,
                     lastPost.author.profileId,
                 );
