@@ -301,7 +301,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getBlockedChannels(indicator);
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
