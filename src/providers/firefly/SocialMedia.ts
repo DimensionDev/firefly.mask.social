@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -754,10 +754,14 @@ class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute user');
     }
 
-    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    async getBlockedProfiles(
+        indicator?: PageIndicator,
+        source?: Exclude<SourceInURL, SourceInURL.Article>,
+    ): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blocklist', {
             size: 20,
             page: indicator?.id ?? 1,
+            platform: source,
         });
         const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
         const fids = response.data?.blocks.map((x) => x.snsId);
