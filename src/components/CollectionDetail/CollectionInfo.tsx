@@ -36,15 +36,13 @@ export function CollectionInfo(props: CollectionInfoProps) {
 
     return (
         <div className="w-full">
-            {bannerImageUrl ? (
-                <Image
-                    width={1000}
-                    height={1000}
-                    src={bannerImageUrl}
-                    alt={name}
-                    className="h-[150px] w-full object-cover"
-                />
-            ) : null}
+            <Image
+                width={1000}
+                height={1000}
+                src={bannerImageUrl || '/image/nft-collection-fallback.webp'}
+                alt={name}
+                className="h-[150px] w-full object-cover"
+            />
             <div className="flex w-full p-3">
                 <Image
                     width={90}
