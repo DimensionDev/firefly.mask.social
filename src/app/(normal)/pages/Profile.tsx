@@ -5,6 +5,7 @@ import { EMPTY_LIST } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import { StatusCodes } from 'http-status-codes';
 import { notFound, usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -12,9 +13,11 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
+import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { FetchError } from '@/helpers/fetch.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
@@ -44,7 +47,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
             : undefined;
     }, [source, profiles, identity]);
 
-    const { data: profile = null, isLoading } = useQuery({
+    const {
+        data: profile = null,
+        isLoading,
+        error,
+    } = useQuery({
         queryKey: ['profile', source, identity],
         queryFn: async () => {
             if (!identity || source === Source.Wallet) return null;
@@ -76,6 +83,10 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     useDocumentTitle(title);
     useNavigatorTitle(t`Profile`);
     useUpdateCurrentVisitingProfile(profile);
+
+    if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) {
+        return <SuspendedAccountFallback />;
+    }
 
     if (
         isOtherProfile &&
