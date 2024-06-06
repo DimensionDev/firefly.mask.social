@@ -5,7 +5,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
 
 interface MessageOptions extends OptionsObject {
@@ -46,6 +45,14 @@ function versionFilter(options?: MessageOptions) {
 function environmentFilter(options?: MessageOptions) {
     if (!options?.environment) return true;
     return options.environment === env.shared.NODE_ENV;
+}
+
+function getDetailedErrorMessage(error: unknown) {
+    if (!(error instanceof Error)) return `${error}`;
+    const lines = [error.message];
+    if (error.stack) lines.push(error.stack);
+    lines.push('');
+    return lines.join('\n').trim();
 }
 
 /**

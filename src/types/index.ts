@@ -45,3 +45,5 @@ export interface ClassType<T> extends Function {
 export interface NextRequestContext {
     params: Record<string, string | undefined>;
 }
+
+export type NonUndefined<T> = T extends undefined ? never : T;

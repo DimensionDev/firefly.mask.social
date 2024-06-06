@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import type { CompositePost } from '@/store/useComposeStore.js';

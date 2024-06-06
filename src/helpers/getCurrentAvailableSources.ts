@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 
 import type { SocialSource } from '@/constants/enum.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 
 export function getCurrentAvailableSources() {
     const currentProfileAll = getCurrentProfileAll();

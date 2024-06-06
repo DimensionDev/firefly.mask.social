@@ -1,12 +1,17 @@
+import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { GetWalletClientReturnType } from 'wagmi/actions';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
-import { getWarpcastErrorMessage } from '@/helpers/getWarpcastErrorMessage.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import type { UserResponse } from '@/providers/types/Warpcast.js';
+import type { ErrorResponse, UserResponse } from '@/providers/types/Warpcast.js';
+
+function getWarpcastErrorMessage(response: ErrorResponse) {
+    if (Array.isArray(response.errors)) return first(response.errors)?.message;
+    return;
+}
 
 /**
  * Create a session by signing the challenge with the custody wallet

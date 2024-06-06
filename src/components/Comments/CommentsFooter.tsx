@@ -4,7 +4,7 @@ import { LensHideComments } from '@/components/LensHideComments.js';
 import { VirtualListFooter, type VirtualListFooterProps } from '@/components/VirtualList/VirtualListFooter.js';
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import type { NonUndefined } from '@/helpers/types.js';
+import type { NonUndefined } from '@/types/index.js';
 
 interface Context extends NonUndefined<VirtualListFooterProps['context']> {
     source: SocialSource;

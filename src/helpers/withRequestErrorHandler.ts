@@ -4,8 +4,14 @@ import { ZodError } from 'zod';
 
 import { MalformedError, UnauthorizedError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
-import { handleZodErrorMessage } from '@/helpers/handleZodErrorMessage.js';
 import type { NextRequestContext } from '@/types/index.js';
+
+function handleZodErrorMessage(error: ZodError) {
+    return (
+        'InvalidParams: ' +
+        error.issues.map((issue) => `(${issue.code})${issue.path.join('.')}: ${issue.message}`).join('; ')
+    );
+}
 
 export function withRequestErrorHandler(options?: { throwError?: boolean }) {
     const { throwError = false } = options ?? {};

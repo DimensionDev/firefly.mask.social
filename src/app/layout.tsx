@@ -15,7 +15,6 @@ import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createSiteViewport } from '@/helpers/createSiteViewport.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { setLocale } from '@/i18n/index.js';
 import { Modals } from '@/modals/index.js';
@@ -43,7 +42,12 @@ const inter = Inter({
 
 export const metadata = createSiteMetadata();
 
-export const viewport = createSiteViewport();
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     setLocale(getLocaleFromCookies());

@@ -5,13 +5,20 @@ import { useAsyncFn, useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
+import { NUMBER_STRING_REGEX } from '@/constants/regexp.js';
 import { getTargetLanguage } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
-import { isValidContentToTranslate } from '@/helpers/isValidContentToTranslate.js';
+import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getContentLanguage } from '@/services/getContentLanguage.js';
 import { Language, translate } from '@/services/translate.js';
+
+function isValidContentToTranslate(content: string) {
+    NUMBER_STRING_REGEX.lastIndex = 0;
+    if (!trimify(content) || NUMBER_STRING_REGEX.test(content)) return false;
+    return true;
+}
 
 interface ContentWithTranslatorProps {
     content: string;
