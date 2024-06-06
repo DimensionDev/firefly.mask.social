@@ -57,12 +57,14 @@ export function getButtons(document: Document): FrameButton[] {
 
             const action = getMetaContent(document, `fc:frame:button:${index}:action`) || ActionType.Post;
             const target = getMetaContent(document, `fc:frame:button:${index}:target`);
+            const postUrl = getMetaContent(document, `fc:frame:button:${index}:post_url`);
 
             return {
                 index,
                 text,
                 action,
                 target,
+                postUrl,
             } as FrameButton;
         }),
     ).sort((a, z) => a.index - z.index);

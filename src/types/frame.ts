@@ -21,6 +21,8 @@ export interface FrameButton {
     action: ActionType;
     // action target URL
     target?: string;
+    // send signature packet to, overrides fc:frame:post_url
+    postUrl?: string;
 }
 
 export interface FrameImage {
