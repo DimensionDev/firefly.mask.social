@@ -15,7 +15,7 @@ export const POLL_DURATION_MIN_MINUTES = 5;
 
 export enum POLL_CHOICE_TYPE {
     Single = 'single-choice',
-    Multiple = 'multiple-choice'
+    Multiple = 'multiple-choice',
 }
 
 export enum POLL_STRATEGIES {

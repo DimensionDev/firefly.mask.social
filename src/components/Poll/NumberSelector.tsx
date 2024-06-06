@@ -35,14 +35,14 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
                     <Popover.Button
                         disabled={disabled}
                         className={classNames(
-                            'w-full rounded-md md:rounded-2xl bg-lightBg px-2 md:px-3 py-1.5 md:py-2.5 border border-transparent',
+                            'w-full rounded-md border border-transparent bg-lightBg px-2 py-1.5 md:rounded-2xl md:px-3 md:py-2.5',
                             disabled ? 'opacity-50' : '',
                             open ? 'border-lightSecond' : '',
                         )}
                     >
-                        <div className="text-[13px] text-lightSecond text-left">{label}</div>
+                        <div className="text-left text-[13px] text-lightSecond">{label}</div>
                         <div className="mt-1 flex items-center justify-between">
-                            <span className="text-base md:text-lg font-bold text-lightMain">{value}</span>
+                            <span className="text-base font-bold text-lightMain md:text-lg">{value}</span>
                             <ArrowDownIcon className={classNames('text-lightSecond', open ? 'rotate-180' : '')} />
                         </div>
                     </Popover.Button>
@@ -55,9 +55,7 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0 translate-y-1"
                     >
-                        <Popover.Panel
-                            className="absolute bottom-full right-0 flex w-full -translate-y-2 flex-col gap-2 rounded-lg bg-lightBottom py-3 text-[15px] shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none max-h-[200px] md:max-h-[300px] overflow-y-auto"
-                        >
+                        <Popover.Panel className="absolute bottom-full right-0 flex max-h-[200px] w-full -translate-y-2 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-[15px] shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[300px]">
                             {options.map((option) => (
                                 <ClickableButton
                                     key={option}

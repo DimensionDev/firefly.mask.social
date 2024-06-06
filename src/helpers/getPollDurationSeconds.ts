@@ -1,4 +1,4 @@
-import type { CompositePoll } from "@/providers/types/Poll.js";
+import type { CompositePoll } from '@/providers/types/Poll.js';
 
 // This function calculates the total number of seconds in a given duration
 export const getPollDurationSeconds = (duration: CompositePoll['duration']) => {

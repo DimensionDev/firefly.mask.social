@@ -46,7 +46,7 @@ export interface CreatePollRequest {
 
 export type CreatePollResponse = Response<{
     poll_id: string;
-}>
+}>;
 
 export interface Provider {
     /**

@@ -35,10 +35,11 @@ export const getPollOptionsMaxLength = (availableSources: SocialSource[]) => {
 
 export const isValidPoll = (poll: CompositePoll) => {
     if (
-        poll.options.some((o) => !trimify(o.label))
-        || (poll.type === POLL_CHOICE_TYPE.Multiple && !poll.multiple_count)
-        || !poll.strategies
-    ) return false;
+        poll.options.some((o) => !trimify(o.label)) ||
+        (poll.type === POLL_CHOICE_TYPE.Multiple && !poll.multiple_count) ||
+        !poll.strategies
+    )
+        return false;
     return true;
 };
 
