@@ -107,8 +107,7 @@
         "viem": "^2.9.16",
         "wagmi": "^2.5.19",
         "zod": "^3.22.4",
-        "zustand": "^4.5.2",
-        "bignumber.js": "9.1.2"
+        "zustand": "^4.5.2"
     },
     "peerDependencies": {
         "react-i18next": "13.0.2"
