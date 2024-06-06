@@ -945,10 +945,10 @@ msgstr "即将离开 Firefly"
 msgid "24H Volume"
 msgstr ""
 
-msgid "Suspended"
+msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "<0>Minted</0> an NFT worth {costEl}"
+msgid "Suspended"
 msgstr ""
 
 msgid "Full"

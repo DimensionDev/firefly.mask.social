@@ -940,11 +940,11 @@ msgstr "Leaving Firefly"
 msgid "24H Volume"
 msgstr "24H Volume"
 
-msgid "Suspended"
-msgstr "Suspended"
-
 msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr "<0>Minted</0> an NFT worth {costEl}"
+
+msgid "Suspended"
+msgstr "Suspended"
 
 msgid "Full"
 msgstr "Full"
