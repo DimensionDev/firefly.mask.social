@@ -582,6 +582,9 @@ msgstr ""
 msgid "Hide more comments"
 msgstr ""
 
+msgid "Failed to resolve mint URL = {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr ""
 
@@ -1351,9 +1354,6 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
-msgstr ""
-
-msgid "Mint button is not available yet."
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"

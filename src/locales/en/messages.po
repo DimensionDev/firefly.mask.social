@@ -577,6 +577,9 @@ msgstr "Description"
 msgid "Hide more comments"
 msgstr "Hide more comments"
 
+msgid "Failed to resolve mint URL = {0}."
+msgstr "Failed to resolve mint URL = {0}."
+
 msgid "Malformed session."
 msgstr "Malformed session."
 
@@ -1347,9 +1350,6 @@ msgstr "Are you sure you want to report this user?"
 
 msgid "Likes"
 msgstr "Likes"
-
-msgid "Mint button is not available yet."
-msgstr "Mint button is not available yet."
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> quoted your <1><2/></1>"

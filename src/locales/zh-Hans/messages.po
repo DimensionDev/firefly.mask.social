@@ -582,6 +582,9 @@ msgstr ""
 msgid "Hide more comments"
 msgstr ""
 
+msgid "Failed to resolve mint URL = {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
@@ -1352,9 +1355,6 @@ msgstr ""
 
 msgid "Likes"
 msgstr "点赞"
-
-msgid "Mint button is not available yet."
-msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
