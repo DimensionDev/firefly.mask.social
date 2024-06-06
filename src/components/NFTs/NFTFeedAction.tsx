@@ -24,24 +24,24 @@ export interface NFTFeedActionProps {
 }
 
 export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, cost }: NFTFeedActionProps) {
-    const costEl = cost ? (
-        <>
-            {`${formatBalance(cost.value, cost.decimals, {
-                isFixed: true,
-            })} ${cost.symbol}`}
-            <TokenPrice
-                target="usd"
-                prefix=" ($"
-                suffix=")"
-                value={cost.value}
-                decimals={cost.decimals}
-                symbol={resolveCoinGeckoTokenSymbol(cost.symbol)}
-            />
-        </>
-    ) : null;
-
     const iconSize = 18;
     const actionEl = useMemo(() => {
+        const costEl = cost ? (
+            <>
+                {`${formatBalance(cost.value, cost.decimals, {
+                    isFixed: true,
+                })} ${cost.symbol}`}
+                <TokenPrice
+                    target="usd"
+                    prefix=" ($"
+                    suffix=")"
+                    value={cost.value}
+                    decimals={cost.decimals}
+                    symbol={resolveCoinGeckoTokenSymbol(cost.symbol)}
+                />
+            </>
+        ) : null;
+
         switch (action) {
             case NFTFeedTransAction.Mint:
                 return (
