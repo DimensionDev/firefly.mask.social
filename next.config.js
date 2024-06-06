@@ -15,6 +15,8 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
 export default {
+    productionBrowserSourceMaps: false,
+
     // Note: we run tsc and eslint in other places
     typescript: {
         ignoreBuildErrors: true,
@@ -30,6 +32,7 @@ export default {
     experimental: {
         esmExternals: true,
         scrollRestoration: true,
+        serverSourceMaps: false,
         swcPlugins: [['@lingui/swc-plugin', {}]],
         serverActions: {
             bodySizeLimit: '20mb',
