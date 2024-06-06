@@ -151,9 +151,15 @@ async function getNextFrame(
                 if (!button.target) return;
                 if (await confirmBeforeLeaving()) openWindow(button.target, '_blank');
                 return;
-            case ActionType.Mint:
-                enqueueErrorMessage(t`Mint button is not available yet.`);
+            case ActionType.Mint: {
+                if (!button.target) return;
+                const parsed = parseCAIP10(button.target);
+
+                console.log('DEBUG: CAIP parsed');
+                console.log(parsed);
+
                 return;
+            }
             case ActionType.Transaction:
                 const txResponse = await postAction<z.infer<typeof TransactionSchema>>();
                 if (!txResponse.success) throw new Error('Failed to parse transaction.');
