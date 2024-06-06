@@ -249,9 +249,6 @@ msgstr "找不到網頁"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
-msgid "Custom"
-msgstr "自訂"
-
 msgid "Password"
 msgstr "密碼"
 
@@ -484,6 +481,9 @@ msgid "Channel"
 msgstr "頻道"
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Days"
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}"
@@ -837,6 +837,9 @@ msgstr ""
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
+msgid "Minutes"
+msgstr ""
+
 msgid "Floor Price"
 msgstr ""
 
@@ -1113,9 +1116,6 @@ msgstr ""
 msgid "Unknown session type."
 msgstr "未知的對話類別"
 
-msgid "{validInDays} day"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
 
@@ -1323,9 +1323,6 @@ msgstr ""
 msgid "Already posted on {sourceName}."
 msgstr ""
 
-msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
-msgstr ""
-
 msgid "Post"
 msgstr ""
 
@@ -1334,6 +1331,9 @@ msgstr ""
 
 msgid "Following"
 msgstr "追蹤中"
+
+msgid "Hours"
+msgstr ""
 
 msgid "<0>{0}</0> recasted"
 msgstr ""
@@ -1364,4 +1364,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

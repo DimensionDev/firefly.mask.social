@@ -244,9 +244,6 @@ msgstr "Page not found"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 
-msgid "Custom"
-msgstr "Custom"
-
 msgid "Password"
 msgstr "Password"
 
@@ -480,6 +477,9 @@ msgstr "Channel"
 
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
+
+msgid "Days"
+msgstr "Days"
 
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "Failed to unfollow @{0} on {sourceName}"
@@ -832,6 +832,9 @@ msgstr "{0} /{1}"
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
+msgid "Minutes"
+msgstr "Minutes"
+
 msgid "Floor Price"
 msgstr "Floor Price"
 
@@ -1108,9 +1111,6 @@ msgstr "Download app"
 msgid "Unknown session type."
 msgstr "Unknown session type."
 
-msgid "{validInDays} day"
-msgstr "{validInDays} day"
-
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
@@ -1318,9 +1318,6 @@ msgstr "Mirror"
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."
 
-msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
-msgstr "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
-
 msgid "Post"
 msgstr "Post"
 
@@ -1329,6 +1326,9 @@ msgstr "mirrored"
 
 msgid "Following"
 msgstr "Following"
+
+msgid "Hours"
+msgstr "Hours"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
