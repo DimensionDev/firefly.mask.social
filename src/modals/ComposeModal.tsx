@@ -302,6 +302,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             if (!rpPayload?.payloadImage) return;
 
             try {
+                const throws = () => {
+                    throw new Error('Unreachable');
+                };
                 const encrypted = await encrypt(
                     {
                         author: ProfileIdentifier.of(SITE_HOSTNAME, profile?.handle),
