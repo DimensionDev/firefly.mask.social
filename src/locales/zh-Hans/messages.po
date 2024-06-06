@@ -225,6 +225,9 @@ msgstr "举报 @{0} 失败"
 msgid "Device Logged In"
 msgstr "已登录账号"
 
+msgid "Report submitted"
+msgstr ""
+
 msgid "Username"
 msgstr "用户名"
 

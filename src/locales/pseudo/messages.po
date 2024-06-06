@@ -220,6 +220,9 @@ msgstr ""
 msgid "Device Logged In"
 msgstr ""
 
+msgid "Report submitted"
+msgstr ""
+
 msgid "Username"
 msgstr ""
 

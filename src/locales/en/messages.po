@@ -220,6 +220,9 @@ msgstr "Failed to report @{0}"
 msgid "Device Logged In"
 msgstr "Device Logged In"
 
+msgid "Report submitted"
+msgstr "Report submitted"
+
 msgid "Username"
 msgstr "Username"
 

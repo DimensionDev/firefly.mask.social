@@ -225,6 +225,9 @@ msgstr "檢舉 @{0} 失敗"
 msgid "Device Logged In"
 msgstr "裝置已登入"
 
+msgid "Report submitted"
+msgstr ""
+
 msgid "Username"
 msgstr "用戶名"
 
