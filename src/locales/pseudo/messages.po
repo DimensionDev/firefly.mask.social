@@ -1297,8 +1297,5 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-msgid "Mint button is not available yet."
-msgstr ""
-
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
