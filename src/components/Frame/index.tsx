@@ -94,17 +94,17 @@ async function getNextFrame(
     }
 
     async function postAction<T>(additional?: Additional) {
-        const url = urlcat('/api/frame', {
-            url: frame.url,
-            action: button.action,
-            'post-url': button.target || frame.postUrl || frame.url,
-        });
         const packet = await createPacket(additional);
         if (!packet) {
             enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
             throw new Error('Failed to generate signature packet.');
         }
 
+        const url = urlcat('/api/frame', {
+            url: frame.url,
+            action: button.action,
+            'post-url': button.postUrl || frame.postUrl || frame.url,
+        });
         return fetchJSON<ResponseJSON<T>>(url, {
             method: 'POST',
             headers: {
