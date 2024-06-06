@@ -52,7 +52,6 @@ import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
-import { throws } from '@/helpers/throws.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
@@ -302,6 +301,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             if (!rpPayload?.payloadImage) return;
 
             try {
+                const throws = () => {
+                    throw new Error('Unreachable');
+                };
                 const encrypted = await encrypt(
                     {
                         author: ProfileIdentifier.of(SITE_HOSTNAME, profile?.handle),

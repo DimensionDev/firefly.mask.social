@@ -14,7 +14,6 @@ import { Source } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastProfile } from '@/helpers/formatWarpcastProfile.js';
-import { removeLeadingHash } from '@/helpers/removeLeadingHash.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import {
@@ -574,7 +573,7 @@ class WarpcastSocialMedia implements Provider {
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
             // the warpcast doesn't facilitate searching using hashtags
-            q: encodeURIComponent(removeLeadingHash(q)),
+            q: encodeURIComponent(q.trim().replace(/^#/, '')),
             limit: 25,
             cursor: indicator?.id,
         });

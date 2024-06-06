@@ -4,7 +4,7 @@ import type { IdentityResolved } from '@masknet/plugin-infra';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';

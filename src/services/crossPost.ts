@@ -9,10 +9,10 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { createMockComment } from '@/helpers/createMockComment.js';
+import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { failedAt } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
@@ -100,7 +100,7 @@ async function setQueryDataForComment(post: CompositePost, updatedPost: Composit
     const parentPost = post.parentPost[source];
     if (!parentPost) return;
 
-    const mockPost = createMockComment(source, updatedPost);
+    const mockPost = createDummyCommentPost(source, updatedPost);
     const queryKey = ['posts', source, 'comments', parentPost.postId];
 
     if (mockPost) {

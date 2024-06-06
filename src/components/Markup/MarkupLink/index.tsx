@@ -12,7 +12,7 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
-import { createLensProfileFromHandle } from '@/helpers/createLensProfileFromHandle.js';
+import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterProfileUrl } from '@/helpers/getTwitterProfileUrl.js';
@@ -36,7 +36,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 const handle = getLensHandleFromMentionTitle(title);
                 if (!handle) return title;
 
-                const link = getProfileUrl(createLensProfileFromHandle(handle));
+                const link = getProfileUrl(createDummyProfileFromLensHandle(handle));
                 return (
                     <ProfileTippy className="inline-block" source={Source.Lens} identity={handle}>
                         <MentionLink handle={handle} link={link} />

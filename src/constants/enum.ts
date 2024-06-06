@@ -58,7 +58,6 @@ export enum KeyType {
     GetArticleOGById = 'getArticleOGById',
     GetProfileOGById = 'getProfileOGById',
     GetChannelOGById = 'getChannelOGById',
-    UploadToBlob = 'uploadToBlob',
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
     GetFollowings = 'getFollowings',
