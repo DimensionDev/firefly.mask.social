@@ -20,6 +20,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
+import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
@@ -153,11 +154,12 @@ async function getNextFrame(
                 return;
             case ActionType.Mint: {
                 if (!button.target) return;
-                const parsed = parseCAIP10(button.target);
-
-                console.log('DEBUG: CAIP parsed');
-                console.log(parsed);
-
+                const mintUrl = resolveMintUrl(button.target);
+                if (!mintUrl) {
+                    enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
+                    return;
+                }
+                if (await confirmBeforeLeaving()) openWindow(mintUrl, '_blank');
                 return;
             }
             case ActionType.Transaction:

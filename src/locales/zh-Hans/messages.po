@@ -555,6 +555,9 @@ msgstr ""
 msgid "Hide more comments"
 msgstr ""
 
+msgid "Failed to resolve mint URL = {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
