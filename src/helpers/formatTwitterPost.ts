@@ -3,6 +3,7 @@ import { compact, find, first } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
+import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
@@ -89,10 +90,12 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             ret.poll = {
                 id: poll.id,
                 options: poll.options.map((x) => ({ ...x, id: x.label })),
-                validInDays: poll.duration_minutes ? Math.floor(poll.duration_minutes / 60 / 24) : 0,
+                durationSeconds: poll.duration_minutes ? poll.duration_minutes * 60 : 0,
                 votingStatus: poll.voting_status,
                 endDatetime: poll.end_datetime,
                 source: Source.Twitter,
+                type: POLL_CHOICE_TYPE.Single,
+                strategies: POLL_STRATEGIES.None,
             };
         }
     }

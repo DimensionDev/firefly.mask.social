@@ -7,7 +7,7 @@ import CloseIcon from '@/assets/close.svg';
 import MinusIcon from '@/assets/minus.svg';
 import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ValidInDaysSelector } from '@/components/Poll/ValidInDaysSelector.js';
+import { DurationSelector } from '@/components/Poll/DurationSelector.js';
 import { POLL_OPTIONS_MIN_COUNT, POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createPollOption, getPollOptionsMaxLength } from '@/helpers/createPoll.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -94,8 +94,8 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                         <Trans>Add another option</Trans>
                     </span>
                 </ClickableButton>
-                {post.poll ? <ValidInDaysSelector post={post} readonly={readonly} /> : null}
             </div>
+            <DurationSelector poll={poll} readonly={readonly} />
         </div>
     );
 });

@@ -89,7 +89,7 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
     return (
         metadata.attributes?.reduce<string[]>((acc, attr) => {
             if (attr.key === LensMetadataAttributeKey.Poll) {
-                acc.push(getPollFrameUrl(attr.value));
+                acc.push(getPollFrameUrl({ pollId: attr.value, source: Source.Lens }));
             }
             return acc;
         }, []) ?? []

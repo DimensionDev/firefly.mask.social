@@ -3,10 +3,8 @@ import { NextRequest } from 'next/server.js';
 import { type SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
-import { Source } from '@/constants/enum.js';
 import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
-import { getPollFixedValidInDays } from '@/helpers/createPoll.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
@@ -29,7 +27,7 @@ const TweetSchema = z.object({
                         ),
                 }),
             ),
-            validInDays: z.number().int().positive(),
+            durationSeconds: z.number().int().positive(),
         })
         .optional(),
 });
@@ -68,8 +66,7 @@ async function composeTweet(rawTweet: unknown) {
     if (tweet.poll) {
         composedTweet.poll = {
             options: tweet.poll.options.map((option) => option.label),
-            // convert days to minutes in server
-            duration_minutes: getPollFixedValidInDays(tweet.poll.validInDays, Source.Twitter) * 24 * 60,
+            duration_minutes: tweet.poll.durationSeconds / 60,
         };
     }
 
