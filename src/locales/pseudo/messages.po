@@ -874,6 +874,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "The content of this account is currently unavailable"
+msgstr ""
+
 msgid "There is no data available for display."
 msgstr ""
 
@@ -938,6 +941,9 @@ msgid "24H Volume"
 msgstr ""
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Suspended"
 msgstr ""
 
 msgid "Full"

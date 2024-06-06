@@ -1,3 +1,5 @@
+import { FetchError } from '@/constants/error.js';
+
 const { fetch: originalFetch } = globalThis;
 
 export type Fetcher<T = Response> = (input: RequestInfo | URL, init?: RequestInit, next?: Fetcher) => Promise<T>;
@@ -16,8 +18,11 @@ export async function fetch(input: RequestInfo | URL, init?: RequestInit, fetche
     const response = await fetcher(input, init);
     if (!response.ok) {
         const text = await response.text();
-        throw new Error(
+        throw new FetchError(
             [`[fetch] failed to fetch: ${response.status} ${response.statusText} ${response.url}`, text].join('\n'),
+            response.status,
+            response.statusText,
+            response.url,
         );
     }
     return response;

@@ -874,6 +874,9 @@ msgstr "Please switch to the {chainName} network in your wallet."
 msgid "Delete"
 msgstr "Delete"
 
+msgid "The content of this account is currently unavailable"
+msgstr "The content of this account is currently unavailable"
+
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
 
@@ -939,6 +942,9 @@ msgstr "24H Volume"
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr "<0>Minted</0> an NFT worth {costEl}"
+
+msgid "Suspended"
+msgstr "Suspended"
 
 msgid "Full"
 msgstr "Full"

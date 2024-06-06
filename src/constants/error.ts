@@ -15,3 +15,16 @@ export class UnauthorizedError extends Error {
         super(message ?? 'Unauthorized');
     }
 }
+
+export class FetchError extends Error {
+    status: number;
+    url: string;
+    statusText: string;
+
+    constructor(message: string, status: number, statusText: string, url: string) {
+        super(message);
+        this.status = status;
+        this.statusText = statusText;
+        this.url = url;
+    }
+}
