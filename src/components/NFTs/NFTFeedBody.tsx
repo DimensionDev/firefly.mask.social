@@ -8,9 +8,11 @@ import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFeedAction.js';
+import { TokenPrice } from '@/components/TokenPrice.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
+import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
@@ -84,7 +86,23 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                     <NFTFeedFieldGroup
                         isLoading={isLoading}
                         field={t`Floor Price`}
-                        value={data?.collection?.floorPrices ? getFloorPrice(data?.collection?.floorPrices) : null}
+                        value={
+                            data?.collection?.floorPrices && data.collection.floorPrices.length > 0 ? (
+                                <>
+                                    {getFloorPrice(data.collection.floorPrices)}
+                                    <TokenPrice
+                                        value={data.collection.floorPrices[0].value}
+                                        symbol={resolveCoinGeckoTokenSymbol(
+                                            data.collection.floorPrices[0].payment_token.symbol,
+                                        )}
+                                        prefix=" ($"
+                                        suffix=")"
+                                        decimals={data.collection.floorPrices[0].payment_token.decimals}
+                                        target="usd"
+                                    />
+                                </>
+                            ) : null
+                        }
                     />
                 )}
             </div>

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatAddress } from '@masknet/plugin-avatar';
-import { isSameAddress } from '@masknet/web3-shared-base';
+import { formatBalance, isSameAddress } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { useMemo } from 'react';
 
@@ -11,7 +11,8 @@ import MintIcon from '@/assets/nft-action/mint.svg';
 import PoapIcon from '@/assets/nft-action/poap.svg';
 import SellIcon from '@/assets/nft-action/sell.svg';
 import SendIcon from '@/assets/nft-action/send.svg';
-import { getFloorPrice } from '@/helpers/getFloorPrice.js';
+import { TokenPrice } from '@/components/TokenPrice.js';
+import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { type NFTActionCost, NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 export interface NFTFeedActionProps {
@@ -23,7 +24,22 @@ export interface NFTFeedActionProps {
 }
 
 export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, cost }: NFTFeedActionProps) {
-    // TODO: cost to usd
+    const costEl = cost ? (
+        <>
+            {`${formatBalance(cost.value, cost.decimals, {
+                isFixed: true,
+            })} ${cost.symbol}`}
+            <TokenPrice
+                target="usd"
+                prefix=" ($"
+                suffix=")"
+                value={cost.value}
+                decimals={cost.decimals}
+                symbol={resolveCoinGeckoTokenSymbol(cost.symbol)}
+            />
+        </>
+    ) : null;
+
     const iconSize = 18;
     const actionEl = useMemo(() => {
         switch (action) {
@@ -34,8 +50,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <div className="text-second">
                             {cost ? (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Minted</span> an NFT worth{' '}
-                                    {getFloorPrice([{ value: cost.value, payment_token: cost }])}
+                                    <span className="font-bold uppercase text-main">Minted</span> an NFT worth {costEl}
                                 </Trans>
                             ) : (
                                 <Trans>
@@ -110,7 +125,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                                 {cost ? (
                                     <Trans>
                                         <span className="font-bold uppercase text-main">Bought</span> an NFT worth{' '}
-                                        {getFloorPrice([{ value: cost.value, payment_token: cost }])}
+                                        {costEl}
                                     </Trans>
                                 ) : (
                                     <Trans>
@@ -127,8 +142,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <div className="text-second">
                             {cost ? (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Sold</span> an NFT worth{' '}
-                                    {getFloorPrice([{ value: cost.value, payment_token: cost }])}
+                                    <span className="font-bold uppercase text-main">Sold</span> an NFT worth {costEl}
                                 </Trans>
                             ) : (
                                 <Trans>
