@@ -33,7 +33,7 @@ export function DiscoverNFTList() {
         const invalidNFTStore = useInvalidNFTStore.getState();
         return nftQueryResult.data.filter((feed) => {
             const tokenId = feed.trans.token_list?.[0]?.id ?? '';
-            return !invalidNFTStore.has(feed.trans.token_address, tokenId, ChainId.Mainnet);
+            return !invalidNFTStore.has(ChainId.Mainnet, feed.trans.token_address, tokenId);
         });
     }, [nftQueryResult.data, invalidNFTCount]);
 

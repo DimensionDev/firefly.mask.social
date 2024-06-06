@@ -104,7 +104,7 @@ async function getNextFrame(
         const url = urlcat('/api/frame', {
             url: frame.url,
             action: button.action,
-            'post-url': button.postUrl || frame.postUrl || frame.url,
+            'post-url': button.target || button.postUrl || frame.postUrl || frame.url,
         });
         return fetchJSON<ResponseJSON<T>>(url, {
             method: 'POST',
