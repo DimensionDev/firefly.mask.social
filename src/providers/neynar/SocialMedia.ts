@@ -9,7 +9,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { Channel as FireflyChannel  } from '@/providers/types/Firefly.js';
+import type { Channel as FireflyChannel } from '@/providers/types/Firefly.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
     type Channel,

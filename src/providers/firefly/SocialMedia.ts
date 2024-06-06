@@ -798,7 +798,9 @@ export class FireflySocialMedia implements Provider {
             });
             const response = await fireflySessionHolder.fetch<BlockedChannelsResponse>(url);
             const channelIds = response.data?.map((x) => x.channel_id);
-            const channels = channelIds?.length ? await NeynarSocialMediaProvider.getChannelsByIds(channelIds) : EMPTY_LIST;
+            const channels = channelIds?.length
+                ? await NeynarSocialMediaProvider.getChannelsByIds(channelIds)
+                : EMPTY_LIST;
             return createPageable(channels, createIndicator(indicator), undefined);
         });
     }
