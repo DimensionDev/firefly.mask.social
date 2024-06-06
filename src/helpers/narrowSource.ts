@@ -10,6 +10,7 @@ export const narrowToSocialSource = createLookupTableResolver<Source, SocialSour
         [Source.Wallet]: Source.Farcaster,
         // default to Farcaster
         [Source.Article]: Source.Farcaster,
+        [Source.NFTs]: Source.Farcaster,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);
@@ -24,6 +25,7 @@ export const narrowToSocialSourceInURL = createLookupTableResolver<SourceInURL, 
         [SourceInURL.Wallet]: SourceInURL.Farcaster,
         // default to Farcaster
         [SourceInURL.Article]: SourceInURL.Farcaster,
+        [SourceInURL.NFTs]: SourceInURL.Farcaster,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);

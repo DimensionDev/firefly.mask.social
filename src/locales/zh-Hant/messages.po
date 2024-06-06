@@ -27,6 +27,9 @@ msgstr "需要登入後在{sourceName} 發佈貼文"
 msgid "Be the first one to comment!"
 msgstr "來留下第一條評論吧！"
 
+msgid "Onchain Activities"
+msgstr ""
+
 msgid "Muted"
 msgstr "已靜音"
 
@@ -177,8 +180,14 @@ msgstr "離線"
 msgid "Username is required."
 msgstr ""
 
+msgid "<0>Sent</0> an NFT"
+msgstr ""
+
 msgid "Copied"
 msgstr "已複製"
+
+msgid "Name"
+msgstr ""
 
 msgid "Your posts have published successfully."
 msgstr "你的貼文已成功發佈"
@@ -216,6 +225,9 @@ msgstr "檢舉 @{0} 失敗"
 msgid "Device Logged In"
 msgstr "裝置已登入"
 
+msgid "Report submitted"
+msgstr ""
+
 msgid "Username"
 msgstr "用戶名"
 
@@ -250,6 +262,9 @@ msgid "Term of Service"
 msgstr ""
 
 msgid "Please switch to the correct network in your wallet."
+msgstr ""
+
+msgid "Token ID"
 msgstr ""
 
 msgid "Type something here..."
@@ -375,6 +390,12 @@ msgstr ""
 msgid "Copy Link"
 msgstr "複製連結"
 
+msgid "<0>Poap</0> received"
+msgstr ""
+
+msgid "<0>Sold</0> an NFT"
+msgstr ""
+
 msgid "Follow System"
 msgstr "預設"
 
@@ -386,6 +407,9 @@ msgstr ""
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
+
+msgid "<0>Bought</0> an NFT"
+msgstr ""
 
 msgid "The file not found"
 msgstr "找不到文件"
@@ -475,6 +499,9 @@ msgid "Reply"
 msgstr ""
 
 msgid "Mirror or Quote"
+msgstr ""
+
+msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Owned By"
@@ -637,6 +664,9 @@ msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "Retweeted"
@@ -909,6 +939,9 @@ msgstr ""
 msgid "24H Volume"
 msgstr ""
 
+msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Full"
 msgstr ""
 
@@ -999,6 +1032,9 @@ msgstr "創建 firefly 對話失敗"
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
 
+msgid "<0>Minted</0> an NFT for free"
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -1018,6 +1054,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Report Article"
@@ -1098,6 +1137,9 @@ msgstr "你無法在 {0} 上回覆 @{author}"
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
 
+msgid "Collection"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1146,6 +1188,9 @@ msgstr "取消對 @{0} 的靜音"
 msgid "Mask Network"
 msgstr "Mask Network"
 
+msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
+msgstr ""
+
 msgid "View Engagements"
 msgstr "查看互動數據"
 
@@ -1189,6 +1234,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "<0>Burned</0> an NFT"
 msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
@@ -1247,6 +1295,9 @@ msgstr ""
 
 msgid "Followers"
 msgstr "追蹤者"
+
+msgid "<0>Sent</0> an NFT to <1>{0}</1>"
+msgstr ""
 
 msgid "Media"
 msgstr ""

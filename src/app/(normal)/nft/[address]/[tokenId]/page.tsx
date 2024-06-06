@@ -2,7 +2,6 @@
 
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SchemaType } from '@masknet/web3-shared-evm';
-import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
 import ComeBack from '@/assets/comeback.svg';
@@ -12,7 +11,7 @@ import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import type { SearchParams } from '@/types/index.js';
 
 export default function Page({
@@ -28,14 +27,7 @@ export default function Page({
     const comeback = useComeBack();
     const chainId = searchParams.chainId ? Number.parseInt(searchParams.chainId as string, 10) : undefined;
 
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['nft', address, tokenId, chainId],
-        queryFn() {
-            return SimpleHashWalletProfileProvider.getNFT(address, tokenId, {
-                chainId,
-            });
-        },
-    });
+    const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
 
     if (isLoading) {
         return <Loading />;

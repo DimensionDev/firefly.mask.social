@@ -22,6 +22,9 @@ msgstr "Login required to post on {sourceName}."
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
+msgid "Onchain Activities"
+msgstr "Onchain Activities"
+
 msgid "Muted"
 msgstr "Muted"
 
@@ -172,8 +175,14 @@ msgstr "Offline"
 msgid "Username is required."
 msgstr "Username is required."
 
+msgid "<0>Sent</0> an NFT"
+msgstr "<0>Sent</0> an NFT"
+
 msgid "Copied"
 msgstr "Copied"
+
+msgid "Name"
+msgstr "Name"
 
 msgid "Your posts have published successfully."
 msgstr "Your posts have published successfully."
@@ -211,6 +220,9 @@ msgstr "Failed to report @{0}"
 msgid "Device Logged In"
 msgstr "Device Logged In"
 
+msgid "Report submitted"
+msgstr "Report submitted"
+
 msgid "Username"
 msgstr "Username"
 
@@ -246,6 +258,9 @@ msgstr "Term of Service"
 
 msgid "Please switch to the correct network in your wallet."
 msgstr "Please switch to the correct network in your wallet."
+
+msgid "Token ID"
+msgstr "Token ID"
 
 msgid "Type something here..."
 msgstr "Type something here..."
@@ -370,6 +385,12 @@ msgstr "Frame Validator"
 msgid "Copy Link"
 msgstr "Copy Link"
 
+msgid "<0>Poap</0> received"
+msgstr "<0>Poap</0> received"
+
+msgid "<0>Sold</0> an NFT"
+msgstr "<0>Sold</0> an NFT"
+
 msgid "Follow System"
 msgstr "Follow System"
 
@@ -381,6 +402,9 @@ msgstr "Mute {identity}"
 
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
+
+msgid "<0>Bought</0> an NFT"
+msgstr "<0>Bought</0> an NFT"
 
 msgid "The file not found"
 msgstr "The file not found"
@@ -471,6 +495,9 @@ msgstr "Reply"
 
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
+
+msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr "<0>Sold</0> an NFT worth {costEl}"
 
 msgid "Owned By"
 msgstr "Owned By"
@@ -633,6 +660,9 @@ msgstr "Are you sure you want to report this article?"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
+
+msgid "<0>Acquired</0> an NFT"
+msgstr "<0>Acquired</0> an NFT"
 
 msgid "Retweeted"
 msgstr "Retweeted"
@@ -904,6 +934,9 @@ msgstr "Leaving Firefly"
 msgid "24H Volume"
 msgstr "24H Volume"
 
+msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr "<0>Minted</0> an NFT worth {costEl}"
+
 msgid "Full"
 msgstr "Full"
 
@@ -994,6 +1027,9 @@ msgstr "Failed to create firefly session."
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 
+msgid "<0>Minted</0> an NFT for free"
+msgstr "<0>Minted</0> an NFT for free"
+
 msgid "Properties"
 msgstr "Properties"
 
@@ -1014,6 +1050,9 @@ msgstr "Channels"
 
 msgid "Firefly"
 msgstr "Firefly"
+
+msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr "<0>Bought</0> an NFT worth {costEl}"
 
 msgid "Report Article"
 msgstr "Report Article"
@@ -1093,6 +1132,9 @@ msgstr "You cannot reply to @{author} on {0}."
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
 
+msgid "Collection"
+msgstr "Collection"
+
 msgid "Your name"
 msgstr "Your name"
 
@@ -1141,6 +1183,9 @@ msgstr "Unmute @{0}"
 msgid "Mask Network"
 msgstr "Mask Network"
 
+msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
+msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
+
 msgid "View Engagements"
 msgstr "View Engagements"
 
@@ -1185,6 +1230,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "<0>Burned</0> an NFT"
+msgstr "<0>Burned</0> an NFT"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "Failed to fetch the latest state after several attempts. Please try again later."
@@ -1242,6 +1290,9 @@ msgstr "Translating..."
 
 msgid "Followers"
 msgstr "Followers"
+
+msgid "<0>Sent</0> an NFT to <1>{0}</1>"
+msgstr "<0>Sent</0> an NFT to <1>{0}</1>"
 
 msgid "Media"
 msgstr "Media"

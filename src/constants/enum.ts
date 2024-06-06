@@ -32,6 +32,7 @@ export enum Source {
     Twitter = 'Twitter',
     Article = 'Article',
     Wallet = 'Wallet',
+    NFTs = 'NFTs',
 }
 
 export enum SourceInURL {
@@ -40,6 +41,7 @@ export enum SourceInURL {
     Twitter = 'twitter',
     Article = 'article',
     Wallet = 'wallet',
+    NFTs = 'nfts',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
@@ -77,6 +79,7 @@ export enum WalletProfileTabType {
     Articles = 'Articles',
     POAPs = 'POAPs',
     NFTs = 'NFTs',
+    OnChainActivities = 'OnChainActivities',
 }
 
 export enum EngagementType {

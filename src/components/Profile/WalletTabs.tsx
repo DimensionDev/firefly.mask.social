@@ -4,6 +4,7 @@ import { memo, Suspense } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
+import { FollowingNFTList } from '@/components/NFTs/FollowingNFTList.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
@@ -19,6 +20,8 @@ const ContentList = memo(function ContentList({ type, address }: { type: WalletP
             return <POAPList address={address} />;
         case WalletProfileTabType.NFTs:
             return <NFTs address={address} />;
+        case WalletProfileTabType.OnChainActivities:
+            return <FollowingNFTList walletAddresses={[address]} />;
         default:
             safeUnreachable(type);
             return null;
@@ -40,8 +43,8 @@ export function WalletTabs({ address }: WalletTabsProps) {
             <div className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
                 {[
                     {
-                        type: WalletProfileTabType.Articles,
-                        title: <Trans>Articles</Trans>,
+                        type: WalletProfileTabType.OnChainActivities,
+                        title: <Trans>Onchain Activities</Trans>,
                     },
                     {
                         type: WalletProfileTabType.POAPs,
@@ -50,6 +53,10 @@ export function WalletTabs({ address }: WalletTabsProps) {
                     {
                         type: WalletProfileTabType.NFTs,
                         title: <Trans>NFTs</Trans>,
+                    },
+                    {
+                        type: WalletProfileTabType.Articles,
+                        title: <Trans>Articles</Trans>,
                     },
                 ].map(({ type, title }) => (
                     <div key={type} className="flex flex-col">

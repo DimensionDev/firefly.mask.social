@@ -13,6 +13,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Twitter:
             return urlcat(FIREFLY_STAMP_URL, '/twitter/:id', { id: profileId });
         case Source.Wallet:
+        case Source.NFTs:
         case Source.Article:
             return urlcat(FIREFLY_STAMP_URL, '/:address', { address: profileId });
         default:
