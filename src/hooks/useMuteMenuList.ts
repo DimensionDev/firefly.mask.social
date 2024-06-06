@@ -31,7 +31,7 @@ export const useMuteMenuList = (): MuteMenu[] => {
                 name: t`${resolveSourceName(Source.Farcaster)} Channels`,
                 source: Source.Farcaster,
                 type: 'channel',
-                disabled: true,
+                disabled: false,
             },
             {
                 id: MuteMenuId.LensProfiles,

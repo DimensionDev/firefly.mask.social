@@ -12,7 +12,7 @@ interface MutedChannelsProps {
 }
 
 const getChannelItemContent = (index: number, channel: Channel, listKey: string) => {
-    return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;
+    return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} noMuteButton={false} />;
 };
 
 export function MutedChannels({ source }: MutedChannelsProps) {
