@@ -1,19 +1,8 @@
+import { FetchError } from '@/constants/error.js';
+
 const { fetch: originalFetch } = globalThis;
 
 export type Fetcher<T = Response> = (input: RequestInfo | URL, init?: RequestInit, next?: Fetcher) => Promise<T>;
-
-export class FetchError extends Error {
-    status: number;
-    url: string;
-    statusText: string;
-
-    constructor(message: string, status: number, statusText: string, url: string) {
-        super(message);
-        this.status = status;
-        this.statusText = statusText;
-        this.url = url;
-    }
-}
 
 export async function fetch(input: RequestInfo | URL, init?: RequestInit, fetchers: Fetcher[] = []): Promise<Response> {
     const fetcher = fetchers.reduceRight<Fetcher>(
