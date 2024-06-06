@@ -10,22 +10,21 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 
-interface NFTFeedHeaderProps {
+interface NFTFeedHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     address: string;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
     chainId: ChainId;
-    className?: string;
 }
 
-export function NFTFeedHeader({ address, displayInfo, time, chainId, className }: NFTFeedHeaderProps) {
+export function NFTFeedHeader({ address, displayInfo, time, chainId, className, ...rest }: NFTFeedHeaderProps) {
     const authorUrl = urlcat('/profile/:address', {
         address,
         source: SourceInURL.Wallet,
     });
 
     return (
-        <div className={classNames('mb-1.5 flex items-start gap-3', className)}>
+        <div className={classNames('mb-1.5 flex items-start gap-3', className)} {...rest}>
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
                 <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={address} />
             </Link>
