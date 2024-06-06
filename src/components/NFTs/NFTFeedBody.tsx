@@ -100,9 +100,11 @@ export interface NFTFeedBodyProps {
 }
 
 export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NFTFeedBodyProps) {
+    const activeToken = tokenList[index];
     return (
-        <div className="-mt-2 w-full space-y-1.5 pl-[52px]">
-            <div className="relative flex w-full overflow-hidden sm:h-[150px]">
+        <div className="w-full space-y-1.5 pl-[52px]">
+            {activeToken ? <NFTFeedAction {...activeToken.action} /> : null}
+            <div className="relative flex w-full overflow-hidden sm:h-[120px]">
                 <div
                     className="absolute left-0 grid h-full duration-300"
                     style={{
@@ -112,15 +114,11 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                     }}
                 >
                     {tokenList.map((token) => (
-                        <div className="h-full w-full space-y-1.5" key={token.id}>
-                            <NFTFeedAction {...token.action} />
-                            <NFTItem address={token.contractAddress} tokenId={token.id} chainId={chainId} />
-                        </div>
+                        <NFTItem address={token.contractAddress} key={token.id} tokenId={token.id} chainId={chainId} />
                     ))}
                 </div>
                 {/* used for layout calculation height */}
-                <div className="h-full w-full space-y-1.5 sm:hidden">
-                    <div className="h-6" />
+                <div className="h-full w-full space-y-1.5 opacity-0 sm:hidden">
                     <div className="aspect-square w-full" />
                     <div className="h-[96px]" />
                 </div>

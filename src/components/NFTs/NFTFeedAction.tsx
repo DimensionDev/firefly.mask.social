@@ -24,12 +24,13 @@ export interface NFTFeedActionProps {
 
 export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, cost }: NFTFeedActionProps) {
     // TODO: cost to usd
+    const iconSize = 18;
     const actionEl = useMemo(() => {
         switch (action) {
             case NFTFeedTransAction.Mint:
                 return (
                     <>
-                        <MintIcon width={18} height={18} />
+                        <MintIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             {cost ? (
                                 <Trans>
@@ -48,7 +49,11 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                 if (isSameAddress(toAddress, ownerAddress)) {
                     return (
                         <>
-                            <AcquiredIcon width={18} height={18} />
+                            <AcquiredIcon
+                                width={iconSize}
+                                height={iconSize}
+                                className="mb-auto mt-[3px] min-w-[18px]"
+                            />
                             <div className="text-second">
                                 {fromAddress ? (
                                     <Trans>
@@ -68,7 +73,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                 }
                 return (
                     <>
-                        <SendIcon width={18} height={18} />
+                        <SendIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             {toAddress ? (
                                 <Trans>
@@ -88,7 +93,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
             case NFTFeedTransAction.Burn:
                 return (
                     <>
-                        <BurnIcon width={18} height={18} />
+                        <BurnIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             <Trans>
                                 <span className="font-bold uppercase text-main">Burned</span> an NFT
@@ -100,7 +105,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                 if (isSameAddress(toAddress, ownerAddress)) {
                     return (
                         <>
-                            <BuyIcon width={18} height={18} />
+                            <BuyIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                             <div className="text-second">
                                 {cost ? (
                                     <Trans>
@@ -118,7 +123,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                 }
                 return (
                     <>
-                        <SellIcon width={18} height={18} />
+                        <SellIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             {cost ? (
                                 <Trans>
@@ -136,7 +141,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
             case NFTFeedTransAction.Poap:
                 return (
                     <>
-                        <PoapIcon width={18} height={18} />
+                        <PoapIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             <Trans>
                                 <span className="font-bold uppercase text-main">Poap</span> received
@@ -149,5 +154,5 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
         }
     }, [action, ownerAddress, toAddress, fromAddress, cost]);
 
-    return <div className="flex h-6 items-center space-x-1 text-[15px] leading-6">{actionEl}</div>;
+    return <div className="min-h-6 flex items-center space-x-1 text-[15px] leading-6">{actionEl}</div>;
 }
