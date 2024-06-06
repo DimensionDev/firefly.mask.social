@@ -9,7 +9,7 @@ export type NFTDetailKey = `${ChainId}:${TokenId}:${ContractAddress}`;
 interface InvalidNFTStore {
     dataSet: Record<NFTDetailKey, true>;
     size: number;
-    registerNotFoundKey: (chainId: ChainId, tokenId: TokenId, contractAddress: ContractAddress) => void;
+    add: (chainId: ChainId, tokenId: TokenId, contractAddress: ContractAddress) => void;
     has: (chainId: ChainId, tokenId: TokenId, contractAddress: ContractAddress) => boolean;
 }
 
@@ -21,7 +21,7 @@ export const useInvalidNFTStore = create<InvalidNFTStore, [['zustand/immer', nev
     immer((set, get) => ({
         dataSet: {},
         size: 0,
-        registerNotFoundKey: (chainId, tokenId, contractAddress) => {
+        add: (chainId, tokenId, contractAddress) => {
             return set((state) => {
                 state.dataSet[generateNFTDetailKey(chainId, tokenId, contractAddress)] = true;
                 state.size = state.size + 1;
