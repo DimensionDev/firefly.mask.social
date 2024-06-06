@@ -3,6 +3,7 @@
 import { t } from '@lingui/macro';
 
 import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.js';
+import { DiscoverNFTList } from '@/components/NFTs/DiscoverNFTList.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { Source } from '@/constants/enum.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -15,6 +16,10 @@ export function HomePage() {
 
     if (currentSource === Source.Article) {
         return <DiscoverArticleList />;
+    }
+
+    if (currentSource === Source.NFTs) {
+        return <DiscoverNFTList />;
     }
 
     return <DiscoverPostList />;

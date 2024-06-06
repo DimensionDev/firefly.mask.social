@@ -19,7 +19,8 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { parseChainId } from '@/helpers/parseChainId.js';
+import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
+import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
@@ -151,9 +152,16 @@ async function getNextFrame(
                 if (!button.target) return;
                 if (await confirmBeforeLeaving()) openWindow(button.target, '_blank');
                 return;
-            case ActionType.Mint:
-                enqueueErrorMessage(t`Mint button is not available yet.`);
+            case ActionType.Mint: {
+                if (!button.target) return;
+                const mintUrl = resolveMintUrl(button.target);
+                if (!mintUrl) {
+                    enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
+                    return;
+                }
+                if (await confirmBeforeLeaving()) openWindow(mintUrl, '_blank');
                 return;
+            }
             case ActionType.Transaction:
                 const txResponse = await postAction<z.infer<typeof TransactionSchema>>();
                 if (!txResponse.success) throw new Error('Failed to parse transaction.');
@@ -162,7 +170,7 @@ async function getNextFrame(
                 if (!profile) throw new Error('Profile not found');
 
                 const transaction = TransactionSchema.parse(txResponse.data);
-                const chainId = parseChainId(transaction.chainId);
+                const { chainId } = parseCAIP10(transaction.chainId);
                 const client = await getWalletClientRequired(config);
 
                 if (client.chain.id !== chainId) {

@@ -63,6 +63,7 @@ import {
     type WalletProfileResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
+import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
 import {
     type Channel,
     type Notification,
@@ -982,6 +983,56 @@ export class FireflySocialMedia implements Provider {
             post_type: 'text',
             post_id: article.id,
         });
+    }
+
+    async discoverNFTs({
+        indicator,
+        limit = 40,
+    }: {
+        indicator?: PageIndicator;
+        limit?: number;
+    } = {}) {
+        const page = Number.parseInt(indicator?.id || '0', 10);
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/discover/feeds', {
+            size: limit,
+            offset: (page + 1) * limit,
+        });
+        const response = await fireflySessionHolder.fetch<DiscoverNFTResponse>(url, {
+            method: 'GET',
+        });
+        return createPageable(
+            response.data.feeds,
+            indicator,
+            response.data.hasMore ? createIndicator(undefined, `${page + 1}`) : undefined,
+        );
+    }
+
+    async getFollowingNFTs({
+        limit = 40,
+        indicator,
+        walletAddresses,
+    }: {
+        limit?: number;
+        indicator?: PageIndicator;
+        walletAddresses?: string[];
+    } = {}) {
+        const url = urlcat(
+            FIREFLY_ROOT_URL,
+            walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
+        );
+        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                size: limit,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                walletAddresses,
+            }),
+        });
+        return createPageable(
+            response.data.result,
+            indicator,
+            response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
+        );
     }
 }
 
