@@ -28,14 +28,14 @@ export function DiscoverNFTList() {
         select: (data) => data.pages.flatMap((p) => p.data),
     });
 
-    const useInvalidNFTCount = useInvalidNFTStore((state) => state.size);
+    const invalidNFTCount = useInvalidNFTStore((state) => state.size);
     const filteredData = useMemo(() => {
         const invalidNFTStore = useInvalidNFTStore.getState();
         return nftQueryResult.data.filter((feed) => {
             const tokenId = feed.trans.token_list?.[0]?.id ?? '';
             return !invalidNFTStore.has(feed.trans.token_address, tokenId, ChainId.Mainnet);
         });
-    }, [nftQueryResult.data, useInvalidNFTCount]);
+    }, [nftQueryResult.data, invalidNFTCount]);
 
     return (
         <ListInPage
