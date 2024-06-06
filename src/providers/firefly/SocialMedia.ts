@@ -30,6 +30,7 @@ import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import {
     type BlockChannelResponse,
+    type BlockedChannelsResponse,
     type BlockedUsersResponse,
     type BlockFields,
     type BlockRelationResponse,
@@ -791,13 +792,14 @@ export class FireflySocialMedia implements Provider {
             if (!session) {
                 throw new Error('No farcaster session found');
             }
-            // FIXME: this interface is not implemented in the backend now, just document.
+
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/blocks', {
                 account_id: session.profileId,
             });
-            const response = await fireflySessionHolder.fetch<ChannelsResponse>(url);
-            const data = resolveFireflyResponseData(response);
-            return createPageable(data.map(formatChannelFromFirefly), createIndicator(indicator), undefined);
+            const response = await fireflySessionHolder.fetch<BlockedChannelsResponse>(url);
+            const channelIds = response.data?.map((x) => x.channel_id);
+            const channels = channelIds?.length ? await NeynarSocialMediaProvider.getChannelsByIds(channelIds) : EMPTY_LIST;
+            return createPageable(channels, createIndicator(indicator), undefined);
         });
     }
 

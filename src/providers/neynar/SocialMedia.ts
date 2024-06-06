@@ -6,8 +6,10 @@ import urlcat from 'urlcat';
 import { env } from '@/constants/env.js';
 import { NEYNAR_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { Channel as FireflyChannel  } from '@/providers/types/Firefly.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
     type Channel,
@@ -219,6 +221,23 @@ class NeynarSocialMedia implements Provider {
             });
 
             return data.users.map(formatFarcasterProfileFromNeynar);
+        });
+    }
+
+    async getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        if (!ids.length) return EMPTY_LIST;
+
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(NEYNAR_URL, '/v2/farcaster/channel/bulk', {
+                ids: ids.join(','),
+                viewer_fid: session?.profileId,
+            });
+
+            const data = await fetchNeynarJSON<{ channels: FireflyChannel[] }>(url, {
+                method: 'GET',
+            });
+
+            return data.channels.map(formatChannelFromFirefly);
         });
     }
 

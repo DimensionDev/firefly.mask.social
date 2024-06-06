@@ -197,6 +197,12 @@ export type BlockedUsersResponse = Response<{
     }>;
 }>;
 
+export type BlockedChannelsResponse = Response<Array<{
+    channel_id: string;
+    channel_url: string;
+    create_at: string;
+}>>;
+
 export type UserResponse = Response<User>;
 
 export type ReactorsResponse = Response<{
