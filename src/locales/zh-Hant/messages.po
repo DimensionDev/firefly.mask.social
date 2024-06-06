@@ -498,6 +498,9 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
+msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -669,9 +672,6 @@ msgstr "已轉發"
 msgid "Post your reply"
 msgstr "發佈您的回覆"
 
-msgid "<0>Sold</0> an NFT worth {0}"
-msgstr ""
-
 msgid "liked"
 msgstr "已喜歡"
 
@@ -752,9 +752,6 @@ msgstr "喜歡"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
-
-msgid "<0>Bought</0> an NFT worth {0}"
-msgstr ""
 
 msgid "General"
 msgstr "一般"
@@ -939,6 +936,9 @@ msgstr ""
 msgid "24H Volume"
 msgstr ""
 
+msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Full"
 msgstr ""
 
@@ -1053,6 +1053,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Report Article"
 msgstr ""
 
@@ -1132,9 +1135,6 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
 
 msgid "Collection"
-msgstr ""
-
-msgid "<0>Minted</0> an NFT worth {0}"
 msgstr ""
 
 msgid "Your name"

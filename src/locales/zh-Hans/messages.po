@@ -498,6 +498,9 @@ msgstr "回复"
 msgid "Mirror or Quote"
 msgstr ""
 
+msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -669,9 +672,6 @@ msgstr "已转帖"
 msgid "Post your reply"
 msgstr "发送你的回复"
 
-msgid "<0>Sold</0> an NFT worth {0}"
-msgstr ""
-
 msgid "liked"
 msgstr "点赞"
 
@@ -752,9 +752,6 @@ msgstr "点赞"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
-
-msgid "<0>Bought</0> an NFT worth {0}"
-msgstr ""
 
 msgid "General"
 msgstr "通用"
@@ -939,6 +936,9 @@ msgstr "即将离开 Firefly"
 msgid "24H Volume"
 msgstr ""
 
+msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Full"
 msgstr ""
 
@@ -1053,6 +1053,9 @@ msgstr "频道"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Report Article"
 msgstr ""
 
@@ -1132,9 +1135,6 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
 msgid "Collection"
-msgstr ""
-
-msgid "<0>Minted</0> an NFT worth {0}"
 msgstr ""
 
 msgid "Your name"

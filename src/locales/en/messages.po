@@ -493,6 +493,9 @@ msgstr "Reply"
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
 
+msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr "<0>Sold</0> an NFT worth {costEl}"
+
 msgid "Owned By"
 msgstr "Owned By"
 
@@ -664,9 +667,6 @@ msgstr "Retweeted"
 msgid "Post your reply"
 msgstr "Post your reply"
 
-msgid "<0>Sold</0> an NFT worth {0}"
-msgstr "<0>Sold</0> an NFT worth {0}"
-
 msgid "liked"
 msgstr "liked"
 
@@ -747,9 +747,6 @@ msgstr "Like"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
-
-msgid "<0>Bought</0> an NFT worth {0}"
-msgstr "<0>Bought</0> an NFT worth {0}"
 
 msgid "General"
 msgstr "General"
@@ -934,6 +931,9 @@ msgstr "Leaving Firefly"
 msgid "24H Volume"
 msgstr "24H Volume"
 
+msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr "<0>Minted</0> an NFT worth {costEl}"
+
 msgid "Full"
 msgstr "Full"
 
@@ -1048,6 +1048,9 @@ msgstr "Channels"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr "<0>Bought</0> an NFT worth {costEl}"
+
 msgid "Report Article"
 msgstr "Report Article"
 
@@ -1128,9 +1131,6 @@ msgstr "We're updating our connection with X. Posting on X will be limited for n
 
 msgid "Collection"
 msgstr "Collection"
-
-msgid "<0>Minted</0> an NFT worth {0}"
-msgstr "<0>Minted</0> an NFT worth {0}"
 
 msgid "Your name"
 msgstr "Your name"
