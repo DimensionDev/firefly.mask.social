@@ -41,7 +41,7 @@ export enum SourceInURL {
     Twitter = 'twitter',
     Article = 'article',
     Wallet = 'wallet',
-    NFTs = 'nft',
+    NFTs = 'nfts',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
