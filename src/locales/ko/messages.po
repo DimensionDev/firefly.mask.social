@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-06 00:05\n"
+"PO-Revision-Date: 2024-06-06 12:02\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -25,6 +25,9 @@ msgid "Login required to post on {sourceName}."
 msgstr ""
 
 msgid "Be the first one to comment!"
+msgstr ""
+
+msgid "Onchain Activities"
 msgstr ""
 
 msgid "Muted"
@@ -177,7 +180,13 @@ msgstr ""
 msgid "Username is required."
 msgstr ""
 
+msgid "<0>Sent</0> an NFT"
+msgstr ""
+
 msgid "Copied"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Your posts have published successfully."
@@ -216,6 +225,9 @@ msgstr ""
 msgid "Device Logged In"
 msgstr ""
 
+msgid "Report submitted"
+msgstr ""
+
 msgid "Username"
 msgstr ""
 
@@ -250,6 +262,9 @@ msgid "Term of Service"
 msgstr ""
 
 msgid "Please switch to the correct network in your wallet."
+msgstr ""
+
+msgid "Token ID"
 msgstr ""
 
 msgid "Type something here..."
@@ -375,6 +390,12 @@ msgstr ""
 msgid "Copy Link"
 msgstr ""
 
+msgid "<0>Poap</0> received"
+msgstr ""
+
+msgid "<0>Sold</0> an NFT"
+msgstr ""
+
 msgid "Follow System"
 msgstr ""
 
@@ -385,6 +406,9 @@ msgid "Mute {identity}"
 msgstr ""
 
 msgid "Remove from Bookmarks"
+msgstr ""
+
+msgid "<0>Bought</0> an NFT"
 msgstr ""
 
 msgid "The file not found"
@@ -477,6 +501,9 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
+msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -553,6 +580,9 @@ msgid "Description"
 msgstr ""
 
 msgid "Hide more comments"
+msgstr ""
+
+msgid "Failed to resolve mint URL = {0}."
 msgstr ""
 
 msgid "Malformed session."
@@ -637,6 +667,9 @@ msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "Retweeted"
@@ -909,6 +942,9 @@ msgstr ""
 msgid "24H Volume"
 msgstr ""
 
+msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
 msgid "Full"
 msgstr ""
 
@@ -999,6 +1035,9 @@ msgstr ""
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr ""
 
+msgid "<0>Minted</0> an NFT for free"
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -1018,6 +1057,9 @@ msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Report Article"
@@ -1098,6 +1140,9 @@ msgstr ""
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
+msgid "Collection"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1146,6 +1191,9 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
+msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
+msgstr ""
+
 msgid "View Engagements"
 msgstr ""
 
@@ -1189,6 +1237,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "<0>Burned</0> an NFT"
 msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
@@ -1248,6 +1299,9 @@ msgstr ""
 msgid "Followers"
 msgstr ""
 
+msgid "<0>Sent</0> an NFT to <1>{0}</1>"
+msgstr ""
+
 msgid "Media"
 msgstr ""
 
@@ -1300,9 +1354,6 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
-msgstr ""
-
-msgid "Mint button is not available yet."
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
