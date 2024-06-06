@@ -1,13 +1,19 @@
 import { type SocialSource } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/index.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
+
+export enum CHAR_TAG {
+    FIREFLY_RP = 'ff_rp',
+    MENTION = 'mention_tag',
+}
 
 /**
  * chars with metadata
  */
 interface ComplexChars {
     // tag is used to identify the type of content
-    tag: string;
+    tag: CHAR_TAG;
     // if visible is false, content will not be displayed
     // but the length of content will be counted
     visible: boolean;
@@ -16,12 +22,19 @@ interface ComplexChars {
 }
 
 interface RP_Chars extends ComplexChars {
-    tag: 'ff_rp';
+    tag: CHAR_TAG.FIREFLY_RP;
     visible: boolean;
     content: typeof RP_HASH_TAG;
 }
 
-export type Chars = string | RP_Chars | Array<string | RP_Chars>;
+interface Mention_Chars {
+    tag: CHAR_TAG.MENTION;
+    visible: boolean;
+    content: string;
+    profiles: Profile[];
+}
+
+export type Chars = string | Array<string | RP_Chars | Mention_Chars>;
 
 /**
  * Stringify chars into plain text
@@ -31,8 +44,17 @@ export type Chars = string | RP_Chars | Array<string | RP_Chars>;
  */
 export function readChars(chars: Chars, visibleOnly = false) {
     return (Array.isArray(chars) ? chars : [chars])
-        .map((x) => (typeof x === 'string' ? x : x.visible || !visibleOnly ? x.content : ''))
-        .join('\n');
+        .map((x) => {
+            if (typeof x === 'string') return x;
+            if (!x.visible && visibleOnly) return '';
+            switch (x.tag) {
+                case CHAR_TAG.FIREFLY_RP:
+                    return `${x.content}\n`;
+                case CHAR_TAG.MENTION:
+                    return x.content;
+            }
+        })
+        .join('');
 }
 
 export function writeChars(chars: Chars, newChars: Chars) {

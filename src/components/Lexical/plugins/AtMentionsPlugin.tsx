@@ -9,19 +9,25 @@ import {
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical/index.js';
-import { first } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounce } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
@@ -79,15 +85,24 @@ class MentionTypeaheadOption extends MenuOption {
     handle: string;
     profileId: string;
     pfp: string;
-    fullHandle: string;
+    platform: SocialSource;
+    allProfile: Profile[];
 
-    constructor(id: string, displayName: string, handle: string, pfp: string, fullHandle: string) {
+    constructor(
+        id: string,
+        displayName: string,
+        handle: string,
+        pfp: string,
+        platform: SocialSource,
+        allProfile: Profile[],
+    ) {
         super(displayName);
         this.profileId = id;
         this.handle = handle;
         this.displayName = displayName;
         this.pfp = pfp;
-        this.fullHandle = fullHandle;
+        this.platform = platform;
+        this.allProfile = allProfile;
     }
 }
 
@@ -121,11 +136,33 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                 )}
             >
                 <Avatar alt={option.handle} className="h-7 w-7 rounded-full" src={option.pfp} size={32} />
-                <div className="flex flex-col truncate">
-                    <div className="flex items-center space-x-1 text-sm">
-                        <span>{option.displayName}</span>
+                <div className="flex flex-1 justify-between">
+                    <div className="flex flex-col truncate">
+                        <div className="flex items-center text-sm">
+                            <span>{option.displayName}</span>
+                        </div>
+                        <span className="text-xs">@{option.handle}</span>
                     </div>
-                    <span className="text-xs">{option.handle}</span>
+                    <div className="flex items-center">
+                        {option.allProfile.map((profile, index, self) => {
+                            return (
+                                <Tooltip
+                                    appendTo={() => document.body}
+                                    placement="top"
+                                    content={`@${profile.handle}`}
+                                    key={profile.platform_id}
+                                >
+                                    <SocialSourceIcon
+                                        className={classNames('inline-flex items-center', {
+                                            '-ml-1': index > 0 && self.length > 1,
+                                        })}
+                                        source={resolveSocialSource(profile.platform)}
+                                        size={20}
+                                    />
+                                </Tooltip>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </li>
@@ -153,27 +190,46 @@ export function MentionsPlugin(): JSX.Element | null {
         ],
         queryFn: async () => {
             if (!debounceQuery) return;
+            const data = await FireflySocialMediaProvider.searchIdentity(debounceQuery, availableSources);
 
-            // When the default state is to send a multi-platform post, it will not be queried.
-            if (availableSources.length !== 1) return;
+            if (!data) return EMPTY_LIST;
+            return compact(
+                data.list.map((x) => {
+                    const target = [x.farcaster, x.lens, x.twitter]
+                        .flatMap((value) => value ?? EMPTY_LIST)
+                        .find((profile) => profile.hit);
+                    if (!target) return;
 
-            const currentSource = first(availableSources);
-            if (!currentSource) return;
+                    const allProfile = compact(
+                        [first(x.farcaster), first(x.lens), first(x.twitter)].map((x) => {
+                            if (target.platform === x?.platform) return target;
+                            return x;
+                        }),
+                    );
 
-            const provider = resolveSocialMediaProvider(currentSource);
-            return provider.searchProfiles(debounceQuery);
+                    const platform = resolveSocialSource(target.platform);
+                    return {
+                        platform,
+                        profileId: target.platform_id,
+                        avatar: getStampAvatarByProfileId(platform, target.platform_id),
+                        handle: target.handle,
+                        name: target.name,
+                        allProfile,
+                    };
+                }),
+            );
         },
     });
 
     const options = useMemo(() => {
-        if (!data?.data) return EMPTY_LIST;
+        if (!data) return EMPTY_LIST;
 
-        return data.data
-            .map(({ profileId, displayName, handle, pfp, fullHandle }) => {
-                return new MentionTypeaheadOption(profileId, displayName, handle, pfp, fullHandle);
+        return data
+            .map(({ profileId, avatar, handle, name, allProfile, platform }) => {
+                return new MentionTypeaheadOption(profileId, name, handle, avatar, platform, allProfile);
             })
             .slice(0, SUGGESTION_LIST_LENGTH_LIMIT);
-    }, [data?.data]);
+    }, [data]);
 
     const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
         minLength: 0,
@@ -203,7 +259,7 @@ export function MentionsPlugin(): JSX.Element | null {
             isUpdatingMentionTag.current = true;
             editor.update(
                 () => {
-                    const mentionNode = $createMentionNode(selectedOption.fullHandle);
+                    const mentionNode = $createMentionNode(selectedOption.handle, selectedOption.allProfile);
                     if (nodeToReplace) {
                         nodeToReplace.replace(mentionNode);
                     } else if (matchedNodeCache.current) {
@@ -230,13 +286,13 @@ export function MentionsPlugin(): JSX.Element | null {
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
                 return anchorElementRef.current && options.length
                     ? createPortal(
-                          <div className="bg-brand sticky z-[999] mt-2 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
-                              <ul className="divide-y dark:divide-gray-700">
+                          <div className="bg-brand sticky z-[999] mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
+                              <ul>
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem
                                           index={i}
                                           isSelected={selectedIndex === i}
-                                          key={option.key}
+                                          key={option.profileId}
                                           onClick={() => {
                                               setHighlightedIndex(i);
                                               selectOptionAndCleanUp(option);

@@ -5,13 +5,15 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin.js';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
+import { $dfs } from '@lexical/utils';
 import { Select, t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useDebounce } from 'react-use';
 
+import { $isMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
-import { writeChars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars, writeChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -79,7 +81,26 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                 onChange={(editorState) => {
                     editorState.read(async () => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
-                        updateChars((chars) => writeChars(chars, markdown));
+                        const allNodes = $dfs();
+                        const mentionNodes = allNodes.filter((x) => $isMentionNode(x.node));
+
+                        const newChars: Chars = markdown
+                            .split(/(@[^\s()@:%+~#?&=,!?']+)/g)
+                            .filter(Boolean)
+                            .map((x) => {
+                                const targetMentionNode = mentionNodes.find((node) => node.node.__text === x);
+                                if (targetMentionNode)
+                                    return {
+                                        tag: CHAR_TAG.MENTION,
+                                        visible: true,
+                                        content: x,
+                                        profiles: targetMentionNode.node.__profiles,
+                                    };
+
+                                return x;
+                            });
+
+                        updateChars((chars) => writeChars(chars, newChars));
                     });
                 }}
             />

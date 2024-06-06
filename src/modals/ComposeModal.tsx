@@ -42,7 +42,7 @@ import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { type Chars, readChars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -219,7 +219,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 if (post) updateParentPost(post.source, post);
                 if (chars) {
                     updateChars(chars);
-                    setEditorContent(readChars(chars, true));
+                    setEditorContent(chars);
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
@@ -335,7 +335,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 const chars: Chars = [
                     {
-                        tag: 'ff_rp',
+                        tag: CHAR_TAG.FIREFLY_RP,
                         content: RP_HASH_TAG,
                         visible: true,
                     },
@@ -344,7 +344,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 updateChars(chars);
 
-                setEditorContent(readChars(chars, true));
+                setEditorContent(chars);
 
                 addImage({
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
