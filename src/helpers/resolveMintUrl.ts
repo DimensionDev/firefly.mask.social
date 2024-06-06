@@ -3,9 +3,7 @@ import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
-import {
-    ChainId,
-} from '@/types/frame.js';
+import { ChainId } from '@/types/frame.js';
 
 export function resolveMintUrl(target: string) {
     const { chainId, address, parameters } = parseCAIP10(target);
