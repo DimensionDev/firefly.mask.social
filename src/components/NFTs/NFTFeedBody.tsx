@@ -6,6 +6,7 @@ import { type ReactNode } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LinkIcon from '@/assets/link-square.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFeedAction.js';
 import { TokenPrice } from '@/components/TokenPrice.js';
@@ -143,7 +144,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
             </div>
             {tokenList.length > 1 ? (
                 <div className="mt-1.5 flex h-[18px] justify-between overflow-hidden text-lightSecond">
-                    <button
+                    <ClickableButton
                         className={classNames(
                             'duration-50 rounded-full',
                             index <= 0 ? 'cursor-not-allowed opacity-50' : 'hover:bg-main/10 active:bg-main/5',
@@ -158,7 +159,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                         }}
                     >
                         <LineArrowUp width={18} height={18} className="-rotate-90" />
-                    </button>
+                    </ClickableButton>
                     <div
                         className="flex flex-1 cursor-default items-center justify-center space-x-[1.5px]"
                         onClickCapture={(e) => {
@@ -170,7 +171,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             <div key={id} className="h-[3px] w-[3px] rounded-full bg-lightSecond" />
                         ))}
                     </div>
-                    <button
+                    <ClickableButton
                         className={classNames(
                             'duration-50 rounded-full',
                             index >= tokenList.length - 1
@@ -187,7 +188,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                         }}
                     >
                         <LineArrowUp width={18} height={18} className="rotate-90" />
-                    </button>
+                    </ClickableButton>
                 </div>
             ) : null}
         </div>
