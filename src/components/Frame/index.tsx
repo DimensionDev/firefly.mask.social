@@ -19,7 +19,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { parseChainId } from '@/helpers/parseChainId.js';
+import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
@@ -162,7 +162,7 @@ async function getNextFrame(
                 if (!profile) throw new Error('Profile not found');
 
                 const transaction = TransactionSchema.parse(txResponse.data);
-                const chainId = parseChainId(transaction.chainId);
+                const { chainId } = parseCAIP10(transaction.chainId);
                 const client = await getWalletClientRequired(config);
 
                 if (client.chain.id !== chainId) {
