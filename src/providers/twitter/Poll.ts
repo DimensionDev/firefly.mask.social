@@ -1,4 +1,5 @@
 import { Source } from '@/constants/enum.js';
+import { getPollDurationSeconds } from '@/helpers/getPollDurationSeconds.js';
 import type { CompositePoll, Poll, PollOption, Provider } from '@/providers/types/Poll.js';
 
 class TwitterPoll implements Provider {
@@ -6,8 +7,11 @@ class TwitterPoll implements Provider {
         return {
             id: '',
             options: poll.options.map((option) => ({ id: option.id, label: option.label })),
-            validInDays: poll.validInDays,
+            durationSeconds: getPollDurationSeconds(poll.duration),
             source: Source.Twitter,
+            type: poll.type,
+            strategies: poll.strategies,
+            multiple_count: poll.multiple_count,
         };
     }
 

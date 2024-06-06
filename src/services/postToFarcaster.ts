@@ -51,7 +51,9 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...images.map((media) => ({ url: media.s3!, mimeType: media.file.type })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
-                    ...(polls ?? []).map((poll) => ({ url: getPollFrameUrl(poll.id) })),
+                    ...(polls ?? []).map((poll) => ({
+                        url: getPollFrameUrl({ pollId: poll.id, source: Source.Farcaster }),
+                    })),
                 ],
                 (x) => x.url.toLowerCase(),
             ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),

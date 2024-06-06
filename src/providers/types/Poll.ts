@@ -1,6 +1,8 @@
 import type { Pageable } from '@masknet/shared-base';
 
 import type { SocialSource } from '@/constants/enum.js';
+import type { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
+import type { Response } from '@/providers/types/Firefly.js';
 
 export interface PollOption {
     id: string;
@@ -13,15 +15,38 @@ export interface Poll {
     id: string;
     options: PollOption[];
     source: SocialSource;
-    validInDays: number;
+    durationSeconds: number;
     endDatetime?: string;
     votingStatus?: string;
+    type: POLL_CHOICE_TYPE;
+    multiple_count?: string;
+    strategies: POLL_STRATEGIES;
 }
 
 export interface CompositePoll {
     options: PollOption[];
-    validInDays: number;
+    duration: {
+        days: number;
+        hours: number;
+        minutes: number;
+    };
+    type: POLL_CHOICE_TYPE;
+    multiple_count?: string;
+    strategies: POLL_STRATEGIES;
 }
+
+export interface CreatePollRequest {
+    title: string;
+    choices: string[];
+    type: POLL_CHOICE_TYPE;
+    multiple_count?: string;
+    sub_time: number;
+    strategies: POLL_STRATEGIES;
+}
+
+export type CreatePollResponse = Response<{
+    poll_id: string;
+}>;
 
 export interface Provider {
     /**
