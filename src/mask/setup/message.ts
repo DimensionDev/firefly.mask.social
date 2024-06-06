@@ -147,8 +147,10 @@ const removeListener = addListener('ready', () => {
     removeListener();
     resolve();
 });
-postMessage('request-ready', null);
+postMessage('ready-request', null);
+console.log('setup message');
 await promise;
+console.log('setup promise fullfilled');
 
 export function addListener(type: string, callback: MessageHandler) {
     if (!messageHandlers.has(type)) messageHandlers.set(type, new Set());

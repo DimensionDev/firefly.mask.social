@@ -12,6 +12,8 @@ const channel: EventBasedChannel = {
     },
 };
 
+console.log('setup rpc');
+
 export const BackgroundWorker = AsyncCall<typeof import('../background-worker/service.js')>(
     {},
     { channel, log: true, encoder },
