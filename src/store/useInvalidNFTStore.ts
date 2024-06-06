@@ -4,28 +4,32 @@ import { immer } from 'zustand/middleware/immer';
 
 type ContractAddress = string;
 type TokenId = string | number;
-export type NFTDetailKey = `${ContractAddress}.${TokenId}.${ChainId}`;
+export type NFTDetailKey = `${ChainId}:${TokenId}:${ContractAddress}`;
 
 interface InvalidNFTStore {
     dataSet: Record<NFTDetailKey, true>;
     size: number;
-    registerNotFoundKey: (contractAddress: ContractAddress, tokenId: TokenId, chainId: ChainId) => void;
-    has: (contractAddress: ContractAddress, tokenId: TokenId, chainId: ChainId) => boolean;
+    registerNotFoundKey: (chainId: ChainId, tokenId: TokenId, contractAddress: ContractAddress) => void;
+    has: (chainId: ChainId, tokenId: TokenId, contractAddress: ContractAddress) => boolean;
+}
+
+function generateNFTDetailKey(chainId: ChainId, tokenId: TokenId, contractAddress: ContractAddress) {
+    return `${chainId}:${tokenId}:${contractAddress}` as NFTDetailKey;
 }
 
 export const useInvalidNFTStore = create<InvalidNFTStore, [['zustand/immer', never]]>(
     immer((set, get) => ({
         dataSet: {},
         size: 0,
-        registerNotFoundKey: (contractAddress, tokenId, chainId) => {
+        registerNotFoundKey: (chainId, tokenId, contractAddress) => {
             return set((state) => {
-                state.dataSet[`${contractAddress}.${tokenId}.${chainId}`] = true;
+                state.dataSet[generateNFTDetailKey(chainId, tokenId, contractAddress)] = true;
                 state.size = state.size + 1;
             });
         },
-        has: (contractAddress, tokenId, chainId) => {
+        has: (chainId, tokenId, contractAddress) => {
             const state = get();
-            return `${contractAddress}.${tokenId}.${chainId}` in state.dataSet;
+            return generateNFTDetailKey(chainId, tokenId, contractAddress) in state.dataSet;
         },
     })),
 );
