@@ -12,7 +12,7 @@ export function useNFTDetail(address: string, tokenId: string, chainId: ChainId 
                 chainId,
             });
             if (!result) {
-                useInvalidNFTStore.getState().add(chainId, tokenId, address);
+                useInvalidNFTStore.getState().add(chainId, address, tokenId);
             }
             return result;
         },

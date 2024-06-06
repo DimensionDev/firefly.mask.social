@@ -67,14 +67,11 @@ export async function POST(request: Request) {
         body: JSON.stringify(packet),
     });
 
+    if (!response.ok || response.status < 200 || response.status >= 300)
+        return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });
+
     switch (action) {
         case ActionType.Post:
-            if (!response.ok || response.status < 200 || response.status >= 300)
-                return Response.json(
-                    { error: 'The frame server cannot handle the post request correctly.' },
-                    { status: 500 },
-                );
-
             return createSuccessResponseJSON(
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
@@ -113,15 +110,10 @@ export async function POST(request: Request) {
                     status: 400,
                 },
             );
-        case ActionType.Transaction:
-            return Response.json(
-                {
-                    error: 'Not available',
-                },
-                {
-                    status: 400,
-                },
-            );
+        case ActionType.Transaction: {
+            const tx = await response.json();
+            return createSuccessResponseJSON(tx);
+        }
         default:
             safeUnreachable(action);
             return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });
