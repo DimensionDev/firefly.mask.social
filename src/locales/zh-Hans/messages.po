@@ -846,6 +846,9 @@ msgstr "请切换钱包网络至 {chainName}"
 msgid "Delete"
 msgstr "删除"
 
+msgid "The content of this account is currently unavailable"
+msgstr ""
+
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
@@ -907,6 +910,9 @@ msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
 
 msgid "24H Volume"
+msgstr ""
+
+msgid "Suspended"
 msgstr ""
 
 msgid "Full"

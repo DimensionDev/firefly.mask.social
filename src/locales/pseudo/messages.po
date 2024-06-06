@@ -841,6 +841,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "The content of this account is currently unavailable"
+msgstr ""
+
 msgid "There is no data available for display."
 msgstr ""
 
@@ -902,6 +905,9 @@ msgid "Leaving Firefly"
 msgstr ""
 
 msgid "24H Volume"
+msgstr ""
+
+msgid "Suspended"
 msgstr ""
 
 msgid "Full"
