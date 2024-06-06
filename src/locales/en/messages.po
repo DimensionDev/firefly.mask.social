@@ -841,6 +841,9 @@ msgstr "Please switch to the {chainName} network in your wallet."
 msgid "Delete"
 msgstr "Delete"
 
+msgid "The content of this account is currently unavailable"
+msgstr "The content of this account is currently unavailable"
+
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
 
@@ -903,6 +906,9 @@ msgstr "Leaving Firefly"
 
 msgid "24H Volume"
 msgstr "24H Volume"
+
+msgid "Suspended"
+msgstr "Suspended"
 
 msgid "Full"
 msgstr "Full"
