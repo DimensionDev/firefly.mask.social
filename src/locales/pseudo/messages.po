@@ -283,6 +283,9 @@ msgstr ""
 msgid "Report Failed"
 msgstr ""
 
+msgid "Attendees"
+msgstr ""
+
 msgid "You need to connect your {source} account to use this feature."
 msgstr ""
 
@@ -920,6 +923,9 @@ msgid "Unwatch"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
+msgstr ""
+
+msgid "Attendance"
 msgstr ""
 
 msgid "Show more"

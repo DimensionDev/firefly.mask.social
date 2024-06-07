@@ -288,6 +288,9 @@ msgstr ""
 msgid "Report Failed"
 msgstr ""
 
+msgid "Attendees"
+msgstr ""
+
 msgid "You need to connect your {source} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能"
 
@@ -926,6 +929,9 @@ msgstr ""
 
 msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
+
+msgid "Attendance"
+msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"

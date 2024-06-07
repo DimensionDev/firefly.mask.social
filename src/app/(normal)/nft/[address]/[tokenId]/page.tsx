@@ -2,16 +2,20 @@
 
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SchemaType } from '@masknet/web3-shared-evm';
+import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
 import ComeBack from '@/assets/comeback.svg';
 import { Loading } from '@/components/Loading.js';
+import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
+import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import type { SearchParams } from '@/types/index.js';
 
 export default function Page({
@@ -26,8 +30,17 @@ export default function Page({
 }) {
     const comeback = useComeBack();
     const chainId = searchParams.chainId ? Number.parseInt(searchParams.chainId as string, 10) : undefined;
+    const isPoap = address === POAP_CONTRACT_ADDRESS;
 
     const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
+
+    const { data: collectionData } = useQuery({
+        queryKey: ['collection-info', address, chainId],
+        queryFn() {
+            return SimpleHashWalletProfileProvider.getCollection(address, { chainId });
+        },
+        enabled: isPoap,
+    });
 
     if (isLoading) {
         return <Loading />;
@@ -54,13 +67,18 @@ export default function Page({
                     tokenId={data.metadata.tokenId ?? ''}
                     ownerAddress={data.contract?.schema === SchemaType.ERC1155 ? undefined : data.owner?.address}
                     contractAddress={data.contract?.address ?? ''}
-                    collection={{
-                        name: data.contract?.name ?? '',
-                        icon: data.collection?.iconURL ?? undefined,
-                        id: data.contract?.address,
-                    }}
+                    collection={
+                        isPoap
+                            ? undefined
+                            : {
+                                  name: data.contract?.name ?? '',
+                                  icon: data.collection?.iconURL ?? undefined,
+                                  id: data.contract?.address,
+                              }
+                    }
                     floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
+                    attendance={collectionData?.distinct_owner_count}
                 />
                 {data.traits && data.traits.length > 0 ? (
                     <NFTProperties
@@ -78,6 +96,7 @@ export default function Page({
                     chainId={data.chainId}
                     schemaType={data.contract?.schema}
                 />
+                {address === POAP_CONTRACT_ADDRESS ? <Attendees address={address} chainId={data.chainId} /> : null}
             </div>
         </div>
     );
