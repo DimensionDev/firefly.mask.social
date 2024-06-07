@@ -10,3 +10,10 @@ export const Pageable = z.object({
             return true;
         }),
 });
+
+export const HttpUrl = z
+    .string()
+    .url()
+    .regex(/^(https?:\/\/)/);
+
+export const CAIP10 = z.string().regex(/^eip155:\d+:0x[a-fA-F0-9]{40}/i);
