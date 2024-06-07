@@ -1,28 +1,33 @@
-import { produce } from 'immer';
+import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
 
 export function toggleWatch(address: string, status: boolean) {
-    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>(
-        { queryKey: ['articles', 'discover', Source.Article] },
-        (old) => {
-            if (!old) return old;
-            const addr = address.toLowerCase();
-            return produce(old, (draft) => {
-                for (const page of draft.pages) {
-                    if (!page) continue;
-                    for (const article of page.data) {
-                        if (article.author.id.toLowerCase() !== addr) continue;
-                        article.author.isFollowing = status;
-                    }
+    type PagesData = { pages: Array<{ data: Article[] }> };
+    const addr = address.toLowerCase();
+    const patcher = (old: Draft<PagesData> | undefined) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page) continue;
+                for (const article of page.data) {
+                    if (article.author.id.toLowerCase() !== addr) continue;
+                    article.author.isFollowing = status;
                 }
-            });
-        },
-    );
+            }
+        });
+    };
+    queryClient.setQueriesData<PagesData>({ queryKey: ['articles'] }, patcher);
+    queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
+        if (!old) return;
+        return produce(old, (draft) => {
+            if (draft.author.id.toLowerCase() !== addr) return;
+            draft.author.isFollowing = status;
+        });
+    });
 }
 
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
