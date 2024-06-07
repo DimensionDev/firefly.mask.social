@@ -355,7 +355,7 @@ class TwitterSocialMedia implements Provider {
                           options: post.poll.options.map((option) => ({ label: option.label })),
                           durationSeconds: post.poll.durationSeconds,
                       }
-                    : null,
+                    : undefined,
             }),
         });
 
