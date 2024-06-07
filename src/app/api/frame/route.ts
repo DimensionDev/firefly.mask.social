@@ -5,6 +5,7 @@ import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FrameProcessor } from '@/libs/frame/Processor.js';
+import { CAIP10, HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
@@ -35,15 +36,11 @@ export async function DELETE(request: Request) {
     return createSuccessResponseJSON(null);
 }
 
-const HttpUrlSchema = z
-    .string()
-    .url()
-    .regex(/^(https?:\/\/)/);
-
 const FrameActionSchema = z.object({
     action: z.nativeEnum(ActionType),
-    url: HttpUrlSchema,
-    postUrl: HttpUrlSchema,
+    url: HttpUrl,
+    target: HttpUrl.optional(),
+    postUrl: HttpUrl,
 });
 
 export async function POST(request: Request) {
@@ -52,14 +49,15 @@ export async function POST(request: Request) {
     const parsedFrameAction = FrameActionSchema.safeParse({
         action: searchParams.get('action'),
         url: searchParams.get('url'),
+        target: searchParams.get('target'),
         postUrl: searchParams.get('post-url'),
     });
     if (!parsedFrameAction.success) return Response.json({ error: parsedFrameAction.error.message }, { status: 400 });
 
-    const { action, url, postUrl } = parsedFrameAction.data;
+    const { action, url, target, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().json();
-    const response = await fetch(postUrl, {
+    const response = await fetch(action === ActionType.Transaction && target ? target : postUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -78,7 +76,7 @@ export async function POST(request: Request) {
         case ActionType.PostRedirect:
             const locationUrl = response.headers.get('Location');
             if (response.ok && response.status >= 300 && response.status < 400) {
-                if (locationUrl && HttpUrlSchema.safeParse(locationUrl).success)
+                if (locationUrl && HttpUrl.safeParse(locationUrl).success)
                     return createSuccessResponseJSON({
                         redirectUrl: locationUrl,
                     });
