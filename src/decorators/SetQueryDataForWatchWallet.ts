@@ -1,3 +1,4 @@
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -8,14 +9,13 @@ import type { ClassType } from '@/types/index.js';
 
 export function toggleWatch(address: string, status: boolean) {
     type PagesData = { pages: Array<{ data: Article[] }> };
-    const addr = address.toLowerCase();
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
                 for (const article of page.data) {
-                    if (article.author.id.toLowerCase() !== addr) continue;
+                    if (!isSameAddress(article.author.id)) continue;
                     article.author.isFollowing = status;
                 }
             }
@@ -26,7 +26,7 @@ export function toggleWatch(address: string, status: boolean) {
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {
-            if (draft.author.id.toLowerCase() !== addr) return;
+            if (!isSameAddress(draft.author.id, address)) return;
             draft.author.isFollowing = status;
         });
     });

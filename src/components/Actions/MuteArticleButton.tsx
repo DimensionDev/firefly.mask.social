@@ -1,7 +1,9 @@
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
+import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useMutation } from '@tanstack/react-query';
 import { forwardRef } from 'react';
+import { useEnsName } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -26,7 +28,8 @@ export const MuteArticleButton = forwardRef<HTMLButtonElement, Props>(function M
         },
     });
     const loading = mutation.isPending;
-    const identity = article.author.handle;
+    const { data: ens } = useEnsName({ address: article.author.id as HexString });
+    const identity = article.author.handle || ens || formatEthereumAddress(article.author.id, 4);
     return (
         <MenuButton
             {...rest}

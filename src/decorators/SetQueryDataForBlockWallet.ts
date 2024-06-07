@@ -1,21 +1,21 @@
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { Source } from '@/constants/enum.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
-import { Source } from '@/constants/enum.js';
 
 function toggleBlock(address: string, status: boolean) {
     type PagesData = { pages: Array<{ data: Article[] }> };
-    const addr = address.toLowerCase();
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
                 for (const article of page.data) {
-                    if (article.author.id.toLowerCase() !== addr) continue;
+                    if (!isSameAddress(article.author.id, address)) continue;
                     article.author.isMuted = status;
                 }
             }
@@ -26,7 +26,7 @@ function toggleBlock(address: string, status: boolean) {
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {
-            if (draft.author.id.toLowerCase() !== addr) return;
+            if (!isSameAddress(draft.author.id)) return;
             draft.author.isMuted = status;
         });
     });
