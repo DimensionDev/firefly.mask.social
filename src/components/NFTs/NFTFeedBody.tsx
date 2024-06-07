@@ -76,8 +76,8 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                                 chainId,
                             })}
                         >
-                            <div className="max-w-[calc(100%-22px)] truncate">{collectionName}</div>
-                            <LinkIcon width={18} height={18} className="ml-1 text-second" />
+                            <div className="pointer-events-none max-w-[calc(100%-22px)] truncate">{collectionName}</div>
+                            <LinkIcon width={18} height={18} className="pointer-events-none ml-1 text-second" />
                         </Link>
                     }
                     isLoading={isLoading}
