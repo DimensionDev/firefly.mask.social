@@ -288,6 +288,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 msgid "Report Failed"
 msgstr ""
 
+msgid "Attendees"
+msgstr ""
+
 msgid "You need to connect your {source} account to use this feature."
 msgstr "你需要连接你的 {source} 账号才能使用此功能。"
 
@@ -926,6 +929,9 @@ msgstr ""
 
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
+
+msgid "Attendance"
+msgstr ""
 
 msgid "Show more"
 msgstr "显示更多"

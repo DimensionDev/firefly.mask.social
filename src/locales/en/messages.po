@@ -283,6 +283,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 msgid "Report Failed"
 msgstr "Report Failed"
 
+msgid "Attendees"
+msgstr "Attendees"
+
 msgid "You need to connect your {source} account to use this feature."
 msgstr "You need to connect your {source} account to use this feature."
 
@@ -921,6 +924,9 @@ msgstr "Unwatch"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
+
+msgid "Attendance"
+msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
