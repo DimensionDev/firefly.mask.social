@@ -34,8 +34,8 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
             {({ open, close }) => {
                 if (open && panelRef.current) {
                     const selectedEl = panelRef.current.children[value - options[0]];
-                    selectedEl?.scrollIntoView({ block: 'center' })
-                };
+                    selectedEl?.scrollIntoView({ block: 'center' });
+                }
                 return (
                     <>
                         <Popover.Button

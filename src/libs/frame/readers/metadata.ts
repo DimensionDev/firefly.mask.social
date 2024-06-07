@@ -1,7 +1,7 @@
 import { compact, last } from 'lodash-es';
 
 import { getMetaContent } from '@/helpers/getMetaContent.js';
-import { qs,qsAll } from '@/helpers/q.js';
+import { qs, qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getClientProtocol(document: Document) {
@@ -26,7 +26,9 @@ export function getVersion(document: Document): 'vNext' | null {
 }
 
 export function getImageUrl(document: Document): string | null {
-    return getMetaContent(document, `${getClientProtocol(document)}:image`) || getMetaContent(document, 'og:image') || null;
+    return (
+        getMetaContent(document, `${getClientProtocol(document)}:image`) || getMetaContent(document, 'og:image') || null
+    );
 }
 
 export function getPostUrl(document: Document): string | null {
@@ -81,7 +83,9 @@ export function getButtons(document: Document): FrameButton[] {
 export function getAspectRatio(doc: Document): '1.91:1' | '1:1' {
     const protocol = getClientProtocol(doc);
     const aspect =
-        getMetaContent(doc, `${protocol}:aspect_ratio`) || getMetaContent(doc, `${protocol}:image:aspect_ratio`) || '1.91:1';
+        getMetaContent(doc, `${protocol}:aspect_ratio`) ||
+        getMetaContent(doc, `${protocol}:image:aspect_ratio`) ||
+        '1.91:1';
     return aspect === '1:1' ? '1:1' : '1.91:1';
 }
 
