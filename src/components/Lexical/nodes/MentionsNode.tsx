@@ -40,7 +40,7 @@ export class MentionNode extends TextNode {
                                     '-ml-1': index > 0 && self.length > 1,
                                 })}
                                 source={resolveSocialSource(platform)}
-                                size={20}
+                                size={16}
                             />
                         );
                     })}
@@ -50,7 +50,7 @@ export class MentionNode extends TextNode {
             sources.setAttribute('class', 'flex items-center -space-x-1');
             element.setAttribute(
                 'class',
-                'inline-flex items-center gap-2 py-1 px-3 rounded-full border border-link text-link',
+                'inline-flex items-center gap-2 py-1 px-3 rounded-full border border-link text-link leading-4',
             );
             element.insertBefore(sources, element.firstChild);
         }

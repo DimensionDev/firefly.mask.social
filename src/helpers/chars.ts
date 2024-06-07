@@ -1,3 +1,5 @@
+import { safeUnreachable } from '@masknet/kit';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/index.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
@@ -57,6 +59,9 @@ export function readChars(chars: Chars, visibleOnly = false, source?: SocialSour
                         return target ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}` : x.content;
                     }
                     return x.content;
+                default:
+                    safeUnreachable(x);
+                    return '';
             }
         })
         .join('');

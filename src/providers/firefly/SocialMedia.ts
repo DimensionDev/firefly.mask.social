@@ -713,7 +713,6 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword: q,
             size: 100,
-            platform: platforms?.map((x) => x.toLowerCase()).join(','),
         });
 
         const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
