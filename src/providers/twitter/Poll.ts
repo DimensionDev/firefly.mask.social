@@ -1,5 +1,5 @@
 import { Source } from '@/constants/enum.js';
-import { getPollDurationSeconds } from '@/helpers/getPollDurationSeconds.js';
+import { getPollDurationSeconds } from '@/helpers/polls.js';
 import type { CompositePoll, Poll, PollOption, Provider } from '@/providers/types/Poll.js';
 
 class TwitterPoll implements Provider {

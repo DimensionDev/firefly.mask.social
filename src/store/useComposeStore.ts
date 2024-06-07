@@ -10,7 +10,7 @@ import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
-import { createPoll } from '@/helpers/createPoll.js';
+import { createPoll } from '@/helpers/polls.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';

@@ -47,3 +47,9 @@ export const getPollFixedValidInDays = (validInDays: number, source: SocialSourc
     const maxDays = POLL_MAX_VALID_IN_DAYS[source];
     return Math.min(maxDays, validInDays);
 };
+
+// This function calculates the total number of seconds in a given duration
+export const getPollDurationSeconds = (duration: CompositePoll['duration']) => {
+    const { days, hours, minutes } = duration;
+    return (days * 24 * 60 + hours * 60 + minutes) * 60;
+};
