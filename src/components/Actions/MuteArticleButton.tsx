@@ -26,6 +26,7 @@ export const MuteArticleButton = forwardRef<HTMLButtonElement, Props>(function M
         },
     });
     const loading = mutation.isPending;
+    const identity = article.author.handle;
     return (
         <MenuButton
             {...rest}
@@ -59,7 +60,7 @@ export const MuteArticleButton = forwardRef<HTMLButtonElement, Props>(function M
                 <SpeakerXMarkIcon width={24} height={24} />
             )}
             <span className="font-bold leading-[22px] text-main">
-                {muted ? <Trans>Unmute</Trans> : <Trans>Mute</Trans>}
+                {muted ? <Trans>Unmute {identity}</Trans> : <Trans>Mute {identity}</Trans>}
             </span>
         </MenuButton>
     );

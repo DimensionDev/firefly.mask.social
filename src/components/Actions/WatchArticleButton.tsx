@@ -23,6 +23,7 @@ export const WatchArticleButton = forwardRef<HTMLButtonElement, Props>(function 
             return FireflySocialMediaProvider.watchWallet(article.author.id);
         },
     });
+    const identity = article.author.handle;
     return (
         <MenuButton
             {...rest}
@@ -34,7 +35,7 @@ export const WatchArticleButton = forwardRef<HTMLButtonElement, Props>(function 
         >
             {isWatched ? <EyeSlashIcon width={24} height={24} /> : <EyeIcon width={24} height={24} />}
             <span className="font-bold leading-[22px] text-main">
-                {isWatched ? <Trans>Unwatch</Trans> : <Trans>Watch</Trans>}
+                {isWatched ? <Trans>Unwatch {identity}</Trans> : <Trans>Watch {identity}</Trans>}
             </span>
         </MenuButton>
     );
