@@ -73,13 +73,13 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(text: string, availableSources: SocialSource[]): number {
-    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(text)));
+function calculateLength(chars: Chars, availableSources: SocialSource[], visibleOnly?: boolean): number {
+    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
 }
 
 export function measureChars(chars: Chars, availableSources: SocialSource[]) {
-    const length = calculateLength(readChars(chars), availableSources);
-    const visibleLength = calculateLength(readChars(chars, true), availableSources);
+    const length = calculateLength(chars, availableSources);
+    const visibleLength = calculateLength(chars, availableSources, true);
     return {
         length,
         visibleLength,
