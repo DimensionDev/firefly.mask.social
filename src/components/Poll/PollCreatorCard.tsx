@@ -9,7 +9,7 @@ import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { DurationSelector } from '@/components/Poll/DurationSelector.js';
 import { POLL_OPTIONS_MIN_COUNT, POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
-import { createPollOption, getPollOptionsMaxLength } from '@/helpers/createPoll.js';
+import { createPollOption, getPollOptionsMaxLength } from '@/helpers/polls.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import type { PollOption } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
