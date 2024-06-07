@@ -61,7 +61,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     isQuote = false,
     isDetail = false,
 }) {
-    const imageAttachments = isDetail ? attachments : attachments.filter((x) => x.type === 'Image').slice(0, 9);
+    const imageAttachments = isDetail
+        ? attachments
+        : attachments.filter((x) => x.type === 'Image').slice(0, isQuote ? 4 : 9);
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
     const moreImageCount = attachments.length - imageAttachments.length; // If it is 0 or below, there are no more images
@@ -152,11 +154,16 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             ) : null}
             {imageAttachments.length > 1 ? (
                 <div
-                    className={classNames(getClass(imageAttachments.length)?.row ?? '', 'grid gap-2', {
-                        'grid-flow-col': imageAttachments.length === 3,
-                        'w-[120px]': isQuote && !isSoloImage,
-                        'h-[120px]': isQuote && !isSoloImage,
-                    })}
+                    className={classNames(
+                        getClass(imageAttachments.length)?.row ?? '',
+                        'grid',
+                        isQuote ? 'gap-1' : 'gap-2',
+                        {
+                            'grid-flow-col': imageAttachments.length === 3,
+                            'w-[120px]': isQuote && !isSoloImage,
+                            'h-[120px]': isQuote && !isSoloImage,
+                        },
+                    )}
                 >
                     {imageAttachments.map((attachment, index) => {
                         const uri = attachment.uri ?? '';
@@ -196,7 +203,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 </Link>
                                 {isLast && moreImageCount > 0 ? (
                                     <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
-                                        <div className="text-2xl font-bold">+{moreImageCount}</div>
+                                        <div className={classNames('font-bold', isQuote ? 'text-[15px]' : 'text-2xl')}>
+                                            +{moreImageCount}
+                                        </div>
                                     </div>
                                 ) : null}
                             </div>
