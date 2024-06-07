@@ -5,7 +5,7 @@ import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FrameProcessor } from '@/libs/frame/Processor.js';
-import { CAIP10, HttpUrl } from '@/schemas/index.js';
+import { HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
@@ -39,8 +39,8 @@ export async function DELETE(request: Request) {
 const FrameActionSchema = z.object({
     action: z.nativeEnum(ActionType),
     url: HttpUrl,
-    target: HttpUrl.optional(),
     postUrl: HttpUrl,
+    target: HttpUrl.optional(),
 });
 
 export async function POST(request: Request) {
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().json();
-    const response = await fetch(action === ActionType.Transaction && target ? target : postUrl, {
+    const response = await fetch(target || postUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

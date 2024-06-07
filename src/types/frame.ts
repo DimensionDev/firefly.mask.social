@@ -27,6 +27,7 @@ export interface FrameButton {
 
 export interface FrameImage {
     url: string;
+    alt?: string;
     width?: number;
     height?: number;
 }
