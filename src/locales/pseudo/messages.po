@@ -832,6 +832,9 @@ msgstr ""
 msgid "{0} /{1}"
 msgstr ""
 
+msgid "Unmute {identity}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -913,13 +916,13 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "Unwatch {identity}"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
-msgstr ""
-
-msgid "Unwatch"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -1028,6 +1031,9 @@ msgid "Search…"
 msgstr ""
 
 msgid "No profile found"
+msgstr ""
+
+msgid "Watch {identity}"
 msgstr ""
 
 msgid "<0>You</0> liked"
