@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-07 00:04\n"
+"PO-Revision-Date: 2024-06-07 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -286,6 +286,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Report Failed"
+msgstr ""
+
+msgid "Attendees"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
@@ -834,6 +837,9 @@ msgstr ""
 msgid "{0} /{1}"
 msgstr ""
 
+msgid "Unmute {identity}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -915,16 +921,19 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "Unwatch {identity}"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
 msgstr ""
 
-msgid "Unwatch"
+msgid "Please input the url to be revalidated."
 msgstr ""
 
-msgid "Please input the url to be revalidated."
+msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
@@ -1027,6 +1036,9 @@ msgid "Search…"
 msgstr ""
 
 msgid "No profile found"
+msgstr ""
+
+msgid "Watch {identity}"
 msgstr ""
 
 msgid "<0>You</0> liked"
