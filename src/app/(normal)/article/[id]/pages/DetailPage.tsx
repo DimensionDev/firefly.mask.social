@@ -9,6 +9,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 import ComeBack from '@/assets/comeback.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
+import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -39,10 +40,12 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
         },
     });
 
+    const isMuted = article?.author.isMuted;
     const cover = useQuery({
+        enabled: !isMuted,
         queryKey: ['article', 'cover', article?.id],
         queryFn: async () => {
-            if (!article) return;
+            if (!article) return null;
             if (article.coverUrl) return article.coverUrl;
             if (article.platform === ArticlePlatform.Mirror && article.origin) {
                 const payload = await fetchJSON<ResponseJSON<LinkDigested>>(
@@ -74,7 +77,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
             </div>
 
             <div className="px-4">
-                {cover.data ? (
+                {cover.data && !isMuted ? (
                     <ImageAsset
                         src={cover.data}
                         width={510}
@@ -93,7 +96,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         }}
                     />
                 ) : null}
-                <div className="text-2xl font-semibold">{article.title} </div>
+                {!isMuted ? <div className="text-2xl font-semibold">{article.title} </div> : null}
                 {article.origin ? (
                     <Link
                         href={article.origin}
@@ -107,13 +110,17 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 <div className="my-5 mt-2 border-b border-line">
                     <ArticleHeader article={article} className="items-center pb-2" />
                 </div>
-                <ArticleMarkup
-                    className="markup linkify break-words text-[15px]"
-                    imageProps={{ disableLoadHandler: true, style: { objectFit: 'cover' } }}
-                >
-                    {article.content}
-                </ArticleMarkup>
-                {authorUrl ? (
+                {isMuted ? (
+                    <CollapsedContent className="mt-2" authorMuted isQuote={false} />
+                ) : (
+                    <ArticleMarkup
+                        className="markup linkify break-words text-[15px]"
+                        imageProps={{ disableLoadHandler: true, style: { objectFit: 'cover' } }}
+                    >
+                        {article.content}
+                    </ArticleMarkup>
+                )}
+                {authorUrl && !isMuted ? (
                     <div className="mb-4 mt-4 rounded-2xl border border-line bg-bg p-2">
                         <div className="border-b border-line pb-2 text-sm">
                             <Trans>This entry has been permanently stored on-chain and signed by its creator</Trans>
