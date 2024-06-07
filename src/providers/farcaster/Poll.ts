@@ -4,19 +4,16 @@ import type { CompositePoll, Poll, PollOption, Provider } from '@/providers/type
 import { commitPoll } from '@/services/commitPoll.js';
 
 class FarcasterPoll implements Provider {
-    async createPoll(poll: CompositePoll, text?: string): Promise<Poll> {
-        return await commitPoll(
-            {
-                id: '',
-                options: poll.options,
-                durationSeconds: getPollDurationSeconds(poll.duration),
-                source: Source.Farcaster,
-                type: poll.type,
-                strategies: poll.strategies,
-                multiple_count: poll.multiple_count,
-            },
-            text ?? '',
-        );
+    async createPoll(poll: CompositePoll, text = ''): Promise<Poll> {
+        return {
+            id: poll.id || (await commitPoll(poll, text)),
+            options: poll.options,
+            durationSeconds: getPollDurationSeconds(poll.duration),
+            source: Source.Farcaster,
+            type: poll.type,
+            strategies: poll.strategies,
+            multiple_count: poll.multiple_count,
+        };
     }
 
     vote(pollId: string, option: PollOption): Promise<void> {

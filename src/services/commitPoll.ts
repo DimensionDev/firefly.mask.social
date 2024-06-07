@@ -2,15 +2,16 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { CreatePollRequest, CreatePollResponse, Poll } from '@/providers/types/Poll.js';
+import { getPollDurationSeconds } from '@/helpers/getPollDurationSeconds.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import type { CompositePoll, CreatePollRequest, CreatePollResponse } from '@/providers/types/Poll.js';
 
-export const commitPoll = async (poll: Poll, text: string): Promise<Poll> => {
+export const commitPoll = async (poll: CompositePoll, text: string): Promise<string> => {
     const request: CreatePollRequest = {
         title: text,
         choices: poll.options.map((x) => x.label),
         type: poll.type,
-        sub_time: poll.durationSeconds,
+        sub_time: getPollDurationSeconds(poll.duration),
         strategies: poll.strategies,
     };
 
@@ -18,15 +19,15 @@ export const commitPoll = async (poll: Poll, text: string): Promise<Poll> => {
         request.multiple_count = poll.multiple_count;
     }
 
-    const response = await fetchJSON<CreatePollResponse>(urlcat(FIREFLY_ROOT_URL, '/v1/vote_frame/poll/create'), {
-        method: 'POST',
-        body: JSON.stringify(request),
-    });
+    const response = await fireflySessionHolder.fetch<CreatePollResponse>(
+        urlcat(FIREFLY_ROOT_URL, '/v1/vote_frame/poll/create'),
+        {
+            method: 'POST',
+            body: JSON.stringify(request),
+        },
+    );
 
     if (!response.data?.poll_id) throw new Error('Failed to create poll');
 
-    return {
-        ...poll,
-        id: response.data.poll_id,
-    };
+    return response.data.poll_id;
 };
