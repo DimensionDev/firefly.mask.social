@@ -1,5 +1,6 @@
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/index.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
@@ -42,7 +43,7 @@ export type Chars = string | Array<string | RP_Chars | Mention_Chars>;
  * @param visibleOnly
  * @returns
  */
-export function readChars(chars: Chars, visibleOnly = false) {
+export function readChars(chars: Chars, visibleOnly = false, source?: SocialSource) {
     return (Array.isArray(chars) ? chars : [chars])
         .map((x) => {
             if (typeof x === 'string') return x;
@@ -51,6 +52,10 @@ export function readChars(chars: Chars, visibleOnly = false) {
                 case CHAR_TAG.FIREFLY_RP:
                     return `${x.content}\n`;
                 case CHAR_TAG.MENTION:
+                    if (source) {
+                        const target = x.profiles.find((profile) => source === resolveSource(profile.platform));
+                        return target ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}` : x.content;
+                    }
                     return x.content;
             }
         })
