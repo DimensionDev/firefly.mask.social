@@ -1,13 +1,15 @@
-import { produce } from 'immer';
+import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
+import { Source } from '@/constants/enum.js';
 
 function toggleBlock(address: string, status: boolean) {
+    type PagesData = { pages: Array<{ data: Article[] }> };
     const addr = address.toLowerCase();
-    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles'] }, (old) => {
+    const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
@@ -18,8 +20,9 @@ function toggleBlock(address: string, status: boolean) {
                 }
             }
         });
-    });
-
+    };
+    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles'] }, patcher);
+    queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {

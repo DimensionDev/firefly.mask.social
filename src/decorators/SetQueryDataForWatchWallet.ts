@@ -1,6 +1,7 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { Source } from '@/constants/enum.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
@@ -21,6 +22,7 @@ export function toggleWatch(address: string, status: boolean) {
         });
     };
     queryClient.setQueriesData<PagesData>({ queryKey: ['articles'] }, patcher);
+    queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {
