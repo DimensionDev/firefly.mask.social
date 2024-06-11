@@ -134,7 +134,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         ))
                     )}
                 </div>
-                <LoginButton source={Source.Lens} onClick={() => handleLogin(Source.Lens)} />
+                <LoginButton source={Source.Firefly} onClick={() => handleLogin(Source.Firefly)} />
             </div>
         </div>
     ) : (

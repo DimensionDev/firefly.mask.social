@@ -1,7 +1,7 @@
 'use client';
 import { safeUnreachable } from '@masknet/kit';
 
-import FireflyIcon from '@/assets/firefly.svg';
+import FireflyIcon from '@/assets/logo.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
@@ -20,7 +20,17 @@ export function ProfileSourceIcon({ source, size = 20, ...props }: ProfileSource
         case Source.Twitter:
             return <SocialSourceIcon {...props} source={source} style={style} width={size} height={size} />;
         case Source.Firefly:
-            return <FireflyIcon {...props} style={style} width={size} height={size} />;
+            return (
+                <FireflyIcon
+                    {...props}
+                    style={{
+                        ...style,
+                        overflow: 'visible',
+                    }}
+                    width={size}
+                    height={size}
+                />
+            );
         default:
             safeUnreachable(source);
             return null;

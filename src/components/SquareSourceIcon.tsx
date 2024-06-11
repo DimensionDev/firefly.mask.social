@@ -2,8 +2,8 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import FarcasterIcon from '@/assets/farcaster-square.svg';
-import FireflyIcon from '@/assets/firefly.svg';
 import LensIcon from '@/assets/lens-square.svg';
+import FireflyIcon from '@/assets/logo.svg';
 import WalletSquareDarkIcon from '@/assets/wallet-square-dark.svg';
 import WalletSquareLightIcon from '@/assets/wallet-square-light.svg';
 import XSquareDarkIcon from '@/assets/x-square-dark.svg';
