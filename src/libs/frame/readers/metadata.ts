@@ -1,6 +1,7 @@
 import { compact, last } from 'lodash-es';
 
-import { getFrameClientProtocol, getMetaContent } from '@/helpers/getMetaContent.js';
+import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
+import { getMetaContent } from '@/helpers/getMetaContent.js';
 import { qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
@@ -9,30 +10,26 @@ export function getTitle(document: Document): string | null {
         getMetaContent(document, {
             of: 'of:title',
             fc: 'fc:frame:title',
+            og: 'og:title',
         }) ||
-        getMetaContent(document, 'og:title') ||
         document.querySelector('title')?.textContent ||
         document.domain
     );
 }
 
-export function getVersion(document: Document): 'vNext' | null {
-    const version = getMetaContent(document, {
+export function getVersion(document: Document): string | null {
+    return getMetaContent(document, {
         of: 'of:version',
         fc: 'fc:frame',
     });
-    return version === 'vNext' ? 'vNext' : null;
 }
 
 export function getImageUrl(document: Document): string | null {
-    return (
-        getMetaContent(document, {
-            of: 'of:image',
-            fc: 'fc:frame:image',
-        }) ||
-        getMetaContent(document, 'og:image') ||
-        null
-    );
+    return getMetaContent(document, {
+        of: 'of:image',
+        fc: 'fc:frame:image',
+        og: 'og:image',
+    });
 }
 
 export function getPostUrl(document: Document): string | null {

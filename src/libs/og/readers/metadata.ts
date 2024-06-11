@@ -1,7 +1,6 @@
 /* cspell:disable */
 
-import { getMetaContent } from '@/helpers/getMetaContent.js';
-import { qAny } from '@/helpers/q.js';
+import { q, qAny } from '@/helpers/q.js';
 
 export function getTitle(document: Document): string | null {
     const meta = qAny(document, ['lens:title', 'og:title', 'twitter:title']);
@@ -29,8 +28,8 @@ export function getEmbedUrl(document: Document): string | null {
 }
 
 export function getIsLarge(document: Document): boolean {
-    const lens = getMetaContent(document, 'lens:card');
-    const twitter = getMetaContent(document, 'twitter:card');
+    const lens = q(document, 'lens:card')?.getAttribute('content');
+    const twitter = q(document, 'twitter:card')?.getAttribute('content');
 
     const largeTypes = ['summary_large_image', 'player'];
 
