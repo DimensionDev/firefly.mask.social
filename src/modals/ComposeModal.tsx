@@ -61,7 +61,7 @@ import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
-import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
