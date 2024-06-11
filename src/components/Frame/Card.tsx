@@ -38,7 +38,7 @@ export function Card({ frame, readonly = false, loading = false, onButtonClick }
                     unoptimized
                     priority={false}
                     src={frame.image.url}
-                    alt={frame.title}
+                    alt={frame.image.alt ?? frame.title}
                     width={frame.image.width}
                     height={frame.image.height}
                 />

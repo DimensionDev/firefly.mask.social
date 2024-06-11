@@ -17,7 +17,6 @@ import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isAbortedError } from '@/helpers/isAbortedError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import {
@@ -80,7 +79,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 });
             } catch (error) {
                 // skip if the error is abort error
-                if (isAbortedError(error)) return;
+                if (AbortError.is(error)) return;
 
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                     error,

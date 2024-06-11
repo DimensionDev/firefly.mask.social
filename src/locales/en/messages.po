@@ -283,6 +283,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 msgid "Report Failed"
 msgstr "Report Failed"
 
+msgid "Attendees"
+msgstr "Attendees"
+
 msgid "You need to connect your {source} account to use this feature."
 msgstr "You need to connect your {source} account to use this feature."
 
@@ -829,6 +832,9 @@ msgstr "Failed to bookmark post."
 msgid "{0} /{1}"
 msgstr "{0} /{1}"
 
+msgid "Unmute {identity}"
+msgstr "Unmute {identity}"
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
@@ -910,17 +916,20 @@ msgstr "Quotes"
 msgid "The user rejected the request."
 msgstr "The user rejected the request."
 
+msgid "Unwatch {identity}"
+msgstr "Unwatch {identity}"
+
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
 
 msgid "Draft"
 msgstr "Draft"
 
-msgid "Unwatch"
-msgstr "Unwatch"
-
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
+
+msgid "Attendance"
+msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
@@ -1023,6 +1032,9 @@ msgstr "Search…"
 
 msgid "No profile found"
 msgstr "No profile found"
+
+msgid "Watch {identity}"
+msgstr "Watch {identity}"
 
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"

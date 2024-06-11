@@ -13,7 +13,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getProfileStoreAll } from '@/helpers/getProfileStoreAll.js';
+import { getProfileStoreAll } from '@/helpers/getProfilesAll.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSessionType } from '@/helpers/resolveSessionType.js';
 import { ConfirmModalRef } from '@/modals/controls.js';

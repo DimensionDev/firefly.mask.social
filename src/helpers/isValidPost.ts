@@ -1,6 +1,6 @@
 import { measureChars } from '@/helpers/chars.js';
-import { isValidPoll } from '@/helpers/createPoll.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
+import { isValidPoll } from '@/helpers/polls.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
 /**

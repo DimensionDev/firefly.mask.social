@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-06 12:02\n"
+"PO-Revision-Date: 2024-06-07 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -249,9 +249,6 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
-msgid "Custom"
-msgstr ""
-
 msgid "Password"
 msgstr ""
 
@@ -289,6 +286,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Report Failed"
+msgstr ""
+
+msgid "Attendees"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
@@ -484,6 +484,9 @@ msgid "Channel"
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Days"
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}"
@@ -834,7 +837,13 @@ msgstr ""
 msgid "{0} /{1}"
 msgstr ""
 
+msgid "Unmute {identity}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
+msgstr ""
+
+msgid "Minutes"
 msgstr ""
 
 msgid "Floor Price"
@@ -879,6 +888,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "The content of this account is currently unavailable"
+msgstr ""
+
 msgid "There is no data available for display."
 msgstr ""
 
@@ -909,16 +921,19 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "Unwatch {identity}"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
 msgstr ""
 
-msgid "Unwatch"
+msgid "Please input the url to be revalidated."
 msgstr ""
 
-msgid "Please input the url to be revalidated."
+msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
@@ -943,6 +958,9 @@ msgid "24H Volume"
 msgstr ""
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Suspended"
 msgstr ""
 
 msgid "Full"
@@ -1018,6 +1036,9 @@ msgid "Search…"
 msgstr ""
 
 msgid "No profile found"
+msgstr ""
+
+msgid "Watch {identity}"
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1105,9 +1126,6 @@ msgid "Download app"
 msgstr ""
 
 msgid "Unknown session type."
-msgstr ""
-
-msgid "{validInDays} day"
 msgstr ""
 
 msgid "Failed to quote post."
@@ -1317,9 +1335,6 @@ msgstr ""
 msgid "Already posted on {sourceName}."
 msgstr ""
 
-msgid "{validInDays, plural, =1 {{0}} other {{validInDays} days}}"
-msgstr ""
-
 msgid "Post"
 msgstr ""
 
@@ -1327,6 +1342,9 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
+msgstr ""
+
+msgid "Hours"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

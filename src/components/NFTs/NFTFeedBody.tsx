@@ -75,6 +75,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                             href={resolveNftUrl(address, {
                                 chainId,
                             })}
+                            onClick={(event) => event.stopPropagation()}
                         >
                             <div className="max-w-[calc(100%-22px)] truncate">{collectionName}</div>
                             <LinkIcon width={18} height={18} className="ml-1 text-second" />

@@ -2,6 +2,10 @@ export class AbortError extends Error {
     constructor() {
         super('Aborted');
     }
+
+    static is(error: unknown) {
+        return error instanceof AbortError || (error instanceof DOMException && error.name === 'AbortError');
+    }
 }
 
 export class MalformedError extends Error {
