@@ -204,7 +204,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 {isLast && moreImageCount > 0 ? (
                                     <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                         <div className={classNames('font-bold', isQuote ? 'text-[15px]' : 'text-2xl')}>
-                                            +{moreImageCount}
+                                            +{moreImageCount + 1}
                                         </div>
                                     </div>
                                 ) : null}
