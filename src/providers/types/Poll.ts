@@ -24,6 +24,7 @@ export interface Poll {
 }
 
 export interface CompositePoll {
+    id?: string;
     options: PollOption[];
     duration: {
         days: number;
