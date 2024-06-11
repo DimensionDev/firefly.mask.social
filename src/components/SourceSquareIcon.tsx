@@ -2,6 +2,7 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import FarcasterIcon from '@/assets/farcaster-square.svg';
+import FireflyIcon from '@/assets/firefly.svg';
 import LensIcon from '@/assets/lens-square.svg';
 import WalletSquareDarkIcon from '@/assets/wallet-square-dark.svg';
 import WalletSquareLightIcon from '@/assets/wallet-square-light.svg';
@@ -40,6 +41,8 @@ export function SourceSquareIcon({ source, size = 20, forceLight, ...props }: So
             ) : (
                 <XSquareDarkIcon {...props} style={style} width={size} height={size} />
             );
+        case Source.Firefly:
+            return <FireflyIcon {...props} style={style} width={size} height={size} />;
         case Source.NFTs:
         case Source.Article:
             return null;
