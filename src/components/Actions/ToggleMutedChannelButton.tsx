@@ -32,10 +32,7 @@ const setQueryDataForChannel = (channel: Channel, isMuted: boolean) => {
     );
 };
 
-export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
-    channel,
-    ...rest
-}: Props) {
+export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({ channel, ...rest }: Props) {
     const isMuted = channel.blocked ?? true;
 
     const [{ loading }, toggleMutedChannel] = useToggleMutedChannel();
@@ -55,7 +52,7 @@ export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
         const result = await toggleMutedChannel({ ...channel, blocked: isMuted });
         if (result) {
             setQueryDataForChannel(channel, !isMuted);
-        };
+        }
     };
 
     return <ToggleMutedButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;

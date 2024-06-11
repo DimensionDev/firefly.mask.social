@@ -1,13 +1,22 @@
-import { type SocialSource } from '@/constants/enum.js';
+import { safeUnreachable } from '@masknet/kit';
+
+import { type SocialSource, Source } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/index.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
+
+export enum CHAR_TAG {
+    FIREFLY_RP = 'ff_rp',
+    MENTION = 'mention_tag',
+}
 
 /**
  * chars with metadata
  */
 interface ComplexChars {
     // tag is used to identify the type of content
-    tag: string;
+    tag: CHAR_TAG;
     // if visible is false, content will not be displayed
     // but the length of content will be counted
     visible: boolean;
@@ -16,12 +25,19 @@ interface ComplexChars {
 }
 
 interface RP_Chars extends ComplexChars {
-    tag: 'ff_rp';
+    tag: CHAR_TAG.FIREFLY_RP;
     visible: boolean;
     content: typeof RP_HASH_TAG;
 }
 
-export type Chars = string | RP_Chars | Array<string | RP_Chars>;
+interface Mention_Chars {
+    tag: CHAR_TAG.MENTION;
+    visible: boolean;
+    content: string;
+    profiles: Profile[];
+}
+
+export type Chars = string | Array<string | RP_Chars | Mention_Chars>;
 
 /**
  * Stringify chars into plain text
@@ -29,10 +45,26 @@ export type Chars = string | RP_Chars | Array<string | RP_Chars>;
  * @param visibleOnly
  * @returns
  */
-export function readChars(chars: Chars, visibleOnly = false) {
+export function readChars(chars: Chars, visibleOnly = false, source?: SocialSource) {
     return (Array.isArray(chars) ? chars : [chars])
-        .map((x) => (typeof x === 'string' ? x : x.visible || !visibleOnly ? x.content : ''))
-        .join('\n');
+        .map((x) => {
+            if (typeof x === 'string') return x;
+            if (!x.visible && visibleOnly) return '';
+            switch (x.tag) {
+                case CHAR_TAG.FIREFLY_RP:
+                    return `${x.content}\n`;
+                case CHAR_TAG.MENTION:
+                    if (source) {
+                        const target = x.profiles.find((profile) => source === resolveSource(profile.platform));
+                        return target ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}` : x.content;
+                    }
+                    return x.content;
+                default:
+                    safeUnreachable(x);
+                    return '';
+            }
+        })
+        .join('');
 }
 
 export function writeChars(chars: Chars, newChars: Chars) {
@@ -46,13 +78,13 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(text: string, availableSources: SocialSource[]): number {
-    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(text)));
+function calculateLength(chars: Chars, availableSources: SocialSource[], visibleOnly?: boolean): number {
+    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
 }
 
 export function measureChars(chars: Chars, availableSources: SocialSource[]) {
-    const length = calculateLength(readChars(chars), availableSources);
-    const visibleLength = calculateLength(readChars(chars, true), availableSources);
+    const length = calculateLength(chars, availableSources);
+    const visibleLength = calculateLength(chars, availableSources, true);
     return {
         length,
         visibleLength,

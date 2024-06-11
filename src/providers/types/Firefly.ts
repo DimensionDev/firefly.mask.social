@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { FireflyPlatform, type Source } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
 export interface Cast {
@@ -54,7 +54,7 @@ export interface User {
 
 export interface Profile {
     platform_id: string;
-    platform: string;
+    platform: SocialSourceInURL;
     handle: string;
     name: string;
     hit: boolean;
@@ -224,7 +224,7 @@ export type CastsResponse = Response<{
 export type SearchCastsResponse = Response<Cast[]>;
 
 export type SearchProfileResponse = Response<{
-    list: Array<Record<'lens' | 'farcaster', Profile[] | null>>;
+    list: Array<Record<SocialSourceInURL, Profile[] | null>>;
     cursor: number;
     size: number;
 }>;
