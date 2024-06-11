@@ -29,9 +29,17 @@ interface MirrorProps {
     postId: string;
     disabled?: boolean;
     post: Post;
+    hiddenCount?: boolean;
 }
 
-export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, postId, disabled = false, post }) {
+export const Mirror = memo<MirrorProps>(function Mirror({
+    shares = 0,
+    source,
+    postId,
+    disabled = false,
+    post,
+    hiddenCount = false,
+}) {
     const [open, setOpen] = useState(false);
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
@@ -223,7 +231,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                         className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
                     />
                 </Tooltip>
-                {shares ? (
+                {!hiddenCount && shares ? (
                     <span
                         className={classNames('text-xs', {
                             'font-medium': !mirrored && !post.hasQuoted,

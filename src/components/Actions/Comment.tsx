@@ -23,6 +23,7 @@ interface CommentProps {
     author: string;
     canComment?: boolean;
     post: Post;
+    hiddenCount?: boolean;
 }
 
 export const Comment = memo<CommentProps>(function Comment({
@@ -32,6 +33,7 @@ export const Comment = memo<CommentProps>(function Comment({
     author,
     canComment,
     post,
+    hiddenCount = false,
 }) {
     const isLogin = useIsLogin(source);
 
@@ -78,7 +80,7 @@ export const Comment = memo<CommentProps>(function Comment({
                     <ReplyIcon width={16} height={16} />
                 </Tooltip>
             </motion.button>
-            {count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
+            {!hiddenCount && count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
         </ClickableArea>
     );
 });

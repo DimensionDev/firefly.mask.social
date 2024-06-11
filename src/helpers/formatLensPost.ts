@@ -331,6 +331,12 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             ),
             canAct,
             __original__: result,
+            sendFrom: result.publishedOn?.id
+                ? {
+                      displayName: result.publishedOn.id,
+                      name: result.publishedOn.id,
+                  }
+                : undefined,
             momoka: result.mirrorOn.momoka || undefined,
         };
     }
@@ -385,6 +391,12 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             canAct,
             momoka: result.momoka || undefined,
+            sendFrom: result.publishedOn?.id
+                ? {
+                      displayName: result.publishedOn.id,
+                      name: result.publishedOn.id,
+                  }
+                : undefined,
         };
     } else if (result.__typename === 'Comment') {
         return {
@@ -430,6 +442,12 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                     : undefined,
             canAct,
             momoka: result.momoka || undefined,
+            sendFrom: result.publishedOn?.id
+                ? {
+                      displayName: result.publishedOn.id,
+                      name: result.publishedOn.id,
+                  }
+                : undefined,
         };
     } else {
         return {
@@ -469,6 +487,12 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             __original__: result,
             momoka: result.momoka || undefined,
+            sendFrom: result.publishedOn?.id
+                ? {
+                      displayName: result.publishedOn.id,
+                      name: result.publishedOn.id,
+                  }
+                : undefined,
         };
     }
 }

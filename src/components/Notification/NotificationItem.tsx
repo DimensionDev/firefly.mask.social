@@ -12,7 +12,7 @@ import FollowIcon from '@/assets/follow.svg';
 import LikeIcon from '@/assets/like-large.svg';
 import MessageIcon from '@/assets/messages.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
-import { PostActions } from '@/components/Actions/index.js';
+import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Markup } from '@/components/Markup/Markup.js';
@@ -294,13 +294,13 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
         switch (type) {
             case NotificationType.Comment:
                 if (!notification.comment || isProfileMuted(notification.comment.author)) return null;
-                return <PostActions post={notification.comment} disablePadding />;
+                return <PostActionsWithGrid post={notification.comment} disablePadding />;
             case NotificationType.Mention:
                 if (!notification.post || isProfileMuted(notification.post.author)) return null;
-                return <PostActions post={notification.post} disablePadding />;
+                return <PostActionsWithGrid post={notification.post} disablePadding />;
             case NotificationType.Quote:
                 if (isProfileMuted(notification.quote.author)) return null;
-                return <PostActions post={notification.quote} disablePadding />;
+                return <PostActionsWithGrid post={notification.quote} disablePadding />;
             case NotificationType.Act:
                 return null;
             case NotificationType.Follow:

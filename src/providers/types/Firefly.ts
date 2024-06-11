@@ -37,6 +37,13 @@ export interface Cast {
     root_parent_hash?: string;
     threads?: Cast[];
     quotedCast?: Cast;
+    sendFrom: {
+        display_name: string;
+        name: string;
+        bio: string;
+        fid: number;
+        pfp: string;
+    };
 }
 
 export interface User {
