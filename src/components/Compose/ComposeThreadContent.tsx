@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { compact, values } from 'lodash-es';
 
 import ErrorIcon from '@/assets/error.svg';
 import YesIcon from '@/assets/green-yes.svg';
@@ -29,8 +28,13 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
     return (
         <div>
             {posts.map((x, i) => {
-                const isSucceed = compact(values(x.postId)).length === x.availableSources.length;
-                const isError = !!compact(values(x.postError)).length;
+                const isSucceed = x.availableSources.every((source) => {
+                    return !!x.postId[source];
+                });
+
+                const isError = x.availableSources.some((source) => {
+                    return !!x.postError[source];
+                });
 
                 return (
                     <div

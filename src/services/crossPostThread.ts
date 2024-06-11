@@ -85,12 +85,12 @@ export async function crossPostThread({
     progressCallback,
 }: {
     isRetry?: boolean;
-    progressCallback?: (progress: number, index: number, total: number) => void;
+    progressCallback?: (progress: number) => void;
 }) {
     const { posts } = useComposeStateStore.getState();
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
 
-    progressCallback?.(0, 0, posts.length);
+    progressCallback?.(0);
 
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
@@ -107,7 +107,7 @@ export async function crossPostThread({
             skipCheckPublished: true,
             skipReportCrossedPost: true,
         });
-        progressCallback?.((index + 1) / posts.length, index, posts.length);
+        progressCallback?.((index + 1) / posts.length);
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
