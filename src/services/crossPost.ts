@@ -170,7 +170,7 @@ export async function crossPost(
                 ...poll,
                 id: pollId,
             },
-        }
+        };
     }
 
     const allSettled = await Promise.allSettled(
