@@ -46,3 +46,9 @@ export class ProfileNotConnectedError extends Error {
         super(message);
     }
 }
+
+export class ContentTypeError extends Error {
+    constructor() {
+        super('Content-Type is not multipart/form-data');
+    }
+}

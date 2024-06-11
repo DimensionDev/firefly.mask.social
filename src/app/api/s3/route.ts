@@ -8,12 +8,11 @@ import { z, ZodError, ZodIssueCode } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { ContentTypeError } from '@/constants/error.js';
 import { ALLOWED_IMAGES_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
-
-class ContentTypeError extends Error {}
 
 const FormDataSchema = z.object({
     file: z.custom<File>((value) => {
