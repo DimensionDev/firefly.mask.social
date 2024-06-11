@@ -24,6 +24,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -195,13 +196,13 @@ export function MentionsPlugin(): JSX.Element | null {
             if (!data) return EMPTY_LIST;
             return compact(
                 data.list.map((x) => {
-                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[source.toLowerCase()])
+                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInURL(source)])
                         .flatMap((value) => value ?? EMPTY_LIST)
                         .find((profile) => profile.hit);
                     if (!target) return;
 
                     const allProfile = compact(
-                        SORTED_SOCIAL_SOURCES.map((source) => first(x[source.toLowerCase()])).map((x) => {
+                        SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInURL(source)])).map((x) => {
                             if (target.platform === x?.platform) return target;
                             return x;
                         }),
