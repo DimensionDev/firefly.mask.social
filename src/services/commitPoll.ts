@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
-import { getPollDurationSeconds } from '@/helpers/getPollDurationSeconds.js';
+import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CompositePoll, CreatePollRequest, CreatePollResponse } from '@/providers/types/Poll.js';
 
