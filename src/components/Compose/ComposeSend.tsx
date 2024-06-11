@@ -158,7 +158,7 @@ export function ComposeSend(props: ComposeSendProps) {
                                 <div className="flex gap-x-1" key={x}>
                                     <span>{name}</span>
                                     <span className="text-commonDanger">
-                                        {errorIndex + 1} / {posts.length}
+                                        {errorIndex} / {posts.length}
                                     </span>
                                 </div>
                             );

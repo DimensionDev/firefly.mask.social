@@ -278,9 +278,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         draftId: draftId || uuid(),
                         createdAt: new Date(),
                         cursor,
-                        posts: hasError
-                            ? posts.map((x) => ({ ...x, availableSources: sources, postId: createInitPostState() }))
-                            : posts,
+                        posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
                         type,
                         availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
                     });
