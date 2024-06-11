@@ -1,9 +1,10 @@
 'use client';
 
 import { Select, t, Trans } from '@lingui/macro';
-import { compact } from 'lodash-es';
+import { EMPTY_LIST } from '@masknet/shared-base';
+import { compact, noop, uniqueId } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useMemo, useState } from 'react';
+import { forwardRef, useLayoutEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
@@ -19,7 +20,6 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -27,6 +27,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
+import { setProps } from '@/mask/custom-elements/props-pool.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {
@@ -65,6 +66,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         },
     });
 
+    const [propsId, setPropsId] = useState(uniqueId);
     const { value: payloads } = useAsync(async () => {
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!postViewed) return;
@@ -79,6 +81,21 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }, [post, postViewed]);
 
     const muted = useIsProfileMuted(author, isDetail);
+
+    useLayoutEffect(() => {
+        setPropsId(() => uniqueId());
+    }, [payloads]);
+
+    useLayoutEffect(() => {
+        if (!postViewed) return noop;
+        return setProps(propsId, {
+            post,
+            payloads:
+                payloads?.payloadFromImageAttachment || payloads?.payloadFromText
+                    ? compact([payloads.payloadFromImageAttachment, payloads.payloadFromText])
+                    : undefined,
+        });
+    }, [post, payloads, propsId, postViewed]);
 
     const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
     const payloadImageUrl = payloadFromImageAttachment?.[2];
@@ -203,16 +220,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {postViewed ? (
                 payloads?.payloadFromImageAttachment || payloads?.payloadFromText ? (
-                    <mask-decrypted-post
-                        props={encodeURIComponent(
-                            JSON.stringify({
-                                post,
-                                payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
-                            }),
-                        )}
-                    />
+                    <mask-decrypted-post key={propsId} props-id={propsId} />
                 ) : (
-                    <mask-post-inspector props={encodeURIComponent(JSON.stringify({ post }))} />
+                    <mask-post-inspector key={propsId} props-id={propsId} />
                 )
             ) : null}
 
