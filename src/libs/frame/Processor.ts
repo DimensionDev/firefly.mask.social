@@ -5,6 +5,7 @@ import { parseURL } from '@/helpers/parseURL.js';
 import {
     getAspectRatio,
     getButtons,
+    getImageAlt,
     getImageUrl,
     getInput,
     getPostUrl,
@@ -24,6 +25,7 @@ class Processor {
         if (!version) return null;
 
         const imageUrl = getImageUrl(document);
+        const imageAlt = getImageAlt(document);
         const image = imageUrl ? await OpenGraphProcessor.digestImageUrl(imageUrl, signal) : null;
         if (!image) return null;
 
@@ -33,6 +35,7 @@ class Processor {
             version: 'vNext',
             image: {
                 url: image.url,
+                alt: imageAlt ? imageAlt : undefined,
                 width: image.width,
                 height: image.height,
             },

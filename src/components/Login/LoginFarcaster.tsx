@@ -21,7 +21,6 @@ import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isAbortedError } from '@/helpers/isAbortedError.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -74,7 +73,7 @@ async function login(
         }
     } catch (error) {
         // skip if the error is abort error
-        if (isAbortedError(error)) return;
+        if (AbortError.is(error)) return;
 
         const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
 

@@ -306,22 +306,40 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         },
         uploadPolls: async () => {
             if (!poll) return [];
-            const pollStub = await LensPollProvider.createPoll(poll, readChars(chars));
+            const pollStub = await LensPollProvider.createPoll(poll, readChars(chars, false, Source.Lens));
             return [pollStub];
         },
         compose(images, videos, polls) {
             const video = first(videos) ?? null;
-            return publishPostForLens(currentProfile.profileId, readChars(chars), images, video, polls);
+            return publishPostForLens(
+                currentProfile.profileId,
+                readChars(chars, false, Source.Lens),
+                images,
+                video,
+                polls,
+            );
         },
         reply(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
-            return commentPostForLens(currentProfile.profileId, lensParentPost.postId, readChars(chars), images, video);
+            return commentPostForLens(
+                currentProfile.profileId,
+                lensParentPost.postId,
+                readChars(chars, false, Source.Lens),
+                images,
+                video,
+            );
         },
         quote(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
-            return quotePostForLens(currentProfile.profileId, lensParentPost.postId, readChars(chars), images, video);
+            return quotePostForLens(
+                currentProfile.profileId,
+                lensParentPost.postId,
+                readChars(chars, false, Source.Lens),
+                images,
+                video,
+            );
         },
     });
 

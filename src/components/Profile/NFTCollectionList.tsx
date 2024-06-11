@@ -13,7 +13,7 @@ import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
-import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChainId.js';
+import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { Collection } from '@/providers/types/Firefly.js';
 import { getAllNFTCollections } from '@/services/getAllNFTCollections.js';
 

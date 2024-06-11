@@ -32,6 +32,10 @@ export function getImageUrl(document: Document): string | null {
     });
 }
 
+export function getImageAlt(document: Document): string | null {
+    return getMetaContent(document, 'fc:frame:image:alt') || null;
+}
+
 export function getPostUrl(document: Document): string | null {
     return getMetaContent(document, {
         of: 'of:post_url',

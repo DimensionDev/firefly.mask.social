@@ -3,7 +3,7 @@ import { uniqBy } from 'lodash-es';
 import { parseEther } from 'viem';
 
 import { SingleNFTFeed } from '@/components/NFTs/SingleNFTFeed.js';
-import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChainId.js';
+import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 
 export function getSingleNFTFeedItemContent(

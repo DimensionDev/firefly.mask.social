@@ -39,7 +39,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             metadata: {
                 locale: 'en',
                 content: {
-                    content: readChars(chars),
+                    content: readChars(chars, false, Source.Twitter),
                 },
             },
             mediaObjects: images.map((media) => ({ url: media.imgur!, mimeType: media.file.type, id: media.id })),

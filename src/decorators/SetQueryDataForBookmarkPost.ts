@@ -52,7 +52,7 @@ export function toggleBookmark(source: Source, postId: string, status: boolean) 
 
     if (!status) {
         queryClient.setQueryData<{ pages: Array<{ data: Array<Post | Article> }> }>(
-            ['posts', Source.Article, 'bookmark'],
+            ['posts', source, 'bookmark'],
             (old) => {
                 if (!old) return old;
                 return produce(old, (draft) => {

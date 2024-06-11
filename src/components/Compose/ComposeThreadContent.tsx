@@ -6,7 +6,6 @@ import YesIcon from '@/assets/green-yes.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
@@ -44,7 +43,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                         onClick={() => {
                             if (isSucceed) return;
                             updateCursor(x.id);
-                            if (cursor !== x.id) setEditorContent(readChars(x.chars, true));
+                            if (cursor !== x.id) setEditorContent(x.chars);
                         }}
                     >
                         {cursor === x.id && isEmptyPost(x) && i !== 0 ? (
@@ -55,7 +54,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                                     if (!next) return;
 
                                     removePostInThread(x.id);
-                                    setEditorContent(readChars(next.chars, true));
+                                    setEditorContent(next.chars);
                                 }}
                                 tooltip={t`Remove`}
                                 size={20}

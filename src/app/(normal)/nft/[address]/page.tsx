@@ -59,6 +59,7 @@ export default function Page({
                     ownerCount={data.distinct_owner_count}
                     floorPrice={getFloorPrice(data?.floor_prices)}
                     chainId={chainId}
+                    collectionId={data.collection_id}
                 />
             ) : null}
             <CollectionTabs address={address} chainId={chainId} totalQuantity={data?.total_quantity} />

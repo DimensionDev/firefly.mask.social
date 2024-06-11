@@ -29,10 +29,12 @@ export interface NFTInfoProps {
     };
     floorPrice?: ReactNode;
     chainId?: ChainId;
+    attendance?: number;
 }
 
 export function NFTInfo(props: NFTInfoProps) {
-    const { imageURL, name, tokenId, collection, ownerAddress, chainId, contractAddress, floorPrice } = props;
+    const { imageURL, name, tokenId, collection, ownerAddress, chainId, contractAddress, floorPrice, attendance } =
+        props;
     const { data: ensName } = useEnsName({
         chainId: ChainId.Mainnet,
         address: props.ownerAddress as `0x${string}`,
@@ -110,6 +112,14 @@ export function NFTInfo(props: NFTInfoProps) {
                                     {formatEthereumAddress(ownerAddress, 4)}
                                 </div>
                             )}
+                        </div>
+                    ) : null}
+                    {attendance ? (
+                        <div className="space-y-1">
+                            <div className="text-base font-normal leading-6 text-secondary">
+                                <Trans>Attendance</Trans>
+                            </div>
+                            <div className="text-base font-bold leading-[14px]">{attendance.toLocaleString()}</div>
                         </div>
                     ) : null}
                     {floorPrice ? (

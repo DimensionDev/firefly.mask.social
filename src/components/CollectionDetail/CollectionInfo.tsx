@@ -5,6 +5,7 @@ import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
+import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -19,6 +20,7 @@ export interface CollectionInfoProps {
     imageUrl: string;
     name: string;
     chainId?: ChainId;
+    collectionId?: string;
 }
 
 export function CollectionInfo(props: CollectionInfoProps) {
@@ -32,6 +34,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
         volume24h,
         floorPrice,
         chainId = ChainId.Mainnet,
+        collectionId,
     } = props;
 
     return (
@@ -52,11 +55,12 @@ export function CollectionInfo(props: CollectionInfoProps) {
                     alt={name}
                 />
                 <div className="ml-2.5 w-full max-w-[calc(100%-100px)] flex-1 space-y-1">
-                    <div className="flex items-center text-xl font-bold leading-6">
+                    <div className="flex w-full items-center text-xl font-bold leading-6">
                         <ChainIcon chainId={chainId} size={24} />
                         <TextOverflowTooltip title={name}>
-                            <div className="ml-2 w-[calc(100%-32px)] truncate">{name}</div>
+                            <div className="ml-2 w-[calc(100%-32px-32px)] truncate">{name}</div>
                         </TextOverflowTooltip>
+                        {collectionId ? <ReportSpamButton collectionId={collectionId} /> : null}
                     </div>
                     <div className="text-normal flex items-center text-sm leading-[14px] text-secondary">
                         <span className="hidden sm:inline">{address}</span>

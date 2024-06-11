@@ -10,7 +10,7 @@ interface GetPollFrameUrlOptions {
     source: SocialSource;
 }
 
-export const getPollFrameUrl = ({ pollId, source }: GetPollFrameUrlOptions) => {
+export function getPollFrameUrl({ pollId, source }: GetPollFrameUrlOptions) {
     const profile = getCurrentProfile(source);
 
     return urlcat(FRAME_SERVER_URL, `/polls/${pollId}`, {
@@ -18,4 +18,4 @@ export const getPollFrameUrl = ({ pollId, source }: GetPollFrameUrlOptions) => {
         profileId: profile?.profileId ?? null,
         theme: getMeaningfulThemeMode(),
     });
-};
+}

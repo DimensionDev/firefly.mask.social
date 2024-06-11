@@ -53,7 +53,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     return payload.data.payload.cover;
                 }
             }
-            return;
+            return null;
         },
     });
 

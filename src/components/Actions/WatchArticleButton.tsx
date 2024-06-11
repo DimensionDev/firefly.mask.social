@@ -1,7 +1,9 @@
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
+import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useMutation } from '@tanstack/react-query';
 import { forwardRef } from 'react';
+import { useEnsName } from 'wagmi';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
@@ -23,6 +25,8 @@ export const WatchArticleButton = forwardRef<HTMLButtonElement, Props>(function 
             return FireflySocialMediaProvider.watchWallet(article.author.id);
         },
     });
+    const { data: ens } = useEnsName({ address: article.author.id as HexString });
+    const identity = article.author.handle || ens || formatEthereumAddress(article.author.id, 4);
     return (
         <MenuButton
             {...rest}
@@ -34,7 +38,7 @@ export const WatchArticleButton = forwardRef<HTMLButtonElement, Props>(function 
         >
             {isWatched ? <EyeSlashIcon width={24} height={24} /> : <EyeIcon width={24} height={24} />}
             <span className="font-bold leading-[22px] text-main">
-                {isWatched ? <Trans>Unwatch</Trans> : <Trans>Watch</Trans>}
+                {isWatched ? <Trans>Unwatch {identity}</Trans> : <Trans>Watch {identity}</Trans>}
             </span>
         </MenuButton>
     );

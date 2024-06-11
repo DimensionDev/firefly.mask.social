@@ -43,7 +43,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             metadata: {
                 locale: '',
                 content: {
-                    content: readChars(chars),
+                    content: readChars(chars, false, Source.Farcaster),
                 },
             },
             mediaObjects: uniqBy(
@@ -77,7 +77,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         },
         uploadPolls: async () => {
             if (!poll) return [];
-            const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars));
+            const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars, false, Source.Farcaster));
             return [pollStub];
         },
         compose: (images, _, polls) => {

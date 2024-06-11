@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-06 12:02\n"
+"PO-Revision-Date: 2024-06-07 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -286,6 +286,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
 msgid "Report Failed"
+msgstr ""
+
+msgid "Attendees"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
@@ -834,6 +837,9 @@ msgstr "收藏帖子失败。"
 msgid "{0} /{1}"
 msgstr ""
 
+msgid "Unmute {identity}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
@@ -915,17 +921,20 @@ msgstr "引用"
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
 
+msgid "Unwatch {identity}"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
 msgstr ""
 
-msgid "Unwatch"
-msgstr ""
-
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
+
+msgid "Attendance"
+msgstr ""
 
 msgid "Show more"
 msgstr "显示更多"
@@ -1028,6 +1037,9 @@ msgstr "查找"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
+
+msgid "Watch {identity}"
+msgstr ""
 
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"

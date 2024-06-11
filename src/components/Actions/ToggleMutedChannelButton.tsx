@@ -1,25 +1,39 @@
 import { t, Trans } from '@lingui/macro';
+import { produce } from 'immer';
 import { memo } from 'react';
-import { useToggle } from 'react-use';
 
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { isSameChannel } from '@/helpers/isSameChannel.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     channel: Channel;
-    defaultMuted?: boolean;
 }
 
-export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
-    channel,
-    defaultMuted = true,
-    ...rest
-}: Props) {
-    // FIXME: we can use channel.blocked instead of defaultMuted
-    const [isMuted, setIsMuted] = useToggle(defaultMuted);
+const setQueryDataForChannel = (channel: Channel, isMuted: boolean) => {
+    queryClient.setQueriesData<{ pages: Array<{ data: Channel[] }> }>(
+        { queryKey: ['channels', channel.source, 'muted-list'] },
+        (oldData) => {
+            if (!oldData) return oldData;
+            return produce(oldData, (draft) => {
+                for (const page of draft.pages) {
+                    if (!page) continue;
+                    for (const mutedChannel of page.data) {
+                        if (!isSameChannel(mutedChannel, channel)) continue;
+                        mutedChannel.blocked = isMuted;
+                    }
+                }
+            });
+        },
+    );
+};
+
+export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({ channel, ...rest }: Props) {
+    const isMuted = channel.blocked ?? true;
 
     const [{ loading }, toggleMutedChannel] = useToggleMutedChannel();
 
@@ -36,7 +50,9 @@ export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
         });
         if (!confirmed) return;
         const result = await toggleMutedChannel({ ...channel, blocked: isMuted });
-        if (result) setIsMuted(!isMuted);
+        if (result) {
+            setQueryDataForChannel(channel, !isMuted);
+        }
     };
 
     return <ToggleMutedButton {...rest} isMuted={isMuted} loading={loading} onClick={onToggle} />;

@@ -11,7 +11,7 @@ import { isValidAddress } from '@masknet/web3-shared-evm';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
@@ -707,6 +707,19 @@ export class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
+    }
+
+    async searchIdentity(q: string, platforms?: SocialSource[]) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/identity', {
+            keyword: q,
+            size: 100,
+        });
+
+        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        return response.data;
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

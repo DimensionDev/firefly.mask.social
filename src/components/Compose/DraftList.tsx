@@ -185,7 +185,7 @@ export const DraftList = memo(function DraftList() {
             const post = draft.posts.find((x) => x.id === draft.cursor);
             if (post) {
                 updateChars(post.chars, post.id);
-                setEditorContent(readChars(post.chars, true));
+                setEditorContent(post.chars);
             }
             router.history.push('/');
         },

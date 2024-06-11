@@ -1,5 +1,5 @@
 import { isSameAddress } from '@masknet/web3-shared-base';
-import { produce } from 'immer';
+import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
@@ -8,21 +8,28 @@ import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
 
 function toggleBlock(address: string, status: boolean) {
-    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>(
-        { queryKey: ['articles', 'discover', Source.Article] },
-        (old) => {
-            if (!old) return old;
-            return produce(old, (draft) => {
-                for (const page of draft.pages) {
-                    if (!page) continue;
-                    for (const article of page.data) {
-                        if (!isSameAddress(article.author.id.toLowerCase(), address)) continue;
-                        article.author.isMuted = status;
-                    }
+    type PagesData = { pages: Array<{ data: Article[] }> };
+    const patcher = (old: Draft<PagesData> | undefined) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page) continue;
+                for (const article of page.data) {
+                    if (!isSameAddress(article.author.id, address)) continue;
+                    article.author.isMuted = status;
                 }
-            });
-        },
-    );
+            }
+        });
+    };
+    queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles'] }, patcher);
+    queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
+    queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
+        if (!old) return;
+        return produce(old, (draft) => {
+            if (!isSameAddress(draft.author.id)) return;
+            draft.author.isMuted = status;
+        });
+    });
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;
