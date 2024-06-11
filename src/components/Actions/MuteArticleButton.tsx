@@ -35,7 +35,6 @@ export const MuteArticleButton = forwardRef<HTMLButtonElement, Props>(function M
             {...rest}
             onClick={async () => {
                 if (!muted) {
-                    const identity = article.author.handle || ens || formatEthereumAddress(article.author.id, 4);
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
                         title: t`Mute ${identity}`,
                         variant: 'normal',
