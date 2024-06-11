@@ -26,5 +26,6 @@ export function resolveSimpleHashChain(chain: ChainId) {
 export const resolveSimpleHashChainId: (chainId: string) => ChainId | undefined = memoize(function resolveChainId(
     chain: string,
 ): ChainId | undefined {
-    return first(Object.entries(EVM_CHAIN).find(([, value]) => value === chain)) as ChainId | undefined;
+    const chainIdKey = first(Object.entries(EVM_CHAIN).find(([, value]) => value === chain));
+    return typeof chainIdKey === 'string' ? (parseInt(chainIdKey, 10) as ChainId) : undefined;
 });
