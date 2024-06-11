@@ -1,3 +1,5 @@
+import type { Profile } from '@/providers/types/SocialMedia.js';
+
 export class AbortError extends Error {
     constructor() {
         super('Aborted');
@@ -30,5 +32,17 @@ export class FetchError extends Error {
         this.status = status;
         this.statusText = statusText;
         this.url = url;
+    }
+}
+
+/**
+ * Connected a profile that is not logged firefly before.
+ */
+export class ProfileNotConnectedError extends Error {
+    constructor(
+        public profile: Profile | null,
+        public override message: string,
+    ) {
+        super(message);
     }
 }
