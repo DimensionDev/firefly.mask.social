@@ -66,7 +66,11 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                     })}
                 />
 
-                <div className="w-full max-w-[calc(100%_-_53px)] pb-5">
+                <div
+                    className={classNames('w-full max-w-[calc(100%_-_53px)]', {
+                        'pb-5': !isLast,
+                    })}
+                >
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />
                     <PostActions
                         post={post}
