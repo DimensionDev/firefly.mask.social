@@ -2,6 +2,7 @@
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 import urlcat from 'urlcat';
+import { useEnsName } from 'wagmi';
 
 import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -25,6 +26,8 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
 
     const Icon = resolveArticlePlatformIcon(article.platform);
 
+    const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
+
     return (
         <div className={classNames('flex items-start gap-3', className)}>
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
@@ -42,7 +45,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                     onClick={(event) => event.stopPropagation()}
                     className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
                 >
-                    {article.author.handle}
+                    {article.author.handle || ens}
                 </Link>
                 <Link href={authorUrl} className="truncate text-clip text-[15px] leading-6 text-secondary">
                     {formatEthereumAddress(article.author.id, 4)}

@@ -28,14 +28,14 @@ export const MuteArticleButton = forwardRef<HTMLButtonElement, Props>(function M
         },
     });
     const loading = mutation.isPending;
-    const { data: ens } = useEnsName({ address: article.author.id as HexString });
+    const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
     const identity = article.author.handle || ens || formatEthereumAddress(article.author.id, 4);
     return (
         <MenuButton
             {...rest}
             onClick={async () => {
                 if (!muted) {
-                    const identity = article.author.handle || article.author.id;
+                    const identity = article.author.handle || ens || formatEthereumAddress(article.author.id, 4);
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
                         title: t`Mute ${identity}`,
                         variant: 'normal',

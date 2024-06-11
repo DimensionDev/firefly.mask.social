@@ -20,7 +20,7 @@ export interface Article {
         handle: string;
         avatar: string;
         /** Wallet address */
-        id: string;
+        id: HexString;
         isFollowing: boolean;
         isMuted: boolean;
     };
