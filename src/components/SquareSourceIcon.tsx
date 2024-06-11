@@ -10,19 +10,16 @@ import XSquareDarkIcon from '@/assets/x-square-dark.svg';
 import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { Source } from '@/constants/enum.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
-interface SourceSquareIconProps extends React.SVGProps<SVGSVGElement> {
+interface SquareSourceIconProps extends React.SVGProps<SVGSVGElement> {
     size?: number;
     source: Source;
     forceLight?: boolean;
 }
-export function SourceSquareIcon({ source, size = 20, forceLight, ...props }: SourceSquareIconProps) {
+export function SquareSourceIcon({ source, size = 20, forceLight, ...props }: SquareSourceIconProps) {
     const { isDarkMode } = useDarkMode();
-    const style = {
-        width: size,
-        height: size,
-        ...props.style,
-    };
+    const style = useSizeStyle(size, props.style);
 
     switch (source) {
         case Source.Lens:

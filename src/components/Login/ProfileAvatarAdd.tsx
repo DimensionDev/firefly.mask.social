@@ -3,25 +3,20 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
     source: SocialSource;
 }
 
-export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
-    const { source, ...divProps } = props;
-
+export function ProfileAvatarAdd({ source, ...props }: ProfileAvatarAddProps) {
     const isLarge = useIsLarge();
 
     const size = isLarge ? 40 : 36;
-
-    const style = {
-        width: size,
-        height: size,
-    };
+    const style = useSizeStyle(size, props.style);
 
     return (
-        <div className="relative z-0 cursor-pointer md:mx-auto lg:m-0" style={style} {...divProps}>
+        <div className="relative z-0 cursor-pointer md:mx-auto lg:m-0" style={style} {...props}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
                 <SocialSourceIcon source={source} size={size} />
             </div>

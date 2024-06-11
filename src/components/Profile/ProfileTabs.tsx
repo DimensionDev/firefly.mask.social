@@ -7,7 +7,7 @@ import { startTransition } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { SourceSquareIcon } from '@/components/SourceSquareIcon.js';
+import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -124,7 +124,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                         }}
                         key={index}
                     >
-                        <SourceSquareIcon
+                        <SquareSourceIcon
                             source={profile.source}
                             size={14}
                             forceLight={isActive}

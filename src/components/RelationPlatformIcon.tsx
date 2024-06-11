@@ -6,6 +6,7 @@ import GithubLightIcon from '@/assets/github-light.svg';
 import KeyBaseIcon from '@/assets/keybase.svg';
 import RedditIcon from '@/assets/reddit.svg';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelationPlatform } from '@/providers/types/Firefly.js';
 
 interface RelationPlatformIconProps extends React.SVGProps<SVGSVGElement> {
@@ -15,11 +16,7 @@ interface RelationPlatformIconProps extends React.SVGProps<SVGSVGElement> {
 
 export function RelationPlatformIcon({ size, source, ...props }: RelationPlatformIconProps) {
     const { isDarkMode } = useDarkMode();
-    const style = {
-        width: size,
-        height: size,
-        ...props.style,
-    };
+    const style = useSizeStyle(size, props.style);
 
     switch (source) {
         case RelationPlatform.github:
