@@ -35,6 +35,7 @@ export function DiscoverNFTList() {
             const tokenId = feed.trans.token_list?.[0]?.id ?? '';
             return !invalidNFTStore.has(ChainId.Mainnet, feed.trans.token_address, tokenId);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nftQueryResult.data, invalidNFTCount]);
 
     return (

@@ -1,8 +1,11 @@
-import { getMetaContent } from '@/helpers/getMetaContent.js';
-import { qs } from '@/helpers/q.js';
+import { q } from '@/helpers/q.js';
 
-export const getFrameClientProtocol = (document: Document) => {
-    const openFrameProtocol = qs(document, 'of:accepts:');
-    const openFrameVersion = getMetaContent(document, 'of:version');
-    return openFrameProtocol && openFrameVersion ? 'of' : 'fc:frame';
-};
+export function getFrameClientProtocol(document: Document) {
+    const ofVersion = q(document, 'of:version')?.getAttribute('content');
+    if (ofVersion) return 'of'; // open frame
+
+    const fcVersion = q(document, 'fc:frame')?.getAttribute('content');
+    if (fcVersion) return 'fc'; // farcaster
+
+    return;
+}
