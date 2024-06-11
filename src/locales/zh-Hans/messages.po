@@ -105,6 +105,9 @@ msgstr ""
 msgid "Searching channel"
 msgstr "查询频道中"
 
+msgid "Views"
+msgstr ""
+
 msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
 
@@ -200,6 +203,9 @@ msgstr "收起"
 
 msgid "comment"
 msgstr "评论"
+
+msgid "via {0}"
+msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
 msgstr "在您装有 Warpcast 的手机上，打开<0>相机</0>在 <1>{0}</1> 内扫描二维码，授权 Firefly 连接您的账号。"
@@ -741,6 +747,9 @@ msgstr "已回复"
 msgid "Minting Date"
 msgstr ""
 
+msgid "Comments"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr "找不到该页面。"
 
@@ -1008,6 +1017,9 @@ msgstr "跳过"
 msgid "Login to enable all features"
 msgstr ""
 
+msgid "Collects"
+msgstr ""
+
 msgid "Notifications"
 msgstr "通知"
 
@@ -1046,6 +1058,9 @@ msgstr "<0>你</0> 已点赞"
 
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
+
+msgid "View"
+msgstr ""
 
 msgid "Failed to mirror post."
 msgstr "转发失败"
