@@ -1,5 +1,6 @@
 import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { Address } from 'viem';
 
 export interface Cast {
     fid: string;
@@ -148,7 +149,7 @@ export interface ChannelBrief {
 export interface Article {
     timestamp: string;
     hash: string;
-    owner: string;
+    owner: Address;
     digest: string;
     type: ArticleType;
     platform: ArticlePlatform;
