@@ -222,7 +222,7 @@ export type CastsResponse = Response<{
 export type SearchCastsResponse = Response<Cast[]>;
 
 export type SearchProfileResponse = Response<{
-    list: Array<Record<'lens' | 'farcaster' | 'twitter', Profile[] | null>>;
+    list: Array<Record<'lens' | 'farcaster' | 'twitter' | string, Profile[] | null>>;
     cursor: number;
     size: number;
 }>;

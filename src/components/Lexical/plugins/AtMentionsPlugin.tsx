@@ -195,13 +195,13 @@ export function MentionsPlugin(): JSX.Element | null {
             if (!data) return EMPTY_LIST;
             return compact(
                 data.list.map((x) => {
-                    const target = [x.farcaster, x.lens, x.twitter]
+                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[source.toLowerCase()])
                         .flatMap((value) => value ?? EMPTY_LIST)
                         .find((profile) => profile.hit);
                     if (!target) return;
 
                     const allProfile = compact(
-                        [first(x.farcaster), first(x.lens), first(x.twitter)].map((x) => {
+                        SORTED_SOCIAL_SOURCES.map((source) => first(x[source.toLowerCase()])).map((x) => {
                             if (target.platform === x?.platform) return target;
                             return x;
                         }),
