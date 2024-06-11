@@ -1,6 +1,7 @@
+import type { Address } from 'viem';
+
 import { FireflyPlatform, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
-import type { Address } from 'viem';
 
 export interface Cast {
     fid: string;
