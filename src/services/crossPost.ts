@@ -159,12 +159,18 @@ export async function crossPost(
     }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
-    const { availableSources } = compositePost;
+    const { availableSources, poll } = compositePost;
 
     // create common poll for farcaster and lens
-    if (compositePost.poll && SUPPORT_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
-        const pollId = await commitPoll(compositePost.poll, readChars(compositePost.chars));
-        compositePost.poll.id = pollId;
+    if (poll && SUPPORT_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
+        const pollId = await commitPoll(poll, readChars(compositePost.chars));
+        compositePost = {
+            ...compositePost,
+            poll: {
+                ...poll,
+                id: pollId,
+            },
+        }
     }
 
     const allSettled = await Promise.allSettled(
