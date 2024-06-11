@@ -85,7 +85,7 @@ async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
  * @param signal
  * @returns
  */
-async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
+async function initialSignerRequestToken(callback?: (url: string) => void, signal?: AbortSignal) {
     const { deeplink, session } = await createSession(signal);
 
     // invalid session type
@@ -108,8 +108,8 @@ async function createSessionByGrantPermission(callback?: (url: string) => void, 
     return session;
 }
 
-export async function createSessionByGrantPermissionFirefly(callback?: (url: string) => void, signal?: AbortSignal) {
-    const session = await createSessionByGrantPermission(callback, signal);
+export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
+    const session = await initialSignerRequestToken(callback, signal);
 
     // firefly start polling for the signed key request
     // once key request is signed, we will get the fid

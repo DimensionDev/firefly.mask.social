@@ -29,7 +29,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
@@ -134,7 +134,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermissionFirefly((url) => {
+                    createSessionByGrantPermission((url) => {
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
