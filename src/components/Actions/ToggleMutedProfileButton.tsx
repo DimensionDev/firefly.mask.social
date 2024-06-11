@@ -37,10 +37,7 @@ const setQueryDataForProfile = (profile: Profile, isMuted: boolean) => {
     );
 };
 
-export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({
-    profile,
-    ...rest
-}: Props) {
+export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({ profile, ...rest }: Props) {
     const isMuted = profile.viewerContext?.blocking ?? true;
 
     const currentProfile = useCurrentProfile(profile.source);
