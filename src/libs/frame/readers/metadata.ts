@@ -1,16 +1,17 @@
 import { compact, last } from 'lodash-es';
 
 import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
+import { getFrameMetaContent } from '@/helpers/getFrameMetaContent.js';
 import { getMetaContent } from '@/helpers/getMetaContent.js';
 import { qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
     return (
-        getMetaContent(document, {
+        getFrameMetaContent(document, {
             of: 'of:title',
             fc: 'fc:frame:title',
-            og: 'og:title',
+            backup: 'og:title',
         }) ||
         document.querySelector('title')?.textContent ||
         document.domain
@@ -18,38 +19,33 @@ export function getTitle(document: Document): string | null {
 }
 
 export function getVersion(document: Document): string | null {
-    return getMetaContent(document, {
+    return getFrameMetaContent(document, {
         of: 'of:version',
         fc: 'fc:frame',
     });
 }
 
 export function getImageUrl(document: Document): string | null {
-    return getMetaContent(document, {
+    return getFrameMetaContent(document, {
         of: 'of:image',
         fc: 'fc:frame:image',
-        og: 'og:image',
+        backup: 'og:image',
     });
 }
 
 export function getImageAlt(document: Document): string | null {
-    return (
-        getMetaContent(document, {
-            of: 'of:image:alt', // not exist in spec
-            fc: 'fc:frame:image:alt',
-        }) || null
-    );
+    return getMetaContent(document, 'fc:frame:image:alt');
 }
 
 export function getPostUrl(document: Document): string | null {
-    return getMetaContent(document, {
+    return getFrameMetaContent(document, {
         of: 'of:post_url',
         fc: 'fc:frame:post_url',
     });
 }
 
 export function getRefreshPeriod(document: Document): number | null {
-    const period = getMetaContent(document, {
+    const period = getFrameMetaContent(document, {
         of: 'of:refresh_period',
         fc: 'fc:frame:refresh_period',
     });
@@ -62,7 +58,7 @@ export function getRefreshPeriod(document: Document): number | null {
 }
 
 export function getInput(document: Document): FrameInput | null {
-    const label = getMetaContent(document, {
+    const label = getFrameMetaContent(document, {
         of: 'of:input:text',
         fc: 'fc:frame:input:text',
     });
@@ -88,15 +84,15 @@ export function getButtons(document: Document): FrameButton[] {
             if (Number.isNaN(index) || index < 1 || index > 4) return null;
 
             const action =
-                getMetaContent(document, {
+                getFrameMetaContent(document, {
                     of: `of:button:${index}:action`,
                     fc: `fc:frame:button:${index}:action`,
                 }) || ActionType.Post;
-            const target = getMetaContent(document, {
+            const target = getFrameMetaContent(document, {
                 of: `of:button:${index}:target`,
                 fc: `fc:frame:button:${index}:target`,
             });
-            const postUrl = getMetaContent(document, {
+            const postUrl = getFrameMetaContent(document, {
                 of: `of:button:${index}:post_url`,
                 fc: `fc:frame:button:${index}:post_url`,
             });
@@ -114,11 +110,11 @@ export function getButtons(document: Document): FrameButton[] {
 
 export function getAspectRatio(document: Document): '1.91:1' | '1:1' {
     const aspect =
-        getMetaContent(document, {
+        getFrameMetaContent(document, {
             of: 'of:aspect_ratio',
             fc: 'fc:frame:aspect_ratio',
         }) ||
-        getMetaContent(document, {
+        getFrameMetaContent(document, {
             of: 'of:image:aspect_ratio',
             fc: 'fc:frame:image:aspect_ratio',
         }) ||
@@ -127,7 +123,7 @@ export function getAspectRatio(document: Document): '1.91:1' | '1:1' {
 }
 
 export function getState(document: Document) {
-    return getMetaContent(document, {
+    return getFrameMetaContent(document, {
         of: 'of:state',
         fc: 'fc:frame:state',
     });
