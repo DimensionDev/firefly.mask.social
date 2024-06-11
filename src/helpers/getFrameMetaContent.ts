@@ -9,8 +9,7 @@ import { getMetaContent } from '@/helpers/getMetaContent.js';
  */
 export function getFrameMetaContent(
     document: Document,
-    criteria: Record<Exclude<ReturnType<typeof getFrameClientProtocol>, undefined>, string> &
-        { backup?: string },
+    criteria: Record<Exclude<ReturnType<typeof getFrameClientProtocol>, undefined>, string> & { backup?: string },
 ) {
     const protocol = getFrameClientProtocol(document);
     if (!protocol) return null;
