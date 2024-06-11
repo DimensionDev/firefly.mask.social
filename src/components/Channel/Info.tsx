@@ -27,9 +27,9 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
     const isMedium = useIsMedium();
     const url = urlcat(location.origin, getChannelUrl(channel));
     const avatar = channel.imageUrl ? (
-        <Avatar src={channel.imageUrl} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
+        <Avatar src={channel.imageUrl} alt="avatar" size={48} className="h-12 w-12 rounded-full" />
     ) : (
-        <SocialSourceIcon className="rounded-full" source={source} size={80} />
+        <SocialSourceIcon className="rounded-full" source={source} size={48} />
     );
     const name = <span className="text-xl font-black text-lightMain">{channel.name}</span>;
 

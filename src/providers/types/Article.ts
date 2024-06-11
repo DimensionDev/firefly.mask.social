@@ -1,4 +1,5 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import type { Address } from 'viem';
 
 export enum ArticlePlatform {
     Mirror = 'mirror',
@@ -20,7 +21,7 @@ export interface Article {
         handle: string;
         avatar: string;
         /** Wallet address */
-        id: string;
+        id: Address;
         isFollowing: boolean;
         isMuted: boolean;
     };
