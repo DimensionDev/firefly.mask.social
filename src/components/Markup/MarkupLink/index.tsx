@@ -96,8 +96,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     }
 
     if (new RegExp(TWEET_REGEX).test(title) && supportTweet) {
-        const match = title.match(TWEET_REGEX);
-        const id = last(match);
+        const id = last(title.match(TWEET_REGEX));
         if (!id) return <ExternalLink title={title} />;
         return <Tweet id={id} components={components} />;
     }
