@@ -16,7 +16,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError } from '@/constants/error.js';
+import { AbortError, NotImplementedError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import {
@@ -60,7 +60,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         );
                         break;
                     case Source.Twitter:
-                        throw new Error('Not implemented');
+                        throw new NotImplementedError();
                     default:
                         safeUnreachable(source);
                         break;

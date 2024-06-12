@@ -2,6 +2,7 @@
 
 import { signOut } from 'next-auth/react';
 
+import { NotAllowedError } from '@/constants/error.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -20,7 +21,7 @@ export class TwitterSession extends BaseSession implements Session {
     }
 
     override refresh(): Promise<void> {
-        throw new Error('Not allowed');
+        throw new NotAllowedError();
     }
 
     override async destroy(): Promise<void> {

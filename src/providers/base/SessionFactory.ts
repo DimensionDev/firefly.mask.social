@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import z from 'zod';
 
+import { UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
@@ -96,7 +97,7 @@ export class SessionFactory {
                     );
                 default:
                     safeUnreachable(type);
-                    throw new Error(t`Unknown session type.`);
+                    throw new UnreachableError('session type', type);
             }
         };
 

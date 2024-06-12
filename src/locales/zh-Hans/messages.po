@@ -483,9 +483,6 @@ msgstr ""
 msgid "Report spam"
 msgstr ""
 
-msgid "Invalid compose type: {type}."
-msgstr "无效的发帖类型：{type}。"
-
 msgid "View Source"
 msgstr "查看原文"
 
@@ -1172,9 +1169,6 @@ msgstr "分享到"
 
 msgid "Download app"
 msgstr ""
-
-msgid "Unknown session type."
-msgstr "未知会话类型。"
 
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"

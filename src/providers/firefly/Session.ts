@@ -1,4 +1,5 @@
 import { Source } from '@/constants/enum.js';
+import { NotAllowedError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { BaseSession } from '@/providers/base/Session.js';
@@ -20,11 +21,11 @@ export class FireflySession extends BaseSession implements Session {
     }
 
     override async refresh(): Promise<void> {
-        throw new Error('Not allowed');
+        throw new NotAllowedError();
     }
 
     override async destroy(): Promise<void> {
-        throw new Error('Not allowed');
+        throw new NotAllowedError();
     }
 
     static async from(session: Session, signal?: AbortSignal): Promise<FireflySession> {

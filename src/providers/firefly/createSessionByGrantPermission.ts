@@ -1,6 +1,7 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
 import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
@@ -9,26 +10,39 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LinkInfoResponse, SessionStatusResponse } from '@/providers/types/Firefly.js';
 
 async function pollingSessionStatus(session: string, signal?: AbortSignal) {
-    const checkStatus = async (s?: AbortSignal) => {
-        const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status', {
-            session,
-        });
-        const response = await fetchJSON<SessionStatusResponse>(url, {
-            method: 'GET',
-            signal: s,
-        });
-        const status = resolveFireflyResponseData(response);
-        return status;
-    };
+    return pollingWithRetry(
+        async (s) => {
+            const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status', {
+                session,
+            });
+            const response = await fetchJSON<SessionStatusResponse>(url, {
+                method: 'GET',
+                signal: s,
+            });
+            const status = resolveFireflyResponseData(response);
+            const status_ = status.status;
 
-    return pollingWithRetry(checkStatus, {
-        times: Number.MAX_SAFE_INTEGER,
-        interval: 1000,
-        signal,
-    });
+            switch (status_) {
+                case 'confirm':
+                case 'cancel':
+                case 'expired':
+                    return status;
+                case 'pending':
+                    return null;
+                default:
+                    safeUnreachable(status_);
+                    throw new UnreachableError('session status', status_);
+            }
+        },
+        {
+            times: Number.MAX_SAFE_INTEGER,
+            interval: 1000,
+            signal,
+        },
+    );
 }
 
-async function initialRequest(callback?: (url: string) => void, signal?: AbortSignal) {
+async function createSession(callback?: (url: string) => void, signal?: AbortSignal) {
     const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/linkInfo');
     const response = await fetchJSON<LinkInfoResponse>(url, {
         method: 'GET',
@@ -46,17 +60,16 @@ async function initialRequest(callback?: (url: string) => void, signal?: AbortSi
         case 'confirm':
             return new FireflySession('', result.accessToken, null);
         case 'cancel':
-            throw new Error('User canceled the session.');
+            throw new UserRejectionError();
         case 'expired':
-            throw new Error('Session expired.');
+            throw new TimeoutError();
         default:
             safeUnreachable(status);
-            throw new Error(`Unexpected status: ${status}`);
+            throw new UnreachableError('session status', status);
     }
 }
 
 export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
-    const session = await initialRequest(callback, signal);
-
+    const session = await createSession(callback, signal);
     return session;
 }

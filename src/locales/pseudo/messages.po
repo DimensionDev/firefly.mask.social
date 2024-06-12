@@ -478,9 +478,6 @@ msgstr ""
 msgid "Report spam"
 msgstr ""
 
-msgid "Invalid compose type: {type}."
-msgstr ""
-
 msgid "View Source"
 msgstr ""
 
@@ -1166,9 +1163,6 @@ msgid "Share to"
 msgstr ""
 
 msgid "Download app"
-msgstr ""
-
-msgid "Unknown session type."
 msgstr ""
 
 msgid "Failed to quote post."

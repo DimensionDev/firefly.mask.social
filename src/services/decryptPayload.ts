@@ -10,6 +10,7 @@ import {
 import { decodeArrayBuffer, encodeArrayBuffer } from '@masknet/kit';
 import type { TypedMessage } from '@masknet/typed-message';
 
+import { NotImplementedError } from '@/constants/error.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 
 const cache = new Map<string, AESCryptoKey>();
@@ -61,7 +62,7 @@ async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): P
                 return false;
             },
             async decryptByLocalKey() {
-                throw new Error('not implemented.');
+                throw new NotImplementedError();
             },
             async queryAuthorPublicKey() {
                 return null;
@@ -70,16 +71,16 @@ async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): P
                 return null;
             },
             async *queryPostKey_version39() {
-                throw new Error('not implemented.');
+                throw new NotImplementedError();
             },
             async *queryPostKey_version38() {
-                throw new Error('not implemented.');
+                throw new NotImplementedError();
             },
             async *queryPostKey_version37() {
-                throw new Error('not implemented.');
+                throw new NotImplementedError();
             },
             async deriveAESKey() {
-                throw new Error('not implemented.');
+                throw new NotImplementedError();
             },
         },
     );

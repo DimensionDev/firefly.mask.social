@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { NotAllowedError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { BaseSession } from '@/providers/base/Session.js';
@@ -31,7 +32,7 @@ export class FarcasterSession extends BaseSession implements Session {
     }
 
     refresh(): Promise<void> {
-        throw new Error('Not allowed');
+        throw new NotAllowedError();
     }
 
     async destroy(): Promise<void> {

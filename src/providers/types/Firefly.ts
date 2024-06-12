@@ -753,6 +753,9 @@ export type SessionStatus =
       }
     | {
           status: 'expired';
+      }
+    | {
+          status: 'pending';
       };
 
 export type SessionStatusResponse = Response<SessionStatus>;
