@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Select, t,Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
@@ -32,6 +32,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface PostBodyProps {
     post: Post;
     isQuote?: boolean;
+    isReply?: boolean;
     isDetail?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
@@ -39,7 +40,7 @@ interface PostBodyProps {
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, isDetail = false, showMore = false, disablePadding = false, showTranslate = false },
+    { post, isQuote = false, isReply = false, isDetail = false, showMore = false, disablePadding = false, showTranslate = false },
     ref,
 ) {
     const router = useRouter();
@@ -135,6 +136,42 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         isQuote
                     />
                 ) : null}
+            </div>
+        );
+    }
+
+    if (isReply) {
+        return (
+            <div>
+                <NakedMarkup
+                    post={post}
+                    className={classNames(
+                        'line-clamp-3 w-full self-stretch break-words text-base text-main',
+                        {
+                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
+                        },
+                    )}
+                    components={{
+                        // @ts-ignore
+                        // eslint-disable-next-line react/no-unstable-nested-components
+                        a: (props) => <span>{props.title}</span>
+                    }}
+                >
+                    {post.metadata.content?.content}
+                </NakedMarkup>
+                <div className='flex flex-col text-base text-main'>
+                    {post.metadata.content?.asset?.type ? (
+                        <Select
+                            value={post.metadata.content.asset.type}
+                            _Image={t`[Image]`}
+                            _Video={t`[Video]`}
+                            _Audio={t`[Audio]`}
+                            _Poll={t`[Poll]`}
+                            other={t`[Attachment]`}
+                        />
+                    ) : null}
+                    {post.quoteOn ? <span>{t`[Quote]`}</span> : null}
+                </div>
             </div>
         );
     }

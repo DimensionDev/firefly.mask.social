@@ -56,8 +56,8 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                 placeholder={
                     <div
                         className={classNames(
-                            'pointer-events-none absolute left-0 text-[15px] leading-5 text-placeholder',
-                            replying ? 'top-9' : 'top-0',
+                            'pointer-events-none absolute left-0 top-0 text-[15px] leading-5 text-placeholder',
+                            { 'top-2.5 pl-[52px]': replying }
                         )}
                     >
                         <Select

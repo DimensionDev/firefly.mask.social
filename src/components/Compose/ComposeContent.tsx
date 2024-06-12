@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
@@ -8,8 +7,8 @@ import { Card as FrameUI } from '@/components/Frame/Card.js';
 import { OembedUI } from '@/components/Oembed/index.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { Reply } from '@/components/Posts/Reply.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {
@@ -30,15 +29,12 @@ export function ComposeContent(props: ComposeContentProps) {
     return (
         <div className="relative flex flex-1 flex-col">
             {replying ? (
-                <div className="mb-3 text-left text-[15px] text-fourMain">
-                    <Trans>
-                        Replying to <span className="text-link">@{post.author.handle}</span> on{' '}
-                        {resolveSourceName(post.source)}
-                    </Trans>
-                </div>
+                <Reply post={post} compositePost={props.post} />
             ) : null}
 
-            {cursor === id ? <Editor post={props.post} replying={replying} /> : <Placeholder post={props.post} />}
+            {!replying ? (
+                cursor === id ? <Editor post={props.post} replying={replying} /> : <Placeholder post={props.post} />
+            ) : null}
 
             {/* poll */}
             {poll ? <PollCreatorCard post={props.post} readonly={cursor !== props.post.id} /> : null}
@@ -49,6 +45,7 @@ export function ComposeContent(props: ComposeContentProps) {
                     className={classNames(
                         'relative grid gap-2 py-3',
                         images.length <= 4 ? 'grid-cols-2' : 'grid-cols-5',
+                        replying ? 'pl-[52px]' : '',
                     )}
                 >
                     {images.map((image, index) => (
@@ -64,10 +61,14 @@ export function ComposeContent(props: ComposeContentProps) {
             )}
 
             {/* video */}
-            {video ? <ComposeVideo post={props.post} /> : null}
+            {video ? (
+                <div className={replying ? 'pl-[52px]' : ''}>
+                    <ComposeVideo post={props.post} />
+                </div>
+            ) : null}
 
             {/* quote */}
-            {(type === 'quote' || type === 'reply') && post ? <Quote post={post} className="text-left" /> : null}
+            {(type === 'quote') && post ? <Quote post={post} className="text-left" /> : null}
 
             {/* open graphs */}
             {differenceOpenGraphs.length ? (
