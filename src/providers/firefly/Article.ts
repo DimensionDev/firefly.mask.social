@@ -10,7 +10,6 @@ import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -22,10 +21,11 @@ import {
     type GetArticleDetailResponse,
     type GetFollowingArticlesResponse,
 } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
 
 class FireflyArticle implements Provider {
     async discoverArticles(indicator?: PageIndicator) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
             size: 20,
             platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -45,7 +45,7 @@ class FireflyArticle implements Provider {
     }
 
     async discoverArticlesByAddress(address: string, indicator?: PageIndicator) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
 
         const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url, {
             method: 'POST',
@@ -69,7 +69,7 @@ class FireflyArticle implements Provider {
     }
 
     async getArticleById(articleId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/article/contents_by_ids');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/article/contents_by_ids');
 
         const response = await fireflySessionHolder.fetch<GetArticleDetailResponse>(url, {
             method: 'POST',
@@ -87,7 +87,7 @@ class FireflyArticle implements Provider {
     }
 
     async getFollowingArticles(indicator?: PageIndicator) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/timeline/articles');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/articles');
         const response = await fireflySessionHolder.fetch<GetFollowingArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -108,7 +108,7 @@ class FireflyArticle implements Provider {
     }
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
             post_type: BookmarkType.All,
             platforms: FireflyPlatform.Article,
             limit: 25,

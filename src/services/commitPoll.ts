@@ -1,10 +1,10 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CompositePoll, CreatePollRequest, CreatePollResponse } from '@/providers/types/Poll.js';
+import { settings } from '@/settings/index.js';
 
 export const commitPoll = async (poll: CompositePoll, text: string): Promise<string> => {
     const request: CreatePollRequest = {
@@ -20,7 +20,7 @@ export const commitPoll = async (poll: CompositePoll, text: string): Promise<str
     }
 
     const response = await fireflySessionHolder.fetch<CreatePollResponse>(
-        urlcat(FIREFLY_ROOT_URL, '/v1/vote_frame/poll/create'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/vote_frame/poll/create'),
         {
             method: 'POST',
             body: JSON.stringify(request),

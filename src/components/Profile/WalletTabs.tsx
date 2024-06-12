@@ -35,7 +35,7 @@ interface WalletTabsProps {
 export function WalletTabs({ address }: WalletTabsProps) {
     const [currentTab, setCurrentTab] = useStateWithSearchParams<WalletProfileTabType>(
         'wallet_tab',
-        WalletProfileTabType.Articles,
+        WalletProfileTabType.OnChainActivities,
     );
 
     return (

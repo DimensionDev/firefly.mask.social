@@ -10,13 +10,13 @@ export class FireflySession extends BaseSession implements Session {
     constructor(
         accountId: string,
         accessToken: string,
-        public parent: Session,
+        public parent: Session | null,
     ) {
         super(SessionType.Firefly, accountId, accessToken, 0, 0);
     }
 
     override serialize(): `${SessionType}:${string}:${string}` {
-        return `${super.serialize()}:${btoa(this.parent.serialize())}`;
+        return `${super.serialize()}:${this.parent ? btoa(this.parent.serialize()) : ''}`;
     }
 
     override async refresh(): Promise<void> {
