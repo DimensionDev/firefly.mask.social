@@ -1,7 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -10,16 +9,20 @@ import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { settings } from '@/settings/index.js';
 
 async function bindLensSessionToFirefly(session: LensSession, signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetch<BindResponse>(urlcat(FIREFLY_ROOT_URL, '/v1/user/bindLens'), {
-        method: 'POST',
-        body: JSON.stringify({
-            accessToken: session.token,
-            isForce: false,
-        }),
-        signal,
-    });
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/bindLens'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                accessToken: session.token,
+                isForce: false,
+            }),
+            signal,
+        },
+    );
 
     const data = resolveFireflyResponseData(response);
     return data;
@@ -27,7 +30,7 @@ async function bindLensSessionToFirefly(session: LensSession, signal?: AbortSign
 
 async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(FIREFLY_ROOT_URL, '/v1/user/bindFarcaster'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/bindFarcaster'),
         {
             method: 'POST',
             body: JSON.stringify({

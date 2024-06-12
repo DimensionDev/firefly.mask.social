@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { GetPostMetaData } from '@/services/postToLens.js';
+import { settings } from '@/settings/index.js';
 
 interface IUploadToArweaveResponse {
     data: {
@@ -19,7 +19,7 @@ interface IUploadToArweaveResponse {
  * @throws An error if the upload fails.
  */
 export async function uploadToArweave(data: GetPostMetaData, token: string): Promise<string> {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_metadata');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/lens/public_metadata');
     const {
         data: { arweaveTxId },
     } = await fetchJSON<IUploadToArweaveResponse>(url, {

@@ -237,6 +237,9 @@ msgstr ""
 msgid "Username"
 msgstr "用戶名"
 
+msgid "Switch to the development API version for testing new features."
+msgstr ""
+
 msgid "Blockchain"
 msgstr ""
 
@@ -352,7 +355,7 @@ msgid "Owners"
 msgstr ""
 
 msgid "OpenGraph Validator"
-msgstr ""
+msgstr "OpenGraph 驗證器"
 
 msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr ""
@@ -391,7 +394,7 @@ msgid "THREAD POST"
 msgstr ""
 
 msgid "Frame Validator"
-msgstr ""
+msgstr "Frame 驗證器"
 
 msgid "Copy Link"
 msgstr "複製連結"
@@ -646,6 +649,9 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
+msgstr ""
+
+msgid "Switch to the production API version for using stable features."
 msgstr ""
 
 msgid "Failed to follow."

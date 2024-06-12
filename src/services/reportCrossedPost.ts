@@ -4,10 +4,11 @@ import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { FIREFLY_ROOT_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
 interface Report {
@@ -63,7 +64,7 @@ async function report(post: CompositePost) {
             if (!x) return Promise.resolve(null);
             return fireflySessionHolder.fetch<ReportCrossPostResponse>(
                 // cspell: disable-next-line
-                urlcat(FIREFLY_ROOT_URL, '/api/logpush'),
+                urlcat(settings.FIREFLY_ROOT_URL, '/api/logpush'),
                 {
                     method: 'POST',
                     body: JSON.stringify(x),

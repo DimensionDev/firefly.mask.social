@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { FIREFLY_ROOT_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
@@ -11,6 +11,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { settings } from '@/settings/index.js';
 
 /**
  * Restore firefly session from a lens or farcaster session.
@@ -23,7 +24,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
 
     switch (type) {
         case SessionType.Lens: {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/lens/login');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
             const response = await fetchJSON<LensLoginResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -40,7 +41,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session);
             const isRelayService = FarcasterSession.isRelayService(session);
 
-            const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
             const response = await fetchJSON<FarcasterLoginResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({

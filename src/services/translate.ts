@@ -2,8 +2,8 @@
 
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { settings } from '@/settings/index.js';
 
 // Learn more supported languages here:
 // https://api.cognitive.microsofttranslator.com/languages?api-version=3.0
@@ -173,7 +173,7 @@ export async function translate(
     detectedLanguage: Language;
     translations: Translation[];
 }> {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/misc/translate');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/translate');
     const { data } = await fetchJSON<TranslationResponse>(url, {
         method: 'POST',
         body: JSON.stringify({

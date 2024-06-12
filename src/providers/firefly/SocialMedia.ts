@@ -12,7 +12,6 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -73,9 +72,10 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { settings } from '@/settings/index.js';
 
 async function reportPost(params: ReportPostParams) {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/report/post/create');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');
     return fireflySessionHolder.fetch<string>(url, {
         method: 'POST',
         body: JSON.stringify(params),
@@ -83,7 +83,7 @@ async function reportPost(params: ReportPostParams) {
 }
 
 async function block(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/block');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/block');
     const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -95,7 +95,7 @@ async function block(field: BlockFields, profileId: string): Promise<boolean> {
 }
 
 async function unblock(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/unblock');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/unblock');
     const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -114,7 +114,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel_v2', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel_v2', {
             channelHandle,
         });
         const response = await fireflySessionHolder.fetch<ChannelResponse>(url, {
@@ -129,7 +129,7 @@ export class FireflySocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Channel, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
             fid: profileId,
         });
         const response = await fetchJSON<ChannelsResponse>(url, {
@@ -141,7 +141,7 @@ export class FireflySocialMedia implements Provider {
     }
     // no cursor in response
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
             size: 25,
             cursor: indicator?.id,
         });
@@ -159,7 +159,7 @@ export class FireflySocialMedia implements Provider {
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/casts', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/casts', {
                 channelHandle,
                 fid: session?.profileId,
                 size: 20,
@@ -180,7 +180,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/channels', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/channels', {
             keyword: q,
             size: 20,
             cursor: indicator?.id,
@@ -291,7 +291,7 @@ export class FireflySocialMedia implements Provider {
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/timeline', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/farcaster/timeline', {
                 size: 20,
                 cursor: indicator?.id,
                 sourceFid: session?.profileId,
@@ -310,7 +310,7 @@ export class FireflySocialMedia implements Provider {
 
     async getPostById(postId: string): Promise<Post> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', {
                 hash: postId,
                 fid: session?.profileId,
                 needRootParentHash: true,
@@ -328,7 +328,7 @@ export class FireflySocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         return farcasterSessionHolder.withSession(async (session) => {
             const response = await fireflySessionHolder.fetch<UserResponse>(
-                urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
+                urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
                     fid: profileId,
                     sourceFid: session?.profileId,
                 }),
@@ -365,7 +365,11 @@ export class FireflySocialMedia implements Provider {
                 break;
         }
 
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', queryKey ? { [`${queryKey}`]: identity } : {});
+        const url = urlcat(
+            settings.FIREFLY_ROOT_URL,
+            '/v2/wallet/profile',
+            queryKey ? { [`${queryKey}`]: identity } : {},
+        );
 
         const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
             method: 'GET',
@@ -379,7 +383,7 @@ export class FireflySocialMedia implements Provider {
     async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireFlyProfile[]> {
         if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
 
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {
             twitterId,
             lensHandle,
             fid,
@@ -394,7 +398,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getNextIDRelations(platform: string, identity: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/wallet/relations', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/relations', {
             platform,
             identity,
         });
@@ -410,7 +414,7 @@ export class FireflySocialMedia implements Provider {
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
                 fid: profileId,
                 size: 10,
                 cursor: indicator?.id,
@@ -432,7 +436,7 @@ export class FireflySocialMedia implements Provider {
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
                 fid: profileId,
                 size: 10,
                 cursor: indicator?.id,
@@ -454,7 +458,7 @@ export class FireflySocialMedia implements Provider {
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/comments', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/comments', {
                 hash: postId,
                 size: 25,
                 fid: session?.profileId,
@@ -475,7 +479,7 @@ export class FireflySocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/casts');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/casts');
             const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -498,7 +502,7 @@ export class FireflySocialMedia implements Provider {
 
     async getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/likes');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/likes');
             const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -521,7 +525,7 @@ export class FireflySocialMedia implements Provider {
 
     async getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
 
             const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
@@ -547,7 +551,7 @@ export class FireflySocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const profileId = farcasterSessionHolder.sessionRequired.profileId;
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications/new', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications/new', {
             fid: profileId,
             sourceFid: profileId,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -623,7 +627,7 @@ export class FireflySocialMedia implements Provider {
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
             const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -646,7 +650,7 @@ export class FireflySocialMedia implements Provider {
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/likes', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/likes', {
                 castHash: postId,
                 size: 15,
                 sourceFid: session?.profileId,
@@ -668,7 +672,7 @@ export class FireflySocialMedia implements Provider {
 
     async getRepostReactors(postId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
                 castHash: postId,
                 size: 15,
                 sourceFid: session?.profileId,
@@ -690,7 +694,7 @@ export class FireflySocialMedia implements Provider {
 
     // TODO: now for farcaster only, support other platforms in the future.
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/identity', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword: q,
             size: 25,
             cursor: indicator?.id,
@@ -710,7 +714,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async searchIdentity(q: string, platforms?: SocialSource[]) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/identity', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword: q,
             size: 100,
         });
@@ -724,7 +728,7 @@ export class FireflySocialMedia implements Provider {
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
                 keyword: q,
                 limit: 25,
                 sourceFid: session?.profileId,
@@ -738,7 +742,7 @@ export class FireflySocialMedia implements Provider {
 
     async getUploadMediaToken(token: string) {
         if (!token) throw new Error('Need to login with Lens');
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_uploadMediaToken');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/lens/public_uploadMediaToken');
         const response = await fetchJSON<UploadMediaTokenResponse>(url, {
             headers: {
                 'x-access-token': token,
@@ -751,7 +755,7 @@ export class FireflySocialMedia implements Provider {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return;
             const response = await fetchJSON<FriendshipResponse>(
-                urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
+                urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                     sourceFid: session?.profileId,
                     destFid: profileId,
                 }),
@@ -768,7 +772,7 @@ export class FireflySocialMedia implements Provider {
             const post = localPost ?? (await this.getPostById(postId));
 
             const response = await fireflySessionHolder.fetch<ThreadResponse>(
-                urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
+                urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
                     sourceFid: session?.profileId,
                     hash: postId,
                     maxDepth: 25,
@@ -786,7 +790,7 @@ export class FireflySocialMedia implements Provider {
         indicator?: PageIndicator,
         source?: Exclude<SourceInURL, SourceInURL.Article>,
     ): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blocklist', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blocklist', {
             size: 20,
             page: indicator?.id ?? 1,
             platform: source,
@@ -807,7 +811,7 @@ export class FireflySocialMedia implements Provider {
                 throw new Error('No farcaster session found');
             }
 
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/blocks', {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/blocks', {
                 account_id: session.profileId,
             });
             const response = await fireflySessionHolder.fetch<BlockedChannelsResponse>(url);
@@ -824,7 +828,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/quotes', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/quotes', {
             hash: postId,
             size: 20,
             cursor: indicator?.id,
@@ -849,7 +853,7 @@ export class FireflySocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/create');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/create');
         const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -864,7 +868,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async unbookmark(postId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/remove');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/remove');
         const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -876,7 +880,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
             post_type: BookmarkType.All,
             platforms: 'farcaster',
             limit: 25,
@@ -906,7 +910,7 @@ export class FireflySocialMedia implements Provider {
     async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return false;
-            const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/blockRelation');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blockRelation');
             const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -935,7 +939,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
         const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -948,7 +952,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
         const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
             method: 'DELETE',
             body: JSON.stringify({
@@ -962,7 +966,7 @@ export class FireflySocialMedia implements Provider {
 
     async watchWallet(address: string) {
         if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,
         });
@@ -972,7 +976,7 @@ export class FireflySocialMedia implements Provider {
 
     async unwatchWallet(address: string) {
         if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/follow', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,
         });
@@ -1006,7 +1010,7 @@ export class FireflySocialMedia implements Provider {
         limit?: number;
     } = {}) {
         const page = Number.parseInt(indicator?.id || '0', 10);
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/discover/feeds', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/discover/feeds', {
             size: limit,
             offset: (page + 1) * limit,
         });
@@ -1030,7 +1034,7 @@ export class FireflySocialMedia implements Provider {
         walletAddresses?: string[];
     } = {}) {
         const url = urlcat(
-            FIREFLY_ROOT_URL,
+            settings.FIREFLY_ROOT_URL,
             walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
         );
         const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(url, {

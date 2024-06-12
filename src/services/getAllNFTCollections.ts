@@ -7,9 +7,9 @@ import {
 } from '@masknet/shared-base';
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { NFTCollectionsResponse } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
 
 export interface Params {
     limit?: number;
@@ -30,7 +30,7 @@ export interface Params {
  */
 export async function getAllNFTCollections(params: Params) {
     const { indicator, walletAddress, limit } = params ?? {};
-    const url = urlcat(FIREFLY_ROOT_URL, 'v2/user/nftCollections', {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, 'v2/user/nftCollections', {
         walletAddress,
         limit: limit || 25,
         cursor: indicator?.id || undefined,
