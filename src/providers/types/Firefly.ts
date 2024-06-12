@@ -742,3 +742,16 @@ export interface LinkInfo {
 }
 
 export type LinkInfoResponse = Response<LinkInfo>;
+
+export type SessionStatus =
+    | {
+          status: 'confirm';
+      }
+    | {
+          status: 'cancel';
+      }
+    | {
+          status: 'expired';
+      };
+
+export type SessionStatusResponse = Response<SessionStatus>;
