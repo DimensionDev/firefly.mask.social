@@ -14,7 +14,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
-import { AbortError, ProfileNotConnectedError } from '@/constants/error.js';
+import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -32,6 +32,7 @@ import { createSessionByCustodyWallet } from '@/providers/warpcast/createSession
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { UserRejectedRequestError } from 'viem';
 
 async function login(
     createSession: () => Promise<FarcasterSession>,
@@ -67,15 +68,19 @@ async function login(
 
         const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
 
-        // if login timed out, we will let the user refresh the QR code
-        if (message.toLowerCase().includes('farcaster login timed out')) return;
+        // if (message.toLowerCase().includes('farcaster login timed out')) return;
+        console.log('DEBUG: message');
+        console.log(message);
+
+        // if login timed out, let the user refresh the QR code
+        if (error instanceof TimeoutError) return;
 
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
             error,
         });
 
         // user rejected request
-        if (message.toLowerCase().includes('user rejected the request')) return;
+        if (error instanceof UserRejectedRequestError) return;
 
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.

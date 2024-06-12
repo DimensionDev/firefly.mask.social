@@ -27,13 +27,14 @@ async function createSession(signal?: AbortSignal) {
         signal,
     });
 
+    const now = Date.now();
     const farcasterSession = new FarcasterSession(
         // not available
         '',
         // not available
         '',
-        Date.now(),
-        Date.now(),
+        now,
+        now,
         '',
         response.channelToken,
     );
