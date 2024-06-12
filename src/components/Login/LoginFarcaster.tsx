@@ -331,13 +331,13 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     <Trans>Please click and refresh the QR code to log in again.</Trans>
                                 ) : signType === FarcasterSignType.GrantPermission ? (
                                     <Trans>
-                                        On your mobile device with Warpcast, open the{' '}
+                                        On your mobile device with <span className="font-bold">Warpcast</span>, open the{' '}
                                         <span className="font-bold">Camera</span> app and scan the QR code. Approve a
                                         new Farcaster signer to Firefly.
                                     </Trans>
                                 ) : signType === FarcasterSignType.RelayService ? (
                                     <Trans>
-                                        On your mobile device with Warpcast, open the{' '}
+                                        On your mobile device with <span className="font-bold">Warpcast</span>, open the{' '}
                                         <span className="font-bold">Camera</span> app and scan the QR code in{' '}
                                         {
                                             <span className="font-bold">

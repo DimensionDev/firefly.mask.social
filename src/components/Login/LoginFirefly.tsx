@@ -1,7 +1,7 @@
-import { t, Trans } from '@lingui/macro';
+import { plural, t, Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
-import { useAsyncFn, useUnmount } from 'react-use';
+import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -11,12 +11,17 @@ import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { AbortError, ProfileNotConnectedError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.jsx';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 
-async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {}
+async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
+    const session = await createSession();
+
+    console.log('DEBUG: session');
+    console.log(session);
+}
 
 interface LoginFireflyProps {}
 
@@ -61,6 +66,10 @@ export function LoginFirefly(props: LoginFireflyProps) {
             throw error;
         }
     }, [resetCountdown, startCountdown]);
+
+    useMount(() => {
+        onLoginByGrantPermission();
+    });
 
     useUnmount(() => {
         controllerRef.current?.abort(new AbortError());
@@ -110,9 +119,16 @@ export function LoginFirefly(props: LoginFireflyProps) {
                                     <Trans>Please click and refresh the QR code to log in again.</Trans>
                                 ) : (
                                     <Trans>
-                                        On your mobile device with Warpcast, open the{' '}
-                                        <span className="font-bold">Camera</span> app and scan the QR code. Approve a
-                                        new Farcaster signer to Firefly.
+                                        On your mobile device with <span className="font-bold">Firefly</span>, open the{' '}
+                                        <span className="font-bold">Camera</span> app and scan the QR code in{' '}
+                                        {
+                                            <span className="font-bold">
+                                                {plural(count, {
+                                                    one: '1 second',
+                                                    other: `${count} seconds`,
+                                                })}
+                                            </span>
+                                        }
                                     </Trans>
                                 )}
                             </div>
