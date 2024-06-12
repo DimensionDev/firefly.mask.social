@@ -900,6 +900,9 @@ msgstr "取消关注 @{0}"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
+msgstr ""
+
 msgid "Discard"
 msgstr "放弃"
 
@@ -1308,9 +1311,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其
 msgid "Recasted"
 msgstr "已转发"
 
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
-msgstr ""
-
 msgid "<0>Burned</0> an NFT"
 msgstr ""
 
@@ -1433,4 +1433,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

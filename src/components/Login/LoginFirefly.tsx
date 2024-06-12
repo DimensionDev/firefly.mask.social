@@ -129,6 +129,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                                                 })}
                                             </span>
                                         }
+                                        .
                                     </Trans>
                                 )}
                             </div>
