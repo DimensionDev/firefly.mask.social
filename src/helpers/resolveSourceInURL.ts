@@ -7,6 +7,7 @@ export const resolveSourceInURL = createLookupTableResolver<Source, SourceInURL>
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
         [Source.Twitter]: SourceInURL.Twitter,
+        [Source.Firefly]: SourceInURL.Firefly,
         [Source.Article]: SourceInURL.Article,
         [Source.Wallet]: SourceInURL.Wallet,
         [Source.NFTs]: SourceInURL.NFTs,

@@ -30,6 +30,7 @@ export enum Source {
     Farcaster = 'Farcaster',
     Lens = 'Lens',
     Twitter = 'Twitter',
+    Firefly = 'Firefly',
     Article = 'Article',
     Wallet = 'Wallet',
     NFTs = 'NFTs',
@@ -39,12 +40,14 @@ export enum SourceInURL {
     Farcaster = 'farcaster',
     Lens = 'lens',
     Twitter = 'twitter',
+    Firefly = 'firefly',
     Article = 'article',
     Wallet = 'wallet',
     NFTs = 'nfts',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
+export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 
 export enum SearchType {

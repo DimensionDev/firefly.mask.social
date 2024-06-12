@@ -14,7 +14,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
-import { AbortError } from '@/constants/error.js';
+import { AbortError, ProfileNotConnectedError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -28,20 +28,10 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
-
-class ProfileError extends Error {
-    constructor(
-        public profile: Profile | null,
-        public override message: string,
-    ) {
-        super(message);
-    }
-}
 
 async function login(
     createSession: () => Promise<FarcasterSession>,
@@ -126,9 +116,8 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     const controllerRef = useRef<AbortController>();
 
     const [url, setUrl] = useState('');
-
     const [scanned, setScanned] = useState(false);
-    const [profileError, setProfileError] = useState<ProfileError | null>(null);
+    const [profileError, setProfileError] = useState<ProfileNotConnectedError | null>(null);
 
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
@@ -144,7 +133,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermissionFirefly((url) => {
+                    createSessionByGrantPermission((url) => {
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
@@ -198,14 +187,14 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                             const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
                             setProfileError(
-                                new ProfileError(
+                                new ProfileNotConnectedError(
                                     profile,
                                     t`You didn't connect with Firefly before, need to connect first to fully log in.`,
                                 ),
                             );
                         } catch {
                             setProfileError(
-                                new ProfileError(
+                                new ProfileNotConnectedError(
                                     null,
                                     t`You didn't connect with Firefly before, need to connect first to fully log in.`,
                                 ),
@@ -342,13 +331,13 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     <Trans>Please click and refresh the QR code to log in again.</Trans>
                                 ) : signType === FarcasterSignType.GrantPermission ? (
                                     <Trans>
-                                        On your mobile device with Warpcast, open the{' '}
+                                        On your mobile device with <span className="font-bold">Warpcast</span>, open the{' '}
                                         <span className="font-bold">Camera</span> app and scan the QR code. Approve a
                                         new Farcaster signer to Firefly.
                                     </Trans>
                                 ) : signType === FarcasterSignType.RelayService ? (
                                     <Trans>
-                                        On your mobile device with Warpcast, open the{' '}
+                                        On your mobile device with <span className="font-bold">Warpcast</span>, open the{' '}
                                         <span className="font-bold">Camera</span> app and scan the QR code in{' '}
                                         {
                                             <span className="font-bold">

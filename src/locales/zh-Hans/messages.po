@@ -144,6 +144,9 @@ msgstr "OpenGraph"
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
+msgid "[Image]"
+msgstr ""
+
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
@@ -206,9 +209,6 @@ msgstr "评论"
 
 msgid "via {0}"
 msgstr ""
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
-msgstr "在您装有 Warpcast 的手机上，打开<0>相机</0>在 <1>{0}</1> 内扫描二维码，授权 Firefly 连接您的账号。"
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -576,6 +576,9 @@ msgstr "只有你提及的人"
 msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
 
+msgid "[Poll]"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr "允许回复"
 
@@ -702,6 +705,9 @@ msgstr "文件\"{0}\"超过了大小限制。"
 msgid "Invalid URL."
 msgstr "无效的 URL。"
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
+msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 Firefly 连接您的账号。"
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -716,6 +722,9 @@ msgstr "文章"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 Firefly 连接您的账号。"
 
 msgid "Creator"
 msgstr ""
@@ -990,6 +999,9 @@ msgstr "Frame 服务器未能处理请求"
 msgid "Report"
 msgstr "报告"
 
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
+msgstr ""
+
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
@@ -1067,9 +1079,6 @@ msgstr "转发失败"
 
 msgid "Failed to create firefly session."
 msgstr "创建 firefly 会话失败。"
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr "在您装有 Warpcast 的手机上，打开<0>相机</0>扫描二维码，授权 Firefly 连接您的账号。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr ""
@@ -1150,6 +1159,9 @@ msgid "Only people you follow"
 msgstr "只有你关注的人"
 
 msgid "Add another option"
+msgstr ""
+
+msgid "[Attachment]"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -1266,11 +1278,17 @@ msgstr "登录到 Farcaster 账号"
 msgid "{0} Users"
 msgstr ""
 
+msgid "[Audio]"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"
 
 msgid "Recasted"
 msgstr "已转发"
+
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
+msgstr ""
 
 msgid "<0>Burned</0> an NFT"
 msgstr ""
@@ -1350,6 +1368,9 @@ msgstr "转发"
 msgid "Already posted on {sourceName}."
 msgstr "已经在 {sourceName} 发贴。"
 
+msgid "[Quote]"
+msgstr ""
+
 msgid "Post"
 msgstr "发帖"
 
@@ -1391,4 +1412,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

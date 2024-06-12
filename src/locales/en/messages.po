@@ -139,6 +139,9 @@ msgstr "OpenGraph"
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
 
+msgid "[Image]"
+msgstr "[Image]"
+
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
@@ -201,9 +204,6 @@ msgstr "comment"
 
 msgid "via {0}"
 msgstr "via {0}"
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -571,6 +571,9 @@ msgstr "Only people you mention"
 msgid "Cancel retweet successfully"
 msgstr "Cancel retweet successfully"
 
+msgid "[Poll]"
+msgstr "[Poll]"
+
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
@@ -697,6 +700,9 @@ msgstr "The file \"{0}\" exceeds the size limit."
 msgid "Invalid URL."
 msgstr "Invalid URL."
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
+msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
@@ -711,6 +717,9 @@ msgstr "Articles"
 
 msgid "Settings"
 msgstr "Settings"
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 
 msgid "Creator"
 msgstr "Creator"
@@ -985,6 +994,9 @@ msgstr "The frame server failed to process the request."
 msgid "Report"
 msgstr "Report"
 
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
+msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
+
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
@@ -1062,9 +1074,6 @@ msgstr "Failed to mirror post."
 
 msgid "Failed to create firefly session."
 msgstr "Failed to create firefly session."
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "<0>Minted</0> an NFT for free"
@@ -1146,6 +1155,9 @@ msgstr "Only people you follow"
 
 msgid "Add another option"
 msgstr "Add another option"
+
+msgid "[Attachment]"
+msgstr "[Attachment]"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
@@ -1261,11 +1273,17 @@ msgstr "Log in to Farcaster account"
 msgid "{0} Users"
 msgstr "{0} Users"
 
+msgid "[Audio]"
+msgstr "[Audio]"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
+msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
@@ -1344,6 +1362,9 @@ msgstr "Mirror"
 
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."
+
+msgid "[Quote]"
+msgstr "[Quote]"
 
 msgid "Post"
 msgstr "Post"

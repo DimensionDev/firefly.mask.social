@@ -4,6 +4,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
@@ -15,23 +16,18 @@ export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
     fallbackUrl?: string;
 }
 
-export function ProfileAvatar(props: ProfileAvatarProps) {
-    const {
-        profile,
-        fallbackUrl,
-        clickable = false,
-        linkable = false,
-        enableSourceIcon = true,
-        ...elementProps
-    } = props;
-
+export function ProfileAvatar({
+    profile,
+    fallbackUrl,
+    clickable = false,
+    linkable = false,
+    enableSourceIcon = true,
+    ...props
+}: ProfileAvatarProps) {
     const isLarge = useIsLarge();
 
     const size = props.size ?? (isLarge ? 40 : 36);
-    const style = {
-        width: size,
-        height: size,
-    };
+    const style = useSizeStyle(size, props.style);
 
     const content = (
         <div className="relative z-0" style={style}>
@@ -55,7 +51,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
             })}
             style={style}
             href={getProfileUrl(profile)}
-            {...elementProps}
+            {...props}
         >
             {content}
         </Link>
@@ -65,7 +61,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
                 'cursor-pointer': clickable,
             })}
             style={style}
-            {...elementProps}
+            {...props}
         >
             {content}
         </div>

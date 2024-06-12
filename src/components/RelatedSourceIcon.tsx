@@ -6,6 +6,7 @@ import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
 import XDarkIcon from '@/assets/x-circle-dark.svg';
 import XLightIcon from '@/assets/x-circle-light.svg';
+import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 
 interface RelatedSourceIconProps extends React.SVGProps<SVGSVGElement> {
@@ -15,11 +16,7 @@ interface RelatedSourceIconProps extends React.SVGProps<SVGSVGElement> {
 
 export function RelatedSourceIcon({ source, size = 20, ...props }: RelatedSourceIconProps) {
     const { isDarkMode } = useDarkMode();
-    const style = {
-        width: size,
-        height: size,
-        ...props.style,
-    };
+    const style = useSizeStyle(size, props.style);
 
     switch (source) {
         case RelatedWalletSource.lens:

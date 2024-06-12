@@ -13,13 +13,14 @@ import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
+import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
 import { LoginTwitter } from '@/components/Login/LoginTwitter.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
+import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -28,14 +29,14 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LoginModalProps {
-    source?: SocialSource;
+    source?: ProfileSource;
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
 
     // shared
-    const [source, setSource] = useState<SocialSource | null>(null);
+    const [source, setSource] = useState<ProfileSource | null>(null);
 
     // for lens only
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
@@ -44,7 +45,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     // for farcaster only
     const [signType, setSignType] = useState<FarcasterSignType | null>(null);
 
-    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: SocialSource) => {
+    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: ProfileSource) => {
         try {
             switch (selectedSource) {
                 case Source.Lens: {
@@ -78,6 +79,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     setSource(selectedSource);
                     return;
                 case Source.Twitter:
+                    setSource(selectedSource);
+                    return;
+                case Source.Firefly:
                     setSource(selectedSource);
                     return;
                 default:
@@ -119,15 +123,18 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
             <div className="flex w-full flex-col md:gap-4 md:p-4">
-                {loading ? (
-                    <div className="flex h-[324px] w-full items-center justify-center">
-                        <LoadingIcon className="animate-spin" width={24} height={24} />
-                    </div>
-                ) : (
-                    SORTED_SOCIAL_SOURCES.map((source) => (
-                        <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
-                    ))
-                )}
+                <div className="flex w-full flex-row md:gap-4">
+                    {loading ? (
+                        <div className="flex h-[324px] w-full items-center justify-center">
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        </div>
+                    ) : (
+                        SORTED_SOCIAL_SOURCES.map((source) => (
+                            <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
+                        ))
+                    )}
+                </div>
+                <LoginButton source={Source.Firefly} onClick={() => handleLogin(Source.Firefly)} />
             </div>
         </div>
     ) : (
@@ -141,6 +148,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             {source === Source.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
             {source === Source.Farcaster ? <LoginFarcaster signType={signType} setSignType={setSignType} /> : null}
             {source === Source.Twitter ? <LoginTwitter /> : null}
+            {source === Source.Firefly ? <LoginFirefly /> : null}
         </Suspense>
     );
 
