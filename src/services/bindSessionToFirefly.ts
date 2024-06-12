@@ -10,6 +10,7 @@ import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
+import { UnreachableError } from '@/constants/error.js';
 
 async function bindLensSessionToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
@@ -70,6 +71,6 @@ export async function bindSessionToFirefly(session: Session, signal?: AbortSigna
             throw new Error('Not Allowed.');
         default:
             safeUnreachable(session.type);
-            throw new Error('Unknown session type');
+            throw new UnreachableError('session type', session.type);
     }
 }

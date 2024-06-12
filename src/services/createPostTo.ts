@@ -7,6 +7,7 @@ import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
+import { UnreachableError } from '@/constants/error.js';
 
 type Options = Record<
     ComposeType,
@@ -49,7 +50,7 @@ export function createPostTo(source: SocialSource, options: Options) {
                 }
                 default:
                     safeUnreachable(type);
-                    throw new Error(t`Invalid compose type: ${type}.`);
+                    throw new UnreachableError('compose type', type);
             }
         };
 
