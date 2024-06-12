@@ -277,6 +277,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
+msgid "Show more Lens users"
+msgstr ""
+
 msgid "Reconnect with Firefly"
 msgstr ""
 
@@ -323,6 +326,9 @@ msgid "Mirror again"
 msgstr ""
 
 msgid "Failed to detect device accounts."
+msgstr ""
+
+msgid "Trending Users"
 msgstr ""
 
 msgid "Add another post..."
@@ -715,6 +721,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
+msgid "Suggested Follows"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -922,7 +931,13 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
+msgid "Show more Farcaster users"
+msgstr ""
+
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "Trending {source} Users"
 msgstr ""
 
 msgid "Failed to publish post."
