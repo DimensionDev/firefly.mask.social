@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-07 12:01\n"
+"PO-Revision-Date: 2024-06-12 04:45\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -105,6 +105,9 @@ msgstr ""
 msgid "Searching channel"
 msgstr ""
 
+msgid "Views"
+msgstr ""
+
 msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
@@ -199,6 +202,9 @@ msgid "Show less"
 msgstr ""
 
 msgid "comment"
+msgstr ""
+
+msgid "via {0}"
 msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
@@ -741,6 +747,9 @@ msgstr ""
 msgid "Minting Date"
 msgstr ""
 
+msgid "Comments"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr ""
 
@@ -1008,6 +1017,9 @@ msgstr ""
 msgid "Login to enable all features"
 msgstr ""
 
+msgid "Collects"
+msgstr ""
+
 msgid "Notifications"
 msgstr ""
 
@@ -1045,6 +1057,9 @@ msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
+msgstr ""
+
+msgid "View"
 msgstr ""
 
 msgid "Failed to mirror post."
