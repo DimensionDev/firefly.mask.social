@@ -26,7 +26,7 @@ function toggleBlock(address: string, status: boolean) {
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {
-            if (!isSameAddress(draft.author.id)) return;
+            if (!isSameAddress(draft.author.id, address)) return;
             draft.author.isMuted = status;
         });
     });
