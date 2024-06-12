@@ -27,7 +27,7 @@ export function SuggestedFollowUser({
     return (
         <Link
             href={resolveProfileUrl(source, source === Source.Lens ? profile.profileId : profile.handle)}
-            className="flex w-full px-4 py-2"
+            className="flex w-full px-4 py-2 hover:bg-bg"
         >
             <div className="flex w-full items-center">
                 <Avatar
@@ -36,7 +36,7 @@ export function SuggestedFollowUser({
                     size={40}
                     alt={profile.handle}
                 />
-                <div className="mr-auto flex max-w-[calc(100%-100px-40px-16px)] flex-col">
+                <div className="mr-auto flex max-w-[calc(100%-16px-40px-16px-32px)] flex-col">
                     <div className="flex-start flex items-center truncate text-sm font-bold leading-5">
                         <div className="text-l mr-2 max-w-full truncate">
                             {fullProfile?.displayName || profile.displayName}
@@ -49,7 +49,7 @@ export function SuggestedFollowUser({
                 </div>
                 {fullProfile ? (
                     <div>
-                        <FollowButton profile={fullProfile} />
+                        <FollowButton profile={fullProfile} variant="icon" />
                     </div>
                 ) : null}
             </div>

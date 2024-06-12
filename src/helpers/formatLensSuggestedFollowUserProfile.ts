@@ -10,5 +10,8 @@ export function formatLensSuggestedFollowUserProfile(result: ProfileFragment): S
         handle: (result.handle?.localName || result.metadata?.displayName) ?? '',
         fullHandle: result.handle?.fullHandle || '',
         pfp: getAvatar(result),
+        viewerContext: {
+            blocking: result.operations.isBlockedByMe.value,
+        },
     };
 }
