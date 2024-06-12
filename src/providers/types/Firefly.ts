@@ -728,3 +728,10 @@ export interface ReportPostParams {
     post_type: 'text' | 'video' | 'audio' | 'image';
     post_id: string;
 }
+
+export interface LinkInfo {
+    link: string;
+    session: string;
+}
+
+export type LinkInfoResponse = Response<LinkInfo>;
