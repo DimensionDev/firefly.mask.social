@@ -16,7 +16,14 @@ export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export function ProfileAvatar(props: ProfileAvatarProps) {
-    const { profile, fallbackUrl, clickable = false, linkable = false, enableSourceIcon = true, ...elementProps } = props;
+    const {
+        profile,
+        fallbackUrl,
+        clickable = false,
+        linkable = false,
+        enableSourceIcon = true,
+        ...elementProps
+    } = props;
 
     const isLarge = useIsLarge();
 

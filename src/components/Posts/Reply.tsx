@@ -23,16 +23,16 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
     const currentSocialSource = narrowToSocialSource(currentSource);
     const currentProfile = useCurrentAvailableProfile(currentSocialSource);
 
-    const avatarFallbackUrl = post.source === Source.Lens ? getLennyURL(post.author.handle) : undefined
+    const avatarFallbackUrl = post.source === Source.Lens ? getLennyURL(post.author.handle) : undefined;
 
     return (
         <>
-            <div className='flex gap-3'>
-                <div className='flex flex-col items-center'>
+            <div className="flex gap-3">
+                <div className="flex flex-col items-center">
                     <ProfileAvatar profile={post.author} enableSourceIcon={false} fallbackUrl={avatarFallbackUrl} />
-                    <div className='flex-1 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700 min-h-[40px]' />
+                    <div className="min-h-[40px] flex-1 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
                 </div>
-                <div className='text-left'>
+                <div className="text-left">
                     <PostBody post={post} isReply disablePadding={post.isHidden || post.isEncrypted} />
                     <div className="pt-3 text-[15px] text-placeholder">
                         <Trans>
@@ -42,11 +42,11 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                     </div>
                 </div>
             </div>
-            <div className='relative flex-1 flex gap-3'>
+            <div className="relative flex flex-1 gap-3">
                 {currentProfile ? (
                     <ProfileAvatar profile={currentProfile} enableSourceIcon={false} fallbackUrl={avatarFallbackUrl} />
                 ) : null}
-                <div className='flex-1 flex pt-2'>
+                <div className="flex flex-1 pt-2">
                     <Editor post={compositePost} replying />
                 </div>
             </div>

@@ -1,4 +1,3 @@
-
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
@@ -28,12 +27,14 @@ export function ComposeContent(props: ComposeContentProps) {
 
     return (
         <div className="relative flex flex-1 flex-col">
-            {replying ? (
-                <Reply post={post} compositePost={props.post} />
-            ) : null}
+            {replying ? <Reply post={post} compositePost={props.post} /> : null}
 
             {!replying ? (
-                cursor === id ? <Editor post={props.post} replying={replying} /> : <Placeholder post={props.post} />
+                cursor === id ? (
+                    <Editor post={props.post} replying={replying} />
+                ) : (
+                    <Placeholder post={props.post} />
+                )
             ) : null}
 
             {/* poll */}
@@ -68,7 +69,7 @@ export function ComposeContent(props: ComposeContentProps) {
             ) : null}
 
             {/* quote */}
-            {(type === 'quote') && post ? <Quote post={post} className="text-left" /> : null}
+            {type === 'quote' && post ? <Quote post={post} className="text-left" /> : null}
 
             {/* open graphs */}
             {differenceOpenGraphs.length ? (
