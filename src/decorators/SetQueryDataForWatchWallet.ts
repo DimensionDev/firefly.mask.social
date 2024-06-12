@@ -15,7 +15,7 @@ export function toggleWatch(address: string, status: boolean) {
             for (const page of draft.pages) {
                 if (!page) continue;
                 for (const article of page.data) {
-                    if (!isSameAddress(article.author.id)) continue;
+                    if (!isSameAddress(article.author.id, address)) continue;
                     article.author.isFollowing = status;
                 }
             }
