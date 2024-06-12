@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-12 04:45\n"
+"PO-Revision-Date: 2024-06-12 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -144,6 +144,9 @@ msgstr ""
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
+msgid "[Image]"
+msgstr ""
+
 msgid "Wrong wallet"
 msgstr ""
 
@@ -207,9 +210,6 @@ msgstr ""
 msgid "via {0}"
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
-msgstr ""
-
 msgid "Bookmarks"
 msgstr ""
 
@@ -235,6 +235,9 @@ msgid "Report submitted"
 msgstr ""
 
 msgid "Username"
+msgstr ""
+
+msgid "Switch to the development API version for testing new features."
 msgstr ""
 
 msgid "Blockchain"
@@ -576,6 +579,9 @@ msgstr ""
 msgid "Cancel retweet successfully"
 msgstr ""
 
+msgid "[Poll]"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -645,6 +651,9 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
+msgid "Switch to the production API version for using stable features."
+msgstr ""
+
 msgid "Failed to follow."
 msgstr ""
 
@@ -702,6 +711,9 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -715,6 +727,9 @@ msgid "Articles"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr ""
 
 msgid "Creator"
@@ -990,6 +1005,9 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
+msgstr ""
+
 msgid "Post by {0}"
 msgstr ""
 
@@ -1066,9 +1084,6 @@ msgid "Failed to mirror post."
 msgstr ""
 
 msgid "Failed to create firefly session."
-msgstr ""
-
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr ""
 
 msgid "<0>Minted</0> an NFT for free"
@@ -1150,6 +1165,9 @@ msgid "Only people you follow"
 msgstr ""
 
 msgid "Add another option"
+msgstr ""
+
+msgid "[Attachment]"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -1266,10 +1284,16 @@ msgstr ""
 msgid "{0} Users"
 msgstr ""
 
+msgid "[Audio]"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
@@ -1348,6 +1372,9 @@ msgid "Mirror"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "[Quote]"
 msgstr ""
 
 msgid "Post"
