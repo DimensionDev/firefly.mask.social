@@ -746,6 +746,7 @@ export type LinkInfoResponse = Response<LinkInfo>;
 export type SessionStatus =
     | {
           status: 'confirm';
+          accessToken: string;
       }
     | {
           status: 'cancel';
