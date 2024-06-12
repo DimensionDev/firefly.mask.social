@@ -8,19 +8,40 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError, ProfileNotConnectedError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
+import { FireflySession } from '@/providers/firefly/Session.js';
+import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
-    const session = await createSession();
+    try {
+        const session = await createSession();
 
-    console.log('DEBUG: session');
-    console.log(session);
+        await FireflySession.restore(session);
+        await FireflySessionConfirmModalRef.openAndWaitForClose({
+            source: Source.Firefly,
+            sessions: await syncSessionFromFirefly(options?.signal),
+            onDetected(profiles) {
+                if (!profiles.length)
+                    enqueueInfoMessage(t`No device accounts detected.`, {
+                        environment: NODE_ENV.Development,
+                    });
+                LoginModalRef.close();
+            },
+        });
+    } catch (error) {
+        // skip if the error is abort error
+        if (AbortError.is(error)) return;
+
+        LoginModalRef.close();
+        throw error;
+    }
 }
 
 interface LoginFireflyProps {}
@@ -129,6 +150,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                                                 })}
                                             </span>
                                         }
+                                        .
                                     </Trans>
                                 )}
                             </div>

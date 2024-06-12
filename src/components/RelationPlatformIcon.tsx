@@ -31,6 +31,6 @@ export function RelationPlatformIcon({ size, source, ...props }: RelationPlatfor
             return <KeyBaseIcon {...props} style={style} width={size} height={size} />;
         default:
             safeUnreachable(source);
-            return;
+            return null;
     }
 }

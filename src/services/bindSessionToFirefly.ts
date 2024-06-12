@@ -1,6 +1,7 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { NotAllowedError, NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -46,7 +47,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 }
 
 async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: AbortSignal) {
-    throw new Error('Not implemented.');
+    throw new NotImplementedError();
 }
 
 /**
@@ -67,9 +68,9 @@ export async function bindSessionToFirefly(session: Session, signal?: AbortSigna
         case SessionType.Twitter:
             return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Firefly:
-            throw new Error('Not Allowed.');
+            throw new NotAllowedError();
         default:
             safeUnreachable(session.type);
-            throw new Error('Unknown session type');
+            throw new UnreachableError('session type', session.type);
     }
 }

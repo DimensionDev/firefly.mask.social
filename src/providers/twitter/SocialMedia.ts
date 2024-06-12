@@ -11,6 +11,7 @@ import type {
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
@@ -140,11 +141,11 @@ class TwitterSocialMedia implements Provider {
     }
 
     discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Not implemented');
+        throw new NotImplementedError();
     }
 
     getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        throw new Error('Not implemented');
+        throw new NotImplementedError();
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -178,7 +179,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Not implemented');
+        throw new NotImplementedError();
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -224,7 +225,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     getThreadByPostId(postId: string): Promise<Post[]> {
-        throw new Error('Not implemented');
+        throw new NotImplementedError();
     }
 
     async upvotePost(postId: string): Promise<void> {
@@ -242,11 +243,11 @@ class TwitterSocialMedia implements Provider {
     }
 
     searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Not implemented');
+        throw new NotImplementedError();
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Not implemented');
+        throw new NotImplementedError();
     }
 
     getChannelById(channelId: string): Promise<Channel> {

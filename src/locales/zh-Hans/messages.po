@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-12 04:45\n"
+"PO-Revision-Date: 2024-06-12 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -282,6 +282,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
 
+msgid "Show more Lens users"
+msgstr ""
+
 msgid "Reconnect with Firefly"
 msgstr "使用 Firefly 重连"
 
@@ -329,6 +332,9 @@ msgstr "转帖"
 
 msgid "Failed to detect device accounts."
 msgstr "检测设备账号失败。"
+
+msgid "Trending Users"
+msgstr ""
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
@@ -476,9 +482,6 @@ msgstr ""
 
 msgid "Report spam"
 msgstr ""
-
-msgid "Invalid compose type: {type}."
-msgstr "无效的发帖类型：{type}。"
 
 msgid "View Source"
 msgstr "查看原文"
@@ -720,6 +723,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
+msgid "Suggested Follows"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
@@ -891,6 +897,9 @@ msgstr "取消关注 @{0}"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
+msgstr ""
+
 msgid "Discard"
 msgstr "放弃"
 
@@ -927,8 +936,14 @@ msgstr "点赞失败。"
 msgid "Mirrored"
 msgstr "已转发"
 
+msgid "Show more Farcaster users"
+msgstr ""
+
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
+
+msgid "Trending {source} Users"
+msgstr ""
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
@@ -1155,9 +1170,6 @@ msgstr "分享到"
 msgid "Download app"
 msgstr ""
 
-msgid "Unknown session type."
-msgstr "未知会话类型。"
-
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
@@ -1292,9 +1304,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其
 
 msgid "Recasted"
 msgstr "已转发"
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
-msgstr ""
 
 msgid "<0>Burned</0> an NFT"
 msgstr ""

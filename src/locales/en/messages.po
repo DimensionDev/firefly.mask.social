@@ -277,6 +277,9 @@ msgstr "Save Post?"
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
 
+msgid "Show more Lens users"
+msgstr "Show more Lens users"
+
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
 
@@ -324,6 +327,9 @@ msgstr "Mirror again"
 
 msgid "Failed to detect device accounts."
 msgstr "Failed to detect device accounts."
+
+msgid "Trending Users"
+msgstr "Trending Users"
 
 msgid "Add another post..."
 msgstr "Add another post..."
@@ -471,9 +477,6 @@ msgstr "{0} Channels"
 
 msgid "Report spam"
 msgstr "Report spam"
-
-msgid "Invalid compose type: {type}."
-msgstr "Invalid compose type: {type}."
 
 msgid "View Source"
 msgstr "View Source"
@@ -715,6 +718,9 @@ msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
+msgid "Suggested Follows"
+msgstr "Suggested Follows"
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
@@ -886,6 +892,9 @@ msgstr "Unfollow @{0}"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
+msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
+
 msgid "Discard"
 msgstr "Discard"
 
@@ -922,8 +931,14 @@ msgstr "Failed to like the post."
 msgid "Mirrored"
 msgstr "Mirrored"
 
+msgid "Show more Farcaster users"
+msgstr "Show more Farcaster users"
+
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
+
+msgid "Trending {source} Users"
+msgstr "Trending {source} Users"
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
@@ -1150,9 +1165,6 @@ msgstr "Share to"
 msgid "Download app"
 msgstr "Download app"
 
-msgid "Unknown session type."
-msgstr "Unknown session type."
-
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
@@ -1287,9 +1299,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 
 msgid "Recasted"
 msgstr "Recasted"
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
-msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-12 04:45\n"
+"PO-Revision-Date: 2024-06-12 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -282,6 +282,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
+msgid "Show more Lens users"
+msgstr ""
+
 msgid "Reconnect with Firefly"
 msgstr "通過 Firefly 重新連接"
 
@@ -329,6 +332,9 @@ msgstr "重新鏡像"
 
 msgid "Failed to detect device accounts."
 msgstr "偵測裝置帳戶失敗"
+
+msgid "Trending Users"
+msgstr ""
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
@@ -475,9 +481,6 @@ msgid "{0} Channels"
 msgstr ""
 
 msgid "Report spam"
-msgstr ""
-
-msgid "Invalid compose type: {type}."
 msgstr ""
 
 msgid "View Source"
@@ -720,6 +723,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
+msgid "Suggested Follows"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -891,6 +897,9 @@ msgstr "取消追蹤 @{0}"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
+msgstr ""
+
 msgid "Discard"
 msgstr "捨棄"
 
@@ -927,7 +936,13 @@ msgstr "按讚評論失敗"
 msgid "Mirrored"
 msgstr "已鏡像"
 
+msgid "Show more Farcaster users"
+msgstr ""
+
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "Trending {source} Users"
 msgstr ""
 
 msgid "Failed to publish post."
@@ -1155,9 +1170,6 @@ msgstr "分享至"
 msgid "Download app"
 msgstr ""
 
-msgid "Unknown session type."
-msgstr "未知的對話類別"
-
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
 
@@ -1291,9 +1303,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
-msgstr ""
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"

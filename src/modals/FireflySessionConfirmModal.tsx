@@ -6,7 +6,7 @@ import { forwardRef, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -105,7 +105,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
 }
 
 export interface FireflySessionOpenConfirmModalProps {
-    source: SocialSource;
+    source: ProfileSource;
     sessions?: Array<LensSession | FarcasterSession | TwitterSession>;
     onDetected?: (profiles: Profile[]) => void;
 }

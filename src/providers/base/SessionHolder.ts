@@ -1,6 +1,7 @@
 import { Emitter } from '@servie/events';
 import { type Subscription } from 'use-subscription';
 
+import { NotImplementedError } from '@/constants/error.js';
 import type { Session } from '@/providers/types/Session.js';
 
 export class SessionHolder<T extends Session> {
@@ -55,6 +56,6 @@ export class SessionHolder<T extends Session> {
     }
 
     fetch<T>(url: string, options?: RequestInit, required = false) {
-        throw new Error('Not implemented.');
+        throw new NotImplementedError();
     }
 }

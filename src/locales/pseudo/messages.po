@@ -277,6 +277,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
+msgid "Show more Lens users"
+msgstr ""
+
 msgid "Reconnect with Firefly"
 msgstr ""
 
@@ -323,6 +326,9 @@ msgid "Mirror again"
 msgstr ""
 
 msgid "Failed to detect device accounts."
+msgstr ""
+
+msgid "Trending Users"
 msgstr ""
 
 msgid "Add another post..."
@@ -470,9 +476,6 @@ msgid "{0} Channels"
 msgstr ""
 
 msgid "Report spam"
-msgstr ""
-
-msgid "Invalid compose type: {type}."
 msgstr ""
 
 msgid "View Source"
@@ -715,6 +718,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
+msgid "Suggested Follows"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -886,6 +892,9 @@ msgstr ""
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
+msgstr ""
+
 msgid "Discard"
 msgstr ""
 
@@ -922,7 +931,13 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
+msgid "Show more Farcaster users"
+msgstr ""
+
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "Trending {source} Users"
 msgstr ""
 
 msgid "Failed to publish post."
@@ -1150,9 +1165,6 @@ msgstr ""
 msgid "Download app"
 msgstr ""
 
-msgid "Unknown session type."
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr ""
 
@@ -1286,9 +1298,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
-msgstr ""
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
