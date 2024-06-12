@@ -646,6 +646,9 @@ msgstr "Email (optional)"
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
+msgid "Switch to the production API version for using stable features."
+msgstr "Switch to the production API version for using stable features."
+
 msgid "Failed to follow."
 msgstr "Failed to follow."
 

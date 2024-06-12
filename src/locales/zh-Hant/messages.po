@@ -651,6 +651,9 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
+msgid "Switch to the production API version for using stable features."
+msgstr ""
+
 msgid "Failed to follow."
 msgstr "追蹤失敗"
 
