@@ -1,8 +1,10 @@
+import urlcat from 'urlcat';
+
 import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { LinkInfoResponse } from '@/providers/types/Firefly.js';
-import urlcat from 'urlcat';
 
 async function pollingSessionStatus(session: string, signal?: AbortSignal) {
     const sessionStatus = null;
@@ -24,10 +26,7 @@ async function initialRequest(callback?: (url: string) => void, signal?: AbortSi
     console.log('DEBUG: result');
     console.log(result);
 
-    return {
-        link: linkInfo.link,
-        session: linkInfo.session,
-    };
+    return null! as FireflySession;
 }
 
 export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {

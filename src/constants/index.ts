@@ -28,6 +28,7 @@ export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
+export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 50; // in seconds
 
 export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
 

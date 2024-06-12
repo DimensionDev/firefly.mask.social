@@ -1,5 +1,154 @@
+import { t, Trans } from '@lingui/macro';
+import { useRef, useState } from 'react';
+import QRCode from 'react-qr-code';
+import { useAsyncFn, useUnmount } from 'react-use';
+import { useCountdown } from 'usehooks-ts';
+
+import LoadingIcon from '@/assets/loading.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { AbortError, ProfileNotConnectedError } from '@/constants/error.js';
+import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.jsx';
+import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
+
+async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {}
+
 interface LoginFireflyProps {}
 
 export function LoginFirefly(props: LoginFireflyProps) {
-    return null;
+    const controllerRef = useRef<AbortController>();
+
+    const [url, setUrl] = useState('');
+    const [scanned, setScanned] = useState(false);
+    const [profileError, setProfileError] = useState<ProfileNotConnectedError | null>(null);
+
+    const [count, { startCountdown, resetCountdown }] = useCountdown({
+        countStart: FIREFLY_SCAN_QR_CODE_COUNTDOWN,
+        intervalMs: 1000,
+        countStop: 0,
+        isIncrement: false,
+    });
+
+    const [, onLoginByGrantPermission] = useAsyncFn(async () => {
+        controllerRef.current?.abort(new AbortError());
+        controllerRef.current = new AbortController();
+
+        try {
+            await login(
+                () =>
+                    createSessionByGrantPermission((url) => {
+                        resetCountdown();
+                        startCountdown();
+                        setScanned(false);
+
+                        const device = getMobileDevice();
+                        if (device === 'unknown') setUrl(url);
+                        else location.href = url;
+                    }, controllerRef.current?.signal),
+                {
+                    signal: controllerRef.current.signal,
+                },
+            );
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to login.`, {
+                error,
+            });
+            throw error;
+        }
+    }, [resetCountdown, startCountdown]);
+
+    useUnmount(() => {
+        controllerRef.current?.abort(new AbortError());
+    });
+
+    return (
+        <div className="flex flex-col rounded-[12px] md:w-[600px]">
+            {IS_MOBILE_DEVICE ? (
+                <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
+                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                    <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
+                        <Trans>Please confirm the login with Warpcast.</Trans>
+                    </div>
+                </div>
+            ) : (
+                <div className="relative flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
+                    {profileError ? (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                            {profileError.profile ? (
+                                <div className="mb-4 flex flex-col items-center justify-center">
+                                    <ProfileAvatar
+                                        className="mb-2"
+                                        profile={profileError.profile}
+                                        size={64}
+                                        enableSourceIcon={false}
+                                    />
+                                    <p className="text-base">{profileError.profile.displayName}</p>
+                                    <p className="text-xs">@{profileError.profile.handle}</p>
+                                </div>
+                            ) : null}
+                            <p className="mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
+                            <ClickableButton
+                                className="rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
+                                onClick={() => {
+                                    setScanned(false);
+                                    setProfileError(null);
+                                    resetCountdown();
+                                }}
+                            >
+                                <Trans>Back</Trans>
+                            </ClickableButton>
+                        </div>
+                    ) : url ? (
+                        <>
+                            <div className="text-center text-[12px] leading-[16px] text-lightSecond">
+                                {count === 0 ? (
+                                    <Trans>Please click and refresh the QR code to log in again.</Trans>
+                                ) : (
+                                    <Trans>
+                                        On your mobile device with Warpcast, open the{' '}
+                                        <span className="font-bold">Camera</span> app and scan the QR code. Approve a
+                                        new Farcaster signer to Firefly.
+                                    </Trans>
+                                )}
+                            </div>
+                            <div
+                                className={classNames('relative flex items-center justify-center', {
+                                    'cursor-pointer': !scanned,
+                                })}
+                                onClick={() => {
+                                    if (scanned) return;
+
+                                    controllerRef.current?.abort(new AbortError());
+
+                                    onLoginByGrantPermission();
+                                }}
+                            >
+                                <QRCode
+                                    className={classNames({
+                                        'blur-md': count === 0 || scanned,
+                                    })}
+                                    value={url}
+                                    size={360}
+                                />
+                                {scanned ? (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                                    </div>
+                                ) : null}
+                            </div>
+                        </>
+                    ) : (
+                        <div className="flex w-full flex-1 flex-col items-center justify-center">
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
 }

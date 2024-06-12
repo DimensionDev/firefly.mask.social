@@ -116,7 +116,6 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     const controllerRef = useRef<AbortController>();
 
     const [url, setUrl] = useState('');
-
     const [scanned, setScanned] = useState(false);
     const [profileError, setProfileError] = useState<ProfileNotConnectedError | null>(null);
 
