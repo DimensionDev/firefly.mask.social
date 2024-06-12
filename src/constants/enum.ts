@@ -24,6 +24,7 @@ export enum PageRoute {
     Developers = '/developers',
     Search = '/search',
     ChannelTrending = '/trending',
+    UserTrending = '/trending/users',
 }
 
 export enum Source {
@@ -69,6 +70,8 @@ export enum KeyType {
     ConsumerSecret = 'consumerSecret',
 }
 
+export type TrendingUserSource = Source.Farcaster | Source.Lens;
+
 export enum ProfileTabType {
     Feed = 'Feed',
     Replies = 'Replies',
@@ -112,6 +115,7 @@ export enum ScrollListKey {
     Engagement = 'post-engagement',
     NFTList = 'nft-list',
     TopCollectors = 'top-collectors',
+    SuggestedUsers = 'suggested-users',
 }
 
 export enum FarcasterSignType {

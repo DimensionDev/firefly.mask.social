@@ -43,6 +43,7 @@ import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
+import { formatLensSuggestedFollowUserProfile } from '@/helpers/formatLensSuggestedFollowUserProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
@@ -62,6 +63,7 @@ import {
     type Provider,
     ReactionType,
     SessionType,
+    type SuggestedFollowUserProfile,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -1222,6 +1224,24 @@ class LensSocialMedia implements Provider {
             },
         });
         return result.isSuccess().valueOf();
+    }
+
+    async getSuggestedFollowUsers({
+        indicator,
+    }: {
+        indicator?: PageIndicator;
+    } = {}): Promise<Pageable<SuggestedFollowUserProfile, PageIndicator>> {
+        const result = await lensSessionHolder.sdk.explore.profiles({
+            orderBy: ExploreProfilesOrderByType.MostFollowers,
+        });
+
+        if (!result) throw new Error(t`No comments found`);
+
+        return createPageable(
+            result.items.map(formatLensSuggestedFollowUserProfile),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 }
 

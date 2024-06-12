@@ -282,6 +282,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
 
+msgid "Show more Lens users"
+msgstr ""
+
 msgid "Reconnect with Firefly"
 msgstr "使用 Firefly 重连"
 
@@ -329,6 +332,9 @@ msgstr "转帖"
 
 msgid "Failed to detect device accounts."
 msgstr "检测设备账号失败。"
+
+msgid "Trending Users"
+msgstr ""
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
@@ -720,6 +726,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
+msgid "Suggested Follows"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
@@ -927,8 +936,14 @@ msgstr "点赞失败。"
 msgid "Mirrored"
 msgstr "已转发"
 
+msgid "Show more Farcaster users"
+msgstr ""
+
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
+
+msgid "Trending {source} Users"
+msgstr ""
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"

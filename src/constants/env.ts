@@ -53,6 +53,8 @@ const ExternalEnvSchema = z.object({
     // for sentry
     NEXT_PUBLIC_SENTRY_DSN: z.string(),
     NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
+
+    OPENRANK_URL: z.string(),
 });
 
 export const env = {
@@ -82,5 +84,7 @@ export const env = {
 
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
         NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
+
+        OPENRANK_URL: process.env.NEXT_PUBLIC_OPENRANK_URL || 'https://graph.cast.k3l.io',
     }),
 };

@@ -277,6 +277,9 @@ msgstr "Save Post?"
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
 
+msgid "Show more Lens users"
+msgstr "Show more Lens users"
+
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
 
@@ -324,6 +327,9 @@ msgstr "Mirror again"
 
 msgid "Failed to detect device accounts."
 msgstr "Failed to detect device accounts."
+
+msgid "Trending Users"
+msgstr "Trending Users"
 
 msgid "Add another post..."
 msgstr "Add another post..."
@@ -715,6 +721,9 @@ msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
+msgid "Suggested Follows"
+msgstr "Suggested Follows"
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
@@ -922,8 +931,14 @@ msgstr "Failed to like the post."
 msgid "Mirrored"
 msgstr "Mirrored"
 
+msgid "Show more Farcaster users"
+msgstr "Show more Farcaster users"
+
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
+
+msgid "Trending {source} Users"
+msgstr "Trending {source} Users"
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
