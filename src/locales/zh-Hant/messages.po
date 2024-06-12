@@ -282,6 +282,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
+msgid "Show more Lens users"
+msgstr ""
+
 msgid "Reconnect with Firefly"
 msgstr "通過 Firefly 重新連接"
 
@@ -329,6 +332,9 @@ msgstr "重新鏡像"
 
 msgid "Failed to detect device accounts."
 msgstr "偵測裝置帳戶失敗"
+
+msgid "Trending Users"
+msgstr ""
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
@@ -720,6 +726,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
+msgid "Suggested Follows"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -927,7 +936,13 @@ msgstr "按讚評論失敗"
 msgid "Mirrored"
 msgstr "已鏡像"
 
+msgid "Show more Farcaster users"
+msgstr ""
+
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "Trending {source} Users"
 msgstr ""
 
 msgid "Failed to publish post."
