@@ -742,3 +742,17 @@ export interface LinkInfo {
 }
 
 export type LinkInfoResponse = Response<LinkInfo>;
+
+export type SessionStatus =
+    | {
+          status: 'confirm';
+          accessToken: string;
+      }
+    | {
+          status: 'cancel';
+      }
+    | {
+          status: 'expired';
+      };
+
+export type SessionStatusResponse = Response<SessionStatus>;

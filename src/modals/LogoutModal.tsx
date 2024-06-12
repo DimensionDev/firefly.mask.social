@@ -72,7 +72,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                 resolveSessionHolder(source)?.removeSession();
 
                 // remove firefly session if it's the parent session matches the source
-                if (fireflySessionHolder.session?.parent.type === resolveSessionType(source)) {
+                if (fireflySessionHolder.session?.parent?.type === resolveSessionType(source)) {
                     useFireflyStateStore.getState().clear();
                     fireflySessionHolder.removeSession();
                 }
