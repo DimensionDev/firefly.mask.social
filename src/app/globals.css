@@ -283,50 +283,8 @@ body {
     padding: 0;
 }
 
-.preview-actions .slick-slider {
-    width: 100%;
-}
-
-.preview-actions .slick-prev {
-    left: 50px;
-    z-index: 9999;
-}
-
-.preview-actions .slick-next {
-    right: 50px;
-    z-index: 9999;
-}
-
-.preview-actions .slick-prev:before {
+.preview-actions .swiper-button-disabled {
     display: none;
-}
-
-.preview-actions .slick-next:before {
-    display: none;
-}
-
-.preview-actions .slick-disabled {
-    display: none !important;
-}
-
-@media screen and (max-width: 990px) {
-    .preview-actions .slick-prev {
-        left: 25px;
-        z-index: 9999;
-    }
-
-    .preview-actions .slick-next {
-        right: 25px;
-        z-index: 9999;
-    }
-
-    .preview-actions .slick-prev {
-        display: none !important;
-    }
-
-    .preview-actions .slick-next {
-        display: none !important;
-    }
 }
 
 .tippy-card {
