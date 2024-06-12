@@ -355,7 +355,7 @@ msgid "Owners"
 msgstr ""
 
 msgid "OpenGraph Validator"
-msgstr "OpenGraph Validator"
+msgstr "OpenGraph 验证器"
 
 msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
@@ -394,7 +394,7 @@ msgid "THREAD POST"
 msgstr ""
 
 msgid "Frame Validator"
-msgstr "Frame Validator"
+msgstr "Frame 验证器"
 
 msgid "Copy Link"
 msgstr "复制链接"
