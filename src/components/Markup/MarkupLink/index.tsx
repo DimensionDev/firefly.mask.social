@@ -2,15 +2,18 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { isValidDomain } from '@masknet/web3-shared-evm';
+import { last } from 'lodash-es';
 import { memo } from 'react';
+import { Tweet } from 'react-tweet';
 
 import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
+import { components } from '@/components/Tweet/index.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX } from '@/constants/regexp.js';
+import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
@@ -22,9 +25,10 @@ export interface MarkupLinkProps {
     title?: string;
     post?: Post;
     source?: SocialSource;
+    supportTweet?: boolean;
 }
 
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source }) {
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, supportTweet }) {
     if (!title) return null;
 
     if (title.startsWith('@')) {
@@ -89,6 +93,13 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 {title}
             </Link>
         );
+    }
+
+    if (new RegExp(TWEET_REGEX).test(title) && supportTweet) {
+        const match = title.match(TWEET_REGEX);
+        const id = last(match);
+        if (!id) return <ExternalLink title={title} />;
+        return <Tweet id={id} components={components} />;
     }
 
     return <ExternalLink title={title} />;

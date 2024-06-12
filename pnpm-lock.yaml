@@ -279,6 +279,9 @@ importers:
       react-slick:
         specifier: ^0.30.2
         version: 0.30.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      react-tweet:
+        specifier: ^3.2.1
+        version: 3.2.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: 17.4.0
         version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -4986,7 +4989,7 @@ packages:
       '@babel/helper-environment-visitor': 7.24.6
       '@babel/helper-plugin-utils': 7.24.6
       '@babel/helper-remap-async-to-generator': 7.24.6
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.3)
+      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-proposal-class-properties@7.18.6(@babel/core@7.24.6):
@@ -5028,21 +5031,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.3)
-    dev: false
-
-  /@babel/plugin-proposal-nullish-coalescing-operator@7.18.6:
-    resolution: {integrity: sha512-wQxQzxYeJqHcfppzBDnm1yAY0jSRkUXR2z8RePZYrKwMKgMlE8+Z6LUno+bd6LvbGh8Gltvy74+9pIYkr+XkKA==}
-    engines: {node: '>=6.9.0'}
-    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-    dependencies:
-      '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-proposal-nullish-coalescing-operator@7.18.6(@babel/core@7.24.6):
@@ -5071,7 +5060,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.3)
+      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-proposal-object-rest-spread@7.20.7:
@@ -5087,7 +5076,7 @@ packages:
       '@babel/compat-data': 7.24.6
       '@babel/helper-compilation-targets': 7.24.6
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.6)
       '@babel/plugin-transform-parameters': 7.24.6
     dev: false
 
@@ -5102,22 +5091,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.3)
-    dev: false
-
-  /@babel/plugin-proposal-optional-chaining@7.21.0:
-    resolution: {integrity: sha512-p4zeefM72gpmEe2fkUr/OnOXpWEf8nAgk7ZYVqqfFiyIG7oFfVZcCrU64hWn5xp4tQ9LkV4bTIa5rD0KANpKNA==}
-    engines: {node: '>=6.9.0'}
-    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-    dependencies:
-      '@babel/helper-plugin-utils': 7.24.6
-      '@babel/helper-skip-transparent-expression-wrappers': 7.24.6
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-proposal-optional-chaining@7.21.0(@babel/core@7.24.6):
@@ -5157,6 +5131,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-async-generators@7.8.4(@babel/core@7.24.6):
     resolution: {integrity: sha512-tycmZxkGfZaxhMRbXlPXuVFpdWlXpir2W4AMhSJgRKzk/eDlIXOhb2LHWoLpDF7TEHylV5zNhykX6KAgHJmTNw==}
@@ -5192,6 +5167,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.24.6):
     resolution: {integrity: sha512-fm4idjKla0YahUNgFNLCB0qySdsoPiZP3iQE3rky0mBUtMZ23yDJ9SJdg6dXTSDnulOVqiF3Hgr9nbXvXTQZYA==}
@@ -5324,6 +5300,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.24.6):
     resolution: {integrity: sha512-Yqfm+XDx0+Prh3VSeEQCPU81yC+JWZ2pDPFSS4ZdpfZhp4MkFMaDC1UqseovEKwSUpnIL7+vK+Clp7bfh0iD7g==}
@@ -5347,6 +5324,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.24.6):
     resolution: {integrity: sha512-lY6kdGpWHvjoe2vk4WrAapEuBR69EMxZl+RoGRhrFGNYVK8mOPAW8VfbT/ZgrFbXlDNiiaxQnAtgVCZ6jv30EA==}
@@ -5396,6 +5374,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.24.6):
     resolution: {integrity: sha512-d8waShlpFDinQ5MtvGU9xDAOzKH47+FFoney2baFIoMr952hKOLp1HR7VszoZvOsV/4+RRszNY7D17ba0te0ig==}
@@ -5419,6 +5398,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.24.6):
     resolution: {integrity: sha512-aSff4zPII1u2QD7y+F8oDsz19ew4IGEJg9SVW+bqwpwtfFleiQDMdzA/R+UlWDzfnHFCxxleFT0PMIrR36XLNQ==}
@@ -5442,6 +5422,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-numeric-separator@7.10.4(@babel/core@7.24.6):
     resolution: {integrity: sha512-9H6YdfkcK/uOnY/K7/aA2xpzaAgkQn37yzWUMRK7OaPOqOpGS1+n0H5hxT9AUw9EsSjPW8SVyMJwYRtWs3X3ug==}
@@ -5465,6 +5446,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.24.6):
     resolution: {integrity: sha512-XoqMijGZb9y3y2XskN+P1wUGiVwWZ5JmoDRwx5+3GmEplNyVM2s2Dg8ILFQm8rWM48orGy5YpI5Bl8U1y7ydlA==}
@@ -5488,6 +5470,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.24.6):
     resolution: {integrity: sha512-6VPD0Pc1lpTqw0aKoeRTMiB+kWhAoT24PA+ksWSBrFtl5SIRVpZlwN3NNPQjehA2E/91FV3RjLWoVTglWcSV3Q==}
@@ -5511,6 +5494,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.24.6):
     resolution: {integrity: sha512-KoK9ErH1MBlCPxV0VANkXW2/dw4vlbGDrFgz8bmUsBGYkFRcbRwMh6cIJubdPrkxRwuGdtCk0v/wPTKbQgBjkg==}
@@ -5547,6 +5531,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.0
+    dev: true
 
   /@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.24.6):
     resolution: {integrity: sha512-hx++upLv5U1rgYfwe1xBQUhRmU41NEvpUvrp8jkrSCdvGSnM5/qdRMtylJ6PG5OFkBaHkbTAKTnd3/YyESRHFw==}
@@ -5653,7 +5638,7 @@ packages:
       '@babel/helper-environment-visitor': 7.24.6
       '@babel/helper-plugin-utils': 7.24.6
       '@babel/helper-remap-async-to-generator': 7.24.6
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.3)
+      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-transform-async-to-generator@7.24.1(@babel/core@7.24.3):
@@ -6109,7 +6094,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-transform-literals@7.24.1(@babel/core@7.24.3):
@@ -6161,7 +6146,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.3)
+      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-transform-member-expression-literals@7.24.1(@babel/core@7.24.3):
@@ -6380,7 +6365,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-transform-numeric-separator@7.24.1(@babel/core@7.24.3):
@@ -6407,7 +6392,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.3)
+      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-transform-object-rest-spread@7.24.1(@babel/core@7.24.3):
@@ -6437,7 +6422,7 @@ packages:
     dependencies:
       '@babel/helper-compilation-targets': 7.24.6
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.6)
       '@babel/plugin-transform-parameters': 7.24.6
     dev: false
 
@@ -6492,7 +6477,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-transform-optional-chaining@7.24.1(@babel/core@7.24.3):
@@ -6521,7 +6506,7 @@ packages:
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
       '@babel/helper-skip-transparent-expression-wrappers': 7.24.6
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.6)
     dev: false
 
   /@babel/plugin-transform-parameters@7.24.1(@babel/core@7.24.3):
@@ -7221,23 +7206,23 @@ packages:
       '@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining': 7.24.6
       '@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly': 7.24.6
       '@babel/plugin-proposal-private-property-in-object': 7.21.0-placeholder-for-preset-env.2(@babel/core@7.24.3)
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.3)
-      '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.24.3)
+      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.6)
+      '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.24.6)
       '@babel/plugin-syntax-class-static-block': 7.14.5(@babel/core@7.24.3)
       '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-export-namespace-from': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-import-assertions': 7.24.6
       '@babel/plugin-syntax-import-attributes': 7.24.6
-      '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.24.3)
-      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.24.3)
-      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.3)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
-      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.3)
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.3)
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.3)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.24.6)
+      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.6)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.6)
+      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.6)
       '@babel/plugin-syntax-private-property-in-object': 7.14.5(@babel/core@7.24.3)
-      '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.24.3)
+      '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.24.6)
       '@babel/plugin-syntax-unicode-sets-regex': 7.18.6(@babel/core@7.24.3)
       '@babel/plugin-transform-arrow-functions': 7.24.6
       '@babel/plugin-transform-async-generator-functions': 7.24.6
@@ -14351,16 +14336,16 @@ packages:
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.24.6)
       '@babel/plugin-proposal-export-default-from': 7.24.6
       '@babel/plugin-proposal-logical-assignment-operators': 7.20.7
-      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6
+      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6(@babel/core@7.24.6)
       '@babel/plugin-proposal-numeric-separator': 7.18.6
       '@babel/plugin-proposal-object-rest-spread': 7.20.7
       '@babel/plugin-proposal-optional-catch-binding': 7.18.6
-      '@babel/plugin-proposal-optional-chaining': 7.21.0
+      '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.24.6)
       '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-export-default-from': 7.24.6
       '@babel/plugin-syntax-flow': 7.24.6(@babel/core@7.24.6)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.6)
       '@babel/plugin-transform-arrow-functions': 7.24.6
       '@babel/plugin-transform-async-to-generator': 7.24.6
       '@babel/plugin-transform-block-scoping': 7.24.6
@@ -16082,6 +16067,12 @@ packages:
 
   /@swc/counter@0.1.3:
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
+
+  /@swc/helpers@0.5.11:
+    resolution: {integrity: sha512-YNlnKRWF2sVojTpIyzwou9XoTNbzbzONwRhOoniEioF1AtaitTvVZblaQRrAzChWQ1bLYyYSWzM18y4WwgzJ+A==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
 
   /@swc/helpers@0.5.2:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
@@ -33519,6 +33510,24 @@ packages:
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
+  /react-tweet@3.2.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-dktP3RMuwRB4pnSDocKpSsW5Hq1IXRW6fONkHhxT5EBIXsKZzdQuI70qtub1XN2dtZdkJWWxfBm/Q+kN+vRYFA==}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@swc/helpers': 0.5.11
+      clsx: 2.1.0
+      react: 0.0.0-experimental-8039e6d0b-20231026
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
+      swr: 2.2.5(react@0.0.0-experimental-8039e6d0b-20231026)
+    dev: false
+
   /react-universal-interface@0.6.2(react@0.0.0-experimental-8039e6d0b-20231026)(tslib@2.6.2):
     resolution: {integrity: sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==}
     peerDependencies:
@@ -35813,6 +35822,19 @@ packages:
       '@swc/core': 1.3.106
       webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.106)(esbuild@0.19.7)(webpack-cli@5.1.4)
     dev: true
+
+  /swr@2.2.5(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-QtxqyclFeAsxEUeZIYmsaQ0UjimSq1RZ9Un7I68/0ClKK/U3LoyQunwkQfJZr2fc22DfIXLNDc2wFyTEikCUpg==}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      client-only: 0.0.1
+      react: 0.0.0-experimental-8039e6d0b-20231026
+      use-sync-external-store: 1.2.0(react@0.0.0-experimental-8039e6d0b-20231026)
+    dev: false
 
   /symbol-observable@4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
@@ -39700,6 +39722,7 @@ time:
   /react-router-dom@6.14.2: '2023-07-17T20:54:19.824Z'
   /react-slick@0.30.2: '2024-02-17T08:28:05.222Z'
   /react-to-print@2.14.13: '2023-06-07T08:18:39.357Z'
+  /react-tweet@3.2.1: '2024-04-08T17:49:20.328Z'
   /react-use@17.4.0: '2022-05-20T12:10:53.726Z'
   /react-virtuoso@4.7.8: '2024-04-06T17:44:51.068Z'
   /react-window@1.8.9: '2023-04-17T19:30:25.509Z'
