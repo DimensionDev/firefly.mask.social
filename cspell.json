@@ -129,7 +129,9 @@
         "typecheck",
         "upvote",
         "usehooks",
-        "localforage"
+        "localforage",
+        "fname",
+        "openrank"
     ],
     "flagWords": [],
     "ignorePaths": [

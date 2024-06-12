@@ -317,6 +317,8 @@ export interface Channel {
     __original__?: unknown;
 }
 
+export type SuggestedFollowUserProfile = Pick<Profile, 'profileId' | 'displayName' | 'handle' | 'fullHandle' | 'pfp'>;
+
 export interface Provider {
     type: SessionType;
 
@@ -820,4 +822,9 @@ export interface Provider {
      * Report spam or inappropriate channel content.
      */
     reportChannel?: (channelId: string) => Promise<boolean>;
+
+    getSuggestedFollowUsers?: (options?: {
+        limit?: number;
+        indicator?: PageIndicator;
+    }) => Promise<Pageable<SuggestedFollowUserProfile, PageIndicator>>;
 }

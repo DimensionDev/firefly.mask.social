@@ -7,7 +7,7 @@ import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
+export function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
     let avatarUrl = (profile as { avatar?: string }).avatar;
 
     if (profile?.metadata?.picture?.__typename === 'NftImage') {

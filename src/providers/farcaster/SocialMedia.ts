@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
-import { type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { uniqBy } from 'lodash-es';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
@@ -11,9 +12,11 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { formatFarcasterSuggestedFollowUserProfileFromOpenRank } from '@/helpers/formatFarcasterSuggestedFollowUserProfileFromOpenRank.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import { OpenRankProvider } from '@/providers/openrank/index.js';
 import {
     type Channel,
     type Notification,
@@ -21,6 +24,7 @@ import {
     type Profile,
     type Provider,
     SessionType,
+    type SuggestedFollowUserProfile,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
@@ -320,6 +324,26 @@ class FarcasterSocialMedia implements Provider {
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getBookmarks(indicator);
+    }
+
+    async getSuggestedFollowUsers({
+        limit = 40,
+        indicator,
+    }: {
+        limit?: number;
+        indicator?: PageIndicator;
+    } = {}): Promise<Pageable<SuggestedFollowUserProfile, PageIndicator>> {
+        const offset = indicator?.id ? parseInt(indicator.id, 10) : 0;
+        const { result } = await OpenRankProvider.getTopProfiles({ offset, limit });
+        const data = uniqBy(
+            result.map((topProfile) => formatFarcasterSuggestedFollowUserProfileFromOpenRank(topProfile)),
+            'profileId',
+        );
+        return createPageable<SuggestedFollowUserProfile>(
+            data,
+            createIndicator(indicator),
+            result.length > 0 ? createIndicator(undefined, `${offset + limit}`) : undefined,
+        );
     }
 }
 
