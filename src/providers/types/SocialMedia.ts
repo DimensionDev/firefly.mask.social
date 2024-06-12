@@ -208,6 +208,10 @@ export interface Post {
      * The "threads" contains the second and third levels of threads.
      */
     threads?: Post[];
+    sendFrom?: {
+        displayName?: string;
+        name?: string;
+    };
     __original__?: unknown;
 }
 

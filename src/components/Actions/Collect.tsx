@@ -13,8 +13,14 @@ interface CollectProps {
     count?: number;
     disabled?: boolean;
     collected?: boolean;
+    hiddenCount?: boolean;
 }
-export const Collect = memo<CollectProps>(function Collect({ count, disabled = false, collected }) {
+export const Collect = memo<CollectProps>(function Collect({
+    count,
+    disabled = false,
+    collected,
+    hiddenCount = false,
+}) {
     return (
         <ClickableArea
             className={classNames('flex w-min items-center text-main hover:text-primaryPink md:space-x-2', {
@@ -36,7 +42,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                     <CollectIcon width={17} height={16} className={collected ? 'text-collected' : ''} />
                 </motion.button>
             </Tooltip>
-            {count ? (
+            {!hiddenCount && count ? (
                 <span
                     className={classNames('text-xs', {
                         'font-medium': !collected,

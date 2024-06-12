@@ -66,9 +66,22 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                     })}
                 />
 
-                <div className="w-full max-w-[calc(100%_-_53px)] pb-5">
+                <div
+                    className={classNames('w-full max-w-[calc(100%_-_53px)]', {
+                        'pb-5': !isLast,
+                    })}
+                >
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />
-                    <PostActions post={post} disabled={post.isHidden} disablePadding />
+                    <PostActions
+                        post={post}
+                        disabled={post.isHidden}
+                        disablePadding
+                        channelProps={{
+                            onClick() {
+                                if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                            },
+                        }}
+                    />
                 </div>
             </div>
         </motion.article>

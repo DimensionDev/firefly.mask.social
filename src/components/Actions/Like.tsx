@@ -25,6 +25,7 @@ interface LikeProps {
     disabled?: boolean;
     authorId?: string;
     isComment: boolean;
+    hiddenCount?: boolean;
 }
 
 export const Like = memo<LikeProps>(function Like({
@@ -34,6 +35,7 @@ export const Like = memo<LikeProps>(function Like({
     authorId,
     source,
     disabled = false,
+    hiddenCount = false,
     isComment,
 }) {
     const isLogin = useIsLogin(source);
@@ -91,7 +93,7 @@ export const Like = memo<LikeProps>(function Like({
                     {hasLiked ? <LikedIcon width={16} height={16} /> : <LikeIcon width={16} height={16} />}
                 </motion.button>
             </Tooltip>
-            {count ? (
+            {!hiddenCount && count ? (
                 <span
                     className={classNames('text-xs', {
                         'font-bold text-danger': !!hasLiked,
