@@ -48,7 +48,6 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                             <div
                                 key={profile.profileId}
                                 className="flex items-center justify-between gap-2 rounded-[8px] px-3 py-2 backdrop-blur-[8px]"
-                                style={{ boxShadow: '0px 0px 20px 0px var(--color-bottom-bg)' }}
                             >
                                 <ProfileAvatar profile={profile} size={36} />
                                 <ProfileName profile={profile} />

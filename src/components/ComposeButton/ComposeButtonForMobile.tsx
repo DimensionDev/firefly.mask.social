@@ -34,6 +34,7 @@ export function ComposeButtonForMobile() {
                     type: isPostPage ? 'reply' : 'compose',
                     post: currentPost,
                     channel: currentChannel,
+                    source: isPostPage ? currentSocialSource : undefined,
                 });
             }}
         >

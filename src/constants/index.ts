@@ -62,7 +62,8 @@ export const SORTED_BOOKMARK_SOURCES =
         : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
-export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter];
+export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
+export const SUPPORT_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';

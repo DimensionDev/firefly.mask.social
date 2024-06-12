@@ -8,7 +8,8 @@ import { compact } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES, SUPPORT_FRAME_SOURCES } from '@/constants/index.js';
+import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -19,6 +20,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { commitPoll } from '@/services/commitPoll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -157,7 +159,19 @@ export async function crossPost(
     }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
-    const { availableSources } = compositePost;
+    const { availableSources, poll } = compositePost;
+
+    // create common poll for farcaster and lens
+    if (poll && SUPPORT_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
+        const pollId = await commitPoll(poll, readChars(compositePost.chars));
+        compositePost = {
+            ...compositePost,
+            poll: {
+                ...poll,
+                id: pollId,
+            },
+        };
+    }
 
     const allSettled = await Promise.allSettled(
         SORTED_SOCIAL_SOURCES.map(async (x) => {

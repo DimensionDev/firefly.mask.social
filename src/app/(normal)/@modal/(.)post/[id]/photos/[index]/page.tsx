@@ -12,7 +12,7 @@ import { useMemo, useRef } from 'react';
 import Slider from 'react-slick';
 import { useKeyPressEvent } from 'react-use';
 
-import { PostActions } from '@/components/Actions/index.js';
+import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
@@ -80,12 +80,8 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
         const imageAttachments =
-            compact(
-                post.metadata.content?.attachments
-                    ?.slice(0, 4)
-                    .filter((x) => x.type === 'Image')
-                    .map((x) => x.uri),
-            ) ?? EMPTY_LIST;
+            compact(post.metadata.content?.attachments?.filter((x) => x.type === 'Image').map((x) => x.uri)) ??
+            EMPTY_LIST;
 
         if (asset?.type === 'Image' && imageAttachments.length === 1) {
             return [asset.uri];
@@ -136,7 +132,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                     </Slider>
                 </div>
                 <div className="absolute my-1 flex items-center justify-between bottom-safe">
-                    {post ? <PostActions className="gap-8" post={post} disablePadding /> : null}
+                    {post ? <PostActionsWithGrid className="gap-8" post={post} disablePadding /> : null}
                 </div>
             </div>
         </Modal>

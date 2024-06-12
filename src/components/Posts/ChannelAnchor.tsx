@@ -23,10 +23,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
             }}
         >
             <ChannelTippy channel={channel}>
-                <Link
-                    href={getChannelUrl(channel)}
-                    className="flex items-center gap-1 rounded-full border border-secondaryLine bg-bg px-2 py-1"
-                >
+                <Link href={getChannelUrl(channel)} className="flex items-center gap-1">
                     {channel.imageUrl ? (
                         <Avatar src={channel.imageUrl} alt={channel.id} size={16} className="h-4 w-4 rounded-full" />
                     ) : (

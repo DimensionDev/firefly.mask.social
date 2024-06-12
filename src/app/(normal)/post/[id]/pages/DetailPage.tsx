@@ -10,6 +10,7 @@ import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import ComeBack from '@/assets/comeback.svg';
+import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Info } from '@/components/Channel/Info.js';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
@@ -28,9 +29,12 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
-    ssr: false,
-});
+const PostActionsWithGrid = dynamic(
+    () => import('@/components/Actions/index.js').then((module) => module.PostActionsWithGrid),
+    {
+        ssr: false,
+    },
+);
 
 interface PageProps {
     params: {
@@ -160,12 +164,13 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                     </>
                 ) : (
                     <>
-                        <SinglePost post={post} disableAnimate isDetail showTranslate />
-                        <PostActions
+                        <SinglePost post={post} disableAnimate isDetail showTranslate className="border-b-0" />
+                        <PostStatistics post={post} showChannelTag={false} className="mb-1.5 px-3" />
+                        <PostActionsWithGrid
                             disablePadding
                             post={post}
                             disabled={post.isHidden}
-                            className="!mt-0 border-b border-line px-4 py-3"
+                            className="!mt-0 flex flex-col-reverse border-b border-t border-line px-4 py-3"
                         />
                         {/* TODO: Compose Comment Input */}
                         <CommentList postId={postId} source={currentSource} />

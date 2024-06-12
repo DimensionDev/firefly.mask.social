@@ -4,10 +4,9 @@ import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useMemo } from 'react';
+import { type HTMLProps, memo, useMemo } from 'react';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
-import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Source } from '@/constants/enum.js';
@@ -22,7 +21,7 @@ const PostActions = dynamic(() => import('@/components/Actions/index.js').then((
     ssr: false,
 });
 
-export interface SinglePostProps {
+export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     post: Post;
     disableAnimate?: boolean;
     showMore?: boolean;
@@ -43,6 +42,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     showChannelTag = true,
     listKey,
     index,
+    className,
 }) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
@@ -66,8 +66,9 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={classNames('border-b border-line bg-bottom px-3 py-2 hover:bg-bg md:px-4 md:py-3', {
+            className={classNames('border-b border-line bg-bottom px-3 py-2 md:px-4 md:py-3', className, {
                 'cursor-pointer': post.source !== Source.Twitter,
+                'hover:bg-bg': !isDetail,
             })}
             onClick={() => {
                 if (post.source === Source.Twitter) return;
@@ -90,15 +91,19 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             />
 
             <PostBody post={post} showMore={showMore} showTranslate={showTranslate} isDetail={isDetail} />
-            {showChannelTag && !!post.channel && !isComment && !isChannelPage && !isDetail ? (
-                <ChannelAnchor
-                    channel={post.channel}
-                    onClick={() => {
-                        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+            {!isDetail ? (
+                <PostActions
+                    className="-mb-2 md:-mb-3"
+                    post={post}
+                    disabled={post.isHidden}
+                    showChannelTag={!isComment && !isChannelPage && showChannelTag}
+                    channelProps={{
+                        onClick() {
+                            if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                        },
                     }}
                 />
             ) : null}
-            {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
             {show ? (
                 <div className="mt-2 w-full cursor-pointer text-center text-[15px] font-bold text-link">

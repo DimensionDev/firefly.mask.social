@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-07 12:01\n"
+"PO-Revision-Date: 2024-06-12 04:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -105,6 +105,9 @@ msgstr ""
 msgid "Searching channel"
 msgstr "搜尋頻道"
 
+msgid "Views"
+msgstr ""
+
 msgid "Failed to upload. Video is not supported yet"
 msgstr "上傳失敗。暫不接受影片上傳。"
 
@@ -139,6 +142,9 @@ msgid "OpenGraph"
 msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
+msgstr ""
+
+msgid "[Image]"
 msgstr ""
 
 msgid "Wrong wallet"
@@ -200,6 +206,9 @@ msgstr "顯示更少"
 
 msgid "comment"
 msgstr "留言"
+
+msgid "via {0}"
+msgstr ""
 
 msgid "Bookmarks"
 msgstr "書籤"
@@ -567,6 +576,9 @@ msgstr ""
 msgid "Cancel retweet successfully"
 msgstr "成功取消轉發"
 
+msgid "[Poll]"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -742,6 +754,9 @@ msgid "commented"
 msgstr "已評論"
 
 msgid "Minting Date"
+msgstr ""
+
+msgid "Comments"
 msgstr ""
 
 msgid "The page could not be found."
@@ -984,6 +999,9 @@ msgstr ""
 msgid "Report"
 msgstr "檢舉"
 
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
+msgstr ""
+
 msgid "Post by {0}"
 msgstr ""
 
@@ -1009,6 +1027,9 @@ msgid "Skip for now"
 msgstr ""
 
 msgid "Login to enable all features"
+msgstr ""
+
+msgid "Collects"
 msgstr ""
 
 msgid "Notifications"
@@ -1049,6 +1070,9 @@ msgstr ""
 
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
+
+msgid "View"
+msgstr ""
 
 msgid "Failed to mirror post."
 msgstr ""
@@ -1135,6 +1159,9 @@ msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
 
 msgid "Add another option"
+msgstr ""
+
+msgid "[Attachment]"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -1251,6 +1278,9 @@ msgstr "登入 Farcaster 帳戶"
 msgid "{0} Users"
 msgstr ""
 
+msgid "[Audio]"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
@@ -1336,6 +1366,9 @@ msgid "Mirror"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "[Quote]"
 msgstr ""
 
 msgid "Post"
