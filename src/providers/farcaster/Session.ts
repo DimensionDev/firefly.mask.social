@@ -5,6 +5,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { NotAllowedError } from '@/constants/error.js';
 
 export const FAKE_SIGNER_REQUEST_TOKEN = 'fake_signer_request_token';
 
@@ -31,7 +32,7 @@ export class FarcasterSession extends BaseSession implements Session {
     }
 
     refresh(): Promise<void> {
-        throw new Error('Not allowed');
+        throw new NotAllowedError();
     }
 
     async destroy(): Promise<void> {

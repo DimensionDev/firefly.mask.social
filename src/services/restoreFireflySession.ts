@@ -2,6 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
+import { NotAllowedError, NotImplementedError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -36,7 +37,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             return new FireflySession(data.accountId, data.accessToken, session);
         }
         case SessionType.Farcaster: {
-            if (FarcasterSession.isCustodyWallet(session)) throw new Error('Not allowed');
+            if (FarcasterSession.isCustodyWallet(session)) throw new NotAllowedError();
 
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session);
             const isRelayService = FarcasterSession.isRelayService(session);
@@ -59,9 +60,9 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             return null;
         }
         case SessionType.Twitter:
-            throw new Error('Not implemented');
+            throw new NotImplementedError();
         case SessionType.Firefly:
-            throw new Error('Not allowed');
+            throw new NotAllowedError();
         default:
             safeUnreachable(type);
             return null;

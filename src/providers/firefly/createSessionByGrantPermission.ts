@@ -1,13 +1,13 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
 import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LinkInfoResponse, SessionStatusResponse } from '@/providers/types/Firefly.js';
-import { TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
 
 async function pollingSessionStatus(session: string, signal?: AbortSignal) {
     return pollingWithRetry(
@@ -31,7 +31,7 @@ async function pollingSessionStatus(session: string, signal?: AbortSignal) {
                     return null;
                 default:
                     safeUnreachable(status_);
-                    throw new Error(`Unexpected status: ${status}`);
+                    throw new UnreachableError('session status', status_);
             }
         },
         {
@@ -65,7 +65,7 @@ async function createSession(callback?: (url: string) => void, signal?: AbortSig
             throw new TimeoutError();
         default:
             safeUnreachable(status);
-            throw new UnreachableError(status);
+            throw new UnreachableError('session status', status);
     }
 }
 

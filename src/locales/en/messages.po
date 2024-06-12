@@ -478,9 +478,6 @@ msgstr "{0} Channels"
 msgid "Report spam"
 msgstr "Report spam"
 
-msgid "Invalid compose type: {type}."
-msgstr "Invalid compose type: {type}."
-
 msgid "View Source"
 msgstr "View Source"
 
@@ -1167,9 +1164,6 @@ msgstr "Share to"
 
 msgid "Download app"
 msgstr "Download app"
-
-msgid "Unknown session type."
-msgstr "Unknown session type."
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."

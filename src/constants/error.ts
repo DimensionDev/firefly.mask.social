@@ -88,3 +88,9 @@ export class NotImplementedError extends Error {
         super('Not implemented.');
     }
 }
+
+export class NotAllowedError extends Error {
+    constructor() {
+        super('Not allowed.');
+    }
+}
