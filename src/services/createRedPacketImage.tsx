@@ -6,11 +6,11 @@ import urlcat from 'urlcat';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
+import { settings } from '@/settings/index.js';
 import { Locale } from '@/types/index.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
@@ -45,7 +45,7 @@ interface Payload {
 }
 
 async function getTheme(themeId: string, signal?: AbortSignal) {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
         themeId,
     });
     const response = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url, {

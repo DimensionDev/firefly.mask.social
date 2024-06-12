@@ -1,6 +1,5 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
@@ -9,6 +8,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 /**
@@ -18,7 +18,7 @@ import type { ResponseJSON } from '@/types/index.js';
  */
 async function downloadMetricsFromFirefly(signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(
-        urlcat(FIREFLY_ROOT_URL, '/v1/metrics/download'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/download'),
         {
             signal,
         },

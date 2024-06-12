@@ -2,9 +2,9 @@
 
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Language } from '@/services/translate.js';
+import { settings } from '@/settings/index.js';
 
 interface DetectionResponse {
     data: { language: Language };
@@ -18,7 +18,7 @@ interface DetectionResponse {
  *
  */
 export async function getContentLanguage(text: string): Promise<Language> {
-    const url = urlcat(FIREFLY_ROOT_URL, '/ai/detect-language');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/ai/detect-language');
     const { data } = await fireflySessionHolder.fetch<DetectionResponse>(url, {
         method: 'POST',
         body: JSON.stringify({ text }),
