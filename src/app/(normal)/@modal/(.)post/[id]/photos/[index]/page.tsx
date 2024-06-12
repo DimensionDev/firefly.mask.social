@@ -80,12 +80,8 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
         const imageAttachments =
-            compact(
-                post.metadata.content?.attachments
-                    ?.slice(0, 4)
-                    .filter((x) => x.type === 'Image')
-                    .map((x) => x.uri),
-            ) ?? EMPTY_LIST;
+            compact(post.metadata.content?.attachments?.filter((x) => x.type === 'Image').map((x) => x.uri)) ??
+            EMPTY_LIST;
 
         if (asset?.type === 'Image' && imageAttachments.length === 1) {
             return [asset.uri];
