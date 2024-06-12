@@ -55,7 +55,7 @@ export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({
             ),
         });
         if (!confirmed) return;
-        const result = await toggleMuted(profile);
+        const result = await toggleMuted(profile, isMuted);
         if (result) {
             setQueryDataForProfile(profile, !isMuted);
         }
