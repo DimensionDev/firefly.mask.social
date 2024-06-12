@@ -706,7 +706,7 @@ msgid "Invalid URL."
 msgstr "无效的 URL。"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
-msgstr ""
+msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 Firefly 连接您的账号。"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
@@ -724,7 +724,7 @@ msgid "Settings"
 msgstr "设置"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr ""
+msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 Firefly 连接您的账号。"
 
 msgid "Creator"
 msgstr ""
