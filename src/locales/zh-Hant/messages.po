@@ -201,9 +201,6 @@ msgstr "顯示更少"
 msgid "comment"
 msgstr "留言"
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
-msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
-
 msgid "Bookmarks"
 msgstr "書籤"
 
@@ -696,6 +693,9 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -710,6 +710,9 @@ msgstr "文章"
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
+msgstr ""
 
 msgid "Creator"
 msgstr ""
@@ -1053,9 +1056,6 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr "創建 firefly 對話失敗"
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr "在您安裝了 Warpcast 的移動設備上，打開<0>相機</0>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
-
 msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
@@ -1255,6 +1255,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"

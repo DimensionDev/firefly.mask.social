@@ -196,9 +196,6 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>. Approve a new Farcaster signer to Firefly."
-msgstr ""
-
 msgid "Bookmarks"
 msgstr ""
 
@@ -691,6 +688,9 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -704,6 +704,9 @@ msgid "Articles"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr ""
 
 msgid "Creator"
@@ -1048,9 +1051,6 @@ msgstr ""
 msgid "Failed to create firefly session."
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr ""
-
 msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
@@ -1250,6 +1250,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>"
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
