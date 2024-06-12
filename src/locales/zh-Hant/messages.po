@@ -237,6 +237,9 @@ msgstr ""
 msgid "Username"
 msgstr "用戶名"
 
+msgid "Switch to the development API version for testing new features."
+msgstr ""
+
 msgid "Blockchain"
 msgstr ""
 

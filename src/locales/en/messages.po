@@ -232,6 +232,9 @@ msgstr "Report submitted"
 msgid "Username"
 msgstr "Username"
 
+msgid "Switch to the development API version for testing new features."
+msgstr "Switch to the development API version for testing new features."
+
 msgid "Blockchain"
 msgstr "Blockchain"
 
