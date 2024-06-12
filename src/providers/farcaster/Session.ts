@@ -1,11 +1,11 @@
 import urlcat from 'urlcat';
 
+import { NotAllowedError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { NotAllowedError } from '@/constants/error.js';
 
 export const FAKE_SIGNER_REQUEST_TOKEN = 'fake_signer_request_token';
 

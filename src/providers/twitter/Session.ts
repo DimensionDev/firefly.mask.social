@@ -2,11 +2,11 @@
 
 import { signOut } from 'next-auth/react';
 
+import { NotAllowedError } from '@/constants/error.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
-import { NotAllowedError } from '@/constants/error.js';
 
 export class TwitterSession extends BaseSession implements Session {
     constructor(
