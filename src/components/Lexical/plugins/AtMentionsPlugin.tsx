@@ -12,7 +12,7 @@ import type { TextNode } from 'lexical/index.js';
 import { compact, first } from 'lodash-es';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
@@ -170,6 +170,8 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
     );
 });
 export function MentionsPlugin(): JSX.Element | null {
+    const ref = useRef<HTMLDivElement>(null);
+    const [open, setOpen] = useState(false);
     const currentProfileAll = useCurrentProfileAll();
     const isUpdatingMentionTag = useRef<boolean>(false);
     const matchedNodeCache = useRef<AutoLinkNode | null>(null);
@@ -195,29 +197,33 @@ export function MentionsPlugin(): JSX.Element | null {
 
             if (!data) return EMPTY_LIST;
             return compact(
-                data.list.map((x) => {
-                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInURL(source)])
-                        .flatMap((value) => value ?? EMPTY_LIST)
-                        .find((profile) => profile.hit);
-                    if (!target) return;
+                data.list
+                    .map((x) => {
+                        const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInURL(source)])
+                            .flatMap((value) => value ?? EMPTY_LIST)
+                            .find((profile) => profile.hit);
+                        if (!target) return;
 
-                    const allProfile = compact(
-                        SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInURL(source)])).map((x) => {
-                            if (target.platform === x?.platform) return target;
-                            return x;
-                        }),
-                    );
+                        const allProfile = compact(
+                            SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInURL(source)])).map(
+                                (x) => {
+                                    if (target.platform === x?.platform) return target;
+                                    return x;
+                                },
+                            ),
+                        );
 
-                    const platform = resolveSocialSource(target.platform);
-                    return {
-                        platform,
-                        profileId: target.platform_id,
-                        avatar: getStampAvatarByProfileId(platform, target.platform_id),
-                        handle: target.handle,
-                        name: target.name,
-                        allProfile,
-                    };
-                }),
+                        const platform = resolveSocialSource(target.platform);
+                        return {
+                            platform,
+                            profileId: target.platform_id,
+                            avatar: getStampAvatarByProfileId(platform, target.platform_id),
+                            handle: target.handle,
+                            name: target.name,
+                            allProfile,
+                        };
+                    })
+                    .filter((handle) => !!handle),
             );
         },
     });
@@ -250,9 +256,10 @@ export function MentionsPlugin(): JSX.Element | null {
                 return null;
             }
 
+            if (!open) setOpen(true);
             return getPossibleQueryMatch(queryText);
         },
-        [checkForSlashTriggerMatch, editor],
+        [checkForSlashTriggerMatch, editor, open],
     );
 
     const onSelectOption = useCallback(
@@ -268,6 +275,7 @@ export function MentionsPlugin(): JSX.Element | null {
                     }
                     mentionNode.select().insertText(' ');
                     closeMenu();
+                    setOpen(false);
                 },
                 {
                     onUpdate: () => {
@@ -281,13 +289,20 @@ export function MentionsPlugin(): JSX.Element | null {
         [editor],
     );
 
+    useOnClickOutside(ref, () => {
+        setOpen(false);
+    });
+
     return (
         <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
             anchorClassName="z-50"
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
-                return anchorElementRef.current && options.length
+                return anchorElementRef.current && options.length && open
                     ? createPortal(
-                          <div className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
+                          <div
+                              ref={ref}
+                              className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
+                          >
                               <ul>
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem

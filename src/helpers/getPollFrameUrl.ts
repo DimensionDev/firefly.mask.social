@@ -14,7 +14,7 @@ export const getPollFrameSearchParams = (source: SocialSource) => {
         theme: getMeaningfulThemeMode(),
         locale: getLocaleFromCookies(),
         date: Date.now(), // force refresh poll frame
-    }
+    };
 };
 
 export function getPollFrameUrl(pollId: string) {
