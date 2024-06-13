@@ -66,7 +66,7 @@ export async function POST(request: Request) {
         body: JSON.stringify(packet),
     });
 
-    if (!response.ok || response.status < 200 || response.status >= 300)
+    if (!response.ok || response.status < 200 || response.status >= 400)
         return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });
 
     switch (action) {
