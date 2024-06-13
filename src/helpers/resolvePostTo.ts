@@ -13,6 +13,6 @@ export const resolvePostTo = createLookupTableResolver<SocialSource, typeof post
         [Source.Twitter]: postToTwitter,
     },
     (source: SocialSource) => {
-        throw new UnreachableError('social platform', source);
+        throw new UnreachableError('source', source);
     },
 );

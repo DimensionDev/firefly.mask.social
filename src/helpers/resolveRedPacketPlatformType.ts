@@ -10,7 +10,7 @@ export const resolveRedPacketPlatformType = createLookupTableResolver<SocialSour
         [Source.Farcaster]: FireflyRedPacketAPI.PlatformType.farcaster,
         [Source.Twitter]: FireflyRedPacketAPI.PlatformType.twitter,
     },
-    (platform) => {
-        throw new UnreachableError('platform', platform);
+    (source) => {
+        throw new UnreachableError('source', source);
     },
 );
