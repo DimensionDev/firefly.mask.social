@@ -1,6 +1,6 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import { type HTMLProps, memo, useMemo } from 'react';
+import { Fragment, type HTMLProps, memo, useMemo } from 'react';
 
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -12,6 +12,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
     post: Post;
     showChannelTag?: boolean;
     channelProps?: HTMLProps<HTMLDivElement>;
+    isDetail?: boolean;
 }
 
 function countText(count?: number, singular?: string, plural?: string) {
@@ -24,6 +25,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     className,
     channelProps,
     post,
+    isDetail = false,
     showChannelTag = true,
 }: Props) {
     const publicationViews = useImpressionsStore.use.publicationViews();
@@ -39,18 +41,57 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const quotes = countText(post.stats?.quotes, t`Quote`, t`Quotes`);
     const views = countText(viewCount, t`View`, t`Views`);
 
+    const sendFrom = useMemo(() => {
+        if (!post.sendFrom?.displayName) return null;
+        if (post.sendFrom.displayName === 'firefly') return t`Firefly App`;
+        return post.sendFrom.displayName;
+    }, [post.sendFrom?.displayName]);
+
     return (
-        <div className={classNames('flex h-6 w-full justify-between text-xs leading-6 text-second', className)}>
-            <div>{compact([comments, likes, collects, mirrors, quotes, views]).join(' · ')}</div>
-            <div className="flex items-center">
-                {post.sendFrom?.displayName ? <div>{t`via ${post.sendFrom.displayName}`}</div> : null}
-                {showChannelTag && post.channel ? (
-                    <>
-                        {post.sendFrom?.displayName ? <div className="w-3 text-center">{' · '}</div> : null}
-                        <ChannelAnchor channel={post.channel} {...channelProps} />
-                    </>
-                ) : null}
+        <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
+            <div>
+                {(!isDetail
+                    ? compact([comments, likes])
+                    : compact([
+                          comments,
+                          likes,
+                          collects,
+                          mirrors,
+                          quotes,
+                          views,
+                          sendFrom ? (
+                              <Trans>
+                                  Posted via <span className="capitalize">{sendFrom}</span>
+                              </Trans>
+                          ) : null,
+                      ])
+                ).map((item, i, arr) => {
+                    const isLast = arr.length - 1 === i;
+                    return (
+                        <Fragment key={i}>
+                            <span>{item}</span>
+                            {!isLast ? <span>{' · '}</span> : null}
+                        </Fragment>
+                    );
+                })}
             </div>
+            {!isDetail ? (
+                <div className="flex items-center">
+                    {sendFrom ? (
+                        <div>
+                            <Trans>
+                                via <span className="capitalize">{sendFrom}</span>
+                            </Trans>
+                        </div>
+                    ) : null}
+                    {showChannelTag && post.channel ? (
+                        <>
+                            {sendFrom ? <div className="w-3 text-center">{' · '}</div> : null}
+                            <ChannelAnchor channel={post.channel} {...channelProps} />
+                        </>
+                    ) : null}
+                </div>
+            ) : null}
         </div>
     );
 });
