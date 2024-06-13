@@ -1,11 +1,15 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { TextOverflowTooltip } from '@masknet/theme';
-import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import type { Address } from 'viem';
+import { useEnsName } from 'wagmi';
 
+import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
@@ -15,16 +19,22 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export interface AttendeesProps {
-    address: string;
-    chainId?: ChainId;
+    eventId: number;
 }
 
-export function Attendees({ address, chainId }: AttendeesProps) {
+export function Attendees({ eventId }: AttendeesProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['top-collectors', address],
+        queryKey: ['poap-event-owners', eventId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            return SimpleHashWalletProfileProvider.getTopCollectors(address, { indicator, chainId });
+            const result = await SimpleHashWalletProfileProvider.getPoapEvent(eventId, { indicator });
+            const owners = result.data.reduce<string[]>((acc, asset) => {
+                return [...acc, ...asset.owners.map((owner) => owner.owner_address)];
+            }, []);
+            return {
+                ...result,
+                data: owners,
+            };
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
@@ -39,45 +49,54 @@ export function Attendees({ address, chainId }: AttendeesProps) {
             <ListInPage
                 queryResult={queryResult}
                 VirtualListProps={{
-                    listKey: `${ScrollListKey.TopCollectors}:${chainId}:${address}`,
-                    computeItemKey: (index, topCollector) => `${index}-${topCollector.owner_address}`,
-                    itemContent: (index, item) => getAttendeesItemContent(index, item),
+                    listKey: `${ScrollListKey.TopCollectors}:${eventId}`,
+                    computeItemKey: (index, owner) => `${index}-${owner}`,
+                    itemContent: (index, owner) => getAttendeesItemContent(index, owner),
                 }}
             />
         </div>
     );
 }
 
-export function getAttendeesItemContent(index: number, item: SimpleHash.TopCollector) {
-    const addressOrEns = item.owner_ens_name ? item.owner_ens_name : item.owner_address;
+function AttendeesItem({ ownerAddress }: { ownerAddress: string }) {
+    const { data: ensName } = useEnsName({ address: ownerAddress as Address, chainId: ChainId.Mainnet });
+    const addressOrEns = ensName ? ensName : ownerAddress;
     return (
-        <div className="flex items-center justify-between pb-3" key={index}>
-            <div className="flex max-w-[calc(100%-110px)] items-center">
+        <div className="flex items-center justify-between pb-3">
+            <Link
+                href={resolveProfileUrl(Source.Wallet, ownerAddress)}
+                className="flex max-w-[calc(100%-110px)] items-center"
+            >
                 <Image
                     src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
-                    alt={item.owner_address}
+                    alt={ownerAddress}
                     width={30}
                     height={30}
                     className="mr-2 min-w-[30px] rounded-full"
                 />
-                <div className="max-w-[calc(100%-38px)] text-left" title={item.owner_address}>
-                    {item.owner_ens_name ? (
+                <div className="flex max-w-[calc(100%-38px)] items-center text-left" title={ownerAddress}>
+                    {ensName ? (
                         <TextOverflowTooltip title={addressOrEns} placement="right">
-                            <div className="w-full truncate">{item.owner_ens_name}</div>
+                            <div className="w-full truncate">{ensName}</div>
                         </TextOverflowTooltip>
                     ) : (
                         <Tooltip title={addressOrEns} placement="right">
-                            <span>{formatEthereumAddress(item.owner_address, 4)}</span>
+                            <span>{formatEthereumAddress(ownerAddress, 4)}</span>
                         </Tooltip>
                     )}
+                    <LinkIcon className="ml-1.5 h-3 w-3 text-secondary" />
                 </div>
-            </div>
+            </Link>
             <Link
-                href={resolveProfileUrl(Source.Wallet, item.owner_address)}
+                href={resolveProfileUrl(Source.Wallet, ownerAddress)}
                 className="h-8 select-none rounded-full bg-lightMain px-4 text-[15px] font-bold leading-8 text-primaryBottom"
             >
                 <Trans>Watch</Trans>
             </Link>
         </div>
     );
+}
+
+function getAttendeesItemContent(index: number, owner: string) {
+    return <AttendeesItem key={`${index}-${owner}`} ownerAddress={owner} />;
 }

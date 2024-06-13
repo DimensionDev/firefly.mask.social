@@ -3,6 +3,7 @@
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
 import ComeBack from '@/assets/comeback.svg';
@@ -12,6 +13,7 @@ import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
@@ -33,7 +35,7 @@ export default function Page({
     const isPoap = address === POAP_CONTRACT_ADDRESS;
 
     const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
-
+    console.log(data);
     const { data: collectionData } = useQuery({
         queryKey: ['collection-info', address, chainId],
         queryFn() {
@@ -79,6 +81,7 @@ export default function Page({
                     floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
                     attendance={collectionData?.distinct_owner_count}
+                    tokenNameClassName={classNames({ '!line-clamp-3': isPoap })}
                 />
                 {data.traits && data.traits.length > 0 ? (
                     <NFTProperties
@@ -96,7 +99,9 @@ export default function Page({
                     chainId={data.chainId}
                     schemaType={data.contract?.schema}
                 />
-                {address === POAP_CONTRACT_ADDRESS ? <Attendees address={address} chainId={data.chainId} /> : null}
+                {address === POAP_CONTRACT_ADDRESS && !isUndefined(data.metadata.eventId) ? (
+                    <Attendees eventId={data.metadata.eventId} />
+                ) : null}
             </div>
         </div>
     );

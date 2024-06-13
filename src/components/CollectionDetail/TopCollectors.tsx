@@ -6,13 +6,16 @@ import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
+import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export interface TopCollectorsProps {
@@ -34,7 +37,7 @@ export function getTopCollectorsItemContent(
         <>
             <td className="pb-5 pr-2 text-left">{index}</td>
             <td className="px-2 pb-5">
-                <div className="flex w-full items-center">
+                <Link href={resolveProfileUrl(Source.Wallet, item.owner_address)} className="flex w-full items-center">
                     <Image
                         src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                         alt={item.owner_address}
@@ -42,7 +45,7 @@ export function getTopCollectorsItemContent(
                         height={30}
                         className="mr-2 min-w-[30px] rounded-full"
                     />
-                    <div className="max-w-[calc(100%-38px)] text-left" title={item.owner_address}>
+                    <div className="flex max-w-[calc(100%-38px)] items-center text-left">
                         {item.owner_ens_name ? (
                             <TextOverflowTooltip title={addressOrEns} placement="right">
                                 <div className="w-full truncate">{item.owner_ens_name}</div>
@@ -52,8 +55,9 @@ export function getTopCollectorsItemContent(
                                 <span>{formatEthereumAddress(item.owner_address, 4)}</span>
                             </Tooltip>
                         )}
+                        <LinkIcon className="ml-1.5 h-3 w-3 text-secondary" />
                     </div>
-                </div>
+                </Link>
             </td>
             <td
                 className={classNames('px-2 pb-2 text-right', {
