@@ -44,7 +44,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
     const collectionName = data?.collection?.name;
 
     return (
-        <div className="mt-auto flex w-full flex-col rounded-xl bg-lightBg p-3 sm:h-[120px] sm:flex-row sm:space-x-2 sm:rounded-none sm:bg-transparent sm:p-0">
+        <div className="mt-auto flex w-full flex-col rounded-xl border border-secondaryLine bg-lightBg p-3 sm:h-[120px] sm:flex-row sm:space-x-2 sm:rounded-none sm:border-none sm:bg-transparent sm:p-0">
             {isLoading ? (
                 <div className="mb-2 aspect-square h-full w-full animate-pulse rounded-xl bg-main/40 sm:mb-0 sm:w-auto" />
             ) : (
@@ -56,7 +56,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                     alt={address}
                 />
             )}
-            <div className="h-[96px] w-full space-y-2 rounded-xl text-sm leading-[18px] sm:h-auto sm:w-[calc(100%-120px-8px)] sm:bg-lightBg sm:p-3">
+            <div className="h-[96px] w-full space-y-2 rounded-xl text-sm leading-[18px] sm:h-auto sm:w-[calc(100%-120px-8px)] sm:border sm:border-secondaryLine sm:bg-lightBg sm:p-3">
                 <NFTFeedFieldGroup
                     field={t`Name`}
                     value={
@@ -140,7 +140,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                 {/* used for layout calculation height */}
                 <div className="h-full w-full space-y-1.5 opacity-0 sm:hidden">
                     <div className="aspect-square w-full" />
-                    <div className="h-[96px]" />
+                    <div className="h-[98px]" />
                 </div>
             </div>
             {tokenList.length > 1 ? (

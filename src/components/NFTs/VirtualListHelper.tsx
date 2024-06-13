@@ -22,6 +22,7 @@ export function getSingleNFTFeedItemContent(
             key={`${feed.id}-${index}`}
             listKey={listKey}
             chainId={chainId}
+            index={index}
             displayInfo={feed.displayInfo}
             tokenList={feed.trans.token_list.map(({ id }) => ({
                 id,
@@ -60,6 +61,7 @@ export function getSingleFollowingNFTItemContent(
             key={`${nft.hash}-${index}`}
             listKey={listKey}
             chainId={chainId}
+            index={index}
             ownerAddress={ownerAddress}
             displayInfo={nft.displayInfo}
             tokenList={uniqBy(nft.actions, 'token_id').map(

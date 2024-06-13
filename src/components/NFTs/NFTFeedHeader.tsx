@@ -24,7 +24,12 @@ export function NFTFeedHeader({ address, displayInfo, time, chainId, className, 
     });
 
     return (
-        <div className={classNames('mb-1.5 flex items-start gap-3', className)} {...rest}>
+        <div
+            className={classNames('mb-1.5 flex items-start gap-3', className, {
+                '-mb-4': !displayInfo.ensHandle,
+            })}
+            {...rest}
+        >
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
                 <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={address} />
             </Link>
@@ -37,9 +42,11 @@ export function NFTFeedHeader({ address, displayInfo, time, chainId, className, 
                 >
                     {displayInfo.ensHandle ? displayInfo.ensHandle : formatEthereumAddress(address, 4)}
                 </Link>
-                <Link href={authorUrl} className="block w-full truncate text-[15px] leading-5 text-secondary">
-                    {formatEthereumAddress(address, 4)}
-                </Link>
+                {displayInfo.ensHandle ? (
+                    <Link href={authorUrl} className="block w-full truncate text-[15px] leading-5 text-secondary">
+                        {formatEthereumAddress(address, 4)}
+                    </Link>
+                ) : null}
             </div>
 
             <div className="ml-auto flex items-center space-x-2">
