@@ -1,8 +1,9 @@
 import { safeUnreachable } from '@masknet/kit';
+import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotAllowedError, NotImplementedError } from '@/constants/error.js';
+import { NotAllowedError, NotImplementedError, TimeoutError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -51,6 +52,10 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 }),
                 signal,
             });
+
+            // scan qr-code timeout
+            if (first(response.error) === 'Farcaster login timed out') throw new TimeoutError();
+
             const data = resolveFireflyResponseData(response);
 
             if (data.fid && data.accountId && data.accessToken) {

@@ -22,7 +22,6 @@ import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
     try {
         const session = await createSession();
-
         await FireflySession.restore(session);
         await FireflySessionConfirmModalRef.openAndWaitForClose({
             source: Source.Firefly,

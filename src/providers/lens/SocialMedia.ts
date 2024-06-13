@@ -32,6 +32,7 @@ import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
+import { InvalidResultError } from '@/constants/error.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -46,7 +47,7 @@ import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { formatLensSuggestedFollowUserProfile } from '@/helpers/formatLensSuggestedFollowUserProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
-import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
+import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import {
@@ -516,18 +517,17 @@ class LensSocialMedia implements Provider {
         return post;
     }
 
-    async getPostByTxHash(txHash: string): Promise<Post> {
-        const result = await lensSessionHolder.sdk.publication.fetch({
-            forTxHash: txHash,
-        });
-        if (!result) throw new Error(t`No post found`);
-
-        const post = formatLensPost(result);
-        return post;
-    }
-
     async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
-        return pollingWithRetry(this.getPostByTxHash.bind(this, txHash));
+        const getPostByTxHash = async (txHash: string): Promise<Post> => {
+            const result = await lensSessionHolder.sdk.publication.fetch({
+                forTxHash: txHash,
+            });
+            if (!result) throw new InvalidResultError();
+
+            const post = formatLensPost(result);
+            return post;
+        };
+        return pollWithRetry(() => getPostByTxHash(txHash));
     }
 
     async getCommentsById(

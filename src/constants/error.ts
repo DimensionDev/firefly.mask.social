@@ -57,29 +57,17 @@ export class UserRejectionError extends Error {
     constructor(message?: string) {
         super(message ?? 'User rejected.');
     }
-
-    static is(error: unknown) {
-        return error instanceof UserRejectionError;
-    }
 }
 
 export class TimeoutError extends Error {
     constructor(message?: string) {
         super(message ?? 'Timeout.');
     }
-
-    static is(error: unknown) {
-        return error instanceof TimeoutError;
-    }
 }
 
 export class UnreachableError extends Error {
     constructor(label: string, value: unknown) {
         super(`Unreachable ${label} = ${value}.`);
-    }
-
-    static is(error: unknown) {
-        return error instanceof UnreachableError;
     }
 }
 
@@ -92,5 +80,11 @@ export class NotImplementedError extends Error {
 export class NotAllowedError extends Error {
     constructor() {
         super('Not allowed.');
+    }
+}
+
+export class InvalidResultError extends Error {
+    constructor() {
+        super('Invalid result.');
     }
 }

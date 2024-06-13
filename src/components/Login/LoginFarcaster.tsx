@@ -7,6 +7,7 @@ import { type Dispatch, type SetStateAction, useMemo, useRef, useState } from 'r
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
+import { UserRejectedRequestError } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -14,7 +15,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
-import { AbortError, ProfileNotConnectedError } from '@/constants/error.js';
+import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -65,17 +66,15 @@ async function login(
         // skip if the error is abort error
         if (AbortError.is(error)) return;
 
-        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
-
-        // if login timed out, we will let the user refresh the QR code
-        if (message.toLowerCase().includes('farcaster login timed out')) return;
+        // if login timed out, let the user refresh the QR code
+        if (error instanceof TimeoutError) return;
 
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
             error,
         });
 
         // user rejected request
-        if (message.toLowerCase().includes('user rejected the request')) return;
+        if (error instanceof UserRejectedRequestError) return;
 
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.

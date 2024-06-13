@@ -1,24 +1,26 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
+import { InvalidResultError, TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
 import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
+import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LinkInfoResponse, SessionStatusResponse } from '@/providers/types/Firefly.js';
 
-async function pollingSessionStatus(session: string, signal?: AbortSignal) {
-    return pollingWithRetry(
-        async (s) => {
-            const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status', {
-                session,
-            });
+async function pollSessionStatus(session: string, signal?: AbortSignal) {
+    return pollWithRetry(
+        async (pollingSignal) => {
+            const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status');
             const response = await fetchJSON<SessionStatusResponse>(url, {
-                method: 'GET',
-                signal: s,
+                method: 'POST',
+                body: JSON.stringify({
+                    session,
+                }),
+                signal: pollingSignal,
             });
+
             const status = resolveFireflyResponseData(response);
             const status_ = status.status;
 
@@ -28,7 +30,8 @@ async function pollingSessionStatus(session: string, signal?: AbortSignal) {
                 case 'expired':
                     return status;
                 case 'pending':
-                    return null;
+                    // continue polling
+                    throw new InvalidResultError();
                 default:
                     safeUnreachable(status_);
                     throw new UnreachableError('session status', status_);
@@ -48,12 +51,13 @@ async function createSession(callback?: (url: string) => void, signal?: AbortSig
         method: 'GET',
         signal,
     });
+
     const linkInfo = resolveFireflyResponseData(response);
 
     // present QR code to the user or open the link in a new tab
     callback?.(linkInfo.link);
 
-    const result = await pollingSessionStatus(linkInfo.session, signal);
+    const result = await pollSessionStatus(linkInfo.session, signal);
     const status = result.status;
 
     switch (status) {
