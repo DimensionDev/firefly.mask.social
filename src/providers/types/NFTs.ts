@@ -55,7 +55,7 @@ export type GetFollowingNFTResponse = Response<{
 export interface FollowingNFT {
     timestamp: string;
     hash: string;
-    owner: string;
+    owner: Address;
     address_from: string;
     address_to: string;
     network: string;
@@ -69,7 +69,7 @@ export interface FollowingNFT {
         name: string | null;
         type: string;
         socialId: string | null;
-        walletAddress: string;
+        walletAddress: Address;
     }>;
 }
 

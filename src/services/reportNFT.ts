@@ -6,7 +6,7 @@ import { settings } from '@/settings/index.js';
 /**
  * Reports a scam NFT collection based on the provided collectionId.
  *
- * @param {string} collectionId - The unique identifier of the NFT collection to be reported.
+ * @param {string} collectionId - collection id from Simplehash
  */
 export async function reportNFT(collectionId: string) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/reportNFT');

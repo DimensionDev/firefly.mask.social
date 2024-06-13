@@ -16,6 +16,7 @@ interface NFTFeedHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     contractAddress: Address;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
+    tokenId: string;
     chainId: ChainId;
 }
 
@@ -25,6 +26,7 @@ export function NFTFeedHeader({
     displayInfo,
     time,
     chainId,
+    tokenId,
     className,
     ...rest
 }: NFTFeedHeaderProps) {
@@ -64,7 +66,12 @@ export function NFTFeedHeader({
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={time} />
                 </span>
-                <NFTMoreAction contractAddress={contractAddress} />
+                <NFTMoreAction
+                    address={address}
+                    contractAddress={contractAddress}
+                    tokenId={tokenId}
+                    chainId={chainId}
+                />
             </div>
         </div>
     );

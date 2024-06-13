@@ -1,20 +1,29 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more.svg';
-import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.jsx';
+import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
-export function NFTMoreAction({ contractAddress }: { contractAddress: Address }) {
-    const { data: ens } = useEnsName({ address: contractAddress });
-    const identity = ens || formatEthereumAddress(contractAddress, 4);
+interface Props {
+    /** User address */
+    address: Address;
+    contractAddress: Address;
+    tokenId: string;
+    chainId: ChainId;
+}
+export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
+    const { data: ens } = useEnsName({ address });
+    const identity = ens || formatEthereumAddress(address, 4);
+    const { data } = useNFTDetail(contractAddress, tokenId, chainId);
     return (
         <Menu
             className="relative"
@@ -32,6 +41,7 @@ export function NFTMoreAction({ contractAddress }: { contractAddress: Address })
                     event.stopPropagation();
                 }}
             >
+                {' '}
                 <Tooltip content={t`More`} placement="top">
                     <MoreIcon width={24} height={24} />
                 </Tooltip>
@@ -53,18 +63,16 @@ export function NFTMoreAction({ contractAddress }: { contractAddress: Address })
                     }}
                 >
                     <Menu.Item>
-                        {({ close }) => <NFTReportSpamButton onClick={close} contractAddress={contractAddress} />}
+                        {({ close }) => <WatchWalletButton identity={identity} address={address} onClick={close} />}
                     </Menu.Item>
                     <Menu.Item>
-                        {({ close }) => (
-                            <WatchWalletButton identity={identity} address={contractAddress} onClick={close} />
-                        )}
+                        {({ close }) => <MuteWalletButton identity={identity} address={address} onClick={close} />}
                     </Menu.Item>
-                    <Menu.Item>
-                        {({ close }) => (
-                            <MuteWalletButton identity={identity} address={contractAddress} onClick={close} />
-                        )}
-                    </Menu.Item>
+                    {data?.collection?.id ? (
+                        <Menu.Item>
+                            {({ close }) => <NFTReportSpamButton onClick={close} collectionId={data.collection.id} />}
+                        </Menu.Item>
+                    ) : null}
                 </Menu.Items>
             </Transition>
         </Menu>

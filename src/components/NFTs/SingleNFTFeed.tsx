@@ -37,14 +37,14 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
     const [activeTokenIndex, setActiveTokenIndex] = useState(0);
+    const token = tokenList[activeTokenIndex];
     const nftUrl = useMemo(() => {
-        const token = tokenList[activeTokenIndex];
         if (!token) return null;
         return resolveNftUrl(token.contractAddress, {
             chainId,
             tokenId: token.id,
         });
-    }, [activeTokenIndex, chainId, tokenList]);
+    }, [chainId, token]);
 
     return (
         <motion.article
@@ -65,6 +65,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
             <NFTFeedHeader
                 address={ownerAddress}
                 contractAddress={contractAddress}
+                tokenId={token.id}
                 chainId={chainId}
                 displayInfo={displayInfo}
                 time={time}
