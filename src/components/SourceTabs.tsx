@@ -28,7 +28,7 @@ export function SourceTabs() {
         pathname === PageRoute.Bookmarks
             ? SORTED_BOOKMARK_SOURCES
             : SORTED_HOME_SOURCES.filter((x) => {
-                  if (x !== Source.Article) return true;
+                  if (x !== Source.Article && x !== Source.NFTs) return true;
                   if (
                       pathname === PageRoute.Home ||
                       (pathname === PageRoute.Following && !!fireflySession) ||
