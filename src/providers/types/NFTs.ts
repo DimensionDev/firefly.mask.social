@@ -86,6 +86,6 @@ export interface FollowingNFTAction {
     address_from: string;
     address_to: string;
     cost?: NFTActionCost;
-    contract_address: string;
+    contract_address: Address;
     token_id: string;
 }

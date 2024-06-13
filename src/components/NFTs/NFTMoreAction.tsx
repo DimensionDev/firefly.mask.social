@@ -24,6 +24,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
     const { data: ens } = useEnsName({ address });
     const identity = ens || formatEthereumAddress(address, 4);
     const { data } = useNFTDetail(contractAddress, tokenId, chainId);
+    const collectionId = data?.collection?.id;
     return (
         <Menu
             className="relative"
@@ -41,7 +42,6 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     event.stopPropagation();
                 }}
             >
-                {' '}
                 <Tooltip content={t`More`} placement="top">
                     <MoreIcon width={24} height={24} />
                 </Tooltip>
@@ -68,9 +68,9 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     <Menu.Item>
                         {({ close }) => <MuteWalletButton identity={identity} address={address} onClick={close} />}
                     </Menu.Item>
-                    {data?.collection?.id ? (
+                    {collectionId ? (
                         <Menu.Item>
-                            {({ close }) => <NFTReportSpamButton onClick={close} collectionId={data.collection.id} />}
+                            {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
                         </Menu.Item>
                     ) : null}
                 </Menu.Items>

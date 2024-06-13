@@ -751,6 +751,9 @@ msgstr ""
 msgid "Your Farcaster account is now connected."
 msgstr ""
 
+msgid "Failed to unwatch {identity}"
+msgstr ""
+
 msgid "Connect to {source}"
 msgstr ""
 
@@ -1048,6 +1051,9 @@ msgstr ""
 msgid "Collects"
 msgstr ""
 
+msgid "{identity} watched"
+msgstr ""
+
 msgid "Notifications"
 msgstr ""
 
@@ -1255,7 +1261,13 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
+msgid "Failed to watch {identity}"
+msgstr ""
+
 msgid "View Engagements"
+msgstr ""
+
+msgid "{identity} unwatched"
 msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
