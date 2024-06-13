@@ -16,7 +16,6 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
 }: VirtualListProps<ItemData, Context>) {
     const { height } = useWindowSize();
     const { scrollIndex } = useGlobalState();
-    console.log(listKey, scrollIndex);
     return (
         <Virtuoso
             initialTopMostItemIndex={listKey && scrollIndex[listKey] ? Math.max(scrollIndex[listKey] - 2, 0) : 0}
