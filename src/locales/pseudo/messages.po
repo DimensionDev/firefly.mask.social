@@ -451,6 +451,9 @@ msgstr ""
 msgid "Hashtag"
 msgstr ""
 
+msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
 msgid "Unknown transaction method: {0}."
 msgstr ""
 
@@ -602,9 +605,6 @@ msgid "Malformed session."
 msgstr ""
 
 msgid "Failed to login."
-msgstr ""
-
-msgid "REPLY to <0><1>@{0}</1></0>"
 msgstr ""
 
 msgid "Unlike"
