@@ -1,13 +1,19 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
+import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment } from 'react';
+import type { Address } from 'viem';
+import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more.svg';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
+import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 
-export function NFTMoreAction({ contractAddress }: { contractAddress: string }) {
+export function NFTMoreAction({ contractAddress }: { contractAddress: Address }) {
+    const { data: ens } = useEnsName({ address: contractAddress });
+    const identity = ens || formatEthereumAddress(contractAddress, 4);
     return (
         <Menu
             className="relative"
@@ -47,6 +53,11 @@ export function NFTMoreAction({ contractAddress }: { contractAddress: string }) 
                 >
                     <Menu.Item>
                         {({ close }) => <NFTReportSpamButton onClick={close} contractAddress={contractAddress} />}
+                    </Menu.Item>
+                    <Menu.Item>
+                        {({ close }) => (
+                            <WatchWalletButton identity={identity} address={contractAddress} onClick={close} />
+                        )}
                     </Menu.Item>
                 </Menu.Items>
             </Transition>

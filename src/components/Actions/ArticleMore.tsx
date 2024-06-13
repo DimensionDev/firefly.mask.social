@@ -1,14 +1,16 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
+import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
+import { useEnsName } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import { BookmarkArticleButton } from '@/components/Actions/BookmarkArticleButton.js';
 import { MuteArticleButton } from '@/components/Actions/MuteArticleButton.js';
 import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js';
-import { WatchArticleButton } from '@/components/Actions/WatchArticleButton.js';
+import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -21,6 +23,9 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const mutation = useToggleArticleBookmark();
 
     const isBusy = mutation.isPending;
+
+    const { data: ens } = useEnsName({ address: article.author.id });
+    const identity = article.author.handle || ens || formatEthereumAddress(article.author.id, 4);
     return (
         <Menu
             className="relative"
@@ -74,7 +79,16 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                             />
                         )}
                     </Menu.Item>
-                    <Menu.Item>{({ close }) => <WatchArticleButton article={article} onClick={close} />}</Menu.Item>
+                    <Menu.Item>
+                        {({ close }) => (
+                            <WatchWalletButton
+                                identity={identity}
+                                isFollowing={article.author.isFollowing}
+                                address={article.author.id}
+                                onClick={close}
+                            />
+                        )}
+                    </Menu.Item>
                     <Menu.Item>{({ close }) => <MuteArticleButton article={article} onClick={close} />}</Menu.Item>
                     <Menu.Item>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</Menu.Item>
                 </Menu.Items>
