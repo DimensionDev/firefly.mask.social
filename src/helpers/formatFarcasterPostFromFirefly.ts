@@ -18,7 +18,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url))).map(x => {
+    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url))).map((x) => {
         if (isValidPollFrameUrl(x)) {
             return urlcat(x.split('?')[0], getPollFrameSearchParams(Source.Farcaster));
         }
