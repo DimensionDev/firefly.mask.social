@@ -41,7 +41,7 @@ export const FollowButton = memo(function FollowButton({
         icon: isFollowing ? <FollowIcon className="h-4 w-4" /> : <FollowedIcon className="h-4 w-4" />,
     }[variant];
     const variantClassName = {
-        text: 'min-w-[100px]',
+        text: 'min-w-[100px] px-2',
         icon: 'w-8 max-w-8',
     }[variant];
     const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;
@@ -49,7 +49,7 @@ export const FollowButton = memo(function FollowButton({
     return (
         <ClickableButton
             className={classNames(
-                'flex h-8 items-center justify-center rounded-full px-2 text-[15px] font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-full text-[15px] font-semibold transition-all',
                 variantClassName,
                 className,
                 {

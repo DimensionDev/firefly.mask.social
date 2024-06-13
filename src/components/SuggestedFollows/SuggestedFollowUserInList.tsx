@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { Avatar } from '@/components/Avatar.js';
-import { FollowInList } from '@/components/FollowInList.js';
+import { ProfileInList } from '@/components/ProfileInList.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { getLennyURL } from '@/helpers/getLennyURL.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { SuggestedFollowUserProfile } from '@/providers/types/SocialMedia.js';
 
 export function SuggestedFollowUserInList({
@@ -23,40 +23,37 @@ export function SuggestedFollowUserInList({
         },
     });
 
+    const isSmall = useIsSmall('max');
+
     if (isLoading) {
         return (
             <div
-                className="grid w-full gap-2.5 border-b border-line py-3 pl-3 pr-5"
+                className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line"
                 style={{ gridTemplateColumns: '70px calc(100% - 70px - 100px - 20px) 100px' }}
             >
                 <Avatar
-                    className="w-17.5 h-17.5 min-w-[70px] shrink-0"
+                    className="mr-3 shrink-0 rounded-full border"
                     src={profile.pfp}
-                    size={70}
-                    alt={profile.profileId}
-                    fallbackUrl={source === Source.Lens ? getLennyURL(profile.pfp) : undefined}
+                    size={isSmall ? 40 : 44}
+                    alt={profile.displayName}
                 />
-                <div className="leading-5.5 flex flex-col text-[15px]">
-                    <div className="flex w-full items-center">
-                        <div className="max-w-[calc(100% - 32px)] mr-2 truncate text-xl leading-6">
+                <div className="flex-start flex flex-1 flex-col overflow-auto">
+                    <p className="flex-start flex items-center text-sm font-bold leading-5">
+                        <span className="overflow-hide mr-2 text-ellipsis whitespace-nowrap text-xl">
                             {profile.displayName}
-                        </div>
-                        <SocialSourceIcon
-                            source={source}
-                            className={source === Source.Lens ? 'dark:opacity-70' : undefined}
-                        />
-                    </div>
-                    <div className="w-full truncate text-secondary">@{profile.handle}</div>
-                    <div className="w-full truncate" />
+                        </span>
+                        <SocialSourceIcon className="shrink-0" source={source} />
+                    </p>
+                    {profile.handle ? <p className="text-sm text-secondary">@{profile.handle}</p> : null}
+                    <p className="mt-1.5 h-5" />
                 </div>
-                <div />
             </div>
         );
     }
 
     if (!fullProfile) return null;
 
-    return <FollowInList profile={fullProfile} />;
+    return <ProfileInList profile={fullProfile} />;
 }
 
 export function getSuggestedFollowUserInList(index: number, source: SocialSource, profile: SuggestedFollowUserProfile) {
