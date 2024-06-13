@@ -1177,9 +1177,6 @@ msgstr "Add another option"
 msgid "[Attachment]"
 msgstr "[Attachment]"
 
-msgid "Firefly App"
-msgstr "Firefly App"
-
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 
