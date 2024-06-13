@@ -7,6 +7,7 @@ import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more.svg';
+import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.jsx';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -57,6 +58,11 @@ export function NFTMoreAction({ contractAddress }: { contractAddress: Address })
                     <Menu.Item>
                         {({ close }) => (
                             <WatchWalletButton identity={identity} address={contractAddress} onClick={close} />
+                        )}
+                    </Menu.Item>
+                    <Menu.Item>
+                        {({ close }) => (
+                            <MuteWalletButton identity={identity} address={contractAddress} onClick={close} />
                         )}
                     </Menu.Item>
                 </Menu.Items>

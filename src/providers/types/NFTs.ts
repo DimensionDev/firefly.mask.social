@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 export interface Response<T> {
     code: number;
     data: T;
@@ -23,7 +25,7 @@ export interface NFTOwnerDisplayInfo {
 }
 
 export interface NFTFeed {
-    address: string;
+    address: Address;
     followers_count: number | null;
     twitter_id: string | null;
     twitter_handle: string;
@@ -37,7 +39,7 @@ export interface NFTFeed {
             id: string;
             cnt: number;
         }>;
-        token_address: string;
+        token_address: Address;
         token_name: string;
         price: number;
     };

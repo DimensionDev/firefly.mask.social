@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo, useState } from 'react';
+import type { Address } from 'viem';
 
 import { NFTFeedBody, type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
@@ -11,7 +12,8 @@ import { type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export interface SingleNFTFeedProps {
-    ownerAddress: string;
+    ownerAddress: Address;
+    contractAddress: Address;
     disableAnimate?: boolean;
     listKey?: string;
     index?: number;
@@ -23,6 +25,7 @@ export interface SingleNFTFeedProps {
 
 export const SingleNFTFeed = memo(function SingleNFTFeed({
     ownerAddress,
+    contractAddress,
     tokenList,
     chainId,
     displayInfo,
@@ -59,7 +62,13 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                 if (nftUrl) router.prefetch(nftUrl);
             }}
         >
-            <NFTFeedHeader address={ownerAddress} chainId={chainId} displayInfo={displayInfo} time={time} />
+            <NFTFeedHeader
+                address={ownerAddress}
+                contractAddress={contractAddress}
+                chainId={chainId}
+                displayInfo={displayInfo}
+                time={time}
+            />
             <NFTFeedBody
                 index={activeTokenIndex}
                 onChangeIndex={setActiveTokenIndex}

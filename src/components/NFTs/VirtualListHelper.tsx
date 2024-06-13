@@ -40,6 +40,7 @@ export function getSingleNFTFeedItemContent(
                 },
             }))}
             time={feed.trans.time * 1000}
+            contractAddress={feed.trans.token_address}
             ownerAddress={feed.address}
         />
     );
