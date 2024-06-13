@@ -207,9 +207,6 @@ msgstr "收起"
 msgid "comment"
 msgstr "评论"
 
-msgid "via {0}"
-msgstr ""
-
 msgid "Bookmarks"
 msgstr "收藏"
 
@@ -350,6 +347,9 @@ msgstr "音频封面"
 
 msgid "Recent"
 msgstr "最近"
+
+msgid "via <0>{sendFrom}</0>"
+msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
@@ -1182,6 +1182,9 @@ msgstr ""
 msgid "[Attachment]"
 msgstr ""
 
+msgid "Firefly App"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
@@ -1202,6 +1205,9 @@ msgstr "你不能在 {0} 上评论 {author}"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
+
+msgid "Posted via <0>{sendFrom}</0>"
+msgstr ""
 
 msgid "Collection"
 msgstr ""
