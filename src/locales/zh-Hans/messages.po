@@ -756,6 +756,9 @@ msgstr "检测设备账号"
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
 
+msgid "Failed to unwatch {identity}"
+msgstr ""
+
 msgid "Connect to {source}"
 msgstr "连接到 {source}"
 
@@ -1053,6 +1056,9 @@ msgstr ""
 msgid "Collects"
 msgstr ""
 
+msgid "{identity} watched"
+msgstr ""
+
 msgid "Notifications"
 msgstr "通知"
 
@@ -1260,8 +1266,14 @@ msgstr "Mask Network"
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
+msgid "Failed to watch {identity}"
+msgstr ""
+
 msgid "View Engagements"
 msgstr "查看互动情况"
+
+msgid "{identity} unwatched"
+msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"

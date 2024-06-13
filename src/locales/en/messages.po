@@ -751,6 +751,9 @@ msgstr "Detect device accounts"
 msgid "Your Farcaster account is now connected."
 msgstr "Your Farcaster account is now connected."
 
+msgid "Failed to unwatch {identity}"
+msgstr "Failed to unwatch {identity}"
+
 msgid "Connect to {source}"
 msgstr "Connect to {source}"
 
@@ -1048,6 +1051,9 @@ msgstr "Login to enable all features"
 msgid "Collects"
 msgstr "Collects"
 
+msgid "{identity} watched"
+msgstr "{identity} watched"
+
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -1255,8 +1261,14 @@ msgstr "Mask Network"
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
 
+msgid "Failed to watch {identity}"
+msgstr "Failed to watch {identity}"
+
 msgid "View Engagements"
 msgstr "View Engagements"
+
+msgid "{identity} unwatched"
+msgstr "{identity} unwatched"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "Unfollowed @{0} on {sourceName}"

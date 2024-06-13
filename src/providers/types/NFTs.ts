@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 export interface Response<T> {
     code: number;
     data: T;
@@ -23,7 +25,7 @@ export interface NFTOwnerDisplayInfo {
 }
 
 export interface NFTFeed {
-    address: string;
+    address: Address;
     followers_count: number | null;
     twitter_id: string | null;
     twitter_handle: string;
@@ -37,7 +39,7 @@ export interface NFTFeed {
             id: string;
             cnt: number;
         }>;
-        token_address: string;
+        token_address: Address;
         token_name: string;
         price: number;
     };
@@ -53,7 +55,7 @@ export type GetFollowingNFTResponse = Response<{
 export interface FollowingNFT {
     timestamp: string;
     hash: string;
-    owner: string;
+    owner: Address;
     address_from: string;
     address_to: string;
     network: string;
@@ -67,7 +69,7 @@ export interface FollowingNFT {
         name: string | null;
         type: string;
         socialId: string | null;
-        walletAddress: string;
+        walletAddress: Address;
     }>;
 }
 
@@ -84,6 +86,6 @@ export interface FollowingNFTAction {
     address_from: string;
     address_to: string;
     cost?: NFTActionCost;
-    contract_address: string;
+    contract_address: Address;
     token_id: string;
 }

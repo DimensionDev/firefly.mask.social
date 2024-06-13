@@ -4,6 +4,7 @@ import { useAsyncFn } from 'react-use';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
+import { muteNFT } from '@/services/muteNFT.js';
 import { reportNFT } from '@/services/reportNFT.js';
 
 export function useReportSpamNFT() {
@@ -20,6 +21,7 @@ export function useReportSpamNFT() {
         if (!confirmed) return;
         try {
             await reportNFT(collectionId);
+            await muteNFT(collectionId);
             enqueueSuccessMessage(t`Report submitted`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Report Failed`), {

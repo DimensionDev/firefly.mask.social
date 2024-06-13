@@ -1,13 +1,30 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
+import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment } from 'react';
+import type { Address } from 'viem';
+import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more.svg';
+import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
+import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
-export function NFTMoreAction({ contractAddress }: { contractAddress: string }) {
+interface Props {
+    /** User address */
+    address: Address;
+    contractAddress: Address;
+    tokenId: string;
+    chainId: ChainId;
+}
+export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
+    const { data: ens } = useEnsName({ address });
+    const identity = ens || formatEthereumAddress(address, 4);
+    const { data } = useNFTDetail(contractAddress, tokenId, chainId);
+    const collectionId = data?.collection?.id;
     return (
         <Menu
             className="relative"
@@ -46,8 +63,16 @@ export function NFTMoreAction({ contractAddress }: { contractAddress: string }) 
                     }}
                 >
                     <Menu.Item>
-                        {({ close }) => <NFTReportSpamButton onClick={close} contractAddress={contractAddress} />}
+                        {({ close }) => <WatchWalletButton identity={identity} address={address} onClick={close} />}
                     </Menu.Item>
+                    <Menu.Item>
+                        {({ close }) => <MuteWalletButton identity={identity} address={address} onClick={close} />}
+                    </Menu.Item>
+                    {collectionId ? (
+                        <Menu.Item>
+                            {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
+                        </Menu.Item>
+                    ) : null}
                 </Menu.Items>
             </Transition>
         </Menu>

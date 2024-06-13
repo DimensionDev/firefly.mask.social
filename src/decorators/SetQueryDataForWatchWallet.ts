@@ -30,6 +30,7 @@ export function toggleWatch(address: string, status: boolean) {
             draft.author.isFollowing = status;
         });
     });
+    queryClient.setQueryData(['follow-wallet', address.toLowerCase()], status);
 }
 
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;

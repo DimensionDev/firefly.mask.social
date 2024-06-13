@@ -1,15 +1,10 @@
 import urlcat from 'urlcat';
 
+import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { settings } from '@/settings/index.js';
 
-/**
- * Reports a scam NFT collection based on the provided collectionId.
- *
- * @param {string} collectionId - collection id from Simplehash
- */
-export async function reportNFT(collectionId: string) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
+export async function muteNFT(collectionId: string) {
+    const url = urlcat(FIREFLY_ROOT_URL, '/v2/mute/collection');
     await fireflySessionHolder.fetch(
         url,
         {

@@ -1,5 +1,6 @@
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
+import type { Address } from 'viem';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
@@ -11,13 +12,24 @@ import { classNames } from '@/helpers/classNames.js';
 import type { NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 
 interface NFTFeedHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-    address: string;
+    address: Address;
+    contractAddress: Address;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
+    tokenId: string;
     chainId: ChainId;
 }
 
-export function NFTFeedHeader({ address, displayInfo, time, chainId, className, ...rest }: NFTFeedHeaderProps) {
+export function NFTFeedHeader({
+    address,
+    contractAddress,
+    displayInfo,
+    time,
+    chainId,
+    tokenId,
+    className,
+    ...rest
+}: NFTFeedHeaderProps) {
     const authorUrl = urlcat('/profile/:address', {
         address,
         source: SourceInURL.Wallet,
@@ -54,7 +66,12 @@ export function NFTFeedHeader({ address, displayInfo, time, chainId, className, 
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={time} />
                 </span>
-                <NFTMoreAction contractAddress={address} />
+                <NFTMoreAction
+                    address={address}
+                    contractAddress={contractAddress}
+                    tokenId={tokenId}
+                    chainId={chainId}
+                />
             </div>
         </div>
     );

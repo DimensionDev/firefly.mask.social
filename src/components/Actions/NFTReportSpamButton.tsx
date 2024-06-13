@@ -7,11 +7,11 @@ import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useReportSpamNFT } from '@/hooks/useReportSpamNFT.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
-    contractAddress: string;
+    collectionId: string;
 }
 
 export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function ReportSpamButton(
-    { contractAddress, ...rest },
+    { collectionId, ...rest },
     ref,
 ) {
     const [, reportSpamNFT] = useReportSpamNFT();
@@ -21,7 +21,7 @@ export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function
             ref={ref}
             onClick={async () => {
                 rest.onClick?.();
-                await reportSpamNFT(contractAddress);
+                await reportSpamNFT(collectionId);
             }}
         >
             <FlagIcon width={24} height={24} />

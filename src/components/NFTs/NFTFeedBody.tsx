@@ -39,7 +39,7 @@ function NFTFeedFieldGroup({
 }
 
 function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: string; chainId?: ChainId }) {
-    const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
+    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
     const tokenName = data?.metadata?.name;
     const collectionName = data?.collection?.name;
 
