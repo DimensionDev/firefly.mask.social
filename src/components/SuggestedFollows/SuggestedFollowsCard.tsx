@@ -22,7 +22,7 @@ export function SuggestedFollowsCard() {
             let result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers();
             let data: Profile[] = [];
             let sliceIndex = 0;
-            while (data.length < 3 && result.nextIndicator && result.data.length - sliceIndex > 0) {
+            while (data.length < 3 && result.data.length - sliceIndex > 0) {
                 const sliceEndIndex = 3 - data.length;
                 const newData = (
                     await Promise.all(
