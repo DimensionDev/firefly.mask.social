@@ -1,6 +1,7 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
@@ -14,8 +15,8 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Wallet]: Source.Wallet,
         [SourceInURL.NFTs]: Source.NFTs,
     },
-    (keyword) => {
-        throw new Error(`Unknown keyword: ${keyword}`);
+    (sourceInUrl) => {
+        throw new UnreachableError('sourceInUrl', sourceInUrl);
     },
 );
 
@@ -25,8 +26,8 @@ export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, 
         [SourceInURL.Lens]: Source.Lens,
         [SourceInURL.Twitter]: Source.Twitter,
     },
-    (keyword) => {
-        throw new Error(`Unknown keyword: ${keyword}`);
+    (sourceInUrl) => {
+        throw new UnreachableError('sourceInUrl', sourceInUrl);
     },
 );
 
@@ -38,8 +39,8 @@ export const resolveSocialSourceFromSessionType = createLookupTableResolver<Sess
         // not correct in some situations
         [SessionType.Firefly]: Source.Farcaster,
     },
-    (keyword) => {
-        throw new Error(`Unknown keyword: ${keyword}`);
+    (sessionType) => {
+        throw new UnreachableError('sessionType', sessionType);
     },
 );
 

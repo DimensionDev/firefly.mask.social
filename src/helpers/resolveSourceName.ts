@@ -1,6 +1,7 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { Source } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 
 export const resolveSourceName = createLookupTableResolver<Source, string>(
     {
@@ -13,6 +14,6 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.NFTs]: 'NFTs',
     },
     (source) => {
-        throw new Error(`Unknown social platform: ${source}`);
+        throw new UnreachableError('source', source);
     },
 );
