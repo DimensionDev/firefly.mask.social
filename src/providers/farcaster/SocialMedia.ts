@@ -12,10 +12,10 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { formatFarcasterSuggestedFollowUserProfileFromOpenRank } from '@/helpers/formatFarcasterSuggestedFollowUserProfileFromOpenRank.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { OpenRankProvider } from '@/providers/openrank/index.js';
 import {
     type Channel,
@@ -24,7 +24,6 @@ import {
     type Profile,
     type Provider,
     SessionType,
-    type SuggestedFollowUserProfile,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
@@ -332,15 +331,14 @@ class FarcasterSocialMedia implements Provider {
     }: {
         limit?: number;
         indicator?: PageIndicator;
-    } = {}): Promise<Pageable<SuggestedFollowUserProfile, PageIndicator>> {
+    } = {}): Promise<Pageable<Profile, PageIndicator>> {
         const offset = indicator?.id ? parseInt(indicator.id, 10) : 0;
         const { result } = await OpenRankProvider.getTopProfiles({ offset, limit });
-        const data = uniqBy(
-            result.map((topProfile) => formatFarcasterSuggestedFollowUserProfileFromOpenRank(topProfile)),
-            'profileId',
+        const profiles = await NeynarSocialMediaProvider.getProfilesByIds(
+            uniqBy(result, 'fid').map((profile) => `${profile.fid}`),
         );
-        return createPageable<SuggestedFollowUserProfile>(
-            data,
+        return createPageable(
+            profiles,
             createIndicator(indicator),
             result.length > 0 ? createIndicator(undefined, `${offset + limit}`) : undefined,
         );

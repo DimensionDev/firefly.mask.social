@@ -6,14 +6,18 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import ComeBack from '@/assets/comeback.svg';
 import { ListInPage } from '@/components/ListInPage.js';
-import { getSuggestedFollowUserInList } from '@/components/SuggestedFollows/SuggestedFollowUserInList.js';
+import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import type { Profile, SuggestedFollowUserProfile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     source: SocialSource;
+}
+
+export function getSuggestedFollowUserInList(index: number, profile: Profile) {
+    return <ProfileInList profile={profile} key={`${profile.profileId}-${index}`} />;
 }
 
 export default function SuggestedFollowUsersList({ source }: Props) {
@@ -22,8 +26,7 @@ export default function SuggestedFollowUsersList({ source }: Props) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source],
         queryFn({ pageParam }) {
-            if (source === Source.Twitter)
-                return createPageable<SuggestedFollowUserProfile>(EMPTY_LIST, createIndicator(undefined));
+            if (source === Source.Twitter) return createPageable<Profile>(EMPTY_LIST, createIndicator(undefined));
             const provider = resolveSocialMediaProvider(source);
             return provider.getSuggestedFollowUsers({ indicator: createIndicator(undefined, pageParam) });
         },
@@ -45,8 +48,8 @@ export default function SuggestedFollowUsersList({ source }: Props) {
                 queryResult={queryResult}
                 VirtualListProps={{
                     key: `${ScrollListKey.SuggestedUsers}:${source}`,
-                    computeItemKey: (index, item: SuggestedFollowUserProfile) => `${item.profileId}-${index}`,
-                    itemContent: (index, item) => getSuggestedFollowUserInList(index, source, item),
+                    computeItemKey: (index, item) => `${item.profileId}-${index}`,
+                    itemContent: (index, item) => getSuggestedFollowUserInList(index, item),
                 }}
                 NoResultsFallbackProps={{
                     className: 'pt-[228px]',

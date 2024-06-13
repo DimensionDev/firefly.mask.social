@@ -317,11 +317,6 @@ export interface Channel {
     __original__?: unknown;
 }
 
-export type SuggestedFollowUserProfile = Pick<
-    Profile,
-    'profileId' | 'displayName' | 'handle' | 'fullHandle' | 'pfp' | 'viewerContext'
->;
-
 export interface Provider {
     type: SessionType;
 
@@ -829,5 +824,5 @@ export interface Provider {
     getSuggestedFollowUsers?: (options?: {
         limit?: number;
         indicator?: PageIndicator;
-    }) => Promise<Pageable<SuggestedFollowUserProfile, PageIndicator>>;
+    }) => Promise<Pageable<Profile, PageIndicator>>;
 }

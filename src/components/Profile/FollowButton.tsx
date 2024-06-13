@@ -38,7 +38,7 @@ export const FollowButton = memo(function FollowButton({
     }
     const buttonText = {
         text: isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`,
-        icon: isFollowing ? <FollowIcon className="h-4 w-4" /> : <FollowedIcon className="h-4 w-4" />,
+        icon: isFollowing ? <FollowedIcon className="h-4 w-4" /> : <FollowIcon className="h-4 w-4" />,
     }[variant];
     const variantClassName = {
         text: 'min-w-[100px] px-2',
