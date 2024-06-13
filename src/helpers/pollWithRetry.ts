@@ -9,7 +9,7 @@ interface Options {
 }
 
 export async function pollWithRetry<T>(
-    callback: (signal?: AbortSignal) => Promise<T | null>,
+    callback: (signal?: AbortSignal) => Promise<T>,
     { times = 60, interval = 2000, signal }: Options = {},
 ) {
     for (let i = 0; i < times; i += 1) {

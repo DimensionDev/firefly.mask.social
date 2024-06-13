@@ -66,12 +66,6 @@ async function login(
         // skip if the error is abort error
         if (AbortError.is(error)) return;
 
-        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
-
-        // if (message.toLowerCase().includes('farcaster login timed out')) return;
-        console.log('DEBUG: message');
-        console.log(message);
-
         // if login timed out, let the user refresh the QR code
         if (error instanceof TimeoutError) return;
 
