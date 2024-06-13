@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
