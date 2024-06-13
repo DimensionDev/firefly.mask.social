@@ -1,5 +1,6 @@
-import { AbortError, InvalidResultError } from '@/constants/error.js';
 import { delay } from '@masknet/kit';
+
+import { AbortError, InvalidResultError } from '@/constants/error.js';
 
 interface Options {
     times?: number;
@@ -7,14 +8,13 @@ interface Options {
     signal?: AbortSignal;
 }
 
-export async function pollingWithRetry<T>(
-    callback: (signal?: AbortSignal) => Promise<T>,
+export async function pollWithRetry<T>(
+    callback: (signal?: AbortSignal) => Promise<T | null>,
     { times = 60, interval = 2000, signal }: Options = {},
 ) {
     for (let i = 0; i < times; i += 1) {
         try {
             const result = await callback(signal);
-            if (!result) throw new InvalidResultError();
             return result;
         } catch (error) {
             // continue if invalid result

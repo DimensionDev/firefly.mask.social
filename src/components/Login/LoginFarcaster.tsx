@@ -7,6 +7,7 @@ import { type Dispatch, type SetStateAction, useMemo, useRef, useState } from 'r
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
+import { UserRejectedRequestError } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -32,7 +33,6 @@ import { createSessionByCustodyWallet } from '@/providers/warpcast/createSession
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
-import { UserRejectedRequestError } from 'viem';
 
 async function login(
     createSession: () => Promise<FarcasterSession>,

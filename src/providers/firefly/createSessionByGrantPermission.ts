@@ -1,16 +1,16 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
+import { InvalidResultError, TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
 import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
+import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LinkInfoResponse, SessionStatusResponse } from '@/providers/types/Firefly.js';
 
 async function pollingSessionStatus(session: string, signal?: AbortSignal) {
-    return pollingWithRetry(
+    return pollWithRetry(
         async (pollingSignal) => {
             const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status');
             const response = await fetchJSON<SessionStatusResponse>(url, {
@@ -33,7 +33,8 @@ async function pollingSessionStatus(session: string, signal?: AbortSignal) {
                 case 'expired':
                     return status;
                 case 'pending':
-                    return null;
+                    // continue polling
+                    throw new InvalidResultError();
                 default:
                     safeUnreachable(status_);
                     throw new UnreachableError('session status', status_);
