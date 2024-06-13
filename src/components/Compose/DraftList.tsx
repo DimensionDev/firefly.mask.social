@@ -43,8 +43,8 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
                 return (
                     <Trans>
-                        REPLY to{' '}
-                        <span>
+                        REPLY to
+                        <span className="ml-1">
                             <Link href={profileUrl}>@{post?.author.handle}</Link>
                         </span>
                     </Trans>
