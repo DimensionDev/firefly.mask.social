@@ -35,7 +35,7 @@ export default function Page({
     const isPoap = address === POAP_CONTRACT_ADDRESS;
 
     const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
-    console.log(data);
+
     const { data: collectionData } = useQuery({
         queryKey: ['collection-info', address, chainId],
         queryFn() {
