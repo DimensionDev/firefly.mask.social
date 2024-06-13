@@ -1177,9 +1177,6 @@ msgstr ""
 msgid "[Attachment]"
 msgstr ""
 
-msgid "Firefly App"
-msgstr ""
-
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
