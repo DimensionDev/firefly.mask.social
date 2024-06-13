@@ -165,12 +165,14 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     />
                 </div>
                 <div className="flex translate-x-1.5 items-center space-x-2">
-                    <Collect
-                        count={post.stats?.countOpenActions}
-                        disabled={disabled}
-                        collected={post.hasActed}
-                        hiddenCount
-                    />
+                    {post.source !== Source.Farcaster && post.canAct ? (
+                        <Collect
+                            count={post.stats?.countOpenActions}
+                            disabled={disabled}
+                            collected={post.hasActed}
+                            hiddenCount
+                        />
+                    ) : null}
                     <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} />
                     <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
                 </div>

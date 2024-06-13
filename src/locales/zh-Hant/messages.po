@@ -207,9 +207,6 @@ msgstr "顯示更少"
 msgid "comment"
 msgstr "留言"
 
-msgid "via {0}"
-msgstr ""
-
 msgid "Bookmarks"
 msgstr "書籤"
 
@@ -350,6 +347,9 @@ msgstr ""
 
 msgid "Recent"
 msgstr "最近"
+
+msgid "via <0>{sendFrom}</0>"
+msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
@@ -1182,6 +1182,9 @@ msgstr ""
 msgid "[Attachment]"
 msgstr ""
 
+msgid "Firefly App"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
 
@@ -1202,6 +1205,9 @@ msgstr "你無法在 {0} 上回覆 @{author}"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
+
+msgid "Posted via <0>{sendFrom}</0>"
+msgstr ""
 
 msgid "Collection"
 msgstr ""

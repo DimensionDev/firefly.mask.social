@@ -202,9 +202,6 @@ msgstr "Show less"
 msgid "comment"
 msgstr "comment"
 
-msgid "via {0}"
-msgstr "via {0}"
-
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
@@ -345,6 +342,9 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
+
+msgid "via <0>{sendFrom}</0>"
+msgstr "via <0>{sendFrom}</0>"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
@@ -1177,6 +1177,9 @@ msgstr "Add another option"
 msgid "[Attachment]"
 msgstr "[Attachment]"
 
+msgid "Firefly App"
+msgstr "Firefly App"
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 
@@ -1197,6 +1200,9 @@ msgstr "You cannot reply to @{author} on {0}."
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
+
+msgid "Posted via <0>{sendFrom}</0>"
+msgstr "Posted via <0>{sendFrom}</0>"
 
 msgid "Collection"
 msgstr "Collection"

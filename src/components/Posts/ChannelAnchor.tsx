@@ -16,7 +16,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
     return (
         <div
             {...rest}
-            className={classNames(rest.className, 'my-2 flex justify-end')}
+            className={classNames(rest.className, 'flex justify-end')}
             onClick={(event) => {
                 rest.onClick?.(event);
                 event.stopPropagation();
