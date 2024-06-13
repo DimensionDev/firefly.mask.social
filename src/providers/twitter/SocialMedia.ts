@@ -26,7 +26,6 @@ import {
     ProfileStatus,
     type Provider,
     SessionType,
-    type SuggestedFollowUserProfile,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -465,7 +464,7 @@ class TwitterSocialMedia implements Provider {
     async reportPost(postId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
-    getSuggestedFollowUsers(): Promise<Pageable<SuggestedFollowUserProfile, PageIndicator>> {
+    async getSuggestedFollowUsers(): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 }

@@ -13,22 +13,23 @@ import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { SuggestedFollowUserProfile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function SuggestedFollowsCard() {
     const { data: farcasterData, isLoading: isLoadingFarcaster } = useQuery({
         queryKey: ['suggested-follows-lite', Source.Farcaster],
         async queryFn() {
-            const result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers();
-            let data: SuggestedFollowUserProfile[] = [];
+            let result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers();
+            let data: Profile[] = [];
             let sliceIndex = 0;
-            while (data.length < 3 && result.data.length - sliceIndex > 0) {
+            while (data.length < 3 && result.nextIndicator && result.data.length - sliceIndex > 0) {
                 const sliceEndIndex = 3 - data.length;
                 const newData = (
                     await Promise.all(
                         result.data.slice(sliceIndex, sliceEndIndex).map(async (item) => ({
                             ...item,
                             viewerContext: {
+                                ...item.viewerContext,
                                 blocking: await FireflySocialMediaProvider.isProfileMuted(
                                     FireflyPlatform.Farcaster,
                                     item.profileId,
@@ -36,41 +37,44 @@ export function SuggestedFollowsCard() {
                             },
                         })),
                     )
-                ).filter((item) => !item.viewerContext?.blocking);
+                ).filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following);
                 sliceIndex = sliceIndex + sliceEndIndex;
                 data = [...data, ...newData];
+                if (data.length < 3 && result.data.length - sliceIndex <= 0 && result.nextIndicator) {
+                    result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers({
+                        indicator: result.nextIndicator,
+                    });
+                    sliceIndex = 0;
+                }
             }
-            return {
-                ...result,
-                data,
-            };
+            return data;
         },
     });
     const { data: lensData, isLoading: isLoadingLens } = useQuery({
         queryKey: ['suggested-follows-lite', Source.Lens],
         async queryFn() {
             const result = await LensSocialMediaProvider.getSuggestedFollowUsers();
-            const data: SuggestedFollowUserProfile[] = result.data
-                .filter((item) => !item.viewerContext?.blocking)
+            return result.data
+                .filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following)
                 .slice(0, 3);
-            return {
-                ...result,
-                data,
-            };
         },
     });
 
-    const loadingEl = <LoadingIcon width={16} height={16} className="animate-spin" />;
+    const loadingEl = (
+        <div className="flex h-[180px] w-full items-center justify-center">
+            <LoadingIcon width={16} height={16} className="animate-spin" />
+        </div>
+    );
 
     return (
         <div className="rounded-lg border border-line dark:border-0 dark:bg-lightBg">
             <AsideTitle>
                 <Trans>Suggested Follows</Trans>
             </AsideTitle>
-            <div className="flex h-[180px] w-full flex-col items-center justify-center">
+            <div className="flex w-full flex-col">
                 {isLoadingFarcaster
                     ? loadingEl
-                    : farcasterData?.data?.map((profile) => (
+                    : farcasterData?.map((profile) => (
                           <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Farcaster} />
                       ))}
             </div>
@@ -83,10 +87,10 @@ export function SuggestedFollowsCard() {
             >
                 <Trans>Show more Farcaster users</Trans>
             </Link>
-            <div className="mt-3 flex h-[180px] w-full flex-col items-center justify-center">
+            <div className="mt-3 flex w-full flex-col">
                 {isLoadingLens
                     ? loadingEl
-                    : lensData?.data?.map((profile) => (
+                    : lensData?.map((profile) => (
                           <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Lens} />
                       ))}
             </div>

@@ -50,6 +50,19 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
         { queryKey: ['search', SearchType.Profiles], type: 'active' },
         profilesPatcher,
     );
+    queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
+    queryClient.setQueriesData<Profile[]>({ queryKey: ['suggested-follows-lite', source] }, (profiles) => {
+        if (!profiles) return profiles;
+        for (const profile of profiles) {
+            if (profile.profileId === profileId) {
+                profile.viewerContext = {
+                    ...profile.viewerContext,
+                    following: status,
+                };
+            }
+        }
+        return profiles;
+    });
 
     patchNotificationQueryDataOnAuthor(source, (profile) => {
         if (profile.profileId === profileId) {

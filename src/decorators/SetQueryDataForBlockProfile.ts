@@ -1,4 +1,4 @@
-import { produce } from 'immer';
+import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
@@ -6,6 +6,10 @@ import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQ
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
+
+interface PagesData {
+    pages: Array<{ data: Profile[] }>;
+}
 
 function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;
@@ -16,6 +20,23 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
             blocking: status,
         };
     });
+
+    const profilesPatcher = (oldData: Draft<PagesData> | undefined) => {
+        if (!oldData) return oldData;
+        return produce(oldData, (draft) => {
+            for (const page of draft.pages) {
+                if (!page) continue;
+                for (const mutedProfile of page.data) {
+                    if (mutedProfile.profileId !== profileId) continue;
+
+                    mutedProfile.viewerContext = {
+                        ...mutedProfile.viewerContext,
+                        blocking: status,
+                    };
+                }
+            }
+        });
+    };
 
     queryClient.setQueriesData<Profile>({ queryKey: ['profile', source] }, (old) => {
         if (!old || old.profileId !== profileId) return old;
@@ -38,25 +59,9 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
 
     queryClient.setQueryData(['profile-is-blocked', source, profileId], status);
     queryClient.setQueryData(['profile-is-muted', source, profileId], status);
-    queryClient.setQueriesData<{ pages: Array<{ data: Profile[] }> }>(
-        { queryKey: ['profiles', source, 'muted-list'] },
-        (oldData) => {
-            if (!oldData) return oldData;
-            return produce(oldData, (draft) => {
-                for (const page of draft.pages) {
-                    if (!page) continue;
-                    for (const mutedProfile of page.data) {
-                        if (mutedProfile.profileId !== profileId) continue;
-
-                        mutedProfile.viewerContext = {
-                            ...mutedProfile.viewerContext,
-                            blocking: status,
-                        };
-                    }
-                }
-            });
-        },
-    );
+    queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source, 'muted-list'] }, profilesPatcher);
+    queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
+    queryClient.refetchQueries({ queryKey: ['suggested-follows-lite', source] });
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;
