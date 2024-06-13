@@ -86,11 +86,9 @@ export function SuggestedFollowsCard() {
             <div className="mt-3 flex h-[180px] w-full flex-col items-center justify-center">
                 {isLoadingLens
                     ? loadingEl
-                    : lensData?.data
-                          ?.slice(0, 3)
-                          .map((profile) => (
-                              <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Lens} />
-                          ))}
+                    : lensData?.data?.map((profile) => (
+                          <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Lens} />
+                      ))}
             </div>
             <Link
                 href={urlcat(PageRoute.UserTrending, {
