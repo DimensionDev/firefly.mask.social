@@ -283,11 +283,11 @@ export function MentionsPlugin(): JSX.Element | null {
 
     return (
         <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
-            anchorClassName="z-[100]"
+            anchorClassName="z-50"
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
                 return anchorElementRef.current && options.length
                     ? createPortal(
-                          <div className="bg-brand sticky z-[999] mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
+                          <div className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                               <ul>
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem
