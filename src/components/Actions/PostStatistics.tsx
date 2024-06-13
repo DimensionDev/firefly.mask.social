@@ -2,10 +2,13 @@ import { t, Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import { Fragment, type HTMLProps, memo, useMemo } from 'react';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
-import { Source } from '@/constants/enum.js';
+import { EngagementType, Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -22,6 +25,25 @@ function countText(count?: number, singular?: string, plural?: string) {
     return `${nFormatter(count)} ${plural}`;
 }
 
+function EngagementLink(props: {
+    post: Post;
+    type: EngagementType;
+    count?: number;
+    singular?: string;
+    plural?: string;
+}) {
+    const count = countText(props.count, props.singular, props.plural);
+    if (!count) return null;
+    return (
+        <Link
+            className="hover:underline"
+            href={resolveEngagementLink(props.post.postId, props.post.source, props.type)}
+        >
+            {count}
+        </Link>
+    );
+}
+
 export const PostStatistics = memo<Props>(function PostStatistics({
     className,
     channelProps,
@@ -36,19 +58,52 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     );
 
     const comments = countText(post.stats?.comments, t`Comment`, t`Comments`);
-    const likes = countText(post.stats?.reactions, t`Like`, t`Likes`);
+    const likes = post.stats?.reactions ? (
+        <EngagementLink
+            post={post}
+            count={post.stats.reactions}
+            singular={t`Like`}
+            plural={t`Likes`}
+            type={EngagementType.Likes}
+        />
+    ) : null;
     const collects = countText(post.stats?.countOpenActions, t`Collect`, t`Collects`);
-    const mirrors =
-        post.source === Source.Farcaster
-            ? countText(post.stats?.mirrors, t`Recast`, t`Recasts`)
-            : countText(post.stats?.mirrors, t`Mirror`, t`Mirrors`);
-    const quotes = countText(post.stats?.quotes, t`Quote`, t`Quotes`);
+    const mirrors = post.stats?.mirrors ? (
+        post.source === Source.Farcaster ? (
+            <EngagementLink
+                post={post}
+                type={EngagementType.Recasts}
+                count={post.stats.mirrors}
+                singular={t`Recast`}
+                plural={t`Recasts`}
+            />
+        ) : (
+            <EngagementLink
+                post={post}
+                type={EngagementType.Mirrors}
+                count={post.stats.mirrors}
+                singular={t`Mirror`}
+                plural={t`Mirror`}
+            />
+        )
+    ) : null;
+    const quotes = post.stats?.quotes ? (
+        <EngagementLink
+            post={post}
+            type={EngagementType.Quotes}
+            count={post.stats.quotes}
+            singular={t`Quote`}
+            plural={t`Quotes`}
+        />
+    ) : null;
     const views = countText(viewCount, t`View`, t`Views`);
 
     const sendFrom = post.sendFrom?.displayName;
 
     return (
-        <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
+        <ClickableArea
+            className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}
+        >
             <div>
                 {(!isDetail
                     ? compact([comments, likes])
@@ -92,6 +147,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                     ) : null}
                 </div>
             ) : null}
-        </div>
+        </ClickableArea>
     );
 });
