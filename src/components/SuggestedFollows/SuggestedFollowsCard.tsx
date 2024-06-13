@@ -19,10 +19,10 @@ export function SuggestedFollowsCard() {
     const { data: farcasterData, isLoading: isLoadingFarcaster } = useQuery({
         queryKey: ['suggested-follows-lite', Source.Farcaster],
         async queryFn() {
-            const result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers();
+            let result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers();
             let data: Profile[] = [];
             let sliceIndex = 0;
-            while (data.length < 3 && result.data.length - sliceIndex > 0) {
+            while (data.length < 3 && result.nextIndicator && result.data.length - sliceIndex > 0) {
                 const sliceEndIndex = 3 - data.length;
                 const newData = (
                     await Promise.all(
@@ -40,6 +40,12 @@ export function SuggestedFollowsCard() {
                 ).filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following);
                 sliceIndex = sliceIndex + sliceEndIndex;
                 data = [...data, ...newData];
+                if (data.length < 3 && result.data.length - sliceIndex <= 0 && result.nextIndicator) {
+                    result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers({
+                        indicator: result.nextIndicator,
+                    });
+                    sliceIndex = 0;
+                }
             }
             return data;
         },
