@@ -25,12 +25,13 @@ import type {
 import { safeUnreachable } from '@masknet/kit';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact, first, isEmpty, last } from 'lodash-es';
+import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
-import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { getPollFrameSearchParams, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
@@ -89,7 +90,7 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
     return (
         metadata.attributes?.reduce<string[]>((acc, attr) => {
             if (attr.key === LensMetadataAttributeKey.Poll) {
-                acc.push(getPollFrameUrl({ pollId: attr.value, source: Source.Lens }));
+                acc.push(urlcat(getPollFrameUrl(attr.value), getPollFrameSearchParams(Source.Lens)));
             }
             return acc;
         }, []) ?? []
