@@ -1,6 +1,7 @@
 'use client';
 
 import { TextOverflowTooltip } from '@masknet/theme';
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
@@ -32,7 +33,7 @@ export default function Page({
 }) {
     const comeback = useComeBack();
     const chainId = searchParams.chainId ? Number.parseInt(searchParams.chainId as string, 10) : undefined;
-    const isPoap = address === POAP_CONTRACT_ADDRESS;
+    const isPoap = isSameAddress(address, POAP_CONTRACT_ADDRESS);
 
     const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
 
@@ -99,9 +100,7 @@ export default function Page({
                     chainId={data.chainId}
                     schemaType={data.contract?.schema}
                 />
-                {address === POAP_CONTRACT_ADDRESS && !isUndefined(data.metadata.eventId) ? (
-                    <Attendees eventId={data.metadata.eventId} />
-                ) : null}
+                {isPoap && !isUndefined(data.metadata.eventId) ? <Attendees eventId={data.metadata.eventId} /> : null}
             </div>
         </div>
     );
