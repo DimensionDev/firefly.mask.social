@@ -40,6 +40,10 @@ class SimpleHashWalletProfile implements Provider {
         const response = await SimpleHashEVM.getTopCollectorsByContract(contractAddress, options);
         return response as Pageable<SimpleHash.TopCollector, PageIndicator>;
     }
+
+    async getPoapEvent(eventId: number, options: Omit<BaseHubOptions<ChainId>, 'chainId'> = {}) {
+        return SimpleHashEVM.getPoapEvent(eventId, options);
+    }
 }
 
 export const SimpleHashWalletProfileProvider = new SimpleHashWalletProfile();

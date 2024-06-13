@@ -37,9 +37,7 @@ export function NFTFeedHeader({
 
     return (
         <div
-            className={classNames('mb-1.5 flex items-start gap-3', className, {
-                '-mb-4': !displayInfo.ensHandle,
-            })}
+            className={classNames('flex items-start gap-3', className, !displayInfo.ensHandle ? '-mb-4' : 'mb-1.5')}
             {...rest}
         >
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
