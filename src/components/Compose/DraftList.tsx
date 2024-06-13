@@ -14,6 +14,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -42,9 +43,9 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
                 return (
                     <Trans>
-                        REPLY
+                        REPLY to{' '}
                         <span>
-                            to <Link href={profileUrl}>@{post?.author.handle}</Link>
+                            <Link href={profileUrl}>@{post?.author.handle}</Link>
                         </span>
                     </Trans>
                 );
@@ -166,6 +167,20 @@ export const DraftList = memo(function DraftList() {
 
     const handleApply = useCallback(
         async (draft: Draft, full = false) => {
+            if (draft.type === 'reply' || draft.type === 'quote') {
+                const target = first(draft.posts);
+
+                const post = first(compact(values(target?.parentPost)));
+                if (post) {
+                    const provider = resolveSocialMediaProvider(post.source);
+                    const detail = await provider.getPostById(post.postId);
+                    if (detail.isHidden) {
+                        enqueueErrorMessage(t`The post you quoted/replied has already deleted`);
+                        return;
+                    }
+                }
+            }
+
             const currentAllProfiles = compact(values(currentProfileAll));
             const availableProfiles = draft.availableProfiles.filter((x) =>
                 currentAllProfiles.some((profile) => isSameProfile(profile, x)),

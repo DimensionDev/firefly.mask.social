@@ -55,7 +55,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
             interactive
             content={<ProfileCard profile={profile} loading={isLoading} />}
         >
-            <div className={className}>{children}</div>
+            <span className={className}>{children}</span>
         </Tippy>
     );
 });
