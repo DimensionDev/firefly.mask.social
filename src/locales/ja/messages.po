@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-13 00:04\n"
+"PO-Revision-Date: 2024-06-13 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -88,6 +88,9 @@ msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
 msgid "Mute @{0}"
+msgstr ""
+
+msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
 msgid "X"
@@ -205,9 +208,6 @@ msgid "Show less"
 msgstr ""
 
 msgid "comment"
-msgstr ""
-
-msgid "via {0}"
 msgstr ""
 
 msgid "Bookmarks"
@@ -351,6 +351,9 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
+msgid "via <0>{sendFrom}</0>"
+msgstr ""
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
@@ -453,6 +456,9 @@ msgstr ""
 msgid "Hashtag"
 msgstr ""
 
+msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
 msgid "Unknown transaction method: {0}."
 msgstr ""
 
@@ -460,9 +466,6 @@ msgid "Frame"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
@@ -793,9 +796,6 @@ msgid "Please input the frame url to be revalidated."
 msgstr ""
 
 msgid "General"
-msgstr ""
-
-msgid "REPLY<0>to <1>@{0}</1></0>"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -1201,6 +1201,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
+msgstr ""
+
+msgid "Posted via <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "Collection"
