@@ -37,7 +37,7 @@ export function Modal({
             <Dialog
                 initialFocus={ref}
                 as="div"
-                className="relative z-[1001]"
+                className="relative z-40"
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
