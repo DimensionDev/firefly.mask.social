@@ -50,18 +50,12 @@ export function SuggestedFollowsCard() {
         queryKey: ['suggested-follows-lite', Source.Lens],
         async queryFn() {
             const result = await LensSocialMediaProvider.getSuggestedFollowUsers();
-            let data: SuggestedFollowUserProfile[] = [];
-            let sliceIndex = 0;
-            while (data.length < 3 && result.data.length - sliceIndex > 0) {
-                const sliceEndIndex = 3 - data.length;
-                const newData = result.data
-                    .slice(sliceIndex, sliceEndIndex)
-                    .filter((item) => !item.viewerContext?.blocking);
-                sliceIndex = sliceIndex + sliceEndIndex;
-                data = [...data, ...newData];
-            }
+            const data: SuggestedFollowUserProfile[] = result.data
+                .filter((item) => !item.viewerContext?.blocking)
+                .slice(0, 3);
             return {
                 ...result,
+                data,
             };
         },
     });
