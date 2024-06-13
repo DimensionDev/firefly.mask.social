@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -30,8 +31,8 @@ const resolvePlatform = createLookupTableResolver<SocialSource, string>(
         [Source.Lens]: 'lens',
         [Source.Twitter]: 'twitter',
     },
-    (x) => {
-        throw new Error(`Unknown platform ${x}`);
+    (source) => {
+        throw new UnreachableError('source', source);
     },
 );
 

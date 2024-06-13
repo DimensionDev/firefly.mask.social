@@ -11,7 +11,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Farcaster:
             return urlcat(FIREFLY_STAMP_URL, '/farcaster/:id', { id: profileId });
         case Source.Twitter:
-            return urlcat(FIREFLY_STAMP_URL, '/twitter/:id', { id: profileId });
+            return '';
         case Source.Firefly:
             return '';
         case Source.Wallet:

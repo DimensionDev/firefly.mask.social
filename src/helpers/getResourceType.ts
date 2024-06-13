@@ -1,7 +1,7 @@
 import { FRAME_SERVER_URL } from '@/constants/index.js';
 import { parseURL } from '@/helpers/parseURL.js';
 
-function isValidPollFrameUrl(url: string): boolean {
+export function isValidPollFrameUrl(url: string): boolean {
     return url.startsWith(FRAME_SERVER_URL);
 }
 

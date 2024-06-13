@@ -11,6 +11,7 @@ import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastProfile } from '@/helpers/formatWarpcastProfile.js';
@@ -44,63 +45,63 @@ import {
 
 class WarpcastSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     get type() {
@@ -171,14 +172,14 @@ class WarpcastSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -648,7 +649,7 @@ class WarpcastSocialMedia implements Provider {
         return true;
     }
     async reportPost(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
     async blockProfile(profileId: string): Promise<boolean> {
         // TODO Mocking result for now.
@@ -660,23 +661,23 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
     /**
      * @param {string} postId

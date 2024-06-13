@@ -46,71 +46,71 @@ class TwitterSocialMedia implements Provider {
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     commentPost(postId: string, post: Post): Promise<string> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     isFollowedByMe(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     isFollowingMe(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async follow(profileId: string): Promise<boolean> {
@@ -250,31 +250,31 @@ class TwitterSocialMedia implements Provider {
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     get type() {
@@ -419,13 +419,13 @@ class TwitterSocialMedia implements Provider {
         );
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
     async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
     async bookmark(tweetId: string): Promise<boolean> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
@@ -459,13 +459,13 @@ class TwitterSocialMedia implements Provider {
         return formatTweetsPage(response.data, indicator);
     }
     async reportProfile(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
     async reportPost(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
-    getSuggestedFollowUsers(): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+    async getSuggestedFollowUsers(): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
     }
 }
 

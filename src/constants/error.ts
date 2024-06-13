@@ -72,8 +72,8 @@ export class UnreachableError extends Error {
 }
 
 export class NotImplementedError extends Error {
-    constructor() {
-        super('Not implemented.');
+    constructor(message?: string) {
+        super(message ?? 'Not implemented.');
     }
 }
 

@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { AbortError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
@@ -23,7 +24,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
         // eslint-disable-next-line no-constant-condition
         while (true) {
             // Check if the operation has been aborted
-            if (signal?.aborted) throw new Error('Aborted');
+            if (signal?.aborted) throw new AbortError();
 
             tries += 1;
 
