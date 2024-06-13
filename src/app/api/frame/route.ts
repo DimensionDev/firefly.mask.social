@@ -58,12 +58,14 @@ export async function POST(request: Request) {
 
     const packet = await request.clone().json();
     const response = await fetch(target || postUrl, {
-        redirect: 'manual',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(packet),
+
+        // for post_redirect, we need to handle the redirect manually
+        redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
     });
 
     if (!response.ok || response.status < 200 || response.status >= 400)
