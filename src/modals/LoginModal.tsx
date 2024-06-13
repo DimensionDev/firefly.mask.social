@@ -123,18 +123,18 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
             <div className="flex w-full flex-col md:gap-4 md:p-4">
-                <div className="flex w-full flex-row md:gap-4">
-                    {loading ? (
-                        <div className="flex h-[324px] w-full items-center justify-center">
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
-                        </div>
-                    ) : (
-                        SORTED_SOCIAL_SOURCES.map((source) => (
+                {loading ? (
+                    <div className="flex h-[324px] w-full items-center justify-center">
+                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                    </div>
+                ) : (
+                    <div className="flex w-full flex-row md:gap-4">
+                        {SORTED_SOCIAL_SOURCES.map((source) => (
                             <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
-                        ))
-                    )}
-                </div>
-                <LoginButton source={Source.Firefly} onClick={() => handleLogin(Source.Firefly)} />
+                        ))}
+                        <LoginButton source={Source.Firefly} onClick={() => handleLogin(Source.Firefly)} />
+                    </div>
+                )}
             </div>
         </div>
     ) : (
