@@ -169,8 +169,8 @@ export const DraftList = memo(function DraftList() {
         async (draft: Draft, full = false) => {
             if (draft.type === 'reply' || draft.type === 'quote') {
                 const target = first(draft.posts);
-
                 const post = first(compact(values(target?.parentPost)));
+
                 if (post) {
                     const provider = resolveSocialMediaProvider(post.source);
                     const detail = await provider.getPostById(post.postId);
