@@ -1,3 +1,4 @@
+import { AbortError, InvalidResultError } from '@/constants/error.js';
 import { delay } from '@masknet/kit';
 
 interface Options {
@@ -13,14 +14,23 @@ export async function pollingWithRetry<T>(
     for (let i = 0; i < times; i += 1) {
         try {
             const result = await callback(signal);
-            if (!result) throw new Error('Not get result yet.');
+            if (!result) throw new InvalidResultError();
             return result;
-        } catch {
-            await delay(interval);
-            continue;
+        } catch (error) {
+            // continue if invalid result
+            if (error instanceof InvalidResultError) {
+                await delay(interval);
+                continue;
+            }
+
+            // early return if aborted
+            if (signal?.aborted) throw new AbortError();
+
+            // rethrow other errors
+            throw error;
         }
     }
 
     // insufficient try times
-    throw new Error('Not get result yet.');
+    throw new InvalidResultError();
 }

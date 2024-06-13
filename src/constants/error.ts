@@ -94,3 +94,9 @@ export class NotAllowedError extends Error {
         super('Not allowed.');
     }
 }
+
+export class InvalidResultError extends Error {
+    constructor() {
+        super('Invalid result.');
+    }
+}

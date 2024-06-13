@@ -11,14 +11,19 @@ import type { LinkInfoResponse, SessionStatusResponse } from '@/providers/types/
 
 async function pollingSessionStatus(session: string, signal?: AbortSignal) {
     return pollingWithRetry(
-        async (s) => {
-            const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status', {
-                session,
-            });
+        async (pollingSignal) => {
+            const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status');
             const response = await fetchJSON<SessionStatusResponse>(url, {
-                method: 'GET',
-                signal: s,
+                method: 'POST',
+                body: JSON.stringify({
+                    session,
+                }),
+                signal: pollingSignal,
             });
+
+            console.log('DEBUG: polling');
+            console.log(response);
+
             const status = resolveFireflyResponseData(response);
             const status_ = status.status;
 
@@ -48,6 +53,10 @@ async function createSession(callback?: (url: string) => void, signal?: AbortSig
         method: 'GET',
         signal,
     });
+
+    console.log('DEBUG: create session');
+    console.log(response);
+
     const linkInfo = resolveFireflyResponseData(response);
 
     // present QR code to the user or open the link in a new tab
