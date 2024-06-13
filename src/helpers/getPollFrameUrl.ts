@@ -17,5 +17,6 @@ export function getPollFrameUrl({ pollId, source }: GetPollFrameUrlOptions) {
         source: source.toLowerCase(),
         profileId: profile?.profileId ?? null,
         theme: getMeaningfulThemeMode(),
+        date: Date.now(), // force refresh poll frame
     });
 }
