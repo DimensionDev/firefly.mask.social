@@ -1,11 +1,11 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 export function useStateWithSearchParams<Value extends string>(key: string, initialValue?: Value) {
     const searchParam = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
-    const state = searchParam.get(key) ?? initialValue;
+    const [state, setState] = useState(searchParam.get(key) ?? initialValue);
     const update = useCallback(
         (
             value: Value,
@@ -23,6 +23,7 @@ export function useStateWithSearchParams<Value extends string>(key: string, init
             } else {
                 router.push(href);
             }
+            setState(value);
         },
         [router, searchParam, pathname, key],
     );
