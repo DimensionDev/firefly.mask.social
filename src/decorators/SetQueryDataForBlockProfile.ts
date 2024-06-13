@@ -37,6 +37,26 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
     });
 
     queryClient.setQueryData(['profile-is-blocked', source, profileId], status);
+    queryClient.setQueryData(['profile-is-muted', source, profileId], status);
+    queryClient.setQueriesData<{ pages: Array<{ data: Profile[] }> }>(
+        { queryKey: ['profiles', source, 'muted-list'] },
+        (oldData) => {
+            if (!oldData) return oldData;
+            return produce(oldData, (draft) => {
+                for (const page of draft.pages) {
+                    if (!page) continue;
+                    for (const mutedProfile of page.data) {
+                        if (mutedProfile.profileId !== profileId) continue;
+
+                        mutedProfile.viewerContext = {
+                            ...mutedProfile.viewerContext,
+                            blocking: status,
+                        };
+                    }
+                }
+            });
+        },
+    );
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;

@@ -3,7 +3,7 @@ import { memo, useState } from 'react';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
-import { UnmuteProfileButton } from '@/components/Actions/UnmuteProfileButton.js';
+import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -34,7 +34,7 @@ export const FollowButton = memo(function FollowButton({
     const muted = useIsProfileMuted(profile);
 
     if (muted) {
-        return <UnmuteProfileButton profile={profile} />;
+        return <ToggleMutedProfileButton profile={profile} />;
     }
     const buttonText = {
         text: isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`,

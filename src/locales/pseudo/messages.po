@@ -85,6 +85,9 @@ msgstr ""
 msgid "Mute @{0}"
 msgstr ""
 
+msgid "The post you quoted/replied has already deleted"
+msgstr ""
+
 msgid "X"
 msgstr ""
 
@@ -448,6 +451,9 @@ msgstr ""
 msgid "Hashtag"
 msgstr ""
 
+msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
 msgid "Unknown transaction method: {0}."
 msgstr ""
 
@@ -455,9 +461,6 @@ msgid "Frame"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-msgid "Unmuting"
 msgstr ""
 
 msgid "Search Filter"
@@ -788,9 +791,6 @@ msgid "Please input the frame url to be revalidated."
 msgstr ""
 
 msgid "General"
-msgstr ""
-
-msgid "REPLY<0>to <1>@{0}</1></0>"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."

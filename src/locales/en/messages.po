@@ -85,6 +85,9 @@ msgstr "You can sign in to Farcaster with the following options."
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
 
+msgid "The post you quoted/replied has already deleted"
+msgstr "The post you quoted/replied has already deleted"
+
 msgid "X"
 msgstr "X"
 
@@ -448,6 +451,9 @@ msgstr "post"
 msgid "Hashtag"
 msgstr "Hashtag"
 
+msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr "REPLY to<0><1>@{0}</1></0>"
+
 msgid "Unknown transaction method: {0}."
 msgstr "Unknown transaction method: {0}."
 
@@ -456,9 +462,6 @@ msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
-
-msgid "Unmuting"
-msgstr "Unmuting"
 
 msgid "Search Filter"
 msgstr "Search Filter"
@@ -789,9 +792,6 @@ msgstr "Please input the frame url to be revalidated."
 
 msgid "General"
 msgstr "General"
-
-msgid "REPLY<0>to <1>@{0}</1></0>"
-msgstr "REPLY<0>to <1>@{0}</1></0>"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."

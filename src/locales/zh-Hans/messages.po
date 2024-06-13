@@ -90,6 +90,9 @@ msgstr "您可以使用以下方式登录 Farcaster。"
 msgid "Mute @{0}"
 msgstr "屏蔽 @{0}"
 
+msgid "The post you quoted/replied has already deleted"
+msgstr ""
+
 msgid "X"
 msgstr "X"
 
@@ -453,6 +456,9 @@ msgstr "发帖"
 msgid "Hashtag"
 msgstr "#"
 
+msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
 msgid "Unknown transaction method: {0}."
 msgstr ""
 
@@ -461,9 +467,6 @@ msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
 msgstr ""
-
-msgid "Unmuting"
-msgstr "屏蔽中"
 
 msgid "Search Filter"
 msgstr "查询规则"
@@ -794,9 +797,6 @@ msgstr "请输入 URL 重新验证。"
 
 msgid "General"
 msgstr "通用"
-
-msgid "REPLY<0>to <1>@{0}</1></0>"
-msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"

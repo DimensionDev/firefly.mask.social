@@ -11,7 +11,7 @@ export function useIsProfileMuted(profile: Profile, enabled = true) {
     const isLogin = useIsLogin(Source.Farcaster);
     const { data } = useQuery({
         enabled: isFarcaster && isLogin && enabled,
-        queryKey: ['profile-is-muted', profile.profileId],
+        queryKey: ['profile-is-muted', profile.source, profile.profileId],
         queryFn: () => {
             return FireflySocialMediaProvider.isProfileMuted(FireflyPlatform.Farcaster, profile.profileId);
         },
