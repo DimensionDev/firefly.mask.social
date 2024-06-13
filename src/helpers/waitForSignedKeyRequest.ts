@@ -23,7 +23,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
         // eslint-disable-next-line no-constant-condition
         while (true) {
             // Check if the operation has been aborted
-            if (signal?.aborted) throw new Error('Aborted');
+            if (signal?.aborted) throw new AbortError();
 
             tries += 1;
 

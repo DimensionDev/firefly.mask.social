@@ -1,6 +1,7 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 
 export const narrowToSocialSource = createLookupTableResolver<Source, SocialSource>(
     {
@@ -14,7 +15,7 @@ export const narrowToSocialSource = createLookupTableResolver<Source, SocialSour
         [Source.NFTs]: Source.Farcaster,
     },
     (keyword) => {
-        throw new Error(`Unknown keyword: ${keyword}`);
+        throw new UnreachableError('keyword', keyword);
     },
 );
 
@@ -30,6 +31,6 @@ export const narrowToSocialSourceInURL = createLookupTableResolver<SourceInURL, 
         [SourceInURL.NFTs]: SourceInURL.Farcaster,
     },
     (keyword) => {
-        throw new Error(`Unknown keyword: ${keyword}`);
+        throw new UnreachableError('keyword', keyword);
     },
 );

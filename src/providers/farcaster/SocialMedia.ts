@@ -3,6 +3,7 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import { uniqBy } from 'lodash-es';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -47,23 +48,23 @@ class FarcasterSocialMedia implements Provider {
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     getChannelById(channelId: string): Promise<Channel> {
