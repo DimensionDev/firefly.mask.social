@@ -6,6 +6,7 @@ import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { uniq } from 'lodash-es';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -28,9 +29,7 @@ export function Attendees({ eventId }: AttendeesProps) {
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
             const result = await SimpleHashWalletProfileProvider.getPoapEvent(eventId, { indicator });
-            const owners = result.data.reduce<string[]>((acc, asset) => {
-                return [...acc, ...asset.owners.map((owner) => owner.owner_address)];
-            }, []);
+            const owners = uniq(result.data.flatMap((asset) => asset.owners.map((owner) => owner.owner_address)));
             return {
                 ...result,
                 data: owners,
