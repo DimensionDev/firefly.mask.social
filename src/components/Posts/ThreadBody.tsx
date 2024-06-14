@@ -76,10 +76,8 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                         post={post}
                         disabled={post.isHidden}
                         disablePadding
-                        channelProps={{
-                            onClick() {
-                                if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                            },
+                        onSetScrollIndex={() => {
+                            if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                         }}
                     />
                 </div>
