@@ -71,6 +71,7 @@
     --color-bottom-bg: rgba(0, 0, 0, 0.05);
     --color-tab-line: rgba(29, 155, 240, 1);
     --color-success: rgba(61, 194, 51, 1);
+    --color-firefly-brand: rgba(146, 80, 255, 1);
     --m-common-danger: #ff3545;
     --m-common-warn: #ffb100;
     --m-light-bottom: #fff;
@@ -118,7 +119,8 @@
     --color-line2: rgba(255, 255, 255, 0.43);
     --color-light-bg: rgba(255, 255, 255, 0.08);
     --color-light-main: #f5f5f5;
-    --color-tab-line: rgba(146, 80, 255, 1);
+    --color-tab-line: var(--color-firefly-brand);
+    --color-firefly-brand: rgba(146, 80, 255, 1);
     --plyr-audio-controls-background: transparent;
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
@@ -161,6 +163,7 @@
     --color-line2: rgba(255, 255, 255, 0.43);
     --color-light-bg: rgba(255, 255, 255, 0.08);
     --color-light-main: #f5f5f5;
+    --color-firefly-brand: rgba(146, 80, 255, 1);
     --plyr-audio-controls-background: inherit;
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;

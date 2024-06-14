@@ -48,7 +48,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
                             className={classNames(
-                                source === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
+                                source === value ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
                                 'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
                                 'md:h-[60px] md:py-[18px] md:leading-6',
                             )}

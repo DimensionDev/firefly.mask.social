@@ -50,7 +50,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                         discover: DiscoverType.TopChannels,
                         source: resolveSocialSourceInURL(Source.Farcaster),
                     })}
-                    className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-[#9250FF]"
+                    className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-fireflyBrand"
                 >
                     <Trans>Show More</Trans>
                 </Link>
