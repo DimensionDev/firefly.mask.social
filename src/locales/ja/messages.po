@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-13 12:01\n"
+"PO-Revision-Date: 2024-06-14 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -756,6 +756,9 @@ msgstr ""
 msgid "Your Farcaster account is now connected."
 msgstr ""
 
+msgid "Failed to unwatch {identity}"
+msgstr ""
+
 msgid "Connect to {source}"
 msgstr ""
 
@@ -1053,6 +1056,9 @@ msgstr ""
 msgid "Collects"
 msgstr ""
 
+msgid "{identity} watched"
+msgstr ""
+
 msgid "Notifications"
 msgstr ""
 
@@ -1260,7 +1266,13 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
+msgid "Failed to watch {identity}"
+msgstr ""
+
 msgid "View Engagements"
+msgstr ""
+
+msgid "{identity} unwatched"
 msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
