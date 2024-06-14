@@ -71,7 +71,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             },
                             '/channel',
                             '/settings',
-                            '/trending',
                             '/profile',
                         ]}
                     >
