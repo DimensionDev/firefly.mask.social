@@ -57,6 +57,11 @@ export interface TabProps {
 
 export function Tab({ children, value }: TabProps) {
     const { value: currentTab, onChange, variant } = useContext(TabContext);
+    const liVariantClassName = {
+        default: 'flex-1',
+        second: 'flex-1',
+        classification: '',
+    }[variant];
     const variantClassName = {
         default: classNames(
             'border-b-2 text-center text-sm font-bold hover:cursor-pointer hover:text-main md:h-[60px] md:py-[18px] leading-[43px] md:leading-6 sm:text-xl h-[43px] px-4',
@@ -68,12 +73,16 @@ export function Tab({ children, value }: TabProps) {
         ),
         classification: classNames(
             'px-1.5 h-6 text-xs rounded-md leading-6 bg-farcasterPrimary',
-            currentTab === value ? 'text-bg' : 'bg-opacity-10 text-farcasterPrimary cursor-pointer',
+            currentTab === value
+                ? 'text-bg dark:text-white'
+                : 'bg-opacity-10 dark:bg-opacity-30 text-farcasterPrimary cursor-pointer dark:text-white',
         ),
     }[variant];
 
     return (
-        <li className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
+        <li
+            className={classNames('flex list-none justify-center lg:flex-initial lg:justify-start', liVariantClassName)}
+        >
             <a
                 className={variantClassName}
                 aria-current={currentTab === value ? 'page' : undefined}
