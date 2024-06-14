@@ -7,12 +7,13 @@ import type { RP_HASH_TAG } from '@/constants/index.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
-import type { CompositePoll } from '@/providers/types/Poll.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
+import type { CompositePost } from '@/store/useComposeStore.js';
 
 export enum CHAR_TAG {
     FIREFLY_RP = 'ff_rp',
     MENTION = 'mention_tag',
+    FRAME = 'frame_tag',
 }
 
 /**
@@ -34,14 +35,22 @@ interface RP_Chars extends ComplexChars {
     content: typeof RP_HASH_TAG;
 }
 
-interface Mention_Chars {
+interface Mention_Chars extends ComplexChars {
     tag: CHAR_TAG.MENTION;
     visible: boolean;
     content: string;
     profiles: Profile[];
 }
 
-export type Chars = string | Array<string | RP_Chars | Mention_Chars>;
+interface Frame_Chars extends ComplexChars {
+    id: string;
+    tag: CHAR_TAG.FRAME;
+    visible: boolean;
+    // content is not used
+    content: never;
+}
+
+export type Chars = string | Array<string | RP_Chars | Mention_Chars | Frame_Chars>;
 
 /**
  * Stringify chars into plain text
@@ -63,6 +72,9 @@ export function readChars(chars: Chars, visibleOnly = false, source?: SocialSour
                         return target ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}` : x.content;
                     }
                     return x.content;
+                case CHAR_TAG.FRAME:
+                    if (source === Source.Lens) return `${getPollFrameUrl(x.id ?? `poll-${uuid()}`)}\n`;
+                    return '';
                 default:
                     safeUnreachable(x);
                     return '';
@@ -82,21 +94,18 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(chars: Chars, availableSources: SocialSource[], visibleOnly?: boolean): number {
+function calculateLength(post: CompositePost, visibleOnly?: boolean): number {
+    const { chars, availableSources } = post;
     return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
 }
 
-export function measureChars(chars: Chars, availableSources: SocialSource[], poll: CompositePoll | null) {
-    const length = calculateLength(chars, availableSources);
-    const visibleLength = calculateLength(chars, availableSources, true);
-    const pollFrameUrlLength =
-        availableSources.length === 1 && first(availableSources) === Source.Lens && poll
-            ? getPollFrameUrl(poll?.id ?? `poll-${uuid()}`).length
-            : 0;
+export function measureChars(post: CompositePost) {
+    const length = calculateLength(post);
+    const visibleLength = calculateLength(post, true);
 
     return {
         length,
         visibleLength,
-        invisibleLength: length - visibleLength + pollFrameUrlLength,
+        invisibleLength: length - visibleLength,
     };
 }
