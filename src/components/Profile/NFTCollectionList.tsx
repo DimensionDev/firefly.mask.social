@@ -39,7 +39,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
     }, [collection.collection_details.chains]);
 
     const nftPreview = first(collection.nftPreviews);
-    if (nftPreview) {
+    if (nftPreview && images.length === 1) {
         const tokenId = nftPreview.nft_id.split('.')?.[2];
         return (
             <Link
