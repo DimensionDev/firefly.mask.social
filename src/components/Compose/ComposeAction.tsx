@@ -48,10 +48,11 @@ export function ComposeAction(props: ComposeActionProps) {
     const currentProfileAll = useCurrentProfileAll();
     const profilesAll = useProfilesAll();
 
+    const post = useCompositePost();
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { availableSources, chars, images, video, restriction, parentPost, channel, poll } = useCompositePost();
+    const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
-    const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
+    const { length, visibleLength, invisibleLength } = measureChars(post);
 
     const [editor] = useLexicalComposerContext();
     const setEditorContent = useSetEditorContent();

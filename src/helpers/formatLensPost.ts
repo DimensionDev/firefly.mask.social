@@ -23,7 +23,7 @@ import type {
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
-import { EMPTY_LIST } from '@masknet/shared-base';
+import { EMPTY_LIST, parseURL } from '@masknet/shared-base';
 import { compact, first, isEmpty, last } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -97,6 +97,13 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
     );
 }
 
+function removePollFrameUrl(content: string, oembedUrls: string[]) {
+    return oembedUrls.reduce((acc, oembedUrl) => {
+        const parsed = parseURL(oembedUrl);
+        return parsed ? acc.replace(`${parsed.origin}${parsed.pathname}`, '') : acc;
+    }, content);
+}
+
 function formatContent(metadata: PublicationMetadataFragment) {
     const type = metadata.__typename;
     switch (type) {
@@ -107,9 +114,13 @@ function formatContent(metadata: PublicationMetadataFragment) {
             };
         case 'TextOnlyMetadataV3':
         case 'LinkMetadataV3':
+            const oembedUrls = getOembedUrls(metadata);
             return {
-                content: metadata.content,
-                oembedUrls: getOembedUrls(metadata),
+                // TODO:
+                // we append the poll frame url to the content to support hey.xyz polls
+                // but we remove it in our own UI
+                content: removePollFrameUrl(metadata.content, oembedUrls),
+                oembedUrls,
             };
         case 'ImageMetadataV3': {
             const asset = metadata.asset.image.optimized?.uri

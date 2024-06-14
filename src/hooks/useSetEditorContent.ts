@@ -1,9 +1,27 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+import { safeUnreachable } from '@masknet/kit';
+import { $createParagraphNode, $createTextNode, $getRoot, ParagraphNode } from 'lexical';
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars, type ComplexChars } from '@/helpers/chars.js';
+
+function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {
+    const { tag } = chars;
+    switch (tag) {
+        case CHAR_TAG.FIREFLY_RP:
+            paragraphNode.append($createTextNode(chars.content));
+            break;
+        case CHAR_TAG.FRAME:
+            break;
+        case CHAR_TAG.MENTION:
+            paragraphNode.append($createMentionNode(chars.content, chars.profiles));
+            break;
+        default:
+            safeUnreachable(tag);
+            break;
+    }
+}
 
 export function useSetEditorContent() {
     const [editor] = useLexicalComposerContext();
@@ -21,15 +39,9 @@ export function useSetEditorContent() {
                 } else {
                     for (const x of content) {
                         if (typeof x === 'string') {
-                            const textNode = $createTextNode(x);
-                            paragraphNode.append(textNode);
-                        } else if (x.tag === CHAR_TAG.FIREFLY_RP) {
-                            const textNode = $createTextNode(x.content);
-                            paragraphNode.append(textNode);
+                            paragraphNode.append($createTextNode(x));
                         } else {
-                            const mentionNode = $createMentionNode(x.content, x.profiles);
-
-                            paragraphNode.append(mentionNode);
+                            updateParagraphNode(paragraphNode, x);
                         }
                     }
 

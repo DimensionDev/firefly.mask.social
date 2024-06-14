@@ -341,7 +341,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 ];
 
                 updateChars(chars);
-
                 setEditorContent(chars);
 
                 addImage({
