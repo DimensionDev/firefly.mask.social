@@ -5,7 +5,6 @@ import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
-import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 
 export function useSetEditorContent() {
     const [editor] = useLexicalComposerContext();
@@ -32,7 +31,6 @@ export function useSetEditorContent() {
                                     paragraphNode.append($createTextNode(x.content));
                                     break;
                                 case CHAR_TAG.FRAME:
-                                    paragraphNode.append($createTextNode(getPollFrameUrl(x.id)));
                                     break;
                                 case CHAR_TAG.MENTION:
                                     paragraphNode.append($createMentionNode(x.content, x.profiles));
