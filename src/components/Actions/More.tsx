@@ -109,10 +109,10 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     {deleting ? (
                                         <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
                                     ) : (
-                                        <TrashIcon width={24} height={24} />
+                                        <TrashIcon width={24} height={24} className="text-danger" />
                                     )}
-                                    <span className="font-bold leading-[22px] text-main">
-                                        <Trans>Delete</Trans>
+                                    <span className="font-bold leading-[22px] text-danger">
+                                        <Trans>Delete Post</Trans>
                                     </span>
                                 </MenuButton>
                             )}

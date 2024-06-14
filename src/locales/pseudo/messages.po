@@ -925,6 +925,9 @@ msgstr ""
 msgid "There is no data available for display."
 msgstr ""
 
+msgid "Delete Post"
+msgstr ""
+
 msgid "Cancel"
 msgstr ""
 
@@ -1168,9 +1171,6 @@ msgstr ""
 msgid "Share to"
 msgstr ""
 
-msgid "Download app"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr ""
 
@@ -1316,6 +1316,9 @@ msgid "Recasted"
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "Download App"
 msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."

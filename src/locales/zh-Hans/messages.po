@@ -930,6 +930,9 @@ msgstr ""
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
+msgid "Delete Post"
+msgstr ""
+
 msgid "Cancel"
 msgstr "取消"
 
@@ -1173,9 +1176,6 @@ msgstr "开发者"
 msgid "Share to"
 msgstr "分享到"
 
-msgid "Download app"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
@@ -1321,6 +1321,9 @@ msgid "Recasted"
 msgstr "已转发"
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "Download App"
 msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."

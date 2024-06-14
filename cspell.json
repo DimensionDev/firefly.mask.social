@@ -132,7 +132,8 @@
         "usehooks",
         "localforage",
         "fname",
-        "openrank"
+        "openrank",
+        "imagekit"
     ],
     "flagWords": [],
     "ignorePaths": [
