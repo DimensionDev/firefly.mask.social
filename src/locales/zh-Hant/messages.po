@@ -144,6 +144,9 @@ msgstr "更換錢包"
 msgid "OpenGraph"
 msgstr ""
 
+msgid "Trending"
+msgstr ""
+
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
@@ -280,9 +283,6 @@ msgid "Save Post?"
 msgstr ""
 
 msgid "Missing IPFS hash for image or video."
-msgstr ""
-
-msgid "Show more Lens users"
 msgstr ""
 
 msgid "Reconnect with Firefly"
@@ -447,6 +447,9 @@ msgstr "登出"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Top Channels"
+msgstr ""
+
 msgid "Failed to un-bookmark"
 msgstr "從書籤中移除失敗"
 
@@ -538,6 +541,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
+
+msgid "Top Profiles"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -939,13 +945,7 @@ msgstr "按讚評論失敗"
 msgid "Mirrored"
 msgstr "已鏡像"
 
-msgid "Show more Farcaster users"
-msgstr ""
-
 msgid "Unable to retrieve post details."
-msgstr ""
-
-msgid "Trending {source} Users"
 msgstr ""
 
 msgid "Failed to publish post."

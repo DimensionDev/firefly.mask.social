@@ -139,6 +139,9 @@ msgstr ""
 msgid "OpenGraph"
 msgstr ""
 
+msgid "Trending"
+msgstr ""
+
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
@@ -275,9 +278,6 @@ msgid "Save Post?"
 msgstr ""
 
 msgid "Missing IPFS hash for image or video."
-msgstr ""
-
-msgid "Show more Lens users"
 msgstr ""
 
 msgid "Reconnect with Firefly"
@@ -442,6 +442,9 @@ msgstr ""
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Top Channels"
+msgstr ""
+
 msgid "Failed to un-bookmark"
 msgstr ""
 
@@ -533,6 +536,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
+
+msgid "Top Profiles"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -934,13 +940,7 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
-msgid "Show more Farcaster users"
-msgstr ""
-
 msgid "Unable to retrieve post details."
-msgstr ""
-
-msgid "Trending {source} Users"
 msgstr ""
 
 msgid "Failed to publish post."
