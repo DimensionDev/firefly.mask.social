@@ -15,10 +15,7 @@ export enum CHAR_TAG {
     FRAME = 'frame_tag',
 }
 
-/**
- * chars with metadata
- */
-interface ComplexChars {
+interface Segment {
     // tag is used to identify the type of content
     tag: CHAR_TAG;
     // if visible is false, content will not be displayed
@@ -28,20 +25,20 @@ interface ComplexChars {
     content: string;
 }
 
-interface RP_Chars extends ComplexChars {
+interface RP_Chars extends Segment {
     tag: CHAR_TAG.FIREFLY_RP;
     visible: boolean;
     content: typeof RP_HASH_TAG;
 }
 
-interface Mention_Chars extends ComplexChars {
+interface MentionChars extends Segment {
     tag: CHAR_TAG.MENTION;
     visible: boolean;
     content: string;
     profiles: Profile[];
 }
 
-interface Frame_Chars extends ComplexChars {
+interface FrameChars extends Segment {
     id: string;
     tag: CHAR_TAG.FRAME;
     visible: boolean;
@@ -49,7 +46,8 @@ interface Frame_Chars extends ComplexChars {
     content: never;
 }
 
-export type Chars = string | Array<string | RP_Chars | Mention_Chars | Frame_Chars>;
+export type ComplexChars = RP_Chars | MentionChars | FrameChars;
+export type Chars = string | Array<string | ComplexChars>;
 
 /**
  * Stringify chars into plain text

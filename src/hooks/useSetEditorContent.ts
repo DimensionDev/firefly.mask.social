@@ -1,10 +1,27 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { safeUnreachable } from '@masknet/kit';
-import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, ParagraphNode } from 'lexical';
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars, type ComplexChars } from '@/helpers/chars.js';
+
+function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {
+    const { tag } = chars;
+    switch (tag) {
+        case CHAR_TAG.FIREFLY_RP:
+            paragraphNode.append($createTextNode(chars.content));
+            break;
+        case CHAR_TAG.FRAME:
+            break;
+        case CHAR_TAG.MENTION:
+            paragraphNode.append($createMentionNode(chars.content, chars.profiles));
+            break;
+        default:
+            safeUnreachable(tag);
+            break;
+    }
+}
 
 export function useSetEditorContent() {
     const [editor] = useLexicalComposerContext();
@@ -22,23 +39,9 @@ export function useSetEditorContent() {
                 } else {
                     for (const x of content) {
                         if (typeof x === 'string') {
-                            const textNode = $createTextNode(x);
-                            paragraphNode.append(textNode);
+                            paragraphNode.append($createTextNode(x));
                         } else {
-                            const { tag } = x;
-                            switch (tag) {
-                                case CHAR_TAG.FIREFLY_RP:
-                                    paragraphNode.append($createTextNode(x.content));
-                                    break;
-                                case CHAR_TAG.FRAME:
-                                    break;
-                                case CHAR_TAG.MENTION:
-                                    paragraphNode.append($createMentionNode(x.content, x.profiles));
-                                    break;
-                                default:
-                                    safeUnreachable(tag);
-                                    break;
-                            }
+                            updateParagraphNode(paragraphNode, x);
                         }
                     }
 
