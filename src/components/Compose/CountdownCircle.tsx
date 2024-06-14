@@ -7,9 +7,9 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 interface Props extends SVGAttributes<SVGElement> {}
 
 export function CountdownCircle(props: Props) {
-    const { chars, availableSources, poll } = useCompositePost();
-    const { visibleLength } = measureChars(chars, availableSources, poll);
-    const { SAFE_CHAR_LIMIT, DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
+    const post = useCompositePost();
+    const { visibleLength } = measureChars(post);
+    const { SAFE_CHAR_LIMIT, DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
 
     const isGreen = visibleLength < SAFE_CHAR_LIMIT;
     const isWarning = visibleLength > SAFE_CHAR_LIMIT && visibleLength < DANGER_CHAR_LIMIT;

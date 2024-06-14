@@ -31,12 +31,12 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
+    const post = useCompositePost();
     const { type, posts, addPostInThread, draftId } = useComposeStateStore();
     const { removeDraft } = useComposeDraftStateStore();
-    const post = useCompositePost();
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
-    const { visibleLength, invisibleLength } = measureChars(post.chars, post.availableSources, post.poll);
+    const { visibleLength, invisibleLength } = measureChars(post);
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
