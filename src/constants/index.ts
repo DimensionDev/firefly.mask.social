@@ -27,6 +27,9 @@ export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
+export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
+export const CORS_HOST = 'https://cors-next.r2d2.to';
+export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds

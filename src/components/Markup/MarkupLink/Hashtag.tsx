@@ -18,8 +18,6 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
 
     if (!title) return null;
 
-    const tag = title.slice(1).toLowerCase();
-
     return (
         <ClickableArea
             className="cursor-pointer text-link"
@@ -28,7 +26,7 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
                 scrollTo(0, 0);
                 router.push(
                     urlcat(PageRoute.Search, {
-                        q: `#${tag}`,
+                        q: title,
                         type: SearchType.Posts,
                         source: source ? resolveSourceInURL(source) : undefined,
                     }),
