@@ -40,7 +40,8 @@ function NFTFeedFieldGroup({
 
 function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: string; chainId?: ChainId }) {
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
-    const tokenName = data?.metadata?.name;
+    const metadata = data?.metadata;
+    const tokenName = metadata?.name;
     const collectionName = data?.collection?.name;
 
     return (
@@ -49,7 +50,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                 <div className="mb-2 aspect-square h-full w-full animate-pulse rounded-xl bg-main/40 sm:mb-0 sm:w-auto" />
             ) : (
                 <Image
-                    src={data?.metadata?.imageURL || ''}
+                    src={metadata?.previewImageURL || metadata?.imageURL || ''}
                     width={120}
                     height={120}
                     className="mb-2 aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"
@@ -84,26 +85,24 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                     isLoading={isLoading}
                 />
                 <NFTFeedFieldGroup field={t`Token ID`} value={data?.tokenId ?? tokenId} />
-                {!isLoading && data?.collection?.floorPrices?.length === 0 ? null : (
+                {!data?.collection?.floorPrices?.length ? null : (
                     <NFTFeedFieldGroup
                         isLoading={isLoading}
                         field={t`Floor Price`}
                         value={
-                            data?.collection?.floorPrices && data.collection.floorPrices.length > 0 ? (
-                                <>
-                                    {getFloorPrice(data.collection.floorPrices)}
-                                    <TokenPrice
-                                        value={data.collection.floorPrices[0].value}
-                                        symbol={resolveCoinGeckoTokenSymbol(
-                                            data.collection.floorPrices[0].payment_token.symbol,
-                                        )}
-                                        prefix=" ($"
-                                        suffix=")"
-                                        decimals={data.collection.floorPrices[0].payment_token.decimals}
-                                        target="usd"
-                                    />
-                                </>
-                            ) : null
+                            <>
+                                {getFloorPrice(data.collection.floorPrices)}
+                                <TokenPrice
+                                    value={data.collection.floorPrices[0].value}
+                                    symbol={resolveCoinGeckoTokenSymbol(
+                                        data.collection.floorPrices[0].payment_token.symbol,
+                                    )}
+                                    prefix=" ($"
+                                    suffix=")"
+                                    decimals={data.collection.floorPrices[0].payment_token.decimals}
+                                    target="usd"
+                                />
+                            </>
                         }
                     />
                 )}

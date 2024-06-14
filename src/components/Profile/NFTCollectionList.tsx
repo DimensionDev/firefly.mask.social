@@ -29,7 +29,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
         if (distinctNFTCount > 4 && previewImages.length >= 4) {
             previewImages = previewImages.slice(0, 3);
         }
-        return previewImages.map((preview) => preview.previews.image_medium_url);
+        return previewImages.map((preview) => preview.previews.image_small_url);
     }, [distinctNFTCount, collection.nftPreviews]);
 
     const chainId = useMemo(() => {
@@ -38,38 +38,36 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
         return resolveSimpleHashChainId(chain);
     }, [collection.collection_details.chains]);
 
-    if (collection.nftPreviews?.length === 1) {
-        const nftPreview = first(collection.nftPreviews);
-        if (nftPreview) {
-            const tokenId = nftPreview.nft_id.split('.')?.[2];
-            return (
-                <Link
-                    href={resolveNftUrl(nftPreview.contract_address, {
-                        tokenId,
-                        chainId,
-                    })}
-                    className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
-                >
-                    {chainId ? (
-                        <div className="absolute left-1 top-1 z-10">
-                            <ChainIcon chainId={chainId} size={20} />
-                        </div>
-                    ) : null}
-                    <div className="relative aspect-square h-auto w-full overflow-hidden">
-                        <Image
-                            width={500}
-                            height={500}
-                            className="h-full w-full rounded-lg object-cover"
-                            src={nftPreview.image_url}
-                            alt="nft_image"
-                        />
+    const nftPreview = first(collection.nftPreviews);
+    if (nftPreview) {
+        const tokenId = nftPreview.nft_id.split('.')?.[2];
+        return (
+            <Link
+                href={resolveNftUrl(nftPreview.contract_address, {
+                    tokenId,
+                    chainId,
+                })}
+                className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
+            >
+                {chainId ? (
+                    <div className="absolute left-1 top-1 z-10">
+                        <ChainIcon chainId={chainId} size={20} />
                     </div>
-                    <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
-                        {nftPreview.name}
-                    </div>
-                </Link>
-            );
-        }
+                ) : null}
+                <div className="relative aspect-square h-auto w-full overflow-hidden">
+                    <Image
+                        width={500}
+                        height={500}
+                        className="h-full w-full rounded-lg object-cover"
+                        src={nftPreview.previews.image_small_url}
+                        alt="nft_image"
+                    />
+                </div>
+                <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
+                    {nftPreview.name}
+                </div>
+            </Link>
+        );
     }
 
     return (
