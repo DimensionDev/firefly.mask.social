@@ -925,6 +925,9 @@ msgstr "The content of this account is currently unavailable"
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
 
+msgid "Delete Post"
+msgstr "Delete Post"
+
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -1168,9 +1171,6 @@ msgstr "Developers"
 msgid "Share to"
 msgstr "Share to"
 
-msgid "Download app"
-msgstr "Download app"
-
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
@@ -1317,6 +1317,9 @@ msgstr "Recasted"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
+
+msgid "Download App"
+msgstr "Download App"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "Failed to fetch the latest state after several attempts. Please try again later."
