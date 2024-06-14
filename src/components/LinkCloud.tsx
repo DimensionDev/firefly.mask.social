@@ -43,7 +43,7 @@ export function LinkCloud() {
                     link: 'https://mask.notion.site/Term-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
                 },
                 {
-                    name: t`Download app`,
+                    name: t`Download App`,
                     link: 'https://firefly.social/#download',
                 },
             ].map(({ name, link, self }) => (

@@ -71,6 +71,7 @@ export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapshot';
 export const HEY_URL = 'https://hey.xyz';
 export const HEY_API_URL = 'https://api.hey.xyz';
+export const HEY_IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg';
 
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-300,h-300';
