@@ -28,7 +28,7 @@ import {
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { downloadSessions } from '@/services/syncFireflySession.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -68,7 +68,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 // restore profiles exclude lens
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     source: Source.Lens,
-                    sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
+                    sessions: await downloadSessions(controllerRef.current?.signal),
                     onDetected(profiles) {
                         if (!profiles.length)
                             enqueueInfoMessage(t`No device accounts detected.`, {

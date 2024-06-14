@@ -32,7 +32,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { downloadSessions } from '@/services/syncFireflySession.js';
 
 async function login(
     createSession: () => Promise<FarcasterSession>,
@@ -50,7 +50,7 @@ async function login(
         if (!options?.skipSyncSessions) {
             await FireflySessionConfirmModalRef.openAndWaitForClose({
                 source: Source.Farcaster,
-                sessions: await syncSessionFromFirefly(options?.signal),
+                sessions: await downloadSessions(options?.signal),
                 onDetected(profiles) {
                     if (!profiles.length)
                         enqueueInfoMessage(t`No device accounts detected.`, {
@@ -172,7 +172,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     // for relay service we need to sync the session from firefly
                     // and find out the the signer key of the connected profile
-                    const sessions = await syncSessionFromFirefly(controllerRef.current?.signal);
+                    const sessions = await downloadSessions(controllerRef.current?.signal);
 
                     // if the user has signed into Firefly before, a synced session could be found.
                     const restoredSession = sessions.find((x) => isSameSession(x, session));
