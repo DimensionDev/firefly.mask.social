@@ -66,9 +66,9 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                         className="mt-4 flex h-12 items-center rounded-2xl bg-lightBg px-3.5 text-[15px] text-lightMain"
                         key={option.id}
                     >
-                        <div className='h-full w-[calc(100%_-_20px)]'>
+                        <div className="h-full w-[calc(100%_-_20px)]">
                             <input
-                                className="w-full h-full border-0 bg-transparent placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
+                                className="h-full w-full border-0 bg-transparent placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
                                 value={option.label}
                                 placeholder={t`Choice ${index + 1}`}
                                 onChange={(e) => onOptionChange(option, e.target.value)}

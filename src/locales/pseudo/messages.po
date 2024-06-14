@@ -157,9 +157,6 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
-msgid "Trending Channels"
-msgstr ""
-
 msgid "Debug Console"
 msgstr ""
 
@@ -326,9 +323,6 @@ msgid "Mirror again"
 msgstr ""
 
 msgid "Failed to detect device accounts."
-msgstr ""
-
-msgid "Trending Users"
 msgstr ""
 
 msgid "Add another post..."

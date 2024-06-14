@@ -162,9 +162,6 @@ msgstr "投票"
 msgid "Casts"
 msgstr ""
 
-msgid "Trending Channels"
-msgstr "熱門頻道"
-
 msgid "Debug Console"
 msgstr ""
 
@@ -332,9 +329,6 @@ msgstr "重新鏡像"
 
 msgid "Failed to detect device accounts."
 msgstr "偵測裝置帳戶失敗"
-
-msgid "Trending Users"
-msgstr ""
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
