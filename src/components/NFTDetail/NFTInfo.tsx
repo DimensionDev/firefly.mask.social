@@ -38,7 +38,6 @@ export function NFTInfo(props: NFTInfoProps) {
     const {
         imageURL,
         name,
-        tokenId,
         collection,
         ownerAddress,
         chainId,
@@ -149,7 +148,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     ) : null}
                     <div className="flex space-x-2">
                         <DownloadImageButton url={imageURL} />
-                        {collection?.id ? <ReportSpamButton collectionId={collection?.id} /> : null}
+                        {collection?.id ? <ReportSpamButton collectionId={collection.id} /> : null}
                     </div>
                 </div>
             </div>

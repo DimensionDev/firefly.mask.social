@@ -142,7 +142,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     ) : (
         <Suspense
             fallback={
-                <div className="flex items-center justify-center md:h-[194px] md:w-[600px]">
+                <div className="flex h-[150px] items-center justify-center md:h-[194px] md:w-[600px]">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
                 </div>
             }

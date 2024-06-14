@@ -1,10 +1,10 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { settings } from '@/settings/index.js';
 
 export async function muteNFT(collectionId: string) {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v2/mute/collection');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/mute/collection');
     await fireflySessionHolder.fetch(
         url,
         {
