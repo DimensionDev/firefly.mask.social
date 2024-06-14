@@ -99,7 +99,7 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
 
 function removePollFrameUrl(content: string, oembedUrls: string[]) {
     return oembedUrls.reduce((acc, oembedUrl) => {
-        return acc.replace(oembedUrl.split('?')[0], '')
+        return acc.replace(oembedUrl.split('?')[0], '');
     }, content);
 }
 
