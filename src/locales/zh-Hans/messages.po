@@ -162,9 +162,6 @@ msgstr ""
 msgid "Casts"
 msgstr "帖子"
 
-msgid "Trending Channels"
-msgstr "流行频道"
-
 msgid "Debug Console"
 msgstr "诊断命令行"
 
@@ -332,9 +329,6 @@ msgstr "转帖"
 
 msgid "Failed to detect device accounts."
 msgstr "检测设备账号失败。"
-
-msgid "Trending Users"
-msgstr ""
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
