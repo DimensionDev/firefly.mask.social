@@ -1,9 +1,11 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
+import { safeUnreachable } from '@masknet/kit';
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 
 export function useSetEditorContent() {
     const [editor] = useLexicalComposerContext();
@@ -23,13 +25,22 @@ export function useSetEditorContent() {
                         if (typeof x === 'string') {
                             const textNode = $createTextNode(x);
                             paragraphNode.append(textNode);
-                        } else if (x.tag === CHAR_TAG.FIREFLY_RP) {
-                            const textNode = $createTextNode(x.content);
-                            paragraphNode.append(textNode);
                         } else {
-                            const mentionNode = $createMentionNode(x.content, x.profiles);
-
-                            paragraphNode.append(mentionNode);
+                            const { tag } = x;
+                            switch (tag) {
+                                case CHAR_TAG.FIREFLY_RP:
+                                    paragraphNode.append($createTextNode(x.content));
+                                    break;
+                                case CHAR_TAG.FRAME:
+                                    paragraphNode.append($createTextNode(getPollFrameUrl(x.id)));
+                                    break;
+                                case CHAR_TAG.MENTION:
+                                    paragraphNode.append($createMentionNode(x.content, x.profiles));
+                                    break;
+                                default:
+                                    safeUnreachable(tag);
+                                    break;
+                            }
                         }
                     }
 
