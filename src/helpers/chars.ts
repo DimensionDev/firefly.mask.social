@@ -1,5 +1,4 @@
 import { safeUnreachable } from '@masknet/kit';
-import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
