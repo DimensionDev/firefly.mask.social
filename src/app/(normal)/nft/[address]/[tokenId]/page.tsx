@@ -76,7 +76,7 @@ export default function Page({
                             : {
                                   name: data.contract?.name ?? '',
                                   icon: data.collection?.iconURL ?? undefined,
-                                  id: data.contract?.address,
+                                  id: data.collection?.id,
                               }
                     }
                     floorPrice={getFloorPrice(data?.collection?.floorPrices)}
