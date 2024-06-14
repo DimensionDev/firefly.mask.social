@@ -607,6 +607,9 @@ msgstr "Malformed session."
 msgid "Failed to login."
 msgstr "Failed to login."
 
+msgid "Open Firefly App"
+msgstr "Open Firefly App"
+
 msgid "Unlike"
 msgstr "Unlike"
 
@@ -618,6 +621,9 @@ msgstr "Your post has published successfully."
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "Failed to follow @{0} on {sourceName}"
+
+msgid "Opening..."
+msgstr "Opening..."
 
 msgid "Bookmark"
 msgstr "Bookmark"

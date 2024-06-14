@@ -607,6 +607,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
+msgid "Open Firefly App"
+msgstr ""
+
 msgid "Unlike"
 msgstr ""
 
@@ -617,6 +620,9 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
+msgstr ""
+
+msgid "Opening..."
 msgstr ""
 
 msgid "Bookmark"

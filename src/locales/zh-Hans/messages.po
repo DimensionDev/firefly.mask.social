@@ -612,6 +612,9 @@ msgstr "会话格式错误。"
 msgid "Failed to login."
 msgstr "登录失败。"
 
+msgid "Open Firefly App"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -623,6 +626,9 @@ msgstr "发布成功。"
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
+
+msgid "Opening..."
+msgstr ""
 
 msgid "Bookmark"
 msgstr "收藏"

@@ -612,6 +612,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登入失敗."
 
+msgid "Open Firefly App"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消按讚"
 
@@ -623,6 +626,9 @@ msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
+
+msgid "Opening..."
+msgstr ""
 
 msgid "Bookmark"
 msgstr "書籤"
