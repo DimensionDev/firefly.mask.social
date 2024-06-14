@@ -1,5 +1,5 @@
 import { compact } from 'lodash-es';
-import { type HTMLProps, memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
@@ -109,7 +109,7 @@ interface PostActionsProps extends React.HTMLAttributes<HTMLDivElement> {
     post: Post;
     disabled?: boolean;
     disablePadding?: boolean;
-    channelProps?: HTMLProps<HTMLDivElement>;
+    onSetScrollIndex?: () => void;
 }
 
 export const PostActions = memo<PostActionsProps>(function PostActions({
@@ -118,7 +118,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     disabled = false,
     disablePadding = false,
     showChannelTag,
-    channelProps,
+    onSetScrollIndex,
     ...rest
 }) {
     const isComment = post.type === 'Comment';
@@ -177,7 +177,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>
-            <PostStatistics post={post} showChannelTag={showChannelTag} channelProps={channelProps} />
+            <PostStatistics post={post} showChannelTag={showChannelTag} onSetScrollIndex={onSetScrollIndex} />
         </div>
     );
 });

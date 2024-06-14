@@ -97,10 +97,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                     post={post}
                     disabled={post.isHidden}
                     showChannelTag={!isComment && !isChannelPage && showChannelTag}
-                    channelProps={{
-                        onClick() {
-                            if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                        },
+                    onSetScrollIndex={() => {
+                        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                     }}
                 />
             ) : null}
