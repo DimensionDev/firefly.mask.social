@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-14 00:04\n"
+"PO-Revision-Date: 2024-06-14 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -144,6 +144,9 @@ msgstr ""
 msgid "OpenGraph"
 msgstr ""
 
+msgid "Trending"
+msgstr ""
+
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
@@ -157,9 +160,6 @@ msgid "Poll"
 msgstr ""
 
 msgid "Casts"
-msgstr ""
-
-msgid "Trending Channels"
 msgstr ""
 
 msgid "Debug Console"
@@ -282,9 +282,6 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
-msgid "Show more Lens users"
-msgstr ""
-
 msgid "Reconnect with Firefly"
 msgstr ""
 
@@ -331,9 +328,6 @@ msgid "Mirror again"
 msgstr ""
 
 msgid "Failed to detect device accounts."
-msgstr ""
-
-msgid "Trending Users"
 msgstr ""
 
 msgid "Add another post..."
@@ -447,6 +441,9 @@ msgstr ""
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Top Channels"
+msgstr ""
+
 msgid "Failed to un-bookmark"
 msgstr ""
 
@@ -538,6 +535,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
+msgstr ""
+
+msgid "Top Profiles"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -930,6 +930,9 @@ msgstr ""
 msgid "There is no data available for display."
 msgstr ""
 
+msgid "Delete Post"
+msgstr ""
+
 msgid "Cancel"
 msgstr ""
 
@@ -939,13 +942,7 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
-msgid "Show more Farcaster users"
-msgstr ""
-
 msgid "Unable to retrieve post details."
-msgstr ""
-
-msgid "Trending {source} Users"
 msgstr ""
 
 msgid "Failed to publish post."
@@ -1173,9 +1170,6 @@ msgstr ""
 msgid "Share to"
 msgstr ""
 
-msgid "Download app"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr ""
 
@@ -1321,6 +1315,9 @@ msgid "Recasted"
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "Download App"
 msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
