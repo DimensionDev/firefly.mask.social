@@ -58,15 +58,17 @@ export async function POST(request: Request) {
 
     const packet = await request.clone().json();
     const response = await fetch(target || postUrl, {
-        redirect: 'manual',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(packet),
+
+        // for post_redirect, we need to handle the redirect manually
+        redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
     });
 
-    if (!response.ok || response.status < 200 || response.status >= 300)
+    if (response.status < 200 || response.status >= 400)
         return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });
 
     switch (action) {
@@ -76,7 +78,7 @@ export async function POST(request: Request) {
             );
         case ActionType.PostRedirect:
             const locationUrl = response.headers.get('Location');
-            if (response.ok && response.status >= 300 && response.status < 400) {
+            if (response.status >= 300 && response.status < 400) {
                 if (locationUrl && HttpUrl.safeParse(locationUrl).success)
                     return createSuccessResponseJSON({
                         redirectUrl: locationUrl,

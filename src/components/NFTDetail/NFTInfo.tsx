@@ -13,6 +13,7 @@ import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.
 import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
@@ -30,11 +31,22 @@ export interface NFTInfoProps {
     floorPrice?: ReactNode;
     chainId?: ChainId;
     attendance?: number;
+    tokenNameClassName?: string;
 }
 
 export function NFTInfo(props: NFTInfoProps) {
-    const { imageURL, name, tokenId, collection, ownerAddress, chainId, contractAddress, floorPrice, attendance } =
-        props;
+    const {
+        imageURL,
+        name,
+        tokenId,
+        collection,
+        ownerAddress,
+        chainId,
+        contractAddress,
+        floorPrice,
+        attendance,
+        tokenNameClassName,
+    } = props;
     const { data: ensName } = useEnsName({
         chainId: ChainId.Mainnet,
         address: props.ownerAddress as `0x${string}`,
@@ -88,7 +100,12 @@ export function NFTInfo(props: NFTInfoProps) {
                             </Link>
                         ) : null}
                         <TextOverflowTooltip title={name}>
-                            <div className="mt-2 line-clamp-2 w-full text-center text-lg font-bold leading-6 sm:text-left">
+                            <div
+                                className={classNames(
+                                    'mt-2 line-clamp-2 w-full text-center text-lg font-bold leading-6 sm:text-left',
+                                    tokenNameClassName,
+                                )}
+                            >
                                 {name}
                             </div>
                         </TextOverflowTooltip>
