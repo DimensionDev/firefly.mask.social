@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation.js';
-import { startTransition, useLayoutEffect } from 'react';
+import { startTransition, useEffect, useLayoutEffect } from 'react';
 
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES } from '@/constants/index.js';
@@ -10,7 +10,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
+import { getCurrentSource, useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -43,6 +43,11 @@ export function SourceTabs() {
     useLayoutEffect(() => {
         if (shouldReset) updateCurrentSource(Source.Farcaster);
     }, [shouldReset, updateCurrentSource]);
+
+    useEffect(() => {
+        updateCurrentSource(getCurrentSource());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathname]);
 
     if (searchParams.get('hiddenTabs')) return null;
 
