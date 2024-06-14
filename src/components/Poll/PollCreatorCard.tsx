@@ -66,15 +66,17 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                         className="mt-4 flex h-12 items-center rounded-2xl bg-lightBg px-3.5 text-[15px] text-lightMain"
                         key={option.id}
                     >
-                        <input
-                            className="h-full flex-1 border-0 bg-transparent placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
-                            value={option.label}
-                            placeholder={t`Choice ${index + 1}`}
-                            onChange={(e) => onOptionChange(option, e.target.value)}
-                            readOnly={readonly}
-                            maxLength={POLL_PEER_OPTION_MAX_CHARS}
-                            autoFocus={index === 0}
-                        />
+                        <div className='h-full w-[calc(100%_-_20px)]'>
+                            <input
+                                className="w-full h-full border-0 bg-transparent placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
+                                value={option.label}
+                                placeholder={t`Choice ${index + 1}`}
+                                onChange={(e) => onOptionChange(option, e.target.value)}
+                                readOnly={readonly}
+                                maxLength={POLL_PEER_OPTION_MAX_CHARS}
+                                autoFocus={poll.options.length === POLL_OPTIONS_MIN_COUNT ? index === 0 : true}
+                            />
+                        </div>
                         {index >= POLL_OPTIONS_MIN_COUNT && (
                             <ClickableButton disabled={readonly}>
                                 <MinusIcon width={20} height={20} onClick={() => removeOption(option)} />
