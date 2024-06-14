@@ -26,6 +26,7 @@ export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
+export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
