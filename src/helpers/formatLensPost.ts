@@ -97,6 +97,12 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
     );
 }
 
+function removePollFrameUrl(content: string, oembedUrls: string[]) {
+    return oembedUrls.reduce((acc, oembedUrl) => {
+        return acc.replace(oembedUrl.split('?')[0], '')
+    }, content);
+}
+
 function formatContent(metadata: PublicationMetadataFragment) {
     const type = metadata.__typename;
     switch (type) {
@@ -107,9 +113,13 @@ function formatContent(metadata: PublicationMetadataFragment) {
             };
         case 'TextOnlyMetadataV3':
         case 'LinkMetadataV3':
+            const oembedUrls = getOembedUrls(metadata);
             return {
-                content: metadata.content,
-                oembedUrls: getOembedUrls(metadata),
+                // TODO:
+                // we append the poll frame url to the content to support hey.xyz polls
+                // but we remove it in our own UI
+                content: removePollFrameUrl(metadata.content, oembedUrls),
+                oembedUrls,
             };
         case 'ImageMetadataV3': {
             const asset = metadata.asset.image.optimized?.uri

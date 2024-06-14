@@ -1,9 +1,13 @@
 import { safeUnreachable } from '@masknet/kit';
+import { first } from 'lodash-es';
+import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/index.js';
+import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
+import type { CompositePoll } from '@/providers/types/Poll.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
 export enum CHAR_TAG {
@@ -82,12 +86,17 @@ function calculateLength(chars: Chars, availableSources: SocialSource[], visible
     return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
 }
 
-export function measureChars(chars: Chars, availableSources: SocialSource[]) {
+export function measureChars(chars: Chars, availableSources: SocialSource[], poll: CompositePoll | null) {
     const length = calculateLength(chars, availableSources);
     const visibleLength = calculateLength(chars, availableSources, true);
+    const pollFrameUrlLength =
+        availableSources.length === 1 && first(availableSources) === Source.Lens && poll
+            ? getPollFrameUrl(poll?.id ?? `poll-${uuid()}`).length
+            : 0;
+
     return {
         length,
         visibleLength,
-        invisibleLength: length - visibleLength,
+        invisibleLength: length - visibleLength + pollFrameUrlLength,
     };
 }

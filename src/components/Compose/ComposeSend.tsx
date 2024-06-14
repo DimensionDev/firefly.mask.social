@@ -36,7 +36,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const post = useCompositePost();
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
-    const { visibleLength, invisibleLength } = measureChars(post.chars, post.availableSources);
+    const { visibleLength, invisibleLength } = measureChars(post.chars, post.availableSources, post.poll);
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();

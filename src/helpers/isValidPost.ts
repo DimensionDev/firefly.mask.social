@@ -13,8 +13,8 @@ export function isValidPost(post: CompositePost) {
 
     const { chars, images, video, availableSources, poll } = post;
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
-    const { length, visibleLength } = measureChars(chars, availableSources);
-    if (length > MAX_CHAR_SIZE_PER_POST) return false;
+    const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources, poll);
+    if (length > MAX_CHAR_SIZE_PER_POST - invisibleLength) return false;
     if (!visibleLength && !images.length && !video) return false;
     if (poll && !isValidPoll(poll)) return false;
     return true;
