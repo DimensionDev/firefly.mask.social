@@ -144,6 +144,9 @@ msgstr "更换钱包"
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
+msgid "Trending"
+msgstr ""
+
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
@@ -281,9 +284,6 @@ msgstr ""
 
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
-
-msgid "Show more Lens users"
-msgstr ""
 
 msgid "Reconnect with Firefly"
 msgstr "使用 Firefly 重连"
@@ -447,6 +447,9 @@ msgstr "登出"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
 
+msgid "Top Channels"
+msgstr ""
+
 msgid "Failed to un-bookmark"
 msgstr "取消收藏失败"
 
@@ -539,6 +542,9 @@ msgstr "创建图片内容失败"
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
+
+msgid "Top Profiles"
+msgstr ""
 
 msgid "[LuckyDrop]"
 msgstr ""
@@ -942,14 +948,8 @@ msgstr "点赞失败。"
 msgid "Mirrored"
 msgstr "已转发"
 
-msgid "Show more Farcaster users"
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
-
-msgid "Trending {source} Users"
-msgstr ""
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"

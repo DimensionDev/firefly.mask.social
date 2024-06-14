@@ -23,8 +23,6 @@ export enum PageRoute {
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',
-    ChannelTrending = '/trending',
-    UserTrending = '/trending/users',
 }
 
 export enum Source {
@@ -50,6 +48,12 @@ export enum SourceInURL {
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
+
+export enum DiscoverType {
+    Trending = 'trending',
+    TopProfiles = 'top-profiles',
+    TopChannels = 'top-channels',
+}
 
 export enum SearchType {
     Profiles = 'users',

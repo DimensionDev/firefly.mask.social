@@ -13,9 +13,10 @@ const getChannelItemContent = (index: number, channel: Channel, listKey: string)
 
 interface ChannelListProps {
     source: SocialSource;
+    useWindowScroll?: boolean;
 }
 
-export function ChannelList({ source }: ChannelListProps) {
+export function ChannelList({ source, useWindowScroll = true }: ChannelListProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['channels', source, 'trending'],
         queryFn: async ({ pageParam }) => {
@@ -33,7 +34,7 @@ export function ChannelList({ source }: ChannelListProps) {
             queryResult={queryResult}
             className="no-scrollbar"
             VirtualListProps={{
-                useWindowScroll: false,
+                useWindowScroll,
                 listKey: `${ScrollListKey.Channel}:trending`,
                 computeItemKey: (index, channel) => `${channel.id}-${index}`,
                 itemContent: (index, channel) =>

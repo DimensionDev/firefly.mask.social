@@ -139,6 +139,9 @@ msgstr "Change Wallet"
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
+msgid "Trending"
+msgstr "Trending"
+
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
 
@@ -276,9 +279,6 @@ msgstr "Save Post?"
 
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
-
-msgid "Show more Lens users"
-msgstr "Show more Lens users"
 
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
@@ -442,6 +442,9 @@ msgstr "Log out"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
+msgid "Top Channels"
+msgstr "Top Channels"
+
 msgid "Failed to un-bookmark"
 msgstr "Failed to un-bookmark"
 
@@ -534,6 +537,9 @@ msgstr "Failed to create image payload."
 
 msgid "You didn't connect with Firefly before, need to connect first to fully log in."
 msgstr "You didn't connect with Firefly before, need to connect first to fully log in."
+
+msgid "Top Profiles"
+msgstr "Top Profiles"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
@@ -937,14 +943,8 @@ msgstr "Failed to like the post."
 msgid "Mirrored"
 msgstr "Mirrored"
 
-msgid "Show more Farcaster users"
-msgstr "Show more Farcaster users"
-
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
-
-msgid "Trending {source} Users"
-msgstr "Trending {source} Users"
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
