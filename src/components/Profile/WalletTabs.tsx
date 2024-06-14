@@ -71,7 +71,7 @@ export function WalletTabs({ address }: WalletTabsProps) {
                         </ClickableButton>
                         <span
                             className={classNames(
-                                'h-1 w-full rounded-full bg-[#9250FF] transition-all',
+                                'h-1 w-full rounded-full bg-fireflyBrand transition-all',
                                 currentTab !== type ? 'hidden' : '',
                             )}
                         />

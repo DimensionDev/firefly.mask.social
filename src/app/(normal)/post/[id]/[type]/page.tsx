@@ -89,7 +89,7 @@ export default function Page(props: Props) {
                             </Link>
                             <span
                                 className={classNames(
-                                    'h-1 w-full rounded-full bg-[#9250FF] transition-all',
+                                    'h-1 w-full rounded-full bg-fireflyBrand transition-all',
                                     engagementType !== type ? 'hidden' : '',
                                 )}
                             />

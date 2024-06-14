@@ -28,7 +28,7 @@ export function ComposeButtonForMobile() {
 
     return (
         <ClickableButton
-            className="fixed bottom-4 right-4 z-40 flex h-16 w-16 items-center justify-center rounded-full bg-[#9250FF] text-white outline-none dark:bg-white dark:text-[#9250FF]"
+            className="fixed bottom-4 right-4 z-40 flex h-16 w-16 items-center justify-center rounded-full bg-fireflyBrand text-white outline-none dark:bg-white dark:text-fireflyBrand"
             onClick={() => {
                 ComposeModalRef.open({
                     type: isPostPage ? 'reply' : 'compose',

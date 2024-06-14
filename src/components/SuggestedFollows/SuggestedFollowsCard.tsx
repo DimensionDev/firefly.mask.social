@@ -83,7 +83,7 @@ export function SuggestedFollowsCard() {
                 href={urlcat(PageRoute.UserTrending, {
                     source: resolveSourceInURL(Source.Farcaster),
                 })}
-                className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-[#9250FF]"
+                className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-fireflyBrand"
             >
                 <Trans>Show more Farcaster users</Trans>
             </Link>
@@ -98,7 +98,7 @@ export function SuggestedFollowsCard() {
                 href={urlcat(PageRoute.UserTrending, {
                     source: resolveSourceInURL(Source.Lens),
                 })}
-                className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-[#9250FF]"
+                className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-fireflyBrand"
             >
                 <Trans>Show more Lens users</Trans>
             </Link>
