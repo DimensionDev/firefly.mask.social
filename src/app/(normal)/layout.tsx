@@ -91,10 +91,14 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         <SearchFilter />
                     </IfPathname>
 
-                    <SuggestedFollowsCard />
-                    <SuggestedChannels source={Source.Farcaster} />
+                    <IfPathname isNotOneOf={['/']} exact>
+                        <SuggestedFollowsCard />
+                        <SuggestedChannels source={Source.Farcaster} />
+                    </IfPathname>
 
-                    {env.external.NEXT_PUBLIC_CALENDAR_WIDGET === STATUS.Enabled ? <mask-calendar-widget /> : null}
+                    <IfPathname isOneOf={['/']} exact>
+                        {env.external.NEXT_PUBLIC_CALENDAR_WIDGET === STATUS.Enabled ? <mask-calendar-widget /> : null}
+                    </IfPathname>
 
                     <LinkCloud />
                 </div>

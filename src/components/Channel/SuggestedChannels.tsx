@@ -4,12 +4,14 @@ import { Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import urlcat from 'urlcat';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ChannelInList } from '@/components/ChannelInList.js';
-import { PageRoute, type SocialSource } from '@/constants/enum.js';
+import { DiscoverType, PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 const SHOW_LENGTH = 3;
 
@@ -44,7 +46,10 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
             </div>
             {showMore ? (
                 <Link
-                    href={PageRoute.ChannelTrending}
+                    href={urlcat(PageRoute.Home, {
+                        discover: DiscoverType.TopChannels,
+                        source: resolveSocialSourceInURL(Source.Farcaster),
+                    })}
                     className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-[#9250FF]"
                 >
                     <Trans>Show More</Trans>

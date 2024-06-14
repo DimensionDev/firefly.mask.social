@@ -25,7 +25,7 @@ export function TrendingChannelPage({ searchParams: { source = SourceInURL.Farca
             </PageTitle>
             <div className="no-scrollbar flex-1 overflow-auto">
                 <Suspense fallback={<Loading />}>
-                    <ChannelList source={currentSource} />
+                    <ChannelList source={currentSource} useWindowScroll={false} />
                 </Suspense>
             </div>
         </div>

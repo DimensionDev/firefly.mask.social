@@ -7,15 +7,17 @@ import urlcat from 'urlcat';
 import LoadingIcon from '@/assets/loading.svg';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { SuggestedFollowUser } from '@/components/SuggestedFollows/SuggestedFollowUser.js';
-import { FireflyPlatform, PageRoute, Source } from '@/constants/enum.js';
+import { DiscoverType, FireflyPlatform, PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SuggestedFollowsCard() {
+    const currentSource = useGlobalState.use.currentSource();
     const { data: farcasterData, isLoading: isLoadingFarcaster } = useQuery({
         queryKey: ['suggested-follows-lite', Source.Farcaster],
         async queryFn() {
@@ -72,35 +74,37 @@ export function SuggestedFollowsCard() {
                 <Trans>Suggested Follows</Trans>
             </AsideTitle>
             <div className="flex w-full flex-col">
-                {isLoadingFarcaster
-                    ? loadingEl
-                    : farcasterData?.map((profile) => (
-                          <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Farcaster} />
-                      ))}
+                {isLoadingFarcaster && isLoadingLens ? (
+                    <div className="flex h-[360px] w-full items-center justify-center">
+                        <LoadingIcon width={16} height={16} className="animate-spin" />
+                    </div>
+                ) : (
+                    <>
+                        {!isLoadingFarcaster
+                            ? farcasterData?.map((profile) => (
+                                  <SuggestedFollowUser
+                                      key={profile.profileId}
+                                      profile={profile}
+                                      source={Source.Farcaster}
+                                  />
+                              ))
+                            : loadingEl}
+                        {!isLoadingLens
+                            ? lensData?.map((profile) => (
+                                  <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Lens} />
+                              ))
+                            : loadingEl}
+                    </>
+                )}
             </div>
-
             <Link
-                href={urlcat(PageRoute.UserTrending, {
-                    source: resolveSourceInURL(Source.Farcaster),
+                href={urlcat(PageRoute.Home, {
+                    source: resolveSourceInURL(currentSource),
+                    discover: DiscoverType.TopProfiles,
                 })}
                 className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-[#9250FF]"
             >
-                <Trans>Show more Farcaster users</Trans>
-            </Link>
-            <div className="mt-3 flex w-full flex-col">
-                {isLoadingLens
-                    ? loadingEl
-                    : lensData?.map((profile) => (
-                          <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Lens} />
-                      ))}
-            </div>
-            <Link
-                href={urlcat(PageRoute.UserTrending, {
-                    source: resolveSourceInURL(Source.Lens),
-                })}
-                className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-[#9250FF]"
-            >
-                <Trans>Show more Lens users</Trans>
+                <Trans>Show more</Trans>
             </Link>
         </div>
     );

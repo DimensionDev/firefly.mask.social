@@ -1,15 +1,12 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import ComeBack from '@/assets/comeback.svg';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useComeBack } from '@/hooks/useComeback.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
@@ -21,8 +18,6 @@ export function getSuggestedFollowUserInList(index: number, profile: Profile) {
 }
 
 export default function SuggestedFollowUsersList({ source }: Props) {
-    const comeback = useComeBack();
-
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source],
         queryFn({ pageParam }) {
@@ -36,25 +31,17 @@ export default function SuggestedFollowUsersList({ source }: Props) {
     });
 
     return (
-        <div className="min-h-screen">
-            <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
-                <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
-                <h2 className="text-xl font-black leading-6">
-                    <Trans>Trending {source} Users</Trans>
-                </h2>
-            </div>
-            <ListInPage
-                key={source}
-                queryResult={queryResult}
-                VirtualListProps={{
-                    key: `${ScrollListKey.SuggestedUsers}:${source}`,
-                    computeItemKey: (index, item) => `${item.profileId}-${index}`,
-                    itemContent: (index, item) => getSuggestedFollowUserInList(index, item),
-                }}
-                NoResultsFallbackProps={{
-                    className: 'pt-[228px]',
-                }}
-            />
-        </div>
+        <ListInPage
+            key={source}
+            queryResult={queryResult}
+            VirtualListProps={{
+                key: `${ScrollListKey.SuggestedUsers}:${source}`,
+                computeItemKey: (index, item) => `${item.profileId}-${index}`,
+                itemContent: (index, item) => getSuggestedFollowUserInList(index, item),
+            }}
+            NoResultsFallbackProps={{
+                className: 'pt-[228px]',
+            }}
+        />
     );
 }
