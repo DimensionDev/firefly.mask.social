@@ -23,7 +23,7 @@ import type {
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
-import { EMPTY_LIST } from '@masknet/shared-base';
+import { EMPTY_LIST, parseURL } from '@masknet/shared-base';
 import { compact, first, isEmpty, last } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -99,7 +99,8 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
 
 function removePollFrameUrl(content: string, oembedUrls: string[]) {
     return oembedUrls.reduce((acc, oembedUrl) => {
-        return acc.replace(oembedUrl.split('?')[0], '');
+        const parsed = parseURL(oembedUrl);
+        return parsed ? acc.replace(`${parsed.origin}${parsed.pathname}`, '') : acc;
     }, content);
 }
 

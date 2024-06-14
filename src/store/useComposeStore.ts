@@ -483,7 +483,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         availableSources: post.availableSources.filter((x) => SORTED_POLL_SOURCES.includes(x)),
                         chars: [
                             ...(Array.isArray(post.chars) ? post.chars : [post.chars]),
-                            { id: '', tag: CHAR_TAG.FRAME, visible: false, content: '' as never },
+                            { id: uuid(), tag: CHAR_TAG.FRAME, visible: false, content: '' as never },
                         ],
                     }),
                     cursor,
