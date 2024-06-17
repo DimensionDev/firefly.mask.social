@@ -13,6 +13,7 @@ import { useEnsName } from 'wagmi';
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -50,15 +51,15 @@ export function Attendees({ eventId }: AttendeesProps) {
                 VirtualListProps={{
                     listKey: `${ScrollListKey.TopCollectors}:${eventId}`,
                     computeItemKey: (index, owner) => `${index}-${owner}`,
-                    itemContent: (index, owner) => getAttendeesItemContent(index, owner),
+                    itemContent: (index, owner) => getAttendeesItemContent(index, owner as Address),
                 }}
             />
         </div>
     );
 }
 
-function AttendeesItem({ ownerAddress }: { ownerAddress: string }) {
-    const { data: ensName } = useEnsName({ address: ownerAddress as Address, chainId: ChainId.Mainnet });
+function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
+    const { data: ensName } = useEnsName({ address: ownerAddress, chainId: ChainId.Mainnet });
     const addressOrEns = ensName ? ensName : ownerAddress;
     return (
         <div className="flex items-center justify-between pb-3">
@@ -86,16 +87,11 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: string }) {
                     <LinkIcon className="ml-1.5 h-3 w-3 text-secondary" />
                 </div>
             </Link>
-            <Link
-                href={resolveProfileUrl(Source.Wallet, ownerAddress)}
-                className="h-8 select-none rounded-full bg-lightMain px-4 text-[15px] font-bold leading-8 text-primaryBottom"
-            >
-                <Trans>Watch</Trans>
-            </Link>
+            <WatchButton address={ownerAddress} className="h-8 leading-8" />
         </div>
     );
 }
 
-function getAttendeesItemContent(index: number, owner: string) {
+function getAttendeesItemContent(index: number, owner: Address) {
     return <AttendeesItem key={`${index}-${owner}`} ownerAddress={owner} />;
 }
