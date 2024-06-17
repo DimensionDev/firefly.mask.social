@@ -108,7 +108,13 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             <SearchInput
                                 value={inputText}
                                 onChange={(ev) => setInputText(ev.target.value)}
-                                onFocus={() => setShowRecommendation(true)}
+                                onFocus={() => {
+                                    document.body.style.overflowY = 'hidden';
+                                    setShowRecommendation(true)
+                                }}
+                                onBlur={() => {
+                                    document.body.style.overflowY = '';
+                                }}
                                 onClear={() => setInputText('')}
                             />
                         </form>
