@@ -1,5 +1,5 @@
-import { type FrameLensManagerEip712Request } from '@lens-protocol/client';
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
+
+import dayjs from 'dayjs';
 
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
@@ -22,8 +22,8 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         const profileId = await lensSessionHolder.sdk.authentication.getProfileId();
         if (!profileId) throw new Error('No profile found');
 
-        const plainData: FrameLensManagerEip712Request = {
-            actionResponse: ZERO_ADDRESS,
+        const result = await lensSessionHolder.sdk.frames.signFrameAction({
+            actionResponse: '',
             buttonIndex: index,
             inputText: input ?? '',
             profileId,
@@ -32,26 +32,18 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
             specVersion: '1.0.0',
             state: additional?.state ?? '',
             url: frame.url,
-        };
-
-        const result = await lensSessionHolder.sdk.frames.signFrameAction({
-            ...plainData,
         });
-
         if (result.isFailure()) {
             // CredentialsExpiredError or NotAuthenticatedError
             throw result.error;
         }
 
-        const deadline = new Date();
-        // 30 minutes
-        deadline.setMinutes(deadline.getMinutes() + 30);
         const packet = {
             clientProtocol: 'lens@1.0.0',
             untrustedData: {
-                ...plainData,
-                deadline: deadline.getTime(),
                 identityToken: identityTokenResult.unwrap(),
+                unixTimestamp: dayjs(Date.now()).unix(),
+                ...result.value.signedTypedData.value,
             },
             trustedData: {
                 messageBytes: result.value.signature,
