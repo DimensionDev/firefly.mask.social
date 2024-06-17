@@ -77,12 +77,7 @@ export function HomePage() {
     return (
         <div>
             {currentSource === Source.Farcaster ? (
-                <Tabs
-                    className="px-1.5 pb-1.5 pt-3"
-                    variant="classification"
-                    onChange={setDiscoverType}
-                    value={discoverType}
-                >
+                <Tabs className="px-1.5 pb-1.5 pt-3" variant="solid" onChange={setDiscoverType} value={discoverType}>
                     {FARCASTER_TYPES.map((type) => (
                         <Tab value={type} key={type}>
                             {resolveTabLabel(type)}
@@ -93,7 +88,7 @@ export function HomePage() {
             {currentSource === Source.Lens ? (
                 <Tabs
                     className="px-1.5 pb-1.5 pt-3"
-                    variant="classification"
+                    variant="solid"
                     onChange={(type) => {
                         setDiscoverType(type);
                         window.scroll(0, 0);
