@@ -94,7 +94,10 @@ export function HomePage() {
                 <Tabs
                     className="px-1.5 pb-1.5 pt-3"
                     variant="classification"
-                    onChange={setDiscoverType}
+                    onChange={(type) => {
+                        setDiscoverType(type);
+                        window.scroll(0, 0);
+                    }}
                     value={discoverType}
                 >
                     {LENS_TYPES.map((type) => (
