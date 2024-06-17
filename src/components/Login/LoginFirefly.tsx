@@ -9,7 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { NODE_ENV, Source } from '@/constants/enum.js';
-import { AbortError, ProfileNotConnectedError } from '@/constants/error.js';
+import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
@@ -37,6 +37,9 @@ async function login(createSession: () => Promise<FireflySession>, options?: { s
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;
+
+        // if login timed out, let the user refresh the QR code
+        if (error instanceof TimeoutError) return;
 
         LoginModalRef.close();
         throw error;
