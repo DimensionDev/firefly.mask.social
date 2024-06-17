@@ -11,11 +11,10 @@ import type { FollowingNFT } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function FollowingNFTList({ walletAddresses }: { walletAddresses?: string[] }) {
-    const currentSource =
-        walletAddresses && walletAddresses.length > 0 ? Source.NFTs : useGlobalState.use.currentSource();
+    const currentSource = walletAddresses?.length ? Source.NFTs : useGlobalState.use.currentSource();
 
     const nftQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['nft', 'following', currentSource, walletAddresses],
+        queryKey: ['nfts', 'following', currentSource, walletAddresses],
         networkMode: 'always',
         async queryFn({ pageParam }) {
             if (currentSource !== Source.NFTs) return createPageable<FollowingNFT>(EMPTY_LIST, createIndicator());
