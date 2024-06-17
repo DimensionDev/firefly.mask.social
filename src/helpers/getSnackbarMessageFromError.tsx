@@ -1,6 +1,9 @@
 import { Trans } from '@lingui/macro';
 import type { SnackbarMessage } from 'notistack';
 
+import { FetchError } from '@/constants/error.js';
+import { IS_PRODUCTION } from '@/constants/index.js';
+
 /**
  * Get a snackbar message from an error.
  * @param error
@@ -19,6 +22,8 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
             </div>
         ) : error.message.startsWith('NotAllowed') ? (
             <Trans>Please switch to the wallet used for login.</Trans>
+        ) : error instanceof FetchError && IS_PRODUCTION ? (
+            <Trans>Failed to fetch: ${error.status}. Please try again later</Trans>
         ) : (
             error.message
         )
