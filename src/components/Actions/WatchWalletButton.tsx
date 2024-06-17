@@ -1,14 +1,12 @@
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
-import { useMutation } from '@tanstack/react-query';
+import { Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     identity: string;
@@ -23,25 +21,7 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
     const { data } = useIsFollowingWallet(address, isFollowing === undefined);
     const following = isFollowing || data;
 
-    const mutation = useMutation({
-        mutationFn: async () => {
-            try {
-                if (following) {
-                    const result = await FireflySocialMediaProvider.unwatchWallet(address);
-                    enqueueSuccessMessage(t`${identity} unwatched`);
-                    return result;
-                }
-                const result = await FireflySocialMediaProvider.watchWallet(address);
-                enqueueSuccessMessage(t`${identity} watched`);
-                return result;
-            } catch (error) {
-                enqueueErrorMessage(following ? t`Failed to unwatch ${identity}` : t`Failed to watch ${identity}`, {
-                    error,
-                });
-                throw error;
-            }
-        },
-    });
+    const mutation = useToggleWatchWallet({ identity, address, following: !!following });
 
     return (
         <MenuButton
