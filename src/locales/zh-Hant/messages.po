@@ -105,6 +105,9 @@ msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼�
 msgid "Download Image"
 msgstr ""
 
+msgid "Watching"
+msgstr ""
+
 msgid "Searching channel"
 msgstr "搜尋頻道"
 
@@ -313,6 +316,9 @@ msgid "Connected Accounts"
 msgstr "已連接的帳戶"
 
 msgid "Watch"
+msgstr ""
+
+msgid "Verified by {0}"
 msgstr ""
 
 msgid "Select Account"
@@ -648,6 +654,9 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
+msgid "The connection has timed out. Please try again later.·"
+msgstr ""
+
 msgid "Compose"
 msgstr ""
 
@@ -803,6 +812,9 @@ msgstr "請輸入連結以重新識別有效性"
 
 msgid "General"
 msgstr "一般"
+
+msgid "Page not found. Please try again."
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
@@ -970,6 +982,9 @@ msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
+msgstr ""
+
+msgid "Unwatch"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -1375,6 +1390,9 @@ msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
+msgstr ""
+
+msgid "Back to home"
 msgstr ""
 
 msgid "Followers"

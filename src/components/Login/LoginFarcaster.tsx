@@ -302,7 +302,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         {count !== 0 ? (
                             <Trans>Please confirm the login with Warpcast.</Trans>
                         ) : (
-                            <Trans>Login timeout</Trans>
+                            <Trans>The connection has timed out. Please try again later.·</Trans>
                         )}
                     </div>
                 </div>
