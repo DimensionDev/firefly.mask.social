@@ -618,6 +618,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登入失敗."
 
+msgid "Open Firefly App"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消按讚"
 

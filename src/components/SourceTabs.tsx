@@ -58,7 +58,7 @@ export function SourceTabs() {
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <a
                             className={classNames(
-                                currentSource === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
+                                currentSource === value ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
                                 'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
                                 'md:h-[60px] md:py-[18px] md:leading-6',
                             )}

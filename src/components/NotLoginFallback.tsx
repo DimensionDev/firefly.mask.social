@@ -16,7 +16,7 @@ const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Sourc
         [Source.Lens]:
             'text-lensPrimary ring-lensPrimary hover:bg-[rgba(154,227,42,0.20)] hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
         [Source.Farcaster]:
-            'text-farcasterPrimary ring-farcasterPrimary hover:bg-[#9250FF]/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
+            'text-farcasterPrimary ring-farcasterPrimary hover:bg-fireflyBrand/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
         [Source.Twitter]:
             'text-twitterPrimary ring-twitterPrimary hover:bg-[#1DA1F3]/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
         [Source.Article]:

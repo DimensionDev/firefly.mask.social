@@ -613,6 +613,9 @@ msgstr "Malformed session."
 msgid "Failed to login."
 msgstr "Failed to login."
 
+msgid "Open Firefly App"
+msgstr "Open Firefly App"
+
 msgid "Unlike"
 msgstr "Unlike"
 

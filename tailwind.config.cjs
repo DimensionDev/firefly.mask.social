@@ -55,6 +55,7 @@ module.exports = {
                 darkBottom: 'var(--color-dark-bottom)',
                 card: 'var(--color-card)',
                 tooltipBg: 'var(--color-tooltip-bg)',
+                fireflyBrand: 'var(--color-firefly-brand)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -21,6 +21,7 @@ import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
+import { ActiveApp } from '@/components/SideBar/ActiveApp.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
@@ -31,6 +32,7 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
@@ -43,6 +45,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
     const currentChannel = useCurrentVisitingChannel();
+    const isMedium = useIsMedium();
 
     const { updateSidebarOpen } = useNavigatorState();
 
@@ -182,6 +185,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             ) : null}
                         </ul>
                     </li>
+                    {!isMedium ? (
+                        <li>
+                            <ActiveApp />
+                        </li>
+                    ) : null}
                     <li className="-mx-2 mb-20 mt-auto text-center">
                         {isLogin ? (
                             <LoginStatusBar collapsed={collapsed} />
