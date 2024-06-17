@@ -23,12 +23,12 @@ export default function NotFound() {
                     <div className="mt-11 text-sm font-bold">
                         <Trans>The page could not be found.</Trans>
                     </div>
-                    <Link className='md:hidden text-link underline' href={'/'}>
+                    <Link className="text-link underline md:hidden" href={'/'}>
                         <Trans>Back to home</Trans>
                     </Link>
                 </div>
             </main>
-            <aside className="hidden md:sticky top-0 z-[1] h-full w-96 px-4 lg:block">
+            <aside className="top-0 z-[1] hidden h-full w-96 px-4 md:sticky lg:block">
                 <IfPathname isNotOneOf={['/settings']}>
                     <AsideSearchBar />
                 </IfPathname>
