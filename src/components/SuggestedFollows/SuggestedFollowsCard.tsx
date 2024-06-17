@@ -10,6 +10,7 @@ import { SuggestedFollowUser } from '@/components/SuggestedFollows/SuggestedFoll
 import { DiscoverType, FireflyPlatform, PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -18,8 +19,10 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SuggestedFollowsCard() {
     const currentSource = useGlobalState.use.currentSource();
+    const profileAll = useCurrentProfileAll();
     const { data: farcasterData, isLoading: isLoadingFarcaster } = useQuery({
         queryKey: ['suggested-follows-lite', Source.Farcaster],
+        enabled: !!profileAll.Farcaster,
         async queryFn() {
             let result = await FarcasterSocialMediaProvider.getSuggestedFollowUsers();
             let data: Profile[] = [];
@@ -54,6 +57,7 @@ export function SuggestedFollowsCard() {
     });
     const { data: lensData, isLoading: isLoadingLens } = useQuery({
         queryKey: ['suggested-follows-lite', Source.Lens],
+        enabled: !!profileAll.Lens,
         async queryFn() {
             const result = await LensSocialMediaProvider.getSuggestedFollowUsers();
             return result.data
@@ -61,6 +65,10 @@ export function SuggestedFollowsCard() {
                 .slice(0, 3);
         },
     });
+
+    if (!profileAll.Farcaster && !profileAll.Lens) {
+        return null;
+    }
 
     const loadingEl = (
         <div className="flex h-[180px] w-full items-center justify-center">
@@ -102,7 +110,7 @@ export function SuggestedFollowsCard() {
                     source: resolveSourceInURL(currentSource),
                     discover: DiscoverType.TopProfiles,
                 })}
-                className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-fireflyBrand"
+                className="text-fireflyBrand flex px-4 py-2 text-[15px] font-bold leading-[24px]"
             >
                 <Trans>Show more</Trans>
             </Link>
