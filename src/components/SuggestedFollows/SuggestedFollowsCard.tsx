@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -66,6 +67,27 @@ export function SuggestedFollowsCard() {
         },
     });
 
+    const showMoreUrl = useMemo(() => {
+        const isOnlyFarcaster = !!profileAll.Farcaster && !profileAll.Lens;
+        const isOnlyLens = !profileAll.Farcaster && !!profileAll.Lens;
+        if (isOnlyFarcaster) {
+            return urlcat(PageRoute.Home, {
+                source: resolveSourceInURL(Source.Farcaster),
+                discover: DiscoverType.TopProfiles,
+            });
+        }
+        if (isOnlyLens) {
+            return urlcat(PageRoute.Home, {
+                source: resolveSourceInURL(Source.Lens),
+                discover: DiscoverType.TopProfiles,
+            });
+        }
+        return urlcat(PageRoute.Home, {
+            source: resolveSourceInURL(currentSource),
+            discover: DiscoverType.TopProfiles,
+        });
+    }, [currentSource, profileAll.Farcaster, profileAll.Lens]);
+
     if (!profileAll.Farcaster && !profileAll.Lens) {
         return null;
     }
@@ -105,13 +127,7 @@ export function SuggestedFollowsCard() {
                     </>
                 )}
             </div>
-            <Link
-                href={urlcat(PageRoute.Home, {
-                    source: resolveSourceInURL(currentSource),
-                    discover: DiscoverType.TopProfiles,
-                })}
-                className="text-fireflyBrand flex px-4 py-2 text-[15px] font-bold leading-[24px]"
-            >
+            <Link href={showMoreUrl} className="text-fireflyBrand flex px-4 py-2 text-[15px] font-bold leading-[24px]">
                 <Trans>Show more</Trans>
             </Link>
         </div>
