@@ -1432,6 +1432,9 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+msgid "Link"
+msgstr ""
+
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
