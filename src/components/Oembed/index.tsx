@@ -12,6 +12,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
+import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
 
@@ -35,11 +36,11 @@ interface OembedProps {
 export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
-        queryFn: () => {
+        queryFn: async () => {
             if (!url || isValidDomain(url)) return;
             return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/oembed', {
-                    link: url,
+                    link: (await resolveTCOLink(url)) ?? url,
                 }),
             );
         },

@@ -12,6 +12,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -45,16 +46,28 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                     </div>
                     <div className="flex gap-[10px]">
                         {profile.verifiedSources.map((x) => {
-                            return <RelatedSourceIcon key={x.source} source={x.source} size={24} />;
+                            return (
+                                <Tooltip key={x.source} content={t`Verified by ${x.source}`} placement="bottom">
+                                    <RelatedSourceIcon source={x.source} size={24} />
+                                </Tooltip>
+                            );
                         })}
                         {relations?.map((relation) => {
                             const url = getRelationPlatformUrl(relation.identity.platform, relation.identity.identity);
-                            return url ? (
-                                <Link key={relation.identity.uuid} href={url} target="_blank" rel="noreferrer noopener">
-                                    <RelationPlatformIcon size={24} source={relation.identity.platform} />
-                                </Link>
-                            ) : (
-                                <RelationPlatformIcon size={24} source={relation.identity.platform} />
+                            return (
+                                <Tooltip
+                                    key={relation.identity.uuid}
+                                    content={relation.identity.displayName}
+                                    placement="bottom"
+                                >
+                                    {url ? (
+                                        <Link href={url} target="_blank" rel="noreferrer noopener">
+                                            <RelationPlatformIcon size={24} source={relation.identity.platform} />
+                                        </Link>
+                                    ) : (
+                                        <RelationPlatformIcon size={24} source={relation.identity.platform} />
+                                    )}
+                                </Tooltip>
                             );
                         })}
                         {profile.ens.length ? (

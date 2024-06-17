@@ -3,7 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
+import { first, uniqBy } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -213,31 +213,33 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </div>
             ) : keyword && profiles?.data.length ? (
                 <div className="py-2">
-                    {profiles.data.slice(0, MAX_RECOMMEND_PROFILE_SIZE).map((profile) => (
-                        <Link
-                            className="block cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
-                            key={profile.handle}
-                            href={getProfileUrl(profile)}
-                            onClick={() => onSelect?.(profile)}
-                        >
-                            <div className="flex flex-row items-center">
-                                <Avatar
-                                    className="mr-[10px] h-10 w-10 rounded-full"
-                                    src={profile.pfp}
-                                    size={40}
-                                    alt={profile.displayName}
-                                />
+                    {uniqBy(profiles.data, (x) => x.handle)
+                        .slice(0, MAX_RECOMMEND_PROFILE_SIZE)
+                        .map((profile) => (
+                            <Link
+                                className="block cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
+                                key={profile.handle}
+                                href={getProfileUrl(profile)}
+                                onClick={() => onSelect?.(profile)}
+                            >
+                                <div className="flex flex-row items-center">
+                                    <Avatar
+                                        className="mr-[10px] h-10 w-10 rounded-full"
+                                        src={profile.pfp}
+                                        size={40}
+                                        alt={profile.displayName}
+                                    />
 
-                                <div className="flex-1 text-left">
-                                    <div className="flex">
-                                        <span className="mr-1">{profile.displayName}</span>
-                                        <SocialSourceIcon source={profile.source} />
+                                    <div className="flex-1 text-left">
+                                        <div className="flex">
+                                            <span className="mr-1">{profile.displayName}</span>
+                                            <SocialSourceIcon source={profile.source} />
+                                        </div>
+                                        <div className="font-normal text-secondary">@{profile.handle}</div>
                                     </div>
-                                    <div className="font-normal text-secondary">@{profile.handle}</div>
                                 </div>
-                            </div>
-                        </Link>
-                    ))}
+                            </Link>
+                        ))}
                 </div>
             ) : null}
         </div>
