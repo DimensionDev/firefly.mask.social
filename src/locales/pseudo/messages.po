@@ -100,6 +100,9 @@ msgstr ""
 msgid "Download Image"
 msgstr ""
 
+msgid "Watching"
+msgstr ""
+
 msgid "Searching channel"
 msgstr ""
 
@@ -799,6 +802,9 @@ msgstr ""
 msgid "General"
 msgstr ""
 
+msgid "Page not found. Please try again."
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
@@ -965,6 +971,9 @@ msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
+msgstr ""
+
+msgid "Unwatch"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -1372,6 +1381,9 @@ msgstr ""
 msgid "Translating..."
 msgstr ""
 
+msgid "Back to home"
+msgstr ""
+
 msgid "Followers"
 msgstr ""
 
@@ -1412,6 +1424,9 @@ msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "Link"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"

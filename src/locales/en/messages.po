@@ -100,6 +100,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "Download Image"
 msgstr "Download Image"
 
+msgid "Watching"
+msgstr "Watching"
+
 msgid "Searching channel"
 msgstr "Searching channel"
 
@@ -799,6 +802,9 @@ msgstr "Please input the frame url to be revalidated."
 msgid "General"
 msgstr "General"
 
+msgid "Page not found. Please try again."
+msgstr "Page not found. Please try again."
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
 
@@ -966,6 +972,9 @@ msgstr "Recast or Quote"
 
 msgid "Draft"
 msgstr "Draft"
+
+msgid "Unwatch"
+msgstr "Unwatch"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
@@ -1372,6 +1381,9 @@ msgstr "Recast"
 msgid "Translating..."
 msgstr "Translating..."
 
+msgid "Back to home"
+msgstr "Back to home"
+
 msgid "Followers"
 msgstr "Followers"
 
@@ -1413,6 +1425,9 @@ msgstr "<0>{0}</0> recasted"
 
 msgid "Close"
 msgstr "Close"
+
+msgid "Link"
+msgstr "Link"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"
