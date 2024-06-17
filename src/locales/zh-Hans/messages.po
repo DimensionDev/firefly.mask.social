@@ -105,6 +105,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "Download Image"
 msgstr ""
 
+msgid "Watching"
+msgstr ""
+
 msgid "Searching channel"
 msgstr "查询频道中"
 
@@ -804,6 +807,9 @@ msgstr "请输入 URL 重新验证。"
 msgid "General"
 msgstr "通用"
 
+msgid "Page not found. Please try again."
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
@@ -970,6 +976,9 @@ msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
+msgstr ""
+
+msgid "Unwatch"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -1375,6 +1384,9 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
+msgstr ""
+
+msgid "Back to home"
 msgstr ""
 
 msgid "Followers"
