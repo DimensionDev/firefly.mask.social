@@ -32,7 +32,7 @@ export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
     return (
         <div
             className={classNames(
-                'flex items-center gap-x-3 overflow-hidden rounded-full text-xl hover:cursor-pointer hover:bg-bg',
+                'flex items-center gap-x-3 overflow-hidden rounded-full text-xl hover:cursor-pointer hover:bg-bg w-full md:w-auto',
                 collapsed ? 'p-2' : 'px-4 py-1',
             )}
             onClick={() => {
