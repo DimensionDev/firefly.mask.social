@@ -332,7 +332,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     <Trans>
                                         On your mobile device with <span className="font-bold">Warpcast</span>, open the{' '}
                                         <span className="font-bold">Camera</span> app and scan the QR code. Approve a
-                                        new Farcaster signer to Firefly.
+                                        new Farcaster signer to <span className="font-bold">Firefly</span>.
                                     </Trans>
                                 ) : signType === FarcasterSignType.RelayService ? (
                                     <Trans>
@@ -346,7 +346,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                                 })}
                                             </span>
                                         }
-                                        . Approve a new Farcaster signer to Firefly.
+                                        . Approve a new Farcaster signer to <span className="font-bold">Firefly</span>.
                                     </Trans>
                                 ) : null}
                             </div>

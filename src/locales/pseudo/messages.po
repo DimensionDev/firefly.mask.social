@@ -187,6 +187,9 @@ msgstr ""
 msgid "<0>Sent</0> an NFT"
 msgstr ""
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+msgstr ""
+
 msgid "Copied"
 msgstr ""
 
@@ -320,6 +323,9 @@ msgid "Failed to unlike the post."
 msgstr ""
 
 msgid "Mirror again"
+msgstr ""
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr ""
 
 msgid "Failed to detect device accounts."
@@ -712,9 +718,6 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
-msgstr ""
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -731,9 +734,6 @@ msgid "Articles"
 msgstr ""
 
 msgid "Settings"
-msgstr ""
-
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 msgstr ""
 
 msgid "Creator"

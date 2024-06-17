@@ -37,7 +37,7 @@ msgid "Quote Post"
 msgstr "引用"
 
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr "{count, plural, one {1 秒} other {{count} 秒}}"
 
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
@@ -192,6 +192,9 @@ msgstr "用户名为必填。"
 msgid "<0>Sent</0> an NFT"
 msgstr ""
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 <3>Firefly</3> 连接您的账号。"
+
 msgid "Copied"
 msgstr "已复制"
 
@@ -326,6 +329,9 @@ msgstr "取消点赞失败。"
 
 msgid "Mirror again"
 msgstr "转帖"
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
+msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 <2>Firefly</2> 连接您的账号。"
 
 msgid "Failed to detect device accounts."
 msgstr "检测设备账号失败。"
@@ -717,9 +723,6 @@ msgstr "文件\"{0}\"超过了大小限制。"
 msgid "Invalid URL."
 msgstr "无效的 URL。"
 
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
-msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 Firefly 连接您的账号。"
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -737,9 +740,6 @@ msgstr "文章"
 
 msgid "Settings"
 msgstr "设置"
-
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 Firefly 连接您的账号。"
 
 msgid "Creator"
 msgstr ""
@@ -901,7 +901,7 @@ msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
-msgstr ""
+msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
 
 msgid "Discard"
 msgstr "放弃"
