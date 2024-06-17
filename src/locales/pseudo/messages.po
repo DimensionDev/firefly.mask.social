@@ -100,6 +100,9 @@ msgstr ""
 msgid "Download Image"
 msgstr ""
 
+msgid "Watching"
+msgstr ""
+
 msgid "Searching channel"
 msgstr ""
 
@@ -308,6 +311,9 @@ msgid "Connected Accounts"
 msgstr ""
 
 msgid "Watch"
+msgstr ""
+
+msgid "Verified by {0}"
 msgstr ""
 
 msgid "Select Account"
@@ -643,6 +649,9 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
+msgid "The connection has timed out. Please try again later.·"
+msgstr ""
+
 msgid "Compose"
 msgstr ""
 
@@ -797,6 +806,9 @@ msgid "Please input the frame url to be revalidated."
 msgstr ""
 
 msgid "General"
+msgstr ""
+
+msgid "Page not found. Please try again."
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -965,6 +977,9 @@ msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
+msgstr ""
+
+msgid "Unwatch"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -1370,6 +1385,9 @@ msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
+msgstr ""
+
+msgid "Back to home"
 msgstr ""
 
 msgid "Followers"
