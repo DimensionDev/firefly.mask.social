@@ -187,6 +187,9 @@ msgstr "Username is required."
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>Sent</0> an NFT"
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+
 msgid "Copied"
 msgstr "Copied"
 
@@ -321,6 +324,9 @@ msgstr "Failed to unlike the post."
 
 msgid "Mirror again"
 msgstr "Mirror again"
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
+msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 
 msgid "Failed to detect device accounts."
 msgstr "Failed to detect device accounts."
@@ -712,9 +718,6 @@ msgstr "The file \"{0}\" exceeds the size limit."
 msgid "Invalid URL."
 msgstr "Invalid URL."
 
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
-msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
@@ -732,9 +735,6 @@ msgstr "Articles"
 
 msgid "Settings"
 msgstr "Settings"
-
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
 
 msgid "Creator"
 msgstr "Creator"

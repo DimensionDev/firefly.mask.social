@@ -192,6 +192,9 @@ msgstr ""
 msgid "<0>Sent</0> an NFT"
 msgstr ""
 
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 秒內掃描QR碼，授權 <3>Firefly</3> 連結您的帳戶。"
+
 msgid "Copied"
 msgstr "已複製"
 
@@ -326,6 +329,9 @@ msgstr "點讚評論失敗"
 
 msgid "Mirror again"
 msgstr "重新鏡像"
+
+msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
+msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並掃描QR碼，授權 <2>Firefly</2> 連結您的帳戶。"
 
 msgid "Failed to detect device accounts."
 msgstr "偵測裝置帳戶失敗"
@@ -717,9 +723,6 @@ msgstr ""
 msgid "Invalid URL."
 msgstr ""
 
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to Firefly."
-msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 秒內掃描QR碼，授權 Firefly 連結您的帳戶。"
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -737,9 +740,6 @@ msgstr "文章"
 
 msgid "Settings"
 msgstr "設定"
-
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to Firefly."
-msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並掃描QR碼，授權 Firefly 連結您的帳戶。"
 
 msgid "Creator"
 msgstr ""
@@ -1439,4 +1439,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-
