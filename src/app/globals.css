@@ -301,3 +301,17 @@ body {
 [data-hide-scrollbar]::-webkit-scrollbar {
     display: none;
 }
+
+body.not-support {
+    padding-top: 38px;
+}
+
+body.not-support
+.sticky.top-0,
+.sticky.inset-0,
+.sticky.inset-y-0,
+.fixed.top-0,
+.fixed.inset-0,
+.fixed.inset-y-0 {
+    top: 38px;
+}

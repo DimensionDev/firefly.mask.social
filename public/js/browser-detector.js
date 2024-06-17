@@ -61,6 +61,7 @@
                     ? `请使用 ${chromeLinkTag} 或 ${downloadLinkTag} 我们的APP浏览`
                     : `Please use ${chromeLinkTag} or ${downloadLinkTag} our app to explore more`;
                 document.body.appendChild(browserTips);
+                document.body.classList.add('group', 'not-support');
             };
 
             //watch dark mode change

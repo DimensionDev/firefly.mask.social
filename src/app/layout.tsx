@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
-                    <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
+                    <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
                         <CustomElements />
                         {children}
                         <SideBar />

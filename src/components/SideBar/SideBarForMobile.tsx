@@ -50,7 +50,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                         leaveTo="-translate-x-full"
                     >
                         <Dialog.Panel className="relative mr-16 flex w-full max-w-[280px] flex-1">
-                            <div className="fixed inset-0 z-50 flex w-[280px] flex-col bg-white dark:bg-black">
+                            <div className="fixed inset-0 z-50 flex w-[280px] flex-col bg-white dark:bg-black group-[.not-support]:!top-0">
                                 <div className="flex grow flex-col gap-y-5 border-r border-line px-3">
                                     <div className="flex h-16 shrink-0 items-center px-4">
                                         {isDarkMode ? (
