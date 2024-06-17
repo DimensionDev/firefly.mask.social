@@ -56,7 +56,7 @@ export const WatchButton = memo(function WatchButton({
                 {
                     'bg-main text-primaryBottom hover:opacity-80': buttonState === State.Watch,
                     'border-[1.5px] border-lightMain text-lightMain': buttonState === State.Watching,
-                    'border-[1.5px] border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger':
+                    'border-[1.5px] border-danger border-opacity-50 bg-danger text-primaryBottom':
                         buttonState === State.Unwatch,
                 },
             )}
