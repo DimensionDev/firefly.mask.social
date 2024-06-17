@@ -2,7 +2,7 @@
 
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { type ComponentType, memo, Suspense } from 'react';
+import { type ComponentType, memo, Suspense, useEffect } from 'react';
 
 import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.js';
 import { ChannelList } from '@/components/Channel/ChannelList.js';
@@ -15,6 +15,9 @@ import { DiscoverType, type SocialSource, Source } from '@/constants/enum.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+
+const FARCASTER_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels] as const;
+const LENS_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles] as const;
 
 const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> = memo(function ContentList({
     type,
@@ -37,7 +40,31 @@ export function HomePage() {
     const currentSource = useGlobalState.use.currentSource();
     const [discoverType, setDiscoverType] = useStateWithSearchParams('discover', DiscoverType.Trending);
 
+    function resolveTabLabel(type: DiscoverType) {
+        switch (type) {
+            case DiscoverType.Trending:
+                return t`Trending`;
+            case DiscoverType.TopProfiles:
+                return t`Top Profiles`;
+            case DiscoverType.TopChannels:
+                return t`Top Channels`;
+            default:
+                return null;
+        }
+    }
+
     useNavigatorTitle(t`Discover`);
+
+    useEffect(() => {
+        switch (currentSource) {
+            case Source.Farcaster:
+                if (!FARCASTER_TYPES.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
+                break;
+            case Source.Lens:
+                if (!LENS_TYPES.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
+                break;
+        }
+    }, [currentSource, discoverType, setDiscoverType]);
 
     if (currentSource === Source.Article) {
         return <DiscoverArticleList />;
@@ -56,9 +83,11 @@ export function HomePage() {
                     onChange={setDiscoverType}
                     value={discoverType}
                 >
-                    <Tab value={DiscoverType.Trending}>{t`Trending`}</Tab>
-                    <Tab value={DiscoverType.TopProfiles}>{t`Top Profiles`}</Tab>
-                    <Tab value={DiscoverType.TopChannels}>{t`Top Channels`}</Tab>
+                    {FARCASTER_TYPES.map((type) => (
+                        <Tab value={type} key={type}>
+                            {resolveTabLabel(type)}
+                        </Tab>
+                    ))}
                 </Tabs>
             ) : null}
             {currentSource === Source.Lens ? (
@@ -68,8 +97,11 @@ export function HomePage() {
                     onChange={setDiscoverType}
                     value={discoverType}
                 >
-                    <Tab value={DiscoverType.Trending}>{t`Trending`}</Tab>
-                    <Tab value={DiscoverType.TopProfiles}>{t`Top Profiles`}</Tab>
+                    {LENS_TYPES.map((type) => (
+                        <Tab value={type} key={type}>
+                            {resolveTabLabel(type)}
+                        </Tab>
+                    ))}
                 </Tabs>
             ) : null}
             <Suspense fallback={<Loading />}>
