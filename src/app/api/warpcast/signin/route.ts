@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { mnemonicToAccount } from 'viem/accounts';
@@ -7,8 +8,6 @@ import { env } from '@/constants/env.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-
-const ONE_YEAR = 60 * 60 * 24 * 365; // in seconds
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
@@ -30,7 +29,7 @@ export async function POST(request: NextRequest) {
     const publicKey = HexStringSchema.parse(key) as `0x${string}`;
 
     // valid for one year
-    const deadline = Math.floor(Date.now() / 1000) + ONE_YEAR;
+    const deadline = dayjs(Date.now()).add(1, 'y').unix();
     const account = mnemonicToAccount(env.internal.FARCASTER_SIGNER_MNEMONIC);
     const signature = await account.signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
