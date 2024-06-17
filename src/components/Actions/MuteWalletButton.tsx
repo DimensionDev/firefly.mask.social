@@ -31,6 +31,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
         <MenuButton
             {...rest}
             onClick={async () => {
+                rest.onClick?.();
                 if (!isMuted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
                         title: t`Mute ${identity}`,
@@ -47,7 +48,6 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
                     }
                 }
                 await mutation.mutateAsync();
-                rest.onClick?.();
             }}
             ref={ref}
         >
