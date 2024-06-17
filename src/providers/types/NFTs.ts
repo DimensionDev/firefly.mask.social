@@ -25,6 +25,7 @@ export interface NFTOwnerDisplayInfo {
 }
 
 export interface NFTFeed {
+    /** User address */
     address: Address;
     followers_count: number | null;
     twitter_id: string | null;

@@ -5,10 +5,14 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
+import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
 function toggleBlock(address: string, status: boolean) {
     type PagesData = { pages: Array<{ data: Article[] }> };
+    interface NFTPagesData {
+        pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
+    }
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
@@ -30,6 +34,25 @@ function toggleBlock(address: string, status: boolean) {
             draft.author.isMuted = status;
         });
     });
+
+    const nftsPatcher = (old: Draft<NFTPagesData> | undefined) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page.data.length) continue;
+                page.data = page.data.filter((nft) => {
+                    if ('network' in nft) {
+                        return !isSameAddress(nft.owner, address);
+                    } else {
+                        return !isSameAddress(nft.address, address);
+                    }
+                }) as FollowingNFT[] | NFTFeed[];
+            }
+        });
+    };
+
+    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'following', Source.NFTs] }, nftsPatcher);
+    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'discover', Source.NFTs] }, nftsPatcher);
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;

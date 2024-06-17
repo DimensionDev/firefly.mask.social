@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { isSameAddress, type NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
-import { produce } from 'immer';
+import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -10,9 +10,13 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import type { FollowingNFT } from '@/providers/types/NFTs.js';
+import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 import { muteNFT } from '@/services/muteNFT.js';
 import { reportNFT } from '@/services/reportNFT.js';
+
+interface PagesData {
+    pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
+}
 
 /**
  * Filter out activities by collection id of the target NFT.
@@ -30,26 +34,28 @@ function filterOutActivities(collectionId: string) {
     const nftDetail = queryData?.[1];
     if (!nftDetail) return;
 
-    queryClient.setQueriesData<{ pages: Array<{ data: FollowingNFT[] }> }>(
-        {
-            queryKey: ['nfts', 'following', Source.NFTs],
-        },
-        (old) => {
-            if (!old) return old;
-            return produce(old, (draft) => {
-                for (const page of draft.pages) {
-                    if (!page) continue;
-                    page.data = page.data.filter((nft) => {
+    const { address: contractAddress, chainId: nftChainId } = nftDetail;
+
+    const patcher = (old: Draft<PagesData> | undefined) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page.data.length) continue;
+                page.data = page.data.filter((nft) => {
+                    if ('network' in nft) {
                         const chainId = resolveSimpleHashChainId(nft.network);
                         const action = nft.actions[0];
-                        return (
-                            !isSameAddress(action.contract_address, nftDetail.address) || chainId !== nftDetail.chainId
-                        );
-                    });
-                }
-            });
-        },
-    );
+                        return !isSameAddress(action.contract_address, contractAddress) || chainId !== nftChainId;
+                    } else {
+                        return !isSameAddress(nft.trans.token_address, nftDetail.address);
+                    }
+                }) as FollowingNFT[] | NFTFeed[];
+            }
+        });
+    };
+
+    queryClient.setQueriesData<PagesData>({ queryKey: ['nfts', 'following', Source.NFTs] }, patcher);
+    queryClient.setQueriesData<PagesData>({ queryKey: ['nfts', 'discover', Source.NFTs] }, patcher);
 }
 
 export function useReportSpamNFT() {
