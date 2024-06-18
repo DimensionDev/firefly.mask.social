@@ -150,6 +150,9 @@ msgstr ""
 msgid "Trending"
 msgstr ""
 
+msgid "Log out @{0}"
+msgstr ""
+
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
@@ -523,6 +526,9 @@ msgid "Reply"
 msgstr ""
 
 msgid "Mirror or Quote"
+msgstr ""
+
+msgid "Add an existing account"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
@@ -1088,9 +1094,6 @@ msgstr ""
 
 msgid "Connect"
 msgstr "連接"
-
-msgid "Switch account"
-msgstr ""
 
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"
