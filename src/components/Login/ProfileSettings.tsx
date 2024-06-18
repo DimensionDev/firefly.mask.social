@@ -36,7 +36,7 @@ interface ProfileSettingsProps {
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const controllerRef = useRef<AbortController>();
-    const { currentProfile, refreshProfiles } = useProfileStore(source);
+    const { currentProfile, refreshAccounts: refreshProfiles } = useProfileStore(source);
 
     const [{ loading }, onDetect] = useAsyncFn(
         async (source: SocialSource) => {

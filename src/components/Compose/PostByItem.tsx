@@ -33,7 +33,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
     const profiles = useProfiles(source);
     const currentProfile = useCurrentProfile(source);
 
-    const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+    const updateLensCurrentAccount = useLensStateStore.use.updateCurrentAccount();
 
     const { enableSource, disableSource } = useComposeStateStore();
     const { availableSources, images } = useCompositePost();
@@ -42,7 +42,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
         async (profile: Profile) => {
             try {
                 const session = await createSessionForProfileId(profile.profileId);
-                updateLensCurrentProfile(profile, session);
+                updateLensCurrentAccount({ profile, session });
                 lensSessionHolder.resumeSession(session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
             } catch (error) {
@@ -52,7 +52,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 throw error;
             }
         },
-        [updateLensCurrentProfile],
+        [updateLensCurrentAccount],
     );
 
     if (!currentProfile || !profiles?.length)

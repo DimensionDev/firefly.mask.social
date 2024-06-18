@@ -1,9 +1,7 @@
 import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
-import type { LensSession } from '@/providers/lens/Session.js';
-import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import {
     useFarcasterStateStore,
     useFireflyStateStore,
@@ -11,21 +9,17 @@ import {
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
 
-export function restoreProfile(
-    currentProfile: Profile,
-    profiles: Profile[],
-    session: FarcasterSession | LensSession | TwitterSession | FireflySession,
-) {
+export function restoreAccount(account: Account) {
     const store = {
         [SessionType.Farcaster]: useFarcasterStateStore,
         [SessionType.Lens]: useLensStateStore,
         [SessionType.Firefly]: useFireflyStateStore,
         [SessionType.Twitter]: useTwitterStateStore,
-    }[session.type];
+    }[account.session.type];
 
-    store?.getState().updateProfiles(profiles);
-    store?.getState().updateCurrentProfile(currentProfile, session);
-    resolveSessionHolderFromSessionType(session.type)?.resumeSession(session);
+    store?.getState().updateAccounts([account]);
+    store?.getState().updateCurrentAccount(account);
+    resolveSessionHolderFromSessionType(account.session.type)?.resumeSession(account.session);
 }
 
 export function restoreSessionForFirefly(session: FireflySession | null) {
