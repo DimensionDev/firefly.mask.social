@@ -159,7 +159,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     components={{
                         // @ts-ignore
                         // eslint-disable-next-line react/no-unstable-nested-components
-                        a: () => <span>[<Trans>Link</Trans>]</span>,
+                        a: () => (
+                            <span>
+                                [<Trans>Link</Trans>]
+                            </span>
+                        ),
                     }}
                 >
                     {post.metadata.content?.content}
