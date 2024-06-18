@@ -145,6 +145,9 @@ msgstr "OpenGraph"
 msgid "Trending"
 msgstr "Trending"
 
+msgid "Log out @{0}"
+msgstr "Log out @{0}"
+
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
 
@@ -519,6 +522,9 @@ msgstr "Reply"
 
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
+
+msgid "Add an existing account"
+msgstr "Add an existing account"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
@@ -1083,9 +1089,6 @@ msgstr "No Lens profile found. Please change to another wallet."
 
 msgid "Connect"
 msgstr "Connect"
-
-msgid "Switch account"
-msgstr "Switch account"
 
 msgid "Sign in with Custody Wallet"
 msgstr "Sign in with Custody Wallet"
