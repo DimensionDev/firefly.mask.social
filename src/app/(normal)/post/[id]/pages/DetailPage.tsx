@@ -140,7 +140,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                 </h2>
             </div>
             {post.channel ? (
-                <Info channel={post.channel} source={post.source} className="border-b border-line px-4 py-3" />
+                <Info channel={post.channel} source={post.source} className="border-b border-line p-3" />
             ) : null}
             <div>
                 {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
