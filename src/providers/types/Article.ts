@@ -23,6 +23,7 @@ export interface Article {
         /** Wallet address */
         id: Address;
         isFollowing: boolean;
+        /** Article in timeline are all not muted */
         isMuted: boolean;
     };
     origin?: string;
