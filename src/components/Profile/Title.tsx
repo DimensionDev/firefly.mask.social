@@ -30,7 +30,7 @@ export function Title({ profile, displayName, isSingleProfile }: TitleProps) {
     if (!isSingleProfile && !reached && isMedium) return null;
 
     return (
-        <div className="sticky top-0 z-50 flex h-[60px] items-center bg-primaryBottom px-4">
+        <div className="sticky top-0 z-30 flex h-[60px] items-center bg-primaryBottom px-4">
             <div className="mr-1 flex items-center gap-7 overflow-auto">
                 <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-black text-lightMain">
