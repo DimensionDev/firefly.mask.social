@@ -462,9 +462,6 @@ msgstr "取消收藏失败"
 msgid "post"
 msgstr "发帖"
 
-msgid "Hashtag"
-msgstr "#"
-
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
@@ -569,6 +566,9 @@ msgstr "检测中..."
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
+
+msgid "Failed to fetch: ${0}. Please try again later"
+msgstr ""
 
 msgid "Switch"
 msgstr "切换"
@@ -1094,9 +1094,6 @@ msgstr "切换账号"
 
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
-
-msgid "Mention"
-msgstr "提及"
 
 msgid "Search…"
 msgstr "查找"
