@@ -15,9 +15,15 @@ interface BookmarkProps {
     count?: number;
     disabled?: boolean;
     post: Post;
+    hiddenCount?: boolean;
 }
 
-export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disabled = false, post }) {
+export const Bookmark = memo<BookmarkProps>(function Bookmark({
+    count = 0,
+    disabled = false,
+    post,
+    hiddenCount = false,
+}) {
     const { hasBookmarked } = post;
 
     const mutation = useToggleBookmark(post.source);
@@ -47,7 +53,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({ count = 0, disab
                     )}
                 </Tooltip>
             </motion.button>
-            {count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
+            {!hiddenCount && count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
         </ClickableArea>
     );
 });

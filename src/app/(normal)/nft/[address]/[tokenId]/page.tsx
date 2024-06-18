@@ -70,15 +70,12 @@ export default function Page({
                     tokenId={data.metadata.tokenId ?? ''}
                     ownerAddress={data.contract?.schema === SchemaType.ERC1155 ? undefined : data.owner?.address}
                     contractAddress={data.contract?.address ?? ''}
-                    collection={
-                        isPoap
-                            ? undefined
-                            : {
-                                  name: data.contract?.name ?? '',
-                                  icon: data.collection?.iconURL ?? undefined,
-                                  id: data.collection?.id,
-                              }
-                    }
+                    collection={{
+                        name: data.contract?.name ?? '',
+                        icon: data.collection?.iconURL ?? undefined,
+                        id: data.collection?.id,
+                    }}
+                    isPoap={isPoap}
                     floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
                     attendance={collectionData?.distinct_owner_count}

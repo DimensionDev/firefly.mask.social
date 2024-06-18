@@ -3,7 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
-import type { ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
@@ -58,10 +58,6 @@ export function EVMExplorerLink(props: { address: string; chainId?: number; type
 
 function convertDescriptionToArray(description: string): ReactNode[] {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const urls = description.match(urlRegex);
-    if (!urls) {
-        return [description];
-    }
     const parts = description.split(urlRegex);
 
     return parts.map((part, i) => {
@@ -77,14 +73,15 @@ function convertDescriptionToArray(description: string): ReactNode[] {
 }
 
 export function NFTOverflow(props: NFTOverflowProps) {
+    const description = useMemo(() => convertDescriptionToArray(props.description), [props.description]);
     return (
         <div className="space-y-8">
             <div className="space-y-2">
                 <h3 className="text-lg font-bold leading-6">
                     <Trans>Description</Trans>
                 </h3>
-                <p className="w-full break-words text-sm font-normal leading-5 sm:break-normal">
-                    {convertDescriptionToArray(props.description)}
+                <p className="w-full whitespace-pre-line break-words text-sm font-normal leading-5 sm:break-normal">
+                    {description}
                 </p>
             </div>
             <div className="space-y-2">
