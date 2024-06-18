@@ -565,6 +565,9 @@ msgstr "Detecting..."
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
+msgid "Failed to fetch: ${0}. Please try again later"
+msgstr "Failed to fetch: ${0}. Please try again later"
+
 msgid "Switch"
 msgstr "Switch"
 
