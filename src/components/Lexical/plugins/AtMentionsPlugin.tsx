@@ -44,7 +44,7 @@ const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`;
 const VALID_JOINS = `(?:\\.[ |$]| |[${PUNC}]|)`;
 const LENGTH_LIMIT = 32;
 const ALIAS_LENGTH_LIMIT = 50;
-const SUGGESTION_LIST_LENGTH_LIMIT = 5;
+const SUGGESTION_LIST_LENGTH_LIMIT = 10;
 
 const AtSignMentionsRegex = new RegExp(
     `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}}))$`,
@@ -303,7 +303,7 @@ export function MentionsPlugin(): JSX.Element | null {
                               ref={ref}
                               className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
                           >
-                              <ul>
+                              <ul className="max-h-[260px] overflow-auto">
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem
                                           index={i}
