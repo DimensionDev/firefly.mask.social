@@ -457,9 +457,6 @@ msgstr "Failed to un-bookmark"
 msgid "post"
 msgstr "post"
 
-msgid "Hashtag"
-msgstr "Hashtag"
-
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
 
@@ -564,6 +561,9 @@ msgstr "Detecting..."
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
+
+msgid "Failed to fetch: ${0}. Please try again later"
+msgstr "Failed to fetch: ${0}. Please try again later"
 
 msgid "Switch"
 msgstr "Switch"
@@ -1089,9 +1089,6 @@ msgstr "Switch account"
 
 msgid "Sign in with Custody Wallet"
 msgstr "Sign in with Custody Wallet"
-
-msgid "Mention"
-msgstr "Mention"
 
 msgid "Search…"
 msgstr "Search…"

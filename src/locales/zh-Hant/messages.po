@@ -462,9 +462,6 @@ msgstr "從書籤中移除失敗"
 msgid "post"
 msgstr ""
 
-msgid "Hashtag"
-msgstr ""
-
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
@@ -569,6 +566,9 @@ msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隱私政策"
+
+msgid "Failed to fetch: ${0}. Please try again later"
+msgstr ""
 
 msgid "Switch"
 msgstr ""
@@ -1094,9 +1094,6 @@ msgstr ""
 
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"
-
-msgid "Mention"
-msgstr "提到"
 
 msgid "Search…"
 msgstr "搜尋"
