@@ -8,6 +8,7 @@ import type { ReactNode } from 'react';
 import LinkIcon from '@/assets/link-square.svg';
 import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 
 export interface NFTOverflowProps {
@@ -55,6 +56,26 @@ export function EVMExplorerLink(props: { address: string; chainId?: number; type
     return <span className="break-all">{props.address}</span>;
 }
 
+function convertDescriptionToArray(description: string): ReactNode[] {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const urls = description.match(urlRegex);
+    if (!urls) {
+        return [description];
+    }
+    const parts = description.split(urlRegex);
+
+    return parts.map((part, i) => {
+        if (/(https?:\/\/[^\s]+)/.test(part)) {
+            return (
+                <Link key={`${part}-${i}`} href={part} target="_blank" className="text-farcasterPrimary underline">
+                    {part}
+                </Link>
+            );
+        }
+        return part;
+    });
+}
+
 export function NFTOverflow(props: NFTOverflowProps) {
     return (
         <div className="space-y-8">
@@ -62,7 +83,9 @@ export function NFTOverflow(props: NFTOverflowProps) {
                 <h3 className="text-lg font-bold leading-6">
                     <Trans>Description</Trans>
                 </h3>
-                <p className="w-full break-words text-sm font-normal leading-5 sm:break-normal">{props.description}</p>
+                <p className="w-full break-words text-sm font-normal leading-5 sm:break-normal">
+                    {convertDescriptionToArray(props.description)}
+                </p>
             </div>
             <div className="space-y-2">
                 <h3 className="text-lg font-bold leading-6">
