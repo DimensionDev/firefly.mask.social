@@ -5,6 +5,7 @@ import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChanne
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -86,12 +87,9 @@ export function ChannelInList({
                         <span>{nFormatter(channel.followerCount)}</span>
                     </div>
                     {!dense && channel.description ? (
-                        <p
-                            className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm"
-                            title={channel.description}
-                        >
-                            {channel.description}
-                        </p>
+                        <BioMarkup className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                            {channel.description ?? '-'}
+                        </BioMarkup>
                     ) : null}
                 </div>
             </Link>
