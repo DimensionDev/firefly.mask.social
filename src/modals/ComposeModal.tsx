@@ -364,7 +364,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         return (
             <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false} disableDialogClose>
-                <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl lg:flex-grow-0">
+                <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
                         <div className="absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">

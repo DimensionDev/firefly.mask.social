@@ -313,6 +313,9 @@ msgstr "Connected Accounts"
 msgid "Watch"
 msgstr "Watch"
 
+msgid "Verified by {0}"
+msgstr "Verified by {0}"
+
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -646,6 +649,9 @@ msgstr "Failed to unmute /{0}."
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
+msgid "The connection has timed out. Please try again later.·"
+msgstr "The connection has timed out. Please try again later.·"
+
 msgid "Compose"
 msgstr "Compose"
 
@@ -801,6 +807,9 @@ msgstr "Please input the frame url to be revalidated."
 
 msgid "General"
 msgstr "General"
+
+msgid "Page not found. Please try again."
+msgstr "Page not found. Please try again."
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
@@ -1378,6 +1387,9 @@ msgstr "Recast"
 msgid "Translating..."
 msgstr "Translating..."
 
+msgid "Back to home"
+msgstr "Back to home"
+
 msgid "Followers"
 msgstr "Followers"
 
@@ -1419,6 +1431,9 @@ msgstr "<0>{0}</0> recasted"
 
 msgid "Close"
 msgstr "Close"
+
+msgid "Link"
+msgstr "Link"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"

@@ -62,13 +62,20 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         queryClient.setQueryData(['article-detail', article.id], article);
     });
 
+    const isMuted = article.author.isMuted;
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3"
+            className={classNames(
+                'border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3',
+                {
+                    'cursor-pointer': !isMuted,
+                },
+            )}
             onClick={() => {
+                if (isMuted) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
@@ -78,7 +85,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
             }}
         >
             <ArticleHeader article={article} />
-            {article.author.isMuted ? (
+            {isMuted ? (
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (
                 <div className="-mt-2 pl-[52px]">

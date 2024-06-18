@@ -10,6 +10,7 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useComeBack } from '@/hooks/useComeback.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -30,6 +31,8 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const rootRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
+
+    const comeback = useComeBack();
 
     useOnClickOutside(rootRef, () => {
         setShowRecommendation(false);
@@ -57,7 +60,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
             ref={rootRef}
         >
             {isSearchPage && props.source === 'header' ? (
-                <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={() => router.back()} />
+                <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
             <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
                 <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />

@@ -15,7 +15,7 @@ export function DiscoverNFTList() {
     const currentSource = useGlobalState.use.currentSource();
 
     const nftQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['nft', 'discover', currentSource],
+        queryKey: ['nfts', 'discover', currentSource],
         networkMode: 'always',
         async queryFn({ pageParam }) {
             if (currentSource !== Source.NFTs) return createPageable<NFTFeed>(EMPTY_LIST, createIndicator());

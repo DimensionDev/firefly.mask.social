@@ -136,6 +136,11 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
+
+                        if (IS_MOBILE_DEVICE) {
+                            resetCountdown();
+                            startCountdown();
+                        }
                     }, controllerRef.current?.signal),
                 { signal: controllerRef.current?.signal },
             );
@@ -235,6 +240,9 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
     useUnmount(() => {
         controllerRef.current?.abort(new AbortError());
+        if (IS_MOBILE_DEVICE) {
+            resetCountdown();
+        }
     });
 
     if (signType === FarcasterSignType.RecoveryPhrase) return null;
@@ -289,9 +297,13 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         <div className="flex flex-col rounded-[12px] md:w-[600px]">
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
-                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                    {count !== 0 ? <LoadingIcon className="animate-spin" width={24} height={24} /> : null}
                     <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
-                        <Trans>Please confirm the login with Warpcast.</Trans>
+                        {count !== 0 ? (
+                            <Trans>Please confirm the login with Warpcast.</Trans>
+                        ) : (
+                            <Trans>The connection has timed out. Please try again later.·</Trans>
+                        )}
                     </div>
                 </div>
             ) : (

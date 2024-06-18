@@ -32,13 +32,15 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                     <ProfileAvatar profile={post.author} enableSourceIcon={false} fallbackUrl={avatarFallbackUrl} />
                     <div className="min-h-[40px] flex-1 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
                 </div>
-                <div className="text-left">
-                    <PostBody post={post} isReply disablePadding={post.isHidden || post.isEncrypted} />
-                    <div className="pt-3 text-[15px] text-placeholder">
-                        <Trans>
-                            Replying to <span className="text-link">@{post.author.handle}</span> on{' '}
-                            {resolveSourceName(post.source)}
-                        </Trans>
+                <div className='flex-1 overflow-hidden'>
+                    <div className="w-full text-left">
+                        <PostBody post={post} isReply disablePadding={post.isHidden || post.isEncrypted} />
+                        <div className="pt-3 text-[15px] text-placeholder">
+                            <Trans>
+                                Replying to <span className="text-link">@{post.author.handle}</span> on{' '}
+                                {resolveSourceName(post.source)}
+                            </Trans>
+                        </div>
                     </div>
                 </div>
             </div>

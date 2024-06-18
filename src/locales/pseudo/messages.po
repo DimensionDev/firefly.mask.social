@@ -313,6 +313,9 @@ msgstr ""
 msgid "Watch"
 msgstr ""
 
+msgid "Verified by {0}"
+msgstr ""
+
 msgid "Select Account"
 msgstr ""
 
@@ -646,6 +649,9 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
+msgid "The connection has timed out. Please try again later.·"
+msgstr ""
+
 msgid "Compose"
 msgstr ""
 
@@ -800,6 +806,9 @@ msgid "Please input the frame url to be revalidated."
 msgstr ""
 
 msgid "General"
+msgstr ""
+
+msgid "Page not found. Please try again."
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -1378,6 +1387,9 @@ msgstr ""
 msgid "Translating..."
 msgstr ""
 
+msgid "Back to home"
+msgstr ""
+
 msgid "Followers"
 msgstr ""
 
@@ -1418,6 +1430,9 @@ msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "Link"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"

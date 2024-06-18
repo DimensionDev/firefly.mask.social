@@ -1,9 +1,10 @@
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { compact, find, first } from 'lodash-es';
+import { compact, find, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
+import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
@@ -12,6 +13,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const repliedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'replied_to')?.id;
     const repliedTweet = repliedTweetId ? includes?.tweets?.find((tweet) => tweet.id === repliedTweetId) : undefined;
     const isRetweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
+    const oembedUrls = getEmbedUrls(item.text ?? '', []);
     const attachments = compact(
         item.attachments?.media_keys?.map((key) => {
             const media = includes?.media?.find((m) => m.media_key === key);
@@ -61,6 +63,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 content: item.text,
                 asset: attachments?.[0],
                 attachments,
+                oembedUrl: last(oembedUrls),
             },
         },
     };

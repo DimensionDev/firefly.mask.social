@@ -318,6 +318,9 @@ msgstr "已链接的账号"
 msgid "Watch"
 msgstr ""
 
+msgid "Verified by {0}"
+msgstr ""
+
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -651,6 +654,9 @@ msgstr "取消屏蔽失败/{0}。"
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
+msgid "The connection has timed out. Please try again later.·"
+msgstr ""
+
 msgid "Compose"
 msgstr "发帖"
 
@@ -806,6 +812,9 @@ msgstr "请输入 URL 重新验证。"
 
 msgid "General"
 msgstr "通用"
+
+msgid "Page not found. Please try again."
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
@@ -1383,6 +1392,9 @@ msgstr "转推"
 msgid "Translating..."
 msgstr ""
 
+msgid "Back to home"
+msgstr ""
+
 msgid "Followers"
 msgstr "粉丝"
 
@@ -1424,6 +1436,9 @@ msgstr "<0>{0}</0> 已转发"
 
 msgid "Close"
 msgstr "关闭"
+
+msgid "Link"
+msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"

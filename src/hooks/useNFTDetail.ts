@@ -6,7 +6,7 @@ import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
 export function useNFTDetail(address: string, tokenId: string, chainId: ChainId = ChainId.Mainnet) {
     return useQuery({
-        queryKey: ['nft', address, tokenId, chainId],
+        queryKey: ['nft-detail', address, tokenId, chainId],
         async queryFn() {
             const result = await SimpleHashWalletProfileProvider.getNFT(address, tokenId, {
                 chainId,

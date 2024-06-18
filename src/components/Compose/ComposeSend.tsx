@@ -145,7 +145,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 arrow={false}
                 trigger="mouseenter"
                 interactive
-                disabled={!hasError && posts.length > 1}
+                disabled={!hasError || posts.length === 1}
                 content={
                     <div className="flex flex-col rounded-lg bg-tooltipBg px-3 py-1 opacity-80">
                         {post.availableSources.map((x) => {
