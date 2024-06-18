@@ -457,9 +457,6 @@ msgstr ""
 msgid "post"
 msgstr ""
 
-msgid "Hashtag"
-msgstr ""
-
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
@@ -563,6 +560,9 @@ msgid "Detecting..."
 msgstr ""
 
 msgid "Privacy Policy"
+msgstr ""
+
+msgid "Failed to fetch: ${0}. Please try again later"
 msgstr ""
 
 msgid "Switch"
@@ -1088,9 +1088,6 @@ msgid "Switch account"
 msgstr ""
 
 msgid "Sign in with Custody Wallet"
-msgstr ""
-
-msgid "Mention"
 msgstr ""
 
 msgid "Search…"

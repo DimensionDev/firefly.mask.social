@@ -1,18 +1,13 @@
 import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
-import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
-import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/addThread.svg';
-import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
-import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
@@ -54,17 +49,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
     const { length, visibleLength, invisibleLength } = measureChars(post);
 
-    const [editor] = useLexicalComposerContext();
     const setEditorContent = useSetEditorContent();
-
-    const insertText = useCallback(
-        (text: string) => {
-            editor.update(() => {
-                $getSelection()?.insertText(text);
-            });
-        },
-        [editor],
-    );
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         await connectMaskWithWagmi();
@@ -119,24 +104,6 @@ export function ComposeAction(props: ComposeActionProps) {
                         </>
                     )}
                 </Popover>
-
-                <Tooltip content={t`Mention`} placement="top">
-                    <AtIcon
-                        className="cursor-pointer text-main"
-                        width={24}
-                        height={24}
-                        onClick={() => insertText('@')}
-                    />
-                </Tooltip>
-
-                <Tooltip content={t`Hashtag`} placement="top">
-                    <NumberSignIcon
-                        className="cursor-pointer text-main"
-                        width={24}
-                        height={24}
-                        onClick={() => insertText('#')}
-                    />
-                </Tooltip>
 
                 {type === 'compose' ? <PollButton /> : null}
 
