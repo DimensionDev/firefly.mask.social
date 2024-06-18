@@ -34,6 +34,8 @@ function toggleBlock(address: string, status: boolean) {
             draft.author.isMuted = status;
         });
     });
+    // Muted status in wallet profile
+    queryClient.setQueryData(['address-is-muted', address], status);
 
     const nftsPatcher = (old: Draft<NFTPagesData> | undefined) => {
         if (!old) return old;

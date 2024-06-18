@@ -14,12 +14,14 @@ export function useToggleWatchWallet({ identity, address, following }: Options) 
     const mutation = useMutation({
         mutationFn: async () => {
             try {
+                // TODO address is case sensitive by far.
+                const addr = address.toLowerCase();
                 if (following) {
-                    const result = await FireflySocialMediaProvider.unwatchWallet(address);
+                    const result = await FireflySocialMediaProvider.unwatchWallet(addr);
                     enqueueSuccessMessage(t`${identity} unwatched`);
                     return result;
                 }
-                const result = await FireflySocialMediaProvider.watchWallet(address);
+                const result = await FireflySocialMediaProvider.watchWallet(addr);
                 enqueueSuccessMessage(t`${identity} watched`);
                 return result;
             } catch (error) {

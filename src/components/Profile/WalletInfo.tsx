@@ -10,6 +10,7 @@ import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -19,6 +20,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
+import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;
@@ -34,15 +36,17 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
         enqueueSuccessMessage(t`Copied`);
     }, [profile.address, copyToClipboard]);
 
+    const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
+
     return (
         <div className="flex gap-3 p-3">
             <Avatar src={profile.avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-[8px]">
                     <div className="flex items-center gap-2">
-                        <span className="text-xl font-black text-lightMain">
-                            {profile.primary_ens || formatEthereumAddress(profile.address, 4)}
-                        </span>
+                        <span className="text-xl font-black text-lightMain">{identity}</span>
+                        <WatchButton className="ml-auto" address={profile.address} />
+                        <WalletMoreAction profile={profile} />
                     </div>
                     <div className="flex gap-[10px]">
                         {profile.verifiedSources.map((x) => {
