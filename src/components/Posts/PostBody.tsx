@@ -39,6 +39,14 @@ interface PostBodyProps {
     showTranslate?: boolean;
 }
 
+function LinkTag() {
+    return (
+        <span>
+            [<Trans>Link</Trans>]
+        </span>
+    );
+}
+
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
     {
         post,
@@ -157,9 +165,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                     })}
                     components={{
-                        // @ts-ignore
-                        // eslint-disable-next-line react/no-unstable-nested-components
-                        a: () => <span>[<Trans>Link</Trans>]</span>,
+                        a: LinkTag,
                     }}
                 >
                     {post.metadata.content?.content}
