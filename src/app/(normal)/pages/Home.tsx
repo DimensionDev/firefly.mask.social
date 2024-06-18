@@ -40,18 +40,11 @@ export function HomePage() {
     const currentSource = useGlobalState.use.currentSource();
     const [discoverType, setDiscoverType] = useStateWithSearchParams('discover', DiscoverType.Trending);
 
-    function resolveTabLabel(type: DiscoverType) {
-        switch (type) {
-            case DiscoverType.Trending:
-                return t`Trending`;
-            case DiscoverType.TopProfiles:
-                return t`Top Profiles`;
-            case DiscoverType.TopChannels:
-                return t`Top Channels`;
-            default:
-                return null;
-        }
-    }
+    const tabLabels = {
+        [DiscoverType.Trending]: t`Trending`,
+        [DiscoverType.TopProfiles]: t`Top Profiles`,
+        [DiscoverType.TopChannels]: t`Top Channels`,
+    };
 
     useNavigatorTitle(t`Discover`);
 
@@ -80,7 +73,7 @@ export function HomePage() {
                 <Tabs className="px-1.5 pb-1.5 pt-3" variant="solid" onChange={setDiscoverType} value={discoverType}>
                     {FARCASTER_TYPES.map((type) => (
                         <Tab value={type} key={type}>
-                            {resolveTabLabel(type)}
+                            {tabLabels[type]}
                         </Tab>
                     ))}
                 </Tabs>
@@ -97,7 +90,7 @@ export function HomePage() {
                 >
                     {LENS_TYPES.map((type) => (
                         <Tab value={type} key={type}>
-                            {resolveTabLabel(type)}
+                            {tabLabels[type]}
                         </Tab>
                     ))}
                 </Tabs>
