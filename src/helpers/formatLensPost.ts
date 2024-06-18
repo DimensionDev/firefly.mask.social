@@ -23,15 +23,14 @@ import type {
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
-import { EMPTY_LIST, parseURL } from '@masknet/shared-base';
-import { compact, first, isEmpty, last } from 'lodash-es';
-import urlcat from 'urlcat';
+import { EMPTY_LIST } from '@masknet/shared-base';
+import { compact, filter, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
-import { getPollFrameSearchParams, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { composePollFrameUrl, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
@@ -90,17 +89,18 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
     return (
         metadata.attributes?.reduce<string[]>((acc, attr) => {
             if (attr.key === LensMetadataAttributeKey.Poll) {
-                acc.push(urlcat(getPollFrameUrl(attr.value), getPollFrameSearchParams(Source.Lens)));
+                acc.push(composePollFrameUrl(getPollFrameUrl(attr.value), Source.Lens));
             }
             return acc;
         }, []) ?? []
     );
 }
 
-function removePollFrameUrl(content: string, oembedUrls: string[]) {
-    return oembedUrls.reduce((acc, oembedUrl) => {
-        const parsed = parseURL(oembedUrl);
-        return parsed ? acc.replace(`${parsed.origin}${parsed.pathname}`, '') : acc;
+function removePollFrameUrl(content: string, metadata: PublicationMetadataFragment) {
+    const pollIds = filter(metadata.attributes, { key: LensMetadataAttributeKey.Poll }).map((attr) => attr.value);
+    return pollIds.reduce((acc, pollId) => {
+        const frameUrl = getPollFrameUrl(pollId, Source.Lens);
+        return acc.replace(frameUrl, '');
     }, content);
 }
 
@@ -119,7 +119,7 @@ function formatContent(metadata: PublicationMetadataFragment) {
                 // TODO:
                 // we append the poll frame url to the content to support hey.xyz polls
                 // but we remove it in our own UI
-                content: removePollFrameUrl(metadata.content, oembedUrls),
+                content: removePollFrameUrl(metadata.content, metadata),
                 oembedUrls,
             };
         case 'ImageMetadataV3': {
