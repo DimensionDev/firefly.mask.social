@@ -1,6 +1,7 @@
 import { isUndefined } from 'lodash-es';
 
 import { Avatar } from '@/components/Avatar.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
@@ -23,7 +24,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
     const setScrollIndex = useGlobalState.use.setScrollIndex();
 
     return (
-        <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
+        <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
             <Link
                 onClick={() => {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
@@ -47,12 +48,9 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                     </p>
                     {profile.handle ? <p className="text-sm text-secondary">@{profile.handle}</p> : null}
                     {profile.bio ? (
-                        <p
-                            className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm"
-                            title={profile.bio}
-                        >
+                        <BioMarkup className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
                             {profile.bio}
-                        </p>
+                        </BioMarkup>
                     ) : null}
                 </div>
             </Link>
