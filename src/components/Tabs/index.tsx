@@ -9,7 +9,7 @@ export interface TabsProps<T = string>
         Omit<HTMLProps<HTMLDivElement>, 'onChange' | 'value'> {
     value: T;
     onChange: (value: T) => void;
-    variant?: 'default' | 'second' | 'classification';
+    variant?: 'default' | 'second' | 'solid';
 }
 
 export interface TabContextProps {
@@ -38,7 +38,7 @@ export function Tabs<T = string>(props: TabsProps<T>) {
     const variantClassName = {
         default: 'space-x-4',
         second: 'space-x-0',
-        classification: 'space-x-2',
+        solid: 'space-x-2',
     }[variant];
 
     return (
@@ -60,7 +60,7 @@ export function Tab({ children, value }: TabProps) {
     const liVariantClassName = {
         default: 'flex-1',
         second: 'flex-1',
-        classification: '',
+        solid: '',
     }[variant];
     const variantClassName = {
         default: classNames(
@@ -71,7 +71,7 @@ export function Tab({ children, value }: TabProps) {
             'border-b-2 text-center text-sm font-bold hover:cursor-pointer hover:text-main sm:leading-5 sm:p-4 sm:pb-3 sm:text-base',
             currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
         ),
-        classification: classNames(
+        solid: classNames(
             'px-1.5 h-6 text-xs rounded-md leading-6 bg-farcasterPrimary',
             currentTab === value
                 ? 'text-bg dark:text-white'
