@@ -127,7 +127,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 >
                     <UserAddIcon width={24} height={24} />
                     <span className="pl-2 text-[17px] font-bold leading-[22px] text-main">
-                        <Trans>Switch account</Trans>
+                        <Trans>Add an existing account</Trans>
                     </span>
                 </ClickableButton>
                 {canDetect ? (
@@ -155,7 +155,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 >
                     <LogOutIcon width={24} height={24} />
                     <span className="pl-2 text-[17px] font-bold leading-[22px] text-danger">
-                        <Trans>Log out</Trans>
+                        <Trans>Log out @{currentProfile.handle}</Trans>
                     </span>
                 </ClickableButton>
             </div>
