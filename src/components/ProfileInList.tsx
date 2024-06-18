@@ -57,7 +57,9 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 </div>
             </Link>
 
-            {!noFollowButton && !isMyProfile(profile) ? <FollowButton className="ml-2" profile={profile} /> : null}
+            <div className="ml-2 w-[100px]">
+                {!noFollowButton && !isMyProfile(profile) ? <FollowButton profile={profile} /> : null}
+            </div>
         </div>
     );
 }
