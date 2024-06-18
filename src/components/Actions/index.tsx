@@ -173,7 +173,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} />
+                    <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
                     <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>

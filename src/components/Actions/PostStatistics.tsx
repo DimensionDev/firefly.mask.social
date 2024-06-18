@@ -20,8 +20,9 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 function countText(count?: number, singular?: string, plural?: string) {
     if (!count) return null;
-    if (count === 1) return `${nFormatter(count)} ${singular}`;
-    return `${nFormatter(count)} ${plural}`;
+    const countFormatted = nFormatter(count).toUpperCase();
+    if (count === 1) return `${countFormatted} ${singular}`;
+    return `${countFormatted} ${plural}`;
 }
 
 function EngagementLink(props: {
@@ -113,9 +114,25 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
                 {(!isDetail
-                    ? compact([comments, likes])
-                    : compact([
+                    ? compact([
                           comments,
+                          likes,
+                          sendFrom ? (
+                              <span>
+                                  <Trans>
+                                      via <span className="capitalize">{sendFrom}</span>
+                                  </Trans>
+                              </span>
+                          ) : null,
+                          showChannelTag && post.channel ? (
+                              <ChannelAnchor
+                                  className="!inline-flex translate-y-1"
+                                  channel={post.channel}
+                                  onClick={onSetScrollIndex}
+                              />
+                          ) : null,
+                      ])
+                    : compact([
                           likes,
                           collects,
                           mirrors,
@@ -137,23 +154,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                     );
                 })}
             </div>
-            {!isDetail ? (
-                <div className="flex items-center">
-                    {sendFrom ? (
-                        <div>
-                            <Trans>
-                                via <span className="capitalize">{sendFrom}</span>
-                            </Trans>
-                        </div>
-                    ) : null}
-                    {showChannelTag && post.channel ? (
-                        <>
-                            {sendFrom ? <div className="w-3 text-center">{' · '}</div> : null}
-                            <ChannelAnchor channel={post.channel} onClick={onSetScrollIndex} />
-                        </>
-                    ) : null}
-                </div>
-            ) : null}
         </div>
     );
 });

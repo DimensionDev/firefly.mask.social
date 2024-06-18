@@ -16,7 +16,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
     return (
         <div
             {...rest}
-            className={classNames(rest.className, 'flex justify-end')}
+            className={classNames(rest.className, 'flex justify-end text-[12px] leading-[16px] text-main')}
             onClick={(event) => {
                 rest.onClick?.(event);
                 event.stopPropagation();
@@ -29,7 +29,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
                     ) : (
                         <SocialSourceIcon className="rounded-full" source={channel.source} size={16} />
                     )}
-                    <span className="text-[12px] leading-[16px] text-main">/{channel.id}</span>
+                    <span>/{channel.id}</span>
                 </Link>
             </ChannelTippy>
         </div>
