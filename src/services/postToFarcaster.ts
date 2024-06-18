@@ -52,7 +52,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
                     ...(polls ?? []).map((poll) => ({
-                        url: getPollFrameUrl(poll.id),
+                        url: getPollFrameUrl(poll.id, Source.Farcaster),
                     })),
                 ],
                 (x) => x.url.toLowerCase(),

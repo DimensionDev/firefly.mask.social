@@ -5,8 +5,10 @@ import { FRAME_SERVER_URL } from '@/constants/index.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { getMeaningfulThemeMode } from '@/helpers/getMeaningfulThemeMode.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { parseURL } from '@/helpers/parseURL.js';
 
-export const getPollFrameSearchParams = (source: SocialSource) => {
+const getPollFrameSearchParams = (source: SocialSource) => {
     const profile = getCurrentProfile(source);
     return {
         source: source.toLowerCase(),
@@ -17,6 +19,19 @@ export const getPollFrameSearchParams = (source: SocialSource) => {
     };
 };
 
-export function getPollFrameUrl(pollId: string) {
-    return urlcat(FRAME_SERVER_URL, `/polls/${pollId}`);
+export const composePollFrameUrl = (url: string, source: SocialSource) => {
+    const parsed = parseURL(url);
+    if (!parsed) return url;
+    Object.entries(getPollFrameSearchParams(source)).forEach(([key, value]) => {
+        if (value) parsed.searchParams.set(key, `${value}`);
+    });
+    return parsed.toString();
+};
+
+export function getPollFrameUrl(pollId: string, source?: SocialSource) {
+    const profile = source ? getCurrentProfile(source) : null;
+
+    return urlcat(FRAME_SERVER_URL, `/polls/${pollId}`, {
+        author: profile ? getProfileUrl(profile) : null,
+    });
 }
