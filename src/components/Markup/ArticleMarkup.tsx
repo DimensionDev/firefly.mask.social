@@ -67,6 +67,12 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                                 });
                             }}
                             {...imageProps}
+                            style={{
+                                width: 'auto',
+                                height: 'auto',
+                                maxWidth: '100%',
+                                ...imageProps?.style,
+                            }}
                         />
                     );
                 },
