@@ -5,11 +5,9 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function SuggestedFollowUser({ profile, source }: { profile: Profile; source: SocialSource }) {
-    const muted = useIsProfileMuted(profile);
     return (
         <Link
             href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.profileId)}
@@ -33,11 +31,9 @@ export function SuggestedFollowUser({ profile, source }: { profile: Profile; sou
                         <p className="truncate">@{profile.handle}</p>
                     </div>
                 </div>
-                {!muted ? (
-                    <div>
-                        <FollowButton profile={profile} variant="icon" />
-                    </div>
-                ) : null}
+                <div>
+                    <FollowButton profile={profile} variant="icon" hasMutedButton={false} />
+                </div>
             </div>
         </Link>
     );
