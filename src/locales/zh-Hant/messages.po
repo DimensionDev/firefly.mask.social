@@ -570,6 +570,9 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
+msgid "Failed to fetch: ${0}. Please try again later"
+msgstr ""
+
 msgid "Switch"
 msgstr ""
 
