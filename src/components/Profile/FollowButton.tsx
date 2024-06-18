@@ -19,12 +19,14 @@ enum State {
 interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     variant?: 'text' | 'icon';
+    hasMutedButton?: boolean;
 }
 
 export const FollowButton = memo(function FollowButton({
     variant = 'text',
     profile,
     className,
+    hasMutedButton = true,
     ...rest
 }: FollowButtonProps) {
     const [hovering, setHovering] = useState(false);
@@ -33,7 +35,7 @@ export const FollowButton = memo(function FollowButton({
 
     const muted = useIsProfileMuted(profile);
 
-    if (muted) {
+    if (hasMutedButton && muted) {
         return <ToggleMutedProfileButton profile={profile} />;
     }
     const buttonText = {
