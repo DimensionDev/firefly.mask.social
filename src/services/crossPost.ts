@@ -168,8 +168,8 @@ export async function crossPost(
             ...compositePost,
             chars: (Array.isArray(chars) ? chars : [chars]).map((x) => {
                 if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
-                    return { ...x, id: pollId }
-                };
+                    return { ...x, id: pollId };
+                }
                 return x;
             }),
             poll: {
