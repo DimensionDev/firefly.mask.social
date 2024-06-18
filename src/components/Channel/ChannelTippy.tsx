@@ -1,18 +1,18 @@
-import { memo, type PropsWithChildren } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-interface ChannelTippyProps extends PropsWithChildren {
+interface ChannelTippyProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;
 }
 
-export const ChannelTippy = memo<ChannelTippyProps>(function ChannelTippy({ channel, children }) {
+export const ChannelTippy = memo<ChannelTippyProps>(function ChannelTippy({ channel, ...rest }) {
     const isMedium = useIsMedium();
 
-    if (!isMedium) return children;
+    if (!isMedium) return rest.children;
 
     return (
         <Tippy
@@ -29,7 +29,7 @@ export const ChannelTippy = memo<ChannelTippyProps>(function ChannelTippy({ chan
             interactive
             content={<ChannelCard channel={channel} />}
         >
-            <div>{children}</div>
+            <div {...rest} />
         </Tippy>
     );
 });
