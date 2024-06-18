@@ -1236,6 +1236,9 @@ msgstr "在 {0}: {1} 领取"
 msgid "NFT ID"
 msgstr "NFT ID"
 
+msgid "Farcaster channel"
+msgstr ""
+
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
 

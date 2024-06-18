@@ -1231,6 +1231,9 @@ msgstr "Claim on {0}: {1}"
 msgid "NFT ID"
 msgstr "NFT ID"
 
+msgid "Farcaster channel"
+msgstr "Farcaster channel"
+
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
 
