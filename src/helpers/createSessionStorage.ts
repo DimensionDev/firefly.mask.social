@@ -3,11 +3,12 @@ import type { PersistStorage } from 'zustand/middleware';
 
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface SessionState {
-    profiles: Profile[];
+    accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
 }
@@ -20,7 +21,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const parsedState = parseJSON<{
                 state: {
-                    profiles: Profile[];
+                    accounts: Account[];
                     currentProfile: Profile | null;
                     currentProfileSession: string | null;
                 };

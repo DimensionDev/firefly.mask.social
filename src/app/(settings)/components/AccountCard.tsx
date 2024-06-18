@@ -19,13 +19,13 @@ interface AccountCardProps {
 }
 
 export function AccountCard({ profile, isCurrent }: AccountCardProps) {
-    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+    const updateCurrentAccount = useLensStateStore.use.updateCurrentAccount();
 
     const [{ loading }, login] = useAsyncFn(
         async (profile: Profile) => {
             try {
                 const session = await createSessionForProfileId(profile.profileId);
-                updateCurrentProfile(profile, session);
+                updateCurrentAccount({ profile, session });
                 resolveSessionHolder(profile.source)?.resumeSession(session);
                 enqueueSuccessMessage(t`Your Lens account is now connected`);
             } catch (error) {
@@ -35,7 +35,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                 throw error;
             }
         },
-        [updateCurrentProfile],
+        [updateCurrentAccount],
     );
 
     return (
