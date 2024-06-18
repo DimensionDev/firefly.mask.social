@@ -364,7 +364,7 @@ export enum WatchType {
 }
 
 export interface WalletProfile {
-    address: string;
+    address: Address;
     ens: string[];
     blockchain: string;
     is_connected: boolean;

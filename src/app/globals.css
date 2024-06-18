@@ -307,10 +307,10 @@ body.not-support {
 }
 
 body.not-support .sticky.top-0,
-.sticky.inset-0,
-.sticky.inset-y-0,
-.fixed.top-0,
-.fixed.inset-0,
-.fixed.inset-y-0 {
+body.not-support .sticky.inset-0,
+body.not-support .sticky.inset-y-0,
+body.not-support .fixed.top-0,
+body.not-support .fixed.inset-0,
+body.not-support .fixed.inset-y-0 {
     top: 38px;
 }

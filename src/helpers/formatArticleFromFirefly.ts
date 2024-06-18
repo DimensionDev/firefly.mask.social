@@ -19,7 +19,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
             isFollowing: article.followingSources.some(
                 (x) => x.type === WatchType.Wallet && isSameAddress(x.walletAddress, authorId),
             ),
-            /** Article in timeline are all unmuted */
+            /** Article in timeline are all not muted */
             isMuted: false,
         },
         origin: first(article.related_urls),
