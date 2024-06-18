@@ -8,6 +8,7 @@ import type { ReactNode } from 'react';
 import LinkIcon from '@/assets/link-square.svg';
 import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 
 export interface NFTOverflowProps {
@@ -66,9 +67,9 @@ function convertDescriptionToArray(description: string): ReactNode[] {
     return parts.map((part, i) => {
         if (/(https?:\/\/[^\s]+)/.test(part)) {
             return (
-                <a key={`${part}-${i}`} href={part} target="_blank" className="text-farcasterPrimary underline">
+                <Link key={`${part}-${i}`} href={part} target="_blank" className="text-farcasterPrimary underline">
                     {part}
-                </a>
+                </Link>
             );
         }
         return part;
