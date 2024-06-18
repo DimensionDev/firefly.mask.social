@@ -63,10 +63,8 @@ function createState(
                         state.currentProfileSession = account.session;
                     }),
                 refreshAccounts: async () => {
-                    const profile = get().currentProfile;
-                    const accounts = get().accounts;
-
-                    const updatedRecords = await Promise.all(
+                    const { currentProfile: profile, accounts } = get();
+                    const updatedAccounts = await Promise.all(
                         accounts.map(async (account) => {
                             const profile = await provider.getUpdatedProfile?.(account.profile);
                             if (!profile) return account;
@@ -76,7 +74,7 @@ function createState(
                             };
                         }),
                     );
-                    if (!updatedRecords.length) return;
+                    if (!updatedAccounts.length) return;
 
                     // might be logged out
                     if (!get().currentProfileSession) return;
@@ -84,11 +82,11 @@ function createState(
                     set((state) => {
                         const account = accounts.find((x) => isSameProfile(x.profile, profile));
                         if (account) state?.updateCurrentAccount?.(account);
-                        state.updateAccounts(updatedRecords);
+                        state.updateAccounts(updatedAccounts);
                     });
                 },
                 refreshCurrentAccount: async () => {
-                    const profile = get().currentProfile;
+                    const { currentProfile: profile } = get();
                     if (!profile) return;
 
                     const updatedProfile = await provider.getUpdatedProfile?.(profile);
