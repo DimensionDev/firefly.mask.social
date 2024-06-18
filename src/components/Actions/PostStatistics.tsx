@@ -91,7 +91,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                 type={EngagementType.Mirrors}
                 count={post.stats.mirrors}
                 singular={t`Mirror`}
-                plural={t`Mirror`}
+                plural={t`Mirrors`}
                 onSetScrollIndex={onSetScrollIndex}
             />
         )
