@@ -61,6 +61,14 @@ function createState(
                     set((state) => {
                         state.currentProfile = account.profile;
                         state.currentProfileSession = account.session;
+                        if (!state.accounts.length) {
+                            state.accounts = [
+                                {
+                                    profile: account.profile,
+                                    session: account.session,
+                                },
+                            ];
+                        }
                     }),
                 refreshAccounts: async () => {
                     const { currentProfile: profile, accounts } = get();
