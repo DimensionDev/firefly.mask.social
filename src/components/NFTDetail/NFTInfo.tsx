@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
+import PoapIcon from '@/assets/poap.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
@@ -32,6 +33,7 @@ export interface NFTInfoProps {
     chainId?: ChainId;
     attendance?: number;
     tokenNameClassName?: string;
+    isPoap?: boolean;
 }
 
 export function NFTInfo(props: NFTInfoProps) {
@@ -45,6 +47,7 @@ export function NFTInfo(props: NFTInfoProps) {
         floorPrice,
         attendance,
         tokenNameClassName,
+        isPoap = false,
     } = props;
     const { data: ensName } = useEnsName({
         chainId: ChainId.Mainnet,
@@ -54,11 +57,12 @@ export function NFTInfo(props: NFTInfoProps) {
     return (
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
             <div className="relative mx-auto flex h-[250px] w-[250px] items-center justify-center sm:min-w-[250px]">
-                {chainId ? (
+                {chainId && !isPoap ? (
                     <div className="absolute left-3 top-3">
                         <ChainIcon chainId={chainId} size={24} />
                     </div>
                 ) : null}
+                {isPoap ? <PoapIcon className="absolute left-3 top-3 h-6 w-6" /> : null}
                 <Image
                     width={250}
                     height={250}
@@ -70,7 +74,7 @@ export function NFTInfo(props: NFTInfoProps) {
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
                 <div className="w-full space-y-3">
                     <div className="flex w-full flex-col items-center justify-center space-y-3 sm:justify-start">
-                        {collection ? (
+                        {!isPoap && collection ? (
                             <Link
                                 href={
                                     contractAddress
