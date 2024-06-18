@@ -1,12 +1,11 @@
 import { compact, first, last } from 'lodash-es';
-import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
-import { getPollFrameSearchParams } from '@/helpers/getPollFrameUrl.js';
+import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getResourceType, isValidPollFrameUrl } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
 import {
@@ -20,7 +19,7 @@ import {
 function formatContent(cast: Cast): Post['metadata']['content'] {
     const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url))).map((x) => {
         if (isValidPollFrameUrl(x)) {
-            return urlcat(x.split('?')[0], getPollFrameSearchParams(Source.Farcaster));
+            return composePollFrameUrl(x, Source.Farcaster);
         }
         return x;
     });

@@ -16,7 +16,6 @@ import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
@@ -176,7 +175,7 @@ async function publishPostForLens(
     const metadata = createPostMetadata(
         {
             title,
-            content: `${content}${polls?.length ? getPollFrameUrl(polls[0].id) : ''}`,
+            content,
             marketplace: {
                 name: title,
                 description: content,
