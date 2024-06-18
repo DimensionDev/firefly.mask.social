@@ -38,9 +38,9 @@ export function ChannelInList({
     return (
         <div
             className={classNames(
-                'flex-start flex cursor-pointer overflow-auto border-secondaryLine hover:bg-bg dark:border-line',
+                'flex-start flex cursor-pointer overflow-auto border-b-lightLineSecond hover:bg-bg dark:border-line',
                 {
-                    'border-b px-4 py-6': !dense,
+                    'border-b p-3': !dense,
                     'px-4 py-2': dense,
                 },
             )}
@@ -52,11 +52,11 @@ export function ChannelInList({
                 }}
                 href={getChannelUrl(channel)}
             >
-                <ChannelTippy channel={channel}>
+                <ChannelTippy channel={channel} className="mr-3 shrink-0 self-start">
                     <Avatar
-                        className="mr-3 shrink-0 rounded-full border"
+                        className="rounded-full border"
                         src={channel.imageUrl}
-                        size={isSmall || dense ? 40 : 70}
+                        size={isSmall || dense ? 40 : 48}
                         alt={channel.name}
                     />
                 </ChannelTippy>
