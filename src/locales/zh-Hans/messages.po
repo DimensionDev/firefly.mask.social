@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-14 12:01\n"
+"PO-Revision-Date: 2024-06-17 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -946,7 +946,7 @@ msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
 msgid "Delete Post"
-msgstr ""
+msgstr "删除帖子"
 
 msgid "Cancel"
 msgstr "取消"
@@ -976,22 +976,22 @@ msgid "The user rejected the request."
 msgstr "用户取消了请求。"
 
 msgid "Unwatch {identity}"
-msgstr ""
+msgstr "取消关注 {identity}"
 
 msgid "Recast or Quote"
-msgstr ""
+msgstr "转发或者引用"
 
 msgid "Draft"
-msgstr ""
+msgstr "草稿"
 
 msgid "Unwatch"
-msgstr ""
+msgstr "取消关注"
 
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
 msgid "Attendance"
-msgstr ""
+msgstr "出席"
 
 msgid "Show more"
 msgstr "显示更多"
@@ -1000,7 +1000,7 @@ msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
 msgid "Translated from {contentLanguage}"
-msgstr ""
+msgstr "翻译自 {contentLanguage}"
 
 msgid "POAPs"
 msgstr ""
@@ -1069,7 +1069,7 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Collects"
-msgstr ""
+msgstr "收藏"
 
 msgid "{identity} watched"
 msgstr ""
@@ -1105,7 +1105,7 @@ msgid "No profile found"
 msgstr "未发现个人信息"
 
 msgid "Watch {identity}"
-msgstr ""
+msgstr "关注 {identity}"
 
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
@@ -1225,19 +1225,19 @@ msgid "Posted via <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "Collection"
-msgstr ""
+msgstr "Nft 系列"
 
 msgid "Your name"
 msgstr ""
 
 msgid "Owned"
-msgstr ""
+msgstr "拥有"
 
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
 
 msgid "NFT ID"
-msgstr ""
+msgstr "NFT ID"
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
@@ -1312,7 +1312,7 @@ msgid "No matching users"
 msgstr "未找到匹配用户"
 
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
@@ -1321,7 +1321,7 @@ msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
 msgid "{0} Users"
-msgstr ""
+msgstr "{0} 用户"
 
 msgid "[Audio]"
 msgstr ""
@@ -1345,10 +1345,10 @@ msgid "Profile"
 msgstr "个人信息"
 
 msgid "QUOTE"
-msgstr ""
+msgstr "引用"
 
 msgid "Collect"
-msgstr ""
+msgstr "收藏"
 
 msgid "Mirrors"
 msgstr "转帖"
@@ -1390,10 +1390,10 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
-msgstr ""
+msgstr "翻译中。。。"
 
 msgid "Back to home"
-msgstr ""
+msgstr "返回主页"
 
 msgid "Followers"
 msgstr "粉丝"
@@ -1429,7 +1429,7 @@ msgid "Following"
 msgstr "正在关注"
 
 msgid "Hours"
-msgstr ""
+msgstr "小时"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
@@ -1438,7 +1438,7 @@ msgid "Close"
 msgstr "关闭"
 
 msgid "Link"
-msgstr ""
+msgstr "链接"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"
@@ -1450,16 +1450,17 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "Your draft was saved"
-msgstr ""
+msgstr "草稿已被保存"
 
 msgid "A thread must have at least two posts."
 msgstr "一条 thread 至少包含 2 个帖子。"
 
 msgid "Are you sure you want to report this user?"
-msgstr ""
+msgstr "您确定要举报这个用户么？"
 
 msgid "Likes"
 msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
