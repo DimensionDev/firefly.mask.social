@@ -24,6 +24,7 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
                         objectFit: 'cover',
                         minHeight: 50,
                         maxHeight: 682,
+                        ...props.style,
                     },
                 });
             } else {
@@ -31,11 +32,12 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
                     style: {
                         minHeight: 50,
                         maxHeight: 682,
+                        ...props.style,
                     },
                 });
             }
         },
-        [disableLoadHandler],
+        [disableLoadHandler, props.style],
     );
 
     if (!mounted) return;
