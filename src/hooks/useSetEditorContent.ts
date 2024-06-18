@@ -10,7 +10,7 @@ function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) 
     const { tag } = chars;
     switch (tag) {
         case CHAR_TAG.FIREFLY_RP:
-            paragraphNode.append($createTextNode(chars.content));
+            paragraphNode.append($createTextNode(`${chars.content}\n`));
             break;
         case CHAR_TAG.FRAME:
             break;

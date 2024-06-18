@@ -222,7 +222,7 @@ export function ComposeAction(props: ComposeActionProps) {
             (type === 'compose' || type === 'quote') ? (
                 <div className="flex h-9 items-center justify-between pb-safe">
                     <span className="text-[15px] text-secondary">
-                        <Trans>Channels</Trans>
+                        <Trans>Farcaster channel</Trans>
                     </span>
                     <Popover as="div" className="relative">
                         {({ close }) => (

@@ -1236,6 +1236,9 @@ msgstr ""
 msgid "NFT ID"
 msgstr ""
 
+msgid "Farcaster channel"
+msgstr ""
+
 msgid "Failed to unmirror post."
 msgstr "取消鏡像貼文失敗"
 
