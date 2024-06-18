@@ -81,8 +81,7 @@ function createState(
                     if (!updatedRecords.length) return;
 
                     // might be logged out
-                    const profileSession = get().currentProfileSession;
-                    if (!profileSession) return;
+                    if (!get().currentProfileSession) return;
 
                     set((state) => {
                         const account = accounts.find((x) => isSameProfile(x.profile, profile));

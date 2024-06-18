@@ -85,10 +85,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                     className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
-                        compact(values(selectedPairs)).map(async (x) => {
-                            restoreAccount(x);
-                        });
-
+                        compact(values(selectedPairs)).map(restoreAccount);
                         onConfirm?.();
                         ConfirmModalRef.close(true);
                     }}
