@@ -1,22 +1,19 @@
 'use client';
 
-import { CloudIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { signOut } from 'next-auth/react';
 import { useRef } from 'react';
 import { useAsyncFn, useMount, useUnmount } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
-import LogOutIcon from '@/assets/logout.svg';
-import UserAddIcon from '@/assets/user-add.svg';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, NotImplementedError } from '@/constants/error.js';
+import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import {
@@ -102,20 +99,37 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
             (source === Source.Farcaster &&
                 FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)));
 
-    return (
-        <div className="flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line">
-            <div
-                key={currentProfile.profileId}
-                className="flex min-w-0 items-center justify-between gap-3 py-3 outline-none md:px-5"
-            >
-                <ProfileAvatar profile={currentProfile} clickable linkable />
-                <ProfileName profile={currentProfile} />
+    const size = 1;
 
-                <OnlineStatusIndicator />
+    return (
+        <div className="flex flex-col overflow-x-hidden bg-primaryBottom md:w-[290px] md:rounded-2xl md:border md:border-line">
+            <div
+                className={classNames('max-h-[calc(62.5px*3)] overflow-auto md:max-h-[calc(72px*3)]', {
+                    'mb-3': size > 1,
+                })}
+            >
+                {Array.from({ length: size }).map((_, index) => (
+                    <div
+                        key={`${currentProfile.profileId}_${index}`}
+                        className={classNames(
+                            'flex min-w-0 items-center justify-between gap-3 rounded px-2 py-2 outline-none md:rounded-none md:px-5',
+                            {
+                                'cursor-pointer hover:bg-bg': index !== 0,
+                            },
+                        )}
+                    >
+                        <ProfileAvatar profile={currentProfile} clickable linkable />
+                        <ProfileName profile={currentProfile} />
+                        {index === 0 ? <CircleCheckboxIcon checked /> : null}
+                    </div>
+                ))}
             </div>
+
+            <hr className="mb-3 border-b border-t-0 border-line" />
+
             <div className="flex flex-col md:mx-5">
                 <ClickableButton
-                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
+                    className="flex w-full items-center rounded px-2 py-3 text-main outline-none hover:bg-bg"
                     onClick={async () => {
                         if (source === Source.Twitter)
                             await signOut({
@@ -125,36 +139,29 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         onClose?.();
                     }}
                 >
-                    <UserAddIcon width={24} height={24} />
-                    <span className="pl-2 text-[17px] font-bold leading-[22px] text-main">
+                    <span className="text-[17px] font-bold leading-[22px] text-main">
                         <Trans>Add an existing account</Trans>
                     </span>
                 </ClickableButton>
                 {canDetect ? (
                     <ClickableButton
-                        className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
+                        className="flex w-full items-center rounded px-2 py-3 text-main outline-none hover:bg-bg"
                         disabled={loading}
                         onClick={() => onDetect(source)}
                     >
-                        {loading ? (
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
-                        ) : (
-                            <CloudIcon width={24} height={24} />
-                        )}
-                        <span className="pl-2 text-[17px] font-bold leading-[22px] text-main">
+                        <span className="text-[17px] font-bold leading-[22px] text-main">
                             {loading ? <Trans>Detecting...</Trans> : <Trans>Detect device accounts</Trans>}
                         </span>
                     </ClickableButton>
                 ) : null}
                 <ClickableButton
-                    className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
+                    className="flex items-center overflow-hidden whitespace-nowrap rounded px-2 py-3 outline-none hover:bg-bg md:mb-3"
                     onClick={() => {
                         LogoutModalRef.open({ source });
                         onClose?.();
                     }}
                 >
-                    <LogOutIcon width={24} height={24} />
-                    <span className="pl-2 text-[17px] font-bold leading-[22px] text-danger">
+                    <span className="text-[17px] font-bold leading-[22px] text-danger">
                         <Trans>Log out @{currentProfile.handle}</Trans>
                     </span>
                 </ClickableButton>
