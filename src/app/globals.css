@@ -306,8 +306,7 @@ body.not-support {
     padding-top: 38px;
 }
 
-body.not-support
-.sticky.top-0,
+body.not-support .sticky.top-0,
 .sticky.inset-0,
 .sticky.inset-y-0,
 .fixed.top-0,
