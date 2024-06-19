@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-18 12:01\n"
+"PO-Revision-Date: 2024-06-19 06:43\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -576,6 +576,9 @@ msgstr ""
 msgid "Failed to fetch: ${0}. Please try again later"
 msgstr ""
 
+msgid "Expired"
+msgstr ""
+
 msgid "Switch"
 msgstr ""
 
@@ -772,6 +775,9 @@ msgid "Detect device accounts"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
+msgstr ""
+
+msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
@@ -1222,6 +1228,9 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr ""
 
 msgid "Posted via <0>{sendFrom}</0>"
+msgstr ""
+
+msgid "Final results / {0} left"
 msgstr ""
 
 msgid "Collection"
