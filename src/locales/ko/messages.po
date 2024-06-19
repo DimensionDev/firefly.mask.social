@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-19 06:43\n"
+"PO-Revision-Date: 2024-06-19 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -250,6 +250,9 @@ msgid "Switch to the development API version for testing new features."
 msgstr ""
 
 msgid "Blockchain"
+msgstr ""
+
+msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Mutes"
@@ -522,6 +525,9 @@ msgstr ""
 msgid "AUTHOR ADDRESS"
 msgstr ""
 
+msgid "Enable development API version"
+msgstr ""
+
 msgid "Reply"
 msgstr ""
 
@@ -568,6 +574,9 @@ msgid "Send Feedback"
 msgstr ""
 
 msgid "Detecting..."
+msgstr ""
+
+msgid "Open in Firefly App"
 msgstr ""
 
 msgid "Privacy Policy"
@@ -684,9 +693,6 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
-msgid "Switch to the production API version for using stable features."
-msgstr ""
-
 msgid "Failed to follow."
 msgstr ""
 
@@ -774,10 +780,10 @@ msgstr ""
 msgid "Detect device accounts"
 msgstr ""
 
-msgid "Your Farcaster account is now connected."
+msgid "No preview found for shared link"
 msgstr ""
 
-msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
+msgid "Your Farcaster account is now connected."
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
@@ -808,9 +814,6 @@ msgid "No matching channel"
 msgstr ""
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
-
-msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "What's happening..."
@@ -1032,6 +1035,9 @@ msgstr ""
 msgid "Suspended"
 msgstr ""
 
+msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
+msgstr ""
+
 msgid "Full"
 msgstr ""
 
@@ -1152,6 +1158,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Switching..."
+msgstr ""
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -1264,9 +1273,6 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Post added to your Bookmarks"
-msgstr ""
-
-msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "your.email@example.org"
