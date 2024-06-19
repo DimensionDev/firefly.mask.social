@@ -72,14 +72,15 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         return;
                     }
 
-                    const nonSelectedProfiles = getProfileStore(Source.Lens).profiles.filter(
-                        (profile) => !profiles.some((x) => isSameProfile(x, profile)),
+                    const { profiles: allProfiles } = getProfileStore(Source.Lens);
+                    const nonSelectedProfiles = profiles.filter(
+                        (profile) => !allProfiles.find((x) => isSameProfile(x, profile)),
                     );
                     if (!nonSelectedProfiles.length) {
                         enqueueErrorMessage(
                             <div>
                                 <span className="font-bold">
-                                    <Trans>Please choose another wallet.</Trans>
+                                    <Trans>Please change to another wallet.</Trans>
                                 </span>
                                 <Trans>There is no available profile anymore.</Trans>
                             </div>,
