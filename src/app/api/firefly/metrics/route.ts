@@ -13,7 +13,13 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
+enum Usage {
+    Encrypt = 'encrypt',
+    Decrypt = 'decrypt',
+}
+
 const CipherSchema = z.object({
+    usage: z.nativeEnum(Usage),
     text: z.string(),
 });
 
@@ -117,30 +123,52 @@ function decrypt(cipherText: string) {
     return [decipher.update(cipherText, 'hex', 'utf-8'), decipher.final('utf-8')].join('');
 }
 
+function encrypt(plaintext: string) {
+    const cipher = crypto.createCipheriv(
+        'aes-256-cbc',
+        Buffer.from(env.internal.SESSION_CIPHER_KEY, 'hex'),
+        Buffer.from(env.internal.SESSION_CIPHER_IV, 'hex'),
+    );
+    return [cipher.update(plaintext, 'utf-8', 'hex'), cipher.final('hex')].join('');
+}
+
 export async function POST(request: Request) {
     const cipher = CipherSchema.safeParse(await request.json());
     if (!cipher.success) return createErrorResponseJSON(cipher.error.message, { status: StatusCodes.BAD_REQUEST });
 
-    // decrypt metrics
-    const decrypted = parseJSON<unknown[]>(decrypt(cipher.data.text));
+    const { usage, text } = cipher.data;
 
-    // validate metrics
-    const metrics = MetricsSchema.safeParse(decrypted);
-    if (!metrics.success)
-        return createErrorResponseJSON(metrics.error.message, { status: StatusCodes.INTERNAL_SERVER_ERROR });
+    switch (usage) {
+        case Usage.Encrypt: {
+            const encrypted = encrypt(text);
+            return createSuccessResponseJSON(encrypted);
+        }
+        case Usage.Decrypt: {
+            const decrypted = parseJSON<unknown[]>(decrypt(cipher.data.text));
 
-    // convert to sessions
-    const sessions = metrics.data.flatMap<FarcasterSession | LensSession | TwitterSession>(convertMetricToSession);
+            // validate metrics
+            const metrics = MetricsSchema.safeParse(decrypted);
+            if (!metrics.success)
+                return createErrorResponseJSON(metrics.error.message, { status: StatusCodes.INTERNAL_SERVER_ERROR });
 
-    // save consumer secret to KV
-    await Promise.all(
-        sessions.map(async (session) => {
-            if (session.type !== SessionType.Twitter) return session;
-            const twitterSession = session as TwitterSession;
-            await TwitterSessionPayload.recordPayload(twitterSession.payload);
-            return TwitterSessionPayload.concealPayload(twitterSession.payload);
-        }),
-    );
+            // convert to sessions
+            const sessions = metrics.data.flatMap<FarcasterSession | LensSession | TwitterSession>(
+                convertMetricToSession,
+            );
 
-    return createSuccessResponseJSON(sessions.map((x) => x.serialize()));
+            // save consumer secret to KV
+            await Promise.all(
+                sessions.map(async (session) => {
+                    if (session.type !== SessionType.Twitter) return session;
+                    const twitterSession = session as TwitterSession;
+                    await TwitterSessionPayload.recordPayload(twitterSession.payload);
+                    return TwitterSessionPayload.concealPayload(twitterSession.payload);
+                }),
+            );
+
+            return createSuccessResponseJSON(sessions.map((x) => x.serialize()));
+        }
+        default:
+            return createErrorResponseJSON(`Invalid usage = ${usage}.`, { status: StatusCodes.BAD_REQUEST });
+    }
 }

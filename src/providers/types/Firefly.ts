@@ -275,6 +275,8 @@ export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
+export type MetricsUploadResponse = Response<void>;
+
 export type BindResponse = Response<{
     account_id: string;
     account_raw_id: number;
