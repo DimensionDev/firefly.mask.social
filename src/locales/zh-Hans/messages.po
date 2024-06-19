@@ -348,6 +348,9 @@ msgstr "检测设备账号失败。"
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
+msgid "Please choose anthoer wallet."
+msgstr ""
+
 msgid "Items"
 msgstr ""
 
@@ -761,6 +764,9 @@ msgstr "文章"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "There is no available profile anymore."
+msgstr ""
 
 msgid "Creator"
 msgstr ""

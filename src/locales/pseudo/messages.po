@@ -343,6 +343,9 @@ msgstr ""
 msgid "Add another post..."
 msgstr ""
 
+msgid "Please choose anthoer wallet."
+msgstr ""
+
 msgid "Items"
 msgstr ""
 
@@ -755,6 +758,9 @@ msgid "Articles"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "There is no available profile anymore."
 msgstr ""
 
 msgid "Creator"

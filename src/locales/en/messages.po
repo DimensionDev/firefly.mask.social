@@ -343,6 +343,9 @@ msgstr "Failed to detect device accounts."
 msgid "Add another post..."
 msgstr "Add another post..."
 
+msgid "Please choose anthoer wallet."
+msgstr "Please choose anthoer wallet."
+
 msgid "Items"
 msgstr "Items"
 
@@ -756,6 +759,9 @@ msgstr "Articles"
 
 msgid "Settings"
 msgstr "Settings"
+
+msgid "There is no available profile anymore."
+msgstr "There is no available profile anymore."
 
 msgid "Creator"
 msgstr "Creator"

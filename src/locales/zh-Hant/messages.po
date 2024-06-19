@@ -348,6 +348,9 @@ msgstr "偵測裝置帳戶失敗"
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
 
+msgid "Please choose anthoer wallet."
+msgstr ""
+
 msgid "Items"
 msgstr ""
 
@@ -761,6 +764,9 @@ msgstr "文章"
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "There is no available profile anymore."
+msgstr ""
 
 msgid "Creator"
 msgstr ""
