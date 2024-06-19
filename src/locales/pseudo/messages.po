@@ -571,6 +571,9 @@ msgstr ""
 msgid "Failed to fetch: ${0}. Please try again later"
 msgstr ""
 
+msgid "Expired"
+msgstr ""
+
 msgid "Switch"
 msgstr ""
 
@@ -767,6 +770,9 @@ msgid "Detect device accounts"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
+msgstr ""
+
+msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
@@ -1217,6 +1223,9 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr ""
 
 msgid "Posted via <0>{sendFrom}</0>"
+msgstr ""
+
+msgid "Final results / {0} left"
 msgstr ""
 
 msgid "Collection"
