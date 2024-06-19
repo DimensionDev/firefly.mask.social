@@ -279,5 +279,5 @@ export function Frame({ postId, source, urls, onData, children }: FrameProps) {
 
     if (error || !frame) return children;
 
-    return <Card frame={frame} loading={isLoadingNextFrame} onButtonClick={handleClick} />;
+    return <Card frame={frame} source={source} loading={isLoadingNextFrame} onButtonClick={handleClick} />;
 }

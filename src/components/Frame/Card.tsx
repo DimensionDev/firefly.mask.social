@@ -3,19 +3,20 @@ import { useRef } from 'react';
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/components/Image.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { ActionType, type Frame, type FrameButton } from '@/types/frame.js';
 
 interface CardProps {
     frame: Frame;
+    source: SocialSource;
     readonly?: boolean;
     loading?: boolean;
     onButtonClick?: (button: FrameButton, input?: string) => Promise<void>;
 }
 
-export function Card({ frame, readonly = false, loading = false, onButtonClick }: CardProps) {
+export function Card({ frame, source, readonly = false, loading = false, onButtonClick }: CardProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -58,11 +59,12 @@ export function Card({ frame, readonly = false, loading = false, onButtonClick }
                             onClick={async () => {
                                 if (readonly || loading) return;
 
-                                if (!farcasterSessionHolder.session && button.action === ActionType.Post) {
-                                    LoginModalRef.open({
-                                        source: Source.Farcaster,
-                                    });
-                                    return;
+                                if (button.action === ActionType.Post) {
+                                    const profile = getCurrentProfile(source);
+                                    if (!profile) {
+                                        LoginModalRef.open({ source });
+                                        return;
+                                    }
                                 }
 
                                 const inputText = inputRef.current?.value;
