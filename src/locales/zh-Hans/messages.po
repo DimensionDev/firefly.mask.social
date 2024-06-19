@@ -522,6 +522,9 @@ msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
+msgid "Enable development API version"
+msgstr ""
+
 msgid "Reply"
 msgstr "回复"
 
@@ -682,9 +685,6 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
-msgstr ""
-
-msgid "Switch to the production API version for using stable features."
 msgstr ""
 
 msgid "Failed to follow."
