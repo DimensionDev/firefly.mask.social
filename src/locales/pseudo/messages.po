@@ -763,9 +763,6 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-msgid "There is no available profile anymore."
-msgstr ""
-
 msgid "Creator"
 msgstr ""
 
@@ -1118,9 +1115,6 @@ msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
-msgstr ""
-
-msgid "Please change to another wallet."
 msgstr ""
 
 msgid "View"

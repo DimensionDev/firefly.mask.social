@@ -13,9 +13,9 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getProfileStoreAll } from '@/helpers/getProfileStoreAll.js';
+import { removeCurrentAccount } from '@/helpers/account.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
-import { resolveSessionType } from '@/helpers/resolveSessionType.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
@@ -30,11 +30,10 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
-            const profileStoreAll = getProfileStoreAll();
             const profiles = compact(
                 props?.source
-                    ? [profileStoreAll[props.source].currentProfile]
-                    : SORTED_SOCIAL_SOURCES.flatMap((x) => profileStoreAll[x].currentProfile),
+                    ? [getProfileState(props.source).currentProfile]
+                    : SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).currentProfile),
             );
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
@@ -68,17 +67,10 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             }
 
             if (source) {
-                profileStoreAll[source].clear();
-                resolveSessionHolder(source)?.removeSession();
-
-                // remove firefly session if it's the parent session matches the source
-                if (fireflySessionHolder.session?.parent?.type === resolveSessionType(source)) {
-                    useFireflyStateStore.getState().clear();
-                    fireflySessionHolder.removeSession();
-                }
+                removeCurrentAccount(source);
             } else {
                 SORTED_SOCIAL_SOURCES.forEach((x) => {
-                    profileStoreAll[x].clear();
+                    getProfileState(x).clear();
                     resolveSessionHolder(x)?.removeSession();
                 });
                 useFireflyStateStore.getState().clear();

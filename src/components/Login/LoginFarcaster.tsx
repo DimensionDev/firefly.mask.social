@@ -17,13 +17,13 @@ import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
+import { addCurrentAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
-import { restoreAccount } from '@/helpers/restoreAccount.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -42,11 +42,12 @@ async function login(
         const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
-        // restore profiles for farcaster
-        restoreAccount({
-            profile,
+        // add new account for farcaster
+        addCurrentAccount({
             session,
+            profile,
         });
+
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
 
         // restore profile exclude farcaster

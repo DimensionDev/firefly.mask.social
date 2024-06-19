@@ -1,5 +1,4 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { first } from 'lodash-es';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -8,13 +7,12 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
+import { addCurrentAccount } from '@/helpers/account.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { isSameSession } from '@/helpers/isSameSession.js';
-import { restoreAccount } from '@/helpers/restoreAccount.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -34,22 +32,8 @@ export interface ProfileState {
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
-    /**
-     * Add an account
-     * @param account the account to be added
-     * @param setAsCurrent set the added account as the current account (default to true)
-     * @returns
-     */
-    addAccount: (account: Account, setAsCurrent?: boolean) => void;
-    /**
-     * Remove an account
-     * @param account the account to be removed
-     * @param resetIfCurrent if the removed account is the current one, reset it to another preexisting account (default to true)
-     * @returns
-     */
-    removeAccount: (account: Account, resetIfCurrent?: boolean) => void;
-    removeAccountByProfile: (profile: Profile) => void;
-    removeAccountBySession: (session: Session) => void;
+    addAccount: (account: Account) => void;
+    removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
     refreshAccounts: () => void;
@@ -76,39 +60,26 @@ function createState(
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
-                addAccount: (account, setAsCurrent = true) =>
+                addAccount: (account) =>
                     set((state) => {
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
                         if (account_) return;
 
                         // add new account to the top
                         state.accounts = [account, ...state.accounts];
-                        if (setAsCurrent) state.updateCurrentAccount(account);
+
+                        state.currentProfile = account.profile;
+                        state.currentProfileSession = account.session;
                     }),
                 removeAccount: (account, resetIfCurrent = true) =>
                     set((state) => {
                         state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
 
-                        if (isSameProfile(state.currentProfile, account.profile) && resetIfCurrent) {
-                            const { profile: nextCurrentProfile, session: nextCurrentProfileSession } = first(
-                                state.accounts,
-                            ) ?? {
-                                profile: null,
-                                session: null,
-                            };
-                            state.currentProfile = nextCurrentProfile;
-                            state.currentProfileSession = nextCurrentProfileSession;
+                        // the current profile is removed
+                        if (isSameProfile(state.currentProfile, account.profile)) {
+                            state.currentProfile = null;
+                            state.currentProfileSession = null;
                         }
-                    }),
-                removeAccountByProfile: (profile) =>
-                    set((state) => {
-                        const account = state.accounts.find((x) => isSameProfile(x.profile, profile));
-                        if (account) state.removeAccount(account);
-                    }),
-                removeAccountBySession: (session) =>
-                    set((state) => {
-                        const account = state.accounts.find((x) => isSameSession(x.session, session));
-                        if (account) state.removeAccount(account);
                     }),
                 updateAccounts: (accounts) =>
                     set((state) => {
@@ -118,6 +89,7 @@ function createState(
                     set((state) => {
                         state.currentProfile = account.profile;
                         state.currentProfileSession = account.session;
+
                         if (!state.accounts.length) {
                             state.accounts = [account];
                         }
@@ -269,7 +241,10 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                restoreAccount({
+                // only one account is allowed
+                state.clear();
+
+                addCurrentAccount({
                     profile: me,
                     session: TwitterSession.from(me, payload),
                 });

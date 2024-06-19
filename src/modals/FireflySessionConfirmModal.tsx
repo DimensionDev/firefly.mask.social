@@ -8,11 +8,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { addCurrentAccount } from '@/helpers/account.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { restoreAccount } from '@/helpers/restoreAccount.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
@@ -50,7 +50,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                         <ProfileInList
                             key={account.profile.profileId}
                             profile={account.profile}
-                            isSelected={Object.entries(selectedPairs).some(([_, x]) =>
+                            selected={Object.entries(selectedPairs).some(([_, x]) =>
                                 isSameProfile(x?.profile, account.profile),
                             )}
                             onSelect={() => {
@@ -85,7 +85,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                     className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
-                        compact(values(selectedPairs)).map(restoreAccount);
+                        compact(values(selectedPairs)).map(addCurrentAccount);
                         onConfirm?.();
                         ConfirmModalRef.close(true);
                     }}

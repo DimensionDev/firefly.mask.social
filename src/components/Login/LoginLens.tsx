@@ -15,10 +15,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
+import { addCurrentAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { restoreAccount } from '@/helpers/restoreAccount.js';
 import {
     AccountModalRef,
     ConnectWalletModalRef,
@@ -43,6 +44,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     const account = useAccount();
     const currentProfile = selectedProfile || first(profiles);
+    const { accounts } = getProfileState(Source.Lens);
 
     const [{ loading }, login] = useAsyncFn(
         async (signless: boolean) => {
@@ -61,8 +63,8 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     await updateSignless(true);
                 }
 
-                // restore profiles for lens
-                restoreAccount({
+                // add new account for lens
+                addCurrentAccount({
                     profile: currentProfile,
                     session,
                 });
@@ -114,14 +116,18 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                             <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
-                            {profiles.map((profile) => (
-                                <ProfileInList
-                                    key={profile.profileId}
-                                    profile={profile}
-                                    isSelected={isSameProfile(currentProfile, profile)}
-                                    onSelect={setSelectedProfile}
-                                />
-                            ))}
+                            {profiles.map((profile) => {
+                                const isAdded = accounts.some((x) => isSameProfile(x.profile, profile));
+                                return (
+                                    <ProfileInList
+                                        key={profile.profileId}
+                                        profile={profile}
+                                        disabled={isAdded}
+                                        selected={isSameProfile(currentProfile, profile) || isAdded}
+                                        onSelect={setSelectedProfile}
+                                    />
+                                );
+                            })}
                         </div>
                         {currentProfile?.signless ||
                         !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (

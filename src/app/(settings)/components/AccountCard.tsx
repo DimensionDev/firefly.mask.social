@@ -6,7 +6,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileStateBySocialSource } from '@/helpers/getProfileState.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -26,7 +26,7 @@ export function AccountCard({ account, isCurrent }: AccountCardProps) {
         async (nextAccount: Account) => {
             try {
                 const source = nextAccount.profile.source;
-                getProfileStateBySocialSource(source).updateCurrentAccount(nextAccount);
+                getProfileState(source).updateCurrentAccount(nextAccount);
                 resolveSessionHolder(source)?.resumeSession(nextAccount.session);
 
                 // Wait for the session to be fully restored

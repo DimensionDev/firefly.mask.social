@@ -768,9 +768,6 @@ msgstr "文章"
 msgid "Settings"
 msgstr "設定"
 
-msgid "There is no available profile anymore."
-msgstr ""
-
 msgid "Creator"
 msgstr ""
 
@@ -1124,9 +1121,6 @@ msgstr ""
 
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
-
-msgid "Please change to another wallet."
-msgstr ""
 
 msgid "View"
 msgstr ""

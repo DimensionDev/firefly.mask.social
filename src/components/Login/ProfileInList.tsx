@@ -5,16 +5,24 @@ import { ProfileName } from '@/components/ProfileName.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
+    disabled?: boolean;
+    selected?: boolean;
     profile: Profile;
-    isSelected: boolean;
     onSelect: (profile: Profile) => void;
     ProfileAvatarProps?: Partial<ProfileAvatarProps>;
 }
 
-export function ProfileInList({ isSelected, onSelect, profile, ProfileAvatarProps }: ProfileInListProps) {
+export function ProfileInList({
+    disabled = false,
+    selected = false,
+    onSelect,
+    profile,
+    ProfileAvatarProps,
+}: ProfileInListProps) {
     return (
         <ClickableButton
             className="inline-flex h-[48px] w-full items-center justify-start gap-4 outline-none"
+            disabled={disabled}
             onClick={() => {
                 onSelect(profile);
             }}
@@ -29,7 +37,7 @@ export function ProfileInList({ isSelected, onSelect, profile, ProfileAvatarProp
                 <ProfileAvatar profile={profile} size={48} {...ProfileAvatarProps} />
             </div>
             <ProfileName profile={profile} />
-            <CircleCheckboxIcon checked={isSelected} />
+            <CircleCheckboxIcon checked={selected} />
         </ClickableButton>
     );
 }

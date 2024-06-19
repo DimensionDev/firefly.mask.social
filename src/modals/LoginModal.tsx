@@ -23,9 +23,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileStore } from '@/helpers/getProfileStore.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -67,22 +65,6 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                 </span>
                                 <br />
                                 <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
-                            </div>,
-                        );
-                        return;
-                    }
-
-                    const { profiles: allProfiles } = getProfileStore(Source.Lens);
-                    const nonSelectedProfiles = profiles.filter(
-                        (profile) => !allProfiles.find((x) => isSameProfile(x, profile)),
-                    );
-                    if (!nonSelectedProfiles.length) {
-                        enqueueErrorMessage(
-                            <div>
-                                <span className="font-bold">
-                                    <Trans>Please change to another wallet.</Trans>
-                                </span>
-                                <Trans>There is no available profile anymore.</Trans>
                             </div>,
                         );
                         return;
