@@ -86,7 +86,7 @@ function createState(
 
                     set((state) => {
                         const account = accounts.find((x) => isSameProfile(x.profile, profile));
-                        if (account) state?.updateCurrentAccount?.(account);
+                        if (account) state.updateCurrentAccount?.(account);
                         state.updateAccounts(updatedAccounts);
                     });
                 },
@@ -131,20 +131,18 @@ const useFarcasterStateBase = createState(
     {
         name: 'farcaster-state',
         onRehydrateStorage: () => async (state) => {
-            if (typeof window === 'undefined') return;
+            if (typeof window === 'undefined' || !state) return;
 
-            if (!state?.currentProfile || !state.currentProfileSession) {
-                console.warn('[farcaster store] clean the local store because no session found.');
-                state?.clear();
-                return;
+            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
+                state.updateCurrentAccount({
+                    profile: state.currentProfile,
+                    session: state.currentProfileSession,
+                });
             }
 
-            state.updateCurrentAccount({
-                profile: state.currentProfile,
-                session: state.currentProfileSession,
-            });
-
-            farcasterSessionHolder.resumeSession(state.currentProfileSession as FarcasterSession);
+            if (state.currentProfileSession) {
+                farcasterSessionHolder.resumeSession(state.currentProfileSession as FarcasterSession);
+            }
         },
     },
 );
@@ -156,18 +154,14 @@ const useLensStateBase = createState(
     {
         name: 'lens-state',
         onRehydrateStorage: () => async (state) => {
-            if (typeof window === 'undefined') return;
+            if (typeof window === 'undefined' || !state) return;
 
-            if (!state?.currentProfile || !state.currentProfileSession) {
-                console.warn('[lens store] clean the local store because no session found.');
-                state?.clear();
-                return;
+            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
+                state.updateCurrentAccount({
+                    profile: state.currentProfile,
+                    session: state.currentProfileSession,
+                });
             }
-
-            state.updateCurrentAccount({
-                profile: state.currentProfile,
-                session: state.currentProfileSession,
-            });
 
             try {
                 const profileId = state.currentProfile?.profileId;
@@ -197,18 +191,14 @@ const useTwitterStateBase = createState(
     {
         name: 'twitter-state',
         onRehydrateStorage: () => async (state) => {
-            if (typeof window === 'undefined') return;
+            if (typeof window === 'undefined' || !state) return;
 
-            if (!state?.currentProfile || !state.currentProfileSession) {
-                console.warn('[twitter store] clean the local store because no session found.');
-                state?.clear();
-                return;
+            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
+                state.updateCurrentAccount({
+                    profile: state.currentProfile,
+                    session: state.currentProfileSession,
+                });
             }
-
-            state.updateCurrentAccount({
-                profile: state.currentProfile,
-                session: state.currentProfileSession,
-            });
 
             try {
                 const session = state.currentProfileSession as TwitterSession | null;
@@ -245,20 +235,20 @@ const useFireflyStateBase = createState(
     {
         name: 'firefly-state',
         onRehydrateStorage: () => async (state) => {
-            if (typeof window === 'undefined') return;
+            if (typeof window === 'undefined' || !state) return;
 
             try {
-                const session = state?.currentProfileSession || (await resolveFireflySessionAll());
+                const session = state.currentProfileSession || (await resolveFireflySessionAll());
 
                 if (session) {
-                    state?.updateCurrentAccount({ profile: createDummyProfile(Source.Farcaster), session });
+                    state.updateCurrentAccount({ profile: createDummyProfile(Source.Farcaster), session });
                     fireflySessionHolder.resumeSession(session as FireflySession);
                 } else {
                     console.warn('[firefly store] clean the local store because no session found.');
-                    state?.clear();
+                    state.clear();
                 }
             } catch {
-                state?.clear();
+                state.clear();
             }
         },
     },
