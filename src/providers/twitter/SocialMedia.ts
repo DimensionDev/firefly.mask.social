@@ -12,6 +12,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
@@ -29,6 +30,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
+@SetQueryDataForFollowProfile(Source.Twitter)
 class TwitterSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
