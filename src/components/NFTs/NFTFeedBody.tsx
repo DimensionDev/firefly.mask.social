@@ -2,7 +2,8 @@
 
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { type ReactNode } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { type ReactNode, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LinkIcon from '@/assets/link-square.svg';
@@ -15,7 +16,39 @@ import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
+
+const variants = {
+    enter: (direction: number) => {
+        return {
+            x: direction > 0 ? 1000 : -1000,
+            opacity: 0,
+        };
+    },
+    center: {
+        zIndex: 1,
+        x: 0,
+        opacity: 1,
+    },
+    exit: (direction: number) => {
+        return {
+            zIndex: 0,
+            x: direction < 0 ? 1000 : -1000,
+            opacity: 0,
+        };
+    },
+};
+
+function wrap(min: number, max: number, v: number) {
+    const rangeSize = max - min;
+    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+}
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+};
 
 function NFTFeedFieldGroup({
     field,
@@ -43,6 +76,7 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
     const metadata = data?.metadata;
     const tokenName = metadata?.name;
     const collectionName = data?.collection?.name;
+    const { isDarkMode } = useDarkMode();
 
     return (
         <div className="mt-auto flex w-full flex-col rounded-xl border border-secondaryLine bg-lightBg p-3 sm:h-[120px] sm:flex-row sm:space-x-2 sm:rounded-none sm:border-none sm:bg-transparent sm:p-0">
@@ -51,9 +85,12 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
             ) : (
                 <Image
                     src={metadata?.previewImageURL || metadata?.imageURL || ''}
+                    fallback={isDarkMode ? '/image/img-fallback-dark.png' : '/image/img-fallback-light.png'}
                     width={120}
                     height={120}
                     className="mb-2 aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"
+                    fallbackClassName="border border-secondaryLine"
+                    draggable={false}
                     alt={address}
                 />
             )}
@@ -119,22 +156,44 @@ export interface NFTFeedBodyProps {
 }
 
 export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NFTFeedBodyProps) {
-    const activeToken = tokenList[index];
+    const [direction, setDirection] = useState(0);
+    const tokenIndex = wrap(0, tokenList.length, index);
+    const activeToken = tokenList[tokenIndex];
+
+    const paginate = (newDirection: number) => {
+        onChangeIndex?.(index + newDirection);
+        setDirection(newDirection);
+    };
+
     return (
         <div className="w-full space-y-1.5 pl-[52px]">
             {activeToken ? <NFTFeedAction {...activeToken.action} /> : null}
             <div className="relative flex w-full overflow-hidden sm:h-[120px]">
-                <div
-                    className="absolute left-0 grid h-full duration-300"
-                    style={{
-                        width: `${tokenList.length * 100}%`,
-                        gridTemplateColumns: `repeat(${tokenList.length}, calc(100% / ${tokenList.length}))`,
-                        transform: `translateX(${-((index / tokenList.length) * 100)}%)`,
-                    }}
-                >
-                    {tokenList.map((token) => (
-                        <NFTItem address={token.contractAddress} key={token.id} tokenId={token.id} chainId={chainId} />
-                    ))}
+                <div className="absolute h-auto w-full sm:h-[120px]">
+                    <AnimatePresence initial={false} custom={direction}>
+                        <motion.div
+                            key={tokenIndex}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            className="absolute h-auto w-full sm:h-[120px]"
+                            transition={{
+                                x: { type: 'spring', stiffness: 300, damping: 30 },
+                                opacity: { duration: 0.2 },
+                            }}
+                        >
+                            {activeToken ? (
+                                <NFTItem
+                                    address={activeToken.contractAddress}
+                                    key={activeToken.id}
+                                    tokenId={activeToken.id}
+                                    chainId={chainId}
+                                />
+                            ) : null}
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
                 {/* used for layout calculation height */}
                 <div className="h-full w-full space-y-1.5 opacity-0 sm:hidden">
@@ -155,7 +214,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             if (index <= 0) {
                                 return;
                             }
-                            onChangeIndex?.(index <= 0 ? tokenList.length - 1 : index - 1);
+                            paginate(-1);
                         }}
                     >
                         <LineArrowUp width={18} height={18} className="-rotate-90" />
@@ -167,7 +226,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             e.stopPropagation();
                         }}
                     >
-                        {tokenList.map(({ id }) => (
+                        {tokenList.slice(0, 5).map(({ id }) => (
                             <div key={id} className="h-[3px] w-[3px] rounded-full bg-lightSecond" />
                         ))}
                     </div>
@@ -184,7 +243,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             if (index >= tokenList.length - 1) {
                                 return;
                             }
-                            onChangeIndex?.(index >= tokenList.length - 1 ? 0 : index + 1);
+                            paginate(1);
                         }}
                     >
                         <LineArrowUp width={18} height={18} className="rotate-90" />

@@ -17,6 +17,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;
@@ -53,6 +54,7 @@ export function NFTInfo(props: NFTInfoProps) {
         chainId: ChainId.Mainnet,
         address: props.ownerAddress as `0x${string}`,
     });
+    const { isDarkMode } = useDarkMode();
 
     return (
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
@@ -69,6 +71,8 @@ export function NFTInfo(props: NFTInfoProps) {
                     src={imageURL}
                     alt={name}
                     className="h-full w-full max-w-[250px] rounded-[20px] object-cover shadow-lightS3"
+                    fallbackClassName="border border-secondaryLine"
+                    fallback={isDarkMode ? '/image/img-fallback-dark.png' : '/image/img-fallback-light.png'}
                 />
             </div>
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
