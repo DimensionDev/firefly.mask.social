@@ -45,11 +45,6 @@ function wrap(min: number, max: number, v: number) {
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 }
 
-const swipeConfidenceThreshold = 10000;
-const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-};
-
 function NFTFeedFieldGroup({
     field,
     value,
