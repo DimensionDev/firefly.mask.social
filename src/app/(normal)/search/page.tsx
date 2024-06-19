@@ -57,7 +57,7 @@ export default function Page() {
                 case SearchType.Profiles:
                     return provider.searchProfiles(searchKeyword, indicator);
                 case SearchType.Posts:
-                    return provider.searchPosts(searchKeyword, indicator);
+                    return provider.searchPosts(searchKeyword.replace(/^#/, ''), indicator);
                 case SearchType.Channels:
                     return provider.searchChannels(searchKeyword, indicator);
                 default:

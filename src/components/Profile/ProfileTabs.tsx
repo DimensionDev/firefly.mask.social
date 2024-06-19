@@ -84,9 +84,9 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                 return (
                     <ClickableArea
-                        onClick={() => {
+                        onClick={(event) => {
                             startTransition(() => {
-                                scrollTo(0, 0);
+                                event?.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 
                                 update?.({
                                     source: profile.source,
