@@ -103,12 +103,7 @@ export function PollCard({ post }: PollCardProps) {
                 </Fragment>
             ))}
             <div className="mt-3 text-xs leading-6 text-lightSecond">
-                <Plural
-                    value={totalVotes}
-                    zero={`${totalVotes} Vote`}
-                    one={`${totalVotes} Vote`}
-                    other={`${totalVotes} Votes`}
-                />
+                <Plural value={totalVotes} one={`${totalVotes} Vote`} other={`${totalVotes} Votes`} />
                 {timeLeft ? ` · ${timeLeft}` : ''}
             </div>
         </div>

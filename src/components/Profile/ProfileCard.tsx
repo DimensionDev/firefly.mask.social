@@ -83,7 +83,6 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                             <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
                             <span className="text-secondary">
                                 {plural(profile.followerCount, {
-                                    zero: 'Follower',
                                     one: 'Follower',
                                     other: 'Followers',
                                 })}

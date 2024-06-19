@@ -242,7 +242,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled ? (
                 <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                    {post.metadata.content?.oembedUrl && !post.quoteOn ? (
+                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
                         <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
                     ) : null}
                 </Frame>
