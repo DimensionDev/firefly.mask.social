@@ -571,6 +571,9 @@ msgstr "Privacy Policy"
 msgid "Failed to fetch: ${0}. Please try again later"
 msgstr "Failed to fetch: ${0}. Please try again later"
 
+msgid "Expired"
+msgstr "Expired"
+
 msgid "Switch"
 msgstr "Switch"
 
@@ -768,6 +771,9 @@ msgstr "Detect device accounts"
 
 msgid "Your Farcaster account is now connected."
 msgstr "Your Farcaster account is now connected."
+
+msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
+msgstr "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
@@ -1218,6 +1224,9 @@ msgstr "We're updating our connection with X. Posting on X will be limited for n
 
 msgid "Posted via <0>{sendFrom}</0>"
 msgstr "Posted via <0>{sendFrom}</0>"
+
+msgid "Final results / {0} left"
+msgstr "Final results / {0} left"
 
 msgid "Collection"
 msgstr "Collection"
