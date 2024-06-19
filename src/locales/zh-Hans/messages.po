@@ -93,9 +93,6 @@ msgstr "屏蔽 @{0}"
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "X"
-msgstr "X"
-
 msgid "Debug Connection"
 msgstr "诊断网络"
 
@@ -537,6 +534,9 @@ msgstr ""
 msgid "Add an existing account"
 msgstr ""
 
+msgid "{0}"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -708,9 +708,6 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
-msgid "Lens"
-msgstr "Lens"
-
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
@@ -794,9 +791,6 @@ msgstr "连接到 {source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
-
-msgid "Farcaster"
-msgstr "Farcaster"
 
 msgid "commented"
 msgstr "已回复"

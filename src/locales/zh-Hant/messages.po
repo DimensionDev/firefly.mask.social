@@ -93,9 +93,6 @@ msgstr "將 @{0} 靜音"
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "X"
-msgstr "X"
-
 msgid "Debug Connection"
 msgstr "除錯連接"
 
@@ -537,6 +534,9 @@ msgstr ""
 msgid "Add an existing account"
 msgstr ""
 
+msgid "{0}"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -708,9 +708,6 @@ msgstr ""
 msgid "Clear All"
 msgstr "清除所有"
 
-msgid "Lens"
-msgstr ""
-
 msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
@@ -793,9 +790,6 @@ msgid "Connect to {source}"
 msgstr "已連接到{source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
-msgstr ""
-
-msgid "Farcaster"
 msgstr ""
 
 msgid "commented"

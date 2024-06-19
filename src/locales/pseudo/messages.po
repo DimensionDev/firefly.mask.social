@@ -88,9 +88,6 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "X"
-msgstr ""
-
 msgid "Debug Connection"
 msgstr ""
 
@@ -532,6 +529,9 @@ msgstr ""
 msgid "Add an existing account"
 msgstr ""
 
+msgid "{0}"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -703,9 +703,6 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
-msgid "Lens"
-msgstr ""
-
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
@@ -788,9 +785,6 @@ msgid "Connect to {source}"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
-msgstr ""
-
-msgid "Farcaster"
 msgstr ""
 
 msgid "commented"

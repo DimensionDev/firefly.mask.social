@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -25,9 +26,12 @@ export function AccountCard({ account, isCurrent }: AccountCardProps) {
         async (nextAccount: Account) => {
             try {
                 const source = nextAccount.profile.source;
-
                 resolveProfileStoreFromSocialSource(source).getState().updateCurrentAccount(nextAccount);
                 resolveSessionHolder(source)?.resumeSession(nextAccount.session);
+
+                // Wait for the session to be fully restored
+                await delay(1000);
+
                 enqueueSuccessMessage(t`Your ${resolveSourceName(source)} account is now connected`);
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {

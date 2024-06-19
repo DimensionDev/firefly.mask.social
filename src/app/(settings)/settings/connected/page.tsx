@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { useCallback, useRef } from 'react';
+import { Fragment, useCallback, useRef } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
@@ -12,8 +12,11 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import CopyIcon from '@/assets/copy.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccountsAll.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -43,83 +46,51 @@ export default function Connected() {
                 <Trans>Connected Accounts</Trans>
             </Headline>
 
-            {currentProfileAll.Lens?.profileId ? (
-                <>
-                    <div className="flex w-full items-center justify-between">
-                        <span className="text-base font-bold leading-[18px] text-main">
-                            <Trans>Lens</Trans>
-                        </span>
-                        <div className="flex items-center gap-1">
-                            <span className="text-base font-bold leading-[18px] text-second">
-                                {address ? formatEthereumAddress(address, 4) : null}
+            {SORTED_SOCIAL_SOURCES.map((x) => {
+                const profile = currentProfileAll[x];
+
+                return profile?.profileId ? (
+                    <Fragment key={profile.profileId}>
+                        <div className="flex w-full items-center justify-between">
+                            <span className="text-base font-bold leading-[18px] text-main">
+                                <Trans>{resolveSourceName(x)}</Trans>
                             </span>
-                            <Tooltip
-                                content={t`Click to copy`}
-                                placement="top"
-                                duration={200}
-                                trigger="click"
-                                onShow={(instance) => {
-                                    if (timerRef.current) clearTimeout(timerRef.current);
-                                    timerRef.current = setTimeout(() => {
-                                        instance.hide();
-                                    }, 1000);
-                                }}
-                            >
-                                <ClickableButton onClick={handleClick}>
-                                    <CopyIcon width={14} height={14} />
-                                </ClickableButton>
-                            </Tooltip>
+                            {x === Source.Lens ? (
+                                <div className="flex items-center gap-1">
+                                    <span className="text-base font-bold leading-[18px] text-second">
+                                        {address ? formatEthereumAddress(address, 4) : null}
+                                    </span>
+                                    <Tooltip
+                                        content={t`Click to copy`}
+                                        placement="top"
+                                        duration={200}
+                                        trigger="click"
+                                        onShow={(instance) => {
+                                            if (timerRef.current) clearTimeout(timerRef.current);
+                                            timerRef.current = setTimeout(() => {
+                                                instance.hide();
+                                            }, 1000);
+                                        }}
+                                    >
+                                        <ClickableButton onClick={handleClick}>
+                                            <CopyIcon width={14} height={14} />
+                                        </ClickableButton>
+                                    </Tooltip>
+                                </div>
+                            ) : null}
                         </div>
-                    </div>
-                    <div className="flex w-full flex-col gap-4">
-                        {accountsAll.Lens.map((account) => (
-                            <AccountCard
-                                key={account.profile.profileId}
-                                account={account}
-                                isCurrent={isSameProfile(currentProfileAll.Lens, account.profile)}
-                            />
-                        ))}
-                    </div>
-                </>
-            ) : null}
-
-            {currentProfileAll.Farcaster?.profileId ? (
-                <>
-                    <div className="flex w-full items-center justify-between">
-                        <span className="text-base font-bold leading-[18px] text-main">
-                            <Trans>Farcaster</Trans>
-                        </span>
-                    </div>
-                    <div className="flex w-full flex-col gap-4">
-                        {accountsAll.Farcaster.map((account) => (
-                            <AccountCard
-                                key={account.profile.profileId}
-                                account={account}
-                                isCurrent={isSameProfile(currentProfileAll.Farcaster, account.profile)}
-                            />
-                        ))}
-                    </div>
-                </>
-            ) : null}
-
-            {currentProfileAll.Twitter?.profileId ? (
-                <>
-                    <div className="flex w-full items-center justify-between">
-                        <span className="text-base font-bold leading-[18px] text-main">
-                            <Trans>X</Trans>
-                        </span>
-                    </div>
-                    <div className="flex w-full flex-col gap-4">
-                        {accountsAll.Twitter.map((account) => (
-                            <AccountCard
-                                key={account.profile.profileId}
-                                account={account}
-                                isCurrent={isSameProfile(currentProfileAll.Twitter, account.profile)}
-                            />
-                        ))}
-                    </div>
-                </>
-            ) : null}
+                        <div className="flex w-full flex-col gap-4">
+                            {accountsAll[x].map((account) => (
+                                <AccountCard
+                                    key={account.profile.profileId}
+                                    account={account}
+                                    isCurrent={isSameProfile(currentProfileAll.Lens, account.profile)}
+                                />
+                            ))}
+                        </div>
+                    </Fragment>
+                ) : null;
+            })}
 
             <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
                 <ClickableButton

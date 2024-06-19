@@ -1,18 +1,5 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { Source } from '@/constants/enum.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
-
-export function getProfilesAll(): Record<SocialSource, Profile[]> {
-    const { accounts: lensAccounts } = useLensStateStore.getState();
-    const { accounts: farcasterAccounts } = useFarcasterStateStore.getState();
-    const { accounts: twitterAccounts } = useTwitterStateStore.getState();
-
-    return {
-        [Source.Farcaster]: lensAccounts.map((x) => x.profile),
-        [Source.Lens]: farcasterAccounts.map((x) => x.profile),
-        [Source.Twitter]: twitterAccounts.map((x) => x.profile),
-    };
-}
 
 export function getProfileStoreAll() {
     const lensState = useLensStateStore.getState();

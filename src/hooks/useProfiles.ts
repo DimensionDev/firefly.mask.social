@@ -5,5 +5,5 @@ import { useAccountsAll } from '@/hooks/useAccountsAll.js';
 
 export function useProfiles(source: SocialSource) {
     const accounts = useAccountsAll();
-    return useMemo(() => accounts[source].map((x) => x.profile), [accounts]);
+    return useMemo(() => accounts[source].map((x) => x.profile), [accounts, source]);
 }
