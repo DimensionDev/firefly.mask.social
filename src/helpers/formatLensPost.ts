@@ -24,7 +24,7 @@ import type {
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { compact, filter, first, isEmpty, last } from 'lodash-es';
+import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
@@ -96,14 +96,6 @@ function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
     );
 }
 
-function removePollFrameUrl(content: string, metadata: PublicationMetadataFragment) {
-    const pollIds = filter(metadata.attributes, { key: LensMetadataAttributeKey.Poll }).map((attr) => attr.value);
-    return pollIds.reduce((acc, pollId) => {
-        const frameUrl = getPollFrameUrl(pollId, Source.Lens);
-        return acc.replace(frameUrl, '');
-    }, content);
-}
-
 function formatContent(metadata: PublicationMetadataFragment) {
     const type = metadata.__typename;
     switch (type) {
@@ -114,13 +106,9 @@ function formatContent(metadata: PublicationMetadataFragment) {
             };
         case 'TextOnlyMetadataV3':
         case 'LinkMetadataV3':
-            const oembedUrls = getOembedUrls(metadata);
             return {
-                // TODO:
-                // we append the poll frame url to the content to support hey.xyz polls
-                // but we remove it in our own UI
-                content: removePollFrameUrl(metadata.content, metadata),
-                oembedUrls,
+                content: metadata.content,
+                oembedUrls: getOembedUrls(metadata),
             };
         case 'ImageMetadataV3': {
             const asset = metadata.asset.image.optimized?.uri
