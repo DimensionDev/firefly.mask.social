@@ -17,8 +17,8 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useAccountsAll } from '@/hooks/useAccountsAll.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useAccountsAll } from '@/hooks/useAccounts.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
