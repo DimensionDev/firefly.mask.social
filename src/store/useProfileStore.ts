@@ -64,12 +64,7 @@ function createState(
                         state.currentProfile = account.profile;
                         state.currentProfileSession = account.session;
                         if (!state.accounts.length) {
-                            state.accounts = [
-                                {
-                                    profile: account.profile,
-                                    session: account.session,
-                                },
-                            ];
+                            state.accounts = [account];
                         }
                     }),
                 refreshAccounts: async () => {
@@ -175,19 +170,19 @@ const useLensStateBase = createState(
             });
 
             try {
-                const profileId = state?.currentProfile?.profileId;
+                const profileId = state.currentProfile?.profileId;
                 const clientProfileId = await lensSessionHolder.sdk.authentication.getProfileId();
 
                 if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
                     console.warn('[lens store] clean the local store because the client cannot recover properly');
-                    state?.clear();
+                    state.clear();
                     return;
                 }
 
                 const authenticated = await lensSessionHolder.sdk.authentication.isAuthenticated();
                 if (!authenticated) {
                     console.warn('[lens store] clean the local profile because the client session is broken');
-                    state?.clear();
+                    state.clear();
                     return;
                 }
             } catch {
@@ -216,12 +211,12 @@ const useTwitterStateBase = createState(
             });
 
             try {
-                const session = state?.currentProfileSession as TwitterSession | null;
+                const session = state.currentProfileSession as TwitterSession | null;
                 if (session) twitterSessionHolder.resumeSession(session);
 
                 // clean the local store if the consumer secret is not hidden
                 if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
-                    state?.clear();
+                    state.clear();
                     return;
                 }
 
@@ -230,7 +225,7 @@ const useTwitterStateBase = createState(
 
                 if (!me || !payload) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');
-                    state?.clear();
+                    state.clear();
                     return;
                 }
 
