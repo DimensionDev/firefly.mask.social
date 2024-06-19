@@ -23,6 +23,8 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export interface ProfileState {
     accounts: Account[];
@@ -146,6 +148,8 @@ const useFarcasterStateBase = createState(
                 profile: state.currentProfile,
                 session: state.currentProfileSession,
             });
+
+            farcasterSessionHolder.resumeSession(state.currentProfileSession as FarcasterSession);
         },
     },
 );
