@@ -7,7 +7,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
-import { addCurrentAccount } from '@/helpers/account.js';
+import { addAccount } from '@/helpers/account.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -244,7 +244,7 @@ const useTwitterStateBase = createState(
                 // only one account is allowed
                 state.clear();
 
-                addCurrentAccount({
+                addAccount({
                     profile: me,
                     session: TwitterSession.from(me, payload),
                 });

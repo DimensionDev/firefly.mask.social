@@ -5,10 +5,9 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
+import { switchAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -25,9 +24,7 @@ export function AccountCard({ account, isCurrent }: AccountCardProps) {
     const [{ loading }, login] = useAsyncFn(
         async (nextAccount: Account) => {
             try {
-                const source = nextAccount.profile.source;
-                getProfileState(source).updateCurrentAccount(nextAccount);
-                resolveSessionHolder(source)?.resumeSession(nextAccount.session);
+                switchAccount(nextAccount);
 
                 // Wait for the session to be fully restored
                 await delay(1000);

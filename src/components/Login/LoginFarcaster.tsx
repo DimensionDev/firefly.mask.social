@@ -17,7 +17,7 @@ import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
-import { addCurrentAccount } from '@/helpers/account.js';
+import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -43,7 +43,7 @@ async function login(
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
         // add new account for farcaster
-        addCurrentAccount({
+        addAccount({
             session,
             profile,
         });

@@ -1,12 +1,17 @@
 import type { SocialSource } from '@/constants/enum.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
+import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 
-export function addCurrentAccount(account: Account) {
+export function addAccount(account: Account) {
     getProfileState(account.profile.source).addAccount(account);
     resolveSessionHolderFromSessionType(account.session.type)?.resumeSession(account.session);
+}
+
+export function switchAccount(account: Account) {
+    getProfileState(account.profile.source).updateCurrentAccount(account);
+    resolveSessionHolder(account.profile.source)?.resumeSession(account.session);
 }
 
 export function removeAccount(account: Account) {

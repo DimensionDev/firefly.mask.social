@@ -15,7 +15,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
-import { addCurrentAccount } from '@/helpers/account.js';
+import { addAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -64,7 +64,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 }
 
                 // add new account for lens
-                addCurrentAccount({
+                addAccount({
                     profile: currentProfile,
                     session,
                 });

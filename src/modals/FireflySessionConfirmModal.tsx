@@ -8,7 +8,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { addCurrentAccount } from '@/helpers/account.js';
+import { addAccount } from '@/helpers/account.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -85,7 +85,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                     className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
-                        compact(values(selectedPairs)).map(addCurrentAccount);
+                        compact(values(selectedPairs)).map(addAccount);
                         onConfirm?.();
                         ConfirmModalRef.close(true);
                     }}
