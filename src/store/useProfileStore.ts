@@ -11,6 +11,8 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { restoreAccount } from '@/helpers/restoreAccount.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -23,8 +25,6 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveFireflySessionAll } from '@/services/restoreFireflySession.js';
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export interface ProfileState {
     accounts: Account[];
