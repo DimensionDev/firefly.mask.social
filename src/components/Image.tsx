@@ -1,17 +1,19 @@
 import type { ImageProps as NextImageProps } from 'next/image.js';
-import type { Ref, SyntheticEvent } from 'react';
+import type { SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export interface ImageProps extends NextImageProps {
     fallback?: string;
+    fallbackClassName?: string;
 }
 
-export const Image = forwardRef(function Image(
-    { onError, fallback, ...props }: ImageProps,
-    ref: Ref<HTMLImageElement>,
+export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
+    { onError, fallback, fallbackClassName, ...props },
+    ref,
 ) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
     const { isDarkMode } = useDarkMode();
@@ -33,6 +35,8 @@ export const Image = forwardRef(function Image(
         setImageLoadFailed(!props.src);
     }, [props.src]);
 
+    const isFailed = imageLoadFailed || !props.src;
+
     // TODO: replace failed fallback image
     return (
         // Since next/image requires the domain of the image to be configured in next.config,
@@ -44,11 +48,11 @@ export const Image = forwardRef(function Image(
             loading="lazy"
             priority={false}
             src={
-                imageLoadFailed || !props.src
+                isFailed
                     ? fallback || (isDarkMode ? '/image/fallback-dark.png' : '/image/fallback-light.png')
                     : props.src
             }
-            className={props.className}
+            className={classNames(props.className, isFailed ? fallbackClassName : undefined)}
             onError={handleError}
             alt={props.alt || ''}
             ref={ref}

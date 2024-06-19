@@ -10,8 +10,8 @@ import { useEnsName } from 'wagmi';
 
 import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
-import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -75,7 +75,7 @@ export function getNFTItemContent(
                 {options?.isShowOwner && item.owner?.address ? (
                     <Owner address={item.owner.address as `0x${string}`} />
                 ) : null}
-                <Image
+                <NFTImage
                     width={500}
                     height={500}
                     className="h-full w-full rounded-lg object-cover"

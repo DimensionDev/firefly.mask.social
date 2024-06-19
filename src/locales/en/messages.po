@@ -1378,6 +1378,9 @@ msgstr "Language"
 msgid "Add a comment"
 msgstr "Add a comment"
 
+msgid "Address on Watching Lists"
+msgstr "Address on Watching Lists"
+
 msgid "FREE"
 msgstr "FREE"
 
