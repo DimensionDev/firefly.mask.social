@@ -5,6 +5,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { FetchError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -24,7 +25,7 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { resolveFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
     accounts: Account[];
@@ -179,7 +180,8 @@ const useLensStateBase = createState(
                     state.clear();
                     return;
                 }
-            } catch {
+            } catch (error) {
+                if (error instanceof FetchError) return;
                 state.clear();
             }
         },
@@ -210,7 +212,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const payload = session ? session.payload : await TwitterSocialMediaProvider.login();
+                const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
                 const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!me || !payload) {
@@ -223,7 +225,8 @@ const useTwitterStateBase = createState(
                     profile: me,
                     session: TwitterSession.from(me, payload),
                 });
-            } catch {
+            } catch (error) {
+                if (error instanceof FetchError) return;
                 state.clear();
             }
         },
@@ -238,7 +241,7 @@ const useFireflyStateBase = createState(
             if (typeof window === 'undefined' || !state) return;
 
             try {
-                const session = state.currentProfileSession || (await resolveFireflySessionAll());
+                const session = state.currentProfileSession || (await restoreFireflySessionAll());
 
                 if (session) {
                     state.updateCurrentAccount({ profile: createDummyProfile(Source.Farcaster), session });
@@ -247,7 +250,8 @@ const useFireflyStateBase = createState(
                     console.warn('[firefly store] clean the local store because no session found.');
                     state.clear();
                 }
-            } catch {
+            } catch (error) {
+                if (error instanceof FetchError) return;
                 state.clear();
             }
         },
