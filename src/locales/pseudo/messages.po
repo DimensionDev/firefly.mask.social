@@ -1147,6 +1147,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Switching..."
+msgstr ""
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 

@@ -1152,6 +1152,9 @@ msgstr "频道"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "Switching..."
+msgstr ""
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
