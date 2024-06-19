@@ -37,14 +37,14 @@ export interface ProfileState {
     /**
      * Add an account
      * @param account the account to be added
-     * @param setAsCurrent set the added account as the current account
+     * @param setAsCurrent set the added account as the current account (default to true)
      * @returns
      */
     addAccount: (account: Account, setAsCurrent?: boolean) => void;
     /**
      * Remove an account
      * @param account the account to be removed
-     * @param resetIfCurrent if the removed account is the current one, reset it to another preexisting account.
+     * @param resetIfCurrent if the removed account is the current one, reset it to another preexisting account (default to true)
      * @returns
      */
     removeAccount: (account: Account, resetIfCurrent?: boolean) => void;

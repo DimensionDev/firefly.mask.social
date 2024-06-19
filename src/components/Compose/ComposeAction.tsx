@@ -29,7 +29,7 @@ import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useProfilesAll } from '@/hooks/useProfilesAll.js';
+import { useAccountsAll } from '@/hooks/useAccountsAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -41,7 +41,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const isMedium = useIsMedium();
 
     const currentProfileAll = useCurrentProfileAll();
-    const profilesAll = useProfilesAll();
+    const accountsAll = useAccountsAll();
 
     const post = useCompositePost();
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
@@ -75,7 +75,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 }),
             ),
         });
-    }, [currentProfileAll, profilesAll]);
+    }, [currentProfileAll, accountsAll]);
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);

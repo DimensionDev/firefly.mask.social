@@ -72,11 +72,11 @@ export default function Connected() {
                         </div>
                     </div>
                     <div className="flex w-full flex-col gap-4">
-                        {accountsAll.Lens.map(({ profile }) => (
+                        {accountsAll.Lens.map((account) => (
                             <AccountCard
-                                key={profile.profileId}
-                                profile={profile}
-                                isCurrent={isSameProfile(currentProfileAll.Lens, profile)}
+                                key={account.profile.profileId}
+                                account={account}
+                                isCurrent={isSameProfile(currentProfileAll.Lens, account.profile)}
                             />
                         ))}
                     </div>
@@ -91,11 +91,11 @@ export default function Connected() {
                         </span>
                     </div>
                     <div className="flex w-full flex-col gap-4">
-                        {accountsAll.Farcaster.map(({ profile }) => (
+                        {accountsAll.Farcaster.map((account) => (
                             <AccountCard
-                                key={profile.profileId}
-                                profile={profile}
-                                isCurrent={isSameProfile(currentProfileAll.Farcaster, profile)}
+                                key={account.profile.profileId}
+                                account={account}
+                                isCurrent={isSameProfile(currentProfileAll.Farcaster, account.profile)}
                             />
                         ))}
                     </div>
@@ -110,11 +110,11 @@ export default function Connected() {
                         </span>
                     </div>
                     <div className="flex w-full flex-col gap-4">
-                        {accountsAll.Twitter.map(({ profile }) => (
+                        {accountsAll.Twitter.map((account) => (
                             <AccountCard
-                                key={profile.profileId}
-                                profile={profile}
-                                isCurrent={isSameProfile(currentProfileAll.Twitter, profile)}
+                                key={account.profile.profileId}
+                                account={account}
+                                isCurrent={isSameProfile(currentProfileAll.Twitter, account.profile)}
                             />
                         ))}
                     </div>

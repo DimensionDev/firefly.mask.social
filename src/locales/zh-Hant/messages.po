@@ -321,6 +321,9 @@ msgstr "已連接的帳戶"
 msgid "Watch"
 msgstr ""
 
+msgid "Your {0} account is now connected"
+msgstr ""
+
 msgid "Verified by {0}"
 msgstr ""
 
@@ -1280,9 +1283,6 @@ msgstr ""
 
 msgid "Unmute"
 msgstr "取消靜音"
-
-msgid "Your Lens account is now connected"
-msgstr "您的 Lens 帳戶現已連接"
 
 msgid "Click to copy"
 msgstr "點擊複製"

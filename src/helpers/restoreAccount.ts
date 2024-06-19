@@ -6,8 +6,7 @@ import type { Account } from '@/providers/types/Account.js';
 export function restoreAccount(account: Account) {
     const store = resolveProfileStoreFromSessionType(account.session.type);
 
-    store.getState().updateAccounts([account]);
-    store.getState().updateCurrentAccount(account);
+    store.getState().addAccount(account);
     resolveSessionHolderFromSessionType(account.session.type)?.resumeSession(account.session);
 }
 

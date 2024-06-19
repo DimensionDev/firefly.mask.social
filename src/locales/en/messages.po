@@ -316,6 +316,9 @@ msgstr "Connected Accounts"
 msgid "Watch"
 msgstr "Watch"
 
+msgid "Your {0} account is now connected"
+msgstr "Your {0} account is now connected"
+
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
@@ -1275,9 +1278,6 @@ msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "Unmute"
-
-msgid "Your Lens account is now connected"
-msgstr "Your Lens account is now connected"
 
 msgid "Click to copy"
 msgstr "Click to copy"
