@@ -12,27 +12,23 @@ import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { restoreProfile } from '@/helpers/restoreProfile.js';
+import { restoreAccount } from '@/helpers/restoreAccount.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
-interface Pair {
-    profile: Profile;
-    session: FarcasterSession | LensSession | TwitterSession;
-}
-
 interface ProfileModalProps {
-    pairs: Pair[];
+    accounts: Account[];
     onConfirm?: () => void;
     onClose?: () => void;
 }
 
-function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
-    const [selectedPairs, setSelectedPairs] = useState<Record<SocialSource, Pair | null>>({
+function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
+    const [selectedPairs, setSelectedPairs] = useState<Record<SocialSource, Account | null>>({
         [Source.Farcaster]: null,
         [Source.Lens]: null,
         [Source.Twitter]: null,
@@ -44,28 +40,28 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                 <Trans>One click to connect your account status.</Trans>
             </p>
             <ul className="flex max-h-[288px] flex-col gap-3 overflow-auto pb-4 pt-2">
-                {pairs
+                {accounts
                     .sort((a, b) => {
                         const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
                         const bIndex = SORTED_SOCIAL_SOURCES.indexOf(b.profile.source);
                         return aIndex - bIndex;
                     })
-                    .map((pair) => (
+                    .map((account) => (
                         <ProfileInList
-                            key={pair.profile.profileId}
-                            profile={pair.profile}
+                            key={account.profile.profileId}
+                            profile={account.profile}
                             isSelected={Object.entries(selectedPairs).some(([_, x]) =>
-                                isSameProfile(x?.profile, pair.profile),
+                                isSameProfile(x?.profile, account.profile),
                             )}
                             onSelect={() => {
-                                setSelectedPairs((pairs) => {
-                                    const currentPair = pairs[pair.profile.source];
+                                setSelectedPairs((accounts) => {
+                                    const currentPair = accounts[account.profile.source];
                                     return {
-                                        ...pairs,
-                                        [pair.profile.source]:
-                                            currentPair && isSameProfile(currentPair.profile, pair.profile)
+                                        ...accounts,
+                                        [account.profile.source]:
+                                            currentPair && isSameProfile(currentPair.profile, account.profile)
                                                 ? null
-                                                : pair,
+                                                : account,
                                     };
                                 });
                             }}
@@ -89,10 +85,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                     className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
-                        compact(values(selectedPairs)).map(async (x) => {
-                            restoreProfile(x.profile, [x.profile], x.session);
-                        });
-
+                        compact(values(selectedPairs)).map(restoreAccount);
                         onConfirm?.();
                         ConfirmModalRef.close(true);
                     }}
@@ -163,7 +156,7 @@ export const FireflySessionConfirmModal = forwardRef<
                         return provider.getProfileById(x.profileId);
                     }),
                 );
-                const pairs = compact(
+                const accounts = compact(
                     allSettled.map((x, i) =>
                         x.status === 'fulfilled'
                             ? {
@@ -175,16 +168,16 @@ export const FireflySessionConfirmModal = forwardRef<
                 );
 
                 // not valid profile detected
-                if (!pairs.length) return;
+                if (!accounts.length) return;
 
                 // profiles detected, invoke the callback before showing the confirm modal
-                props.onDetected?.(pairs.map((x) => x.profile));
+                props.onDetected?.(accounts.map((x) => x.profile));
 
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
                     content: (
                         <ProfileModal
-                            pairs={pairs}
+                            accounts={accounts}
                             onConfirm={() => dispatch?.close(true)}
                             onClose={() => dispatch?.close(false)}
                         />

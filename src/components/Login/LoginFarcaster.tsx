@@ -23,7 +23,7 @@ import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
-import { restoreProfile } from '@/helpers/restoreProfile.js';
+import { restoreAccount } from '@/helpers/restoreAccount.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -43,7 +43,10 @@ async function login(
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
         // restore profiles for farcaster
-        restoreProfile(profile, [profile], session);
+        restoreAccount({
+            profile,
+            session,
+        });
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
 
         // restore profile exclude farcaster

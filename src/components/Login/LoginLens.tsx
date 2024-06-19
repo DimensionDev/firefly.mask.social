@@ -18,7 +18,7 @@ import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { restoreProfile } from '@/helpers/restoreProfile.js';
+import { restoreAccount } from '@/helpers/restoreAccount.js';
 import {
     AccountModalRef,
     ConnectWalletModalRef,
@@ -62,7 +62,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 }
 
                 // restore profiles for lens
-                restoreProfile(currentProfile, profiles, session);
+                restoreAccount({
+                    profile: currentProfile,
+                    session,
+                });
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
 
                 // restore profiles exclude lens

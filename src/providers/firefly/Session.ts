@@ -1,7 +1,7 @@
 import { Source } from '@/constants/enum.js';
 import { NotAllowedError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { restoreProfile } from '@/helpers/restoreProfile.js';
+import { restoreAccount } from '@/helpers/restoreAccount.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -35,8 +35,7 @@ export class FireflySession extends BaseSession implements Session {
     }
 
     static async restore(session: FireflySession) {
-        const profile = createDummyProfile(Source.Farcaster);
-        restoreProfile(profile, [profile], session);
+        restoreAccount({ profile: createDummyProfile(Source.Farcaster), session });
         return session;
     }
 

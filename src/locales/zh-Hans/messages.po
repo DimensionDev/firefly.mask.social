@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-17 12:01\n"
+"PO-Revision-Date: 2024-06-18 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -576,6 +576,9 @@ msgstr "隐私条款"
 msgid "Failed to fetch: ${0}. Please try again later"
 msgstr ""
 
+msgid "Expired"
+msgstr ""
+
 msgid "Switch"
 msgstr "切换"
 
@@ -773,6 +776,9 @@ msgstr "检测设备账号"
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
+
+msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
+msgstr ""
 
 msgid "Failed to unwatch {identity}"
 msgstr ""
@@ -1222,6 +1228,9 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
 msgid "Posted via <0>{sendFrom}</0>"
+msgstr ""
+
+msgid "Final results / {0} left"
 msgstr ""
 
 msgid "Collection"

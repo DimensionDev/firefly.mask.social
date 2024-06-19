@@ -138,17 +138,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     </MenuButton>
                                 )}
                             </Menu.Item>
-                            {source === Source.Lens ? (
-                                <Menu.Item>
-                                    {({ close }) => (
-                                        <ReportProfileButton
-                                            profile={author}
-                                            onReport={reportProfile}
-                                            onClick={close}
-                                        />
-                                    )}
-                                </Menu.Item>
-                            ) : null}
+                            <Menu.Item>
+                                {({ close }) => (
+                                    <ReportProfileButton profile={author} onReport={reportProfile} onClick={close} />
+                                )}
+                            </Menu.Item>
                             {channel && currentProfile ? (
                                 <Menu.Item>
                                     {({ close }) => (
