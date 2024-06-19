@@ -34,8 +34,20 @@ export interface ProfileState {
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
+    /**
+     * Add an account
+     * @param account the account to be added
+     * @param setAsCurrent set the added account as the current account
+     * @returns
+     */
     addAccount: (account: Account, setAsCurrent?: boolean) => void;
-    removeAccount: (account: Account) => void;
+    /**
+     * Remove an account
+     * @param account the account to be removed
+     * @param resetIfCurrent if the removed account is the current one, reset it to another preexisting account.
+     * @returns
+     */
+    removeAccount: (account: Account, resetIfCurrent?: boolean) => void;
     removeAccountByProfile: (profile: Profile) => void;
     removeAccountBySession: (session: Session) => void;
     updateAccounts: (accounts: Account[]) => void;
@@ -61,16 +73,6 @@ function createState(
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
-                upgrade: () =>
-                    set((state) => {
-                        if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
-                            state.updateCurrentAccount({
-                                profile: state.currentProfile,
-                                session: state.currentProfileSession,
-                            });
-                        }
-                    }),
-
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
@@ -83,11 +85,11 @@ function createState(
                         state.accounts.unshift(account);
                         if (setAsCurrent) state.updateCurrentAccount(account);
                     }),
-                removeAccount: (account) =>
+                removeAccount: (account, resetIfCurrent = true) =>
                     set((state) => {
                         state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
 
-                        if (isSameProfile(state.currentProfile, account.profile)) {
+                        if (isSameProfile(state.currentProfile, account.profile) && resetIfCurrent) {
                             const { profile: nextCurrentProfile, session: nextCurrentProfileSession } = first(
                                 state.accounts,
                             ) ?? {
@@ -101,14 +103,12 @@ function createState(
                 removeAccountByProfile: (profile) =>
                     set((state) => {
                         const account = state.accounts.find((x) => isSameProfile(x.profile, profile));
-                        if (!account) return;
-                        state.removeAccount(account);
+                        if (account) state.removeAccount(account);
                     }),
                 removeAccountBySession: (session) =>
                     set((state) => {
                         const account = state.accounts.find((x) => isSameSession(x.session, session));
-                        if (!account) return;
-                        state.removeAccount(account);
+                        if (account) state.removeAccount(account);
                     }),
                 updateAccounts: (accounts) =>
                     set((state) => {
@@ -156,6 +156,15 @@ function createState(
                         state.currentProfile = updatedProfile;
                     });
                 },
+                upgrade: () =>
+                    set((state) => {
+                        if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
+                            state.updateCurrentAccount({
+                                profile: state.currentProfile,
+                                session: state.currentProfileSession,
+                            });
+                        }
+                    }),
                 clear: () =>
                     set((state) => {
                         queryClient.resetQueries({
