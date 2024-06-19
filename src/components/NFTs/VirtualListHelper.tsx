@@ -66,6 +66,7 @@ export function getSingleFollowingNFTItemContent(
             ownerAddress={ownerAddress}
             contractAddress={nft.actions[0].contract_address}
             displayInfo={nft.displayInfo}
+            followingSources={nft.followingSources}
             tokenList={uniqBy(nft.actions, 'token_id').map(
                 ({ token_id, contract_address, address_to, address_from, cost }) => ({
                     id: token_id,

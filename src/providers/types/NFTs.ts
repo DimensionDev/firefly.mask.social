@@ -53,6 +53,13 @@ export type GetFollowingNFTResponse = Response<{
     cursor: string | null;
 }>;
 
+export enum FollowingNFTSourceType {
+    Twitter = 'twitter',
+    Lens = 'lens',
+    Farcaster = 'farcaster',
+    Wallet = 'wallet',
+}
+
 export interface FollowingNFT {
     timestamp: string;
     hash: string;
@@ -65,12 +72,12 @@ export interface FollowingNFT {
     actions: FollowingNFTAction[];
     displayInfo: NFTOwnerDisplayInfo;
     followingSources: Array<{
-        id: string;
-        handle: string | null;
-        name: string | null;
-        type: string;
-        socialId: string | null;
-        walletAddress: Address;
+        id?: string;
+        handle?: string;
+        name?: string;
+        type: FollowingNFTSourceType;
+        socialId?: string;
+        walletAddress?: Address;
     }>;
 }
 

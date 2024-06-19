@@ -6,9 +6,10 @@ import { memo, useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
 import { NFTFeedBody, type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
+import { NFTFeedFollowSource } from '@/components/NFTs/NFTFeedFollowSource.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
-import { type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
+import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export interface SingleNFTFeedProps {
@@ -21,6 +22,7 @@ export interface SingleNFTFeedProps {
     chainId: ChainId;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
+    followingSources?: FollowingNFT['followingSources'];
 }
 
 export const SingleNFTFeed = memo(function SingleNFTFeed({
@@ -33,6 +35,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
     listKey,
     index,
     time,
+    followingSources,
 }: SingleNFTFeedProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
@@ -62,6 +65,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                 if (nftUrl) router.prefetch(nftUrl);
             }}
         >
+            {followingSources ? <NFTFeedFollowSource sources={followingSources} /> : null}
             <NFTFeedHeader
                 address={ownerAddress}
                 contractAddress={contractAddress}
