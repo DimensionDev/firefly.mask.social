@@ -78,7 +78,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
  * Restore firefly session from all social sources.
  * @returns
  */
-export async function resolveFireflySessionAll() {
+export async function restoreFireflySessionAll() {
     for (const source of SORTED_SOCIAL_SOURCES) {
         // we don't support twitter for now
         if (source === Source.Twitter) continue;
