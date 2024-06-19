@@ -16,7 +16,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { useProfilesAll } from '@/hooks/useProfilesAll.js';
+import { useAccountsAll } from '@/hooks/useAccountsAll.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
 export default function Connected() {
@@ -24,7 +24,7 @@ export default function Connected() {
 
     const timerRef = useRef<NodeJS.Timeout>();
 
-    const profilesAll = useProfilesAll();
+    const accountsAll = useAccountsAll();
     const currentProfileAll = useCurrentProfileAll();
 
     const [, copyToClipboard] = useCopyToClipboard();
@@ -72,7 +72,7 @@ export default function Connected() {
                         </div>
                     </div>
                     <div className="flex w-full flex-col gap-4">
-                        {profilesAll.Lens.map((profile) => (
+                        {accountsAll.Lens.map(({ profile }) => (
                             <AccountCard
                                 key={profile.profileId}
                                 profile={profile}
@@ -91,7 +91,7 @@ export default function Connected() {
                         </span>
                     </div>
                     <div className="flex w-full flex-col gap-4">
-                        {profilesAll.Farcaster.map((profile) => (
+                        {accountsAll.Farcaster.map(({ profile }) => (
                             <AccountCard
                                 key={profile.profileId}
                                 profile={profile}
@@ -110,7 +110,7 @@ export default function Connected() {
                         </span>
                     </div>
                     <div className="flex w-full flex-col gap-4">
-                        {profilesAll.Twitter.map((profile) => (
+                        {accountsAll.Twitter.map(({ profile }) => (
                             <AccountCard
                                 key={profile.profileId}
                                 profile={profile}

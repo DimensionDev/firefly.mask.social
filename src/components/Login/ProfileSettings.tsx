@@ -28,6 +28,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { resolveProfileStoreFromSocialSource } from '@/helpers/resolveProfileState.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
@@ -36,7 +37,7 @@ interface ProfileSettingsProps {
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const controllerRef = useRef<AbortController>();
-    const { currentProfile, refreshAccounts } = useProfileStore(source);
+    const { currentProfile } = useProfileStore(source);
 
     const [{ loading }, onDetect] = useAsyncFn(
         async (source: SocialSource) => {
@@ -84,7 +85,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     );
 
     useMount(() => {
-        refreshAccounts();
+        resolveProfileStoreFromSocialSource(source).getState().refreshAccounts();
     });
 
     useUnmount(() => {
