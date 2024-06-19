@@ -343,9 +343,6 @@ msgstr ""
 msgid "Add another post..."
 msgstr ""
 
-msgid "Please choose anthoer wallet."
-msgstr ""
-
 msgid "Items"
 msgstr ""
 
@@ -533,6 +530,9 @@ msgid "Add an existing account"
 msgstr ""
 
 msgid "{0}"
+msgstr ""
+
+msgid "Please choose another wallet."
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"

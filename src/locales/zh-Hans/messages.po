@@ -348,9 +348,6 @@ msgstr "检测设备账号失败。"
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
-msgid "Please choose anthoer wallet."
-msgstr ""
-
 msgid "Items"
 msgstr ""
 
@@ -538,6 +535,9 @@ msgid "Add an existing account"
 msgstr ""
 
 msgid "{0}"
+msgstr ""
+
+msgid "Please choose another wallet."
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"

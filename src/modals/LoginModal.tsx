@@ -79,7 +79,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         enqueueErrorMessage(
                             <div>
                                 <span className="font-bold">
-                                    <Trans>Please choose anthoer wallet.</Trans>
+                                    <Trans>Please choose another wallet.</Trans>
                                 </span>
                                 <Trans>There is no available profile anymore.</Trans>
                             </div>,

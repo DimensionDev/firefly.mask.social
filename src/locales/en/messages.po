@@ -343,9 +343,6 @@ msgstr "Failed to detect device accounts."
 msgid "Add another post..."
 msgstr "Add another post..."
 
-msgid "Please choose anthoer wallet."
-msgstr "Please choose anthoer wallet."
-
 msgid "Items"
 msgstr "Items"
 
@@ -534,6 +531,9 @@ msgstr "Add an existing account"
 
 msgid "{0}"
 msgstr "{0}"
+
+msgid "Please choose another wallet."
+msgstr "Please choose another wallet."
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
