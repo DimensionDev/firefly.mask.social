@@ -57,12 +57,12 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
             ) : (
                 <ClickableButton
                     className="text-right text-[15px] font-bold leading-none text-main"
-                    disabled={profile.source === Source.Farcaster}
+                    disabled={loading || profile.source === Source.Farcaster}
                     onClick={() => {
                         login(profile);
                     }}
                 >
-                    <Trans>Switch</Trans>
+                    {loading ? <Trans>Switching...</Trans> : <Trans>Switch</Trans>}
                 </ClickableButton>
             )}
         </div>
