@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
+import { first } from 'lodash-es';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -10,7 +11,9 @@ import { HIDDEN_SECRET } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
+import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSameSession } from '@/helpers/isSameSession.js';
 import { restoreAccount } from '@/helpers/restoreAccount.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -26,9 +29,6 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
-import { isSameSession } from '@/helpers/isSameSession.js';
-import { isSameAccount } from '@/helpers/isSameAccount.js';
-import { first } from 'lodash-es';
 
 export interface ProfileState {
     accounts: Account[];
