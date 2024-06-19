@@ -1,3 +1,4 @@
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact, first, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -17,7 +18,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embed_urls.map((x) => x.url))).map((x) => {
+    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embed_urls?.map((x) => x.url))).map((x) => {
         if (isValidPollFrameUrl(x)) {
             return composePollFrameUrl(x, Source.Farcaster);
         }
@@ -25,7 +26,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     });
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
-    const attachments = cast.embed_urls.filter((x) => !!x.url);
+    const attachments = cast.embed_urls?.filter((x) => !!x.url) ?? EMPTY_LIST;
     if (attachments.length) {
         const firstAsset = first(attachments);
         if (!firstAsset?.url) return defaultContent;
