@@ -8,6 +8,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -107,6 +108,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         />
     ) : null;
     const views = countText(viewCount, t`View`, t`Views`);
+    const isSmall = useIsSmall();
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
 
@@ -117,14 +119,14 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                     ? compact([
                           comments,
                           likes,
-                          sendFrom ? (
+                          !isDetail && !isSmall && sendFrom ? (
                               <span>
                                   <Trans>
                                       via <span className="capitalize">{sendFrom}</span>
                                   </Trans>
                               </span>
                           ) : null,
-                          showChannelTag && post.channel ? (
+                          !isDetail && !isSmall && showChannelTag && post.channel ? (
                               <ChannelAnchor
                                   className="!inline-flex translate-y-1"
                                   channel={post.channel}
@@ -154,6 +156,23 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                     );
                 })}
             </div>
+            {!isDetail && isSmall ? (
+                <div className="flex items-center">
+                    {sendFrom ? (
+                        <div>
+                            <Trans>
+                                via <span className="capitalize">{sendFrom}</span>
+                            </Trans>
+                        </div>
+                    ) : null}
+                    {showChannelTag && post.channel ? (
+                        <>
+                            {sendFrom ? <div className="w-3 text-center">{' · '}</div> : null}
+                            <ChannelAnchor channel={post.channel} onClick={onSetScrollIndex} />
+                        </>
+                    ) : null}
+                </div>
+            ) : null}
         </div>
     );
 });
