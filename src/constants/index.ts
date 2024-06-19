@@ -167,6 +167,7 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
     'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
     'user.fields': ['profile_image_url', 'name', 'username'],
+    'poll.fields': ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status'],
 };
 
 export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
