@@ -1,4 +1,5 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
+import { first } from 'lodash-es';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -10,7 +11,9 @@ import { HIDDEN_SECRET } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
+import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSameSession } from '@/helpers/isSameSession.js';
 import { restoreAccount } from '@/helpers/restoreAccount.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -31,10 +34,27 @@ export interface ProfileState {
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
+    /**
+     * Add an account
+     * @param account the account to be added
+     * @param setAsCurrent set the added account as the current account
+     * @returns
+     */
+    addAccount: (account: Account, setAsCurrent?: boolean) => void;
+    /**
+     * Remove an account
+     * @param account the account to be removed
+     * @param resetIfCurrent if the removed account is the current one, reset it to another preexisting account.
+     * @returns
+     */
+    removeAccount: (account: Account, resetIfCurrent?: boolean) => void;
+    removeAccountByProfile: (profile: Profile) => void;
+    removeAccountBySession: (session: Session) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
+    upgrade: () => void;
     clear: () => void;
 }
 
@@ -56,6 +76,40 @@ function createState(
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
+                addAccount: (account, setAsCurrent = true) =>
+                    set((state) => {
+                        const account_ = state.accounts.find((x) => isSameAccount(x, account));
+                        if (account_) return;
+
+                        // add new account to the top
+                        state.accounts.unshift(account);
+                        if (setAsCurrent) state.updateCurrentAccount(account);
+                    }),
+                removeAccount: (account, resetIfCurrent = true) =>
+                    set((state) => {
+                        state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
+
+                        if (isSameProfile(state.currentProfile, account.profile) && resetIfCurrent) {
+                            const { profile: nextCurrentProfile, session: nextCurrentProfileSession } = first(
+                                state.accounts,
+                            ) ?? {
+                                profile: null,
+                                session: null,
+                            };
+                            state.currentProfile = nextCurrentProfile;
+                            state.currentProfileSession = nextCurrentProfileSession;
+                        }
+                    }),
+                removeAccountByProfile: (profile) =>
+                    set((state) => {
+                        const account = state.accounts.find((x) => isSameProfile(x.profile, profile));
+                        if (account) state.removeAccount(account);
+                    }),
+                removeAccountBySession: (session) =>
+                    set((state) => {
+                        const account = state.accounts.find((x) => isSameSession(x.session, session));
+                        if (account) state.removeAccount(account);
+                    }),
                 updateAccounts: (accounts) =>
                     set((state) => {
                         state.accounts = accounts;
@@ -102,6 +156,15 @@ function createState(
                         state.currentProfile = updatedProfile;
                     });
                 },
+                upgrade: () =>
+                    set((state) => {
+                        if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
+                            state.updateCurrentAccount({
+                                profile: state.currentProfile,
+                                session: state.currentProfileSession,
+                            });
+                        }
+                    }),
                 clear: () =>
                     set((state) => {
                         queryClient.resetQueries({
@@ -134,12 +197,7 @@ const useFarcasterStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined' || !state) return;
 
-            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
-                state.updateCurrentAccount({
-                    profile: state.currentProfile,
-                    session: state.currentProfileSession,
-                });
-            }
+            state.upgrade();
 
             if (state.currentProfileSession) {
                 farcasterSessionHolder.resumeSession(state.currentProfileSession as FarcasterSession);
@@ -157,12 +215,7 @@ const useLensStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined' || !state) return;
 
-            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
-                state.updateCurrentAccount({
-                    profile: state.currentProfile,
-                    session: state.currentProfileSession,
-                });
-            }
+            state.upgrade();
 
             try {
                 const profileId = state.currentProfile?.profileId;
@@ -195,12 +248,7 @@ const useTwitterStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined' || !state) return;
 
-            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
-                state.updateCurrentAccount({
-                    profile: state.currentProfile,
-                    session: state.currentProfileSession,
-                });
-            }
+            state.upgrade();
 
             try {
                 const session = state.currentProfileSession as TwitterSession | null;
