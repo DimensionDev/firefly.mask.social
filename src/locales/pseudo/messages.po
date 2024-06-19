@@ -769,6 +769,9 @@ msgstr ""
 msgid "Detect device accounts"
 msgstr ""
 
+msgid "No preview found for shared link"
+msgstr ""
+
 msgid "Your Farcaster account is now connected."
 msgstr ""
 

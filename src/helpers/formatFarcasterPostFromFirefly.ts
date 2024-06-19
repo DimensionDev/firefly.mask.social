@@ -17,7 +17,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embeds.map((x) => x.url))).map((x) => {
+    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embed_urls.map((x) => x.url))).map((x) => {
         if (isValidPollFrameUrl(x)) {
             return composePollFrameUrl(x, Source.Farcaster);
         }
@@ -25,12 +25,12 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     });
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
-    const attachments = cast.embeds.filter((x) => !!x.url);
+    const attachments = cast.embed_urls.filter((x) => !!x.url);
     if (attachments.length) {
         const firstAsset = first(attachments);
         if (!firstAsset?.url) return defaultContent;
 
-        const assetType = getResourceType(firstAsset.url);
+        const assetType = firstAsset.type === 'unknown' ? 'Unknown' : getResourceType(firstAsset.url);
         if (!assetType) return defaultContent;
 
         return {

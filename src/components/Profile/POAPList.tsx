@@ -134,6 +134,9 @@ export function POAPList(props: { address: string }) {
                         });
                     },
                 }}
+                NoResultsFallbackProps={{
+                    className: 'pt-[228px]',
+                }}
             />
         </div>
     );

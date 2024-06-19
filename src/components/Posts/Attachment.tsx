@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
+import LinkIcon from '@/assets/link.svg';
 import Music from '@/assets/music.svg';
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
@@ -116,6 +117,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             </div>
         );
     }
+
     const noText = !post?.metadata.content?.content;
     const isSoloImage = noText && imageAttachments.length === 1;
 
@@ -216,6 +218,30 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             {asset?.type === 'Video' && !isQuote ? <Video src={asset.uri} poster={asset.coverUri} /> : null}
             {asset?.type === 'Audio' && !isQuote ? (
                 <Audio src={asset.uri} poster={asset.coverUri} artist={asset.artist} title={asset.title} />
+            ) : null}
+            {asset?.type === 'Unknown' && !isQuote ? (
+                <div className={classNames('my-2')}>
+                    <div
+                        className={classNames(
+                            'flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                            {
+                                border: !isQuote,
+                            },
+                        )}
+                    >
+                        <Trans>No preview found for shared link</Trans>
+
+                        <Link
+                            href={asset.uri}
+                            className="flex items-center gap-1 text-link"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        >
+                            <LinkIcon />
+                            <Trans>View Source</Trans>
+                        </Link>
+                    </div>
+                </div>
             ) : null}
         </div>
     );
