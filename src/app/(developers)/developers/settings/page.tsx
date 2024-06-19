@@ -21,12 +21,8 @@ export default function Settings() {
                 <ul className="w-full">
                     {[
                         {
-                            title: useDevelopmentAPI
-                                ? 'Enable production API version'
-                                : 'Enable development API version',
-                            description: useDevelopmentAPI
-                                ? t`Switch to the production API version for using stable features.`
-                                : t`Switch to the development API version for testing new features.`,
+                            title: t`Enable development API version`,
+                            description: t`Switch to the development API version for testing new features.`,
                         },
                     ].map((x, i) => {
                         return (
