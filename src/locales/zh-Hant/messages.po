@@ -249,6 +249,9 @@ msgstr ""
 msgid "Blockchain"
 msgstr ""
 
+msgid "{0, plural, one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "Mutes"
 msgstr ""
 
@@ -576,6 +579,9 @@ msgstr ""
 msgid "Detecting..."
 msgstr ""
 
+msgid "Open in Firefly App"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
@@ -783,9 +789,6 @@ msgstr ""
 msgid "Your Farcaster account is now connected."
 msgstr "您的 Farcaster 帳戶現已連接。"
 
-msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
-msgstr ""
-
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
@@ -812,9 +815,6 @@ msgstr "未找到對應的頻道"
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
-
-msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr "{0, plural, one {追蹤者} other {追蹤者}}"
 
 msgid "What's happening..."
 msgstr ""
@@ -1033,6 +1033,9 @@ msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Suspended"
+msgstr ""
+
+msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr ""
 
 msgid "Full"
@@ -1274,9 +1277,6 @@ msgstr "你的貼文已成功發布在 {0} 上"
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
-
-msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr "{followerCount, plural, one {跟隨者} other {跟隨者}}"
 
 msgid "your.email@example.org"
 msgstr ""

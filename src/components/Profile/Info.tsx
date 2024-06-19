@@ -88,7 +88,6 @@ export function Info({ profile }: InfoProps) {
                         <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
                         <span className="text-secondary">
                             {plural(followerCount, {
-                                zero: 'Follower',
                                 one: 'Follower',
                                 other: 'Followers',
                             })}

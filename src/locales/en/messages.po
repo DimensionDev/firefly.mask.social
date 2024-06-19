@@ -244,6 +244,9 @@ msgstr "Switch to the development API version for testing new features."
 msgid "Blockchain"
 msgstr "Blockchain"
 
+msgid "{0, plural, one {Follower} other {Followers}}"
+msgstr "{0, plural, one {Follower} other {Followers}}"
+
 msgid "Mutes"
 msgstr "Mutes"
 
@@ -571,6 +574,9 @@ msgstr "Send Feedback"
 msgid "Detecting..."
 msgstr "Detecting..."
 
+msgid "Open in Firefly App"
+msgstr "Open in Firefly App"
+
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
@@ -778,9 +784,6 @@ msgstr "No preview found for shared link"
 msgid "Your Farcaster account is now connected."
 msgstr "Your Farcaster account is now connected."
 
-msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
-msgstr "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
-
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
 
@@ -807,9 +810,6 @@ msgstr "No matching channel"
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-
-msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 
 msgid "What's happening..."
 msgstr "What's happening..."
@@ -1029,6 +1029,9 @@ msgstr "<0>Minted</0> an NFT worth {costEl}"
 
 msgid "Suspended"
 msgstr "Suspended"
+
+msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
+msgstr "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 
 msgid "Full"
 msgstr "Full"
@@ -1269,9 +1272,6 @@ msgstr "Your post have published successfully on {0}."
 
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
-
-msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 
 msgid "your.email@example.org"
 msgstr "your.email@example.org"

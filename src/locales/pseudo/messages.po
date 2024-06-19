@@ -244,6 +244,9 @@ msgstr ""
 msgid "Blockchain"
 msgstr ""
 
+msgid "{0, plural, one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "Mutes"
 msgstr ""
 
@@ -571,6 +574,9 @@ msgstr ""
 msgid "Detecting..."
 msgstr ""
 
+msgid "Open in Firefly App"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr ""
 
@@ -778,9 +784,6 @@ msgstr ""
 msgid "Your Farcaster account is now connected."
 msgstr ""
 
-msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
-msgstr ""
-
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
@@ -806,9 +809,6 @@ msgid "No matching channel"
 msgstr ""
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
-
-msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "What's happening..."
@@ -1028,6 +1028,9 @@ msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Suspended"
+msgstr ""
+
+msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr ""
 
 msgid "Full"
@@ -1268,9 +1271,6 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Post added to your Bookmarks"
-msgstr ""
-
-msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "your.email@example.org"

@@ -12,7 +12,7 @@ export interface Cast {
     parent_fid?: string;
     parent_url?: string;
     embeds: Array<{ url?: string }>;
-    embed_urls: Array<{ url: string; type: string }>;
+    embed_urls?: Array<{ url: string; type: string }>;
     mentions: string[];
     mentions_positions: number[];
     mentions_user: Array<{
