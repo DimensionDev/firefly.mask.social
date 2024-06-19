@@ -26,11 +26,18 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { isSameSession } from '@/helpers/isSameSession.js';
+import { isSameAccount } from '@/helpers/isSameAccount.js';
+import { first } from 'lodash-es';
 
 export interface ProfileState {
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
+    addAccount: (account: Account, setAsCurrent?: boolean) => void;
+    removeAccount: (account: Account) => void;
+    removeAccountByProfile: (profile: Profile) => void;
+    removeAccountBySession: (session: Session) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
     refreshAccounts: () => void;
@@ -67,6 +74,42 @@ function createState(
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
+                addAccount: (account, setAsCurrent = true) =>
+                    set((state) => {
+                        const account_ = state.accounts.find((x) => isSameAccount(x, account));
+                        if (account_) return;
+
+                        // add new account to the top
+                        state.accounts.unshift(account);
+                        if (setAsCurrent) state.updateCurrentAccount(account);
+                    }),
+                removeAccount: (account) =>
+                    set((state) => {
+                        state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
+
+                        if (isSameProfile(state.currentProfile, account.profile)) {
+                            const { profile: nextCurrentProfile, session: nextCurrentProfileSession } = first(
+                                state.accounts,
+                            ) ?? {
+                                profile: null,
+                                session: null,
+                            };
+                            state.currentProfile = nextCurrentProfile;
+                            state.currentProfileSession = nextCurrentProfileSession;
+                        }
+                    }),
+                removeAccountByProfile: (profile) =>
+                    set((state) => {
+                        const account = state.accounts.find((x) => isSameProfile(x.profile, profile));
+                        if (!account) return;
+                        state.removeAccount(account);
+                    }),
+                removeAccountBySession: (session) =>
+                    set((state) => {
+                        const account = state.accounts.find((x) => isSameSession(x.session, session));
+                        if (!account) return;
+                        state.removeAccount(account);
+                    }),
                 updateAccounts: (accounts) =>
                     set((state) => {
                         state.accounts = accounts;
