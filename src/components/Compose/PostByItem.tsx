@@ -13,7 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveProfileStoreFromSocialSource } from '@/helpers/resolveProfileState.js';
+import { resolveProfileStoreFromSocialSource } from '@/helpers/resolveProfileStore.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccounts } from '@/hooks/useAccounts.js';

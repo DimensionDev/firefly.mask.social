@@ -1,4 +1,4 @@
-import { resolveProfileStoreFromSessionType } from '@/helpers/resolveProfileState.js';
+import { resolveProfileStoreFromSessionType } from '@/helpers/resolveProfileStore.js';
 import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { Account } from '@/providers/types/Account.js';
