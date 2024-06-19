@@ -14,9 +14,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useAccountsAll } from '@/hooks/useAccountsAll.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { useAccountsAll } from '@/hooks/useAccountsAll.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
 export default function Connected() {

@@ -15,6 +15,7 @@ import { env } from '@/constants/env.js';
 import { AbortError, NotImplementedError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { resolveProfileStoreFromSocialSource } from '@/helpers/resolveProfileState.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import {
     DraggablePopoverRef,
@@ -28,7 +29,6 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
-import { resolveProfileStoreFromSocialSource } from '@/helpers/resolveProfileState.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
