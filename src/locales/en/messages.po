@@ -532,9 +532,6 @@ msgstr "Add an existing account"
 msgid "{0}"
 msgstr "{0}"
 
-msgid "Please choose another wallet."
-msgstr "Please choose another wallet."
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
 
@@ -1119,6 +1116,9 @@ msgstr "<0>You</0> liked"
 
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
+
+msgid "Please change to another wallet."
+msgstr "Please change to another wallet."
 
 msgid "View"
 msgstr "View"

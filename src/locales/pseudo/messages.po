@@ -532,9 +532,6 @@ msgstr ""
 msgid "{0}"
 msgstr ""
 
-msgid "Please choose another wallet."
-msgstr ""
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -1118,6 +1115,9 @@ msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
+msgstr ""
+
+msgid "Please change to another wallet."
 msgstr ""
 
 msgid "View"
