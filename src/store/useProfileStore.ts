@@ -82,7 +82,7 @@ function createState(
                         if (account_) return;
 
                         // add new account to the top
-                        state.accounts.unshift(account);
+                        state.accounts = [account, ...state.accounts];
                         if (setAsCurrent) state.updateCurrentAccount(account);
                     }),
                 removeAccount: (account, resetIfCurrent = true) =>
