@@ -16,10 +16,10 @@ export function useIsProfileMuted(profile: Profile, enabled = true) {
             return FireflySocialMediaProvider.isProfileMuted(FireflyPlatform.Farcaster, profile.profileId);
         },
     });
-    return isFarcaster ? data : !!profile?.viewerContext?.blocking;
+    return isFarcaster ? data : !!profile.viewerContext?.blocking;
 }
 
 export function isProfileMuted(profile: Profile) {
     const blocked = queryClient.getQueryData<boolean>(['profile-is-muted', profile.source, profile.profileId]);
-    return blocked || profile.viewerContext?.blocking;
+    return blocked ?? profile.viewerContext?.blocking;
 }
