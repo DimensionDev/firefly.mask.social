@@ -23,7 +23,9 @@ import { config } from '@/configs/wagmiClient.js';
 import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getProfileStore } from '@/helpers/getProfileStore.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -69,6 +71,22 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         );
                         return;
                     }
+
+                    const nonSelectedProfiles = getProfileStore(Source.Lens).profiles.filter(
+                        (profile) => !profiles.some((x) => isSameProfile(x, profile)),
+                    );
+                    if (!nonSelectedProfiles.length) {
+                        enqueueErrorMessage(
+                            <div>
+                                <span className="font-bold">
+                                    <Trans>Please choose anthoer wallet.</Trans>
+                                </span>
+                                <Trans>There is no available profile anymore.</Trans>
+                            </div>,
+                        );
+                        return;
+                    }
+
                     setProfiles(profiles);
                     setCurrentAccount(account.address);
                     setSource(selectedSource);
