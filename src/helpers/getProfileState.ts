@@ -1,7 +1,4 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import {
     useFarcasterStateStore,
@@ -10,28 +7,23 @@ import {
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
 
-export const resolveProfileStoreFromSocialSource = createLookupTableResolver<
-    SocialSource,
-    typeof useFarcasterStateStore
->(
-    {
+export function getProfileStateBySocialSource(source: SocialSource) {
+    const store = {
         [Source.Farcaster]: useFarcasterStateStore,
         [Source.Lens]: useLensStateStore,
         [Source.Twitter]: useTwitterStateStore,
-    },
-    (x: SocialSource) => {
-        throw new UnreachableError('social source', x);
-    },
-);
+    }[source];
 
-export const resolveProfileStoreFromSessionType = createLookupTableResolver<SessionType, typeof useFarcasterStateStore>(
-    {
+    return store.getState();
+}
+
+export function getProfileStateBySessionType(type: SessionType) {
+    const store = {
         [SessionType.Farcaster]: useFarcasterStateStore,
         [SessionType.Lens]: useLensStateStore,
         [SessionType.Twitter]: useTwitterStateStore,
         [SessionType.Firefly]: useFireflyStateStore,
-    },
-    (x: SessionType) => {
-        throw new UnreachableError('session type', x);
-    },
-);
+    }[type];
+
+    return store.getState();
+}

@@ -15,7 +15,7 @@ import { env } from '@/constants/env.js';
 import { AbortError, NotImplementedError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
-import { resolveProfileStoreFromSocialSource } from '@/helpers/resolveProfileStore.js';
+import { getProfileStateBySocialSource } from '@/helpers/getProfileState.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import {
     DraggablePopoverRef,
@@ -85,7 +85,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     );
 
     useMount(() => {
-        resolveProfileStoreFromSocialSource(source).getState().refreshAccounts();
+        getProfileStateBySocialSource(source).refreshAccounts();
     });
 
     useUnmount(() => {

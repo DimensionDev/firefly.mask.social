@@ -1,12 +1,13 @@
-import { resolveProfileStoreFromSessionType } from '@/helpers/resolveProfileStore.js';
+import { getProfileStateBySessionType } from '@/helpers/getProfileState.js';
 import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export function restoreAccount(account: Account) {
-    const store = resolveProfileStoreFromSessionType(account.session.type);
+    const state = getProfileStateBySessionType(account.session.type);
 
-    store.getState().addAccount(account);
+    state.updateAccounts([account]);
+    state.updateCurrentAccount(account);
     resolveSessionHolderFromSessionType(account.session.type)?.resumeSession(account.session);
 }
 
