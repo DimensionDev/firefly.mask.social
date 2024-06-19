@@ -12,12 +12,12 @@ import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
 import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;
@@ -54,7 +54,6 @@ export function NFTInfo(props: NFTInfoProps) {
         chainId: ChainId.Mainnet,
         address: props.ownerAddress as `0x${string}`,
     });
-    const { isDarkMode } = useDarkMode();
 
     return (
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
@@ -65,14 +64,12 @@ export function NFTInfo(props: NFTInfoProps) {
                     </div>
                 ) : null}
                 {isPoap ? <PoapIcon className="absolute left-3 top-3 h-6 w-6" /> : null}
-                <Image
+                <NFTImage
                     width={250}
                     height={250}
                     src={imageURL}
                     alt={name}
                     className="h-full w-full max-w-[250px] rounded-[20px] object-cover shadow-lightS3"
-                    fallbackClassName="border border-secondaryLine"
-                    fallback={isDarkMode ? '/image/img-fallback-dark.png' : '/image/img-fallback-light.png'}
                 />
             </div>
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
@@ -87,7 +84,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                           })
                                         : ''
                                 }
-                                className="flex h-5 w-full items-center text-base font-bold leading-6"
+                                className="flex h-5 w-full items-center justify-center text-base font-bold leading-6 sm:justify-start"
                             >
                                 {collection.icon ? (
                                     <Image

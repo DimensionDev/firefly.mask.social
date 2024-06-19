@@ -8,6 +8,7 @@ import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 
 export interface CollectionInfoProps {
@@ -47,7 +48,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                 className="h-[150px] w-full object-cover"
             />
             <div className="flex w-full p-3">
-                <Image
+                <NFTImage
                     width={90}
                     height={90}
                     className="h-[90px] w-[90px] rounded-lg object-cover"

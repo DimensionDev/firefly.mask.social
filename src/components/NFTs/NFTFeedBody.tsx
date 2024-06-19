@@ -8,7 +8,7 @@ import { type ReactNode, useState } from 'react';
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Image } from '@/components/Image.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFeedAction.js';
 import { TokenPrice } from '@/components/TokenPrice.js';
 import { Link } from '@/esm/Link.js';
@@ -83,13 +83,11 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
             {isLoading ? (
                 <div className="mb-2 aspect-square h-full w-full animate-pulse rounded-xl bg-main/40 sm:mb-0 sm:w-auto" />
             ) : (
-                <Image
+                <NFTImage
                     src={metadata?.previewImageURL || metadata?.imageURL || ''}
-                    fallback={isDarkMode ? '/image/img-fallback-dark.png' : '/image/img-fallback-light.png'}
                     width={120}
                     height={120}
                     className="mb-2 aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"
-                    fallbackClassName="border border-secondaryLine"
                     draggable={false}
                     alt={address}
                 />
