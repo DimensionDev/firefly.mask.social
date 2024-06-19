@@ -568,6 +568,9 @@ msgstr ""
 msgid "Detecting..."
 msgstr ""
 
+msgid "Open in Firefly App"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr ""
 
