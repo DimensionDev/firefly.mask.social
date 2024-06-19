@@ -35,6 +35,7 @@ export interface ProfileState {
     updateCurrentAccount: (account: Account) => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
+    upgrade: () => void;
     clear: () => void;
 }
 
@@ -53,6 +54,16 @@ function createState(
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
+                upgrade: () =>
+                    set((state) => {
+                        if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
+                            state.updateCurrentAccount({
+                                profile: state.currentProfile,
+                                session: state.currentProfileSession,
+                            });
+                        }
+                    }),
+
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
@@ -134,12 +145,7 @@ const useFarcasterStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined' || !state) return;
 
-            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
-                state.updateCurrentAccount({
-                    profile: state.currentProfile,
-                    session: state.currentProfileSession,
-                });
-            }
+            state.upgrade();
 
             if (state.currentProfileSession) {
                 farcasterSessionHolder.resumeSession(state.currentProfileSession as FarcasterSession);
@@ -157,12 +163,7 @@ const useLensStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined' || !state) return;
 
-            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
-                state.updateCurrentAccount({
-                    profile: state.currentProfile,
-                    session: state.currentProfileSession,
-                });
-            }
+            state.upgrade();
 
             try {
                 const profileId = state.currentProfile?.profileId;
@@ -195,12 +196,7 @@ const useTwitterStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined' || !state) return;
 
-            if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
-                state.updateCurrentAccount({
-                    profile: state.currentProfile,
-                    session: state.currentProfileSession,
-                });
-            }
+            state.upgrade();
 
             try {
                 const session = state.currentProfileSession as TwitterSession | null;
