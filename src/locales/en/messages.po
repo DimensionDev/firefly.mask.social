@@ -718,6 +718,9 @@ msgstr "Are you sure you want to report this article?"
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
+msgid "Open Mobile App"
+msgstr "Open Mobile App"
+
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
 
@@ -1398,9 +1401,6 @@ msgstr "Please confirm the login with X."
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> commented on your <1><2/></1>"
-
-msgid "Open App"
-msgstr "Open App"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
