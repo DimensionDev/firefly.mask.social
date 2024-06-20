@@ -21,7 +21,10 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const parsedState = parseJSON<{
                 state: {
-                    accounts: Account[];
+                    accounts: Array<{
+                        profile: Profile;
+                        session: string;
+                    }>;
                     currentProfile: Profile | null;
                     currentProfileSession: string | null;
                 };
@@ -31,6 +34,11 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const schema = z.object({
                 state: z.object({
+                    accounts: z.array(
+                        z.object({
+                            session: z.string().nullable(),
+                        }),
+                    ),
                     currentProfileSession: z.string().nullable(),
                 }),
                 version: z.number(),
@@ -46,6 +54,10 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 ...parsedState,
                 state: {
                     ...parsedState.state,
+                    accounts: parsedState.state.accounts.map((account) => ({
+                        ...account,
+                        session: SessionFactory.createSession(account.session),
+                    })),
                     currentProfileSession: parsedState.state.currentProfileSession
                         ? SessionFactory.createSession(parsedState.state.currentProfileSession)
                         : null,
@@ -60,6 +72,10 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                     ...newValue,
                     state: {
                         ...state,
+                        accounts: state.accounts.map((account) => ({
+                            ...account,
+                            session: account.session.serialize(),
+                        })),
                         currentProfileSession: state.currentProfileSession
                             ? state.currentProfileSession?.serialize()
                             : null,
