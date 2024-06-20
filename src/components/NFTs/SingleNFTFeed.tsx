@@ -1,6 +1,6 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
-import { isUndefined } from 'lodash-es';
+import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo, useState } from 'react';
 import type { Address } from 'viem';
@@ -65,7 +65,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                 if (nftUrl) router.prefetch(nftUrl);
             }}
         >
-            {followingSources?.[0] ? <FeedFollowSource source={followingSources[0]} /> : null}
+            <FeedFollowSource source={first(followingSources)} />
             <NFTFeedHeader
                 address={ownerAddress}
                 contractAddress={contractAddress}
