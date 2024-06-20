@@ -1191,6 +1191,9 @@ msgstr "{0} 和 其他"
 msgid "Failed to unmute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 
+msgid "Date"
+msgstr ""
+
 msgid "Failed to retweet."
 msgstr "转帖失败。"
 
@@ -1407,6 +1410,9 @@ msgstr "<0>你</0> 已转帖"
 msgid "Name (optional)"
 msgstr ""
 
+msgid "Location"
+msgstr ""
+
 msgid "Recast"
 msgstr "转推"
 
@@ -1484,4 +1490,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
