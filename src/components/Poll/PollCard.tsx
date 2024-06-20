@@ -86,9 +86,9 @@ export function PollCard({ post }: PollCardProps) {
 
     const timeLeft =
         poll.votingStatus === 'closed' || (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date()))
-            ? t`Expired`
+            ? t`Final results`
             : poll.endDatetime
-              ? t`Final results / ${getTimeToNow(new Date(poll.endDatetime))} left`
+              ? t`${getTimeToNow(new Date(poll.endDatetime))} left`
               : '';
 
     return (
