@@ -16,10 +16,14 @@ export default function Page({ searchParams }: PageProps) {
             <div className="w-full px-9 md:max-w-[311px] md:px-0">
                 <OpenFireflyAppButton
                     className="w-full rounded-xl bg-black px-5 py-2 text-center text-xl font-bold text-white dark:bg-white dark:text-[#181A20]"
-                    scheme={searchParams.session ? {
-                        ios: location.href.replace('https://', 'firefly://'),
-                        android: `firefly://LoginToDesktop/ConfirmDialog?session=${searchParams.session}`
-                    } : undefined}
+                    scheme={
+                        searchParams.session
+                            ? {
+                                  ios: location.href.replace('https://', 'firefly://'),
+                                  android: `firefly://LoginToDesktop/ConfirmDialog?session=${searchParams.session}`,
+                              }
+                            : undefined
+                    }
                 >
                     <Trans>Open in Firefly App</Trans>
                 </OpenFireflyAppButton>
