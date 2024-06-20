@@ -169,6 +169,9 @@ msgstr "Debug Console"
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "Failed to mute @{0} on {sourceName}"
 
+msgid "Login with QR Code"
+msgstr "Login with QR Code"
+
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
@@ -192,6 +195,9 @@ msgstr "Username is required."
 
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>Sent</0> an NFT"
+
+msgid "{0} left"
+msgstr "{0} left"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
@@ -579,9 +585,6 @@ msgstr "Privacy Policy"
 
 msgid "Failed to fetch: ${0}. Please try again later"
 msgstr "Failed to fetch: ${0}. Please try again later"
-
-msgid "Expired"
-msgstr "Expired"
 
 msgid "Switch"
 msgstr "Switch"
@@ -1234,9 +1237,6 @@ msgstr "We're updating our connection with X. Posting on X will be limited for n
 msgid "Posted via <0>{sendFrom}</0>"
 msgstr "Posted via <0>{sendFrom}</0>"
 
-msgid "Final results / {0} left"
-msgstr "Final results / {0} left"
-
 msgid "Collection"
 msgstr "Collection"
 
@@ -1338,6 +1338,9 @@ msgstr "{0} Users"
 
 msgid "[Audio]"
 msgstr "[Audio]"
+
+msgid "Final results"
+msgstr "Final results"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
