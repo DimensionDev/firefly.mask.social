@@ -10,6 +10,7 @@ import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
+import ReloadIcon from '@/assets/reload.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -388,13 +389,22 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     }
                                 }}
                             >
-                                <QRCode
-                                    className={classNames({
-                                        'blur-md': count === 0 || scanned,
-                                    })}
-                                    value={url}
-                                    size={360}
-                                />
+                                <div className="relative flex items-center justify-center">
+                                    <QRCode
+                                        className={classNames({
+                                            'blur-md': count === 0 || scanned,
+                                        })}
+                                        value={url}
+                                        size={360}
+                                    />
+                                    {count === 0 ? (
+                                        <ReloadIcon
+                                            className="absolute inset-0 m-auto text-white"
+                                            width={48}
+                                            height={48}
+                                        />
+                                    ) : null}
+                                </div>
                                 {scanned ? (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                                         <LoadingIcon className="animate-spin" width={24} height={24} />
