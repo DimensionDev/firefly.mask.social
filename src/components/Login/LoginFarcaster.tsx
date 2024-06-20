@@ -4,15 +4,14 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type Dispatch, type SetStateAction, useMemo, useRef, useState } from 'react';
-import QRCode from 'react-qr-code';
 import { useAsyncFn, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
-import ReloadIcon from '@/assets/reload.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
@@ -389,22 +388,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     }
                                 }}
                             >
-                                <div className="relative flex items-center justify-center">
-                                    <QRCode
-                                        className={classNames({
-                                            'blur-md': count === 0 || scanned,
-                                        })}
-                                        value={url}
-                                        size={360}
-                                    />
-                                    {count === 0 ? (
-                                        <ReloadIcon
-                                            className="absolute inset-0 m-auto text-white"
-                                            width={48}
-                                            height={48}
-                                        />
-                                    ) : null}
-                                </div>
+                                <ScannableQRCode url={url} scanned={scanned} countdown={count} />
                                 {scanned ? (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                                         <LoadingIcon className="animate-spin" width={24} height={24} />
