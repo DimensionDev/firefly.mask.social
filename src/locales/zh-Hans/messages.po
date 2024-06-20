@@ -198,6 +198,9 @@ msgstr "用户名为必填。"
 msgid "<0>Sent</0> an NFT"
 msgstr ""
 
+msgid "{0} left"
+msgstr ""
+
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 <3>Firefly</3> 连接您的账号。"
 
@@ -583,9 +586,6 @@ msgid "Privacy Policy"
 msgstr "隐私条款"
 
 msgid "Failed to fetch: ${0}. Please try again later"
-msgstr ""
-
-msgid "Expired"
 msgstr ""
 
 msgid "Switch"
@@ -1239,9 +1239,6 @@ msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 msgid "Posted via <0>{sendFrom}</0>"
 msgstr ""
 
-msgid "Final results / {0} left"
-msgstr ""
-
 msgid "Collection"
 msgstr "Nft 系列"
 
@@ -1342,6 +1339,9 @@ msgid "{0} Users"
 msgstr "{0} 用户"
 
 msgid "[Audio]"
+msgstr ""
+
+msgid "Final results"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
@@ -1484,4 +1484,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
