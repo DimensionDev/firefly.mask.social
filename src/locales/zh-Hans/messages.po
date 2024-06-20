@@ -255,6 +255,9 @@ msgstr "用户名"
 msgid "Switch to the development API version for testing new features."
 msgstr "切换到开发环境接口。"
 
+msgid "{days, plural, one {1 day} other {{days} days}}"
+msgstr ""
+
 msgid "Blockchain"
 msgstr "区块链"
 
@@ -359,6 +362,9 @@ msgstr "添加另一个帖子..."
 
 msgid "Items"
 msgstr "条目"
+
+msgid "Less than a minute left"
+msgstr ""
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
@@ -951,6 +957,9 @@ msgstr "请切换钱包网络至 {chainName}"
 msgid "Delete"
 msgstr "删除"
 
+msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账号的内容"
 
@@ -1323,6 +1332,9 @@ msgstr "关注 @{0}"
 msgid "Cancel Recast"
 msgstr "取消转帖"
 
+msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
+msgstr ""
+
 msgid "Malformed twitter session payload."
 msgstr "错误的 twitter 会话。"
 
@@ -1493,4 +1505,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

@@ -250,6 +250,9 @@ msgstr "Username"
 msgid "Switch to the development API version for testing new features."
 msgstr "Switch to the development API version for testing new features."
 
+msgid "{days, plural, one {1 day} other {{days} days}}"
+msgstr "{days, plural, one {1 day} other {{days} days}}"
+
 msgid "Blockchain"
 msgstr "Blockchain"
 
@@ -354,6 +357,9 @@ msgstr "Add another post..."
 
 msgid "Items"
 msgstr "Items"
+
+msgid "Less than a minute left"
+msgstr "Less than a minute left"
 
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
@@ -946,6 +952,9 @@ msgstr "Please switch to the {chainName} network in your wallet."
 msgid "Delete"
 msgstr "Delete"
 
+msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
+msgstr "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
+
 msgid "The content of this account is currently unavailable"
 msgstr "The content of this account is currently unavailable"
 
@@ -1317,6 +1326,9 @@ msgstr "Follow @{0}"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
+
+msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
+msgstr "{hours, plural, one {1 hour} other {{hours} hours}}"
 
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."

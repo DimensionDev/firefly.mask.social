@@ -255,6 +255,9 @@ msgstr "用戶名"
 msgid "Switch to the development API version for testing new features."
 msgstr ""
 
+msgid "{days, plural, one {1 day} other {{days} days}}"
+msgstr ""
+
 msgid "Blockchain"
 msgstr ""
 
@@ -358,6 +361,9 @@ msgid "Add another post..."
 msgstr "加入另一則貼文..."
 
 msgid "Items"
+msgstr ""
+
+msgid "Less than a minute left"
 msgstr ""
 
 msgid "Minting Txn Hash"
@@ -951,6 +957,9 @@ msgstr ""
 msgid "Delete"
 msgstr "刪除"
 
+msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
@@ -1323,6 +1332,9 @@ msgstr "追蹤 @{0}"
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
+msgstr ""
+
 msgid "Malformed twitter session payload."
 msgstr ""
 
@@ -1493,4 +1505,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-
