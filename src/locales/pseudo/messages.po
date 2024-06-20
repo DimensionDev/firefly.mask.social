@@ -535,9 +535,6 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Add an existing account"
-msgstr ""
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -1103,6 +1100,9 @@ msgid "No Lens profile found. Please change to another wallet."
 msgstr ""
 
 msgid "Connect"
+msgstr ""
+
+msgid "Switch account"
 msgstr ""
 
 msgid "Sign in with Custody Wallet"
