@@ -94,11 +94,6 @@ export function NFTOverflow(props: NFTOverflowProps) {
                             field={t`NFT Standard`}
                             value={
                                 <div className="flex items-center">
-                                    {props.chainId ? (
-                                        <span className="mr-1">
-                                            <ChainIcon size={20} chainId={props.chainId} />
-                                        </span>
-                                    ) : null}
                                     {
                                         {
                                             [SchemaType.Native]: 'Native',
