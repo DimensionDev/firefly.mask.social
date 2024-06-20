@@ -86,6 +86,7 @@ function PoapFieldGroups({
         const startDate = asset.traits?.find((trait) => trait.type === 'startDate');
         const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
         if (!startDate || !endDate) return null;
+        // cspell: disable-next-line
         return `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`;
     }, [asset.traits]);
     const city = useMemo(() => asset.traits?.find((trait) => trait.type === 'city')?.value, [asset.traits]);
