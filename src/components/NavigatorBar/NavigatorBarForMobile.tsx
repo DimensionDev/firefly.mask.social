@@ -19,6 +19,7 @@ import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
+import { IS_FIREFLY } from '@/constants/bowser.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
@@ -28,9 +29,7 @@ interface NavigatorBarForMobileProps {
 }
 
 const changeBodyOverflow = (overflow: 'auto' | 'hidden') => {
-    if (navigator.userAgent.toLowerCase().includes('firefox')) {
-        document.body.style.overflowY = overflow;
-    }
+    if (IS_FIREFLY) document.body.style.overflowY = overflow;
 };
 
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
@@ -75,7 +74,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             onTouchMove();
             window.removeEventListener('touchmove', onTouchMove);
         };
-    }, [])
+    }, []);
 
     return (
         <>
