@@ -1,5 +1,5 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { compact, first, last } from 'lodash-es';
+import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -28,10 +28,10 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
     const attachments = cast.embed_urls?.filter((x) => !!x.url) ?? EMPTY_LIST;
     if (attachments.length) {
-        const firstAsset = first(attachments);
-        if (!firstAsset?.url) return defaultContent;
+        const lastAsset = last(attachments);
+        if (!lastAsset?.url) return defaultContent;
 
-        const assetType = firstAsset.type === 'unknown' ? 'Unknown' : getResourceType(firstAsset.url);
+        const assetType = lastAsset.type === 'unknown' ? 'Unknown' : getResourceType(lastAsset.url);
         if (!assetType) return defaultContent;
 
         return {
@@ -40,7 +40,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
             oembedUrls,
             asset: {
                 type: assetType,
-                uri: firstAsset.url,
+                uri: lastAsset.url,
             } satisfies Attachment,
             attachments: compact<Attachment>(
                 attachments.map((x) => {
