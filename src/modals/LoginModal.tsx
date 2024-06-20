@@ -177,6 +177,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             <Trans>Select Account</Trans>
                         ) : source === Source.Farcaster ? (
                             <Trans>Log in to Farcaster account</Trans>
+                        ) : source === Source.Firefly ? (
+                            <Trans>Login with QR Code</Trans>
                         ) : (
                             <Trans>Login</Trans>
                         )}
