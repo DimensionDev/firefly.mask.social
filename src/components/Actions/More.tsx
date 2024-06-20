@@ -15,7 +15,6 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
-import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -141,17 +140,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     </MenuButton>
                                 )}
                             </Menu.Item>
-                            {source === Source.Lens ? (
-                                <Menu.Item>
-                                    {({ close }) => (
-                                        <ReportProfileButton
-                                            profile={author}
-                                            onReport={reportProfile}
-                                            onClick={close}
-                                        />
-                                    )}
-                                </Menu.Item>
-                            ) : null}
                             {post && [Source.Lens, Source.Farcaster].includes(source) ? (
                                 <Menu.Item>
                                     {({ close }) => (
