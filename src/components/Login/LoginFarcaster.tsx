@@ -43,7 +43,7 @@ async function login(
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
         // add new account for farcaster
-        addAccount({
+        await addAccount({
             session,
             profile,
         });

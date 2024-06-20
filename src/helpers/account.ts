@@ -4,23 +4,23 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 
-export function addAccount(account: Account) {
+export async function addAccount(account: Account) {
     getProfileState(account.profile.source).addAccount(account);
     resolveSessionHolderFromSessionType(account.session.type)?.resumeSession(account.session);
 }
 
-export function switchAccount(account: Account) {
+export async function switchAccount(account: Account) {
     getProfileState(account.profile.source).updateCurrentAccount(account);
     resolveSessionHolder(account.profile.source)?.resumeSession(account.session);
 }
 
-export function removeAccount(account: Account) {
+export async function removeAccount(account: Account) {
     getProfileState(account.profile.source).removeAccount(account);
     resolveSessionHolderFromSessionType(account.session.type)?.removeSession();
 }
 
-export function removeCurrentAccount(source: SocialSource) {
+export async function removeCurrentAccount(source: SocialSource) {
     const { accounts, currentProfile } = getProfileState(source);
     const account = accounts.find((x) => isSameProfile(x.profile, currentProfile));
-    if (account) removeAccount(account);
+    if (account) await removeAccount(account);
 }

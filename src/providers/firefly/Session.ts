@@ -35,7 +35,7 @@ export class FireflySession extends BaseSession implements Session {
     }
 
     static async restore(session: FireflySession) {
-        addAccount({ profile: createDummyProfile(Source.Farcaster), session });
+        await addAccount({ profile: createDummyProfile(Source.Farcaster), session });
         return session;
     }
 

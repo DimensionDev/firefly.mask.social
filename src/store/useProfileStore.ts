@@ -244,7 +244,7 @@ const useTwitterStateBase = createState(
                 // only one account is allowed
                 state.clear();
 
-                addAccount({
+                await addAccount({
                     profile: me,
                     session: TwitterSession.from(me, payload),
                 });

@@ -24,7 +24,7 @@ export function AccountCard({ account, isCurrent }: AccountCardProps) {
     const [{ loading }, login] = useAsyncFn(
         async (nextAccount: Account) => {
             try {
-                switchAccount(nextAccount);
+                await switchAccount(nextAccount);
 
                 // Wait for the session to be fully restored
                 await delay(1000);

@@ -64,7 +64,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 }
 
                 // add new account for lens
-                addAccount({
+                await addAccount({
                     profile: currentProfile,
                     session,
                 });
