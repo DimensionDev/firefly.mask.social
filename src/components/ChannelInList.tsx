@@ -87,7 +87,15 @@ export function ChannelInList({
                         <span>{nFormatter(channel.followerCount)}</span>
                     </div>
                     {!dense && channel.description ? (
-                        <BioMarkup className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                        <BioMarkup
+                            className="mt-1.5 truncate text-sm"
+                            components={{
+                                // @ts-ignore
+                                // eslint-disable-next-line react/no-unstable-nested-components
+                                p: (props) => <>{props.children}</>,
+                                br: () => null,
+                            }}
+                        >
                             {channel.description ?? '-'}
                         </BioMarkup>
                     ) : null}

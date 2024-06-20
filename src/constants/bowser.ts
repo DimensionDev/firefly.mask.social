@@ -7,5 +7,6 @@ const ua = typeof window !== 'undefined' ? window.navigator.userAgent : undefine
 export const IS_SAFARI = !!(ua?.toLowerCase().includes('safari') && !ua?.toLowerCase().includes('chrome'));
 export const IS_APPLE = !!ua?.toLowerCase().includes('apple');
 export const IS_IOS = !!ua?.match(/(iPhone|iPod|iPad)/);
+export const IS_FIREFLY = !!ua?.toLowerCase().includes('firefly');
 
 export const IS_MOBILE_DEVICE = getMobileDevice() !== 'unknown';

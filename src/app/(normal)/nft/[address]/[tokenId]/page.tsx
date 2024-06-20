@@ -97,7 +97,7 @@ export default function Page({
                     contractAddress={data.contract?.address ?? ''}
                     creator={data.creator?.address}
                     chainId={data.chainId}
-                    schemaType={isPoap ? undefined : data.contract?.schema}
+                    schemaType={data.contract?.schema}
                 />
                 {isPoap && !isUndefined(data.metadata.eventId) ? <Attendees eventId={data.metadata.eventId} /> : null}
             </div>

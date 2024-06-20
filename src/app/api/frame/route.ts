@@ -40,7 +40,7 @@ const FrameActionSchema = z.object({
     action: z.nativeEnum(ActionType),
     url: HttpUrl,
     postUrl: HttpUrl,
-    target: HttpUrl.optional(),
+    target: z.union([HttpUrl, z.literal(null)]),
 });
 
 export async function POST(request: Request) {
