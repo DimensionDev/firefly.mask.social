@@ -48,7 +48,15 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                     </p>
                     {profile.handle ? <p className="text-sm text-secondary">@{profile.handle}</p> : null}
                     {profile.bio ? (
-                        <BioMarkup className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                        <BioMarkup
+                            className="mt-1.5 truncate text-sm"
+                            components={{
+                                // @ts-ignore
+                                // eslint-disable-next-line react/no-unstable-nested-components
+                                p: (props) => <>{props.children}</>,
+                                br: () => null,
+                            }}
+                        >
                             {profile.bio}
                         </BioMarkup>
                     ) : null}
