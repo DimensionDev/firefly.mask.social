@@ -1,9 +1,12 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import type { NonFungibleAsset } from '@masknet/web3-shared-base';
+import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
+import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
-import { type ReactNode, useState } from 'react';
+import { isUndefined } from 'lodash-es';
+import { type ReactNode, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LinkIcon from '@/assets/link-square.svg';
@@ -13,11 +16,13 @@ import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFee
 import { TokenPrice } from '@/components/TokenPrice.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
+import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
+import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 const variants = {
     enter: (direction: number) => {
@@ -66,12 +71,53 @@ function NFTFeedFieldGroup({
     );
 }
 
-function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: string; chainId?: ChainId }) {
+function PoapFieldGroups({
+    eventId,
+    asset,
+    isLoading,
+}: {
+    eventId: number;
+    asset: NonFungibleAsset<ChainId, SchemaType>;
+    isLoading?: boolean;
+}) {
+    const { data: attendeesCount, isLoading: isLoadingAttendeesCount } = usePoapAttendeesCount(eventId);
+    const date = useMemo(() => {
+        if (!asset.traits) return null;
+        const startDate = asset.traits?.find((trait) => trait.type === 'startDate');
+        const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
+        if (!startDate || !endDate) return null;
+        return `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`;
+    }, [asset.traits]);
+    const city = useMemo(() => asset.traits?.find((trait) => trait.type === 'city')?.value, [asset.traits]);
+
+    return (
+        <>
+            <NFTFeedFieldGroup field={t`Date`} value={date} isLoading={isLoading} />
+            <NFTFeedFieldGroup field={t`Location`} value={city} isLoading={isLoading} />
+            <NFTFeedFieldGroup
+                isLoading={isLoading || isLoadingAttendeesCount}
+                field={t`Attendees`}
+                value={attendeesCount ? nFormatter(attendeesCount) : null}
+            />
+        </>
+    );
+}
+
+function NFTItem({
+    address,
+    tokenId,
+    chainId,
+    action,
+}: {
+    address: string;
+    tokenId: string;
+    chainId?: ChainId;
+    action?: NFTFeedTransAction;
+}) {
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
     const metadata = data?.metadata;
     const tokenName = metadata?.name;
     const collectionName = data?.collection?.name;
-    const { isDarkMode } = useDarkMode();
 
     return (
         <div className="mt-auto flex w-full flex-col rounded-xl border border-secondaryLine bg-lightBg p-3 sm:h-[120px] sm:flex-row sm:space-x-2 sm:rounded-none sm:border-none sm:bg-transparent sm:p-0">
@@ -98,43 +144,49 @@ function NFTItem({ address, tokenId, chainId }: { address: string; tokenId: stri
                     }
                     isLoading={isLoading}
                 />
-                <NFTFeedFieldGroup
-                    field={t`Collection`}
-                    value={
-                        <Link
-                            className="flex items-center hover:underline"
-                            href={resolveNftUrl(address, {
-                                chainId,
-                            })}
-                            onClick={(event) => event.stopPropagation()}
-                        >
-                            <div className="max-w-[calc(100%-22px)] truncate">{collectionName}</div>
-                            <LinkIcon width={18} height={18} className="ml-1 text-second" />
-                        </Link>
-                    }
-                    isLoading={isLoading}
-                />
-                <NFTFeedFieldGroup field={t`Token ID`} value={data?.tokenId ?? tokenId} />
-                {!data?.collection?.floorPrices?.length ? null : (
-                    <NFTFeedFieldGroup
-                        isLoading={isLoading}
-                        field={t`Floor Price`}
-                        value={
-                            <>
-                                {getFloorPrice(data.collection.floorPrices)}
-                                <TokenPrice
-                                    value={data.collection.floorPrices[0].value}
-                                    symbol={resolveCoinGeckoTokenSymbol(
-                                        data.collection.floorPrices[0].payment_token.symbol,
-                                    )}
-                                    prefix=" ($"
-                                    suffix=")"
-                                    decimals={data.collection.floorPrices[0].payment_token.decimals}
-                                    target="usd"
-                                />
-                            </>
-                        }
-                    />
+                {action === NFTFeedTransAction.Poap && !isUndefined(data?.metadata?.eventId) ? (
+                    <PoapFieldGroups eventId={data.metadata.eventId} asset={data} isLoading={isLoading} />
+                ) : (
+                    <>
+                        <NFTFeedFieldGroup
+                            field={t`Collection`}
+                            value={
+                                <Link
+                                    className="flex items-center hover:underline"
+                                    href={resolveNftUrl(address, {
+                                        chainId,
+                                    })}
+                                    onClick={(event) => event.stopPropagation()}
+                                >
+                                    <div className="max-w-[calc(100%-22px)] truncate">{collectionName}</div>
+                                    <LinkIcon width={18} height={18} className="ml-1 text-second" />
+                                </Link>
+                            }
+                            isLoading={isLoading}
+                        />
+                        <NFTFeedFieldGroup field={t`Token ID`} value={data?.tokenId ?? tokenId} />
+                        {!data?.collection?.floorPrices?.length ? null : (
+                            <NFTFeedFieldGroup
+                                isLoading={isLoading}
+                                field={t`Floor Price`}
+                                value={
+                                    <>
+                                        {getFloorPrice(data.collection.floorPrices)}
+                                        <TokenPrice
+                                            value={data.collection.floorPrices[0].value}
+                                            symbol={resolveCoinGeckoTokenSymbol(
+                                                data.collection.floorPrices[0].payment_token.symbol,
+                                            )}
+                                            prefix=" ($"
+                                            suffix=")"
+                                            decimals={data.collection.floorPrices[0].payment_token.decimals}
+                                            target="usd"
+                                        />
+                                    </>
+                                }
+                            />
+                        )}
+                    </>
                 )}
             </div>
         </div>
@@ -183,6 +235,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                                     key={activeToken.id}
                                     tokenId={activeToken.id}
                                     chainId={chainId}
+                                    action={activeToken.action.action}
                                 />
                             ) : null}
                         </motion.div>
