@@ -1,5 +1,4 @@
 import { safeUnreachable } from '@masknet/kit';
-import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
@@ -44,8 +43,11 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             const isRelayService = FarcasterSession.isRelayService(session);
 
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
-            const response = await fetchJSON<FarcasterLoginResponse>(url, {
+            const response = await fetch(url, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
                     channelToken: isRelayService ? session.channelToken : undefined,
                     token: isGrantByPermission ? session.signerRequestToken : undefined,
@@ -53,11 +55,10 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 signal,
             });
 
-            // scan qr-code timeout
-            if (first(response.error) === 'Farcaster login timed out') throw new TimeoutError();
+            const json: FarcasterLoginResponse = await response.json();
+            if (!response.ok && json.error?.includes('Farcaster login timed out')) throw new TimeoutError();
 
-            const data = resolveFireflyResponseData(response);
-
+            const data = resolveFireflyResponseData(json);
             if (data.fid && data.accountId && data.accessToken) {
                 session.profileId = `${data.fid}`;
                 return new FireflySession(data.accountId, data.accessToken, session);
