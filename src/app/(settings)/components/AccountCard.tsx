@@ -29,7 +29,9 @@ export function AccountCard({ account, isCurrent }: AccountCardProps) {
                 // Wait for the session to be fully restored
                 await delay(1000);
 
-                enqueueSuccessMessage(t`Your ${resolveSourceName(source)} account is now connected`);
+                enqueueSuccessMessage(
+                    t`Your ${resolveSourceName(nextAccount.profile.source)} account is now connected`,
+                );
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                     error,
