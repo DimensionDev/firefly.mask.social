@@ -1,6 +1,8 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import type { Address } from 'viem';
 
+import type { FollowingSource } from '@/providers/types/Firefly.js';
+
 export enum ArticlePlatform {
     Mirror = 'mirror',
     Paragraph = 'paragraph',
@@ -31,6 +33,7 @@ export interface Article {
     id: string;
     coverUrl: string | null;
     hasBookmarked?: boolean;
+    followingSources: FollowingSource[];
 }
 
 export interface Provider {

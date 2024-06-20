@@ -1,5 +1,7 @@
 import type { Address } from 'viem';
 
+import { type FollowingSource } from '@/providers/types/Firefly.js';
+
 export interface Response<T> {
     code: number;
     data: T;
@@ -53,13 +55,6 @@ export type GetFollowingNFTResponse = Response<{
     cursor: string | null;
 }>;
 
-export enum FollowingNFTSourceType {
-    Twitter = 'twitter',
-    Lens = 'lens',
-    Farcaster = 'farcaster',
-    Wallet = 'wallet',
-}
-
 export interface FollowingNFT {
     timestamp: string;
     hash: string;
@@ -71,14 +66,7 @@ export interface FollowingNFT {
     type: NFTFeedTransAction;
     actions: FollowingNFTAction[];
     displayInfo: NFTOwnerDisplayInfo;
-    followingSources: Array<{
-        id?: string;
-        handle?: string;
-        name?: string;
-        type: FollowingNFTSourceType;
-        socialId?: string;
-        walletAddress?: Address;
-    }>;
+    followingSources: FollowingSource[];
 }
 
 export interface NFTActionCost {

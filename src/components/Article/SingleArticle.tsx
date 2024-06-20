@@ -9,6 +9,7 @@ import urlcat from 'urlcat';
 
 import ArticleAnchorIcon from '@/assets/article-anchor.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
+import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
@@ -84,6 +85,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 return;
             }}
         >
+            {article.followingSources?.[0] ? <FeedFollowSource source={article.followingSources[0]} /> : null}
             <ArticleHeader article={article} />
             {isMuted ? (
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />

@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation.js';
 import { memo, useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
+import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { NFTFeedBody, type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
-import { NFTFeedFollowSource } from '@/components/NFTs/NFTFeedFollowSource.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
@@ -65,7 +65,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                 if (nftUrl) router.prefetch(nftUrl);
             }}
         >
-            {followingSources ? <NFTFeedFollowSource sources={followingSources} /> : null}
+            {followingSources?.[0] ? <FeedFollowSource source={followingSources[0]} /> : null}
             <NFTFeedHeader
                 address={ownerAddress}
                 contractAddress={contractAddress}
