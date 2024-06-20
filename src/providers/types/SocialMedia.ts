@@ -811,10 +811,8 @@ export interface Provider {
 
     /**
      * Report spam or inappropriate post content.
-     * @param postId
-     * @returns
      */
-    reportPost?: (postId: string) => Promise<boolean>;
+    reportPost?: (post: Post) => Promise<boolean>;
 
     /**
      * Report spam or inappropriate channel content.

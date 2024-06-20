@@ -24,6 +24,7 @@ import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFro
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
@@ -990,8 +991,14 @@ export class FireflySocialMedia implements Provider {
         return true;
     }
 
-    async reportPost(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
+    async reportPost(post: Post): Promise<boolean> {
+        await reportPost({
+            platform: resolveSourceInURL(post.source),
+            platform_id: post.author.profileId,
+            post_type: 'text',
+            post_id: post.postId,
+        });
+        return true;
     }
 
     async reportArticle(article: Article) {

@@ -48,6 +48,7 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import {
     type LastLoggedInProfileRequest,
@@ -1210,7 +1211,8 @@ class LensSocialMedia implements Provider {
 
         return blocked;
     }
-    async reportPost(postId: string) {
+    async reportPost(post: Post) {
+        const postId = post.postId;
         const result = await lensSessionHolder.sdk.publication.report({
             for: postId,
             // TODO more specific and accurate reason.
@@ -1221,7 +1223,12 @@ class LensSocialMedia implements Provider {
                 },
             },
         });
-        return result.isSuccess().valueOf();
+        const success = result.isSuccess().valueOf();
+        // Also report to Firefly
+        if (success) {
+            return FireflySocialMediaProvider.reportPost(post);
+        }
+        return success;
     }
 
     async getSuggestedFollowUsers({
