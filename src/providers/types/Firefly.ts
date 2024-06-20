@@ -178,14 +178,7 @@ export interface Article {
     article_id: string;
     cover_img_url: string | null;
     has_bookmarked?: boolean;
-    followingSources: Array<{
-        handle: string | null;
-        id: string;
-        name: string | null;
-        socialId: string | null;
-        type: WatchType;
-        walletAddress: string | null;
-    }>;
+    followingSources: FollowingSource[];
 }
 
 export interface Response<T> {
@@ -362,6 +355,17 @@ export enum WatchType {
     Wallet = 'wallet',
     MaskX = 'maskx',
     Twitter = 'twitter',
+    Lens = 'lens',
+    Farcaster = 'farcaster',
+}
+
+export interface FollowingSource {
+    id?: string;
+    handle?: string;
+    name?: string;
+    type: WatchType;
+    socialId?: string;
+    walletAddress?: Address;
 }
 
 export interface WalletProfile {
