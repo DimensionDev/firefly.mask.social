@@ -637,9 +637,6 @@ msgstr "Malformed session."
 msgid "Failed to login."
 msgstr "Failed to login."
 
-msgid "Open Firefly App"
-msgstr "Open Firefly App"
-
 msgid "Unlike"
 msgstr "Unlike"
 
@@ -1401,6 +1398,9 @@ msgstr "Please confirm the login with X."
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> commented on your <1><2/></1>"
+
+msgid "Open App"
+msgstr "Open App"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"

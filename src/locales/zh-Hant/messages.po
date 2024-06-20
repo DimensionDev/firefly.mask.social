@@ -642,9 +642,6 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登入失敗."
 
-msgid "Open Firefly App"
-msgstr ""
-
 msgid "Unlike"
 msgstr "取消按讚"
 
@@ -1405,6 +1402,9 @@ msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
+msgstr ""
+
+msgid "Open App"
 msgstr ""
 
 msgid "<0>You</0> recasted"

@@ -1,6 +1,8 @@
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+import { delay } from '@masknet/kit';
 
-const tryOpenScheme = async (tagType: 'a' | 'iframe', scheme: string, downloadUrl: string, waitDuration: number) => {
+import { IS_IOS } from '@/constants/bowser.js';
+
+async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string, downloadUrl: string, waitDuration: number) {
     const element = document.createElement(tagType);
     element.style.display = 'none';
     const isAnchor = element instanceof HTMLAnchorElement;
@@ -10,17 +12,17 @@ const tryOpenScheme = async (tagType: 'a' | 'iframe', scheme: string, downloadUr
         element.src = scheme;
     }
     document.body.appendChild(element);
-    isAnchor && element.click();
-    await sleep(waitDuration);
+    if (isAnchor) element.click();
+    await delay(waitDuration);
     document.body.removeChild(element);
     if (document.visibilityState === 'visible') {
         window.location.href = downloadUrl;
-        await sleep(1000);
+        await delay(1000);
     }
-};
+}
 
-export const openAppIfInstalled = async (scheme: string, downloadUrl: string, waitDuration = 3500) => {
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
+export async function openAppIfInstalled(scheme: string, downloadUrl: string, waitDuration = 3500) {
+    if (IS_IOS) {
         if (typeof window.webkit !== 'undefined' && window.webkit.messageHandlers[scheme]) {
             window.location.href = scheme;
         } else {
@@ -30,4 +32,4 @@ export const openAppIfInstalled = async (scheme: string, downloadUrl: string, wa
     } else {
         await tryOpenScheme('a', scheme, downloadUrl, waitDuration);
     }
-};
+}
