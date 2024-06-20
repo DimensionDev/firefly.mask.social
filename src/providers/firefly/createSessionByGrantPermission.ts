@@ -2,17 +2,17 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { InvalidResultError, TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
-import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LinkInfoResponse, SessionStatusResponse } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
 
 async function pollSessionStatus(session: string, signal?: AbortSignal) {
     return pollWithRetry(
         async (pollingSignal) => {
-            const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/status');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/status');
             const response = await fetchJSON<SessionStatusResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -46,7 +46,7 @@ async function pollSessionStatus(session: string, signal?: AbortSignal) {
 }
 
 async function createSession(callback?: (url: string) => void, signal?: AbortSignal) {
-    const url = urlcat(FIREFLY_DEV_ROOT_URL, '/desktop/linkInfo');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/linkInfo');
     const response = await fetchJSON<LinkInfoResponse>(url, {
         method: 'GET',
         signal,
