@@ -1,14 +1,13 @@
-import { Plural, t } from '@lingui/macro';
+import { Plural, plural, t } from '@lingui/macro';
 import dayjs from 'dayjs';
 import { sumBy } from 'lodash-es';
-import { Fragment, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { POLL_ACTION_ENABLED } from '@/constants/poll.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getTimeToNow } from '@/helpers/formatTimestamp.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -73,6 +72,32 @@ export function PollCard({ post }: PollCardProps) {
     const [userVote] = useState<string>();
     const profile = useCurrentProfile(post.source);
 
+    const getPollTimeLeft = useCallback((endDatetime: string) => {
+        const now = new Date().getTime();
+        const timeLeft = new Date(endDatetime).getTime() - now;
+
+        if (timeLeft <= 0) {
+            return t`Final results`;
+        }
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        if (days >= 1) {
+            return plural(days, { one: '1 day', other: `${days} days` });
+        }
+
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        if (hours >= 1) {
+            return plural(hours, { one: '1 hour', other: `${hours} hours` });
+        }
+
+        const minutes = Math.floor(timeLeft / (1000 * 60));
+        if (minutes >= 1) {
+            return plural(minutes, { one: '1 minute', other: `${minutes} minutes` });
+        }
+
+        return t`Less than a minute left`;
+    }, []);
+
     const { poll } = post;
     if (!poll) return null;
 
@@ -88,7 +113,7 @@ export function PollCard({ post }: PollCardProps) {
         poll.votingStatus === 'closed' || (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date()))
             ? t`Final results`
             : poll.endDatetime
-              ? t`${getTimeToNow(new Date(poll.endDatetime))} left`
+              ? t`${getPollTimeLeft(poll.endDatetime)} left`
               : '';
 
     return (

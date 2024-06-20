@@ -256,6 +256,9 @@ msgstr ""
 msgid "Switch to the development API version for testing new features."
 msgstr ""
 
+msgid "{days, plural, one {1 day} other {{days} days}}"
+msgstr ""
+
 msgid "Blockchain"
 msgstr ""
 
@@ -359,6 +362,9 @@ msgid "Add another post..."
 msgstr ""
 
 msgid "Items"
+msgstr ""
+
+msgid "Less than a minute left"
 msgstr ""
 
 msgid "Minting Txn Hash"
@@ -958,6 +964,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
@@ -1328,6 +1337,9 @@ msgid "Follow @{0}"
 msgstr ""
 
 msgid "Cancel Recast"
+msgstr ""
+
+msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
 msgstr ""
 
 msgid "Malformed twitter session payload."
