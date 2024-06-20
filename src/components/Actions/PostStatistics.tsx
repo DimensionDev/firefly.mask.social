@@ -110,7 +110,10 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const views = countText(viewCount, t`View`, t`Views`);
     const isSmall = useIsSmall();
 
-    const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
+    const sendFrom = useMemo(() => {
+        if (post.source === Source.Farcaster) return null;
+        return post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
+    }, [post.source, post.sendFrom?.displayName]);
 
     return (
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
