@@ -168,6 +168,9 @@ msgstr "投票"
 msgid "Casts"
 msgstr "帖子"
 
+msgid "Report submitted on {0}"
+msgstr ""
+
 msgid "Debug Console"
 msgstr "诊断命令行"
 
@@ -200,6 +203,9 @@ msgstr "用户名为必填。"
 
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>发送了</0> 一个 NFT"
+
+msgid "Report post"
+msgstr ""
 
 msgid "{0} left"
 msgstr "{0} 剩余"
@@ -504,6 +510,9 @@ msgstr "{0} 频道"
 msgid "Report spam"
 msgstr "举报垃圾"
 
+msgid "Failed to submit report on {0}"
+msgstr ""
+
 msgid "View Source"
 msgstr "查看原文"
 
@@ -545,6 +554,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
 msgid "Owned By"
 msgstr "属于"
+
+msgid "Are you sure you want to report this post?"
+msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
@@ -1493,4 +1505,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
