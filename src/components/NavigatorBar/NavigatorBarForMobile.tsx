@@ -12,7 +12,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
-import { IS_FIREFLY } from '@/constants/bowser.js';
+import { IS_FIREFOX } from '@/constants/bowser.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
@@ -29,7 +29,7 @@ interface NavigatorBarForMobileProps {
 }
 
 const changeBodyOverflow = (overflow: 'auto' | 'hidden') => {
-    if (IS_FIREFLY) document.body.style.overflowY = overflow;
+    if (IS_FIREFOX) document.body.style.overflowY = overflow;
 };
 
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
