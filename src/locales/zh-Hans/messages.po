@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-20 00:04\n"
+"PO-Revision-Date: 2024-06-20 09:31\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Crowdin-File-ID: 836\n"
 
 msgid "Do you want to retry with the full or remaining content?"
-msgstr ""
+msgstr "您想尝试重新发送或者仅发送剩余部分吗？"
 
 msgid "Login required to post on {sourceName}."
 msgstr "请先登录 {sourceName}。"
@@ -28,7 +28,7 @@ msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
 
 msgid "Onchain Activities"
-msgstr ""
+msgstr "链上活动"
 
 msgid "Muted"
 msgstr "已屏蔽"
@@ -49,7 +49,7 @@ msgid "Retweet"
 msgstr "转帖"
 
 msgid "Failed to translate post. Please retry later."
-msgstr ""
+msgstr "翻译失败。请稍后重试。"
 
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
@@ -58,7 +58,7 @@ msgid "Unmute successfully."
 msgstr "取消屏蔽成功。"
 
 msgid "Report Spam"
-msgstr ""
+msgstr "举报垃圾"
 
 msgid "Mute /{0}"
 msgstr "屏蔽 /{0}"
@@ -70,7 +70,7 @@ msgid "Discover"
 msgstr "发现"
 
 msgid "Ask a question"
-msgstr ""
+msgstr "询问"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
@@ -91,7 +91,7 @@ msgid "Mute @{0}"
 msgstr "屏蔽 @{0}"
 
 msgid "The post you quoted/replied has already deleted"
-msgstr ""
+msgstr "您引用/回复的帖子已经被删除了。"
 
 msgid "X"
 msgstr "X"
@@ -103,16 +103,16 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
 msgid "Download Image"
-msgstr ""
+msgstr "下载图片"
 
 msgid "Watching"
-msgstr ""
+msgstr "观察中"
 
 msgid "Searching channel"
 msgstr "查询频道中"
 
 msgid "Views"
-msgstr ""
+msgstr "浏览数"
 
 msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
@@ -121,7 +121,7 @@ msgid "More"
 msgstr "更多"
 
 msgid "Translate post"
-msgstr ""
+msgstr "翻译帖子"
 
 msgid "Searching users"
 msgstr "查找用户中"
@@ -148,22 +148,22 @@ msgid "OpenGraph"
 msgstr "OpenGraph"
 
 msgid "Trending"
-msgstr ""
+msgstr "趋势"
 
 msgid "Log out @{0}"
-msgstr ""
+msgstr "登出 @{0}"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
-msgstr ""
+msgstr "您可以先保存发送的帖子并稍后发送。"
 
 msgid "[Image]"
-msgstr ""
+msgstr "[图片]"
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
 msgid "Poll"
-msgstr ""
+msgstr "投票"
 
 msgid "Casts"
 msgstr "帖子"
@@ -175,10 +175,10 @@ msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
 msgid "Login with QR Code"
-msgstr ""
+msgstr "使用二维码登录"
 
 msgid "NFT Standard"
-msgstr ""
+msgstr "NFT 标准"
 
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
@@ -190,7 +190,7 @@ msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
 
 msgid "Poll is currently only supported on {0}"
-msgstr ""
+msgstr "投票目前仅支持 {0}"
 
 msgid "Offline"
 msgstr "离线"
@@ -199,10 +199,10 @@ msgid "Username is required."
 msgstr "用户名为必填。"
 
 msgid "<0>Sent</0> an NFT"
-msgstr ""
+msgstr "<0>发送了</0> 一个 NFT"
 
 msgid "{0} left"
-msgstr ""
+msgstr "{0} 剩余"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 <3>Firefly</3> 连接您的账号。"
@@ -211,7 +211,7 @@ msgid "Copied"
 msgstr "已复制"
 
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 msgid "Your posts have published successfully."
 msgstr "发布成功。"
@@ -232,13 +232,13 @@ msgid "Confirm"
 msgstr "确认"
 
 msgid "[Video]"
-msgstr ""
+msgstr "[视频]"
 
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
 msgid "Muting"
-msgstr ""
+msgstr "隐藏中"
 
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
@@ -247,25 +247,25 @@ msgid "Device Logged In"
 msgstr "已登录账号"
 
 msgid "Report submitted"
-msgstr ""
+msgstr "举报已经提交"
 
 msgid "Username"
 msgstr "用户名"
 
 msgid "Switch to the development API version for testing new features."
-msgstr ""
+msgstr "切换到开发环境接口。"
 
 msgid "Blockchain"
-msgstr ""
+msgstr "区块链"
 
 msgid "{0, plural, one {Follower} other {Followers}}"
-msgstr ""
+msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Mutes"
-msgstr ""
+msgstr "屏蔽"
 
 msgid "NFTs"
-msgstr ""
+msgstr "NFTs"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "{searchKeyword} 搜索无结果"
@@ -283,19 +283,19 @@ msgid "Liked"
 msgstr "已点赞"
 
 msgid "Term of Service"
-msgstr ""
+msgstr "服务条款"
 
 msgid "Please switch to the correct network in your wallet."
 msgstr "请在钱包中切换到正确的网络。"
 
 msgid "Token ID"
-msgstr ""
+msgstr "代币 ID"
 
 msgid "Type something here..."
 msgstr "从这里开始..."
 
 msgid "Save Post?"
-msgstr ""
+msgstr "保存草稿？"
 
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
@@ -307,16 +307,16 @@ msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
 msgid "Failed to delete"
-msgstr ""
+msgstr "删除失败"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
 msgid "Report Failed"
-msgstr ""
+msgstr "举报时报"
 
 msgid "Attendees"
-msgstr ""
+msgstr "出席人数"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "你需要连接你的 {source} 账号才能使用此功能。"
@@ -328,10 +328,10 @@ msgid "Connected Accounts"
 msgstr "已链接的账号"
 
 msgid "Watch"
-msgstr ""
+msgstr "关注"
 
 msgid "Verified by {0}"
-msgstr ""
+msgstr "由 {0} 校验"
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -340,7 +340,7 @@ msgid "mirror"
 msgstr "转帖"
 
 msgid "POST"
-msgstr ""
+msgstr "发帖"
 
 msgid "Failed to unlike the post."
 msgstr "取消点赞失败。"
@@ -358,10 +358,10 @@ msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
 msgid "Items"
-msgstr ""
+msgstr "条目"
 
 msgid "Minting Txn Hash"
-msgstr ""
+msgstr "铸造交易哈希中"
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -370,16 +370,16 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "via <0>{sendFrom}</0>"
-msgstr ""
+msgstr "于 <0>{sendFrom}</0>"
 
 msgid "Failed to generate signature packet with source = {source}."
-msgstr ""
+msgstr "未能生成签名包 = {source}"
 
 msgid "Save failed post?"
-msgstr ""
+msgstr "保存发送失败的帖子？"
 
 msgid "Owners"
-msgstr ""
+msgstr "拥有者"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 验证器"
@@ -406,10 +406,10 @@ msgid "Failed to mute /{0}."
 msgstr "屏蔽 /{0} 失败。"
 
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 msgid "[Photo]"
-msgstr ""
+msgstr "[照片]"
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
@@ -418,7 +418,7 @@ msgid "No wallet client found. Please connect your wallet."
 msgstr "未找到钱包。请尝试连接。"
 
 msgid "THREAD POST"
-msgstr ""
+msgstr "THREAD 发帖"
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"
@@ -427,10 +427,10 @@ msgid "Copy Link"
 msgstr "复制链接"
 
 msgid "<0>Poap</0> received"
-msgstr ""
+msgstr "<0>Poap</0> 已收到"
 
 msgid "<0>Sold</0> an NFT"
-msgstr ""
+msgstr "<0>出售</0> 一个 NFT"
 
 msgid "Follow System"
 msgstr "跟随系统"
@@ -439,13 +439,13 @@ msgid "Failed to mirror."
 msgstr "转帖失败。"
 
 msgid "Mute {identity}"
-msgstr ""
+msgstr "隐藏 @{identity}"
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 
 msgid "<0>Bought</0> an NFT"
-msgstr ""
+msgstr "<0>购买</0> 一个 NFT"
 
 msgid "The file not found"
 msgstr "未找到文件"
@@ -466,7 +466,7 @@ msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
 
 msgid "Top Channels"
-msgstr ""
+msgstr "顶级频道"
 
 msgid "Failed to un-bookmark"
 msgstr "取消收藏失败"
@@ -475,22 +475,22 @@ msgid "post"
 msgstr "发帖"
 
 msgid "REPLY to<0><1>@{0}</1></0>"
-msgstr ""
+msgstr "回复给<0><1>@{0}</1></0>"
 
 msgid "Unknown transaction method: {0}."
-msgstr ""
+msgstr "未知交易方法：{0}。"
 
 msgid "Frame"
 msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
+msgstr "账号不匹配导致选择失败。"
 
 msgid "Search Filter"
 msgstr "查询规则"
 
 msgid "Resend full or remaining?"
-msgstr ""
+msgstr "重新完整发送或者发送剩余部分？"
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -499,16 +499,16 @@ msgid "Unmute /{0}"
 msgstr "取消屏蔽 /{0}"
 
 msgid "{0} Channels"
-msgstr ""
+msgstr "{0} 频道"
 
 msgid "Report spam"
-msgstr ""
+msgstr "举报垃圾"
 
 msgid "View Source"
 msgstr "查看原文"
 
 msgid "Are you sure you want to report this collection?"
-msgstr ""
+msgstr "您确定要举报这个 NFT 吗？"
 
 msgid "and"
 msgstr "和"
@@ -520,7 +520,7 @@ msgid "Comment cannot be empty."
 msgstr "评论不能为空。"
 
 msgid "Days"
-msgstr ""
+msgstr "天"
 
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上取消关注 @{0} 失败"
@@ -532,19 +532,19 @@ msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
 msgid "Enable development API version"
-msgstr ""
+msgstr "启用开发环境接口"
 
 msgid "Reply"
 msgstr "回复"
 
 msgid "Mirror or Quote"
-msgstr ""
+msgstr "转帖或者引用"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
-msgstr ""
+msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
 msgid "Owned By"
-msgstr ""
+msgstr "属于"
 
 msgid "Collected"
 msgstr "已收藏"
@@ -562,31 +562,31 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
 
 msgid "Top Profiles"
-msgstr ""
+msgstr "顶级个人资料"
 
 msgid "[LuckyDrop]"
-msgstr ""
+msgstr "[红包]"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
 
 msgid "Choice {0}"
-msgstr ""
+msgstr "选项 {0}"
 
 msgid "Send Feedback"
-msgstr ""
+msgstr "提交反馈"
 
 msgid "Detecting..."
 msgstr "检测中..."
 
 msgid "Open in Firefly App"
-msgstr ""
+msgstr "使用 Firefly 应用打开"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
 msgid "Failed to fetch: ${0}. Please try again later"
-msgstr ""
+msgstr "获取失败: ${0}. 请稍后重试"
 
 msgid "Switch"
 msgstr "切换"
@@ -607,7 +607,7 @@ msgid "Comment"
 msgstr "评论"
 
 msgid "{0} @{1}"
-msgstr ""
+msgstr "{0} @{1}"
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -616,7 +616,7 @@ msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
 
 msgid "[Poll]"
-msgstr ""
+msgstr "[投票]"
 
 msgid "Allow replies from"
 msgstr "允许回复"
@@ -628,13 +628,13 @@ msgid "Your posts have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
 msgid "Description"
-msgstr ""
+msgstr "介绍"
 
 msgid "Hide more comments"
-msgstr ""
+msgstr "隐藏更多的评论"
 
 msgid "Failed to resolve mint URL = {0}."
-msgstr ""
+msgstr "未能解析铸造 URL = {0}。"
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
@@ -646,7 +646,7 @@ msgid "Unlike"
 msgstr "取消点赞"
 
 msgid "Post was deleted"
-msgstr ""
+msgstr "帖子已被删除"
 
 msgid "Your post has published successfully."
 msgstr "发布成功。"
@@ -658,7 +658,7 @@ msgid "Bookmark"
 msgstr "收藏"
 
 msgid "Post has been deleted"
-msgstr ""
+msgstr "帖子已被删除"
 
 msgid "Everyone"
 msgstr "任何人"
@@ -670,7 +670,7 @@ msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
 msgid "The connection has timed out. Please try again later.·"
-msgstr ""
+msgstr "连接已经超时。请稍后重试。"
 
 msgid "Compose"
 msgstr "发帖"
@@ -685,10 +685,10 @@ msgid "Suggested Channels"
 msgstr "建议频道"
 
 msgid "Email (optional)"
-msgstr ""
+msgstr "邮箱 (可选)"
 
 msgid "NFT Contract"
-msgstr ""
+msgstr "NFT 合约"
 
 msgid "Failed to follow."
 msgstr "关注失败"
@@ -715,16 +715,16 @@ msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
 msgid "Confirm you want to {0} @{1}?"
-msgstr ""
+msgstr "确认要{0} /{1}？"
 
 msgid "Are you sure you want to report this article?"
-msgstr ""
+msgstr "您确定要举报这篇文章吗？"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
-msgstr ""
+msgstr "<0>获取</0> 一个 NFT"
 
 msgid "Retweeted"
 msgstr "已转帖"
@@ -739,7 +739,7 @@ msgid "Users"
 msgstr "用户"
 
 msgid "Describe a bug or suggest an improvement"
-msgstr ""
+msgstr "描述问题或者提出建议"
 
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
@@ -748,13 +748,13 @@ msgid "Invalid URL."
 msgstr "无效的 URL。"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
+msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
 msgid "Suggested Follows"
-msgstr ""
+msgstr "建议关注"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
@@ -766,7 +766,7 @@ msgid "Settings"
 msgstr "设置"
 
 msgid "Creator"
-msgstr ""
+msgstr "创建者"
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "在 {sourceName} 上取消屏蔽 @{0}"
@@ -778,13 +778,13 @@ msgid "Detect device accounts"
 msgstr "检测设备账号"
 
 msgid "No preview found for shared link"
-msgstr ""
+msgstr "无法预加载"
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
 
 msgid "Failed to unwatch {identity}"
-msgstr ""
+msgstr "取消关注 {identity} 失败"
 
 msgid "Connect to {source}"
 msgstr "连接到 {source}"
@@ -799,10 +799,10 @@ msgid "commented"
 msgstr "已回复"
 
 msgid "Minting Date"
-msgstr ""
+msgstr "铸造日期"
 
 msgid "Comments"
-msgstr ""
+msgstr "评论"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
@@ -826,13 +826,13 @@ msgid "General"
 msgstr "通用"
 
 msgid "Page not found. Please try again."
-msgstr ""
+msgstr "未找到页面。请重试。"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
+msgstr "文章已经从您的收藏中移除"
 
 msgid "Publications"
 msgstr "帖子"
@@ -853,16 +853,16 @@ msgid "Show More"
 msgstr "显示更多"
 
 msgid "Show more comments"
-msgstr ""
+msgstr "展示更多评论"
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
 msgid "Feedback"
-msgstr ""
+msgstr "问题反馈"
 
 msgid "%Of supply owned"
-msgstr ""
+msgstr "% 总的拥有人"
 
 msgid "Share"
 msgstr "分享"
@@ -871,7 +871,7 @@ msgid "Your frame URL."
 msgstr "您 Frame 的 URL。"
 
 msgid "Remaining"
-msgstr ""
+msgstr "剩余"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
@@ -883,31 +883,31 @@ msgid "One click to connect your account status."
 msgstr "一键同步你的账号。"
 
 msgid "Top Collectors"
-msgstr ""
+msgstr "顶级收藏者"
 
 msgid "Quote"
 msgstr "引用"
 
 msgid "Translated"
-msgstr ""
+msgstr "已翻译"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
 msgid "{0} /{1}"
-msgstr ""
+msgstr "{0} /{1}"
 
 msgid "Unmute {identity}"
-msgstr ""
+msgstr "取消隐藏 {identity}"
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
 msgid "Minutes"
-msgstr ""
+msgstr "分钟"
 
 msgid "Floor Price"
-msgstr ""
+msgstr "地板价"
 
 msgid "Unliked"
 msgstr "已取消点赞"
@@ -925,7 +925,7 @@ msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr ""
+msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
@@ -952,7 +952,7 @@ msgid "Delete"
 msgstr "删除"
 
 msgid "The content of this account is currently unavailable"
-msgstr ""
+msgstr "无法获取这个账号的内容"
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
@@ -1015,7 +1015,7 @@ msgid "Translated from {contentLanguage}"
 msgstr "翻译自 {contentLanguage}"
 
 msgid "POAPs"
-msgstr ""
+msgstr "POAPs"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
@@ -1024,19 +1024,19 @@ msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
 
 msgid "24H Volume"
-msgstr ""
+msgstr "24小时的交易量"
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
-msgstr ""
+msgstr "<0>铸造了</0> 一个 NFT 价值 {costEl}"
 
 msgid "Suspended"
-msgstr ""
+msgstr "已暂停"
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
-msgstr ""
+msgstr "{totalVotes, plural, one {{totalVotes} 投票} other {{totalVotes} 投票}}"
 
 msgid "Full"
-msgstr ""
+msgstr "完整的"
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "未找到 Lens 账号。请尝试其他钱包。"
@@ -1045,7 +1045,7 @@ msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
 msgid "You can save this to send later from your drafts."
-msgstr ""
+msgstr "您可以先保存至草稿后再发送。"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
@@ -1054,13 +1054,13 @@ msgid "Report"
 msgstr "报告"
 
 msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-msgstr ""
+msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr ""
+msgstr "@{identity} 的帖子会从您的时间线中隐藏"
 
 msgid "quote"
 msgstr "引用"
@@ -1081,13 +1081,13 @@ msgid "Skip for now"
 msgstr "跳过"
 
 msgid "Login to enable all features"
-msgstr ""
+msgstr "登录以启用所有功能"
 
 msgid "Collects"
 msgstr "收藏"
 
 msgid "{identity} watched"
-msgstr ""
+msgstr "{identity} 已关注"
 
 msgid "Notifications"
 msgstr "通知"
@@ -1105,7 +1105,7 @@ msgid "Connect"
 msgstr "连接"
 
 msgid "Switch account"
-msgstr ""
+msgstr "切换账号"
 
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
@@ -1126,7 +1126,7 @@ msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
 msgid "View"
-msgstr ""
+msgstr "查看"
 
 msgid "Failed to mirror post."
 msgstr "转发失败"
@@ -1135,10 +1135,10 @@ msgid "Failed to create firefly session."
 msgstr "创建 firefly 会话失败。"
 
 msgid "<0>Minted</0> an NFT for free"
-msgstr ""
+msgstr "免费<0>铸造</0> 了一个 NFT"
 
 msgid "Properties"
-msgstr ""
+msgstr "属性"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
@@ -1159,16 +1159,16 @@ msgid "Firefly"
 msgstr "Firefly"
 
 msgid "Switching..."
-msgstr ""
+msgstr "切换中。。。"
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
-msgstr ""
+msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
 
 msgid "Report Article"
-msgstr ""
+msgstr "举报文章"
 
 msgid "Post from /{0} will be hidden in your home timeline"
-msgstr ""
+msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
 
 msgid "Add"
 msgstr "添加"
@@ -1177,7 +1177,7 @@ msgid "No device accounts detected."
 msgstr "未检测到设备账号。"
 
 msgid "Confirm you want to {0} /{1}?"
-msgstr ""
+msgstr "确认要{0} /{1}？"
 
 msgid "Log out all"
 msgstr "登出所有"
@@ -1192,7 +1192,7 @@ msgid "Failed to unmute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 msgid "Failed to retweet."
 msgstr "转帖失败。"
@@ -1213,10 +1213,10 @@ msgid "Only people you follow"
 msgstr "只有你关注的人"
 
 msgid "Add another option"
-msgstr ""
+msgstr "添加另一个选项"
 
 msgid "[Attachment]"
-msgstr ""
+msgstr "[附件]"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -1240,13 +1240,13 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
 msgid "Posted via <0>{sendFrom}</0>"
-msgstr ""
+msgstr "发布于 <0>{sendFrom}</0>"
 
 msgid "Collection"
 msgstr "Nft 系列"
 
 msgid "Your name"
-msgstr ""
+msgstr "你的姓名"
 
 msgid "Owned"
 msgstr "拥有"
@@ -1258,7 +1258,7 @@ msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "Farcaster channel"
-msgstr ""
+msgstr "Farcaster 频道"
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
@@ -1276,7 +1276,7 @@ msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
 
 msgid "your.email@example.org"
-msgstr ""
+msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "取消屏蔽"
@@ -1294,16 +1294,16 @@ msgid "Mask Network"
 msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
-msgstr ""
+msgstr "<0>获得</0> 一个 NFT 来自 <1>{0}</1>"
 
 msgid "Failed to watch {identity}"
-msgstr ""
+msgstr "关注 {identity} 失败"
 
 msgid "View Engagements"
 msgstr "查看互动情况"
 
 msgid "{identity} unwatched"
-msgstr ""
+msgstr "{identity} 取消关注"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"
@@ -1324,7 +1324,7 @@ msgid "Cancel Recast"
 msgstr "取消转帖"
 
 msgid "Malformed twitter session payload."
-msgstr ""
+msgstr "错误的 twitter 会话。"
 
 msgid "No matching users"
 msgstr "未找到匹配用户"
@@ -1342,10 +1342,10 @@ msgid "{0} Users"
 msgstr "{0} 用户"
 
 msgid "[Audio]"
-msgstr ""
+msgstr "[音频]"
 
 msgid "Final results"
-msgstr ""
+msgstr "最终结果"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"
@@ -1354,10 +1354,10 @@ msgid "Recasted"
 msgstr "已转发"
 
 msgid "<0>Burned</0> an NFT"
-msgstr ""
+msgstr "<0>销毁</0> 一个 NFT"
 
 msgid "Download App"
-msgstr ""
+msgstr "下载应用"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "获取状态失败。请稍后重试。"
@@ -1387,7 +1387,7 @@ msgid "Add a comment"
 msgstr "添加一个评论"
 
 msgid "Address on Watching Lists"
-msgstr ""
+msgstr "已关注地址列表"
 
 msgid "FREE"
 msgstr "免费"
@@ -1411,10 +1411,10 @@ msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
 
 msgid "Name (optional)"
-msgstr ""
+msgstr "姓名 (可选)"
 
 msgid "Location"
-msgstr ""
+msgstr "地点"
 
 msgid "Recast"
 msgstr "转推"
@@ -1429,7 +1429,7 @@ msgid "Followers"
 msgstr "粉丝"
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
-msgstr ""
+msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
 
 msgid "Media"
 msgstr "多媒体"
@@ -1447,7 +1447,7 @@ msgid "Already posted on {sourceName}."
 msgstr "已经在 {sourceName} 发贴。"
 
 msgid "[Quote]"
-msgstr ""
+msgstr "[引用]"
 
 msgid "Post"
 msgstr "发帖"
@@ -1493,3 +1493,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+

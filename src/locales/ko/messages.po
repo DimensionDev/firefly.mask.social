@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-20 00:04\n"
+"PO-Revision-Date: 2024-06-20 09:31\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -174,6 +174,9 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
+msgid "Login with QR Code"
+msgstr ""
+
 msgid "NFT Standard"
 msgstr ""
 
@@ -196,6 +199,9 @@ msgid "Username is required."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT"
+msgstr ""
+
+msgid "{0} left"
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
@@ -534,9 +540,6 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Add an existing account"
-msgstr ""
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -583,9 +586,6 @@ msgid "Privacy Policy"
 msgstr ""
 
 msgid "Failed to fetch: ${0}. Please try again later"
-msgstr ""
-
-msgid "Expired"
 msgstr ""
 
 msgid "Switch"
@@ -640,9 +640,6 @@ msgid "Malformed session."
 msgstr ""
 
 msgid "Failed to login."
-msgstr ""
-
-msgid "Open Firefly App"
 msgstr ""
 
 msgid "Unlike"
@@ -1107,6 +1104,9 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
+msgid "Switch account"
+msgstr ""
+
 msgid "Sign in with Custody Wallet"
 msgstr ""
 
@@ -1191,6 +1191,9 @@ msgstr ""
 msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
+msgid "Date"
+msgstr ""
+
 msgid "Failed to retweet."
 msgstr ""
 
@@ -1237,9 +1240,6 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr ""
 
 msgid "Posted via <0>{sendFrom}</0>"
-msgstr ""
-
-msgid "Final results / {0} left"
 msgstr ""
 
 msgid "Collection"
@@ -1344,6 +1344,9 @@ msgstr ""
 msgid "[Audio]"
 msgstr ""
 
+msgid "Final results"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
@@ -1401,10 +1404,16 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
+msgid "Open App"
+msgstr ""
+
 msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "Name (optional)"
+msgstr ""
+
+msgid "Location"
 msgstr ""
 
 msgid "Recast"
