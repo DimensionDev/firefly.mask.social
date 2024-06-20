@@ -642,9 +642,6 @@ msgstr "会话格式错误。"
 msgid "Failed to login."
 msgstr "登录失败。"
 
-msgid "Open Firefly App"
-msgstr ""
-
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -1406,6 +1403,9 @@ msgstr "请在 X 确认登陆。"
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
+
+msgid "Open App"
+msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
