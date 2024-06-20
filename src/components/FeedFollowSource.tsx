@@ -11,21 +11,19 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
     if (!source) return null;
     if (![WatchType.Farcaster, WatchType.Lens, WatchType.Twitter, WatchType.Wallet].includes(source.type)) return null;
 
+    const icons: { [key in WatchType]?: ReactNode } = {
+        [WatchType.Lens]: <LensIcon className="mx-2 h-4 w-4" />,
+        [WatchType.Farcaster]: <FarcasterIcon className="mx-2 h-4 w-4" />,
+        [WatchType.Twitter]: <TwitterIcon className="mx-2 h-4 w-4" />,
+    };
+
     return (
         <div className="mb-3 flex items-center text-[15px] leading-6 text-second">
             <StarIcon className="mr-2 h-4 w-4" />
             {[WatchType.Farcaster, WatchType.Lens, WatchType.Twitter].includes(source.type) ? (
                 <>
                     {t`Following`}
-                    {
-                        (
-                            {
-                                [WatchType.Lens]: <LensIcon className="mx-2 h-4 w-4" />,
-                                [WatchType.Farcaster]: <FarcasterIcon className="mx-2 h-4 w-4" />,
-                                [WatchType.Twitter]: <TwitterIcon className="mx-2 h-4 w-4" />,
-                            } as { [key in WatchType]?: ReactNode }
-                        )[source.type]
-                    }
+                    {icons[source.type]}
                     {source.handle ? `@${source.handle}` : null}
                 </>
             ) : (
