@@ -88,8 +88,8 @@ export function PollCard({ post }: PollCardProps) {
         poll.votingStatus === 'closed' || (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date()))
             ? t`Final results`
             : poll.endDatetime
-                ? t`${getTimeToNow(new Date(poll.endDatetime))} left`
-                : '';
+              ? t`${getTimeToNow(new Date(poll.endDatetime))} left`
+              : '';
 
     return (
         <div>
