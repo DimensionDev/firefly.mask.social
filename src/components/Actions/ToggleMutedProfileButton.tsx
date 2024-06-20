@@ -24,9 +24,7 @@ export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({
                 title: t`Mute @${profile.handle}`,
                 content: (
                     <div className="text-main">
-                        <Trans>
-                            Confirm you want to mute @{profile.handle}?
-                        </Trans>
+                        <Trans>Confirm you want to mute @{profile.handle}?</Trans>
                     </div>
                 ),
             });

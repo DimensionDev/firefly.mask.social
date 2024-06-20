@@ -43,9 +43,7 @@ export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
                 title: t`Mute /${channel.name}`,
                 content: (
                     <div className="text-main">
-                        <Trans>
-                            Confirm you want to mute /{channel.name}?
-                        </Trans>
+                        <Trans>Confirm you want to mute /{channel.name}?</Trans>
                     </div>
                 ),
             });
