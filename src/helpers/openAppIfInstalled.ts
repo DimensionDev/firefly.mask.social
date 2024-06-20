@@ -16,17 +16,15 @@ const tryOpenScheme = async (tagType: 'a' | 'iframe', scheme: string, downloadUr
     if (document.visibilityState === 'visible') {
         window.location.href = downloadUrl;
         await sleep(1000);
-    };
+    }
 };
 
 export const openAppIfInstalled = async (scheme: string, downloadUrl: string, waitDuration = 3500) => {
     if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
-        if (
-            typeof window.webkit !== "undefined"
-            && window.webkit.messageHandlers[scheme]
-        ) {
+        if (typeof window.webkit !== 'undefined' && window.webkit.messageHandlers[scheme]) {
             window.location.href = scheme;
-        } else { // < ios 9
+        } else {
+            // < ios 9
             await tryOpenScheme('iframe', scheme, downloadUrl, waitDuration);
         }
     } else {
