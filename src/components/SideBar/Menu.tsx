@@ -10,6 +10,7 @@ import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
+import FireflyLogo from '@/assets/firefly.logo.svg';
 import FollowingSelectedIcon from '@/assets/following.selected.svg';
 import FollowingIcon from '@/assets/following.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
@@ -21,7 +22,7 @@ import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
-import { ActiveApp } from '@/components/SideBar/ActiveApp.js';
+import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
@@ -150,6 +151,16 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     </li>
                                 );
                             })}
+                            {!isMedium ? (
+                                <li>
+                                    <OpenFireflyAppButton className="flex items-center gap-x-3 px-4 py-2">
+                                        <FireflyLogo width={20} height={20} />
+                                        <span className="text-xl font-bold leading-6 text-fireflyBrand">
+                                            <Trans>Open App</Trans>
+                                        </span>
+                                    </OpenFireflyAppButton>
+                                </li>
+                            ) : null}
                             {isLogin ? (
                                 collapsed ? (
                                     <li className="text-center">
@@ -185,11 +196,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             ) : null}
                         </ul>
                     </li>
-                    {!isMedium ? (
-                        <li>
-                            <ActiveApp />
-                        </li>
-                    ) : null}
                     <li className="-mx-2 mb-20 mt-auto text-center">
                         {isLogin ? (
                             <LoginStatusBar collapsed={collapsed} />
