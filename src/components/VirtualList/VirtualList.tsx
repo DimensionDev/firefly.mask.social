@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { useWindowSize } from 'react-use';
-import { Virtuoso, type VirtuosoProps } from 'react-virtuoso';
-
-import { useGlobalState } from '@/store/useGlobalStore.js';
+import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuoso';
 
 export interface VirtualListProps<ItemData = unknown, Context = unknown> extends VirtuosoProps<ItemData, Context> {
     listKey?: string;
+    virtuosoRef?: React.RefObject<VirtuosoHandle>;
 }
 
 export function VirtualList<ItemData = unknown, Context = unknown>({
@@ -15,13 +14,12 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     ...rest
 }: VirtualListProps<ItemData, Context>) {
     const { height } = useWindowSize();
-    const { scrollIndex } = useGlobalState();
     return (
         <Virtuoso
-            initialTopMostItemIndex={listKey && scrollIndex[listKey] ? Math.max(scrollIndex[listKey] - 2, 0) : 0}
             overscan={height}
             increaseViewportBy={height}
             {...rest}
+            ref={rest.virtuosoRef}
         />
     );
 }
