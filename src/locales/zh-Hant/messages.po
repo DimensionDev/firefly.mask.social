@@ -174,6 +174,9 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
 
+msgid "Login with QR Code"
+msgstr ""
+
 msgid "NFT Standard"
 msgstr ""
 
@@ -196,6 +199,9 @@ msgid "Username is required."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT"
+msgstr ""
+
+msgid "{0} left"
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
@@ -583,9 +589,6 @@ msgid "Privacy Policy"
 msgstr "隱私政策"
 
 msgid "Failed to fetch: ${0}. Please try again later"
-msgstr ""
-
-msgid "Expired"
 msgstr ""
 
 msgid "Switch"
@@ -1242,9 +1245,6 @@ msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制
 msgid "Posted via <0>{sendFrom}</0>"
 msgstr ""
 
-msgid "Final results / {0} left"
-msgstr ""
-
 msgid "Collection"
 msgstr ""
 
@@ -1345,6 +1345,9 @@ msgid "{0} Users"
 msgstr ""
 
 msgid "[Audio]"
+msgstr ""
+
+msgid "Final results"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
