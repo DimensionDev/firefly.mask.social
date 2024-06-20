@@ -133,7 +133,8 @@
         "localforage",
         "fname",
         "openrank",
-        "imagekit"
+        "imagekit",
+        "MMMDD"
     ],
     "flagWords": [],
     "ignorePaths": [
