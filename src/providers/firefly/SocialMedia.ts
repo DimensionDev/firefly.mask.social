@@ -1013,7 +1013,7 @@ export class FireflySocialMedia implements Provider {
         const page = Number.parseInt(indicator?.id || '0', 10);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/discover/feeds', {
             size: limit,
-            offset: (page + 1) * limit,
+            offset: page * limit,
         });
         const response = await fireflySessionHolder.fetch<DiscoverNFTResponse>(url, {
             method: 'GET',
