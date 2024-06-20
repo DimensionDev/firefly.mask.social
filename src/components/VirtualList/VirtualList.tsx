@@ -14,12 +14,5 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     ...rest
 }: VirtualListProps<ItemData, Context>) {
     const { height } = useWindowSize();
-    return (
-        <Virtuoso
-            overscan={height}
-            increaseViewportBy={height}
-            {...rest}
-            ref={rest.virtuosoRef}
-        />
-    );
+    return <Virtuoso overscan={height} increaseViewportBy={height} {...rest} ref={rest.virtuosoRef} />;
 }

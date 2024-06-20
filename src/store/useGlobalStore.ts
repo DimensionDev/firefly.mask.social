@@ -19,7 +19,7 @@ interface GlobalState {
     routeChanged: boolean;
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
-    virtuosoState: Record<'temporary' | 'cached', Record<string, StateSnapshot | undefined>>
+    virtuosoState: Record<'temporary' | 'cached', Record<string, StateSnapshot | undefined>>;
     setVirtuosoState: (key: 'temporary' | 'cached', listKey: string, snapshot: StateSnapshot) => void;
     currentSource: Source;
     updateCurrentSource: (source: Source) => void;
