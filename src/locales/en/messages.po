@@ -550,6 +550,9 @@ msgstr "Reply"
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
 
+msgid "Confirm you want to mute /{0}?"
+msgstr "Confirm you want to mute /{0}?"
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
 
@@ -619,9 +622,6 @@ msgstr "Replies"
 msgid "Comment"
 msgstr "Comment"
 
-msgid "{0} @{1}"
-msgstr "{0} @{1}"
-
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
@@ -685,6 +685,9 @@ msgstr "Please confirm the login with Warpcast."
 msgid "The connection has timed out. Please try again later.·"
 msgstr "The connection has timed out. Please try again later.·"
 
+msgid "Confirm you want to mute @{0}?"
+msgstr "Confirm you want to mute @{0}?"
+
 msgid "Compose"
 msgstr "Compose"
 
@@ -726,9 +729,6 @@ msgstr "Lens"
 
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
-
-msgid "Confirm you want to {0} @{1}?"
-msgstr "Confirm you want to {0} @{1}?"
 
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
@@ -909,9 +909,6 @@ msgstr "Translated"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
-
-msgid "{0} /{1}"
-msgstr "{0} /{1}"
 
 msgid "Unmute {identity}"
 msgstr "Unmute {identity}"
@@ -1194,9 +1191,6 @@ msgstr "Add"
 
 msgid "No device accounts detected."
 msgstr "No device accounts detected."
-
-msgid "Confirm you want to {0} /{1}?"
-msgstr "Confirm you want to {0} /{1}?"
 
 msgid "Log out all"
 msgstr "Log out all"

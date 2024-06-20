@@ -555,6 +555,9 @@ msgstr "回复"
 msgid "Mirror or Quote"
 msgstr "转帖或者引用"
 
+msgid "Confirm you want to mute /{0}?"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
@@ -624,9 +627,6 @@ msgstr "回复"
 msgid "Comment"
 msgstr "评论"
 
-msgid "{0} @{1}"
-msgstr "{0} @{1}"
-
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
@@ -690,6 +690,9 @@ msgstr "请确认使用 Warpcast 登录。"
 msgid "The connection has timed out. Please try again later.·"
 msgstr "连接已经超时。请稍后重试。"
 
+msgid "Confirm you want to mute @{0}?"
+msgstr ""
+
 msgid "Compose"
 msgstr "发帖"
 
@@ -731,9 +734,6 @@ msgstr "Lens"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
-
-msgid "Confirm you want to {0} @{1}?"
-msgstr "确认要{0} /{1}？"
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
@@ -914,9 +914,6 @@ msgstr "已翻译"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
-
-msgid "{0} /{1}"
-msgstr "{0} /{1}"
 
 msgid "Unmute {identity}"
 msgstr "取消隐藏 {identity}"
@@ -1199,9 +1196,6 @@ msgstr "添加"
 
 msgid "No device accounts detected."
 msgstr "未检测到设备账号。"
-
-msgid "Confirm you want to {0} /{1}?"
-msgstr "确认要{0} /{1}？"
 
 msgid "Log out all"
 msgstr "登出所有"
