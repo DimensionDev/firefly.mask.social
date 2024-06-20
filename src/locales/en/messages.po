@@ -1186,6 +1186,9 @@ msgstr "{0} and others"
 msgid "Failed to unmute @{0} on {sourceName}"
 msgstr "Failed to unmute @{0} on {sourceName}"
 
+msgid "Date"
+msgstr "Date"
+
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
 
@@ -1401,6 +1404,9 @@ msgstr "<0>You</0> recasted"
 
 msgid "Name (optional)"
 msgstr "Name (optional)"
+
+msgid "Location"
+msgstr "Location"
 
 msgid "Recast"
 msgstr "Recast"
