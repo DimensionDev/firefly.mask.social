@@ -63,11 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
                         <CustomElements />
                         {children}
-                        <IfPathname
-                            isNotOneOf={[
-                                '/login/desktop',
-                            ]}
-                        >
+                        <IfPathname isNotOneOf={['/login/desktop']}>
                             <SideBar />
                         </IfPathname>
                         <mask-page-inspector />
