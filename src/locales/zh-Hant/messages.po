@@ -741,6 +741,9 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
+msgid "Open Mobile App"
+msgstr ""
+
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
@@ -1426,9 +1429,6 @@ msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
-msgstr ""
-
-msgid "Open App"
 msgstr ""
 
 msgid "<0>You</0> recasted"

@@ -741,6 +741,9 @@ msgstr "您确定要举报这篇文章吗？"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
+msgid "Open Mobile App"
+msgstr ""
+
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
@@ -1427,9 +1430,6 @@ msgstr "请在 X 确认登陆。"
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
-
-msgid "Open App"
-msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"

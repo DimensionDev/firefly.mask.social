@@ -5,8 +5,13 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { openAppIfInstalled } from '@/helpers/openAppIfInstalled.js';
 
+export type ComposedScheme = {
+    ios: string;
+    android: string;
+};
+
 interface OpenAppButtonProps {
-    scheme: string;
+    scheme: ComposedScheme;
     downloadUrl: string;
     children: React.ReactNode;
     className?: string;
@@ -26,13 +31,19 @@ function OpenAppButton({ scheme, downloadUrl, waitDuration, children, className 
 }
 
 interface OpenFireflyAppButtonProps {
-    className?: string;
     children: React.ReactNode;
+    scheme?: ComposedScheme;
+    className?: string;
 }
 
-export function OpenFireflyAppButton({ className, children }: OpenFireflyAppButtonProps) {
+export function OpenFireflyAppButton({
+    // TODO: Android doesn't have home url scheme
+    scheme = { ios: 'firefly://', android: 'firefly://LoginToDesktop/ConfirmDialog' },
+    className,
+    children,
+}: OpenFireflyAppButtonProps) {
     return (
-        <OpenAppButton className={className} scheme="firefly://" downloadUrl="https://5euxu.app.link/PHvNiyVemIb">
+        <OpenAppButton className={className} scheme={scheme} downloadUrl="https://5euxu.app.link/PHvNiyVemIb">
             {children}
         </OpenAppButton>
     );
