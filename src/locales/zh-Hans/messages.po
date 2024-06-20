@@ -540,9 +540,6 @@ msgstr "回复"
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Add an existing account"
-msgstr ""
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -1109,6 +1106,9 @@ msgstr "没有找到 Lens 账号，请连接另一个钱包。"
 
 msgid "Connect"
 msgstr "连接"
+
+msgid "Switch account"
+msgstr ""
 
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
