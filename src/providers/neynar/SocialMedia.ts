@@ -298,7 +298,7 @@ class NeynarSocialMedia implements Provider {
     async reportProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async reportPost(postId: string): Promise<boolean> {
+    async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
 }

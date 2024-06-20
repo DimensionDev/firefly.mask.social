@@ -648,7 +648,7 @@ class WarpcastSocialMedia implements Provider {
         // TODO Mocking result for now.
         return true;
     }
-    async reportPost(postId: string): Promise<boolean> {
+    async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
     async blockProfile(profileId: string): Promise<boolean> {

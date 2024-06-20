@@ -163,6 +163,9 @@ msgstr "Poll"
 msgid "Casts"
 msgstr "Casts"
 
+msgid "Report submitted on {0}"
+msgstr "Report submitted on {0}"
+
 msgid "Debug Console"
 msgstr "Debug Console"
 
@@ -195,6 +198,9 @@ msgstr "Username is required."
 
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>Sent</0> an NFT"
+
+msgid "Report post"
+msgstr "Report post"
 
 msgid "{0} left"
 msgstr "{0} left"
@@ -499,6 +505,9 @@ msgstr "{0} Channels"
 msgid "Report spam"
 msgstr "Report spam"
 
+msgid "Failed to submit report on {0}"
+msgstr "Failed to submit report on {0}"
+
 msgid "View Source"
 msgstr "View Source"
 
@@ -540,6 +549,9 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 
 msgid "Owned By"
 msgstr "Owned By"
+
+msgid "Are you sure you want to report this post?"
+msgstr "Are you sure you want to report this post?"
 
 msgid "Collected"
 msgstr "Collected"
