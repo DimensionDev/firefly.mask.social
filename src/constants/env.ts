@@ -57,10 +57,10 @@ const ExternalEnvSchema = z.object({
     OPENRANK_URL: z.string(),
 
     // app url scheme
-    NEXT_PUBLIC_FIREFLY_IOS_HOME: z.string().optional(),
-    NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM: z.string().optional(),
-    NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().optional(),
-    NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM: z.string().optional(),
+    NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: z.string().default('https://5euxu.app.link/PHvNiyVemIb'),
+    NEXT_PUBLIC_FIREFLY_IOS_HOME: z.string().default('firefly://'),
+    // TODO: Android doesn't have home url scheme
+    NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().default(''),
 });
 
 export const env = {
@@ -94,9 +94,8 @@ export const env = {
 
         OPENRANK_URL: process.env.NEXT_PUBLIC_OPENRANK_URL || 'https://graph.cast.k3l.io',
 
+        NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,
         NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
-        NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM: process.env.NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM,
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
-        NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM,
     }),
 };
