@@ -104,7 +104,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
                     <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
-                        <Trans>Please confirm the login with Warpcast.</Trans>
+                        <Trans>Please confirm the login with Firefly.</Trans>
                     </div>
                 </div>
             ) : (
