@@ -96,24 +96,20 @@ function calculateLength(post: CompositePost, visibleOnly?: boolean): number {
     return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
 }
 
+function calculateAvailableLength(post: CompositePost): number {
+    const { chars, availableSources } = post;
+    return Math.min(
+        ...availableSources.map(
+            (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, false, x)),
+        ),
+    );
+}
+
 export function measureChars(post: CompositePost) {
-    let length = calculateLength(post);
-    const visibleLength = calculateLength(post, true);
-    const { poll, availableSources } = post;
-
-    const pollId = `${getPollFrameUrl(`poll-${uuid()}`, Source.Lens)}\n`;
-
-    if (poll && availableSources.includes(Source.Lens) && availableSources.length > 1) {
-        const excludeLensSources = availableSources.filter((x) => x !== Source.Lens);
-        const excludeMax = Math.min(...excludeLensSources.map((x) => MAX_CHAR_SIZE_PER_POST[x]));
-        if (MAX_CHAR_SIZE_PER_POST[Source.Lens] - pollId.length > excludeMax) {
-            length -= pollId.length;
-        }
-    }
-
     return {
-        length,
-        visibleLength,
-        invisibleLength: length - visibleLength,
+        // max(x1, x2, x3)
+        usedLength: calculateLength(post),
+        // min(y1, y2, y3)
+        availableLength: calculateAvailableLength(post),
     };
 }

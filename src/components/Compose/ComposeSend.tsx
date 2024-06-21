@@ -15,7 +15,6 @@ import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
@@ -35,14 +34,13 @@ export function ComposeSend(props: ComposeSendProps) {
     const { type, posts, addPostInThread, draftId } = useComposeStateStore();
     const { removeDraft } = useComposeDraftStateStore();
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
-    const { visibleLength, invisibleLength } = measureChars(post);
+    const { usedLength, availableLength } = measureChars(post);
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
     const checkPostMedias = useCheckPostMedias();
 
-    const hasThread = (post.images.length > 0 || visibleLength) && type === 'compose';
+    const hasThread = (post.images.length > 0 || usedLength) && type === 'compose';
 
     const [percentage, setPercentage] = useState(0);
     const [{ loading, error }, handlePost] = useAsyncFn(
@@ -108,11 +106,11 @@ export function ComposeSend(props: ComposeSendProps) {
 
     return (
         <div className="flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            {visibleLength && post.availableSources.length ? (
+            {usedLength && post.availableSources.length ? (
                 <div className="flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                     <CountdownCircle width={24} height={24} className="flex-shrink-0" />
-                    <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? 'text-danger' : ''}>
-                        {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
+                    <span className={usedLength > availableLength ? 'text-danger' : ''}>
+                        {usedLength} / {availableLength}
                     </span>
                 </div>
             ) : null}

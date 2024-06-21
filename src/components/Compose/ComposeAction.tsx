@@ -26,7 +26,6 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -48,7 +47,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
-    const { length, visibleLength, invisibleLength } = measureChars(post);
+    const { usedLength, availableLength } = measureChars(post);
 
     const setEditorContent = useSetEditorContent();
 
@@ -78,7 +77,6 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll, profilesAll]);
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
@@ -155,15 +153,15 @@ export function ComposeAction(props: ComposeActionProps) {
                     </span>
                 </div>
 
-                {visibleLength && !isMedium ? (
+                {usedLength && !isMedium ? (
                     <div className="ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                        <span className={classNames(length > MAX_CHAR_SIZE_PER_POST ? 'text-danger' : '')}>
-                            {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
+                        <span className={classNames(usedLength > availableLength ? 'text-danger' : '')}>
+                            {usedLength} / {availableLength}
                         </span>
                     </div>
                 ) : null}
 
-                {visibleLength && type === 'compose' && !isMedium ? (
+                {usedLength && type === 'compose' && !isMedium ? (
                     <ClickableButton
                         className="text-main"
                         disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
