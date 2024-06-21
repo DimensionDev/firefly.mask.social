@@ -26,7 +26,7 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
-    const [, reportProfile] = useReportProfile(currentProfile);
+    const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
 
     return (
@@ -66,7 +66,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                             >
                                 <LinkIcon width={24} height={24} />
                                 <span className="font-bold leading-[22px] text-main">
-                                    <Trans>Copy Link</Trans>
+                                    <Trans>Copy link</Trans>
                                 </span>
                             </MenuButton>
                         )}

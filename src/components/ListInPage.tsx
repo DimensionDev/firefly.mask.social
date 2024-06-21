@@ -2,7 +2,7 @@
 
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
-import type { Components } from 'react-virtuoso';
+import type { Components, StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -33,11 +33,13 @@ export function ListInPage<T = unknown, C = unknown>({
     NoResultsFallbackProps,
     className,
 }: ListInPageProps<T, C>) {
-    const currentSource = useGlobalState.use.currentSource();
+    const { currentSource, virtuosoState, setVirtuosoState } = useGlobalState();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
     const itemsRendered = useRef(false);
     const isLogin = useIsLogin(currentSocialSource);
+
+    const virtuoso = useRef<VirtuosoHandle>(null);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
 
@@ -56,6 +58,16 @@ export function ListInPage<T = unknown, C = unknown>({
         return <NoResultsFallback {...NoResultsFallbackProps} />;
     }
 
+    const listKey = VirtualListProps?.listKey;
+
+    const onScrolling = (scrolling: boolean) => {
+        if (!scrolling && listKey) {
+            virtuoso?.current?.getState((state: StateSnapshot) => {
+                setVirtuosoState('temporary', listKey, state);
+            });
+        }
+    };
+
     // force type casting to avoid type error
     const List = VirtualList<T, C>;
     const Components = {
@@ -69,6 +81,7 @@ export function ListInPage<T = unknown, C = unknown>({
         itemsRendered: itemsRendered.current,
         ...(VirtualListProps?.context ?? {}),
     };
+    const cachedState = listKey ? virtuosoState.cached[listKey] : undefined;
 
     return (
         <List
@@ -83,6 +96,9 @@ export function ListInPage<T = unknown, C = unknown>({
             context={Context as C}
             components={Components}
             className={classNames('max-md:no-scrollbar', className)}
+            isScrolling={onScrolling}
+            restoreStateFrom={cachedState}
+            virtuosoRef={virtuoso}
         />
     );
 }

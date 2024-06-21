@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { isUndefined } from 'lodash-es';
+import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import { useMount } from 'react-use';
@@ -9,6 +9,7 @@ import urlcat from 'urlcat';
 
 import ArticleAnchorIcon from '@/assets/article-anchor.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
+import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
@@ -84,6 +85,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 return;
             }}
         >
+            <FeedFollowSource source={first(article.followingSources)} />
             <ArticleHeader article={article} />
             {isMuted ? (
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />

@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import FireflyIcon from '@/assets/firefly.svg';
@@ -12,6 +12,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
+import { IS_FIREFOX } from '@/constants/bowser.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -26,6 +27,10 @@ interface NavigatorBarForMobileProps {
     enableFixedBack?: boolean;
     enableSearch?: boolean;
 }
+
+const changeBodyOverflow = (overflow: 'auto' | 'hidden') => {
+    if (IS_FIREFOX) document.body.style.overflowY = overflow;
+};
 
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     title,
@@ -59,6 +64,17 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     useLayoutEffect(() => {
         setInputText(searchKeyword);
     }, [searchKeyword]);
+
+    useEffect(() => {
+        const onTouchMove = () => {
+            changeBodyOverflow('auto');
+        };
+        window.addEventListener('touchmove', onTouchMove, { passive: false });
+        return () => {
+            onTouchMove();
+            window.removeEventListener('touchmove', onTouchMove);
+        };
+    }, []);
 
     return (
         <>
@@ -108,7 +124,12 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             <SearchInput
                                 value={inputText}
                                 onChange={(ev) => setInputText(ev.target.value)}
-                                onFocus={() => setShowRecommendation(true)}
+                                onFocus={() => {
+                                    setShowRecommendation(true);
+                                    changeBodyOverflow('hidden');
+                                }}
+                                onClick={() => changeBodyOverflow('hidden')}
+                                onBlur={() => changeBodyOverflow('auto')}
                                 onClear={() => setInputText('')}
                             />
                         </form>

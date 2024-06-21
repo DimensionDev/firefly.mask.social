@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-19 06:43\n"
+"PO-Revision-Date: 2024-06-21 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -168,10 +168,16 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Report submitted on {0}"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
 msgid "Failed to mute @{0} on {sourceName}"
+msgstr ""
+
+msgid "Login with QR Code"
 msgstr ""
 
 msgid "NFT Standard"
@@ -196,6 +202,12 @@ msgid "Username is required."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT"
+msgstr ""
+
+msgid "Report post"
+msgstr ""
+
+msgid "{0} left"
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
@@ -249,7 +261,13 @@ msgstr ""
 msgid "Switch to the development API version for testing new features."
 msgstr ""
 
+msgid "{days, plural, one {1 day} other {{days} days}}"
+msgstr ""
+
 msgid "Blockchain"
+msgstr ""
+
+msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Mutes"
@@ -349,6 +367,9 @@ msgid "Add another post..."
 msgstr ""
 
 msgid "Items"
+msgstr ""
+
+msgid "Less than a minute left"
 msgstr ""
 
 msgid "Minting Txn Hash"
@@ -495,6 +516,9 @@ msgstr ""
 msgid "Report spam"
 msgstr ""
 
+msgid "Failed to submit report on {0}"
+msgstr ""
+
 msgid "View Source"
 msgstr ""
 
@@ -522,19 +546,25 @@ msgstr ""
 msgid "AUTHOR ADDRESS"
 msgstr ""
 
+msgid "Enable development API version"
+msgstr ""
+
 msgid "Reply"
 msgstr ""
 
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Add an existing account"
+msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Owned By"
+msgstr ""
+
+msgid "Are you sure you want to report this post?"
 msgstr ""
 
 msgid "Collected"
@@ -570,13 +600,13 @@ msgstr ""
 msgid "Detecting..."
 msgstr ""
 
+msgid "Open in Firefly App"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr ""
 
 msgid "Failed to fetch: ${0}. Please try again later"
-msgstr ""
-
-msgid "Expired"
 msgstr ""
 
 msgid "Switch"
@@ -595,9 +625,6 @@ msgid "Replies"
 msgstr ""
 
 msgid "Comment"
-msgstr ""
-
-msgid "{0} @{1}"
 msgstr ""
 
 msgid "Only people you mention"
@@ -633,9 +660,6 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
-msgid "Open Firefly App"
-msgstr ""
-
 msgid "Unlike"
 msgstr ""
 
@@ -666,6 +690,9 @@ msgstr ""
 msgid "The connection has timed out. Please try again later.·"
 msgstr ""
 
+msgid "Confirm you want to mute @{0}?"
+msgstr ""
+
 msgid "Compose"
 msgstr ""
 
@@ -682,9 +709,6 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
-msgstr ""
-
-msgid "Switch to the production API version for using stable features."
 msgstr ""
 
 msgid "Failed to follow."
@@ -711,13 +735,13 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
-msgid "Confirm you want to {0} @{1}?"
-msgstr ""
-
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Open Mobile App"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -774,10 +798,10 @@ msgstr ""
 msgid "Detect device accounts"
 msgstr ""
 
-msgid "Your Farcaster account is now connected."
+msgid "No preview found for shared link"
 msgstr ""
 
-msgid "{totalVotes, plural, zero {{totalVotes} Vote} one {{totalVotes} Vote} other {{totalVotes} Votes}}"
+msgid "Your Farcaster account is now connected."
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
@@ -808,9 +832,6 @@ msgid "No matching channel"
 msgstr ""
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
-
-msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "What's happening..."
@@ -894,9 +915,6 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr ""
 
-msgid "{0} /{1}"
-msgstr ""
-
 msgid "Unmute {identity}"
 msgstr ""
 
@@ -949,6 +967,9 @@ msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
 msgid "Delete"
+msgstr ""
+
+msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr ""
 
 msgid "The content of this account is currently unavailable"
@@ -1032,6 +1053,9 @@ msgstr ""
 msgid "Suspended"
 msgstr ""
 
+msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
+msgstr ""
+
 msgid "Full"
 msgstr ""
 
@@ -1101,6 +1125,9 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
+msgid "Switch account"
+msgstr ""
+
 msgid "Sign in with Custody Wallet"
 msgstr ""
 
@@ -1152,6 +1179,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Switching..."
+msgstr ""
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -1167,9 +1197,6 @@ msgstr ""
 msgid "No device accounts detected."
 msgstr ""
 
-msgid "Confirm you want to {0} /{1}?"
-msgstr ""
-
 msgid "Log out all"
 msgstr ""
 
@@ -1180,6 +1207,9 @@ msgid "{0} and others"
 msgstr ""
 
 msgid "Failed to unmute @{0} on {sourceName}"
+msgstr ""
+
+msgid "Date"
 msgstr ""
 
 msgid "Failed to retweet."
@@ -1230,9 +1260,6 @@ msgstr ""
 msgid "Posted via <0>{sendFrom}</0>"
 msgstr ""
 
-msgid "Final results / {0} left"
-msgstr ""
-
 msgid "Collection"
 msgstr ""
 
@@ -1264,9 +1291,6 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Post added to your Bookmarks"
-msgstr ""
-
-msgid "{followerCount, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "your.email@example.org"
@@ -1317,6 +1341,9 @@ msgstr ""
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
+msgstr ""
+
 msgid "Malformed twitter session payload."
 msgstr ""
 
@@ -1336,6 +1363,9 @@ msgid "{0} Users"
 msgstr ""
 
 msgid "[Audio]"
+msgstr ""
+
+msgid "Final results"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
@@ -1377,6 +1407,9 @@ msgstr ""
 msgid "Add a comment"
 msgstr ""
 
+msgid "Address on Watching Lists"
+msgstr ""
+
 msgid "FREE"
 msgstr ""
 
@@ -1396,6 +1429,9 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "Name (optional)"
+msgstr ""
+
+msgid "Location"
 msgstr ""
 
 msgid "Recast"

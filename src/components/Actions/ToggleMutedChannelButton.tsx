@@ -38,17 +38,17 @@ export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
     const [{ loading }, toggleMutedChannel] = useToggleMutedChannel();
 
     const onToggle = async () => {
-        const confirmed = await ConfirmModalRef.openAndWaitForClose({
-            title: t`${isMuted ? 'Unmute' : 'Mute'} /${channel.name}`,
-            content: (
-                <div className="text-main">
-                    <Trans>
-                        Confirm you want to {isMuted ? 'unmute' : 'mute'} /{channel.name}?
-                    </Trans>
-                </div>
-            ),
-        });
-        if (!confirmed) return;
+        if (!isMuted) {
+            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                title: t`Mute /${channel.name}`,
+                content: (
+                    <div className="text-main">
+                        <Trans>Confirm you want to mute /{channel.name}?</Trans>
+                    </div>
+                ),
+            });
+            if (!confirmed) return;
+        }
         const result = await toggleMutedChannel({ ...channel, blocked: isMuted });
         if (result) {
             setQueryDataForChannel(channel, !isMuted);

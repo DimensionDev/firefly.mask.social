@@ -7,8 +7,8 @@ import { first } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
-import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -55,7 +55,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
                     </div>
                 ) : null}
                 <div className="relative aspect-square h-auto w-full overflow-hidden">
-                    <Image
+                    <NFTImage
                         width={500}
                         height={500}
                         className="h-full w-full rounded-lg object-cover"
@@ -90,7 +90,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
                 })}
             >
                 {images.map((url, i) => (
-                    <Image
+                    <NFTImage
                         key={`${url}-${i}`}
                         width={500}
                         height={500}

@@ -1,15 +1,11 @@
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
-import { compact } from 'lodash-es';
-import type { ReactNode } from 'react';
+import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
 
-export interface NFTPropertiesItem {
-    label: ReactNode;
-    value: ReactNode;
-}
+import { getNFTPropertyValue } from '@/helpers/getNFTPropertyValue.js';
 
 export interface NFTPropertiesProps {
-    items: NFTPropertiesItem[];
+    items: NonFungibleTokenTrait[];
 }
 
 export function NFTProperties(props: NFTPropertiesProps) {
@@ -19,20 +15,17 @@ export function NFTProperties(props: NFTPropertiesProps) {
                 <Trans>Properties</Trans>
             </h3>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3">
-                {props.items.map(({ value, label }, i) => {
-                    const key = compact([
-                        typeof label === 'string' ? label : label,
-                        typeof value === 'string' ? value : value,
-                        `${i}`,
-                    ]).join('');
+                {props.items.map((item) => {
+                    const { type, displayType } = item;
+                    const value = getNFTPropertyValue(displayType, item.value);
                     return (
                         <div
-                            key={key}
+                            key={type}
                             className="flex flex-col items-center justify-center space-y-2.5 rounded-[10px] border border-input bg-lightBg p-[10px] px-2 py-1 text-center"
                         >
-                            <TextOverflowTooltip title={label}>
+                            <TextOverflowTooltip title={type}>
                                 <div className="w-full truncate text-base font-normal leading-[22px] text-second">
-                                    {label}
+                                    {type}
                                 </div>
                             </TextOverflowTooltip>
                             <TextOverflowTooltip title={value}>

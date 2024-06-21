@@ -18,6 +18,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
+import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import type { SearchParams } from '@/types/index.js';
 
@@ -36,6 +37,7 @@ export default function Page({
     const isPoap = isSameAddress(address, POAP_CONTRACT_ADDRESS);
 
     const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
+    const { data: poapAttendeesCount } = usePoapAttendeesCount(data?.metadata?.eventId);
 
     const { data: collectionData } = useQuery({
         queryKey: ['collection-info', address, chainId],
@@ -78,17 +80,10 @@ export default function Page({
                     isPoap={isPoap}
                     floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
-                    attendance={collectionData?.distinct_owner_count}
+                    attendance={poapAttendeesCount}
                     tokenNameClassName={classNames({ '!line-clamp-3': isPoap })}
                 />
-                {data.traits && data.traits.length > 0 ? (
-                    <NFTProperties
-                        items={data.traits.map((trait) => ({
-                            label: trait.type,
-                            value: trait.value,
-                        }))}
-                    />
-                ) : null}
+                {data.traits && data.traits.length > 0 ? <NFTProperties items={data.traits} /> : null}
                 <NFTOverflow
                     description={data.metadata.description ?? ''}
                     tokenId={data.tokenId}

@@ -63,7 +63,12 @@ function convertDescriptionToArray(description: string): ReactNode[] {
     return parts.map((part, i) => {
         if (/(https?:\/\/[^\s]+)/.test(part)) {
             return (
-                <Link key={`${part}-${i}`} href={part} target="_blank" className="text-farcasterPrimary underline">
+                <Link
+                    key={`${part}-${i}`}
+                    href={part}
+                    target="_blank"
+                    className="break-all text-farcasterPrimary underline"
+                >
                     {part}
                 </Link>
             );
@@ -94,11 +99,6 @@ export function NFTOverflow(props: NFTOverflowProps) {
                             field={t`NFT Standard`}
                             value={
                                 <div className="flex items-center">
-                                    {props.chainId ? (
-                                        <span className="mr-1">
-                                            <ChainIcon size={20} chainId={props.chainId} />
-                                        </span>
-                                    ) : null}
                                     {
                                         {
                                             [SchemaType.Native]: 'Native',

@@ -1,3 +1,4 @@
+import type { StateSnapshot } from 'react-virtuoso';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -18,6 +19,8 @@ interface GlobalState {
     routeChanged: boolean;
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
+    virtuosoState: Record<'temporary' | 'cached', Record<string, StateSnapshot | undefined>>;
+    setVirtuosoState: (key: 'temporary' | 'cached', listKey: string, snapshot: StateSnapshot) => void;
     currentSource: Source;
     updateCurrentSource: (source: Source) => void;
     currentProfileTabState: {
@@ -48,6 +51,20 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             setScrollIndex: (key: string, value) => {
                 set((state) => {
                     state.scrollIndex[key] = value;
+                    const temporarySnapshot = state.virtuosoState.temporary[key];
+                    if (temporarySnapshot) {
+                        state.virtuosoState.cached[key] = temporarySnapshot;
+                        state.virtuosoState.temporary[key] = undefined;
+                    }
+                });
+            },
+            virtuosoState: {
+                temporary: {},
+                cached: {},
+            },
+            setVirtuosoState: (key, listKey, snapshot) => {
+                set((state) => {
+                    state.virtuosoState[key][listKey] = snapshot;
                 });
             },
         })),

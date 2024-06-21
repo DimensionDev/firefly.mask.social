@@ -69,7 +69,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                             >
                                 <LinkIcon width={24} height={24} />
                                 <span className="font-bold leading-[22px] text-main">
-                                    <Trans>Copy Link</Trans>
+                                    <Trans>Copy link</Trans>
                                 </span>
                             </MenuButton>
                         )}

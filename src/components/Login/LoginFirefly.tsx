@@ -1,12 +1,12 @@
 import { plural, t, Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
-import QRCode from 'react-qr-code';
 import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
@@ -168,13 +168,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                                     onLoginByGrantPermission();
                                 }}
                             >
-                                <QRCode
-                                    className={classNames({
-                                        'blur-md': count === 0 || scanned,
-                                    })}
-                                    value={url}
-                                    size={360}
-                                />
+                                <ScannableQRCode url={url} scanned={scanned} countdown={count} />
                                 {scanned ? (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                                         <LoadingIcon className="animate-spin" width={24} height={24} />

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-19 06:43\n"
+"PO-Revision-Date: 2024-06-21 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -57,9 +57,6 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
 
-msgid "Report Spam"
-msgstr ""
-
 msgid "Mute /{0}"
 msgstr "將 @{0} 靜音"
 
@@ -83,6 +80,9 @@ msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 
 msgid "Failed to unbookmark post."
 msgstr "從書籤中移除失敗。"
+
+msgid "Delete post"
+msgstr ""
 
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以通過以下選項登入 Farcaster。"
@@ -165,11 +165,17 @@ msgstr "投票"
 msgid "Casts"
 msgstr ""
 
+msgid "Report submitted on {0}"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
 msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
+
+msgid "Login with QR Code"
+msgstr ""
 
 msgid "NFT Standard"
 msgstr ""
@@ -193,6 +199,12 @@ msgid "Username is required."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT"
+msgstr ""
+
+msgid "Report post"
+msgstr ""
+
+msgid "{0} left"
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
@@ -244,6 +256,9 @@ msgid "Username"
 msgstr "用戶名"
 
 msgid "Switch to the development API version for testing new features."
+msgstr ""
+
+msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr ""
 
 msgid "Blockchain"
@@ -354,6 +369,9 @@ msgstr "加入另一則貼文..."
 msgid "Items"
 msgstr ""
 
+msgid "Less than a minute left"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -416,9 +434,6 @@ msgstr ""
 
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
-
-msgid "Copy Link"
-msgstr "複製連結"
 
 msgid "<0>Poap</0> received"
 msgstr ""
@@ -498,6 +513,9 @@ msgstr ""
 msgid "Report spam"
 msgstr ""
 
+msgid "Failed to submit report on {0}"
+msgstr ""
+
 msgid "View Source"
 msgstr ""
 
@@ -534,7 +552,7 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
-msgid "Add an existing account"
+msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
 msgid "{0}"
@@ -544,6 +562,9 @@ msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Owned By"
+msgstr ""
+
+msgid "Are you sure you want to report this post?"
 msgstr ""
 
 msgid "Collected"
@@ -588,9 +609,6 @@ msgstr "隱私政策"
 msgid "Failed to fetch: ${0}. Please try again later"
 msgstr ""
 
-msgid "Expired"
-msgstr ""
-
 msgid "Switch"
 msgstr ""
 
@@ -607,9 +625,6 @@ msgid "Replies"
 msgstr ""
 
 msgid "Comment"
-msgstr ""
-
-msgid "{0} @{1}"
 msgstr ""
 
 msgid "Only people you mention"
@@ -645,9 +660,6 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登入失敗."
 
-msgid "Open Firefly App"
-msgstr ""
-
 msgid "Unlike"
 msgstr "取消按讚"
 
@@ -666,6 +678,9 @@ msgstr "書籤"
 msgid "Post has been deleted"
 msgstr ""
 
+msgid "Report article"
+msgstr ""
+
 msgid "Everyone"
 msgstr "所有人"
 
@@ -676,6 +691,9 @@ msgid "Please confirm the login with Warpcast."
 msgstr ""
 
 msgid "The connection has timed out. Please try again later.·"
+msgstr ""
+
+msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
 msgid "Compose"
@@ -717,13 +735,13 @@ msgstr "清除所有"
 msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
-msgid "Confirm you want to {0} @{1}?"
-msgstr ""
-
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Open Mobile App"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -888,13 +906,13 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "View engagements"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
-msgstr ""
-
-msgid "{0} /{1}"
 msgstr ""
 
 msgid "Unmute {identity}"
@@ -951,13 +969,13 @@ msgstr ""
 msgid "Delete"
 msgstr "刪除"
 
+msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
 msgid "There is no data available for display."
-msgstr ""
-
-msgid "Delete Post"
 msgstr ""
 
 msgid "Cancel"
@@ -1104,6 +1122,9 @@ msgstr ""
 msgid "Connect"
 msgstr "連接"
 
+msgid "Switch account"
+msgstr ""
+
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"
 
@@ -1161,9 +1182,6 @@ msgstr ""
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Report Article"
-msgstr ""
-
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
@@ -1171,9 +1189,6 @@ msgid "Add"
 msgstr ""
 
 msgid "No device accounts detected."
-msgstr ""
-
-msgid "Confirm you want to {0} /{1}?"
 msgstr ""
 
 msgid "Log out all"
@@ -1186,6 +1201,9 @@ msgid "{0} and others"
 msgstr ""
 
 msgid "Failed to unmute @{0} on {sourceName}"
+msgstr ""
+
+msgid "Date"
 msgstr ""
 
 msgid "Failed to retweet."
@@ -1234,9 +1252,6 @@ msgid "We're updating our connection with X. Posting on X will be limited for no
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
 
 msgid "Posted via <0>{sendFrom}</0>"
-msgstr ""
-
-msgid "Final results / {0} left"
 msgstr ""
 
 msgid "Collection"
@@ -1293,9 +1308,6 @@ msgstr ""
 msgid "Failed to watch {identity}"
 msgstr ""
 
-msgid "View Engagements"
-msgstr "查看互動數據"
-
 msgid "{identity} unwatched"
 msgstr ""
 
@@ -1317,6 +1329,9 @@ msgstr "追蹤 @{0}"
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
+msgstr ""
+
 msgid "Malformed twitter session payload."
 msgstr ""
 
@@ -1336,6 +1351,9 @@ msgid "{0} Users"
 msgstr ""
 
 msgid "[Audio]"
+msgstr ""
+
+msgid "Final results"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
@@ -1377,6 +1395,9 @@ msgstr "語言"
 msgid "Add a comment"
 msgstr "添加評論"
 
+msgid "Address on Watching Lists"
+msgstr ""
+
 msgid "FREE"
 msgstr ""
 
@@ -1396,6 +1417,9 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "Name (optional)"
+msgstr ""
+
+msgid "Location"
 msgstr ""
 
 msgid "Recast"
@@ -1429,6 +1453,9 @@ msgid "Already posted on {sourceName}."
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Copy link"
 msgstr ""
 
 msgid "Post"

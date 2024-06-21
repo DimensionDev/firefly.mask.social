@@ -12,6 +12,7 @@ import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
 import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -63,7 +64,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     </div>
                 ) : null}
                 {isPoap ? <PoapIcon className="absolute left-3 top-3 h-6 w-6" /> : null}
-                <Image
+                <NFTImage
                     width={250}
                     height={250}
                     src={imageURL}
@@ -83,7 +84,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                           })
                                         : ''
                                 }
-                                className="flex h-5 w-full items-center text-base font-bold leading-6"
+                                className="flex h-5 w-full items-center justify-center text-base font-bold leading-6 sm:justify-start"
                             >
                                 {collection.icon ? (
                                     <Image

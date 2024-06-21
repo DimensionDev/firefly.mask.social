@@ -85,10 +85,8 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                 return (
                     <ClickableArea
-                        onClick={(event) => {
+                        onClick={() => {
                             startTransition(() => {
-                                event?.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-
                                 update?.({
                                     source: profile.source,
                                     identity: profile.identity,
@@ -134,7 +132,12 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                 border: isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
                             }}
                         />
-                        <span className="whitespace-nowrap text-[10px] leading-3">
+                        <span
+                            ref={(ref) => {
+                                if (isActive) ref?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                            }}
+                            className="whitespace-nowrap text-[10px] leading-3"
+                        >
                             {profile.source === Source.Wallet ? profile.displayName : `@${profile.displayName}`}
                         </span>
                     </ClickableArea>

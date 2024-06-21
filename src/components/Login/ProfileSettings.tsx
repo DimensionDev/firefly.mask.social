@@ -141,7 +141,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     }}
                 >
                     <span className="text-[17px] font-bold leading-[22px] text-main">
-                        <Trans>Add an existing account</Trans>
+                        <Trans>Switch account</Trans>
                     </span>
                 </ClickableButton>
                 {canDetect ? (

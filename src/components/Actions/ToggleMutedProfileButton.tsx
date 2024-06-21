@@ -19,17 +19,17 @@ export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({
     const [{ loading }, toggleMuted] = useToggleMutedProfile(currentProfile);
 
     const onToggle = async () => {
-        const confirmed = await ConfirmModalRef.openAndWaitForClose({
-            title: t`${isMuted ? 'Unmute' : 'Mute'} @${profile.handle}`,
-            content: (
-                <div className="text-main">
-                    <Trans>
-                        Confirm you want to {isMuted ? 'unmute' : 'mute'} @{profile.handle}?
-                    </Trans>
-                </div>
-            ),
-        });
-        if (!confirmed) return;
+        if (!isMuted) {
+            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                title: t`Mute @${profile.handle}`,
+                content: (
+                    <div className="text-main">
+                        <Trans>Confirm you want to mute @{profile.handle}?</Trans>
+                    </div>
+                ),
+            });
+            if (!confirmed) return;
+        }
         return toggleMuted(profile, isMuted);
     };
 
