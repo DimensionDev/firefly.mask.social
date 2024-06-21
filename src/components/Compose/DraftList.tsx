@@ -54,7 +54,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
     }, [draft]);
 
     const post = first(draft.posts);
-    const content = post ? readChars(post.chars, true) : '';
+    const content = post ? readChars(post.chars, 'visible') : '';
 
     const isDisabled = useMemo(() => {
         const currentAllProfiles = compact(values(currentProfileAll));

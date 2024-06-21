@@ -55,11 +55,12 @@ export type Chars = string | Array<string | ComplexChars>;
  * @param visibleOnly
  * @returns
  */
-export function readChars(chars: Chars, visibleOnly = false, source?: SocialSource) {
+export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisible' = 'both', source?: SocialSource) {
     return (Array.isArray(chars) ? chars : [chars])
         .map((x) => {
             if (typeof x === 'string') return x;
-            if (!x.visible && visibleOnly) return '';
+            if (x.visible && strategy === 'invisible') return '';
+            if (!x.visible && strategy === 'visible') return '';
             switch (x.tag) {
                 case CHAR_TAG.FIREFLY_RP:
                     return `${x.content}\n`;
@@ -91,21 +92,18 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-/**
- * Suppose we have three sources: x1, x2, x3. Each source has a maximum length: y1, y2, y3.
- * @param post
- * @returns
- */
 export function measureChars(post: CompositePost) {
     const { chars, availableSources } = post;
 
     return {
-        // max(x1, x2, x3)
-        usedLength: Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, false, x)))),
-        // min(y1, y2, y3)
+        // max(visible x1, visible x2, visible x3)
+        usedLength: Math.max(
+            ...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, 'visible', x))),
+        ),
+        // min(limit_y1 - invisible, limit_y2 - invisible, limit_y3 - invisible)
         availableLength: Math.min(
             ...availableSources.map(
-                (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, false, x)),
+                (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, 'invisible', x)),
             ),
         ),
     };

@@ -310,14 +310,14 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         },
         uploadPolls: async () => {
             if (!poll) return [];
-            const pollStub = await LensPollProvider.createPoll(poll, readChars(chars, false, Source.Lens));
+            const pollStub = await LensPollProvider.createPoll(poll, readChars(chars, 'both', Source.Lens));
             return [pollStub];
         },
         compose(images, videos, polls) {
             const video = first(videos) ?? null;
             return publishPostForLens(
                 currentProfile.profileId,
-                readChars(chars, false, Source.Lens),
+                readChars(chars, 'both', Source.Lens),
                 images,
                 video,
                 polls,
@@ -329,7 +329,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return commentPostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
-                readChars(chars, false, Source.Lens),
+                readChars(chars, 'both', Source.Lens),
                 images,
                 video,
                 polls,
@@ -341,7 +341,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return quotePostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
-                readChars(chars, false, Source.Lens),
+                readChars(chars, 'both', Source.Lens),
                 images,
                 video,
                 polls,
