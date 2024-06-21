@@ -63,7 +63,12 @@ function convertDescriptionToArray(description: string): ReactNode[] {
     return parts.map((part, i) => {
         if (/(https?:\/\/[^\s]+)/.test(part)) {
             return (
-                <Link key={`${part}-${i}`} href={part} target="_blank" className="text-farcasterPrimary underline">
+                <Link
+                    key={`${part}-${i}`}
+                    href={part}
+                    target="_blank"
+                    className="break-all text-farcasterPrimary underline"
+                >
                     {part}
                 </Link>
             );

@@ -9,6 +9,7 @@ import urlcat from 'urlcat';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -25,7 +26,7 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
-    const [, reportProfile] = useReportProfile(currentProfile);
+    const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
 
     return (
@@ -65,17 +66,19 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                             >
                                 <LinkIcon width={24} height={24} />
                                 <span className="font-bold leading-[22px] text-main">
-                                    <Trans>Copy Link</Trans>
+                                    <Trans>Copy link</Trans>
                                 </span>
                             </MenuButton>
                         )}
                     </Menu.Item>
 
-                    <Menu.Item>
-                        {({ close }) => (
-                            <ReportProfileButton onConfirm={close} profile={profile} onReport={reportProfile} />
-                        )}
-                    </Menu.Item>
+                    {profile.source === Source.Lens ? (
+                        <Menu.Item>
+                            {({ close }) => (
+                                <ReportProfileButton onConfirm={close} profile={profile} onReport={reportProfile} />
+                            )}
+                        </Menu.Item>
+                    ) : null}
                     <Menu.Item>
                         {({ close }) => (
                             <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />

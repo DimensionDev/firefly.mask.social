@@ -52,9 +52,6 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr ""
 
-msgid "Report Spam"
-msgstr ""
-
 msgid "Mute /{0}"
 msgstr ""
 
@@ -77,6 +74,9 @@ msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Failed to unbookmark post."
+msgstr ""
+
+msgid "Delete post"
 msgstr ""
 
 msgid "You can sign in to Farcaster with the following options."
@@ -163,6 +163,9 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Report submitted on {0}"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -194,6 +197,9 @@ msgid "Username is required."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT"
+msgstr ""
+
+msgid "Report post"
 msgstr ""
 
 msgid "{0} left"
@@ -248,6 +254,9 @@ msgid "Username"
 msgstr ""
 
 msgid "Switch to the development API version for testing new features."
+msgstr ""
+
+msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr ""
 
 msgid "Blockchain"
@@ -355,6 +364,9 @@ msgstr ""
 msgid "Items"
 msgstr ""
 
+msgid "Less than a minute left"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -416,9 +428,6 @@ msgid "THREAD POST"
 msgstr ""
 
 msgid "Frame Validator"
-msgstr ""
-
-msgid "Copy Link"
 msgstr ""
 
 msgid "<0>Poap</0> received"
@@ -499,6 +508,9 @@ msgstr ""
 msgid "Report spam"
 msgstr ""
 
+msgid "Failed to submit report on {0}"
+msgstr ""
+
 msgid "View Source"
 msgstr ""
 
@@ -535,10 +547,16 @@ msgstr ""
 msgid "Mirror or Quote"
 msgstr ""
 
+msgid "Confirm you want to mute /{0}?"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Owned By"
+msgstr ""
+
+msgid "Are you sure you want to report this post?"
 msgstr ""
 
 msgid "Collected"
@@ -601,9 +619,6 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-msgid "{0} @{1}"
-msgstr ""
-
 msgid "Only people you mention"
 msgstr ""
 
@@ -655,6 +670,9 @@ msgstr ""
 msgid "Post has been deleted"
 msgstr ""
 
+msgid "Report article"
+msgstr ""
+
 msgid "Everyone"
 msgstr ""
 
@@ -665,6 +683,9 @@ msgid "Please confirm the login with Warpcast."
 msgstr ""
 
 msgid "The connection has timed out. Please try again later.·"
+msgstr ""
+
+msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
 msgid "Compose"
@@ -709,13 +730,13 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
-msgid "Confirm you want to {0} @{1}?"
-msgstr ""
-
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Open Mobile App"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -883,13 +904,13 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "View engagements"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
-msgstr ""
-
-msgid "{0} /{1}"
 msgstr ""
 
 msgid "Unmute {identity}"
@@ -946,13 +967,13 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
 msgid "There is no data available for display."
-msgstr ""
-
-msgid "Delete Post"
 msgstr ""
 
 msgid "Cancel"
@@ -1159,9 +1180,6 @@ msgstr ""
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Report Article"
-msgstr ""
-
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
@@ -1169,9 +1187,6 @@ msgid "Add"
 msgstr ""
 
 msgid "No device accounts detected."
-msgstr ""
-
-msgid "Confirm you want to {0} /{1}?"
 msgstr ""
 
 msgid "Log out all"
@@ -1294,9 +1309,6 @@ msgstr ""
 msgid "Failed to watch {identity}"
 msgstr ""
 
-msgid "View Engagements"
-msgstr ""
-
 msgid "{identity} unwatched"
 msgstr ""
 
@@ -1316,6 +1328,9 @@ msgid "Follow @{0}"
 msgstr ""
 
 msgid "Cancel Recast"
+msgstr ""
+
+msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
 msgstr ""
 
 msgid "Malformed twitter session payload."
@@ -1399,9 +1414,6 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
-msgid "Open App"
-msgstr ""
-
 msgid "<0>You</0> recasted"
 msgstr ""
 
@@ -1442,6 +1454,9 @@ msgid "Already posted on {sourceName}."
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Copy link"
 msgstr ""
 
 msgid "Post"

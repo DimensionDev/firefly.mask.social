@@ -283,8 +283,8 @@ class FarcasterSocialMedia implements Provider {
     async reportProfile(profileId: string) {
         return FireflySocialMediaProvider.reportProfile(profileId);
     }
-    async reportPost(postId: string) {
-        return FireflySocialMediaProvider.reportPost(postId);
+    async reportPost(post: Post) {
+        return FireflySocialMediaProvider.reportPost(post);
     }
     async blockProfile(profileId: string) {
         return FireflySocialMediaProvider.blockProfile(profileId);

@@ -156,7 +156,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     <OpenFireflyAppButton className="flex items-center gap-x-3 px-4 py-2">
                                         <FireflyLogo width={20} height={20} />
                                         <span className="text-xl font-bold leading-6 text-fireflyBrand">
-                                            <Trans>Open App</Trans>
+                                            <Trans>Open Mobile App</Trans>
                                         </span>
                                     </OpenFireflyAppButton>
                                 </li>
