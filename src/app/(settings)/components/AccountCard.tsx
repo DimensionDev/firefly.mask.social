@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -11,7 +10,6 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface AccountCardProps {
     account: Account;
@@ -19,28 +17,17 @@ interface AccountCardProps {
 }
 
 export function AccountCard({ account, isCurrent }: AccountCardProps) {
-    const updateCurrentAccount = useLensStateStore.use.updateCurrentAccount();
-
-    const [{ loading }, login] = useAsyncFn(
-        async (nextAccount: Account) => {
-            try {
-                await switchAccount(nextAccount);
-
-                // Wait for the session to be fully restored
-                await delay(1000);
-
-                enqueueSuccessMessage(
-                    t`Your ${resolveSourceName(nextAccount.profile.source)} account is now connected`,
-                );
-            } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
-                    error,
-                });
-                throw error;
-            }
-        },
-        [updateCurrentAccount],
-    );
+    const [{ loading }, login] = useAsyncFn(async (nextAccount: Account) => {
+        try {
+            await switchAccount(nextAccount);
+            enqueueSuccessMessage(t`Your ${resolveSourceName(nextAccount.profile.source)} account is now connected`);
+        } catch (error) {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                error,
+            });
+            throw error;
+        }
+    }, []);
 
     return (
         <div

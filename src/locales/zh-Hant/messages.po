@@ -801,9 +801,6 @@ msgstr "偵測裝置上的帳戶"
 msgid "No preview found for shared link"
 msgstr ""
 
-msgid "Your Farcaster account is now connected."
-msgstr "您的 Farcaster 帳戶現已連接。"
-
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
@@ -1245,6 +1242,9 @@ msgstr "線上"
 msgid "Unfollow"
 msgstr "取消追蹤"
 
+msgid "Your {0} account is now connected."
+msgstr ""
+
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你無法在 {0} 上回覆 @{author}"
 
@@ -1313,9 +1313,6 @@ msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
-
-msgid "Your Lens account is now connected."
-msgstr "您的 Lens 帳戶現已連接。"
 
 msgid "Remove"
 msgstr "移除"

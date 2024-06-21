@@ -69,6 +69,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             if (source) {
                 await removeCurrentAccount(source);
             } else {
+                // remove all accounts if no source specified
                 SORTED_SOCIAL_SOURCES.forEach((x) => {
                     getProfileState(x).clear();
                     resolveSessionHolder(x)?.removeSession();

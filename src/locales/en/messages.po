@@ -796,9 +796,6 @@ msgstr "Detect device accounts"
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
-msgid "Your Farcaster account is now connected."
-msgstr "Your Farcaster account is now connected."
-
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
 
@@ -1240,6 +1237,9 @@ msgstr "Online"
 msgid "Unfollow"
 msgstr "Unfollow"
 
+msgid "Your {0} account is now connected."
+msgstr "Your {0} account is now connected."
+
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
 
@@ -1308,9 +1308,6 @@ msgstr "{identity} unwatched"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "Unfollowed @{0} on {sourceName}"
-
-msgid "Your Lens account is now connected."
-msgstr "Your Lens account is now connected."
 
 msgid "Remove"
 msgstr "Remove"

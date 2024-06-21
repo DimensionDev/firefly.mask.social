@@ -9,17 +9,10 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-import type { LensSession } from '@/providers/lens/Session.js';
-import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileModalProps {
     accounts: Account[];
@@ -99,7 +92,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
 
 export interface FireflySessionOpenConfirmModalProps {
     source: ProfileSource;
-    sessions?: Array<LensSession | FarcasterSession | TwitterSession>;
+    accounts: Account[];
     onDetected?: (profiles: Profile[]) => void;
 }
 
@@ -113,61 +106,8 @@ export const FireflySessionConfirmModal = forwardRef<
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
             try {
-                const currentProfileAll = getCurrentProfileAll();
-                const sessions = props.sessions?.filter((x) => {
-                    const source = resolveSocialSourceFromSessionType(x.type);
-
-                    // if the session shares the same source with the current profile, skip the restore
-                    if (source === props.source) {
-                        return false;
-                    }
-
-                    // if there is a session already logged in, skip the restore
-                    if (
-                        isSameProfile(currentProfileAll[source], {
-                            source,
-                            profileId: x.profileId,
-                        } as Profile)
-                    ) {
-                        return false;
-                    }
-
-                    return true;
-                });
-
-                // no session to restore
-                if (!sessions?.length) {
-                    dispatch?.close(false);
-                    props.onDetected?.([]);
-                    return;
-                }
-
-                // convert session to profile
-                const allSettled = await Promise.allSettled(
-                    sessions.map((x) => {
-                        if (x.type === SessionType.Twitter) {
-                            const session = x as TwitterSession;
-                            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
-                                x.profileId,
-                                session.payload,
-                            );
-                        }
-                        const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
-                        return provider.getProfileById(x.profileId);
-                    }),
-                );
-                const accounts = compact(
-                    allSettled.map((x, i) =>
-                        x.status === 'fulfilled'
-                            ? {
-                                  profile: x.value,
-                                  session: sessions[i],
-                              }
-                            : null,
-                    ),
-                );
-
                 // not valid profile detected
+                const accounts = props.accounts;
                 if (!accounts.length) return;
 
                 // profiles detected, invoke the callback before showing the confirm modal

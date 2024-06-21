@@ -9,7 +9,7 @@ export async function addAccount(account: Account) {
     resolveSessionHolderFromSessionType(account.session.type)?.resumeSession(account.session);
 }
 
-export async function switchAccount(account: Account) {
+export async function switchAccount(account: Account, replace = false) {
     getProfileState(account.profile.source).updateCurrentAccount(account);
     resolveSessionHolder(account.profile.source)?.resumeSession(account.session);
 }

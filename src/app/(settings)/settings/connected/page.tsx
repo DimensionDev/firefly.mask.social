@@ -49,7 +49,7 @@ export default function Connected() {
             {SORTED_SOCIAL_SOURCES.map((x) => {
                 const profile = currentProfileAll[x];
 
-                return profile?.profileId ? (
+                return profile ? (
                     <Fragment key={profile.profileId}>
                         <div className="flex w-full items-center justify-between">
                             <span className="text-base font-bold leading-[18px] text-main">

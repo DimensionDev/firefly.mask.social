@@ -26,7 +26,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
-import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -41,10 +40,9 @@ export function ComposeAction(props: ComposeActionProps) {
     const isMedium = useIsMedium();
 
     const currentProfileAll = useCurrentProfileAll();
-    const accountsAll = useAccountsAll();
+    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
 
     const post = useCompositePost();
-    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
     const { length, visibleLength, invisibleLength } = measureChars(post);
@@ -75,7 +73,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 }),
             ),
         });
-    }, [currentProfileAll, accountsAll]);
+    }, [currentProfileAll]);
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);

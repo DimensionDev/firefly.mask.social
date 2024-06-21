@@ -9,12 +9,11 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccounts } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -37,9 +36,8 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     const [{ loading }, login] = useAsyncFn(async (account: Account) => {
         try {
-            getProfileState(account.profile.source).updateCurrentAccount(account);
-            resolveSessionHolder(account.profile.source)?.resumeSession(account.session);
-            enqueueSuccessMessage(t`Your Lens account is now connected.`);
+            await switchAccount(account);
+            enqueueSuccessMessage(t`Your ${resolveSourceName(account.profile.source)} account is now connected`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                 error,

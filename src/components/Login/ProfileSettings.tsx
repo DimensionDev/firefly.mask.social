@@ -28,7 +28,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
@@ -69,7 +69,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     source,
-                    sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
+                    accounts: await syncAccountsFromFirefly(controllerRef.current?.signal),
                     onDetected(profiles) {
                         if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
                         onClose?.();

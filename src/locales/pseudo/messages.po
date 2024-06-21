@@ -796,9 +796,6 @@ msgstr ""
 msgid "No preview found for shared link"
 msgstr ""
 
-msgid "Your Farcaster account is now connected."
-msgstr ""
-
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
@@ -1240,6 +1237,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "Your {0} account is now connected."
+msgstr ""
+
 msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
@@ -1307,9 +1307,6 @@ msgid "{identity} unwatched"
 msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
-msgstr ""
-
-msgid "Your Lens account is now connected."
 msgstr ""
 
 msgid "Remove"

@@ -20,6 +20,7 @@ import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import {
     AccountModalRef,
     ConnectWalletModalRef,
@@ -29,7 +30,7 @@ import {
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -68,12 +69,12 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     profile: currentProfile,
                     session,
                 });
-                enqueueSuccessMessage(t`Your Lens account is now connected.`);
+                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
 
                 // restore profiles exclude lens
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     source: Source.Lens,
-                    sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
+                    accounts: await syncAccountsFromFirefly(controllerRef.current?.signal),
                     onDetected(profiles) {
                         if (!profiles.length)
                             enqueueInfoMessage(t`No device accounts detected.`, {
