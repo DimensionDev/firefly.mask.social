@@ -597,9 +597,6 @@ msgstr "提交反馈"
 msgid "Detecting..."
 msgstr "检测中..."
 
-msgid "Open in Firefly App"
-msgstr "使用 Firefly 应用打开"
-
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
@@ -770,6 +767,9 @@ msgstr "无效的 URL。"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
+
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
+msgstr ""
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -1074,9 +1074,6 @@ msgstr "Frame 服务器未能处理请求"
 msgid "Report"
 msgstr "报告"
 
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
@@ -1229,9 +1226,6 @@ msgstr "只有你关注的人"
 
 msgid "Add another option"
 msgstr "添加另一个选项"
-
-msgid "[Attachment]"
-msgstr "[附件]"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -1481,9 +1475,6 @@ msgstr "<0>{0}</0> 已转发"
 
 msgid "Close"
 msgstr "关闭"
-
-msgid "Link"
-msgstr "链接"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"
