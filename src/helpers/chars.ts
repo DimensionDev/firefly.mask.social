@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import type { RP_HASH_TAG } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST, type RP_HASH_TAG } from '@/constants/index.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -97,8 +97,19 @@ function calculateLength(post: CompositePost, visibleOnly?: boolean): number {
 }
 
 export function measureChars(post: CompositePost) {
-    const length = calculateLength(post);
+    let length = calculateLength(post);
     const visibleLength = calculateLength(post, true);
+    const { poll, availableSources } = post;
+
+    const pollId = `${getPollFrameUrl(`poll-${uuid()}`, Source.Lens)}\n`;
+
+    if (poll && availableSources.includes(Source.Lens) && availableSources.length > 1) {
+        const excludeLensSources = availableSources.filter((x) => x !== Source.Lens);
+        const excludeMax = Math.min(...excludeLensSources.map((x) => MAX_CHAR_SIZE_PER_POST[x]));
+        if (MAX_CHAR_SIZE_PER_POST[Source.Lens] - pollId.length > excludeMax) {
+            length -= pollId.length;
+        }
+    }
 
     return {
         length,
