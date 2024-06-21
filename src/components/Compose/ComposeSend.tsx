@@ -35,7 +35,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const { type, posts, addPostInThread, draftId } = useComposeStateStore();
     const { removeDraft } = useComposeDraftStateStore();
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post);
     const { visibleLength, invisibleLength } = measureChars(post);
 
     const isMedium = useIsMedium();
