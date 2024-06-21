@@ -8,6 +8,7 @@ import MinusIcon from '@/assets/minus.svg';
 import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { DurationSelector } from '@/components/Poll/DurationSelector.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { POLL_OPTIONS_MIN_COUNT, POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createPollOption, getPollOptionsMaxLength } from '@/helpers/polls.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -57,7 +58,9 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                     </span>
                 </div>
                 {!readonly ? (
-                    <CloseIcon width={20} height={20} className="cursor-pointer" onClick={() => updatePoll(null)} />
+                    <Tooltip content={t`Remove Poll`} placement='top'>
+                        <CloseIcon width={20} height={20} className="cursor-pointer" onClick={() => updatePoll(null)} />
+                    </Tooltip>
                 ) : null}
             </div>
             <div>
@@ -78,9 +81,11 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                             />
                         </div>
                         {index >= POLL_OPTIONS_MIN_COUNT && (
-                            <ClickableButton disabled={readonly}>
-                                <MinusIcon width={20} height={20} onClick={() => removeOption(option)} />
-                            </ClickableButton>
+                            <Tooltip content={t`Remove Choice`} placement='top'>
+                                <ClickableButton disabled={readonly}>
+                                    <MinusIcon width={20} height={20} onClick={() => removeOption(option)} />
+                                </ClickableButton>
+                            </Tooltip>
                         )}
                     </div>
                 ))}
