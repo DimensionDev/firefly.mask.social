@@ -21,7 +21,8 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const parsedState = parseJSON<{
                 state: {
-                    accounts: Array<{
+                    // for legacy version don't have accounts field
+                    accounts?: Array<{
                         profile: Profile;
                         session: string;
                     }>;
@@ -44,7 +45,15 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 version: z.number(),
             });
 
-            const output = schema.safeParse(parsedState);
+            const output = schema.safeParse({
+                ...parsedState,
+                state: {
+                    ...parsedState.state,
+                    // for legacy version don't have accounts field
+                    // so we need to provide a default value to bypass the schema validation
+                    accounts: parsedState.state.accounts ?? [],
+                },
+            });
             if (!output.success) {
                 console.error([`[${name}] zod validation failure: ${output.error}`]);
                 return null;
@@ -54,10 +63,11 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 ...parsedState,
                 state: {
                     ...parsedState.state,
-                    accounts: parsedState.state.accounts.map((account) => ({
-                        ...account,
-                        session: SessionFactory.createSession(account.session),
-                    })),
+                    accounts:
+                        parsedState.state.accounts?.map((account) => ({
+                            ...account,
+                            session: SessionFactory.createSession(account.session),
+                        })) ?? [],
                     currentProfileSession: parsedState.state.currentProfileSession
                         ? SessionFactory.createSession(parsedState.state.currentProfileSession)
                         : null,
