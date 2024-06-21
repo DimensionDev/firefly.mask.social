@@ -10,6 +10,7 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { type ProfileSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.jsx';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
@@ -22,9 +23,16 @@ interface ProfileModalProps {
 
 function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
-        await Promise.all(Object.values(accounts).map(addAccount));
-        onConfirm?.();
-        ConfirmModalRef.close(true);
+        try {
+            await Promise.all(Object.values(accounts).map(addAccount));
+            onConfirm?.();
+            ConfirmModalRef.close(true);
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to restore accounts.`, {
+                error,
+            });
+            throw error;
+        }
     }, [accounts, onConfirm]);
 
     return (

@@ -1098,6 +1098,9 @@ msgstr "复制"
 msgid "Skip for now"
 msgstr "跳过"
 
+msgid "Failed to restore accounts."
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 

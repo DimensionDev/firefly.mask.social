@@ -32,7 +32,7 @@ export interface ProfileState {
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
-    addAccount: (account: Account) => void;
+    addAccount: (account: Account, setAsCurrent?: boolean) => void;
     removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
@@ -60,7 +60,7 @@ function createState(
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
-                addAccount: (account) =>
+                addAccount: (account, setAsCurrent = true) =>
                     set((state) => {
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
                         if (account_) return;
@@ -68,10 +68,12 @@ function createState(
                         // add new account to the top
                         state.accounts = [account, ...state.accounts];
 
-                        state.currentProfile = account.profile;
-                        state.currentProfileSession = account.session;
+                        if (setAsCurrent) {
+                            state.currentProfile = account.profile;
+                            state.currentProfileSession = account.session;
+                        }
                     }),
-                removeAccount: (account, resetIfCurrent = true) =>
+                removeAccount: (account) =>
                     set((state) => {
                         state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
 

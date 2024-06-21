@@ -1093,6 +1093,9 @@ msgstr ""
 msgid "Skip for now"
 msgstr ""
 
+msgid "Failed to restore accounts."
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
