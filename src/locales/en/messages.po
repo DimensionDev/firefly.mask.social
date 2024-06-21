@@ -445,6 +445,9 @@ msgstr "Follow System"
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
 
+msgid "Remove Choice"
+msgstr "Remove Choice"
+
 msgid "Mute {identity}"
 msgstr "Mute {identity}"
 
@@ -918,6 +921,9 @@ msgstr "Translated"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
+
+msgid "Remove Poll"
+msgstr "Remove Poll"
 
 msgid "Unmute {identity}"
 msgstr "Unmute {identity}"

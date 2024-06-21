@@ -445,6 +445,9 @@ msgstr ""
 msgid "Failed to mirror."
 msgstr ""
 
+msgid "Remove Choice"
+msgstr ""
+
 msgid "Mute {identity}"
 msgstr ""
 
@@ -917,6 +920,9 @@ msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
+msgstr ""
+
+msgid "Remove Poll"
 msgstr ""
 
 msgid "Unmute {identity}"

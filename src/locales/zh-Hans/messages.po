@@ -450,6 +450,9 @@ msgstr "跟随系统"
 msgid "Failed to mirror."
 msgstr "转帖失败。"
 
+msgid "Remove Choice"
+msgstr ""
+
 msgid "Mute {identity}"
 msgstr "隐藏 @{identity}"
 
@@ -923,6 +926,9 @@ msgstr "已翻译"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
+
+msgid "Remove Poll"
+msgstr ""
 
 msgid "Unmute {identity}"
 msgstr "取消隐藏 {identity}"
