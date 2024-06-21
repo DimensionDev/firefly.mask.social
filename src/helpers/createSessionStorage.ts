@@ -21,7 +21,8 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const parsedState = parseJSON<{
                 state: {
-                    accounts: Array<{
+                    // for leagcy version don't have accounts field
+                    accounts?: Array<{
                         profile: Profile;
                         session: string;
                     }>;
@@ -62,10 +63,11 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 ...parsedState,
                 state: {
                     ...parsedState.state,
-                    accounts: parsedState.state.accounts.map((account) => ({
-                        ...account,
-                        session: SessionFactory.createSession(account.session),
-                    })),
+                    accounts:
+                        parsedState.state.accounts?.map((account) => ({
+                            ...account,
+                            session: SessionFactory.createSession(account.session),
+                        })) ?? [],
                     currentProfileSession: parsedState.state.currentProfileSession
                         ? SessionFactory.createSession(parsedState.state.currentProfileSession)
                         : null,
