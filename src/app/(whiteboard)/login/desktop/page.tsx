@@ -12,7 +12,6 @@ interface PageProps {
 }
 
 export default function Page({ searchParams }: PageProps) {
-
     const scheme = useMemo(() => {
         const ios = env.external.NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM;
         const android = env.external.NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM;
@@ -21,7 +20,7 @@ export default function Page({ searchParams }: PageProps) {
             ios: ios ? `${ios}?session=${searchParams.session}` : location.href.replace('https://', 'firefly://'),
             android: `${android}?session=${searchParams.session}`,
         };
-    }, [searchParams])
+    }, [searchParams]);
 
     return (
         <div className="absolute inset-0 flex flex-col items-center gap-[178px] bg-white pt-20 dark:bg-black md:pt-[124px]">
