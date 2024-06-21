@@ -32,7 +32,6 @@ export function NFTProperties(props: NFTPropertiesProps) {
                             }
                             break;
                     }
-                    console.log(type, value, displayType);
                     return (
                         <div
                             key={type}
