@@ -3,7 +3,8 @@ import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
-import { compact } from 'lodash-es';
+import { compact, values } from 'lodash-es';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/addThread.svg';
@@ -80,6 +81,10 @@ export function ComposeAction(props: ComposeActionProps) {
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
+
+    const hasError = useMemo(() => {
+        return posts.some((x) => !!compact(values(x.postError)).length);
+    }, [posts]);
 
     return (
         <div className="px-4 pb-4">
@@ -181,7 +186,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={availableSources.some((x) => !!parentPost[x])}
+                                disabled={availableSources.some((x) => !!parentPost[x]) || hasError}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources
@@ -190,7 +195,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                             <SocialSourceIcon key={y} source={y} size={20} />
                                         ))}
                                 </span>
-                                {type === 'compose' ? (
+                                {type === 'compose' && !hasError ? (
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 ) : null}
                             </Popover.Button>
@@ -207,11 +212,14 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+                            <Popover.Button
+                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={hasError}
+                            >
                                 <span className="text-[15px] font-bold">
                                     <ReplyRestrictionText type={restriction} />
                                 </span>
-                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
                             </Popover.Button>
                             <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
                         </>
@@ -235,7 +243,10 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {({ close }) => (
                         <>
-                            <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+                            <Popover.Button
+                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={hasError}
+                            >
                                 <span className="text-[15px] font-bold">
                                     {compact(
                                         SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
@@ -243,7 +254,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                         ),
                                     ).join(',')}
                                 </span>
-                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
                             </Popover.Button>
                             <ChannelSearchPanel onSelected={close} />
                         </>
