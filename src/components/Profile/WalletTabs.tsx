@@ -21,7 +21,7 @@ const ContentList = memo(function ContentList({ type, address }: { type: WalletP
         case WalletProfileTabType.NFTs:
             return <NFTs address={address} />;
         case WalletProfileTabType.OnChainActivities:
-            return <FollowingNFTList walletAddresses={[address]} />;
+            return <FollowingNFTList walletAddress={address} />;
         default:
             safeUnreachable(type);
             return null;
