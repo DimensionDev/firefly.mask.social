@@ -14,7 +14,7 @@ import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
-import { openAppScheme } from '@/helpers/openAppScheme.js';
+import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
@@ -87,7 +87,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                         const sessionId = parsedUrl?.searchParams.get('session');
                         if (!sessionId) throw new MalformedError(`Invalid url = ${url}`);
 
-                        await openAppScheme({
+                        await openAppSchemes({
                             [DeviceType.IOS]: url.replace(/^https/, 'firefly'),
                             [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
                         });
