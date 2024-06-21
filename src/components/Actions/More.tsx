@@ -114,7 +114,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                         <TrashIcon width={24} height={24} className="text-danger" />
                                     )}
                                     <span className="font-bold leading-[22px] text-danger">
-                                        <Trans>Delete Post</Trans>
+                                        <Trans>Delete post</Trans>
                                     </span>
                                 </MenuButton>
                             )}
@@ -184,7 +184,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         >
                             <ChartBarIcon width={24} height={24} />
                             <span className="font-bold leading-[22px] text-main">
-                                <Trans>View Engagements</Trans>
+                                <Trans>View engagements</Trans>
                             </span>
                         </Menu.Item>
                     ) : null}
