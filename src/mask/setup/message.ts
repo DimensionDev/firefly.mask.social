@@ -147,7 +147,7 @@ const removeListener = addListener('ready', () => {
     removeListener();
     resolve();
 });
-postMessage('request-ready', null);
+postMessage('ready-request', null);
 await promise;
 
 export function addListener(type: string, callback: MessageHandler) {

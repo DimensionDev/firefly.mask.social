@@ -7,7 +7,6 @@ import { memo, useCallback, useMemo } from 'react';
 import Trash from '@/assets/trash2.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -122,14 +121,13 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                         post?.images.length ? t`[Photo]` : undefined,
                         post?.video ? t`[Video]` : undefined,
                         post?.rpPayload ? t`[LuckyDrop]` : undefined,
+                        post?.poll ? t`[Poll]` : undefined,
                     ]).join('')}
                 </div>
             </div>
             <div className="flex gap-x-1">
                 <span className="flex items-center gap-x-1 font-bold">
-                    {post?.availableSources
-                        .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
-                        .map((y) => <SocialSourceIcon key={y} source={y} size={20} />)}
+                    {post?.availableSources.map((y) => <SocialSourceIcon key={y} source={y} size={20} />)}
                 </span>
                 <span className="text-[13px] font-medium leading-[24px] text-secondary">
                     {dayjs(draft.createdAt).format('DD MMM, YYYY [at] h:mm A')}
@@ -218,7 +216,7 @@ export const DraftList = memo(function DraftList() {
     }
 
     return (
-        <div className="max-h-[818px] min-h-[528px] overflow-auto px-6">
+        <div className="max-h-[818px] min-h-[582px] overflow-auto px-6">
             {orderBy(
                 drafts,
                 (x) => {

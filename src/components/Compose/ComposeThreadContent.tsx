@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 
-import ErrorIcon from '@/assets/error.svg';
 import YesIcon from '@/assets/green-yes.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
@@ -30,10 +29,6 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
             {posts.map((x, i) => {
                 const isSucceed = x.availableSources.every((source) => {
                     return !!x.postId[source];
-                });
-
-                const isError = x.availableSources.some((source) => {
-                    return !!x.postError[source];
                 });
 
                 return (
@@ -72,9 +67,6 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                                 <ProfileAvatar profile={currentProfile} enableSourceIcon={false} />
                                 {isSucceed ? (
                                     <YesIcon className="absolute right-0 top-0 z-10" width={15} height={15} />
-                                ) : null}
-                                {isError ? (
-                                    <ErrorIcon className="absolute right-0 top-0 z-10" width={15} height={15} />
                                 ) : null}
                             </div>
                         ) : null}
