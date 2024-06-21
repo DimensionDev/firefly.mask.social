@@ -21,6 +21,8 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
+import { usePathname } from 'next/navigation.js';
+import { PageRoute } from '@/constants/enum.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;
@@ -38,6 +40,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
 
     const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
 
+    const pathname = usePathname();
+    const isMyWallets = pathname === PageRoute.Profile; // My wallet profile page has no path param
+
     return (
         <div className="flex gap-3 p-3">
             <Avatar src={profile.avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
@@ -45,8 +50,12 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                 <div className="flex flex-col gap-[8px]">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{identity}</span>
-                        <WatchButton className="ml-auto" address={profile.address} />
-                        <WalletMoreAction profile={profile} />
+                        {!isMyWallets ? (
+                            <>
+                                <WatchButton className="ml-auto" address={profile.address} />
+                                <WalletMoreAction profile={profile} />
+                            </>
+                        ) : null}
                     </div>
                     <div className="flex gap-[10px]">
                         {profile.verifiedSources.map((x) => {
