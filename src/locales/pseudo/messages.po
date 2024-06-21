@@ -52,9 +52,6 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr ""
 
-msgid "Report Spam"
-msgstr ""
-
 msgid "Mute /{0}"
 msgstr ""
 

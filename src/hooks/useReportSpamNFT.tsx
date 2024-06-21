@@ -61,7 +61,7 @@ function filterOutActivities(collectionId: string) {
 export function useReportSpamNFT() {
     return useAsyncFn(async (collectionId: string) => {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({
-            title: t`Report Spam`,
+            title: t`Report spam`,
             variant: 'normal',
             content: (
                 <div className="text-main">

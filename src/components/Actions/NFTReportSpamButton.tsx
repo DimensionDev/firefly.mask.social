@@ -26,7 +26,7 @@ export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function
         >
             <FlagIcon width={24} height={24} />
             <span className="font-bold leading-[22px] text-main">
-                <Trans>Report Spam</Trans>
+                <Trans>Report spam</Trans>
             </span>
         </MenuButton>
     );
