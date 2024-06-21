@@ -156,6 +156,9 @@ msgstr "登出 @{0}"
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以先保存发送的帖子并稍后发送。"
 
+msgid "Please confirm the login with Firefly."
+msgstr ""
+
 msgid "[Image]"
 msgstr "[图片]"
 
