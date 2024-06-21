@@ -83,14 +83,7 @@ export default function Page({
                     attendance={poapAttendeesCount}
                     tokenNameClassName={classNames({ '!line-clamp-3': isPoap })}
                 />
-                {data.traits && data.traits.length > 0 ? (
-                    <NFTProperties
-                        items={data.traits.map((trait) => ({
-                            label: trait.type,
-                            value: trait.value,
-                        }))}
-                    />
-                ) : null}
+                {data.traits && data.traits.length > 0 ? <NFTProperties items={data.traits} /> : null}
                 <NFTOverflow
                     description={data.metadata.description ?? ''}
                     tokenId={data.tokenId}
