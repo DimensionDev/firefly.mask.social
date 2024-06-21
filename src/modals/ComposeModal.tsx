@@ -269,6 +269,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     ),
                     enableCloseButton: false,
                     enableCancelButton: true,
+                    disableBackdropClose: true,
                     cancelButtonText: t`Discard`,
                     confirmButtonText: t`Save`,
                     variant: 'normal',

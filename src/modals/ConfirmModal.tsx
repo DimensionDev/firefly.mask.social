@@ -17,6 +17,7 @@ export interface ConfirmModalOpenProps {
     enableConfirmButton?: boolean;
     enableCancelButton?: boolean;
     enableCloseButton?: boolean;
+    disableBackdropClose?: boolean;
     onCancel?: () => void;
     onConfirm?: () => void;
     variant?: 'normal' | 'danger';
@@ -33,6 +34,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
         const [enableConfirmButton, setEnableConfirmButton] = useState<boolean>(true);
         const [enableCancelButton, setEnableCancelButton] = useState<boolean>(false);
         const [enableCloseButton, setEnableCloseButton] = useState<boolean>(true);
+        const [disableBackdropClose, setDisableBackdropClose] = useState<boolean>(false);
 
         const [onCancel, setOnCancel] = useState(() => noop);
         const [onConfirm, setOnConfirm] = useState(() => noop);
@@ -50,11 +52,12 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                 setOnConfirm(() => props.onConfirm ?? noop);
                 setConfirmButtonText(props.confirmButtonText);
                 setCancelButtonText(props.cancelButtonText);
+                setDisableBackdropClose(props.disableBackdropClose ?? false);
             },
         });
 
         return (
-            <Modal open={open} onClose={() => dispatch?.close(false)}>
+            <Modal disableBackdropClose={disableBackdropClose} open={open} onClose={() => dispatch?.close(false)}>
                 <div
                     className="relative w-[355px] max-w-[90vw] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950"
                     onClick={(event) => {
