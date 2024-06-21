@@ -1,15 +1,13 @@
 import { delay } from '@masknet/kit';
+import { once } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
 import type { ComposedScheme } from '@/components/OpenFireflyAppButton.jsx';
 import { IS_IOS } from '@/constants/bowser.js';
 
-let isListenerInstalled = false;
 const eventIdSet = new Set<string>();
 
-function initListener() {
-    if (isListenerInstalled) return;
-    isListenerInstalled = true;
+const initListener = once(() => {
     window.addEventListener('pagehide', () => {
         eventIdSet.clear();
     });
@@ -18,7 +16,7 @@ function initListener() {
             eventIdSet.clear();
         }
     });
-}
+});
 
 async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string, downloadUrl: string, waitDuration: number) {
     const element = document.createElement(tagType);
