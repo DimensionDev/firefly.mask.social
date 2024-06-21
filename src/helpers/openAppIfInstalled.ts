@@ -4,12 +4,12 @@ import { v4 as uuid } from 'uuid';
 import type { ComposedScheme } from '@/components/OpenFireflyAppButton.jsx';
 import { IS_IOS } from '@/constants/bowser.js';
 
-let isListenerInited = false;
+let isListenerInstalled = false;
 const eventIdSet = new Set<string>();
 
 function initListener() {
-    if (isListenerInited) return;
-    isListenerInited = true;
+    if (isListenerInstalled) return;
+    isListenerInstalled = true;
     window.addEventListener('pagehide', () => {
         eventIdSet.clear();
     });
