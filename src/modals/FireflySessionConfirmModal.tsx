@@ -42,6 +42,8 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                     .map((account) => (
                         <ProfileInList
                             key={account.profile.profileId}
+                            disabled
+                            selected
                             profile={account.profile}
                             ProfileAvatarProps={{
                                 enableSourceIcon: true,
