@@ -91,25 +91,22 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(post: CompositePost, visibleOnly?: boolean): number {
-    const { chars, availableSources } = post;
-    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
-}
-
-function calculateAvailableLength(post: CompositePost): number {
-    const { chars, availableSources } = post;
-    return Math.min(
-        ...availableSources.map(
-            (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, false, x)),
-        ),
-    );
-}
-
+/**
+ * Suppose we have three sources: x1, x2, x3. Each source has a maximum length: y1, y2, y3.
+ * @param post
+ * @returns
+ */
 export function measureChars(post: CompositePost) {
+    const { chars, availableSources } = post;
+
     return {
         // max(x1, x2, x3)
-        usedLength: calculateLength(post),
+        usedLength: Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, false, x)))),
         // min(y1, y2, y3)
-        availableLength: calculateAvailableLength(post),
+        availableLength: Math.min(
+            ...availableSources.map(
+                (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, false, x)),
+            ),
+        ),
     };
 }
