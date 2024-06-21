@@ -78,17 +78,19 @@ export function LoginFirefly(props: LoginFireflyProps) {
                         setScanned(false);
 
                         const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else {
-                            const parsedUrl = parseURL(url);
-                            const sessionId = parsedUrl?.searchParams.get('session');
-                            if (!sessionId) throw new MalformedError(`Invalid url = ${url}`);
-
-                            await openAppScheme({
-                                [DeviceType.IOS]: url.replace(/^https/, 'firefly'),
-                                [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
-                            });
+                        if (device === 'unknown') {
+                            setUrl(url);
+                            return;
                         }
+
+                        const parsedUrl = parseURL(url);
+                        const sessionId = parsedUrl?.searchParams.get('session');
+                        if (!sessionId) throw new MalformedError(`Invalid url = ${url}`);
+
+                        await openAppScheme({
+                            [DeviceType.IOS]: url.replace(/^https/, 'firefly'),
+                            [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
+                        });
                     }, controllerRef.current?.signal),
                 {
                     signal: controllerRef.current.signal,
