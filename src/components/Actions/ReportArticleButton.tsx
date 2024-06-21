@@ -31,7 +31,7 @@ export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function
             onClick={async () => {
                 rest.onClick?.();
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Report Article`,
+                    title: t`Report article`,
                     content: (
                         <div className="text-main">
                             <Trans>Are you sure you want to report this article?</Trans>
@@ -51,7 +51,7 @@ export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function
         >
             <FlagIcon width={24} height={24} />
             <span className="font-bold leading-[22px] text-main">
-                <Trans>Report Article</Trans>
+                <Trans>Report article</Trans>
             </span>
         </MenuButton>
     );

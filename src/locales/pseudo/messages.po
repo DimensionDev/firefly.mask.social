@@ -79,6 +79,9 @@ msgstr ""
 msgid "Failed to unbookmark post."
 msgstr ""
 
+msgid "Delete post"
+msgstr ""
+
 msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
@@ -430,9 +433,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "Copy Link"
-msgstr ""
-
 msgid "<0>Poap</0> received"
 msgstr ""
 
@@ -673,6 +673,9 @@ msgstr ""
 msgid "Post has been deleted"
 msgstr ""
 
+msgid "Report article"
+msgstr ""
+
 msgid "Everyone"
 msgstr ""
 
@@ -904,6 +907,9 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "View engagements"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -971,9 +977,6 @@ msgid "The content of this account is currently unavailable"
 msgstr ""
 
 msgid "There is no data available for display."
-msgstr ""
-
-msgid "Delete Post"
 msgstr ""
 
 msgid "Cancel"
@@ -1180,9 +1183,6 @@ msgstr ""
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Report Article"
-msgstr ""
-
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
@@ -1310,9 +1310,6 @@ msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
 msgid "Failed to watch {identity}"
-msgstr ""
-
-msgid "View Engagements"
 msgstr ""
 
 msgid "{identity} unwatched"
@@ -1460,6 +1457,9 @@ msgid "Already posted on {sourceName}."
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Copy link"
 msgstr ""
 
 msgid "Post"

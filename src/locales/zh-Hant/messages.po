@@ -84,6 +84,9 @@ msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 msgid "Failed to unbookmark post."
 msgstr "從書籤中移除失敗。"
 
+msgid "Delete post"
+msgstr ""
+
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以通過以下選項登入 Farcaster。"
 
@@ -435,9 +438,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
 
-msgid "Copy Link"
-msgstr "複製連結"
-
 msgid "<0>Poap</0> received"
 msgstr ""
 
@@ -678,6 +678,9 @@ msgstr "書籤"
 msgid "Post has been deleted"
 msgstr ""
 
+msgid "Report article"
+msgstr ""
+
 msgid "Everyone"
 msgstr "所有人"
 
@@ -909,6 +912,9 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "View engagements"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -976,9 +982,6 @@ msgid "The content of this account is currently unavailable"
 msgstr ""
 
 msgid "There is no data available for display."
-msgstr ""
-
-msgid "Delete Post"
 msgstr ""
 
 msgid "Cancel"
@@ -1185,9 +1188,6 @@ msgstr ""
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Report Article"
-msgstr ""
-
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
@@ -1316,9 +1316,6 @@ msgstr ""
 
 msgid "Failed to watch {identity}"
 msgstr ""
-
-msgid "View Engagements"
-msgstr "查看互動數據"
 
 msgid "{identity} unwatched"
 msgstr ""
@@ -1467,6 +1464,9 @@ msgstr ""
 msgid "[Quote]"
 msgstr ""
 
+msgid "Copy link"
+msgstr ""
+
 msgid "Post"
 msgstr ""
 
@@ -1511,4 +1511,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-
