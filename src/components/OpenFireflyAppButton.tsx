@@ -6,16 +6,20 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { IS_IOS } from '@/constants/bowser.js';
 import { env } from '@/constants/env.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
-import { DeviceType } from '@/types/device.js';
+import { DeviceType, type Schemes } from '@/types/device.js';
 
-interface OpenAppButtonProps extends ClickableButtonProps {}
+interface OpenAppButtonProps extends ClickableButtonProps {
+    schemes?: Schemes;
+}
 
-export function OpenFireflyAppButton(props: OpenAppButtonProps) {
+export function OpenFireflyAppButton({ schemes, ...props }: OpenAppButtonProps) {
     const [{ loading }, tryOpenApp] = useAsyncFn(async () => {
-        await openAppSchemes({
-            [DeviceType.Android]: env.external.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
-            [DeviceType.IOS]: env.external.NEXT_PUBLIC_FIREFLY_IOS_HOME,
-        });
+        await openAppSchemes(
+            schemes ?? {
+                [DeviceType.Android]: env.external.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
+                [DeviceType.IOS]: env.external.NEXT_PUBLIC_FIREFLY_IOS_HOME,
+            },
+        );
     }, []);
 
     if (!IS_IOS) return null;
