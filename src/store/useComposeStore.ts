@@ -451,7 +451,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
-            const urls = matchUrls(readChars(chars, true));
+            const urls = matchUrls(readChars(chars, 'visible'));
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(
