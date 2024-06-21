@@ -66,7 +66,7 @@ export function ListInPage<T = unknown, C = unknown>({
                 setVirtuosoState('temporary', listKey, state);
             });
         }
-        };
+    };
 
     // force type casting to avoid type error
     const List = VirtualList<T, C>;

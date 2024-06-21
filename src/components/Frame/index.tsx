@@ -13,7 +13,9 @@ import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
 import { config } from '@/configs/wagmiClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
+import { MalformedError } from '@/constants/error.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -26,6 +28,7 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
+import { validateMessage } from '@/services/validateMessage.js';
 import {
     ActionType,
     type Frame,
@@ -78,12 +81,12 @@ async function getNextFrame(
         switch (source) {
             case Source.Lens:
                 return LensFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
-                    state: latestFrame && frame.state ? frame.state : undefined,
+                    state: frame.state ? frame.state : undefined,
                     ...additional,
                 });
             case Source.Farcaster:
                 return HubbleFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
-                    state: latestFrame && frame.state ? frame.state : undefined,
+                    state: frame.state ? frame.state : undefined,
                     ...additional,
                 });
             case Source.Twitter:
@@ -101,6 +104,13 @@ async function getNextFrame(
             throw new Error('Failed to generate signature packet.');
         }
 
+        // validate the signature packet in development
+        if (env.shared.NODE_ENV === NODE_ENV.Development) {
+            const valid = await validateMessage(packet.trustedData.messageBytes);
+            if (valid === true) console.log('Valid signature packet:', packet);
+            else throw new MalformedError('Invalid frame packet.');
+        }
+
         const url = urlcat('/api/frame', {
             url: frame.url,
             action: button.action,
@@ -109,9 +119,6 @@ async function getNextFrame(
         });
         return fetchJSON<ResponseJSON<T>>(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify(packet),
         });
     }

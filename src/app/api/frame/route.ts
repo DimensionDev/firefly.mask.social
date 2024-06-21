@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import { FrameProcessor } from '@/libs/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().json();
-    const response = await fetch(target || postUrl, {
+    const response = await fetch(target || postUrl || url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -67,6 +68,13 @@ export async function POST(request: Request) {
         // for post_redirect, we need to handle the redirect manually
         redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
     });
+
+    // a workaround if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
+    if (action === ActionType.PostRedirect && response.status >= 400) {
+        return createSuccessResponseJSON({
+            redirectUrl: url,
+        });
+    }
 
     if (response.status < 200 || response.status >= 400)
         return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });
