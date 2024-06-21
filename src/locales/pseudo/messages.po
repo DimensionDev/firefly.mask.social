@@ -871,6 +871,9 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
+msgid "Loading..."
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr ""
 

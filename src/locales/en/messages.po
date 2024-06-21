@@ -871,6 +871,9 @@ msgstr "Failed to parse session."
 msgid "Feedback"
 msgstr "Feedback"
 
+msgid "Loading..."
+msgstr "Loading..."
+
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 

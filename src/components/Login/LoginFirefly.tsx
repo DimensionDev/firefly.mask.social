@@ -17,7 +17,7 @@ import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
     try {
@@ -25,7 +25,7 @@ async function login(createSession: () => Promise<FireflySession>, options?: { s
         await FireflySession.restore(session);
         await FireflySessionConfirmModalRef.openAndWaitForClose({
             source: Source.Firefly,
-            sessions: await syncSessionFromFirefly(options?.signal),
+            accounts: await syncAccountsFromFirefly(options?.signal),
             onDetected(profiles) {
                 if (!profiles.length)
                     enqueueInfoMessage(t`No device accounts detected.`, {
@@ -162,9 +162,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                                 })}
                                 onClick={() => {
                                     if (scanned) return;
-
                                     controllerRef.current?.abort(new AbortError());
-
                                     onLoginByGrantPermission();
                                 }}
                             >

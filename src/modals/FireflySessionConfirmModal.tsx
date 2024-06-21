@@ -1,15 +1,15 @@
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { compact, values } from 'lodash-es';
-import { forwardRef, useState } from 'react';
+import { compact } from 'lodash-es';
+import { forwardRef } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
@@ -21,11 +21,11 @@ interface ProfileModalProps {
 }
 
 function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
-    const [selectedPairs, setSelectedPairs] = useState<Record<SocialSource, Account | null>>({
-        [Source.Farcaster]: null,
-        [Source.Lens]: null,
-        [Source.Twitter]: null,
-    });
+    const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
+        await Promise.all(Object.values(accounts).map(addAccount));
+        onConfirm?.();
+        ConfirmModalRef.close(true);
+    }, [accounts, onConfirm]);
 
     return (
         <div>
@@ -43,21 +43,6 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                         <ProfileInList
                             key={account.profile.profileId}
                             profile={account.profile}
-                            selected={Object.entries(selectedPairs).some(([_, x]) =>
-                                isSameProfile(x?.profile, account.profile),
-                            )}
-                            onSelect={() => {
-                                setSelectedPairs((accounts) => {
-                                    const currentPair = accounts[account.profile.source];
-                                    return {
-                                        ...accounts,
-                                        [account.profile.source]:
-                                            currentPair && isSameProfile(currentPair.profile, account.profile)
-                                                ? null
-                                                : account,
-                                    };
-                                });
-                            }}
                             ProfileAvatarProps={{
                                 enableSourceIcon: true,
                             }}
@@ -76,14 +61,10 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                 </ClickableButton>
                 <ClickableButton
                     className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
-                    disabled={compact(Object.values(selectedPairs)).length === 0}
-                    onClick={() => {
-                        compact(values(selectedPairs)).map(addAccount);
-                        onConfirm?.();
-                        ConfirmModalRef.close(true);
-                    }}
+                    disabled={compact(Object.values(accounts)).length === 0 || loading}
+                    onClick={onConfirmAll}
                 >
-                    <Trans>Login</Trans>
+                    {loading ? <Trans>Loading...</Trans> : <Trans>Login</Trans>}
                 </ClickableButton>
             </div>
         </div>

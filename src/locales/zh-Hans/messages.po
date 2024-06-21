@@ -876,6 +876,9 @@ msgstr "未能解析会话"
 msgid "Feedback"
 msgstr "问题反馈"
 
+msgid "Loading..."
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 
