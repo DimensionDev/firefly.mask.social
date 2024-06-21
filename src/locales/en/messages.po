@@ -151,6 +151,9 @@ msgstr "Log out @{0}"
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
 
+msgid "Please confirm the login with Firefly."
+msgstr "Please confirm the login with Firefly."
+
 msgid "[Image]"
 msgstr "[Image]"
 
