@@ -2,6 +2,7 @@
 
 import { t } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { usePathname } from 'next/navigation.js';
 import { useCallback } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 
@@ -15,14 +16,13 @@ import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
-import { usePathname } from 'next/navigation.js';
-import { PageRoute } from '@/constants/enum.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;
@@ -50,7 +50,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                 <div className="flex flex-col gap-[8px]">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{identity}</span>
-                        {!isMyWallets ? (
+                        {!isMyWallets && isMedium ? (
                             <>
                                 <WatchButton className="ml-auto" address={profile.address} />
                                 <WalletMoreAction profile={profile} />

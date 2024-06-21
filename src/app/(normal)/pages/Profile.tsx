@@ -103,6 +103,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
             {isOtherProfile ? (
                 <Title
                     profile={profile}
+                    walletProfile={walletProfile}
                     isSingleProfile={profiles.length === 1}
                     displayName={
                         walletProfile
