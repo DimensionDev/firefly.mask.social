@@ -583,7 +583,7 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
 
 msgid "Top Profiles"
-msgstr "热门人物"
+msgstr "热门用户"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
