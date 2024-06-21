@@ -218,31 +218,38 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
-            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) &&
-            (type === 'compose' || type === 'quote') ? (
-                <div className="flex h-9 items-center justify-between pb-safe">
-                    <span className="text-[15px] text-secondary">
-                        <Trans>Farcaster channel</Trans>
-                    </span>
-                    <Popover as="div" className="relative">
-                        {({ close }) => (
-                            <>
-                                <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
-                                    <span className="text-[15px] font-bold">
-                                        {compact(
-                                            SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
-                                                (source) => channel[source]?.name,
-                                            ),
-                                        ).join(',')}
-                                    </span>
-                                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                                </Popover.Button>
-                                <ChannelSearchPanel onSelected={close} />
-                            </>
-                        )}
-                    </Popover>
-                </div>
-            ) : null}
+
+            <div
+                className="flex h-9 items-center justify-between pb-safe"
+                style={{
+                    visibility:
+                        availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) &&
+                        (type === 'compose' || type === 'quote')
+                            ? 'unset'
+                            : 'hidden',
+                }}
+            >
+                <span className="text-[15px] text-secondary">
+                    <Trans>Farcaster channel</Trans>
+                </span>
+                <Popover as="div" className="relative">
+                    {({ close }) => (
+                        <>
+                            <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+                                <span className="text-[15px] font-bold">
+                                    {compact(
+                                        SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
+                                            (source) => channel[source]?.name,
+                                        ),
+                                    ).join(',')}
+                                </span>
+                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                            </Popover.Button>
+                            <ChannelSearchPanel onSelected={close} />
+                        </>
+                    )}
+                </Popover>
+            </div>
         </div>
     );
 }
