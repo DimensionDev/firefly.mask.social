@@ -595,6 +595,9 @@ msgstr "Send Feedback"
 msgid "Detecting..."
 msgstr "Detecting..."
 
+msgid "Open in Firefly App"
+msgstr "Open in Firefly App"
+
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 

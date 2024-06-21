@@ -478,7 +478,7 @@ msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
 
 msgid "Top Channels"
-msgstr "顶级频道"
+msgstr "热门频道"
 
 msgid "Failed to un-bookmark"
 msgstr "取消收藏失败"
@@ -583,7 +583,7 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
 
 msgid "Top Profiles"
-msgstr "顶级个人资料"
+msgstr "热门用户"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
@@ -599,6 +599,9 @@ msgstr "提交反馈"
 
 msgid "Detecting..."
 msgstr "检测中..."
+
+msgid "Open in Firefly App"
+msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -907,7 +910,7 @@ msgid "One click to connect your account status."
 msgstr "一键同步你的账号。"
 
 msgid "Top Collectors"
-msgstr "顶级收藏者"
+msgstr "热门收藏者"
 
 msgid "Quote"
 msgstr "引用"
@@ -1180,7 +1183,7 @@ msgid "Firefly"
 msgstr "Firefly"
 
 msgid "Switching..."
-msgstr "切换中。。。"
+msgstr "切换中..."
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
@@ -1429,7 +1432,7 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
-msgstr "翻译中。。。"
+msgstr "翻译中..."
 
 msgid "Back to home"
 msgstr "返回主页"
