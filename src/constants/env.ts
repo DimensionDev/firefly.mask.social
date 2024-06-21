@@ -55,6 +55,12 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 
     OPENRANK_URL: z.string(),
+
+    // app url scheme
+    NEXT_PUBLIC_FIREFLY_IOS_HOME: z.string().optional(),
+    NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM: z.string().optional(),
+    NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().optional(),
+    NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM: z.string().optional(),
 });
 
 export const env = {
@@ -87,5 +93,10 @@ export const env = {
         NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
 
         OPENRANK_URL: process.env.NEXT_PUBLIC_OPENRANK_URL || 'https://graph.cast.k3l.io',
+
+        NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
+        NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM: process.env.NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM,
+        NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
+        NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM,
     }),
 };

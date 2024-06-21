@@ -32,7 +32,7 @@ import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/form
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 const allowedTypes = [
@@ -85,18 +85,18 @@ function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null)
     );
 }
 
-function getOembedUrls(metadata: PublicationMetadataFragment): string[] {
+function getOembedUrls(metadata: PublicationMetadataFragment, author: Profile): string[] {
     return (
         metadata.attributes?.reduce<string[]>((acc, attr) => {
             if (attr.key === LensMetadataAttributeKey.Poll) {
-                acc.push(composePollFrameUrl(getPollFrameUrl(attr.value), Source.Lens));
+                acc.push(composePollFrameUrl(getPollFrameUrl(attr.value, undefined, author), Source.Lens));
             }
             return acc;
         }, []) ?? []
     );
 }
 
-function formatContent(metadata: PublicationMetadataFragment) {
+function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
     const type = metadata.__typename;
     switch (type) {
         case 'ArticleMetadataV3':
@@ -108,7 +108,7 @@ function formatContent(metadata: PublicationMetadataFragment) {
         case 'LinkMetadataV3':
             return {
                 content: metadata.content,
-                oembedUrls: getOembedUrls(metadata),
+                oembedUrls: getOembedUrls(metadata, author),
             };
         case 'ImageMetadataV3': {
             const asset = metadata.asset.image.optimized?.uri
@@ -265,7 +265,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
         isEncrypted: !!result.metadata.encryptedWith,
         metadata: {
             locale: result.metadata.locale,
-            content: formatContent(result.metadata),
+            content: formatContent(result.metadata, profile),
             contentURI: result.metadata.rawURI,
         },
         canComment: result.operations.canComment === 'YES',
@@ -287,7 +287,8 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
     if (result.__typename === 'Mirror') {
         const mediaObjects = getMediaObjects(result.mirrorOn.metadata);
-        const content = formatContent(result.mirrorOn.metadata);
+        const mirrorOnProfile = formatLensProfile(result.mirrorOn.by);
+        const content = formatContent(result.mirrorOn.metadata, mirrorOnProfile);
         const oembedUrls = getEmbedUrls(content?.content ?? '', []);
 
         const canAct =
@@ -298,7 +299,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             type: result.__typename,
             postId: result.mirrorOn.id,
             timestamp,
-            author: formatLensProfile(result.mirrorOn.by),
+            author: mirrorOnProfile,
             reporter: profile,
             isHidden: result.mirrorOn.isHidden,
             source: Source.Lens,
@@ -344,7 +345,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
     const mediaObjects = getMediaObjects(result.metadata);
 
-    const content = formatContent(result.metadata);
+    const content = formatContent(result.metadata, profile);
 
     const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || []);
 

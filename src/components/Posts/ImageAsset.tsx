@@ -70,7 +70,7 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
                 });
             }
         },
-        [disableLoadHandler, props.style],
+        [disableLoadHandler, props.style, cacheKey],
     );
 
     if (!mounted) return;
