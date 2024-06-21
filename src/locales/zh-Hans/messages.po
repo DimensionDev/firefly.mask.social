@@ -583,7 +583,7 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
 
 msgid "Top Profiles"
-msgstr "热门个人资料"
+msgstr "热门用户"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
@@ -599,6 +599,9 @@ msgstr "提交反馈"
 
 msgid "Detecting..."
 msgstr "检测中..."
+
+msgid "Open in Firefly App"
+msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -1180,7 +1183,7 @@ msgid "Firefly"
 msgstr "Firefly"
 
 msgid "Switching..."
-msgstr "切换中。。。"
+msgstr "切换中..."
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
