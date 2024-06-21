@@ -58,7 +58,9 @@ export type Chars = string | Array<string | ComplexChars>;
 export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisible' = 'both', source?: SocialSource) {
     return (Array.isArray(chars) ? chars : [chars])
         .map((x) => {
-            if (typeof x === 'string') return x;
+            if (typeof x === 'string') {
+                return strategy === 'invisible' ? '' : x;
+            }
             if (x.visible && strategy === 'invisible') return '';
             if (!x.visible && strategy === 'visible') return '';
             switch (x.tag) {
