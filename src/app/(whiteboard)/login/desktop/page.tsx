@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 
 import FullLogo from '@/assets/fullLogo.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
+import { DeviceType } from '@/types/device.js';
 
 interface PageProps {
     searchParams: { session?: string };
@@ -15,8 +16,8 @@ export default function Page({ searchParams }: PageProps) {
         const sessionId = searchParams.session;
         if (!sessionId) return;
         return {
-            ios: location.href.replace('https://', 'firefly://'),
-            android: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
+            [DeviceType.IOS]: location.href.replace('https://', 'firefly://'),
+            [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
         };
     }, [searchParams]);
 

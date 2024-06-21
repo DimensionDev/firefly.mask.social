@@ -600,6 +600,9 @@ msgstr "提交反馈"
 msgid "Detecting..."
 msgstr "检测中..."
 
+msgid "Open in Firefly App"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
