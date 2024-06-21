@@ -44,7 +44,15 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 version: z.number(),
             });
 
-            const output = schema.safeParse(parsedState);
+            const output = schema.safeParse({
+                ...parsedState,
+                state: {
+                    ...parsedState.state,
+                    // for legacy version don't have accounts field
+                    // so we need to provide a default value to bypass the schema validation
+                    accounts: parsedState.state.accounts ?? [],
+                },
+            });
             if (!output.success) {
                 console.error([`[${name}] zod validation failure: ${output.error}`]);
                 return null;
