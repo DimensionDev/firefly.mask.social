@@ -57,9 +57,6 @@ msgstr "获取 Blob 失败。"
 msgid "Unmute successfully."
 msgstr "取消屏蔽成功。"
 
-msgid "Report Spam"
-msgstr "举报垃圾"
-
 msgid "Mute /{0}"
 msgstr "屏蔽 /{0}"
 

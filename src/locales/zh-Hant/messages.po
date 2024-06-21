@@ -57,9 +57,6 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
 
-msgid "Report Spam"
-msgstr ""
-
 msgid "Mute /{0}"
 msgstr "將 @{0} 靜音"
 

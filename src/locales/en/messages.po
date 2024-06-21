@@ -52,9 +52,6 @@ msgstr "Failed to fetch as Blob."
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
 
-msgid "Report Spam"
-msgstr "Report Spam"
-
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
 
