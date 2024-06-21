@@ -1,15 +1,14 @@
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
-import { compact } from 'lodash-es';
-import type { ReactNode } from 'react';
+import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
+import dayjs from 'dayjs';
 
-export interface NFTPropertiesItem {
-    label: ReactNode;
-    value: ReactNode;
-}
+import { formatDate } from '@/helpers/formatTimestamp.js';
+import { isTimestamp } from '@/helpers/isTimestamp.js';
+import { isUnixTimestamp } from '@/helpers/isUnixTimestamp.js';
 
 export interface NFTPropertiesProps {
-    items: NFTPropertiesItem[];
+    items: NonFungibleTokenTrait[];
 }
 
 export function NFTProperties(props: NFTPropertiesProps) {
@@ -19,20 +18,29 @@ export function NFTProperties(props: NFTPropertiesProps) {
                 <Trans>Properties</Trans>
             </h3>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3">
-                {props.items.map(({ value, label }, i) => {
-                    const key = compact([
-                        typeof label === 'string' ? label : label,
-                        typeof value === 'string' ? value : value,
-                        `${i}`,
-                    ]).join('');
+                {props.items.map((item) => {
+                    const { type, displayType } = item;
+                    let value = item.value;
+                    switch (displayType) {
+                        case 'date':
+                            if (isUnixTimestamp(item.value)) {
+                                value = formatDate(dayjs.unix(parseInt(item.value, 10)).toDate());
+                            } else if (isTimestamp(item.value)) {
+                                value = formatDate(dayjs(parseInt(item.value, 10)).toDate());
+                            } else {
+                                value = formatDate(dayjs(item.value).toDate());
+                            }
+                            break;
+                    }
+                    console.log(type, value, displayType);
                     return (
                         <div
-                            key={key}
+                            key={type}
                             className="flex flex-col items-center justify-center space-y-2.5 rounded-[10px] border border-input bg-lightBg p-[10px] px-2 py-1 text-center"
                         >
-                            <TextOverflowTooltip title={label}>
+                            <TextOverflowTooltip title={type}>
                                 <div className="w-full truncate text-base font-normal leading-[22px] text-second">
-                                    {label}
+                                    {type}
                                 </div>
                             </TextOverflowTooltip>
                             <TextOverflowTooltip title={value}>
