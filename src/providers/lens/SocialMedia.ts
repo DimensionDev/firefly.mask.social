@@ -1205,11 +1205,7 @@ class LensSocialMedia implements Provider {
                 },
             },
         });
-        const reported = result.isSuccess().valueOf();
-        if (!reported) return false;
-        const blocked = await this.blockProfile(profileId);
-
-        return blocked;
+        return result.isSuccess().valueOf();
     }
     async reportPost(post: Post) {
         const postId = post.postId;
