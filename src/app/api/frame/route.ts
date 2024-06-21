@@ -69,7 +69,7 @@ export async function POST(request: Request) {
         redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
     });
 
-    // a workaround if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
+    // workaround: if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
     if (action === ActionType.PostRedirect && response.status >= 400) {
         return createSuccessResponseJSON({
             redirectUrl: url,

@@ -81,12 +81,12 @@ async function getNextFrame(
         switch (source) {
             case Source.Lens:
                 return LensFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
-                    state: frame.state ? frame.state : undefined,
+                    state: latestFrame && frame.state ? frame.state : undefined,
                     ...additional,
                 });
             case Source.Farcaster:
                 return HubbleFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
-                    state: frame.state ? frame.state : undefined,
+                    state: latestFrame && frame.state ? frame.state : undefined,
                     ...additional,
                 });
             case Source.Twitter:
