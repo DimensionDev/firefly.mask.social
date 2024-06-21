@@ -27,7 +27,7 @@ class SentryClient {
 
         Sentry.onLoad(() => {
             Sentry.init({
-                dsn: `${process.env.NEXT_PUBLIC_SENTRY_DSN}`,
+                dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
 
                 release: process.version,
                 environment: env.shared.NODE_ENV,
@@ -46,7 +46,7 @@ class SentryClient {
             });
 
             this.initialized = true;
-            console.log(`[sentry] Initialized with DSN: ${process.env.NEXT_PUBLIC_SENTRY_DSN}`);
+            console.log(`[sentry] Initialized with DSN: ${env.external.NEXT_PUBLIC_SENTRY_DSN}`);
         });
     }
 }
