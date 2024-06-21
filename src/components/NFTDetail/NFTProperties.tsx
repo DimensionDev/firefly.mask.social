@@ -1,11 +1,8 @@
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
 import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
-import dayjs from 'dayjs';
 
-import { formatDate } from '@/helpers/formatTimestamp.js';
-import { isTimestamp } from '@/helpers/isTimestamp.js';
-import { isUnixTimestamp } from '@/helpers/isUnixTimestamp.js';
+import { getNFTPropertyValue } from '@/helpers/getNFTPropertyValue.js';
 
 export interface NFTPropertiesProps {
     items: NonFungibleTokenTrait[];
@@ -20,18 +17,7 @@ export function NFTProperties(props: NFTPropertiesProps) {
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3">
                 {props.items.map((item) => {
                     const { type, displayType } = item;
-                    let value = item.value;
-                    switch (displayType) {
-                        case 'date':
-                            if (isUnixTimestamp(item.value)) {
-                                value = formatDate(dayjs.unix(parseInt(item.value, 10)).toDate());
-                            } else if (isTimestamp(item.value)) {
-                                value = formatDate(dayjs(parseInt(item.value, 10)).toDate());
-                            } else {
-                                value = formatDate(dayjs(item.value).toDate());
-                            }
-                            break;
-                    }
+                    const value = getNFTPropertyValue(displayType, item.value);
                     return (
                         <div
                             key={type}
