@@ -1180,7 +1180,7 @@ msgid "Firefly"
 msgstr "Firefly"
 
 msgid "Switching..."
-msgstr "切换中。。。"
+msgstr "切换中..."
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
@@ -1429,7 +1429,7 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
-msgstr "翻译中。。。"
+msgstr "翻译中..."
 
 msgid "Back to home"
 msgstr "返回主页"
