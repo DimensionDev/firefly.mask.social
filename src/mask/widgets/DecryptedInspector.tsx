@@ -31,11 +31,8 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
             updateMyProfile(identity);
         }
     }, [post?.source, lensProfile?.profileId, farcasterProfile?.profileId]);
-    console.log('DecryptedInspector', { post, payloads });
 
     if (!post || !payloads?.length) return null;
-
-    console.log('DecryptedInspector', { post, payloads });
 
     return (
         <Providers>

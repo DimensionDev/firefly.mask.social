@@ -27,17 +27,8 @@ export default function CustomElements() {
             });
         });
 
-        console.log('setup CustomElements, storage');
         // storage must be imported before custom-elements
-        try {
-            await import('@/mask/setup/storage.js').catch((err) => {
-                debugger;
-                console.log('err storage', err);
-            });
-        } catch (err) {
-            console.log('err storage', err);
-        }
-        console.log('setup CustomElements, custom elements');
+        await import('@/mask/setup/storage.js');
         await import('@/mask/custom-elements.js');
 
         return true;

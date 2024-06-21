@@ -4,14 +4,11 @@ import { addListener } from '@/mask/setup/message.js';
 
 import { createKVStorageHost, setupMaskKVStorageBackend } from '@masknet/shared-base';
 
-console.log('setup storage', 'before inMemoryBackend');
 const inMemoryBackend = {
     beforeAutoSync: Promise.resolve(),
     getValue: BackgroundWorker.memoryRead,
     setValue: BackgroundWorker.memoryWrite,
 };
-
-console.log('setup storage', { inMemoryBackend });
 // #region Setup storage
 export const inMemoryStorage = createKVStorageHost(inMemoryBackend, {
     on: (callback) => addListener('inMemoryStorage', callback),
