@@ -156,6 +156,9 @@ msgstr ""
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
+msgid "Please confirm the login with Firefly."
+msgstr ""
+
 msgid "[Image]"
 msgstr ""
 
@@ -1499,4 +1502,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-
