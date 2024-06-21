@@ -10,17 +10,18 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FollowingNFT } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export function FollowingNFTList({ walletAddresses }: { walletAddresses?: string[] }) {
-    const currentSource = walletAddresses?.length ? Source.NFTs : useGlobalState.use.currentSource();
+export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
+    const currentSource = walletAddress ? Source.NFTs : useGlobalState.use.currentSource();
 
+    const queryKey = walletAddress ? ['nfts-of', walletAddress] : ['nfts', 'following', currentSource];
     const nftQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['nfts', 'following', currentSource, walletAddresses],
+        queryKey,
         networkMode: 'always',
         async queryFn({ pageParam }) {
             if (currentSource !== Source.NFTs) return createPageable<FollowingNFT>(EMPTY_LIST, createIndicator());
             return FireflySocialMediaProvider.getFollowingNFTs({
                 indicator: createIndicator(undefined, pageParam),
-                walletAddresses,
+                walletAddresses: walletAddress ? [walletAddress] : undefined,
             });
         },
         initialPageParam: '',
