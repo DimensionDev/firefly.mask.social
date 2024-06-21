@@ -49,7 +49,7 @@ async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string) {
     }
 }
 
-export async function openAppScheme(schemes: Schemes) {
+export async function openAppSchemes(schemes: Schemes) {
     if (IS_IOS) {
         if (typeof window.webkit !== 'undefined' && window.webkit.messageHandlers[schemes.ios]) {
             window.location.href = schemes.ios;

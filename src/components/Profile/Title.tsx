@@ -50,6 +50,7 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile }: 
                     <WalletMoreAction profile={walletProfile} />
                 </>
             );
+        return null;
     };
 
     return (

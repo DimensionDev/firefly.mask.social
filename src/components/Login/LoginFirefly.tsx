@@ -9,15 +9,18 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { NODE_ENV, Source } from '@/constants/enum.js';
-import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { AbortError, MalformedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { openAppSchemes } from '@/helpers/openAppSchemes.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { DeviceType } from '@/types/device.js';
 
 async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
     try {
@@ -69,14 +72,25 @@ export function LoginFirefly(props: LoginFireflyProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermission((url) => {
+                    createSessionByGrantPermission(async (url) => {
                         resetCountdown();
                         startCountdown();
                         setScanned(false);
 
                         const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
+                        if (device === 'unknown') {
+                            setUrl(url);
+                            return;
+                        }
+
+                        const parsedUrl = parseURL(url);
+                        const sessionId = parsedUrl?.searchParams.get('session');
+                        if (!sessionId) throw new MalformedError(`Failed to read session from url = ${url}`);
+
+                        await openAppSchemes({
+                            [DeviceType.IOS]: url.replace(/^https/, 'firefly'),
+                            [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
+                        });
                     }, controllerRef.current?.signal),
                 {
                     signal: controllerRef.current.signal,
