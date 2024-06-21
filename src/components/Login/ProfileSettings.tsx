@@ -27,7 +27,7 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
+import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 interface ProfileSettingsProps {
@@ -45,10 +45,14 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
             controllerRef.current = new AbortController();
 
             try {
+                // restore firefly session from social source sessions
                 switch (source) {
                     case Source.Lens:
                         if (!currentProfile) break;
-                        await createSessionForProfileIdFirefly(currentProfile.profileId, controllerRef.current?.signal);
+                        await FireflySession.fromAndRestore(
+                            await createSessionForProfileId(currentProfile.profileId, controllerRef.current?.signal),
+                            controllerRef.current?.signal,
+                        );
                         break;
                     case Source.Farcaster:
                         if (!FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)) break;
@@ -67,6 +71,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 // failed to recover firefly session
                 if (!fireflySessionHolder.session) throw new Error(t`Failed to create firefly session.`);
 
+                // sync accounts by using the restored firefly session
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     source,
                     accounts: await syncAccountsFromFirefly(controllerRef.current?.signal),
