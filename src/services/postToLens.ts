@@ -208,6 +208,7 @@ async function commentPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    polls?: Poll[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -223,6 +224,7 @@ async function commentPostForLens(
             },
         },
         createPayloadAttachments(images, video),
+        createPayloadAttributes(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -240,6 +242,7 @@ async function quotePostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    polls?: Poll[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -255,6 +258,7 @@ async function quotePostForLens(
             },
         },
         createPayloadAttachments(images, video),
+        createPayloadAttributes(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -319,7 +323,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 polls,
             );
         },
-        reply(images, videos) {
+        reply(images, videos, polls) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
             return commentPostForLens(
@@ -328,9 +332,10 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 readChars(chars, false, Source.Lens),
                 images,
                 video,
+                polls,
             );
         },
-        quote(images, videos) {
+        quote(images, videos, polls) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
             return quotePostForLens(
@@ -339,6 +344,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 readChars(chars, false, Source.Lens),
                 images,
                 video,
+                polls,
             );
         },
     });

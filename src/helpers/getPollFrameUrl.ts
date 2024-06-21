@@ -33,5 +33,6 @@ export function getPollFrameUrl(pollId: string, source?: SocialSource) {
 
     return urlcat(FRAME_SERVER_URL, `/polls/${pollId}`, {
         author: profile ? getProfileUrl(profile) : null,
+        source: source?.toLowerCase(),
     });
 }
