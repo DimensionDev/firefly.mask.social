@@ -217,7 +217,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             {canShowMore ? (
                 <div className="text-[15px] font-bold text-link">
                     <div
-                        onClick={(event) => {
+                        onClick={() => {
                             router.push(getPostUrl(post));
                         }}
                     >
