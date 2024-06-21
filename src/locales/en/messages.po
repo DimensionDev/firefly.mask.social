@@ -79,6 +79,9 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Failed to unbookmark post."
 msgstr "Failed to unbookmark post."
 
+msgid "Delete post"
+msgstr "Delete post"
+
 msgid "You can sign in to Farcaster with the following options."
 msgstr "You can sign in to Farcaster with the following options."
 
@@ -430,9 +433,6 @@ msgstr "THREAD POST"
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
-msgid "Copy Link"
-msgstr "Copy Link"
-
 msgid "<0>Poap</0> received"
 msgstr "<0>Poap</0> received"
 
@@ -673,6 +673,9 @@ msgstr "Bookmark"
 msgid "Post has been deleted"
 msgstr "Post has been deleted"
 
+msgid "Report article"
+msgstr "Report article"
+
 msgid "Everyone"
 msgstr "Everyone"
 
@@ -904,6 +907,9 @@ msgstr "Top Collectors"
 msgid "Quote"
 msgstr "Quote"
 
+msgid "View engagements"
+msgstr "View engagements"
+
 msgid "Translated"
 msgstr "Translated"
 
@@ -972,9 +978,6 @@ msgstr "The content of this account is currently unavailable"
 
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
-
-msgid "Delete Post"
-msgstr "Delete Post"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -1180,9 +1183,6 @@ msgstr "Switching..."
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>Bought</0> an NFT worth {costEl}"
 
-msgid "Report Article"
-msgstr "Report Article"
-
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "Post from /{0} will be hidden in your home timeline"
 
@@ -1311,9 +1311,6 @@ msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
 
 msgid "Failed to watch {identity}"
 msgstr "Failed to watch {identity}"
-
-msgid "View Engagements"
-msgstr "View Engagements"
 
 msgid "{identity} unwatched"
 msgstr "{identity} unwatched"
@@ -1461,6 +1458,9 @@ msgstr "Already posted on {sourceName}."
 
 msgid "[Quote]"
 msgstr "[Quote]"
+
+msgid "Copy link"
+msgstr "Copy link"
 
 msgid "Post"
 msgstr "Post"

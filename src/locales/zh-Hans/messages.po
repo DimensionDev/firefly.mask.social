@@ -84,6 +84,9 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Failed to unbookmark post."
 msgstr "取消收藏失败。"
 
+msgid "Delete post"
+msgstr ""
+
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以使用以下方式登录 Farcaster。"
 
@@ -435,9 +438,6 @@ msgstr "THREAD 发帖"
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
-msgid "Copy Link"
-msgstr "复制链接"
-
 msgid "<0>Poap</0> received"
 msgstr "<0>Poap</0> 已收到"
 
@@ -678,6 +678,9 @@ msgstr "收藏"
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
 
+msgid "Report article"
+msgstr ""
+
 msgid "Everyone"
 msgstr "任何人"
 
@@ -909,6 +912,9 @@ msgstr "顶级收藏者"
 msgid "Quote"
 msgstr "引用"
 
+msgid "View engagements"
+msgstr ""
+
 msgid "Translated"
 msgstr "已翻译"
 
@@ -977,9 +983,6 @@ msgstr "无法获取这个账号的内容"
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
-
-msgid "Delete Post"
-msgstr "删除帖子"
 
 msgid "Cancel"
 msgstr "取消"
@@ -1185,9 +1188,6 @@ msgstr "切换中。。。"
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
 
-msgid "Report Article"
-msgstr "举报文章"
-
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
 
@@ -1316,9 +1316,6 @@ msgstr "<0>获得</0> 一个 NFT 来自 <1>{0}</1>"
 
 msgid "Failed to watch {identity}"
 msgstr "关注 {identity} 失败"
-
-msgid "View Engagements"
-msgstr "查看互动情况"
 
 msgid "{identity} unwatched"
 msgstr "{identity} 取消关注"
@@ -1467,6 +1464,9 @@ msgstr "已经在 {sourceName} 发贴。"
 msgid "[Quote]"
 msgstr "[引用]"
 
+msgid "Copy link"
+msgstr ""
+
 msgid "Post"
 msgstr "发帖"
 
@@ -1511,4 +1511,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
