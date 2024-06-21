@@ -2,6 +2,7 @@
 
 import { t } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { usePathname } from 'next/navigation.js';
 import { useCallback } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 
@@ -15,6 +16,7 @@ import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -38,6 +40,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
 
     const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
 
+    const pathname = usePathname();
+    const isMyWallets = pathname === PageRoute.Profile; // My wallet profile page has no path param
+
     return (
         <div className="flex gap-3 p-3">
             <Avatar src={profile.avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
@@ -45,8 +50,12 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                 <div className="flex flex-col gap-[8px]">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{identity}</span>
-                        <WatchButton className="ml-auto" address={profile.address} />
-                        <WalletMoreAction profile={profile} />
+                        {!isMyWallets && isMedium ? (
+                            <>
+                                <WatchButton className="ml-auto" address={profile.address} />
+                                <WalletMoreAction profile={profile} />
+                            </>
+                        ) : null}
                     </div>
                     <div className="flex gap-[10px]">
                         {profile.verifiedSources.map((x) => {

@@ -3,6 +3,7 @@ import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
+import { useEnsName } from 'wagmi';
 
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -15,7 +16,8 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 }
 
 export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ profile, className, ...rest }) {
-    const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
+    const { data: ens } = useEnsName({ address: profile.address });
+    const identity = profile.primary_ens || ens || formatEthereumAddress(profile.address, 4);
     const { data: isMuted } = useIsWalletMuted(profile.address);
 
     return (

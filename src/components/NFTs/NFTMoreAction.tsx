@@ -11,6 +11,7 @@ import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
 interface Props {
@@ -25,6 +26,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
     const identity = ens || formatEthereumAddress(address, 4);
     const { data } = useNFTDetail(contractAddress, tokenId, chainId);
     const collectionId = data?.collection?.id;
+    const { data: isMuted } = useIsWalletMuted(address);
     return (
         <Menu
             className="relative"
@@ -66,7 +68,9 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                         {({ close }) => <WatchWalletButton identity={identity} address={address} onClick={close} />}
                     </Menu.Item>
                     <Menu.Item>
-                        {({ close }) => <MuteWalletButton identity={identity} address={address} onClick={close} />}
+                        {({ close }) => (
+                            <MuteWalletButton identity={identity} address={address} isMuted={isMuted} onClick={close} />
+                        )}
                     </Menu.Item>
                     {collectionId ? (
                         <Menu.Item>

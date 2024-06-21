@@ -46,9 +46,7 @@ export function Info({ profile }: InfoProps) {
                         <SocialSourceIcon source={source} size={20} />
                         {profile && !isMyProfile(profile) && isMedium && source !== Source.Twitter ? (
                             <>
-                                <div className="ml-auto">
-                                    <FollowButton profile={profile} />
-                                </div>
+                                <FollowButton className="ml-auto" profile={profile} />
                                 <ProfileMoreAction profile={profile} />
                             </>
                         ) : null}

@@ -75,7 +75,6 @@ export function SetQueryDataForBlockProfile(source: SocialSource) {
                 value: async (profileId: string) => {
                     const m = method as (profileId: string) => Promise<boolean>;
                     const status = key === 'blockProfile';
-                    setBlockStatus(source, profileId, status);
                     try {
                         const result = await m?.call(target.prototype, profileId);
                         if (!result) {
@@ -83,6 +82,7 @@ export function SetQueryDataForBlockProfile(source: SocialSource) {
                             setBlockStatus(source, profileId, !status);
                             return false;
                         }
+                        setBlockStatus(source, profileId, status);
                         return result;
                     } catch (err) {
                         // rolling back
