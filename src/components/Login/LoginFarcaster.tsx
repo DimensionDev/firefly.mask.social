@@ -163,7 +163,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 async () => {
-                    const staledSession = fireflySessionHolder.session;
+                    const previousSession = fireflySessionHolder.session;
 
                     const session = await createSessionByRelayService((url) => {
                         resetCountdown();
@@ -184,12 +184,12 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                     const accounts = await syncAccountsFromFirefly(controllerRef.current?.signal);
 
                     // if the user has signed into Firefly before, a synced session could be found.
-                    const restoredAccount = accounts.find((x) => isSameSession(x.session, session));
+                    const nextAccount = accounts.find((x) => isSameSession(x.session, session));
 
-                    if (!restoredAccount) {
+                    if (!nextAccount) {
                         // the current profile did not connect to firefly
                         // we need to restore the staled session and keep everything untouched
-                        if (staledSession) FireflySession.restore(staledSession);
+                        if (previousSession) FireflySession.restore(previousSession);
 
                         try {
                             const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
@@ -212,7 +212,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         throw new AbortError();
                     }
 
-                    return restoredAccount.session as FarcasterSession;
+                    return nextAccount.session as FarcasterSession;
                 },
                 { skipSyncSessions: true, signal: controllerRef.current?.signal },
             );
