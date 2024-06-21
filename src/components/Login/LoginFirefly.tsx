@@ -85,7 +85,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
 
                         const parsedUrl = parseURL(url);
                         const sessionId = parsedUrl?.searchParams.get('session');
-                        if (!sessionId) throw new MalformedError(`Invalid url = ${url}`);
+                        if (!sessionId) throw new MalformedError(`Failed to read session from url = ${url}`);
 
                         await openAppSchemes({
                             [DeviceType.IOS]: url.replace(/^https/, 'firefly'),
