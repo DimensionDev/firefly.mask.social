@@ -216,7 +216,7 @@ export const DraftList = memo(function DraftList() {
     }
 
     return (
-        <div className="max-h-[818px] min-h-[528px] overflow-auto px-6">
+        <div className="max-h-[818px] min-h-[582px] overflow-auto px-6">
             {orderBy(
                 drafts,
                 (x) => {
