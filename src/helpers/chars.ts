@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import type { RP_HASH_TAG } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST, type RP_HASH_TAG } from '@/constants/index.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -91,18 +91,22 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(post: CompositePost, visibleOnly?: boolean): number {
-    const { chars, availableSources } = post;
-    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
-}
-
+/**
+ * Suppose we have three sources: x1, x2, x3. Each source has a maximum length: y1, y2, y3.
+ * @param post
+ * @returns
+ */
 export function measureChars(post: CompositePost) {
-    const length = calculateLength(post);
-    const visibleLength = calculateLength(post, true);
+    const { chars, availableSources } = post;
 
     return {
-        length,
-        visibleLength,
-        invisibleLength: length - visibleLength,
+        // max(x1, x2, x3)
+        usedLength: Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, false, x)))),
+        // min(y1, y2, y3)
+        availableLength: Math.min(
+            ...availableSources.map(
+                (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, false, x)),
+            ),
+        ),
     };
 }

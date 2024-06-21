@@ -104,16 +104,6 @@ export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Lens]: 20,
     [Source.Twitter]: 4,
 };
-export const DANGER_CHAR_LIMIT: Record<SocialSource, number> = {
-    [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.9),
-    [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.9),
-    [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.9),
-};
-export const SAFE_CHAR_LIMIT: Record<SocialSource, number> = {
-    [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.8),
-    [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.8),
-    [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.8),
-};
 
 // Search Bar
 export const MAX_SEARCH_RECORD_SIZE = 5;
