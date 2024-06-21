@@ -24,7 +24,7 @@ async function getParentPostById(source: SocialSource, postId: string) {
     switch (source) {
         case Source.Farcaster: {
             // in a thread, posts will sometimes be lost if we post too quickly
-            await delay(1000);
+            await delay(3000);
 
             // the hub might be delay in updating the post
             const mock = { postId, author: {} } as unknown as Post;
