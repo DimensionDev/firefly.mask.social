@@ -592,9 +592,6 @@ msgstr ""
 msgid "Detecting..."
 msgstr ""
 
-msgid "Open in Firefly App"
-msgstr ""
-
 msgid "Privacy Policy"
 msgstr ""
 
@@ -764,6 +761,9 @@ msgid "Invalid URL."
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -1069,9 +1069,6 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-msgstr ""
-
 msgid "Post by {0}"
 msgstr ""
 
@@ -1223,9 +1220,6 @@ msgid "Only people you follow"
 msgstr ""
 
 msgid "Add another option"
-msgstr ""
-
-msgid "[Attachment]"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -1475,9 +1469,6 @@ msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "Close"
-msgstr ""
-
-msgid "Link"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"

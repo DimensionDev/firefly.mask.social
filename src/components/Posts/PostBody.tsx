@@ -22,8 +22,10 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -159,11 +161,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     components={{
                         // @ts-ignore
                         // eslint-disable-next-line react/no-unstable-nested-components
-                        a: () => (
-                            <span>
-                                [<Trans>Link</Trans>]
-                            </span>
-                        ),
+                        a: ({ title }) => <span>{isValidUrl(title) ? formatUrl(title, 30) : title}</span>,
                     }}
                 >
                     {post.metadata.content?.content}
@@ -176,7 +174,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                             _Video={t`[Video]`}
                             _Audio={t`[Audio]`}
                             _Poll={t`[Poll]`}
-                            other={t`[Attachment]`}
+                            other={''}
                         />
                     ) : null}
                     {post.quoteOn ? <span>{t`[Quote]`}</span> : null}
