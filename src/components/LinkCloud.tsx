@@ -32,18 +32,18 @@ export function LinkCloud() {
         <div className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-xs text-lightSecond lg:px-0">
             <span className="font-bold text-gray-500">© {2024} Firefly</span>
             {[
-                { name: t`Communities`, link: '/settings/communities', self: true },
-                { name: t`Developers`, link: '/developers/frame', self: true },
+                { name: <Trans>Communities</Trans>, link: '/settings/communities', self: true },
+                { name: <Trans>Developers</Trans>, link: '/developers/frame', self: true },
                 {
-                    name: t`Privacy Policy`,
+                    name: <Trans>Privacy Policy</Trans>,
                     link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
                 },
                 {
-                    name: t`Term of Service`,
+                    name: <Trans>Term of Service</Trans>,
                     link: 'https://mask.notion.site/Term-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
                 },
                 {
-                    name: t`Download App`,
+                    name: <Trans>Download App</Trans>,
                     link: 'https://firefly.social/#download',
                 },
             ].map(({ name, link, self }) => (

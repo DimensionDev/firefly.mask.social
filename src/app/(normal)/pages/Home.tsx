@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type ComponentType, memo, Suspense, useEffect } from 'react';
 
@@ -41,9 +41,9 @@ export function HomePage() {
     const [discoverType, setDiscoverType] = useStateWithSearchParams('discover', DiscoverType.Trending);
 
     const tabLabels = {
-        [DiscoverType.Trending]: t`Trending`,
-        [DiscoverType.TopProfiles]: t`Top Profiles`,
-        [DiscoverType.TopChannels]: t`Top Channels`,
+        [DiscoverType.Trending]: <Trans>Trending</Trans>,
+        [DiscoverType.TopProfiles]: <Trans>Top Profiles</Trans>,
+        [DiscoverType.TopChannels]: <Trans>Top Channels</Trans>,
     };
 
     useNavigatorTitle(t`Discover`);
