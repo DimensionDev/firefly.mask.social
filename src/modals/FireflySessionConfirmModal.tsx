@@ -10,7 +10,7 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { type ProfileSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.jsx';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';

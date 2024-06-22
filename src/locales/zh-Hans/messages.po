@@ -82,7 +82,7 @@ msgid "Failed to unbookmark post."
 msgstr "取消收藏失败。"
 
 msgid "Delete post"
-msgstr ""
+msgstr "删除帖子"
 
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以使用以下方式登录 Farcaster。"
@@ -154,7 +154,7 @@ msgid "You can save the failed parts of posts and send them later from your Draf
 msgstr "您可以先保存发送的帖子并稍后发送。"
 
 msgid "Please confirm the login with Firefly."
-msgstr ""
+msgstr "请在 Firefly 上确认登录。"
 
 msgid "[Image]"
 msgstr "[图片]"
@@ -169,7 +169,7 @@ msgid "Casts"
 msgstr "帖子"
 
 msgid "Report submitted on {0}"
-msgstr ""
+msgstr "举报已提交 {0}"
 
 msgid "Debug Console"
 msgstr "诊断命令行"
@@ -205,7 +205,7 @@ msgid "<0>Sent</0> an NFT"
 msgstr "<0>发送了</0> 一个 NFT"
 
 msgid "Report post"
-msgstr ""
+msgstr "举报帖子"
 
 msgid "{0} left"
 msgstr "{0} 剩余"
@@ -262,7 +262,7 @@ msgid "Switch to the development API version for testing new features."
 msgstr "切换到开发环境接口。"
 
 msgid "{days, plural, one {1 day} other {{days} days}}"
-msgstr ""
+msgstr "{days, plural, one {1 天} other {{days} 天}}"
 
 msgid "Blockchain"
 msgstr "区块链"
@@ -322,7 +322,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
 msgid "Report Failed"
-msgstr "举报时报"
+msgstr "举报失败"
 
 msgid "Attendees"
 msgstr "出席人数"
@@ -338,9 +338,6 @@ msgstr "已链接的账号"
 
 msgid "Watch"
 msgstr "关注"
-
-msgid "Your {0} account is now connected"
-msgstr ""
 
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
@@ -373,7 +370,7 @@ msgid "Items"
 msgstr "条目"
 
 msgid "Less than a minute left"
-msgstr ""
+msgstr "少于一分钟"
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
@@ -556,7 +553,7 @@ msgid "Mirror or Quote"
 msgstr "转帖或者引用"
 
 msgid "Confirm you want to mute /{0}?"
-msgstr ""
+msgstr "您确定要屏蔽 /{0} 吗？"
 
 msgid "{0}"
 msgstr ""
@@ -568,7 +565,7 @@ msgid "Owned By"
 msgstr "属于"
 
 msgid "Are you sure you want to report this post?"
-msgstr ""
+msgstr "您确定要举报这个帖子吗？"
 
 msgid "Collected"
 msgstr "已收藏"
@@ -604,7 +601,7 @@ msgid "Detecting..."
 msgstr "检测中..."
 
 msgid "Open in Firefly App"
-msgstr ""
+msgstr "打开 Firefly App"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -682,7 +679,7 @@ msgid "Post has been deleted"
 msgstr "帖子已被删除"
 
 msgid "Report article"
-msgstr ""
+msgstr "举报文章"
 
 msgid "Everyone"
 msgstr "任何人"
@@ -697,7 +694,7 @@ msgid "The connection has timed out. Please try again later.·"
 msgstr "连接已经超时。请稍后重试。"
 
 msgid "Confirm you want to mute @{0}?"
-msgstr ""
+msgstr "您确定要屏蔽 @{0} 吗？"
 
 msgid "Compose"
 msgstr "发帖"
@@ -883,7 +880,7 @@ msgid "Feedback"
 msgstr "问题反馈"
 
 msgid "Loading..."
-msgstr ""
+msgstr "加载中..."
 
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
@@ -913,7 +910,7 @@ msgid "Quote"
 msgstr "引用"
 
 msgid "View engagements"
-msgstr ""
+msgstr "查看互动"
 
 msgid "Translated"
 msgstr "已翻译"
@@ -925,7 +922,7 @@ msgid "Unmute {identity}"
 msgstr "取消隐藏 {identity}"
 
 msgid "{0, plural, one {Post} other {Post All}}"
-msgstr "{0, plural, one {Post} other {Post All}}"
+msgstr "{0, plural, one {发帖} other {全部发帖}}"
 
 msgid "Minutes"
 msgstr "分钟"
@@ -976,7 +973,7 @@ msgid "Delete"
 msgstr "删除"
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
-msgstr ""
+msgstr "{minutes, plural, one {1 分钟} other {{minutes} 分钟}}"
 
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账号的内容"
@@ -1120,7 +1117,7 @@ msgid "Back"
 msgstr "返回"
 
 msgid "Posting..."
-msgstr "发送中"
+msgstr "发帖中..."
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"
@@ -1249,10 +1246,10 @@ msgid "Unfollow"
 msgstr "取消关注"
 
 msgid "Your {0} account is now connected."
-msgstr ""
+msgstr "您的 {0} 账号已连接。"
 
 msgid "You cannot reply to @{author} on {0}."
-msgstr "你不能在 {0} 上评论 {author}"
+msgstr "您不能在 {0} 上评论 {author}。"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
@@ -1261,10 +1258,10 @@ msgid "Posted via <0>{sendFrom}</0>"
 msgstr "发布于 <0>{sendFrom}</0>"
 
 msgid "Collection"
-msgstr "Nft 系列"
+msgstr "NFT 系列"
 
 msgid "Your name"
-msgstr "你的姓名"
+msgstr "您的姓名"
 
 msgid "Owned"
 msgstr "拥有"
@@ -1333,7 +1330,7 @@ msgid "Cancel Recast"
 msgstr "取消转帖"
 
 msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
-msgstr ""
+msgstr "{hours, plural, one {1 小时} other {{hours} 小时}}"
 
 msgid "Malformed twitter session payload."
 msgstr "错误的 twitter 会话。"
@@ -1459,7 +1456,7 @@ msgid "[Quote]"
 msgstr "[引用]"
 
 msgid "Copy link"
-msgstr ""
+msgstr "拷贝链接"
 
 msgid "Post"
 msgstr "发帖"

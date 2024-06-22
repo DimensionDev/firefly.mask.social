@@ -334,9 +334,6 @@ msgstr ""
 msgid "Watch"
 msgstr ""
 
-msgid "Your {0} account is now connected"
-msgstr ""
-
 msgid "Verified by {0}"
 msgstr ""
 

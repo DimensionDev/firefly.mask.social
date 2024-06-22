@@ -334,9 +334,6 @@ msgstr "Connected Accounts"
 msgid "Watch"
 msgstr "Watch"
 
-msgid "Your {0} account is now connected"
-msgstr "Your {0} account is now connected"
-
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
