@@ -27,7 +27,7 @@ import {
     FireflySessionConfirmModalRef,
     LoginModalRef,
 } from '@/modals/controls.js';
-import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
+import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
@@ -55,7 +55,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             controllerRef.current = new AbortController();
 
             try {
-                const session = await createSessionForProfileIdFirefly(
+                const session = await createSessionForProfileId(
                     currentProfile.profileId,
                     controllerRef.current?.signal,
                 );
