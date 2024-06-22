@@ -1011,9 +1011,6 @@ msgstr ""
 msgid "Failed to publish post."
 msgstr ""
 
-msgid "{0} View"
-msgstr ""
-
 msgid "recasted your"
 msgstr ""
 
@@ -1043,6 +1040,9 @@ msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"
+
+msgid "Post removed from your Bookmarks"
+msgstr ""
 
 msgid "Something went wrong. Please try again."
 msgstr ""
@@ -1158,6 +1158,9 @@ msgstr "你已經到頁面最底部"
 msgid "View"
 msgstr ""
 
+msgid "{count, plural, one {{0} View} other {{1} Views}}"
+msgstr ""
+
 msgid "Failed to mirror post."
 msgstr ""
 
@@ -1254,6 +1257,9 @@ msgstr "線上"
 msgid "Unfollow"
 msgstr "取消追蹤"
 
+msgid "Your {0} account is now connected."
+msgstr ""
+
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你無法在 {0} 上回覆 @{author}"
 
@@ -1302,9 +1308,6 @@ msgstr ""
 msgid "Unmute"
 msgstr "取消靜音"
 
-msgid "Your Lens account is now connected"
-msgstr "您的 Lens 帳戶現已連接"
-
 msgid "Click to copy"
 msgstr "點擊複製"
 
@@ -1331,9 +1334,6 @@ msgstr "您的 Lens 帳戶現已連接。"
 
 msgid "Remove"
 msgstr "移除"
-
-msgid "Post remove from your Bookmarks"
-msgstr "貼文已從你的書籤中移除"
 
 msgid "Follow @{0}"
 msgstr "追蹤 @{0}"
@@ -1397,9 +1397,6 @@ msgstr ""
 
 msgid "Video"
 msgstr "影片"
-
-msgid "{0} Views"
-msgstr "{0} 次查看"
 
 msgid "Language"
 msgstr "語言"

@@ -1006,9 +1006,6 @@ msgstr "Unable to retrieve post details."
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
 
-msgid "{0} View"
-msgstr "{0} View"
-
 msgid "recasted your"
 msgstr "recasted your"
 
@@ -1038,6 +1035,9 @@ msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "Post removed from your Bookmarks"
+msgstr "Post removed from your Bookmarks"
 
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
@@ -1153,6 +1153,9 @@ msgstr "You've hit rock bottom."
 msgid "View"
 msgstr "View"
 
+msgid "{count, plural, one {{0} View} other {{1} Views}}"
+msgstr "{count, plural, one {{0} View} other {{1} Views}}"
+
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
@@ -1249,6 +1252,9 @@ msgstr "Online"
 msgid "Unfollow"
 msgstr "Unfollow"
 
+msgid "Your {0} account is now connected."
+msgstr "Your {0} account is now connected."
+
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
 
@@ -1297,9 +1303,6 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "Unmute"
 
-msgid "Your Lens account is now connected"
-msgstr "Your Lens account is now connected"
-
 msgid "Click to copy"
 msgstr "Click to copy"
 
@@ -1326,9 +1329,6 @@ msgstr "Your Lens account is now connected."
 
 msgid "Remove"
 msgstr "Remove"
-
-msgid "Post remove from your Bookmarks"
-msgstr "Post remove from your Bookmarks"
 
 msgid "Follow @{0}"
 msgstr "Follow @{0}"
@@ -1392,9 +1392,6 @@ msgstr "Mirrors"
 
 msgid "Video"
 msgstr "Video"
-
-msgid "{0} Views"
-msgstr "{0} Views"
 
 msgid "Language"
 msgstr "Language"
