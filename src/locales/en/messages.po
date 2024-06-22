@@ -238,9 +238,6 @@ msgstr "[Video]"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
-msgid "Muting"
-msgstr "Muting"
-
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
@@ -321,9 +318,6 @@ msgstr "Report Failed"
 
 msgid "Attendees"
 msgstr "Attendees"
-
-msgid "You need to connect your {source} account to use this feature."
-msgstr "You need to connect your {source} account to use this feature."
 
 msgid "Search"
 msgstr "Search"
@@ -442,6 +436,9 @@ msgstr "Follow System"
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
 
+msgid "Remove Choice"
+msgstr "Remove Choice"
+
 msgid "Mute {identity}"
 msgstr "Mute {identity}"
 
@@ -465,6 +462,9 @@ msgstr "Join our Telegram"
 
 msgid "Log out"
 msgstr "Log out"
+
+msgid "Unmuting..."
+msgstr "Unmuting..."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -772,6 +772,9 @@ msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr "You need to connect your {0} account to use this feature."
+
 msgid "Suggested Follows"
 msgstr "Suggested Follows"
 
@@ -780,6 +783,9 @@ msgstr "Post has been encrypted"
 
 msgid "Articles"
 msgstr "Articles"
+
+msgid "Connect to {0}"
+msgstr "Connect to {0}"
 
 msgid "Settings"
 msgstr "Settings"
@@ -801,9 +807,6 @@ msgstr "No preview found for shared link"
 
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
-
-msgid "Connect to {source}"
-msgstr "Connect to {source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"
@@ -865,6 +868,9 @@ msgstr "Mute successfully."
 msgid "Show More"
 msgstr "Show More"
 
+msgid "Search..."
+msgstr "Search..."
+
 msgid "Show more comments"
 msgstr "Show more comments"
 
@@ -912,6 +918,9 @@ msgstr "Translated"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
+
+msgid "Remove Poll"
+msgstr "Remove Poll"
 
 msgid "Unmute {identity}"
 msgstr "Unmute {identity}"
@@ -991,9 +1000,6 @@ msgstr "Unable to retrieve post details."
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
 
-msgid "{0} View"
-msgstr "{0} View"
-
 msgid "recasted your"
 msgstr "recasted your"
 
@@ -1023,6 +1029,9 @@ msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "Post removed from your Bookmarks"
+msgstr "Post removed from your Bookmarks"
 
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
@@ -1126,9 +1135,6 @@ msgstr "Switch account"
 msgid "Sign in with Custody Wallet"
 msgstr "Sign in with Custody Wallet"
 
-msgid "Search…"
-msgstr "Search…"
-
 msgid "No profile found"
 msgstr "No profile found"
 
@@ -1143,6 +1149,12 @@ msgstr "You've hit rock bottom."
 
 msgid "View"
 msgstr "View"
+
+msgid "{count, plural, one {{0} View} other {{1} Views}}"
+msgstr "{count, plural, one {{0} View} other {{1} Views}}"
+
+msgid "Muting..."
+msgstr "Muting..."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
@@ -1315,9 +1327,6 @@ msgstr "Unfollowed @{0} on {sourceName}"
 msgid "Remove"
 msgstr "Remove"
 
-msgid "Post remove from your Bookmarks"
-msgstr "Post remove from your Bookmarks"
-
 msgid "Follow @{0}"
 msgstr "Follow @{0}"
 
@@ -1380,9 +1389,6 @@ msgstr "Mirrors"
 
 msgid "Video"
 msgstr "Video"
-
-msgid "{0} Views"
-msgstr "{0} Views"
 
 msgid "Language"
 msgstr "Language"

@@ -19,7 +19,7 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
                 name="searchText"
                 autoComplete="off"
                 spellCheck="false"
-                placeholder={t`Search…`}
+                placeholder={t`Search...`}
                 ref={inputRef}
                 {...rest}
                 className={`w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6 ${

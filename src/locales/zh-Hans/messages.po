@@ -243,9 +243,6 @@ msgstr "[视频]"
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
-msgid "Muting"
-msgstr "隐藏中"
-
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
@@ -327,9 +324,6 @@ msgstr "举报失败"
 msgid "Attendees"
 msgstr "出席人数"
 
-msgid "You need to connect your {source} account to use this feature."
-msgstr "你需要连接你的 {source} 账号才能使用此功能。"
-
 msgid "Search"
 msgstr "搜索"
 
@@ -370,7 +364,7 @@ msgid "Items"
 msgstr "条目"
 
 msgid "Less than a minute left"
-msgstr "少于一分钟"
+msgstr "剩不到一分钟"
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
@@ -447,8 +441,11 @@ msgstr "跟随系统"
 msgid "Failed to mirror."
 msgstr "转帖失败。"
 
+msgid "Remove Choice"
+msgstr "删除选项"
+
 msgid "Mute {identity}"
-msgstr "隐藏 @{identity}"
+msgstr "屏蔽 @{identity}"
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
@@ -470,6 +467,9 @@ msgstr "加入我们的 Telegram"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Unmuting..."
+msgstr "取消屏蔽中..."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
@@ -706,7 +706,7 @@ msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
 
 msgid "Suggested Channels"
-msgstr "建议频道"
+msgstr "推荐频道"
 
 msgid "Email (optional)"
 msgstr "邮箱 (可选)"
@@ -742,7 +742,7 @@ msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
 msgid "Open Mobile App"
-msgstr ""
+msgstr "打开移动端应用"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
@@ -777,14 +777,20 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr "您需要连接您的 {0} 账号来使用此功能。"
+
 msgid "Suggested Follows"
-msgstr "建议关注"
+msgstr "推荐关注"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
 msgid "Articles"
 msgstr "文章"
+
+msgid "Connect to {0}"
+msgstr "连接到 {0}"
 
 msgid "Settings"
 msgstr "设置"
@@ -806,9 +812,6 @@ msgstr "无法预加载"
 
 msgid "Failed to unwatch {identity}"
 msgstr "取消关注 {identity} 失败"
-
-msgid "Connect to {source}"
-msgstr "连接到 {source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
@@ -870,6 +873,9 @@ msgstr "屏蔽成功。"
 msgid "Show More"
 msgstr "显示更多"
 
+msgid "Search..."
+msgstr "查找"
+
 msgid "Show more comments"
 msgstr "展示更多评论"
 
@@ -918,8 +924,11 @@ msgstr "已翻译"
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
+msgid "Remove Poll"
+msgstr "删除投票"
+
 msgid "Unmute {identity}"
-msgstr "取消隐藏 {identity}"
+msgstr "取消屏蔽 {identity}"
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {发帖} other {全部发帖}}"
@@ -996,9 +1005,6 @@ msgstr "数据获取失败。"
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
 
-msgid "{0} View"
-msgstr "{0} 浏览数"
-
 msgid "recasted your"
 msgstr "转帖了你的"
 
@@ -1028,6 +1034,9 @@ msgstr "出席"
 
 msgid "Show more"
 msgstr "显示更多"
+
+msgid "Post removed from your Bookmarks"
+msgstr "帖子已经从您的收藏中移除"
 
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
@@ -1078,7 +1087,7 @@ msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "@{identity} 的帖子会从您的时间线中隐藏"
+msgstr "@{identity} 的文章会从您的时间线中隐藏"
 
 msgid "quote"
 msgstr "引用"
@@ -1131,9 +1140,6 @@ msgstr "切换账号"
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
-msgid "Search…"
-msgstr "查找"
-
 msgid "No profile found"
 msgstr "未发现个人信息"
 
@@ -1149,8 +1155,14 @@ msgstr "你已经滑到底部啦～"
 msgid "View"
 msgstr "查看"
 
+msgid "{count, plural, one {{0} View} other {{1} Views}}"
+msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
+
+msgid "Muting..."
+msgstr "屏蔽中..."
+
 msgid "Failed to mirror post."
-msgstr "转发失败"
+msgstr "转发失败。"
 
 msgid "Failed to create firefly session."
 msgstr "创建 firefly 会话失败。"
@@ -1261,7 +1273,7 @@ msgid "Collection"
 msgstr "NFT 系列"
 
 msgid "Your name"
-msgstr "您的姓名"
+msgstr "您的名字"
 
 msgid "Owned"
 msgstr "拥有"
@@ -1319,9 +1331,6 @@ msgstr "在 {sourceName} 取消关注 @{0}"
 
 msgid "Remove"
 msgstr "移除"
-
-msgid "Post remove from your Bookmarks"
-msgstr "帖子已经从您的收藏中移除"
 
 msgid "Follow @{0}"
 msgstr "关注 @{0}"
@@ -1385,9 +1394,6 @@ msgstr "转帖"
 
 msgid "Video"
 msgstr "视频"
-
-msgid "{0} Views"
-msgstr "{0} 浏览数"
 
 msgid "Language"
 msgstr "语言"

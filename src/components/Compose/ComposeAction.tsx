@@ -6,6 +6,7 @@ import { CrossIsolationMessages } from '@masknet/shared-base';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import { useAccount } from 'wagmi';
 
 import AddThread from '@/assets/addThread.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -31,13 +32,14 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
 
 export function ComposeAction(props: ComposeActionProps) {
     const isMedium = useIsMedium();
+    const account = useAccount();
 
     const currentProfileAll = useCurrentProfileAll();
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
@@ -50,6 +52,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const setEditorContent = useSetEditorContent();
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
+        if (!account.isConnected) return ConnectWalletModalRef.open();
         await connectMaskWithWagmi();
         // import dynamically to avoid the start up dependency issue of mask packages
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>

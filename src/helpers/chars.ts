@@ -97,6 +97,8 @@ export function writeChars(chars: Chars, newChars: Chars) {
 export function measureChars(post: CompositePost) {
     const { chars, availableSources } = post;
 
+    if (!availableSources.length) return { usedLength: 0, availableLength: 0 };
+
     return {
         // max(visible x1, visible x2, visible x3)
         usedLength: Math.max(

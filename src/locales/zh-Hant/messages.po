@@ -243,9 +243,6 @@ msgstr ""
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
-msgid "Muting"
-msgstr ""
-
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
@@ -326,9 +323,6 @@ msgstr ""
 
 msgid "Attendees"
 msgstr ""
-
-msgid "You need to connect your {source} account to use this feature."
-msgstr "您需要連接 {source} 帳戶才可使用此功能"
 
 msgid "Search"
 msgstr "搜尋"
@@ -447,6 +441,9 @@ msgstr "預設"
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
 
+msgid "Remove Choice"
+msgstr ""
+
 msgid "Mute {identity}"
 msgstr ""
 
@@ -470,6 +467,9 @@ msgstr "加入我們的 Telegram 社群"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Unmuting..."
+msgstr ""
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -777,6 +777,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr "您需要連接 {source} 帳戶才可使用此功能。"
+
 msgid "Suggested Follows"
 msgstr ""
 
@@ -785,6 +788,9 @@ msgstr ""
 
 msgid "Articles"
 msgstr "文章"
+
+msgid "Connect to {0}"
+msgstr "連接到 {0}"
 
 msgid "Settings"
 msgstr "設定"
@@ -806,9 +812,6 @@ msgstr ""
 
 msgid "Failed to unwatch {identity}"
 msgstr ""
-
-msgid "Connect to {source}"
-msgstr "已連接到{source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
@@ -870,6 +873,9 @@ msgstr "已成功靜音"
 msgid "Show More"
 msgstr "顯示更多"
 
+msgid "Search..."
+msgstr "搜尋..."
+
 msgid "Show more comments"
 msgstr ""
 
@@ -916,6 +922,9 @@ msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
+msgstr ""
+
+msgid "Remove Poll"
 msgstr ""
 
 msgid "Unmute {identity}"
@@ -996,9 +1005,6 @@ msgstr ""
 msgid "Failed to publish post."
 msgstr ""
 
-msgid "{0} View"
-msgstr ""
-
 msgid "recasted your"
 msgstr ""
 
@@ -1028,6 +1034,9 @@ msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"
+
+msgid "Post removed from your Bookmarks"
+msgstr "貼文已從你的書籤中移除"
 
 msgid "Something went wrong. Please try again."
 msgstr ""
@@ -1131,9 +1140,6 @@ msgstr ""
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"
 
-msgid "Search…"
-msgstr "搜尋"
-
 msgid "No profile found"
 msgstr ""
 
@@ -1147,6 +1153,12 @@ msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
 msgid "View"
+msgstr ""
+
+msgid "{count, plural, one {{0} View} other {{1} Views}}"
+msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
+
+msgid "Muting..."
 msgstr ""
 
 msgid "Failed to mirror post."
@@ -1174,13 +1186,13 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # other
 msgstr ""
 
 msgid "Channels"
-msgstr ""
+msgstr "頻道"
 
 msgid "Firefly"
 msgstr ""
 
 msgid "Switching..."
-msgstr ""
+msgstr "切換中..."
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
@@ -1246,10 +1258,10 @@ msgid "Unfollow"
 msgstr "取消追蹤"
 
 msgid "Your {0} account is now connected."
-msgstr ""
+msgstr "您的 {0} 帳戶現已連接。"
 
 msgid "You cannot reply to @{author} on {0}."
-msgstr "你無法在 {0} 上回覆 @{author}"
+msgstr "你無法在 {0} 上回覆 @{author}。"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
@@ -1320,9 +1332,6 @@ msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
 msgid "Remove"
 msgstr "移除"
 
-msgid "Post remove from your Bookmarks"
-msgstr "貼文已從你的書籤中移除"
-
 msgid "Follow @{0}"
 msgstr "追蹤 @{0}"
 
@@ -1385,9 +1394,6 @@ msgstr ""
 
 msgid "Video"
 msgstr "影片"
-
-msgid "{0} Views"
-msgstr "{0} 次查看"
 
 msgid "Language"
 msgstr "語言"

@@ -3,7 +3,6 @@
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { IS_IOS } from '@/constants/bowser.js';
 import { env } from '@/constants/env.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { DeviceType, type Schemes } from '@/types/device.js';
@@ -21,8 +20,6 @@ export function OpenFireflyAppButton({ schemes, ...props }: OpenAppButtonProps) 
             },
         );
     }, []);
-
-    if (!IS_IOS) return null;
 
     return <ClickableButton {...props} onClick={tryOpenApp} disabled={loading} />;
 }

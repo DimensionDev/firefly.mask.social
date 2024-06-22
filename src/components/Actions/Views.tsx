@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { plural } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -13,14 +13,20 @@ interface ViewsProps {
     disabled?: boolean;
 }
 export const Views = memo<ViewsProps>(function Collect({ count = 0, disabled = false }) {
-    const tooltip = count === 1 ? t`${nFormatter(count)} View` : t`${nFormatter(count)} Views`;
     return (
         <ClickableArea
             className={classNames('flex items-center text-main md:space-x-2', {
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={tooltip} placement="top" disabled={disabled}>
+            <Tooltip
+                content={plural(count, {
+                    one: `${nFormatter(count)} View`,
+                    other: `${nFormatter(count)} Views`,
+                })}
+                placement="top"
+                disabled={disabled}
+            >
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {

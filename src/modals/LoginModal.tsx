@@ -130,12 +130,14 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     </div>
                 ) : (
                     <>
-                        <div className="flex w-full flex-row md:gap-4">
+                        <div className="flex w-full flex-col md:flex-row md:gap-4">
                             {SORTED_SOCIAL_SOURCES.map((source) => (
                                 <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
                             ))}
                         </div>
-                        <LoginButton source={Source.Firefly} onClick={() => handleLogin(Source.Firefly)} />
+                        {isMedium ? (
+                            <LoginButton source={Source.Firefly} onClick={() => handleLogin(Source.Firefly)} />
+                        ) : null}
                     </>
                 )}
             </div>
@@ -151,7 +153,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             {source === Source.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
             {source === Source.Farcaster ? <LoginFarcaster signType={signType} setSignType={setSignType} /> : null}
             {source === Source.Twitter ? <LoginTwitter /> : null}
-            {source === Source.Firefly && isMedium ? <LoginFirefly /> : null}
+            {source === Source.Firefly ? <LoginFirefly /> : null}
         </Suspense>
     );
 
