@@ -1302,6 +1302,9 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "取消屏蔽"
 
+msgid "Please connect your account to perform this action."
+msgstr ""
+
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 

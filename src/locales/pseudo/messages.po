@@ -1297,6 +1297,9 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
+msgid "Please connect your account to perform this action."
+msgstr ""
+
 msgid "Your Lens account is now connected"
 msgstr ""
 
