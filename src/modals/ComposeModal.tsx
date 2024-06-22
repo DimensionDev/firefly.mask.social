@@ -40,6 +40,7 @@ import { ComposeUI } from '@/components/Compose/ComposeUI.js';
 import { DraftList } from '@/components/Compose/DraftList.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -170,10 +171,9 @@ function ComposeRouteRoot() {
                     ) : null}
                 </span>
                 {isMedium && !isDraft ? (
-                    <DraftIcon
-                        className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                        onClick={() => history.push('/draft')}
-                    />
+                    <Tooltip content={t`Draft`} placement="top" className="absolute right-4 top-1/2 -translate-y-1/2">
+                        <DraftIcon className="cursor-pointer text-fourMain" onClick={() => history.push('/draft')} />
+                    </Tooltip>
                 ) : null}
                 {isMedium || isDraft ? null : <ComposeSend />}
             </Dialog.Title>

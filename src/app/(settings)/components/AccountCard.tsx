@@ -8,6 +8,7 @@ import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -27,7 +28,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                 const session = await createSessionForProfileId(profile.profileId);
                 updateCurrentAccount({ profile, session });
                 resolveSessionHolder(profile.source)?.resumeSession(session);
-                enqueueSuccessMessage(t`Your Lens account is now connected`);
+                enqueueSuccessMessage(t`Your ${resolveSourceName(profile.source)} account is now connected.`);
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                     error,
