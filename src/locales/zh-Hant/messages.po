@@ -781,7 +781,7 @@ msgid "<0>Revised</0>an article"
 msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
-msgstr ""
+msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 
 msgid "Suggested Follows"
 msgstr ""
@@ -793,7 +793,7 @@ msgid "Articles"
 msgstr "文章"
 
 msgid "Connect to {0}"
-msgstr ""
+msgstr "連接到 {0}"
 
 msgid "Settings"
 msgstr "設定"
@@ -883,7 +883,7 @@ msgid "Show More"
 msgstr "顯示更多"
 
 msgid "Search..."
-msgstr ""
+msgstr "搜尋..."
 
 msgid "Show more comments"
 msgstr ""
@@ -1042,7 +1042,7 @@ msgid "Show more"
 msgstr "顯示更多"
 
 msgid "Post removed from your Bookmarks"
-msgstr ""
+msgstr "貼文已從你的書籤中移除"
 
 msgid "Something went wrong. Please try again."
 msgstr ""
@@ -1159,7 +1159,7 @@ msgid "View"
 msgstr ""
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
-msgstr ""
+msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
 
 msgid "Failed to mirror post."
 msgstr ""
@@ -1186,13 +1186,13 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # other
 msgstr ""
 
 msgid "Channels"
-msgstr ""
+msgstr "頻道"
 
 msgid "Firefly"
 msgstr ""
 
 msgid "Switching..."
-msgstr ""
+msgstr "切換中..."
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
@@ -1258,10 +1258,10 @@ msgid "Unfollow"
 msgstr "取消追蹤"
 
 msgid "Your {0} account is now connected."
-msgstr ""
+msgstr "您的 {0} 帳戶現已連接。"
 
 msgid "You cannot reply to @{author} on {0}."
-msgstr "你無法在 {0} 上回覆 @{author}"
+msgstr "你無法在 {0} 上回覆 @{author}。"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"

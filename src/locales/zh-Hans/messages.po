@@ -1159,7 +1159,7 @@ msgid "View"
 msgstr "查看"
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
-msgstr "{count, plural, one {{0} 浏览} other {{1} 浏览}}"
+msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 
 msgid "Failed to mirror post."
 msgstr "转发失败。"
