@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
-import LinkIcon from '@/assets/link.svg';
+import ShareIcon from '@/assets/share.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -39,7 +39,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
                     whileTap={{ scale: 0.9 }}
                     className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
                 >
-                    <LinkIcon width={20} height={20} />
+                    <ShareIcon width={17} height={16} />
                 </motion.button>
             </Tooltip>
         </ClickableArea>
