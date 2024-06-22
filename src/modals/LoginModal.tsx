@@ -129,7 +129,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     </div>
                 ) : (
                     <>
-                        <div className="flex w-full flex-row md:gap-4">
+                        <div className="flex w-full flex-col md:flex-row md:gap-4">
                             {SORTED_SOCIAL_SOURCES.map((source) => (
                                 <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
                             ))}
