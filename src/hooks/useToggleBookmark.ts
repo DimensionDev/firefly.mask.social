@@ -21,7 +21,7 @@ export function useToggleBookmark(source: SocialSource) {
                 const provider = resolveSocialMediaProvider(post.source);
                 if (hasBookmarked) {
                     const result = await provider.unbookmark(postId);
-                    enqueueSuccessMessage(t`Post remove from your Bookmarks`);
+                    enqueueSuccessMessage(t`Post removed from your Bookmarks`);
                     return result;
                 } else {
                     const result = await provider.bookmark(postId, undefined, post.author.profileId, BookmarkType.Text);

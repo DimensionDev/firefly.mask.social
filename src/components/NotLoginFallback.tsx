@@ -9,6 +9,7 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Source.Article, string>(
@@ -38,12 +39,12 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 src={fallbackImageUrl}
                 width={isArticle ? 302 : 200}
                 height={isArticle ? 208 : 200}
-                alt={`${source} login`}
+                alt={`${resolveSourceName(source)} login`}
             />
             <span className="leading-3.5 px-6 text-base text-secondary">
                 {isArticle
                     ? t`Login to enable all features`
-                    : t`You need to connect your ${source} account to use this feature.`}
+                    : t`You need to connect your ${resolveSourceName(source)} account to use this feature.`}
             </span>
             <ClickableButton
                 className={classNames(
@@ -55,7 +56,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     LoginModalRef.open({ source: isArticle ? undefined : source });
                 }}
             >
-                {isArticle ? t`Login` : t`Connect to ${source}`}
+                {isArticle ? t`Login` : t`Connect to ${resolveSourceName(source)}`}
             </ClickableButton>
         </div>
     );

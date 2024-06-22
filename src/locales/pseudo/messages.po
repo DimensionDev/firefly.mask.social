@@ -241,9 +241,6 @@ msgstr ""
 msgid "The author is muted by you."
 msgstr ""
 
-msgid "Muting"
-msgstr ""
-
 msgid "Failed to report @{0}"
 msgstr ""
 
@@ -323,9 +320,6 @@ msgid "Report Failed"
 msgstr ""
 
 msgid "Attendees"
-msgstr ""
-
-msgid "You need to connect your {source} account to use this feature."
 msgstr ""
 
 msgid "Search"
@@ -445,6 +439,9 @@ msgstr ""
 msgid "Failed to mirror."
 msgstr ""
 
+msgid "Remove Choice"
+msgstr ""
+
 msgid "Mute {identity}"
 msgstr ""
 
@@ -467,6 +464,9 @@ msgid "Join our Telegram"
 msgstr ""
 
 msgid "Log out"
+msgstr ""
+
+msgid "Unmuting..."
 msgstr ""
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -775,6 +775,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr ""
+
 msgid "Suggested Follows"
 msgstr ""
 
@@ -782,6 +785,9 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "Articles"
+msgstr ""
+
+msgid "Connect to {0}"
 msgstr ""
 
 msgid "Settings"
@@ -806,9 +812,6 @@ msgid "Your Farcaster account is now connected."
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
-msgstr ""
-
-msgid "Connect to {source}"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
@@ -874,6 +877,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "Search..."
+msgstr ""
+
 msgid "Show more comments"
 msgstr ""
 
@@ -917,6 +923,9 @@ msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
+msgstr ""
+
+msgid "Remove Poll"
 msgstr ""
 
 msgid "Unmute {identity}"
@@ -997,9 +1006,6 @@ msgstr ""
 msgid "Failed to publish post."
 msgstr ""
 
-msgid "{0} View"
-msgstr ""
-
 msgid "recasted your"
 msgstr ""
 
@@ -1028,6 +1034,9 @@ msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
+msgstr ""
+
+msgid "Post removed from your Bookmarks"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -1129,9 +1138,6 @@ msgstr ""
 msgid "Sign in with Custody Wallet"
 msgstr ""
 
-msgid "Search…"
-msgstr ""
-
 msgid "No profile found"
 msgstr ""
 
@@ -1145,6 +1151,12 @@ msgid "You've hit rock bottom."
 msgstr ""
 
 msgid "View"
+msgstr ""
+
+msgid "{count, plural, one {{0} View} other {{1} Views}}"
+msgstr ""
+
+msgid "Muting..."
 msgstr ""
 
 msgid "Failed to mirror post."
@@ -1243,6 +1255,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "Your {0} account is now connected."
+msgstr ""
+
 msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
@@ -1291,9 +1306,6 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
-msgid "Your Lens account is now connected"
-msgstr ""
-
 msgid "Click to copy"
 msgstr ""
 
@@ -1319,9 +1331,6 @@ msgid "Your Lens account is now connected."
 msgstr ""
 
 msgid "Remove"
-msgstr ""
-
-msgid "Post remove from your Bookmarks"
 msgstr ""
 
 msgid "Follow @{0}"
@@ -1385,9 +1394,6 @@ msgid "Mirrors"
 msgstr ""
 
 msgid "Video"
-msgstr ""
-
-msgid "{0} Views"
 msgstr ""
 
 msgid "Language"
