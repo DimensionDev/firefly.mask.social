@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import ComeBack from '@/assets/comeback.svg';
+import LinkIcon from '@/assets/link.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
@@ -100,11 +101,12 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 {article.origin ? (
                     <Link
                         href={article.origin}
-                        className="text-xs text-link hover:underline"
+                        className="flex items-center gap-1 text-xs text-link hover:underline"
                         rel="noreferrer noopener"
                         target="_blank"
                     >
                         <Trans>View Source</Trans>
+                        <LinkIcon width={14} height={14} />
                     </Link>
                 ) : null}
                 <div className="my-5 mt-2 border-b border-line">
