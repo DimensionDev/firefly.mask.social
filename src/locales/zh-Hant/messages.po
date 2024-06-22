@@ -1302,6 +1302,9 @@ msgstr ""
 msgid "Unmute"
 msgstr "取消靜音"
 
+msgid "Please connect your account to perform this action."
+msgstr ""
+
 msgid "Your Lens account is now connected"
 msgstr "您的 Lens 帳戶現已連接"
 

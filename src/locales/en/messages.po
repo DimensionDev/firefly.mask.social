@@ -1297,6 +1297,9 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "Unmute"
 
+msgid "Please connect your account to perform this action."
+msgstr "Please connect your account to perform this action."
+
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
