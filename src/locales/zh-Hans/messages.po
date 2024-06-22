@@ -367,7 +367,7 @@ msgid "Items"
 msgstr "条目"
 
 msgid "Less than a minute left"
-msgstr "少于一分钟"
+msgstr "剩不到一分钟"
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
