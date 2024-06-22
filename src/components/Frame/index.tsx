@@ -19,7 +19,7 @@ import { MalformedError } from '@/constants/error.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
@@ -276,10 +276,16 @@ export function Frame({ postId, source, urls, onData, children }: FrameProps) {
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
             if (!frame) return;
+
+            if ([ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
+                enqueueErrorMessage(t`Please connect your account to perform this action.`);
+                return;
+            }
+
             const nextFrame = await getNextFrame(source, postId, frame, latestFrame, button, input);
             if (nextFrame) setLatestFrame(nextFrame);
         },
-        [frame, latestFrame, postId],
+        [source, frame, latestFrame, postId],
     );
 
     if (isLoadingFrame) return null;
