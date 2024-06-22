@@ -1273,7 +1273,7 @@ msgid "Collection"
 msgstr "NFT 系列"
 
 msgid "Your name"
-msgstr "您的姓名"
+msgstr "您的名字"
 
 msgid "Owned"
 msgstr "拥有"
