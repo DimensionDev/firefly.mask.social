@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-21 12:01\n"
+"PO-Revision-Date: 2024-06-22 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -478,7 +478,7 @@ msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
 
 msgid "Top Channels"
-msgstr "顶级频道"
+msgstr "热门频道"
 
 msgid "Failed to un-bookmark"
 msgstr "取消收藏失败"
@@ -583,7 +583,7 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
 
 msgid "Top Profiles"
-msgstr "顶级个人资料"
+msgstr "热门个人资料"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
@@ -907,7 +907,7 @@ msgid "One click to connect your account status."
 msgstr "一键同步你的账号。"
 
 msgid "Top Collectors"
-msgstr "顶级收藏者"
+msgstr "热门收藏者"
 
 msgid "Quote"
 msgstr "引用"
@@ -1429,7 +1429,7 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
-msgstr "翻译中。。。"
+msgstr "翻译中..."
 
 msgid "Back to home"
 msgstr "返回主页"
@@ -1502,3 +1502,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
