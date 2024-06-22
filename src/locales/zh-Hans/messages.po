@@ -159,9 +159,6 @@ msgstr "您可以先保存发送的帖子并稍后发送。"
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
-msgid "[Image]"
-msgstr "[图片]"
-
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
@@ -321,8 +318,8 @@ msgstr "至多可以选择 2 张图片。"
 msgid "Failed to delete"
 msgstr "删除失败"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
+msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
+msgstr ""
 
 msgid "Report Failed"
 msgstr "举报时报"
@@ -398,9 +395,6 @@ msgstr "拥有者"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 验证器"
-
-msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
-msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 
 msgid "Connect Wallet"
 msgstr "连接钱包"
@@ -753,9 +747,6 @@ msgstr "<0>获取</0> 一个 NFT"
 msgid "Retweeted"
 msgstr "已转帖"
 
-msgid "Post your reply"
-msgstr "发送你的回复"
-
 msgid "liked"
 msgstr "点赞"
 
@@ -773,9 +764,6 @@ msgstr "无效的 URL。"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
-
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
-msgstr ""
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -867,6 +855,9 @@ msgstr "帖子"
 msgid "Your website URL."
 msgstr "您网站的 URL。"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <5><6/></5>"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
 
@@ -957,6 +948,9 @@ msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
 
+msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
 msgid "Discard"
 msgstr "放弃"
 
@@ -1004,9 +998,6 @@ msgstr "发布帖子失败"
 
 msgid "{0} View"
 msgstr "{0} 浏览数"
-
-msgid "recasted your"
-msgstr "转帖了你的"
 
 msgid "Quotes"
 msgstr "引用"
@@ -1356,9 +1347,6 @@ msgstr "登录到 Farcaster 账号"
 msgid "{0} Users"
 msgstr "{0} 用户"
 
-msgid "[Audio]"
-msgstr "[音频]"
-
 msgid "Final results"
 msgstr "最终结果"
 
@@ -1397,9 +1385,6 @@ msgstr "{0} 浏览数"
 
 msgid "Language"
 msgstr "语言"
-
-msgid "Add a comment"
-msgstr "添加一个评论"
 
 msgid "Address on Watching Lists"
 msgstr "已关注地址列表"
@@ -1448,9 +1433,6 @@ msgstr "多媒体"
 
 msgid "No content to publish."
 msgstr "没有发布的内容。"
-
-msgid "mirrored your"
-msgstr "转发了你的"
 
 msgid "Mirror"
 msgstr "转发"
@@ -1505,4 +1487,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

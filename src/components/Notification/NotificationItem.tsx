@@ -1,6 +1,6 @@
 'use client';
 
-import { Plural, Select, t, Trans } from '@lingui/macro';
+import { Plural, Select, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { motion } from 'framer-motion';
@@ -201,9 +201,9 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         />{' '}
                         <Select
                             value={notification.source}
-                            _Lens={t`mirrored your`}
-                            _Farcaster={t`recasted your`}
-                            other={t`mirrored your`}
+                            _Lens="mirrored your"
+                            _Farcaster="recasted your"
+                            other="mirrored your"
                         />{' '}
                         <strong>
                             <PostTypeI18N type={notification.post.type} />
