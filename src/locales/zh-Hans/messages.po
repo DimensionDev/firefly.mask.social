@@ -448,7 +448,7 @@ msgid "Failed to mirror."
 msgstr "转帖失败。"
 
 msgid "Remove Choice"
-msgstr ""
+msgstr "删除选项"
 
 msgid "Mute {identity}"
 msgstr "隐藏 @{identity}"
@@ -745,7 +745,7 @@ msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
 msgid "Open Mobile App"
-msgstr ""
+msgstr "打开移动端应用"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
@@ -781,7 +781,7 @@ msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
 msgid "You need to connect your {0} account to use this feature."
-msgstr ""
+msgstr "您需要连接您的 {0} 账号来使用此功能。"
 
 msgid "Suggested Follows"
 msgstr "建议关注"
@@ -793,7 +793,7 @@ msgid "Articles"
 msgstr "文章"
 
 msgid "Connect to {0}"
-msgstr ""
+msgstr "连接到 {0}"
 
 msgid "Settings"
 msgstr "设置"
@@ -931,7 +931,7 @@ msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
 msgid "Remove Poll"
-msgstr ""
+msgstr "删除投票"
 
 msgid "Unmute {identity}"
 msgstr "取消隐藏 {identity}"
