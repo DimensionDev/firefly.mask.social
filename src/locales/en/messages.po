@@ -241,9 +241,6 @@ msgstr "[Video]"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
-msgid "Muting"
-msgstr "Muting"
-
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
@@ -468,6 +465,9 @@ msgstr "Join our Telegram"
 
 msgid "Log out"
 msgstr "Log out"
+
+msgid "Unmuting..."
+msgstr "Unmuting..."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -1155,6 +1155,9 @@ msgstr "View"
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} View} other {{1} Views}}"
+
+msgid "Muting..."
+msgstr "Muting..."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."

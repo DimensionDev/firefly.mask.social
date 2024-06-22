@@ -246,9 +246,6 @@ msgstr ""
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
-msgid "Muting"
-msgstr ""
-
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
@@ -473,6 +470,9 @@ msgstr "加入我們的 Telegram 社群"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Unmuting..."
+msgstr ""
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -1160,6 +1160,9 @@ msgstr ""
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
+
+msgid "Muting..."
+msgstr ""
 
 msgid "Failed to mirror post."
 msgstr ""

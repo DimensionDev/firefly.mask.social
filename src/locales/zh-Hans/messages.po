@@ -246,9 +246,6 @@ msgstr "[视频]"
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
-msgid "Muting"
-msgstr "隐藏中"
-
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
@@ -451,7 +448,7 @@ msgid "Remove Choice"
 msgstr "删除选项"
 
 msgid "Mute {identity}"
-msgstr "隐藏 @{identity}"
+msgstr "屏蔽 @{identity}"
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
@@ -473,6 +470,9 @@ msgstr "加入我们的 Telegram"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Unmuting..."
+msgstr "取消屏蔽中..."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
@@ -934,7 +934,7 @@ msgid "Remove Poll"
 msgstr "删除投票"
 
 msgid "Unmute {identity}"
-msgstr "取消隐藏 {identity}"
+msgstr "取消屏蔽 {identity}"
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {发帖} other {全部发帖}}"
@@ -1093,7 +1093,7 @@ msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "@{identity} 的帖子会从您的时间线中隐藏"
+msgstr "@{identity} 的文章会从您的时间线中隐藏"
 
 msgid "quote"
 msgstr "引用"
@@ -1160,6 +1160,9 @@ msgstr "查看"
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
+
+msgid "Muting..."
+msgstr "屏蔽中..."
 
 msgid "Failed to mirror post."
 msgstr "转发失败。"
