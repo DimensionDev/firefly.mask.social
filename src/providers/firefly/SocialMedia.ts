@@ -882,31 +882,34 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
-            post_type: BookmarkType.All,
-            platforms: 'farcaster',
-            limit: 25,
-            cursor: indicator?.id || undefined,
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+                post_type: BookmarkType.All,
+                platforms: 'farcaster',
+                limit: 25,
+                cursor: indicator?.id || undefined,
+                fid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
+
+            const posts = compact(
+                response.data?.list.map((x) => {
+                    if (!x.post_content) return null;
+                    const formatted = formatFarcasterPostFromFirefly(x.post_content);
+                    if (!formatted) return null;
+                    return {
+                        ...formatted,
+                        hasBookmarked: true,
+                    };
+                }),
+            );
+
+            return createPageable(
+                posts,
+                createIndicator(indicator),
+                response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+            );
         });
-        const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
-
-        const posts = compact(
-            response.data?.list.map((x) => {
-                if (!x.post_content) return null;
-                const formatted = formatFarcasterPostFromFirefly(x.post_content);
-                if (!formatted) return null;
-                return {
-                    ...formatted,
-                    hasBookmarked: true,
-                };
-            }),
-        );
-
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
-        );
     }
 
     async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
