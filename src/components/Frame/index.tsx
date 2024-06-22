@@ -24,7 +24,7 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
@@ -277,8 +277,10 @@ export function Frame({ postId, source, urls, onData, children }: FrameProps) {
         async (button: FrameButton, input?: string) => {
             if (!frame) return;
 
-            if ([ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
-                enqueueErrorMessage(t`Please connect your account to perform this action.`);
+            if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
+                LoginModalRef.open({
+                    source,
+                });
                 return;
             }
 
