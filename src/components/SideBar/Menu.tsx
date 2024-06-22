@@ -25,7 +25,6 @@ import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { IS_IOS } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -152,7 +151,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     </li>
                                 );
                             })}
-                            {!isMedium && IS_IOS ? (
+                            {!isMedium ? (
                                 <li>
                                     <OpenFireflyAppButton className="flex items-center gap-x-3 px-4 py-2">
                                         <FireflyLogo width={20} height={20} />
