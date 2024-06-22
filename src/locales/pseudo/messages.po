@@ -877,6 +877,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "Search..."
+msgstr ""
+
 msgid "Show more comments"
 msgstr ""
 
@@ -1133,9 +1136,6 @@ msgid "Switch account"
 msgstr ""
 
 msgid "Sign in with Custody Wallet"
-msgstr ""
-
-msgid "Search…"
 msgstr ""
 
 msgid "No profile found"

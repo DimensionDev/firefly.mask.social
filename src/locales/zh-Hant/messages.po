@@ -882,6 +882,9 @@ msgstr "已成功靜音"
 msgid "Show More"
 msgstr "顯示更多"
 
+msgid "Search..."
+msgstr ""
+
 msgid "Show more comments"
 msgstr ""
 
@@ -1139,9 +1142,6 @@ msgstr ""
 
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"
-
-msgid "Search…"
-msgstr "搜尋"
 
 msgid "No profile found"
 msgstr ""
