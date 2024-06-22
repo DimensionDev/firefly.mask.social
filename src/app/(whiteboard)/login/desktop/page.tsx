@@ -5,20 +5,19 @@ import { useMemo } from 'react';
 
 import FullLogo from '@/assets/fullLogo.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
-import { env } from '@/constants/env.js';
+import { DeviceType } from '@/types/device.js';
 
 interface PageProps {
-    searchParams: { [key: string]: string };
+    searchParams: { session?: string };
 }
 
 export default function Page({ searchParams }: PageProps) {
-    const scheme = useMemo(() => {
-        const ios = env.external.NEXT_PUBLIC_FIREFLY_IOS_LOGIN_CONFIRM;
-        const android = env.external.NEXT_PUBLIC_FIREFLY_ANDROID_LOGIN_CONFIRM;
-        if (!android || !searchParams.session) return undefined;
+    const schemes = useMemo(() => {
+        const sessionId = searchParams.session;
+        if (!sessionId) return;
         return {
-            ios: ios ? `${ios}?session=${searchParams.session}` : location.href.replace('https://', 'firefly://'),
-            android: `${android}?session=${searchParams.session}`,
+            [DeviceType.IOS]: location.href.replace('https://', 'firefly://'),
+            [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
         };
     }, [searchParams]);
 
@@ -28,7 +27,7 @@ export default function Page({ searchParams }: PageProps) {
             <div className="w-full px-9 md:max-w-[311px] md:px-0">
                 <OpenFireflyAppButton
                     className="w-full rounded-xl bg-black px-5 py-2 text-center text-xl font-bold text-white dark:bg-white dark:text-[#181A20]"
-                    scheme={scheme}
+                    schemes={schemes}
                 >
                     <Trans>Open in Firefly App</Trans>
                 </OpenFireflyAppButton>

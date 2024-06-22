@@ -19,6 +19,7 @@ interface ModalProps {
      * Problems may occur when ConfirmModal is in use. Note, this will also close all shortcut keys for close.
      */
     disableDialogClose?: boolean;
+    disableBackdropClose?: boolean;
 }
 
 export function Modal({
@@ -29,6 +30,7 @@ export function Modal({
     className,
     disableScrollLock = true,
     disableDialogClose = false,
+    disableBackdropClose = false,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -64,6 +66,7 @@ export function Modal({
                                     onClick={(ev) => {
                                         ev.preventDefault();
                                         ev.stopPropagation();
+                                        if (disableBackdropClose) return;
                                         onClose?.();
                                     }}
                                 />

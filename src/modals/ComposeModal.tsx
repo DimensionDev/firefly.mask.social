@@ -168,7 +168,7 @@ function ComposeRouteRoot() {
                         />
                     ) : null}
                 </span>
-                {isMedium ? (
+                {isMedium && !isDraft ? (
                     <DraftIcon
                         className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
                         onClick={() => history.push('/draft')}
@@ -249,6 +249,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         ),
                     ),
                 ] as SocialSource[];
+
                 const hasError = !!errorsSource.length;
 
                 const sources = hasError ? errorsSource : availableSources;
@@ -267,6 +268,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     ),
                     enableCloseButton: false,
                     enableCancelButton: true,
+                    disableBackdropClose: true,
                     cancelButtonText: t`Discard`,
                     confirmButtonText: t`Save`,
                     variant: 'normal',

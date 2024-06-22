@@ -148,6 +148,9 @@ msgstr "Log out @{0}"
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
 
+msgid "Please confirm the login with Firefly."
+msgstr "Please confirm the login with Firefly."
+
 msgid "[Image]"
 msgstr "[Image]"
 
@@ -766,6 +769,9 @@ msgstr "Invalid URL."
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
+msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
@@ -1066,9 +1072,6 @@ msgstr "The frame server failed to process the request."
 msgid "Report"
 msgstr "Report"
 
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
@@ -1224,9 +1227,6 @@ msgstr "Only people you follow"
 
 msgid "Add another option"
 msgstr "Add another option"
-
-msgid "[Attachment]"
-msgstr "[Attachment]"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
@@ -1473,9 +1473,6 @@ msgstr "<0>{0}</0> recasted"
 
 msgid "Close"
 msgstr "Close"
-
-msgid "Link"
-msgstr "Link"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-21 00:04\n"
+"PO-Revision-Date: 2024-06-22 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -151,6 +151,9 @@ msgid "Log out @{0}"
 msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
+msgstr ""
+
+msgid "Please confirm the login with Firefly."
 msgstr ""
 
 msgid "[Image]"
@@ -771,6 +774,9 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -1071,9 +1077,6 @@ msgstr ""
 msgid "Report"
 msgstr "檢舉"
 
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-msgstr ""
-
 msgid "Post by {0}"
 msgstr ""
 
@@ -1228,9 +1231,6 @@ msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
 
 msgid "Add another option"
-msgstr ""
-
-msgid "[Attachment]"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -1479,9 +1479,6 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-msgid "Link"
-msgstr ""
-
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
@@ -1505,3 +1502,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+

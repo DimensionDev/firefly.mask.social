@@ -151,7 +151,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             {source === Source.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
             {source === Source.Farcaster ? <LoginFarcaster signType={signType} setSignType={setSignType} /> : null}
             {source === Source.Twitter ? <LoginTwitter /> : null}
-            {source === Source.Firefly ? <LoginFirefly /> : null}
+            {source === Source.Firefly && isMedium ? <LoginFirefly /> : null}
         </Suspense>
     );
 

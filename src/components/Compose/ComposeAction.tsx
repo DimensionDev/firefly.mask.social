@@ -3,7 +3,8 @@ import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
-import { compact } from 'lodash-es';
+import { compact, values } from 'lodash-es';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/addThread.svg';
@@ -25,7 +26,6 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -45,7 +45,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const post = useCompositePost();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
-    const { length, visibleLength, invisibleLength } = measureChars(post);
+    const { usedLength, availableLength } = measureChars(post);
 
     const setEditorContent = useSetEditorContent();
 
@@ -75,9 +75,12 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll]);
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
+
+    const hasError = useMemo(() => {
+        return posts.some((x) => !!compact(values(x.postError)).length);
+    }, [posts]);
 
     return (
         <div className="px-4 pb-4">
@@ -148,15 +151,15 @@ export function ComposeAction(props: ComposeActionProps) {
                     </span>
                 </div>
 
-                {visibleLength && !isMedium ? (
+                {usedLength && !isMedium ? (
                     <div className="ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                        <span className={classNames(length > MAX_CHAR_SIZE_PER_POST ? 'text-danger' : '')}>
-                            {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
+                        <span className={classNames(usedLength > availableLength ? 'text-danger' : '')}>
+                            {usedLength} / {availableLength}
                         </span>
                     </div>
                 ) : null}
 
-                {visibleLength && type === 'compose' && !isMedium ? (
+                {usedLength && type === 'compose' && !isMedium ? (
                     <ClickableButton
                         className="text-main"
                         disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
@@ -179,7 +182,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={availableSources.some((x) => !!parentPost[x])}
+                                disabled={availableSources.some((x) => !!parentPost[x]) || hasError}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources
@@ -188,7 +191,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                             <SocialSourceIcon key={y} source={y} size={20} />
                                         ))}
                                 </span>
-                                {type === 'compose' ? (
+                                {type === 'compose' && !hasError ? (
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 ) : null}
                             </Popover.Button>
@@ -205,42 +208,55 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+                            <Popover.Button
+                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={hasError}
+                            >
                                 <span className="text-[15px] font-bold">
                                     <ReplyRestrictionText type={restriction} />
                                 </span>
-                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
                             </Popover.Button>
                             <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
                         </>
                     )}
                 </Popover>
             </div>
-            {availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) &&
-            (type === 'compose' || type === 'quote') ? (
-                <div className="flex h-9 items-center justify-between pb-safe">
-                    <span className="text-[15px] text-secondary">
-                        <Trans>Farcaster channel</Trans>
-                    </span>
-                    <Popover as="div" className="relative">
-                        {({ close }) => (
-                            <>
-                                <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
-                                    <span className="text-[15px] font-bold">
-                                        {compact(
-                                            SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
-                                                (source) => channel[source]?.name,
-                                            ),
-                                        ).join(',')}
-                                    </span>
-                                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                                </Popover.Button>
-                                <ChannelSearchPanel onSelected={close} />
-                            </>
-                        )}
-                    </Popover>
-                </div>
-            ) : null}
+
+            <div
+                className="flex h-9 items-center justify-between pb-safe"
+                style={{
+                    visibility:
+                        availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) &&
+                        (type === 'compose' || type === 'quote')
+                            ? 'unset'
+                            : 'hidden',
+                }}
+            >
+                <span className="text-[15px] text-secondary">
+                    <Trans>Farcaster channel</Trans>
+                </span>
+                <Popover as="div" className="relative">
+                    {({ close }) => (
+                        <>
+                            <Popover.Button
+                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={hasError}
+                            >
+                                <span className="text-[15px] font-bold">
+                                    {compact(
+                                        SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
+                                            (source) => channel[source]?.name,
+                                        ),
+                                    ).join(',')}
+                                </span>
+                                {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
+                            </Popover.Button>
+                            <ChannelSearchPanel onSelected={close} />
+                        </>
+                    )}
+                </Popover>
+            </div>
         </div>
     );
 }

@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import type { RP_HASH_TAG } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST, type RP_HASH_TAG } from '@/constants/index.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -55,11 +55,14 @@ export type Chars = string | Array<string | ComplexChars>;
  * @param visibleOnly
  * @returns
  */
-export function readChars(chars: Chars, visibleOnly = false, source?: SocialSource) {
+export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisible' = 'both', source?: SocialSource) {
     return (Array.isArray(chars) ? chars : [chars])
         .map((x) => {
-            if (typeof x === 'string') return x;
-            if (!x.visible && visibleOnly) return '';
+            if (typeof x === 'string') {
+                return strategy === 'invisible' ? '' : x;
+            }
+            if (x.visible && strategy === 'invisible') return '';
+            if (!x.visible && strategy === 'visible') return '';
             switch (x.tag) {
                 case CHAR_TAG.FIREFLY_RP:
                     return `${x.content}\n`;
@@ -91,18 +94,19 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(post: CompositePost, visibleOnly?: boolean): number {
-    const { chars, availableSources } = post;
-    return Math.max(...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, visibleOnly, x))));
-}
-
 export function measureChars(post: CompositePost) {
-    const length = calculateLength(post);
-    const visibleLength = calculateLength(post, true);
+    const { chars, availableSources } = post;
 
     return {
-        length,
-        visibleLength,
-        invisibleLength: length - visibleLength,
+        // max(visible x1, visible x2, visible x3)
+        usedLength: Math.max(
+            ...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, 'visible', x))),
+        ),
+        // min(limit_y1 - invisible, limit_y2 - invisible, limit_y3 - invisible)
+        availableLength: Math.min(
+            ...availableSources.map(
+                (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, 'invisible', x)),
+            ),
+        ),
     };
 }

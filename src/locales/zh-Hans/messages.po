@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-21 00:04\n"
+"PO-Revision-Date: 2024-06-22 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -152,6 +152,9 @@ msgstr "登出 @{0}"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以先保存发送的帖子并稍后发送。"
+
+msgid "Please confirm the login with Firefly."
+msgstr ""
 
 msgid "[Image]"
 msgstr "[图片]"
@@ -475,7 +478,7 @@ msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
 
 msgid "Top Channels"
-msgstr "顶级频道"
+msgstr "热门频道"
 
 msgid "Failed to un-bookmark"
 msgstr "取消收藏失败"
@@ -583,7 +586,7 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
 
 msgid "Top Profiles"
-msgstr "顶级个人资料"
+msgstr "热门用户"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
@@ -601,7 +604,7 @@ msgid "Detecting..."
 msgstr "检测中..."
 
 msgid "Open in Firefly App"
-msgstr "使用 Firefly 应用打开"
+msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -771,6 +774,9 @@ msgstr "无效的 URL。"
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
+msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
@@ -901,7 +907,7 @@ msgid "One click to connect your account status."
 msgstr "一键同步你的账号。"
 
 msgid "Top Collectors"
-msgstr "顶级收藏者"
+msgstr "热门收藏者"
 
 msgid "Quote"
 msgstr "引用"
@@ -1071,9 +1077,6 @@ msgstr "Frame 服务器未能处理请求"
 msgid "Report"
 msgstr "报告"
 
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {{5}}}"
-
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
@@ -1180,7 +1183,7 @@ msgid "Firefly"
 msgstr "Firefly"
 
 msgid "Switching..."
-msgstr "切换中。。。"
+msgstr "切换中..."
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
@@ -1229,9 +1232,6 @@ msgstr "只有你关注的人"
 
 msgid "Add another option"
 msgstr "添加另一个选项"
-
-msgid "[Attachment]"
-msgstr "[附件]"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -1429,7 +1429,7 @@ msgid "Recast"
 msgstr "转推"
 
 msgid "Translating..."
-msgstr "翻译中。。。"
+msgstr "翻译中..."
 
 msgid "Back to home"
 msgstr "返回主页"
@@ -1479,9 +1479,6 @@ msgstr "<0>{0}</0> 已转发"
 msgid "Close"
 msgstr "关闭"
 
-msgid "Link"
-msgstr "链接"
-
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"
 
@@ -1505,3 +1502,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
