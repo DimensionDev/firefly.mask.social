@@ -325,9 +325,6 @@ msgstr ""
 msgid "Attendees"
 msgstr ""
 
-msgid "You need to connect your {source} account to use this feature."
-msgstr ""
-
 msgid "Search"
 msgstr ""
 
@@ -778,6 +775,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr ""
+
 msgid "Suggested Follows"
 msgstr ""
 
@@ -785,6 +785,9 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "Articles"
+msgstr ""
+
+msgid "Connect to {0}"
 msgstr ""
 
 msgid "Settings"
@@ -809,9 +812,6 @@ msgid "Your Farcaster account is now connected."
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
-msgstr ""
-
-msgid "Connect to {source}"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"

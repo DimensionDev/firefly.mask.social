@@ -325,9 +325,6 @@ msgstr "Report Failed"
 msgid "Attendees"
 msgstr "Attendees"
 
-msgid "You need to connect your {source} account to use this feature."
-msgstr "You need to connect your {source} account to use this feature."
-
 msgid "Search"
 msgstr "Search"
 
@@ -778,6 +775,9 @@ msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr "You need to connect your {0} account to use this feature."
+
 msgid "Suggested Follows"
 msgstr "Suggested Follows"
 
@@ -786,6 +786,9 @@ msgstr "Post has been encrypted"
 
 msgid "Articles"
 msgstr "Articles"
+
+msgid "Connect to {0}"
+msgstr "Connect to {0}"
 
 msgid "Settings"
 msgstr "Settings"
@@ -810,9 +813,6 @@ msgstr "Your Farcaster account is now connected."
 
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
-
-msgid "Connect to {source}"
-msgstr "Connect to {source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"

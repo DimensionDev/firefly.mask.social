@@ -330,9 +330,6 @@ msgstr "举报时报"
 msgid "Attendees"
 msgstr "出席人数"
 
-msgid "You need to connect your {source} account to use this feature."
-msgstr "你需要连接你的 {source} 账号才能使用此功能。"
-
 msgid "Search"
 msgstr "搜索"
 
@@ -783,6 +780,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr ""
+
 msgid "Suggested Follows"
 msgstr "建议关注"
 
@@ -791,6 +791,9 @@ msgstr "帖子已经被加密"
 
 msgid "Articles"
 msgstr "文章"
+
+msgid "Connect to {0}"
+msgstr ""
 
 msgid "Settings"
 msgstr "设置"
@@ -815,9 +818,6 @@ msgstr "你的 Farcaster 账号已经连接。"
 
 msgid "Failed to unwatch {identity}"
 msgstr "取消关注 {identity} 失败"
-
-msgid "Connect to {source}"
-msgstr "连接到 {source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
