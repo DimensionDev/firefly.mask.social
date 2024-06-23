@@ -550,9 +550,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-msgid "{0}"
-msgstr ""
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
