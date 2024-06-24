@@ -85,14 +85,15 @@ function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null)
     );
 }
 
-function getOembedUrls(metadata: PublicationMetadataFragment, author: Profile): string[] {
-    return (
+function getOembedUrls(metadata: LinkMetadataV3Fragment | TextOnlyMetadataV3Fragment, author: Profile): string[] {
+    return getEmbedUrls(
+        metadata.content,
         metadata.attributes?.reduce<string[]>((acc, attr) => {
             if (attr.key === LensMetadataAttributeKey.Poll) {
                 acc.push(composePollFrameUrl(getPollFrameUrl(attr.value, undefined, author), Source.Lens));
             }
             return acc;
-        }, []) ?? []
+        }, []) ?? [],
     );
 }
 
