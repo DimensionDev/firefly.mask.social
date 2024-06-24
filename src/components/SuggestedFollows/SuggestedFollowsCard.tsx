@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { AsideTitle } from '@/components/AsideTitle.js';
-import { SuggestedFollowUser } from '@/components/SuggestedFollows/SuggestedFollowUser.js';
+import { ProfileCell } from '@/components/Profile/ProfileCell.js';
 import { DiscoverType, PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -100,16 +100,12 @@ export function SuggestedFollowsCard() {
                     <>
                         {!isLoadingFarcaster
                             ? farcasterData?.map((profile) => (
-                                  <SuggestedFollowUser
-                                      key={profile.profileId}
-                                      profile={profile}
-                                      source={Source.Farcaster}
-                                  />
+                                  <ProfileCell key={profile.profileId} profile={profile} source={Source.Farcaster} />
                               ))
                             : loadingEl}
                         {!isLoadingLens
                             ? lensData?.map((profile) => (
-                                  <SuggestedFollowUser key={profile.profileId} profile={profile} source={Source.Lens} />
+                                  <ProfileCell key={profile.profileId} profile={profile} source={Source.Lens} />
                               ))
                             : loadingEl}
                     </>
