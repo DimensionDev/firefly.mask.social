@@ -3,7 +3,9 @@ import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
+import { confirmMediasFile } from '@/helpers/confirmMediasFile.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { createTwitterMediaObject } from '@/helpers/resolveMediaURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -42,7 +44,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                     content: readChars(chars, 'both', Source.Twitter),
                 },
             },
-            mediaObjects: images.map((media) => ({ url: media.imgur!, mimeType: media.file.type, id: media.id })),
+            mediaObjects: images.map((media) => ({ url: media.url, mimeType: media.mimeType, id: media.id })),
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',
             source: Source.Twitter,
@@ -57,12 +59,9 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             return [pollStub];
         },
         uploadImages: async () => {
-            const uploaded = await uploadToTwitter(images.map((x) => x.file));
-            return uploaded.map((x) => ({
-                id: x.media_id_string,
-                url: '',
-                file: x.file,
-            }));
+            const confirmedMedias = await confirmMediasFile(images);
+            const uploaded = await uploadToTwitter(confirmedMedias.map((x) => x.file));
+            return uploaded.map((x) => createTwitterMediaObject(x));
         },
         compose: (images, _, polls) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, polls)),
         reply: (images, _, polls) => {

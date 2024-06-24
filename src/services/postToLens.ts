@@ -17,6 +17,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
+import { createIPFSMediaObject } from '@/helpers/resolveMediaURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -28,7 +29,7 @@ import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
-import type { MediaObject } from '@/types/index.js';
+import { type MediaObject, MediaObjectSource } from '@/types/index.js';
 
 interface BaseMetadata {
     title: string;
@@ -58,8 +59,8 @@ interface Attachments {
 }
 
 function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
-    if (images.some((image) => !image.ipfs) || (video && !video.ipfs)) {
-        throw new Error(t`Missing IPFS hash for image or video.`);
+    if (images.some((image) => image.source === MediaObjectSource.local) || (video?.source === MediaObjectSource.local)) {
+        throw new Error(t`There are images or videos that were not uploaded successfully.`);
     }
 
     const imagesWithIPFS = images as Array<Required<MediaObject>>;
@@ -70,27 +71,27 @@ function createPayloadAttachments(images: MediaObject[], video: MediaObject | nu
               attachments: videoWithIPFS
                   ? [
                         {
-                            item: videoWithIPFS.ipfs.uri,
-                            type: videoWithIPFS.ipfs.mimeType,
-                            cover: videoWithIPFS.ipfs.uri,
+                            item: videoWithIPFS.url,
+                            type: videoWithIPFS.mimeType,
+                            cover: videoWithIPFS.url,
                         },
                     ]
                   : imagesWithIPFS.map((image) => ({
-                        item: image.ipfs.uri,
-                        type: image.ipfs.mimeType,
-                        cover: imagesWithIPFS[0].ipfs.uri,
+                        item: image.url,
+                        type: image.mimeType,
+                        cover: imagesWithIPFS[0].url,
                     })),
               ...(videoWithIPFS
                   ? {
                         video: {
-                            item: videoWithIPFS.ipfs.uri,
-                            type: videoWithIPFS.ipfs.mimeType,
+                            item: videoWithIPFS.url,
+                            type: videoWithIPFS.mimeType,
                         },
                     }
                   : {
                         image: {
-                            item: imagesWithIPFS[0].ipfs.uri,
-                            type: imagesWithIPFS[0].ipfs.mimeType,
+                            item: imagesWithIPFS[0].url,
+                            type: imagesWithIPFS[0].mimeType,
                         },
                     }),
           }
@@ -289,22 +290,16 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         uploadImages() {
             return Promise.all(
                 images.map(async (media) => {
-                    if (media.ipfs) return media;
-                    return {
-                        ...media,
-                        ipfs: await uploadFileToIPFS(media.file),
-                    };
+                    if ([MediaObjectSource.ipfs, MediaObjectSource.giphy].includes(media.source)) return media;
+                    return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );
         },
         uploadVideos() {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    if (media?.ipfs) return media;
-                    return {
-                        ...media,
-                        ipfs: await uploadFileToIPFS(media.file),
-                    };
+                    if (media.source === MediaObjectSource.ipfs) return media;
+                    return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );
         },

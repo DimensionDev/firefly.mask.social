@@ -13,6 +13,7 @@ import GalleryIcon from '@/assets/gallery.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
+import { GifEntryButton } from '@/components/Compose/GifEntryButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
@@ -112,6 +113,8 @@ export function ComposeAction(props: ComposeActionProps) {
                 </Popover>
 
                 {type === 'compose' ? <PollButton /> : null}
+
+                <GifEntryButton disabled={mediaDisabled} />
 
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
