@@ -60,7 +60,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
-        throw new NotImplementedError();
+        return FireflySocialMediaProvider.getProfileByHandle(handle);
     }
 
     getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

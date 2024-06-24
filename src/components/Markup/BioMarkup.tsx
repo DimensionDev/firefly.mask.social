@@ -1,7 +1,7 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { type HTMLProps, memo, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
@@ -25,7 +25,7 @@ interface BioMarkupProps extends MarkupProps {
     source?: SocialSource;
 }
 
-export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, source, ...rest }) {
+export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, post, source, ...rest }) {
     const bioPlugins = useMemo(() => {
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
@@ -38,6 +38,13 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
             source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
         ]);
     }, [source]);
+
+    const LinkComponent = useMemo(() => {
+        return function Link(props: HTMLProps<HTMLAnchorElement>) {
+            return <MarkupLink title={props.title} post={post} source={source} />;
+        };
+    }, [post, source]);
+
     if (!children) return null;
 
     return (
@@ -45,9 +52,7 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
             {...rest}
             remarkPlugins={bioPlugins}
             components={{
-                // @ts-ignore
-                // eslint-disable-next-line react/no-unstable-nested-components
-                a: (props) => <MarkupLink title={props.title} post={post} source={source} />,
+                a: LinkComponent,
                 code: Code,
                 ...rest.components,
             }}

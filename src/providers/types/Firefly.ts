@@ -421,6 +421,22 @@ export interface FarcasterProfile {
     id: number;
 }
 
+export interface FireflyFarcasterProfile {
+    addresses: Address[];
+    followers: number;
+    following: number;
+    isPowerUser: boolean;
+    fid: number;
+    username: string;
+    display_name: string;
+    bio: string;
+    pfp: string;
+    isFollowing: boolean;
+    isFollowedBack: boolean;
+}
+
+export type FireflyFarcasterProfileResponse = Response<FireflyFarcasterProfile>;
+
 export interface TwitterProfile {
     twitter_id: string;
     handle: string;
