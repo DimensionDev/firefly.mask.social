@@ -4,6 +4,7 @@ import type {
     ChannelBrief,
     ChannelProfile,
     ChannelProfileBrief,
+    FireflyFarcasterProfile,
 } from '@/providers/types/Firefly.js';
 import { type Channel, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
@@ -93,4 +94,23 @@ export function formatBriefChannelFromFirefly(channel: ChannelBrief, blocked?: b
         formatted.lead = formatBriefChannelProfileFromFirefly(channel.lead);
     }
     return formatted;
+}
+
+export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile): Profile {
+    return {
+        status: ProfileStatus.Active,
+        verified: true,
+        profileId: `${profile.fid}`,
+        displayName: profile.display_name,
+        handle: profile.username,
+        fullHandle: profile.username,
+        pfp: profile.pfp,
+        followerCount: profile.followers,
+        followingCount: profile.following,
+        viewerContext: {
+            following: profile.isFollowing,
+            followedBy: profile.isFollowedBack,
+        },
+        source: Source.Farcaster,
+    };
 }

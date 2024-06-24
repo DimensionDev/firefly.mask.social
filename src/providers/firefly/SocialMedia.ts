@@ -2,10 +2,10 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
+    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { compact } from 'lodash-es';
@@ -19,6 +19,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     formatBriefChannelFromFirefly,
     formatChannelFromFirefly,
+    formatFireflyFarcasterProfile,
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
@@ -45,6 +46,7 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
+    type FireflyFarcasterProfileResponse,
     type FireFlyProfile,
     type FriendshipResponse,
     type NotificationResponse,
@@ -217,7 +219,17 @@ export class FireflySocialMedia implements Provider {
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
-        throw new NotImplementedError();
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
+                handle,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<FireflyFarcasterProfileResponse>(url);
+            if (!response.data) {
+                throw new Error(`Profile ${handle} doesn't exist.`);
+            }
+            return formatFireflyFarcasterProfile(response.data);
+        });
     }
 
     getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
