@@ -26,7 +26,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
-const resolveNotificationIcon = createLookupTableResolver<
+export const resolveNotificationIcon = createLookupTableResolver<
     NotificationType,
     FunctionComponent<SVGAttributes<SVGElement>> | null
 >(
