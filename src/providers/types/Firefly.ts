@@ -3,6 +3,19 @@ import type { Address } from 'viem';
 import { FireflyPlatform, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
+export enum EmbedMediaType {
+    IMAGE = 'image',
+    NFT = 'nft',
+    AUDIO = 'audio',
+    FONT = 'font',
+    VIDEO = 'video',
+    TEXT = 'text',
+    FRAME = 'frame',
+    CAST = 'cast',
+    APPLICATION = 'application',
+    UNKNOWN = 'unknown',
+}
+
 export interface Cast {
     fid: string;
     hash: string;
@@ -12,7 +25,7 @@ export interface Cast {
     parent_fid?: string;
     parent_url?: string;
     embeds: Array<{ url?: string }>;
-    embed_urls?: Array<{ url: string; type: string }>;
+    embed_urls?: Array<{ url: string; type: EmbedMediaType }>;
     mentions: string[];
     mentions_positions: number[];
     mentions_user: Array<{
