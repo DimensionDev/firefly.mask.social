@@ -16,6 +16,7 @@ import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Markup } from '@/components/Markup/Markup.js';
+import { ExtraProfiles } from '@/components/Notification/ExtraProfiles.js';
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -107,11 +108,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                     <ProfileLink profile={notification.reactors[1]} />
                                 </Trans>
                             }
-                            other={
-                                <Trans>
-                                    <ProfileLink profile={firstReactor} /> and # others
-                                </Trans>
-                            }
+                            other={<ExtraProfiles profiles={notification.reactors} />}
                         />{' '}
                         <span>liked your </span>
                         <strong>
@@ -146,11 +143,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                     <ProfileLink profile={notification.followers[1]} />
                                 </Trans>
                             }
-                            other={
-                                <Trans>
-                                    <ProfileLink profile={firstFollower} /> and # others
-                                </Trans>
-                            }
+                            other={<ExtraProfiles profiles={notification.followers} />}
                         />
                         <span> followed you</span>
                     </Trans>
@@ -192,12 +185,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                     <ProfileLink profile={notification.mirrors[1]} />
                                 </Trans>
                             }
-                            other={
-                                <Trans>
-                                    <ProfileLink profile={firstMirror} />
-                                    <ProfileLink profile={firstMirror} /> and # others
-                                </Trans>
-                            }
+                            other={<ExtraProfiles profiles={notification.mirrors} />}
                         />{' '}
                         <Select
                             value={notification.source}
@@ -225,12 +213,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                     <ProfileLink profile={notification.actions[1]} />
                                 </Trans>
                             }
-                            other={
-                                <Trans>
-                                    <ProfileLink profile={firstActed} />
-                                    <ProfileLink profile={firstActed} /> and # others
-                                </Trans>
-                            }
+                            other={<ExtraProfiles profiles={notification.actions} />}
                         />{' '}
                         <span>acted on your </span>
                         <strong>

@@ -4,11 +4,17 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
+import { type Notification, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function setFollowStatus(source: Source, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;
+    const patcher = (old: Draft<Profile>, status: boolean) => {
+        old.viewerContext = {
+            ...old.viewerContext,
+            following: status,
+        };
+    };
     patchPostQueryData(source, matcher, (draft) => {
         if (draft.author.profileId !== profileId) return;
         draft.author.viewerContext = {
@@ -35,10 +41,7 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
                 if (!page) continue;
                 for (const profile of page.data) {
                     if (profile.profileId === profileId) {
-                        profile.viewerContext = {
-                            ...profile.viewerContext,
-                            following: status,
-                        };
+                        patcher(profile, status);
                     }
                 }
             }
@@ -55,10 +58,7 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
         if (!profiles) return profiles;
         for (const profile of profiles) {
             if (profile.profileId === profileId) {
-                profile.viewerContext = {
-                    ...profile.viewerContext,
-                    following: status,
-                };
+                patcher(profile, status);
             }
         }
         return profiles;
@@ -66,11 +66,36 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
 
     patchNotificationQueryDataOnAuthor(source, (profile) => {
         if (profile.profileId === profileId) {
-            profile.viewerContext = {
-                ...profile.viewerContext,
-                following: status,
-            };
+            patcher(profile, status);
         }
+    });
+
+    // Notifications user list tippy
+    function matchProfile(profiles: Profile[], profileId: string) {
+        for (const p of profiles) {
+            if (p.profileId === profileId) {
+                patcher(p, status);
+                break;
+            }
+        }
+    }
+    queryClient.setQueryData<{ pages: Array<{ data: Notification[] }> }>(['notifications', source, true], (old) => {
+        if (!old?.pages) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                for (const notification of page.data) {
+                    if ('reactors' in notification) {
+                        matchProfile(notification.reactors, profileId);
+                    } else if ('mirrors' in notification) {
+                        matchProfile(notification.mirrors, profileId);
+                    } else if ('followers' in notification) {
+                        matchProfile(notification.followers, profileId);
+                    } else if ('actions' in notification) {
+                        matchProfile(notification.actions, profileId);
+                    }
+                }
+            }
+        });
     });
 }
 
