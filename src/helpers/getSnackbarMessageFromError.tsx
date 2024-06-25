@@ -3,6 +3,7 @@ import type { SnackbarMessage } from 'notistack';
 
 import { FetchError } from '@/constants/error.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
+import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
 /**
  * Get a snackbar message from an error.
@@ -23,7 +24,7 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
         ) : error.message.startsWith('NotAllowed') ? (
             <Trans>Please switch to the wallet used for login.</Trans>
         ) : error instanceof FetchError && IS_PRODUCTION ? (
-            <Trans>Failed to fetch: ${error.status}. Please try again later</Trans>
+            getErrorMessageFromFetchError(error)
         ) : (
             error.message
         )
