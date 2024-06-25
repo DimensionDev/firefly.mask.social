@@ -39,8 +39,8 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
         author: allProfiles[source]!,
         mediaObjects: compact([compositePost.video, ...compositePost.images, ...compositePost.images]).map((x) => ({
             title: x.file.name,
-            mimeType: x.file.type,
-            url: x.ipfs?.uri || x.s3 || x.imgur || '',
+            mimeType: x.mimeType,
+            url: x.url,
         })),
         metadata: {
             locale: '',

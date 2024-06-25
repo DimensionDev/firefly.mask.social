@@ -314,3 +314,15 @@ body.not-support .fixed.inset-0,
 body.not-support .fixed.inset-y-0 {
     top: 38px;
 }
+
+/* reset giphy search bar css */
+.ff-giphy-searchbar > div {
+    display: none;
+}
+.ff-giphy-searchbar > input {
+    height: 32px;
+    box-shadow: none !important;
+}
+.ff-giphy-grid .giphy-gif {
+    cursor: pointer;
+}
