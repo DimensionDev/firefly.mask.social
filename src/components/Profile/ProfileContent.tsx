@@ -8,7 +8,9 @@ import { ProfileContentTabs } from '@/components/Profile/ProfileContentTabs.js';
 import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
 import { WalletTabs } from '@/components/Profile/WalletTabs.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
+import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
+import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import type { FireFlyProfile, Relation, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -21,9 +23,18 @@ interface ProfileContentProps {
     profile?: Profile | null;
     profiles: FireFlyProfile[];
     relations?: Relation[];
+    isSuspended?: boolean;
 }
 
-export function ProfileContent({ loading, source, walletProfile, profile, profiles, relations }: ProfileContentProps) {
+export function ProfileContent({
+    loading,
+    source,
+    walletProfile,
+    profile,
+    profiles,
+    relations,
+    isSuspended,
+}: ProfileContentProps) {
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();
@@ -36,9 +47,24 @@ export function ProfileContent({ loading, source, walletProfile, profile, profil
         if (profile) {
             return <Info profile={profile} />;
         }
-
+        if (isSuspended) {
+            return <SuspendedAccountInfo source={source as SocialSource} />;
+        }
         return null;
-    }, [profile, walletProfile, source, relations]);
+    }, [profile, walletProfile, source, relations, isSuspended]);
+
+    const content = useMemo(() => {
+        if (isSuspended) {
+            return <SuspendedAccountFallback />;
+        }
+        if (walletProfile) {
+            return <WalletTabs address={walletProfile.address} />;
+        }
+        if (profile) {
+            return <ProfileContentTabs source={profile.source} profileId={profile.profileId} />;
+        }
+        return null;
+    }, [isSuspended, walletProfile, profile]);
 
     if (loading) return <Loading />;
 
@@ -54,12 +80,7 @@ export function ProfileContent({ loading, source, walletProfile, profile, profil
         <>
             {info}
             <ProfileTabs profiles={profiles.filter((x) => x.source === source)} />
-
-            {walletProfile ? (
-                <WalletTabs address={walletProfile.address} />
-            ) : profile ? (
-                <ProfileContentTabs source={profile.source} profileId={profile.profileId} />
-            ) : null}
+            {content}
         </>
     );
 }

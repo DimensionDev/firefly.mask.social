@@ -1384,6 +1384,9 @@ msgstr "[Audio]"
 msgid "Final results"
 msgstr "Final results"
 
+msgid "Suspended account"
+msgstr "Suspended account"
+
 msgid "Recasted"
 msgstr "Recasted"
 

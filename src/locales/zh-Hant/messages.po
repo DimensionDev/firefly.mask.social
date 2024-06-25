@@ -1389,6 +1389,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Suspended account"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
