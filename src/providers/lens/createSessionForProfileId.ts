@@ -23,11 +23,11 @@ export async function createSessionForProfileId(profileId: string, signal?: Abor
     });
 
     const now = Date.now();
-    const accessToke = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
 
     return new LensSession(
         profileId,
-        accessToke.unwrap(),
+        accessToken.unwrap(),
         now,
         now + 1000 * 60 * 60 * 24 * 30, // 30 days
     );
