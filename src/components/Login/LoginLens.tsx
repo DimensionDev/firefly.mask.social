@@ -65,10 +65,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 }
 
                 // add new account for lens
-                await addAccount({
-                    profile: currentProfile,
-                    session,
-                });
+                await addAccount(
+                    {
+                        profile: currentProfile,
+                        session,
+                    },
+                    true,
+                );
                 enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
 
                 // restore profiles exclude lens

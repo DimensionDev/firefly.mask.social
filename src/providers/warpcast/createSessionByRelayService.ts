@@ -51,9 +51,5 @@ export async function createSessionByRelayService(callback?: (url: string) => vo
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
 
-    // firefly start polling for the signed key request
-    // once key request is signed, we will get the fid
-    await FireflySession.fromAndRestore(session, signal);
-
     return session;
 }

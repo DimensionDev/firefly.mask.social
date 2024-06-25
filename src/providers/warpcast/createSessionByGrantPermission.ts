@@ -110,10 +110,5 @@ async function initialSignerRequestToken(callback?: (url: string) => void, signa
 
 export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const session = await initialSignerRequestToken(callback, signal);
-
-    // firefly start polling for the signed key request
-    // once key request is signed, we will get the fid
-    await FireflySession.fromAndRestore(session, signal);
-
     return session;
 }

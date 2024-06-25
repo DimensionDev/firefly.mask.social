@@ -32,7 +32,7 @@ export interface ProfileState {
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
-    addAccount: (account: Account, setAsCurrent?: boolean) => void;
+    addAccount: (account: Account, setAsCurrent: boolean) => void;
     removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
@@ -60,13 +60,14 @@ function createState(
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
-                addAccount: (account, setAsCurrent = true) =>
+                addAccount: (account, setAsCurrent) =>
                     set((state) => {
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
-                        if (account_) return;
 
-                        // add new account to the top
-                        state.accounts = [account, ...state.accounts];
+                        if (!account_) {
+                            // add new account to the top
+                            state.accounts = [account, ...state.accounts];
+                        }
 
                         if (setAsCurrent) {
                             state.currentProfile = account.profile;
@@ -76,12 +77,6 @@ function createState(
                 removeAccount: (account) =>
                     set((state) => {
                         state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
-
-                        // the current profile is removed
-                        if (isSameProfile(state.currentProfile, account.profile)) {
-                            state.currentProfile = null;
-                            state.currentProfileSession = null;
-                        }
                     }),
                 updateAccounts: (accounts) =>
                     set((state) => {
@@ -246,10 +241,13 @@ const useTwitterStateBase = createState(
                 // only one account is allowed
                 state.clear();
 
-                await addAccount({
-                    profile: me,
-                    session: TwitterSession.from(me, payload),
-                });
+                await addAccount(
+                    {
+                        profile: me,
+                        session: TwitterSession.from(me, payload),
+                    },
+                    true,
+                );
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();

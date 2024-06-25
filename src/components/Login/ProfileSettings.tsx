@@ -39,56 +39,6 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const controllerRef = useRef<AbortController>();
     const { currentProfile } = useProfileStore(source);
 
-    const [{ loading }, onDetect] = useAsyncFn(
-        async (source: SocialSource) => {
-            controllerRef.current?.abort(new AbortError());
-            controllerRef.current = new AbortController();
-
-            try {
-                // restore firefly session from social source sessions
-                switch (source) {
-                    case Source.Lens:
-                        if (!currentProfile) break;
-                        await FireflySession.fromAndRestore(
-                            await createSessionForProfileId(currentProfile.profileId, controllerRef.current?.signal),
-                            controllerRef.current?.signal,
-                        );
-                        break;
-                    case Source.Farcaster:
-                        if (!FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)) break;
-                        await FireflySession.fromAndRestore(
-                            farcasterSessionHolder.session,
-                            controllerRef.current?.signal,
-                        );
-                        break;
-                    case Source.Twitter:
-                        throw new NotImplementedError();
-                    default:
-                        safeUnreachable(source);
-                        break;
-                }
-
-                // failed to recover firefly session
-                if (!fireflySessionHolder.session) throw new Error(t`Failed to create firefly session.`);
-
-                // sync accounts by using the restored firefly session
-                await FireflySessionConfirmModalRef.openAndWaitForClose({
-                    source,
-                    accounts: await syncAccountsFromFirefly(controllerRef.current?.signal),
-                    onDetected(profiles) {
-                        if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
-                        onClose?.();
-                        DraggablePopoverRef.close();
-                    },
-                });
-            } catch (error) {
-                enqueueErrorMessage(t`Failed to detect device accounts.`, { error });
-                throw error;
-            }
-        },
-        [currentProfile],
-    );
-
     useMount(() => {
         getProfileState(source).refreshAccounts();
     });
@@ -149,17 +99,6 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         <Trans>Switch account</Trans>
                     </span>
                 </ClickableButton>
-                {canDetect ? (
-                    <ClickableButton
-                        className="flex w-full items-center rounded px-2 py-3 text-main outline-none hover:bg-bg"
-                        disabled={loading}
-                        onClick={() => onDetect(source)}
-                    >
-                        <span className="text-[17px] font-bold leading-[22px] text-main">
-                            {loading ? <Trans>Detecting...</Trans> : <Trans>Detect device accounts</Trans>}
-                        </span>
-                    </ClickableButton>
-                ) : null}
                 <ClickableButton
                     className="flex items-center overflow-hidden whitespace-nowrap rounded px-2 py-3 outline-none hover:bg-bg md:mb-3"
                     onClick={() => {

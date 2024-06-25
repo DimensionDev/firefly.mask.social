@@ -24,7 +24,7 @@ interface ProfileModalProps {
 function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
         try {
-            await Promise.all(Object.values(accounts).map(addAccount));
+            await Promise.all(Object.values(accounts).map((x, i) => addAccount(x, i === 0)));
             onConfirm?.();
             ConfirmModalRef.close(true);
         } catch (error) {
