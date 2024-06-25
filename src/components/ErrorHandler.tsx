@@ -9,10 +9,9 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
-export interface ErrorHandlerProps {
-    error: Error & { digest?: string };
+export interface ErrorHandlerProps extends React.HTMLAttributes<HTMLDivElement> {
+    error: Error;
     reset: () => void;
-    className?: string;
 }
 
 export function ErrorHandler({ error, reset, className }: ErrorHandlerProps) {
@@ -30,7 +29,7 @@ export function ErrorHandler({ error, reset, className }: ErrorHandlerProps) {
                 className="mt-6 whitespace-nowrap rounded-2xl bg-main px-4 py-1 text-sm font-semibold leading-6 text-primaryBottom"
                 onClick={() => reset()}
             >
-                <LoadingIcon width={16} height={16} className={'mr-2 inline-block'} />
+                <LoadingIcon width={16} height={16} className="mr-2 inline-block" />
                 <Trans>Refresh</Trans>
             </ClickableButton>
         </div>
