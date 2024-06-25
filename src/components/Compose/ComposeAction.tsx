@@ -83,6 +83,8 @@ export function ComposeAction(props: ComposeActionProps) {
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
+    const redPacketDisabled = !!poll;
+
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
@@ -140,13 +142,15 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 <div
                     className={classNames(
-                        'hidden h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
+                        'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
                         {
-                            'opacity-50': loading,
+                            'opacity-50': loading || redPacketDisabled,
+                            'cursor-not-allowed': redPacketDisabled,
+                            'cursor-pointer': !redPacketDisabled,
                         },
                     )}
                     onClick={async () => {
-                        if (loading) return;
+                        if (loading || redPacketDisabled) return;
                         openRedPacketComposeDialog();
                     }}
                 >
