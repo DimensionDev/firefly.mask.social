@@ -6,6 +6,7 @@ import { useInView } from 'react-cool-inview';
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
+import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { getFarcasterChannelUrlById } from '@/helpers/getFarcasterChannelUrlById.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -64,30 +65,34 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
         );
     }, [title, channelId, router]);
 
+    const insideTippy = useTippyContext();
+
     if (!channelId || !source) return;
 
     if (allChannelData[source][channelId] === null) return title;
 
-    return isMedium ? (
-        <Tippy
-            appendTo={() => document.body}
-            maxWidth={350}
-            className="tippy-card"
-            placement="bottom"
-            duration={500}
-            delay={500}
-            arrow={false}
-            trigger="mouseenter"
-            hideOnClick
-            interactive
-            content={<ChannelCard loading={data.isLoading} channel={data.data} />}
-        >
-            <span>
-                <span ref={observe} />
-                {content}
-            </span>
-        </Tippy>
-    ) : (
-        content
+    if (!isMedium || insideTippy) return content;
+
+    return (
+        <TippyContext.Provider value>
+            <Tippy
+                appendTo={() => document.body}
+                maxWidth={350}
+                className="tippy-card"
+                placement="bottom"
+                duration={500}
+                delay={500}
+                arrow={false}
+                trigger="mouseenter"
+                hideOnClick
+                interactive
+                content={<ChannelCard loading={data.isLoading} channel={data.data} />}
+            >
+                <span>
+                    <span ref={observe} />
+                    {content}
+                </span>
+            </Tippy>
+        </TippyContext.Provider>
     );
 });

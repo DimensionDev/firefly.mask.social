@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo, type PropsWithChildren, useState } from 'react';
 
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
+import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -36,26 +37,29 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
         },
     });
 
-    if (!isMedium || !children) return children;
+    const insideTippy = useTippyContext();
+    if (!isMedium || !children || insideTippy) return children;
 
     return (
-        <Tippy
-            appendTo={() => document.body}
-            maxWidth={350}
-            className="tippy-card"
-            placement="bottom"
-            duration={500}
-            delay={500}
-            arrow={false}
-            trigger="mouseenter"
-            onShow={() => {
-                setEnabled(true);
-            }}
-            hideOnClick
-            interactive
-            content={<ProfileCard profile={profile} loading={isLoading} />}
-        >
-            <span className={className}>{children}</span>
-        </Tippy>
+        <TippyContext.Provider value>
+            <Tippy
+                appendTo={() => document.body}
+                maxWidth={350}
+                className="tippy-card"
+                placement="bottom"
+                duration={500}
+                delay={500}
+                arrow={false}
+                trigger="mouseenter"
+                onShow={() => {
+                    setEnabled(true);
+                }}
+                hideOnClick
+                interactive
+                content={<ProfileCard profile={profile} loading={isLoading} />}
+            >
+                <span className={className}>{children}</span>
+            </Tippy>
+        </TippyContext.Provider>
     );
 });
