@@ -310,6 +310,9 @@ msgstr "Only up to 2 images can be chosen."
 msgid "Failed to delete"
 msgstr "Failed to delete"
 
+msgid "Failed to fetch: {0}. Please try again later"
+msgstr "Failed to fetch: {0}. Please try again later"
+
 msgid "Report Failed"
 msgstr "Report Failed"
 
@@ -580,6 +583,9 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
+msgid "Forbidden. Please check your permissions"
+msgstr "Forbidden. Please check your permissions"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 
@@ -588,6 +594,9 @@ msgstr "[LuckyDrop]"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Unauthorized. Please check your login"
+msgstr "Unauthorized. Please check your login"
 
 msgid "Choice {0}"
 msgstr "Choice {0}"
@@ -603,9 +612,6 @@ msgstr "Open in Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
-
-msgid "Failed to fetch: ${0}. Please try again later"
-msgstr "Failed to fetch: ${0}. Please try again later"
 
 msgid "Switch"
 msgstr "Switch"
@@ -648,6 +654,9 @@ msgstr "Description"
 
 msgid "Hide more comments"
 msgstr "Hide more comments"
+
+msgid "Internal Server Error. Please try again later"
+msgstr "Internal Server Error. Please try again later"
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "Failed to resolve mint URL = {0}."
@@ -921,6 +930,9 @@ msgstr "Quote"
 
 msgid "View engagements"
 msgstr "View engagements"
+
+msgid "Not Found. Please check your URL[{0}]"
+msgstr "Not Found. Please check your URL[{0}]"
 
 msgid "Translated"
 msgstr "Translated"
