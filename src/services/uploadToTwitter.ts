@@ -7,7 +7,13 @@ interface UploadMediaResponse {
     };
 }
 
-export async function uploadToTwitter(files: File[]) {
+export interface TwitterMediaResponse {
+    file: File;
+    media_id: number;
+    media_id_string: string;
+}
+
+export async function uploadToTwitter(files: File[]): Promise<TwitterMediaResponse[]> {
     const medias = await Promise.all(
         files.map((x) => {
             const formData = new FormData();

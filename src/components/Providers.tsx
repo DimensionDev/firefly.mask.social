@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchContextManager } from '@giphy/react-components';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
@@ -105,7 +106,11 @@ export function Providers(props: { children: React.ReactNode }) {
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
                                 {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
+                                <LivepeerConfig client={livepeerClient}>
+                                    <SearchContextManager apiKey={env.external.NEXT_PUBLIC_GIPHY_API_KEY}>
+                                        {props.children}
+                                    </SearchContextManager>
+                                </LivepeerConfig>
                             </WagmiProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>

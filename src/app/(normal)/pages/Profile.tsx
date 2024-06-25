@@ -13,7 +13,6 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { SITE_NAME } from '@/constants/index.js';
@@ -61,6 +60,10 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
             return getProfileById(socialSource, identity);
         },
+        retry(failureCount, error) {
+            if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
+            return failureCount <= 3;
+        },
     });
 
     const { data: relations } = useQuery({
@@ -84,11 +87,10 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     useNavigatorTitle(t`Profile`);
     useUpdateCurrentVisitingProfile(profile);
 
-    if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) {
-        return <SuspendedAccountFallback />;
-    }
+    const isSuspended = error instanceof FetchError && error.status === StatusCodes.FORBIDDEN;
 
     if (
+        !isSuspended &&
         isOtherProfile &&
         !profile &&
         !walletProfile &&
@@ -100,7 +102,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     return (
         <div>
-            {isOtherProfile ? (
+            {isOtherProfile && !isSuspended ? (
                 <Title
                     profile={profile}
                     walletProfile={walletProfile}
@@ -120,6 +122,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
                 profile={profile}
                 profiles={profiles}
                 relations={relations}
+                isSuspended={isSuspended}
             />
         </div>
     );

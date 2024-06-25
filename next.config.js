@@ -71,6 +71,9 @@ export default {
             },
             { protocol: 'https', hostname: 'pbs.twimg.com' },
             { protocol: 'https', hostname: 'abs.twimg.com' },
+            {
+                hostname: '*.giphy.com',
+            },
         ],
     },
     async headers() {

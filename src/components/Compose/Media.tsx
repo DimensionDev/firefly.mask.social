@@ -11,6 +11,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
+import { createLocalMediaObject } from '@/helpers/resolveMediaURL.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -40,7 +41,10 @@ export function Media({ close }: MediaProps) {
                 });
                 updateImages((images) => {
                     if (images.length === maxImageCount) return images;
-                    return [...images, ...shouldUploadFiles.map((file) => ({ file }))].slice(0, maxImageCount);
+                    return [...images, ...shouldUploadFiles.map((file) => createLocalMediaObject(file))].slice(
+                        0,
+                        maxImageCount,
+                    );
                 });
             }
             close();
@@ -53,9 +57,7 @@ export function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                updateVideo({
-                    file: files[0],
-                });
+                updateVideo(createLocalMediaObject(files[0]));
             }
             close();
         },
