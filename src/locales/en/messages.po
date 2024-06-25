@@ -349,9 +349,6 @@ msgstr "Mirror again"
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 
-msgid "Failed to detect device accounts."
-msgstr "Failed to detect device accounts."
-
 msgid "Add another post..."
 msgstr "Add another post..."
 
@@ -589,9 +586,6 @@ msgstr "Choice {0}"
 msgid "Send Feedback"
 msgstr "Send Feedback"
 
-msgid "Detecting..."
-msgstr "Detecting..."
-
 msgid "Open in Firefly App"
 msgstr "Open in Firefly App"
 
@@ -795,9 +789,6 @@ msgstr "Unmuted @{0} on {sourceName}"
 
 msgid "Details"
 msgstr "Details"
-
-msgid "Detect device accounts"
-msgstr "Detect device accounts"
 
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
@@ -1155,9 +1146,6 @@ msgstr "Muting..."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
-
-msgid "Failed to create firefly session."
-msgstr "Failed to create firefly session."
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "<0>Minted</0> an NFT for free"

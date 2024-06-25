@@ -354,9 +354,6 @@ msgstr "转帖"
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 <2>Firefly</2> 连接您的账号。"
 
-msgid "Failed to detect device accounts."
-msgstr "检测设备账号失败。"
-
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
@@ -594,9 +591,6 @@ msgstr "选项 {0}"
 msgid "Send Feedback"
 msgstr "提交反馈"
 
-msgid "Detecting..."
-msgstr "检测中..."
-
 msgid "Open in Firefly App"
 msgstr "打开 Firefly App"
 
@@ -800,9 +794,6 @@ msgstr "在 {sourceName} 上取消屏蔽 @{0}"
 
 msgid "Details"
 msgstr "详情"
-
-msgid "Detect device accounts"
-msgstr "检测设备账号"
 
 msgid "No preview found for shared link"
 msgstr "无法预加载"
@@ -1160,9 +1151,6 @@ msgstr "屏蔽中..."
 
 msgid "Failed to mirror post."
 msgstr "转发失败。"
-
-msgid "Failed to create firefly session."
-msgstr "创建 firefly 会话失败。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
