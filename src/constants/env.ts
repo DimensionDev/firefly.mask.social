@@ -63,7 +63,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().default(''),
 
     // giphy api key.
-    NEXT_PUBLIC_GIPHY_API_KEY: z.string(),
+    NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
 });
 
 export const env = {
