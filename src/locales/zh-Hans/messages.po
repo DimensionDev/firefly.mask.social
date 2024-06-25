@@ -306,9 +306,6 @@ msgstr "从这里开始..."
 msgid "Save Post?"
 msgstr "保存草稿？"
 
-msgid "Missing IPFS hash for image or video."
-msgstr "未找到图片和视频的 hash 信息。"
-
 msgid "Reconnect with Firefly"
 msgstr "使用 Firefly 重连"
 
@@ -353,6 +350,9 @@ msgstr "取消点赞失败。"
 
 msgid "Mirror again"
 msgstr "转帖"
+
+msgid "There are images or videos that were not uploaded successfully."
+msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 <2>Firefly</2> 连接您的账号。"
@@ -1074,6 +1074,9 @@ msgstr "{totalVotes, plural, one {{totalVotes} 投票} other {{totalVotes} 投�
 msgid "Full"
 msgstr "完整的"
 
+msgid "Powered by"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "未找到 Lens 账号。请尝试其他钱包。"
 
@@ -1238,6 +1241,9 @@ msgstr "分享到"
 
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
+
+msgid "Image upload failed. Please try again."
+msgstr ""
 
 msgid "Only people you follow"
 msgstr "只有你关注的人"
@@ -1434,6 +1440,9 @@ msgstr "姓名 (可选)"
 msgid "Location"
 msgstr "地点"
 
+msgid "GIF"
+msgstr ""
+
 msgid "Recast"
 msgstr "转推"
 
@@ -1511,4 +1520,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

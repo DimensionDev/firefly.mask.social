@@ -301,9 +301,6 @@ msgstr "Type something here..."
 msgid "Save Post?"
 msgstr "Save Post?"
 
-msgid "Missing IPFS hash for image or video."
-msgstr "Missing IPFS hash for image or video."
-
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
 
@@ -348,6 +345,9 @@ msgstr "Failed to unlike the post."
 
 msgid "Mirror again"
 msgstr "Mirror again"
+
+msgid "There are images or videos that were not uploaded successfully."
+msgstr "There are images or videos that were not uploaded successfully."
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
@@ -1069,6 +1069,9 @@ msgstr "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}
 msgid "Full"
 msgstr "Full"
 
+msgid "Powered by"
+msgstr "Powered by"
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "No Lens profile was found. Please try using a different wallet."
 
@@ -1233,6 +1236,9 @@ msgstr "Share to"
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
+
+msgid "Image upload failed. Please try again."
+msgstr "Image upload failed. Please try again."
 
 msgid "Only people you follow"
 msgstr "Only people you follow"
@@ -1428,6 +1434,9 @@ msgstr "Name (optional)"
 
 msgid "Location"
 msgstr "Location"
+
+msgid "GIF"
+msgstr "GIF"
 
 msgid "Recast"
 msgstr "Recast"
