@@ -20,11 +20,14 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             let asset: Attachment | null = null;
             if (!media) return asset;
             const coverUri = media.preview_image_url;
-            if (media.type === 'video' && media.variants?.[0].url) {
+            if (['video', 'animated_gif'].includes(media.type) && media.variants?.[0].url) {
                 asset = {
                     type: 'Video',
                     uri: media.variants?.[0].url,
                 };
+                if (media.preview_image_url) {
+                    asset.coverUri = media.preview_image_url;
+                }
             }
             if (media.url) {
                 asset = {
