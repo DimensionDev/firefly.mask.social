@@ -1383,6 +1383,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Suspended account"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -1520,4 +1523,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

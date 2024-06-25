@@ -1383,6 +1383,9 @@ msgstr "[音频]"
 msgid "Final results"
 msgstr "最终结果"
 
+msgid "Suspended account"
+msgstr ""
+
 msgid "Recasted"
 msgstr "已转发"
 
@@ -1520,4 +1523,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
