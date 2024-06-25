@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-22 00:04\n"
+"PO-Revision-Date: 2024-06-24 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -517,7 +517,7 @@ msgid "Report spam"
 msgstr "举报垃圾"
 
 msgid "Failed to submit report on {0}"
-msgstr ""
+msgstr "在 {0} 上提交报告失败"
 
 msgid "View Source"
 msgstr "查看原文"
@@ -778,7 +778,7 @@ msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
-msgstr ""
+msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -1520,3 +1520,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
