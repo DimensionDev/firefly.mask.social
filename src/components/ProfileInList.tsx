@@ -56,6 +56,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                 p: (props) => <>{props.children}</>,
                                 br: () => null,
                             }}
+                            source={profile.source}
                         >
                             {profile.bio}
                         </BioMarkup>

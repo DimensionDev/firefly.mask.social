@@ -95,6 +95,7 @@ export function ChannelInList({
                                 p: (props) => <>{props.children}</>,
                                 br: () => null,
                             }}
+                            source={channel.source}
                         >
                             {channel.description ?? '-'}
                         </BioMarkup>
