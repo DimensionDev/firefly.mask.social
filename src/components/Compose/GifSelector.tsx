@@ -46,7 +46,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
             <div className="relative mx-3 flex flex-grow items-center rounded-xl bg-lightBg pl-3 text-main">
                 <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
                 <div className="w-full flex-1">
-                    <SearchBar className="ff-giphy-searchbar" placeholder={t`Search...`} />
+                    <SearchBar className="ff-giphy-search-bar" placeholder={t`Search...`} />
                 </div>
             </div>
             <div className="relative mt-2 h-[218px] rounded">

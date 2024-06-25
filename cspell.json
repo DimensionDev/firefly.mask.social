@@ -134,7 +134,9 @@
         "localforage",
         "fname",
         "openrank",
-        "imagekit"
+        "imagekit",
+        "giphy",
+        "Gifs"
     ],
     "flagWords": [],
     "ignorePaths": [
