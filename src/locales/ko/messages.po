@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-24 12:01\n"
+"PO-Revision-Date: 2024-06-25 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -306,9 +306,6 @@ msgstr ""
 msgid "Save Post?"
 msgstr ""
 
-msgid "Missing IPFS hash for image or video."
-msgstr ""
-
 msgid "Reconnect with Firefly"
 msgstr ""
 
@@ -349,6 +346,9 @@ msgid "Failed to unlike the post."
 msgstr ""
 
 msgid "Mirror again"
+msgstr ""
+
+msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
@@ -1077,6 +1077,9 @@ msgstr ""
 msgid "Full"
 msgstr ""
 
+msgid "Powered by"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
@@ -1242,6 +1245,9 @@ msgstr ""
 msgid "Failed to quote post."
 msgstr ""
 
+msgid "Image upload failed. Please try again."
+msgstr ""
+
 msgid "Only people you follow"
 msgstr ""
 
@@ -1383,6 +1389,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Suspended account"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -1441,6 +1450,9 @@ msgid "Name (optional)"
 msgstr ""
 
 msgid "Location"
+msgstr ""
+
+msgid "GIF"
 msgstr ""
 
 msgid "Recast"
