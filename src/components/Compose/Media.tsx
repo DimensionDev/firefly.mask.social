@@ -41,7 +41,10 @@ export function Media({ close }: MediaProps) {
                 });
                 updateImages((images) => {
                     if (images.length === maxImageCount) return images;
-                    return [...images, ...shouldUploadFiles.map((file) => createLocalMediaObject(file))].slice(0, maxImageCount);
+                    return [...images, ...shouldUploadFiles.map((file) => createLocalMediaObject(file))].slice(
+                        0,
+                        maxImageCount,
+                    );
                 });
             }
             close();

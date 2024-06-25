@@ -39,7 +39,7 @@ export const GifEntryButton = memo(function GifEntryButton({ disabled = false }:
                     >
                         <Popover.Panel
                             static
-                            className="absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 py-3 rounded-lg shadow-popover bg-lightBottom dark:shadow-none dark:border dark:border-line dark:bg-darkBottom"
+                            className="absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-lightBottom py-3 shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                         >
                             <GifSelector onSelected={close} />
                         </Popover.Panel>
