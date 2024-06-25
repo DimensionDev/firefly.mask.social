@@ -1,7 +1,7 @@
-import { t } from "@lingui/macro";
-import { StatusCodes } from "http-status-codes";
+import { t } from '@lingui/macro';
+import { StatusCodes } from 'http-status-codes';
 
-import type { FetchError } from "@/constants/error.js";
+import type { FetchError } from '@/constants/error.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
     switch (error.status) {
