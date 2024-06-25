@@ -1,10 +1,9 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
+import { Trans } from '@lingui/macro';
 import { signOut } from 'next-auth/react';
 import { useRef } from 'react';
-import { useAsyncFn, useMount, useUnmount } from 'react-use';
+import { useMount, useUnmount } from 'react-use';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -12,23 +11,16 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError, NotImplementedError } from '@/constants/error.js';
+import { AbortError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import {
-    DraggablePopoverRef,
-    FireflySessionConfirmModalRef,
     LoginModalRef,
     LogoutModalRef,
 } from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
-import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
