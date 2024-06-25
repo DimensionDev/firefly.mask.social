@@ -259,6 +259,9 @@ msgstr "{days, plural, one {1 day} other {{days} days}}"
 msgid "Blockchain"
 msgstr "Blockchain"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {Follower} other {Followers}}"
 
@@ -273,9 +276,6 @@ msgstr "No results for \"{searchKeyword}\""
 
 msgid "Page not found"
 msgstr "Page not found"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 
 msgid "Password"
 msgstr "Password"
@@ -309,9 +309,6 @@ msgstr "Only up to 2 images can be chosen."
 
 msgid "Failed to delete"
 msgstr "Failed to delete"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
 msgid "Report Failed"
 msgstr "Report Failed"
@@ -487,6 +484,9 @@ msgstr "Frame"
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
+
 msgid "Search Filter"
 msgstr "Search Filter"
 
@@ -573,6 +573,9 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 
 msgid "Top Profiles"
 msgstr "Top Profiles"
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
@@ -1057,6 +1060,9 @@ msgstr "No Lens profile was found. Please try using a different wallet."
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
 
+msgid "All notifications"
+msgstr "All notifications"
+
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
 
@@ -1162,9 +1168,6 @@ msgstr "Sign the transaction to verify you are the owner of the selected profile
 msgid "Refresh"
 msgstr "Refresh"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
-
 msgid "Channels"
 msgstr "Channels"
 
@@ -1234,6 +1237,9 @@ msgstr "Article added to your Bookmarks"
 msgid "Online"
 msgstr "Online"
 
+msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+
 msgid "Unfollow"
 msgstr "Unfollow"
 
@@ -1269,6 +1275,9 @@ msgstr "Farcaster channel"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
 
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
@@ -1330,6 +1339,9 @@ msgstr "No matching users"
 msgid "Save"
 msgstr "Save"
 
+msgid "<0/> and <1>{0} others</1>"
+msgstr "<0/> and <1>{0} others</1>"
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
 
@@ -1344,9 +1356,6 @@ msgstr "[Audio]"
 
 msgid "Final results"
 msgstr "Final results"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 
 msgid "Recasted"
 msgstr "Recasted"

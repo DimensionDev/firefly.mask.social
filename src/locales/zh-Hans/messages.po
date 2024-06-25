@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-22 00:04\n"
+"PO-Revision-Date: 2024-06-24 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -264,6 +264,9 @@ msgstr "{days, plural, one {1 天} other {{days} 天}}"
 msgid "Blockchain"
 msgstr "区块链"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+msgstr ""
+
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
 
@@ -278,9 +281,6 @@ msgstr "{searchKeyword} 搜索无结果"
 
 msgid "Page not found"
 msgstr "找不到网页"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "Password"
 msgstr "密码"
@@ -314,9 +314,6 @@ msgstr "至多可以选择 2 张图片。"
 
 msgid "Failed to delete"
 msgstr "删除失败"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
 msgid "Report Failed"
 msgstr "举报失败"
@@ -492,6 +489,9 @@ msgstr "Frame"
 msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
+msgstr ""
+
 msgid "Search Filter"
 msgstr "查询规则"
 
@@ -511,7 +511,7 @@ msgid "Report spam"
 msgstr "举报垃圾"
 
 msgid "Failed to submit report on {0}"
-msgstr ""
+msgstr "在 {0} 上提交报告失败"
 
 msgid "View Source"
 msgstr "查看原文"
@@ -578,6 +578,9 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 
 msgid "Top Profiles"
 msgstr "热门用户"
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+msgstr ""
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
@@ -763,7 +766,7 @@ msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
-msgstr ""
+msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -1062,6 +1065,9 @@ msgstr "未找到 Lens 账号。请尝试其他钱包。"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
+msgid "All notifications"
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
 
@@ -1167,9 +1173,6 @@ msgstr "签署交易以验证你是所选账号的所有者。"
 msgid "Refresh"
 msgstr "刷新"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}}<4> 关注了你</4>"
-
 msgid "Channels"
 msgstr "频道"
 
@@ -1239,6 +1242,9 @@ msgstr "文章已经添加到您的收藏中"
 msgid "Online"
 msgstr "在线"
 
+msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgstr ""
+
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -1274,6 +1280,9 @@ msgstr "Farcaster 频道"
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
+msgstr ""
 
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
@@ -1335,6 +1344,9 @@ msgstr "未找到匹配用户"
 msgid "Save"
 msgstr "保存"
 
+msgid "<0/> and <1>{0} others</1>"
+msgstr ""
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
@@ -1349,9 +1361,6 @@ msgstr "[音频]"
 
 msgid "Final results"
 msgstr "最终结果"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>收藏了你的 </5><6><7/></6>"
 
 msgid "Recasted"
 msgstr "已转发"

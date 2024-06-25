@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-22 00:04\n"
+"PO-Revision-Date: 2024-06-24 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -264,6 +264,9 @@ msgstr ""
 msgid "Blockchain"
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+msgstr ""
+
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -278,9 +281,6 @@ msgstr "“{searchKeyword}” 無搜尋結果"
 
 msgid "Page not found"
 msgstr "找不到網頁"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr ""
 
 msgid "Password"
 msgstr "密碼"
@@ -313,9 +313,6 @@ msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
 
 msgid "Failed to delete"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
 msgid "Report Failed"
@@ -492,6 +489,9 @@ msgstr ""
 msgid "Cannot choose due to account mismatch."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
+msgstr ""
+
 msgid "Search Filter"
 msgstr "進階搜尋"
 
@@ -577,6 +577,9 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr ""
 
 msgid "Top Profiles"
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -1062,6 +1065,9 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
+msgid "All notifications"
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -1167,9 +1173,6 @@ msgstr ""
 msgid "Refresh"
 msgstr "重新整理"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
-msgstr ""
-
 msgid "Channels"
 msgstr "頻道"
 
@@ -1239,6 +1242,9 @@ msgstr "文章已加入你的書籤"
 msgid "Online"
 msgstr "線上"
 
+msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgstr ""
+
 msgid "Unfollow"
 msgstr "取消追蹤"
 
@@ -1274,6 +1280,9 @@ msgstr ""
 
 msgid "Failed to unmirror post."
 msgstr "取消鏡像貼文失敗"
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
+msgstr ""
 
 msgid "Failed to unlike the comment."
 msgstr "取消評論點贊失敗"
@@ -1335,6 +1344,9 @@ msgstr "沒有符合的用戶"
 msgid "Save"
 msgstr ""
 
+msgid "<0/> and <1>{0} others</1>"
+msgstr ""
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
@@ -1348,9 +1360,6 @@ msgid "[Audio]"
 msgstr ""
 
 msgid "Final results"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
 msgid "Recasted"
