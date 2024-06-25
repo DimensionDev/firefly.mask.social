@@ -15,10 +15,7 @@ import { AbortError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import {
-    LoginModalRef,
-    LogoutModalRef,
-} from '@/modals/controls.js';
+import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 
