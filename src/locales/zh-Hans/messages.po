@@ -318,6 +318,9 @@ msgstr "至多可以选择 2 张图片。"
 msgid "Failed to delete"
 msgstr "删除失败"
 
+msgid "Failed to fetch: {0}. Please try again later"
+msgstr ""
+
 msgid "Report Failed"
 msgstr "举报失败"
 
@@ -585,6 +588,9 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 msgid "Top Profiles"
 msgstr "热门用户"
 
+msgid "Forbidden. Please check your permissions"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
@@ -593,6 +599,9 @@ msgstr "[红包]"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Unauthorized. Please check your login"
+msgstr ""
 
 msgid "Choice {0}"
 msgstr "选项 {0}"
@@ -608,9 +617,6 @@ msgstr "打开 Firefly App"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
-
-msgid "Failed to fetch: ${0}. Please try again later"
-msgstr "获取失败: ${0}. 请稍后重试"
 
 msgid "Switch"
 msgstr "切换"
@@ -653,6 +659,9 @@ msgstr "介绍"
 
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
+
+msgid "Internal Server Error. Please try again later"
+msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "未能解析铸造 URL = {0}。"
@@ -926,6 +935,9 @@ msgstr "引用"
 
 msgid "View engagements"
 msgstr "查看互动"
+
+msgid "Not Found. Please check your URL[{0}]"
+msgstr ""
 
 msgid "Translated"
 msgstr "已翻译"
@@ -1520,4 +1532,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

@@ -313,6 +313,9 @@ msgstr ""
 msgid "Failed to delete"
 msgstr ""
 
+msgid "Failed to fetch: {0}. Please try again later"
+msgstr ""
+
 msgid "Report Failed"
 msgstr ""
 
@@ -580,6 +583,9 @@ msgstr ""
 msgid "Top Profiles"
 msgstr ""
 
+msgid "Forbidden. Please check your permissions"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
@@ -587,6 +593,9 @@ msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Unauthorized. Please check your login"
 msgstr ""
 
 msgid "Choice {0}"
@@ -602,9 +611,6 @@ msgid "Open in Firefly App"
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
-
-msgid "Failed to fetch: ${0}. Please try again later"
 msgstr ""
 
 msgid "Switch"
@@ -647,6 +653,9 @@ msgid "Description"
 msgstr ""
 
 msgid "Hide more comments"
+msgstr ""
+
+msgid "Internal Server Error. Please try again later"
 msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
@@ -920,6 +929,9 @@ msgid "Quote"
 msgstr ""
 
 msgid "View engagements"
+msgstr ""
+
+msgid "Not Found. Please check your URL[{0}]"
 msgstr ""
 
 msgid "Translated"
