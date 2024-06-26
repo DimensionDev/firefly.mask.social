@@ -53,14 +53,13 @@ export function createTwitterMediaObject(twitterRes: TwitterMediaResponse): Medi
 }
 
 export function resolveMediaPreviewURL(media: MediaObject) {
-    const fileSuffix = media.file.type.split('/')[1];
     switch (media.source) {
         case MediaObjectSource.local:
             return URL.createObjectURL(media.file);
         case MediaObjectSource.ipfs:
             return URL.createObjectURL(media.file);
         case MediaObjectSource.imgur:
-            return `https://i.imgur.com/${media.id}.${fileSuffix}`;
+            return URL.createObjectURL(media.file);
         case MediaObjectSource.s3:
             return media.url;
         case MediaObjectSource.giphy:
