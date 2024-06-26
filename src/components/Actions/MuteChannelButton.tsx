@@ -1,7 +1,7 @@
-import { SpeakerXMarkIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
+import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -46,7 +46,7 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
             }}
             ref={ref}
         >
-            <SpeakerXMarkIcon width={24} height={24} />
+            <MuteIcon width={18} height={18} />
             <span className="font-bold leading-[22px] text-main">
                 {muted ? t`Unmute /${channel.id}` : t`Mute /${channel.id}`}
             </span>
