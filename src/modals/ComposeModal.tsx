@@ -337,7 +337,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     {
                         tag: CHAR_TAG.FIREFLY_RP,
                         content: RP_HASH_TAG,
-                        visible: true,
+                        visible: false,
                     },
                     fullMessage,
                 ];
