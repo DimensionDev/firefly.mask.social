@@ -1,12 +1,14 @@
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
+import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/link.svg';
 import Music from '@/assets/music.svg';
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { Source } from '@/constants/enum.js';
 import { ATTACHMENT } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
@@ -18,6 +20,10 @@ import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
 const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });
+
+const forwardTwitterVideo = (url: string) => {
+    return urlcat(location.origin, '/api/twitter/videoForward', { url });
+};
 
 const getClass = (attachments: number) => {
     if (attachments === 1) {
@@ -215,7 +221,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     })}
                 </div>
             ) : null}
-            {asset?.type === 'Video' && !isQuote ? <Video src={asset.uri} poster={asset.coverUri} /> : null}
+            {asset?.type === 'Video' && !isQuote ? (
+                <Video
+                    src={post.source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri}
+                    poster={asset.coverUri}
+                />
+            ) : null}
             {asset?.type === 'Audio' && !isQuote ? (
                 <Audio src={asset.uri} poster={asset.coverUri} artist={asset.artist} title={asset.title} />
             ) : null}
