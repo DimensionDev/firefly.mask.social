@@ -56,6 +56,8 @@ module.exports = {
                 card: 'var(--color-card)',
                 tooltipBg: 'var(--color-tooltip-bg)',
                 fireflyBrand: 'var(--color-firefly-brand)',
+                success: 'var(--color-success, #3DC233)',
+                fail: 'var(--color-fail, #FF3545)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

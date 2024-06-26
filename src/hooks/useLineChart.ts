@@ -1,7 +1,6 @@
-import { alpha, useTheme } from '@mui/material';
 import * as d3 from 'd3';
 import { format } from 'date-fns';
-import { type RefObject,useEffect } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 export interface Dimension {
     width: number;
@@ -29,7 +28,6 @@ export function fixOverPosition(
     return fixed;
 }
 
-// TODO chart morph transform
 export function useLineChart(
     svgRef: RefObject<SVGSVGElement>,
     data: Array<{
@@ -44,7 +42,6 @@ export function useLineChart(
         formatTooltip?: (value: number) => number | string;
     },
 ) {
-    const theme = useTheme();
     const { color = 'steelblue', tickFormat = ',.2s', formatTooltip = (value: number) => value } = opts;
     const { top, right, bottom, left, width, height } = dimension;
     const contentWidth = width - left - right;
@@ -99,7 +96,6 @@ export function useLineChart(
             .attr('transform', `translate(${minFixedPosition.x}, ${minFixedPosition.y})`)
             .style('font-size', 14)
             .style('font-weight', 700)
-            .attr('fill', theme.palette.text.secondary)
             .text(formatTooltip(min));
 
         graph
@@ -108,7 +104,6 @@ export function useLineChart(
             .attr('transform', `translate(${maxFixedPosition.x}, ${maxFixedPosition.y})`)
             .style('font-size', 14)
             .style('font-weight', 700)
-            .attr('fill', theme.palette.text.secondary)
             .text(formatTooltip(max));
 
         graph
@@ -174,7 +169,7 @@ export function useLineChart(
 
             g.style('display', null).style('pointer-events', 'none').style('font', '12px sans-serif');
 
-            const path = g.selectAll('path').data([null]).join('path').attr('fill', theme.palette.background.tipMask);
+            const path = g.selectAll('path').data([null]).join('path');
 
             const text = g
                 .selectAll('text')
@@ -188,7 +183,7 @@ export function useLineChart(
                         .attr('x', 0)
                         .attr('y', (d, i) => `${i * 1.2}em`)
                         .style('font-weight', (_, i) => (i ? null : 'bold'))
-                        .attr('fill', theme.palette.maskColor.bottom)
+                        .attr('fill', '#f5f5f5')
                         .text((d) => d),
                 );
 
@@ -213,7 +208,7 @@ export function useLineChart(
                         `M-${boxArrowX} -54h105s4 0 4 4v38s0 4 -4 4h-120s-4 0 -4 -4v-38s0 -4 4 -4 ${
                             isFirstIndex ? 'M -35 0 L -42 -10 L 11 -10 L -28 -10 Z' : 'M0 0L-7 -10L12 -10L7 -10Z'
                         }`,
-                    ).attr('fill', alpha(theme.palette.background.tipMask, 0.9));
+                    );
                 } else {
                     text.attr('transform', `translate(${-boxHalfWidth + offset},${18 - yValue})`);
 
@@ -222,7 +217,7 @@ export function useLineChart(
                         `M-${boxArrowX} 10h105s4 0 4 4v38s0 4 -4 4h-120s-4 0 -4 -4v-38s0 -4 4 -4 ${
                             isFirstIndex ? 'M -35 2 L -41 10 L 12 10 L -23 16 Z' : 'M0 2L-7 10L12 10L7 10Z'
                         } `,
-                    ).attr('fill', alpha(theme.palette.background.tipMask, 0.9));
+                    );
                 }
             }
         };
@@ -269,5 +264,5 @@ export function useLineChart(
         });
 
         d3.select(svgRef.current).on('mouseleave', hide);
-    }, [svgRef.current, data.length, dimension, tickFormat, formatTooltip]);
+    }, [data, dimension, tickFormat, formatTooltip, svgRef, id, left, top, contentWidth, contentHeight, color, height]);
 }

@@ -72,6 +72,9 @@ msgstr "提問"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
 
+msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
 msgid "Followed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已關注 @{0}"
 
@@ -99,6 +102,9 @@ msgstr "除錯連接"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼文發佈、按讚、留言等操作。"
 
+msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
+msgstr ""
+
 msgid "Download Image"
 msgstr ""
 
@@ -113,6 +119,9 @@ msgstr ""
 
 msgid "Failed to upload. Video is not supported yet"
 msgstr "上傳失敗。暫不接受影片上傳。"
+
+msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
 
 msgid "More"
 msgstr "更多"
@@ -330,6 +339,9 @@ msgstr "已連接的帳戶"
 msgid "Watch"
 msgstr ""
 
+msgid "24 Hour Trading Vol"
+msgstr ""
+
 msgid "Verified by {0}"
 msgstr ""
 
@@ -375,6 +387,9 @@ msgstr "最近"
 msgid "via <0>{sendFrom}</0>"
 msgstr ""
 
+msgid "Info"
+msgstr ""
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
@@ -394,6 +409,9 @@ msgid "Feed"
 msgstr "資訊來源"
 
 msgid "Recasts"
+msgstr ""
+
+msgid "Market Capital"
 msgstr ""
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
@@ -669,14 +687,23 @@ msgstr "取消按讚"
 msgid "Post was deleted"
 msgstr ""
 
+msgid "Website"
+msgstr ""
+
 msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
+msgid "1m"
+msgstr ""
+
 msgid "Bookmark"
 msgstr "書籤"
+
+msgid "Circulating Supply"
+msgstr ""
 
 msgid "Post has been deleted"
 msgstr ""
@@ -706,6 +733,9 @@ msgid "The user declined the request."
 msgstr ""
 
 msgid "<0>{0}</0> liked"
+msgstr ""
+
+msgid "Fully Diluted Valuation"
 msgstr ""
 
 msgid "Suggested Channels"
@@ -739,6 +769,9 @@ msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
 msgid "Are you sure you want to report this article?"
+msgstr ""
+
+msgid "<0>Price</0><1>${0}</1><2/>"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -816,6 +849,9 @@ msgstr ""
 msgid "commented"
 msgstr "已評論"
 
+msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
+msgstr ""
+
 msgid "Minting Date"
 msgstr ""
 
@@ -834,8 +870,14 @@ msgstr ""
 msgid "What's happening..."
 msgstr ""
 
+msgid "24h"
+msgstr ""
+
 msgid "Like"
 msgstr "喜歡"
+
+msgid "Contract Address"
+msgstr ""
 
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
@@ -912,6 +954,9 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "More Detail"
+msgstr ""
+
 msgid "View engagements"
 msgstr ""
 
@@ -979,6 +1024,9 @@ msgid "Light Mode"
 msgstr "淺色模式"
 
 msgid "Please switch to the {chainName} network in your wallet."
+msgstr ""
+
+msgid "Community"
 msgstr ""
 
 msgid "Delete"
@@ -1110,6 +1158,9 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
+msgid "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
+msgstr ""
+
 msgid "Skip for now"
 msgstr ""
 
@@ -1236,6 +1287,9 @@ msgstr ""
 msgid "Share to"
 msgstr "分享至"
 
+msgid "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
 
@@ -1278,6 +1332,9 @@ msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制
 msgid "Posted via <0>{sendFrom}</0>"
 msgstr ""
 
+msgid "Total Supply"
+msgstr ""
+
 msgid "Collection"
 msgstr ""
 
@@ -1305,6 +1362,9 @@ msgstr "取消評論點贊失敗"
 msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
+msgid "Statistic"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上"
 
@@ -1316,6 +1376,9 @@ msgstr ""
 
 msgid "Unmute"
 msgstr "取消靜音"
+
+msgid "Market Capital / FDV"
+msgstr ""
 
 msgid "Click to copy"
 msgstr "點擊複製"
@@ -1422,10 +1485,16 @@ msgstr ""
 msgid "Please confirm the login with X."
 msgstr ""
 
+msgid "Max Supply"
+msgstr ""
+
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"
+msgstr ""
+
+msgid "7d"
 msgstr ""
 
 msgid "Name (optional)"

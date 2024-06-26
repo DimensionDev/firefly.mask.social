@@ -2,7 +2,7 @@ import { CurrencyType, formatCurrency } from '@masknet/web3-shared-base';
 import { first, last } from 'lodash-es';
 import type { RefObject } from 'react';
 
-import { type Dimension,useLineChart } from '@/hooks/useLineChart.js';
+import { type Dimension, useLineChart } from '@/hooks/useLineChart.js';
 
 export function usePriceLineChart(
     svgRef: RefObject<SVGSVGElement>,
@@ -19,7 +19,7 @@ export function usePriceLineChart(
 ) {
     const startValue = first(data)?.value ?? 0;
     const endValue = last(data)?.value ?? 0;
-    const defaultColor = endValue - startValue < 0 ? 'red' : 'green';
+    const defaultColor = endValue - startValue < 0 ? 'var(--color-success)' : 'var(--color-fail)';
 
     const { color = defaultColor, sign = CurrencyType.USD } = opts;
 
