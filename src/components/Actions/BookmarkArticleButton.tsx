@@ -29,9 +29,9 @@ export const BookmarkArticleButton = forwardRef<HTMLButtonElement, Props>(functi
             ref={ref}
         >
             {hasBookmarked ? (
-                <BookmarkActiveIcon width={24} height={24} className="text-warn" />
+                <BookmarkActiveIcon width={18} height={18} className="text-lightMain" />
             ) : (
-                <BookmarkIcon width={24} height={24} />
+                <BookmarkIcon width={18} height={18} />
             )}
             <span className="font-bold leading-[22px] text-main">
                 {hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>}
