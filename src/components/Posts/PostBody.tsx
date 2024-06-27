@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
@@ -18,9 +18,11 @@ import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { SolanaBlinkRenderer } from '@/components/SolanaBlinkRenderer/SolanaBlinkRenderer.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { SOLANA_BLINKS_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -86,6 +88,28 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         (endingLinkCollapsed
             ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
             : post.metadata.content?.content) ?? '';
+
+    const frame = useMemo(() => {
+        // TODO: read the content
+        const solanaBlinkUrlMatch = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINKS_REGEX);
+        if (solanaBlinkUrlMatch) {
+            const solanaBlinkUrl = solanaBlinkUrlMatch[1];
+            return <SolanaBlinkRenderer url={solanaBlinkUrl} />;
+        }
+        if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled) {
+            return (
+                <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
+                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
+                    ) : null}
+                </Frame>
+            );
+        }
+        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
+            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />;
+        }
+        return null;
+    }, [post.metadata.content?.oembedUrl, post.quoteOn, post.metadata?.content?.oembedUrls, post.postId, post.source]);
 
     if (post.isEncrypted) {
         return (
@@ -238,15 +262,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            {post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled ? (
-                <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
-                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
-                    ) : null}
-                </Frame>
-            ) : post.metadata.content?.oembedUrl && !post.quoteOn ? (
-                <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
-            ) : null}
+            {frame}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
