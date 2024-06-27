@@ -154,9 +154,6 @@ msgstr ""
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
-msgid "[Image]"
-msgstr ""
-
 msgid "Wrong wallet"
 msgstr ""
 
@@ -313,6 +310,9 @@ msgstr ""
 msgid "Failed to fetch: {0}. Please try again later"
 msgstr ""
 
+msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
+msgstr ""
+
 msgid "Report Failed"
 msgstr ""
 
@@ -386,9 +386,6 @@ msgid "Owners"
 msgstr ""
 
 msgid "OpenGraph Validator"
-msgstr ""
-
-msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr ""
 
 msgid "Connect Wallet"
@@ -760,9 +757,6 @@ msgstr ""
 msgid "Retweeted"
 msgstr ""
 
-msgid "Post your reply"
-msgstr ""
-
 msgid "liked"
 msgstr ""
 
@@ -779,9 +773,6 @@ msgid "Invalid URL."
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
-
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -976,6 +967,9 @@ msgstr ""
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr ""
 
+msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
 msgid "Discard"
 msgstr ""
 
@@ -1019,9 +1013,6 @@ msgid "Unable to retrieve post details."
 msgstr ""
 
 msgid "Failed to publish post."
-msgstr ""
-
-msgid "recasted your"
 msgstr ""
 
 msgid "Quotes"
@@ -1240,6 +1231,9 @@ msgstr ""
 msgid "Failed to retweet."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -1310,9 +1304,6 @@ msgid "Farcaster channel"
 msgstr ""
 
 msgid "Failed to unmirror post."
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
 msgstr ""
 
 msgid "Failed to unlike the comment."
@@ -1390,9 +1381,6 @@ msgstr ""
 msgid "{0} Users"
 msgstr ""
 
-msgid "[Audio]"
-msgstr ""
-
 msgid "Final results"
 msgstr ""
 
@@ -1427,9 +1415,6 @@ msgid "Video"
 msgstr ""
 
 msgid "Language"
-msgstr ""
-
-msgid "Add a comment"
 msgstr ""
 
 msgid "Address on Watching Lists"
@@ -1481,9 +1466,6 @@ msgid "Media"
 msgstr ""
 
 msgid "No content to publish."
-msgstr ""
-
-msgid "mirrored your"
 msgstr ""
 
 msgid "Mirror"
