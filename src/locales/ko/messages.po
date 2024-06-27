@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-24 12:01\n"
+"PO-Revision-Date: 2024-06-26 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -306,9 +306,6 @@ msgstr ""
 msgid "Save Post?"
 msgstr ""
 
-msgid "Missing IPFS hash for image or video."
-msgstr ""
-
 msgid "Reconnect with Firefly"
 msgstr ""
 
@@ -316,6 +313,9 @@ msgid "Only up to 2 images can be chosen."
 msgstr ""
 
 msgid "Failed to delete"
+msgstr ""
+
+msgid "Failed to fetch: {0}. Please try again later"
 msgstr ""
 
 msgid "Report Failed"
@@ -349,6 +349,9 @@ msgid "Failed to unlike the post."
 msgstr ""
 
 msgid "Mirror again"
+msgstr ""
+
+msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
@@ -585,6 +588,9 @@ msgstr ""
 msgid "Top Profiles"
 msgstr ""
 
+msgid "Forbidden. Please check your permissions"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
@@ -592,6 +598,9 @@ msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Unauthorized. Please check your login"
 msgstr ""
 
 msgid "Choice {0}"
@@ -607,9 +616,6 @@ msgid "Open in Firefly App"
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
-
-msgid "Failed to fetch: ${0}. Please try again later"
 msgstr ""
 
 msgid "Switch"
@@ -652,6 +658,9 @@ msgid "Description"
 msgstr ""
 
 msgid "Hide more comments"
+msgstr ""
+
+msgid "Internal Server Error. Please try again later"
 msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
@@ -927,6 +936,9 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
+msgid "Not Found. Please check your URL[{0}]"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -1075,6 +1087,9 @@ msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr ""
 
 msgid "Full"
+msgstr ""
+
+msgid "Powered by"
 msgstr ""
 
 msgid "No Lens profile was found. Please try using a different wallet."
@@ -1242,6 +1257,9 @@ msgstr ""
 msgid "Failed to quote post."
 msgstr ""
 
+msgid "Image upload failed. Please try again."
+msgstr ""
+
 msgid "Only people you follow"
 msgstr ""
 
@@ -1383,6 +1401,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Suspended account"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -1441,6 +1462,9 @@ msgid "Name (optional)"
 msgstr ""
 
 msgid "Location"
+msgstr ""
+
+msgid "GIF"
 msgstr ""
 
 msgid "Recast"

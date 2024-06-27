@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-24 12:01\n"
+"PO-Revision-Date: 2024-06-26 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -303,9 +303,6 @@ msgstr "从这里开始..."
 msgid "Save Post?"
 msgstr "保存草稿？"
 
-msgid "Missing IPFS hash for image or video."
-msgstr "未找到图片和视频的 hash 信息。"
-
 msgid "Reconnect with Firefly"
 msgstr "使用 Firefly 重连"
 
@@ -314,6 +311,9 @@ msgstr "至多可以选择 2 张图片。"
 
 msgid "Failed to delete"
 msgstr "删除失败"
+
+msgid "Failed to fetch: {0}. Please try again later"
+msgstr ""
 
 msgid "Report Failed"
 msgstr "举报失败"
@@ -347,6 +347,9 @@ msgstr "取消点赞失败。"
 
 msgid "Mirror again"
 msgstr "转帖"
+
+msgid "There are images or videos that were not uploaded successfully."
+msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 <2>Firefly</2> 连接您的账号。"
@@ -579,6 +582,9 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 msgid "Top Profiles"
 msgstr "热门用户"
 
+msgid "Forbidden. Please check your permissions"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
@@ -587,6 +593,9 @@ msgstr "[红包]"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Unauthorized. Please check your login"
+msgstr ""
 
 msgid "Choice {0}"
 msgstr "选项 {0}"
@@ -599,9 +608,6 @@ msgstr "打开 Firefly App"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
-
-msgid "Failed to fetch: ${0}. Please try again later"
-msgstr "获取失败: ${0}. 请稍后重试"
 
 msgid "Switch"
 msgstr "切换"
@@ -644,6 +650,9 @@ msgstr "介绍"
 
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
+
+msgid "Internal Server Error. Please try again later"
+msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "未能解析铸造 URL = {0}。"
@@ -909,6 +918,9 @@ msgstr "引用"
 msgid "View engagements"
 msgstr "查看互动"
 
+msgid "Not Found. Please check your URL[{0}]"
+msgstr ""
+
 msgid "Translated"
 msgstr "已翻译"
 
@@ -1058,6 +1070,9 @@ msgstr "{totalVotes, plural, one {{totalVotes} 投票} other {{totalVotes} 投�
 
 msgid "Full"
 msgstr "完整的"
+
+msgid "Powered by"
+msgstr ""
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "未找到 Lens 账号。请尝试其他钱包。"
@@ -1224,6 +1239,9 @@ msgstr "分享到"
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
+msgid "Image upload failed. Please try again."
+msgstr ""
+
 msgid "Only people you follow"
 msgstr "只有你关注的人"
 
@@ -1362,6 +1380,9 @@ msgstr "[音频]"
 msgid "Final results"
 msgstr "最终结果"
 
+msgid "Suspended account"
+msgstr ""
+
 msgid "Recasted"
 msgstr "已转发"
 
@@ -1421,6 +1442,9 @@ msgstr "姓名 (可选)"
 
 msgid "Location"
 msgstr "地点"
+
+msgid "GIF"
+msgstr ""
 
 msgid "Recast"
 msgstr "转推"

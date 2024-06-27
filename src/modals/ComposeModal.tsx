@@ -51,6 +51,7 @@ import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { createLocalMediaObject } from '@/helpers/resolveMediaURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -336,7 +337,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     {
                         tag: CHAR_TAG.FIREFLY_RP,
                         content: RP_HASH_TAG,
-                        visible: true,
+                        visible: false,
                     },
                     fullMessage,
                 ];
@@ -344,9 +345,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 updateChars(chars);
                 setEditorContent(chars);
 
-                addImage({
-                    file: new File([secretImage], 'image.png', { type: 'image/png' }),
-                });
+                addImage(createLocalMediaObject(new File([secretImage], 'image.png', { type: 'image/png' })));
 
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {

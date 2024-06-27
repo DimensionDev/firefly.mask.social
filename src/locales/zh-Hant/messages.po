@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-24 12:01\n"
+"PO-Revision-Date: 2024-06-26 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,7 +28,7 @@ msgid "Be the first one to comment!"
 msgstr "來留下第一條評論吧！"
 
 msgid "Onchain Activities"
-msgstr ""
+msgstr "鏈上活動"
 
 msgid "Muted"
 msgstr "已靜音"
@@ -67,7 +67,7 @@ msgid "Discover"
 msgstr "發現"
 
 msgid "Ask a question"
-msgstr ""
+msgstr "提問"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
@@ -303,9 +303,6 @@ msgstr ""
 msgid "Save Post?"
 msgstr ""
 
-msgid "Missing IPFS hash for image or video."
-msgstr ""
-
 msgid "Reconnect with Firefly"
 msgstr "通過 Firefly 重新連接"
 
@@ -313,6 +310,9 @@ msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
 
 msgid "Failed to delete"
+msgstr ""
+
+msgid "Failed to fetch: {0}. Please try again later"
 msgstr ""
 
 msgid "Report Failed"
@@ -347,6 +347,9 @@ msgstr "點讚評論失敗"
 
 msgid "Mirror again"
 msgstr "重新鏡像"
+
+msgid "There are images or videos that were not uploaded successfully."
+msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並掃描QR碼，授權 <2>Firefly</2> 連結您的帳戶。"
@@ -579,6 +582,9 @@ msgstr ""
 msgid "Top Profiles"
 msgstr ""
 
+msgid "Forbidden. Please check your permissions"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
@@ -586,6 +592,9 @@ msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Unauthorized. Please check your login"
 msgstr ""
 
 msgid "Choice {0}"
@@ -599,9 +608,6 @@ msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隱私政策"
-
-msgid "Failed to fetch: ${0}. Please try again later"
-msgstr ""
 
 msgid "Switch"
 msgstr ""
@@ -643,6 +649,9 @@ msgid "Description"
 msgstr ""
 
 msgid "Hide more comments"
+msgstr ""
+
+msgid "Internal Server Error. Please try again later"
 msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
@@ -909,6 +918,9 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
+msgid "Not Found. Please check your URL[{0}]"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -1057,6 +1069,9 @@ msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr ""
 
 msgid "Full"
+msgstr ""
+
+msgid "Powered by"
 msgstr ""
 
 msgid "No Lens profile was found. Please try using a different wallet."
@@ -1224,6 +1239,9 @@ msgstr "分享至"
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
 
+msgid "Image upload failed. Please try again."
+msgstr ""
+
 msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
 
@@ -1362,6 +1380,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Suspended account"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -1420,6 +1441,9 @@ msgid "Name (optional)"
 msgstr ""
 
 msgid "Location"
+msgstr ""
+
+msgid "GIF"
 msgstr ""
 
 msgid "Recast"

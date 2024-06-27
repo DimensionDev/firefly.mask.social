@@ -298,9 +298,6 @@ msgstr "Type something here..."
 msgid "Save Post?"
 msgstr "Save Post?"
 
-msgid "Missing IPFS hash for image or video."
-msgstr "Missing IPFS hash for image or video."
-
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
 
@@ -309,6 +306,9 @@ msgstr "Only up to 2 images can be chosen."
 
 msgid "Failed to delete"
 msgstr "Failed to delete"
+
+msgid "Failed to fetch: {0}. Please try again later"
+msgstr "Failed to fetch: {0}. Please try again later"
 
 msgid "Report Failed"
 msgstr "Report Failed"
@@ -342,6 +342,9 @@ msgstr "Failed to unlike the post."
 
 msgid "Mirror again"
 msgstr "Mirror again"
+
+msgid "There are images or videos that were not uploaded successfully."
+msgstr "There are images or videos that were not uploaded successfully."
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
@@ -574,6 +577,9 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
+msgid "Forbidden. Please check your permissions"
+msgstr "Forbidden. Please check your permissions"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 
@@ -582,6 +588,9 @@ msgstr "[LuckyDrop]"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Unauthorized. Please check your login"
+msgstr "Unauthorized. Please check your login"
 
 msgid "Choice {0}"
 msgstr "Choice {0}"
@@ -594,9 +603,6 @@ msgstr "Open in Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
-
-msgid "Failed to fetch: ${0}. Please try again later"
-msgstr "Failed to fetch: ${0}. Please try again later"
 
 msgid "Switch"
 msgstr "Switch"
@@ -639,6 +645,9 @@ msgstr "Description"
 
 msgid "Hide more comments"
 msgstr "Hide more comments"
+
+msgid "Internal Server Error. Please try again later"
+msgstr "Internal Server Error. Please try again later"
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "Failed to resolve mint URL = {0}."
@@ -904,6 +913,9 @@ msgstr "Quote"
 msgid "View engagements"
 msgstr "View engagements"
 
+msgid "Not Found. Please check your URL[{0}]"
+msgstr "Not Found. Please check your URL[{0}]"
+
 msgid "Translated"
 msgstr "Translated"
 
@@ -1053,6 +1065,9 @@ msgstr "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}
 
 msgid "Full"
 msgstr "Full"
+
+msgid "Powered by"
+msgstr "Powered by"
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "No Lens profile was found. Please try using a different wallet."
@@ -1219,6 +1234,9 @@ msgstr "Share to"
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
+msgid "Image upload failed. Please try again."
+msgstr "Image upload failed. Please try again."
+
 msgid "Only people you follow"
 msgstr "Only people you follow"
 
@@ -1357,6 +1375,9 @@ msgstr "[Audio]"
 msgid "Final results"
 msgstr "Final results"
 
+msgid "Suspended account"
+msgstr "Suspended account"
+
 msgid "Recasted"
 msgstr "Recasted"
 
@@ -1416,6 +1437,9 @@ msgstr "Name (optional)"
 
 msgid "Location"
 msgstr "Location"
+
+msgid "GIF"
+msgstr "GIF"
 
 msgid "Recast"
 msgstr "Recast"
