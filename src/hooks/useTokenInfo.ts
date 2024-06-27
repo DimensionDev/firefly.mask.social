@@ -5,15 +5,11 @@ import { Coingecko } from '@/providers/coingecko/index.js';
 export function useTokenInfo(symbol: string) {
     return useQuery({
         queryKey: ['coingecko', 'tokens'],
-        queryFn: async () => {
-            return Coingecko.getTokens();
-        },
-        staleTime: Infinity,
-        gcTime: Infinity,
+        queryFn: () => Coingecko.getTokens(),
         select: (tokens) => {
             const sym = symbol.toLowerCase();
             const token = tokens.find((x) => x.symbol === sym) || null;
-            return token;
+            return token || null;
         },
     });
 }

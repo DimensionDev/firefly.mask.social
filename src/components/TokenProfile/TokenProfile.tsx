@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { first, last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { type HTMLProps, memo, useMemo, useRef } from 'react';
+import { type HTMLProps, memo, useEffect, useMemo, useRef } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -15,10 +15,7 @@ import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
-
-interface Props extends HTMLProps<HTMLDivElement> {
-    symbol: string;
-}
+import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
 
 const DIMENSION: Dimension = {
     top: 12,
@@ -29,10 +26,15 @@ const DIMENSION: Dimension = {
     height: 100,
 };
 
-export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, ...rest }) {
+interface Props extends HTMLProps<HTMLDivElement> {
+    symbol: string;
+    onTokenUpdate?(token: CoingeckoToken | undefined | null): void;
+}
+
+export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, onTokenUpdate, ...rest }) {
     const chartRef = useRef<SVGSVGElement>(null);
     const router = useRouter();
-    const { data: token } = useTokenInfo(symbol);
+    const { data: token, isLoading: isLoadingToken } = useTokenInfo(symbol);
     const { data: price } = useTokenPrice(token?.id);
     const { data: trending } = useCoinTrending(token?.id);
     const market = trending?.market;
@@ -45,6 +47,11 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     }, [priceStats]);
 
     usePriceLineChart(chartRef, priceStats, DIMENSION, `price-chart-${symbol}`, { color: 'currentColor' });
+
+    useEffect(() => {
+        if (isLoadingToken) return;
+        onTokenUpdate?.(token);
+    }, [onTokenUpdate, token, isLoadingToken]);
 
     if (!token) return null;
     return (
@@ -67,7 +74,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     <PriceArrow
                         width={16}
                         height={16}
-                        className={isUp ? 'shrink-0 text-success' : 'text-fail shrink-0 rotate-180'}
+                        className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
                     />
                     {market?.price_change_percentage_24h_in_currency !== undefined ? (
                         <span className={isUp ? 'text-success' : 'text-fail'}>
@@ -93,7 +100,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     width={267}
                     height={100}
                     viewBox="0 0 317 100"
-                    className={isUp ? 'text-success' : 'text-fail rotate-180'}
+                    className={isUp ? 'text-success' : 'rotate-180 text-fail'}
                 />
             </div>
             <ClickableButton

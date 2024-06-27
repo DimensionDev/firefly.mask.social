@@ -45,6 +45,9 @@ msgstr "使用 Warpcast 连接"
 msgid "Report @{0}"
 msgstr "报告 @{0}"
 
+msgid "Sell Tax: {0}%"
+msgstr ""
+
 msgid "Retweet"
 msgstr "转帖"
 
@@ -93,6 +96,9 @@ msgstr "您可以使用以下方式登录 Farcaster。"
 msgid "Mute @{0}"
 msgstr "屏蔽 @{0}"
 
+msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
+msgstr ""
+
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
@@ -108,6 +114,9 @@ msgstr ""
 msgid "Download Image"
 msgstr "下载图片"
 
+msgid "We are not aware of any code that prevents the sale of tokens."
+msgstr ""
+
 msgid "Watching"
 msgstr "观察中"
 
@@ -116,6 +125,9 @@ msgstr "查询频道中"
 
 msgid "Views"
 msgstr "浏览数"
+
+msgid "Functions that can suspend trading"
+msgstr ""
 
 msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
@@ -132,11 +144,17 @@ msgstr "翻译帖子"
 msgid "Searching users"
 msgstr "查找用户中"
 
+msgid "Airdrop Scam"
+msgstr ""
+
 msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
 
 msgid "This entry has been permanently stored on-chain and signed by its creator"
 msgstr "这个入口已经被其创建者签名并永久存储上链"
+
+msgid "Tax can be modified"
+msgstr ""
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -149,6 +167,9 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
 msgid "Change Wallet"
 msgstr "更换钱包"
+
+msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
+msgstr ""
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -185,6 +206,9 @@ msgstr "在 {sourceName} 上屏蔽 @{0}"
 
 msgid "Login with QR Code"
 msgstr "使用二维码登录"
+
+msgid "Contract source code verified"
+msgstr ""
 
 msgid "NFT Standard"
 msgstr "NFT 标准"
@@ -237,6 +261,9 @@ msgstr "收起"
 msgid "comment"
 msgstr "评论"
 
+msgid "True Token"
+msgstr ""
+
 msgid "Bookmarks"
 msgstr "收藏"
 
@@ -288,6 +315,9 @@ msgstr "{searchKeyword} 搜索无结果"
 msgid "Page not found"
 msgstr "找不到网页"
 
+msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
+msgstr ""
+
 msgid "Password"
 msgstr "密码"
 
@@ -330,6 +360,9 @@ msgstr "举报失败"
 msgid "Attendees"
 msgstr "出席人数"
 
+msgid "Functions with retrievable ownership"
+msgstr ""
+
 msgid "Search"
 msgstr "搜索"
 
@@ -340,6 +373,15 @@ msgid "Watch"
 msgstr "关注"
 
 msgid "24 Hour Trading Vol"
+msgstr ""
+
+msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
+msgstr ""
+
+msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
 msgid "Verified by {0}"
@@ -366,6 +408,9 @@ msgstr ""
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 <2>Firefly</2> 连接您的账号。"
 
+msgid "No Airdrop Scam"
+msgstr ""
+
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
@@ -380,6 +425,9 @@ msgstr "铸造交易哈希中"
 
 msgid "Audio Cover"
 msgstr "音频封面"
+
+msgid "Fake Token"
+msgstr ""
 
 msgid "Recent"
 msgstr "最近"
@@ -420,6 +468,9 @@ msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！
 msgid "Confirmation"
 msgstr "确认"
 
+msgid "Whitelist function"
+msgstr ""
+
 msgid "Failed to mute /{0}."
 msgstr "屏蔽 /{0} 失败。"
 
@@ -443,6 +494,9 @@ msgstr "Frame 验证器"
 
 msgid "<0>Poap</0> received"
 msgstr "<0>Poap</0> 已收到"
+
+msgid "No proxy"
+msgstr ""
 
 msgid "<0>Sold</0> an NFT"
 msgstr "<0>出售</0> 一个 NFT"
@@ -474,8 +528,17 @@ msgstr "无效文件类型，允许类型为: {0}"
 msgid "Connection failed"
 msgstr "连接失败"
 
+msgid "Owner can't change balance"
+msgstr ""
+
 msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
+
+msgid "Anti_whale(Limited number of transactions)"
+msgstr ""
+
+msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
+msgstr ""
 
 msgid "Log out"
 msgstr "登出"
@@ -494,6 +557,9 @@ msgstr "取消收藏失败"
 
 msgid "post"
 msgstr "发帖"
+
+msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
+msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
@@ -558,6 +624,9 @@ msgstr "在 {sourceName} 上取消关注 @{0} 失败"
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
+msgid "Blacklist function"
+msgstr ""
+
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
@@ -581,6 +650,12 @@ msgstr "属于"
 
 msgid "Are you sure you want to report this post?"
 msgstr "您确定要举报这个帖子吗？"
+
+msgid "No function found that retrieves ownership"
+msgstr ""
+
+msgid "<0>Price</0><1>${0}</1><2/>{1}"
+msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
@@ -627,17 +702,35 @@ msgstr "打开 Firefly App"
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
+msgid "No mint function"
+msgstr ""
+
 msgid "Switch"
 msgstr "切换"
 
 msgid "Follow"
 msgstr "关注"
 
+msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
+msgstr ""
+
 msgid "Add account"
 msgstr "添加账号"
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
+
+msgid "Proxy contract"
+msgstr ""
+
+msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
+msgstr ""
+
+msgid "Tax cannot be modified"
+msgstr ""
+
+msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
+msgstr ""
 
 msgid "Replies"
 msgstr "回复"
@@ -647,6 +740,9 @@ msgstr "评论"
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
+
+msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
+msgstr ""
 
 msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
@@ -666,6 +762,9 @@ msgstr "您已在 {0} 发布成功。"
 msgid "Description"
 msgstr "介绍"
 
+msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
 
@@ -683,6 +782,9 @@ msgstr "登录失败。"
 
 msgid "Unlike"
 msgstr "取消点赞"
+
+msgid "No blacklist"
+msgstr ""
 
 msgid "Post was deleted"
 msgstr "帖子已被删除"
@@ -713,6 +815,9 @@ msgstr "举报文章"
 
 msgid "Everyone"
 msgstr "任何人"
+
+msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
+msgstr ""
 
 msgid "Failed to unmute /{0}."
 msgstr "取消屏蔽失败/{0}。"
@@ -750,6 +855,9 @@ msgstr "NFT 合约"
 msgid "Failed to follow."
 msgstr "关注失败"
 
+msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+msgstr ""
+
 msgid "Mute"
 msgstr "屏蔽"
 
@@ -765,14 +873,14 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
+msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
+msgstr ""
+
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
-
-msgid "<0>Price</0><1>${0}</1><2/>"
-msgstr ""
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -840,6 +948,9 @@ msgstr "详情"
 msgid "No preview found for shared link"
 msgstr "无法预加载"
 
+msgid "Contract source code not verified"
+msgstr ""
+
 msgid "Failed to unwatch {identity}"
 msgstr "取消关注 {identity} 失败"
 
@@ -879,6 +990,9 @@ msgstr "点赞"
 msgid "Contract Address"
 msgstr ""
 
+msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
@@ -908,6 +1022,9 @@ msgstr "显示"
 
 msgid "Mute successfully."
 msgstr "屏蔽成功。"
+
+msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+msgstr ""
 
 msgid "Show More"
 msgstr "显示更多"
@@ -1032,6 +1149,9 @@ msgstr ""
 msgid "Delete"
 msgstr "删除"
 
+msgid "May the token is a honeypot."
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr "{minutes, plural, one {1 分钟} other {{minutes} 分钟}}"
 
@@ -1052,6 +1172,9 @@ msgstr "已转发"
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
+
+msgid "This does not appear to be a honeypot."
+msgstr ""
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
@@ -1109,6 +1232,9 @@ msgstr "<0>铸造了</0> 一个 NFT 价值 {costEl}"
 
 msgid "Suspended"
 msgstr "已暂停"
+
+msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
+msgstr ""
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr "{totalVotes, plural, one {{totalVotes} 投票} other {{totalVotes} 投票}}"
@@ -1170,6 +1296,9 @@ msgstr ""
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
+msgid "Owner can change balance"
+msgstr ""
+
 msgid "Collects"
 msgstr "收藏"
 
@@ -1194,6 +1323,9 @@ msgstr "连接"
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
+msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
+msgstr ""
+
 msgid "No profile found"
 msgstr "未发现个人信息"
 
@@ -1209,6 +1341,9 @@ msgstr "你已经滑到底部啦～"
 msgid "View"
 msgstr "查看"
 
+msgid "No whitelist"
+msgstr ""
+
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 
@@ -1217,6 +1352,9 @@ msgstr "屏蔽中..."
 
 msgid "Failed to mirror post."
 msgstr "转发失败。"
+
+msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
+msgstr ""
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
@@ -1302,6 +1440,12 @@ msgstr "只有你关注的人"
 msgid "Add another option"
 msgstr "添加另一个选项"
 
+msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "Buy Tax: {0}%"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
@@ -1317,6 +1461,9 @@ msgstr "在线"
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
+msgid "You may lose your assets if giving approval to the website of this token."
+msgstr ""
+
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -1325,6 +1472,9 @@ msgstr "您的 {0} 账号已连接。"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "您不能在 {0} 上评论 {author}。"
+
+msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
+msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
@@ -1343,6 +1493,9 @@ msgstr "您的名字"
 
 msgid "Owned"
 msgstr "拥有"
+
+msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
 
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
@@ -1443,6 +1596,9 @@ msgstr ""
 msgid "Recasted"
 msgstr "已转发"
 
+msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
 
@@ -1503,6 +1659,12 @@ msgstr "姓名 (可选)"
 msgid "Location"
 msgstr "地点"
 
+msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
+msgstr ""
+
+msgid "This is not an airdrop scam. Many scams attract users through airdrops."
+msgstr ""
+
 msgid "GIF"
 msgstr ""
 
@@ -1517,6 +1679,9 @@ msgstr "返回主页"
 
 msgid "Followers"
 msgstr "粉丝"
+
+msgid "Mint function"
+msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"

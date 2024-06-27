@@ -17,7 +17,7 @@ export type CommunityType =
     | 'twitter'
     | 'other';
 
-export type CommunityUrls = Array<{ type: Partial<CommunityType>; link: string }>;
+export type CommunityUrl = { type: CommunityType; link: string };
 
 export interface Coin {
     id: string;
@@ -31,7 +31,7 @@ export interface Coin {
     tech_docs_urls?: string[];
     message_board_urls?: string[];
     source_code_urls?: string[];
-    community_urls?: CommunityUrls;
+    community_urls?: CommunityUrl[];
     home_urls?: string[];
     nftscan_url?: string;
     announcement_urls?: string[];

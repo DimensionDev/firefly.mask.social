@@ -36,7 +36,7 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+                    className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex w-max flex-col gap-2 rounded-2xl bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();

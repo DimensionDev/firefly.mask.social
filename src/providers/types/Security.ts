@@ -40,3 +40,50 @@ export interface ContractSecurity {
     owner_address?: string;
     creator_address?: string;
 }
+
+export interface TradingSecurity {
+    buy_tax?: string;
+    sell_tax?: string;
+    slippage_modifiable?: BooleanChar;
+    is_honeypot?: BooleanChar;
+    transfer_pausable?: BooleanChar;
+    is_blacklisted?: BooleanChar;
+    is_whitelisted?: BooleanChar;
+    is_in_dex?: BooleanChar;
+    is_anti_whale?: BooleanChar;
+    trust_list?: BooleanChar;
+}
+export interface SecurityItem {
+    is_high_risk?: boolean;
+    risk_item_quantity?: number;
+    warn_item_quantity?: number;
+    message_list?: SecurityMessage[];
+}
+
+export type TokenSecurityType = ContractSecurity &
+    TokenSecurity &
+    SecurityItem &
+    TradingSecurity & {
+        contract: string;
+        chainId: number;
+    };
+
+export enum SecurityType {
+    Contract = 'contract-security',
+    Transaction = 'transaction-security',
+    Info = 'info-security',
+}
+export enum SecurityMessageLevel {
+    High = 'High',
+    Medium = 'Medium',
+    Safe = 'Safe',
+}
+
+export interface SecurityMessage {
+    type: SecurityType;
+    level: SecurityMessageLevel;
+    condition(info: TokenSecurityType): boolean;
+    title: (info: TokenSecurityType) => string;
+    message: (info: TokenSecurityType) => string;
+    shouldHide(info: TokenSecurityType): boolean;
+}

@@ -21,7 +21,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';
+import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
+import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurity.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -32,6 +34,7 @@ import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
+import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 
 interface InfoRowProps {
     title: string;
@@ -100,6 +103,9 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     const { data: token, isLoading } = useTokenInfo(symbol);
     const { data: price } = useTokenPrice(token?.id);
     const { data: trending } = useCoinTrending(token?.id);
+    const { market, coin, contracts } = trending ?? {};
+    const contract = first(contracts);
+    const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
 
     const ranges = [
         { label: t`24h`, days: 1 },
@@ -118,7 +124,6 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     }, [priceStats]);
 
     usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`, { color: 'currentColor' });
-    const { market, coin, contracts } = trending ?? {};
     const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, first(contracts)?.chainId);
 
     if (isLoading) {
@@ -169,6 +174,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     </span>
                 </Trans>
             </div>
+            <TokenSecurityBar tokenSecurity={security} />
             <div
                 className={classNames(
                     'flex h-[175px] items-center justify-center overflow-auto',
@@ -343,9 +349,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                             extra={
                                 <div className="flex gap-2">
                                     {coin.community_urls.map((x) => (
-                                        <Link key={x.link} href={x.link} target="_blank">
-                                            {brands[x.type]}
-                                        </Link>
+                                        <CommunityLink key={x.link} link={x} />
                                     ))}
                                 </div>
                             }

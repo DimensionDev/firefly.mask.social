@@ -40,6 +40,9 @@ msgstr ""
 msgid "Report @{0}"
 msgstr ""
 
+msgid "Sell Tax: {0}%"
+msgstr ""
+
 msgid "Retweet"
 msgstr ""
 
@@ -88,6 +91,9 @@ msgstr ""
 msgid "Mute @{0}"
 msgstr ""
 
+msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
+msgstr ""
+
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
@@ -103,6 +109,9 @@ msgstr ""
 msgid "Download Image"
 msgstr ""
 
+msgid "We are not aware of any code that prevents the sale of tokens."
+msgstr ""
+
 msgid "Watching"
 msgstr ""
 
@@ -110,6 +119,9 @@ msgid "Searching channel"
 msgstr ""
 
 msgid "Views"
+msgstr ""
+
+msgid "Functions that can suspend trading"
 msgstr ""
 
 msgid "Failed to upload. Video is not supported yet"
@@ -127,10 +139,16 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
+msgid "Airdrop Scam"
+msgstr ""
+
 msgid "Collect Action is not supported yet."
 msgstr ""
 
 msgid "This entry has been permanently stored on-chain and signed by its creator"
+msgstr ""
+
+msgid "Tax can be modified"
 msgstr ""
 
 msgid "Join our Discord"
@@ -143,6 +161,9 @@ msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
 msgid "Change Wallet"
+msgstr ""
+
+msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr ""
 
 msgid "OpenGraph"
@@ -179,6 +200,9 @@ msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Login with QR Code"
+msgstr ""
+
+msgid "Contract source code verified"
 msgstr ""
 
 msgid "NFT Standard"
@@ -232,6 +256,9 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
+msgid "True Token"
+msgstr ""
+
 msgid "Bookmarks"
 msgstr ""
 
@@ -283,6 +310,9 @@ msgstr ""
 msgid "Page not found"
 msgstr ""
 
+msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
+msgstr ""
+
 msgid "Password"
 msgstr ""
 
@@ -325,6 +355,9 @@ msgstr ""
 msgid "Attendees"
 msgstr ""
 
+msgid "Functions with retrievable ownership"
+msgstr ""
+
 msgid "Search"
 msgstr ""
 
@@ -335,6 +368,15 @@ msgid "Watch"
 msgstr ""
 
 msgid "24 Hour Trading Vol"
+msgstr ""
+
+msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
+msgstr ""
+
+msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
 msgid "Verified by {0}"
@@ -361,6 +403,9 @@ msgstr ""
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr ""
 
+msgid "No Airdrop Scam"
+msgstr ""
+
 msgid "Add another post..."
 msgstr ""
 
@@ -374,6 +419,9 @@ msgid "Minting Txn Hash"
 msgstr ""
 
 msgid "Audio Cover"
+msgstr ""
+
+msgid "Fake Token"
 msgstr ""
 
 msgid "Recent"
@@ -415,6 +463,9 @@ msgstr ""
 msgid "Confirmation"
 msgstr ""
 
+msgid "Whitelist function"
+msgstr ""
+
 msgid "Failed to mute /{0}."
 msgstr ""
 
@@ -437,6 +488,9 @@ msgid "Frame Validator"
 msgstr ""
 
 msgid "<0>Poap</0> received"
+msgstr ""
+
+msgid "No proxy"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT"
@@ -469,7 +523,16 @@ msgstr ""
 msgid "Connection failed"
 msgstr ""
 
+msgid "Owner can't change balance"
+msgstr ""
+
 msgid "Join our Telegram"
+msgstr ""
+
+msgid "Anti_whale(Limited number of transactions)"
+msgstr ""
+
+msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
 msgid "Log out"
@@ -488,6 +551,9 @@ msgid "Failed to un-bookmark"
 msgstr ""
 
 msgid "post"
+msgstr ""
+
+msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
@@ -553,6 +619,9 @@ msgstr ""
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
+msgid "Blacklist function"
+msgstr ""
+
 msgid "AUTHOR ADDRESS"
 msgstr ""
 
@@ -575,6 +644,12 @@ msgid "Owned By"
 msgstr ""
 
 msgid "Are you sure you want to report this post?"
+msgstr ""
+
+msgid "No function found that retrieves ownership"
+msgstr ""
+
+msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
 msgid "Collected"
@@ -622,16 +697,34 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
+msgid "No mint function"
+msgstr ""
+
 msgid "Switch"
 msgstr ""
 
 msgid "Follow"
 msgstr ""
 
+msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
+msgstr ""
+
 msgid "Add account"
 msgstr ""
 
 msgid "{0} Comments"
+msgstr ""
+
+msgid "Proxy contract"
+msgstr ""
+
+msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
+msgstr ""
+
+msgid "Tax cannot be modified"
+msgstr ""
+
+msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
 msgstr ""
 
 msgid "Replies"
@@ -641,6 +734,9 @@ msgid "Comment"
 msgstr ""
 
 msgid "Only people you mention"
+msgstr ""
+
+msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
 msgid "Cancel retweet successfully"
@@ -661,6 +757,9 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr ""
 
@@ -677,6 +776,9 @@ msgid "Failed to login."
 msgstr ""
 
 msgid "Unlike"
+msgstr ""
+
+msgid "No blacklist"
 msgstr ""
 
 msgid "Post was deleted"
@@ -707,6 +809,9 @@ msgid "Report article"
 msgstr ""
 
 msgid "Everyone"
+msgstr ""
+
+msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
 msgid "Failed to unmute /{0}."
@@ -745,6 +850,9 @@ msgstr ""
 msgid "Failed to follow."
 msgstr ""
 
+msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+msgstr ""
+
 msgid "Mute"
 msgstr ""
 
@@ -760,13 +868,13 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
+msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
+msgstr ""
+
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
 msgid "Are you sure you want to report this article?"
-msgstr ""
-
-msgid "<0>Price</0><1>${0}</1><2/>"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -835,6 +943,9 @@ msgstr ""
 msgid "No preview found for shared link"
 msgstr ""
 
+msgid "Contract source code not verified"
+msgstr ""
+
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
@@ -874,6 +985,9 @@ msgstr ""
 msgid "Contract Address"
 msgstr ""
 
+msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
 msgid "Please input the frame url to be revalidated."
 msgstr ""
 
@@ -902,6 +1016,9 @@ msgid "Display"
 msgstr ""
 
 msgid "Mute successfully."
+msgstr ""
+
+msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
 msgid "Show More"
@@ -1027,6 +1144,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "May the token is a honeypot."
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr ""
 
@@ -1046,6 +1166,9 @@ msgid "Mirrored"
 msgstr ""
 
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "This does not appear to be a honeypot."
 msgstr ""
 
 msgid "Failed to publish post."
@@ -1103,6 +1226,9 @@ msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Suspended"
+msgstr ""
+
+msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr ""
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
@@ -1165,6 +1291,9 @@ msgstr ""
 msgid "Login to enable all features"
 msgstr ""
 
+msgid "Owner can change balance"
+msgstr ""
+
 msgid "Collects"
 msgstr ""
 
@@ -1189,6 +1318,9 @@ msgstr ""
 msgid "Sign in with Custody Wallet"
 msgstr ""
 
+msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
+msgstr ""
+
 msgid "No profile found"
 msgstr ""
 
@@ -1204,6 +1336,9 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+msgid "No whitelist"
+msgstr ""
+
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr ""
 
@@ -1211,6 +1346,9 @@ msgid "Muting..."
 msgstr ""
 
 msgid "Failed to mirror post."
+msgstr ""
+
+msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr ""
 
 msgid "<0>Minted</0> an NFT for free"
@@ -1297,6 +1435,12 @@ msgstr ""
 msgid "Add another option"
 msgstr ""
 
+msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "Buy Tax: {0}%"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
@@ -1312,6 +1456,9 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
+msgid "You may lose your assets if giving approval to the website of this token."
+msgstr ""
+
 msgid "Unfollow"
 msgstr ""
 
@@ -1319,6 +1466,9 @@ msgid "Your {0} account is now connected."
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
+msgstr ""
+
+msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
@@ -1337,6 +1487,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "Owned"
+msgstr ""
+
+msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
 msgid "Claim on {0}: {1}"
@@ -1438,6 +1591,9 @@ msgstr ""
 msgid "Recasted"
 msgstr ""
 
+msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
 msgid "<0>Burned</0> an NFT"
 msgstr ""
 
@@ -1498,6 +1654,12 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
+msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
+msgstr ""
+
+msgid "This is not an airdrop scam. Many scams attract users through airdrops."
+msgstr ""
+
 msgid "GIF"
 msgstr ""
 
@@ -1511,6 +1673,9 @@ msgid "Back to home"
 msgstr ""
 
 msgid "Followers"
+msgstr ""
+
+msgid "Mint function"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
