@@ -7,8 +7,8 @@ import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFi
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
-import { getResourceType, isValidPollFrameUrl } from '@/helpers/getResourceType.js';
-import type { Cast } from '@/providers/types/Firefly.js';
+import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
+import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
 import {
     type Attachment,
     type Post,
@@ -18,10 +18,18 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const oembedUrls = getEmbedUrls(cast.text, compact(cast.embed_urls?.map((x) => x.url))).map((x) => {
+    const oembedUrls = getEmbedUrls(
+        cast.text,
+        compact(
+            cast.embed_urls
+                ?.filter((x) => [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type))
+                .map((x) => x.url),
+        ),
+    ).map((x) => {
         if (isValidPollFrameUrl(x)) {
             return composePollFrameUrl(x, Source.Farcaster);
         }
+
         return x;
     });
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
@@ -30,10 +38,8 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     if (attachments.length) {
         const lastAsset = last(attachments);
         if (!lastAsset?.url) return defaultContent;
-
-        const assetType = lastAsset.type === 'unknown' ? 'Unknown' : getResourceType(lastAsset.url);
+        const assetType = resolveEmbedMediaType(lastAsset.type, lastAsset.url);
         if (!assetType) return defaultContent;
-
         return {
             content: cast.text,
             oembedUrl: last(oembedUrls),
@@ -46,7 +52,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
                 attachments.map((x) => {
                     if (!x.url) return;
 
-                    const type = getResourceType(x.url);
+                    const type = resolveEmbedMediaType(x.type, x.url);
                     if (!type) return;
 
                     return {

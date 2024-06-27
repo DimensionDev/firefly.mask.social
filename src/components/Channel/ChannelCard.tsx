@@ -101,8 +101,11 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
             </div>
 
             <div onClick={handleNavigateToDetail}>
-                <BioMarkup className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain">
-                    {channel?.description ?? '-'}
+                <BioMarkup
+                    className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain"
+                    source={channel.source}
+                >
+                    {channel.description ?? '-'}
                 </BioMarkup>
             </div>
         </div>
