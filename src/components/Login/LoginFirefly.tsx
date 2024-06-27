@@ -19,9 +19,9 @@ import { parseURL } from '@/helpers/parseURL.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 import { DeviceType } from '@/types/device.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
     try {
