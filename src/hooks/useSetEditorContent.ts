@@ -7,7 +7,8 @@ import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { CHAR_TAG, type Chars, type ComplexChars } from '@/helpers/chars.js';
 
 function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {
-    const { tag } = chars;
+    const { tag, visible } = chars;
+    if (!visible) return;
     switch (tag) {
         case CHAR_TAG.FIREFLY_RP:
             paragraphNode.append($createTextNode(`${chars.content}\n`));

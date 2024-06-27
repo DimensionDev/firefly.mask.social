@@ -1,7 +1,7 @@
-import { FlagIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
+import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useReportSpamNFT } from '@/hooks/useReportSpamNFT.js';
@@ -24,7 +24,7 @@ export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function
                 await reportSpamNFT(collectionId);
             }}
         >
-            <FlagIcon width={24} height={24} />
+            <FlagIcon width={18} height={18} />
             <span className="font-bold leading-[22px] text-main">
                 <Trans>Report spam</Trans>
             </span>

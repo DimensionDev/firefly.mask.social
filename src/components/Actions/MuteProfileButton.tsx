@@ -1,7 +1,8 @@
-import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
+import MuteIcon from '@/assets/mute.svg';
+import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -41,7 +42,7 @@ export const MuteProfileButton = forwardRef<HTMLButtonElement, Props>(function M
             }}
             ref={ref}
         >
-            {muted ? <SpeakerWaveIcon width={24} height={24} /> : <SpeakerXMarkIcon width={24} height={24} />}
+            {muted ? <UnmuteIcon width={18} height={18} /> : <MuteIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 {muted ? <Trans>Unmute @{profile.handle}</Trans> : <Trans>Mute @{profile.handle}</Trans>}
             </span>
