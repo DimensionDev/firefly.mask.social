@@ -123,7 +123,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
         quoteOn: cast.quotedCast ? formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
         sendFrom: {
-            displayName: cast.sendFrom?.display_name ?? cast.sendFrom?.name,
+            displayName: cast.isFromFirefly ? 'Firefly' : cast.sendFrom?.display_name ?? cast.sendFrom?.name,
             name: cast.sendFrom?.name,
         },
         __original__: cast,

@@ -58,6 +58,7 @@ export interface Cast {
         fid: number;
         pfp: string;
     };
+    isFromFirefly: boolean;
 }
 
 export interface User {
