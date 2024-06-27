@@ -312,10 +312,10 @@ msgstr "最多只能選擇 2 張圖片"
 msgid "Failed to delete"
 msgstr ""
 
-msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
+msgid "Failed to fetch: {0}. Please try again later"
 msgstr ""
 
-msgid "Failed to fetch: {0}. Please try again later"
+msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
 msgid "Report Failed"
@@ -873,9 +873,6 @@ msgstr "發表"
 msgid "Your website URL."
 msgstr "你的網站連結"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <5><6/></5>"
-msgstr ""
-
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
 
@@ -1021,12 +1018,6 @@ msgid "Unable to retrieve post details."
 msgstr ""
 
 msgid "Failed to publish post."
-msgstr ""
-
-msgid "{0} View"
-msgstr ""
-
-msgid "recasted your"
 msgstr ""
 
 msgid "Quotes"
@@ -1245,6 +1236,9 @@ msgstr ""
 msgid "Failed to retweet."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -1316,9 +1310,6 @@ msgstr ""
 
 msgid "Failed to unmirror post."
 msgstr "取消鏡像貼文失敗"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
-msgstr ""
 
 msgid "Failed to unlike the comment."
 msgstr "取消評論點贊失敗"

@@ -307,11 +307,11 @@ msgstr "Only up to 2 images can be chosen."
 msgid "Failed to delete"
 msgstr "Failed to delete"
 
-msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
-msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
-
 msgid "Failed to fetch: {0}. Please try again later"
 msgstr "Failed to fetch: {0}. Please try again later"
+
+msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
+msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
 msgid "Report Failed"
 msgstr "Report Failed"
@@ -868,9 +868,6 @@ msgstr "Publications"
 msgid "Your website URL."
 msgstr "Your website URL."
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <5><6/></5>"
-
 msgid "Visit firefly.social"
 msgstr "Visit firefly.social"
 
@@ -1017,12 +1014,6 @@ msgstr "Unable to retrieve post details."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
-
-msgid "{0} View"
-msgstr "{0} View"
-
-msgid "recasted your"
-msgstr "recasted your"
 
 msgid "Quotes"
 msgstr "Quotes"
@@ -1240,6 +1231,9 @@ msgstr "Date"
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
 
@@ -1311,9 +1305,6 @@ msgstr "Farcaster channel"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
 
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."

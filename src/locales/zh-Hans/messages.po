@@ -312,10 +312,10 @@ msgstr "至多可以选择 2 张图片。"
 msgid "Failed to delete"
 msgstr "删除失败"
 
-msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
+msgid "Failed to fetch: {0}. Please try again later"
 msgstr ""
 
-msgid "Failed to fetch: {0}. Please try again later"
+msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
 msgid "Report Failed"
@@ -780,9 +780,6 @@ msgstr "无效的 URL。"
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
-msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
-
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
@@ -875,9 +872,6 @@ msgstr "帖子"
 
 msgid "Your website URL."
 msgstr "您网站的 URL。"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <5><6/></5>"
-msgstr ""
 
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
@@ -1025,12 +1019,6 @@ msgstr "数据获取失败。"
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
-
-msgid "{0} View"
-msgstr "{0} 浏览数"
-
-msgid "recasted your"
-msgstr "转帖了你的"
 
 msgid "Quotes"
 msgstr "引用"
@@ -1248,6 +1236,9 @@ msgstr "日期"
 msgid "Failed to retweet."
 msgstr "转帖失败。"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
 
@@ -1319,9 +1310,6 @@ msgstr "Farcaster 频道"
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
-msgstr ""
 
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
