@@ -5,6 +5,7 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -33,6 +34,9 @@ async function restoreFireflySession(session: Session, signal?: AbortSignal): Pr
     const state = useFireflyStateStore.getState();
     state.updateAccounts([account]);
     state.updateCurrentAccount(account);
+
+    // restore firefly session
+    await fireflySessionHolder.resumeSession(account.session);
 }
 
 export async function addAccount(account: Account, setAsCurrent: boolean, signal?: AbortSignal) {
@@ -49,7 +53,6 @@ export async function addAccount(account: Account, setAsCurrent: boolean, signal
 /**
  * Alias of addAccount
  * @param account
- * @param setAsCurrent
  * @param signal
  */
 export async function switchAccount(account: Account, signal?: AbortSignal) {

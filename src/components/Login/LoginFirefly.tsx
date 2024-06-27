@@ -21,11 +21,12 @@ import { createSessionByGrantPermission } from '@/providers/firefly/createSessio
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 import { DeviceType } from '@/types/device.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
     try {
-        const session = await createSession();
-        await FireflySession.restore(session);
+        fireflySessionHolder.resumeSession(await createSession());
+
         await FireflySessionConfirmModalRef.openAndWaitForClose({
             source: Source.Firefly,
             accounts: await syncAccountsFromFirefly(options?.signal),

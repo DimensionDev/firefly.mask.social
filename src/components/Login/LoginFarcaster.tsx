@@ -193,7 +193,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                     if (!nextAccount) {
                         // the current profile did not connect to firefly
                         // we need to restore the staled session and keep everything untouched
-                        if (previousSession) FireflySession.restore(previousSession);
+                        if (previousSession) fireflySessionHolder.resumeSession(previousSession);
 
                         try {
                             const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);

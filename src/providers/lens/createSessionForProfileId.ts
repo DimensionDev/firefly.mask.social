@@ -5,6 +5,8 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
+const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
+
 export async function createSessionForProfileId(profileId: string, signal?: AbortSignal): Promise<LensSession> {
     const walletClient = await getWalletClientRequired(config, {
         chainId: polygon.id,
@@ -25,10 +27,5 @@ export async function createSessionForProfileId(profileId: string, signal?: Abor
     const now = Date.now();
     const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
 
-    return new LensSession(
-        profileId,
-        accessToken.unwrap(),
-        now,
-        now + 1000 * 60 * 60 * 24 * 30, // 30 days
-    );
+    return new LensSession(profileId, accessToken.unwrap(), now, now + THIRTY_DAYS);
 }
