@@ -95,7 +95,7 @@ export const S3_BUCKET = {
 };
 
 export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
-    [Source.Farcaster]: 320,
+    [Source.Farcaster]: 1024,
     [Source.Lens]: 5000,
     [Source.Twitter]: 280,
 };

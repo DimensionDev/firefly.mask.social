@@ -2,6 +2,7 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { isValidDomain } from '@masknet/web3-shared-evm';
+import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { memo } from 'react';
 import { Tweet } from 'react-tweet';
@@ -19,6 +20,7 @@ import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.j
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterProfileUrl } from '@/helpers/getTwitterProfileUrl.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
 export interface MarkupLinkProps {
@@ -29,10 +31,21 @@ export interface MarkupLinkProps {
 }
 
 export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, supportTweet }) {
+    // We only have handle in user bio.
+    const enabled = !post && source === Source.Farcaster && title?.startsWith('@');
+    const { data: fallbackProfile } = useQuery({
+        enabled,
+        queryKey: ['profile-by-handle', source, title],
+        queryFn: async () => {
+            if (!title) return null;
+            const handle = title.slice(1);
+            return FireflySocialMediaProvider.getProfileByHandle(handle);
+        },
+    });
+
     if (!title) return null;
 
     if (title.startsWith('@')) {
-        const source = post?.source;
         if (!source) return title;
 
         switch (source) {
@@ -49,7 +62,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Farcaster: {
-                const profile = post.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
+                const profile = post
+                    ? post.mentions?.find((x) => x.handle === title.replace(/^@/, ''))
+                    : fallbackProfile;
                 if (!profile) return title;
 
                 const link = getProfileUrl(profile);

@@ -16,7 +16,7 @@ export default function Page({ searchParams }: PageProps) {
         const sessionId = searchParams.session;
         if (!sessionId) return;
         return {
-            [DeviceType.IOS]: location.href.replace('https://', 'firefly://'),
+            [DeviceType.IOS]: location.href.replace(/^https/, 'firefly'),
             [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
         };
     }, [searchParams]);

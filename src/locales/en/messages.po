@@ -238,9 +238,6 @@ msgstr "[Video]"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
-msgid "Muting"
-msgstr "Muting"
-
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
@@ -262,6 +259,9 @@ msgstr "{days, plural, one {1 day} other {{days} days}}"
 msgid "Blockchain"
 msgstr "Blockchain"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
+
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {Follower} other {Followers}}"
 
@@ -276,9 +276,6 @@ msgstr "No results for \"{searchKeyword}\""
 
 msgid "Page not found"
 msgstr "Page not found"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 
 msgid "Password"
 msgstr "Password"
@@ -301,9 +298,6 @@ msgstr "Type something here..."
 msgid "Save Post?"
 msgstr "Save Post?"
 
-msgid "Missing IPFS hash for image or video."
-msgstr "Missing IPFS hash for image or video."
-
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
 
@@ -316,14 +310,14 @@ msgstr "Failed to delete"
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
+msgid "Failed to fetch: {0}. Please try again later"
+msgstr "Failed to fetch: {0}. Please try again later"
+
 msgid "Report Failed"
 msgstr "Report Failed"
 
 msgid "Attendees"
 msgstr "Attendees"
-
-msgid "You need to connect your {source} account to use this feature."
-msgstr "You need to connect your {source} account to use this feature."
 
 msgid "Search"
 msgstr "Search"
@@ -351,6 +345,9 @@ msgstr "Failed to unlike the post."
 
 msgid "Mirror again"
 msgstr "Mirror again"
+
+msgid "There are images or videos that were not uploaded successfully."
+msgstr "There are images or videos that were not uploaded successfully."
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
@@ -439,6 +436,9 @@ msgstr "Follow System"
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
 
+msgid "Remove Choice"
+msgstr "Remove Choice"
+
 msgid "Mute {identity}"
 msgstr "Mute {identity}"
 
@@ -463,6 +463,9 @@ msgstr "Join our Telegram"
 msgid "Log out"
 msgstr "Log out"
 
+msgid "Unmuting..."
+msgstr "Unmuting..."
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
@@ -486,6 +489,9 @@ msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 
 msgid "Search Filter"
 msgstr "Search Filter"
@@ -574,11 +580,20 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
+msgid "Forbidden. Please check your permissions"
+msgstr "Forbidden. Please check your permissions"
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Unauthorized. Please check your login"
+msgstr "Unauthorized. Please check your login"
 
 msgid "Choice {0}"
 msgstr "Choice {0}"
@@ -594,9 +609,6 @@ msgstr "Open in Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
-
-msgid "Failed to fetch: ${0}. Please try again later"
-msgstr "Failed to fetch: ${0}. Please try again later"
 
 msgid "Switch"
 msgstr "Switch"
@@ -639,6 +651,9 @@ msgstr "Description"
 
 msgid "Hide more comments"
 msgstr "Hide more comments"
+
+msgid "Internal Server Error. Please try again later"
+msgstr "Internal Server Error. Please try again later"
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "Failed to resolve mint URL = {0}."
@@ -763,6 +778,9 @@ msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
+msgid "You need to connect your {0} account to use this feature."
+msgstr "You need to connect your {0} account to use this feature."
+
 msgid "Suggested Follows"
 msgstr "Suggested Follows"
 
@@ -771,6 +789,9 @@ msgstr "Post has been encrypted"
 
 msgid "Articles"
 msgstr "Articles"
+
+msgid "Connect to {0}"
+msgstr "Connect to {0}"
 
 msgid "Settings"
 msgstr "Settings"
@@ -795,9 +816,6 @@ msgstr "Your Farcaster account is now connected."
 
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
-
-msgid "Connect to {source}"
-msgstr "Connect to {source}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"
@@ -865,6 +883,9 @@ msgstr "Mute successfully."
 msgid "Show More"
 msgstr "Show More"
 
+msgid "Search..."
+msgstr "Search..."
+
 msgid "Show more comments"
 msgstr "Show more comments"
 
@@ -904,11 +925,17 @@ msgstr "Quote"
 msgid "View engagements"
 msgstr "View engagements"
 
+msgid "Not Found. Please check your URL[{0}]"
+msgstr "Not Found. Please check your URL[{0}]"
+
 msgid "Translated"
 msgstr "Translated"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
+
+msgid "Remove Poll"
+msgstr "Remove Poll"
 
 msgid "Unmute {identity}"
 msgstr "Unmute {identity}"
@@ -994,6 +1021,9 @@ msgstr "Failed to publish post."
 msgid "{0} View"
 msgstr "{0} View"
 
+msgid "recasted your"
+msgstr "recasted your"
+
 msgid "Quotes"
 msgstr "Quotes"
 
@@ -1020,6 +1050,9 @@ msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "Post removed from your Bookmarks"
+msgstr "Post removed from your Bookmarks"
 
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
@@ -1051,11 +1084,17 @@ msgstr "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}
 msgid "Full"
 msgstr "Full"
 
+msgid "Powered by"
+msgstr "Powered by"
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "No Lens profile was found. Please try using a different wallet."
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
+
+msgid "All notifications"
+msgstr "All notifications"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
@@ -1120,9 +1159,6 @@ msgstr "Switch account"
 msgid "Sign in with Custody Wallet"
 msgstr "Sign in with Custody Wallet"
 
-msgid "Search…"
-msgstr "Search…"
-
 msgid "No profile found"
 msgstr "No profile found"
 
@@ -1137,6 +1173,12 @@ msgstr "You've hit rock bottom."
 
 msgid "View"
 msgstr "View"
+
+msgid "{count, plural, one {{0} View} other {{1} Views}}"
+msgstr "{count, plural, one {{0} View} other {{1} Views}}"
+
+msgid "Muting..."
+msgstr "Muting..."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
@@ -1158,9 +1200,6 @@ msgstr "Sign the transaction to verify you are the owner of the selected profile
 
 msgid "Refresh"
 msgstr "Refresh"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
 
 msgid "Channels"
 msgstr "Channels"
@@ -1213,6 +1252,9 @@ msgstr "Share to"
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
+msgid "Image upload failed. Please try again."
+msgstr "Image upload failed. Please try again."
+
 msgid "Only people you follow"
 msgstr "Only people you follow"
 
@@ -1231,8 +1273,14 @@ msgstr "Article added to your Bookmarks"
 msgid "Online"
 msgstr "Online"
 
+msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+
 msgid "Unfollow"
 msgstr "Unfollow"
+
+msgid "Your {0} account is now connected."
+msgstr "Your {0} account is now connected."
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
@@ -1264,6 +1312,9 @@ msgstr "Farcaster channel"
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
+
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
 
@@ -1281,9 +1332,6 @@ msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "Unmute"
-
-msgid "Your Lens account is now connected"
-msgstr "Your Lens account is now connected"
 
 msgid "Click to copy"
 msgstr "Click to copy"
@@ -1312,9 +1360,6 @@ msgstr "Your Lens account is now connected."
 msgid "Remove"
 msgstr "Remove"
 
-msgid "Post remove from your Bookmarks"
-msgstr "Post remove from your Bookmarks"
-
 msgid "Follow @{0}"
 msgstr "Follow @{0}"
 
@@ -1333,6 +1378,9 @@ msgstr "No matching users"
 msgid "Save"
 msgstr "Save"
 
+msgid "<0/> and <1>{0} others</1>"
+msgstr "<0/> and <1>{0} others</1>"
+
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
 
@@ -1345,8 +1393,8 @@ msgstr "{0} Users"
 msgid "Final results"
 msgstr "Final results"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
+msgid "Suspended account"
+msgstr "Suspended account"
 
 msgid "Recasted"
 msgstr "Recasted"
@@ -1374,9 +1422,6 @@ msgstr "Mirrors"
 
 msgid "Video"
 msgstr "Video"
-
-msgid "{0} Views"
-msgstr "{0} Views"
 
 msgid "Language"
 msgstr "Language"
@@ -1407,6 +1452,9 @@ msgstr "Name (optional)"
 
 msgid "Location"
 msgstr "Location"
+
+msgid "GIF"
+msgstr "GIF"
 
 msgid "Recast"
 msgstr "Recast"

@@ -24,10 +24,10 @@ export function ToggleMutedButton({ loading, isMuted, className, ...rest }: Prop
 
     const buttonText = useMemo(() => {
         if (isMuted) {
-            if (loading) return `Unmuting`;
+            if (loading) return t`Unmuting...`;
             return isHover ? t`Unmute` : t`Muted`;
         } else {
-            return loading ? t`Muting` : t`Mute`;
+            return loading ? t`Muting...` : t`Mute`;
         }
     }, [isHover, isMuted, loading]);
 

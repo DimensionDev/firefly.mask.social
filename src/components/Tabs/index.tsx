@@ -64,18 +64,18 @@ export function Tab({ children, value }: TabProps) {
     }[variant];
     const variantClassName = {
         default: classNames(
-            'border-b-2 text-center text-sm font-bold hover:cursor-pointer hover:text-main md:h-[60px] md:py-[18px] leading-[43px] md:leading-6 sm:text-xl h-[43px] px-4',
+            'h-[43px] border-b-2 px-4 text-center text-sm font-bold leading-[43px] hover:cursor-pointer hover:text-main sm:text-xl md:h-[60px] md:py-[18px] md:leading-6',
             currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
         ),
         second: classNames(
-            'border-b-2 text-center text-sm font-bold hover:cursor-pointer hover:text-main sm:leading-5 sm:p-4 sm:pb-3 sm:text-base',
+            'border-b-2 text-center text-sm font-bold hover:cursor-pointer hover:text-main sm:p-4 sm:pb-3 sm:text-base sm:leading-5',
             currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
         ),
         solid: classNames(
-            'px-1.5 h-6 text-xs rounded-md leading-6 bg-farcasterPrimary',
+            'h-6 rounded-md bg-farcasterPrimary px-1.5 text-xs leading-6',
             currentTab === value
                 ? 'text-bg dark:text-white'
-                : 'bg-opacity-10 dark:bg-opacity-30 text-farcasterPrimary cursor-pointer dark:text-white',
+                : 'cursor-pointer bg-opacity-10 text-farcasterPrimary dark:bg-opacity-30 dark:text-white',
         ),
     }[variant];
 

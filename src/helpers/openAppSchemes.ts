@@ -55,7 +55,7 @@ export async function openAppSchemes(schemes: Schemes) {
             window.location.href = schemes.ios;
         } else {
             // < ios 9
-            await tryOpenScheme('iframe', schemes.ios);
+            await tryOpenScheme('a', schemes.ios);
         }
     } else {
         await tryOpenScheme('a', schemes.android);

@@ -6,12 +6,14 @@ import { CrossIsolationMessages } from '@masknet/shared-base';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import { useAccount } from 'wagmi';
 
 import AddThread from '@/assets/addThread.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
+import { GifEntryButton } from '@/components/Compose/GifEntryButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
@@ -32,13 +34,14 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfilesAll } from '@/hooks/useProfilesAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
 
 export function ComposeAction(props: ComposeActionProps) {
     const isMedium = useIsMedium();
+    const account = useAccount();
 
     const currentProfileAll = useCurrentProfileAll();
     const profilesAll = useProfilesAll();
@@ -52,6 +55,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const setEditorContent = useSetEditorContent();
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
+        if (!account.isConnected) return ConnectWalletModalRef.open();
         await connectMaskWithWagmi();
         // import dynamically to avoid the start up dependency issue of mask packages
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
@@ -75,10 +79,12 @@ export function ComposeAction(props: ComposeActionProps) {
                 }),
             ),
         });
-    }, [currentProfileAll, profilesAll]);
+    }, [currentProfileAll, profilesAll, account.isConnected]);
 
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
+
+    const redPacketDisabled = !!poll;
 
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
@@ -110,6 +116,8 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' ? <PollButton /> : null}
 
+                <GifEntryButton disabled={mediaDisabled} />
+
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
                         <Tooltip content={t`Debug Connection`} placement="top">
@@ -137,13 +145,15 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 <div
                     className={classNames(
-                        'hidden h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
+                        'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
                         {
-                            'opacity-50': loading,
+                            'opacity-50': loading || redPacketDisabled,
+                            'cursor-not-allowed': redPacketDisabled,
+                            'cursor-pointer': !redPacketDisabled,
                         },
                     )}
                     onClick={async () => {
-                        if (loading) return;
+                        if (loading || redPacketDisabled) return;
                         openRedPacketComposeDialog();
                     }}
                 >

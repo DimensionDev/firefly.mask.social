@@ -35,7 +35,7 @@ export const FollowButton = memo(function FollowButton({
     const muted = useIsProfileMuted(profile, hasMutedButton);
 
     if (hasMutedButton && muted) {
-        return <ToggleMutedProfileButton profile={profile} />;
+        return <ToggleMutedProfileButton profile={profile} className={className} {...rest} />;
     }
     const isFollowing = !!profile.viewerContext?.following;
     const buttonText = {

@@ -7,7 +7,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -64,7 +64,9 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                     </div>
                 </div>
 
-                <BioMarkup className="text-[15px]">{channel.description ?? '-'}</BioMarkup>
+                <BioMarkup className="text-[15px]" source={Source.Farcaster}>
+                    {channel.description ?? '-'}
+                </BioMarkup>
             </div>
         </div>
     );

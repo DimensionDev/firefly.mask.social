@@ -1,6 +1,7 @@
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import type { OpenGraph } from '@/types/og.js';
 
 interface EmbedProps {
@@ -8,11 +9,13 @@ interface EmbedProps {
 }
 
 export function Embed({ og }: EmbedProps) {
+    const u = parseURL(og.url);
+    if (!u) return null;
     return (
         <div className="mt-4 max-w-full text-sm">
             <Link
                 onClick={(event) => event.stopPropagation()}
-                href={og.url}
+                href={u}
                 target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >

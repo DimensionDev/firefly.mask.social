@@ -1,13 +1,4 @@
-import {
-    image,
-    MediaImageMimeType,
-    MediaVideoMimeType,
-    type MetadataAttribute,
-    MetadataAttributeType,
-    textOnly,
-    type TextOnlyOptions,
-    video,
-} from '@lens-protocol/metadata';
+import { image, link, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
@@ -16,11 +7,12 @@ import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
+import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
+import { createIPFSMediaObject } from '@/helpers/resolveMediaURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
@@ -28,7 +20,7 @@ import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
-import type { MediaObject } from '@/types/index.js';
+import { type MediaObject, MediaObjectSource } from '@/types/index.js';
 
 interface BaseMetadata {
     title: string;
@@ -58,8 +50,8 @@ interface Attachments {
 }
 
 function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
-    if (images.some((image) => !image.ipfs) || (video && !video.ipfs)) {
-        throw new Error(t`Missing IPFS hash for image or video.`);
+    if (images.some((image) => image.source === MediaObjectSource.local) || video?.source === MediaObjectSource.local) {
+        throw new Error(t`There are images or videos that were not uploaded successfully.`);
     }
 
     const imagesWithIPFS = images as Array<Required<MediaObject>>;
@@ -70,43 +62,39 @@ function createPayloadAttachments(images: MediaObject[], video: MediaObject | nu
               attachments: videoWithIPFS
                   ? [
                         {
-                            item: videoWithIPFS.ipfs.uri,
-                            type: videoWithIPFS.ipfs.mimeType,
-                            cover: videoWithIPFS.ipfs.uri,
+                            item: videoWithIPFS.url,
+                            type: videoWithIPFS.mimeType,
+                            cover: videoWithIPFS.url,
                         },
                     ]
                   : imagesWithIPFS.map((image) => ({
-                        item: image.ipfs.uri,
-                        type: image.ipfs.mimeType,
-                        cover: imagesWithIPFS[0].ipfs.uri,
+                        item: image.url,
+                        type: image.mimeType,
+                        cover: imagesWithIPFS[0].url,
                     })),
               ...(videoWithIPFS
                   ? {
                         video: {
-                            item: videoWithIPFS.ipfs.uri,
-                            type: videoWithIPFS.ipfs.mimeType,
+                            item: videoWithIPFS.url,
+                            type: videoWithIPFS.mimeType,
                         },
                     }
                   : {
                         image: {
-                            item: imagesWithIPFS[0].ipfs.uri,
-                            type: imagesWithIPFS[0].ipfs.mimeType,
+                            item: imagesWithIPFS[0].url,
+                            type: imagesWithIPFS[0].mimeType,
                         },
                     }),
           }
         : undefined;
 }
 
-function createPayloadAttributes(polls: Poll[] | undefined): MetadataAttribute[] | undefined {
+function createPayloadSharingLink(polls: Poll[] | undefined): string | undefined {
     if (!polls?.length) return;
-    return polls.map((poll) => ({
-        key: LensMetadataAttributeKey.Poll,
-        type: MetadataAttributeType.STRING,
-        value: poll.id,
-    }));
+    return getPollFrameUrl(polls[0].id, Source.Lens);
 }
 
-function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments, attributes?: MetadataAttribute[]) {
+function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),
@@ -148,16 +136,18 @@ function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachment
         }
     }
 
-    const textOnlyOptions: TextOnlyOptions = {
-        ...baseMetadata,
-        ...localBaseMetadata,
-    };
-
-    if (attributes) {
-        textOnlyOptions.attributes = attributes;
+    if (sharingLink) {
+        return link({
+            ...baseMetadata,
+            ...localBaseMetadata,
+            sharingLink,
+        });
     }
 
-    return textOnly(textOnlyOptions);
+    return textOnly({
+        ...baseMetadata,
+        ...localBaseMetadata,
+    });
 }
 
 export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
@@ -183,7 +173,7 @@ async function publishPostForLens(
             },
         },
         createPayloadAttachments(images, video),
-        createPayloadAttributes(polls),
+        createPayloadSharingLink(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -224,7 +214,7 @@ async function commentPostForLens(
             },
         },
         createPayloadAttachments(images, video),
-        createPayloadAttributes(polls),
+        createPayloadSharingLink(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -258,7 +248,7 @@ async function quotePostForLens(
             },
         },
         createPayloadAttachments(images, video),
-        createPayloadAttributes(polls),
+        createPayloadSharingLink(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -289,22 +279,16 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         uploadImages() {
             return Promise.all(
                 images.map(async (media) => {
-                    if (media.ipfs) return media;
-                    return {
-                        ...media,
-                        ipfs: await uploadFileToIPFS(media.file),
-                    };
+                    if ([MediaObjectSource.ipfs, MediaObjectSource.giphy].includes(media.source)) return media;
+                    return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );
         },
         uploadVideos() {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    if (media?.ipfs) return media;
-                    return {
-                        ...media,
-                        ipfs: await uploadFileToIPFS(media.file),
-                    };
+                    if (media.source === MediaObjectSource.ipfs) return media;
+                    return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );
         },

@@ -44,7 +44,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 const session = await createSessionForProfileId(profile.profileId);
                 updateLensCurrentAccount({ profile, session });
                 lensSessionHolder.resumeSession(session);
-                enqueueSuccessMessage(t`Your Lens account is now connected.`);
+                enqueueSuccessMessage(t`Your ${resolveSourceName(profile.source)} account is now connected.`);
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                     error,

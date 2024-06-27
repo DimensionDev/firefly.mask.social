@@ -1,5 +1,4 @@
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
-import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 
 export type ResponseJSON<T> =
     | {
@@ -14,14 +13,20 @@ export type ResponseJSON<T> =
           };
       };
 
+export enum MediaObjectSource {
+    local = 'local',
+    ipfs = 'ipfs',
+    imgur = 'imgur',
+    s3 = 's3',
+    giphy = 'giphy',
+}
+
 export interface MediaObject {
-    id?: string;
+    id: string;
     file: File;
-    ipfs?: IPFSResponse;
-    // imgur asset url
-    imgur?: string;
-    // s3 asset url
-    s3?: string;
+    source: MediaObjectSource;
+    url: string;
+    mimeType: string;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'default';

@@ -109,7 +109,10 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
             </div>
 
             <Link href={url}>
-                <BioMarkup className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain">
+                <BioMarkup
+                    className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain"
+                    source={profile.source}
+                >
                     {profile.bio ?? '-'}
                 </BioMarkup>
             </Link>

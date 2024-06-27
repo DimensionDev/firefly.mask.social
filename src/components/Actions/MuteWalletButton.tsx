@@ -1,10 +1,11 @@
-import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
+import MuteIcon from '@/assets/mute.svg';
+import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -52,11 +53,11 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             ref={ref}
         >
             {loading ? (
-                <LoadingIcon width={16} height={16} className="mx-1 animate-spin" />
+                <LoadingIcon width={18} height={18} className="mx-1 animate-spin" />
             ) : isMuted ? (
-                <SpeakerWaveIcon width={24} height={24} />
+                <UnmuteIcon width={18} height={18} />
             ) : (
-                <SpeakerXMarkIcon width={24} height={24} />
+                <MuteIcon width={18} height={18} />
             )}
             <span className="font-bold leading-[22px] text-main">
                 {isMuted ? <Trans>Unmute {identity}</Trans> : <Trans>Mute {identity}</Trans>}

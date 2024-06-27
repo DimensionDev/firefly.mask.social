@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation.js';
 import ComposeAddIcon from '@/assets/compose-add.svg';
 import ReplyIcon from '@/assets/reply.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Source } from '@/constants/enum.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -17,7 +18,8 @@ export function ComposeButtonForMobile() {
 
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-
+    const isArticlePage = isRoutePathname(pathname, '/article/:detail', true);
+    const isNFTPage = isRoutePathname(pathname, '/nft/:detail', false);
     const isLogin = useIsLogin();
     const isCurrentLogin = useIsLogin(currentSocialSource);
     const currentPost = useCurrentVisitingPost();
@@ -25,6 +27,7 @@ export function ComposeButtonForMobile() {
 
     if (!isLogin) return null;
     if (isPostPage && !isCurrentLogin) return null;
+    if (isArticlePage || currentSource === Source.NFTs || currentSource === Source.Article || isNFTPage) return null;
 
     return (
         <ClickableButton

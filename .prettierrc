@@ -12,6 +12,7 @@
     "proseWrap": "preserve",
     "endOfLine": "auto",
     "plugins": ["prettier-plugin-tailwindcss"],
+    "tailwindFunctions": ["classNames"],
     "overrides": [
         {
             "files": "*.md",
