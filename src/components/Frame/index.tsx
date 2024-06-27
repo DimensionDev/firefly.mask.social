@@ -5,7 +5,7 @@ import { attemptUntil } from '@masknet/web3-shared-base';
 import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import { encodePacked } from 'viem';
@@ -17,6 +17,7 @@ import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -31,7 +32,7 @@ import type { Additional } from '@/providers/types/Frame.js';
 import { validateMessage } from '@/services/validateMessage.js';
 import {
     ActionType,
-    type Frame,
+    type Frame as FrameType,
     type FrameButton,
     type LinkDigestedResponse,
     MethodType,
@@ -72,8 +73,8 @@ function confirmBeforeLeaving() {
 async function getNextFrame(
     source: SocialSource,
     postId: string,
-    frame: Frame,
-    latestFrame: Frame | null,
+    frame: FrameType,
+    latestFrame: FrameType | null,
     button: FrameButton,
     input?: string,
 ) {
@@ -225,11 +226,11 @@ interface FrameProps {
     urls: string[];
     postId: string;
     children?: React.ReactNode;
-    onData?: (frame: Frame) => void;
+    onData?: (frame: FrameType) => void;
 }
 
-export function Frame({ postId, source, urls, onData, children }: FrameProps) {
-    const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
+export const Frame = memo<FrameProps>(function Frame({ postId, source, urls, onData, children }) {
+    const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
 
     const {
         isLoading: isLoadingFrame,
@@ -237,28 +238,37 @@ export function Frame({ postId, source, urls, onData, children }: FrameProps) {
         data,
     } = useQuery({
         queryKey: ['frame', ...urls],
-        queryFn: () => {
+        queryFn: async () => {
             // TODO: if multiple frames are supported, we should refactor this part
             if (MAX_FRAME_SIZE_PER_POST > 1 && urls.length > 1)
                 console.warn(
                     '[frame]: Multiple frames found for this post. Only the first available frame will be used.',
                 );
 
-            return attemptUntil(
-                urls.map((x) => () => {
-                    if (!x || isValidDomain(x)) return;
-                    return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-                        urlcat('/api/frame', {
-                            link: x,
-                        }),
-                    );
-                }),
-                undefined,
-                (response) => {
-                    if (isUndefined(response)) return true;
-                    return !response?.success;
-                },
-            );
+            try {
+                const result = await attemptUntil(
+                    urls.map((x) => () => {
+                        if (!x || isValidDomain(x)) return;
+                        return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                            urlcat('/api/frame', {
+                                link: x,
+                            }),
+                        );
+                    }),
+                    { success: false, error: { message: 'fetch error', code: 40001 } },
+                    (response) => {
+                        if (isUndefined(response)) return true;
+                        return !response?.success;
+                    },
+                );
+
+                return result;
+            } catch (error) {
+                return {
+                    success: false,
+                    error: { message: error instanceof Error ? error.message : '', code: ServerErrorCodes.UNKNOWN },
+                } as ResponseJSON<LinkDigestedResponse>;
+            }
         },
         enabled: !!urls.length,
         refetchOnMount: false,
@@ -271,7 +281,7 @@ export function Frame({ postId, source, urls, onData, children }: FrameProps) {
         onData?.(data.data.frame);
     }, [data, onData]);
 
-    const frame: Frame | null = latestFrame ?? (data?.success ? data.data.frame : null);
+    const frame: FrameType | null = latestFrame ?? (data?.success ? data.data.frame : null);
 
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
@@ -295,4 +305,4 @@ export function Frame({ postId, source, urls, onData, children }: FrameProps) {
     if (error || !frame) return children;
 
     return <Card frame={frame} source={source} loading={isLoadingNextFrame} onButtonClick={handleClick} />;
-}
+});
