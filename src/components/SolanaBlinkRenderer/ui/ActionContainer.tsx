@@ -7,7 +7,6 @@ import type { ActionCallbacksConfig } from '@/components/SolanaBlinkRenderer/api
 import type { ActionContext } from '@/components/SolanaBlinkRenderer/api/ActionConfig.js';
 import { getExtendedActionState } from '@/components/SolanaBlinkRenderer/api/ActionsRegistry.js';
 import { ActionLayout, type ButtonProps } from '@/components/SolanaBlinkRenderer/ui/ActionLayout.js';
-import { isSignTransactionError } from '@/components/SolanaBlinkRenderer/utils/type-guards.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -169,10 +168,10 @@ export function ActionContainer({
             const tx = await component.post(account);
             const signResult = await action.adapter.signTransaction(tx.transaction, context);
 
-            if (!signResult || isSignTransactionError(signResult)) {
+            if (!signResult || (signResult as { error: string }).error) {
                 dispatch({ type: ExecutionType.RESET });
             } else {
-                await action.adapter.confirmTransaction(signResult.signature, context);
+                await action.adapter.confirmTransaction((signResult as { signature: string }).signature, context);
                 dispatch({
                     type: ExecutionType.FINISH,
                     successMessage: tx.message,
