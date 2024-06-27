@@ -1,11 +1,12 @@
 import { Menu, type MenuProps, Transition } from '@headlessui/react';
-import { EllipsisHorizontalCircleIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
 import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
+import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
@@ -64,7 +65,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                                     enqueueSuccessMessage(t`Copied`);
                                 }}
                             >
-                                <LinkIcon width={24} height={24} />
+                                <LinkIcon width={18} height={18} />
                                 <span className="font-bold leading-[22px] text-main">
                                     <Trans>Copy link</Trans>
                                 </span>
