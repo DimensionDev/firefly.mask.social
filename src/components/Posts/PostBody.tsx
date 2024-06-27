@@ -93,8 +93,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         // TODO: read the content
         const solanaBlinkUrlMatch = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINKS_REGEX);
         if (solanaBlinkUrlMatch) {
-            const solanaBlinkUrl = solanaBlinkUrlMatch[1];
-            return <SolanaBlinkRenderer url={solanaBlinkUrl} />;
+            const solanaBlinkUrl = solanaBlinkUrlMatch[2];
+            return <SolanaBlinkRenderer url={solanaBlinkUrl} onData={() => setEndingLinkCollapsed(true)} />;
         }
         if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled) {
             return (

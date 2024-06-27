@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 
 import type { ExtendedActionState } from '@/components/SolanaBlinkRenderer/api/ActionsRegistry.js';
 import { Badge } from '@/components/SolanaBlinkRenderer/ui/Badge.js';
@@ -25,7 +25,7 @@ interface LayoutProps {
     inputs?: InputProps[];
 }
 export interface ButtonProps {
-    text: string | null;
+    text: ReactNode;
     loading?: boolean;
     variant?: 'default' | 'success' | 'error';
     disabled?: boolean;
@@ -64,23 +64,27 @@ export function ActionLayout({
 }: LayoutProps) {
     return (
         <div
-            className="shadow-action mt-3 w-full cursor-default overflow-hidden rounded-xl border border-line bg-bg"
+            className="shadow-action mt-3 w-full cursor-default overflow-hidden rounded-2xl border border-line bg-bg p-3"
             onClick={(e) => {
                 e.stopPropagation();
             }}
         >
             {image ? (
                 <Linkable url={websiteUrl}>
-                    <img className="aspect-square w-full object-cover object-left" src={image} alt="action-image" />
+                    <img
+                        className="aspect-square w-full rounded-xl object-cover object-left"
+                        src={image}
+                        alt="action-image"
+                    />
                 </Linkable>
             ) : null}
-            <div className="flex flex-col p-5">
-                <div className="mb-2 flex items-center gap-2">
+            <div className="mt-3 flex flex-col space-y-1.5">
+                <div className="flex items-center gap-2">
                     {websiteUrl ? (
                         <a
                             href={websiteUrl}
                             target="_blank"
-                            className="text-subtext text-twitter-neutral-50 inline-flex items-center truncate transition-colors hover:cursor-pointer hover:text-[#949CA4] hover:underline motion-reduce:transition-none"
+                            className="inline-flex cursor-pointer items-center truncate text-[15px] text-second hover:underline"
                             rel="noopener noreferrer"
                         >
                             <LinkIcon className="mr-2" />
@@ -106,12 +110,12 @@ export function ActionLayout({
                         )}
                     </a>
                 </div>
-                <span className="mb-0.5 font-semibold text-main">{title}</span>
-                <span className="mb-4 whitespace-pre-wrap text-sm text-main">{description}</span>
-                {disclaimer ? <div className="mb-4">{disclaimer}</div> : null}
+                <span className="text-[15px] font-semibold text-main">{title}</span>
+                <span className="whitespace-pre-wrap text-[15px] text-sm text-main">{description}</span>
+                {disclaimer ? <div>{disclaimer}</div> : null}
                 <div className="flex flex-col gap-3">
                     {buttons && buttons.length > 0 ? (
-                        <div className="flex flex-wrap items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-3">
                             {buttons?.map((it, index) => (
                                 <div key={index} className="flex-auto">
                                     <ActionButton {...it} />
@@ -134,15 +138,15 @@ function ActionInput({ placeholder, name, button, disabled }: InputProps) {
     const [value, onChange] = useState('');
 
     return (
-        <div className="focus-within:border-twitter-accent flex items-center gap-2 rounded-full border border-[#3D4144] transition-colors motion-reduce:transition-none">
+        <div className="flex h-[52px] items-center gap-2 rounded-full border border-main px-3 py-1.5">
             <input
-                placeholder={placeholder || 'Type here...'}
+                placeholder={placeholder}
                 value={value}
                 disabled={disabled}
                 onChange={(e) => onChange(e.target.value)}
-                className="placeholder:text-twitter-neutral-50 disabled:text-twitter-neutral-50 ml-4 flex-1 truncate bg-transparent outline-none"
+                className="flex-1 truncate border-none bg-transparent p-0 text-[15px] shadow-none outline-none placeholder:text-second disabled:text-third"
             />
-            <div className="my-2 mr-2">
+            <div>
                 <ActionButton
                     {...button}
                     onClick={() => button.onClick({ [name]: value })}
@@ -154,7 +158,7 @@ function ActionInput({ placeholder, name, button, disabled }: InputProps) {
 }
 
 function ActionButton({ text, loading, disabled, variant, onClick }: ButtonProps) {
-    function ButtonContent() {
+    const content = useMemo(() => {
         if (loading)
             return (
                 <span className="flex flex-row items-center justify-center gap-2">
@@ -169,11 +173,11 @@ function ActionButton({ text, loading, disabled, variant, onClick }: ButtonProps
                 </span>
             );
         return text;
-    }
+    }, [loading, variant, text]);
 
     return (
         <Button onClick={() => onClick()} disabled={disabled} variant={variant}>
-            <ButtonContent />
+            {content}
         </Button>
     );
 }

@@ -1,5 +1,6 @@
+import { Trans } from '@lingui/macro';
 import { take } from 'lodash-es';
-import { useEffect, useMemo, useReducer, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useReducer, useState } from 'react';
 
 import { Action, type ActionComponent } from '@/components/SolanaBlinkRenderer/api/Action.js';
 import type { ActionCallbacksConfig } from '@/components/SolanaBlinkRenderer/api/ActionCallbacks.js';
@@ -89,14 +90,6 @@ const buttonVariantMap: Record<ExecutionStatus, 'default' | 'error' | 'success'>
     executing: 'default',
     success: 'success',
     error: 'error',
-};
-
-const buttonLabelMap: Record<ExecutionStatus, string | null> = {
-    blocked: null,
-    idle: null,
-    executing: 'Executing',
-    success: 'Completed',
-    error: 'Failed',
 };
 
 const SOFT_LIMIT_BUTTONS = 10;
@@ -191,6 +184,14 @@ export function ActionContainer({
                 errorMessage: (e as Error).message ?? 'Unknown error',
             });
         }
+    };
+
+    const buttonLabelMap: Record<ExecutionStatus, ReactNode> = {
+        blocked: null,
+        idle: null,
+        executing: <Trans>Executing</Trans>,
+        success: <Trans>Completed</Trans>,
+        error: <Trans>Failed</Trans>,
     };
 
     const asButtonProps = (it: ActionComponent): ButtonProps => ({
