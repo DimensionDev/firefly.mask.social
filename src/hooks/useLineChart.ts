@@ -42,7 +42,7 @@ export function useLineChart(
         formatTooltip?: (value: number) => number | string;
     },
 ) {
-    const { color = 'steelblue', tickFormat = ',.2s', formatTooltip = (value: number) => value } = opts;
+    const { color = 'currentColor', tickFormat = ',.2s', formatTooltip = (value: number) => value } = opts;
     const { top, right, bottom, left, width, height } = dimension;
     const contentWidth = width - left - right;
     const contentHeight = height - top - bottom;

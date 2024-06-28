@@ -27,7 +27,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
 
     const content = (
         <ClickableArea
-            className="cursor-pointer text-link"
+            className="cursor-pointer text-link hover:underline"
             as="span"
             onMouseEnter={() => {
                 if (symbol) router.prefetch(`/token/${symbol}`);
@@ -68,7 +68,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                     enabled ? (
                         <TokenProfile
                             className="bg-primaryBottom p-2 text-main shadow-[0_8px_20px_0_rgba(0,0,0,0.04)]"
-                            symbol={title.slice(1)}
+                            symbol={symbol}
                             onTokenUpdate={(token) => {
                                 if (token !== undefined) {
                                     resolve();

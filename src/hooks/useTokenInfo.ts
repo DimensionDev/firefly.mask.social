@@ -9,7 +9,7 @@ export function useTokenInfo(symbol: string) {
         select: (tokens) => {
             const sym = symbol.toLowerCase();
             const token = tokens.find((x) => x.symbol === sym) || null;
-            return token || null;
+            return token;
         },
     });
 }

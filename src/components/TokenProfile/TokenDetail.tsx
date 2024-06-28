@@ -6,17 +6,8 @@ import { first, last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode, useMemo, useRef, useState } from 'react';
 
-import DiscordRound from '@/assets/DiscordRound.svg';
-import FacebookColored from '@/assets/FacebookColored.svg';
-import GitHub from '@/assets/GitHub.svg';
-import Instagram from '@/assets/Instagram.svg';
-import Medium from '@/assets/Medium.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
 import QuestionIcon from '@/assets/question.svg';
-import RedditRound from '@/assets/RedditRound.svg';
-import TelegramRound from '@/assets/TelegramRound.svg';
-import TwitterXRound from '@/assets/TwitterXRound.svg';
-import YouTube from '@/assets/YouTube.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
@@ -50,7 +41,7 @@ function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
             <span color="text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description}>
-                    <QuestionIcon className="ml-1" width={14} height={14} />
+                    <QuestionIcon className="ml-1 cursor-pointer" width={14} height={14} />
                 </Tooltip>
             ) : null}
             {extra ? (
@@ -75,19 +66,6 @@ const dimension: Dimension = {
     left: 32,
     width: 543,
     height: 175,
-};
-
-const brands: Record<string, React.ReactNode> = {
-    discord: <DiscordRound width={16} height={16} />,
-    facebook: <FacebookColored width={16} height={16} />,
-    github: <GitHub width={16} height={16} />,
-    instagram: <Instagram width={16} height={16} />,
-    medium: <Medium width={16} height={16} />,
-    reddit: <RedditRound width={16} height={16} />,
-    telegram: <TelegramRound width={16} height={16} />,
-    twitter: <TwitterXRound width={16} height={16} />,
-    youtube: <YouTube width={16} height={16} />,
-    other: null,
 };
 
 function getHost(url: string) {

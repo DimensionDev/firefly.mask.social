@@ -19,21 +19,23 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
     if (!title) return null;
 
     return (
-        <ClickableArea
-            className="cursor-pointer text-link"
-            as="span"
-            onClick={() => {
-                scrollTo(0, 0);
-                router.push(
-                    urlcat(PageRoute.Search, {
-                        q: title,
-                        type: SearchType.Posts,
-                        source: source ? resolveSourceInURL(source) : undefined,
-                    }),
-                );
-            }}
-        >
-            {title}
-        </ClickableArea>
+        <>
+            <ClickableArea
+                className="cursor-pointer text-link hover:underline"
+                as="span"
+                onClick={() => {
+                    scrollTo(0, 0);
+                    router.push(
+                        urlcat(PageRoute.Search, {
+                            q: title,
+                            type: SearchType.Posts,
+                            source: source ? resolveSourceInURL(source) : undefined,
+                        }),
+                    );
+                }}
+            >
+                {title}
+            </ClickableArea>
+        </>
     );
 });

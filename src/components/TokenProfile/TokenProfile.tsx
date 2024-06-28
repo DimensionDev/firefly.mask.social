@@ -8,7 +8,7 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatNumber } from '@/helpers/formatNumber.js';
+import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
@@ -61,9 +61,18 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 'box-border flex w-[317px] flex-col gap-1.5 overflow-auto rounded-2xl border border-line px-6 py-3',
                 rest.className,
             )}
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
         >
             <div className="flex items-center gap-2.5 text-second">
-                <Image src={token.logoURL} alt={token.name} width={40} height={40} />
+                <Image
+                    className="overflow-hidden rounded-full"
+                    src={token.logoURL}
+                    alt={token.name}
+                    width={40}
+                    height={40}
+                />
                 <strong className="text-lg font-bold uppercase text-main">{token.symbol}</strong>
                 <span className="font-inter text-[15px] font-bold">{token.name}</span>
             </div>
@@ -87,7 +96,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 <Trans>
                     <span className="text-[15px] text-secondary">M.Capital</span>
                     <strong className="text-[15px] font-bold">
-                        {market?.market_cap !== undefined ? `$${formatNumber(market.market_cap)}` : '-'}
+                        {market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'}
                     </strong>
                     <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
                         Rank #{token.rank}
@@ -100,7 +109,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     width={267}
                     height={100}
                     viewBox="0 0 317 100"
-                    className={isUp ? 'text-success' : 'rotate-180 text-fail'}
+                    className={isUp ? 'text-success' : 'text-fail'}
                 />
             </div>
             <ClickableButton

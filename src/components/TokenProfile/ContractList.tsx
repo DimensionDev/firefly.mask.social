@@ -1,4 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
+import { t } from '@lingui/macro';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
@@ -8,6 +9,7 @@ import { Fragment, type HTMLProps, memo } from 'react';
 import DotsIcon from '@/assets/dots.svg';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
@@ -24,7 +26,9 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
                 className="flex items-center text-secondary"
                 aria-label="More"
             >
-                <DotsIcon className="text-secondary" width={16} height={16} />
+                <Tooltip content={t`More`} placement="top">
+                    <DotsIcon className="text-secondary" width={16} height={16} />
+                </Tooltip>
             </Menu.Button>
             <Transition
                 as={Fragment}
@@ -36,7 +40,8 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex w-max flex-col gap-2 rounded-2xl bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+                    className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex max-h-[260px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+                    data-hide-scrollbar
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -65,16 +70,16 @@ interface ContractItemProps extends HTMLProps<HTMLDivElement> {
 function ContractItem({ contract, ...rest }: ContractItemProps) {
     const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, contract.chainId);
 
+    if (!chain) return null;
+
     return (
         <div {...rest} className={classNames('flex items-center gap-2', rest.className)}>
-            {chain ? (
-                <Image src={chain.icon} className="flex-shrink-0" alt={chain.name} width={16} height={16} />
-            ) : (
-                <div className="h-4 w-4" />
-            )}
-            <div className="min-w-[100px] p-1 leading-4">
-                <div className="text-[12px] font-bold text-main">{chain?.name ?? '-'}</div>
-                <div className="text-[12px] font-bold text-main">{formatEthereumAddress(contract.address, 4)}</div>
+            <Image src={chain.icon} className="flex-shrink-0" alt={chain.name} width={16} height={16} />
+            <div className="min-w-[100px] flex-grow p-1 leading-4">
+                <div className="text-[12px] font-bold text-main">{chain.name ?? '-'}</div>
+                <div className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main">
+                    {formatEthereumAddress(contract.address, 4)}
+                </div>
             </div>
             <CopyButton value={contract.address} />
         </div>

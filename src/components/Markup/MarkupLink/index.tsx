@@ -85,11 +85,29 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     }
 
     const trimmed = title.trim();
-    if (trimmed.startsWith('#')) return <Hashtag title={trimmed} source={source} />;
-    if (trimmed.startsWith('$')) return <SymbolTag title={trimmed} source={source} />;
+    const tagPadding = title.startsWith(' ') ? ' ' : null;
+    if (trimmed.startsWith('#'))
+        return (
+            <>
+                {tagPadding}
+                <Hashtag title={trimmed} source={source} />
+            </>
+        );
+    if (trimmed.startsWith('$'))
+        return (
+            <>
+                {tagPadding}
+                <SymbolTag title={trimmed} source={source} />
+            </>
+        );
 
     if (trimmed.startsWith('/')) {
-        return <ChannelTag title={title} source={source} />;
+        return (
+            <>
+                {tagPadding}
+                <ChannelTag title={trimmed} source={source} />
+            </>
+        );
     }
 
     if (isValidDomain(title)) return title;

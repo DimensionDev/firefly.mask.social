@@ -36,6 +36,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             },
                             '/profile',
                             '/channel',
+                            '/token',
                         ]}
                     >
                         <NavigatorBar />
@@ -103,7 +104,9 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     <LinkCloud />
                 </div>
             </aside>
-            <ComposeButton />
+            <IfPathname isNotOneOf={['/token']}>
+                <ComposeButton />
+            </IfPathname>
         </>
     );
 }
