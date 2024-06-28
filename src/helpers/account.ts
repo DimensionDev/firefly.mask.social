@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { signOut } from 'next-auth/react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -6,6 +7,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -28,13 +30,20 @@ async function restoreFireflySession(session: Session, signal?: AbortSignal): Pr
             'Failed to query the signed key request status after several attempts. Please try again later.',
         );
 
+    const state = useFireflyStateStore.getState();
+
+    // check if the session is the same as the current one
+    const fireflySession = await FireflySession.from(session, signal);
+    if (state.currentProfileSession && !isSameSession(fireflySession, state.currentProfileSession)) {
+        throw new Error(t`The session is not the same as the current session. Please try again.`);
+    }
+
     const account = {
         profile: createDummyProfile(Source.Farcaster),
-        session: await FireflySession.from(session, signal),
+        session: fireflySession,
     };
 
     // update firefly state
-    const state = useFireflyStateStore.getState();
     state.updateAccounts([account]);
     state.updateCurrentAccount(account);
 

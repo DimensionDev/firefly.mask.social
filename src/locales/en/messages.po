@@ -757,6 +757,9 @@ msgstr "Users"
 msgid "Describe a bug or suggest an improvement"
 msgstr "Describe a bug or suggest an improvement"
 
+msgid "The session is not the same as the current session. Please try again."
+msgstr "The session is not the same as the current session. Please try again."
+
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "The file \"{0}\" exceeds the size limit."
 

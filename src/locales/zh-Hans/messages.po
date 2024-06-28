@@ -762,6 +762,9 @@ msgstr "用户"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述问题或者提出建议"
 
+msgid "The session is not the same as the current session. Please try again."
+msgstr ""
+
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
 
