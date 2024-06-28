@@ -12,6 +12,7 @@ interface WarpcastSignInResponse {
     token: string;
     timestamp: number;
     expiresAt: number;
+    // URL to present to user to scan
     deeplinkUrl: string;
 }
 

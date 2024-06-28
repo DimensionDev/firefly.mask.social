@@ -89,12 +89,17 @@ export interface SignedKeyRequestResponse extends ErrorResponse {
     result: {
         signedKeyRequest: {
             deeplinkUrl: string;
-            state: 'pending' | 'completed' | 'approved';
-            isSponsored: boolean;
+            // state of the request taking one of the following values:
+            // - pending - no action has been taken by the user
+            // - approved - user has approved the request, an onchain transaction is being broadcast and confirmed
+            // - completed - the onchain transaction has completed
+            state: 'pending' | 'approved' | 'completed';
+            // requested key to add
             key: string;
             requestFid: number;
             token: string;
             userFid: number;
+            isSponsored: boolean;
         };
     };
 }

@@ -151,9 +151,6 @@ msgstr "You can save the failed parts of posts and send them later from your Dra
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
 
-msgid "[Image]"
-msgstr "[Image]"
-
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
@@ -310,6 +307,9 @@ msgstr "Failed to delete"
 msgid "Failed to fetch: {0}. Please try again later"
 msgstr "Failed to fetch: {0}. Please try again later"
 
+msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
+msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
+
 msgid "Report Failed"
 msgstr "Report Failed"
 
@@ -381,9 +381,6 @@ msgstr "Owners"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
-
-msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
-msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
@@ -748,9 +745,6 @@ msgstr "<0>Acquired</0> an NFT"
 msgid "Retweeted"
 msgstr "Retweeted"
 
-msgid "Post your reply"
-msgstr "Post your reply"
-
 msgid "liked"
 msgstr "liked"
 
@@ -768,9 +762,6 @@ msgstr "Invalid URL."
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-
-msgid "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
-msgstr "{0, select, Image {{1}} Video {{2}} Audio {{3}} Poll {{4}} other {}}"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
@@ -958,6 +949,9 @@ msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 
+msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+
 msgid "Discard"
 msgstr "Discard"
 
@@ -1002,9 +996,6 @@ msgstr "Unable to retrieve post details."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
-
-msgid "recasted your"
-msgstr "recasted your"
 
 msgid "Quotes"
 msgstr "Quotes"
@@ -1222,6 +1213,9 @@ msgstr "Date"
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
 
@@ -1293,9 +1287,6 @@ msgstr "Farcaster channel"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <4><5/></4>"
 
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
@@ -1369,9 +1360,6 @@ msgstr "Log in to Farcaster account"
 msgid "{0} Users"
 msgstr "{0} Users"
 
-msgid "[Audio]"
-msgstr "[Audio]"
-
 msgid "Final results"
 msgstr "Final results"
 
@@ -1407,9 +1395,6 @@ msgstr "Video"
 
 msgid "Language"
 msgstr "Language"
-
-msgid "Add a comment"
-msgstr "Add a comment"
 
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
@@ -1461,9 +1446,6 @@ msgstr "Media"
 
 msgid "No content to publish."
 msgstr "No content to publish."
-
-msgid "mirrored your"
-msgstr "mirrored your"
 
 msgid "Mirror"
 msgstr "Mirror"

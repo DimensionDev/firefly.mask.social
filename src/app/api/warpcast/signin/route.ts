@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
                 deeplinkUrl: string;
                 key: string;
                 requestFid: number;
-                state: 'pending' | 'completed';
+                state: 'pending' | 'approved' | 'completed';
                 isSponsored: boolean;
             };
         };

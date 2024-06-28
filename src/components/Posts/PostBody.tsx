@@ -170,11 +170,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     {post.metadata.content?.asset?.type ? (
                         <Select
                             value={post.metadata.content.asset.type}
-                            _Image={t`[Image]`}
-                            _Video={t`[Video]`}
-                            _Audio={t`[Audio]`}
-                            _Poll={t`[Poll]`}
-                            other={''}
+                            _Image="[Image]"
+                            _Video="[Video]"
+                            _Audio="[Audio]"
+                            _Poll="[Poll]"
+                            other=""
                         />
                     ) : null}
                     {post.quoteOn ? <span>{t`[Quote]`}</span> : null}

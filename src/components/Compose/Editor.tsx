@@ -69,8 +69,8 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                                       ? t`What's happening...`
                                       : t`Add another post...`
                             }
-                            _quote={t`Add a comment`}
-                            _reply={t`Post your reply`}
+                            _quote="Add a comment"
+                            _reply="Post your reply"
                             other={index === 0 ? t`What's happening...` : t`Add another post...`}
                         />
                     </div>
