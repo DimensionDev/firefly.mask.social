@@ -112,6 +112,9 @@ msgstr "Views"
 msgid "Failed to upload. Video is not supported yet"
 msgstr "Failed to upload. Video is not supported yet"
 
+msgid "Unknown error"
+msgstr "Unknown error"
+
 msgid "More"
 msgstr "More"
 
@@ -162,6 +165,9 @@ msgstr "Wrong wallet"
 
 msgid "Poll"
 msgstr "Poll"
+
+msgid "Solana"
+msgstr "Solana"
 
 msgid "Casts"
 msgstr "Casts"
@@ -228,6 +234,9 @@ msgstr "Show less"
 
 msgid "comment"
 msgstr "comment"
+
+msgid "Failed"
+msgstr "Failed"
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -588,6 +597,9 @@ msgstr "Forbidden. Please check your permissions"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+
+msgid "EVM"
+msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
@@ -994,6 +1006,9 @@ msgstr "Light Mode"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
 
+msgid "Executing"
+msgstr "Executing"
+
 msgid "Delete"
 msgstr "Delete"
 
@@ -1308,6 +1323,9 @@ msgstr "NFT ID"
 
 msgid "Farcaster channel"
 msgstr "Farcaster channel"
+
+msgid "Completed"
+msgstr "Completed"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."

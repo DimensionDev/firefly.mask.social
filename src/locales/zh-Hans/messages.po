@@ -117,6 +117,9 @@ msgstr "浏览数"
 msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
 
+msgid "Unknown error"
+msgstr ""
+
 msgid "More"
 msgstr "更多"
 
@@ -167,6 +170,9 @@ msgstr "错误的钱包"
 
 msgid "Poll"
 msgstr "投票"
+
+msgid "Solana"
+msgstr ""
 
 msgid "Casts"
 msgstr "帖子"
@@ -233,6 +239,9 @@ msgstr "收起"
 
 msgid "comment"
 msgstr "评论"
+
+msgid "Failed"
+msgstr ""
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -592,6 +601,9 @@ msgid "Forbidden. Please check your permissions"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "EVM"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -999,6 +1011,9 @@ msgstr "浅色模式"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
+msgid "Executing"
+msgstr ""
+
 msgid "Delete"
 msgstr "删除"
 
@@ -1313,6 +1328,9 @@ msgstr "NFT ID"
 
 msgid "Farcaster channel"
 msgstr "Farcaster 频道"
+
+msgid "Completed"
+msgstr ""
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
