@@ -13,12 +13,7 @@ import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
  * @returns An asynchronous function that waits for the signed key request to complete.
  */
 export function waitForSignedKeyRequest(signal?: AbortSignal) {
-    return async (
-        token: string,
-        listOfState: Array<'pending' | 'completed' | 'approved'> = ['approved', 'completed'],
-        maxTries = Number.MAX_SAFE_INTEGER,
-        ms = 3000,
-    ) => {
+    return async (token: string, maxTries = Number.MAX_SAFE_INTEGER, ms = 3000) => {
         let tries = 0;
 
         // eslint-disable-next-line no-constant-condition
@@ -48,8 +43,8 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
             // Continue the loop if there are errors in the response
             if (response.errors?.length) continue;
 
-            // Check if the signed key request has reached the desired state
-            if (listOfState.includes(response.result.signedKeyRequest.state)) return response;
+            // Check if the signed key request has reached the 'completed' state
+            if (response.result.signedKeyRequest.state === 'completed') return response;
         }
     };
 }
