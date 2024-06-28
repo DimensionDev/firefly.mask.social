@@ -8,14 +8,13 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
@@ -23,7 +22,7 @@ interface ProfileSettingsProps {
 }
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
-    const { currentProfile } = useProfileStore(source);
+    const { accounts, currentProfile } = useProfileStore(source);
 
     useMount(() => {
         getProfileState(source).refreshAccounts();
@@ -31,35 +30,25 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
     if (!currentProfile) return null;
 
-    const canDetect =
-        env.shared.NODE_ENV === NODE_ENV.Development &&
-        (source === Source.Lens ||
-            (source === Source.Farcaster &&
-                FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)));
-
-    const size = 1;
-
     return (
         <div className="flex flex-col overflow-x-hidden bg-primaryBottom md:w-[290px] md:rounded-2xl md:border md:border-line">
             <div
                 className={classNames('max-h-[calc(62.5px*3)] overflow-auto md:max-h-[calc(72px*3)]', {
-                    'mb-3': size > 1,
+                    'mb-3': accounts.length > 1,
                 })}
             >
-                {Array.from({ length: size }).map((_, index) => (
-                    <div
-                        key={`${currentProfile.profileId}_${index}`}
-                        className={classNames(
-                            'flex min-w-0 items-center justify-between gap-3 rounded px-2 py-2 outline-none md:rounded-none md:px-5',
-                            {
-                                'cursor-pointer hover:bg-bg': index !== 0,
-                            },
-                        )}
+                {accounts.map((account, index) => (
+                    <ClickableButton
+                        className="flex w-full min-w-0 items-center justify-between gap-3 rounded px-2 py-2 hover:bg-bg md:rounded-none md:px-5"
+                        key={account.profile.profileId}
+                        onClick={() => {
+                            switchAccount(account);
+                        }}
                     >
-                        <ProfileAvatar profile={currentProfile} clickable linkable />
-                        <ProfileName profile={currentProfile} />
-                        {index === 0 ? <CircleCheckboxIcon checked /> : null}
-                    </div>
+                        <ProfileAvatar profile={account.profile} clickable linkable />
+                        <ProfileName profile={account.profile} />
+                        {isSameProfile(account.profile, currentProfile) ? <CircleCheckboxIcon checked /> : null}
+                    </ClickableButton>
                 ))}
             </div>
 
@@ -67,7 +56,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
             <div className="flex flex-col md:mx-5">
                 <ClickableButton
-                    className="flex w-full items-center rounded px-2 py-3 text-main outline-none hover:bg-bg"
+                    className="flex w-full items-center rounded px-2 py-3 text-main hover:bg-bg"
                     onClick={async () => {
                         if (source === Source.Twitter)
                             await signOut({
@@ -82,9 +71,11 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     </span>
                 </ClickableButton>
                 <ClickableButton
-                    className="flex items-center overflow-hidden whitespace-nowrap rounded px-2 py-3 outline-none hover:bg-bg md:mb-3"
+                    className="flex items-center overflow-hidden whitespace-nowrap rounded px-2 py-3 hover:bg-bg md:mb-3"
                     onClick={() => {
-                        LogoutModalRef.open({ source });
+                        LogoutModalRef.open({
+                            account: accounts.find((x) => isSameProfile(x.profile, currentProfile)),
+                        });
                         onClose?.();
                     }}
                 >

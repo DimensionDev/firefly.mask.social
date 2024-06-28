@@ -44,13 +44,10 @@ async function login(
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
         // add new account for farcaster
-        await addAccount(
-            {
-                session,
-                profile,
-            },
-            true,
-        );
+        await addAccount({
+            session,
+            profile,
+        });
 
         enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
 

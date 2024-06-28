@@ -20,6 +20,7 @@ import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export default function Connected() {
     const { address } = useAccount();
@@ -51,7 +52,7 @@ export default function Connected() {
                 return profile ? (
                     <Fragment key={profile.profileId}>
                         <div className="flex w-full items-center justify-between">
-                            <span className="text-base font-bold leading-[18px] text-main">resolveSourceName(x)</span>
+                            <span className="text-base font-bold leading-[18px] text-main">{resolveSourceName(x)}</span>
                             {x === Source.Lens ? (
                                 <div className="flex items-center gap-1">
                                     <span className="text-base font-bold leading-[18px] text-second">

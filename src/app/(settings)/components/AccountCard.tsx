@@ -40,7 +40,7 @@ export function AccountCard({ account, isCurrent }: AccountCardProps) {
                 <ClickableButton
                     className="text-[15px] font-bold leading-none text-red-500"
                     onClick={() => {
-                        LogoutModalRef.open({ source: account.profile.source });
+                        LogoutModalRef.open({ account });
                     }}
                 >
                     <Trans>Log out</Trans>

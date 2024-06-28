@@ -11,6 +11,7 @@ import { type ProfileSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
@@ -22,9 +23,19 @@ interface ProfileModalProps {
 }
 
 function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
+    const controller = useAbortController();
+
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
         try {
-            await Promise.all(Object.values(accounts).map((x, i) => addAccount(x, i === 0)));
+            await Promise.all(
+                Object.values(accounts).map((x, i) =>
+                    addAccount(x, {
+                        setAsCurrent: i === 0,
+                        restoreSession: false,
+                        signal: controller.signal,
+                    }),
+                ),
+            );
             onConfirm?.();
             ConfirmModalRef.close(true);
         } catch (error) {

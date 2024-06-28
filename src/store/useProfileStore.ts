@@ -190,6 +190,12 @@ const useLensStateBase = createState(
                 const profileId = state.currentProfile?.profileId;
                 const clientProfileId = await lensSessionHolder.sdk.authentication.getProfileId();
 
+                console.log('DEBUG: lens-state');
+                console.log({
+                    profileId,
+                    clientProfileId,
+                });
+
                 if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
                     console.warn('[lens store] clean the local store because the client cannot recover properly');
                     state.clear();
@@ -241,13 +247,10 @@ const useTwitterStateBase = createState(
                 // only one account is allowed
                 state.clear();
 
-                await addAccount(
-                    {
-                        profile: me,
-                        session: TwitterSession.from(me, payload),
-                    },
-                    true,
-                );
+                await addAccount({
+                    profile: me,
+                    session: TwitterSession.from(me, payload),
+                });
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();

@@ -1,9 +1,10 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
+import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -36,16 +37,28 @@ async function restoreFireflySession(session: Session, signal?: AbortSignal): Pr
     state.updateCurrentAccount(account);
 
     // restore firefly session
-    await fireflySessionHolder.resumeSession(account.session);
+    fireflySessionHolder.resumeSession(account.session);
 }
 
-export async function addAccount(account: Account, setAsCurrent: boolean, signal?: AbortSignal) {
+export async function addAccount(
+    account: Account,
+    {
+        // set the account as the current account
+        setAsCurrent = true,
+        restoreSession = true,
+        signal,
+    }: {
+        setAsCurrent?: boolean;
+        restoreSession?: boolean;
+        signal?: AbortSignal;
+    } = {},
+) {
     const { state, sessionHolder } = getContext(account);
 
     state.addAccount(account, setAsCurrent);
-    sessionHolder.resumeSession(account.session);
+    if (setAsCurrent) sessionHolder.resumeSession(account.session);
 
-    if (account.session.type !== SessionType.Firefly) {
+    if (account.session.type !== SessionType.Firefly && restoreSession) {
         await restoreFireflySession(account.session, signal);
     }
 }
@@ -56,25 +69,38 @@ export async function addAccount(account: Account, setAsCurrent: boolean, signal
  * @param signal
  */
 export async function switchAccount(account: Account, signal?: AbortSignal) {
-    await addAccount(account, true, signal);
+    await addAccount(account, {
+        setAsCurrent: true,
+        restoreSession: false,
+        signal,
+    });
 }
 
 export async function removeAccount(account: Account, signal?: AbortSignal) {
     const { state, sessionHolder } = getContext(account);
-    const isCurrentAccount = isSameProfile(state.currentProfile, account.profile);
 
     // switch to next available account if the current account is removing.
-    if (isCurrentAccount) {
+    if (isSameProfile(state.currentProfile, account.profile)) {
         const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
         if (nextAccount) await switchAccount(nextAccount, signal);
+        else sessionHolder.removeSession();
     }
 
     state.removeAccount(account);
-    if (isCurrentAccount) sessionHolder.removeSession();
 }
 
 export async function removeCurrentAccount(source: SocialSource) {
     const { accounts, currentProfile } = getProfileState(source);
     const account = accounts.find((x) => isSameProfile(x.profile, currentProfile));
     if (account) await removeAccount(account);
+}
+
+export async function removeAllAccounts() {
+    SORTED_SOCIAL_SOURCES.forEach((x) => {
+        getProfileState(x).clear();
+        resolveSessionHolder(x)?.removeSession();
+    });
+
+    useFireflyStateStore.getState().clear();
+    fireflySessionHolder.removeSession();
 }
