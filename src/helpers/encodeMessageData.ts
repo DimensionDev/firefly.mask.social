@@ -11,8 +11,8 @@ export async function encodeMessageData(
     withMessage: (messageData: MessageData, signer: NobleEd25519Signer) => Promise<Message>,
 ) {
     const { token, profileId } = farcasterSessionHolder.sessionRequired;
-    const privateKey = token;
-    const signer = new NobleEd25519Signer(toBytes(privateKey));
+    // token is the private key of signer
+    const signer = new NobleEd25519Signer(toBytes(token));
 
     const fid = Number.parseInt(profileId, 10);
 
