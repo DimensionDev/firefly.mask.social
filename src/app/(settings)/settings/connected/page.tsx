@@ -16,11 +16,11 @@ import { Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export default function Connected() {
     const { address } = useAccount();
@@ -104,18 +104,20 @@ export default function Connected() {
                     </div>
                 </ClickableButton>
 
-                <ClickableButton
-                    className="inline-flex h-10 w-full flex-col items-start justify-start md:w-[200px]"
-                    onClick={() => {
-                        LogoutModalRef.open();
-                    }}
-                >
-                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-danger px-[18px] py-[11px]">
-                        <div className="text-[15px] font-bold leading-[18px] text-white dark:text-lightMain">
-                            <Trans>Log out all</Trans>
+                {SORTED_SOCIAL_SOURCES.flatMap((x) => accountsAll[x]).length ? (
+                    <ClickableButton
+                        className="inline-flex h-10 w-full flex-col items-start justify-start md:w-[200px]"
+                        onClick={() => {
+                            LogoutModalRef.open();
+                        }}
+                    >
+                        <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-danger px-[18px] py-[11px]">
+                            <div className="text-[15px] font-bold leading-[18px] text-white dark:text-lightMain">
+                                <Trans>Log out all</Trans>
+                            </div>
                         </div>
-                    </div>
-                </ClickableButton>
+                    </ClickableButton>
+                ) : null}
             </div>
         </Section>
     );

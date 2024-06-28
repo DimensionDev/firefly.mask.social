@@ -33,5 +33,5 @@ export function useAbortController() {
         controllerRef.current.abort();
     });
 
-    return controllerRef.current;
+    return controllerRef;
 }

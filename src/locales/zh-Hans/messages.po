@@ -1215,6 +1215,9 @@ msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 msgid "Date"
 msgstr "日期"
 
+msgid "Confirm to log out all accounts?"
+msgstr ""
+
 msgid "Failed to retweet."
 msgstr "转帖失败。"
 

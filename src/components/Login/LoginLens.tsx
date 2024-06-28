@@ -52,10 +52,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
         async (signless: boolean) => {
             if (!profiles.length || !currentProfile) return;
 
-            controller.renew();
+            controller.current.renew();
 
             try {
-                const session = await createSessionForProfileId(currentProfile.profileId, controller.signal);
+                const session = await createSessionForProfileId(currentProfile.profileId, controller.current.signal);
 
                 if (!currentProfile.signless && signless) {
                     await updateSignless(true);
@@ -71,7 +71,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 // restore profiles exclude lens
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     source: Source.Lens,
-                    accounts: await syncAccountsFromFirefly(controller.signal),
+                    accounts: await syncAccountsFromFirefly(controller.current.signal),
                     onDetected(profiles) {
                         if (!profiles.length)
                             enqueueInfoMessage(t`No device accounts detected.`, {
@@ -103,7 +103,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             className="flex flex-col overflow-auto rounded-[12px] md:max-h-[535px] md:w-[600px] md:pb-[80px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="no-scrollbar mb-[50px] flex w-full flex-col gap-4 overflow-auto md:min-h-[300px] md:p-4">
+            <div className="no-scrollbar flex w-full flex-col gap-4 overflow-auto md:min-h-[300px] md:p-4">
                 {profiles.length ? (
                     <>
                         <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6">
@@ -116,7 +116,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                     <ProfileInList
                                         key={profile.profileId}
                                         profile={profile}
-                                        disabled={isAdded}
                                         selected={isSameProfile(currentProfile, profile) || isAdded}
                                         onSelect={setSelectedProfile}
                                     />

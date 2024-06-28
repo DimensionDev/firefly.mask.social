@@ -1,3 +1,5 @@
+import { signOut } from 'next-auth/react';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -92,12 +94,27 @@ export async function removeAccount(account: Account, signal?: AbortSignal) {
 export async function removeCurrentAccount(source: SocialSource) {
     const { accounts, currentProfile } = getProfileState(source);
     const account = accounts.find((x) => isSameProfile(x.profile, currentProfile));
-    if (account) await removeAccount(account);
+    if (!account) return;
+
+    if (source === Source.Twitter) {
+        await signOut({
+            redirect: false,
+        });
+    }
+    await removeAccount(account);
 }
 
 export async function removeAllAccounts() {
-    SORTED_SOCIAL_SOURCES.forEach((x) => {
-        getProfileState(x).clear();
+    SORTED_SOCIAL_SOURCES.forEach(async (x) => {
+        const state = getProfileState(x);
+        if (!state.accounts.length) return;
+
+        if (x === Source.Twitter) {
+            await signOut({
+                redirect: false,
+            });
+        }
+        state.clear();
         resolveSessionHolder(x)?.removeSession();
     });
 

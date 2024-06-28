@@ -32,7 +32,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                     addAccount(x, {
                         setAsCurrent: i === 0,
                         restoreSession: false,
-                        signal: controller.signal,
+                        signal: controller.current.signal,
                     }),
                 ),
             );
@@ -61,8 +61,8 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                     .map((account) => (
                         <ProfileInList
                             key={account.profile.profileId}
-                            disabled
                             selected
+                            selectable={false}
                             profile={account.profile}
                             ProfileAvatarProps={{
                                 enableSourceIcon: true,

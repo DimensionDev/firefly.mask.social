@@ -77,6 +77,11 @@ function createState(
                 removeAccount: (account) =>
                     set((state) => {
                         state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
+
+                        if (isSameProfile(account.profile, state.currentProfile)) {
+                            state.currentProfile = null;
+                            state.currentProfileSession = null;
+                        }
                     }),
                 updateAccounts: (accounts) =>
                     set((state) => {
@@ -189,12 +194,6 @@ const useLensStateBase = createState(
             try {
                 const profileId = state.currentProfile?.profileId;
                 const clientProfileId = await lensSessionHolder.sdk.authentication.getProfileId();
-
-                console.log('DEBUG: lens-state');
-                console.log({
-                    profileId,
-                    clientProfileId,
-                });
 
                 if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
                     console.warn('[lens store] clean the local store because the client cannot recover properly');

@@ -6,20 +6,15 @@ import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { signOut } from 'next-auth/react';
 import { forwardRef } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/helpers/account.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
 import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 export interface LogoutModalProps {
@@ -40,7 +35,11 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                 content: (
                     <>
                         <div className="text-[15px] font-medium leading-normal text-lightMain">
-                            <Trans>Confirm to log out this account?</Trans>
+                            {props?.account ? (
+                                <Trans>Confirm to log out this account?</Trans>
+                            ) : (
+                                <Trans>Confirm to log out all accounts?</Trans>
+                            )}
                         </div>
                         {accounts.map((account) => (
                             <div
@@ -57,13 +56,6 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             if (!confirmed) return;
 
             const source = props?.account?.profile.source;
-
-            // call next-auth signOut for twitter
-            if (!source || source === Source.Twitter) {
-                await signOut({
-                    redirect: false,
-                });
-            }
 
             if (source) {
                 await removeCurrentAccount(source);

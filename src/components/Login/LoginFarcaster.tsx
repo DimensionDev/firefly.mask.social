@@ -131,7 +131,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     });
 
     const [, onLoginByGrantPermission] = useAsyncFn(async () => {
-        controller.renew();
+        controller.current.renew();
 
         try {
             await login(
@@ -145,8 +145,8 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                             resetCountdown();
                             startCountdown();
                         }
-                    }, controller.signal),
-                { signal: controller.signal },
+                    }, controller.current.signal),
+                { signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -157,7 +157,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     }, []);
 
     const [, onLoginByRelayService] = useAsyncFn(async () => {
-        controller.renew();
+        controller.current.renew();
 
         try {
             await login(
@@ -172,7 +172,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
-                    }, controller.signal);
+                    }, controller.current.signal);
 
                     // let the user see the qr code has been scanned and display a loading icon
                     setScanned(true);
@@ -180,7 +180,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     // for relay service we need to sync the session from firefly
                     // and find out the the signer key of the connected profile
-                    const accounts = await syncAccountsFromFirefly(controller.signal);
+                    const accounts = await syncAccountsFromFirefly(controller.current.signal);
 
                     // if the user has signed into Firefly before, a synced session could be found.
                     const nextAccount = accounts.find((x) => isSameSession(x.session, session));
@@ -213,7 +213,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     return nextAccount.session as FarcasterSession;
                 },
-                { skipSyncSessions: true, signal: controller.signal },
+                { skipSyncSessions: true, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -224,7 +224,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     }, [resetCountdown, startCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        controller.abort();
+        controller.current.abort();
 
         try {
             await login(
@@ -232,7 +232,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                     const client = await getWalletClientRequired(config);
                     return createSessionByCustodyWallet(client);
                 },
-                { signal: controller.signal },
+                { signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -370,7 +370,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                 onClick={() => {
                                     if (scanned) return;
 
-                                    controller.abort();
+                                    controller.current.abort();
 
                                     switch (signType) {
                                         case FarcasterSignType.GrantPermission:

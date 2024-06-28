@@ -68,7 +68,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
     });
 
     const [, onLoginByGrantPermission] = useAsyncFn(async () => {
-        controller.renew();
+        controller.current.renew();
 
         try {
             await login(
@@ -92,9 +92,9 @@ export function LoginFirefly(props: LoginFireflyProps) {
                             [DeviceType.IOS]: url.replace(/^https/, 'firefly'),
                             [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
                         });
-                    }, controller.signal),
+                    }, controller.current.signal),
                 {
-                    signal: controller.signal,
+                    signal: controller.current.signal,
                 },
             );
         } catch (error) {
@@ -173,7 +173,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                                 })}
                                 onClick={() => {
                                     if (scanned) return;
-                                    controller.abort();
+                                    controller.current.abort();
                                     onLoginByGrantPermission();
                                 }}
                             >

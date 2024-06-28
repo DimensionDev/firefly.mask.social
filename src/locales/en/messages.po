@@ -1210,6 +1210,9 @@ msgstr "Failed to unmute @{0} on {sourceName}"
 msgid "Date"
 msgstr "Date"
 
+msgid "Confirm to log out all accounts?"
+msgstr "Confirm to log out all accounts?"
+
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
 

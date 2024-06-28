@@ -1215,6 +1215,9 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+msgid "Confirm to log out all accounts?"
+msgstr ""
+
 msgid "Failed to retweet."
 msgstr ""
 
