@@ -5,8 +5,8 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
-import { useEffect, useRef, useState } from 'react';
-import { useAsyncFn, useUnmount } from 'react-use';
+import { useEffect, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -21,6 +21,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import {
     AccountModalRef,
     ConnectWalletModalRef,
@@ -38,7 +39,7 @@ interface LoginLensProps {
 }
 
 export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
-    const controllerRef = useRef<AbortController>();
+    const controller = useAbortController();
 
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(false);
@@ -51,14 +52,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
         async (signless: boolean) => {
             if (!profiles.length || !currentProfile) return;
 
-            controllerRef.current?.abort(new AbortError());
-            controllerRef.current = new AbortController();
+            controller.renew();
 
             try {
-                const session = await createSessionForProfileId(
-                    currentProfile.profileId,
-                    controllerRef.current?.signal,
-                );
+                const session = await createSessionForProfileId(currentProfile.profileId, controller.signal);
 
                 if (!currentProfile.signless && signless) {
                     await updateSignless(true);
@@ -77,7 +74,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 // restore profiles exclude lens
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     source: Source.Lens,
-                    accounts: await syncAccountsFromFirefly(controllerRef.current?.signal),
+                    accounts: await syncAccountsFromFirefly(controller.signal),
                     onDetected(profiles) {
                         if (!profiles.length)
                             enqueueInfoMessage(t`No device accounts detected.`, {
@@ -103,10 +100,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
         if (!currentProfile) return;
         if (!isSameAddress(account.address, currentAccount)) LoginModalRef.close();
     }, [currentProfile, account, currentAccount]);
-
-    useUnmount(() => {
-        controllerRef.current?.abort(new AbortError());
-    });
 
     return (
         <div

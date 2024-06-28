@@ -2,8 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { signOut } from 'next-auth/react';
-import { useRef } from 'react';
-import { useMount, useUnmount } from 'react-use';
+import { useMount } from 'react-use';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -11,7 +10,6 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
@@ -25,15 +23,10 @@ interface ProfileSettingsProps {
 }
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
-    const controllerRef = useRef<AbortController>();
     const { currentProfile } = useProfileStore(source);
 
     useMount(() => {
         getProfileState(source).refreshAccounts();
-    });
-
-    useUnmount(() => {
-        controllerRef.current?.abort(new AbortError());
     });
 
     if (!currentProfile) return null;
