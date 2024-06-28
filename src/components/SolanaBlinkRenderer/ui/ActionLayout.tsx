@@ -1,15 +1,14 @@
 import { type ReactNode, useMemo, useState } from 'react';
 
-import type { ExtendedActionState } from '@/components/SolanaBlinkRenderer/api/ActionsRegistry.js';
+import CheckIcon from '@/assets/check.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import { Badge } from '@/components/SolanaBlinkRenderer/ui/Badge.js';
 import { Button } from '@/components/SolanaBlinkRenderer/ui/Button.js';
-import { CheckIcon } from '@/components/SolanaBlinkRenderer/ui/icons/CheckIcon.js';
 import { ExclamationShieldIcon } from '@/components/SolanaBlinkRenderer/ui/icons/ExclamationShieldIcon.js';
 import { InfoShieldIcon } from '@/components/SolanaBlinkRenderer/ui/icons/InfoShieldIcon.js';
 import { LinkIcon } from '@/components/SolanaBlinkRenderer/ui/icons/LinkIcon.js';
-import { SpinnerDots } from '@/components/SolanaBlinkRenderer/ui/icons/SpinnerDots.js';
 
-type ActionType = ExtendedActionState;
+export type ActionType = 'unknown' | 'trusted' | 'malicious';
 
 interface LayoutProps {
     image?: string;
@@ -138,13 +137,14 @@ function ActionInput({ placeholder, name, button, disabled }: InputProps) {
     const [value, onChange] = useState('');
 
     return (
-        <div className="flex h-[52px] items-center gap-2 rounded-full border border-main px-3 py-1.5">
+        <div className="flex h-[52px] items-center gap-2 rounded-full border border-main p-1.5">
             <input
+                type="text"
                 placeholder={placeholder}
                 value={value}
                 disabled={disabled}
                 onChange={(e) => onChange(e.target.value)}
-                className="flex-1 truncate border-none bg-transparent p-0 text-[15px] shadow-none outline-none placeholder:text-second disabled:text-third"
+                className="ml-2.5 flex-1 truncate border-none bg-transparent p-0 text-[15px] placeholder:text-second focus:ring-0 disabled:text-third"
             />
             <div>
                 <ActionButton
@@ -162,14 +162,14 @@ function ActionButton({ text, loading, disabled, variant, onClick }: ButtonProps
         if (loading)
             return (
                 <span className="flex flex-row items-center justify-center gap-2">
-                    {text} <SpinnerDots />
+                    {text} <LoadingIcon width={16} height={16} className="animate-spin" />
                 </span>
             );
         if (variant === 'success')
             return (
                 <span className="text-twitter-success flex flex-row items-center justify-center gap-2">
                     {text}
-                    <CheckIcon />
+                    <CheckIcon width={16} height={16} className="h-4 w-4" />
                 </span>
             );
         return text;

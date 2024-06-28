@@ -1,12 +1,12 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { VersionedTransaction } from '@solana/web3.js';
 import { take } from 'lodash-es';
-import { type ReactNode, useEffect, useMemo, useReducer, useState } from 'react';
+import { type ReactNode, useMemo, useReducer } from 'react';
 
-import { Action, type ActionComponent } from '@/components/SolanaBlinkRenderer/api/Action.js';
-import type { ActionCallbacksConfig } from '@/components/SolanaBlinkRenderer/api/ActionCallbacks.js';
-import type { ActionContext } from '@/components/SolanaBlinkRenderer/api/ActionConfig.js';
-import { getExtendedActionState } from '@/components/SolanaBlinkRenderer/api/ActionsRegistry.js';
-import { ActionLayout, type ButtonProps } from '@/components/SolanaBlinkRenderer/ui/ActionLayout.js';
+import { ActionLayout, type ActionType, type ButtonProps } from '@/components/SolanaBlinkRenderer/ui/ActionLayout.js';
+import type { Action, ActionComponent } from '@/providers/solana-blink/Action.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -98,22 +98,16 @@ export function ActionContainer({
     action,
     websiteUrl,
     websiteText,
-    callbacks,
 }: {
     action: Action;
     websiteUrl?: string;
     websiteText?: string;
-    callbacks?: Partial<ActionCallbacksConfig>;
 }) {
-    const [actionState, setActionState] = useState(getExtendedActionState(action));
+    const actionState: ActionType = 'unknown'; // TODO: security check
 
     const [executionState, dispatch] = useReducer(executionReducer, {
         status: 'idle',
     });
-
-    useEffect(() => {
-        callbacks?.onActionMount?.(action, websiteUrl ?? action.url, actionState);
-    }, [callbacks, action, websiteUrl, actionState]);
 
     const buttons = useMemo(
         () =>
@@ -144,6 +138,10 @@ export function ActionContainer({
         [action, executionState.executingAction],
     );
 
+    const walletModal = useWalletModal();
+    const { connection } = useConnection();
+    const wallet = useWallet();
+
     const execute = async (component: ActionComponent, params?: Record<string, string>) => {
         if (component.parameter && params) {
             component.setValue(params[component.parameter.name]);
@@ -151,36 +149,34 @@ export function ActionContainer({
 
         dispatch({ type: ExecutionType.INITIATE, executingAction: component });
 
-        const context: ActionContext = {
-            action: component.parent,
-            actionType: actionState,
-            originalUrl: websiteUrl ?? component.parent.url,
-            triggeredLinkedAction: component,
-        };
-
         try {
-            const account = await action.adapter.connect(context);
+            const account = wallet.publicKey?.toString();
             if (!account) {
+                walletModal.setVisible(true);
                 dispatch({ type: ExecutionType.RESET });
                 return;
             }
 
             const tx = await component.post(account);
-            const signResult = await action.adapter.signTransaction(tx.transaction, context);
-
-            if (!signResult || (signResult as { error: string }).error) {
-                dispatch({ type: ExecutionType.RESET });
-            } else {
-                await action.adapter.confirmTransaction((signResult as { signature: string }).signature, context);
-                dispatch({
-                    type: ExecutionType.FINISH,
-                    successMessage: tx.message,
-                });
-            }
+            const transaction = VersionedTransaction.deserialize(Buffer.from(tx.transaction, 'base64'));
+            const {
+                context: { slot: minContextSlot },
+                value: { blockhash, lastValidBlockHeight },
+            } = await connection.getLatestBlockhashAndContext();
+            const signature = await wallet.sendTransaction(transaction, connection, { minContextSlot });
+            await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
+            dispatch({
+                type: ExecutionType.FINISH,
+                successMessage: tx.message,
+            });
         } catch (e) {
+            if (e instanceof Error && e.message === 'User rejected the request.') {
+                dispatch({ type: ExecutionType.RESET });
+                return;
+            }
             dispatch({
                 type: ExecutionType.FAIL,
-                errorMessage: (e as Error).message ?? 'Unknown error',
+                errorMessage: (e as Error).message ?? t`Unknown error`,
             });
         }
     };

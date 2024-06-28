@@ -68,7 +68,8 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand"
+        "zustand",
+        "blockhash"
     ],
     "ignoreWords": [
         "DEVNET",

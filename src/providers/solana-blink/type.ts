@@ -1,8 +1,19 @@
-import type {
-    SolanaPaySpecGetResponse,
-    SolanaPaySpecPostRequestBody,
-    SolanaPaySpecPostResponse,
-} from '@/components/SolanaBlinkRenderer/api/solana-pay-spec.js'; // DTOs
+// GET
+export interface SolanaPaySpecGetResponse {
+    label: string;
+    icon: string;
+}
+
+// POST
+export interface SolanaPaySpecPostRequestBody {
+    account: string; // transaction signer public key
+}
+
+export interface SolanaPaySpecPostResponse {
+    transaction: string; // base64-encoded serialized transaction
+    message?: string; // the nature of the transaction response e.g. the name of an item being purchased
+    redirect?: string; // redirect URL after the transaction is successful
+}
 
 // A common error data structure that should be used in all responses for error indication,
 // can be used in both GET and POST and extended with additional fields if needed

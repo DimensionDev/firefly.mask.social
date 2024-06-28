@@ -1,11 +1,10 @@
-import type { ActionAdapter } from '@/components/SolanaBlinkRenderer/api/ActionConfig.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type {
-    ActionError,
     ActionsSpecGetResponse,
     ActionsSpecPostRequestBody,
     ActionsSpecPostResponse,
     Parameter,
-} from '@/components/SolanaBlinkRenderer/api/actions-spec.js';
+} from '@/providers/solana-blink/type.js';
 
 export class Action {
     private readonly _actions: ActionComponent[];
@@ -13,7 +12,6 @@ export class Action {
     private constructor(
         private readonly _url: string,
         private readonly _data: ActionsSpecGetResponse,
-        private readonly _adapter: ActionAdapter,
     ) {
         // if no links present, fallback to original solana pay spec
         if (!_data.links?.actions) {
@@ -57,28 +55,13 @@ export class Action {
         return this._data.error?.message ?? null;
     }
 
-    public get adapter() {
-        return this._adapter;
-    }
-
     public resetActions() {
         this._actions.forEach((action) => action.reset());
     }
 
-    static async fetch(apiUrl: string, adapter: ActionAdapter) {
-        const response = await fetch(apiUrl, {
-            headers: {
-                Accept: 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch action ${apiUrl}`);
-        }
-
-        const data = (await response.json()) as ActionsSpecGetResponse;
-
-        return new Action(apiUrl, data, adapter);
+    static async fetch(apiUrl: string) {
+        const data = await fetchJSON<ActionsSpecGetResponse>(apiUrl);
+        return new Action(apiUrl, data);
     }
 }
 
@@ -124,23 +107,9 @@ export class ActionComponent {
     }
 
     public async post(account: string) {
-        const response = await fetch(this.href, {
+        return fetchJSON<ActionsSpecPostResponse>(this.href, {
             method: 'POST',
             body: JSON.stringify({ account } as ActionsSpecPostRequestBody),
-            headers: {
-                'Content-Type': 'application/json',
-            },
         });
-
-        if (!response.ok) {
-            const error = (await response.json()) as ActionError;
-            console.error(`Failed to execute action ${this.href}, reason: ${error.message}`);
-
-            throw {
-                message: error.message,
-            } as ActionError;
-        }
-
-        return (await response.json()) as ActionsSpecPostResponse;
     }
 }
