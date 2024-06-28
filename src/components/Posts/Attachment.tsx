@@ -8,7 +8,7 @@ import Music from '@/assets/music.svg';
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { ATTACHMENT } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
@@ -53,6 +53,33 @@ const getClass = (attachments: number) => {
     };
 };
 
+interface VideoAssetProps {
+    asset: Attachment;
+    source: SocialSource;
+    isQuote?: boolean;
+}
+
+function VideoAsset({ asset, isQuote, source }: VideoAssetProps) {
+    return isQuote ? (
+        <div className="relative h-full w-full">
+            <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
+                <Play width={16} height={16} />
+            </div>
+            {asset.coverUri ? (
+                <Image
+                    width={120}
+                    height={120}
+                    className="h-[120px] w-[120px] rounded-xl object-cover"
+                    src={asset.coverUri}
+                    alt={asset.coverUri}
+                />
+            ) : null}
+        </div>
+    ) : (
+        <Video src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri} poster={asset.coverUri} />
+    );
+}
+
 interface AttachmentsProps {
     post: Post;
     asset?: Attachment;
@@ -68,31 +95,13 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     isQuote = false,
     isDetail = false,
 }) {
-    const imageAttachments = isDetail
-        ? attachments
-        : attachments.filter((x) => x.type === 'Image').slice(0, isQuote ? 4 : 9);
+    const videoAndImageAttachments = attachments.filter((x) => x.type === 'Video' || x.type === 'Image');
+    const attachmentsSnapshot = isDetail
+        ? videoAndImageAttachments
+        : videoAndImageAttachments.slice(0, isQuote ? 4 : 9);
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-    const moreImageCount = attachments.length - imageAttachments.length; // If it is 0 or below, there are no more images
-
-    if (isQuote && asset?.type === 'Video' && asset.coverUri) {
-        return (
-            <div className="relative h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]">
-                <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
-                    <Play width={16} height={16} />
-                </div>
-                {asset.coverUri ? (
-                    <Image
-                        width={120}
-                        height={120}
-                        className="h-[120px] w-[120px] rounded-xl object-cover"
-                        src={asset.coverUri}
-                        alt={asset.coverUri}
-                    />
-                ) : null}
-            </div>
-        );
-    }
+    const moreImageCount = videoAndImageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
 
     if (isQuote && asset?.type === 'Audio') {
         return (
@@ -125,90 +134,109 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     }
 
     const noText = !post?.metadata.content?.content;
-    const isSoloImage = noText && imageAttachments.length === 1;
+    const isSoloImage = noText && attachmentsSnapshot.length === 1 && attachmentsSnapshot[0].type === 'Image';
 
     return (
         <div className={isQuote ? '' : 'mt-3'}>
-            {asset?.type === 'Image' && imageAttachments.length === 1 ? (
-                <div
-                    className={classNames({
-                        'w-full': !isQuote,
-                        'w-[120px]': isQuote,
-                    })}
-                    onClick={(event) => event.stopPropagation()}
-                >
-                    <Link
-                        href={getPostImageUrl(post, 1, isPostPage)}
-                        scroll={false}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                        }}
+            {attachmentsSnapshot.length === 1 ? (
+                asset?.type === 'Image' ? (
+                    <div
+                        className={classNames({
+                            'w-full': !isQuote,
+                            'w-[120px]': isQuote,
+                        })}
+                        onClick={(event) => event.stopPropagation()}
                     >
-                        <ImageAsset
-                            className={classNames('cursor-pointer rounded-lg object-cover', {
-                                'w-full': !isQuote,
-                                'w-[120px]': isQuote,
-                                'h-[120px]': isQuote,
-                            })}
-                            disableLoadHandler={isQuote}
-                            width={isQuote ? 120 : 1000}
-                            height={isQuote ? 120 : 1000}
-                            onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
-                            src={formatImageUrl(asset.uri, ATTACHMENT)}
-                            alt={formatImageUrl(asset.uri, ATTACHMENT)}
-                        />
-                    </Link>
-                </div>
+                        <Link
+                            href={getPostImageUrl(post, 1, isPostPage)}
+                            scroll={false}
+                            onClick={(event) => {
+                                event.stopPropagation();
+                            }}
+                        >
+                            <ImageAsset
+                                className={classNames('cursor-pointer rounded-lg object-cover', {
+                                    'w-full': !isQuote,
+                                    'w-[120px]': isQuote,
+                                    'h-[120px]': isQuote,
+                                })}
+                                disableLoadHandler={isQuote}
+                                width={isQuote ? 120 : 1000}
+                                height={isQuote ? 120 : 1000}
+                                onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
+                                src={formatImageUrl(asset.uri, ATTACHMENT)}
+                                alt={formatImageUrl(asset.uri, ATTACHMENT)}
+                            />
+                        </Link>
+                    </div>
+                ) : (
+                    <div
+                        className={classNames({
+                            'h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': isQuote,
+                            'w-full': !isQuote,
+                        })}
+                    >
+                        <VideoAsset asset={asset!} isQuote={isQuote} source={post.source} />
+                    </div>
+                )
             ) : null}
-            {imageAttachments.length > 1 ? (
+
+            {attachmentsSnapshot.length > 1 ? (
                 <div
                     className={classNames(
-                        getClass(imageAttachments.length)?.row ?? '',
+                        getClass(attachmentsSnapshot.length)?.row ?? '',
                         'grid',
                         isQuote ? 'gap-1' : 'gap-2',
                         {
-                            'grid-flow-col': imageAttachments.length === 3,
+                            'grid-flow-col': attachmentsSnapshot.length === 3,
                             'w-[120px]': isQuote && !isSoloImage,
                             'h-[120px]': isQuote && !isSoloImage,
                         },
                     )}
                 >
-                    {imageAttachments.map((attachment, index) => {
+                    {attachmentsSnapshot.map((attachment, index) => {
                         const uri = attachment.uri ?? '';
-                        const isLast = imageAttachments.length === index + 1;
+                        const isLast = attachmentsSnapshot.length === index + 1;
                         return (
                             <div
                                 key={index}
-                                className={classNames(getClass(imageAttachments.length).aspect, {
+                                className={classNames(getClass(attachmentsSnapshot.length).aspect, {
                                     'max-h-[288px]':
-                                        (imageAttachments.length === 2 || imageAttachments.length === 4) && !isQuote,
-                                    'max-h-[284px]': imageAttachments.length === 3 && index === 2,
-                                    'row-span-2': imageAttachments.length === 3 && index === 2,
-                                    'max-h-[138px]': imageAttachments.length === 3 && index !== 2 && !isQuote,
+                                        (attachmentsSnapshot.length === 2 || attachmentsSnapshot.length === 4) &&
+                                        !isQuote,
+                                    'max-h-[284px]': attachmentsSnapshot.length === 3 && index === 2,
+                                    'row-span-2': attachmentsSnapshot.length === 3 && index === 2,
+                                    'max-h-[138px]': attachmentsSnapshot.length === 3 && index !== 2 && !isQuote,
                                     relative: isLast && moreImageCount > 0,
                                 })}
                             >
-                                <Link
-                                    href={getPostImageUrl(post, index + 1, isPostPage)}
-                                    onClick={(event) => {
-                                        event.stopPropagation();
-                                    }}
-                                    scroll={false}
-                                >
-                                    <Image
-                                        className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
-                                        loading="lazy"
-                                        fill={isSoloImage}
-                                        width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
-                                        height={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
-                                        style={{
-                                            maxHeight: isSoloImage && isQuote ? 288 : undefined,
+                                {attachment.type === 'Image' ? (
+                                    <Link
+                                        href={getPostImageUrl(post, index + 1, isPostPage)}
+                                        onClick={(event) => {
+                                            event.stopPropagation();
                                         }}
-                                        onError={({ currentTarget }) => (currentTarget.src = uri)}
-                                        src={formatImageUrl(uri, ATTACHMENT)}
-                                        alt={formatImageUrl(uri, ATTACHMENT)}
-                                    />
-                                </Link>
+                                        scroll={false}
+                                    >
+                                        <Image
+                                            className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
+                                            loading="lazy"
+                                            fill={isSoloImage}
+                                            width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
+                                            height={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
+                                            style={{
+                                                maxHeight: isSoloImage && isQuote ? 288 : undefined,
+                                            }}
+                                            onError={({ currentTarget }) => (currentTarget.src = uri)}
+                                            src={formatImageUrl(uri, ATTACHMENT)}
+                                            alt={formatImageUrl(uri, ATTACHMENT)}
+                                        />
+                                    </Link>
+                                ) : (
+                                    <div className="w-full h-full">
+                                        <VideoAsset asset={attachment} isQuote={isQuote} source={post.source} />
+                                    </div>
+                                )}
                                 {isLast && moreImageCount > 0 ? (
                                     <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                         <div className={classNames('font-bold', isQuote ? 'text-[15px]' : 'text-2xl')}>
@@ -220,12 +248,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                         );
                     })}
                 </div>
-            ) : null}
-            {asset?.type === 'Video' && !isQuote ? (
-                <Video
-                    src={post.source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri}
-                    poster={asset.coverUri}
-                />
             ) : null}
             {asset?.type === 'Audio' && !isQuote ? (
                 <Audio src={asset.uri} poster={asset.coverUri} artist={asset.artist} title={asset.title} />
