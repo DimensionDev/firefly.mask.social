@@ -233,7 +233,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                         />
                                     </Link>
                                 ) : (
-                                    <div className="w-full h-full">
+                                    <div className="h-full w-full">
                                         <VideoAsset asset={attachment} isQuote={isQuote} source={post.source} />
                                     </div>
                                 )}
