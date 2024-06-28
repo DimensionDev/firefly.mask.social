@@ -29,9 +29,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useProfilesAll } from '@/hooks/useProfilesAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
@@ -44,10 +43,9 @@ export function ComposeAction(props: ComposeActionProps) {
     const account = useAccount();
 
     const currentProfileAll = useCurrentProfileAll();
-    const profilesAll = useProfilesAll();
+    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
 
     const post = useCompositePost();
-    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
     const { usedLength, availableLength } = measureChars(post);
@@ -79,7 +77,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 }),
             ),
         });
-    }, [currentProfileAll, profilesAll, account.isConnected]);
+    }, [currentProfileAll]);
 
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;

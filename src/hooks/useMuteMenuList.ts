@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { MuteMenuId, type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 
 export interface MuteMenu {
     id: MuteMenuId;

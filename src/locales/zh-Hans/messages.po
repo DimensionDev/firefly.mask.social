@@ -93,9 +93,6 @@ msgstr "屏蔽 @{0}"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
-msgid "X"
-msgstr "X"
-
 msgid "Debug Connection"
 msgstr "诊断网络"
 
@@ -357,9 +354,6 @@ msgstr ""
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 <2>Firefly</2> 连接您的账号。"
 
-msgid "Failed to detect device accounts."
-msgstr "检测设备账号失败。"
-
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
@@ -531,6 +525,9 @@ msgstr "和"
 msgid "Channel"
 msgstr "频道"
 
+msgid "Connect another account"
+msgstr ""
+
 msgid "Comment cannot be empty."
 msgstr "评论不能为空。"
 
@@ -605,9 +602,6 @@ msgstr "选项 {0}"
 
 msgid "Send Feedback"
 msgstr "提交反馈"
-
-msgid "Detecting..."
-msgstr "检测中..."
 
 msgid "Open in Firefly App"
 msgstr "打开 Firefly App"
@@ -741,9 +735,6 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
-msgid "Lens"
-msgstr "Lens"
-
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
@@ -770,6 +761,9 @@ msgstr "用户"
 
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述问题或者提出建议"
+
+msgid "The session is not the same as the current session. Please try again."
+msgstr ""
 
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
@@ -810,23 +804,14 @@ msgstr "在 {sourceName} 上取消屏蔽 @{0}"
 msgid "Details"
 msgstr "详情"
 
-msgid "Detect device accounts"
-msgstr "检测设备账号"
-
 msgid "No preview found for shared link"
 msgstr "无法预加载"
-
-msgid "Your Farcaster account is now connected."
-msgstr "你的 Farcaster 账号已经连接。"
 
 msgid "Failed to unwatch {identity}"
 msgstr "取消关注 {identity} 失败"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
-
-msgid "Farcaster"
-msgstr "Farcaster"
 
 msgid "commented"
 msgstr "已回复"
@@ -896,6 +881,9 @@ msgstr "未能解析会话"
 
 msgid "Feedback"
 msgstr "问题反馈"
+
+msgid "Loading..."
+msgstr "加载中..."
 
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
@@ -1125,6 +1113,9 @@ msgstr "复制"
 msgid "Skip for now"
 msgstr "跳过"
 
+msgid "Failed to restore accounts."
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
@@ -1148,9 +1139,6 @@ msgstr "没有找到 Lens 账号，请连接另一个钱包。"
 
 msgid "Connect"
 msgstr "连接"
-
-msgid "Switch account"
-msgstr "切换账号"
 
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
@@ -1178,9 +1166,6 @@ msgstr "屏蔽中..."
 
 msgid "Failed to mirror post."
 msgstr "转发失败。"
-
-msgid "Failed to create firefly session."
-msgstr "创建 firefly 会话失败。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
@@ -1232,6 +1217,9 @@ msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
 
 msgid "Date"
 msgstr "日期"
+
+msgid "Confirm to log out all accounts?"
+msgstr ""
 
 msgid "Failed to retweet."
 msgstr "转帖失败。"
@@ -1349,9 +1337,6 @@ msgstr "{identity} 取消关注"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"
-
-msgid "Your Lens account is now connected."
-msgstr "你的 Lens 账号已经连接。"
 
 msgid "Remove"
 msgstr "移除"

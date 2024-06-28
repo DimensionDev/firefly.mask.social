@@ -6,23 +6,19 @@ import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { signOut } from 'next-auth/react';
 import { forwardRef } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getProfileStoreAll } from '@/helpers/getProfilesAll.js';
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
-import { resolveSessionType } from '@/helpers/resolveSessionType.js';
+import { removeAllAccounts, removeCurrentAccount } from '@/helpers/account.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import type { Account } from '@/providers/types/Account.js';
 import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 export interface LogoutModalProps {
-    source?: SocialSource;
+    account?: Account;
 }
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
@@ -30,11 +26,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
-            const profileStoreAll = getProfileStoreAll();
-            const profiles = compact(
-                props?.source
-                    ? [profileStoreAll[props.source].currentProfile]
-                    : SORTED_SOCIAL_SOURCES.flatMap((x) => profileStoreAll[x].currentProfile),
+            const accounts = compact(
+                props?.account ? [props.account] : SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts),
             );
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
@@ -42,15 +35,19 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                 content: (
                     <>
                         <div className="text-[15px] font-medium leading-normal text-lightMain">
-                            <Trans>Confirm to log out this account?</Trans>
+                            {props?.account ? (
+                                <Trans>Confirm to log out this account?</Trans>
+                            ) : (
+                                <Trans>Confirm to log out all accounts?</Trans>
+                            )}
                         </div>
-                        {profiles.map((profile) => (
+                        {accounts.map((account) => (
                             <div
-                                key={profile.profileId}
+                                key={account.profile.profileId}
                                 className="flex items-center justify-between gap-2 rounded-[8px] px-3 py-2 backdrop-blur-[8px]"
                             >
-                                <ProfileAvatar profile={profile} size={36} />
-                                <ProfileName profile={profile} />
+                                <ProfileAvatar profile={account.profile} size={36} />
+                                <ProfileName profile={account.profile} />
                             </div>
                         ))}
                     </>
@@ -58,31 +55,12 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             });
             if (!confirmed) return;
 
-            const source = props?.source;
-
-            // call next-auth signOut for twitter
-            if (!source || source === Source.Twitter) {
-                await signOut({
-                    redirect: false,
-                });
-            }
+            const source = props?.account?.profile.source;
 
             if (source) {
-                profileStoreAll[source].clear();
-                resolveSessionHolder(source)?.removeSession();
-
-                // remove firefly session if it's the parent session matches the source
-                if (fireflySessionHolder.session?.parent?.type === resolveSessionType(source)) {
-                    useFireflyStateStore.getState().clear();
-                    fireflySessionHolder.removeSession();
-                }
+                await removeCurrentAccount(source);
             } else {
-                SORTED_SOCIAL_SOURCES.forEach((x) => {
-                    profileStoreAll[x].clear();
-                    resolveSessionHolder(x)?.removeSession();
-                });
-                useFireflyStateStore.getState().clear();
-                fireflySessionHolder.removeSession();
+                await removeAllAccounts();
             }
 
             useProfileTabState.getState().reset();

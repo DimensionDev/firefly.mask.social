@@ -93,9 +93,6 @@ msgstr "將 @{0} 靜音"
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "X"
-msgstr "X"
-
 msgid "Debug Connection"
 msgstr "除錯連接"
 
@@ -357,9 +354,6 @@ msgstr ""
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並掃描QR碼，授權 <2>Firefly</2> 連結您的帳戶。"
 
-msgid "Failed to detect device accounts."
-msgstr "偵測裝置帳戶失敗"
-
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
 
@@ -531,6 +525,9 @@ msgstr ""
 msgid "Channel"
 msgstr "頻道"
 
+msgid "Connect another account"
+msgstr ""
+
 msgid "Comment cannot be empty."
 msgstr ""
 
@@ -604,9 +601,6 @@ msgid "Choice {0}"
 msgstr ""
 
 msgid "Send Feedback"
-msgstr ""
-
-msgid "Detecting..."
 msgstr ""
 
 msgid "Open in Firefly App"
@@ -741,9 +735,6 @@ msgstr ""
 msgid "Clear All"
 msgstr "清除所有"
 
-msgid "Lens"
-msgstr ""
-
 msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
@@ -769,6 +760,9 @@ msgid "Users"
 msgstr ""
 
 msgid "Describe a bug or suggest an improvement"
+msgstr ""
+
+msgid "The session is not the same as the current session. Please try again."
 msgstr ""
 
 msgid "The file \"{0}\" exceeds the size limit."
@@ -810,22 +804,13 @@ msgstr "在{sourceName} 上已取消對 @{0} 的靜音"
 msgid "Details"
 msgstr "詳細資訊"
 
-msgid "Detect device accounts"
-msgstr "偵測裝置上的帳戶"
-
 msgid "No preview found for shared link"
 msgstr ""
-
-msgid "Your Farcaster account is now connected."
-msgstr "您的 Farcaster 帳戶現已連接。"
 
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
-msgstr ""
-
-msgid "Farcaster"
 msgstr ""
 
 msgid "commented"
@@ -895,6 +880,9 @@ msgid "Failed to parse session."
 msgstr ""
 
 msgid "Feedback"
+msgstr ""
+
+msgid "Loading..."
 msgstr ""
 
 msgid "%Of supply owned"
@@ -1125,6 +1113,9 @@ msgstr ""
 msgid "Skip for now"
 msgstr ""
 
+msgid "Failed to restore accounts."
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1148,9 +1139,6 @@ msgstr ""
 
 msgid "Connect"
 msgstr "連接"
-
-msgid "Switch account"
-msgstr ""
 
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"
@@ -1178,9 +1166,6 @@ msgstr ""
 
 msgid "Failed to mirror post."
 msgstr ""
-
-msgid "Failed to create firefly session."
-msgstr "創建 firefly 對話失敗"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr ""
@@ -1231,6 +1216,9 @@ msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Date"
+msgstr ""
+
+msgid "Confirm to log out all accounts?"
 msgstr ""
 
 msgid "Failed to retweet."
@@ -1349,9 +1337,6 @@ msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
-
-msgid "Your Lens account is now connected."
-msgstr "您的 Lens 帳戶現已連接。"
 
 msgid "Remove"
 msgstr "移除"

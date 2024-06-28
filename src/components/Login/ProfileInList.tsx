@@ -5,20 +5,22 @@ import { ProfileName } from '@/components/ProfileName.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
+    selected?: boolean;
+    selectable?: boolean;
     profile: Profile;
-    isSelected: boolean;
-    onSelect: (profile: Profile) => void;
+    onSelect?: (profile: Profile) => void;
     ProfileAvatarProps?: Partial<ProfileAvatarProps>;
 }
 
-export function ProfileInList({ isSelected, onSelect, profile, ProfileAvatarProps }: ProfileInListProps) {
-    return (
-        <ClickableButton
-            className="inline-flex h-[48px] w-full items-center justify-start gap-4 outline-none"
-            onClick={() => {
-                onSelect(profile);
-            }}
-        >
+export function ProfileInList({
+    selected = false,
+    selectable = true,
+    profile,
+    onSelect,
+    ProfileAvatarProps,
+}: ProfileInListProps) {
+    const content = (
+        <>
             <div
                 className="flex h-[48px] w-[48px] items-center justify-center rounded-full"
                 style={{
@@ -29,7 +31,18 @@ export function ProfileInList({ isSelected, onSelect, profile, ProfileAvatarProp
                 <ProfileAvatar profile={profile} size={48} {...ProfileAvatarProps} />
             </div>
             <ProfileName profile={profile} />
-            <CircleCheckboxIcon checked={isSelected} />
+            {selectable ? <CircleCheckboxIcon checked={selected} /> : null}
+        </>
+    );
+
+    return selectable ? (
+        <ClickableButton
+            className="inline-flex h-[48px] w-full items-center justify-start gap-4 outline-none"
+            onClick={() => onSelect?.(profile)}
+        >
+            {content}
         </ClickableButton>
+    ) : (
+        <div className="inline-flex h-[48px] w-full items-center justify-start gap-4 outline-none">{content}</div>
     );
 }

@@ -4,7 +4,7 @@ import { FARCASTER_REPLY_URL, SITE_HOSTNAME, SITE_URL } from '@/constants/index.
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
+import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 
 interface FarcasterReplyResponse {
     channelToken: string;
@@ -51,9 +51,8 @@ export async function createSessionByRelayService(callback?: (url: string) => vo
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
 
-    // firefly start polling for the signed key request
-    // once key request is signed, we will get the fid
-    await FireflySession.fromAndRestore(session, signal);
+    // polling for the session to be ready
+    await restoreFireflySession(session, signal);
 
     return session;
 }

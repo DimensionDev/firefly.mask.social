@@ -88,9 +88,6 @@ msgstr "Mute @{0}"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
-msgid "X"
-msgstr "X"
-
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -352,9 +349,6 @@ msgstr "There are images or videos that were not uploaded successfully."
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 
-msgid "Failed to detect device accounts."
-msgstr "Failed to detect device accounts."
-
 msgid "Add another post..."
 msgstr "Add another post..."
 
@@ -526,6 +520,9 @@ msgstr "and"
 msgid "Channel"
 msgstr "Channel"
 
+msgid "Connect another account"
+msgstr "Connect another account"
+
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
@@ -600,9 +597,6 @@ msgstr "Choice {0}"
 
 msgid "Send Feedback"
 msgstr "Send Feedback"
-
-msgid "Detecting..."
-msgstr "Detecting..."
 
 msgid "Open in Firefly App"
 msgstr "Open in Firefly App"
@@ -736,9 +730,6 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
-msgid "Lens"
-msgstr "Lens"
-
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
 
@@ -765,6 +756,9 @@ msgstr "Users"
 
 msgid "Describe a bug or suggest an improvement"
 msgstr "Describe a bug or suggest an improvement"
+
+msgid "The session is not the same as the current session. Please try again."
+msgstr "The session is not the same as the current session. Please try again."
 
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "The file \"{0}\" exceeds the size limit."
@@ -805,23 +799,14 @@ msgstr "Unmuted @{0} on {sourceName}"
 msgid "Details"
 msgstr "Details"
 
-msgid "Detect device accounts"
-msgstr "Detect device accounts"
-
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
-
-msgid "Your Farcaster account is now connected."
-msgstr "Your Farcaster account is now connected."
 
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"
-
-msgid "Farcaster"
-msgstr "Farcaster"
 
 msgid "commented"
 msgstr "commented"
@@ -891,6 +876,9 @@ msgstr "Failed to parse session."
 
 msgid "Feedback"
 msgstr "Feedback"
+
+msgid "Loading..."
+msgstr "Loading..."
 
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
@@ -1120,6 +1108,9 @@ msgstr "Copy"
 msgid "Skip for now"
 msgstr "Skip for now"
 
+msgid "Failed to restore accounts."
+msgstr "Failed to restore accounts."
+
 msgid "Login to enable all features"
 msgstr "Login to enable all features"
 
@@ -1143,9 +1134,6 @@ msgstr "No Lens profile found. Please change to another wallet."
 
 msgid "Connect"
 msgstr "Connect"
-
-msgid "Switch account"
-msgstr "Switch account"
 
 msgid "Sign in with Custody Wallet"
 msgstr "Sign in with Custody Wallet"
@@ -1173,9 +1161,6 @@ msgstr "Muting..."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
-
-msgid "Failed to create firefly session."
-msgstr "Failed to create firefly session."
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "<0>Minted</0> an NFT for free"
@@ -1227,6 +1212,9 @@ msgstr "Failed to unmute @{0} on {sourceName}"
 
 msgid "Date"
 msgstr "Date"
+
+msgid "Confirm to log out all accounts?"
+msgstr "Confirm to log out all accounts?"
 
 msgid "Failed to retweet."
 msgstr "Failed to retweet."
@@ -1344,9 +1332,6 @@ msgstr "{identity} unwatched"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "Unfollowed @{0} on {sourceName}"
-
-msgid "Your Lens account is now connected."
-msgstr "Your Lens account is now connected."
 
 msgid "Remove"
 msgstr "Remove"

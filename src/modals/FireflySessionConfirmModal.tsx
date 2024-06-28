@@ -1,25 +1,20 @@
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { compact, values } from 'lodash-es';
-import { forwardRef, useState } from 'react';
+import { compact } from 'lodash-es';
+import { forwardRef } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { restoreAccount } from '@/helpers/restoreAccount.js';
+import { addAccount } from '@/helpers/account.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-import type { LensSession } from '@/providers/lens/Session.js';
-import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileModalProps {
     accounts: Account[];
@@ -28,11 +23,28 @@ interface ProfileModalProps {
 }
 
 function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
-    const [selectedPairs, setSelectedPairs] = useState<Record<SocialSource, Account | null>>({
-        [Source.Farcaster]: null,
-        [Source.Lens]: null,
-        [Source.Twitter]: null,
-    });
+    const controller = useAbortController();
+
+    const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
+        try {
+            await Promise.all(
+                Object.values(accounts).map((x, i) =>
+                    addAccount(x, {
+                        setAsCurrent: i === 0,
+                        restoreSession: false,
+                        signal: controller.current.signal,
+                    }),
+                ),
+            );
+            onConfirm?.();
+            ConfirmModalRef.close(true);
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to restore accounts.`, {
+                error,
+            });
+            throw error;
+        }
+    }, [accounts, onConfirm]);
 
     return (
         <div>
@@ -49,22 +61,9 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                     .map((account) => (
                         <ProfileInList
                             key={account.profile.profileId}
+                            selected
+                            selectable={false}
                             profile={account.profile}
-                            isSelected={Object.entries(selectedPairs).some(([_, x]) =>
-                                isSameProfile(x?.profile, account.profile),
-                            )}
-                            onSelect={() => {
-                                setSelectedPairs((accounts) => {
-                                    const currentPair = accounts[account.profile.source];
-                                    return {
-                                        ...accounts,
-                                        [account.profile.source]:
-                                            currentPair && isSameProfile(currentPair.profile, account.profile)
-                                                ? null
-                                                : account,
-                                    };
-                                });
-                            }}
                             ProfileAvatarProps={{
                                 enableSourceIcon: true,
                             }}
@@ -83,14 +82,10 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
                 </ClickableButton>
                 <ClickableButton
                     className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
-                    disabled={compact(Object.values(selectedPairs)).length === 0}
-                    onClick={() => {
-                        compact(values(selectedPairs)).map(restoreAccount);
-                        onConfirm?.();
-                        ConfirmModalRef.close(true);
-                    }}
+                    disabled={compact(Object.values(accounts)).length === 0 || loading}
+                    onClick={onConfirmAll}
                 >
-                    <Trans>Login</Trans>
+                    {loading ? <Trans>Loading...</Trans> : <Trans>Login</Trans>}
                 </ClickableButton>
             </div>
         </div>
@@ -99,7 +94,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
 
 export interface FireflySessionOpenConfirmModalProps {
     source: ProfileSource;
-    sessions?: Array<LensSession | FarcasterSession | TwitterSession>;
+    accounts: Account[];
     onDetected?: (profiles: Profile[]) => void;
 }
 
@@ -113,61 +108,8 @@ export const FireflySessionConfirmModal = forwardRef<
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
             try {
-                const currentProfileAll = getCurrentProfileAll();
-                const sessions = props.sessions?.filter((x) => {
-                    const source = resolveSocialSourceFromSessionType(x.type);
-
-                    // if the session shares the same source with the current profile, skip the restore
-                    if (source === props.source) {
-                        return false;
-                    }
-
-                    // if there is a session already logged in, skip the restore
-                    if (
-                        isSameProfile(currentProfileAll[source], {
-                            source,
-                            profileId: x.profileId,
-                        } as Profile)
-                    ) {
-                        return false;
-                    }
-
-                    return true;
-                });
-
-                // no session to restore
-                if (!sessions?.length) {
-                    dispatch?.close(false);
-                    props.onDetected?.([]);
-                    return;
-                }
-
-                // convert session to profile
-                const allSettled = await Promise.allSettled(
-                    sessions.map((x) => {
-                        if (x.type === SessionType.Twitter) {
-                            const session = x as TwitterSession;
-                            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
-                                x.profileId,
-                                session.payload,
-                            );
-                        }
-                        const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
-                        return provider.getProfileById(x.profileId);
-                    }),
-                );
-                const accounts = compact(
-                    allSettled.map((x, i) =>
-                        x.status === 'fulfilled'
-                            ? {
-                                  profile: x.value,
-                                  session: sessions[i],
-                              }
-                            : null,
-                    ),
-                );
-
                 // not valid profile detected
+                const accounts = props.accounts;
                 if (!accounts.length) return;
 
                 // profiles detected, invoke the callback before showing the confirm modal

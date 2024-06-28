@@ -14,7 +14,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
