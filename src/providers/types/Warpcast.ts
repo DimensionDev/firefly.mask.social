@@ -90,9 +90,9 @@ export interface SignedKeyRequestResponse extends ErrorResponse {
         signedKeyRequest: {
             deeplinkUrl: string;
             // state of the request taking one of the following values:
-            // pending - no action has been taken by the user
-            // approved - user has approved the request, an onchain transaction is being broadcast and confirmed
-            // completed - the onchain transaction has completed
+            // - pending - no action has been taken by the user
+            // - approved - user has approved the request, an onchain transaction is being broadcast and confirmed
+            // - completed - the onchain transaction has completed
             state: 'pending' | 'approved' | 'completed';
             // requested key to add
             key: string;
