@@ -9,10 +9,9 @@ import type { PartialWith } from '@/types/index.js';
 export async function encodeMessageData(
     withMessageData: (profileId: number) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>,
     withMessage: (messageData: MessageData, signer: NobleEd25519Signer) => Promise<Message>,
-    withPrivateKey?: string,
 ) {
     const { token, profileId } = farcasterSessionHolder.sessionRequired;
-    const privateKey = withPrivateKey || token;
+    const privateKey = token;
     const signer = new NobleEd25519Signer(toBytes(privateKey));
 
     const fid = Number.parseInt(profileId, 10);
