@@ -12,6 +12,7 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -67,9 +68,8 @@ export async function syncAccountsFromFirefly(signal?: AbortSignal) {
     const allSettled = await Promise.allSettled(
         sessions.map((x) => {
             if (x.type === SessionType.Twitter) {
-                return null;
-                // const session = x as TwitterSession;
-                // return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(x.profileId, session.payload);
+                const session = x as TwitterSession;
+                return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(x.profileId, session.payload);
             }
             const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
             return provider.getProfileById(x.profileId);

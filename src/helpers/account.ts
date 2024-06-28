@@ -44,25 +44,21 @@ async function restoreFireflySession(session: Session, signal?: AbortSignal): Pr
 
 export async function addAccount(
     account: Account,
-    {
+    options?: {
         // set the account as the current account
-        setAsCurrent = true,
-        restoreSession = true,
-        signal,
-    }: {
         setAsCurrent?: boolean;
         restoreSession?: boolean;
         signal?: AbortSignal;
-    } = {},
+    },
 ) {
+    const { setAsCurrent = true, restoreSession = true, signal } = options ?? {};
     const { state, sessionHolder } = getContext(account);
 
     state.addAccount(account, setAsCurrent);
     if (setAsCurrent) sessionHolder.resumeSession(account.session);
 
-    if (account.session.type !== SessionType.Firefly && restoreSession) {
+    if (account.session.type !== SessionType.Firefly && restoreSession)
         await restoreFireflySession(account.session, signal);
-    }
 }
 
 /**
