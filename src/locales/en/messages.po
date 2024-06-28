@@ -520,6 +520,9 @@ msgstr "and"
 msgid "Channel"
 msgstr "Channel"
 
+msgid "Connect another account"
+msgstr "Connect another account"
+
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
@@ -1128,9 +1131,6 @@ msgstr "No Lens profile found. Please change to another wallet."
 
 msgid "Connect"
 msgstr "Connect"
-
-msgid "Switch account"
-msgstr "Switch account"
 
 msgid "Sign in with Custody Wallet"
 msgstr "Sign in with Custody Wallet"

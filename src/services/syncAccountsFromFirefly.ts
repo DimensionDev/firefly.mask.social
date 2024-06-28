@@ -2,6 +2,8 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
+import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
@@ -10,7 +12,6 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -66,8 +67,9 @@ export async function syncAccountsFromFirefly(signal?: AbortSignal) {
     const allSettled = await Promise.allSettled(
         sessions.map((x) => {
             if (x.type === SessionType.Twitter) {
-                const session = x as TwitterSession;
-                return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(x.profileId, session.payload);
+                return null;
+                // const session = x as TwitterSession;
+                // return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(x.profileId, session.payload);
             }
             const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
             return provider.getProfileById(x.profileId);
@@ -75,7 +77,7 @@ export async function syncAccountsFromFirefly(signal?: AbortSignal) {
     );
     const accounts = compact(
         allSettled.map((x, i) =>
-            x.status === 'fulfilled'
+            x.status === 'fulfilled' && x.value
                 ? {
                       profile: x.value,
                       session: sessions[i],
@@ -84,5 +86,8 @@ export async function syncAccountsFromFirefly(signal?: AbortSignal) {
         ),
     );
 
-    return accounts;
+    return accounts.filter((x) => {
+        const state = getProfileState(x.profile.source);
+        return !state.accounts.find((y) => isSameAccount(x, y));
+    });
 }

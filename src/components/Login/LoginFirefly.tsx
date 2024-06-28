@@ -28,9 +28,15 @@ async function login(createSession: () => Promise<FireflySession>, options?: { s
     try {
         fireflySessionHolder.resumeSession(await createSession());
 
+        const accounts = await syncAccountsFromFirefly(options?.signal);
+        if (!accounts.length) {
+            LoginModalRef.close();
+            return;
+        }
+
         await FireflySessionConfirmModalRef.openAndWaitForClose({
             source: Source.Firefly,
-            accounts: await syncAccountsFromFirefly(options?.signal),
+            accounts,
             onDetected(profiles) {
                 if (!profiles.length)
                     enqueueInfoMessage(t`No device accounts detected.`, {

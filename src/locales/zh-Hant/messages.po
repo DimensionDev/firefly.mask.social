@@ -525,6 +525,9 @@ msgstr ""
 msgid "Channel"
 msgstr "頻道"
 
+msgid "Connect another account"
+msgstr ""
+
 msgid "Comment cannot be empty."
 msgstr ""
 
@@ -1133,9 +1136,6 @@ msgstr ""
 
 msgid "Connect"
 msgstr "連接"
-
-msgid "Switch account"
-msgstr ""
 
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"

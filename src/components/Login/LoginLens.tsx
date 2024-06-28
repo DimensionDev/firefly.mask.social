@@ -68,10 +68,16 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 });
                 enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
 
+                const accounts = await syncAccountsFromFirefly(controller.current.signal);
+                if (!accounts.length) {
+                    LoginModalRef.close();
+                    return;
+                }
+
                 // restore profiles exclude lens
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     source: Source.Lens,
-                    accounts: await syncAccountsFromFirefly(controller.current.signal),
+                    accounts,
                     onDetected(profiles) {
                         if (!profiles.length)
                             enqueueInfoMessage(t`No device accounts detected.`, {

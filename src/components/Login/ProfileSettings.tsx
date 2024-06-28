@@ -67,7 +67,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     }}
                 >
                     <span className="text-[17px] font-bold leading-[22px] text-main">
-                        <Trans>Switch account</Trans>
+                        <Trans>Connect another account</Trans>
                     </span>
                 </ClickableButton>
                 <ClickableButton

@@ -5,6 +5,7 @@ import { toHex } from 'viem';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
+import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface WarpcastSignInResponse {
@@ -110,5 +111,9 @@ async function initialSignerRequestToken(callback?: (url: string) => void, signa
 
 export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const session = await initialSignerRequestToken(callback, signal);
+
+    // polling for the session to be ready
+    await restoreFireflySession(session, signal);
+
     return session;
 }

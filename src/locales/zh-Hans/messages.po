@@ -525,6 +525,9 @@ msgstr "和"
 msgid "Channel"
 msgstr "频道"
 
+msgid "Connect another account"
+msgstr ""
+
 msgid "Comment cannot be empty."
 msgstr "评论不能为空。"
 
@@ -1133,9 +1136,6 @@ msgstr "没有找到 Lens 账号，请连接另一个钱包。"
 
 msgid "Connect"
 msgstr "连接"
-
-msgid "Switch account"
-msgstr "切换账号"
 
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
