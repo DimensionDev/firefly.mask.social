@@ -132,7 +132,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                     </span>
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
-                                            <button
+                                            <span
                                                 className={`${
                                                     checked ? 'bg-success' : 'bg-gray-200'
                                                 } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
@@ -143,7 +143,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                                         checked ? 'translate-x-6' : 'translate-x-1'
                                                     } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
-                                            </button>
+                                            </span>
                                         )}
                                     </Switch>
                                 </div>
