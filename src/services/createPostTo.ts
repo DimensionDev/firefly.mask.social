@@ -55,6 +55,7 @@ export function createPostTo(source: SocialSource, options: Options) {
         };
 
         const postId = await postTo();
+
         updatePostInThread(post.id, (x) => ({
             ...x,
             postId: {

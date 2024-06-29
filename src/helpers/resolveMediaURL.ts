@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import { v4 as uuid } from 'uuid';
 
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 import type { TwitterMediaResponse } from '@/services/uploadToTwitter.js';
@@ -7,7 +8,7 @@ import { type MediaObject, MediaObjectSource } from '@/types/index.js';
 
 export function createLocalMediaObject(file: File): MediaObject {
     return {
-        id: '',
+        id: uuid(),
         file,
         source: MediaObjectSource.local,
         url: '',
