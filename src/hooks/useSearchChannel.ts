@@ -6,7 +6,7 @@ import { FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 
 interface SearchExtraOptions {
     hasRedPacket: boolean;

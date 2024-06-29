@@ -16,7 +16,10 @@ export const GifEntryButton = memo(function GifEntryButton({ disabled = false }:
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none">
+                    <Popover.Button
+                        className="flex cursor-pointer gap-1 text-main focus:outline-none"
+                        disabled={disabled}
+                    >
                         <Tooltip content={t`GIF`} placement="top" disabled={disabled}>
                             <GifIcon
                                 width={24}

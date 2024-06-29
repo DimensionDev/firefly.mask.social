@@ -13,6 +13,7 @@ import {
     VERCEL_NEV,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { MediaSource } from '@/types/compose.js';
 
 export const SITE_NAME = 'Firefly: All in one social app';
 export const SITE_DESCRIPTION =
@@ -27,6 +28,10 @@ export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
+export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
+export const CORS_HOST = 'https://cors-next.r2d2.to';
+export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
+export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
@@ -64,6 +69,14 @@ export const SORTED_BOOKMARK_SOURCES =
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
+export const SORTED_MEDIA_SOURCES: MediaSource[] = [
+    MediaSource.Twimg,
+    MediaSource.S3,
+    MediaSource.IPFS,
+    MediaSource.Imgur,
+    MediaSource.Giphy,
+    MediaSource.Local,
+];
 export const SUPPORT_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 
 // Lens

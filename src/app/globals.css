@@ -82,6 +82,8 @@
     --plyr-range-fill-background: rgba(118, 118, 118, 1);
     --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
     --plyr-control-icon-size: 16px;
+    --color-success: #3dc233;
+    --color-fail: #ff3545;
 }
 
 .dark {

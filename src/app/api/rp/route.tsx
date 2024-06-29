@@ -3,9 +3,9 @@
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
+import { Locale } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
 import { createRedPacketImage } from '@/services/createRedPacketImage.js';
-import { Locale } from '@/types/index.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
 const TokenSchema = z.object({

@@ -26,7 +26,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 

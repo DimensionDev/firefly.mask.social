@@ -1,8 +1,9 @@
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
+import FollowIcon from '@/assets/follow-user.svg';
+import UnfollowIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
@@ -32,7 +33,7 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
             }}
             ref={ref}
         >
-            {following ? <EyeSlashIcon width={24} height={24} /> : <EyeIcon width={24} height={24} />}
+            {following ? <UnfollowIcon width={18} height={18} /> : <FollowIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 {following ? <Trans>Unwatch {identity}</Trans> : <Trans>Watch {identity}</Trans>}
             </span>

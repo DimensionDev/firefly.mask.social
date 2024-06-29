@@ -6,12 +6,12 @@ import urlcat from 'urlcat';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
+import { Locale } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';
-import { Locale } from '@/types/index.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
 interface Cover {

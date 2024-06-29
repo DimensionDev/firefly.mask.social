@@ -3,7 +3,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { type Dispatch, type SetStateAction, useMemo, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useMemo, useState } from 'react';
 import { useAsyncFn, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
@@ -17,22 +17,23 @@ import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
+import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
-import { restoreAccount } from '@/helpers/restoreAccount.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 async function login(
     createSession: () => Promise<FarcasterSession>,
@@ -42,18 +43,19 @@ async function login(
         const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
-        // restore profiles for farcaster
-        restoreAccount({
-            profile,
+        // add new account for farcaster
+        await addAccount({
             session,
+            profile,
         });
-        enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
+
+        enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
 
         // restore profile exclude farcaster
         if (!options?.skipSyncSessions) {
             await FireflySessionConfirmModalRef.openAndWaitForClose({
                 source: Source.Farcaster,
-                sessions: await syncSessionFromFirefly(options?.signal),
+                accounts: await syncAccountsFromFirefly(options?.signal),
                 onDetected(profiles) {
                     if (!profiles.length)
                         enqueueInfoMessage(t`No device accounts detected.`, {
@@ -115,7 +117,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         ].filter((x) => (IS_PRODUCTION ? !x.developmentOnly : true));
     }, []);
 
-    const controllerRef = useRef<AbortController>();
+    const controller = useAbortController();
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
@@ -129,8 +131,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     });
 
     const [, onLoginByGrantPermission] = useAsyncFn(async () => {
-        controllerRef.current?.abort(new AbortError());
-        controllerRef.current = new AbortController();
+        controller.current.renew();
 
         try {
             await login(
@@ -144,8 +145,8 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                             resetCountdown();
                             startCountdown();
                         }
-                    }, controllerRef.current?.signal),
-                { signal: controllerRef.current?.signal },
+                    }, controller.current.signal),
+                { signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -156,13 +157,12 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     }, []);
 
     const [, onLoginByRelayService] = useAsyncFn(async () => {
-        controllerRef.current?.abort(new AbortError());
-        controllerRef.current = new AbortController();
+        controller.current.renew();
 
         try {
             await login(
                 async () => {
-                    const staledSession = fireflySessionHolder.session;
+                    const previousSession = fireflySessionHolder.session;
 
                     const session = await createSessionByRelayService((url) => {
                         resetCountdown();
@@ -172,7 +172,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
-                    }, controllerRef.current?.signal);
+                    }, controller.current.signal);
 
                     // let the user see the qr code has been scanned and display a loading icon
                     setScanned(true);
@@ -180,15 +180,15 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     // for relay service we need to sync the session from firefly
                     // and find out the the signer key of the connected profile
-                    const sessions = await syncSessionFromFirefly(controllerRef.current?.signal);
+                    const accounts = await syncAccountsFromFirefly(controller.current.signal);
 
                     // if the user has signed into Firefly before, a synced session could be found.
-                    const restoredSession = sessions.find((x) => isSameSession(x, session));
+                    const nextAccount = accounts.find((x) => isSameSession(x.session, session));
 
-                    if (!restoredSession) {
+                    if (!nextAccount) {
                         // the current profile did not connect to firefly
                         // we need to restore the staled session and keep everything untouched
-                        if (staledSession) FireflySession.restore(staledSession);
+                        if (previousSession) fireflySessionHolder.resumeSession(previousSession);
 
                         try {
                             const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
@@ -211,9 +211,9 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         throw new AbortError();
                     }
 
-                    return restoredSession as FarcasterSession;
+                    return nextAccount.session as FarcasterSession;
                 },
-                { skipSyncSessions: true, signal: controllerRef.current?.signal },
+                { skipSyncSessions: true, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -224,14 +224,15 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     }, [resetCountdown, startCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        controllerRef.current?.abort(new AbortError());
+        controller.current.abort();
+
         try {
             await login(
                 async () => {
                     const client = await getWalletClientRequired(config);
                     return createSessionByCustodyWallet(client);
                 },
-                { signal: controllerRef.current?.signal },
+                { signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -242,10 +243,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     }, []);
 
     useUnmount(() => {
-        controllerRef.current?.abort(new AbortError());
-        if (IS_MOBILE_DEVICE) {
-            resetCountdown();
-        }
+        if (IS_MOBILE_DEVICE) resetCountdown();
     });
 
     if (signType === FarcasterSignType.RecoveryPhrase) return null;
@@ -372,7 +370,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                 onClick={() => {
                                     if (scanned) return;
 
-                                    controllerRef.current?.abort(new AbortError());
+                                    controller.current.abort();
 
                                     switch (signType) {
                                         case FarcasterSignType.GrantPermission:

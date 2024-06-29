@@ -51,12 +51,11 @@ import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import { createLocalMediaObject } from '@/helpers/resolveMediaURL.js';
+import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
@@ -338,7 +337,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     {
                         tag: CHAR_TAG.FIREFLY_RP,
                         content: RP_HASH_TAG,
-                        visible: true,
+                        visible: false,
                     },
                     fullMessage,
                 ];

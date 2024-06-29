@@ -1,10 +1,10 @@
 import { Menu, Transition } from '@headlessui/react';
-import { ChartBarIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
 import { Fragment, memo } from 'react';
 
+import EngagementIcon from '@/assets/engagement.svg';
 import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
@@ -28,7 +28,6 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
-import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
@@ -51,7 +50,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isFollowing = !!author.viewerContext?.following;
     const [, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-    const [, reportProfile] = useReportProfile();
     const [, reportPost] = useReportPost();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
     const [, toggleMutedChannel] = useToggleMutedChannel();
@@ -109,9 +107,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     }}
                                 >
                                     {deleting ? (
-                                        <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
+                                        <LoadingIcon width={18} height={18} className="animate-spin text-danger" />
                                     ) : (
-                                        <TrashIcon width={24} height={24} className="text-danger" />
+                                        <TrashIcon width={18} height={18} className="text-danger" />
                                     )}
                                     <span className="font-bold leading-[22px] text-danger">
                                         <Trans>Delete post</Trans>
@@ -130,9 +128,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                         }}
                                     >
                                         {isFollowing ? (
-                                            <UnFollowUserIcon width={24} height={24} />
+                                            <UnFollowUserIcon width={18} height={18} />
                                         ) : (
-                                            <FollowUserIcon width={24} height={24} />
+                                            <FollowUserIcon width={18} height={18} />
                                         )}
                                         <span className="font-bold leading-[22px] text-main">
                                             {isFollowing ? t`Unfollow @${author.handle}` : t`Follow @${author.handle}`}
@@ -182,7 +180,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <ChartBarIcon width={24} height={24} />
+                            <EngagementIcon width={18} height={18} />
                             <span className="font-bold leading-[22px] text-main">
                                 <Trans>View engagements</Trans>
                             </span>

@@ -1,13 +1,20 @@
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
+import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -41,14 +48,14 @@ async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
         signal,
     });
     if (!response.success) throw new Error(response.error.message);
-    return response.data.map(SessionFactory.createSession);
+    return response.data.map(SessionFactory.createSession) as Array<FarcasterSession | LensSession | TwitterSession>;
 }
 
 /**
- * Download and decrypt metrics from Firefly, then convert them to sessions.
+ * Download and decrypt metrics from Firefly, then convert them to accounts.
  * @returns
  */
-export async function syncSessionFromFirefly(signal?: AbortSignal) {
+export async function syncAccountsFromFirefly(signal?: AbortSignal) {
     // Ensure that the Firefly session is resumed before calling this function.
     fireflySessionHolder.assertSession();
 
@@ -56,5 +63,31 @@ export async function syncSessionFromFirefly(signal?: AbortSignal) {
     if (!cipher) return [];
 
     const sessions = await decryptMetricsFromFirefly(cipher, signal);
-    return sessions as Array<FarcasterSession | LensSession | TwitterSession>;
+
+    // convert session to profile
+    const allSettled = await Promise.allSettled(
+        sessions.map((x) => {
+            if (x.type === SessionType.Twitter) {
+                const session = x as TwitterSession;
+                return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(x.profileId, session.payload);
+            }
+            const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
+            return provider.getProfileById(x.profileId);
+        }),
+    );
+    const accounts = compact(
+        allSettled.map((x, i) =>
+            x.status === 'fulfilled' && x.value
+                ? {
+                      profile: x.value,
+                      session: sessions[i],
+                  }
+                : null,
+        ),
+    );
+
+    return accounts.filter((x) => {
+        const state = getProfileState(x.profile.source);
+        return !state.accounts.find((y) => isSameAccount(x, y));
+    });
 }

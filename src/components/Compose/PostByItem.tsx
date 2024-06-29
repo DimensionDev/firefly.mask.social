@@ -9,20 +9,18 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAccounts } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
-import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
     source: SocialSource;
@@ -30,32 +28,25 @@ interface PostByItemProps {
 }
 
 export function PostByItem({ source, disabled = false }: PostByItemProps) {
-    const profiles = useProfiles(source);
+    const accounts = useAccounts(source);
     const currentProfile = useCurrentProfile(source);
-
-    const updateLensCurrentAccount = useLensStateStore.use.updateCurrentAccount();
 
     const { enableSource, disableSource } = useComposeStateStore();
     const { availableSources, images } = useCompositePost();
 
-    const [{ loading }, loginLens] = useAsyncFn(
-        async (profile: Profile) => {
-            try {
-                const session = await createSessionForProfileId(profile.profileId);
-                updateLensCurrentAccount({ profile, session });
-                lensSessionHolder.resumeSession(session);
-                enqueueSuccessMessage(t`Your ${resolveSourceName(profile.source)} account is now connected.`);
-            } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
-                    error,
-                });
-                throw error;
-            }
-        },
-        [updateLensCurrentAccount],
-    );
+    const [{ loading }, login] = useAsyncFn(async (account: Account) => {
+        try {
+            await switchAccount(account);
+            enqueueSuccessMessage(t`Your ${resolveSourceName(account.profile.source)} account is now connected.`);
+        } catch (error) {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                error,
+            });
+            throw error;
+        }
+    }, []);
 
-    if (!currentProfile || !profiles?.length)
+    if (!currentProfile || !accounts?.length)
         return (
             <div className="flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
                 <div className="flex items-center gap-2 text-main">
@@ -83,7 +74,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
             </div>
         );
 
-    return profiles.map((profile) => (
+    return accounts.map(({ profile, session }) => (
         <div
             className={classNames(
                 'flex h-10 items-center justify-between border-b border-secondaryLine last:border-none',
@@ -120,15 +111,15 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 ) : (
                     <RadioDisableNoIcon width={20} height={20} className="text-secondaryLine" />
                 )
-            ) : currentProfile.source === Source.Lens ? (
+            ) : (
                 <ClickableButton
                     className="font-bold text-blueBottom"
                     disabled={loading}
-                    onClick={() => loginLens(profile)}
+                    onClick={() => login({ profile, session })}
                 >
                     {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : <Trans>Switch</Trans>}
                 </ClickableButton>
-            ) : null}
+            )}
         </div>
     ));
 }

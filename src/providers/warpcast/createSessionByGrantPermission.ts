@@ -4,8 +4,8 @@ import { toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
+import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface WarpcastSignInResponse {
@@ -13,6 +13,7 @@ interface WarpcastSignInResponse {
     token: string;
     timestamp: number;
     expiresAt: number;
+    // URL to present to user to scan
     deeplinkUrl: string;
 }
 
@@ -111,9 +112,8 @@ async function initialSignerRequestToken(callback?: (url: string) => void, signa
 export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const session = await initialSignerRequestToken(callback, signal);
 
-    // firefly start polling for the signed key request
-    // once key request is signed, we will get the fid
-    await FireflySession.fromAndRestore(session, signal);
+    // polling for the session to be ready
+    await restoreFireflySession(session, signal);
 
     return session;
 }

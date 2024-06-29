@@ -61,6 +61,7 @@ const resolveProfileTabColor = createLookupTableResolver<
     },
     {},
 );
+
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
     const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();

@@ -13,30 +13,6 @@ export type ResponseJSON<T> =
           };
       };
 
-export enum MediaObjectSource {
-    local = 'local',
-    ipfs = 'ipfs',
-    imgur = 'imgur',
-    s3 = 's3',
-    giphy = 'giphy',
-}
-
-export interface MediaObject {
-    id: string;
-    file: File;
-    source: MediaObjectSource;
-    url: string;
-    mimeType: string;
-}
-
-export type ThemeMode = 'light' | 'dark' | 'default';
-
-export enum Locale {
-    en = 'en',
-    zhHans = 'zh-Hans',
-    zhHant = 'zh-Hant',
-}
-
 export type SearchParams = Record<string, string | string[] | undefined>;
 
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;

@@ -1,6 +1,6 @@
 import { plural, t, Trans } from '@lingui/macro';
-import { useRef, useState } from 'react';
-import { useAsyncFn, useMount, useUnmount } from 'react-use';
+import { useState } from 'react';
+import { useAsyncFn, useMount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -16,19 +16,27 @@ import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessag
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 import { DeviceType } from '@/types/device.js';
 
 async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
     try {
-        const session = await createSession();
-        await FireflySession.restore(session);
+        fireflySessionHolder.resumeSession(await createSession());
+
+        const accounts = await syncAccountsFromFirefly(options?.signal);
+        if (!accounts.length) {
+            LoginModalRef.close();
+            return;
+        }
+
         await FireflySessionConfirmModalRef.openAndWaitForClose({
             source: Source.Firefly,
-            sessions: await syncSessionFromFirefly(options?.signal),
+            accounts,
             onDetected(profiles) {
                 if (!profiles.length)
                     enqueueInfoMessage(t`No device accounts detected.`, {
@@ -52,7 +60,7 @@ async function login(createSession: () => Promise<FireflySession>, options?: { s
 interface LoginFireflyProps {}
 
 export function LoginFirefly(props: LoginFireflyProps) {
-    const controllerRef = useRef<AbortController>();
+    const controller = useAbortController();
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
@@ -66,8 +74,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
     });
 
     const [, onLoginByGrantPermission] = useAsyncFn(async () => {
-        controllerRef.current?.abort(new AbortError());
-        controllerRef.current = new AbortController();
+        controller.current.renew();
 
         try {
             await login(
@@ -91,9 +98,9 @@ export function LoginFirefly(props: LoginFireflyProps) {
                             [DeviceType.IOS]: url.replace(/^https/, 'firefly'),
                             [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
                         });
-                    }, controllerRef.current?.signal),
+                    }, controller.current.signal),
                 {
-                    signal: controllerRef.current.signal,
+                    signal: controller.current.signal,
                 },
             );
         } catch (error) {
@@ -106,10 +113,6 @@ export function LoginFirefly(props: LoginFireflyProps) {
 
     useMount(() => {
         onLoginByGrantPermission();
-    });
-
-    useUnmount(() => {
-        controllerRef.current?.abort(new AbortError());
     });
 
     return (
@@ -176,9 +179,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                                 })}
                                 onClick={() => {
                                     if (scanned) return;
-
-                                    controllerRef.current?.abort(new AbortError());
-
+                                    controller.current.abort();
                                     onLoginByGrantPermission();
                                 }}
                             >

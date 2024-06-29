@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import type { SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 
 export function useCurrentAvailableProfile(source?: SocialSource) {
     const all = useCurrentProfileAll();

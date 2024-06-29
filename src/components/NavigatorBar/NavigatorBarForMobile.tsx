@@ -15,7 +15,7 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { IS_FIREFOX } from '@/constants/bowser.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';

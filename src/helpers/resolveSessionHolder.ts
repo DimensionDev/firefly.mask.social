@@ -1,6 +1,7 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -15,18 +16,19 @@ export const resolveSessionHolder = createLookupTableResolver<SocialSource, Sess
         [Source.Lens]: lensSessionHolder,
         [Source.Twitter]: twitterSessionHolder,
     },
-    () => null,
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
 );
 
-export const resolveSessionHolderFromSessionType = createLookupTableResolver<
-    SessionType,
-    SessionHolder<Session> | null
->(
+export const resolveSessionHolderFromSessionType = createLookupTableResolver<SessionType, SessionHolder<Session>>(
     {
         [SessionType.Farcaster]: farcasterSessionHolder,
         [SessionType.Lens]: lensSessionHolder,
         [SessionType.Firefly]: fireflySessionHolder,
         [SessionType.Twitter]: twitterSessionHolder,
     },
-    () => null,
+    (sessionType) => {
+        throw new UnreachableError('sessionType', sessionType);
+    },
 );

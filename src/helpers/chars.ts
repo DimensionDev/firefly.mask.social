@@ -73,7 +73,7 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                     }
                     return x.content;
                 case CHAR_TAG.FRAME:
-                    if (source === Source.Lens) return `${getPollFrameUrl(x.id || `poll-${uuid()}`, source)}\n`;
+                    if (source === Source.Lens) return ` ${getPollFrameUrl(x.id || `poll-${uuid()}`, source)}\n`;
                     return '';
                 default:
                     safeUnreachable(x);

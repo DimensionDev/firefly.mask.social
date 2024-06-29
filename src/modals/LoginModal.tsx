@@ -69,6 +69,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         );
                         return;
                     }
+
                     setProfiles(profiles);
                     setCurrentAccount(account.address);
                     setSource(selectedSource);

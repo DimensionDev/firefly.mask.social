@@ -11,7 +11,7 @@ import { ProfileCell } from '@/components/Profile/ProfileCell.js';
 import { DiscoverType, PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
