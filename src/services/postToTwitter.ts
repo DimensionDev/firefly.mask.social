@@ -44,9 +44,9 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                 },
             },
             mediaObjects: images.map((media) => ({
+                id: media.id,
                 url: resolveMediaObjectUrl(media, [MediaSource.Twimg]),
                 mimeType: media.mimeType,
-                id: media.id,
             })),
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',

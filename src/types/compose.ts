@@ -10,11 +10,8 @@ export enum MediaSource {
 }
 
 export interface MediaObject {
-    // internal id
     id: string;
     file: File;
     mimeType: string;
-    // id differentiates the media object from different sources
-    ids?: Partial<Record<MediaSource, string>>;
     urls?: Partial<Record<MediaSource, string>>;
 }

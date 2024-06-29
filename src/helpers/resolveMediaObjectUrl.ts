@@ -16,12 +16,9 @@ export function createLocalMediaObject(file: File): MediaObject {
 
 export function createGiphyMediaObject(gif: IGif): MediaObject {
     return {
-        id: uuid(),
+        id: gif.id.toString(),
         file: new File([], gif.title, { type: 'image/gif' }),
         mimeType: 'image/gif',
-        ids: {
-            [MediaSource.Giphy]: gif.id.toString(),
-        },
         urls: {
             [MediaSource.Giphy]: gif.images.original.url,
         },
@@ -46,16 +43,14 @@ export function createIPFSMediaObject(ipfs: IPFSResponse, media: MediaObject): M
 
 export function createTwitterMediaObject(twitterRes: TwitterMediaResponse): MediaObject {
     return {
-        id: uuid(),
+        id: twitterRes.media_id_string,
         file: twitterRes.file,
         mimeType: twitterRes.file.type,
-        ids: {
-            [MediaSource.Twimg]: twitterRes.media_id_string,
-        },
     };
 }
 
-export function resolveMediaObjectUrl(media: MediaObject, sources = SORTED_MEDIA_SOURCES) {
+export function resolveMediaObjectUrl(media: MediaObject | null, sources = SORTED_MEDIA_SOURCES) {
+    if (!media) return '';
     return sources.reduce((previewUrl, source) => {
         // the first source that has a url will be used as the preview
         if (previewUrl) return previewUrl;
