@@ -128,8 +128,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <Link
                                                 href={item.href}
                                                 className={classNames(
-                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-full p-2 text-xl outline-none hover:bg-bg md:w-auto',
-                                                    { 'font-bold': isSelected, 'px-4': !collapsed },
+                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg p-2 px-4 py-3 text-xl leading-6 outline-none hover:bg-bg md:w-auto',
+                                                    { 'font-bold': isSelected },
                                                 )}
                                             >
                                                 {collapsed ? (

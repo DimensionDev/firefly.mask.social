@@ -79,13 +79,9 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     return (
         <div
-            className={classNames(
-                'w-full space-y-3 rounded-md hover:bg-bg',
-                {
-                    'bg-lightBg': collapsed,
-                },
-                sideBarCollapsed ? 'p-2' : 'px-4 py-1',
-            )}
+            className={classNames('w-full space-y-3 rounded-md px-4 py-3 leading-6 hover:bg-bg', {
+                'bg-lightBg': collapsed,
+            })}
             onClick={(e) => {
                 e.stopPropagation();
             }}
@@ -110,7 +106,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                     icon
                 )}
                 <span
-                    className={classNames('overflow-hidden text-ellipsis py-1', {
+                    className={classNames('overflow-hidden text-ellipsis leading-6', {
                         'font-bold': collapsed,
                     })}
                     style={{ display: sideBarCollapsed ? 'none' : 'inline' }}
@@ -139,7 +135,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                         return (
                             <button
                                 onClick={type.onOpenConnectModal}
-                                className="flex w-full flex-row items-center gap-3 py-1 text-xl font-bold leading-6"
+                                className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
                             >
                                 <Image
                                     src={type.icon ?? ''}
