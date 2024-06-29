@@ -7,6 +7,7 @@ import { UnreachableError } from '@/constants/error.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType, MediaObject } from '@/types/compose.js';
+import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
 
 type Options = Record<
     ComposeType,
@@ -25,9 +26,9 @@ export function createPostTo(source: SocialSource, options: Options) {
         const uploadedVideos: MediaObject[] = (await options.uploadVideos?.()) ?? [];
         const polls = (await options.uploadPolls?.()) ?? [];
 
-        updatePostInThread(post.id, (x) => ({
-            ...x,
-            images: uploadedImages,
+        updatePostInThread(post.id, (post) => ({
+            ...post,
+            images: mergeMediaObjects(post.images, uploadedImages),
             video: first(uploadedVideos) ?? null,
         }));
 
@@ -55,10 +56,10 @@ export function createPostTo(source: SocialSource, options: Options) {
 
         const postId = await postTo();
 
-        updatePostInThread(post.id, (x) => ({
-            ...x,
+        updatePostInThread(post.id, (post) => ({
+            ...post,
             postId: {
-                ...x.postId,
+                ...post.postId,
                 [source]: postId,
             },
         }));
