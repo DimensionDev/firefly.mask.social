@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import { RemoveButton } from '@/components/RemoveButton.js';
 import { Image } from '@/esm/Image.js';
@@ -15,7 +15,7 @@ interface ComposeImageProps {
 }
 export const ComposeImage = memo(function ComposeImage({ index, size, image, readonly = false }: ComposeImageProps) {
     const { removeImage } = useComposeStateStore();
-    const mediaURL = useMemo(() => resolveMediaObjectPreviewUrl(image), [image]);
+    const previewUrl = resolveMediaObjectPreviewUrl(image);
 
     return (
         <div
@@ -29,7 +29,7 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
                 'h-auto': size >= 5,
             })}
         >
-            <Image src={mediaURL} alt={image.file.name} fill className="object-cover" />
+            <Image src={previewUrl} alt={image.file.name} fill className="object-cover" />
 
             {!readonly ? (
                 <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(image)} />

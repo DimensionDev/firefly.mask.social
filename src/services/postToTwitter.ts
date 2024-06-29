@@ -3,8 +3,8 @@ import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
-import { confirmMediasFile } from '@/helpers/confirmMediasFile.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
 import { createTwitterMediaObject } from '@/helpers/resolveMediaObjectPreviewUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
@@ -15,7 +15,7 @@ import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToTwitter } from '@/services/uploadToTwitter.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
-import { type ComposeType, type MediaObject,MediaSource } from '@/types/compose.js';
+import { type ComposeType, type MediaObject, MediaSource } from '@/types/compose.js';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
     const { chars, images, postId, parentPost, restriction, poll } = compositePost;
@@ -62,8 +62,8 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             return [pollStub];
         },
         uploadImages: async () => {
-            const confirmedMedias = await confirmMediasFile(images);
-            const uploaded = await uploadToTwitter(confirmedMedias.map((x) => x.file));
+            const downloaded = await downloadMediaObjects(images);
+            const uploaded = await uploadToTwitter(downloaded.map((x) => x.file));
             return uploaded.map((x) => createTwitterMediaObject(x));
         },
         compose: (images, _, polls) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, polls)),
