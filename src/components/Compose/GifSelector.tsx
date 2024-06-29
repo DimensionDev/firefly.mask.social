@@ -6,7 +6,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Image } from '@/esm/Image.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { createGiphyMediaObject } from '@/helpers/resolveMediaURL.js';
+import { createGiphyMediaObject } from '@/helpers/resolveMediaObjectPreviewUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { IGif } from '@/types/giphy.js';

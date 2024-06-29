@@ -13,6 +13,7 @@ import {
     VERCEL_NEV,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { MediaSource } from '@/types/compose.js';
 
 export const SITE_NAME = 'Firefly: All in one social app';
 export const SITE_DESCRIPTION =
@@ -64,6 +65,14 @@ export const SORTED_BOOKMARK_SOURCES =
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
+export const SORTED_MEDIA_SOURCES: MediaSource[] = [
+    MediaSource.Twimg,
+    MediaSource.S3,
+    MediaSource.IPFS,
+    MediaSource.Imgur,
+    MediaSource.Giphy,
+    MediaSource.Local,
+];
 export const SUPPORT_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 
 // Lens

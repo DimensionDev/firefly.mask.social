@@ -6,8 +6,7 @@ import { type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import type { ComposeType } from '@/types/compose.js';
-import type { MediaObject } from '@/types/index.js';
+import type { ComposeType, MediaObject } from '@/types/compose.js';
 
 type Options = Record<
     ComposeType,

@@ -3,9 +3,9 @@ import { memo, useMemo } from 'react';
 import { RemoveButton } from '@/components/RemoveButton.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveMediaPreviewURL } from '@/helpers/resolveMediaURL.js';
+import { resolveMediaObjectPreviewUrl } from '@/helpers/resolveMediaObjectPreviewUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { MediaObject } from '@/types/index.js';
+import type { MediaObject } from '@/types/compose.js';
 
 interface ComposeImageProps {
     index: number;
@@ -15,7 +15,7 @@ interface ComposeImageProps {
 }
 export const ComposeImage = memo(function ComposeImage({ index, size, image, readonly = false }: ComposeImageProps) {
     const { removeImage } = useComposeStateStore();
-    const mediaURL = useMemo(() => resolveMediaPreviewURL(image), [image]);
+    const mediaURL = useMemo(() => resolveMediaObjectPreviewUrl(image), [image]);
 
     return (
         <div

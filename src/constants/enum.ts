@@ -3,6 +3,7 @@ export enum NODE_ENV {
     Development = 'development',
     Test = 'test',
 }
+
 export enum VERCEL_NEV {
     Production = 'production',
     Preview = 'preview',
@@ -12,6 +13,14 @@ export enum VERCEL_NEV {
 export enum STATUS {
     Enabled = 'enabled',
     Disabled = 'disabled',
+}
+
+export type ThemeMode = 'light' | 'dark' | 'default';
+
+export enum Locale {
+    en = 'en',
+    zhHans = 'zh-Hans',
+    zhHant = 'zh-Hant',
 }
 
 export enum PageRoute {
