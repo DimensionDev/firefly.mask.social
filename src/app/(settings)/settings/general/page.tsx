@@ -11,11 +11,11 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
+import { Locale } from '@/constants/enum.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { supportedLocales } from '@/i18n/index.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
-import { Locale } from '@/types/index.js';
 
 export default function General() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();

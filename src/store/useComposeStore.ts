@@ -19,9 +19,8 @@ import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
-import { type ComposeType } from '@/types/compose.js';
+import { type ComposeType, type MediaObject } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
-import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
 

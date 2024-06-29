@@ -11,7 +11,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
-import { createLocalMediaObject } from '@/helpers/resolveMediaURL.js';
+import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 

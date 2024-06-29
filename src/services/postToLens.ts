@@ -9,7 +9,7 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
-import { createIPFSMediaObject } from '@/helpers/resolveMediaURL.js';
+import { createIPFSMediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -19,8 +19,7 @@ import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
-import type { ComposeType } from '@/types/compose.js';
-import { type MediaObject, MediaObjectSource } from '@/types/index.js';
+import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 interface BaseMetadata {
     title: string;
@@ -50,7 +49,7 @@ interface Attachments {
 }
 
 function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
-    if (images.some((image) => image.source === MediaObjectSource.local) || video?.source === MediaObjectSource.local) {
+    if (images.some((image) => !resolveImageUrl(Source.Lens, image)) || !resolveVideoUrl(Source.Lens, video)) {
         throw new Error(t`There are images or videos that were not uploaded successfully.`);
     }
 
@@ -62,27 +61,27 @@ function createPayloadAttachments(images: MediaObject[], video: MediaObject | nu
               attachments: videoWithIPFS
                   ? [
                         {
-                            item: videoWithIPFS.url,
                             type: videoWithIPFS.mimeType,
-                            cover: videoWithIPFS.url,
+                            item: resolveVideoUrl(Source.Lens, videoWithIPFS),
+                            cover: resolveVideoUrl(Source.Lens, videoWithIPFS),
                         },
                     ]
                   : imagesWithIPFS.map((image) => ({
-                        item: image.url,
                         type: image.mimeType,
-                        cover: imagesWithIPFS[0].url,
+                        item: resolveImageUrl(Source.Lens, image),
+                        cover: resolveImageUrl(Source.Lens, imagesWithIPFS[0]),
                     })),
               ...(videoWithIPFS
                   ? {
                         video: {
-                            item: videoWithIPFS.url,
                             type: videoWithIPFS.mimeType,
+                            item: resolveVideoUrl(Source.Lens, videoWithIPFS),
                         },
                     }
                   : {
                         image: {
-                            item: imagesWithIPFS[0].url,
                             type: imagesWithIPFS[0].mimeType,
+                            item: resolveImageUrl(Source.Lens, imagesWithIPFS[0]),
                         },
                     }),
           }
@@ -160,7 +159,6 @@ async function publishPostForLens(
     polls?: Poll[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
-
     const title = `Post by #${profile.handle}`;
     const metadata = createPostMetadata(
         {
@@ -279,7 +277,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         uploadImages() {
             return Promise.all(
                 images.map(async (media) => {
-                    if ([MediaObjectSource.ipfs, MediaObjectSource.giphy].includes(media.source)) return media;
+                    if (resolveImageUrl(Source.Lens, media)) return media;
                     return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );
@@ -287,7 +285,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         uploadVideos() {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    if (media.source === MediaObjectSource.ipfs) return media;
+                    if (resolveVideoUrl(Source.Lens, media)) return media;
                     return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );

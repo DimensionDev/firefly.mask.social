@@ -1,11 +1,11 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import { RemoveButton } from '@/components/RemoveButton.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveMediaPreviewURL } from '@/helpers/resolveMediaURL.js';
+import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { MediaObject } from '@/types/index.js';
+import type { MediaObject } from '@/types/compose.js';
 
 interface ComposeImageProps {
     index: number;
@@ -15,7 +15,6 @@ interface ComposeImageProps {
 }
 export const ComposeImage = memo(function ComposeImage({ index, size, image, readonly = false }: ComposeImageProps) {
     const { removeImage } = useComposeStateStore();
-    const mediaURL = useMemo(() => resolveMediaPreviewURL(image), [image]);
 
     return (
         <div
@@ -29,7 +28,7 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
                 'h-auto': size >= 5,
             })}
         >
-            <Image src={mediaURL} alt={image.file.name} fill className="object-cover" />
+            <Image src={resolveMediaObjectUrl(image)} alt={image.file.name} fill className="object-cover" />
 
             {!readonly ? (
                 <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(image)} />

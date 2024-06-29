@@ -180,35 +180,35 @@ export async function crossPost(
     }
 
     const allSettled = await Promise.allSettled(
-        SORTED_SOCIAL_SOURCES.map(async (x) => {
-            if (!availableSources.includes(x)) return null;
+        SORTED_SOCIAL_SOURCES.map(async (source) => {
+            if (!availableSources.includes(source)) return null;
 
             // post already published
-            if (skipIfPublishedPost && compositePost.postId[x]) {
+            if (skipIfPublishedPost && compositePost.postId[source]) {
                 return null;
             }
 
             // parent post is required for reply and quote
-            if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
+            if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[source]) {
                 return null;
             }
 
             try {
-                const result = await resolvePostTo(x)(type, compositePost);
-                updatePostInThread(compositePost.id, (y) => ({
-                    ...y,
+                const result = await resolvePostTo(source)(type, compositePost);
+                updatePostInThread(compositePost.id, (post) => ({
+                    ...post,
                     postError: {
-                        ...y.postError,
-                        [x]: null,
+                        ...post.postError,
+                        [source]: null,
                     },
                 }));
                 return result;
             } catch (error) {
-                updatePostInThread(compositePost.id, (y) => ({
-                    ...y,
+                updatePostInThread(compositePost.id, (post) => ({
+                    ...post,
                     postError: {
-                        ...y.postError,
-                        [x]: error instanceof Error ? error : new Error(`${error}`),
+                        ...post.postError,
+                        [source]: error instanceof Error ? error : new Error(`${error}`),
                     },
                 }));
                 throw error;
