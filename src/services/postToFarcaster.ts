@@ -33,6 +33,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
+        // TODO: support video
         if (images.some((image) => !resolveImageUrl(Source.Farcaster, image))) {
             throw new Error(t`Image upload failed. Please try again.`);
         }
