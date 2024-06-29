@@ -5,6 +5,7 @@ import type { SocialSource } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { resolveMediaObjectPreviewUrl } from '@/helpers/resolveMediaObjectPreviewUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
@@ -40,7 +41,7 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
         mediaObjects: compact([compositePost.video, ...compositePost.images, ...compositePost.images]).map((x) => ({
             title: x.file.name,
             mimeType: x.mimeType,
-            url: x.url,
+            url: resolveMediaObjectPreviewUrl(x),
         })),
         metadata: {
             locale: '',

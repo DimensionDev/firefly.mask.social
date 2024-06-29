@@ -6,7 +6,7 @@ import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
-import { createS3MediaObject } from '@/helpers/resolveMediaObjectPreviewUrl.js';
+import { createS3MediaObject, resolveMediaObjectPreviewUrl } from '@/helpers/resolveMediaObjectPreviewUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -33,7 +33,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
-        if (images.some((image) => image.source === MediaSource.Local)) {
+        if (images.some((image) => !resolveMediaObjectPreviewUrl(image, [MediaSource.S3, MediaSource.Giphy]))) {
             throw new Error(t`Image upload failed. Please try again.`);
         }
 
@@ -53,7 +53,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             },
             mediaObjects: uniqBy(
                 [
-                    ...images.map((media) => ({ url: media.url, mimeType: media.mimeType })),
+                    ...images.map((media) => ({
+                        url: resolveMediaObjectPreviewUrl(media, [MediaSource.S3, MediaSource.Giphy]),
+                        mimeType: media.mimeType,
+                    })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
                     ...(polls ?? []).map((poll) => ({
@@ -72,7 +75,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         uploadImages: () => {
             return Promise.all(
                 images.map(async (media) => {
-                    if (media.urls?.[MediaSource.S3] || media.urls?.[MediaSource.Giphy]) return media;
+                    if (resolveMediaObjectPreviewUrl(media, [MediaSource.S3, MediaSource.Giphy])) return media;
                     return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
                 }),
             );
