@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
-import { createTwitterMediaObject, resolveMediaObjectPreviewUrl } from '@/helpers/resolveMediaObjectPreviewUrl.js';
+import { createTwitterMediaObject, resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -44,7 +44,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                 },
             },
             mediaObjects: images.map((media) => ({
-                url: resolveMediaObjectPreviewUrl(media, [MediaSource.Twimg]),
+                url: resolveMediaObjectUrl(media, [MediaSource.Twimg]),
                 mimeType: media.mimeType,
                 id: media.id,
             })),

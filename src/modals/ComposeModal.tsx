@@ -51,7 +51,7 @@ import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import { createLocalMediaObject } from '@/helpers/resolveMediaObjectPreviewUrl.js';
+import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';

@@ -9,7 +9,7 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
-import { createIPFSMediaObject, resolveMediaObjectPreviewUrl } from '@/helpers/resolveMediaObjectPreviewUrl.js';
+import { createIPFSMediaObject, resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -49,7 +49,7 @@ interface Attachments {
 }
 
 function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
-    if (images.some((image) => !resolveMediaObjectPreviewUrl(image, [MediaSource.IPFS]))) {
+    if (images.some((image) => !resolveMediaObjectUrl(image, [MediaSource.IPFS]))) {
         throw new Error(t`There are images or videos that were not uploaded successfully.`);
     }
 
@@ -61,26 +61,26 @@ function createPayloadAttachments(images: MediaObject[], video: MediaObject | nu
               attachments: videoWithIPFS
                   ? [
                         {
-                            item: resolveMediaObjectPreviewUrl(videoWithIPFS, [MediaSource.IPFS]),
+                            item: resolveMediaObjectUrl(videoWithIPFS, [MediaSource.IPFS]),
                             type: videoWithIPFS.mimeType,
-                            cover: resolveMediaObjectPreviewUrl(videoWithIPFS, [MediaSource.IPFS]),
+                            cover: resolveMediaObjectUrl(videoWithIPFS, [MediaSource.IPFS]),
                         },
                     ]
                   : imagesWithIPFS.map((image) => ({
-                        item: resolveMediaObjectPreviewUrl(image, [MediaSource.IPFS]),
+                        item: resolveMediaObjectUrl(image, [MediaSource.IPFS]),
                         type: image.mimeType,
-                        cover: resolveMediaObjectPreviewUrl(imagesWithIPFS[0], [MediaSource.IPFS]),
+                        cover: resolveMediaObjectUrl(imagesWithIPFS[0], [MediaSource.IPFS]),
                     })),
               ...(videoWithIPFS
                   ? {
                         video: {
-                            item: resolveMediaObjectPreviewUrl(videoWithIPFS, [MediaSource.IPFS]),
+                            item: resolveMediaObjectUrl(videoWithIPFS, [MediaSource.IPFS]),
                             type: videoWithIPFS.mimeType,
                         },
                     }
                   : {
                         image: {
-                            item: resolveMediaObjectPreviewUrl(imagesWithIPFS[0], [MediaSource.IPFS]),
+                            item: resolveMediaObjectUrl(imagesWithIPFS[0], [MediaSource.IPFS]),
                             type: imagesWithIPFS[0].mimeType,
                         },
                     }),
@@ -277,7 +277,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         uploadImages() {
             return Promise.all(
                 images.map(async (media) => {
-                    if (resolveMediaObjectPreviewUrl(media, [MediaSource.IPFS, MediaSource.Giphy])) return media;
+                    if (resolveMediaObjectUrl(media, [MediaSource.IPFS, MediaSource.Giphy])) return media;
                     return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );
@@ -285,7 +285,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         uploadVideos() {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    if (resolveMediaObjectPreviewUrl(media, [MediaSource.IPFS])) return media;
+                    if (resolveMediaObjectUrl(media, [MediaSource.IPFS])) return media;
                     return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
                 }),
             );

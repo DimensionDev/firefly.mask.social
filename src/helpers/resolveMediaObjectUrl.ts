@@ -55,7 +55,7 @@ export function createTwitterMediaObject(twitterRes: TwitterMediaResponse): Medi
     };
 }
 
-export function resolveMediaObjectPreviewUrl(media: MediaObject, sources = SORTED_MEDIA_SOURCES) {
+export function resolveMediaObjectUrl(media: MediaObject, sources = SORTED_MEDIA_SOURCES) {
     return sources.reduce((previewUrl, source) => {
         // the first source that has a url will be used as the preview
         if (previewUrl) return previewUrl;
