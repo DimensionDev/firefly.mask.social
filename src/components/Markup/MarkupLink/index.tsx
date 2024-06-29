@@ -11,6 +11,7 @@ import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
+import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { components } from '@/components/Tweet/index.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -83,10 +84,30 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         }
     }
 
-    if (title.trim().startsWith('#')) return <Hashtag title={title.trim()} source={source} />;
+    const trimmed = title.trim();
+    const tagPadding = title.startsWith(' ') ? ' ' : null;
+    if (trimmed.startsWith('#'))
+        return (
+            <>
+                {tagPadding}
+                <Hashtag title={trimmed} source={source} />
+            </>
+        );
+    if (trimmed.startsWith('$'))
+        return (
+            <>
+                {tagPadding}
+                <SymbolTag title={trimmed} source={source} />
+            </>
+        );
 
-    if (title.trim().startsWith('/')) {
-        return <ChannelTag title={title} source={source} />;
+    if (trimmed.startsWith('/')) {
+        return (
+            <>
+                {tagPadding}
+                <ChannelTag title={trimmed} source={source} />
+            </>
+        );
     }
 
     if (isValidDomain(title)) return title;

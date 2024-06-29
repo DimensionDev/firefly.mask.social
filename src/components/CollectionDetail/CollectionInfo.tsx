@@ -4,8 +4,8 @@ import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
-import { CopyButton } from '@/components/CollectionDetail/CopyButton.js';
 import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
+import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';

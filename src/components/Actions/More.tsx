@@ -28,7 +28,6 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
-import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
@@ -51,7 +50,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isFollowing = !!author.viewerContext?.following;
     const [, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-    const [, reportProfile] = useReportProfile();
     const [, reportPost] = useReportPost();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
     const [, toggleMutedChannel] = useToggleMutedChannel();

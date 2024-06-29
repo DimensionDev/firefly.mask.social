@@ -22,7 +22,7 @@ export function ProfileDetailPage() {
     const pathname = usePathname();
     const identity = source ? pathname.replace('/profile/', '') : '';
 
-    const { data: profiles = [], isLoading } = useQuery({
+    const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['all-profiles', currentSource, identity],
         queryFn: async () => {
             if (!identity) return EMPTY_LIST;
