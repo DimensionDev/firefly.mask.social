@@ -1,5 +1,5 @@
-import { v4 as uuid } from 'uuid';
 import { createLookupTableResolver } from '@masknet/shared-base';
+import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
