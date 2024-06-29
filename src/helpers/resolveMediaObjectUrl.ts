@@ -1,10 +1,13 @@
 import { v4 as uuid } from 'uuid';
 
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 import { SORTED_MEDIA_SOURCES } from '@/constants/index.js';
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 import type { TwitterMediaResponse } from '@/services/uploadToTwitter.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
+import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';
 
 export function createLocalMediaObject(file: File): MediaObject {
     return {
@@ -60,4 +63,34 @@ export function resolveMediaObjectUrl(media: MediaObject | null, sources = SORTE
         if (media.urls?.[source]) return media.urls[source];
         return previewUrl;
     }, '');
+}
+
+const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[]>(
+    {
+        [Source.Lens]: [MediaSource.IPFS, MediaSource.Giphy],
+        [Source.Farcaster]: [MediaSource.S3, MediaSource.Giphy],
+        [Source.Twitter]: [MediaSource.Twimg],
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+const resolveVideoSources = createLookupTableResolver<SocialSource, MediaSource[]>(
+    {
+        [Source.Lens]: [MediaSource.IPFS],
+        [Source.Farcaster]: [MediaSource.S3],
+        [Source.Twitter]: [MediaSource.Twimg],
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+export function resolveImageUrl(source: SocialSource, media: MediaObject | null) {
+    return resolveMediaObjectUrl(media, resolveImageSources(source));
+}
+
+export function resolveVideoUrl(source: SocialSource, media: MediaObject | null) {
+    return resolveMediaObjectUrl(media, resolveVideoSources(source));
 }

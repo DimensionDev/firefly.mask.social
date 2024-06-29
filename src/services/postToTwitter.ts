@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
-import { createTwitterMediaObject, resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createTwitterMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -15,7 +15,7 @@ import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToTwitter } from '@/services/uploadToTwitter.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
-import { type ComposeType, type MediaObject, MediaSource } from '@/types/compose.js';
+import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
     const { chars, images, postId, parentPost, restriction, poll } = compositePost;
@@ -45,7 +45,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             },
             mediaObjects: images.map((media) => ({
                 id: media.id,
-                url: resolveMediaObjectUrl(media, [MediaSource.Twimg]),
+                url: resolveImageUrl(Source.Twitter, media),
                 mimeType: media.mimeType,
             })),
             restriction,

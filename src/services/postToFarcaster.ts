@@ -6,7 +6,7 @@ import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
-import { createS3MediaObject, resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -16,7 +16,7 @@ import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
-import { type ComposeType, type MediaObject, MediaSource } from '@/types/compose.js';
+import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
     const { chars, parentPost, images, frames, openGraphs, postId, channel, poll } = compositePost;
@@ -33,7 +33,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
-        if (images.some((image) => !resolveMediaObjectUrl(image, [MediaSource.S3, MediaSource.Giphy]))) {
+        if (images.some((image) => !resolveImageUrl(Source.Farcaster, image))) {
             throw new Error(t`Image upload failed. Please try again.`);
         }
 
@@ -54,7 +54,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             mediaObjects: uniqBy(
                 [
                     ...images.map((media) => ({
-                        url: resolveMediaObjectUrl(media, [MediaSource.S3, MediaSource.Giphy]),
+                        url: resolveImageUrl(Source.Farcaster, media),
                         mimeType: media.mimeType,
                     })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
@@ -75,7 +75,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         uploadImages: () => {
             return Promise.all(
                 images.map(async (media) => {
-                    if (resolveMediaObjectUrl(media, [MediaSource.S3, MediaSource.Giphy])) return media;
+                    if (resolveImageUrl(Source.Farcaster, media)) return media;
                     return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
                 }),
             );
