@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
@@ -7,7 +8,6 @@ import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 import type { TwitterMediaResponse } from '@/services/uploadToTwitter.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
-import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';
 
 export function createLocalMediaObject(file: File): MediaObject {
     return {
