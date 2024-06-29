@@ -50,7 +50,7 @@ interface Attachments {
 
 function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
     if (
-        images.some((image) => !resolveMediaObjectUrl(image, [MediaSource.IPFS])) ||
+        images.some((image) => !resolveMediaObjectUrl(image, [MediaSource.IPFS, MediaSource.Giphy])) ||
         !resolveMediaObjectUrl(video, [MediaSource.IPFS])
     ) {
         throw new Error(t`There are images or videos that were not uploaded successfully.`);
@@ -70,7 +70,7 @@ function createPayloadAttachments(images: MediaObject[], video: MediaObject | nu
                         },
                     ]
                   : imagesWithIPFS.map((image) => ({
-                        item: resolveMediaObjectUrl(image, [MediaSource.IPFS]),
+                        item: resolveMediaObjectUrl(image, [MediaSource.IPFS, MediaSource.Giphy]),
                         type: image.mimeType,
                         cover: resolveMediaObjectUrl(imagesWithIPFS[0], [MediaSource.IPFS]),
                     })),

@@ -11,6 +11,9 @@ export function createLocalMediaObject(file: File): MediaObject {
         id: uuid(),
         file,
         mimeType: file.type,
+        urls: {
+            [MediaSource.Local]: URL.createObjectURL(file),
+        },
     };
 }
 
