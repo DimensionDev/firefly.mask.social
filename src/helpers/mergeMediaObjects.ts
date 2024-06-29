@@ -5,10 +5,6 @@ export function mergeMediaObject(dest: MediaObject, source: MediaObject): MediaO
     return {
         ...dest,
         ...source,
-        ids: {
-            ...dest.ids,
-            ...source.ids,
-        },
         urls: {
             ...dest.urls,
             ...source.urls,
