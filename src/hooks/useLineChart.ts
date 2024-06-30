@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { type RefObject, useEffect } from 'react';
 
 export interface Dimension {
@@ -258,7 +258,7 @@ export function useLineChart(
                 .attr('transform', `translate(${index === 0 ? Number(x(date)) + 35 : Number(x(date))},${y(value)})`)
                 .call(callout, {
                     text: `${formatTooltip(value)}
-                ${format(date, 'MMM d, yyyy hh:mm')}`,
+                ${dayjs(date).format('MMM d, YYYY hh:mm')}`,
                     position: { x: index === 0 ? Number(x(date)) + 35 : Number(x(date)), y: y(value) },
                 });
         });
