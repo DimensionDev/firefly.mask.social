@@ -8,8 +8,10 @@ import { useEnsName } from 'wagmi';
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
+import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';
 
 enum State {
@@ -46,6 +48,10 @@ export const WatchButton = memo(function WatchButton({
         icon: 'w-8 max-w-8',
     }[variant];
     const buttonState = isFollowing ? (hovering && !loading ? State.Unwatch : State.Watching) : State.Watch;
+
+    const { data: isMuted } = useIsWalletMuted(address);
+
+    if (isMuted) return <ToggleMuteWalletButton address={address} className={className} />;
 
     return (
         <ClickableButton

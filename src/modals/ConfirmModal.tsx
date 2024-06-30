@@ -70,7 +70,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                             {title ? title : <Trans>Confirmation</Trans>}
                         </div>
-                        <div className="relative h-6 w-6" />
+                        {enableCloseButton ? <div className="relative h-6 w-6" /> : null}
                     </div>
 
                     <div className="flex flex-col gap-3 p-6">
