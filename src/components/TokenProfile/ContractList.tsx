@@ -40,7 +40,7 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex max-h-[260px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+                    className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
                     data-hide-scrollbar
                     onClick={(event) => {
                         event.stopPropagation();
@@ -76,7 +76,7 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
         <div {...rest} className={classNames('flex items-center gap-2', rest.className)}>
             <Image src={chain.icon} className="flex-shrink-0" alt={chain.name} width={16} height={16} />
             <div className="min-w-[100px] flex-grow p-1 leading-4">
-                <div className="text-[12px] font-bold text-main">{chain.name ?? '-'}</div>
+                <div className="text-[12px] font-bold text-main">{chain.name}</div>
                 <div className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main">
                     {formatEthereumAddress(contract.address, 4)}
                 </div>
