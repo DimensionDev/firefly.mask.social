@@ -6,7 +6,7 @@ export const EMAIL_REGEX =
 
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
-export const HASHTAG_REGEX = /(^|\s)(#\S+)/g;
+export const HASHTAG_REGEX = /(^|\s)(#[^0-9][^\s#]+)/g;
 
 /** Financial symbol */
 export const SYMBOL_REGEX = /(^|\s)(\$\S+)/g;

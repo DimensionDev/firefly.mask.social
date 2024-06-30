@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'bignumber.js';
 
 function abbreviationForZero(str: string, zeroCount: number) {
     if (zeroCount <= 1) return str;
