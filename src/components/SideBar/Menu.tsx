@@ -182,7 +182,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 ) : (
                                     <li>
                                         <ClickableButton
-                                            className="hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
+                                            className="mt-6 hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
                                             onClick={() => {
                                                 ComposeModalRef.open({
                                                     type: 'compose',
