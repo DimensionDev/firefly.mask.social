@@ -37,6 +37,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             '/profile',
                             '/channel',
                             '/token',
+                            '/nft',
                         ]}
                     >
                         <NavigatorBar />
