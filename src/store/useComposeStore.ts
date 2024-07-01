@@ -9,18 +9,17 @@ import { immer } from 'zustand/middleware/immer';
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { SOLANA_BLINKS_REGEX } from '@/constants/regexp.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
-import { matchSolanaBlinks } from '@/helpers/matchSolanaBlinks.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
+import { parseBlinkUrlFromContent } from '@/helpers/parseBlinkUrlFromContent.js';
 import { createPoll } from '@/helpers/polls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
-import { SolanaBlinksLoader } from '@/providers/solana-blink/SolanaBlinks.js';
-import type { Action } from '@/providers/solana-blink/type.js';
+import { BlinksLoader } from '@/providers/blinks/Blinks.js';
+import type { Action } from '@/providers/blinks/type.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -64,7 +63,7 @@ export interface CompositePost {
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
     // parsed solana blinks from url in chars
-    solanaBlinks: Action[];
+    blinks: Action[];
 }
 
 export interface ComposeBaseState {
@@ -115,7 +114,7 @@ interface ComposeState extends ComposeBaseState {
     addFrame: (frame: Frame, cursor?: Cursor) => void;
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
-    removeSolanaBlinks: (blinks: Action, cursor?: Cursor) => void;
+    removeBlink: (blinks: Action, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
     createPoll: (cursor?: Cursor) => void;
@@ -147,7 +146,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         images: EMPTY_LIST,
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
-        solanaBlinks: EMPTY_LIST,
+        blinks: EMPTY_LIST,
         video: null,
         rpPayload: null,
         channel: {
@@ -433,13 +432,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        removeSolanaBlinks: (target, cursor) =>
+        removeBlink: (target, cursor) =>
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        solanaBlinks: post.solanaBlinks.filter((solanaBlink) => solanaBlink !== target),
+                        blinks: post.blinks.filter((blink) => blink !== target),
                     }),
                     cursor,
                 ),
@@ -469,10 +468,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
-            let content = readChars(chars, 'visible');
-            const solanaBlinkUrls = matchSolanaBlinks(content, { matchHttpsUrl: true });
-            content = solanaBlinkUrls.reduce((acc, url) => acc.replaceAll(url, ''), content); // `solana://https://` will conflict with `https://`, so here we will remove them from content first
-            const urls = matchUrls(content);
+            const content = readChars(chars, 'visible');
+            const parsedBlinks = parseBlinkUrlFromContent(content, { matchHttpsUrl: true });
+            const urls = matchUrls(parsedBlinks.content); // Using filtered content from blink urls
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(
@@ -480,12 +478,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     frames.map((x) => x.url),
                 ),
             );
-            const solanaBlinks = await SolanaBlinksLoader.occupancyLoad(
-                solanaBlinkUrls.map((url) => {
-                    const match = url.match(SOLANA_BLINKS_REGEX);
-                    return match ? match[2] : url;
-                }),
-            );
+            const blinkActions = await BlinksLoader.occupancyLoad(parsedBlinks.decodeUrls);
 
             set((state) =>
                 next(
@@ -494,7 +487,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         ...post,
                         frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
                         openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
-                        solanaBlinks: solanaBlinks.map((x) => x.value).slice(0, 1),
+                        blinks: blinkActions.map((x) => x.value).slice(0, 1),
                     }),
                     cursor,
                 ),

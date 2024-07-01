@@ -53,7 +53,7 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
                         }}
                     >
                         <Image src={chainType.icon ?? ''} width={48} height={48} alt="evm" className="h-12 w-12" />
-                        <div>{chainType.label}</div>
+                        <span>{chainType.label}</span>
                     </button>
                 );
             })}

@@ -6,16 +6,17 @@ import { useQuery } from '@tanstack/react-query';
 import { take } from 'lodash-es';
 import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
+import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blinks/ui/ActionLayout.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ActionLayout, type ActionType, type ButtonProps } from '@/components/SolanaBlinkRenderer/ui/ActionLayout.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { SolanaBlinksRegisterProvider } from '@/providers/solana-blink/Register.js';
+import { parseURL } from '@/helpers/parseURL.js';
+import { BlinksRegisterProvider } from '@/providers/blinks/Register.js';
 import type {
     Action,
     ActionComponent,
     ActionsSpecPostRequestBody,
     ActionsSpecPostResponse,
-} from '@/providers/solana-blink/type.js';
+} from '@/providers/blinks/type.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -124,17 +125,19 @@ export function ActionContainer({
     securityLevel?: SecurityLevel;
 }) {
     const { data: solanaBlinksActionRegister, isLoading: isLoadingSolanaBlinksActionRegister } = useQuery({
-        queryKey: ['solana-blinks-action-register'],
+        queryKey: ['blinks-action-register'],
         async queryFn() {
-            const config = await SolanaBlinksRegisterProvider.fetchActionsRegistryConfig();
+            const config = await BlinksRegisterProvider.fetchActionsRegistryConfig();
             return Object.fromEntries(config.actions.map((action) => [action.host, action]));
         },
     });
 
+    const actionUrlObj = useMemo(() => parseURL(action.url), [action.url]);
+
     const actionState: ActionType = useMemo(() => {
-        const url = new URL(action.url);
-        return solanaBlinksActionRegister?.[url.hostname]?.state ?? 'unknown';
-    }, [solanaBlinksActionRegister]);
+        if (!actionUrlObj) return 'unknown';
+        return solanaBlinksActionRegister?.[actionUrlObj.hostname]?.state ?? 'unknown';
+    }, [solanaBlinksActionRegister, actionUrlObj]);
 
     const [executionState, dispatch] = useReducer(executionReducer, {
         status: 'idle',
@@ -296,21 +299,13 @@ export function ActionContainer({
         return null;
     }, [actionState, executionState.status, isPassingSecurityCheck, isLoadingSolanaBlinksActionRegister]);
 
-    const { websiteUrl, websiteText } = useMemo(() => {
-        const urlObj = new URL(action.url);
-        return {
-            websiteText: urlObj.hostname,
-            websiteUrl: action.url,
-        };
-    }, [action.url]);
-
     return (
         <ActionLayout
             type={actionState}
             title={action.title}
             description={action.description}
-            websiteUrl={websiteUrl}
-            websiteText={websiteText}
+            websiteUrl={action.url}
+            websiteText={actionUrlObj?.hostname}
             image={action.icon}
             disclaimer={disclaimer}
             error={executionState.status !== 'success' ? executionState.errorMessage ?? action.error?.message : null}

@@ -31,7 +31,7 @@ export function Badge({ variant = 'default', children, className, icon }: Props)
                 },
             )}
         >
-            {children ? <span>{children}</span> : null}
+            {children ? <div>{children}</div> : null}
             {icon ? <div>{icon}</div> : null}
         </div>
     );

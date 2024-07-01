@@ -9,6 +9,7 @@ import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
+import { BlinkWithQuery } from '@/components/Blinks/BlinkWithQuery.js';
 import { Frame } from '@/components/Frame/index.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
@@ -18,17 +19,16 @@ import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { SolanaBlinkRenderer } from '@/components/SolanaBlinkRenderer/SolanaBlinkRenderer.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SOLANA_BLINKS_PREFIX, SOLANA_BLINKS_REGEX } from '@/constants/regexp.js';
+import { SOLANA_BLINKS_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { matchSolanaBlinks } from '@/helpers/matchSolanaBlinks.js';
+import { parseBlinkUrlFromContent } from '@/helpers/parseBlinkUrlFromContent.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -85,31 +85,22 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(post.author, isDetail);
 
-    const { postContent, solanaBlinkUrl } = useMemo(() => {
+    const { postContent, blinkUrl } = useMemo(() => {
         let content = post.metadata.content?.content ?? '';
-
         const solanaBlinkUrlMatchOembedUrl = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINKS_REGEX);
-        let solanaBlinkUrlMatchContent = first(matchSolanaBlinks(content, { keepPrefix: true }));
-        if (solanaBlinkUrlMatchContent) {
-            content = removeUrlAtEnd(solanaBlinkUrlMatchContent, content);
-            if (solanaBlinkUrlMatchContent?.startsWith(SOLANA_BLINKS_PREFIX)) {
-                solanaBlinkUrlMatchContent = solanaBlinkUrlMatchContent.substring(SOLANA_BLINKS_PREFIX.length);
-            }
-        }
-
-        if (endingLinkCollapsed) {
-            content = removeUrlAtEnd(post.metadata.content?.oembedUrl, content);
-        }
-
+        const parsedBlinks = parseBlinkUrlFromContent(content);
+        const solanaBlinkUrlMatchContent = first(parsedBlinks.decodeUrls);
+        content = parsedBlinks.content;
+        if (endingLinkCollapsed) content = removeUrlAtEnd(post.metadata.content?.oembedUrl, content);
         return {
             postContent: content,
-            solanaBlinkUrl: solanaBlinkUrlMatchOembedUrl ? solanaBlinkUrlMatchOembedUrl[2] : solanaBlinkUrlMatchContent,
+            blinkUrl: solanaBlinkUrlMatchOembedUrl ? solanaBlinkUrlMatchOembedUrl[2] : solanaBlinkUrlMatchContent,
         };
     }, [post.metadata.content?.content, endingLinkCollapsed]);
 
     const frame = useMemo(() => {
-        if (solanaBlinkUrl) {
-            return <SolanaBlinkRenderer url={solanaBlinkUrl} onData={() => setEndingLinkCollapsed(true)} />;
+        if (blinkUrl) {
+            return <BlinkWithQuery url={blinkUrl} onData={() => setEndingLinkCollapsed(true)} />;
         }
         if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled) {
             return (
@@ -130,7 +121,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         post.metadata?.content?.oembedUrls,
         post.postId,
         post.source,
-        solanaBlinkUrl,
+        blinkUrl,
     ]);
 
     if (post.isEncrypted) {

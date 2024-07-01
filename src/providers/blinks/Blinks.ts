@@ -1,7 +1,8 @@
+import { SOLANA_BLINKS_PREFIX } from '@/constants/regexp.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { BaseLoader } from '@/libs/base/Loader.js';
-import type { Action, ActionComponent, ActionsSpecGetResponse, Parameter } from '@/providers/solana-blink/type.js';
+import type { Action, ActionComponent, ActionsSpecGetResponse, Parameter } from '@/providers/blinks/type.js';
 
 function createActionComponent(label: string, href: string, parameters?: [Parameter]): ActionComponent {
     return {
@@ -13,8 +14,9 @@ function createActionComponent(label: string, href: string, parameters?: [Parame
     };
 }
 
-class SolanaBlinks extends BaseLoader<Action> {
+class Loader extends BaseLoader<Action> {
     protected override fetch(url: string, signal?: AbortSignal): Promise<Action | null> {
+        url = url.startsWith(SOLANA_BLINKS_PREFIX) ? url.substring(SOLANA_BLINKS_PREFIX.length) : url;
         return new Promise<Action | null>((resolve, reject) => {
             requestIdleCallback(async () => {
                 try {
@@ -57,4 +59,4 @@ class SolanaBlinks extends BaseLoader<Action> {
     }
 }
 
-export const SolanaBlinksLoader = new SolanaBlinks();
+export const BlinksLoader = new Loader();

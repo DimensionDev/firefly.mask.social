@@ -2,12 +2,14 @@ import { type ReactNode, useMemo, useState } from 'react';
 
 import CheckIcon from '@/assets/check.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { Badge } from '@/components/SolanaBlinkRenderer/ui/Badge.js';
-import { Button } from '@/components/SolanaBlinkRenderer/ui/Button.js';
-import { ExclamationShieldIcon } from '@/components/SolanaBlinkRenderer/ui/icons/ExclamationShieldIcon.js';
-import { InfoShieldIcon } from '@/components/SolanaBlinkRenderer/ui/icons/InfoShieldIcon.js';
-import { LinkIcon } from '@/components/SolanaBlinkRenderer/ui/icons/LinkIcon.js';
-import type { RegisteredAction } from '@/providers/solana-blink/type.js';
+import { Badge } from '@/components/Blinks/ui/Badge.js';
+import { Button } from '@/components/Blinks/ui/Button.js';
+import { ExclamationShieldIcon } from '@/components/Blinks/ui/icons/ExclamationShieldIcon.js';
+import { InfoShieldIcon } from '@/components/Blinks/ui/icons/InfoShieldIcon.js';
+import { LinkIcon } from '@/components/Blinks/ui/icons/LinkIcon.js';
+import { Linkable } from '@/components/Linkable.js';
+import { Link } from '@/esm/Link.js';
+import type { RegisteredAction } from '@/providers/blinks/type.js';
 
 export type ActionType = RegisteredAction['state'] | 'unknown';
 
@@ -37,16 +39,6 @@ export interface InputProps {
     name: string;
     disabled: boolean;
     button: ButtonProps;
-}
-
-function Linkable({ url, children }: { url?: string | null; children: ReactNode | ReactNode[] }) {
-    return url ? (
-        <a href={url} target="_blank" rel="noopener noreferrer">
-            {children}
-        </a>
-    ) : (
-        <>{children}</>
-    );
 }
 
 export function ActionLayout({
@@ -81,7 +73,7 @@ export function ActionLayout({
             <div className="mt-3 flex flex-col space-y-1.5">
                 <div className="flex items-center gap-2">
                     {websiteUrl ? (
-                        <a
+                        <Link
                             href={websiteUrl}
                             target="_blank"
                             className="inline-flex cursor-pointer items-center truncate text-[15px] text-second hover:underline"
@@ -89,9 +81,9 @@ export function ActionLayout({
                         >
                             <LinkIcon className="mr-2" />
                             {websiteText ?? websiteUrl}
-                        </a>
+                        </Link>
                     ) : null}
-                    <a
+                    <Link
                         href="https://docs.dialect.to/documentation/actions/security"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -108,10 +100,10 @@ export function ActionLayout({
                         {type === 'unknown' && (
                             <Badge variant="warning" icon={<InfoShieldIcon width={13} height={13} />} />
                         )}
-                    </a>
+                    </Link>
                 </div>
-                <span className="text-[15px] font-semibold text-main">{title}</span>
-                <span className="whitespace-pre-wrap text-[15px] text-sm text-main">{description}</span>
+                <div className="text-[15px] font-semibold text-main">{title}</div>
+                <div className="whitespace-pre-wrap text-[15px] text-sm text-main">{description}</div>
                 {disclaimer ? <div>{disclaimer}</div> : null}
                 <div className="flex flex-col gap-3">
                     {buttons && buttons.length > 0 ? (
