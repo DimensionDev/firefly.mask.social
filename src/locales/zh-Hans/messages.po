@@ -471,6 +471,9 @@ msgstr "转帖"
 msgid "Market Capital"
 msgstr ""
 
+msgid "Your action provider blocks execution of this action."
+msgstr ""
+
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！"
 
@@ -927,6 +930,9 @@ msgstr "无效的 URL。"
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
@@ -1155,10 +1161,10 @@ msgstr "浅色模式"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
-msgid "Community"
+msgid "Executing"
 msgstr ""
 
-msgid "Executing"
+msgid "Community"
 msgstr ""
 
 msgid "Delete"
@@ -1508,6 +1514,9 @@ msgstr "您的名字"
 
 msgid "Owned"
 msgstr "拥有"
+
+msgid "Ignore warning & proceed"
+msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""

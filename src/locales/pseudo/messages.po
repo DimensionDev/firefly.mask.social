@@ -262,10 +262,10 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
-msgid "Failed"
+msgid "True Token"
 msgstr ""
 
-msgid "True Token"
+msgid "Failed"
 msgstr ""
 
 msgid "Bookmarks"
@@ -464,6 +464,9 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Capital"
+msgstr ""
+
+msgid "Your action provider blocks execution of this action."
 msgstr ""
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
@@ -922,6 +925,9 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -1150,10 +1156,10 @@ msgstr ""
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
-msgid "Community"
+msgid "Executing"
 msgstr ""
 
-msgid "Executing"
+msgid "Community"
 msgstr ""
 
 msgid "Delete"
@@ -1502,6 +1508,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "Owned"
+msgstr ""
+
+msgid "Ignore warning & proceed"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
