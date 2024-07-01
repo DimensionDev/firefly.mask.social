@@ -210,6 +210,9 @@ msgstr "使用二维码登录"
 msgid "Contract source code verified"
 msgstr ""
 
+msgid "Profile not found"
+msgstr ""
+
 msgid "NFT Standard"
 msgstr "NFT 标准"
 
@@ -698,6 +701,9 @@ msgstr "选项 {0}"
 
 msgid "Send Feedback"
 msgstr "提交反馈"
+
+msgid "The chainId mismatch."
+msgstr ""
 
 msgid "Open in Firefly App"
 msgstr "打开 Firefly App"
@@ -1613,6 +1619,9 @@ msgstr ""
 
 msgid "Recasted"
 msgstr "已转发"
+
+msgid "Failed to parse transaction."
+msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr ""
