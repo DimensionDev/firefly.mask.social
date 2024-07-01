@@ -134,7 +134,7 @@ function NFTItem({
                     alt={address}
                 />
             )}
-            <div className="h-[96px] w-full space-y-2 rounded-xl text-sm leading-[18px] sm:h-auto sm:w-[calc(100%-120px-8px)] sm:border sm:border-secondaryLine sm:bg-lightBg sm:p-3">
+            <div className="w-full space-y-2 rounded-xl text-sm leading-[18px] sm:h-auto sm:w-[calc(100%-120px-8px)] sm:border sm:border-secondaryLine sm:bg-lightBg sm:p-3">
                 <NFTFeedFieldGroup
                     field={t`Name`}
                     value={
@@ -214,8 +214,8 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
     return (
         <div className="w-full space-y-1.5 pl-[52px]">
             {activeToken ? <NFTFeedAction {...activeToken.action} /> : null}
-            <div className="relative flex w-full overflow-hidden sm:h-[120px]">
-                <div className="absolute h-auto w-full sm:h-[120px]">
+            <div className="flex w-full overflow-hidden sm:h-[120px]">
+                <div className="h-auto w-full sm:h-[120px]">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.div
                             key={tokenIndex}
@@ -224,7 +224,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             initial="enter"
                             animate="center"
                             exit="exit"
-                            className="absolute h-auto w-full sm:h-[120px]"
+                            className="h-auto w-full sm:h-[120px]"
                             transition={{
                                 x: { type: 'spring', stiffness: 300, damping: 30 },
                                 opacity: { duration: 0.2 },
@@ -241,11 +241,6 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             ) : null}
                         </motion.div>
                     </AnimatePresence>
-                </div>
-                {/* used for layout calculation height */}
-                <div className="h-full w-full space-y-1.5 opacity-0 sm:hidden">
-                    <div className="aspect-square w-full" />
-                    <div className="h-[98px]" />
                 </div>
             </div>
             {tokenList.length > 1 ? (
