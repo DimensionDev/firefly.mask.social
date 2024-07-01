@@ -438,6 +438,9 @@ msgstr "于 <0>{sendFrom}</0>"
 msgid "Info"
 msgstr ""
 
+msgid "Max"
+msgstr ""
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
 
@@ -819,6 +822,9 @@ msgstr "任何人"
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
+msgid "Search ${symbol}"
+msgstr ""
+
 msgid "Failed to unmute /{0}."
 msgstr "取消屏蔽失败/{0}。"
 
@@ -863,6 +869,9 @@ msgstr "屏蔽"
 
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
+
+msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+msgstr ""
 
 msgid "Failed to recast."
 msgstr "转帖失败。"
@@ -926,6 +935,9 @@ msgstr "推荐关注"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
+
+msgid "Token ${symbol} could not be found."
+msgstr ""
 
 msgid "Articles"
 msgstr "文章"
@@ -1172,6 +1184,9 @@ msgstr "已转发"
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
+
+msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+msgstr ""
 
 msgid "This does not appear to be a honeypot."
 msgstr ""
@@ -1439,6 +1454,9 @@ msgstr "只有你关注的人"
 
 msgid "Add another option"
 msgstr "添加另一个选项"
+
+msgid "1y"
+msgstr ""
 
 msgid "No codes found to suspend trading."
 msgstr ""

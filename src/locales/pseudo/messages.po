@@ -433,6 +433,9 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
+msgid "Max"
+msgstr ""
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
@@ -814,6 +817,9 @@ msgstr ""
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
+msgid "Search ${symbol}"
+msgstr ""
+
 msgid "Failed to unmute /{0}."
 msgstr ""
 
@@ -857,6 +863,9 @@ msgid "Mute"
 msgstr ""
 
 msgid "Confirm to log out this account?"
+msgstr ""
+
+msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr ""
 
 msgid "Failed to recast."
@@ -920,6 +929,9 @@ msgid "Suggested Follows"
 msgstr ""
 
 msgid "Post has been encrypted"
+msgstr ""
+
+msgid "Token ${symbol} could not be found."
 msgstr ""
 
 msgid "Articles"
@@ -1166,6 +1178,9 @@ msgid "Mirrored"
 msgstr ""
 
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
@@ -1433,6 +1448,9 @@ msgid "Only people you follow"
 msgstr ""
 
 msgid "Add another option"
+msgstr ""
+
+msgid "1y"
 msgstr ""
 
 msgid "No codes found to suspend trading."
