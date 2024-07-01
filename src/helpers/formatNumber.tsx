@@ -18,3 +18,16 @@ export function formatNumber(num: number | string | undefined, digits = 2) {
         maximumFractionDigits: digits,
     });
 }
+
+export function renderAbbr(children: string) {
+    if (!children.includes('{')) return children;
+    const parts = children.match(/(^.+){(\d+)}(.+$)/);
+    if (!parts) return children;
+    return (
+        <>
+            {parts[1]}
+            <sub className="text-[0.66em]">{parts[2]}</sub>
+            {parts[3]}
+        </>
+    );
+}

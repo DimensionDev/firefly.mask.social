@@ -9,7 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
-import { formatNumber } from '@/helpers/formatNumber.js';
+import { formatNumber, renderAbbr } from '@/helpers/formatNumber.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
@@ -73,7 +73,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
             <div className="line-height-[22px] flex items-center gap-1 text-[15px]">
                 <Trans>
                     <span className="text-secondary">Price</span>
-                    <strong className="font-bold">${formatNumber(price, 4) ?? '-'}</strong>
+                    <strong className="font-bold">${renderAbbr(formatNumber(price, 4) ?? '-')}</strong>
                     <PriceArrow
                         width={16}
                         height={16}
