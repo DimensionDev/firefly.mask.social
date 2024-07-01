@@ -1,6 +1,7 @@
 import { type SVGProps } from 'react';
-export const InfoShieldIcon = (props: SVGProps<SVGSVGElement>) => (
-    <svg
+
+export function InfoShieldIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg
         xmlns="http://www.w3.org/2000/svg"
         width={16}
         height={16}
@@ -16,4 +17,4 @@ export const InfoShieldIcon = (props: SVGProps<SVGSVGElement>) => (
             clipRule="evenodd"
         />
     </svg>
-);
+}
