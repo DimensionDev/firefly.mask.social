@@ -111,7 +111,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     router.push(`/token/${symbol}`);
                 }}
             >
-                {t`More Detail`}
+                {t`Detail`}
             </ClickableButton>
         </div>
     );
