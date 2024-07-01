@@ -433,6 +433,9 @@ msgstr "via <0>{sendFrom}</0>"
 msgid "Info"
 msgstr "Info"
 
+msgid "Max"
+msgstr "Max"
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
 
@@ -814,6 +817,9 @@ msgstr "Everyone"
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 
+msgid "Search ${symbol}"
+msgstr "Search ${symbol}"
+
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
 
@@ -858,6 +864,9 @@ msgstr "Mute"
 
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
+
+msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+msgstr "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 
 msgid "Failed to recast."
 msgstr "Failed to recast."
@@ -921,6 +930,9 @@ msgstr "Suggested Follows"
 
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
+
+msgid "Token ${symbol} could not be found."
+msgstr "Token ${symbol} could not be found."
 
 msgid "Articles"
 msgstr "Articles"
@@ -1167,6 +1179,9 @@ msgstr "Mirrored"
 
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
+
+msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
@@ -1434,6 +1449,9 @@ msgstr "Only people you follow"
 
 msgid "Add another option"
 msgstr "Add another option"
+
+msgid "1y"
+msgstr "1y"
 
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
