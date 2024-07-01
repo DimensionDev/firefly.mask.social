@@ -7,7 +7,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 
 export default function TokenPageLayout({ children }: PropsWithChildren) {
     const params = useParams();
-    const { symbol } = params;
+    const symbol = decodeURIComponent(params.symbol as string);
     const comeback = useComeBack();
     return (
         <>

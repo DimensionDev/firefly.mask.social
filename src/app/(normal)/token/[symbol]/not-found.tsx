@@ -10,7 +10,7 @@ import { Link } from '@/esm/Link.js';
 
 export default function NotFoundToken() {
     const params = useParams();
-    const { symbol } = params;
+    const symbol = decodeURIComponent(params.symbol as string);
     const url = urlcat(PageRoute.Search, {
         q: `$${symbol}`,
         type: SearchType.Posts,
