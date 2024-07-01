@@ -106,7 +106,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         <TextOverflowTooltip title={name}>
                             <div
                                 className={classNames(
-                                    'mt-2 line-clamp-2 w-full text-center text-lg font-bold leading-6 sm:text-left',
+                                    'mt-2 line-clamp-2 w-full text-center text-2xl font-bold leading-6 sm:text-left',
                                     tokenNameClassName,
                                 )}
                             >

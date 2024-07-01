@@ -83,7 +83,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
         <div className="space-y-8">
             {description ? (
                 <div className="space-y-2">
-                    <h3 className="text-lg font-bold leading-6">
+                    <h3 className="text-xl font-bold leading-6">
                         <Trans>Description</Trans>
                     </h3>
                     <p className="w-full whitespace-pre-line break-words text-sm font-normal leading-5 sm:break-normal">
@@ -92,7 +92,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                 </div>
             ) : null}
             <div className="space-y-2">
-                <h3 className="text-lg font-bold leading-6">
+                <h3 className="text-xl font-bold leading-6">
                     <Trans>Details</Trans>
                 </h3>
                 <div className="space-y-4">
