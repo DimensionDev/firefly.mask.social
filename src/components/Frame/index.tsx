@@ -173,20 +173,18 @@ async function getNextFrame(
             }
             case ActionType.Transaction:
                 const txResponse = await postAction<z.infer<typeof TransactionSchema>>();
-                if (!txResponse.success) throw new Error('Failed to parse transaction.');
+                if (!txResponse.success) throw new Error(t`Failed to parse transaction.`);
 
                 const profile = getCurrentProfile(Source.Farcaster);
-                if (!profile) throw new Error('Profile not found');
+                if (!profile) throw new Error(t`Profile not found`);
 
                 const transaction = TransactionSchema.parse(txResponse.data);
                 const { chainId } = parseCAIP10(transaction.chainId);
-                const client = await getWalletClientRequired(config);
+                const client = await getWalletClientRequired(config, {
+                    chainId,
+                });
 
-                if (client.chain.id !== chainId) {
-                    await client.switchChain({
-                        id: chainId,
-                    });
-                }
+                if (client.chain.id !== chainId) throw new Error(t`The chainId mismatch.`);
 
                 switch (transaction.method) {
                     case MethodType.ETH_SEND_TRANSACTION: {
