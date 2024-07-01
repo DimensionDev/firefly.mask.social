@@ -1,8 +1,7 @@
 'use client';
 
-import { defer } from '@masknet/kit';
 import { useRouter } from 'next/navigation.js';
-import { memo, useRef, useState } from 'react';
+import { memo, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -12,14 +11,12 @@ import { PageRoute, SearchType } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
+import { getTokenInfo } from '@/hooks/useTokenInfo.js';
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title, source }) {
     const [show, setShow] = useState(false);
     const isMedium = useIsMedium();
     const router = useRouter();
-    const tokenRef = useRef<CoingeckoToken | null>();
-    const [[promise, resolve]] = useState(() => defer<void>());
 
     if (!title) return null;
     const symbol = title.slice(1);
@@ -32,10 +29,11 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
             onMouseEnter={() => {
                 if (symbol) router.prefetch(`/token/${symbol}`);
             }}
-            onClick={async () => {
-                await promise;
-                scrollTo(0, 0);
-                if (tokenRef.current) router.push(`/token/${symbol}`);
+            onClick={async (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const token = await getTokenInfo(symbol);
+                if (token) router.push(`/token/${symbol}`);
                 else
                     router.push(
                         urlcat(PageRoute.Search, {
@@ -44,6 +42,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                             source: source ? resolveSourceInURL(source) : undefined,
                         }),
                     );
+                scrollTo(0, 0);
             }}
         >
             {title}
@@ -69,12 +68,6 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                         <TokenProfile
                             className="bg-primaryBottom p-2 text-main shadow-[0_8px_20px_0_rgba(0,0,0,0.04)]"
                             symbol={symbol}
-                            onTokenUpdate={(token) => {
-                                if (token !== undefined) {
-                                    resolve();
-                                }
-                                tokenRef.current = token;
-                            }}
                         />
                     ) : null
                 }

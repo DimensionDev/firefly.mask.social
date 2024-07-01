@@ -3,7 +3,7 @@ import { createElement } from 'react';
 export interface ClickableAreaProps extends React.HTMLAttributes<HTMLDivElement> {
     as?: keyof JSX.IntrinsicElements;
     children?: React.ReactNode;
-    onClick?: (ev?: React.MouseEvent) => void;
+    onClick?: (ev: React.MouseEvent) => void;
 }
 
 export function ClickableArea({ as = 'div', children, onClick, ...props }: ClickableAreaProps) {
