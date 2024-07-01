@@ -10,7 +10,7 @@ import { clusterApiUrl } from '@solana/web3.js';
 import { type PropsWithChildren, useMemo } from 'react';
 
 export function SolanaWalletAdapterProvider({ children, ...props }: PropsWithChildren) {
-    const network = WalletAdapterNetwork.Devnet;
+    const network = WalletAdapterNetwork.Mainnet;
 
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 

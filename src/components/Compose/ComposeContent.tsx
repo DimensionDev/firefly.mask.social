@@ -7,6 +7,7 @@ import { OembedUI } from '@/components/Oembed/index.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
+import { ActionContainer } from '@/components/SolanaBlinkRenderer/ui/ActionContainer.js';
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -17,7 +18,7 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, video, frames, openGraphs, poll, availableSources } = props.post;
+    const { id, parentPost, images, video, frames, openGraphs, poll, availableSources, solanaBlinks } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens;
@@ -86,6 +87,15 @@ export function ComposeContent(props: ComposeContentProps) {
                     {frames.map((f) => (
                         // its readonly, so we can use the first source because it just work when clicking on the frame
                         <FrameUI key={f.url} frame={f} readonly source={availableSources[0]} />
+                    ))}
+                </div>
+            ) : null}
+
+            {/* solana blinks */}
+            {solanaBlinks.length ? (
+                <div className="flex w-full gap-2">
+                    {solanaBlinks.map((action) => (
+                        <ActionContainer action={action} key={action.title + action.url} />
                     ))}
                 </div>
             ) : null}

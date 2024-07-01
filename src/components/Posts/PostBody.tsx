@@ -2,7 +2,7 @@
 
 import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -22,12 +22,13 @@ import { SolanaBlinkRenderer } from '@/components/SolanaBlinkRenderer/SolanaBlin
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SOLANA_BLINKS_REGEX } from '@/constants/regexp.js';
+import { SOLANA_BLINKS_PREFIX, SOLANA_BLINKS_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { matchSolanaBlinks } from '@/helpers/matchSolanaBlinks.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -84,16 +85,30 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(post.author, isDetail);
 
-    const postContent =
-        (endingLinkCollapsed
-            ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
-            : post.metadata.content?.content) ?? '';
+    const { postContent, solanaBlinkUrl } = useMemo(() => {
+        let content = post.metadata.content?.content ?? '';
+
+        const solanaBlinkUrlMatchOembedUrl = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINKS_REGEX);
+        let solanaBlinkUrlMatchContent = first(matchSolanaBlinks(content, { keepPrefix: true }));
+        if (solanaBlinkUrlMatchContent) {
+            content = removeUrlAtEnd(solanaBlinkUrlMatchContent, content);
+            if (solanaBlinkUrlMatchContent?.startsWith(SOLANA_BLINKS_PREFIX)) {
+                solanaBlinkUrlMatchContent = solanaBlinkUrlMatchContent.substring(SOLANA_BLINKS_PREFIX.length);
+            }
+        }
+
+        if (endingLinkCollapsed) {
+            content = removeUrlAtEnd(post.metadata.content?.oembedUrl, content);
+        }
+
+        return {
+            postContent: content,
+            solanaBlinkUrl: solanaBlinkUrlMatchOembedUrl ? solanaBlinkUrlMatchOembedUrl[2] : solanaBlinkUrlMatchContent,
+        };
+    }, [post.metadata.content?.content, endingLinkCollapsed]);
 
     const frame = useMemo(() => {
-        // TODO: read the content
-        const solanaBlinkUrlMatch = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINKS_REGEX);
-        if (solanaBlinkUrlMatch) {
-            const solanaBlinkUrl = solanaBlinkUrlMatch[2];
+        if (solanaBlinkUrl) {
             return <SolanaBlinkRenderer url={solanaBlinkUrl} onData={() => setEndingLinkCollapsed(true)} />;
         }
         if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled) {
@@ -109,7 +124,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />;
         }
         return null;
-    }, [post.metadata.content?.oembedUrl, post.quoteOn, post.metadata?.content?.oembedUrls, post.postId, post.source]);
+    }, [
+        post.metadata.content?.oembedUrl,
+        post.quoteOn,
+        post.metadata?.content?.oembedUrls,
+        post.postId,
+        post.source,
+        solanaBlinkUrl,
+    ]);
 
     if (post.isEncrypted) {
         return (

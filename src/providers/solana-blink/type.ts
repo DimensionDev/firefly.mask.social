@@ -62,3 +62,21 @@ export interface ActionsSpecPostRequestBody extends SolanaPaySpecPostRequestBody
 
 // No changes
 export interface ActionsSpecPostResponse extends SolanaPaySpecPostResponse {}
+
+export interface Action {
+    url: string;
+    icon: string;
+    title: string;
+    description: string;
+    disabled: boolean;
+    actions: ActionComponent[];
+    error?: ActionError;
+}
+
+export interface ActionComponent {
+    parameterValue: string;
+    label: string;
+    href: string;
+    parameters: Parameter[];
+    parameter?: Parameter;
+}

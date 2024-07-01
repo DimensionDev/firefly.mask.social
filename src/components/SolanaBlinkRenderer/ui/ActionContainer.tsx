@@ -6,7 +6,13 @@ import { take } from 'lodash-es';
 import { type ReactNode, useMemo, useReducer } from 'react';
 
 import { ActionLayout, type ActionType, type ButtonProps } from '@/components/SolanaBlinkRenderer/ui/ActionLayout.js';
-import type { Action, ActionComponent } from '@/providers/solana-blink/Action.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import type {
+    Action,
+    ActionComponent,
+    ActionsSpecPostRequestBody,
+    ActionsSpecPostResponse,
+} from '@/providers/solana-blink/type.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -121,7 +127,7 @@ export function ActionContainer({
                       SOFT_LIMIT_BUTTONS,
                   )
                 : [],
-        [action, executionState.executingAction],
+        [action?.actions, executionState.executingAction],
     );
     const inputs = useMemo(
         () =>
@@ -135,16 +141,26 @@ export function ActionContainer({
                       SOFT_LIMIT_INPUTS,
                   )
                 : [],
-        [action, executionState.executingAction],
+        [action?.actions, executionState.executingAction],
     );
 
     const walletModal = useWalletModal();
     const { connection } = useConnection();
     const wallet = useWallet();
 
+    const postActionComponent = (account: string, component: ActionComponent) => {
+        const href = component.parameter
+            ? component.href.replace(`{${component.parameter.name}}`, component.parameterValue.trim())
+            : component.href;
+        return fetchJSON<ActionsSpecPostResponse>(href, {
+            method: 'POST',
+            body: JSON.stringify({ account } as ActionsSpecPostRequestBody),
+        });
+    };
+
     const execute = async (component: ActionComponent, params?: Record<string, string>) => {
         if (component.parameter && params) {
-            component.setValue(params[component.parameter.name]);
+            component.parameterValue = params[component.parameter.name];
         }
 
         dispatch({ type: ExecutionType.INITIATE, executingAction: component });
@@ -157,7 +173,7 @@ export function ActionContainer({
                 return;
             }
 
-            const tx = await component.post(account);
+            const tx = await postActionComponent(account, component);
             const transaction = VersionedTransaction.deserialize(Buffer.from(tx.transaction, 'base64'));
             const {
                 context: { slot: minContextSlot },
@@ -215,7 +231,7 @@ export function ActionContainer({
             websiteUrl={websiteUrl}
             websiteText={websiteText}
             image={action.icon}
-            error={executionState.status !== 'success' ? executionState.errorMessage ?? action.error : null}
+            error={executionState.status !== 'success' ? executionState.errorMessage ?? action.error?.message : null}
             success={executionState.successMessage}
             buttons={buttons.map(asButtonProps)}
             inputs={inputs.map(asInputProps)}
