@@ -205,6 +205,9 @@ msgstr "Login with QR Code"
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
 
+msgid "Profile not found"
+msgstr "Profile not found"
+
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
@@ -693,6 +696,9 @@ msgstr "Choice {0}"
 
 msgid "Send Feedback"
 msgstr "Send Feedback"
+
+msgid "The chainId mismatch."
+msgstr "The chainId mismatch."
 
 msgid "Open in Firefly App"
 msgstr "Open in Firefly App"
@@ -1608,6 +1614,9 @@ msgstr "Suspended account"
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "Failed to parse transaction."
+msgstr "Failed to parse transaction."
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "No anti_whale(Unlimited number of transactions)"
