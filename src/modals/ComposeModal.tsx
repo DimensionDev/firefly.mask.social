@@ -228,7 +228,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 if (props?.disableClear) return;
                 clear();
                 router.navigate({ to: '/' });
-                editor.update(() => $getRoot().clear());
+                setTimeout(() => {
+                    editor.update(() => $getRoot().clear());
+                }, 1000);
             },
         });
 
