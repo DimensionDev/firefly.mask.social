@@ -1083,9 +1083,6 @@ msgstr "热门收藏者"
 msgid "Quote"
 msgstr "引用"
 
-msgid "More Detail"
-msgstr ""
-
 msgid "View engagements"
 msgstr "查看互动"
 
@@ -1538,6 +1535,9 @@ msgstr ""
 
 msgid "Your post have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
+
+msgid "Detail"
+msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"

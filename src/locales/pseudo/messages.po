@@ -1078,9 +1078,6 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
-msgid "More Detail"
-msgstr ""
-
 msgid "View engagements"
 msgstr ""
 
@@ -1532,6 +1529,9 @@ msgid "Statistic"
 msgstr ""
 
 msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Detail"
 msgstr ""
 
 msgid "Post added to your Bookmarks"

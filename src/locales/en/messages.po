@@ -1078,9 +1078,6 @@ msgstr "Top Collectors"
 msgid "Quote"
 msgstr "Quote"
 
-msgid "More Detail"
-msgstr "More Detail"
-
 msgid "View engagements"
 msgstr "View engagements"
 
@@ -1533,6 +1530,9 @@ msgstr "Statistic"
 
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
+
+msgid "Detail"
+msgstr "Detail"
 
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
