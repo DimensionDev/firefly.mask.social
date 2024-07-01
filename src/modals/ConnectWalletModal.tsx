@@ -13,6 +13,7 @@ import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function ConnectWalletModal(_, ref) {
     const connectModalEVM = useConnectModalEVM();
@@ -20,7 +21,11 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
     const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
     const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
-    const [open, dispatch] = useSingletonModal(ref, {});
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen() {
+            useNavigatorState.getState().updateSidebarOpen(false);
+        },
+    });
 
     const isMedium = useIsMedium();
 
