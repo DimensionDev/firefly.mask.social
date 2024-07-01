@@ -1089,9 +1089,6 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
-msgid "More Detail"
-msgstr ""
-
 msgid "View engagements"
 msgstr ""
 
@@ -1544,6 +1541,9 @@ msgstr ""
 
 msgid "Your post have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上"
+
+msgid "Detail"
+msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
