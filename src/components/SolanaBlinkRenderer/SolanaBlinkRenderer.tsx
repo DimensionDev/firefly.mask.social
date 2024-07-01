@@ -11,7 +11,7 @@ export function SolanaBlinkRenderer(props: { url: string; onData?: (data: Action
     const query = useQuery({
         queryKey: ['blink', props.url],
         queryFn: async () => {
-            return SolanaBlinksLoader.fetch(props.url);
+            return SolanaBlinksLoader.fetchAction(props.url);
         },
     });
     useEffect(() => {
@@ -21,7 +21,6 @@ export function SolanaBlinkRenderer(props: { url: string; onData?: (data: Action
     }, [query.data]);
 
     if (!query.data) return null;
-    const url = new URL(props.url);
 
-    return <ActionContainer action={query.data} websiteText={url.hostname} websiteUrl={props.url} />;
+    return <ActionContainer action={query.data} />;
 }

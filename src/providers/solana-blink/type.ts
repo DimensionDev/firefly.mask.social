@@ -80,3 +80,12 @@ export interface ActionComponent {
     parameters: Parameter[];
     parameter?: Parameter;
 }
+
+export interface ActionsRegistryConfig {
+    actions: RegisteredAction[];
+}
+
+export interface RegisteredAction {
+    host: string;
+    state: 'trusted' | 'malicious';
+}

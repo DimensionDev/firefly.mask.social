@@ -7,8 +7,9 @@ import { Button } from '@/components/SolanaBlinkRenderer/ui/Button.js';
 import { ExclamationShieldIcon } from '@/components/SolanaBlinkRenderer/ui/icons/ExclamationShieldIcon.js';
 import { InfoShieldIcon } from '@/components/SolanaBlinkRenderer/ui/icons/InfoShieldIcon.js';
 import { LinkIcon } from '@/components/SolanaBlinkRenderer/ui/icons/LinkIcon.js';
+import type { RegisteredAction } from '@/providers/solana-blink/type.js';
 
-export type ActionType = 'unknown' | 'trusted' | 'malicious';
+export type ActionType = RegisteredAction['state'] | 'unknown';
 
 interface LayoutProps {
     image?: string;

@@ -51,6 +51,10 @@ class SolanaBlinks extends BaseLoader<Action> {
             });
         });
     }
+
+    public fetchAction(url: string) {
+        return this.fetch(url);
+    }
 }
 
 export const SolanaBlinksLoader = new SolanaBlinks();

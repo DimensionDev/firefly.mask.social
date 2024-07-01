@@ -2,11 +2,14 @@ import { t, Trans } from '@lingui/macro';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { VersionedTransaction } from '@solana/web3.js';
+import { useQuery } from '@tanstack/react-query';
 import { take } from 'lodash-es';
-import { type ReactNode, useMemo, useReducer } from 'react';
+import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ActionLayout, type ActionType, type ButtonProps } from '@/components/SolanaBlinkRenderer/ui/ActionLayout.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { SolanaBlinksRegisterProvider } from '@/providers/solana-blink/Register.js';
 import type {
     Action,
     ActionComponent,
@@ -100,20 +103,50 @@ const buttonVariantMap: Record<ExecutionStatus, 'default' | 'error' | 'success'>
 const SOFT_LIMIT_BUTTONS = 10;
 const SOFT_LIMIT_INPUTS = 3;
 
+type SecurityLevel = 'only-trusted' | 'non-malicious' | 'all';
+
+const checkSecurity = (state: ActionType, securityLevel: SecurityLevel): boolean => {
+    switch (securityLevel) {
+        case 'only-trusted':
+            return state === 'trusted';
+        case 'non-malicious':
+            return state !== 'malicious';
+        case 'all':
+            return true;
+    }
+};
+
 export function ActionContainer({
     action,
-    websiteUrl,
-    websiteText,
+    securityLevel = 'only-trusted',
 }: {
     action: Action;
-    websiteUrl?: string;
-    websiteText?: string;
+    securityLevel?: SecurityLevel;
 }) {
-    const actionState: ActionType = 'unknown'; // TODO: security check
+    const { data: solanaBlinksActionRegister, isLoading: isLoadingSolanaBlinksActionRegister } = useQuery({
+        queryKey: ['solana-blinks-action-register'],
+        async queryFn() {
+            const config = await SolanaBlinksRegisterProvider.fetchActionsRegistryConfig();
+            return Object.fromEntries(config.actions.map((action) => [action.host, action]));
+        },
+    });
+
+    const actionState: ActionType = useMemo(() => {
+        const url = new URL(action.url);
+        return solanaBlinksActionRegister?.[url.hostname]?.state ?? 'unknown';
+    }, [solanaBlinksActionRegister]);
 
     const [executionState, dispatch] = useReducer(executionReducer, {
         status: 'idle',
     });
+
+    const isPassingSecurityCheck = checkSecurity(actionState, securityLevel);
+
+    useEffect(() => {
+        if (actionState === 'malicious' && !isPassingSecurityCheck) {
+            dispatch({ type: ExecutionType.BLOCK });
+        }
+    }, [actionState]);
 
     const buttons = useMemo(
         () =>
@@ -223,6 +256,54 @@ export function ActionContainer({
         };
     };
 
+    const disclaimer = useMemo(() => {
+        if (isLoadingSolanaBlinksActionRegister) return null;
+        if (actionState === 'malicious' && executionState.status === 'blocked') {
+            return (
+                <div className="rounded-2xl border border-danger bg-danger/10 p-4 text-[15px] leading-5 text-danger">
+                    <p>
+                        <Trans>
+                            This Action has been flagged as an unsafe action, & has been blocked. If you believe this
+                            action has been blocked in error, please.
+                        </Trans>
+                        {!isPassingSecurityCheck ? (
+                            <Trans> Your action provider blocks execution of this action.</Trans>
+                        ) : null}
+                    </p>
+                    {isPassingSecurityCheck ? (
+                        <ClickableButton
+                            className="mt-3 text-[15px] font-bold leading-5 text-danger"
+                            onClick={() => dispatch({ type: ExecutionType.UNBLOCK })}
+                        >
+                            <Trans>Ignore warning & proceed</Trans>
+                        </ClickableButton>
+                    ) : null}
+                </div>
+            );
+        }
+
+        if (actionState === 'unknown') {
+            return (
+                <div className="rounded-2xl border border-warn bg-warn/10 p-4 text-[15px] leading-5 text-warn">
+                    <p>
+                        This Action has not yet been registered. Only use it if you trust the source.
+                        {!isPassingSecurityCheck && ' Your action provider blocks execution of this action.'}
+                    </p>
+                </div>
+            );
+        }
+
+        return null;
+    }, [actionState, executionState.status, isPassingSecurityCheck, isLoadingSolanaBlinksActionRegister]);
+
+    const { websiteUrl, websiteText } = useMemo(() => {
+        const urlObj = new URL(action.url);
+        return {
+            websiteText: urlObj.hostname,
+            websiteUrl: action.url,
+        };
+    }, [action.url]);
+
     return (
         <ActionLayout
             type={actionState}
@@ -231,6 +312,7 @@ export function ActionContainer({
             websiteUrl={websiteUrl}
             websiteText={websiteText}
             image={action.icon}
+            disclaimer={disclaimer}
             error={executionState.status !== 'success' ? executionState.errorMessage ?? action.error?.message : null}
             success={executionState.successMessage}
             buttons={buttons.map(asButtonProps)}
