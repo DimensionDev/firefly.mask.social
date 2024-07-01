@@ -2,7 +2,7 @@ import { BigNumber } from 'bignumber.js';
 
 function abbreviationForZero(str: string, zeroCount: number) {
     if (zeroCount <= 1) return str;
-    return str.replace(`${new Array(zeroCount).fill('0').join('')}`, `0(${zeroCount})`);
+    return str.replace(`${new Array(zeroCount).fill('0').join('')}`, `0{${zeroCount}}`);
 }
 
 function removeTrailingZeros(str: string) {
