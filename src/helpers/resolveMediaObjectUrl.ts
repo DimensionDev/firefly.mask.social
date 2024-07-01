@@ -57,8 +57,9 @@ export function createTwitterMediaObject(twitterRes: TwitterMediaResponse): Medi
 
 export function resolveMediaObjectUrl(media: MediaObject | null, sources = SORTED_MEDIA_SOURCES) {
     if (!media) return '';
-    const key = sources.find((x) => !!media.urls?.[x]);
-    return key ? media.urls?.[key] ?? '' : '';
+    // the first source that has a url will be used as the preview
+    const source = sources.find((x) => !!media.urls?.[x]);
+    return source ? media.urls?.[source] ?? '' : '';
 }
 
 const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[]>(
