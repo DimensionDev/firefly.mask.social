@@ -130,6 +130,9 @@ msgstr "Failed to upload. Video is not supported yet"
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 
+msgid "Unknown error"
+msgstr "Unknown error"
+
 msgid "More"
 msgstr "More"
 
@@ -186,6 +189,9 @@ msgstr "Wrong wallet"
 
 msgid "Poll"
 msgstr "Poll"
+
+msgid "Solana"
+msgstr "Solana"
 
 msgid "Casts"
 msgstr "Casts"
@@ -258,6 +264,9 @@ msgstr "comment"
 
 msgid "True Token"
 msgstr "True Token"
+
+msgid "Failed"
+msgstr "Failed"
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -675,6 +684,9 @@ msgstr "Forbidden. Please check your permissions"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+
+msgid "EVM"
+msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
@@ -1141,6 +1153,9 @@ msgstr "Please switch to the {chainName} network in your wallet."
 msgid "Community"
 msgstr "Community"
 
+msgid "Executing"
+msgstr "Executing"
+
 msgid "Delete"
 msgstr "Delete"
 
@@ -1500,6 +1515,9 @@ msgstr "NFT ID"
 
 msgid "Farcaster channel"
 msgstr "Farcaster channel"
+
+msgid "Completed"
+msgstr "Completed"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."

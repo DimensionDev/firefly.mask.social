@@ -130,6 +130,9 @@ msgstr ""
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
+msgid "Unknown error"
+msgstr ""
+
 msgid "More"
 msgstr ""
 
@@ -185,6 +188,9 @@ msgid "Wrong wallet"
 msgstr ""
 
 msgid "Poll"
+msgstr ""
+
+msgid "Solana"
 msgstr ""
 
 msgid "Casts"
@@ -254,6 +260,9 @@ msgid "Show less"
 msgstr ""
 
 msgid "comment"
+msgstr ""
+
+msgid "Failed"
 msgstr ""
 
 msgid "True Token"
@@ -674,6 +683,9 @@ msgid "Forbidden. Please check your permissions"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "EVM"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -1141,6 +1153,9 @@ msgstr ""
 msgid "Community"
 msgstr ""
 
+msgid "Executing"
+msgstr ""
+
 msgid "Delete"
 msgstr ""
 
@@ -1499,6 +1514,9 @@ msgid "NFT ID"
 msgstr ""
 
 msgid "Farcaster channel"
+msgstr ""
+
+msgid "Completed"
 msgstr ""
 
 msgid "Failed to unmirror post."
