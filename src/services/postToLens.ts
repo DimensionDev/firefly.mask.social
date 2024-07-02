@@ -270,7 +270,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     const sourceName = resolveSourceName(Source.Lens);
 
     // already posted to lens
-    if (lensPostId) throw new Error(t`Already posted on ${sourceName}.`);
+    if (lensPostId) return;
 
     // login required
     const { currentProfile } = useLensStateStore.getState();
