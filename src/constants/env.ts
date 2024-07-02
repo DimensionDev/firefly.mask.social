@@ -107,5 +107,6 @@ export const env = {
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
 
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
+        NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
     }),
 };
