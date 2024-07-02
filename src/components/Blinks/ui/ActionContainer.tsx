@@ -106,6 +106,7 @@ const checkSecurity = (state: ActionType, securityLevel: SecurityLevel): boolean
         case 'all':
             return true;
         case 'only-trusted':
+            return false;
         default:
             return state === 'trusted';
     }

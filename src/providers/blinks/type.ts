@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 // GET
 export interface SolanaPaySpecGetResponse {
     label: string;
