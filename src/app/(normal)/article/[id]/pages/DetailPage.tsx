@@ -5,6 +5,7 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
+import { checksumAddress } from 'viem';
 
 import ComeBack from '@/assets/comeback.svg';
 import LinkIcon from '@/assets/link.svg';
@@ -132,7 +133,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                             <div className="mt-1 text-secondary">
                                 <Trans>AUTHOR ADDRESS</Trans>
                             </div>
-                            <div>{article.author.id}</div>
+                            <div>{checksumAddress(article.author.id)}</div>
                         </Link>
                     </div>
                 ) : null}
