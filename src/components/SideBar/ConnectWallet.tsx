@@ -21,7 +21,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { ConnectWalletModalRef } from '@/modals/controls.js';
+import { ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
 
 interface ConnectWalletProps {
     collapsed?: boolean;
@@ -64,7 +64,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                 return formatAddress(publicKey, 4);
             }),
             onOpenConnectModal: () => connectModalSolana.setVisible(true),
-            onOpenAccountModal: () => connectModalSolana.setVisible(true),
+            onOpenAccountModal: () => SolanaAccountModalRef.open(),
             isConnected: solanaWallet.connected,
             type: 'Solana',
         },
@@ -128,7 +128,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                 {isConnected ? (
                     <LineArrowUp
                         className={classNames('absolute right-0 top-1/2 -translate-y-1/2', {
-                            'rotate-180': collapsed,
+                            'rotate-180': !collapsed,
                         })}
                     />
                 ) : null}
@@ -136,12 +136,18 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             {isConnected && collapsed ? (
                 <>
                     {chainTypes
-                        .filter((type) => type === activeType)
+                        .filter((type) => type !== activeType)
                         .map((type) => {
                             return (
                                 <ClickableButton
                                     key={type.type}
-                                    onClick={type.onOpenConnectModal}
+                                    onClick={() => {
+                                        if (type.isConnected) {
+                                            type.onOpenAccountModal();
+                                            return;
+                                        }
+                                        type.onOpenConnectModal();
+                                    }}
                                     className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
                                 >
                                     <Image

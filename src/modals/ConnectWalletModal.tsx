@@ -90,7 +90,7 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
                     className="relative inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
-                    <CloseButton onClick={() => dispatch?.close()} className="absolute left-4 top-4" />
+                    <CloseButton onClick={onClose} className="absolute left-4 top-4" />
                     <div className="text-lg font-bold leading-6 text-main">
                         <Trans>Connect Wallet</Trans>
                     </div>

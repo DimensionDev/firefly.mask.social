@@ -83,7 +83,8 @@
         "xdai",
         "zora",
         "zustand",
-        "blockhash"
+        "blockhash",
+        "lamports"
     ],
     "ignoreWords": [
         "DEVNET",
