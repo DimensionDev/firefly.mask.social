@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
@@ -35,6 +35,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
     imageProps,
     ...rest
 }) {
+    const images = useRef<string[]>([]);
     if (!children) return null;
 
     return (
@@ -50,6 +51,9 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                 // eslint-disable-next-line react/no-unstable-nested-components
                 img: (props) => {
                     if (!props.src || disableImage) return null;
+                    images.current = !images.current.includes(props.src)
+                        ? [...images.current, props.src]
+                        : images.current;
                     return (
                         <ImageAsset
                             className={classNames('cursor-pointer', props.className)}
@@ -63,7 +67,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                                 if (!props.src) return;
                                 PreviewImageModalRef.open({
                                     current: props.src,
-                                    images: [props.src],
+                                    images: images.current,
                                 });
                             }}
                             {...imageProps}
