@@ -25,7 +25,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     const sourceName = resolveSourceName(Source.Twitter);
 
     // already posted to x
-    if (twitterPostId) throw new Error(t`Already posted on ${sourceName}.`);
+    if (twitterPostId) return;
 
     // login required
     const { currentProfile } = useTwitterStateStore.getState();
