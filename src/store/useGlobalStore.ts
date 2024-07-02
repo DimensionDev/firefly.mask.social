@@ -5,14 +5,14 @@ import { immer } from 'zustand/middleware/immer';
 
 import { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 export function getCurrentSource() {
     if (typeof document === 'undefined') return Source.Farcaster;
     const searchParams = new URLSearchParams(location.search);
     const source = searchParams.get('source');
     if (!source) return Source.Farcaster;
-    return resolveSource(source);
+    return resolveSourceFromUrl(source);
 }
 
 interface GlobalState {
@@ -34,13 +34,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
     persist(
         immer((set) => ({
             routeChanged: false,
-            currentSource: getCurrentSource() ?? Source.Farcaster,
+            currentSource: getCurrentSource(),
             updateCurrentSource: (source: Source) =>
                 set((state) => {
                     state.currentSource = source;
                 }),
             currentProfileTabState: {
-                source: getCurrentSource() ?? Source.Farcaster,
+                source: getCurrentSource(),
                 identity: '',
             },
             updateCurrentProfileState: (profileState: { source: Source; identity: string }) =>
