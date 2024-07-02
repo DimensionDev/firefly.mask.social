@@ -10,10 +10,9 @@ interface Props extends HTMLProps<HTMLDivElement> {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-    error: 'bg-danger/10 text-twitter-error hover:text-twitter-error-lighter hover:bg-[#F62D2D1A] transition-colors motion-reduce:transition-none',
-    warning:
-        'bg-warn/10 text-twitter-warning hover:text-twitter-warning-lighter transition-colors motion-reduce:transition-none',
-    default: 'bg-[#B3B3B31A] text-[#888989] hover:text-[#949CA4] transition-colors motion-reduce:transition-none',
+    error: 'bg-danger/10 text-danger hover:bg-danger/20',
+    warning: 'bg-warn/10 text-warn hover:bg-warn/20',
+    default: 'bg-main/10 text-main hover:bg-main/20',
 };
 
 export function Badge({ variant = 'default', children, className, icon }: Props) {

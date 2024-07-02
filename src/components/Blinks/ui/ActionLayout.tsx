@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { type ReactNode, useMemo, useState } from 'react';
 
 import CheckIcon from '@/assets/check.svg';
@@ -94,7 +95,7 @@ export function ActionLayout({
                     >
                         {type === 'malicious' && (
                             <Badge variant="error" icon={<ExclamationShieldIcon width={13} height={13} />}>
-                                Blocked
+                                <Trans>Blocked</Trans>
                             </Badge>
                         )}
                         {type === 'trusted' && (
@@ -110,20 +111,18 @@ export function ActionLayout({
                 {disclaimer ? <div>{disclaimer}</div> : null}
                 <div className="flex flex-col gap-3">
                     {buttons && buttons.length > 0 ? (
-                        <div className="flex flex-wrap items-center gap-3">
+                        <ul className="flex flex-wrap items-center gap-3">
                             {buttons?.map((it, index) => (
-                                <div key={index} className="flex-auto">
+                                <li key={index} className="flex-auto">
                                     <ActionButton {...it} />
-                                </div>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     ) : null}
                     {inputs?.map((input) => <ActionInput key={input.name} {...input} />)}
                 </div>
-                {success ? <span className="mt-4 flex justify-center text-sm text-success">{success}</span> : null}
-                {error && !success ? (
-                    <span className="mt-4 flex justify-center text-sm text-danger">{error}</span>
-                ) : null}
+                {success ? <div className="mt-4 flex justify-center text-sm text-success">{success}</div> : null}
+                {error && !success ? <div className="mt-4 flex justify-center text-sm text-danger">{error}</div> : null}
             </div>
         </div>
     );

@@ -64,6 +64,8 @@ const ExternalEnvSchema = z.object({
 
     // giphy api key.
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
+
+    NEXT_PUBLIC_SOLANA_RPC_URL: z.string(),
 });
 
 export const env = {
@@ -102,5 +104,7 @@ export const env = {
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
+
+        NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
     }),
 };

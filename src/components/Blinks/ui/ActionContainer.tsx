@@ -109,12 +109,13 @@ type SecurityLevel = 'only-trusted' | 'non-malicious' | 'all';
 
 const checkSecurity = (state: ActionType, securityLevel: SecurityLevel): boolean => {
     switch (securityLevel) {
-        case 'only-trusted':
-            return state === 'trusted';
         case 'non-malicious':
             return state !== 'malicious';
         case 'all':
             return true;
+        case 'only-trusted':
+        default:
+            return state === 'trusted';
     }
 };
 
