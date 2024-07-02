@@ -75,26 +75,25 @@ class Loader extends BaseLoader<Action> {
             if (response.error) {
                 throw new Error(response.error.message);
             }
-            const data = response;
             const actionResult: Action = {
                 url,
                 websiteUrl: actionOriginalURL,
-                icon: data.icon,
-                title: data.title,
-                description: data.description,
-                disabled: data.disabled ?? false,
+                icon: response.icon,
+                title: response.title,
+                description: response.description,
+                disabled: response.disabled ?? false,
                 actions: [],
             };
-            if (data.links?.actions) {
+            if (response.links?.actions) {
                 const u = parseURL(url);
                 if (u) {
-                    actionResult.actions = data.links.actions.map((action) => {
+                    actionResult.actions = response.links.actions.map((action) => {
                         const href = action.href.startsWith('http') ? action.href : u.origin + action.href;
                         return createActionComponent(action.label, href, action.parameters);
                     });
                 }
             } else {
-                actionResult.actions = [createActionComponent(data.label, url)];
+                actionResult.actions = [createActionComponent(response.label, url)];
             }
             return actionResult;
         });

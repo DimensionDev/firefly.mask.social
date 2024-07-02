@@ -1,13 +1,12 @@
 import { Trans } from '@lingui/macro';
-import { type ReactNode, useMemo, useState } from 'react';
+import { type ReactNode } from 'react';
 
-import CheckIcon from '@/assets/check.svg';
 import ExclamationShieldIcon from '@/assets/exclamation-shield.svg';
 import InfoShieldIcon from '@/assets/info-shield.svg';
 import LinkIcon from '@/assets/link-classic.svg';
-import LoadingIcon from '@/assets/loading.svg';
+import { ActionButton, type ButtonProps } from '@/components/Blink/ActionButton.js';
+import { ActionInput, type InputProps } from '@/components/Blink/ActionInput.js';
 import { Badge } from '@/components/Blink/Badge.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
@@ -26,20 +25,6 @@ interface LayoutProps {
     description: string;
     buttons?: ButtonProps[];
     inputs?: InputProps[];
-}
-export interface ButtonProps {
-    text: ReactNode;
-    loading?: boolean;
-    variant?: 'default' | 'success' | 'error';
-    disabled?: boolean;
-    onClick: (params?: Record<string, string>) => void;
-}
-
-export interface InputProps {
-    placeholder?: string;
-    name: string;
-    disabled: boolean;
-    button: ButtonProps;
 }
 
 export function ActionLayout({
@@ -124,60 +109,5 @@ export function ActionLayout({
                 ) : null}
             </div>
         </div>
-    );
-}
-
-function ActionInput({ placeholder, name, button, disabled }: InputProps) {
-    const [value, onChange] = useState('');
-
-    return (
-        <div className="flex h-[52px] items-center gap-2 rounded-full border border-main p-1.5">
-            <input
-                type="text"
-                placeholder={placeholder}
-                value={value}
-                disabled={disabled}
-                autoComplete="off"
-                spellCheck="false"
-                onChange={(e) => onChange(e.target.value)}
-                className="ml-2.5 flex-1 truncate border-none bg-transparent p-0 text-[15px] placeholder:text-second focus:ring-0 disabled:text-third"
-            />
-            <div>
-                <ActionButton
-                    {...button}
-                    onClick={() => button.onClick({ [name]: value })}
-                    disabled={button.disabled || value === ''}
-                />
-            </div>
-        </div>
-    );
-}
-
-function ActionButton({ text, loading, disabled, variant, onClick }: ButtonProps) {
-    const content = useMemo(() => {
-        if (loading)
-            return (
-                <span className="flex flex-row items-center justify-center gap-2">
-                    {text} <LoadingIcon width={16} height={16} className="animate-spin" />
-                </span>
-            );
-        if (variant === 'success')
-            return (
-                <span className="flex flex-row items-center justify-center gap-2">
-                    {text}
-                    <CheckIcon width={16} height={16} className="h-4 w-4" />
-                </span>
-            );
-        return text;
-    }, [loading, variant, text]);
-
-    return (
-        <ClickableButton
-            className="flex h-10 w-full items-center justify-center rounded-full bg-main px-5 text-sm font-bold leading-10 text-primaryBottom"
-            disabled={disabled}
-            onClick={() => onClick()}
-        >
-            {content}
-        </ClickableButton>
     );
 }

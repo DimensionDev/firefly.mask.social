@@ -11,7 +11,8 @@ export function resolvePostContent(post: Post, endingLinkCollapsed?: boolean) {
     const parsedBlinks = parseBlinksFromContent(content);
     const solanaBlinkMatchContent = first(parsedBlinks.decodedUrls);
     content = parsedBlinks.content;
-    if (endingLinkCollapsed) content = removeUrlAtEnd(post.metadata.content?.oembedUrl, content);
+    if (endingLinkCollapsed && post.metadata.content?.oembedUrl)
+        content = removeUrlAtEnd(post.metadata.content?.oembedUrl, content);
 
     return {
         content,

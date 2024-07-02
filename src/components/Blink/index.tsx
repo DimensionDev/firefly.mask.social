@@ -8,19 +8,19 @@ import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Action } from '@/providers/types/Blink.js';
 
 export function Blink(props: { url: string; onData?: (data: Action) => void }) {
-    const query = useQuery({
+    const { data } = useQuery({
         queryKey: ['blink', props.url],
         queryFn: async () => {
             return BlinkLoader.fetchAction(props.url);
         },
     });
     useEffect(() => {
-        if (query.data) {
-            props.onData?.(query.data);
+        if (data) {
+            props.onData?.(data);
         }
-    }, [props, query.data]);
+    }, [props, data]);
 
-    if (!query.data) return null;
+    if (!data) return null;
 
-    return <ActionContainer action={query.data} />;
+    return <ActionContainer action={data} />;
 }

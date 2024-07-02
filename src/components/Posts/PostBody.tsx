@@ -27,6 +27,7 @@ import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import { resolvePostContent } from '@/helpers/resolvePostContent.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -83,7 +84,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(post.author, isDetail);
 
-    const { content, blink } = resolvePostContent(post, endingLinkCollapsed);
+    const postContent =
+        (endingLinkCollapsed && post.metadata.content?.oembedUrl && post.metadata.content.content
+            ? removeUrlAtEnd(post.metadata.content.oembedUrl, post.metadata.content?.content)
+            : post.metadata.content?.content) ?? '';
+
+    const { blink } = resolvePostContent(post, endingLinkCollapsed);
 
     if (post.isEncrypted) {
         return (
@@ -208,10 +214,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             <div ref={observe} />
-            <PostMarkup post={post} canShowMore={canShowMore} content={content} />
+            <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
 
-            {showTranslate && trimify(content) ? (
-                <ContentTranslator content={trimify(content)} canShowMore={canShowMore} post={post} />
+            {showTranslate && trimify(postContent) ? (
+                <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
             {postViewed ? (

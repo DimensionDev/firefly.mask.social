@@ -6,7 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import { take } from 'lodash-es';
 import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
-import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blink/ActionLayout.js';
+import type { ButtonProps } from '@/components/Blink/ActionButton.js';
+import type { InputProps } from '@/components/Blink/ActionInput.js';
+import { ActionLayout, type ActionType } from '@/components/Blink/ActionLayout.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -230,15 +232,13 @@ export function ActionContainer({
         onClick: (params?: Record<string, string>) => execute(it, params),
     });
 
-    const asInputProps = (it: ActionComponent) => {
-        return {
-            // since we already filter this, we can safely assume that parameter is not null
-            placeholder: it.parameter!.label,
-            disabled: action.disabled || executionState.status !== 'idle' || !!executionState.executingAction,
-            name: it.parameter!.name,
-            button: asButtonProps(it),
-        };
-    };
+    const asInputProps = (it: ActionComponent): InputProps => ({
+        // since we already filter this, we can safely assume that parameter is not null
+        placeholder: it.parameter!.label,
+        disabled: action.disabled || executionState.status !== 'idle' || !!executionState.executingAction,
+        name: it.parameter!.name,
+        button: asButtonProps(it),
+    });
 
     const disclaimer = useMemo(() => {
         if (actionState === 'malicious' && executionState.status === 'blocked') {
