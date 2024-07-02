@@ -160,6 +160,9 @@ msgstr "Join our Discord"
 msgid "Found arweaveTxId is empty."
 msgstr "Found arweaveTxId is empty."
 
+msgid "Blocked"
+msgstr "Blocked"
+
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
 
