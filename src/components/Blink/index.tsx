@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { ActionContainer } from '@/components/Blink/ui/ActionContainer.js';
+import { ActionContainer } from '@/components/Blink/ActionContainer.jsx';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Action } from '@/providers/types/Blink.js';
 

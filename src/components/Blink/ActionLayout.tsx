@@ -6,7 +6,7 @@ import ExclamationShieldIcon from '@/assets/exclamation-shield.svg';
 import InfoShieldIcon from '@/assets/info-shield.svg';
 import LinkIcon from '@/assets/link-classic.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { Badge } from '@/components/Blink/ui/Badge.js';
+import { Badge } from '@/components/Blink/Badge.jsx';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
