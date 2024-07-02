@@ -3,7 +3,6 @@
 import { TextOverflowTooltip } from '@masknet/theme';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { SchemaType } from '@masknet/web3-shared-evm';
-import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
@@ -19,7 +18,6 @@ import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import type { SearchParams } from '@/types/index.js';
 
 export default function Page({
@@ -38,14 +36,6 @@ export default function Page({
 
     const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
     const { data: poapAttendeesCount } = usePoapAttendeesCount(data?.metadata?.eventId);
-
-    const { data: collectionData } = useQuery({
-        queryKey: ['collection-info', address, chainId],
-        queryFn() {
-            return SimpleHashWalletProfileProvider.getCollection(address, { chainId });
-        },
-        enabled: isPoap,
-    });
 
     if (isLoading) {
         return <Loading />;

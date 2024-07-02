@@ -113,7 +113,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     }
 
     return (
-        <div {...rest} className={classNames('flex flex-col gap-1.5 px-6 py-3', rest.className)}>
+        <div {...rest} className={classNames('flex flex-col gap-1.5 px-3 py-3 sm:px-6', rest.className)}>
             <div className="flex items-center gap-2.5 text-second">
                 <Image
                     className="overflow-hidden rounded-full"

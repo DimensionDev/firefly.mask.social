@@ -20,6 +20,14 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
     },
 );
 
+export const resolveSourceFromUrl = (source: SourceInURL | string) => {
+    try {
+        return resolveSource(source as SourceInURL);
+    } catch {
+        return Source.Farcaster;
+    }
+};
+
 export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, SocialSource>(
     {
         [SourceInURL.Farcaster]: Source.Farcaster,
