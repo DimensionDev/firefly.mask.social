@@ -1753,9 +1753,6 @@ msgstr ""
 msgid "Mirror"
 msgstr ""
 
-msgid "Already posted on {sourceName}."
-msgstr ""
-
 msgid "[Quote]"
 msgstr ""
 

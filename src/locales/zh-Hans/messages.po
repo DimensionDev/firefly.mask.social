@@ -1758,9 +1758,6 @@ msgstr "没有发布的内容。"
 msgid "Mirror"
 msgstr "转发"
 
-msgid "Already posted on {sourceName}."
-msgstr "已经在 {sourceName} 发贴。"
-
 msgid "[Quote]"
 msgstr "[引用]"
 
