@@ -17,7 +17,6 @@ export type ActionType = RegisteredAction['state'] | 'unknown';
 
 interface LayoutProps {
     image?: string;
-    error?: string | null;
     success?: string | null;
     websiteUrl?: string | null;
     websiteText?: string | null;
@@ -53,7 +52,6 @@ export function ActionLayout({
     disclaimer,
     buttons,
     inputs,
-    error,
     success,
 }: LayoutProps) {
     return (
@@ -121,8 +119,9 @@ export function ActionLayout({
                     ) : null}
                     {inputs?.map((input) => <ActionInput key={input.name} {...input} />)}
                 </div>
-                {success ? <div className="mt-4 flex justify-center text-sm text-success">{success}</div> : null}
-                {error && !success ? <div className="mt-4 flex justify-center text-sm text-danger">{error}</div> : null}
+                {success ? (
+                    <div className="mt-4 flex justify-center text-sm text-secondarySuccess">{success}</div>
+                ) : null}
             </div>
         </div>
     );
@@ -164,7 +163,7 @@ function ActionButton({ text, loading, disabled, variant, onClick }: ButtonProps
             );
         if (variant === 'success')
             return (
-                <span className="text-twitter-success flex flex-row items-center justify-center gap-2">
+                <span className="flex flex-row items-center justify-center gap-2">
                     {text}
                     <CheckIcon width={16} height={16} className="h-4 w-4" />
                 </span>
@@ -174,7 +173,7 @@ function ActionButton({ text, loading, disabled, variant, onClick }: ButtonProps
 
     return (
         <ClickableButton
-            className="flex h-10 w-full items-center justify-center rounded-full px-5 text-sm font-bold leading-10"
+            className="flex h-10 w-full items-center justify-center rounded-full bg-main px-5 text-sm font-bold leading-10 text-primaryBottom"
             disabled={disabled}
             onClick={() => onClick()}
         >

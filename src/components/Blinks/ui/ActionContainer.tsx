@@ -8,7 +8,9 @@ import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
 import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blinks/ui/ActionLayout.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { BlinksRegisterProvider } from '@/providers/blinks/Register.js';
 import type {
@@ -47,10 +49,6 @@ type ActionValue =
           successMessage?: string | null;
       }
     | {
-          type: ExecutionType.FAIL;
-          errorMessage: string;
-      }
-    | {
           type: ExecutionType.RESET;
       }
     | {
@@ -63,6 +61,7 @@ type ActionValue =
 const getNextExecutionState = (state: ExecutionState, action: ActionValue): ExecutionState => {
     switch (action.type) {
         case ExecutionType.INITIATE:
+            if (state.status === 'blocked') return state;
             return { status: 'executing', executingAction: action.executingAction };
         case ExecutionType.FINISH:
             return {
@@ -71,21 +70,11 @@ const getNextExecutionState = (state: ExecutionState, action: ActionValue): Exec
                 successMessage: action.successMessage,
                 errorMessage: null,
             };
-        case ExecutionType.FAIL:
-            return {
-                ...state,
-                status: 'error',
-                errorMessage: action.errorMessage,
-                successMessage: null,
-            };
-        case ExecutionType.RESET:
-            return {
-                status: 'idle',
-            };
         case ExecutionType.BLOCK:
             return {
                 status: 'blocked',
             };
+        case ExecutionType.RESET:
         case ExecutionType.UNBLOCK:
         default:
             return {
@@ -215,19 +204,18 @@ export function ActionContainer({
             } = await connection.getLatestBlockhashAndContext();
             const signature = await wallet.sendTransaction(transaction, connection, { minContextSlot });
             await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
+            if (tx.message) {
+                enqueueSuccessMessage(tx.message);
+            }
             dispatch({
                 type: ExecutionType.FINISH,
                 successMessage: tx.message,
             });
-        } catch (e) {
-            if (e instanceof Error && e.message === 'User rejected the request.') {
-                dispatch({ type: ExecutionType.RESET });
-                return;
-            }
-            dispatch({
-                type: ExecutionType.FAIL,
-                errorMessage: (e as Error).message ?? t`Unknown error`,
+        } catch (error) {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Unknown error`), {
+                error,
             });
+            dispatch({ type: ExecutionType.RESET });
         }
     };
 
@@ -268,7 +256,7 @@ export function ActionContainer({
                             action has been blocked in error, please.
                         </Trans>
                         {!isPassingSecurityCheck ? (
-                            <Trans> Your action provider blocks execution of this action.</Trans>
+                            <Trans>Your action provider blocks execution of this action.</Trans>
                         ) : null}
                     </p>
                     {isPassingSecurityCheck ? (
@@ -282,20 +270,18 @@ export function ActionContainer({
                 </div>
             );
         }
-
         if (actionState === 'unknown') {
             return (
                 <div className="rounded-2xl border border-warn bg-warn/10 p-4 text-[15px] leading-5 text-warn">
                     <p>
                         <Trans>This Action has not yet been registered. Only use it if you trust the source.</Trans>
                         {!isPassingSecurityCheck ? (
-                            <Trans> Your action provider blocks execution of this action.</Trans>
+                            <Trans>Your action provider blocks execution of this action.</Trans>
                         ) : null}
                     </p>
                 </div>
             );
         }
-
         return null;
     }, [actionState, executionState.status, isPassingSecurityCheck, isLoadingSolanaBlinksActionRegister]);
 
@@ -308,7 +294,6 @@ export function ActionContainer({
             websiteText={actionUrlObj?.hostname}
             image={action.icon}
             disclaimer={disclaimer}
-            error={executionState.status !== 'success' ? executionState.errorMessage ?? action.error?.message : null}
             success={executionState.successMessage}
             buttons={buttons.map(asButtonProps)}
             inputs={inputs.map(asInputProps)}
