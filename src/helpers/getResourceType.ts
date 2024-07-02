@@ -1,9 +1,5 @@
-import { FRAME_SERVER_URL } from '@/constants/index.js';
 import { parseURL } from '@/helpers/parseURL.js';
-
-export function isValidPollFrameUrl(url: string): boolean {
-    return url.startsWith(FRAME_SERVER_URL);
-}
+import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 
 export function getResourceType(urlString: string) {
     const parsedURL = parseURL(urlString);
