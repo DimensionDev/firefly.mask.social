@@ -99,6 +99,9 @@ msgstr "屏蔽 @{0}"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr ""
 
+msgid "Select token"
+msgstr ""
+
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
@@ -171,6 +174,9 @@ msgstr "更换钱包"
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr ""
 
+msgid "Starting Tips failed, please try again later"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -182,6 +188,9 @@ msgstr "登出 @{0}"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以先保存发送的帖子并稍后发送。"
+
+msgid "tips to"
+msgstr ""
 
 msgid "Please confirm the login with Firefly."
 msgstr "请在 Firefly 上确认登录。"
@@ -224,6 +233,9 @@ msgstr "登录失败"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
+
+msgid "Address is a contract address"
+msgstr ""
 
 msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
@@ -552,6 +564,9 @@ msgstr "登出"
 msgid "Unmuting..."
 msgstr "取消屏蔽中..."
 
+msgid "Send Tips"
+msgstr ""
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
 
@@ -633,6 +648,9 @@ msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 msgid "Blacklist function"
 msgstr ""
 
+msgid "Address is a malicious address"
+msgstr ""
+
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
@@ -648,8 +666,17 @@ msgstr "转帖或者引用"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要屏蔽 /{0} 吗？"
 
+msgid "Connecting..."
+msgstr ""
+
+msgid "Enter amount"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
+
+msgid "Tip to @{0}"
+msgstr ""
 
 msgid "Owned By"
 msgstr "属于"
@@ -701,6 +728,9 @@ msgstr "选项 {0}"
 
 msgid "Send Feedback"
 msgstr "提交反馈"
+
+msgid "Send tips"
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr ""
@@ -867,7 +897,13 @@ msgstr "NFT 合约"
 msgid "Failed to follow."
 msgstr "关注失败"
 
+msgid "Share Now"
+msgstr ""
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+msgstr ""
+
+msgid "You {0} sent"
 msgstr ""
 
 msgid "Mute"
@@ -896,6 +932,9 @@ msgstr "获取收藏失败。"
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
+
+msgid "Share this news by mentioning and posting."
+msgstr ""
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -1014,6 +1053,9 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
+msgid "Select Token"
+msgstr ""
+
 msgid "General"
 msgstr "通用"
 
@@ -1025,6 +1067,9 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
+
+msgid "There is no token available to select"
+msgstr ""
 
 msgid "Publications"
 msgstr "帖子"
@@ -1097,6 +1142,12 @@ msgstr ""
 
 msgid "Translated"
 msgstr "已翻译"
+
+msgid "Select Wallet"
+msgstr ""
+
+msgid "Insufficient Balance for Gas Fee"
+msgstr ""
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -1341,6 +1392,9 @@ msgstr "连接"
 msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
+msgid "View transaction on explorer"
+msgstr ""
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
@@ -1557,6 +1611,9 @@ msgstr "取消屏蔽"
 msgid "Market Capital / FDV"
 msgstr ""
 
+msgid "View on explorer"
+msgstr ""
+
 msgid "Click to copy"
 msgstr "点击复制"
 
@@ -1593,6 +1650,9 @@ msgstr "{hours, plural, one {1 小时} other {{hours} 小时}}"
 msgid "Malformed twitter session payload."
 msgstr "错误的 twitter 会话。"
 
+msgid "Sorry, there is no wallet address available for tipping."
+msgstr ""
+
 msgid "No matching users"
 msgstr "未找到匹配用户"
 
@@ -1604,6 +1664,9 @@ msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
+
+msgid "Max: {0}"
+msgstr ""
 
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
@@ -1704,6 +1767,9 @@ msgstr "翻译中..."
 msgid "Back to home"
 msgstr "返回主页"
 
+msgid "Tips"
+msgstr ""
+
 msgid "Followers"
 msgstr "粉丝"
 
@@ -1769,6 +1835,9 @@ msgstr "您确定要举报这个用户么？"
 
 msgid "Likes"
 msgstr "点赞"
+
+msgid "Insufficient balance"
+msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
