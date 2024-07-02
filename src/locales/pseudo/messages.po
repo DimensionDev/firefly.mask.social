@@ -1429,6 +1429,9 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
+msgid "Cannot send to yourself"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr ""
 

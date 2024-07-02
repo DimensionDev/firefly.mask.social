@@ -1429,6 +1429,9 @@ msgstr "<0>Minted</0> an NFT for free"
 msgid "Properties"
 msgstr "Properties"
 
+msgid "Cannot send to yourself"
+msgstr "Cannot send to yourself"
+
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
 

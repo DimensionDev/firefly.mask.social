@@ -1434,6 +1434,9 @@ msgstr "免费<0>铸造</0> 了一个 NFT"
 msgid "Properties"
 msgstr "属性"
 
+msgid "Cannot send to yourself"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
