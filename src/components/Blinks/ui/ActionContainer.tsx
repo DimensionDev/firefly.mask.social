@@ -32,7 +32,6 @@ interface ExecutionState {
 enum ExecutionType {
     INITIATE = 'INITIATE',
     FINISH = 'FINISH',
-    FAIL = 'FAIL',
     RESET = 'RESET',
     UNBLOCK = 'UNBLOCK',
     BLOCK = 'BLOCK',
@@ -74,8 +73,12 @@ const getNextExecutionState = (state: ExecutionState, action: ActionValue): Exec
             return {
                 status: 'blocked',
             };
-        case ExecutionType.RESET:
         case ExecutionType.UNBLOCK:
+            if (state.status !== 'blocked') return state;
+            return {
+                status: 'idle',
+            };
+        case ExecutionType.RESET:
         default:
             return {
                 status: 'idle',
