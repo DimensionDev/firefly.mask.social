@@ -11,7 +11,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
-import type { RegisteredAction } from '@/providers/blinks/type.js';
+import type { RegisteredAction } from '@/providers/types/Blink.js';
 
 export type ActionType = RegisteredAction['state'] | 'unknown';
 

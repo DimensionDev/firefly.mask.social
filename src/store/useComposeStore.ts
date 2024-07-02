@@ -18,8 +18,8 @@ import { parseBlinksFromContent } from '@/helpers/parseBlinksFromContent.js';
 import { createPoll } from '@/helpers/polls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
-import { BlinksLoader } from '@/providers/blinks/Blinks.js';
-import type { Action } from '@/providers/blinks/type.js';
+import { BlinkLoader } from '@/providers/blink/Loader.js';
+import type { Action } from '@/providers/types/Blink.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -478,7 +478,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     frames.map((x) => x.url),
                 ),
             );
-            const blinkActions = await BlinksLoader.occupancyLoad(parsedBlinks.decodedUrls);
+            const blinkActions = await BlinkLoader.occupancyLoad(parsedBlinks.decodedUrls);
 
             set((state) =>
                 next(

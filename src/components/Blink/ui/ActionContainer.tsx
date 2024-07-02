@@ -12,13 +12,13 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import { BlinksRegisterProvider } from '@/providers/blinks/Register.js';
+import { BlinkRegister } from '@/providers/blink/Register.js';
 import type {
     Action,
     ActionComponent,
     ActionsSpecPostRequestBody,
     ActionsSpecPostResponse,
-} from '@/providers/blinks/type.js';
+} from '@/providers/types/Blink.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -122,7 +122,7 @@ export function ActionContainer({
     const { data: solanaBlinksActionRegister, isLoading: isLoadingSolanaBlinksActionRegister } = useQuery({
         queryKey: ['blinks-action-register'],
         async queryFn() {
-            const config = await BlinksRegisterProvider.fetchActionsRegistryConfig();
+            const config = await BlinkRegister.fetchActionsRegistryConfig();
             return Object.fromEntries(config.actions.map((action) => [action.host, action]));
         },
     });

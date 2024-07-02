@@ -4,7 +4,7 @@ import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/libs/base/Loader.js';
-import type { Action, ActionComponent, ActionsSpecGetResponse, Parameter } from '@/providers/blinks/type.js';
+import type { Action, ActionComponent, ActionsSpecGetResponse, Parameter } from '@/providers/types/Blink.js';
 
 function createActionComponent(label: string, href: string, parameters?: [Parameter]): ActionComponent {
     return {
@@ -54,4 +54,4 @@ class Loader extends BaseLoader<Action> {
     }
 }
 
-export const BlinksLoader = new Loader();
+export const BlinkLoader = new Loader();

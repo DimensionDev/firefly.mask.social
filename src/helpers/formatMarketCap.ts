@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'bignumber.js';
 
 function abbreviationForZero(str: string, zeroCount: number) {
     if (zeroCount <= 1) return str;
@@ -11,7 +11,7 @@ function removeTrailingZeros(str: string) {
 }
 
 export function formatMarketCap(amount: BigNumber.Value, digits = 2) {
-    let bigNumber = BigNumber(amount);
+    let bigNumber = new BigNumber(amount);
     const isNegative = bigNumber.isNegative();
     const prefix = isNegative ? '-' : '';
     bigNumber = bigNumber.abs();
