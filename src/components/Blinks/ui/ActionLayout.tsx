@@ -109,7 +109,7 @@ export function ActionLayout({
                 <div className="text-left text-[15px] font-semibold text-main">{title}</div>
                 <div className="whitespace-pre-wrap text-left text-[15px] text-sm text-main">{description}</div>
                 {disclaimer ? <div>{disclaimer}</div> : null}
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col">
                     {buttons && buttons.length > 0 ? (
                         <ul className="flex flex-wrap items-center gap-3">
                             {buttons?.map((it, index) => (
