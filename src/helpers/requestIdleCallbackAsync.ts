@@ -1,6 +1,4 @@
-import type { UnboxPromise } from '@/types/index.js';
-
-export function requestIdleCallbackAsync<T extends () => Promise<unknown>, R = UnboxPromise<ReturnType<T>>>(
+export function requestIdleCallbackAsync<T extends () => Promise<unknown>, R = Awaited<ReturnType<T>>>(
     callback: T,
     options?: IdleRequestOptions,
 ): Promise<R> {

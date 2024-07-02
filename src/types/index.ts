@@ -28,5 +28,3 @@ export interface NextRequestContext {
 }
 
 export type NonUndefined<T> = T extends undefined ? never : T;
-
-export type UnboxPromise<T> = T extends Promise<infer U> ? U : never;
