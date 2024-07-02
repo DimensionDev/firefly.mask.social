@@ -83,7 +83,8 @@
         "warpcast",
         "xdai",
         "zora",
-        "zustand"
+        "zustand",
+        "blockhash"
     ],
     "ignoreWords": [
         "DEVNET",

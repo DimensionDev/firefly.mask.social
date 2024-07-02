@@ -4,11 +4,12 @@ import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
+import { BlinkWithQuery } from '@/components/Blinks/BlinkWithQuery.js';
 import { Frame } from '@/components/Frame/index.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
@@ -26,7 +27,7 @@ import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
+import { resolvePostContent } from '@/helpers/resolvePostContent.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -82,10 +83,33 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(post.author, isDetail);
 
-    const postContent =
-        (endingLinkCollapsed
-            ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
-            : post.metadata.content?.content) ?? '';
+    const { postContent, blinkUrl } = resolvePostContent(post, endingLinkCollapsed);
+
+    const frame = useMemo(() => {
+        if (blinkUrl) {
+            return <BlinkWithQuery url={blinkUrl} onData={() => setEndingLinkCollapsed(true)} />;
+        }
+        if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled) {
+            return (
+                <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
+                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
+                    ) : null}
+                </Frame>
+            );
+        }
+        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
+            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />;
+        }
+        return null;
+    }, [
+        post.metadata.content?.oembedUrl,
+        post.quoteOn,
+        post.metadata?.content?.oembedUrls,
+        post.postId,
+        post.source,
+        blinkUrl,
+    ]);
 
     if (post.isEncrypted) {
         return (
@@ -238,15 +262,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            {post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled ? (
-                <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
-                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
-                    ) : null}
-                </Frame>
-            ) : post.metadata.content?.oembedUrl && !post.quoteOn ? (
-                <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
-            ) : null}
+            {frame}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>

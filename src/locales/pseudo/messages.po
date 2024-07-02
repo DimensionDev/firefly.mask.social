@@ -127,6 +127,9 @@ msgstr ""
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
+msgid "Unknown error"
+msgstr ""
+
 msgid "More"
 msgstr ""
 
@@ -182,6 +185,9 @@ msgid "Wrong wallet"
 msgstr ""
 
 msgid "Poll"
+msgstr ""
+
+msgid "Solana"
 msgstr ""
 
 msgid "Casts"
@@ -257,6 +263,9 @@ msgid "comment"
 msgstr ""
 
 msgid "True Token"
+msgstr ""
+
+msgid "Failed"
 msgstr ""
 
 msgid "Bookmarks"
@@ -458,6 +467,9 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Capital"
+msgstr ""
+
+msgid "Your action provider blocks execution of this action."
 msgstr ""
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
@@ -677,6 +689,9 @@ msgid "Forbidden. Please check your permissions"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "EVM"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -922,6 +937,9 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -1148,6 +1166,9 @@ msgid "Light Mode"
 msgstr ""
 
 msgid "Please switch to the {chainName} network in your wallet."
+msgstr ""
+
+msgid "Executing"
 msgstr ""
 
 msgid "Community"
@@ -1477,6 +1498,9 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
+msgid "This Action has not yet been registered. Only use it if you trust the source."
+msgstr ""
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
@@ -1510,6 +1534,9 @@ msgstr ""
 msgid "Owned"
 msgstr ""
 
+msgid "Ignore warning & proceed"
+msgstr ""
+
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -1520,6 +1547,9 @@ msgid "NFT ID"
 msgstr ""
 
 msgid "Farcaster channel"
+msgstr ""
+
+msgid "Completed"
 msgstr ""
 
 msgid "Failed to unmirror post."

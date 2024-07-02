@@ -1,0 +1,316 @@
+import { t, Trans } from '@lingui/macro';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { VersionedTransaction } from '@solana/web3.js';
+import { useQuery } from '@tanstack/react-query';
+import { take } from 'lodash-es';
+import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
+
+import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blinks/ui/ActionLayout.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { parseURL } from '@/helpers/parseURL.js';
+import { BlinksRegisterProvider } from '@/providers/blinks/Register.js';
+import type {
+    Action,
+    ActionComponent,
+    ActionsSpecPostRequestBody,
+    ActionsSpecPostResponse,
+} from '@/providers/blinks/type.js';
+
+type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
+
+interface ExecutionState {
+    status: ExecutionStatus;
+    executingAction?: ActionComponent | null;
+    errorMessage?: string | null;
+    successMessage?: string | null;
+}
+
+enum ExecutionType {
+    INITIATE = 'INITIATE',
+    FINISH = 'FINISH',
+    FAIL = 'FAIL',
+    RESET = 'RESET',
+    UNBLOCK = 'UNBLOCK',
+    BLOCK = 'BLOCK',
+}
+
+type ActionValue =
+    | {
+          type: ExecutionType.INITIATE;
+          executingAction: ActionComponent;
+          errorMessage?: string;
+      }
+    | {
+          type: ExecutionType.FINISH;
+          successMessage?: string | null;
+      }
+    | {
+          type: ExecutionType.FAIL;
+          errorMessage: string;
+      }
+    | {
+          type: ExecutionType.RESET;
+      }
+    | {
+          type: ExecutionType.UNBLOCK;
+      }
+    | {
+          type: ExecutionType.BLOCK;
+      };
+
+const getNextExecutionState = (state: ExecutionState, action: ActionValue): ExecutionState => {
+    switch (action.type) {
+        case ExecutionType.INITIATE:
+            return { status: 'executing', executingAction: action.executingAction };
+        case ExecutionType.FINISH:
+            return {
+                ...state,
+                status: 'success',
+                successMessage: action.successMessage,
+                errorMessage: null,
+            };
+        case ExecutionType.FAIL:
+            return {
+                ...state,
+                status: 'error',
+                errorMessage: action.errorMessage,
+                successMessage: null,
+            };
+        case ExecutionType.RESET:
+            return {
+                status: 'idle',
+            };
+        case ExecutionType.BLOCK:
+            return {
+                status: 'blocked',
+            };
+        case ExecutionType.UNBLOCK:
+        default:
+            return {
+                status: 'idle',
+            };
+    }
+};
+
+const buttonVariantMap: Record<ExecutionStatus, 'default' | 'error' | 'success'> = {
+    blocked: 'default',
+    idle: 'default',
+    executing: 'default',
+    success: 'success',
+    error: 'error',
+};
+
+const SOFT_LIMIT_BUTTONS = 10;
+const SOFT_LIMIT_INPUTS = 3;
+
+type SecurityLevel = 'only-trusted' | 'non-malicious' | 'all';
+
+const checkSecurity = (state: ActionType, securityLevel: SecurityLevel): boolean => {
+    switch (securityLevel) {
+        case 'only-trusted':
+            return state === 'trusted';
+        case 'non-malicious':
+            return state !== 'malicious';
+        case 'all':
+            return true;
+    }
+};
+
+export function ActionContainer({
+    action,
+    securityLevel = 'only-trusted',
+}: {
+    action: Action;
+    securityLevel?: SecurityLevel;
+}) {
+    const { data: solanaBlinksActionRegister, isLoading: isLoadingSolanaBlinksActionRegister } = useQuery({
+        queryKey: ['blinks-action-register'],
+        async queryFn() {
+            const config = await BlinksRegisterProvider.fetchActionsRegistryConfig();
+            return Object.fromEntries(config.actions.map((action) => [action.host, action]));
+        },
+    });
+
+    const actionUrlObj = useMemo(() => parseURL(action.url), [action.url]);
+
+    const actionState: ActionType =
+        (actionUrlObj ? solanaBlinksActionRegister?.[actionUrlObj.hostname]?.state : null) ?? 'unknown';
+
+    const [executionState, dispatch] = useReducer(getNextExecutionState, {
+        status: 'idle',
+    });
+
+    const isPassingSecurityCheck = checkSecurity(actionState, securityLevel);
+
+    useEffect(() => {
+        if (actionState === 'malicious' && !isPassingSecurityCheck) {
+            dispatch({ type: ExecutionType.BLOCK });
+        }
+    }, [actionState]);
+
+    const buttons = useMemo(
+        () =>
+            action?.actions
+                ? take(
+                      action.actions
+                          .filter((it) => !it.parameter)
+                          .filter((it) =>
+                              executionState.executingAction ? executionState.executingAction === it : true,
+                          ),
+                      SOFT_LIMIT_BUTTONS,
+                  )
+                : [],
+        [action?.actions, executionState.executingAction],
+    );
+    const inputs = useMemo(
+        () =>
+            action?.actions
+                ? take(
+                      action.actions
+                          .filter((it) => it.parameter)
+                          .filter((it) =>
+                              executionState.executingAction ? executionState.executingAction === it : true,
+                          ),
+                      SOFT_LIMIT_INPUTS,
+                  )
+                : [],
+        [action?.actions, executionState.executingAction],
+    );
+
+    const walletModal = useWalletModal();
+    const { connection } = useConnection();
+    const wallet = useWallet();
+
+    const postActionComponent = (account: string, component: ActionComponent, params?: Record<string, string>) => {
+        const parameterValue =
+            component.parameter && params ? params[component.parameter.name] : component.parameterValue;
+        const href = component.parameter
+            ? component.href.replace(`{${component.parameter.name}}`, parameterValue.trim())
+            : component.href;
+        return fetchJSON<ActionsSpecPostResponse>(href, {
+            method: 'POST',
+            body: JSON.stringify({ account } as ActionsSpecPostRequestBody),
+        });
+    };
+
+    const execute = async (component: ActionComponent, params?: Record<string, string>) => {
+        dispatch({ type: ExecutionType.INITIATE, executingAction: component });
+
+        try {
+            const account = wallet.publicKey?.toString();
+            if (!account) {
+                walletModal.setVisible(true);
+                dispatch({ type: ExecutionType.RESET });
+                return;
+            }
+
+            const tx = await postActionComponent(account, component, params);
+            const transaction = VersionedTransaction.deserialize(Buffer.from(tx.transaction, 'base64'));
+            const {
+                context: { slot: minContextSlot },
+                value: { blockhash, lastValidBlockHeight },
+            } = await connection.getLatestBlockhashAndContext();
+            const signature = await wallet.sendTransaction(transaction, connection, { minContextSlot });
+            await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
+            dispatch({
+                type: ExecutionType.FINISH,
+                successMessage: tx.message,
+            });
+        } catch (e) {
+            if (e instanceof Error && e.message === 'User rejected the request.') {
+                dispatch({ type: ExecutionType.RESET });
+                return;
+            }
+            dispatch({
+                type: ExecutionType.FAIL,
+                errorMessage: (e as Error).message ?? t`Unknown error`,
+            });
+        }
+    };
+
+    const buttonLabelMap: Record<ExecutionStatus, ReactNode> = {
+        blocked: null,
+        idle: null,
+        executing: <Trans>Executing</Trans>,
+        success: <Trans>Completed</Trans>,
+        error: <Trans>Failed</Trans>,
+    };
+
+    const asButtonProps = (it: ActionComponent): ButtonProps => ({
+        text: buttonLabelMap[executionState.status] ?? it.label,
+        loading: executionState.status === 'executing' && it === executionState.executingAction,
+        disabled: action.disabled || executionState.status !== 'idle',
+        variant: buttonVariantMap[executionState.status],
+        onClick: (params?: Record<string, string>) => execute(it, params),
+    });
+
+    const asInputProps = (it: ActionComponent) => {
+        return {
+            // since we already filter this, we can safely assume that parameter is not null
+            placeholder: it.parameter!.label,
+            disabled: action.disabled || executionState.status !== 'idle',
+            name: it.parameter!.name,
+            button: asButtonProps(it),
+        };
+    };
+
+    const disclaimer = useMemo(() => {
+        if (isLoadingSolanaBlinksActionRegister) return null;
+        if (actionState === 'malicious' && executionState.status === 'blocked') {
+            return (
+                <div className="rounded-2xl border border-danger bg-danger/10 p-4 text-[15px] leading-5 text-danger">
+                    <p>
+                        <Trans>
+                            This Action has been flagged as an unsafe action, & has been blocked. If you believe this
+                            action has been blocked in error, please.
+                        </Trans>
+                        {!isPassingSecurityCheck ? (
+                            <Trans> Your action provider blocks execution of this action.</Trans>
+                        ) : null}
+                    </p>
+                    {isPassingSecurityCheck ? (
+                        <ClickableButton
+                            className="mt-3 text-[15px] font-bold leading-5 text-danger"
+                            onClick={() => dispatch({ type: ExecutionType.UNBLOCK })}
+                        >
+                            <Trans>Ignore warning & proceed</Trans>
+                        </ClickableButton>
+                    ) : null}
+                </div>
+            );
+        }
+
+        if (actionState === 'unknown') {
+            return (
+                <div className="rounded-2xl border border-warn bg-warn/10 p-4 text-[15px] leading-5 text-warn">
+                    <p>
+                        <Trans>This Action has not yet been registered. Only use it if you trust the source.</Trans>
+                        {!isPassingSecurityCheck ? (
+                            <Trans> Your action provider blocks execution of this action.</Trans>
+                        ) : null}
+                    </p>
+                </div>
+            );
+        }
+
+        return null;
+    }, [actionState, executionState.status, isPassingSecurityCheck, isLoadingSolanaBlinksActionRegister]);
+
+    return (
+        <ActionLayout
+            type={actionState}
+            title={action.title}
+            description={action.description}
+            websiteUrl={action.url}
+            websiteText={actionUrlObj?.hostname}
+            image={action.icon}
+            disclaimer={disclaimer}
+            error={executionState.status !== 'success' ? executionState.errorMessage ?? action.error?.message : null}
+            success={executionState.successMessage}
+            buttons={buttons.map(asButtonProps)}
+            inputs={inputs.map(asInputProps)}
+        />
+    );
+}
