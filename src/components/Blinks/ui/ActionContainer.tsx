@@ -144,29 +144,21 @@ export function ActionContainer({
         () =>
             action?.actions
                 ? take(
-                      action.actions
-                          .filter((it) => !it.parameter)
-                          .filter((it) =>
-                              executionState.executingAction ? executionState.executingAction === it : true,
-                          ),
+                      action.actions.filter((it) => !it.parameter),
                       SOFT_LIMIT_BUTTONS,
                   )
                 : [],
-        [action?.actions, executionState.executingAction],
+        [action.actions],
     );
     const inputs = useMemo(
         () =>
             action?.actions
                 ? take(
-                      action.actions
-                          .filter((it) => it.parameter)
-                          .filter((it) =>
-                              executionState.executingAction ? executionState.executingAction === it : true,
-                          ),
+                      action.actions.filter((it) => it.parameter),
                       SOFT_LIMIT_INPUTS,
                   )
                 : [],
-        [action?.actions, executionState.executingAction],
+        [action.actions],
     );
 
     const walletModal = useWalletModal();
@@ -228,10 +220,10 @@ export function ActionContainer({
     };
 
     const asButtonProps = (it: ActionComponent): ButtonProps => ({
-        text: buttonLabelMap[executionState.status] ?? it.label,
+        text: it === executionState.executingAction ? buttonLabelMap[executionState.status] : it.label,
         loading: executionState.status === 'executing' && it === executionState.executingAction,
-        disabled: action.disabled || executionState.status !== 'idle',
-        variant: buttonVariantMap[executionState.status],
+        disabled: action.disabled || executionState.status !== 'idle' || !!executionState.executingAction,
+        variant: it === executionState.executingAction ? buttonVariantMap[executionState.status] : 'default',
         onClick: (params?: Record<string, string>) => execute(it, params),
     });
 
@@ -239,7 +231,7 @@ export function ActionContainer({
         return {
             // since we already filter this, we can safely assume that parameter is not null
             placeholder: it.parameter!.label,
-            disabled: action.disabled || executionState.status !== 'idle',
+            disabled: action.disabled || executionState.status !== 'idle' || !!executionState.executingAction,
             name: it.parameter!.name,
             button: asButtonProps(it),
         };
