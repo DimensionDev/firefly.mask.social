@@ -1,3 +1,4 @@
+import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
@@ -17,7 +18,7 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, video, frames, openGraphs, poll, availableSources } = props.post;
+    const { id, parentPost, images, video, frames, openGraphs, poll, availableSources, blinks } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens;
@@ -86,6 +87,15 @@ export function ComposeContent(props: ComposeContentProps) {
                     {frames.map((f) => (
                         // its readonly, so we can use the first source because it just work when clicking on the frame
                         <FrameUI key={f.url} frame={f} readonly source={availableSources[0]} />
+                    ))}
+                </div>
+            ) : null}
+
+            {/* blink */}
+            {blinks.length ? (
+                <div className="flex w-full gap-2">
+                    {blinks.map((action) => (
+                        <ActionContainer action={action} key={action.title + action.url} />
                     ))}
                 </div>
             ) : null}

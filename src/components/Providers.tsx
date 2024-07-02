@@ -13,6 +13,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
+import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -105,12 +106,14 @@ export function Providers(props: { children: React.ReactNode }) {
                         >
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
-                                {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                <LivepeerConfig client={livepeerClient}>
-                                    <SearchContextManager apiKey={env.external.NEXT_PUBLIC_GIPHY_API_KEY}>
-                                        {props.children}
-                                    </SearchContextManager>
-                                </LivepeerConfig>
+                                <SolanaWalletAdapterProvider>
+                                    {/* livepeer depends @tanstack/react-query@4.36.1 */}
+                                    <LivepeerConfig client={livepeerClient}>
+                                        <SearchContextManager apiKey={env.external.NEXT_PUBLIC_GIPHY_API_KEY}>
+                                            {props.children}
+                                        </SearchContextManager>
+                                    </LivepeerConfig>
+                                </SolanaWalletAdapterProvider>
                             </WagmiProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>

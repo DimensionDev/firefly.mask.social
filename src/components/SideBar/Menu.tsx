@@ -128,8 +128,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <Link
                                                 href={item.href}
                                                 className={classNames(
-                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-full p-2 text-xl outline-none hover:bg-bg md:w-auto',
-                                                    { 'font-bold': isSelected, 'px-4': !collapsed },
+                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg p-2 px-4 py-3 text-xl leading-6 outline-none hover:bg-bg md:w-auto',
+                                                    { 'font-bold': isSelected },
                                                 )}
                                             >
                                                 {collapsed ? (
@@ -182,7 +182,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 ) : (
                                     <li>
                                         <ClickableButton
-                                            className="hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
+                                            className="mt-6 hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
                                             onClick={() => {
                                                 ComposeModalRef.open({
                                                     type: 'compose',

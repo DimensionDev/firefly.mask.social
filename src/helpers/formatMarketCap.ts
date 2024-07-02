@@ -11,7 +11,7 @@ function removeTrailingZeros(str: string) {
 }
 
 export function formatMarketCap(amount: BigNumber.Value, digits = 2) {
-    let bigNumber = BigNumber(amount);
+    let bigNumber = new BigNumber(amount);
     const isNegative = bigNumber.isNegative();
     const prefix = isNegative ? '-' : '';
     bigNumber = bigNumber.abs();

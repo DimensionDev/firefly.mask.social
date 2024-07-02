@@ -27,3 +27,4 @@ export const FireflySessionConfirmModalRef = new SingletonModal<
 >();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
+export const SolanaAccountModalRef = new SingletonModal();
