@@ -30,6 +30,7 @@ const brands: Record<CommunityType, React.ReactNode> = {
     telegram: <TelegramRound width={16} height={16} />,
     twitter: <TwitterXRound width={16} height={16} />,
     youtube: <YouTube width={16} height={16} />,
+    linkedin: <LinkIcon width={16} height={16} />,
     other: <LinkIcon width={16} height={16} />,
 };
 

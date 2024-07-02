@@ -47,7 +47,7 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile }: 
             return (
                 <>
                     <WatchButton className="ml-auto" address={walletProfile.address} />
-                    <WalletMoreAction profile={walletProfile} />
+                    <WalletMoreAction className="ml-2 text-main" profile={walletProfile} />
                 </>
             );
         return null;

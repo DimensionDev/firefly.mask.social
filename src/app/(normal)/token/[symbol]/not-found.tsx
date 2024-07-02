@@ -9,8 +9,8 @@ import { PageRoute, SearchType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 
 export default function NotFoundToken() {
-    const params = useParams();
-    const { symbol } = params;
+    const params = useParams<{ symbol: string }>();
+    const symbol = decodeURIComponent(params.symbol);
     const url = urlcat(PageRoute.Search, {
         q: `$${symbol}`,
         type: SearchType.Posts,

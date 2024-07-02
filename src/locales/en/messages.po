@@ -106,9 +106,6 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
-msgid "Download Image"
-msgstr "Download Image"
-
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr "We are not aware of any code that prevents the sale of tokens."
 
@@ -1176,6 +1173,9 @@ msgstr "Cancel"
 
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
+
+msgid "Download image"
+msgstr "Download image"
 
 msgid "Mirrored"
 msgstr "Mirrored"
