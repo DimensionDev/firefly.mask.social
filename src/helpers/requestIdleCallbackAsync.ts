@@ -1,4 +1,4 @@
-type UnboxPromise<T> = T extends Promise<infer U> ? U : never;
+import type { UnboxPromise } from '@/types/index.js';
 
 export function requestIdleCallbackAsync<T extends () => Promise<unknown>, R = UnboxPromise<ReturnType<T>>>(
     callback: T,
