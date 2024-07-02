@@ -83,7 +83,9 @@
         "warpcast",
         "xdai",
         "zora",
-        "zustand"
+        "zustand",
+        "blockhash",
+        "lamports"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -152,7 +154,8 @@
         "openrank",
         "imagekit",
         "giphy",
-        "Gifs"
+        "Gifs",
+        "determenistic"
     ],
     "flagWords": [],
     "ignorePaths": [

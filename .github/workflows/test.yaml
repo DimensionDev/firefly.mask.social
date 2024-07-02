@@ -62,3 +62,4 @@ jobs:
                   S3_HOST: ${{ secrets.S3_HOST }}
 
                   NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+                  NEXT_PUBLIC_SOLANA_RPC_URL: ${{ secrets.NEXT_PUBLIC_SOLANA_RPC_URL }}
