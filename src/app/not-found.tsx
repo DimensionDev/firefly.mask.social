@@ -1,9 +1,9 @@
 import { t, Trans } from '@lingui/macro';
 
+import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
-import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -17,17 +17,14 @@ export async function generateMetadata() {
 export default function NotFound() {
     return (
         <>
-            <main className="w-[888px] flex-[1_1_100%] border-r border-line md:pl-[289px]">
-                <div className="flex h-screen flex-col items-center justify-center">
-                    <Image src="/image/radar.png" width={200} height={106} alt={t`Page not found. Please try again.`} />
-                    <div className="mt-11 text-sm font-bold">
-                        <Trans>The page could not be found.</Trans>
-                    </div>
-                    <Link className="text-link underline md:hidden" href={'/'}>
-                        <Trans>Back to home</Trans>
-                    </Link>
+            <BaseNotFound className="w-[888px] md:pl-[289px]">
+                <div className="mt-11 text-sm font-bold">
+                    <Trans>The page could not be found.</Trans>
                 </div>
-            </main>
+                <Link className="text-link underline md:hidden" href={'/'}>
+                    <Trans>Back to home</Trans>
+                </Link>
+            </BaseNotFound>
             <aside className="top-0 z-[1] hidden h-full w-96 px-4 md:sticky lg:block">
                 <IfPathname isNotOneOf={['/settings']}>
                     <AsideSearchBar />

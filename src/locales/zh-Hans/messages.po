@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-29 12:01\n"
+"PO-Revision-Date: 2024-07-02 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -110,9 +110,6 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
-
-msgid "Download Image"
-msgstr "下载图片"
 
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
@@ -217,6 +214,9 @@ msgid "Login with QR Code"
 msgstr "使用二维码登录"
 
 msgid "Contract source code verified"
+msgstr ""
+
+msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
@@ -448,6 +448,9 @@ msgid "via <0>{sendFrom}</0>"
 msgstr "于 <0>{sendFrom}</0>"
 
 msgid "Info"
+msgstr ""
+
+msgid "Max"
 msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
@@ -714,6 +717,9 @@ msgstr "选项 {0}"
 msgid "Send Feedback"
 msgstr "提交反馈"
 
+msgid "The chainId mismatch."
+msgstr ""
+
 msgid "Open in Firefly App"
 msgstr "打开 Firefly App"
 
@@ -837,6 +843,9 @@ msgstr "任何人"
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
+msgid "Search ${symbol}"
+msgstr ""
+
 msgid "Failed to unmute /{0}."
 msgstr "取消屏蔽失败/{0}。"
 
@@ -881,6 +890,9 @@ msgstr "屏蔽"
 
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
+
+msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+msgstr ""
 
 msgid "Failed to recast."
 msgstr "转帖失败。"
@@ -947,6 +959,9 @@ msgstr "推荐关注"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
+
+msgid "Token ${symbol} could not be found."
+msgstr ""
 
 msgid "Articles"
 msgstr "文章"
@@ -1092,9 +1107,6 @@ msgstr "热门收藏者"
 msgid "Quote"
 msgstr "引用"
 
-msgid "More Detail"
-msgstr ""
-
 msgid "View engagements"
 msgstr "查看互动"
 
@@ -1191,11 +1203,17 @@ msgstr "取消"
 msgid "Failed to like the post."
 msgstr "点赞失败。"
 
+msgid "Download image"
+msgstr ""
+
 msgid "Mirrored"
 msgstr "已转发"
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
+
+msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+msgstr ""
 
 msgid "This does not appear to be a honeypot."
 msgstr ""
@@ -1464,6 +1482,9 @@ msgstr "只有你关注的人"
 msgid "Add another option"
 msgstr "添加另一个选项"
 
+msgid "1y"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr ""
 
@@ -1554,6 +1575,9 @@ msgstr ""
 msgid "Your post have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
+msgid "Detail"
+msgstr ""
+
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
 
@@ -1628,6 +1652,9 @@ msgstr ""
 
 msgid "Recasted"
 msgstr "已转发"
+
+msgid "Failed to parse transaction."
+msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr ""
@@ -1778,3 +1805,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+

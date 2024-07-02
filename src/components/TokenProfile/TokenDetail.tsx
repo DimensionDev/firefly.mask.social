@@ -89,8 +89,8 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
         { label: t`24h`, days: 1 },
         { label: t`7d`, days: 7 },
         { label: t`1m`, days: 30 },
-        { label: '1y', days: 365 },
-        { label: 'Max', days: undefined },
+        { label: t`1y`, days: 365 },
+        { label: t`Max`, days: undefined },
     ] as const;
 
     const [days, setDays] = useState<number | undefined>(ranges[0].days);
@@ -241,12 +241,12 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     />
                     <InfoRow
                         title={t`24 Hour Trading Vol`}
-                        description="A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+                        description={t`A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times.`}
                         value={market?.total_volume}
                     />
                     <InfoRow
                         title={t`Circulating Supply`}
-                        description="The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+                        description={t`The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments).`}
                         amount={market?.circulating_supply}
                     />
                     <InfoRow

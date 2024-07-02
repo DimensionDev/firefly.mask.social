@@ -49,7 +49,10 @@ interface Attachments {
 }
 
 function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
-    if (images.some((image) => !resolveImageUrl(Source.Lens, image)) || !resolveVideoUrl(Source.Lens, video)) {
+    if (
+        images.some((image) => !resolveImageUrl(Source.Lens, image)) ||
+        (video && !resolveVideoUrl(Source.Lens, video))
+    ) {
         throw new Error(t`There are images or videos that were not uploaded successfully.`);
     }
 

@@ -106,9 +106,6 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
-msgid "Download Image"
-msgstr "Download Image"
-
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr "We are not aware of any code that prevents the sale of tokens."
 
@@ -213,6 +210,9 @@ msgstr "Login with QR Code"
 
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
+
+msgid "Profile not found"
+msgstr "Profile not found"
 
 msgid "NFT Standard"
 msgstr "NFT Standard"
@@ -444,6 +444,9 @@ msgstr "via <0>{sendFrom}</0>"
 
 msgid "Info"
 msgstr "Info"
+
+msgid "Max"
+msgstr "Max"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
@@ -709,6 +712,9 @@ msgstr "Choice {0}"
 msgid "Send Feedback"
 msgstr "Send Feedback"
 
+msgid "The chainId mismatch."
+msgstr "The chainId mismatch."
+
 msgid "Open in Firefly App"
 msgstr "Open in Firefly App"
 
@@ -832,6 +838,9 @@ msgstr "Everyone"
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 
+msgid "Search ${symbol}"
+msgstr "Search ${symbol}"
+
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
 
@@ -876,6 +885,9 @@ msgstr "Mute"
 
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
+
+msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+msgstr "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 
 msgid "Failed to recast."
 msgstr "Failed to recast."
@@ -942,6 +954,9 @@ msgstr "Suggested Follows"
 
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
+
+msgid "Token ${symbol} could not be found."
+msgstr "Token ${symbol} could not be found."
 
 msgid "Articles"
 msgstr "Articles"
@@ -1087,9 +1102,6 @@ msgstr "Top Collectors"
 msgid "Quote"
 msgstr "Quote"
 
-msgid "More Detail"
-msgstr "More Detail"
-
 msgid "View engagements"
 msgstr "View engagements"
 
@@ -1186,11 +1198,17 @@ msgstr "Cancel"
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
+msgid "Download image"
+msgstr "Download image"
+
 msgid "Mirrored"
 msgstr "Mirrored"
 
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
+
+msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
@@ -1459,6 +1477,9 @@ msgstr "Only people you follow"
 msgid "Add another option"
 msgstr "Add another option"
 
+msgid "1y"
+msgstr "1y"
+
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
 
@@ -1549,6 +1570,9 @@ msgstr "Statistic"
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
 
+msgid "Detail"
+msgstr "Detail"
+
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 
@@ -1623,6 +1647,9 @@ msgstr "Suspended account"
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "Failed to parse transaction."
+msgstr "Failed to parse transaction."
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "No anti_whale(Unlimited number of transactions)"

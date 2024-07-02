@@ -10,6 +10,7 @@ export const resolveEmbedMediaType = (type: EmbedMediaType, url: string) => {
         case EmbedMediaType.IMAGE:
             return 'Image';
         case EmbedMediaType.AUDIO:
+            if (url.includes('m3u8')) return 'Video';
             return 'Audio';
         case EmbedMediaType.VIDEO:
             return 'Video';
