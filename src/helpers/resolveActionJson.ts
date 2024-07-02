@@ -11,11 +11,13 @@ export function resolveActionJson(url: string, actions: ActionRuleResponse) {
             const pathPattern = pathPatterns[i];
             if (pathPattern === '**') {
                 pathPatterns[i] = paths.slice(i).join('/');
+                continue;
             }
             if (pathPattern === '*') {
                 pathPatterns[i] = paths[i];
+                continue;
             }
-            if (pathPatterns[i] !== paths[i]) break;
+            if (pathPattern !== paths[i]) break;
         }
         const newPath = pathPatterns.join('/');
         if (newPath !== rule.pathPattern) return rule.apiPath.replace(rule.pathPattern, pathPatterns.join('/'));
