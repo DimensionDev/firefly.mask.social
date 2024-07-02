@@ -20,8 +20,8 @@ import {
     getIsLarge,
     getSite,
     getTitle,
-} from '@/libs/og/readers/metadata.js';
-import { getFarcasterPayload, getMirrorPayload } from '@/libs/og/readers/payload.js';
+} from '@/providers/og/readers/metadata.js';
+import { getFarcasterPayload, getMirrorPayload } from '@/providers/og/readers/payload.js';
 import { type ImageDigested, type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
 
 class Processor {

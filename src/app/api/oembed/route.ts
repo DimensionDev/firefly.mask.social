@@ -1,7 +1,7 @@
 import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { OpenGraphProcessor } from '@/libs/og/Processor.js';
+import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 
 const digestLinkRedis = memoizeWithRedis(OpenGraphProcessor.digestDocumentUrl, {
     key: KeyType.DigestOpenGraphLink,

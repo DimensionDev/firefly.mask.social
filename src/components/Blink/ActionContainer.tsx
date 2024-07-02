@@ -127,9 +127,9 @@ export function ActionContainer({
         },
     });
 
-    const u = parseURL(action.url);
+    const actionUrl = parseURL(action.url);
     const websiteText = parseURL(action.websiteUrl)?.hostname;
-    const actionState: ActionType = (u ? registry?.[u.hostname]?.state : null) ?? 'unknown';
+    const actionState: ActionType = (actionUrl ? registry?.[actionUrl.hostname]?.state : null) ?? 'unknown';
 
     const [executionState, dispatch] = useReducer(getNextExecutionState, {
         status: 'idle',
