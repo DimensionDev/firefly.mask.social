@@ -1516,14 +1516,14 @@ msgstr "Your name"
 msgid "Owned"
 msgstr "Owned"
 
-msgid "Ignore warning & proceed"
-msgstr "Ignore warning & proceed"
-
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
+
+msgid "Ignore warning and proceed"
+msgstr "Ignore warning and proceed"
 
 msgid "NFT ID"
 msgstr "NFT ID"
