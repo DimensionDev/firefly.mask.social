@@ -28,6 +28,9 @@ msgstr ""
 msgid "Muted"
 msgstr ""
 
+msgid "Disconnect"
+msgstr ""
+
 msgid "Quote Post"
 msgstr ""
 
@@ -488,6 +491,9 @@ msgid "Failed to mute /{0}."
 msgstr ""
 
 msgid "Address"
+msgstr ""
+
+msgid "SOL"
 msgstr ""
 
 msgid "[Photo]"

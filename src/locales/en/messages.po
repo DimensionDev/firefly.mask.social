@@ -28,6 +28,9 @@ msgstr "Onchain Activities"
 msgid "Muted"
 msgstr "Muted"
 
+msgid "Disconnect"
+msgstr "Disconnect"
+
 msgid "Quote Post"
 msgstr "Quote Post"
 
@@ -489,6 +492,9 @@ msgstr "Failed to mute /{0}."
 
 msgid "Address"
 msgstr "Address"
+
+msgid "SOL"
+msgstr "SOL"
 
 msgid "[Photo]"
 msgstr "[Photo]"
