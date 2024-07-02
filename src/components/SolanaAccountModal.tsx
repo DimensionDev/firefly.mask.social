@@ -41,7 +41,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
     });
 
     return (
-        <Modal open={open} onClose={onClose}>
+        <Modal open={open} onClose={onClose} disableScrollLock={false}>
             <div className="z-50 inline-flex w-[355px] flex-col items-center justify-start rounded-xl bg-primaryBottom p-6 shadow">
                 <div className="flex w-full items-center justify-end">
                     <CloseButton onClick={onClose} className="h-6 w-6" />
