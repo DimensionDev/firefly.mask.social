@@ -1,6 +1,6 @@
 import { parseURL } from '@/helpers/parseURL.js';
 
-export type isActionUrl =
+export type ActionUrl =
     | {
           isBlink: true;
           decodedActionUrl: string;
@@ -11,11 +11,11 @@ export type isActionUrl =
           url: string;
       };
 
-export function decodeActionUrl(url: string): isActionUrl {
-    const urlObj = parseURL(url);
-    if (!urlObj) return { isBlink: false, url };
+export function decodeActionUrl(url: string): ActionUrl {
+    const parsedUrl = parseURL(url);
+    if (!parsedUrl) return { isBlink: false, url };
 
-    const actionUrl = urlObj.searchParams.get('action');
+    const actionUrl = parsedUrl.searchParams.get('action');
     if (!actionUrl) {
         return { isBlink: false, url };
     }
@@ -27,12 +27,12 @@ export function decodeActionUrl(url: string): isActionUrl {
     }
     const decodedActionUrl = urlDecodedActionUrl.replace(solanaActionPrefix, '');
 
-    const decodedActionUrlObj = parseURL(decodedActionUrl);
-    if (!decodedActionUrlObj) return { isBlink: false, url };
+    const parsedActionUrl = parseURL(decodedActionUrl);
+    if (!parsedActionUrl) return { isBlink: false, url };
 
     return {
         url,
         isBlink: true,
-        decodedActionUrl: decodedActionUrlObj.toString(),
+        decodedActionUrl: parsedActionUrl.toString(),
     };
 }

@@ -1,4 +1,4 @@
-import { SOLANA_BLINKS_PREFIX } from '@/constants/regexp.js';
+import { SOLANA_BLINK_PREFIX } from '@/constants/regexp.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
@@ -18,7 +18,7 @@ function createActionComponent(label: string, href: string, parameters?: [Parame
 
 class Loader extends BaseLoader<Action> {
     protected override fetch(url: string, signal?: AbortSignal): Promise<Action | null> {
-        url = url.startsWith(SOLANA_BLINKS_PREFIX) ? url.substring(SOLANA_BLINKS_PREFIX.length) : url;
+        url = url.startsWith(SOLANA_BLINK_PREFIX) ? url.substring(SOLANA_BLINK_PREFIX.length) : url;
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
             const response = await fetchCachedJSON<ActionsSpecGetResponse>(url, {
@@ -37,11 +37,13 @@ class Loader extends BaseLoader<Action> {
                 actions: [],
             };
             if (data.links?.actions) {
-                const urlObj = parseURL(url)!;
-                actionResult.actions = data.links?.actions.map((action) => {
-                    const href = action.href.startsWith('http') ? action.href : urlObj.origin + action.href;
-                    return createActionComponent(action.label, href, action.parameters);
-                });
+                const u = parseURL(url);
+                if (u) {
+                    actionResult.actions = data.links.actions.map((action) => {
+                        const href = action.href.startsWith('http') ? action.href : u.origin + action.href;
+                        return createActionComponent(action.label, href, action.parameters);
+                    });
+                }
             } else {
                 actionResult.actions = [createActionComponent(data.label, url)];
             }

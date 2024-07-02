@@ -12,7 +12,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import { BlinkRegister } from '@/providers/blink/Register.js';
+import { BlinkRegistry } from '@/providers/blink/Registry.js';
 import type {
     Action,
     ActionComponent,
@@ -119,18 +119,16 @@ export function ActionContainer({
     action: Action;
     securityLevel?: SecurityLevel;
 }) {
-    const { data: solanaBlinksActionRegister, isLoading: isLoadingSolanaBlinksActionRegister } = useQuery({
-        queryKey: ['blinks-action-register'],
+    const { data: registry, isLoading: isLoadingRegistry } = useQuery({
+        queryKey: ['blink-action-register'],
         async queryFn() {
-            const config = await BlinkRegister.fetchActionsRegistryConfig();
+            const config = await BlinkRegistry.fetchActionsRegistryConfig();
             return Object.fromEntries(config.actions.map((action) => [action.host, action]));
         },
     });
 
-    const actionUrlObj = useMemo(() => parseURL(action.url), [action.url]);
-
-    const actionState: ActionType =
-        (actionUrlObj ? solanaBlinksActionRegister?.[actionUrlObj.hostname]?.state : null) ?? 'unknown';
+    const u = parseURL(action.url);
+    const actionState: ActionType = (u ? registry?.[u.hostname]?.state : null) ?? 'unknown';
 
     const [executionState, dispatch] = useReducer(getNextExecutionState, {
         status: 'idle',
@@ -242,7 +240,6 @@ export function ActionContainer({
     };
 
     const disclaimer = useMemo(() => {
-        if (isLoadingSolanaBlinksActionRegister) return null;
         if (actionState === 'malicious' && executionState.status === 'blocked') {
             return (
                 <div className="rounded-2xl border border-danger bg-danger/10 p-4 text-[15px] leading-5 text-danger">
@@ -279,7 +276,7 @@ export function ActionContainer({
             );
         }
         return null;
-    }, [actionState, executionState.status, isPassingSecurityCheck, isLoadingSolanaBlinksActionRegister]);
+    }, [actionState, executionState.status, isPassingSecurityCheck]);
 
     return (
         <ActionLayout
@@ -287,9 +284,9 @@ export function ActionContainer({
             title={action.title}
             description={action.description}
             websiteUrl={action.url}
-            websiteText={actionUrlObj?.hostname}
+            websiteText={u?.hostname}
             image={action.icon}
-            disclaimer={disclaimer}
+            disclaimer={isLoadingRegistry ? null : disclaimer}
             success={executionState.successMessage}
             buttons={buttons.map(asButtonProps)}
             inputs={inputs.map(asInputProps)}

@@ -91,7 +91,7 @@ export function ComposeContent(props: ComposeContentProps) {
                 </div>
             ) : null}
 
-            {/* solana blinks */}
+            {/* blink */}
             {blinks.length ? (
                 <div className="flex w-full gap-2">
                     {blinks.map((action) => (
