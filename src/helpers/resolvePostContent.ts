@@ -7,13 +7,14 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function resolvePostContent(post: Post, endingLinkCollapsed?: boolean) {
     let content = post.metadata.content?.content ?? '';
-    const solanaBlinkUrlMatchOembedUrl = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINK_REGEX);
+    const solanaBlinkMatchOembedUrl = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINK_REGEX);
     const parsedBlinks = parseBlinksFromContent(content);
-    const solanaBlinkUrlMatchContent = first(parsedBlinks.decodedUrls);
+    const solanaBlinkMatchContent = first(parsedBlinks.decodedUrls);
     content = parsedBlinks.content;
     if (endingLinkCollapsed) content = removeUrlAtEnd(post.metadata.content?.oembedUrl, content);
+
     return {
-        postContent: content,
-        blinkUrl: solanaBlinkUrlMatchOembedUrl ? solanaBlinkUrlMatchOembedUrl[2] : solanaBlinkUrlMatchContent,
+        content,
+        blink: solanaBlinkMatchOembedUrl ? solanaBlinkMatchOembedUrl[2] : solanaBlinkMatchContent,
     };
 }

@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useMemo, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
@@ -83,33 +83,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(post.author, isDetail);
 
-    const { postContent, blinkUrl } = resolvePostContent(post, endingLinkCollapsed);
-
-    const frame = useMemo(() => {
-        if (blinkUrl) {
-            return <BlinkWithQuery url={blinkUrl} onData={() => setEndingLinkCollapsed(true)} />;
-        }
-        if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAMES === STATUS.Enabled) {
-            return (
-                <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
-                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
-                    ) : null}
-                </Frame>
-            );
-        }
-        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
-            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />;
-        }
-        return null;
-    }, [
-        post.metadata.content?.oembedUrl,
-        post.quoteOn,
-        post.metadata?.content?.oembedUrls,
-        post.postId,
-        post.source,
-        blinkUrl,
-    ]);
+    const { content, blink } = resolvePostContent(post, endingLinkCollapsed);
 
     if (post.isEncrypted) {
         return (
@@ -207,6 +181,24 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
+    const renderLinks = () => {
+        if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled)
+            return <BlinkWithQuery url={blink} onData={() => setEndingLinkCollapsed(true)} />;
+        if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
+            return (
+                <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
+                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
+                    ) : null}
+                </Frame>
+            );
+        }
+        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
+            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />;
+        }
+        return null;
+    };
+
     return (
         <div
             className={classNames('-mt-2 mb-2 break-words text-base text-main', {
@@ -215,10 +207,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             <div ref={observe} />
-            <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+            <PostMarkup post={post} canShowMore={canShowMore} content={content} />
 
-            {showTranslate && trimify(postContent) ? (
-                <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
+            {showTranslate && trimify(content) ? (
+                <ContentTranslator content={trimify(content)} canShowMore={canShowMore} post={post} />
             ) : null}
 
             {postViewed ? (
@@ -262,7 +254,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            {frame}
+            {renderLinks()}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
