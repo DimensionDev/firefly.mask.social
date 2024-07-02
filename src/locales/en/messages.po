@@ -493,9 +493,6 @@ msgstr "Failed to mute /{0}."
 msgid "Address"
 msgstr "Address"
 
-msgid "SOL"
-msgstr "SOL"
-
 msgid "[Photo]"
 msgstr "[Photo]"
 

@@ -60,9 +60,9 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                     <div className="flex h-[58px] flex-col items-start justify-start gap-3 self-stretch">
                         <div className="inline-flex h-6 items-center justify-center gap-1.5 self-stretch">
                             <div className="text-center text-[15px] font-bold leading-tight text-main">
-                                {publicKeyStr ? formatAddress(publicKeyStr, 10) : null}
+                                {publicKeyStr ? formatAddress(publicKeyStr, 10) : '-'}
                             </div>
-                            <CopyButton value={publicKeyStr ?? ''} />
+                            {publicKeyStr ? <CopyButton value={publicKeyStr} /> : null}
                         </div>
                         <div className="inline-flex h-[23px] items-center justify-start gap-3 self-stretch">
                             <div
@@ -73,7 +73,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                                     },
                                 )}
                             >
-                                {balanceLamports ? formatBalance(balanceLamports, 9) : '-'} <Trans>SOL</Trans>
+                                {balanceLamports ? formatBalance(balanceLamports, 9) : '-'} SOL
                             </div>
                         </div>
                     </div>

@@ -17,6 +17,8 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function ConnectWalletModal(_, ref) {
+    const isMedium = useIsMedium();
+
     const connectModalEVM = useConnectModalEVM();
     const connectModalSolana = useConnectModalSolana();
     const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
@@ -28,30 +30,26 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
         },
     });
 
-    const isMedium = useIsMedium();
-
     function onClose() {
         dispatch?.close();
     }
 
-    const chainTypes = [
-        {
-            icon: evmNetworkDescriptor?.icon,
-            label: <Trans>EVM</Trans>,
-            onOpen: () => connectModalEVM.openConnectModal?.(),
-            type: 'EVM',
-        },
-        {
-            icon: solanaNetworkDescriptor?.icon,
-            label: <Trans>Solana</Trans>,
-            onOpen: () => connectModalSolana.setVisible(true),
-            type: 'Solana',
-        },
-    ];
-
     const content = (
         <div className="grid grid-cols-1 gap-3 p-4 text-sm font-bold leading-5 text-second md:grid-cols-2">
-            {chainTypes.map((chainType) => {
+            {[
+                {
+                    icon: evmNetworkDescriptor?.icon,
+                    label: <Trans>EVM</Trans>,
+                    onOpen: () => connectModalEVM.openConnectModal?.(),
+                    type: 'EVM',
+                },
+                {
+                    icon: solanaNetworkDescriptor?.icon,
+                    label: <Trans>Solana</Trans>,
+                    onOpen: () => connectModalSolana.setVisible(true),
+                    type: 'Solana',
+                },
+            ].map((chainType) => {
                 return (
                     <ClickableButton
                         key={chainType.type}

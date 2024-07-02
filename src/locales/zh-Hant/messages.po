@@ -498,9 +498,6 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-msgid "SOL"
-msgstr ""
-
 msgid "[Photo]"
 msgstr ""
 

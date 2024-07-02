@@ -498,9 +498,6 @@ msgstr "屏蔽 /{0} 失败。"
 msgid "Address"
 msgstr "地址"
 
-msgid "SOL"
-msgstr ""
-
 msgid "[Photo]"
 msgstr "[照片]"
 
