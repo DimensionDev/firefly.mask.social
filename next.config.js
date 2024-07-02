@@ -1,10 +1,10 @@
 /* cspell:disable */
 
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { createRequire } from 'module';
-import CopyPlugin from 'copy-webpack-plugin';
 import { execSync } from 'child_process';
+import CopyPlugin from 'copy-webpack-plugin';
+import { createRequire } from 'module';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 import { POLICY_SETTINGS } from './csp.js';
 
@@ -73,6 +73,9 @@ export default {
             { protocol: 'https', hostname: 'abs.twimg.com' },
             {
                 hostname: '*.giphy.com',
+            },
+            {
+                hostname: 'static.debank.com',
             },
         ],
     },

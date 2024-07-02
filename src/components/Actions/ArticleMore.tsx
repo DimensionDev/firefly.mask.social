@@ -11,7 +11,9 @@ import { BookmarkArticleButton } from '@/components/Actions/BookmarkArticleButto
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
+import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Source } from '@/constants/enum.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
 
@@ -100,6 +102,21 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         )}
                     </Menu.Item>
                     <Menu.Item>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</Menu.Item>
+                    <Menu.Item>
+                        {({ close }) => (
+                            <div className="px-3 py-1 hover:bg-bg">
+                                <Tips
+                                    identity={author.id}
+                                    source={Source.Wallet}
+                                    handle={(author.handle || ens) ?? undefined}
+                                    tooltipDisabled
+                                    label={t`Send tips`}
+                                    onClick={close}
+                                    pureWallet
+                                />
+                            </div>
+                        )}
+                    </Menu.Item>
                 </Menu.Items>
             </Transition>
         </Menu>

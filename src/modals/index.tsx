@@ -14,6 +14,7 @@ import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
+import { TipsModal } from '@/modals/TipsModal.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -29,6 +30,7 @@ export const Modals = memo(function Modals() {
             <FireflySessionConfirmModal ref={controls.FireflySessionConfirmModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
+            <TipsModal ref={controls.TipsModalRef.register} />
         </>
     );
 });
