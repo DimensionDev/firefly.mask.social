@@ -7,9 +7,9 @@ import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { getCurrentSource, useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -49,6 +49,8 @@ export function SourceTabs() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 
+    const updateParams = useUpdateParams();
+
     if (searchParams.get('hiddenTabs')) return null;
 
     return (
@@ -71,14 +73,14 @@ export function SourceTabs() {
 
                                     if (type === SearchType.Channels && value === Source.Lens) {
                                         updateSearchType(SearchType.Posts);
-                                        replaceSearchParams(
+                                        updateParams(
                                             new URLSearchParams({
                                                 source: resolveSourceInURL(value),
                                                 type: SearchType.Posts,
                                             }),
                                         );
                                     } else {
-                                        replaceSearchParams(
+                                        updateParams(
                                             new URLSearchParams({
                                                 source: resolveSourceInURL(value),
                                             }),

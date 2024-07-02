@@ -5,20 +5,21 @@ import { UnreachableError } from '@/constants/error.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
-    {
-        [SourceInURL.Farcaster]: Source.Farcaster,
-        [SourceInURL.Lens]: Source.Lens,
-        [SourceInURL.Twitter]: Source.Twitter,
-        [SourceInURL.Firefly]: Source.Firefly,
-        [SourceInURL.Article]: Source.Article,
-        [SourceInURL.Wallet]: Source.Wallet,
-        [SourceInURL.NFTs]: Source.NFTs,
-    },
-    (sourceInUrl) => {
-        throw new UnreachableError('sourceInUrl', sourceInUrl);
-    },
-);
+const map: Record<SourceInURL, Source> = {
+    [SourceInURL.Farcaster]: Source.Farcaster,
+    [SourceInURL.Lens]: Source.Lens,
+    [SourceInURL.Twitter]: Source.Twitter,
+    [SourceInURL.Firefly]: Source.Firefly,
+    [SourceInURL.Article]: Source.Article,
+    [SourceInURL.Wallet]: Source.Wallet,
+    [SourceInURL.NFTs]: Source.NFTs,
+};
+
+export function resolveSource(key: string): undefined;
+export function resolveSource(key: SourceInURL): Source;
+export function resolveSource(key: SourceInURL | string) {
+    return key in map ? map[key as SourceInURL] : undefined;
+}
 
 export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, SocialSource>(
     {
