@@ -12,7 +12,7 @@ interface AddressValidation {
 }
 
 export function useAddressValidate(address: string): AddressValidation {
-    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>()
+    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
     const { value: addressType, loading } = useAddressType(NetworkPluginID.PLUGIN_EVM, address, {
         chainId,
     });

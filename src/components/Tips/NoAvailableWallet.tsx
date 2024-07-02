@@ -7,7 +7,7 @@ export const NoAvailableWallet = memo(function NoAvailableWallet() {
     return (
         <>
             <TipsModalHeader />
-            <div className="leading-[18px] h-[156px]">
+            <div className="h-[156px] leading-[18px]">
                 <Trans>Sorry, there is no wallet address available for tipping.</Trans>
             </div>
         </>

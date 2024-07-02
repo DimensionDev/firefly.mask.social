@@ -14,9 +14,13 @@ export async function getTokensByAddress(address: string) {
     return result.data?.list ?? [];
 }
 
-export async function getTokensByAddressForTips(address: string): Promise<Array<UserToken & {
-    chainId: ChainId | null;
-}>> {
+export async function getTokensByAddressForTips(address: string): Promise<
+    Array<
+        UserToken & {
+            chainId: ChainId | null;
+        }
+    >
+> {
     const tokens = await getTokensByAddress(address);
     const chains = Object.keys(ChainId);
 

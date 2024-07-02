@@ -26,4 +26,4 @@ export type TipsToken = UserToken & {
     chainId: ChainId | null;
     network: ReturnType<typeof useNetworks>[0];
     balance: string;
-}
+};
