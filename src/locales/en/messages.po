@@ -1477,6 +1477,9 @@ msgstr "Online"
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
+msgid "This Action has not yet been registered. Only use it if you trust the source."
+msgstr "This Action has not yet been registered. Only use it if you trust the source."
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
