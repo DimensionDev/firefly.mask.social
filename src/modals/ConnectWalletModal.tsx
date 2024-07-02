@@ -54,6 +54,7 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
             {chainTypes.map((chainType) => {
                 return (
                     <ClickableButton
+                        key={chainType.type}
                         className="flex flex-col items-center gap-2 rounded-md px-4 py-6 hover:bg-lightBg hover:text-main"
                         onClick={() => {
                             chainType.onOpen();

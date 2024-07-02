@@ -149,7 +149,7 @@ export function ActionContainer({
         if (actionState === 'malicious' && !isPassingSecurityCheck) {
             dispatch({ type: ExecutionType.BLOCK });
         }
-    }, [actionState]);
+    }, [actionState, isPassingSecurityCheck]);
 
     const buttons = useMemo(
         () =>
@@ -276,7 +276,7 @@ export function ActionContainer({
                             className="mt-3 text-[15px] font-bold leading-5 text-danger"
                             onClick={() => dispatch({ type: ExecutionType.UNBLOCK })}
                         >
-                            <Trans>Ignore warning & proceed</Trans>
+                            <Trans>Ignore warning and proceed</Trans>
                         </ClickableButton>
                     ) : null}
                 </div>

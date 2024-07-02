@@ -18,7 +18,7 @@ export function BlinkWithQuery(props: { url: string; onData?: (data: Action) => 
         if (query.data) {
             props.onData?.(query.data);
         }
-    }, [query.data]);
+    }, [props, query.data]);
 
     if (!query.data) return null;
 

@@ -54,6 +54,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             onOpenConnectModal: () => connectModalEVM.openConnectModal?.(),
             onOpenAccountModal: () => accountModalEVM.openAccountModal?.(),
             isConnected: evmAccount.isConnected,
+            type: 'EVM',
         },
         {
             icon: solanaNetworkDescriptor?.icon,
@@ -65,6 +66,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             onOpenConnectModal: () => connectModalSolana.setVisible(true),
             onOpenAccountModal: () => connectModalSolana.setVisible(true),
             isConnected: solanaWallet.connected,
+            type: 'Solana',
         },
     ];
 
@@ -133,30 +135,32 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             </div>
             {isConnected && collapsed ? (
                 <>
-                    {chainTypes.map((type) => {
-                        if (type === activeType) return null;
-                        return (
-                            <ClickableButton
-                                onClick={type.onOpenConnectModal}
-                                className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
-                            >
-                                <Image
-                                    src={type.icon ?? ''}
-                                    alt="chain-icon"
-                                    width={20}
-                                    height={20}
-                                    className="h-5 w-5"
-                                />
-                                {type.isConnected ? (
-                                    <span>{type.label}</span>
-                                ) : (
-                                    <span>
-                                        <Trans>Connect Wallet</Trans>
-                                    </span>
-                                )}
-                            </ClickableButton>
-                        );
-                    })}
+                    {chainTypes
+                        .filter((type) => type === activeType)
+                        .map((type) => {
+                            return (
+                                <ClickableButton
+                                    key={type.type}
+                                    onClick={type.onOpenConnectModal}
+                                    className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
+                                >
+                                    <Image
+                                        src={type.icon ?? ''}
+                                        alt="chain-icon"
+                                        width={20}
+                                        height={20}
+                                        className="h-5 w-5"
+                                    />
+                                    {type.isConnected ? (
+                                        <span>{type.label}</span>
+                                    ) : (
+                                        <span>
+                                            <Trans>Connect Wallet</Trans>
+                                        </span>
+                                    )}
+                                </ClickableButton>
+                            );
+                        })}
                 </>
             ) : null}
         </div>

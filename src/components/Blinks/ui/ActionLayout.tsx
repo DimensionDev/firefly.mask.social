@@ -7,7 +7,7 @@ import InfoShieldIcon from '@/assets/info-shield.svg';
 import LinkIcon from '@/assets/link-classic.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { Badge } from '@/components/Blinks/ui/Badge.js';
-import { Button } from '@/components/Blinks/ui/Button.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
@@ -173,8 +173,12 @@ function ActionButton({ text, loading, disabled, variant, onClick }: ButtonProps
     }, [loading, variant, text]);
 
     return (
-        <Button onClick={() => onClick()} disabled={disabled} variant={variant}>
+        <ClickableButton
+            className="flex h-10 w-full items-center justify-center rounded-full px-5 text-sm font-bold leading-10"
+            disabled={disabled}
+            onClick={() => onClick()}
+        >
             {content}
-        </Button>
+        </ClickableButton>
     );
 }

@@ -9,9 +9,10 @@ import { type PropsWithChildren } from 'react';
 
 import { env } from '@/constants/env.js';
 
+const wallets = [new UnsafeBurnerWalletAdapter()];
+
 export function SolanaWalletAdapterProvider({ children }: PropsWithChildren) {
     const endpoint = env.external.NEXT_PUBLIC_SOLANA_RPC_URL;
-    const wallets = [new UnsafeBurnerWalletAdapter()];
 
     return (
         <ConnectionProvider endpoint={endpoint}>
