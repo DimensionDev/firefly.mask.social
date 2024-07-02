@@ -15,7 +15,7 @@ const map: Record<SourceInURL, Source> = {
     [SourceInURL.NFTs]: Source.NFTs,
 };
 
-export function resolveSource(key: string): undefined;
+export function resolveSource<T extends string>(key: T): string extends SourceInURL ? Source : undefined;
 export function resolveSource(key: SourceInURL): Source;
 export function resolveSource(key: SourceInURL | string) {
     return key in map ? map[key as SourceInURL] : undefined;

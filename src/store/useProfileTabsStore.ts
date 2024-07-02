@@ -19,7 +19,7 @@ const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unkn
     persist(
         immer((set) => ({
             currentProfileTabState: {
-                source: getCurrentSource(),
+                source: getCurrentSource() ?? Source.Farcaster,
                 identity: '',
             },
             updateCurrentProfileState: (profileState: { source: Source; identity: string }) =>
@@ -29,7 +29,7 @@ const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unkn
             reset: () => {
                 set((state) => {
                     state.currentProfileTabState = {
-                        source: getCurrentSource(),
+                        source: getCurrentSource() ?? Source.Farcaster,
                         identity: '',
                     };
                 });
