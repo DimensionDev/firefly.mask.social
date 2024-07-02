@@ -8,9 +8,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
+import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
@@ -28,18 +30,29 @@ export function TipSuccess() {
 
     const { canShare, walletName } = useMemo(() => {
         const __origin__ = receiver?.__origin__ as WalletProfile;
-        if (pureWallet || !handle || !__origin__?.verifiedSources?.length) return { canShare: false };
+        if (pureWallet || !handle || !__origin__?.verifiedSources?.length || !socialProfiles.length)
+            return { canShare: false };
         return {
             canShare: true,
             walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
         };
-    }, [receiver, pureWallet, handle]);
+    }, [receiver, pureWallet, handle, socialProfiles]);
 
     const onShare = () => {
+        const expectedSources = getCurrentAvailableSources().filter((source) => {
+            return socialProfiles.some((profile) => resolveSocialSource(profile.platform) === source);
+        });
+        if (!expectedSources.length) {
+            LoginModalRef.open({
+                source: resolveSocialSource(socialProfiles[0].platform),
+            });
+            return;
+        }
         context.onClose();
         ComposeModalRef.open({
             type: 'compose',
             channel: currentChannel,
+            source: expectedSources,
             chars: [
                 'Hi ',
                 {
@@ -84,7 +97,7 @@ export function TipSuccess() {
                 </div>
                 {canShare ? (
                     <ClickableButton
-                        className="mt-6 h-10 w-full rounded-full border border-lightMain bg-lightBottom text-center font-bold text-lightBottom dark:text-darkBottom"
+                        className="mt-6 h-10 w-full rounded-full border border-lightMain bg-lightBottom text-center font-bold text-darkBottom"
                         onClick={onShare}
                     >
                         <Trans>Share Now</Trans>
