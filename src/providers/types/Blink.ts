@@ -73,6 +73,7 @@ export interface Action {
     disabled: boolean;
     actions: ActionComponent[];
     error?: ActionError;
+    websiteUrl: string;
 }
 
 export interface ActionComponent {

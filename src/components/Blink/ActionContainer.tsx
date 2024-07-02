@@ -128,6 +128,7 @@ export function ActionContainer({
     });
 
     const u = parseURL(action.url);
+    const websiteText = parseURL(action.websiteUrl)?.hostname;
     const actionState: ActionType = (u ? registry?.[u.hostname]?.state : null) ?? 'unknown';
 
     const [executionState, dispatch] = useReducer(getNextExecutionState, {
@@ -283,8 +284,8 @@ export function ActionContainer({
             type={actionState}
             title={action.title}
             description={action.description}
-            websiteUrl={action.url}
-            websiteText={u?.hostname}
+            websiteUrl={action.websiteUrl}
+            websiteText={websiteText}
             image={action.icon}
             disclaimer={isLoadingRegistry ? null : disclaimer}
             success={executionState.successMessage}

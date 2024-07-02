@@ -27,6 +27,7 @@ function createActionComponent(label: string, href: string, parameters?: [Parame
 
 class Loader extends BaseLoader<Action> {
     protected override fetch(url: string, signal?: AbortSignal): Promise<Action | null> {
+        const actionOriginalURL = url.startsWith(SOLANA_BLINK_PREFIX) ? url.substring(SOLANA_BLINK_PREFIX.length) : url;
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
             if (url.startsWith(SOLANA_BLINK_PREFIX)) {
@@ -54,6 +55,7 @@ class Loader extends BaseLoader<Action> {
             const data = response;
             const actionResult: Action = {
                 url,
+                websiteUrl: actionOriginalURL,
                 icon: data.icon,
                 title: data.title,
                 description: data.description,
