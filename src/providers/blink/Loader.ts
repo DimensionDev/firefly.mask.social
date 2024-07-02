@@ -1,10 +1,19 @@
+import urlcat from 'urlcat';
+
 import { SOLANA_BLINK_PREFIX } from '@/constants/regexp.js';
 import { anySignal } from '@/helpers/anySignal.js';
-import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
+import { fetchCachedJSON, fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
+import { resolveActionJson } from '@/helpers/resolveActionJson.js';
 import { BaseLoader } from '@/libs/base/Loader.js';
-import type { Action, ActionComponent, ActionsSpecGetResponse, Parameter } from '@/providers/types/Blink.js';
+import type {
+    Action,
+    ActionComponent,
+    ActionRuleResponse,
+    ActionsSpecGetResponse,
+    Parameter,
+} from '@/providers/types/Blink.js';
 
 function createActionComponent(label: string, href: string, parameters?: [Parameter]): ActionComponent {
     return {
@@ -18,11 +27,27 @@ function createActionComponent(label: string, href: string, parameters?: [Parame
 
 class Loader extends BaseLoader<Action> {
     protected override fetch(url: string, signal?: AbortSignal): Promise<Action | null> {
-        url = url.startsWith(SOLANA_BLINK_PREFIX) ? url.substring(SOLANA_BLINK_PREFIX.length) : url;
+        const actionOriginalURL = url.startsWith(SOLANA_BLINK_PREFIX) ? url.substring(SOLANA_BLINK_PREFIX.length) : url;
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
+            if (url.startsWith(SOLANA_BLINK_PREFIX)) {
+                url = url.substring(SOLANA_BLINK_PREFIX.length);
+                const urlObj = parseURL(url);
+                if (!urlObj) throw new Error('Invalid blink');
+                const actionJsonUrl = urlcat(urlObj.origin, 'actions.json');
+                const actionJson = await fetchJSON<ActionRuleResponse>(
+                    actionJsonUrl,
+                    {
+                        method: 'GET',
+                        signal: signal ? anySignal(timeout, signal) : timeout,
+                    },
+                    { noDefaultContentType: true },
+                );
+                url = resolveActionJson(url, actionJson) ?? url;
+            }
             const response = await fetchCachedJSON<ActionsSpecGetResponse>(url, {
                 signal: signal ? anySignal(timeout, signal) : timeout,
+                method: 'GET',
             });
             if (response.error) {
                 throw new Error(response.error.message);
@@ -30,6 +55,7 @@ class Loader extends BaseLoader<Action> {
             const data = response;
             const actionResult: Action = {
                 url,
+                websiteUrl: actionOriginalURL,
                 icon: data.icon,
                 title: data.title,
                 description: data.description,

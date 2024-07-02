@@ -328,3 +328,8 @@ body.not-support .fixed.inset-y-0 {
 .ff-giphy-grid .giphy-gif {
     cursor: pointer;
 }
+
+.image-swiper-slide > div {
+    display: flex;
+    justify-content: center;
+}

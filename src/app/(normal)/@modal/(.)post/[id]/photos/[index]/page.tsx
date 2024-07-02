@@ -3,7 +3,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/keyboard';
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -13,7 +12,6 @@ import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
@@ -21,6 +19,7 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { CustomLeftArrow, CustomRightArrow } from '@/modals/PreviewImagesModal.js';
 
 interface Props {
     params: {
@@ -28,27 +27,6 @@ interface Props {
         index: string;
     };
     searchParams: { source: SocialSourceInURL };
-}
-
-interface CustomArrowProps extends Omit<ClickableButtonProps, 'children'> {
-    currentSlide?: number | undefined;
-    slideCount?: number | undefined;
-}
-
-function CustomLeftArrow(props: CustomArrowProps) {
-    return (
-        <ClickableButton {...props}>
-            <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
-        </ClickableButton>
-    );
-}
-
-function CustomRightArrow(props: CustomArrowProps) {
-    return (
-        <ClickableButton {...props}>
-            <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
-        </ClickableButton>
-    );
 }
 
 export default function PreviewPhotoModal({ params: { id: postId, index }, searchParams: { source } }: Props) {
@@ -107,7 +85,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                         {images.map((x, key) => {
                             return (
                                 <SwiperSlide key={key} className="flex">
-                                    <div>
+                                    <div className="max-md:flex max-md:justify-center">
                                         <Image
                                             key={index}
                                             src={x}

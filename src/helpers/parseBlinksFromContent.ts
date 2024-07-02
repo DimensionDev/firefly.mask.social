@@ -1,6 +1,6 @@
 import { uniqBy } from 'lodash-es';
 
-import { CONTENT_SOLANA_BLINK_REGEX, SOLANA_BLINK_PREFIX } from '@/constants/regexp.js';
+import { CONTENT_SOLANA_BLINK_REGEX } from '@/constants/regexp.js';
 import { decodeActionUrl } from '@/helpers/decodeActionUrl.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 
@@ -31,10 +31,7 @@ export function parseBlinksFromContent(
     const solanaUrls = match.map((x) => x[0]);
 
     const urls = uniqBy([...httpsUrls, ...solanaUrls], (x) => x.toLowerCase());
-    const decodedUrls = [
-        ...rawHttpUrls.map((url) => url.decodedActionUrl),
-        ...match.map((x) => x[0].replace(SOLANA_BLINK_PREFIX, '')),
-    ];
+    const decodedUrls = [...rawHttpUrls.map((url) => url.decodedActionUrl), ...solanaUrls];
 
     return {
         urls,

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-02 00:04\n"
+"PO-Revision-Date: 2024-07-02 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1758,9 +1758,6 @@ msgstr "没有发布的内容。"
 msgid "Mirror"
 msgstr "转发"
 
-msgid "Already posted on {sourceName}."
-msgstr "已经在 {sourceName} 发贴。"
-
 msgid "[Quote]"
 msgstr "[引用]"
 
@@ -1808,3 +1805,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+

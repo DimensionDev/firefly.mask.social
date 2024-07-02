@@ -25,8 +25,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const farcasterParentPost = parentPost.Farcaster;
     const sourceName = resolveSourceName(Source.Farcaster);
 
-    // already posted to lens
-    if (farcasterPostId) throw new Error(t`Already posted on ${sourceName}.`);
+    // already posted to farcaster
+    if (farcasterPostId) return;
 
     // login required
     const { currentProfile } = useFarcasterStateStore.getState();

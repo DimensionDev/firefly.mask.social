@@ -73,6 +73,7 @@ export interface Action {
     disabled: boolean;
     actions: ActionComponent[];
     error?: ActionError;
+    websiteUrl: string;
 }
 
 export interface ActionComponent {
@@ -90,4 +91,15 @@ export interface ActionsRegistryConfig {
 export interface RegisteredAction {
     host: string;
     state: 'trusted' | 'malicious';
+}
+
+export interface ActionRuleObject {
+    /** relative (preferred) or absolute path to perform the rule mapping from */
+    pathPattern: string;
+    /** relative (preferred) or absolute path that supports Action requests */
+    apiPath: string;
+}
+
+export interface ActionRuleResponse {
+    rules: ActionRuleObject[];
 }
