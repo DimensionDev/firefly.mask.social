@@ -24,8 +24,8 @@ export interface Cast {
     parent_hash?: string;
     parent_fid?: string;
     parent_url?: string;
-    embeds: Array<{ url?: string }>;
-    embed_urls?: Array<{ url: string; type: EmbedMediaType }>;
+    embeds: Array<{ url: string }>;
+    embed_urls?: Array<{ url: string; type?: EmbedMediaType }>;
     mentions: string[];
     mentions_positions: number[];
     mentions_user: Array<{
