@@ -18,7 +18,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const embedUrls: Array<{ url?: string; type?: EmbedMediaType }> = cast.embed_urls?.length
+    const embedUrls: Array<{ url: string; type?: EmbedMediaType }> = cast.embed_urls?.length
         ? cast.embed_urls
         : cast.embeds;
 
