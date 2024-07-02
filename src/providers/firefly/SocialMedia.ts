@@ -146,7 +146,8 @@ export class FireflySocialMedia implements Provider {
     // no cursor in response
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
-            size: 25,
+            // XXX It' will response empty list if the size is equal to or greater than 25.
+            size: 20,
             cursor: indicator?.id,
         });
         const response = await fetchJSON<DiscoverChannelsResponse>(url, {

@@ -6,19 +6,19 @@ import { useQuery } from '@tanstack/react-query';
 import { take } from 'lodash-es';
 import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
-import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blinks/ui/ActionLayout.js';
+import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blink/ui/ActionLayout.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import { BlinksRegisterProvider } from '@/providers/blinks/Register.js';
+import { BlinkRegister } from '@/providers/blink/Register.js';
 import type {
     Action,
     ActionComponent,
     ActionsSpecPostRequestBody,
     ActionsSpecPostResponse,
-} from '@/providers/blinks/type.js';
+} from '@/providers/types/Blink.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -106,6 +106,7 @@ const checkSecurity = (state: ActionType, securityLevel: SecurityLevel): boolean
         case 'all':
             return true;
         case 'only-trusted':
+            return false;
         default:
             return state === 'trusted';
     }
@@ -121,7 +122,7 @@ export function ActionContainer({
     const { data: solanaBlinksActionRegister, isLoading: isLoadingSolanaBlinksActionRegister } = useQuery({
         queryKey: ['blinks-action-register'],
         async queryFn() {
-            const config = await BlinksRegisterProvider.fetchActionsRegistryConfig();
+            const config = await BlinkRegister.fetchActionsRegistryConfig();
             return Object.fromEntries(config.actions.map((action) => [action.host, action]));
         },
     });

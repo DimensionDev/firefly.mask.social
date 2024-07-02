@@ -42,6 +42,11 @@ describe('HASHTAG_REGEXP', () => {
             [['This is message', 'with a #hashtag'].join('\n'), ' #hashtag'],
             ['#你好', '#你好'],
             ['This is message, with #你好', ' #你好'],
+            ['#h100', '#h100'],
+            ['##', null],
+            ['#hello#', '#hello'],
+            ['#hello#other', '#hello'],
+            ['#123', null],
         ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {

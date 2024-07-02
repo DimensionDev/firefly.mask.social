@@ -26,9 +26,6 @@ jobs:
             - name: Setup Github Actions
               run: ./scripts/setup-gh-actions.sh
 
-            - name: Compile typescript files
-              run: npx tsc -b .
-
             - uses: pnpm/action-setup@v2
             - name: Run unit tests
               run: pnpm run test

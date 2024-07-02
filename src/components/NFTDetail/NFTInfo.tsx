@@ -106,7 +106,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         <TextOverflowTooltip title={name}>
                             <div
                                 className={classNames(
-                                    'mt-2 line-clamp-2 w-full text-center text-lg font-bold leading-6 sm:text-left',
+                                    'mt-2 line-clamp-2 w-full text-center text-2xl font-bold leading-6 sm:text-left',
                                     tokenNameClassName,
                                 )}
                             >
@@ -152,7 +152,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         </div>
                     ) : null}
                     <div className="flex space-x-2">
-                        <DownloadImageButton url={imageURL} />
+                        {imageURL ? <DownloadImageButton url={imageURL} /> : null}
                         {collection?.id ? <ReportSpamButton collectionId={collection.id} /> : null}
                     </div>
                 </div>

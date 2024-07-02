@@ -52,14 +52,16 @@ export function ChannelInList({
                 }}
                 href={getChannelUrl(channel)}
             >
-                <ChannelTippy channel={channel} className="mr-3 shrink-0 self-start">
-                    <Avatar
-                        className="rounded-full border"
-                        src={channel.imageUrl}
-                        size={isSmall || dense ? 40 : 48}
-                        alt={channel.name}
-                    />
-                </ChannelTippy>
+                <div className="mr-3 shrink-0 self-start">
+                    <ChannelTippy channel={channel}>
+                        <Avatar
+                            className="rounded-full border"
+                            src={channel.imageUrl}
+                            size={isSmall || dense ? 40 : 48}
+                            alt={channel.name}
+                        />
+                    </ChannelTippy>
+                </div>
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
                     <div className="flex-start flex items-center text-sm font-bold leading-5">

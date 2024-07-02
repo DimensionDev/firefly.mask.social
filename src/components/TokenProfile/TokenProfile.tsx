@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { first, last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { type HTMLProps, memo, useEffect, useMemo, useRef } from 'react';
+import { type HTMLProps, memo, useMemo, useRef } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -15,7 +15,6 @@ import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
-import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
 
 const DIMENSION: Dimension = {
     top: 12,
@@ -28,13 +27,12 @@ const DIMENSION: Dimension = {
 
 interface Props extends HTMLProps<HTMLDivElement> {
     symbol: string;
-    onTokenUpdate?(token: CoingeckoToken | undefined | null): void;
 }
 
-export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, onTokenUpdate, ...rest }) {
+export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, ...rest }) {
     const chartRef = useRef<SVGSVGElement>(null);
     const router = useRouter();
-    const { data: token, isLoading: isLoadingToken } = useTokenInfo(symbol);
+    const { data: token } = useTokenInfo(symbol);
     const { data: price } = useTokenPrice(token?.id);
     const { data: trending } = useCoinTrending(token?.id);
     const market = trending?.market;
@@ -47,11 +45,6 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     }, [priceStats]);
 
     usePriceLineChart(chartRef, priceStats, DIMENSION, `price-chart-${symbol}`, { color: 'currentColor' });
-
-    useEffect(() => {
-        if (isLoadingToken) return;
-        onTokenUpdate?.(token);
-    }, [onTokenUpdate, token, isLoadingToken]);
 
     if (!token) return null;
     return (
@@ -118,7 +111,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     router.push(`/token/${symbol}`);
                 }}
             >
-                {t`More Detail`}
+                {t`Detail`}
             </ClickableButton>
         </div>
     );

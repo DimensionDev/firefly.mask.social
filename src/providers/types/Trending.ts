@@ -12,6 +12,7 @@ export type CommunityType =
     | 'medium'
     | 'reddit'
     | 'telegram'
+    | 'linkedin'
     | 'github'
     | 'youtube'
     | 'twitter'
