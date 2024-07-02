@@ -9,7 +9,7 @@ import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
-import { BlinkWithQuery } from '@/components/Blink/index.js';
+import { Blink } from '@/components/Blink/index.js';
 import { Frame } from '@/components/Frame/index.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
@@ -182,8 +182,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }
 
     const renderLinks = () => {
-        if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled)
-            return <BlinkWithQuery url={blink} onData={() => setEndingLinkCollapsed(true)} />;
+        if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
+            return <Blink url={blink} onData={() => setEndingLinkCollapsed(true)} />;
+        }
         if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
             return (
                 <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>

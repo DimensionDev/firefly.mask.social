@@ -7,7 +7,7 @@ import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Action } from '@/providers/types/Blink.js';
 
-export function BlinkWithQuery(props: { url: string; onData?: (data: Action) => void }) {
+export function Blink(props: { url: string; onData?: (data: Action) => void }) {
     const query = useQuery({
         queryKey: ['blink', props.url],
         queryFn: async () => {
