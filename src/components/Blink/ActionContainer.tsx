@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { take } from 'lodash-es';
 import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
-import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blink/ActionLayout.jsx';
+import { ActionLayout, type ActionType, type ButtonProps } from '@/components/Blink/ActionLayout.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';

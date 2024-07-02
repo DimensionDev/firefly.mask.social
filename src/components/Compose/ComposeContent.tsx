@@ -1,4 +1,4 @@
-import { ActionContainer } from '@/components/Blink/ActionContainer.jsx';
+import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
