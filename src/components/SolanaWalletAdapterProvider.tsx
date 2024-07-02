@@ -12,10 +12,8 @@ import { env } from '@/constants/env.js';
 const wallets = [new UnsafeBurnerWalletAdapter()];
 
 export function SolanaWalletAdapterProvider({ children }: PropsWithChildren) {
-    const endpoint = env.external.NEXT_PUBLIC_SOLANA_RPC_URL;
-
     return (
-        <ConnectionProvider endpoint={endpoint}>
+        <ConnectionProvider endpoint={env.external.NEXT_PUBLIC_SOLANA_RPC_URL}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>{children}</WalletModalProvider>
             </WalletProvider>
