@@ -2,12 +2,12 @@ import { Trans } from '@lingui/macro';
 import { type ReactNode, useMemo, useState } from 'react';
 
 import CheckIcon from '@/assets/check.svg';
+import ExclamationShieldIcon from '@/assets/exclamation-shield.svg';
+import InfoShieldIcon from '@/assets/info-shield.svg';
+import LinkIcon from '@/assets/link-classic.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { Badge } from '@/components/Blinks/ui/Badge.js';
 import { Button } from '@/components/Blinks/ui/Button.js';
-import { ExclamationShieldIcon } from '@/components/Blinks/ui/icons/ExclamationShieldIcon.js';
-import { InfoShieldIcon } from '@/components/Blinks/ui/icons/InfoShieldIcon.js';
-import { LinkIcon } from '@/components/Blinks/ui/icons/LinkIcon.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
@@ -83,7 +83,7 @@ export function ActionLayout({
                             className="inline-flex cursor-pointer items-center truncate text-[15px] text-second hover:underline"
                             rel="noopener noreferrer"
                         >
-                            <LinkIcon className="mr-2" />
+                            <LinkIcon className="mr-2 h-4 w-4" />
                             {websiteText ?? websiteUrl}
                         </Link>
                     ) : null}

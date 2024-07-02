@@ -57,10 +57,10 @@ export interface Parameter {
     label?: string; // input placeholder
 }
 
-// No changes
+// Alias
 export interface ActionsSpecPostRequestBody extends SolanaPaySpecPostRequestBody {}
 
-// No changes
+// Alias
 export interface ActionsSpecPostResponse extends SolanaPaySpecPostResponse {}
 
 export interface Action {

@@ -39,11 +39,13 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
             icon: evmNetworkDescriptor?.icon,
             label: <Trans>EVM</Trans>,
             onOpen: () => connectModalEVM.openConnectModal?.(),
+            type: 'EVM',
         },
         {
             icon: solanaNetworkDescriptor?.icon,
             label: <Trans>Solana</Trans>,
             onOpen: () => connectModalSolana.setVisible(true),
+            type: 'Solana',
         },
     ];
 
@@ -58,7 +60,13 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
                             onClose();
                         }}
                     >
-                        <Image src={chainType.icon ?? ''} width={48} height={48} alt="evm" className="h-12 w-12" />
+                        <Image
+                            src={chainType.icon ?? ''}
+                            width={48}
+                            height={48}
+                            alt={chainType.type}
+                            className="h-12 w-12"
+                        />
                         <span>{chainType.label}</span>
                     </ClickableButton>
                 );
