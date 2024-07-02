@@ -9,7 +9,7 @@ import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
-import { BlinkWithQuery } from '@/components/Blinks/BlinkWithQuery.js';
+import { BlinkWithQuery } from '@/components/Blink/BlinkWithQuery.js';
 import { Frame } from '@/components/Frame/index.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
