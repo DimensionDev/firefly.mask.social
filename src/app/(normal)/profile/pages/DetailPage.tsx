@@ -6,8 +6,7 @@ import { notFound, usePathname, useSearchParams } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import { Source } from '@/constants/enum.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
@@ -18,7 +17,7 @@ export function ProfileDetailPage() {
      */
     const searchParams = useSearchParams();
     const source = searchParams.get('source') as string;
-    const currentSource = resolveSource(source) ?? Source.Farcaster;
+    const currentSource = resolveSourceFromUrl(source);
     const pathname = usePathname();
     const identity = source ? pathname.replace('/profile/', '') : '';
 

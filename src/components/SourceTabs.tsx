@@ -45,7 +45,7 @@ export function SourceTabs() {
     }, [shouldReset, updateCurrentSource]);
 
     useEffect(() => {
-        updateCurrentSource(getCurrentSource() ?? Source.Farcaster);
+        updateCurrentSource(getCurrentSource());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 
