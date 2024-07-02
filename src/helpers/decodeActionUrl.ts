@@ -1,6 +1,6 @@
 import { parseURL } from '@/helpers/parseURL.js';
 
-export type IsHttpBlinkResult =
+export type isActionUrl =
     | {
           isBlink: true;
           decodedActionUrl: string;
@@ -11,7 +11,7 @@ export type IsHttpBlinkResult =
           url: string;
       };
 
-export function isHttpBlink(url: string): IsHttpBlinkResult {
+export function decodeActionUrl(url: string): isActionUrl {
     const urlObj = parseURL(url);
     if (!urlObj) return { isBlink: false, url };
 

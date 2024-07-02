@@ -1,14 +1,12 @@
-import type { ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
 type BadgeVariant = 'warning' | 'error' | 'default';
 
-interface Props {
+interface Props extends HTMLProps<HTMLDivElement> {
     variant?: BadgeVariant;
     icon?: ReactNode;
-    children?: string;
-    className?: string;
 }
 
 const variantClasses: Record<BadgeVariant, string> = {

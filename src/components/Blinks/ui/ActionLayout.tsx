@@ -7,6 +7,7 @@ import { Button } from '@/components/Blinks/ui/Button.js';
 import { ExclamationShieldIcon } from '@/components/Blinks/ui/icons/ExclamationShieldIcon.js';
 import { InfoShieldIcon } from '@/components/Blinks/ui/icons/InfoShieldIcon.js';
 import { LinkIcon } from '@/components/Blinks/ui/icons/LinkIcon.js';
+import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
 import type { RegisteredAction } from '@/providers/blinks/type.js';
@@ -63,7 +64,9 @@ export function ActionLayout({
         >
             {image ? (
                 <Linkable url={websiteUrl}>
-                    <img
+                    <Image
+                        width={500}
+                        height={500}
                         className="aspect-square w-full rounded-xl object-cover object-left"
                         src={image}
                         alt="action-image"
@@ -102,8 +105,8 @@ export function ActionLayout({
                         )}
                     </Link>
                 </div>
-                <div className="text-[15px] font-semibold text-main">{title}</div>
-                <div className="whitespace-pre-wrap text-[15px] text-sm text-main">{description}</div>
+                <div className="text-left text-[15px] font-semibold text-main">{title}</div>
+                <div className="whitespace-pre-wrap text-left text-[15px] text-sm text-main">{description}</div>
                 {disclaimer ? <div>{disclaimer}</div> : null}
                 <div className="flex flex-col gap-3">
                     {buttons && buttons.length > 0 ? (
@@ -136,6 +139,8 @@ function ActionInput({ placeholder, name, button, disabled }: InputProps) {
                 placeholder={placeholder}
                 value={value}
                 disabled={disabled}
+                autoComplete="off"
+                spellCheck="false"
                 onChange={(e) => onChange(e.target.value)}
                 className="ml-2.5 flex-1 truncate border-none bg-transparent p-0 text-[15px] placeholder:text-second focus:ring-0 disabled:text-third"
             />

@@ -7,18 +7,11 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
-import { type PropsWithChildren, useMemo } from 'react';
+import { type PropsWithChildren } from 'react';
 
-export function SolanaWalletAdapterProvider({ children, ...props }: PropsWithChildren) {
-    const network = WalletAdapterNetwork.Mainnet;
-
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-    const wallets = useMemo(
-        () => [new UnsafeBurnerWalletAdapter()],
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network],
-    );
+export function SolanaWalletAdapterProvider({ children }: PropsWithChildren) {
+    const endpoint = clusterApiUrl(WalletAdapterNetwork.Mainnet);
+    const wallets = [new UnsafeBurnerWalletAdapter()];
 
     return (
         <ConnectionProvider endpoint={endpoint}>

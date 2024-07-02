@@ -2,7 +2,7 @@
 
 import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -22,14 +22,12 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SOLANA_BLINKS_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { parseBlinkUrlFromContent } from '@/helpers/parseBlinkUrlFromContent.js';
-import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
+import { resolvePostContent } from '@/helpers/resolvePostContent.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -85,18 +83,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(post.author, isDetail);
 
-    const { postContent, blinkUrl } = useMemo(() => {
-        let content = post.metadata.content?.content ?? '';
-        const solanaBlinkUrlMatchOembedUrl = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINKS_REGEX);
-        const parsedBlinks = parseBlinkUrlFromContent(content);
-        const solanaBlinkUrlMatchContent = first(parsedBlinks.decodeUrls);
-        content = parsedBlinks.content;
-        if (endingLinkCollapsed) content = removeUrlAtEnd(post.metadata.content?.oembedUrl, content);
-        return {
-            postContent: content,
-            blinkUrl: solanaBlinkUrlMatchOembedUrl ? solanaBlinkUrlMatchOembedUrl[2] : solanaBlinkUrlMatchContent,
-        };
-    }, [post.metadata.content?.content, endingLinkCollapsed]);
+    const { postContent, blinkUrl } = resolvePostContent(post, endingLinkCollapsed);
 
     const frame = useMemo(() => {
         if (blinkUrl) {

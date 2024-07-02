@@ -14,7 +14,7 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
-import { parseBlinkUrlFromContent } from '@/helpers/parseBlinkUrlFromContent.js';
+import { parseBlinksFromContent } from '@/helpers/parseBlinksFromContent.js';
 import { createPoll } from '@/helpers/polls.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
@@ -469,7 +469,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
             const content = readChars(chars, 'visible');
-            const parsedBlinks = parseBlinkUrlFromContent(content, { matchHttpsUrl: true });
+            const parsedBlinks = parseBlinksFromContent(content, { matchHttpsUrl: true });
             const urls = matchUrls(parsedBlinks.content); // Using filtered content from blink urls
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
@@ -478,7 +478,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     frames.map((x) => x.url),
                 ),
             );
-            const blinkActions = await BlinksLoader.occupancyLoad(parsedBlinks.decodeUrls);
+            const blinkActions = await BlinksLoader.occupancyLoad(parsedBlinks.decodedUrls);
 
             set((state) =>
                 next(

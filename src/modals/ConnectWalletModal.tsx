@@ -8,6 +8,7 @@ import { useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { forwardRef } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
@@ -50,7 +51,7 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
         <div className="grid grid-cols-1 gap-3 p-4 text-sm font-bold leading-5 text-second md:grid-cols-2">
             {chainTypes.map((chainType) => {
                 return (
-                    <button
+                    <ClickableButton
                         className="flex flex-col items-center gap-2 rounded-md px-4 py-6 hover:bg-lightBg hover:text-main"
                         onClick={() => {
                             chainType.onOpen();
@@ -59,7 +60,7 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
                     >
                         <Image src={chainType.icon ?? ''} width={48} height={48} alt="evm" className="h-12 w-12" />
                         <span>{chainType.label}</span>
-                    </button>
+                    </ClickableButton>
                 );
             })}
         </div>

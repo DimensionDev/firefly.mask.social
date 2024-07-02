@@ -15,6 +15,7 @@ import { mainnet } from 'wagmi/chains';
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import WalletSelectedIcon from '@/assets/wallet.selected.svg';
 import WalletIcon from '@/assets/wallet.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -106,14 +107,16 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                     icon
                 )}
                 <span
-                    className={classNames('overflow-hidden text-ellipsis leading-6', {
-                        'font-bold': collapsed,
-                    })}
-                    style={{ display: sideBarCollapsed ? 'none' : 'inline' }}
+                    className={classNames(
+                        'overflow-hidden text-ellipsis leading-6',
+                        {
+                            'font-bold': collapsed,
+                        },
+                        sideBarCollapsed ? 'none' : 'inline',
+                    )}
                     onClick={(e) => {
                         if (activeType?.isConnected) {
                             e.stopPropagation();
-                            e.preventDefault();
                             activeType.onOpenAccountModal();
                         }
                     }}
@@ -133,7 +136,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                     {chainTypes.map((type) => {
                         if (type === activeType) return null;
                         return (
-                            <button
+                            <ClickableButton
                                 onClick={type.onOpenConnectModal}
                                 className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
                             >
@@ -151,7 +154,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                                         <Trans>Connect Wallet</Trans>
                                     </span>
                                 )}
-                            </button>
+                            </ClickableButton>
                         );
                     })}
                 </>

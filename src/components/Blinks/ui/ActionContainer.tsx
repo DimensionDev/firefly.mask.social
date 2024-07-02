@@ -60,7 +60,7 @@ type ActionValue =
           type: ExecutionType.BLOCK;
       };
 
-const executionReducer = (state: ExecutionState, action: ActionValue): ExecutionState => {
+const getNextExecutionState = (state: ExecutionState, action: ActionValue): ExecutionState => {
     switch (action.type) {
         case ExecutionType.INITIATE:
             return { status: 'executing', executingAction: action.executingAction };
@@ -87,6 +87,7 @@ const executionReducer = (state: ExecutionState, action: ActionValue): Execution
                 status: 'blocked',
             };
         case ExecutionType.UNBLOCK:
+        default:
             return {
                 status: 'idle',
             };
@@ -134,12 +135,10 @@ export function ActionContainer({
 
     const actionUrlObj = useMemo(() => parseURL(action.url), [action.url]);
 
-    const actionState: ActionType = useMemo(() => {
-        if (!actionUrlObj) return 'unknown';
-        return solanaBlinksActionRegister?.[actionUrlObj.hostname]?.state ?? 'unknown';
-    }, [solanaBlinksActionRegister, actionUrlObj]);
+    const actionState: ActionType =
+        (actionUrlObj ? solanaBlinksActionRegister?.[actionUrlObj.hostname]?.state : null) ?? 'unknown';
 
-    const [executionState, dispatch] = useReducer(executionReducer, {
+    const [executionState, dispatch] = useReducer(getNextExecutionState, {
         status: 'idle',
     });
 
@@ -184,9 +183,11 @@ export function ActionContainer({
     const { connection } = useConnection();
     const wallet = useWallet();
 
-    const postActionComponent = (account: string, component: ActionComponent) => {
+    const postActionComponent = (account: string, component: ActionComponent, params?: Record<string, string>) => {
+        const parameterValue =
+            component.parameter && params ? params[component.parameter.name] : component.parameterValue;
         const href = component.parameter
-            ? component.href.replace(`{${component.parameter.name}}`, component.parameterValue.trim())
+            ? component.href.replace(`{${component.parameter.name}}`, parameterValue.trim())
             : component.href;
         return fetchJSON<ActionsSpecPostResponse>(href, {
             method: 'POST',
@@ -195,10 +196,6 @@ export function ActionContainer({
     };
 
     const execute = async (component: ActionComponent, params?: Record<string, string>) => {
-        if (component.parameter && params) {
-            component.parameterValue = params[component.parameter.name];
-        }
-
         dispatch({ type: ExecutionType.INITIATE, executingAction: component });
 
         try {
@@ -209,7 +206,7 @@ export function ActionContainer({
                 return;
             }
 
-            const tx = await postActionComponent(account, component);
+            const tx = await postActionComponent(account, component, params);
             const transaction = VersionedTransaction.deserialize(Buffer.from(tx.transaction, 'base64'));
             const {
                 context: { slot: minContextSlot },
@@ -289,8 +286,10 @@ export function ActionContainer({
             return (
                 <div className="rounded-2xl border border-warn bg-warn/10 p-4 text-[15px] leading-5 text-warn">
                     <p>
-                        This Action has not yet been registered. Only use it if you trust the source.
-                        {!isPassingSecurityCheck && ' Your action provider blocks execution of this action.'}
+                        <Trans>This Action has not yet been registered. Only use it if you trust the source.</Trans>
+                        {!isPassingSecurityCheck ? (
+                            <Trans> Your action provider blocks execution of this action.</Trans>
+                        ) : null}
                     </p>
                 </div>
             );
