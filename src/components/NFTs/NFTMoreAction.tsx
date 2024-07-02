@@ -10,7 +10,9 @@ import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
+import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Source } from '@/constants/enum.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
@@ -77,6 +79,21 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                             {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
                         </Menu.Item>
                     ) : null}
+                    <Menu.Item>
+                        {({ close }) => (
+                            <div className="px-3 py-1 hover:bg-bg">
+                                <Tips
+                                    identity={address}
+                                    source={Source.Wallet}
+                                    handle={ens ?? undefined}
+                                    tooltipDisabled
+                                    label={t`Send tips`}
+                                    onClick={close}
+                                    pureWallet
+                                />
+                            </div>
+                        )}
+                    </Menu.Item>
                 </Menu.Items>
             </Transition>
         </Menu>

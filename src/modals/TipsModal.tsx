@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
@@ -37,8 +38,8 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                 try {
                     let receiverList: TipsProfile[] = [];
                     let socialProfiles: Profile[] = [];
+                    router.navigate({ to: TipsRoutePath.LOADING, replace: true });
                     if (!pureWallet) {
-                        router.navigate({ to: TipsRoutePath.LOADING, replace: true });
                         const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(
                             identity,
                             source,
@@ -77,6 +78,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                                 displayName: formatDisplayName(identity, handle),
                             },
                         ];
+                        await delay(500);
                     }
                     if (account.isConnected) {
                         await connectMaskWithWagmi();
@@ -88,7 +90,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                             ...prev,
                             receiverList,
                             receiver: receiverList[0],
-                            handle,
+                            handle: source === Source.Wallet && !handle ? formatEthereumAddress(identity, 4) : handle,
                             pureWallet,
                             socialProfiles,
                         }));

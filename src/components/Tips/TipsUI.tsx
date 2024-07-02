@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { formatBalance, isGreaterThan, isLessThan, isZero, rightShift } from '@masknet/web3-shared-base';
+import { formatBalance, isGreaterThan, isLessThan, isSameAddress, isZero, rightShift } from '@masknet/web3-shared-base';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { memo, useMemo } from 'react';
 import { useAccount, useBalance, useEstimateGas } from 'wagmi';
@@ -49,16 +49,26 @@ export const TipsUI = memo(function TipsUI() {
     const buttonLabel = useMemo(() => {
         if (account.isConnecting) return t`Connecting...`;
         if (!account.isConnected) return t`Connect Wallet`;
+        if (isSameAddress(account.address, receiver?.address)) return t`Cannot send to yourself`;
         if (message) return message;
         if (noEnoughBalance) return t`Insufficient balance`;
         if (noEnoughGas) return t`Insufficient Balance for Gas Fee`;
 
         return t`Send Tips`;
-    }, [account.isConnected, account.isConnecting, message, noEnoughBalance, noEnoughGas]);
+    }, [
+        account.isConnected,
+        account.isConnecting,
+        account.address,
+        receiver?.address,
+        message,
+        noEnoughBalance,
+        noEnoughGas,
+    ]);
     const buttonDisabled = useMemo(() => {
         if (account.isConnecting) return true;
         if (!account.isConnected) return false;
         if (
+            isSameAddress(account.address, receiver?.address) ||
             !token ||
             !receiver ||
             !trimify(amount) ||
@@ -76,6 +86,7 @@ export const TipsUI = memo(function TipsUI() {
         amount,
         account.isConnecting,
         account.isConnected,
+        account.address,
         isValid,
         noEnoughBalance,
         noEnoughGas,
