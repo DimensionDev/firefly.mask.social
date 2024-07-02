@@ -2,6 +2,7 @@ import type { Address } from 'viem';
 
 import { FireflyPlatform, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { UserToken } from '@/types/token.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -793,3 +794,7 @@ export type SessionStatus =
       };
 
 export type SessionStatusResponse = Response<SessionStatus>;
+
+export type UserTokensResponse = Response<{
+    list: UserToken[];
+}>;

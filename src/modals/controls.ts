@@ -11,6 +11,7 @@ import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
+import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 
 export const AccountModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();
@@ -27,3 +28,4 @@ export const FireflySessionConfirmModalRef = new SingletonModal<
 >();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
+export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();
