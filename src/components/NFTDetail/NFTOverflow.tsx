@@ -81,7 +81,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
     const description = useMemo(() => convertDescriptionToArray(props.description), [props.description]);
     return (
         <div className="space-y-8">
-            {description ? (
+            {props.description ? (
                 <div className="space-y-2">
                     <h3 className="text-xl font-bold leading-6">
                         <Trans>Description</Trans>
