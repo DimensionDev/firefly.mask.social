@@ -94,6 +94,9 @@ msgstr "Mute @{0}"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 
+msgid "Select token"
+msgstr "Select token"
+
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
@@ -166,6 +169,9 @@ msgstr "Change Wallet"
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 
+msgid "Starting Tips failed, please try again later"
+msgstr "Starting Tips failed, please try again later"
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -177,6 +183,9 @@ msgstr "Log out @{0}"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
+
+msgid "tips to"
+msgstr "tips to"
 
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
@@ -219,6 +228,9 @@ msgstr "Failed to login"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
+
+msgid "Address is a contract address"
+msgstr "Address is a contract address"
 
 msgid "Poll is currently only supported on {0}"
 msgstr "Poll is currently only supported on {0}"
@@ -547,6 +559,9 @@ msgstr "Log out"
 msgid "Unmuting..."
 msgstr "Unmuting..."
 
+msgid "Send Tips"
+msgstr "Send Tips"
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
@@ -628,6 +643,9 @@ msgstr "Failed to upload. More than {maxImageCount} images"
 msgid "Blacklist function"
 msgstr "Blacklist function"
 
+msgid "Address is a malicious address"
+msgstr "Address is a malicious address"
+
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
 
@@ -643,8 +661,17 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "Connecting..."
+msgstr "Connecting..."
+
+msgid "Enter amount"
+msgstr "Enter amount"
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
+
+msgid "Tip to @{0}"
+msgstr "Tip to @{0}"
 
 msgid "Owned By"
 msgstr "Owned By"
@@ -696,6 +723,9 @@ msgstr "Choice {0}"
 
 msgid "Send Feedback"
 msgstr "Send Feedback"
+
+msgid "Send tips"
+msgstr "Send tips"
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -862,8 +892,14 @@ msgstr "NFT Contract"
 msgid "Failed to follow."
 msgstr "Failed to follow."
 
+msgid "Share Now"
+msgstr "Share Now"
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+
+msgid "You {0} sent"
+msgstr "You {0} sent"
 
 msgid "Mute"
 msgstr "Mute"
@@ -891,6 +927,9 @@ msgstr "Failed to fetch bookmarks."
 
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
+
+msgid "Share this news by mentioning and posting."
+msgstr "Share this news by mentioning and posting."
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
@@ -1009,6 +1048,9 @@ msgstr "The whitelist function is not included. If there is a whitelist, some ad
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
 
+msgid "Select Token"
+msgstr "Select Token"
+
 msgid "General"
 msgstr "General"
 
@@ -1020,6 +1062,9 @@ msgstr "This can’t be undone and you’ll lose your draft."
 
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
+
+msgid "There is no token available to select"
+msgstr "There is no token available to select"
 
 msgid "Publications"
 msgstr "Publications"
@@ -1092,6 +1137,12 @@ msgstr "Not Found. Please check your URL[{0}]"
 
 msgid "Translated"
 msgstr "Translated"
+
+msgid "Select Wallet"
+msgstr "Select Wallet"
+
+msgid "Insufficient Balance for Gas Fee"
+msgstr "Insufficient Balance for Gas Fee"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
@@ -1336,6 +1387,9 @@ msgstr "Connect"
 msgid "Sign in with Custody Wallet"
 msgstr "Sign in with Custody Wallet"
 
+msgid "View transaction on explorer"
+msgstr "View transaction on explorer"
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 
@@ -1552,6 +1606,9 @@ msgstr "Unmute"
 msgid "Market Capital / FDV"
 msgstr "Market Capital / FDV"
 
+msgid "View on explorer"
+msgstr "View on explorer"
+
 msgid "Click to copy"
 msgstr "Click to copy"
 
@@ -1588,6 +1645,9 @@ msgstr "{hours, plural, one {1 hour} other {{hours} hours}}"
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."
 
+msgid "Sorry, there is no wallet address available for tipping."
+msgstr "Sorry, there is no wallet address available for tipping."
+
 msgid "No matching users"
 msgstr "No matching users"
 
@@ -1599,6 +1659,9 @@ msgstr "<0/> and <1>{0} others</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
+
+msgid "Max: {0}"
+msgstr "Max: {0}"
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
@@ -1699,6 +1762,9 @@ msgstr "Translating..."
 msgid "Back to home"
 msgstr "Back to home"
 
+msgid "Tips"
+msgstr "Tips"
+
 msgid "Followers"
 msgstr "Followers"
 
@@ -1764,6 +1830,9 @@ msgstr "Are you sure you want to report this user?"
 
 msgid "Likes"
 msgstr "Likes"
+
+msgid "Insufficient balance"
+msgstr "Insufficient balance"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> quoted your <1><2/></1>"
