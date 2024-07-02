@@ -6,7 +6,7 @@ import { fetchCachedJSON, fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { resolveActionJson } from '@/helpers/resolveActionJson.js';
-import { BaseLoader } from '@/libs/base/Loader.js';
+import { BaseLoader } from '@/providers/base/Loader.js';
 import type {
     Action,
     ActionComponent,

@@ -13,8 +13,8 @@ import {
     getState,
     getTitle,
     getVersion,
-} from '@/libs/frame/readers/metadata.js';
-import { OpenGraphProcessor } from '@/libs/og/Processor.js';
+} from '@/providers/frame/readers/metadata.js';
+import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 
 class Processor {

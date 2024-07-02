@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
-import { BaseLoader } from '@/libs/base/Loader.js';
+import { BaseLoader } from '@/providers/base/Loader.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 

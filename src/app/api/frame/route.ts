@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { FrameProcessor } from '@/libs/frame/Processor.js';
+import { FrameProcessor } from '@/providers/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
 
