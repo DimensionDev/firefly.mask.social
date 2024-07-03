@@ -19,7 +19,7 @@ import { type Action, type ActionComponent, type ActionParameter, SchemeType } f
  */
 function resolveActionJson(url: string, actions: ActionRuleResponse) {
     const u = parseURL(url);
-    if (!u) throw new Error(`invlaid url = ${url}`);
+    if (!u) throw new Error(`invalid url = ${url}`);
 
     const paths = u.pathname.split('/');
 
@@ -70,7 +70,7 @@ function createAction(url: string, data: ActionGetResponse, blink: string) {
     };
     if (data.links?.actions) {
         const u = parseURL(url);
-        if (!u) throw new Error(`invlaid url = ${url}`);
+        if (!u) throw new Error(`invalid url = ${url}`);
 
         actionResult.actions = data.links.actions.map((action) => {
             const href = action.href.startsWith('https://') ? action.href : urlcat(u.origin, action.href);
@@ -103,7 +103,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         }
         case SchemeType.ActionsJson: {
             const u = parseURL(url);
-            if (!u) throw new Error(`invlaid url = ${url}`);
+            if (!u) throw new Error(`invalid url = ${url}`);
 
             const actionJson = await fetchJSON<ActionRuleResponse>(
                 urlcat(u.origin, 'actions.json'),
