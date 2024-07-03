@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import type { ActionType } from '@/types/blink.js';
+
 // GET
 export interface SolanaPaySpecGetResponse {
     label: string;
@@ -90,7 +92,7 @@ export interface ActionsRegistryConfig {
 
 export interface RegisteredAction {
     host: string;
-    state: 'trusted' | 'malicious';
+    state: ActionType;
 }
 
 export interface ActionRuleObject {

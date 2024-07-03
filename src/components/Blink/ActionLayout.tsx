@@ -10,17 +10,15 @@ import { Badge } from '@/components/Blink/Badge.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
-import type { RegisteredAction } from '@/providers/types/Blink.js';
-
-export type ActionType = RegisteredAction['state'] | 'unknown';
+import type { ActionType } from '@/types/blink.js';
 
 interface LayoutProps {
+    type: ActionType | 'unknown';
     image?: string;
     success?: string | null;
     websiteUrl?: string | null;
     websiteText?: string | null;
     disclaimer?: ReactNode;
-    type: ActionType;
     title: string;
     description: string;
     buttons?: ButtonProps[];
