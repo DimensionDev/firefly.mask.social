@@ -20,7 +20,6 @@ export const Blink = memo<Props>(function Blink({ schemes, onData, children }) {
         queryFn: async () => {
             const scheme = last(schemes);
             if (!scheme) return null;
-
             return BlinkLoader.fetchAction(scheme);
         },
     });

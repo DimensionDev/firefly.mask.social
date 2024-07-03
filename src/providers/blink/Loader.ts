@@ -6,7 +6,7 @@ import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
-import type { Action, ActionComponent, ActionParameter } from '@/types/blink.js';
+import type { Action, ActionComponent, ActionParameter, ActionScheme } from '@/types/blink.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
@@ -58,7 +58,7 @@ class Loader extends BaseLoader<Action> {
         });
     }
 
-    public fetchAction(url: string) {
+    public fetchAction(scheme: ActionScheme) {
         return this.fetch(url);
     }
 }

@@ -10,8 +10,8 @@ import { Badge } from '@/components/Blink/Badge.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
-import type { Action, ActionType } from '@/types/blink.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import type { Action, ActionType } from '@/types/blink.js';
 
 interface LayoutProps {
     type: ActionType;
