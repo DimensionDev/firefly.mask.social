@@ -17,6 +17,7 @@ import {
     CHANNEL_REGEX,
     HASHTAG_REGEX,
     MENTION_REGEX,
+    SYMBOL_REGEX,
     URL_REGEX,
 } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -33,6 +34,7 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
 
             linkifyRegex(MENTION_REGEX),
             linkifyRegex(HASHTAG_REGEX),
+            linkifyRegex(SYMBOL_REGEX),
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
             linkifyRegex(URL_REGEX),
             source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,

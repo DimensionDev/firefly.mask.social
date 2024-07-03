@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-02 12:01\n"
+"PO-Revision-Date: 2024-07-03 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -476,6 +476,9 @@ msgstr "信息流"
 
 msgid "Recasts"
 msgstr "转帖"
+
+msgid "Market Cap / FDV"
+msgstr ""
 
 msgid "Market Capital"
 msgstr ""
@@ -990,6 +993,9 @@ msgstr "无法预加载"
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
+msgstr ""
+
 msgid "Failed to unwatch {identity}"
 msgstr "取消关注 {identity} 失败"
 
@@ -1470,9 +1476,6 @@ msgstr "开发者"
 msgid "Share to"
 msgstr "分享到"
 
-msgid "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
@@ -1589,9 +1592,6 @@ msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "取消屏蔽"
-
-msgid "Market Capital / FDV"
-msgstr ""
 
 msgid "Click to copy"
 msgstr "点击复制"

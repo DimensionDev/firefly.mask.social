@@ -472,6 +472,9 @@ msgstr "Feed"
 msgid "Recasts"
 msgstr "Recasts"
 
+msgid "Market Cap / FDV"
+msgstr "Market Cap / FDV"
+
 msgid "Market Capital"
 msgstr "Market Capital"
 
@@ -985,6 +988,9 @@ msgstr "No preview found for shared link"
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
 
+msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
+msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
+
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
 
@@ -1465,9 +1471,6 @@ msgstr "Developers"
 msgid "Share to"
 msgstr "Share to"
 
-msgid "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
@@ -1584,9 +1587,6 @@ msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "Unmute"
-
-msgid "Market Capital / FDV"
-msgstr "Market Capital / FDV"
 
 msgid "Click to copy"
 msgstr "Click to copy"

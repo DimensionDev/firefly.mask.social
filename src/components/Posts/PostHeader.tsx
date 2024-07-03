@@ -76,10 +76,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </ProfileTippy>
             </div>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
-                <SocialSourceIcon
-                    source={post.source}
-                    className={post.source === Source.Lens ? 'dark:opacity-70' : undefined}
-                />
+                <SocialSourceIcon source={post.source} />
                 <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={post.timestamp} />
                 </span>

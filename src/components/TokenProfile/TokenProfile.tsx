@@ -87,7 +87,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
             </div>
             <div className="line-height-[22px] flex items-center gap-1">
                 <Trans>
-                    <span className="text-[15px] text-secondary">M.Capital</span>
+                    <span className="text-[15px] text-secondary">Market Cap</span>
                     <strong className="text-[15px] font-bold">
                         {market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'}
                     </strong>
