@@ -31,7 +31,7 @@ class Parser {
                     return null;
                 }
 
-                // scheme c: embedding an action url in an “interstitial” site or mobile app deep link url
+                // scheme c: embedding an action url in an 'interstitial' site or mobile app deep link url
                 const u = parseURL(blink);
                 const action = u?.searchParams.get('action');
                 const actionUrl = action?.startsWith('solana-action:')

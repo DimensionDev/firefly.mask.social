@@ -10,33 +10,21 @@ import { Badge } from '@/components/Blink/Badge.js';
 import { Image } from '@/components/Image.js';
 import { Linkable } from '@/components/Linkable.js';
 import { Link } from '@/esm/Link.js';
-import type { ActionType } from '@/types/blink.js';
+import type { Action, ActionType } from '@/types/blink.js';
+import { parseURL } from '@/helpers/parseURL.js';
 
 interface LayoutProps {
     type: ActionType;
-    image?: string;
-    success?: string | null;
-    websiteUrl?: string | null;
-    websiteText?: string | null;
+    action: Action;
+    successMessage?: string | null;
     disclaimer?: ReactNode;
-    title: string;
-    description: string;
     buttons?: ButtonProps[];
     inputs?: InputProps[];
 }
 
-export function ActionLayout({
-    title,
-    description,
-    image,
-    websiteUrl,
-    websiteText,
-    type,
-    disclaimer,
-    buttons,
-    inputs,
-    success,
-}: LayoutProps) {
+export function ActionLayout({ action, type, disclaimer, buttons, inputs, successMessage }: LayoutProps) {
+    const { title, description, icon, websiteUrl } = action;
+
     return (
         <div
             className="shadow-action mt-3 w-full cursor-default overflow-hidden rounded-2xl border border-line bg-bg p-3"
@@ -44,13 +32,13 @@ export function ActionLayout({
                 e.stopPropagation();
             }}
         >
-            {image ? (
+            {icon ? (
                 <Linkable url={websiteUrl}>
                     <Image
                         width={500}
                         height={500}
                         className="aspect-square w-full rounded-xl object-cover object-left"
-                        src={image}
+                        src={icon}
                         alt="action-image"
                     />
                 </Linkable>
@@ -65,7 +53,7 @@ export function ActionLayout({
                             rel="noopener noreferrer"
                         >
                             <LinkIcon className="mr-2 h-4 w-4" />
-                            {websiteText ?? websiteUrl}
+                            {parseURL(websiteUrl)?.hostname ?? websiteUrl}
                         </Link>
                     ) : null}
                     <Link
@@ -102,8 +90,8 @@ export function ActionLayout({
                     ) : null}
                     {inputs?.map((input) => <ActionInput key={input.name} {...input} />)}
                 </div>
-                {success ? (
-                    <div className="mt-4 flex justify-center text-sm text-secondarySuccess">{success}</div>
+                {successMessage ? (
+                    <div className="mt-4 flex justify-center text-sm text-secondarySuccess">{successMessage}</div>
                 ) : null}
             </div>
         </div>

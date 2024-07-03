@@ -126,8 +126,7 @@ export function ActionContainer({
     });
 
     const actionUrl = parseURL(action.url);
-    const websiteText = parseURL(action.websiteUrl)?.hostname;
-    const actionState: ActionType = (actionUrl ? registry?.[actionUrl.hostname]?.state : null) ?? 'unknown';
+    const actionState = (actionUrl ? registry?.[actionUrl.hostname]?.state : null) ?? 'unknown';
 
     const [executionState, dispatch] = useReducer(getNextExecutionState, {
         status: 'idle',
@@ -278,13 +277,9 @@ export function ActionContainer({
     return (
         <ActionLayout
             type={actionState}
-            title={action.title}
-            description={action.description}
-            websiteUrl={action.websiteUrl}
-            websiteText={websiteText}
-            image={action.icon}
+            action={action}
             disclaimer={isLoadingRegistry ? null : disclaimer}
-            success={executionState.successMessage}
+            successMessage={executionState.successMessage}
             buttons={buttons.map(asButtonProps)}
             inputs={inputs.map(asInputProps)}
         />
