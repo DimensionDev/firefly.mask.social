@@ -1,3 +1,5 @@
+import { last } from 'lodash-es';
+
 import { Blink } from '@/components/Blink/index.js';
 import { Frame } from '@/components/Frame/index.js';
 import { Oembed } from '@/components/Oembed/index.js';
@@ -6,7 +8,6 @@ import { env } from '@/constants/env.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { BlinkParser } from '@/providers/blink/Parser.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { last } from 'lodash-es';
 
 export function PostLinks({ post, setContent }: { post: Post; setContent?: (content: string) => void }) {
     const schemes = post.metadata.content?.content ? BlinkParser.extractSchemes(post.metadata.content?.content) : [];
