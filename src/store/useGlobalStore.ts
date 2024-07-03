@@ -3,17 +3,17 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
-export const getCurrentSource = () => {
+export function getCurrentSource() {
     if (typeof document === 'undefined') return Source.Farcaster;
     const searchParams = new URLSearchParams(location.search);
-    const source = searchParams.get('source') as SourceInURL | null;
+    const source = searchParams.get('source');
     if (!source) return Source.Farcaster;
-    return resolveSource(source);
-};
+    return resolveSourceFromUrl(source);
+}
 
 interface GlobalState {
     routeChanged: boolean;

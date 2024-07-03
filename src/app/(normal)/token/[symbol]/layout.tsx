@@ -6,8 +6,8 @@ import ComeBackIcon from '@/assets/comeback.svg';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 export default function TokenPageLayout({ children }: PropsWithChildren) {
-    const params = useParams();
-    const { symbol } = params;
+    const params = useParams<{ symbol: string }>();
+    const symbol = decodeURIComponent(params.symbol);
     const comeback = useComeBack();
     return (
         <>

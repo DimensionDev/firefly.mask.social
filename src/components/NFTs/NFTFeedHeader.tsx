@@ -48,7 +48,7 @@ export function NFTFeedHeader({
                 <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={address} />
             </Link>
 
-            <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 flex-col items-start overflow-hidden sm:flex-row">
+            <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 flex-row items-start overflow-hidden">
                 <Link
                     href={authorUrl}
                     onClick={(event) => event.stopPropagation()}
@@ -59,7 +59,7 @@ export function NFTFeedHeader({
                 {displayInfo.ensHandle ? (
                     <Link
                         href={authorUrl}
-                        className="block max-w-full truncate text-[15px] leading-5 text-secondary sm:ml-2"
+                        className="ml-2 block max-w-full truncate text-[15px] leading-5 text-secondary"
                     >
                         {formatEthereumAddress(address, 4)}
                     </Link>

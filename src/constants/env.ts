@@ -40,7 +40,8 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
     NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
 
-    NEXT_PUBLIC_FRAMES: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_FRAME: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_BLINK: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_WARNINGS: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -64,6 +65,8 @@ const ExternalEnvSchema = z.object({
 
     // giphy api key.
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
+
+    NEXT_PUBLIC_SOLANA_RPC_URL: z.string(),
 });
 
 export const env = {
@@ -83,7 +86,7 @@ export const env = {
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_FIREFLY_API_URL: process.env.NEXT_PUBLIC_FIREFLY_API_URL,
 
-        NEXT_PUBLIC_FRAMES: process.env.NEXT_PUBLIC_FRAMES,
+        NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,
         NEXT_PUBLIC_CALENDAR_WIDGET: process.env.NEXT_PUBLIC_CALENDAR_WIDGET,
         NEXT_PUBLIC_COMPOSE_WARNINGS: process.env.NEXT_PUBLIC_COMPOSE_WARNINGS,
@@ -102,5 +105,8 @@ export const env = {
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
+
+        NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
+        NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
     }),
 };

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-29 12:01\n"
+"PO-Revision-Date: 2024-07-03 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -31,6 +31,9 @@ msgid "Onchain Activities"
 msgstr ""
 
 msgid "Muted"
+msgstr ""
+
+msgid "Disconnect"
 msgstr ""
 
 msgid "Quote Post"
@@ -111,9 +114,6 @@ msgstr ""
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
-msgid "Download Image"
-msgstr ""
-
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
@@ -133,6 +133,9 @@ msgid "Failed to upload. Video is not supported yet"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
+
+msgid "Unknown error"
 msgstr ""
 
 msgid "More"
@@ -160,6 +163,9 @@ msgid "Join our Discord"
 msgstr ""
 
 msgid "Found arweaveTxId is empty."
+msgstr ""
+
+msgid "Blocked"
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
@@ -192,6 +198,9 @@ msgstr ""
 msgid "Poll"
 msgstr ""
 
+msgid "Solana"
+msgstr ""
+
 msgid "Casts"
 msgstr ""
 
@@ -208,6 +217,9 @@ msgid "Login with QR Code"
 msgstr ""
 
 msgid "Contract source code verified"
+msgstr ""
+
+msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
@@ -262,6 +274,9 @@ msgid "comment"
 msgstr ""
 
 msgid "True Token"
+msgstr ""
+
+msgid "Failed"
 msgstr ""
 
 msgid "Bookmarks"
@@ -438,6 +453,9 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
+msgid "Max"
+msgstr ""
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
@@ -460,6 +478,9 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Capital"
+msgstr ""
+
+msgid "Your action provider blocks execution of this action."
 msgstr ""
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
@@ -681,6 +702,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
+msgid "EVM"
+msgstr ""
+
 msgid "[LuckyDrop]"
 msgstr ""
 
@@ -694,6 +718,9 @@ msgid "Choice {0}"
 msgstr ""
 
 msgid "Send Feedback"
+msgstr ""
+
+msgid "The chainId mismatch."
 msgstr ""
 
 msgid "Open in Firefly App"
@@ -819,6 +846,9 @@ msgstr ""
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
+msgid "Search ${symbol}"
+msgstr ""
+
 msgid "Failed to unmute /{0}."
 msgstr ""
 
@@ -862,6 +892,9 @@ msgid "Mute"
 msgstr ""
 
 msgid "Confirm to log out this account?"
+msgstr ""
+
+msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr ""
 
 msgid "Failed to recast."
@@ -915,6 +948,9 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -925,6 +961,9 @@ msgid "Suggested Follows"
 msgstr ""
 
 msgid "Post has been encrypted"
+msgstr ""
+
+msgid "Token ${symbol} could not be found."
 msgstr ""
 
 msgid "Articles"
@@ -1071,9 +1110,6 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
-msgid "More Detail"
-msgstr ""
-
 msgid "View engagements"
 msgstr ""
 
@@ -1143,6 +1179,9 @@ msgstr ""
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
+msgid "Executing"
+msgstr ""
+
 msgid "Community"
 msgstr ""
 
@@ -1167,10 +1206,16 @@ msgstr ""
 msgid "Failed to like the post."
 msgstr ""
 
+msgid "Download image"
+msgstr ""
+
 msgid "Mirrored"
 msgstr ""
 
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
@@ -1440,6 +1485,9 @@ msgstr ""
 msgid "Add another option"
 msgstr ""
 
+msgid "1y"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr ""
 
@@ -1459,6 +1507,9 @@ msgid "Online"
 msgstr ""
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgstr ""
+
+msgid "This Action has not yet been registered. Only use it if you trust the source."
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
@@ -1500,10 +1551,16 @@ msgstr ""
 msgid "Claim on {0}: {1}"
 msgstr ""
 
+msgid "Ignore warning and proceed"
+msgstr ""
+
 msgid "NFT ID"
 msgstr ""
 
 msgid "Farcaster channel"
+msgstr ""
+
+msgid "Completed"
 msgstr ""
 
 msgid "Failed to unmirror post."
@@ -1519,6 +1576,9 @@ msgid "Statistic"
 msgstr ""
 
 msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Detail"
 msgstr ""
 
 msgid "Post added to your Bookmarks"
@@ -1594,6 +1654,9 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
@@ -1693,9 +1756,6 @@ msgid "No content to publish."
 msgstr ""
 
 msgid "Mirror"
-msgstr ""
-
-msgid "Already posted on {sourceName}."
 msgstr ""
 
 msgid "[Quote]"

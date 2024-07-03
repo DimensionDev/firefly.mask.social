@@ -43,7 +43,7 @@ export function Attendees({ eventId }: AttendeesProps) {
 
     return (
         <div className="space-y-5">
-            <h3 className="text-lg font-bold leading-6">
+            <h3 className="text-xl font-bold leading-6">
                 <Trans>Attendees</Trans>
             </h3>
             <ListInPage

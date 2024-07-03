@@ -11,7 +11,7 @@ export interface NFTPropertiesProps {
 export function NFTProperties(props: NFTPropertiesProps) {
     return (
         <div className="w-full space-y-2">
-            <h3 className="text-lg font-bold leading-6">
+            <h3 className="text-xl font-bold leading-6">
                 <Trans>Properties</Trans>
             </h3>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3">
@@ -29,7 +29,7 @@ export function NFTProperties(props: NFTPropertiesProps) {
                                 </div>
                             </TextOverflowTooltip>
                             <TextOverflowTooltip title={value}>
-                                <div className="w-full truncate text-lg font-bold leading-6 text-lightMain">
+                                <div className="w-full truncate text-base font-bold leading-6 text-lightMain">
                                     {value}
                                 </div>
                             </TextOverflowTooltip>

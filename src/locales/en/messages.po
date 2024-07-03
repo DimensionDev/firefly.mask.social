@@ -28,6 +28,9 @@ msgstr "Onchain Activities"
 msgid "Muted"
 msgstr "Muted"
 
+msgid "Disconnect"
+msgstr "Disconnect"
+
 msgid "Quote Post"
 msgstr "Quote Post"
 
@@ -109,9 +112,6 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
-msgid "Download Image"
-msgstr "Download Image"
-
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr "We are not aware of any code that prevents the sale of tokens."
 
@@ -132,6 +132,9 @@ msgstr "Failed to upload. Video is not supported yet"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+
+msgid "Unknown error"
+msgstr "Unknown error"
 
 msgid "More"
 msgstr "More"
@@ -159,6 +162,9 @@ msgstr "Join our Discord"
 
 msgid "Found arweaveTxId is empty."
 msgstr "Found arweaveTxId is empty."
+
+msgid "Blocked"
+msgstr "Blocked"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
@@ -195,6 +201,9 @@ msgstr "Wrong wallet"
 
 msgid "Poll"
 msgstr "Poll"
+
+msgid "Solana"
+msgstr "Solana"
 
 msgid "Casts"
 msgstr "Casts"
@@ -273,6 +282,9 @@ msgstr "comment"
 
 msgid "True Token"
 msgstr "True Token"
+
+msgid "Failed"
+msgstr "Failed"
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -472,8 +484,14 @@ msgstr "Feed"
 msgid "Recasts"
 msgstr "Recasts"
 
+msgid "Market Cap / FDV"
+msgstr "Market Cap / FDV"
+
 msgid "Market Capital"
 msgstr "Market Capital"
+
+msgid "Your action provider blocks execution of this action."
+msgstr "Your action provider blocks execution of this action."
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
@@ -708,6 +726,9 @@ msgstr "Forbidden. Please check your permissions"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+
+msgid "EVM"
+msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
@@ -964,6 +985,9 @@ msgstr "Invalid URL."
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
+msgstr "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
@@ -1002,6 +1026,9 @@ msgstr "No preview found for shared link"
 
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
+
+msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
+msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
@@ -1204,6 +1231,9 @@ msgstr "Light Mode"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
 
+msgid "Executing"
+msgstr "Executing"
+
 msgid "Community"
 msgstr "Community"
 
@@ -1227,6 +1257,9 @@ msgstr "Cancel"
 
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
+
+msgid "Download image"
+msgstr "Download image"
 
 msgid "Mirrored"
 msgstr "Mirrored"
@@ -1495,9 +1528,6 @@ msgstr "Developers"
 msgid "Share to"
 msgstr "Share to"
 
-msgid "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
 
@@ -1533,6 +1563,9 @@ msgstr "Online"
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+
+msgid "This Action has not yet been registered. Only use it if you trust the source."
+msgstr "This Action has not yet been registered. Only use it if you trust the source."
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
@@ -1573,11 +1606,17 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
 
+msgid "Ignore warning and proceed"
+msgstr "Ignore warning and proceed"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "Farcaster channel"
 msgstr "Farcaster channel"
+
+msgid "Completed"
+msgstr "Completed"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
@@ -1785,9 +1824,6 @@ msgstr "No content to publish."
 
 msgid "Mirror"
 msgstr "Mirror"
-
-msgid "Already posted on {sourceName}."
-msgstr "Already posted on {sourceName}."
 
 msgid "[Quote]"
 msgstr "[Quote]"

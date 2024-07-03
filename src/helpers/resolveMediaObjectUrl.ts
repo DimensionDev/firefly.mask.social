@@ -44,6 +44,9 @@ export function createIPFSMediaObject(ipfs: IPFSResponse, media: MediaObject): M
     return {
         ...media,
         mimeType: ipfs.mimeType,
+        urls: {
+            [MediaSource.IPFS]: ipfs.uri,
+        },
     };
 }
 

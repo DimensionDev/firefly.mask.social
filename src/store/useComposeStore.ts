@@ -14,9 +14,12 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
+import { parseBlinksFromContent } from '@/helpers/parseBlinksFromContent.js';
 import { createPoll } from '@/helpers/polls.js';
-import { FrameLoader } from '@/libs/frame/Loader.js';
-import { OpenGraphLoader } from '@/libs/og/Loader.js';
+import { BlinkLoader } from '@/providers/blink/Loader.js';
+import { FrameLoader } from '@/providers/frame/Loader.js';
+import { OpenGraphLoader } from '@/providers/og/Loader.js';
+import type { Action } from '@/providers/types/Blink.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -59,6 +62,8 @@ export interface CompositePost {
     frames: Frame[];
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
+    // parsed solana blinks from url in chars
+    blinks: Action[];
 }
 
 export interface ComposeBaseState {
@@ -109,6 +114,7 @@ interface ComposeState extends ComposeBaseState {
     addFrame: (frame: Frame, cursor?: Cursor) => void;
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
+    removeBlink: (blinks: Action, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
     createPoll: (cursor?: Cursor) => void;
@@ -140,6 +146,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         images: EMPTY_LIST,
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
+        blinks: EMPTY_LIST,
         video: null,
         rpPayload: null,
         channel: {
@@ -162,7 +169,7 @@ const next = (s: ComposeState, _: (post: CompositePost) => CompositePost, cursor
 const initialPostCursor = uuid();
 
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
-    immer<ComposeState>((set, get) => ({
+    immer((set, get) => ({
         type: 'compose',
         cursor: initialPostCursor,
         posts: [createInitSinglePostState(initialPostCursor)],
@@ -425,6 +432,17 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
+        removeBlink: (target, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        blinks: post.blinks.filter((blink) => blink !== target),
+                    }),
+                    cursor,
+                ),
+            ),
         updateRpPayload: (payload, cursor) =>
             set((state) =>
                 next(
@@ -450,7 +468,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
-            const urls = matchUrls(readChars(chars, 'visible'));
+            const content = readChars(chars, 'visible');
+            const parsedBlinks = parseBlinksFromContent(content, { matchHttpsUrl: true });
+            const urls = matchUrls(parsedBlinks.content); // Using filtered content from blink urls
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(
@@ -458,6 +478,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     frames.map((x) => x.url),
                 ),
             );
+            const blinkActions = await BlinkLoader.occupancyLoad(parsedBlinks.decodedUrls);
 
             set((state) =>
                 next(
@@ -466,6 +487,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         ...post,
                         frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
                         openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
+                        blinks: blinkActions.map((x) => x.value).slice(0, 1),
                     }),
                     cursor,
                 ),

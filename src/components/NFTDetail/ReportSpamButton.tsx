@@ -11,7 +11,7 @@ export function ReportSpamButton(props: { collectionId: string }) {
     const [, reportSpamNFT] = useReportSpamNFT();
     return (
         <ClickableButton
-            className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 text-[10px] leading-[14px]"
+            className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 font-inter text-xs leading-[14px] hover:bg-primaryBottom"
             onClick={() => reportSpamNFT(collectionId)}
         >
             <ReportSpamIcon className="h-3 w-3" />

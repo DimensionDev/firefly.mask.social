@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-29 12:01\n"
+"PO-Revision-Date: 2024-07-03 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -32,6 +32,9 @@ msgstr "鏈上活動"
 
 msgid "Muted"
 msgstr "已靜音"
+
+msgid "Disconnect"
+msgstr ""
 
 msgid "Quote Post"
 msgstr "引用"
@@ -114,9 +117,6 @@ msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼�
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
-msgid "Download Image"
-msgstr ""
-
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
@@ -136,6 +136,9 @@ msgid "Failed to upload. Video is not supported yet"
 msgstr "上傳失敗。暫不接受影片上傳。"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
+
+msgid "Unknown error"
 msgstr ""
 
 msgid "More"
@@ -163,6 +166,9 @@ msgid "Join our Discord"
 msgstr "加入我們的 Discord 社群"
 
 msgid "Found arweaveTxId is empty."
+msgstr ""
+
+msgid "Blocked"
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
@@ -200,6 +206,9 @@ msgstr "錯誤的錢包"
 
 msgid "Poll"
 msgstr "投票"
+
+msgid "Solana"
+msgstr ""
 
 msgid "Casts"
 msgstr ""
@@ -277,6 +286,9 @@ msgid "comment"
 msgstr "留言"
 
 msgid "True Token"
+msgstr ""
+
+msgid "Failed"
 msgstr ""
 
 msgid "Bookmarks"
@@ -477,7 +489,13 @@ msgstr "資訊來源"
 msgid "Recasts"
 msgstr ""
 
+msgid "Market Cap / FDV"
+msgstr ""
+
 msgid "Market Capital"
+msgstr ""
+
+msgid "Your action provider blocks execution of this action."
 msgstr ""
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
@@ -712,6 +730,9 @@ msgid "Forbidden. Please check your permissions"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "EVM"
 msgstr ""
 
 msgid "[LuckyDrop]"
@@ -969,6 +990,9 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -1006,6 +1030,9 @@ msgid "No preview found for shared link"
 msgstr ""
 
 msgid "Contract source code not verified"
+msgstr ""
+
+msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
@@ -1209,6 +1236,9 @@ msgstr "淺色模式"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
+msgid "Executing"
+msgstr ""
+
 msgid "Community"
 msgstr ""
 
@@ -1232,6 +1262,9 @@ msgstr "取消"
 
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
+
+msgid "Download image"
+msgstr ""
 
 msgid "Mirrored"
 msgstr "已鏡像"
@@ -1500,9 +1533,6 @@ msgstr ""
 msgid "Share to"
 msgstr "分享至"
 
-msgid "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
 
@@ -1537,6 +1567,9 @@ msgid "Online"
 msgstr "線上"
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgstr ""
+
+msgid "This Action has not yet been registered. Only use it if you trust the source."
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
@@ -1578,10 +1611,16 @@ msgstr ""
 msgid "Claim on {0}: {1}"
 msgstr ""
 
+msgid "Ignore warning and proceed"
+msgstr ""
+
 msgid "NFT ID"
 msgstr ""
 
 msgid "Farcaster channel"
+msgstr ""
+
+msgid "Completed"
 msgstr ""
 
 msgid "Failed to unmirror post."
@@ -1789,9 +1828,6 @@ msgid "No content to publish."
 msgstr ""
 
 msgid "Mirror"
-msgstr ""
-
-msgid "Already posted on {sourceName}."
 msgstr ""
 
 msgid "[Quote]"

@@ -11,10 +11,10 @@ import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
 import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
@@ -67,6 +67,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
     const { update, identity: currentProfile } = ProfileContext.useContainer();
     const pathname = usePathname();
+    const updateParams = useUpdateParams();
 
     const isProfilePage = pathname === PageRoute.Profile;
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
@@ -98,7 +99,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                         identity: profile.identity,
                                     });
 
-                                replaceSearchParams(
+                                updateParams(
                                     new URLSearchParams({
                                         source: resolveSourceInURL(profile.source),
                                     }),

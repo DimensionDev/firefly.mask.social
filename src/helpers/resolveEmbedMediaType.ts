@@ -1,11 +1,14 @@
 import { FRAME_SERVER_URL } from '@/constants/index.js';
+import { getResourceType } from '@/helpers/getResourceType.js';
 import { EmbedMediaType } from '@/providers/types/Firefly.js';
 
 export function isValidPollFrameUrl(url: string): boolean {
     return url.startsWith(FRAME_SERVER_URL);
 }
 
-export const resolveEmbedMediaType = (type: EmbedMediaType, url: string) => {
+export const resolveEmbedMediaType = (url: string, type?: EmbedMediaType) => {
+    if (!type) return getResourceType(url);
+
     switch (type) {
         case EmbedMediaType.IMAGE:
             return 'Image';

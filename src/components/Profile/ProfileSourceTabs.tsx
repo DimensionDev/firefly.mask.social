@@ -12,10 +12,10 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
 import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
@@ -40,6 +40,8 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
             return profiles.some((x) => x.source === source);
         });
     }, [profiles, isProfilePage]);
+
+    const updateParams = useUpdateParams();
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
@@ -76,13 +78,16 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                         source: value,
                                         identity: target?.identity,
                                     });
-                                    replaceSearchParams(
+                                    const pathname =
+                                        isOtherProfile && target
+                                            ? urlcat('/profile/:id', { id: target.identity })
+                                            : undefined;
+
+                                    updateParams(
                                         new URLSearchParams({
                                             source: resolveSourceInURL(value),
                                         }),
-                                        isOtherProfile && target
-                                            ? urlcat('/profile/:id', { id: target.identity })
-                                            : undefined,
+                                        pathname,
                                     );
                                 })
                             }

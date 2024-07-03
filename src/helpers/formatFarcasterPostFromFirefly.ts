@@ -1,4 +1,3 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -18,11 +17,15 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
+    const embedUrls: Array<{ url: string; type?: EmbedMediaType }> = cast.embed_urls?.length
+        ? cast.embed_urls
+        : cast.embeds;
+
     const oembedUrls = getEmbedUrls(
         cast.text,
         compact(
-            cast.embed_urls
-                ?.filter((x) => [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type))
+            embedUrls
+                ?.filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
                 .map((x) => x.url),
         ),
     ).map((x) => {
@@ -32,13 +35,20 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
         return x;
     });
+
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
-    const attachments = cast.embed_urls?.filter((x) => !!x.url) ?? EMPTY_LIST;
+    const attachments = embedUrls.filter((x) => {
+        if (!x.url) return false;
+        const type = resolveEmbedMediaType(x.url, x.type);
+        if (!type) return false;
+        return true;
+    });
+
     if (attachments.length) {
         const lastAsset = last(attachments);
         if (!lastAsset?.url) return defaultContent;
-        const assetType = resolveEmbedMediaType(lastAsset.type, lastAsset.url);
+        const assetType = resolveEmbedMediaType(lastAsset.url, lastAsset.type);
         if (!assetType) return defaultContent;
         return {
             content: cast.text,
@@ -52,11 +62,11 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
                 attachments.map((x) => {
                     if (!x.url) return;
 
-                    const type = resolveEmbedMediaType(x.type, x.url);
+                    const type = resolveEmbedMediaType(x.url, x.type);
                     if (!type) return;
 
                     return {
-                        type: assetType,
+                        type,
                         uri: x.url,
                     };
                 }),

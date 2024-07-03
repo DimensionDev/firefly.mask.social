@@ -113,7 +113,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     }
 
     return (
-        <div {...rest} className={classNames('flex flex-col gap-1.5 px-6 py-3', rest.className)}>
+        <div {...rest} className={classNames('flex flex-col gap-1.5 px-3 py-3 sm:px-6', rest.className)}>
             <div className="flex items-center gap-2.5 text-second">
                 <Image
                     className="overflow-hidden rounded-full"
@@ -143,7 +143,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
             </div>
             <div className="line-height-[22px] flex items-center gap-1">
                 <Trans>
-                    <span className="text-[15px] text-secondary">M.Capital</span>
+                    <span className="text-[15px] text-secondary">Market Cap</span>
                     <strong className="text-[15px] font-bold">
                         {market?.market_cap ? `$${formatNumber(market.market_cap)}` : '-'}
                     </strong>
@@ -224,7 +224,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                         value={market?.fully_diluted_valuation}
                     />
                     <InfoRow
-                        title={t`Market Capital / FDV`}
+                        title={t`Market Cap / FDV`}
                         description={
                             <Trans>
                                 <div>
@@ -297,7 +297,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                         {formatEthereumAddress(contracts[0].address, 4)}
                                     </span>
                                     <CopyButton value={contracts[0].address} />
-                                    <ContractList contracts={contracts} />
+                                    {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
                                 </div>
                             }
                         />
