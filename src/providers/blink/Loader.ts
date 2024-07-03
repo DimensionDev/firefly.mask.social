@@ -1,4 +1,5 @@
-import { SOLANA_BLINK_PREFIX } from '@/constants/regexp.js';
+import urlcat from 'urlcat';
+
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
@@ -7,7 +8,6 @@ import { BaseLoader } from '@/providers/base/Loader.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import type { Action, ActionComponent, ActionParameter } from '@/types/blink.js';
 import type { ResponseJSON } from '@/types/index.js';
-import urlcat from 'urlcat';
 
 function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
     return {
@@ -23,12 +23,15 @@ class Loader extends BaseLoader<Action> {
     protected override fetch(url: string, signal?: AbortSignal): Promise<Action | null> {
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
-            const response = await fetchCachedJSON<ResponseJSON<ActionGetResponse>>(urlcat('/solana/action', {
-                url,
-            }), {
-                signal: signal ? anySignal(timeout, signal) : timeout,
-                method: 'GET',
-            });
+            const response = await fetchCachedJSON<ResponseJSON<ActionGetResponse>>(
+                urlcat('/solana/action', {
+                    url,
+                }),
+                {
+                    signal: signal ? anySignal(timeout, signal) : timeout,
+                    method: 'GET',
+                },
+            );
             if (!response.success) throw new Error(response.error.message);
             const data = response.data;
             const actionResult: Action = {

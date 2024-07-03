@@ -3,11 +3,9 @@ import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { SOLANA_BLINK_PREFIX } from '@/constants/regexp.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
-import { decodeActionUrl } from '@/helpers/parseBlinksFromContent.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
@@ -39,6 +37,47 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
     return null;
 }
 
+type IsInterstitialResult =
+    | {
+          isInterstitial: true;
+          decodedActionUrl: string;
+      }
+    | {
+          isInterstitial: false;
+      };
+
+function isInterstitial(url: string | URL): IsInterstitialResult {
+    try {
+        const solanaActionPrefix = /^(solana-action:|solana:)/;
+        const urlObj = new URL(url);
+
+        const actionUrl = urlObj.searchParams.get('action');
+        if (!actionUrl) {
+            return { isInterstitial: false };
+        }
+        const urlDecodedActionUrl = decodeURIComponent(actionUrl);
+
+        if (!solanaActionPrefix.test(urlDecodedActionUrl)) {
+            return { isInterstitial: false };
+        }
+
+        const decodedActionUrl = urlDecodedActionUrl.replace(solanaActionPrefix, '');
+
+        // Validate the decoded action URL
+        const decodedActionUrlObj = new URL(decodedActionUrl);
+
+        return {
+            isInterstitial: true,
+            decodedActionUrl: decodedActionUrlObj.toString(),
+        };
+    } catch (e) {
+        console.error(`Failed to check if URL is interstitial: ${url}`, e);
+        return { isInterstitial: false };
+    }
+}
+
+const SOLANA_BLINK_PREFIX = 'solana://';
+
 /**
  * reference: https://docs.dialect.to/documentation/actions/blinks/detecting-actions-via-url-schemes
  */
@@ -56,8 +95,8 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         return createSuccessResponseJSON(response);
     }
     // 3. Interstitial
-    const decodedActionUrl = decodeActionUrl(url);
-    if (decodedActionUrl.isBlink) {
+    const decodedActionUrl = isInterstitial(url);
+    if (decodedActionUrl.isInterstitial) {
         const response = await fetchJSON<ActionGetResponse>(decodedActionUrl.decodedActionUrl, { method: 'GET' });
         return createSuccessResponseJSON(response);
     }
