@@ -34,7 +34,7 @@ export function PostLinks({
         if (data) {
             setEndingLinkCollapsed?.(true);
         }
-    }, [data]);
+    }, [data, setEndingLinkCollapsed]);
 
     if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
         return <Blink url={blink} onData={() => setEndingLinkCollapsed?.(true)} />;
