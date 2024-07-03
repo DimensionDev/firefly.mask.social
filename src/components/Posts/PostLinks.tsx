@@ -54,10 +54,8 @@ export function PostLinks({
         );
     }
 
-    if (error || !enabled) {
-        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
-            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed?.(true)} />;
-        }
+    if ((error || !enabled) && post.metadata.content?.oembedUrl && !post.quoteOn) {
+        return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed?.(true)} />;
     }
 
     return null;
