@@ -18,25 +18,27 @@ class Parser {
      */
     public extractSchemes(text: string): ActionScheme[] {
         return compact(
-            [...text.matchAll(Parser.BLINK_REGEXP)].map(([matched]) => {
+            [...text.matchAll(Parser.BLINK_REGEXP)].map(([blink]) => {
                 // scheme a: an explicit Action URL prefixed with 'solana://'
-                if (matched.startsWith('solana://')) {
-                    const actionUrl = decodeURIComponent(matched.replace('solana://', ''));
+                if (blink.startsWith('solana://')) {
+                    const actionUrl = decodeURIComponent(blink.replace('solana://', ''));
                     if (actionUrl.match(URL_REGEX))
                         return {
                             type: SchemeType.ActionUrl,
                             url: actionUrl,
+                            blink,
                         };
                     return null;
                 }
 
                 // scheme b: linked to an actions API via an actions.json file
-                const u = parseURL(matched);
+                const u = parseURL(blink);
                 if (!u) return null;
                 if (u.pathname.endsWith('actions.json'))
                     return {
                         type: SchemeType.ActionsJson,
-                        url: matched,
+                        url: blink,
+                        blink,
                     };
 
                 // scheme c: embedding an action url in an “interstitial” site or mobile app deep link url
@@ -48,6 +50,7 @@ class Parser {
                     return {
                         type: SchemeType.Interstitial,
                         url: actionUrl,
+                        blink,
                     };
 
                 // unknown scheme

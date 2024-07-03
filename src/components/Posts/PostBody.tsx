@@ -25,7 +25,6 @@ import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -56,7 +55,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
-    const [endingLinkCollapsed, setEndingLinkCollapsed] = useState(false);
+    const [postContent, setPostContent] = useState(post.metadata.content?.content ?? '');
     const [postViewed, setPostViewed] = useState(false);
 
     const { observe } = useInView({
@@ -80,11 +79,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }, [post, postViewed]);
 
     const muted = useIsProfileMuted(post.author, isDetail);
-
-    const postContent =
-        (endingLinkCollapsed && post.metadata.content?.oembedUrl && post.metadata.content.content
-            ? removeUrlAtEnd(post.metadata.content.oembedUrl, post.metadata.content?.content)
-            : post.metadata.content?.content) ?? '';
 
     if (post.isEncrypted) {
         return (
@@ -190,6 +184,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             <div ref={observe} />
+
             <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
 
             {showTranslate && trimify(postContent) ? (
@@ -237,7 +232,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            <PostLinks post={post} setEndingLinkCollapsed={setEndingLinkCollapsed} />
+            <PostLinks post={post} setContent={setPostContent} />
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>

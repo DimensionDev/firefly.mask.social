@@ -3,25 +3,39 @@ import { Frame } from '@/components/Frame/index.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { BlinkParser } from '@/providers/blink/Parser.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { last } from 'lodash-es';
 
-export function PostLinks({
-    post,
-    setEndingLinkCollapsed,
-}: {
-    post: Post;
-    setEndingLinkCollapsed?: (collapsed: boolean) => void;
-}) {
+export function PostLinks({ post, setContent }: { post: Post; setContent?: (content: string) => void }) {
     const schemes = post.metadata.content?.content ? BlinkParser.extractSchemes(post.metadata.content?.content) : [];
+
     const oembed =
         post.metadata.content?.oembedUrl && !post.quoteOn ? (
-            <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed?.(true)} />
+            <Oembed
+                url={post.metadata.content.oembedUrl}
+                onData={() => {
+                    if (post.metadata.content?.oembedUrl && post.metadata.content?.content) {
+                        setContent?.(removeAtEnd(post.metadata.content?.content, post.metadata.content.oembedUrl));
+                    }
+                }}
+            />
         ) : null;
 
     if (schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
+        const scheme = last(schemes);
+        if (!scheme?.url) return oembed;
+
         return (
-            <Blink urls={schemes.map((x) => x.url)} onData={() => setEndingLinkCollapsed?.(true)}>
+            <Blink
+                urls={[scheme.url]}
+                onData={() => {
+                    if (post.metadata.content?.content) {
+                        setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));
+                    }
+                }}
+            >
                 {oembed}
             </Blink>
         );
