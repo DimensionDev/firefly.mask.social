@@ -243,13 +243,15 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                // only one account is allowed
-                state.clear();
-
-                await addAccount({
-                    profile: me,
-                    session: TwitterSession.from(me, payload),
-                });
+                await addAccount(
+                    {
+                        profile: me,
+                        session: TwitterSession.from(me, payload),
+                    },
+                    {
+                        restoreSession: false,
+                    },
+                );
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
