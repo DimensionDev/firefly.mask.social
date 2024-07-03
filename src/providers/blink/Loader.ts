@@ -1,37 +1,12 @@
-import urlcat from 'urlcat';
-
 import { SOLANA_BLINK_PREFIX } from '@/constants/regexp.js';
 import { anySignal } from '@/helpers/anySignal.js';
-import { fetchCachedJSON, fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
-import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
+import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import type { Action, ActionComponent, ActionParameter } from '@/types/blink.js';
-
-function resolveActionJson(url: string, actions: ActionRuleResponse) {
-    const urlObj = parseURL(url);
-    if (!urlObj) throw new Error('Invalid blink');
-    const paths = urlObj.pathname.split('/');
-    for (const rule of actions.rules) {
-        const pathPatterns = rule.pathPattern.split('/');
-        for (let i = 0; i < pathPatterns.length; i += 1) {
-            const pathPattern = pathPatterns[i];
-            if (pathPattern === '**') {
-                pathPatterns[i] = paths.slice(i).join('/');
-                continue;
-            }
-            if (pathPattern === '*') {
-                pathPatterns[i] = paths[i];
-                continue;
-            }
-            if (pathPattern !== paths[i]) break;
-        }
-        const newPath = pathPatterns.join('/');
-        if (newPath !== rule.pathPattern) return rule.apiPath.replace(rule.pathPattern, pathPatterns.join('/'));
-    }
-    return null;
-}
+import type { ResponseJSON } from '@/types/index.js';
 
 function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
     return {
@@ -48,47 +23,31 @@ class Loader extends BaseLoader<Action> {
         const actionOriginalURL = url.startsWith(SOLANA_BLINK_PREFIX) ? url.substring(SOLANA_BLINK_PREFIX.length) : url;
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
-            if (url.startsWith(SOLANA_BLINK_PREFIX)) {
-                url = url.substring(SOLANA_BLINK_PREFIX.length);
-                const urlObj = parseURL(url);
-                if (!urlObj) throw new Error('Invalid blink');
-                const actionJsonUrl = urlcat(urlObj.origin, 'actions.json');
-                const actionJson = await fetchJSON<ActionRuleResponse>(
-                    actionJsonUrl,
-                    {
-                        method: 'GET',
-                        signal: signal ? anySignal(timeout, signal) : timeout,
-                    },
-                    { noDefaultContentType: true },
-                );
-                url = resolveActionJson(url, actionJson) ?? url;
-            }
-            const response = await fetchCachedJSON<ActionGetResponse>(url, {
+            const response = await fetchCachedJSON<ResponseJSON<ActionGetResponse>>(url, {
                 signal: signal ? anySignal(timeout, signal) : timeout,
                 method: 'GET',
             });
-            if (response.error) {
-                throw new Error(response.error.message);
-            }
+            if (!response.success) throw new Error(response.error.message);
+            const data = response.data;
             const actionResult: Action = {
                 url,
                 websiteUrl: actionOriginalURL,
-                icon: response.icon,
-                title: response.title,
-                description: response.description,
-                disabled: response.disabled ?? false,
+                icon: data.icon,
+                title: data.title,
+                description: data.description,
+                disabled: data.disabled ?? false,
                 actions: [],
             };
-            if (response.links?.actions) {
+            if (data.links?.actions) {
                 const u = parseURL(url);
                 if (u) {
-                    actionResult.actions = response.links.actions.map((action) => {
+                    actionResult.actions = data.links.actions.map((action) => {
                         const href = action.href.startsWith('http') ? action.href : u.origin + action.href;
                         return createActionComponent(action.label, href, action.parameters);
                     });
                 }
             } else {
-                actionResult.actions = [createActionComponent(response.label, url)];
+                actionResult.actions = [createActionComponent(data.label, url)];
             }
             return actionResult;
         });
