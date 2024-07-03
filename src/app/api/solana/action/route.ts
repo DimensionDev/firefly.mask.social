@@ -9,6 +9,8 @@ import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchPara
 import { parseURL } from '@/helpers/parseURL.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
+import { HttpUrl } from '@/schemas/index.js';
+import { type Action, type ActionComponent, type ActionParameter, SchemeType } from '@/types/blink.js';
 
 /**
  * reference: https://solana.com/docs/advanced/actions#actionsjson
@@ -32,86 +34,79 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
             if (pathPattern !== paths[i]) break;
         }
         const newPath = pathPatterns.join('/');
-        if (newPath !== rule.pathPattern) return rule.apiPath.replace(rule.pathPattern, pathPatterns.join('/'));
+        if (newPath !== rule.pathPattern) {
+            const apiPath = rule.apiPath.replace(rule.pathPattern, pathPatterns.join('/'));
+            return apiPath.startsWith('https://') ? apiPath : `${urlObj.origin}${apiPath}`;
+        }
     }
     return null;
 }
 
-type IsInterstitialResult =
-    | {
-          isInterstitial: true;
-          decodedActionUrl: string;
-      }
-    | {
-          isInterstitial: false;
-      };
-
-function isInterstitial(url: string | URL): IsInterstitialResult {
-    try {
-        const solanaActionPrefix = /^(solana-action:|solana:)/;
-        const urlObj = new URL(url);
-
-        const actionUrl = urlObj.searchParams.get('action');
-        if (!actionUrl) {
-            return { isInterstitial: false };
-        }
-        const urlDecodedActionUrl = decodeURIComponent(actionUrl);
-
-        if (!solanaActionPrefix.test(urlDecodedActionUrl)) {
-            return { isInterstitial: false };
-        }
-
-        const decodedActionUrl = urlDecodedActionUrl.replace(solanaActionPrefix, '');
-
-        // Validate the decoded action URL
-        const decodedActionUrlObj = new URL(decodedActionUrl);
-
-        return {
-            isInterstitial: true,
-            decodedActionUrl: decodedActionUrlObj.toString(),
-        };
-    } catch (e) {
-        console.error(`Failed to check if URL is interstitial: ${url}`, e);
-        return { isInterstitial: false };
-    }
+function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
+    return {
+        parameterValue: '',
+        label,
+        href,
+        parameters: [],
+        parameter: parameters?.[0],
+    };
 }
 
-const SOLANA_BLINK_PREFIX = 'solana://';
+function createAction(url: string, data: ActionGetResponse, blink?: string) {
+    const actionResult: Action = {
+        url,
+        websiteUrl: blink ?? url,
+        icon: data.icon,
+        title: data.title,
+        description: data.description,
+        disabled: data.disabled ?? false,
+        actions: [],
+    };
+    if (data.links?.actions) {
+        const u = parseURL(url);
+        if (u) {
+            actionResult.actions = data.links.actions.map((action) => {
+                const href = action.href.startsWith('http') ? action.href : u.origin + action.href;
+                return createActionComponent(action.label, href, action.parameters);
+            });
+        }
+    } else {
+        actionResult.actions = [createActionComponent(data.label, url)];
+    }
+    return actionResult;
+}
 
 /**
  * reference: https://docs.dialect.to/documentation/actions/blinks/detecting-actions-via-url-schemes
  */
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const { url } = getSearchParamsFromRequestWithZodObject(
+    const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
         request,
         z.object({
-            url: z.string(),
+            url: HttpUrl,
+            type: z.nativeEnum(SchemeType),
+            blink: HttpUrl.optional(),
         }),
     );
-    // 1. Sharing an explicit Action URL
-    if (url.startsWith(SOLANA_BLINK_PREFIX)) {
-        const urlWithoutPrefix = url.substring(SOLANA_BLINK_PREFIX.length);
-        const response = await fetchJSON<ActionGetResponse>(urlWithoutPrefix, { method: 'GET' });
-        return createSuccessResponseJSON(response);
+    switch (type) {
+        case SchemeType.ActionUrl:
+        case SchemeType.Interstitial: {
+            const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET' });
+            return createSuccessResponseJSON(createAction(url, response, blink));
+        }
+        case SchemeType.ActionsJson: {
+            const urlObj = parseURL(url);
+            if (!urlObj) throw new Error('Invalid blink');
+            const actionJson = await fetchJSON<ActionRuleResponse>(
+                urlcat(urlObj.origin, 'actions.json'),
+                {
+                    method: 'GET',
+                },
+                { noDefaultContentType: true },
+            );
+            const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
+            const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, { method: 'GET' });
+            return createSuccessResponseJSON(createAction(matchedApiUrl, response, blink));
+        }
     }
-    // 3. Interstitial
-    const decodedActionUrl = isInterstitial(url);
-    if (decodedActionUrl.isInterstitial) {
-        const response = await fetchJSON<ActionGetResponse>(decodedActionUrl.decodedActionUrl, { method: 'GET' });
-        return createSuccessResponseJSON(response);
-    }
-
-    // 2. Sharing a link to a website that is linked to an actions API via an actions.json file on the website root domain.
-    const urlObj = parseURL(url);
-    if (!urlObj) throw new Error('Invalid blink');
-    const actionJson = await fetchJSON<ActionRuleResponse>(
-        urlcat(urlObj.origin, 'actions.json'),
-        {
-            method: 'GET',
-        },
-        { noDefaultContentType: true },
-    );
-    const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
-    const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, { method: 'GET' });
-    return createSuccessResponseJSON(response);
 });
