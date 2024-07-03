@@ -223,7 +223,7 @@ interface FrameProps {
     source: SocialSource;
     urls: string[];
     postId: string;
-    children?: React.ReactNode;
+    children: React.ReactNode;
     onData?: (frame: FrameType) => void;
 }
 

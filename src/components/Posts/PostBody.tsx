@@ -26,7 +26,6 @@ import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } f
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
-import { resolvePostContent } from '@/helpers/resolvePostContent.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -86,8 +85,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         (endingLinkCollapsed && post.metadata.content?.oembedUrl && post.metadata.content.content
             ? removeUrlAtEnd(post.metadata.content.oembedUrl, post.metadata.content?.content)
             : post.metadata.content?.content) ?? '';
-
-    const { blink } = resolvePostContent(post, endingLinkCollapsed);
 
     if (post.isEncrypted) {
         return (
@@ -240,7 +237,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            <PostLinks blink={blink} post={post} setEndingLinkCollapsed={setEndingLinkCollapsed} />
+            <PostLinks post={post} setEndingLinkCollapsed={setEndingLinkCollapsed} />
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
