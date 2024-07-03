@@ -1,9 +1,9 @@
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { ActionsRegistryConfig } from '@/providers/types/Blink.js';
+import type { ActionsRegistryResponse } from '@/providers/types/Blink.js';
 
 class Registry {
-    async fetchActionsRegistryConfig(): Promise<ActionsRegistryConfig> {
-        const response = await fetchJSON<{ success: boolean; data: ActionsRegistryConfig }>(
+    async fetchActionsRegistryConfig(): Promise<ActionsRegistryResponse> {
+        const response = await fetchJSON<{ success: boolean; data: ActionsRegistryResponse }>(
             '/api/solana/action/register',
         );
         if (response.success) {

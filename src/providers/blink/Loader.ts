@@ -6,13 +6,8 @@ import { fetchCachedJSON, fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
-import type {
-    Action,
-    ActionComponent,
-    ActionRuleResponse,
-    ActionsSpecGetResponse,
-    Parameter,
-} from '@/providers/types/Blink.js';
+import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
+import type { Action, ActionComponent, ActionParameter } from '@/types/blink.js';
 
 function resolveActionJson(url: string, actions: ActionRuleResponse) {
     const urlObj = parseURL(url);
@@ -38,7 +33,7 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
     return null;
 }
 
-function createActionComponent(label: string, href: string, parameters?: [Parameter]): ActionComponent {
+function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
     return {
         parameterValue: '',
         label,
@@ -68,7 +63,7 @@ class Loader extends BaseLoader<Action> {
                 );
                 url = resolveActionJson(url, actionJson) ?? url;
             }
-            const response = await fetchCachedJSON<ActionsSpecGetResponse>(url, {
+            const response = await fetchCachedJSON<ActionGetResponse>(url, {
                 signal: signal ? anySignal(timeout, signal) : timeout,
                 method: 'GET',
             });

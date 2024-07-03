@@ -8,19 +8,15 @@ import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
 import type { ButtonProps } from '@/components/Blink/ActionButton.js';
 import type { InputProps } from '@/components/Blink/ActionInput.js';
-import { ActionLayout, type ActionType } from '@/components/Blink/ActionLayout.js';
+import { ActionLayout } from '@/components/Blink/ActionLayout.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { BlinkRegistry } from '@/providers/blink/Registry.js';
-import type {
-    Action,
-    ActionComponent,
-    ActionsSpecPostRequestBody,
-    ActionsSpecPostResponse,
-} from '@/providers/types/Blink.js';
+import type { ActionPostResponse } from '@/providers/types/Blink.js';
+import type { Action, ActionComponent, ActionType } from '@/types/blink.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -176,9 +172,9 @@ export function ActionContainer({
         const href = component.parameter
             ? component.href.replace(`{${component.parameter.name}}`, parameterValue.trim())
             : component.href;
-        return fetchJSON<ActionsSpecPostResponse>(href, {
+        return fetchJSON<ActionPostResponse>(href, {
             method: 'POST',
-            body: JSON.stringify({ account } as ActionsSpecPostRequestBody),
+            body: JSON.stringify({ account }),
         });
     };
 

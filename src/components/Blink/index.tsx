@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
-import type { Action } from '@/providers/types/Blink.js';
+import type { Action } from '@/types/blink.js';
 
 export function Blink(props: { url: string; onData?: (data: Action) => void }) {
     const { data } = useQuery({
