@@ -472,6 +472,9 @@ msgstr ""
 msgid "Recasts"
 msgstr ""
 
+msgid "Market Cap / FDV"
+msgstr ""
+
 msgid "Market Capital"
 msgstr ""
 
@@ -985,6 +988,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
+msgstr ""
+
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
@@ -1465,9 +1471,6 @@ msgstr ""
 msgid "Share to"
 msgstr ""
 
-msgid "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr ""
 
@@ -1583,9 +1586,6 @@ msgid "your.email@example.org"
 msgstr ""
 
 msgid "Unmute"
-msgstr ""
-
-msgid "Market Capital / FDV"
 msgstr ""
 
 msgid "Click to copy"
