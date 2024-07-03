@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
@@ -39,7 +38,6 @@ export const Like = memo<LikeProps>(function Like({
     isComment,
 }) {
     const isLogin = useIsLogin(source);
-    const queryClient = useQueryClient();
 
     const handleClick = useCallback(async () => {
         if (!postId) return null;
