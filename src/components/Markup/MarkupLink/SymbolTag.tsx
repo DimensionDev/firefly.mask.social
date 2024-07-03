@@ -3,6 +3,7 @@
 import { memo, useState } from 'react';
 
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
+import { useTippyContext } from '@/components/TippyContext/index.js';
 import { TokenProfile } from '@/components/TokenProfile/TokenProfile.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
@@ -11,6 +12,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {
     const [show, setShow] = useState(false);
     const isMedium = useIsMedium();
+    const insideTippy = useTippyContext();
 
     if (!title) return null;
     const symbol = title.slice(1);
@@ -22,7 +24,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
         </Link>
     );
 
-    if (isMedium) {
+    if (isMedium && !insideTippy) {
         return (
             <Tippy
                 appendTo={() => document.body}
