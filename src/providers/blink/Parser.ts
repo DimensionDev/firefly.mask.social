@@ -31,18 +31,9 @@ class Parser {
                     return null;
                 }
 
-                // scheme b: linked to an actions API via an actions.json file
-                const u = parseURL(blink);
-                if (!u) return null;
-                if (u.pathname.endsWith('actions.json'))
-                    return {
-                        type: SchemeType.ActionsJson,
-                        url: blink,
-                        blink,
-                    };
-
                 // scheme c: embedding an action url in an “interstitial” site or mobile app deep link url
-                const action = u.searchParams.get('action');
+                const u = parseURL(blink);
+                const action = u?.searchParams.get('action');
                 const actionUrl = action?.startsWith('solana-action:')
                     ? decodeURIComponent(action.replace('solana-action:', ''))
                     : null;
@@ -50,6 +41,14 @@ class Parser {
                     return {
                         type: SchemeType.Interstitial,
                         url: actionUrl,
+                        blink,
+                    };
+
+                // scheme b: linked to an actions API via an actions.json file
+                if (u)
+                    return {
+                        type: SchemeType.ActionsJson,
+                        url: blink,
                         blink,
                     };
 
