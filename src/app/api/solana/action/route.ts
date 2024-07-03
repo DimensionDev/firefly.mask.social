@@ -70,12 +70,12 @@ function createAction(url: string, data: ActionGetResponse, blink: string) {
     };
     if (data.links?.actions) {
         const u = parseURL(url);
-        if (u) {
-            actionResult.actions = data.links.actions.map((action) => {
-                const href = action.href.startsWith('https://') ? action.href : urlcat(u.origin, action.href);
-                return createActionComponent(action.label, href, action.parameters);
-            });
-        }
+        if (!u) throw new Error(`invlaid url = ${url}`);
+
+        actionResult.actions = data.links.actions.map((action) => {
+            const href = action.href.startsWith('https://') ? action.href : urlcat(u.origin, action.href);
+            return createActionComponent(action.label, href, action.parameters);
+        });
     } else {
         actionResult.actions = [createActionComponent(data.label, url)];
     }
