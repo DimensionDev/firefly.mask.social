@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-03 00:04\n"
+"PO-Revision-Date: 2024-07-03 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -475,6 +475,9 @@ msgid "Feed"
 msgstr ""
 
 msgid "Recasts"
+msgstr ""
+
+msgid "Market Cap / FDV"
 msgstr ""
 
 msgid "Market Capital"
@@ -990,6 +993,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
+msgstr ""
+
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
@@ -1470,9 +1476,6 @@ msgstr ""
 msgid "Share to"
 msgstr ""
 
-msgid "<0>M.Capital</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr ""
 
@@ -1588,9 +1591,6 @@ msgid "your.email@example.org"
 msgstr ""
 
 msgid "Unmute"
-msgstr ""
-
-msgid "Market Capital / FDV"
 msgstr ""
 
 msgid "Click to copy"
