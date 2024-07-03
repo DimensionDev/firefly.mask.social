@@ -1,13 +1,12 @@
 import { first } from 'lodash-es';
 
-import { SOLANA_BLINK_REGEX } from '@/constants/regexp.js';
-import { parseBlinksFromContent } from '@/helpers/parseBlinksFromContent.js';
+import { decodeActionUrl, parseBlinksFromContent } from '@/helpers/parseBlinksFromContent.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function resolvePostContent(post: Post, endingLinkCollapsed?: boolean) {
     let content = post.metadata.content?.content ?? '';
-    const solanaBlinkMatchOembedUrl = post.metadata?.content?.oembedUrl?.match(SOLANA_BLINK_REGEX);
+    const solanaBlinkMatchOembedUrl = decodeActionUrl(post.metadata?.content?.oembedUrl ?? '');
     const parsedBlinks = parseBlinksFromContent(content);
     const solanaBlinkMatchContent = first(parsedBlinks.decodedUrls);
     content = parsedBlinks.content;
@@ -16,6 +15,6 @@ export function resolvePostContent(post: Post, endingLinkCollapsed?: boolean) {
 
     return {
         content,
-        blink: solanaBlinkMatchOembedUrl ? solanaBlinkMatchOembedUrl[2] : solanaBlinkMatchContent,
+        blink: solanaBlinkMatchOembedUrl.isBlink ? solanaBlinkMatchOembedUrl.decodedActionUrl : solanaBlinkMatchContent,
     };
 }

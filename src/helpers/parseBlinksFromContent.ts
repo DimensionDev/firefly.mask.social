@@ -15,7 +15,7 @@ type ActionUrl =
           url: string;
       };
 
-function decodeActionUrl(url: string): ActionUrl {
+export function decodeActionUrl(url: string): ActionUrl {
     const parsedUrl = parseURL(url);
     if (!parsedUrl) return { isBlink: false, url };
 
@@ -63,7 +63,13 @@ export function parseBlinksFromContent(
     const solanaUrls = match.map((x) => x[0]);
 
     const urls = uniqBy([...httpsUrls, ...solanaUrls], (x) => x.toLowerCase());
-    const decodedUrls = [...httpsUrls.map((url) => `${SOLANA_BLINK_PREFIX}${url}`), ...solanaUrls];
+    const decodedUrls = [
+        ...httpsUrls.map((url) => {
+            const decodedActionUrl = decodeActionUrl(url);
+            return decodedActionUrl.isBlink ? decodedActionUrl.decodedActionUrl : `${SOLANA_BLINK_PREFIX}${url}`;
+        }),
+        ...solanaUrls,
+    ];
 
     return {
         urls,
