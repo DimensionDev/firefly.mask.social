@@ -6,7 +6,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -20,22 +20,6 @@ interface CustomArrowProps extends Omit<ClickableButtonProps, 'children'> {
     slideCount?: number | undefined;
 }
 
-export function CustomLeftArrow(props: CustomArrowProps) {
-    return (
-        <ClickableButton {...props}>
-            <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
-        </ClickableButton>
-    );
-}
-
-export function CustomRightArrow(props: CustomArrowProps) {
-    return (
-        <ClickableButton {...props}>
-            <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
-        </ClickableButton>
-    );
-}
-
 export interface PreviewImagesModalOpenProps {
     images: string[];
     current: string;
@@ -43,6 +27,8 @@ export interface PreviewImagesModalOpenProps {
 
 export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewImagesModalOpenProps>>(
     function PreviewImagesModal(_, ref) {
+        const prevRef = useRef<HTMLButtonElement>(null);
+        const nextRef = useRef<HTMLButtonElement>(null);
         const [current, setCurrent] = useState<string>();
         const [images, setImages] = useState<string[]>([]);
 
@@ -75,8 +61,14 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                 <Swiper
                                     modules={[Navigation, Keyboard]}
                                     navigation={{
-                                        prevEl: '.prev-button',
-                                        nextEl: '.next-button',
+                                        prevEl: prevRef.current,
+                                        nextEl: nextRef.current,
+                                    }}
+                                    onBeforeInit={(swiper) => {
+                                        if (typeof swiper.params.navigation === 'object') {
+                                            swiper.params.navigation.prevEl = prevRef.current;
+                                            swiper.params.navigation.nextEl = nextRef.current;
+                                        }
                                     }}
                                     keyboard
                                     initialSlide={index && index > 0 ? index : undefined}
@@ -84,7 +76,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                     {images.map((x, key) => {
                                         return (
                                             <SwiperSlide key={key} className="flex">
-                                                <div className="max-md:flex max-md:justify-center">
+                                                <div className="flex h-full w-full items-center justify-center">
                                                     <Image
                                                         key={index}
                                                         src={x}
@@ -97,8 +89,26 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                             </SwiperSlide>
                                         );
                                     })}
-                                    <CustomLeftArrow className="prev-button absolute left-[50px] top-[50%] z-[9999] max-md:hidden" />
-                                    <CustomRightArrow className="next-button absolute right-[50px] top-[50%] z-[9999] max-md:hidden" />
+                                    <ClickableButton
+                                        ref={prevRef}
+                                        className="prev-button absolute left-[50px] top-[50%] z-[9999] max-md:hidden"
+                                    >
+                                        <ArrowLeftIcon
+                                            width={24}
+                                            height={24}
+                                            className="rounded-full p-1 text-main hover:bg-bg"
+                                        />
+                                    </ClickableButton>
+                                    <ClickableButton
+                                        ref={nextRef}
+                                        className="next-button absolute right-[50px] top-[50%] z-[9999] max-md:hidden"
+                                    >
+                                        <ArrowRightIcon
+                                            width={24}
+                                            height={24}
+                                            className="rounded-full p-1 text-main hover:bg-bg"
+                                        />
+                                    </ClickableButton>
                                 </Swiper>
                             </div>
                         </>

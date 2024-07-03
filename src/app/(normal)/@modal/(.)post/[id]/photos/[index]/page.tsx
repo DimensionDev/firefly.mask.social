@@ -3,15 +3,17 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/keyboard';
 
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
@@ -19,7 +21,6 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { CustomLeftArrow, CustomRightArrow } from '@/modals/PreviewImagesModal.js';
 
 interface Props {
     params: {
@@ -30,6 +31,8 @@ interface Props {
 }
 
 export default function PreviewPhotoModal({ params: { id: postId, index }, searchParams: { source } }: Props) {
+    const prevRef = useRef<HTMLButtonElement>(null);
+    const nextRef = useRef<HTMLButtonElement>(null);
     const router = useRouter();
     const isMedium = useIsMedium();
 
@@ -76,8 +79,14 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                     <Swiper
                         modules={[Navigation, Keyboard]}
                         navigation={{
-                            prevEl: '.prev-button',
-                            nextEl: '.next-button',
+                            prevEl: prevRef.current,
+                            nextEl: nextRef.current,
+                        }}
+                        onBeforeInit={(swiper) => {
+                            if (typeof swiper.params.navigation === 'object') {
+                                swiper.params.navigation.prevEl = prevRef.current;
+                                swiper.params.navigation.nextEl = nextRef.current;
+                            }
                         }}
                         keyboard
                         initialSlide={Number(index) - 1}
@@ -85,7 +94,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                         {images.map((x, key) => {
                             return (
                                 <SwiperSlide key={key} className="flex">
-                                    <div className="max-md:flex max-md:justify-center">
+                                    <div className="flex h-full w-full items-center justify-center">
                                         <Image
                                             key={index}
                                             src={x}
@@ -98,8 +107,18 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                                 </SwiperSlide>
                             );
                         })}
-                        <CustomLeftArrow className="prev-button absolute left-[50px] top-[50%] z-[9999] max-md:hidden" />
-                        <CustomRightArrow className="next-button absolute right-[50px] top-[50%] z-[9999] max-md:hidden" />
+                        <ClickableButton
+                            ref={prevRef}
+                            className="prev-button absolute left-[50px] top-[50%] z-[9999] max-md:hidden"
+                        >
+                            <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
+                        </ClickableButton>
+                        <ClickableButton
+                            ref={nextRef}
+                            className="next-button absolute right-[50px] top-[50%] z-[9999] max-md:hidden"
+                        >
+                            <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
+                        </ClickableButton>
                     </Swiper>
                 </div>
                 <div className="absolute my-1 flex items-center justify-between bottom-safe">
