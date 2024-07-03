@@ -1,26 +1,38 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { last } from 'lodash-es';
+import { memo, useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
-import type { Action } from '@/types/blink.js';
+import type { Action, ActionScheme } from '@/types/blink.js';
 
-export function Blink(props: { url: string; onData?: (data: Action) => void }) {
-    const { data } = useQuery({
-        queryKey: ['blink', props.url],
+interface Props {
+    schemes: ActionScheme[];
+    children: React.ReactNode;
+    onData?: (data: Action) => void;
+}
+
+export const Blink = memo<Props>(function Blink({ schemes, onData, children }) {
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['action', schemes.map((x) => x.url)],
         queryFn: async () => {
-            return BlinkLoader.fetchAction(props.url);
+            const scheme = last(schemes);
+            if (!scheme) return null;
+
+            return BlinkLoader.fetchAction(scheme);
         },
     });
+
     useEffect(() => {
-        if (data) {
-            props.onData?.(data);
-        }
-    }, [props, data]);
+        if (data) onData?.(data);
+    }, [onData, data]);
 
-    if (!data) return null;
+    const action = data?.error ? null : data;
 
-    return <ActionContainer action={data} />;
-}
+    if (isLoading) return null;
+    if (error || !action) return children;
+
+    return <ActionContainer action={action} />;
+});

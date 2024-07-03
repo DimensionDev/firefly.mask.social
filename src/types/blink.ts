@@ -1,5 +1,17 @@
 export type ActionType = 'trusted' | 'malicious' | 'unknown';
 
+export enum SchemeType {
+    ActionUrl = 'ActionUrl',
+    ActionsJson = 'ActionsJson',
+    Interstitial = 'Interstitial',
+}
+
+export interface ActionScheme {
+    type: SchemeType;
+    url: string;
+    blink: string;
+}
+
 // Linked action inspired by HAL https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-11
 export interface LinkedAction {
     href: string; // solana pay/actions get/post url

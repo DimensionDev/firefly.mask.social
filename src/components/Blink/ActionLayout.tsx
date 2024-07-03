@@ -13,7 +13,7 @@ import { Link } from '@/esm/Link.js';
 import type { ActionType } from '@/types/blink.js';
 
 interface LayoutProps {
-    type: ActionType | 'unknown';
+    type: ActionType;
     image?: string;
     success?: string | null;
     websiteUrl?: string | null;

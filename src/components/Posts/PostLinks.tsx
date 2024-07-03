@@ -1,62 +1,55 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { last } from 'lodash-es';
 
-import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { Blink } from '@/components/Blink/index.js';
 import { Frame } from '@/components/Frame/index.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SOLANA_BLINK_PREFIX } from '@/constants/regexp.js';
-import { BlinkLoader } from '@/providers/blink/Loader.js';
+import { removeAtEnd } from '@/helpers/removeAtEnd.js';
+import { BlinkParser } from '@/providers/blink/Parser.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function PostLinks({
-    post,
-    blink,
-    setEndingLinkCollapsed,
-}: {
-    blink?: string;
-    post: Post;
-    setEndingLinkCollapsed?: (collapsed: boolean) => void;
-}) {
-    const oembedUrl = post.metadata.content?.oembedUrl;
-    const enabled = !!oembedUrl && !blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled;
-    const { data, error } = useQuery({
-        queryKey: ['get_post_oembed_url_is_blink', oembedUrl],
-        async queryFn() {
-            return BlinkLoader.fetchAction(`${SOLANA_BLINK_PREFIX}${oembedUrl!}`);
-        },
-        enabled,
-    });
+export function PostLinks({ post, setContent }: { post: Post; setContent?: (content: string) => void }) {
+    // a blink could be a normal url, so the result is also available for the oembed and frame components
+    const schemes = post.metadata.content?.content ? BlinkParser.extractSchemes(post.metadata.content?.content) : [];
 
-    useEffect(() => {
-        if (data) {
-            setEndingLinkCollapsed?.(true);
-        }
-    }, [data, setEndingLinkCollapsed]);
+    const oembed =
+        post.metadata.content?.oembedUrl && !post.quoteOn ? (
+            <Oembed
+                url={post.metadata.content.oembedUrl}
+                onData={() => {
+                    if (post.metadata.content?.oembedUrl && post.metadata.content?.content) {
+                        setContent?.(removeAtEnd(post.metadata.content?.content, post.metadata.content.oembedUrl));
+                    }
+                }}
+            />
+        ) : null;
 
-    if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
-        return <Blink url={blink} onData={() => setEndingLinkCollapsed?.(true)} />;
-    }
+    if (schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
+        const scheme = last(schemes);
+        if (!scheme?.url) return oembed;
 
-    if (data) {
-        return <ActionContainer action={data} />;
+        return (
+            <Blink
+                schemes={[scheme]}
+                onData={() => {
+                    if (post.metadata.content?.content) {
+                        setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));
+                    }
+                }}
+            >
+                {oembed}
+            </Blink>
+        );
     }
 
     if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
         return (
             <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                {post.metadata.content.oembedUrl && !post.quoteOn ? (
-                    <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed?.(true)} />
-                ) : null}
+                {oembed}
             </Frame>
         );
     }
 
-    if ((error || !enabled) && post.metadata.content?.oembedUrl && !post.quoteOn) {
-        return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed?.(true)} />;
-    }
-
-    return null;
+    return oembed;
 }

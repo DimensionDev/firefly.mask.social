@@ -7,6 +7,7 @@ import { BaseLoader } from '@/providers/base/Loader.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import type { Action, ActionComponent, ActionParameter } from '@/types/blink.js';
 import type { ResponseJSON } from '@/types/index.js';
+import urlcat from 'urlcat';
 
 function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
     return {
@@ -20,10 +21,11 @@ function createActionComponent(label: string, href: string, parameters?: [Action
 
 class Loader extends BaseLoader<Action> {
     protected override fetch(url: string, signal?: AbortSignal): Promise<Action | null> {
-        const actionOriginalURL = url.startsWith(SOLANA_BLINK_PREFIX) ? url.substring(SOLANA_BLINK_PREFIX.length) : url;
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
-            const response = await fetchCachedJSON<ResponseJSON<ActionGetResponse>>(url, {
+            const response = await fetchCachedJSON<ResponseJSON<ActionGetResponse>>(urlcat('/solana/action', {
+                url,
+            }), {
                 signal: signal ? anySignal(timeout, signal) : timeout,
                 method: 'GET',
             });
@@ -31,7 +33,7 @@ class Loader extends BaseLoader<Action> {
             const data = response.data;
             const actionResult: Action = {
                 url,
-                websiteUrl: actionOriginalURL,
+                websiteUrl: url,
                 icon: data.icon,
                 title: data.title,
                 description: data.description,
