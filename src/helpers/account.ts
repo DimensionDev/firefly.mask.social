@@ -54,8 +54,9 @@ async function restoreFireflySession(session: Session, signal?: AbortSignal): Pr
 export async function addAccount(
     account: Account,
     options?: {
-        // set the account as the current account
+        // set the account as the current account, default: true
         setAsCurrent?: boolean;
+        // restore the firefly binded session, default: true
         restoreSession?: boolean;
         signal?: AbortSignal;
     },
