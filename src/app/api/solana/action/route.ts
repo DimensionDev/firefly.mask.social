@@ -4,6 +4,7 @@ import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
+import { UnreachableError } from '@/constants/error.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
@@ -12,7 +13,6 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { type Action, type ActionComponent, type ActionParameter, SchemeType } from '@/types/blink.js';
-import { UnreachableError } from '@/constants/error.js';
 
 /**
  * reference: https://solana.com/docs/advanced/actions#actionsjson
