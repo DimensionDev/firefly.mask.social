@@ -13,10 +13,9 @@ import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
-import { matchUrls } from '@/helpers/matchUrls.js';
-import { parseBlinksFromContent } from '@/helpers/parseBlinksFromContent.js';
 import { createPoll } from '@/helpers/polls.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
+import { BlinkParser } from '@/providers/blink/Parser.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { OpenGraphLoader } from '@/providers/og/Loader.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
@@ -63,7 +62,7 @@ export interface CompositePost {
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
     // parsed solana blinks from url in chars
-    blinks: Action[];
+    actions: Action[];
 }
 
 export interface ComposeBaseState {
@@ -146,7 +145,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         images: EMPTY_LIST,
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
-        blinks: EMPTY_LIST,
+        actions: EMPTY_LIST,
         video: null,
         rpPayload: null,
         channel: {
@@ -438,7 +437,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     state,
                     (post) => ({
                         ...post,
-                        blinks: post.blinks.filter((blink) => blink !== target),
+                        actions: post.actions.filter((blink) => blink !== target),
                     }),
                     cursor,
                 ),
@@ -469,8 +468,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         loadComponentsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
             const content = readChars(chars, 'visible');
-            const parsedBlinks = parseBlinksFromContent(content, { matchHttpsUrl: true });
-            const urls = matchUrls(parsedBlinks.content); // Using filtered content from blink urls
+
+            const urls = BlinkParser.extractSchemes(content).map((x) => x.url);
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(
@@ -478,7 +477,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     frames.map((x) => x.url),
                 ),
             );
-            const blinkActions = await BlinkLoader.occupancyLoad(parsedBlinks.decodedUrls);
+            const actions = await BlinkLoader.occupancyLoad(urls);
 
             set((state) =>
                 next(
@@ -487,7 +486,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         ...post,
                         frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
                         openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
-                        blinks: blinkActions.map((x) => x.value).slice(0, 1),
+                        actions: actions.map((x) => x.value).slice(0, 1),
                     }),
                     cursor,
                 ),

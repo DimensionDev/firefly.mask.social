@@ -18,7 +18,7 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, video, frames, openGraphs, poll, availableSources, blinks } = props.post;
+    const { id, parentPost, images, video, frames, openGraphs, actions, poll, availableSources } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens;
@@ -91,10 +91,10 @@ export function ComposeContent(props: ComposeContentProps) {
                 </div>
             ) : null}
 
-            {/* blink */}
-            {blinks.length ? (
+            {/* blink actions */}
+            {actions.length ? (
                 <div className="flex w-full gap-2">
-                    {blinks.map((action) => (
+                    {actions.map((action) => (
                         <ActionContainer action={action} key={action.title + action.url} />
                     ))}
                 </div>

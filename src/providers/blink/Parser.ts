@@ -44,7 +44,7 @@ class Parser {
                 const actionUrl = action?.startsWith('solana-action:')
                     ? decodeURIComponent(action.replace('solana-action:', ''))
                     : null;
-                if (actionUrl && actionUrl.match(URL_REGEX))
+                if (actionUrl?.match(URL_REGEX))
                     return {
                         type: SchemeType.Interstitial,
                         url: actionUrl,
