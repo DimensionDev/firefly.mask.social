@@ -477,6 +477,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     frames.map((x) => x.url),
                 ),
             );
+            // TODO: resolve actions.json
             const actions = await BlinkLoader.occupancyLoad(urls);
 
             set((state) =>
