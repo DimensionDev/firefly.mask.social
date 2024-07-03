@@ -24,7 +24,7 @@ class Loader extends BaseLoader<Action> {
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
             const response = await fetchCachedJSON<ResponseJSON<ActionGetResponse>>(
-                urlcat('/solana/action', {
+                urlcat('/api/solana/action', {
                     url,
                 }),
                 {
