@@ -1,4 +1,3 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -39,7 +38,13 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
-    const attachments = embedUrls.filter((x) => !!x.url) ?? EMPTY_LIST;
+    const attachments = embedUrls.filter((x) => {
+        if (!x.url) return false;
+        const type = resolveEmbedMediaType(x.url, x.type);
+        if (!type) return false;
+        return true;
+    });
+
     if (attachments.length) {
         const lastAsset = last(attachments);
         if (!lastAsset?.url) return defaultContent;
