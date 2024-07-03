@@ -8,7 +8,6 @@ import { UnreachableError } from '@/constants/error.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
-import { parseURL } from '@/helpers/parseURL.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
 import { HttpUrl } from '@/schemas/index.js';
@@ -57,9 +56,11 @@ function createActionComponent(label: string, href: string, parameters?: [Action
 }
 
 function createAction(url: string, data: ActionGetResponse, blink: string) {
+    const PREFIX = 'solana://';
+    const websiteUrl = blink.startsWith(PREFIX) ? blink.substring(PREFIX.length) : url;
     const actionResult: Action = {
         url,
-        websiteUrl: blink,
+        websiteUrl,
         icon: data.icon,
         title: data.title,
         description: data.description,
@@ -87,7 +88,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         z.object({
             url: HttpUrl,
             type: z.nativeEnum(SchemeType),
-            blink: HttpUrl,
+            blink: z.string(),
         }),
     );
 

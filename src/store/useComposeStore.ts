@@ -469,7 +469,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             const chars = pick(get(), (x) => x.chars);
             const content = readChars(chars, 'visible');
 
-            const urls = BlinkParser.extractSchemes(content).map((x) => x.url);
+            const parsedActionSchemes = BlinkParser.extractSchemes(content);
+            const urls = parsedActionSchemes.map((x) => x.url);
             const frames = await FrameLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(
@@ -477,8 +478,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     frames.map((x) => x.url),
                 ),
             );
-            // TODO: resolve actions.json
-            const actions = await BlinkLoader.occupancyLoad(urls);
+            const actions = await BlinkLoader.occupancyLoad(parsedActionSchemes.map((url) => JSON.stringify(url)));
 
             set((state) =>
                 next(
