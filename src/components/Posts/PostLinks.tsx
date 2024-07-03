@@ -31,7 +31,7 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
 
         return (
             <Blink
-                urls={[scheme.url]}
+                schemes={[scheme]}
                 onData={() => {
                     if (post.metadata.content?.content) {
                         setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));

@@ -1,11 +1,12 @@
+import urlcat from 'urlcat';
+
 import { anySignal } from '@/helpers/anySignal.js';
-import { fetchCachedJSON, fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
-import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
-import type { Action, ActionComponent, ActionParameter } from '@/types/blink.js';
-import urlcat from 'urlcat';
+import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { Action, ActionComponent, ActionParameter, ActionScheme } from '@/types/blink.js';
 
 function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
     return {
@@ -29,6 +30,7 @@ class Loader extends BaseLoader<Action> {
 
             const action: Action = {
                 url,
+                // should be replaced by blink url in privilege methods
                 websiteUrl: url,
                 icon: response.icon,
                 title: response.title,
@@ -38,12 +40,12 @@ class Loader extends BaseLoader<Action> {
             };
             if (response.links?.actions?.length) {
                 const u = parseURL(url);
-                if (u) {
-                    action.actions = response.links.actions.map((action) => {
-                        const href = action.href.startsWith('https') ? action.href : urlcat(u.origin, u.href);
-                        return createActionComponent(action.label, href, action.parameters);
-                    });
-                }
+                if (!u) throw new Error('Invalid URL');
+
+                action.actions = response.links.actions.map((action) => {
+                    const href = action.href.startsWith('https') ? action.href : urlcat(u.origin, u.href);
+                    return createActionComponent(action.label, href, action.parameters);
+                });
             } else {
                 action.actions = [createActionComponent(response.label, url)];
             }
@@ -51,8 +53,14 @@ class Loader extends BaseLoader<Action> {
         });
     }
 
-    public fetchAction(url: string) {
-        return this.fetch(url);
+    public async fetchAction({ url, blink }: ActionScheme): Promise<Action | null> {
+        const action = await this.fetch(url);
+        if (!action) return null;
+
+        return {
+            ...action,
+            websiteUrl: blink,
+        };
     }
 }
 

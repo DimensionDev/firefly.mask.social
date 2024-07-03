@@ -6,21 +6,22 @@ import { memo, useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
-import type { Action } from '@/types/blink.js';
+import type { Action, ActionScheme } from '@/types/blink.js';
 
 interface Props {
-    urls: string[];
+    schemes: ActionScheme[];
     children: React.ReactNode;
     onData?: (data: Action) => void;
 }
 
-export const Blink = memo<Props>(function Blink({ urls, onData, children }) {
+export const Blink = memo<Props>(function Blink({ schemes, onData, children }) {
     const { data, error, isLoading } = useQuery({
-        queryKey: ['action', urls],
+        queryKey: ['action', schemes.map((x) => x.url)],
         queryFn: async () => {
-            const url = last(urls);
-            if (!url) return null;
-            return BlinkLoader.fetchAction(url);
+            const scheme = last(schemes);
+            if (!scheme) return null;
+
+            return BlinkLoader.fetchAction(scheme);
         },
     });
 
@@ -31,7 +32,6 @@ export const Blink = memo<Props>(function Blink({ urls, onData, children }) {
     const action = data?.error ? null : data;
 
     if (isLoading) return null;
-
     if (error || !action) return children;
 
     return <ActionContainer action={action} />;
