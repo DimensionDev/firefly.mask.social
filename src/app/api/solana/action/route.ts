@@ -18,9 +18,7 @@ import { type Action, type ActionComponent, type ActionParameter, SchemeType } f
  * reference: https://solana.com/docs/advanced/actions#actionsjson
  */
 function resolveActionJson(url: string, actions: ActionRuleResponse) {
-    const u = parseURL(url);
-    if (!u) throw new Error(`invalid url = ${url}`);
-
+    const u = new URL(url);
     const paths = u.pathname.split('/');
 
     for (const rule of actions.rules) {
@@ -69,9 +67,7 @@ function createAction(url: string, data: ActionGetResponse, blink: string) {
         actions: [],
     };
     if (data.links?.actions) {
-        const u = parseURL(url);
-        if (!u) throw new Error(`invalid url = ${url}`);
-
+        const u = new URL(url);
         actionResult.actions = data.links.actions.map((action) => {
             const href = action.href.startsWith('https://') ? action.href : urlcat(u.origin, action.href);
             return createActionComponent(action.label, href, action.parameters);
@@ -102,9 +98,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             return createSuccessResponseJSON(createAction(url, response, blink));
         }
         case SchemeType.ActionsJson: {
-            const u = parseURL(url);
-            if (!u) throw new Error(`invalid url = ${url}`);
-
+            const u = new URL(url);
             const actionJson = await fetchJSON<ActionRuleResponse>(
                 urlcat(u.origin, 'actions.json'),
                 {
