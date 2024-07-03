@@ -10,7 +10,7 @@ import { BlinkParser } from '@/providers/blink/Parser.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function PostLinks({ post, setContent }: { post: Post; setContent?: (content: string) => void }) {
-    // the blink action also contains the normal url, so the result is also available for the oembed and frame components
+    // a blink could be a normal url, so the result is also available for the oembed and frame components
     const schemes = post.metadata.content?.content ? BlinkParser.extractSchemes(post.metadata.content?.content) : [];
 
     const oembed =
