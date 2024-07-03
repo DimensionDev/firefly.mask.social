@@ -21,12 +21,13 @@ export function PostLinks({
     setEndingLinkCollapsed?: (collapsed: boolean) => void;
 }) {
     const oembedUrl = post.metadata.content?.oembedUrl;
+    const enabled = !!oembedUrl && !blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled;
     const { data, error } = useQuery({
         queryKey: ['get_post_oembed_url_is_blink', oembedUrl],
         async queryFn() {
             return BlinkLoader.fetchAction(`${SOLANA_BLINK_PREFIX}${oembedUrl!}`);
         },
-        enabled: !!oembedUrl && !blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled,
+        enabled,
     });
 
     useEffect(() => {
@@ -35,18 +36,12 @@ export function PostLinks({
         }
     }, [data]);
 
-    if (error) {
-        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
-            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed?.(true)} />;
-        }
+    if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
+        return <Blink url={blink} onData={() => setEndingLinkCollapsed?.(true)} />;
     }
 
     if (data) {
         return <ActionContainer action={data} />;
-    }
-
-    if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
-        return <Blink url={blink} onData={() => setEndingLinkCollapsed?.(true)} />;
     }
 
     if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
@@ -57,6 +52,12 @@ export function PostLinks({
                 ) : null}
             </Frame>
         );
+    }
+
+    if (error || !enabled) {
+        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
+            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed?.(true)} />;
+        }
     }
 
     return null;
