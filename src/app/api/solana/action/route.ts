@@ -21,10 +21,12 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
     const paths = urlObj.pathname.split('/');
     for (const rule of actions.rules) {
         const pathPatterns = rule.pathPattern.split('/');
+        let end = '';
         for (let i = 0; i < pathPatterns.length; i += 1) {
             const pathPattern = pathPatterns[i];
             if (pathPattern === '**') {
-                pathPatterns[i] = paths.slice(i).join('/');
+                end = paths.slice(i).join('/');
+                pathPatterns[i] = end;
                 continue;
             }
             if (pathPattern === '*') {
@@ -35,7 +37,7 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
         }
         const newPath = pathPatterns.join('/');
         if (newPath !== rule.pathPattern) {
-            const apiPath = rule.apiPath.replace(rule.pathPattern, pathPatterns.join('/'));
+            const apiPath = rule.apiPath.replace(rule.pathPattern, pathPatterns.join('/')).replace('**', end);
             return apiPath.startsWith('https://') ? apiPath : `${urlObj.origin}${apiPath}`;
         }
     }
