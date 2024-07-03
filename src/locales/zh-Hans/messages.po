@@ -1650,9 +1650,6 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "取消屏蔽"
 
-msgid "Market Capital / FDV"
-msgstr ""
-
 msgid "View on explorer"
 msgstr ""
 

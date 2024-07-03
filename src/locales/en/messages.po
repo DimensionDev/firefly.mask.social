@@ -1645,9 +1645,6 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "Unmute"
 
-msgid "Market Capital / FDV"
-msgstr "Market Capital / FDV"
-
 msgid "View on explorer"
 msgstr "View on explorer"
 

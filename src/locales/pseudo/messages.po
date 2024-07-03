@@ -1645,9 +1645,6 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
-msgid "Market Capital / FDV"
-msgstr ""
-
 msgid "View on explorer"
 msgstr ""
 
