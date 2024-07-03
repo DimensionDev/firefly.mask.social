@@ -22,7 +22,7 @@ class Parser {
                 // scheme a: an explicit Action URL prefixed with 'solana://'
                 if (blink.startsWith('solana://')) {
                     const actionUrl = decodeURIComponent(blink.replace('solana://', ''));
-                    if (actionUrl.match(URL_REGEX))
+                    if (actionUrl.match(URL_REGEX) && actionUrl.startsWith('https://'))
                         return {
                             type: SchemeType.ActionUrl,
                             url: actionUrl,
@@ -37,7 +37,7 @@ class Parser {
                 const actionUrl = action?.startsWith('solana-action:')
                     ? decodeURIComponent(action.replace('solana-action:', ''))
                     : null;
-                if (actionUrl?.match(URL_REGEX))
+                if (actionUrl?.match(URL_REGEX) && actionUrl.startsWith('https://'))
                     return {
                         type: SchemeType.Interstitial,
                         url: actionUrl,
@@ -45,7 +45,7 @@ class Parser {
                     };
 
                 // scheme b: linked to an actions API via an actions.json file
-                if (u)
+                if (u && blink.startsWith('https://'))
                     return {
                         type: SchemeType.ActionsJson,
                         url: blink,
