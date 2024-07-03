@@ -4,6 +4,7 @@ import { RemoveButton } from '@/components/RemoveButton.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { MediaObject } from '@/types/compose.js';
 
@@ -28,7 +29,12 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
                 'h-auto': size >= 5,
             })}
         >
-            <Image src={resolveMediaObjectUrl(image)} alt={image.file.name} fill className="object-cover" />
+            <Image
+                src={sanitizeDStorageUrl(resolveMediaObjectUrl(image))}
+                alt={image.file.name}
+                fill
+                className="object-cover"
+            />
 
             {!readonly ? (
                 <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(image)} />
