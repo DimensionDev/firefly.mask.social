@@ -3,12 +3,20 @@
         "apps": [],
         "details": [
             {
+                "appIDs": [
+                    "L57MZV93G4.io.mask.Mask"
+                ],
                 "appID": "L57MZV93G4.io.mask.Mask",
                 "paths": [
                     "/post/*",
                     "/profile/*",
-                    "/",
+                    "/*",
                     "/login/desktop"
+                ],
+                "components": [
+                    {
+                        "/": "/*"
+                    }
                 ]
             }
         ]
