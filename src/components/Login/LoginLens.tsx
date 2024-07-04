@@ -56,7 +56,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 const done = await addAccount(account, {
                     signal: controller.current.signal,
                 });
-
                 if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {

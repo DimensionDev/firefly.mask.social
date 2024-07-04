@@ -19,17 +19,37 @@ class LocalStorageProvider implements IStorageProvider {
     }
 }
 
+class MemoryStorageProvider implements IStorageProvider {
+    private storage = new Map<string, string>();
+
+    getItem(key: string) {
+        return this.storage.get(key) ?? null;
+    }
+
+    setItem(key: string, value: string) {
+        this.storage.set(key, value);
+    }
+
+    removeItem(key: string) {
+        this.storage.delete(key);
+    }
+}
+
 class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
 
     get sdk() {
         if (!this.lensClientSDK) {
-            this.lensClientSDK = new LensClientSDK({
-                environment: production,
-                storage: new LocalStorageProvider(),
-            });
+            this.lensClientSDK = this.createSDK(true);
         }
         return this.lensClientSDK;
+    }
+
+    createSDK(persistent: boolean) {
+        return new LensClientSDK({
+            environment: production,
+            storage: persistent ? new LocalStorageProvider() : new MemoryStorageProvider(),
+        });
     }
 
     override async resumeSession(session: LensSession) {

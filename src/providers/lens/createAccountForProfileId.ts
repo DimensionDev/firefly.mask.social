@@ -14,7 +14,8 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
     const walletClient = await getWalletClientRequired(config, {
         chainId: polygon.id,
     });
-    const { id, text } = await lensSessionHolder.sdk.authentication.generateChallenge({
+    const sdk = await lensSessionHolder.createSDK(false);
+    const { id, text } = await sdk.authentication.generateChallenge({
         for: profile.profileId,
         signedBy: walletClient.account.address,
     });
@@ -22,13 +23,13 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
         message: text,
     });
 
-    await lensSessionHolder.sdk.authentication.authenticate({
+    await sdk.authentication.authenticate({
         id,
         signature,
     });
 
     const now = Date.now();
-    const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const accessToken = await sdk.authentication.getAccessToken();
     const session = new LensSession(profile.profileId, accessToken.unwrap(), now, now + THIRTY_DAYS);
 
     return {
