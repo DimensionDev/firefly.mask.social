@@ -17,19 +17,19 @@ import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 
 /**
  * Download encrypted metrics from Firefly.
  * @param session
  * @returns
  */
-async function downloadMetricsFromFirefly(signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(
+async function downloadMetricsFromFirefly(session: FireflySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetchWithSession(session)<MetricsDownloadResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/download'),
         {
             signal,
         },
-        true,
     );
     const data = resolveFireflyResponseData(response);
     return data?.ciphertext;
@@ -55,11 +55,8 @@ async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
  * Download and decrypt metrics from Firefly, then convert them to accounts.
  * @returns
  */
-export async function syncAccountsFromFirefly(signal?: AbortSignal) {
-    // Ensure that the Firefly session is resumed before calling this function.
-    fireflySessionHolder.assertSession();
-
-    const cipher = await downloadMetricsFromFirefly(signal);
+export async function syncAccountsFromFirefly(session: FireflySession, signal?: AbortSignal) {
+    const cipher = await downloadMetricsFromFirefly(session, signal);
     if (!cipher) return [];
 
     const sessions = await decryptMetricsFromFirefly(cipher, signal);

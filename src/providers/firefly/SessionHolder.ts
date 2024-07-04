@@ -11,6 +11,15 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
               })
             : fetchJSON<T>(url, options);
     }
+
+    fetchWithSession(session: FireflySession) {
+        return <T>(url: string, options?: RequestInit) => {
+            return fetchJSON<T>(url, {
+                ...options,
+                headers: { ...options?.headers, Authorization: `Bearer ${session.token}` },
+            })
+        };
+    }
 }
 
 export const fireflySessionHolder = new FireflySessionHolder();
