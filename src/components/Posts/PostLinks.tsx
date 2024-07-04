@@ -25,6 +25,13 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
             />
         ) : null;
 
+    const frame =
+        post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled ? (
+            <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+                {oembed}
+            </Frame>
+        ) : null;
+
     if (schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
         const scheme = last(schemes);
         if (!scheme?.url) return oembed;
@@ -38,17 +45,13 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
                     }
                 }}
             >
-                {oembed}
+                {frame}
             </Blink>
         );
     }
 
     if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
-        return (
-            <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                {oembed}
-            </Frame>
-        );
+        return frame;
     }
 
     return oembed;

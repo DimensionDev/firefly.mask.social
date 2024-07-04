@@ -3,6 +3,7 @@ import { type ReactNode, useMemo } from 'react';
 import CheckIcon from '@/assets/check.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { classNames } from '@/helpers/classNames.js';
 
 export interface ButtonProps {
     text: ReactNode;
@@ -32,7 +33,10 @@ export function ActionButton({ text, loading, disabled, variant, onClick }: Butt
 
     return (
         <ClickableButton
-            className="flex h-10 w-full items-center justify-center rounded-full bg-main px-5 text-sm font-bold leading-10 text-primaryBottom"
+            className={classNames(
+                'flex h-10 w-full items-center justify-center rounded-full px-5 text-sm font-bold leading-10 text-primaryBottom',
+                variant === 'success' ? 'bg-success' : 'bg-main',
+            )}
             disabled={disabled}
             onClick={() => onClick()}
         >

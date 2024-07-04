@@ -13,6 +13,7 @@ import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 
 export const AccountModalRef = new SingletonModal();
+export const RainbowKitModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();
 export const ChainModalRef = new SingletonModal();
 export const SessionRecoveryModalRef = new SingletonModal();
