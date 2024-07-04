@@ -36,6 +36,7 @@ export interface ProfileState {
     removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
+    removeCurrentAccount: () => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
     upgrade: () => void;
@@ -94,6 +95,11 @@ function createState(
                         if (!state.accounts.length) {
                             state.accounts = [account];
                         }
+                    }),
+                removeCurrentAccount: () =>
+                    set((state) => {
+                        state.currentProfile = null;
+                        state.currentProfileSession = null;
                     }),
                 refreshAccounts: async () => {
                     const { currentProfile: profile, accounts } = get();
@@ -248,7 +254,6 @@ const useTwitterStateBase = createState(
                         session: TwitterSession.from(me, payload),
                     },
                     {
-                        source: Source.Twitter,
                         skipBelongsToCheck: true,
                         skipRestoreFireflyAccounts: true,
                         skipRestoreFireflySession: true,

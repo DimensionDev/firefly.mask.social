@@ -8,7 +8,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { Source } from '@/constants/enum.js';
 import { AbortError, MalformedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
@@ -25,11 +24,7 @@ import { DeviceType } from '@/types/device.js';
 
 async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {
     try {
-        const done = await addAccount(await createAccount(), {
-            source: Source.Firefly,
-            ...options,
-        });
-
+        const done = await addAccount(await createAccount(), options);
         if (done) enqueueSuccessMessage(t`Your account is now connected.`);
         LoginModalRef.close();
     } catch (error) {

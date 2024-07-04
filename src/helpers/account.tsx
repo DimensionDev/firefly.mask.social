@@ -1,8 +1,10 @@
-import { t } from '@lingui/macro';
-import { first, groupBy } from 'lodash-es';
+import { t, Trans } from '@lingui/macro';
+import { compact, first, groupBy } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
-import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -11,8 +13,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
-import type { AccountsOpenConfirmModalProps } from '@/modals/AccountsConfirmModal.js';
-import { AccountsConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -31,22 +32,19 @@ async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         Object.entries(groupBy(accounts, (x) => x.session.type)).forEach(([sessionType]) => {
-            getProfileState(resolveSocialSourceFromSessionType(sessionType as SessionType)).updateAccounts([]);
+            const state = getProfileState(resolveSocialSourceFromSessionType(sessionType as SessionType));
+            state.removeCurrentAccount();
+            state.updateAccounts([]);
         });
     }
 
     // add accounts to the store
-    await Promise.all(
-        accounts.map((account, i) => {
-            getContext(account).state.addAccount(account, false);
-        }),
-    );
+    await Promise.all(accounts.map((account) => getContext(account).state.addAccount(account, false)));
 
     // set the first account as the current account if no current account is set
     SORTED_SOCIAL_SOURCES.map((x) => {
         const { currentProfile, updateCurrentAccount, accounts } = getProfileState(x);
         const account = first(accounts);
-
         if (!currentProfile && account) updateCurrentAccount(account);
     });
 }
@@ -63,20 +61,13 @@ async function restoreFireflySession({ session, fireflySession }: Account, signa
             'Failed to query the signed key request status after several attempts. Please try again later.',
         );
 
-    const state = useFireflyStateStore.getState();
-
-    // check if the session is the same as the current one
-    const restored = fireflySession ?? (await FireflySession.from(session, signal));
-    if (state.currentProfileSession && !isSameSession(restored, state.currentProfileSession)) {
-        throw new Error(t`The session is not the same as the current session. Please try again.`);
-    }
-
     const account = {
         profile: createDummyProfile(Source.Farcaster),
-        session: restored,
+        session: fireflySession ?? (await FireflySession.from(session, signal)),
     } satisfies Account;
 
     // update firefly state
+    const state = getProfileState(Source.Firefly);
     state.updateAccounts([account]);
     state.updateCurrentAccount(account);
 
@@ -95,7 +86,6 @@ async function removeFireflyAccountIfNeeded() {
 }
 
 export interface AccountOptions {
-    source: ProfileSource;
     // set the account as the current account, default: true
     setAsCurrent?: boolean;
     // skip the belongs to check, default: false
@@ -104,30 +94,29 @@ export interface AccountOptions {
     skipRestoreFireflyAccounts?: boolean;
     // restore the firefly session, default: false
     skipRestoreFireflySession?: boolean;
-    // overwrite the firefly session open confirm modal props
-    AccountsOpenConfirmModalProps?: Partial<AccountsOpenConfirmModalProps>;
     // early return signal
     signal?: AbortSignal;
 }
 
-export async function addAccount(account: Account, options: AccountOptions) {
+export async function addAccount(account: Account, options?: AccountOptions) {
     const {
-        source,
         setAsCurrent = true,
         skipBelongsToCheck = false,
         skipRestoreFireflyAccounts = false,
         skipRestoreFireflySession = false,
         signal,
-    } = options;
+    } = options ?? {};
 
     const { state, sessionHolder } = getContext(account);
 
     // check if the account belongs to the current firefly session
-    const belongsTo = skipBelongsToCheck
-        ? true
-        : isSameSession(getProfileState(Source.Firefly).currentProfileSession, account.fireflySession ?? null);
+    const currentSession = getProfileState(Source.Firefly).currentProfileSession;
+    const belongsTo =
+        skipBelongsToCheck || !currentSession || !account.fireflySession
+            ? true
+            : isSameSession(currentSession, account.fireflySession);
 
-    // add account to store cause it's from firefly
+    // add account to store cause it's from the same firefly session
     if (belongsTo) {
         state.addAccount(account, setAsCurrent);
         if (setAsCurrent) sessionHolder.resumeSession(account.session);
@@ -139,14 +128,65 @@ export async function addAccount(account: Account, options: AccountOptions) {
         const accounts = belongsTo ? accountsSynced : [account, ...accountsSynced];
 
         if (accounts.length) {
-            const confirmed = await AccountsConfirmModalRef.openAndWaitForClose({
-                ...options.AccountsOpenConfirmModalProps,
-                source,
-                accounts,
+            LoginModalRef.close();
+
+            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                title: t`Device Logged In`,
+                content: (
+                    <div>
+                        <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-lightMain">
+                            {belongsTo ? (
+                                <Trans>Confirm to connect your account status.</Trans>
+                            ) : (
+                                <Trans>
+                                    You are logging into a different Firefly account. Continuing will{' '}
+                                    <strong className="text-danger">overwrite</strong> your current accounts.
+                                </Trans>
+                            )}
+                        </p>
+                        <ul className="flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
+                            {accounts
+                                .sort((a, b) => {
+                                    const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
+                                    const bIndex = SORTED_SOCIAL_SOURCES.indexOf(b.profile.source);
+                                    return aIndex - bIndex;
+                                })
+                                .map((account) => (
+                                    <ProfileInList
+                                        key={account.profile.profileId}
+                                        selected
+                                        selectable={false}
+                                        profile={account.profile}
+                                        ProfileAvatarProps={{
+                                            enableSourceIcon: true,
+                                        }}
+                                    />
+                                ))}
+                        </ul>
+                        <div className="flex gap-2">
+                            <ClickableButton
+                                className="flex flex-1 items-center justify-center rounded-full border border-main py-2 font-bold text-main"
+                                onClick={() => ConfirmModalRef.close(false)}
+                            >
+                                <Trans>Skip for now</Trans>
+                            </ClickableButton>
+                            <ClickableButton
+                                className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
+                                disabled={compact(Object.values(accounts)).length === 0}
+                                onClick={() => ConfirmModalRef.close(true)}
+                            >
+                                <Trans>Login</Trans>
+                            </ClickableButton>
+                        </div>
+                    </div>
+                ),
+                enableCancelButton: false,
+                enableConfirmButton: false,
+                enableCloseButton: false,
             });
 
             if (confirmed) {
-                updateState(accounts, !belongsTo);
+                await updateState(accounts, !belongsTo);
             } else {
                 // the user rejected to store conflicting accounts
                 if (!belongsTo) return false;
@@ -169,7 +209,6 @@ export async function addAccount(account: Account, options: AccountOptions) {
  */
 export async function switchAccount(account: Account, signal?: AbortSignal) {
     await addAccount(account, {
-        source: account.profile.source,
         setAsCurrent: true,
         skipBelongsToCheck: true,
         skipRestoreFireflyAccounts: true,

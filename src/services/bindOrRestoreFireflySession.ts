@@ -4,9 +4,15 @@ import { bindFireflySession } from '@/services/bindFireflySession.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 
 export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
-    if (fireflySessionHolder.session) {
-        await bindFireflySession(session, signal);
-        return fireflySessionHolder.assertSession();
+    try {
+        if (fireflySessionHolder.session) {
+            await bindFireflySession(session, signal);
+            return fireflySessionHolder.assertSession();
+        } else {
+            throw new Error('Firefly session is not available');
+        }
+    } catch {
+        // this will create a new session
+        return restoreFireflySession(session, signal);
     }
-    return restoreFireflySession(session, signal);
 }

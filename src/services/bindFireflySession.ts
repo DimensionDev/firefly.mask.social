@@ -14,7 +14,7 @@ import { settings } from '@/settings/index.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/bindLens'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindLens'),
         {
             method: 'POST',
             body: JSON.stringify({
@@ -31,7 +31,7 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
 
 async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/bindFarcaster'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindFarcaster'),
         {
             method: 'POST',
             body: JSON.stringify({

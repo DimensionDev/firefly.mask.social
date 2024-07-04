@@ -940,9 +940,6 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "The session is not the same as the current session. Please try again."
-msgstr ""
-
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
@@ -1087,9 +1084,6 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-msgid "Loading..."
-msgstr ""
-
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1163,6 +1157,9 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
+msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr ""
 
 msgid "Discard"
@@ -1337,9 +1334,6 @@ msgid "<0>Copy The amount of coins that have already been created, minus any coi
 msgstr ""
 
 msgid "Skip for now"
-msgstr ""
-
-msgid "Failed to restore accounts."
 msgstr ""
 
 msgid "Login to enable all features"

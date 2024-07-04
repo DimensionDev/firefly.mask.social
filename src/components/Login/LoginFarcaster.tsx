@@ -32,11 +32,7 @@ import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
-        const done = await addAccount(await createAccount(), {
-            source: Source.Farcaster,
-            ...options,
-        });
-
+        const done = await addAccount(await createAccount(), options);
         if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
         LoginModalRef.close();
     } catch (error) {

@@ -4,7 +4,6 @@ import { memo } from 'react';
 
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
-import { AccountsConfirmModal } from '@/modals/AccountsConfirmModal.js';
 import { ChainModal } from '@/modals/ChainModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
@@ -30,7 +29,6 @@ export const Modals = memo(function Modals() {
             <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
-            <AccountsConfirmModal ref={controls.AccountsConfirmModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
         </>

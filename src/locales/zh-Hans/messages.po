@@ -945,9 +945,6 @@ msgstr "用户"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述问题或者提出建议"
 
-msgid "The session is not the same as the current session. Please try again."
-msgstr ""
-
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
 
@@ -1092,9 +1089,6 @@ msgstr "未能解析会话"
 msgid "Feedback"
 msgstr "问题反馈"
 
-msgid "Loading..."
-msgstr "加载中..."
-
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 
@@ -1168,6 +1162,9 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
+msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr ""
 
 msgid "Discard"
@@ -1343,9 +1340,6 @@ msgstr ""
 
 msgid "Skip for now"
 msgstr "跳过"
-
-msgid "Failed to restore accounts."
-msgstr ""
 
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
