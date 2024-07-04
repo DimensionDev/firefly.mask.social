@@ -65,8 +65,7 @@ function createState(
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
 
                         if (!account_) {
-                            // add new account to the top
-                            state.accounts = [account, ...state.accounts];
+                            state.accounts = [...state.accounts, account];
                         }
 
                         if (setAsCurrent) {
