@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.dimension.firefly",
+      "sha256_cert_fingerprints":
+        ["D7:4A:7E:5A:7D:2E:3F:F7:24:28:6A:9B:60:21:0E:39:0A:56:BB:E4:92:29:B0:D8:7C:72:D1:A7:65:F4:83:6B"]
+    }
+  }
+]
