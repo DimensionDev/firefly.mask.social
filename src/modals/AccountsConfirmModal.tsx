@@ -19,7 +19,7 @@ interface AccountsModalProps {
     onClose?: () => void;
 }
 
-function AccoutsModal({ accounts, onConfirm, onClose }: AccountsModalProps) {
+function AccountsModal({ accounts, onConfirm, onClose }: AccountsModalProps) {
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
         try {
             onConfirm?.();
@@ -103,7 +103,7 @@ export const AccountsConfirmModal = forwardRef<
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
                     content: (
-                        <AccoutsModal
+                        <AccountsModal
                             accounts={accounts}
                             onConfirm={() => dispatch?.close(true)}
                             onClose={() => dispatch?.close(false)}
