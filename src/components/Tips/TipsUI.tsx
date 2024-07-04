@@ -39,10 +39,10 @@ export const TipsUI = memo(function TipsUI() {
                     <div className="h-10 flex-1 rounded-2xl bg-lightBg">
                         <input
                             className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-                            placeholder={token ? t`Max: ${token.balance}` : t`Enter amount`}
+                            placeholder={token ? t`Max: ${token.balance}` : t`Select token first`}
                             value={amount}
                             onChange={handleAmountChange}
-                            disabled={!account.isConnected}
+                            disabled={!account.isConnected || !token}
                         />
                     </div>
                     <TokenSelectorEntry disabled={!account.isConnected} />

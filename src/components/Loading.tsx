@@ -1,11 +1,11 @@
 'use client';
 
+import type { HTMLProps } from 'react';
+
 import LoadingIcon from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
 
-interface LoadingProps {
-    className?: string;
-}
+interface LoadingProps extends HTMLProps<HTMLDivElement> {}
 
 export function Loading({ className }: LoadingProps) {
     return (

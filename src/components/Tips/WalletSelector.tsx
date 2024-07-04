@@ -63,7 +63,6 @@ export const WalletSelectorEntry = memo(function WalletSelectorEntry({ disabled 
                 router.navigate({ to: TipsRoutePath.SELECT_WALLET });
             }}
         >
-            <span />
             <div
                 className={classNames(
                     'flex items-center justify-center gap-x-1',

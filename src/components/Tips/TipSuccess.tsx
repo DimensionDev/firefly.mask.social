@@ -64,14 +64,16 @@ export function TipSuccess() {
             <div>
                 <div className="md:px-6">
                     <p>
-                        <Trans>You {canShare ? 'just' : 'successfully'} sent </Trans>
-                        <span className="font-bold text-link">
-                            {' '}
-                            {amount} ${token?.symbol}{' '}
-                        </span>
-                        <Trans> tips to</Trans>
-                        <span className="font-bold text-link"> {handle || receiver?.displayName}</span>!{' '}
-                        {canShare ? <Trans>Share this news by mentioning and posting.</Trans> : null}
+                        <Trans>
+                            You {canShare ? 'just' : 'successfully'} sent
+                            <span className="font-bold text-link">
+                                {' '}
+                                {amount} ${token?.symbol}{' '}
+                            </span>
+                            tips to
+                            <span className="font-bold text-link">{handle || receiver?.displayName}</span>!{' '}
+                            {canShare ? 'Share this news by mentioning and posting.' : null}
+                        </Trans>
                     </p>
                     {hashUrl ? (
                         <p className="mt-2 text-right">

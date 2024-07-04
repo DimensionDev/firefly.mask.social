@@ -13,7 +13,7 @@ interface TipsProps {
     identity: string;
     source: Source;
     disabled?: boolean;
-    handle?: string;
+    handle?: string | null;
     label?: string;
     tooltipDisabled?: boolean;
     pureWallet?: boolean;

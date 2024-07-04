@@ -65,7 +65,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                                 <Tips
                                     identity={profile.address}
                                     source={Source.Wallet}
-                                    handle={(profile.primary_ens || ens) ?? undefined}
+                                    handle={profile.primary_ens || ens}
                                     tooltipDisabled
                                     label={t`Send tips`}
                                     onClick={close}

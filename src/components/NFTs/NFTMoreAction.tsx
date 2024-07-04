@@ -85,7 +85,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                                 <Tips
                                     identity={address}
                                     source={Source.Wallet}
-                                    handle={ens ?? undefined}
+                                    handle={ens}
                                     tooltipDisabled
                                     label={t`Send tips`}
                                     onClick={close}

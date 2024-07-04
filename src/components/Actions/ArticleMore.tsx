@@ -108,7 +108,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                                 <Tips
                                     identity={author.id}
                                     source={Source.Wallet}
-                                    handle={(author.handle || ens) ?? undefined}
+                                    handle={author.handle || ens}
                                     tooltipDisabled
                                     label={t`Send tips`}
                                     onClick={close}
