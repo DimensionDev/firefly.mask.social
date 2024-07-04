@@ -7,6 +7,7 @@ function createURL(pathToFile: string) {
 
 export default defineConfig({
     plugins: [react()],
+    envPrefix: ['VITE_', 'NEXT_', 'S3_', 'TWITTER_', 'IMGUR_', 'NEXTAUTH_', 'FARCASTER_', 'HUBBLE_', 'SESSION_'],
     test: {
         environment: 'jsdom',
         include: ['./tests/**/*.{ts,tsx}'],
