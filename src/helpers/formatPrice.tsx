@@ -1,8 +1,9 @@
 import { BigNumber } from 'bignumber.js';
 
-export function formatPrice(price: number | string | undefined, digits = 2) {
+export function formatPrice(price: number | string | undefined, digits?: number) {
     if (price === undefined) return price;
     price = +price;
+    digits = digits ?? (price >= 0.01 ? 2 : 4);
     if (price < 0.0001) {
         const bn = BigNumber(price);
         return bn

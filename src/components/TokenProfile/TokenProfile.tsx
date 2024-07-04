@@ -73,7 +73,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
             <div className="line-height-[22px] flex items-center gap-1 text-[15px]">
                 <Trans>
                     <span className="text-secondary">Price</span>
-                    <strong className="font-bold">${renderShrankPrice(formatPrice(price, 4) ?? '-')}</strong>
+                    <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
                     <PriceArrow
                         width={16}
                         height={16}
