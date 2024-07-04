@@ -1,9 +1,9 @@
-import type { IStorageProvider } from '@lens-protocol/client';
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
-import { createLensSDK } from '@/helpers/createLensSDK.js';
+import { createLensSDK, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -11,12 +11,14 @@ import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySess
 
 const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
 
-export async function createAccountForProfileId(profile: Profile, storage: IStorageProvider, signal?: AbortSignal) {
+export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
     const walletClient = await getWalletClientRequired(config, {
         chainId: polygon.id,
     });
-    // it's okay to refresh the page when login firefly profile, cause in-memory storage used here.
-    const sdk = await createLensSDK(storage);
+
+    // it's okay to refresh the page when login firefly profile, if in-memory storage used here.
+    const storage = new MemoryStorageProvider();
+    const sdk = createLensSDK(storage);
 
     const { id, text } = await sdk.authentication.generateChallenge({
         for: profile.profileId,
@@ -31,9 +33,23 @@ export async function createAccountForProfileId(profile: Profile, storage: IStor
         signature,
     });
 
+    const parsed = parseJSON<{
+        data: {
+            refreshToken: string;
+        };
+    }>(storage.getItem('lens.production.credentials'));
+    if (!parsed?.data.refreshToken) throw new Error('No refresh token found.');
+
     const now = Date.now();
     const accessToken = await sdk.authentication.getAccessToken();
-    const session = new LensSession(profile.profileId, accessToken.unwrap(), now, now + THIRTY_DAYS);
+
+    const session = new LensSession(
+        profile.profileId,
+        accessToken.unwrap(),
+        now,
+        now + THIRTY_DAYS,
+        parsed.data.refreshToken,
+    );
 
     return {
         session,

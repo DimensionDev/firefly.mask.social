@@ -16,7 +16,6 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { addAccount } from '@/helpers/account.js';
-import { MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -24,6 +23,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -48,8 +48,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             controller.current.renew();
 
             try {
-                const storage = new MemoryStorageProvider();
-                const account = await createAccountForProfileId(currentProfile, storage, controller.current.signal);
+                const account = await createAccountForProfileId(currentProfile, controller.current.signal);
 
                 if (!currentProfile.signless && signless) {
                     await updateSignless(true);
@@ -58,11 +57,12 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 const done = await addAccount(account, {
                     signal: controller.current.signal,
                 });
-                if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+                if (done) {
+                    enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
 
-                // after login, move the session storage to local storage
-                const credentials = storage.getItem('lens.production.credentials');
-                if (credentials) localStorage.setItem('lens.production.credentials', credentials);
+                    // after login, move the session storage to local storage
+                    await lensSessionHolder.resumeSession(account.session);
+                }
 
                 LoginModalRef.close();
             } catch (error) {
