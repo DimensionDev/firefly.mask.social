@@ -25,11 +25,13 @@ import { DeviceType } from '@/types/device.js';
 
 async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {
     try {
-        const succeed = await addAccount(await createAccount(), {
+        const done = await addAccount(await createAccount(), {
             source: Source.Firefly,
+            ...options,
         });
 
-        if (succeed) enqueueSuccessMessage(t`Your account is now connected.`);
+        if (done) enqueueSuccessMessage(t`Your account is now connected.`);
+        LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;

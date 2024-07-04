@@ -98,6 +98,8 @@ export interface AccountOptions {
     source: ProfileSource;
     // set the account as the current account, default: true
     setAsCurrent?: boolean;
+    // skip the belongs to check, default: false
+    skipBelongsToCheck?: boolean;
     // restore accounts from firefly, default: false
     skipRestoreFireflyAccounts?: boolean;
     // restore the firefly session, default: false
@@ -112,6 +114,7 @@ export async function addAccount(account: Account, options: AccountOptions) {
     const {
         source,
         setAsCurrent = true,
+        skipBelongsToCheck = false,
         skipRestoreFireflyAccounts = false,
         skipRestoreFireflySession = false,
         signal,
@@ -120,10 +123,9 @@ export async function addAccount(account: Account, options: AccountOptions) {
     const { state, sessionHolder } = getContext(account);
 
     // check if the account belongs to the current firefly session
-    const belongsTo = isSameSession(
-        getProfileState(Source.Firefly).currentProfileSession,
-        account.fireflySession ?? null,
-    );
+    const belongsTo = skipBelongsToCheck
+        ? true
+        : isSameSession(getProfileState(Source.Firefly).currentProfileSession, account.fireflySession ?? null);
 
     // add account to store cause it's from firefly
     if (belongsTo) {
@@ -156,6 +158,7 @@ export async function addAccount(account: Account, options: AccountOptions) {
     if (account.session.type !== SessionType.Firefly && !skipRestoreFireflySession)
         await restoreFireflySession(account, signal);
 
+    // account has been added to the store
     return true;
 }
 
@@ -168,6 +171,8 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
     await addAccount(account, {
         source: account.profile.source,
         setAsCurrent: true,
+        skipBelongsToCheck: true,
+        skipRestoreFireflyAccounts: true,
         skipRestoreFireflySession: true,
         signal,
     });

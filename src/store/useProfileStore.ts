@@ -249,6 +249,8 @@ const useTwitterStateBase = createState(
                     },
                     {
                         source: Source.Twitter,
+                        skipBelongsToCheck: true,
+                        skipRestoreFireflyAccounts: true,
                         skipRestoreFireflySession: true,
                     },
                 );
