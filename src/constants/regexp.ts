@@ -9,7 +9,7 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 export const HASHTAG_REGEX = /(^|\s)(#[^0-9][^\s#]+)/g;
 
 /** Financial symbol */
-export const SYMBOL_REGEX = /(^|\s)(\$\S+)/g;
+export const SYMBOL_REGEX = /(^|\s)(\$([a-zA-Z0-9]|\p{Script=Han})+)/gu;
 
 // for safari does not support negative lookbehind
 // since we cannot eliminate the space before the channel, we will trim it later

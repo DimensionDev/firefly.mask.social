@@ -1,10 +1,10 @@
 import { first } from 'lodash-es';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { CHANNEL_REGEX, HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { CHANNEL_REGEX, HASHTAG_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 describe('MENTION_REGEXP', () => {
-    test('should match a mention', () => {
+    it('should match a mention', () => {
         const cases = [
             ['@handle', '@handle'],
             ['handle', null],
@@ -30,7 +30,7 @@ describe('MENTION_REGEXP', () => {
 });
 
 describe('HASHTAG_REGEXP', () => {
-    test('should match a hashtag', () => {
+    it('should match a hashtag', () => {
         const cases = [
             ['#hello', '#hello'],
             ['hello', null],
@@ -60,7 +60,7 @@ describe('HASHTAG_REGEXP', () => {
 });
 
 describe('URL_REGEX', () => {
-    test('should match a url', () => {
+    it('should match a url', () => {
         const cases = [
             [
                 `
@@ -119,7 +119,7 @@ describe('URL_REGEX', () => {
         });
     });
 
-    test('Should match conrrect url', () => {
+    it('should match conrrect url', () => {
         const cases = [
             [
                 `
@@ -180,7 +180,7 @@ describe('URL_REGEX', () => {
 });
 
 describe('CHANNEL_REGEX', () => {
-    test('should match a channel handle', () => {
+    it('should match a channel handle', () => {
         const cases = [
             ['/Bitcoin', null],
             ['/BitCoin', null],
@@ -209,6 +209,25 @@ describe('CHANNEL_REGEX', () => {
         cases.forEach(([input, expectedOutput]) => {
             CHANNEL_REGEX.lastIndex = 0;
             const [matched] = input.match(CHANNEL_REGEX) ?? [null];
+            expect(matched).toBe(expectedOutput);
+        });
+    });
+});
+
+describe('SYMBOL_REGEX', () => {
+    it('should match a symbol tag', () => {
+        const cases = [
+            ['$mask', '$mask'],
+            ['$;;,', null],
+            ['$@#', null],
+            ['$123', '$123'], // We can't exclude all-number tags, but they will be handle inside <SymbolTag />
+            ['$1inch', '$1inch'],
+            [' $1inch', ' $1inch'],
+            [' $大牛', ' $大牛'],
+        ] as Array<[string, string | null]>;
+
+        cases.forEach(([input, expectedOutput]) => {
+            const [matched] = input.match(SYMBOL_REGEX) ?? [null];
             expect(matched).toBe(expectedOutput);
         });
     });
