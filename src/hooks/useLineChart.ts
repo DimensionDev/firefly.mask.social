@@ -30,7 +30,7 @@ export function fixOverPosition(
     return fixed;
 }
 
-const defaultFormatTooltip = (value: number) => formatPrice(value, 4)!;
+const defaultFormatTooltip = (value: number) => formatPrice(value)!;
 export function useLineChart(
     svgRef: RefObject<SVGSVGElement>,
     data: Array<{

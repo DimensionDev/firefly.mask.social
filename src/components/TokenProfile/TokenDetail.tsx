@@ -193,7 +193,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                 <h2 className="font-inter font-bold text-main">{t`Statistic`}</h2>
                 <div className="mt-3 flex flex-col gap-3">
                     <InfoRow
-                        title={t`Market Capital`}
+                        title={t`Market Cap`}
                         description={
                             <Trans>
                                 <div>Market Cap = Current Price x Circulating Supply</div>

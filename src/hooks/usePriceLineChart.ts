@@ -24,7 +24,7 @@ export function usePriceLineChart(
 
     const { color = defaultColor, sign = CurrencyType.USD } = opts;
 
-    const formatTooltip = useCallback((value: number) => `$${formatPrice(value, 4)}`, []);
+    const formatTooltip = useCallback((value: number) => `$${formatPrice(value)}`, []);
     useLineChart(svgRef, data, dimension, id, {
         color,
         tickFormat: `${sign},.2s`,

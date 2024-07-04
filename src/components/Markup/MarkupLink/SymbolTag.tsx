@@ -16,6 +16,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
 
     if (!title) return null;
     const symbol = title.slice(1);
+    if (symbol.match(/^\d+$/)) return title;
     const enabled = isMedium && show;
 
     const content = (
