@@ -655,6 +655,9 @@ msgstr "Days"
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "Failed to unfollow @{0} on {sourceName}"
 
+msgid "Insufficient Gas"
+msgstr "Insufficient Gas"
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "Failed to upload. More than {maxImageCount} images"
 
@@ -678,9 +681,6 @@ msgstr "Mirror or Quote"
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
-
-msgid "Connecting..."
-msgstr "Connecting..."
 
 msgid "Enter amount"
 msgstr "Enter amount"
@@ -780,6 +780,9 @@ msgstr "Proxy contract"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
+
+msgid "Insufficient Balance"
+msgstr "Insufficient Balance"
 
 msgid "Tax cannot be modified"
 msgstr "Tax cannot be modified"
@@ -1168,9 +1171,6 @@ msgstr "Translated"
 msgid "Select Wallet"
 msgstr "Select Wallet"
 
-msgid "Insufficient Balance for Gas Fee"
-msgstr "Insufficient Balance for Gas Fee"
-
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
@@ -1275,6 +1275,9 @@ msgstr "This does not appear to be a honeypot."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
+
+msgid "Failed to send tips"
+msgstr "Failed to send tips"
 
 msgid "Quotes"
 msgstr "Quotes"
@@ -1386,6 +1389,9 @@ msgstr "<0>Copy The amount of coins that have already been created, minus any co
 
 msgid "Skip for now"
 msgstr "Skip for now"
+
+msgid "Validate failed, please check your input"
+msgstr "Validate failed, please check your input"
 
 msgid "Failed to restore accounts."
 msgstr "Failed to restore accounts."
@@ -1866,9 +1872,6 @@ msgstr "Are you sure you want to report this user?"
 
 msgid "Likes"
 msgstr "Likes"
-
-msgid "Insufficient balance"
-msgstr "Insufficient balance"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> quoted your <1><2/></1>"

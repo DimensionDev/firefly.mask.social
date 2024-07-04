@@ -660,6 +660,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
+msgid "Insufficient Gas"
+msgstr ""
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
 
@@ -682,9 +685,6 @@ msgid "Mirror or Quote"
 msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
-msgstr ""
-
-msgid "Connecting..."
 msgstr ""
 
 msgid "Enter amount"
@@ -784,6 +784,9 @@ msgid "Proxy contract"
 msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
+msgstr ""
+
+msgid "Insufficient Balance"
 msgstr ""
 
 msgid "Tax cannot be modified"
@@ -1173,9 +1176,6 @@ msgstr ""
 msgid "Select Wallet"
 msgstr ""
 
-msgid "Insufficient Balance for Gas Fee"
-msgstr ""
-
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -1279,6 +1279,9 @@ msgid "This does not appear to be a honeypot."
 msgstr ""
 
 msgid "Failed to publish post."
+msgstr ""
+
+msgid "Failed to send tips"
 msgstr ""
 
 msgid "Quotes"
@@ -1390,6 +1393,9 @@ msgid "<0>Copy The amount of coins that have already been created, minus any coi
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Validate failed, please check your input"
 msgstr ""
 
 msgid "Failed to restore accounts."
@@ -1870,9 +1876,6 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
-msgstr ""
-
-msgid "Insufficient balance"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"

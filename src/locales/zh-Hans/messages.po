@@ -660,6 +660,9 @@ msgstr "天"
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上取消关注 @{0} 失败"
 
+msgid "Insufficient Gas"
+msgstr ""
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
@@ -683,9 +686,6 @@ msgstr "转帖或者引用"
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要屏蔽 /{0} 吗？"
-
-msgid "Connecting..."
-msgstr ""
 
 msgid "Enter amount"
 msgstr ""
@@ -784,6 +784,9 @@ msgid "Proxy contract"
 msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
+msgstr ""
+
+msgid "Insufficient Balance"
 msgstr ""
 
 msgid "Tax cannot be modified"
@@ -1173,9 +1176,6 @@ msgstr "已翻译"
 msgid "Select Wallet"
 msgstr ""
 
-msgid "Insufficient Balance for Gas Fee"
-msgstr ""
-
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
@@ -1280,6 +1280,9 @@ msgstr ""
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
+
+msgid "Failed to send tips"
+msgstr ""
 
 msgid "Quotes"
 msgstr "引用"
@@ -1391,6 +1394,9 @@ msgstr ""
 
 msgid "Skip for now"
 msgstr "跳过"
+
+msgid "Validate failed, please check your input"
+msgstr ""
 
 msgid "Failed to restore accounts."
 msgstr ""
@@ -1871,9 +1877,6 @@ msgstr "您确定要举报这个用户么？"
 
 msgid "Likes"
 msgstr "点赞"
-
-msgid "Insufficient balance"
-msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
