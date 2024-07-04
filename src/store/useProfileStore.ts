@@ -248,7 +248,8 @@ const useTwitterStateBase = createState(
                         session: TwitterSession.from(me, payload),
                     },
                     {
-                        restoreSession: false,
+                        source: Source.Twitter,
+                        skipRestoreFireflySession: true,
                     },
                 );
             } catch (error) {

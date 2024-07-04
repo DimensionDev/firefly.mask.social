@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro';
+import { first, groupBy } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -10,11 +11,14 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
+import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { FireflySessionConfirmModalRef } from '@/modals/controls.js';
+import type { FireflySessionOpenConfirmModalProps } from '@/modals/FireflySessionConfirmModal.jsx';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(account: Account) {
@@ -24,12 +28,36 @@ function getContext(account: Account) {
     };
 }
 
+async function updateState(accounts: Account[], overwrite = false) {
+    // remove all accounts if overwrite is true
+    if (overwrite) {
+        Object.entries(groupBy(accounts, (x) => x.session.type)).forEach(([sessionType]) => {
+            getProfileState(resolveSocialSourceFromSessionType(sessionType as SessionType)).updateAccounts([]);
+        });
+    }
+
+    // add accounts to the store
+    await Promise.all(
+        accounts.map((account, i) => {
+            getContext(account).state.addAccount(account, false);
+        }),
+    );
+
+    // set the first account as the current account if no current account is set
+    SORTED_SOCIAL_SOURCES.map((x) => {
+        const { currentProfile, updateCurrentAccount, accounts } = getProfileState(x);
+        const account = first(accounts);
+
+        if (!currentProfile && account) updateCurrentAccount(account);
+    });
+}
+
 /**
  * Restore firefly session from social account sessions
  * @param session
  * @param signal
  */
-async function restoreFireflySession(session: Session, signal?: AbortSignal): Promise<void> {
+async function restoreFireflySession({ session, fireflySession }: Account, signal?: AbortSignal): Promise<void> {
     // polling failed
     if (!session.profileId)
         throw new Error(
@@ -39,15 +67,15 @@ async function restoreFireflySession(session: Session, signal?: AbortSignal): Pr
     const state = useFireflyStateStore.getState();
 
     // check if the session is the same as the current one
-    const fireflySession = await FireflySession.from(session, signal);
-    if (state.currentProfileSession && !isSameSession(fireflySession, state.currentProfileSession)) {
+    const restored = fireflySession ?? (await FireflySession.from(session, signal));
+    if (state.currentProfileSession && !isSameSession(restored, state.currentProfileSession)) {
         throw new Error(t`The session is not the same as the current session. Please try again.`);
     }
 
     const account = {
         profile: createDummyProfile(Source.Farcaster),
-        session: fireflySession,
-    };
+        session: restored,
+    } satisfies Account;
 
     // update firefly state
     state.updateAccounts([account]);
@@ -67,27 +95,67 @@ async function removeFireflyAccountIfNeeded() {
     fireflySessionHolder.removeSession();
 }
 
-export async function addAccount(
-    account: Account,
-    options?: {
-        // set the account as the current account, default: true
-        setAsCurrent?: boolean;
-        // restore the firefly session from the account, default: true
-        restoreSession?: boolean;
-        signal?: AbortSignal;
-    },
-) {
-    const { setAsCurrent = true, restoreSession = true, signal } = options ?? {};
+export interface AccountOptions {
+    source: ProfileSource;
+    // set the account as the current account, default: true
+    setAsCurrent?: boolean;
+    // restore accounts from firefly, default: false
+    skipRestoreFireflyAccounts?: boolean;
+    // restore the firefly session, default: false
+    skipRestoreFireflySession?: boolean;
+    // overwrite the firefly session open confirm modal props
+    FireflySessionOpenConfirmModalProps?: Partial<FireflySessionOpenConfirmModalProps>;
+    // early return signal
+    signal?: AbortSignal;
+}
+
+export async function addAccount(account: Account, options: AccountOptions) {
+    const {
+        source,
+        setAsCurrent = true,
+        skipRestoreFireflyAccounts = false,
+        skipRestoreFireflySession = false,
+        signal,
+    } = options;
+
     const { state, sessionHolder } = getContext(account);
 
-    // if no ffid exists then add the account
-    // if ffid exists then bind the account
+    // check if the account belongs to the current firefly session
+    const belongsTo = isSameSession(
+        getProfileState(Source.Firefly).currentProfileSession,
+        account.fireflySession ?? null,
+    );
 
-    state.addAccount(account, setAsCurrent);
-    if (setAsCurrent) sessionHolder.resumeSession(account.session);
+    // add account to store cause it's from firefly
+    if (belongsTo) {
+        state.addAccount(account, setAsCurrent);
+        if (setAsCurrent) sessionHolder.resumeSession(account.session);
+    }
 
-    if (account.session.type !== SessionType.Firefly && restoreSession)
-        await restoreFireflySession(account.session, signal);
+    // restore accounts from firefly
+    if (!skipRestoreFireflyAccounts && account.fireflySession) {
+        const accountsSynced = await syncAccountsFromFirefly(account.fireflySession, signal);
+        const accounts = belongsTo ? accountsSynced : [account, ...accountsSynced];
+
+        if (accounts.length) {
+            const confirmed = await FireflySessionConfirmModalRef.openAndWaitForClose({
+                ...options.FireflySessionOpenConfirmModalProps,
+                source,
+                accounts,
+            });
+
+            if (confirmed) {
+                updateState(accounts, !belongsTo);
+            } else {
+                // the user rejected to store conflicting accounts
+                if (!belongsTo) return;
+            }
+        }
+    }
+
+    // restore firefly session
+    if (account.session.type !== SessionType.Firefly && !skipRestoreFireflySession)
+        await restoreFireflySession(account, signal);
 }
 
 export async function bindAccount(account: Account) {
@@ -101,8 +169,9 @@ export async function bindAccount(account: Account) {
  */
 export async function switchAccount(account: Account, signal?: AbortSignal) {
     await addAccount(account, {
+        source: account.profile.source,
         setAsCurrent: true,
-        restoreSession: false,
+        skipRestoreFireflySession: true,
         signal,
     });
 }

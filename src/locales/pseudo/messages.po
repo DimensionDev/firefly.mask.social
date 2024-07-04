@@ -775,6 +775,9 @@ msgstr ""
 msgid "[Poll]"
 msgstr ""
 
+msgid "Confirm to connect your account status."
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -1100,9 +1103,6 @@ msgid "Cancel recast successfully"
 msgstr ""
 
 msgid "Failed to unfollow."
-msgstr ""
-
-msgid "One click to connect your account status."
 msgstr ""
 
 msgid "Top Collectors"
@@ -1433,9 +1433,6 @@ msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
-msgstr ""
-
-msgid "No device accounts detected."
 msgstr ""
 
 msgid "Log out all"

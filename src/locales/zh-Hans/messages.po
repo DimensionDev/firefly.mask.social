@@ -780,6 +780,9 @@ msgstr "成功取消转发"
 msgid "[Poll]"
 msgstr "[投票]"
 
+msgid "Confirm to connect your account status."
+msgstr ""
+
 msgid "Allow replies from"
 msgstr "允许回复"
 
@@ -1106,9 +1109,6 @@ msgstr "成功取消转发"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
-
-msgid "One click to connect your account status."
-msgstr "一键同步你的账号。"
 
 msgid "Top Collectors"
 msgstr "热门收藏者"
@@ -1439,9 +1439,6 @@ msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
 
 msgid "Add"
 msgstr "添加"
-
-msgid "No device accounts detected."
-msgstr "未检测到设备账号。"
 
 msgid "Log out all"
 msgstr "登出所有"

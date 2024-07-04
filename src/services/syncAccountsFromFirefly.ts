@@ -14,6 +14,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -72,12 +73,13 @@ export async function syncAccountsFromFirefly(session: FireflySession, signal?: 
             return provider.getProfileById(x.profileId);
         }),
     );
-    const accounts = compact(
+    const accounts = compact<Account>(
         allSettled.map((x, i) =>
             x.status === 'fulfilled' && x.value
                 ? {
                       profile: x.value,
                       session: sessions[i],
+                      fireflySession: session,
                   }
                 : null,
         ),

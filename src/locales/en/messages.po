@@ -775,6 +775,9 @@ msgstr "Cancel retweet successfully"
 msgid "[Poll]"
 msgstr "[Poll]"
 
+msgid "Confirm to connect your account status."
+msgstr "Confirm to connect your account status."
+
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
@@ -1101,9 +1104,6 @@ msgstr "Cancel recast successfully"
 
 msgid "Failed to unfollow."
 msgstr "Failed to unfollow."
-
-msgid "One click to connect your account status."
-msgstr "One click to connect your account status."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
@@ -1434,9 +1434,6 @@ msgstr "Post from /{0} will be hidden in your home timeline"
 
 msgid "Add"
 msgstr "Add"
-
-msgid "No device accounts detected."
-msgstr "No device accounts detected."
 
 msgid "Log out all"
 msgstr "Log out all"

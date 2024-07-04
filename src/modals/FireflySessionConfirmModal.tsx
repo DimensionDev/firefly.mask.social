@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { forwardRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -9,13 +9,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { type ProfileSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { addAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
-import { useAbortController } from '@/hooks/useAbortController.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileModalProps {
     accounts: Account[];
@@ -24,28 +20,8 @@ interface ProfileModalProps {
 }
 
 function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
-    const controller = useAbortController();
-
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
         try {
-            await Promise.all(
-                accounts.map((account, i) =>
-                    addAccount(account, {
-                        setAsCurrent: false,
-                        restoreSession: false,
-                        signal: controller.current.signal,
-                    }),
-                ),
-            );
-
-            // set the first account as the current account if no current account is set
-            SORTED_SOCIAL_SOURCES.map((x) => {
-                const { currentProfile, updateCurrentAccount, accounts } = getProfileState(x);
-                const account = first(accounts);
-
-                if (!currentProfile && account) updateCurrentAccount(account);
-            });
-
             onConfirm?.();
             ConfirmModalRef.close(true);
         } catch (error) {
@@ -105,7 +81,6 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
 export interface FireflySessionOpenConfirmModalProps {
     source: ProfileSource;
     accounts: Account[];
-    onDetected?: (profiles: Profile[]) => void;
 }
 
 // true - indicates the user restored sessions
@@ -120,10 +95,10 @@ export const FireflySessionConfirmModal = forwardRef<
             try {
                 // not valid profile detected
                 const accounts = props.accounts;
-                if (!accounts.length) return;
-
-                // profiles detected, invoke the callback before showing the confirm modal
-                props.onDetected?.(accounts.map((x) => x.profile));
+                if (!accounts.length) {
+                    dispatch?.close(false);
+                    return;
+                }
 
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,

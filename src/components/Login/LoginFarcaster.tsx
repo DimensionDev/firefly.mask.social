@@ -13,51 +13,35 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
+import { FarcasterSignType, Source } from '@/constants/enum.js';
 import { AbortError, NotImplementedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
-import { addAccount } from '@/helpers/account.js';
+import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
-async function login(
-    createAccount: () => Promise<Account>,
-    options?: { skipRestoreSessions?: boolean; signal?: AbortSignal },
-) {
+async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
         const account = await createAccount();
 
         // add new account for farcaster
-        await addAccount(account);
+        await addAccount(account, {
+            source: Source.Farcaster,
+            ...options,
+        });
 
         enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
-
-        // restore profile exclude farcaster
-        if (!options?.skipRestoreSessions && account.fireflySession) {
-            await FireflySessionConfirmModalRef.openAndWaitForClose({
-                source: Source.Farcaster,
-                accounts: await syncAccountsFromFirefly(account.fireflySession, options?.signal),
-                onDetected(profiles) {
-                    if (!profiles.length)
-                        enqueueInfoMessage(t`No device accounts detected.`, {
-                            environment: NODE_ENV.Development,
-                        });
-                    LoginModalRef.close();
-                },
-            });
-        } else {
-            LoginModalRef.close();
-        }
+        LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;
@@ -196,7 +180,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     return account;
                 },
-                { skipRestoreSessions: true, signal: controller.current.signal },
+                { skipRestoreFireflyAccounts: true, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {

@@ -13,25 +13,19 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { NODE_ENV, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { addAccount } from '@/helpers/account.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import {
-    AccountModalRef,
-    ConnectWalletModalRef,
-    FireflySessionConfirmModalRef,
-    LoginModalRef,
-} from '@/modals/controls.js';
+import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -62,27 +56,12 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 }
 
                 // add new account for lens
-                await addAccount(account);
-                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
-
-                const accounts = await syncAccountsFromFirefly(account.fireflySession, controller.current.signal);
-                if (!accounts.length) {
-                    LoginModalRef.close();
-                    return;
-                }
-
-                // restore profiles exclude lens
-                await FireflySessionConfirmModalRef.openAndWaitForClose({
+                await addAccount(account, {
                     source: Source.Lens,
-                    accounts,
-                    onDetected(profiles) {
-                        if (!profiles.length)
-                            enqueueInfoMessage(t`No device accounts detected.`, {
-                                environment: NODE_ENV.Development,
-                            });
-                        LoginModalRef.close();
-                    },
                 });
+
+                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+                LoginModalRef.close();
             } catch (error) {
                 // skip if the error is abort error
                 if (AbortError.is(error)) return;
