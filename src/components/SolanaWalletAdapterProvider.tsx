@@ -2,14 +2,14 @@
 
 import '@solana/wallet-adapter-react-ui/styles.css';
 
+import type { Adapter } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { type PropsWithChildren } from 'react';
 
 import { env } from '@/constants/env.js';
 
-const wallets = [new UnsafeBurnerWalletAdapter()];
+const wallets: Adapter[] = [];
 
 export function SolanaWalletAdapterProvider({ children }: PropsWithChildren) {
     return (
