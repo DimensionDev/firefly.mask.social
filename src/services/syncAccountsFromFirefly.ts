@@ -9,10 +9,12 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -23,13 +25,12 @@ import type { ResponseJSON } from '@/types/index.js';
  * @param session
  * @returns
  */
-async function downloadMetricsFromFirefly(signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(
+async function downloadMetricsFromFirefly(session: FireflySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetchWithSession(session)<MetricsDownloadResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/download'),
         {
             signal,
         },
-        true,
     );
     const data = resolveFireflyResponseData(response);
     return data?.ciphertext;
@@ -55,11 +56,8 @@ async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
  * Download and decrypt metrics from Firefly, then convert them to accounts.
  * @returns
  */
-export async function syncAccountsFromFirefly(signal?: AbortSignal) {
-    // Ensure that the Firefly session is resumed before calling this function.
-    fireflySessionHolder.assertSession();
-
-    const cipher = await downloadMetricsFromFirefly(signal);
+export async function syncAccountsFromFirefly(session: FireflySession, signal?: AbortSignal) {
+    const cipher = await downloadMetricsFromFirefly(session, signal);
     if (!cipher) return [];
 
     const sessions = await decryptMetricsFromFirefly(cipher, signal);
@@ -75,12 +73,13 @@ export async function syncAccountsFromFirefly(signal?: AbortSignal) {
             return provider.getProfileById(x.profileId);
         }),
     );
-    const accounts = compact(
+    const accounts = compact<Account>(
         allSettled.map((x, i) =>
             x.status === 'fulfilled' && x.value
                 ? {
                       profile: x.value,
                       session: sessions[i],
+                      fireflySession: session,
                   }
                 : null,
         ),

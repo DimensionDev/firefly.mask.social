@@ -1,7 +1,9 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { Source } from '@/constants/enum.js';
 import { InvalidResultError, TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -73,7 +75,10 @@ async function createSession(callback?: (url: string) => void, signal?: AbortSig
     }
 }
 
-export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
+export async function createAccountByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const session = await createSession(callback, signal);
-    return session;
+    return {
+        session,
+        profile: createDummyProfile(Source.Farcaster),
+    };
 }

@@ -8,8 +8,7 @@ import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 
-import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { ProfileName } from '@/components/ProfileName.js';
+import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/helpers/account.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -41,15 +40,19 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                 <Trans>Confirm to log out all accounts?</Trans>
                             )}
                         </div>
-                        {accounts.map((account) => (
-                            <div
-                                key={account.profile.profileId}
-                                className="flex items-center justify-between gap-3 rounded-[8px] px-3 py-2 backdrop-blur-[8px]"
-                            >
-                                <ProfileAvatar profile={account.profile} size={36} />
-                                <ProfileName profile={account.profile} />
-                            </div>
-                        ))}
+                        <ul className="flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
+                            {accounts.map((account) => (
+                                <ProfileInList
+                                    key={account.profile.profileId}
+                                    selected
+                                    selectable={false}
+                                    profile={account.profile}
+                                    ProfileAvatarProps={{
+                                        enableSourceIcon: true,
+                                    }}
+                                />
+                            ))}
+                        </ul>
                     </>
                 ),
             });

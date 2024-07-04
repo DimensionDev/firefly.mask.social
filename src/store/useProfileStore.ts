@@ -36,6 +36,7 @@ export interface ProfileState {
     removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
+    removeCurrentAccount: () => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
     upgrade: () => void;
@@ -65,8 +66,7 @@ function createState(
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
 
                         if (!account_) {
-                            // add new account to the top
-                            state.accounts = [account, ...state.accounts];
+                            state.accounts = [...state.accounts, account];
                         }
 
                         if (setAsCurrent) {
@@ -95,6 +95,11 @@ function createState(
                         if (!state.accounts.length) {
                             state.accounts = [account];
                         }
+                    }),
+                removeCurrentAccount: () =>
+                    set((state) => {
+                        state.currentProfile = null;
+                        state.currentProfileSession = null;
                     }),
                 refreshAccounts: async () => {
                     const { currentProfile: profile, accounts } = get();
@@ -249,7 +254,9 @@ const useTwitterStateBase = createState(
                         session: TwitterSession.from(me, payload),
                     },
                     {
-                        restoreSession: false,
+                        skipBelongsToCheck: true,
+                        skipRestoreFireflyAccounts: true,
+                        skipRestoreFireflySession: true,
                     },
                 );
             } catch (error) {

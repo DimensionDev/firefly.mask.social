@@ -4,8 +4,10 @@ import { toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
-import { restoreFireflySession } from '@/services/restoreFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface WarpcastSignInResponse {
@@ -109,11 +111,18 @@ async function initialSignerRequestToken(callback?: (url: string) => void, signa
     return session;
 }
 
-export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
+export async function createAccountByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const session = await initialSignerRequestToken(callback, signal);
 
     // polling for the session to be ready
-    await restoreFireflySession(session, signal);
+    const fireflySession = await bindOrRestoreFireflySession(session, signal);
 
-    return session;
+    // profile id is available after the session is ready
+    const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+
+    return {
+        session,
+        profile,
+        fireflySession,
+    } satisfies Account;
 }
