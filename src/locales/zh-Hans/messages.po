@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-03 00:04\n"
+"PO-Revision-Date: 2024-07-03 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -224,6 +224,9 @@ msgstr "在 {sourceName} 上屏蔽 @{0}"
 
 msgid "Login with QR Code"
 msgstr "使用二维码登录"
+
+msgid "Market Cap"
+msgstr ""
 
 msgid "Contract source code verified"
 msgstr ""
@@ -490,9 +493,6 @@ msgid "Recasts"
 msgstr "转帖"
 
 msgid "Market Cap / FDV"
-msgstr ""
-
-msgid "Market Capital"
 msgstr ""
 
 msgid "Your action provider blocks execution of this action."

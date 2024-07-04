@@ -18,7 +18,7 @@ import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurity.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatNumber } from '@/helpers/formatNumber.js';
+import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
@@ -48,7 +48,7 @@ function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
                 <div className="ml-auto">{extra}</div>
             ) : (
                 <div className="ml-auto">
-                    {value !== undefined ? `$${formatNumber(+value)}` : formatNumber(amount) ?? '-'}
+                    {value !== undefined ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
                 </div>
             )}
         </div>
@@ -128,7 +128,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
             <div className="line-height-[22px] flex items-center gap-1 text-[15px]">
                 <Trans>
                     <span className="text-secondary">Price</span>
-                    <strong className="font-bold">${formatNumber(price) ?? '-'}</strong>
+                    <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
                     <PriceArrow
                         width={16}
                         height={16}
@@ -145,7 +145,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                 <Trans>
                     <span className="text-[15px] text-secondary">Market Cap</span>
                     <strong className="text-[15px] font-bold">
-                        {market?.market_cap ? `$${formatNumber(market.market_cap)}` : '-'}
+                        {market?.market_cap ? `$${formatPrice(market.market_cap)}` : '-'}
                     </strong>
                     <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
                         Rank #{token.rank}
@@ -193,7 +193,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                 <h2 className="font-inter font-bold text-main">{t`Statistic`}</h2>
                 <div className="mt-3 flex flex-col gap-3">
                     <InfoRow
-                        title={t`Market Capital`}
+                        title={t`Market Cap`}
                         description={
                             <Trans>
                                 <div>Market Cap = Current Price x Circulating Supply</div>

@@ -77,6 +77,10 @@ export default {
             {
                 hostname: 'static.debank.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'ipfs.io',
+            },
         ],
     },
     async headers() {

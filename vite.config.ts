@@ -1,3 +1,4 @@
+import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 function createURL(pathToFile: string) {
@@ -5,8 +6,11 @@ function createURL(pathToFile: string) {
 }
 
 export default defineConfig({
+    plugins: [react()],
+    envPrefix: ['VITE_', 'NEXT_', 'S3_', 'TWITTER_', 'IMGUR_', 'NEXTAUTH_', 'FARCASTER_', 'HUBBLE_', 'SESSION_'],
     test: {
-        include: ['./tests/**/*.ts'],
+        environment: 'jsdom',
+        include: ['./tests/**/*.{ts,tsx}'],
         exclude: ['./tests/**/*.d.ts'],
         alias: {
             '@masknet/web3-shared-base': createURL('./src/maskbook/packages/web3-shared/base/src/index.ts'),

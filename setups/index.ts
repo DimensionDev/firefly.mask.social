@@ -1,4 +1,6 @@
+import { cleanup } from '@testing-library/react';
 import { fetch, Headers, Request, Response } from 'cross-fetch';
+import { afterEach } from 'vitest';
 
 // Add `fetch` polyfill.
 globalThis.fetch = fetch;
@@ -33,4 +35,8 @@ Reflect.set(URL, 'canParse', (url: string) => {
     } catch {
         return false;
     }
+});
+
+afterEach(() => {
+    cleanup();
 });

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-03 00:04\n"
+"PO-Revision-Date: 2024-07-03 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -223,6 +223,9 @@ msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
 
 msgid "Login with QR Code"
+msgstr ""
+
+msgid "Market Cap"
 msgstr ""
 
 msgid "Contract source code verified"
@@ -490,9 +493,6 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Cap / FDV"
-msgstr ""
-
-msgid "Market Capital"
 msgstr ""
 
 msgid "Your action provider blocks execution of this action."

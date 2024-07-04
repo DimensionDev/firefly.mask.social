@@ -9,7 +9,7 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 export const HASHTAG_REGEX = /(^|\s)(#[^0-9][^\s#]+)/g;
 
 /** Financial symbol */
-export const SYMBOL_REGEX = /(^|\s)(\$\S+)/g;
+export const SYMBOL_REGEX = /(^|\s)(\$([a-zA-Z0-9]|\p{Script=Han})+)/gu;
 
 // for safari does not support negative lookbehind
 // since we cannot eliminate the space before the channel, we will trim it later
@@ -42,9 +42,4 @@ export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
 
 export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z_][a-zA-Z0-9_]*)\/status\/(\d+)/;
 
-export const SOLANA_BLINK_REGEX = /action=(solana-action|solana):(https:\/\/\S+)/;
-
-export const CONTENT_SOLANA_BLINK_REGEX =
-    /(solana):\/\/((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)>]*)?)/gi;
-
-export const SOLANA_BLINK_PREFIX = 'solana://';
+export const URI_COMPONENT_REGEXP = /([A-Za-z0-9\-_.!~*'()]|%[0-9A-Fa-f]{2})+/gi;

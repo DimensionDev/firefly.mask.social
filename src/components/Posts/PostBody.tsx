@@ -4,20 +4,18 @@ import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
-import { BlinkWithQuery } from '@/components/Blink/index.js';
-import { Frame } from '@/components/Frame/index.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
-import { Oembed } from '@/components/Oembed/index.js';
 import { PollCard } from '@/components/Poll/PollCard.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
+import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { STATUS } from '@/constants/enum.js';
@@ -27,7 +25,6 @@ import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { resolvePostContent } from '@/helpers/resolvePostContent.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -56,9 +53,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 ) {
     const router = useRouter();
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
-    const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
-    const [endingLinkCollapsed, setEndingLinkCollapsed] = useState(false);
+    const [postContent, setPostContent] = useState(post.metadata.content?.content ?? '');
     const [postViewed, setPostViewed] = useState(false);
 
     const { observe } = useInView({
@@ -83,7 +79,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(post.author, isDetail);
 
-    const { content, blink } = resolvePostContent(post, endingLinkCollapsed);
+    const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
+    const attachments = post.metadata.content?.attachments ?? EMPTY_LIST;
+    const availableAttachments = useMemo(() => {
+        if (!payloadFromImageAttachment) return attachments;
+        const payloadUrl = payloadFromImageAttachment[2];
+        return attachments.filter((x) => x.uri !== payloadUrl);
+    }, [payloadFromImageAttachment, attachments]);
+    const showAttachments = availableAttachments.length > 0 || !!post.metadata.content?.asset;
 
     if (post.isEncrypted) {
         return (
@@ -181,24 +184,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    const renderLinks = () => {
-        if (blink && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled)
-            return <BlinkWithQuery url={blink} onData={() => setEndingLinkCollapsed(true)} />;
-        if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
-            return (
-                <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                    {post.metadata.content.oembedUrl && !post.quoteOn ? (
-                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
-                    ) : null}
-                </Frame>
-            );
-        }
-        if (post.metadata.content?.oembedUrl && !post.quoteOn) {
-            return <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />;
-        }
-        return null;
-    };
-
     return (
         <div
             className={classNames('-mt-2 mb-2 break-words text-base text-main', {
@@ -207,10 +192,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             <div ref={observe} />
-            <PostMarkup post={post} canShowMore={canShowMore} content={content} />
 
-            {showTranslate && trimify(content) ? (
-                <ContentTranslator content={trimify(content)} canShowMore={canShowMore} post={post} />
+            <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+
+            {showTranslate && trimify(postContent) ? (
+                <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
             {postViewed ? (
@@ -242,19 +228,16 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {post.poll ? <PollCard post={post} /> : null}
 
-            {/* TODO: exclude the payload image from attachments */}
-            {showAttachments &&
-            (!payloads?.payloadFromImageAttachment ||
-                env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) ? (
+            {showAttachments ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}
-                    attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
+                    attachments={availableAttachments}
                     isDetail={isDetail}
                 />
             ) : null}
 
-            {renderLinks()}
+            <PostLinks post={post} setContent={setPostContent} />
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>

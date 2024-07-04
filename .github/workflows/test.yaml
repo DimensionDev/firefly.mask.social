@@ -26,7 +26,7 @@ jobs:
             - name: Setup Github Actions
               run: ./scripts/setup-gh-actions.sh
 
-            - uses: pnpm/action-setup@v2
+            - uses: pnpm/action-setup@v4
             - name: Run unit tests
               run: pnpm run test
               env:

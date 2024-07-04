@@ -133,7 +133,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                             <div className="mt-1 text-secondary">
                                 <Trans>AUTHOR ADDRESS</Trans>
                             </div>
-                            <div>{checksumAddress(article.author.id)}</div>
+                            <div className="break-all">{checksumAddress(article.author.id)}</div>
                         </Link>
                     </div>
                 ) : null}
