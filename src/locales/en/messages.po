@@ -211,6 +211,9 @@ msgstr "Failed to mute @{0} on {sourceName}"
 msgid "Login with QR Code"
 msgstr "Login with QR Code"
 
+msgid "Market Cap"
+msgstr "Market Cap"
+
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
 
@@ -474,9 +477,6 @@ msgstr "Recasts"
 
 msgid "Market Cap / FDV"
 msgstr "Market Cap / FDV"
-
-msgid "Market Capital"
-msgstr "Market Capital"
 
 msgid "Your action provider blocks execution of this action."
 msgstr "Your action provider blocks execution of this action."

@@ -211,6 +211,9 @@ msgstr ""
 msgid "Login with QR Code"
 msgstr ""
 
+msgid "Market Cap"
+msgstr ""
+
 msgid "Contract source code verified"
 msgstr ""
 
@@ -473,9 +476,6 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Cap / FDV"
-msgstr ""
-
-msgid "Market Capital"
 msgstr ""
 
 msgid "Your action provider blocks execution of this action."
