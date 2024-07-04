@@ -23,6 +23,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -56,8 +57,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 const done = await addAccount(account, {
                     signal: controller.current.signal,
                 });
+                if (done) {
+                    enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
 
-                if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+                    // after login, move the session storage to local storage
+                    await lensSessionHolder.resumeSession(account.session);
+                }
+
                 LoginModalRef.close();
             } catch (error) {
                 // skip if the error is abort error

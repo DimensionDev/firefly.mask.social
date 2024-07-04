@@ -1,33 +1,15 @@
-import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
+import { LensClient as LensClientSDK } from '@lens-protocol/client';
 
+import { createLensSDK, LocalStorageProvider } from '@/helpers/createLensSDK.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
-const ls = typeof window === 'undefined' ? undefined : window.localStorage;
-
-class LocalStorageProvider implements IStorageProvider {
-    getItem(key: string) {
-        return ls?.getItem(key) ?? null;
-    }
-
-    setItem(key: string, value: string) {
-        ls?.setItem(key, value);
-    }
-
-    removeItem(key: string) {
-        ls?.removeItem(key);
-    }
-}
-
-class LensSessionHolder extends SessionHolder<LensSession> {
+export class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
 
     get sdk() {
         if (!this.lensClientSDK) {
-            this.lensClientSDK = new LensClientSDK({
-                environment: production,
-                storage: new LocalStorageProvider(),
-            });
+            this.lensClientSDK = createLensSDK(new LocalStorageProvider());
         }
         return this.lensClientSDK;
     }

@@ -7,7 +7,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
-import { addAccount } from '@/helpers/account.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -248,17 +247,10 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                await addAccount(
-                    {
-                        profile: me,
-                        session: TwitterSession.from(me, payload),
-                    },
-                    {
-                        skipBelongsToCheck: true,
-                        skipRestoreFireflyAccounts: true,
-                        skipRestoreFireflySession: true,
-                    },
-                );
+                state.updateCurrentAccount({
+                    profile: me,
+                    session: TwitterSession.from(me, payload),
+                });
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
