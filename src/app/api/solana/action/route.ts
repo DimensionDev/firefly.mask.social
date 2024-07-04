@@ -39,7 +39,8 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
         const newPath = pathPatterns.join('/');
         if (newPath !== rule.pathPattern) {
             const apiPath = rule.apiPath.replace(rule.pathPattern, pathPatterns.join('/')).replace('**', end);
-            return apiPath.startsWith('https://') ? apiPath : urlcat(u.origin, apiPath);
+            const resultUrl = apiPath.startsWith('https://') ? apiPath : urlcat(u.origin, apiPath);
+            return resultUrl + u.search;
         }
     }
     return null;
