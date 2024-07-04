@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { compact, groupBy } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { forwardRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -11,6 +11,7 @@ import { type ProfileSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -28,19 +29,23 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
         try {
             await Promise.all(
-                Object.entries(groupBy(accounts, (x) => x.session.type)).map(([_, accounts]) =>
-                    Promise.all(
-                        accounts.map((account, i) =>
-                            addAccount(account, {
-                                // only set the first account as current
-                                setAsCurrent: i === 0,
-                                restoreSession: false,
-                                signal: controller.current.signal,
-                            }),
-                        ),
-                    ),
+                accounts.map((account, i) =>
+                    addAccount(account, {
+                        setAsCurrent: false,
+                        restoreSession: false,
+                        signal: controller.current.signal,
+                    }),
                 ),
             );
+
+            // set the first account as the current account if no current account is set
+            SORTED_SOCIAL_SOURCES.map((x) => {
+                const { currentProfile, updateCurrentAccount, accounts } = getProfileState(x);
+                const account = first(accounts);
+
+                if (!currentProfile && account) updateCurrentAccount(account);
+            });
+
             onConfirm?.();
             ConfirmModalRef.close(true);
         } catch (error) {

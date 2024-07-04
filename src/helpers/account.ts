@@ -23,6 +23,11 @@ function getContext(account: Account) {
     };
 }
 
+/**
+ * Restore firefly session from social account sessions
+ * @param session
+ * @param signal
+ */
 async function restoreFireflySession(session: Session, signal?: AbortSignal): Promise<void> {
     // polling failed
     if (!session.profileId)
@@ -49,6 +54,16 @@ async function restoreFireflySession(session: Session, signal?: AbortSignal): Pr
 
     // restore firefly session
     fireflySessionHolder.resumeSession(account.session);
+}
+
+/**
+ * Remove firefly account if no other social account is logged in
+ * @returns
+ */
+async function removeFireflyAccountIfNeeded() {
+    if (SORTED_SOCIAL_SOURCES.some((x) => getProfileState(x).currentProfile)) return;
+    useFireflyStateStore.getState().clear();
+    fireflySessionHolder.removeSession();
 }
 
 export async function addAccount(
@@ -108,6 +123,7 @@ export async function removeCurrentAccount(source: SocialSource) {
         });
     }
     await removeAccount(account);
+    await removeFireflyAccountIfNeeded();
 }
 
 export async function removeAllAccounts() {
@@ -124,6 +140,5 @@ export async function removeAllAccounts() {
         resolveSessionHolder(x)?.removeSession();
     });
 
-    useFireflyStateStore.getState().clear();
-    fireflySessionHolder.removeSession();
+    await removeFireflyAccountIfNeeded();
 }
