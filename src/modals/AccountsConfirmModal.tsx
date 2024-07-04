@@ -13,13 +13,13 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 
-interface ProfileModalProps {
+interface AccountsModalProps {
     accounts: Account[];
     onConfirm?: () => void;
     onClose?: () => void;
 }
 
-function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
+function AccoutsModal({ accounts, onConfirm, onClose }: AccountsModalProps) {
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
         try {
             onConfirm?.();
@@ -78,18 +78,18 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
     );
 }
 
-export interface FireflySessionOpenConfirmModalProps {
+export interface AccountsOpenConfirmModalProps {
     source: ProfileSource;
     accounts: Account[];
 }
 
 // true - indicates the user restored sessions
 // false - indicates the users rejected the session restore
-export type FireflySessionCloseConfirmModalProps = boolean;
+export type AccountsCloseConfirmModalProps = boolean;
 
-export const FireflySessionConfirmModal = forwardRef<
-    SingletonModalRefCreator<FireflySessionOpenConfirmModalProps, FireflySessionCloseConfirmModalProps>
->(function FireflySessionModal(_, ref) {
+export const AccountsConfirmModal = forwardRef<
+    SingletonModalRefCreator<AccountsOpenConfirmModalProps, AccountsCloseConfirmModalProps>
+>(function AccountsConfirmModal(_, ref) {
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
             try {
@@ -103,7 +103,7 @@ export const FireflySessionConfirmModal = forwardRef<
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
                     content: (
-                        <ProfileModal
+                        <AccoutsModal
                             accounts={accounts}
                             onConfirm={() => dispatch?.close(true)}
                             onClose={() => dispatch?.close(false)}

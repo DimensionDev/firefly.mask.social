@@ -13,7 +13,7 @@ import { AbortError, MalformedError, ProfileNotConnectedError, TimeoutError } fr
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseURL } from '@/helpers/parseURL.js';
@@ -25,10 +25,11 @@ import { DeviceType } from '@/types/device.js';
 
 async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {
     try {
-        const account = await createAccount();
-        await addAccount(account, {
+        const succeed = await addAccount(await createAccount(), {
             source: Source.Firefly,
         });
+
+        if (succeed) enqueueSuccessMessage(t`Your account is now connected.`);
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;

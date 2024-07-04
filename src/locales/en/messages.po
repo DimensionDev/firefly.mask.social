@@ -199,6 +199,9 @@ msgstr "Solana"
 msgid "Casts"
 msgstr "Casts"
 
+msgid "Your account is now connected."
+msgstr "Your account is now connected."
+
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
 

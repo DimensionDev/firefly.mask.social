@@ -3,7 +3,6 @@ import { first, groupBy } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -12,8 +11,8 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { FireflySessionConfirmModalRef } from '@/modals/controls.js';
-import type { FireflySessionOpenConfirmModalProps } from '@/modals/FireflySessionConfirmModal.jsx';
+import type { AccountsOpenConfirmModalProps } from '@/modals/AccountsConfirmModal.js';
+import { AccountsConfirmModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -104,7 +103,7 @@ export interface AccountOptions {
     // restore the firefly session, default: false
     skipRestoreFireflySession?: boolean;
     // overwrite the firefly session open confirm modal props
-    FireflySessionOpenConfirmModalProps?: Partial<FireflySessionOpenConfirmModalProps>;
+    AccountsOpenConfirmModalProps?: Partial<AccountsOpenConfirmModalProps>;
     // early return signal
     signal?: AbortSignal;
 }
@@ -138,8 +137,8 @@ export async function addAccount(account: Account, options: AccountOptions) {
         const accounts = belongsTo ? accountsSynced : [account, ...accountsSynced];
 
         if (accounts.length) {
-            const confirmed = await FireflySessionConfirmModalRef.openAndWaitForClose({
-                ...options.FireflySessionOpenConfirmModalProps,
+            const confirmed = await AccountsConfirmModalRef.openAndWaitForClose({
+                ...options.AccountsOpenConfirmModalProps,
                 source,
                 accounts,
             });
@@ -148,7 +147,7 @@ export async function addAccount(account: Account, options: AccountOptions) {
                 updateState(accounts, !belongsTo);
             } else {
                 // the user rejected to store conflicting accounts
-                if (!belongsTo) return;
+                if (!belongsTo) return false;
             }
         }
     }
@@ -156,10 +155,8 @@ export async function addAccount(account: Account, options: AccountOptions) {
     // restore firefly session
     if (account.session.type !== SessionType.Firefly && !skipRestoreFireflySession)
         await restoreFireflySession(account, signal);
-}
 
-export async function bindAccount(account: Account) {
-    throw new NotImplementedError();
+    return true;
 }
 
 /**

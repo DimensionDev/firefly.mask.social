@@ -204,6 +204,9 @@ msgstr ""
 msgid "Casts"
 msgstr "帖子"
 
+msgid "Your account is now connected."
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 

@@ -55,12 +55,11 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     await updateSignless(true);
                 }
 
-                // add new account for lens
-                await addAccount(account, {
+                const succeed = await addAccount(account, {
                     source: Source.Lens,
                 });
 
-                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+                if (succeed) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {
                 // skip if the error is abort error

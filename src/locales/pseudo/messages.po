@@ -199,6 +199,9 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Your account is now connected."
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr ""
 
