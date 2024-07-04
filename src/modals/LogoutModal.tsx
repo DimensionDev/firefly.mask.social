@@ -44,7 +44,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                         {accounts.map((account) => (
                             <div
                                 key={account.profile.profileId}
-                                className="flex items-center justify-between gap-2 rounded-[8px] px-3 py-2 backdrop-blur-[8px]"
+                                className="flex items-center justify-between gap-3 rounded-[8px] px-3 py-2 backdrop-blur-[8px]"
                             >
                                 <ProfileAvatar profile={account.profile} size={36} />
                                 <ProfileName profile={account.profile} />
