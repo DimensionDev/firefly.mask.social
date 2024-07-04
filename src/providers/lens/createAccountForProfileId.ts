@@ -1,9 +1,9 @@
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
+import { createLensSDK } from '@/helpers/createLensSDK.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LensSession } from '@/providers/lens/Session.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
@@ -14,7 +14,9 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
     const walletClient = await getWalletClientRequired(config, {
         chainId: polygon.id,
     });
-    const sdk = await lensSessionHolder.createSDK(false);
+    // it's okay to refresh the page when login firefly profile, cause in-memory storage used here.
+    const sdk = await createLensSDK(false);
+
     const { id, text } = await sdk.authentication.generateChallenge({
         for: profile.profileId,
         signedBy: walletClient.account.address,

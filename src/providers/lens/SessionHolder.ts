@@ -1,5 +1,6 @@
-import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
+import { type IStorageProvider, LensClient as LensClientSDK } from '@lens-protocol/client';
 
+import { createLensSDK } from '@/helpers/createLensSDK.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
@@ -35,21 +36,14 @@ class MemoryStorageProvider implements IStorageProvider {
     }
 }
 
-class LensSessionHolder extends SessionHolder<LensSession> {
+export class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
 
     get sdk() {
         if (!this.lensClientSDK) {
-            this.lensClientSDK = this.createSDK(true);
+            this.lensClientSDK = createLensSDK(true);
         }
         return this.lensClientSDK;
-    }
-
-    createSDK(persistent: boolean) {
-        return new LensClientSDK({
-            environment: production,
-            storage: persistent ? new LocalStorageProvider() : new MemoryStorageProvider(),
-        });
     }
 
     override async resumeSession(session: LensSession) {
