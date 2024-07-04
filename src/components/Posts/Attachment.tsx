@@ -157,8 +157,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                             <ImageAsset
                                 className={classNames('cursor-pointer rounded-lg object-cover', {
                                     'w-full': !isQuote,
-                                    'w-[120px]': isQuote,
-                                    'h-[120px]': isQuote,
+                                    'h-[120px] w-[120px]': isQuote,
                                 })}
                                 disableLoadHandler={isQuote}
                                 width={isQuote ? 120 : 1000}
@@ -189,8 +188,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                         isQuote ? 'gap-1' : 'gap-2',
                         {
                             'grid-flow-col': attachmentsSnapshot.length === 3,
-                            'w-[120px]': isQuote && !isSoloImage,
-                            'h-[120px]': isQuote && !isSoloImage,
+                            'h-[120px] w-[120px]': isQuote && !isSoloImage,
                         },
                     )}
                 >
