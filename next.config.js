@@ -74,6 +74,10 @@ export default {
             {
                 hostname: '*.giphy.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'ipfs.io',
+            },
         ],
     },
     async headers() {
