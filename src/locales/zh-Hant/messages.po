@@ -105,6 +105,9 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
+msgid "Up to 7 days can be set as the scheduled time to send this post."
+msgstr ""
+
 msgid "Debug Connection"
 msgstr "除錯連接"
 
@@ -198,6 +201,9 @@ msgstr "錯誤的錢包"
 msgid "Poll"
 msgstr "投票"
 
+msgid "Scheduled"
+msgstr ""
+
 msgid "Solana"
 msgstr ""
 
@@ -205,6 +211,9 @@ msgid "Casts"
 msgstr ""
 
 msgid "Report submitted on {0}"
+msgstr ""
+
+msgid "This can’t be undone and the scheduled send will be canceled."
 msgstr ""
 
 msgid "Debug Console"
@@ -277,6 +286,9 @@ msgid "True Token"
 msgstr ""
 
 msgid "Failed"
+msgstr ""
+
+msgid "Failed to delete shedule post"
 msgstr ""
 
 msgid "Bookmarks"
@@ -372,6 +384,9 @@ msgstr ""
 msgid "Report Failed"
 msgstr ""
 
+msgid "Will send on {0} at {1}"
+msgstr ""
+
 msgid "Attendees"
 msgstr ""
 
@@ -400,6 +415,9 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Verified by {0}"
+msgstr ""
+
+msgid "Your schedule post has created successfully."
 msgstr ""
 
 msgid "Select Account"
@@ -534,6 +552,9 @@ msgstr "鏡像失敗"
 msgid "Remove Choice"
 msgstr ""
 
+msgid "Update"
+msgstr ""
+
 msgid "Mute {identity}"
 msgstr ""
 
@@ -627,6 +648,9 @@ msgstr ""
 msgid "Are you sure you want to report this collection?"
 msgstr ""
 
+msgid "The scheduled time has passed. Please reset it."
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -676,6 +700,9 @@ msgid "Are you sure you want to report this post?"
 msgstr ""
 
 msgid "No function found that retrieves ownership"
+msgstr ""
+
+msgid "Failed to create shedule post"
 msgstr ""
 
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
@@ -750,6 +777,9 @@ msgstr "新增帳户"
 msgid "{0} Comments"
 msgstr ""
 
+msgid "Schedule Post"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr ""
 
@@ -776,6 +806,9 @@ msgstr ""
 
 msgid "Cancel retweet successfully"
 msgstr "成功取消轉發"
+
+msgid "Set"
+msgstr ""
 
 msgid "[Poll]"
 msgstr ""
@@ -963,6 +996,9 @@ msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 msgid "Suggested Follows"
 msgstr ""
 
+msgid "Login required to schedule post on {sourceName}"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -1040,6 +1076,9 @@ msgstr ""
 
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
+
+msgid "Your schedule thread has created successfully."
+msgstr ""
 
 msgid "General"
 msgstr "一般"
@@ -1209,6 +1248,9 @@ msgstr ""
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Send on schedule"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
@@ -1377,10 +1419,16 @@ msgstr "通過託管錢包登入"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
+msgid "Saved on {0} at {1}"
+msgstr ""
+
 msgid "No profile found"
 msgstr ""
 
 msgid "Watch {identity}"
+msgstr ""
+
+msgid "Please enable Momoka to support sending posts on Lens"
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1408,6 +1456,9 @@ msgid "The contract owner may contain the authority to modify the transaction ta
 msgstr ""
 
 msgid "<0>Minted</0> an NFT for free"
+msgstr ""
+
+msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
 msgid "Properties"
@@ -1650,6 +1701,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Unsent Posts"
+msgstr ""
+
 msgid "Suspended account"
 msgstr ""
 
@@ -1746,6 +1800,9 @@ msgstr "追蹤者"
 msgid "Mint function"
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
@@ -1759,6 +1816,9 @@ msgid "Mirror"
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Failed to update shedule post"
 msgstr ""
 
 msgid "Copy link"

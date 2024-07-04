@@ -3,6 +3,7 @@ import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
+import dayjs from 'dayjs';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -11,6 +12,7 @@ import { useAccount } from 'wagmi';
 import AddThread from '@/assets/addThread.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
+import ScheduleIcon from '@/assets/schedule.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
 import { GifEntryButton } from '@/components/Compose/GifEntryButton.js';
@@ -27,13 +29,14 @@ import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectWalletModalRef, ScheduleModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
@@ -43,9 +46,9 @@ export function ComposeAction(props: ComposeActionProps) {
     const account = useAccount();
 
     const currentProfileAll = useCurrentProfileAll();
-    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-
     const post = useCompositePost();
+    const { type, posts, addPostInThread, updateRestriction, scheduleTime, clearScheduleTime, updateScheduleTime } =
+        useComposeStateStore();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
     const { usedLength, availableLength } = measureChars(post);
@@ -113,6 +116,24 @@ export function ComposeAction(props: ComposeActionProps) {
                 </Popover>
 
                 {type === 'compose' ? <PollButton /> : null}
+
+                <ScheduleIcon
+                    className="cursor-pointer text-main"
+                    onClick={async () => {
+                        const result = await ScheduleModalRef.openAndWaitForClose({
+                            type: scheduleTime ? 'update' : 'create',
+                            initialValue: scheduleTime,
+                        });
+                        if (result === 'clear') clearScheduleTime();
+                        else if (result) {
+                            if (dayjs(result).isBefore(new Date())) {
+                                enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
+                                return;
+                            }
+                            updateScheduleTime(result);
+                        }
+                    }}
+                />
 
                 <GifEntryButton disabled={mediaDisabled} />
 

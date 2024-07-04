@@ -100,6 +100,9 @@ msgstr "The contract owner is not found to have the authority to modify the bala
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
+msgid "Up to 7 days can be set as the scheduled time to send this post."
+msgstr "Up to 7 days can be set as the scheduled time to send this post."
+
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -193,6 +196,9 @@ msgstr "Wrong wallet"
 msgid "Poll"
 msgstr "Poll"
 
+msgid "Scheduled"
+msgstr "Scheduled"
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -201,6 +207,9 @@ msgstr "Casts"
 
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
+
+msgid "This can’t be undone and the scheduled send will be canceled."
+msgstr "This can’t be undone and the scheduled send will be canceled."
 
 msgid "Debug Console"
 msgstr "Debug Console"
@@ -273,6 +282,9 @@ msgstr "True Token"
 
 msgid "Failed"
 msgstr "Failed"
+
+msgid "Failed to delete shedule post"
+msgstr "Failed to delete shedule post"
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -367,6 +379,9 @@ msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]
 msgid "Report Failed"
 msgstr "Report Failed"
 
+msgid "Will send on {0} at {1}"
+msgstr "Will send on {0} at {1}"
+
 msgid "Attendees"
 msgstr "Attendees"
 
@@ -396,6 +411,9 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
+
+msgid "Your schedule post has created successfully."
+msgstr "Your schedule post has created successfully."
 
 msgid "Select Account"
 msgstr "Select Account"
@@ -529,6 +547,9 @@ msgstr "Failed to mirror."
 msgid "Remove Choice"
 msgstr "Remove Choice"
 
+msgid "Update"
+msgstr "Update"
+
 msgid "Mute {identity}"
 msgstr "Mute {identity}"
 
@@ -622,6 +643,9 @@ msgstr "View Source"
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"
 
+msgid "The scheduled time has passed. Please reset it."
+msgstr "The scheduled time has passed. Please reset it."
+
 msgid "and"
 msgstr "and"
 
@@ -672,6 +696,9 @@ msgstr "Are you sure you want to report this post?"
 
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
+
+msgid "Failed to create shedule post"
+msgstr "Failed to create shedule post"
 
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr "<0>Price</0><1>${0}</1><2/>{1}"
@@ -745,6 +772,9 @@ msgstr "Add account"
 msgid "{0} Comments"
 msgstr "{0} Comments"
 
+msgid "Schedule Post"
+msgstr "Schedule Post"
+
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
@@ -771,6 +801,9 @@ msgstr "This token is not issued by its declared team. Some scams will create a 
 
 msgid "Cancel retweet successfully"
 msgstr "Cancel retweet successfully"
+
+msgid "Set"
+msgstr "Set"
 
 msgid "[Poll]"
 msgstr "[Poll]"
@@ -958,6 +991,9 @@ msgstr "You need to connect your {0} account to use this feature."
 msgid "Suggested Follows"
 msgstr "Suggested Follows"
 
+msgid "Login required to schedule post on {sourceName}"
+msgstr "Login required to schedule post on {sourceName}"
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
@@ -1035,6 +1071,9 @@ msgstr "The whitelist function is not included. If there is a whitelist, some ad
 
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
+
+msgid "Your schedule thread has created successfully."
+msgstr "Your schedule thread has created successfully."
 
 msgid "General"
 msgstr "General"
@@ -1204,6 +1243,9 @@ msgstr "There is no data available for display."
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Send on schedule"
+msgstr "Send on schedule"
+
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
@@ -1372,11 +1414,17 @@ msgstr "Sign in with Custody Wallet"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 
+msgid "Saved on {0} at {1}"
+msgstr "Saved on {0} at {1}"
+
 msgid "No profile found"
 msgstr "No profile found"
 
 msgid "Watch {identity}"
 msgstr "Watch {identity}"
+
+msgid "Please enable Momoka to support sending posts on Lens"
+msgstr "Please enable Momoka to support sending posts on Lens"
 
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
@@ -1404,6 +1452,9 @@ msgstr "The contract owner may contain the authority to modify the transaction t
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "<0>Minted</0> an NFT for free"
+
+msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
 msgid "Properties"
 msgstr "Properties"
@@ -1645,6 +1696,9 @@ msgstr "{0} Users"
 msgid "Final results"
 msgstr "Final results"
 
+msgid "Unsent Posts"
+msgstr "Unsent Posts"
+
 msgid "Suspended account"
 msgstr "Suspended account"
 
@@ -1741,6 +1795,9 @@ msgstr "Followers"
 msgid "Mint function"
 msgstr "Mint function"
 
+msgid "Clear"
+msgstr "Clear"
+
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"
 
@@ -1755,6 +1812,9 @@ msgstr "Mirror"
 
 msgid "[Quote]"
 msgstr "[Quote]"
+
+msgid "Failed to update shedule post"
+msgstr "Failed to update shedule post"
 
 msgid "Copy link"
 msgstr "Copy link"

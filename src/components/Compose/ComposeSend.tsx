@@ -24,6 +24,8 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
+import { crossSchedulePost } from '@/services/crossSchedulePost.js';
+import { crossPostScheduleThread } from '@/services/crossSchedulePostThread.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -31,7 +33,7 @@ interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
     const post = useCompositePost();
-    const { type, posts, addPostInThread, draftId } = useComposeStateStore();
+    const { type, posts, addPostInThread, draftId, scheduleTime } = useComposeStateStore();
     const { removeDraft } = useComposeDraftStateStore();
 
     const { usedLength, availableLength } = measureChars(post);
@@ -47,21 +49,25 @@ export function ComposeSend(props: ComposeSendProps) {
         async (isRetry = false) => {
             if (checkPostMedias()) return;
             if (posts.length > 1) {
-                await crossPostThread({
-                    isRetry,
-                    progressCallback: setPercentage,
-                });
+                scheduleTime
+                    ? await crossPostScheduleThread(scheduleTime)
+                    : await crossPostThread({
+                          isRetry,
+                          progressCallback: setPercentage,
+                      });
             } else {
-                await crossPost(type, post, {
-                    isRetry,
-                });
+                scheduleTime
+                    ? await crossSchedulePost(type, post, scheduleTime)
+                    : await crossPost(type, post, {
+                          isRetry,
+                      });
             }
             await delay(300);
             // If the draft is applied and sent successfully, remove the draft.
             if (draftId) removeDraft(draftId);
             ComposeModalRef.close();
         },
-        [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft],
+        [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft, scheduleTime],
     );
 
     const hasError = useMemo(() => {
@@ -170,6 +176,7 @@ export function ComposeSend(props: ComposeSendProps) {
                         'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white dark:bg-white dark:text-black',
                         {
                             'bg-commonDanger': !!hasError,
+                            'w-[187px]': !!scheduleTime,
                         },
                     )}
                     onClick={() => {
@@ -203,11 +210,15 @@ export function ComposeSend(props: ComposeSendProps) {
                         <>
                             <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
                             <span>
-                                <Plural
-                                    value={posts.length}
-                                    one={<Trans>Post</Trans>}
-                                    other={<Trans>Post All</Trans>}
-                                />
+                                {scheduleTime ? (
+                                    <Trans>Send on schedule</Trans>
+                                ) : (
+                                    <Plural
+                                        value={posts.length}
+                                        one={<Trans>Post</Trans>}
+                                        other={<Trans>Post All</Trans>}
+                                    />
+                                )}
                             </span>
                         </>
                     )}

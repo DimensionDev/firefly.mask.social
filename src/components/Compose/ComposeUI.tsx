@@ -1,7 +1,9 @@
 import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
+import dayjs from 'dayjs';
 import { memo, useRef, useState } from 'react';
 
+import ScheduleIcon from '@/assets/schedule.svg';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
@@ -9,14 +11,16 @@ import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.
 import { Tooltip } from '@/components/Tooltip.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { ScheduleModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const ComposeUI = memo(function ComposeUI() {
     const contentRef = useRef<HTMLDivElement>(null);
     const isMedium = useIsMedium();
-    const { posts } = useComposeStateStore();
+    const { posts, scheduleTime, clearScheduleTime, updateScheduleTime } = useComposeStateStore();
     const compositePost = useCompositePost();
     const [warningsOpen, setWarningsOpen] = useState(true);
 
@@ -27,6 +31,36 @@ export const ComposeUI = memo(function ComposeUI() {
                     ref={contentRef}
                     className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
                 >
+                    {scheduleTime ? (
+                        <div className="mb-3 flex items-center gap-[10px] text-[13px] text-second">
+                            <ScheduleIcon
+                                className="cursor-pointer"
+                                onClick={async () => {
+                                    const result = await ScheduleModalRef.openAndWaitForClose({
+                                        type: scheduleTime ? 'update' : 'create',
+                                        initialValue: scheduleTime,
+                                    });
+                                    if (result === 'clear') clearScheduleTime();
+                                    else if (result) {
+                                        if (dayjs(result).isBefore(new Date())) {
+                                            enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
+                                            return;
+                                        }
+                                        updateScheduleTime(result);
+                                    }
+                                }}
+                            />
+                            <span>
+                                <Trans>
+                                    Will send on{' '}
+                                    <span>
+                                        {dayjs(scheduleTime).format('D MMM, YYYY')} at{' '}
+                                        <span>{dayjs(scheduleTime).format('hh:mm A')}</span>
+                                    </span>
+                                </Trans>
+                            </span>
+                        </div>
+                    ) : null}
                     {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                 </div>
             </div>

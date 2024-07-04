@@ -209,14 +209,14 @@ export const DraftList = memo(function DraftList() {
 
     if (!drafts.length) {
         return (
-            <div className="flex min-h-[528px] flex-col justify-center">
+            <div className="flex min-h-[477px] flex-col justify-center">
                 <NoResultsFallback className="h-full" />
             </div>
         );
     }
 
     return (
-        <div className="max-h-[818px] min-h-[582px] overflow-auto px-6">
+        <div className="h-[478px] overflow-auto px-6">
             {orderBy(
                 drafts,
                 (x) => {

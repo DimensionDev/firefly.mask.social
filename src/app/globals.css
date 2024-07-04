@@ -333,3 +333,42 @@ body.not-support .fixed.inset-y-0 {
     display: flex;
     justify-content: center;
 }
+
+.schedule-time-picker .react-time-picker__wrapper {
+    border: none;
+    display: flex;
+}
+
+.schedule-time-picker input {
+    background-color: transparent !important;
+}
+
+.schedule-time-picker select {
+    background-color: transparent !important;
+}
+
+.react-time-picker__clock-button {
+    order: -1;
+}
+
+.react-time-picker__clock {
+    display: none !important;
+}
+
+.custom-date-picker {
+    background: var(--color-bg-modal);
+    border-radius: 0.5rem;
+}
+
+.custom-date-picker * {
+    color: var(--color-main) !important;
+}
+
+.custom-date-picker button.Mui-disabled {
+    opacity: 0.5;
+}
+
+.schedule-task-list [data-test-id='virtuoso-item-list'] {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}

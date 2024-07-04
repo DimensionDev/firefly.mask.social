@@ -11,8 +11,9 @@ export interface VirtualListProps<ItemData = unknown, Context = unknown> extends
 
 export function VirtualList<ItemData = unknown, Context = unknown>({
     listKey,
+    virtuosoRef,
     ...rest
 }: VirtualListProps<ItemData, Context>) {
     const { height } = useWindowSize();
-    return <Virtuoso overscan={height} increaseViewportBy={height} {...rest} ref={rest.virtuosoRef} />;
+    return <Virtuoso overscan={height} increaseViewportBy={height} {...rest} ref={virtuosoRef} />;
 }

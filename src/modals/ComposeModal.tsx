@@ -37,7 +37,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeUI } from '@/components/Compose/ComposeUI.js';
-import { DraftList } from '@/components/Compose/DraftList.js';
+import { DraftPage } from '@/components/Compose/DraftPage.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -107,7 +107,7 @@ const composeRoute = createRoute({
 const draftRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: 'draft',
-    component: DraftList,
+    component: DraftPage,
 });
 
 const routeTree = rootRoute.addChildren([composeRoute, draftRoute]);
@@ -236,7 +236,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
-            const { posts, cursor, draftId, type } = useComposeStateStore.getState();
+            const { posts, cursor, draftId, type, scheduleTime } = useComposeStateStore.getState();
             const compositePost = getCompositePost(cursor);
             const { availableSources = EMPTY_LIST } = compositePost ?? {};
             if (posts.some((x) => !isEmptyPost(x))) {
@@ -285,6 +285,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
                         type,
                         availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
+                        scheduleTime,
                     });
                     enqueueSuccessMessage(t`Your draft was saved`);
                     ComposeModalRef.close();

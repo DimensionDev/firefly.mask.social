@@ -10,6 +10,7 @@ import type {
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
+import type { ScheduleModalCloseProps, ScheduleModalOpenProps } from '@/modals/ScheduleModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 
 export const AccountModalRef = new SingletonModal();
@@ -28,3 +29,4 @@ export const FireflySessionConfirmModalRef = new SingletonModal<
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
 export const SolanaAccountModalRef = new SingletonModal();
+export const ScheduleModalRef = new SingletonModal<ScheduleModalOpenProps, ScheduleModalCloseProps>();

@@ -1,3 +1,4 @@
+import { compact } from '@apollo/client/utilities';
 import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 
@@ -7,6 +8,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
 import { createTwitterMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
@@ -78,4 +80,51 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     });
 
     return postTo(type, compositePost);
+}
+
+export interface TwitterSchedulePostPayload {
+    quote_tweet_id?: string;
+    in_reply_to_tweet_id?: string;
+    text: string;
+    media_ids: string[];
+    reply_settings: '' | 'following' | 'mentionedUsers';
+    poll?: {
+        options: Array<{ label: string }>;
+        duration_minutes: number;
+    };
+}
+
+export async function createTwitterSchedulePostPayload(
+    type: ComposeType,
+    compositePost: CompositePost,
+    isThread = false,
+): Promise<TwitterSchedulePostPayload> {
+    const { chars, images, parentPost, restriction, poll } = compositePost;
+
+    const twitterParentPost = parentPost.Twitter;
+
+    const confirmedMedias = await downloadMediaObjects(images);
+    const imageResults = (await uploadToTwitter(confirmedMedias.map((x) => x.file))).map((x) =>
+        createTwitterMediaObject(x),
+    );
+
+    const pollResult = poll ? await TwitterPollProvider.createPoll(poll) : undefined;
+
+    return {
+        quote_tweet_id: twitterParentPost && type === 'quote' ? twitterParentPost.postId : undefined,
+        in_reply_to_tweet_id: !isThread
+            ? twitterParentPost && type === 'reply'
+                ? twitterParentPost.postId
+                : undefined
+            : '$$in_reply_to_tweet_id$$',
+        text: readChars(chars, 'both', Source.Twitter),
+        media_ids: compact(imageResults?.map((x) => x.id)),
+        reply_settings: resolveTwitterReplyRestriction(restriction),
+        poll: pollResult
+            ? {
+                  options: pollResult.options.map((option) => ({ label: option.label })),
+                  duration_minutes: pollResult.durationSeconds,
+              }
+            : undefined,
+    };
 }
