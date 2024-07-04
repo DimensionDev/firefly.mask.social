@@ -1105,7 +1105,7 @@ export class FireflySocialMedia implements Provider {
             true,
         );
         if (response.data) return true;
-        throw new Error(t`Failed to create shedule post`);
+        throw new Error(t`Failed to create schedule post`);
     }
 
     async updateSchedulePost(id: string, scheduleTime: Date) {
@@ -1123,7 +1123,7 @@ export class FireflySocialMedia implements Provider {
             true,
         );
         if (response.data) return true;
-        throw new Error(t`Failed to update shedule post`);
+        throw new Error(t`Failed to update schedule post`);
     }
 
     async deleteSchedulePost(id: string) {
@@ -1139,7 +1139,7 @@ export class FireflySocialMedia implements Provider {
             true,
         );
         if (response.data) return true;
-        throw new Error(t`Failed to delete shedule post`);
+        throw new Error(t`Failed to delete schedule post`);
     }
 
     async getSchedulePosts(indicator?: PageIndicator) {

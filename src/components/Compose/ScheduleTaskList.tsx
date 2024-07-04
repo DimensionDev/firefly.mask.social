@@ -23,7 +23,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 
-const ScheudleTaskItem = memo(function ScheudleTaskItem({ task, index }: { task: ScheduleTask; index: number }) {
+const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task: ScheduleTask; index: number }) {
     const displayInfo = task.display_info;
     const title = useMemo(() => {
         switch (displayInfo.type) {
@@ -150,7 +150,7 @@ const ScheudleTaskItem = memo(function ScheudleTaskItem({ task, index }: { task:
     );
 });
 export function getScheduleTaskItemContent(index: number, task: ScheduleTask) {
-    return <ScheudleTaskItem key={task.uuid} index={index} task={task} />;
+    return <ScheduleTaskItem key={task.uuid} index={index} task={task} />;
 }
 
 export function ScheduleTaskList() {
