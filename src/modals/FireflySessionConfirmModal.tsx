@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { compact } from 'lodash-es';
+import { compact, groupBy } from 'lodash-es';
 import { forwardRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -28,12 +28,17 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
     const [{ loading }, onConfirmAll] = useAsyncFn(async () => {
         try {
             await Promise.all(
-                Object.values(accounts).map((x, i) =>
-                    addAccount(x, {
-                        setAsCurrent: i === 0,
-                        restoreSession: false,
-                        signal: controller.current.signal,
-                    }),
+                Object.entries(groupBy(accounts, (x) => x.session.type)).map(([_, accounts]) =>
+                    Promise.all(
+                        accounts.map((account, i) =>
+                            addAccount(account, {
+                                // only set the first account as current
+                                setAsCurrent: i === 0,
+                                restoreSession: false,
+                                signal: controller.current.signal,
+                            }),
+                        ),
+                    ),
                 ),
             );
             onConfirm?.();
