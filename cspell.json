@@ -155,7 +155,9 @@
         "imagekit",
         "giphy",
         "Gifs",
-        "determenistic"
+        "determenistic",
+        "SYSVAR",
+        "Debank"
     ],
     "flagWords": [],
     "ignorePaths": [
@@ -174,7 +176,8 @@
         "src/maskbook",
         "src/providers/hubble/proto",
         "src/assets/**",
-        "src/locales/**"
+        "src/locales/**",
+        "src/providers/solana/resolveSolanaWalletAdapter.ts"
     ],
     "overrides": []
 }
