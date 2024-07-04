@@ -1,4 +1,4 @@
-import type { Address } from "viem";
+import type { Address } from 'viem';
 
 export interface DebankToken<T = Address> {
     amount: number;
@@ -27,7 +27,6 @@ export type Token<T = Address> = DebankToken<T> & {
     usdValue: number;
 };
 
-
 export interface TransferOptions<AddressLike = Address> {
     to: AddressLike;
     amount: string;
@@ -35,18 +34,18 @@ export interface TransferOptions<AddressLike = Address> {
 }
 
 export interface Transfer<Config = any, AddressLike = any> {
-    _config: Config
-    transfer: (options: TransferOptions<AddressLike>) => Promise<AddressLike>
-    isNativeToken: (token: Token) => boolean
-    waitForTransaction: (hash: AddressLike) => Promise<void>
-    connect: () => Promise<void>
-    validateBalance: (options: TransferOptions<AddressLike>) => Promise<boolean>
-    validateGas: (options: TransferOptions<AddressLike>) => Promise<boolean>
-    getAccount: () => AddressLike
-    switchChain: (chainId: number) => Promise<void>
-    getChainId: () => number
-    getAddressUrl: (chainId: number, address: AddressLike) => string | undefined
-    getTransactionUrl: (chainId: number, hash: AddressLike) => string | undefined
-    _transferNative: (options: TransferOptions<AddressLike>) => Promise<AddressLike>
-    _transferContract: (options: TransferOptions<AddressLike> & { token: AddressLike }) => Promise<AddressLike>
+    _config: Config;
+    transfer: (options: TransferOptions<AddressLike>) => Promise<AddressLike>;
+    isNativeToken: (token: Token) => boolean;
+    waitForTransaction: (hash: AddressLike) => Promise<void>;
+    connect: () => Promise<void>;
+    validateBalance: (options: TransferOptions<AddressLike>) => Promise<boolean>;
+    validateGas: (options: TransferOptions<AddressLike>) => Promise<boolean>;
+    getAccount: () => AddressLike;
+    switchChain: (chainId: number) => Promise<void>;
+    getChainId: () => number;
+    getAddressUrl: (chainId: number, address: AddressLike) => string | undefined;
+    getTransactionUrl: (chainId: number, hash: AddressLike) => string | undefined;
+    _transferNative: (options: TransferOptions<AddressLike>) => Promise<AddressLike>;
+    _transferContract: (options: TransferOptions<AddressLike> & { token: AddressLike }) => Promise<AddressLike>;
 }

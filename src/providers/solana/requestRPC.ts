@@ -2,8 +2,8 @@ import { Endpoints } from '@/providers/solana/index.js';
 import { ChainId } from '@/providers/types/Solana.js';
 
 interface RpcOptions {
-    method: string
-    params?: unknown[]
+    method: string;
+    params?: unknown[];
 }
 
 export async function requestRPC<T = unknown>(chainId: ChainId, options: RpcOptions): Promise<T> {
@@ -18,8 +18,8 @@ export async function requestRPC<T = unknown>(chainId: ChainId, options: RpcOpti
             jsonrpc: '2.0',
             id: 0,
         }),
-    })
-    const json = await response.json()
-    if (json.error) throw new Error(json.message || 'Fails in requesting RPC')
-    return json
+    });
+    const json = await response.json();
+    if (json.error) throw new Error(json.message || 'Fails in requesting RPC');
+    return json;
 }

@@ -80,7 +80,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SUPPORT_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 
-export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana]
+export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';

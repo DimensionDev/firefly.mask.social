@@ -7,12 +7,12 @@ export enum ChainId {
 export const SolAddress = {
     [ChainId.Mainnet]: 'So11111111111111111111111111111111111111112',
     [ChainId.Testnet]: 'So11111111111111111111111111111111111111112',
-    [ChainId.Devnet]: 'So11111111111111111111111111111111111111112'
-}
+    [ChainId.Devnet]: 'So11111111111111111111111111111111111111112',
+};
 
 interface RpcResponse<T> {
-    jsonrpc: '2.0'
-    result: T | null
+    jsonrpc: '2.0';
+    result: T | null;
 }
 
 interface ProgramAccount {
@@ -20,29 +20,29 @@ interface ProgramAccount {
         data: {
             parsed: {
                 info: {
-                    isNative: false
-                    mint: string
-                    owner: string
-                    state: string
+                    isNative: false;
+                    mint: string;
+                    owner: string;
+                    state: string;
                     tokenAmount: {
-                        amount: string
-                        decimals: number
-                        uiAmount: number
-                        uiAmountString: string
-                    }
-                }
-            }
-            program: 'spl-token'
-            space: number
-        }
-        executable: boolean
-        lamports: number
-        owner: string
-        rentEpoch: string
-    }
-    pubkey: string
+                        amount: string;
+                        decimals: number;
+                        uiAmount: number;
+                        uiAmountString: string;
+                    };
+                };
+            };
+            program: 'spl-token';
+            space: number;
+        };
+        executable: boolean;
+        lamports: number;
+        owner: string;
+        rentEpoch: string;
+    };
+    pubkey: string;
 }
 
-export type GetBalanceResponse = RpcResponse<{ value: number }>
+export type GetBalanceResponse = RpcResponse<{ value: number }>;
 
-export type GetProgramAccountsResponse = RpcResponse<ProgramAccount[]>
+export type GetProgramAccountsResponse = RpcResponse<ProgramAccount[]>;

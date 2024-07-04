@@ -52,7 +52,7 @@ export const TokenSelector = memo(function TokenSelector() {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onClear={() => setSearch('')}
-                        className='!bg-lightBg rounded-lg'
+                        className="rounded-lg !bg-lightBg"
                     />
                     <div className="h-80 overflow-y-auto" ref={listRef}>
                         {filteredTokens?.map((token) => <TokenItem key={`${token.id}.${token.chain}`} token={token} />)}

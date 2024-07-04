@@ -9,13 +9,13 @@ export async function getTokenBalance(token: Token, address: Address, chainId: n
     if (isNativeToken(token)) {
         const result = await getBalance(getFixedConfig(), {
             address,
-            chainId
+            chainId,
         });
         return {
             value: result.value,
             decimals: result.decimals,
             symbol: result.symbol,
-        }
+        };
     }
     const results = await readContracts(getFixedConfig(), {
         contracts: [
