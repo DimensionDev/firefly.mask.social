@@ -41,7 +41,7 @@ export class LensSessionHolder extends SessionHolder<LensSession> {
 
     get sdk() {
         if (!this.lensClientSDK) {
-            this.lensClientSDK = createLensSDK(true);
+            this.lensClientSDK = createLensSDK(new LocalStorageProvider());
         }
         return this.lensClientSDK;
     }

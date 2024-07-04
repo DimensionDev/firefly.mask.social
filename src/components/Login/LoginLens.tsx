@@ -16,6 +16,7 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { addAccount } from '@/helpers/account.js';
+import { MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -47,7 +48,8 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             controller.current.renew();
 
             try {
-                const account = await createAccountForProfileId(currentProfile, controller.current.signal);
+                const storage = new MemoryStorageProvider();
+                const account = await createAccountForProfileId(currentProfile, storage, controller.current.signal);
 
                 if (!currentProfile.signless && signless) {
                     await updateSignless(true);
@@ -57,6 +59,11 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     signal: controller.current.signal,
                 });
                 if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+
+                // after login, move the session storage to local storage
+                const credentials = storage.getItem('lens.production.credentials');
+                if (credentials) localStorage.setItem('lens.production.credentials', credentials);
+
                 LoginModalRef.close();
             } catch (error) {
                 // skip if the error is abort error

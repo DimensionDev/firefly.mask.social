@@ -2,7 +2,7 @@ import { type IStorageProvider, LensClient as LensClientSDK, production } from '
 
 const ls = typeof window === 'undefined' ? undefined : window.localStorage;
 
-class LocalStorageProvider implements IStorageProvider {
+export class LocalStorageProvider implements IStorageProvider {
     getItem(key: string) {
         return ls?.getItem(key) ?? null;
     }
@@ -16,8 +16,8 @@ class LocalStorageProvider implements IStorageProvider {
     }
 }
 
-class MemoryStorageProvider implements IStorageProvider {
-    private storage = new Map<string, string>();
+export class MemoryStorageProvider implements IStorageProvider {
+    public storage = new Map<string, string>();
 
     getItem(key: string) {
         return this.storage.get(key) ?? null;
@@ -32,9 +32,9 @@ class MemoryStorageProvider implements IStorageProvider {
     }
 }
 
-export function createLensSDK(persistent: boolean) {
+export function createLensSDK(storage: IStorageProvider) {
     return new LensClientSDK({
         environment: production,
-        storage: persistent ? new LocalStorageProvider() : new MemoryStorageProvider(),
+        storage,
     });
 }
