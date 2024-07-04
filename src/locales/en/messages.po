@@ -283,9 +283,6 @@ msgstr "True Token"
 msgid "Failed"
 msgstr "Failed"
 
-msgid "Failed to delete shedule post"
-msgstr "Failed to delete shedule post"
-
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
@@ -327,6 +324,9 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 
 msgid "Mutes"
 msgstr "Mutes"
+
+msgid "Failed to update schedule post"
+msgstr "Failed to update schedule post"
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -450,6 +450,9 @@ msgstr "Less than a minute left"
 
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
+
+msgid "Failed to create schedule post"
+msgstr "Failed to create schedule post"
 
 msgid "Audio Cover"
 msgstr "Audio Cover"
@@ -696,9 +699,6 @@ msgstr "Are you sure you want to report this post?"
 
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
-
-msgid "Failed to create shedule post"
-msgstr "Failed to create shedule post"
 
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr "<0>Price</0><1>${0}</1><2/>{1}"
@@ -975,6 +975,9 @@ msgstr "The file \"{0}\" exceeds the size limit."
 
 msgid "Invalid URL."
 msgstr "Invalid URL."
+
+msgid "Failed to delete schedule post"
+msgstr "Failed to delete schedule post"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
@@ -1812,9 +1815,6 @@ msgstr "Mirror"
 
 msgid "[Quote]"
 msgstr "[Quote]"
-
-msgid "Failed to update shedule post"
-msgstr "Failed to update shedule post"
 
 msgid "Copy link"
 msgstr "Copy link"

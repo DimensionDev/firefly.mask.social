@@ -288,9 +288,6 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-msgid "Failed to delete shedule post"
-msgstr ""
-
 msgid "Bookmarks"
 msgstr "收藏"
 
@@ -332,6 +329,9 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Mutes"
 msgstr "屏蔽"
+
+msgid "Failed to update schedule post"
+msgstr ""
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -455,6 +455,9 @@ msgstr "剩不到一分钟"
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
+
+msgid "Failed to create schedule post"
+msgstr ""
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -700,9 +703,6 @@ msgid "Are you sure you want to report this post?"
 msgstr "您确定要举报这个帖子吗？"
 
 msgid "No function found that retrieves ownership"
-msgstr ""
-
-msgid "Failed to create shedule post"
 msgstr ""
 
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
@@ -980,6 +980,9 @@ msgstr "文件\"{0}\"超过了大小限制。"
 
 msgid "Invalid URL."
 msgstr "无效的 URL。"
+
+msgid "Failed to delete schedule post"
+msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
@@ -1817,9 +1820,6 @@ msgstr "转发"
 
 msgid "[Quote]"
 msgstr "[引用]"
-
-msgid "Failed to update shedule post"
-msgstr ""
 
 msgid "Copy link"
 msgstr "拷贝链接"
