@@ -3,7 +3,7 @@ import { compact, first } from 'lodash-es';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyDecodeImage } from '@/services/steganography.js';
 
-export type EncryptedPayload = readonly [string | Uint8Array, '1' | '2'];
+export type EncryptedPayload = readonly [string | Uint8Array, '1' | '2', string | null];
 
 export function getEncryptedPayloadFromText(post: Post): EncryptedPayload | undefined {
     const raw = post.metadata.content?.content;
@@ -14,8 +14,8 @@ export function getEncryptedPayloadFromText(post: Post): EncryptedPayload | unde
 
     const [, version, payload] = matched;
 
-    if (version === 'v1') return [payload, '1'];
-    if (version === 'v2') return [payload, '2'];
+    if (version === 'v1') return [payload, '1', null];
+    if (version === 'v2') return [payload, '2', null];
     return;
 }
 
@@ -28,7 +28,7 @@ export async function getEncryptedPayloadFromImageAttachment(post: Post): Promis
             const decoded = await steganographyDecodeImage(attachment.uri);
             if (!decoded) return;
 
-            return [decoded, '2'] as EncryptedPayload;
+            return [decoded, '2', attachment.uri] as EncryptedPayload;
         }) ?? [];
 
     const allSettled = await Promise.allSettled(result);

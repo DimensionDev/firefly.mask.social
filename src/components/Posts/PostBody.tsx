@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
@@ -53,7 +53,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 ) {
     const router = useRouter();
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
-    const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
     const [postContent, setPostContent] = useState(post.metadata.content?.content ?? '');
     const [postViewed, setPostViewed] = useState(false);
@@ -79,6 +78,15 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }, [post, postViewed]);
 
     const muted = useIsProfileMuted(post.author, isDetail);
+
+    const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
+    const attachments = post.metadata.content?.attachments ?? EMPTY_LIST;
+    const availableAttachments = useMemo(() => {
+        if (!payloadFromImageAttachment) return attachments;
+        const payloadUrl = payloadFromImageAttachment[2];
+        return attachments.filter((x) => x.uri !== payloadUrl);
+    }, [payloadFromImageAttachment, attachments]);
+    const showAttachments = availableAttachments.length > 0 || !!post.metadata.content?.asset;
 
     if (post.isEncrypted) {
         return (
@@ -220,14 +228,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {post.poll ? <PollCard post={post} /> : null}
 
-            {/* TODO: exclude the payload image from attachments */}
-            {showAttachments &&
-            (!payloads?.payloadFromImageAttachment ||
-                env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) ? (
+            {showAttachments ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}
-                    attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
+                    attachments={availableAttachments}
                     isDetail={isDetail}
                 />
             ) : null}
