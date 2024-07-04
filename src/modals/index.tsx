@@ -14,12 +14,14 @@ import { FireflySessionConfirmModal } from '@/modals/FireflySessionConfirmModal.
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
+import { RainbowKitConnectModal } from '@/modals/RainbowKitConnectModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 
 export const Modals = memo(function Modals() {
     return (
         <>
             <AccountModal ref={controls.AccountModalRef.register} />
+            <RainbowKitConnectModal ref={controls.RainbowKitModalRef.register} />
             <ChainModal ref={controls.ChainModalRef.register} />
             <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
             <SolanaAccountModal ref={controls.SolanaAccountModalRef.register} />

@@ -3,7 +3,7 @@ import type { Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
 import { chains } from '@/configs/wagmiClient.js';
-import { ChainModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
+import { ChainModalRef, RainbowKitModalRef } from '@/modals/controls.js';
 
 async function getWalletClientCatch(...args: Parameters<typeof getWalletClient>) {
     try {
@@ -18,7 +18,7 @@ export async function getWalletClientRequired(
     args?: GetWalletClientParameters,
 ): Promise<Exclude<GetWalletClientReturnType, null>> {
     const firstTryResult = await getWalletClientCatch(config, args);
-    if (!firstTryResult) await ConnectWalletModalRef.openAndWaitForClose();
+    if (!firstTryResult) await RainbowKitModalRef.openAndWaitForClose();
 
     const secondTryResult = firstTryResult ?? (await getWalletClientCatch(config, args));
     if (!secondTryResult) throw new Error(t`No wallet client found. Please connect your wallet.`);
