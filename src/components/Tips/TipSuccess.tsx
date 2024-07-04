@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { useMemo } from 'react';
@@ -16,17 +15,9 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
-    const { amount, token, receiver, handle, hash, pureWallet, socialProfiles } = TipsContext.useContainer();
+    const { amount, token, receiver, handle, hash: hashUrl, pureWallet, socialProfiles } = TipsContext.useContainer();
     const currentChannel = useCurrentVisitingChannel();
     const { context } = useMatch({ from: rootRouteId });
-
-    const link = useMemo(() => {
-        if (!token?.chainId || !receiver?.address) return;
-        if (hash) {
-            return EVMExplorerResolver.transactionLink(token?.chainId, hash);
-        }
-        return EVMExplorerResolver.addressLink(token?.chainId, receiver?.address);
-    }, [token?.chainId, receiver?.address, hash]);
 
     const { canShare, walletName } = useMemo(() => {
         const __origin__ = receiver?.__origin__ as WalletProfile;
@@ -62,7 +53,7 @@ export function TipSuccess() {
                     profiles: socialProfiles,
                 },
                 `, I just sent you ${amount} $${token?.symbol} tips! Check your wallet ${walletName} and try tipping on `,
-                'firefly.mask.social https://firefly.mask.social',
+                ' https://firefly.mask.social',
             ],
         });
     };
@@ -82,13 +73,13 @@ export function TipSuccess() {
                         <span className="font-bold text-link"> {handle || receiver?.displayName}</span>!{' '}
                         {canShare ? <Trans>Share this news by mentioning and posting.</Trans> : null}
                     </p>
-                    {link ? (
+                    {hashUrl ? (
                         <p className="mt-2 text-right">
                             <Link
                                 className="italic text-link underline"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href={link}
+                                href={hashUrl}
                             >
                                 <Trans>View transaction on explorer</Trans>
                             </Link>

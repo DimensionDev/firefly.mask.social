@@ -1,12 +1,14 @@
 import { t } from '@lingui/macro';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { findIndex } from 'lodash-es';
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { useDebounce } from 'usehooks-ts';
 
 import ArrowDown from '@/assets/arrow-down.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { SearchInput } from '@/components/Search/SearchInput.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
@@ -16,9 +18,12 @@ import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsTokens } from '@/hooks/useTipsTokens.js';
 
 export const TokenSelector = memo(function TokenSelector() {
+    const [search, setSearch] = useState('');
     const listRef = useRef<HTMLDivElement>(null);
     const { tokens, isLoading } = useTipsTokens();
     const { token } = TipsContext.useContainer();
+
+    const debouncedSearch = useDebounce(search, 300);
 
     useEffect(() => {
         const index = findIndex(tokens, (t) => isSameAddress(t.id, token?.id));
@@ -28,17 +33,33 @@ export const TokenSelector = memo(function TokenSelector() {
         }
     }, [tokens, token?.id]);
 
+    const filteredTokens = useMemo(() => {
+        return tokens?.filter((token) => {
+            return [token.name, token.symbol].some((value) =>
+                value.toLowerCase().includes(debouncedSearch.toLowerCase()),
+            );
+        });
+    }, [tokens, debouncedSearch]);
+
     return (
         <>
             <TipsModalHeader back title={t`Select Token`} />
             {isLoading ? (
                 <Loading className="!min-h-[320px]" />
             ) : (
-                <div className="h-80 overflow-y-auto" ref={listRef}>
-                    {tokens?.map((token) => <TokenItem key={`${token.id}.${token.chain}`} token={token} />)}
-                    {!tokens?.length && !isLoading && (
-                        <NoResultsFallback message={t`There is no token available to select`} />
-                    )}
+                <div>
+                    <SearchInput
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onClear={() => setSearch('')}
+                        className='!bg-lightBg rounded-lg'
+                    />
+                    <div className="h-80 overflow-y-auto" ref={listRef}>
+                        {filteredTokens?.map((token) => <TokenItem key={`${token.id}.${token.chain}`} token={token} />)}
+                        {!filteredTokens?.length && !isLoading && (
+                            <NoResultsFallback message={t`There is no token available to select`} />
+                        )}
+                    </div>
                 </div>
             )}
         </>

@@ -1,20 +1,24 @@
 import { t } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { useChainId } from 'wagmi';
+import { useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Tooltip } from '@/components/Tooltip.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
 
 interface AddressLinkProps {
     address: string;
     chainId?: ChainId;
+    networkType: NetworkType;
 }
 
-export function AddressLink({ address, chainId }: AddressLinkProps) {
-    const connectedChainId = useChainId();
-    const addressLink = EVMExplorerResolver.addressLink(chainId || connectedChainId, address);
+export function AddressLink({ address, chainId, networkType }: AddressLinkProps) {
+    const addressLink = useMemo(() => {
+        const transfer = resolveTokenTransfer(networkType);
+        return transfer.getAddressUrl(chainId ?? transfer.getChainId(), address);
+    }, [networkType, chainId, address]);
 
     if (!addressLink) return null;
 

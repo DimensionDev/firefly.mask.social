@@ -5,16 +5,15 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { RouterProvider } from '@tanstack/react-router';
 import { forwardRef, useCallback } from 'react';
-import { useAccount } from 'wagmi';
 
 import { Modal } from '@/components/Modal.js';
 import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
-import { Source } from '@/constants/enum.js';
-import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { NetworkType, Source } from '@/constants/enum.js';
+import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { Profile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireFlyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export interface TipsModalOpenProps {
     identity: string;
@@ -25,14 +24,40 @@ export interface TipsModalOpenProps {
 
 export type TipsModalCloseProps = {} | void;
 
-function formatDisplayName(address: string, handle: string | null) {
+function formatDisplayName(address: string, handle?: string | null) {
     return handle ? `${handle}(${formatEthereumAddress(address, 4)})` : formatEthereumAddress(address, 8);
+}
+
+function formatTipsProfiles(profiles: FireFlyProfile[]) {
+    const socialProfiles = profiles
+        .filter((x) => x.source !== Source.Wallet)
+        .map(
+            (p) =>
+                ({
+                    platform: p.source.toLowerCase(),
+                    handle: p.displayName,
+                }) as unknown as Profile,
+        );
+    const walletProfiles = profiles
+        .filter((profile) => {
+            const origin = profile.__origin__ as WalletProfile;
+            return profile.source === Source.Wallet && TIPS_SUPPORT_NETWORKS.includes(origin.blockchain);
+        })
+        .map((profile) => {
+            const { address, primary_ens, blockchain } = profile.__origin__ as WalletProfile;
+            return {
+                ...profile,
+                displayName: formatDisplayName(address, primary_ens),
+                address,
+                blockchain,
+            };
+        });
+    return { walletProfiles, socialProfiles };
 }
 
 const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, TipsModalCloseProps>>(
     function TipsModalUI(_, ref) {
         const { reset, update } = TipsContext.useContainer();
-        const account = useAccount();
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: async ({ identity, source, handle, pureWallet = false }) => {
                 try {
@@ -44,25 +69,10 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                             identity,
                             source,
                         );
-                        socialProfiles = profiles
-                            .filter((x) => x.source !== Source.Wallet)
-                            .map(
-                                (p) =>
-                                    ({
-                                        platform: p.source.toLowerCase(),
-                                        handle: p.displayName,
-                                    }) as unknown as Profile,
-                            );
-                        receiverList = profiles
-                            .filter((profile) => profile.source === Source.Wallet)
-                            .map((profile) => {
-                                const { address, primary_ens } = profile.__origin__ as WalletProfile;
-                                return {
-                                    ...profile,
-                                    displayName: formatDisplayName(address, primary_ens),
-                                    address,
-                                };
-                            });
+                        const formattedProfiles = formatTipsProfiles(profiles);
+                        receiverList = formattedProfiles.walletProfiles;
+                        socialProfiles = formattedProfiles.socialProfiles;
+
                         receiverList.sort((a) => {
                             const { primary_ens } = a.__origin__ as WalletProfile;
                             if (primary_ens === handle) return -1;
@@ -75,13 +85,11 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                                 source,
                                 address: identity as `0x${string}`,
                                 __origin__: null,
+                                blockchain: NetworkType.Ethereum,
                                 displayName: formatDisplayName(identity, handle),
                             },
                         ];
                         await delay(500);
-                    }
-                    if (account.isConnected) {
-                        await connectMaskWithWagmi();
                     }
                     if (!receiverList.length) {
                         router.navigate({ to: TipsRoutePath.NO_AVAILABLE_WALLET });

@@ -1,8 +1,8 @@
 import type { Address } from 'viem';
 
-import { FireflyPlatform, type SocialSourceInURL, type Source } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
-import type { UserToken } from '@/types/token.js';
+import type { DebankToken } from '@/providers/types/Transfer.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -385,7 +385,7 @@ export interface FollowingSource {
 export interface WalletProfile {
     address: Address;
     ens: string[];
-    blockchain: string;
+    blockchain: NetworkType;
     is_connected: boolean;
     verifiedSources: Array<{
         source: RelatedWalletSource;
@@ -795,6 +795,6 @@ export type SessionStatus =
 
 export type SessionStatusResponse = Response<SessionStatus>;
 
-export type UserTokensResponse = Response<{
-    list: UserToken[];
+export type DebankTokensResponse = Response<{
+    list: DebankToken[];
 }>;

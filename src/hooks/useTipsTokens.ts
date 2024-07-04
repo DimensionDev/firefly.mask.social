@@ -1,16 +1,29 @@
-import { NetworkPluginID } from '@masknet/shared-base';
-import { useNetworks } from '@masknet/web3-hooks-base';
-import { formatBalance } from '@masknet/web3-shared-base';
+import { formatBalance, multipliedBy } from '@masknet/web3-shared-base';
 import { useQuery } from '@tanstack/react-query';
+import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
+import type { Token } from '@/providers/types/Transfer.js';
 import { getTokensByAddressForTips } from '@/services/getTokensByAddress.js';
-import type { TipsToken } from '@/types/token.js';
+
+function sortTokensByUsdValue(tokens: Token[]) {
+    const groups = groupBy(tokens, (token) => token.chainId);
+
+    return Object.values(groups)
+        .map((group) => {
+            return group.sort((a, b) => b.usdValue - a.usdValue);
+        })
+        .sort((a, b) => {
+            const maxA = Math.max(...a.map((token) => token.usdValue));
+            const maxB = Math.max(...b.map((token) => token.usdValue));
+            return maxA > maxB ? -1 : 1;
+        })
+        .flat();
+}
 
 export const useTipsTokens = () => {
     const account = useAccount();
-    const networks = useNetworks(NetworkPluginID.PLUGIN_EVM, true);
     const { data, isLoading } = useQuery({
         queryKey: ['tokens', account.address],
         enabled: account.isConnected && !!account.address,
@@ -21,16 +34,20 @@ export const useTipsTokens = () => {
 
     const tokens = useMemo(() => {
         return (data || [])
-            .reduce<TipsToken[]>((acc, token) => {
-                const network = networks.find((network) => network.chainId === token.chainId);
-                if (!network) return acc;
+            .reduce<Token[]>((acc, token) => {
+                if (!token.chainId) return acc;
                 return [
                     ...acc,
-                    { ...token, network, balance: formatBalance(token.raw_amount, token.decimals, { isFixed: true }) },
+                    {
+                        ...token,
+                        chainId: token.chainId,
+                        balance: formatBalance(token.raw_amount, token.decimals, { isFixed: true }),
+                        usdValue: +multipliedBy(token.price, token.amount).toFixed(2),
+                    },
                 ];
             }, [])
             .filter((token) => !token.balance.includes('<'));
-    }, [data, networks]);
+    }, [data]);
 
-    return { tokens, isLoading };
+    return { tokens: sortTokensByUsdValue(tokens), isLoading };
 };

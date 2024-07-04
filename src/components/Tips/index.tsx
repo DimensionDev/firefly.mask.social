@@ -27,11 +27,11 @@ export const Tips = memo(function Tips({
     label,
     tooltipDisabled = false,
     pureWallet = false,
-    handle,
+    handle = '',
     onClick,
 }: TipsProps) {
     const handleClick = () => {
-        TipsModalRef.open({ identity, source, handle: handle ?? null, pureWallet });
+        TipsModalRef.open({ identity, source, handle, pureWallet });
         onClick?.();
     };
 

@@ -34,7 +34,7 @@ export const WalletSelector = memo(function WalletSelector() {
                         onClick={() => handleSelectReceiver(receiver)}
                     >
                         <span className="max-w-[calc(100%_-_24px)] truncate">{receiver.displayName}</span>
-                        <AddressLink address={receiver.address} />
+                        <AddressLink address={receiver.address} networkType={receiver.blockchain} />
                     </ClickableButton>
                 ))}
             </div>
@@ -71,7 +71,13 @@ export const WalletSelectorEntry = memo(function WalletSelectorEntry({ disabled 
                 )}
             >
                 <span className="max-w-[calc(100%_-_24px)] truncate">{receiver?.displayName ?? ''}</span>
-                {receiver ? <AddressLink address={receiver.address} chainId={token?.chainId ?? undefined} /> : null}
+                {receiver ? (
+                    <AddressLink
+                        address={receiver.address}
+                        networkType={receiver.blockchain}
+                        chainId={token?.chainId ?? undefined}
+                    />
+                ) : null}
             </div>
             {!noMoreReceiver ? <ArrowDown className="shrink-0 text-lightSecond" width={24} height={24} /> : null}
         </ClickableButton>

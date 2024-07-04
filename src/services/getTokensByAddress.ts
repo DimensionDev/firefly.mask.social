@@ -2,22 +2,22 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { UserTokensResponse } from '@/providers/types/Firefly.js';
+import type { DebankTokensResponse } from '@/providers/types/Firefly.js';
+import type { DebankToken } from '@/providers/types/Transfer.js';
 import { settings } from '@/settings/index.js';
-import type { UserToken } from '@/types/token.js';
 
 export async function getTokensByAddress(address: string) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/misc/all_token_list', {
         address,
     });
-    const result = await fireflySessionHolder.fetch<UserTokensResponse>(url);
+    const result = await fireflySessionHolder.fetch<DebankTokensResponse>(url);
     return result.data?.list ?? [];
 }
 
 export async function getTokensByAddressForTips(address: string): Promise<
     Array<
-        UserToken & {
-            chainId: ChainId | null;
+        DebankToken & {
+            chainId: number | null;
         }
     >
 > {
