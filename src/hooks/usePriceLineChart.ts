@@ -2,7 +2,7 @@ import { CurrencyType } from '@masknet/web3-shared-base';
 import { first, last } from 'lodash-es';
 import { type RefObject, useCallback } from 'react';
 
-import { formatNumber } from '@/helpers/formatNumber.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
 import { type Dimension, useLineChart } from '@/hooks/useLineChart.js';
 
 export function usePriceLineChart(
@@ -24,7 +24,7 @@ export function usePriceLineChart(
 
     const { color = defaultColor, sign = CurrencyType.USD } = opts;
 
-    const formatTooltip = useCallback((value: number) => `$${formatNumber(value, 4)}`, []);
+    const formatTooltip = useCallback((value: number) => `$${formatPrice(value, 4)}`, []);
     useLineChart(svgRef, data, dimension, id, {
         color,
         tickFormat: `${sign},.2s`,

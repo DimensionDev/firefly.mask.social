@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import dayjs from 'dayjs';
 import { type RefObject, useEffect } from 'react';
 
-import { formatNumber } from '@/helpers/formatNumber.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
 
 export interface Dimension {
     width: number;
@@ -30,7 +30,7 @@ export function fixOverPosition(
     return fixed;
 }
 
-const defaultFormatTooltip = (value: number) => formatNumber(value, 4)!;
+const defaultFormatTooltip = (value: number) => formatPrice(value, 4)!;
 export function useLineChart(
     svgRef: RefObject<SVGSVGElement>,
     data: Array<{

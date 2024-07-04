@@ -1,10 +1,10 @@
 import { BigNumber } from 'bignumber.js';
 
-export function formatNumber(num: number | string | undefined, digits = 2) {
-    if (num === undefined) return num;
-    num = +num;
-    if (num < 0.0001) {
-        const bn = BigNumber(num);
+export function formatPrice(price: number | string | undefined, digits = 2) {
+    if (price === undefined) return price;
+    price = +price;
+    if (price < 0.0001) {
+        const bn = BigNumber(price);
         return bn
             .precision(digits, BigNumber.ROUND_DOWN)
             .toFormat()
@@ -13,16 +13,16 @@ export function formatNumber(num: number | string | undefined, digits = 2) {
             });
     }
 
-    return num.toLocaleString('en-US', {
+    return price.toLocaleString('en-US', {
         minimumFractionDigits: Math.min(2, digits),
         maximumFractionDigits: digits,
     });
 }
 
-export function renderAbbr(children: string) {
-    if (!children.includes('{')) return children;
-    const parts = children.match(/(^.+){(\d+)}(.+$)/);
-    if (!parts) return children;
+export function renderShrankPrice(shrank: string) {
+    if (!shrank.includes('{')) return shrank;
+    const parts = shrank.match(/(^.+){(\d+)}(.+$)/);
+    if (!parts) return shrank;
     return (
         <>
             {parts[1]}
