@@ -50,7 +50,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
                 </div>
             </div>
             <div className="relative mt-2 h-[218px] rounded">
-                <div className="h-full overflow-y-auto px-3">
+                <div className="h-full overflow-y-auto overflow-x-hidden px-3 no-scrollbar">
                     <Grid
                         className="ff-giphy-grid"
                         hideAttribution
