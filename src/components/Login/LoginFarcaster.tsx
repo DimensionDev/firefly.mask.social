@@ -12,50 +12,41 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
-import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { AbortError, NotImplementedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
+import type { Account } from '@/providers/types/Account.js';
+import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
+import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 async function login(
-    createSession: () => Promise<FarcasterSession>,
-    options?: { skipSyncSessions?: boolean; signal?: AbortSignal },
+    createAccount: () => Promise<Account>,
+    options?: { skipRestoreSessions?: boolean; signal?: AbortSignal },
 ) {
     try {
-        const session = await createSession();
-        const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+        const account = await createAccount();
 
         // add new account for farcaster
-        await addAccount({
-            session,
-            profile,
-        });
+        await addAccount(account);
 
         enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
 
         // restore profile exclude farcaster
-        if (!options?.skipSyncSessions) {
+        if (!options?.skipRestoreSessions && account.fireflySession) {
             await FireflySessionConfirmModalRef.openAndWaitForClose({
                 source: Source.Farcaster,
-                accounts: await syncAccountsFromFirefly(options?.signal),
+                accounts: await syncAccountsFromFirefly(account.fireflySession, options?.signal),
                 onDetected(profiles) {
                     if (!profiles.length)
                         enqueueInfoMessage(t`No device accounts detected.`, {
@@ -136,7 +127,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermission((url) => {
+                    createAccountByGrantPermission((url) => {
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
@@ -162,9 +153,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 async () => {
-                    const previousSession = fireflySessionHolder.session;
-
-                    const session = await createSessionByRelayService((url) => {
+                    const account = await createAccountByRelayService((url) => {
                         resetCountdown();
                         startCountdown();
                         setScanned(false);
@@ -180,22 +169,16 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     // for relay service we need to sync the session from firefly
                     // and find out the the signer key of the connected profile
-                    const accounts = await syncAccountsFromFirefly(controller.current.signal);
+                    const accounts = await syncAccountsFromFirefly(account.fireflySession, controller.current.signal);
 
                     // if the user has signed into Firefly before, a synced session could be found.
-                    const nextAccount = accounts.find((x) => isSameSession(x.session, session));
+                    const nextAccount = accounts.find((x) => isSameSession(x.session, account.session));
 
                     if (!nextAccount) {
-                        // the current profile did not connect to firefly
-                        // we need to restore the staled session and keep everything untouched
-                        if (previousSession) fireflySessionHolder.resumeSession(previousSession);
-
                         try {
-                            const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
-
                             setProfileError(
                                 new ProfileNotConnectedError(
-                                    profile,
+                                    account.profile,
                                     t`You didn't connect with Firefly before, need to connect first to fully log in.`,
                                 ),
                             );
@@ -211,9 +194,9 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         throw new AbortError();
                     }
 
-                    return nextAccount.session as FarcasterSession;
+                    return account;
                 },
-                { skipSyncSessions: true, signal: controller.current.signal },
+                { skipRestoreSessions: true, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -229,8 +212,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 async () => {
-                    const client = await getWalletClientRequired(config);
-                    return createSessionByCustodyWallet(client);
+                    throw new NotImplementedError();
                 },
                 { signal: controller.current.signal },
             );

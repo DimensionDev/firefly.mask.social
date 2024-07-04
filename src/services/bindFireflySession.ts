@@ -12,7 +12,7 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
-async function bindFireflySession(session: LensSession, signal?: AbortSignal) {
+async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/bindLens'),
         {
@@ -56,7 +56,7 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
  * @param signal
  * @returns
  */
-export async function bindSessionToFirefly(session: Session, signal?: AbortSignal) {
+export async function bindFireflySession(session: Session, signal?: AbortSignal) {
     // Ensure that the Firefly session is resumed before calling this function.
     fireflySessionHolder.assertSession();
 
@@ -64,7 +64,7 @@ export async function bindSessionToFirefly(session: Session, signal?: AbortSigna
         case SessionType.Farcaster:
             return await bindFarcasterSessionToFirefly(session as FarcasterSession, signal);
         case SessionType.Lens:
-            return await bindFireflySession(session as LensSession, signal);
+            return await bindLensToFirefly(session as LensSession, signal);
         case SessionType.Twitter:
             return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Firefly:

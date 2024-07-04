@@ -28,7 +28,7 @@ import {
     FireflySessionConfirmModalRef,
     LoginModalRef,
 } from '@/modals/controls.js';
-import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
+import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
@@ -55,20 +55,17 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             controller.current.renew();
 
             try {
-                const session = await createSessionForProfileId(currentProfile.profileId, controller.current.signal);
+                const account = await createAccountForProfileId(currentProfile, controller.current.signal);
 
                 if (!currentProfile.signless && signless) {
                     await updateSignless(true);
                 }
 
                 // add new account for lens
-                await addAccount({
-                    profile: currentProfile,
-                    session,
-                });
+                await addAccount(account);
                 enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
 
-                const accounts = await syncAccountsFromFirefly(controller.current.signal);
+                const accounts = await syncAccountsFromFirefly(account.fireflySession, controller.current.signal);
                 if (!accounts.length) {
                     LoginModalRef.close();
                     return;

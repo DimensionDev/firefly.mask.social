@@ -59,7 +59,7 @@ function ProfileModal({ accounts, onConfirm, onClose }: ProfileModalProps) {
     return (
         <div>
             <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-lightMain">
-                <Trans>One click to connect your account status.</Trans>
+                <Trans>Confirm to connect your account status.</Trans>
             </p>
             <ul className="flex max-h-[288px] flex-col gap-3 overflow-auto pb-4 pt-2">
                 {accounts

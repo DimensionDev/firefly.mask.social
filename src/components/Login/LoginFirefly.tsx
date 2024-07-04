@@ -18,17 +18,17 @@ import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
+import { createAccountByGrantPermission } from '@/providers/firefly/createAccountByGrantPermission.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import type { Account } from '@/providers/types/Account.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 import { DeviceType } from '@/types/device.js';
 
-async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
+async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {
     try {
-        fireflySessionHolder.resumeSession(await createSession());
+        const account = await createAccount();
 
-        const accounts = await syncAccountsFromFirefly(options?.signal);
+        const accounts = await syncAccountsFromFirefly(account.session as FireflySession, options?.signal);
         if (!accounts.length) {
             LoginModalRef.close();
             return;
@@ -79,7 +79,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermission(async (url) => {
+                    createAccountByGrantPermission(async (url) => {
                         resetCountdown();
                         startCountdown();
                         setScanned(false);

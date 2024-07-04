@@ -9,6 +9,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -17,7 +18,6 @@ import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
 
 /**
  * Download encrypted metrics from Firefly.

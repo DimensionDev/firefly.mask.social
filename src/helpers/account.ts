@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { signOut } from 'next-auth/react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -79,11 +80,18 @@ export async function addAccount(
     const { setAsCurrent = true, restoreSession = true, signal } = options ?? {};
     const { state, sessionHolder } = getContext(account);
 
+    // if no ffid exists then add the account
+    // if ffid exists then bind the account
+
     state.addAccount(account, setAsCurrent);
     if (setAsCurrent) sessionHolder.resumeSession(account.session);
 
     if (account.session.type !== SessionType.Firefly && restoreSession)
         await restoreFireflySession(account.session, signal);
+}
+
+export async function bindAccount(account: Account) {
+    throw new NotImplementedError();
 }
 
 /**
