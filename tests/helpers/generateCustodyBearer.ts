@@ -1,11 +1,11 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { env } from '@/constants/env.js';
 import { createWagmiTestWalletClient } from '@/helpers/createWagmiTestWalletClient.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 
 describe('generateCustodyBearer', () => {
-    test('should generate token', async () => {
+    it('should generate token', async () => {
         const walletClient = createWagmiTestWalletClient(async ({ method, params }) => {
             const [_, account] = params as [string, string];
 
