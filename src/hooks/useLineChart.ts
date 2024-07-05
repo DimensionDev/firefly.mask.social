@@ -43,9 +43,10 @@ export function useLineChart(
         color?: string;
         tickFormat?: string;
         formatTooltip?: (value: number) => number | string;
+        disableTooltip?: boolean;
     },
 ) {
-    const { color = 'currentColor', tickFormat = ',.2s', formatTooltip = defaultFormatTooltip } = opts;
+    const { color = 'currentColor', tickFormat = ',.2s', formatTooltip = defaultFormatTooltip, disableTooltip } = opts;
     const { top, right, bottom, left, width, height } = dimension;
     const contentWidth = width - left - right;
     const contentHeight = height - top - bottom;
@@ -224,6 +225,7 @@ export function useLineChart(
                 }
             }
         };
+        if (disableTooltip) return;
 
         const hide = () => {
             tooltip.call(callout, null);
@@ -267,5 +269,19 @@ export function useLineChart(
         });
 
         d3.select(svgRef.current).on('mouseleave', hide);
-    }, [data, dimension, tickFormat, formatTooltip, svgRef, id, left, top, contentWidth, contentHeight, color, height]);
+    }, [
+        data,
+        dimension,
+        tickFormat,
+        formatTooltip,
+        svgRef,
+        id,
+        left,
+        top,
+        contentWidth,
+        contentHeight,
+        color,
+        height,
+        disableTooltip,
+    ]);
 }
