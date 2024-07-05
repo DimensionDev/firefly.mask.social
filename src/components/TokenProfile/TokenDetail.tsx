@@ -243,9 +243,9 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                         description={
                             <Trans>
                                 <div>
-                                    Copy The amount of coins that have already been created, minus any coins that have
-                                    been burned (removed from circulation). It is comparable to outstanding shares in
-                                    the stock market.
+                                    The amount of coins that have already been created, minus any coins that have been
+                                    burned (removed from circulation). It is comparable to outstanding shares in the
+                                    stock market.
                                 </div>
                                 <div className="mt-2">Total Supply = Onchain supply - burned tokens</div>
                             </Trans>
