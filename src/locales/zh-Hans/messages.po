@@ -120,6 +120,9 @@ msgstr ""
 msgid "Watching"
 msgstr "观察中"
 
+msgid "Rank #{0}"
+msgstr ""
+
 msgid "Searching channel"
 msgstr "查询频道中"
 

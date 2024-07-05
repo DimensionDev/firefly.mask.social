@@ -115,6 +115,9 @@ msgstr ""
 msgid "Watching"
 msgstr ""
 
+msgid "Rank #{0}"
+msgstr ""
+
 msgid "Searching channel"
 msgstr ""
 
