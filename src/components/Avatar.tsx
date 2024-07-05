@@ -5,10 +5,14 @@ import { memo } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveAvatarFallbackUrl } from '@/helpers/resolveAvatarFallbackUrl.js';
 import { resolveFirstAvailableUrl } from '@/helpers/resolveFirstAvailableUrl.js';
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
+
+function resolveAvatarFallbackUrl(url: string | undefined, isDarkMode = false) {
+    if (!url?.startsWith('https://cdn.stamp.fyi/avatar/eth:')) return url;
+    return isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+}
 
 export interface AvatarProps extends Omit<NextImageProps, 'src'> {
     size: number;
