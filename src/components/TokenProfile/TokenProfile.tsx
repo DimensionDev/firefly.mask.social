@@ -47,7 +47,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
 
     usePriceLineChart(chartRef, priceStats, DIMENSION, `price-chart-${symbol}`, {
         color: 'currentColor',
-        disableTooltip: true,
+        simple: true,
     });
 
     if (!token) return null;

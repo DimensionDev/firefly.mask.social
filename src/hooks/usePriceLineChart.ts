@@ -16,7 +16,7 @@ export function usePriceLineChart(
     opts: {
         color?: string;
         sign?: string;
-        disableTooltip?: boolean;
+        simple?: boolean;
     },
 ) {
     const startValue = first(data)?.value ?? 0;
@@ -30,6 +30,6 @@ export function usePriceLineChart(
         color,
         tickFormat: `${sign},.2s`,
         formatTooltip,
-        disableTooltip: opts.disableTooltip,
+        simple: opts.simple,
     });
 }
