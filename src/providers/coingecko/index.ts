@@ -70,23 +70,16 @@ export class Coingecko {
             contracts:
                 coinId === 'avalanche-2'
                     ? [
-                          {
-                              address: '0x1ce0c2827e2ef14d5c4f29a091d735a204794041',
-                              chainId: 56,
-                              runtime: 'ethereum',
-                          },
-                          {
-                              address: '0x4792c1ecb969b036eb51330c63bd27899a13d84e',
-                              chainId: 1284,
-                              runtime: 'ethereum',
-                          },
+                          { address: '0x1ce0c2827e2ef14d5c4f29a091d735a204794041', chainId: 56, runtime: 'ethereum' },
+                          { address: '0x4792c1ecb969b036eb51330c63bd27899a13d84e', chainId: 1284, runtime: 'ethereum' },
                       ]
                     : (Object.entries(info.platforms)
-                          .map(([key, address]) => ({
+                          .map(([runtime, address]) => ({
                               chainId:
-                                  platforms.find((x) => x.id === key)?.chain_identifier ?? resolveCoinGeckoChainId(key),
+                                  platforms.find((x) => x.id === runtime)?.chain_identifier ??
+                                  resolveCoinGeckoChainId(runtime),
                               address,
-                              runtime: key === 'solana' ? 'solona' : 'ethereum',
+                              runtime,
                           }))
                           .filter((x) => x.address) as Contract[]),
             coin: {
