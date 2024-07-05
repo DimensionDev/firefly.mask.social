@@ -47,7 +47,7 @@ function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
             {extra ? (
                 <div className="ml-auto">{extra}</div>
             ) : (
-                <div className="ml-auto">
+                <div className="ml-auto font-inter text-[15px] font-bold text-main">
                     {value !== undefined ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
                 </div>
             )}
