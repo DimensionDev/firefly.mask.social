@@ -16,6 +16,7 @@ interface TipsContext {
     hash: string | null;
     pureWallet: boolean;
     socialProfiles: Profile[];
+    isSending: boolean;
 }
 
 function createEmptyContext(): TipsContext {
@@ -28,6 +29,7 @@ function createEmptyContext(): TipsContext {
         hash: null,
         pureWallet: false,
         socialProfiles: [],
+        isSending: false,
     };
 }
 

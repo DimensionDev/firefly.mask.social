@@ -11,7 +11,7 @@ import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsUI = memo(function TipsUI() {
     const account = useAccount();
-    const { token, receiver, amount, handle, update } = TipsContext.useContainer();
+    const { token, receiver, amount, handle, isSending, update } = TipsContext.useContainer();
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({
@@ -34,7 +34,7 @@ export const TipsUI = memo(function TipsUI() {
         <>
             <TipsModalHeader title={receiver ? t`Tip to @${handle || receiver.displayName}` : undefined} />
             <div className="font-bold">
-                <WalletSelectorEntry disabled={!account.isConnected} />
+                <WalletSelectorEntry disabled={!account.isConnected || isSending} />
                 <div className="mt-3 flex gap-x-3">
                     <div className="h-10 flex-1 rounded-2xl bg-lightBg">
                         <input
@@ -42,10 +42,10 @@ export const TipsUI = memo(function TipsUI() {
                             placeholder={token ? t`Max: ${token.balance}` : t`Select token first`}
                             value={amount}
                             onChange={handleAmountChange}
-                            disabled={!account.isConnected || !token}
+                            disabled={!account.isConnected || !token || isSending}
                         />
                     </div>
-                    <TokenSelectorEntry disabled={!account.isConnected} />
+                    <TokenSelectorEntry disabled={!account.isConnected || isSending} />
                 </div>
                 {receiver ? receiver.blockchain === NetworkType.Ethereum ? <SendWithEVM /> : <SendWithSolana /> : null}
             </div>

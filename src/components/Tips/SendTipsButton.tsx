@@ -30,6 +30,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         }
         try {
             if (!receiver || !token) return;
+            update((prev) => ({ ...prev, isSending: true }));
             const { chainId, id } = token;
             const transfer = resolveTokenTransfer(receiver.blockchain);
             const hash = await transfer.transfer({
@@ -44,6 +45,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             router.navigate({ to: TipsRoutePath.SUCCESS });
         } catch (error) {
             enqueueErrorMessage(error instanceof Error ? error.message : t`Failed to send tips`, { error });
+        } finally {
+            update((prev) => ({ ...prev, isSending: false }));
         }
     }, [connected, receiver, token, amount]);
 
