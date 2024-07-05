@@ -2,9 +2,9 @@ import { t, Trans } from '@lingui/macro';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { first, last } from 'lodash-es';
+import { first } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import { type HTMLProps, memo, type ReactNode, useMemo, useRef, useState } from 'react';
+import { type HTMLProps, memo, type ReactNode, useRef, useState } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import QuestionIcon from '@/assets/question.svg';
@@ -19,7 +19,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
+import { useCoinPrice24hStats, useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
@@ -95,11 +95,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
 
     const [days, setDays] = useState<number | undefined>(ranges[0].days);
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token?.id, days);
-    const isUp = useMemo(() => {
-        const startPrice = first(priceStats)?.value ?? 0;
-        const endPrice = last(priceStats)?.value ?? 0;
-        return endPrice > startPrice;
-    }, [priceStats]);
+    const { isUp } = useCoinPrice24hStats(token?.id);
 
     usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`, { color: 'currentColor' });
     const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, first(contracts)?.chainId);

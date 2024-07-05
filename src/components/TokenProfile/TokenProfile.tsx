@@ -1,8 +1,6 @@
 import { t, Trans } from '@lingui/macro';
-import { EMPTY_LIST } from '@masknet/shared-base';
-import { first, last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { type HTMLProps, memo, useMemo, useRef } from 'react';
+import { type HTMLProps, memo, useRef } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -10,7 +8,7 @@ import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
+import { useCoinPrice24hStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
@@ -38,12 +36,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     const { data: trending } = useCoinTrending(token?.id);
     const market = trending?.market;
 
-    const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token?.id, 1);
-    const isUp = useMemo(() => {
-        const startPrice = first(priceStats)?.value ?? 0;
-        const endPrice = last(priceStats)?.value ?? 0;
-        return endPrice > startPrice;
-    }, [priceStats]);
+    const { priceStats, isPending, isUp } = useCoinPrice24hStats(token?.id);
 
     usePriceLineChart(chartRef, priceStats, DIMENSION, `price-chart-${symbol}`, {
         color: 'currentColor',
