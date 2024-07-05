@@ -4,7 +4,6 @@ import { type SocialSource } from '@/constants/enum.js';
 import {
     POLL_CHOICE_TYPE,
     POLL_DEFAULT_VALID_IN_DAYS,
-    POLL_MAX_VALID_IN_DAYS,
     POLL_OPTIONS_MAX_COUNT,
     POLL_OPTIONS_MIN_COUNT,
     POLL_STRATEGIES,
@@ -41,11 +40,6 @@ export const isValidPoll = (poll: CompositePoll) => {
     )
         return false;
     return true;
-};
-
-export const getPollFixedValidInDays = (validInDays: number, source: SocialSource) => {
-    const maxDays = POLL_MAX_VALID_IN_DAYS[source];
-    return Math.min(maxDays, validInDays);
 };
 
 // This function calculates the total number of seconds in a given duration

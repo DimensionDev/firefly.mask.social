@@ -3,8 +3,8 @@ import urlcat from 'urlcat';
 
 import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
-import { getCommunityLink } from '@/helpers/trending.js';
 import type { CoingeckoCoinInfo, CoingeckoPlatform, CoingeckoToken } from '@/providers/types/Coingecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 
