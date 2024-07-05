@@ -13,6 +13,7 @@ export function getResourceType(urlString: string) {
         return 'Image';
     }
 
+    // cspell: disable-next-line
     if (['supercast.mypinata.cloud'].includes(parsedURL.hostname)) {
         const fileName = parsedURL.searchParams.get('filename');
         const extension = fileName?.split('.').pop()?.toLowerCase();
