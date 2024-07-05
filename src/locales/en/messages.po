@@ -241,6 +241,9 @@ msgstr "<0>Posted</0>an article"
 msgid "Poll is currently only supported on {0}"
 msgstr "Poll is currently only supported on {0}"
 
+msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
+msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
+
 msgid "Offline"
 msgstr "Offline"
 
@@ -1332,9 +1335,6 @@ msgstr "Muted @{0} on {sourceName}"
 
 msgid "Copy"
 msgstr "Copy"
-
-msgid "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
 msgid "Skip for now"
 msgstr "Skip for now"

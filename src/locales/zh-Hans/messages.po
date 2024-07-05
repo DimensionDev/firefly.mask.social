@@ -246,6 +246,9 @@ msgstr "<0>发布了</0>一篇文章"
 msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
 
+msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
+msgstr ""
+
 msgid "Offline"
 msgstr "离线"
 
@@ -1337,9 +1340,6 @@ msgstr "在 {sourceName} 上屏蔽 @{0}"
 
 msgid "Copy"
 msgstr "复制"
-
-msgid "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr ""
 
 msgid "Skip for now"
 msgstr "跳过"
