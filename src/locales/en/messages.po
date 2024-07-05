@@ -190,9 +190,6 @@ msgstr "Log out @{0}"
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
 
-msgid "tips to"
-msgstr "tips to"
-
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
 
@@ -682,9 +679,6 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
-msgid "Enter amount"
-msgstr "Enter amount"
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
 
@@ -922,9 +916,6 @@ msgstr "Share Now"
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
-msgid "You {0} sent"
-msgstr "You {0} sent"
-
 msgid "Mute"
 msgstr "Mute"
 
@@ -951,9 +942,6 @@ msgstr "Failed to fetch bookmarks."
 
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
-
-msgid "Share this news by mentioning and posting."
-msgstr "Share this news by mentioning and posting."
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
@@ -1086,6 +1074,9 @@ msgstr "General"
 
 msgid "Page not found. Please try again."
 msgstr "Page not found. Please try again."
+
+msgid "Select token first"
+msgstr "Select token first"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
@@ -1551,6 +1542,9 @@ msgstr "1y"
 
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
+
+msgid "You {0} sent<0>{amount} ${1} </0>tips to<1>{2}</1>! {3}"
+msgstr "You {0} sent<0>{amount} ${1} </0>tips to<1>{2}</1>! {3}"
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"

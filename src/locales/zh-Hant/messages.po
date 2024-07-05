@@ -195,9 +195,6 @@ msgstr ""
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr ""
 
-msgid "tips to"
-msgstr ""
-
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
@@ -687,9 +684,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-msgid "Enter amount"
-msgstr ""
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -927,9 +921,6 @@ msgstr ""
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
-msgid "You {0} sent"
-msgstr ""
-
 msgid "Mute"
 msgstr ""
 
@@ -955,9 +946,6 @@ msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
 msgid "Are you sure you want to report this article?"
-msgstr ""
-
-msgid "Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -1090,6 +1078,9 @@ msgid "General"
 msgstr "一般"
 
 msgid "Page not found. Please try again."
+msgstr ""
+
+msgid "Select token first"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -1555,6 +1546,9 @@ msgid "1y"
 msgstr ""
 
 msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "You {0} sent<0>{amount} ${1} </0>tips to<1>{2}</1>! {3}"
 msgstr ""
 
 msgid "Buy Tax: {0}%"
