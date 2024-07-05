@@ -62,7 +62,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 e.stopPropagation();
             }}
         >
-            <div className="flex items-center gap-2.5 text-second">
+            <div className="flex items-center gap-2.5 overflow-auto whitespace-nowrap text-second">
                 <Image
                     className="overflow-hidden rounded-full"
                     src={token.logoURL}
@@ -71,7 +71,9 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     height={40}
                 />
                 <strong className="text-lg font-bold uppercase text-main">{token.symbol}</strong>
-                <span className="font-inter text-[15px] font-bold">{token.name}</span>
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap font-inter text-[15px] font-bold">
+                    {token.name}
+                </span>
             </div>
             <div className="line-height-[22px] flex items-center gap-1 text-[15px]">
                 <Trans>
