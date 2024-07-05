@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
+import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
@@ -29,7 +29,8 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
                 'h-auto': size >= 5,
             })}
         >
-            <Image
+            <ImageAsset
+                disableLoadHandler
                 src={sanitizeDStorageUrl(resolveMediaObjectUrl(image))}
                 alt={image.file.name}
                 fill
