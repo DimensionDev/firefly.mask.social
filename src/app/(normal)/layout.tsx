@@ -13,7 +13,7 @@ import { env } from '@/constants/env.js';
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
         <>
-            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[61px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
+            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
                     {/* add navigator bar for profile page */}
                     <IfPathname isOneOf={['/profile']} exact>

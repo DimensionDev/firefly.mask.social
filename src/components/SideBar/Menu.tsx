@@ -128,7 +128,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <Link
                                                 href={item.href}
                                                 className={classNames(
-                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg p-2 px-4 py-3 text-xl leading-6 outline-none hover:bg-bg md:w-auto',
+                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg p-2 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3',
                                                     { 'font-bold': isSelected },
                                                 )}
                                             >
