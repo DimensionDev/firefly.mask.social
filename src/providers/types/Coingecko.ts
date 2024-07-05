@@ -45,7 +45,6 @@ export interface CoingeckoCoinInfo {
         twitter_screen_name: string;
     };
     liquidity_score: string;
-    localization: Record<string, string>;
     market_cap_rank: number;
     market_data: {
         current_price: Record<string, number>;

@@ -151,6 +151,5 @@ export interface Trending {
     platform?: Platform;
     contracts?: Contract[];
     market?: Market;
-    tickers: Ticker[];
     lastUpdated: string;
 }
