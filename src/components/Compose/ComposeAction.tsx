@@ -23,7 +23,7 @@ import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NODE_ENV } from '@/constants/enum.js';
+import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -117,23 +117,25 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' ? <PollButton /> : null}
 
-                <ScheduleIcon
-                    className="cursor-pointer text-main"
-                    onClick={async () => {
-                        const result = await ScheduleModalRef.openAndWaitForClose({
-                            type: scheduleTime ? 'update' : 'create',
-                            initialValue: scheduleTime,
-                        });
-                        if (result === 'clear') clearScheduleTime();
-                        else if (result) {
-                            if (dayjs(result).isBefore(new Date())) {
-                                enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
-                                return;
+                {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
+                    <ScheduleIcon
+                        className="cursor-pointer text-main"
+                        onClick={async () => {
+                            const result = await ScheduleModalRef.openAndWaitForClose({
+                                type: scheduleTime ? 'update' : 'create',
+                                initialValue: scheduleTime,
+                            });
+                            if (result === 'clear') clearScheduleTime();
+                            else if (result) {
+                                if (dayjs(result).isBefore(new Date())) {
+                                    enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
+                                    return;
+                                }
+                                updateScheduleTime(result);
                             }
-                            updateScheduleTime(result);
-                        }
-                    }}
-                />
+                        }}
+                    />
+                ) : null}
 
                 <GifEntryButton disabled={mediaDisabled} />
 

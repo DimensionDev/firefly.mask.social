@@ -31,7 +31,7 @@ export const ComposeUI = memo(function ComposeUI() {
                     ref={contentRef}
                     className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
                 >
-                    {scheduleTime ? (
+                    {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <div className="mb-3 flex items-center gap-[10px] text-[13px] text-second">
                             <ScheduleIcon
                                 className="cursor-pointer"
