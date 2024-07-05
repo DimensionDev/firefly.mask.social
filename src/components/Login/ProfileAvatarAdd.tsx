@@ -16,7 +16,7 @@ export function ProfileAvatarAdd({ source, ...props }: ProfileAvatarAddProps) {
     const style = useSizeStyle(size, props.style);
 
     return (
-        <div className="relative z-0 cursor-pointer md:mx-auto lg:m-0" style={style} {...props}>
+        <div className="relative z-0 cursor-pointer md:m-0" style={style} {...props}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
                 <SocialSourceIcon source={source} size={size} />
             </div>

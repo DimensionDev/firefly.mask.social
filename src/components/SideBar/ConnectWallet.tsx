@@ -82,7 +82,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     return (
         <div
-            className={classNames('w-full space-y-3 rounded-md px-4 py-3 leading-6 hover:bg-bg', {
+            className={classNames('w-full space-y-3 rounded-md p-2 leading-6 hover:bg-bg md:px-4 md:py-3', {
                 'bg-lightBg': collapsed,
             })}
             onClick={(e) => {
@@ -114,7 +114,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                         {
                             'font-bold': collapsed,
                         },
-                        sideBarCollapsed ? 'none' : 'inline',
+                        sideBarCollapsed ? 'hidden' : 'inline',
                     )}
                     onClick={(e) => {
                         if (activeType?.isConnected) {
