@@ -43,10 +43,11 @@ export function useLineChart(
         color?: string;
         tickFormat?: string;
         formatTooltip?: (value: number) => number | string;
-        disableTooltip?: boolean;
+        /** disable tooltip and low/high price */
+        simple?: boolean;
     },
 ) {
-    const { color = 'currentColor', tickFormat = ',.2s', formatTooltip = defaultFormatTooltip, disableTooltip } = opts;
+    const { color = 'currentColor', tickFormat = ',.2s', formatTooltip = defaultFormatTooltip, simple } = opts;
     const { top, right, bottom, left, width, height } = dimension;
     const contentWidth = width - left - right;
     const contentHeight = height - top - bottom;
@@ -94,21 +95,23 @@ export function useLineChart(
         const minFixedPosition = fixOverPosition(contentWidth, contentHeight, minPosition.x, minPosition.y, 40);
         const maxFixedPosition = fixOverPosition(contentWidth, contentHeight, maxPosition.x, maxPosition.y, 40);
 
-        graph
-            .append('g')
-            .append('text')
-            .attr('transform', `translate(${minFixedPosition.x}, ${minFixedPosition.y})`)
-            .style('font-size', 14)
-            .style('font-weight', 700)
-            .text(formatTooltip(min));
+        if (!simple) {
+            graph
+                .append('g')
+                .append('text')
+                .attr('transform', `translate(${minFixedPosition.x}, ${minFixedPosition.y})`)
+                .style('font-size', 14)
+                .style('font-weight', 700)
+                .text(formatTooltip(min));
 
-        graph
-            .append('g')
-            .append('text')
-            .attr('transform', `translate(${maxFixedPosition.x}, ${maxFixedPosition.y})`)
-            .style('font-size', 14)
-            .style('font-weight', 700)
-            .text(formatTooltip(max));
+            graph
+                .append('g')
+                .append('text')
+                .attr('transform', `translate(${maxFixedPosition.x}, ${maxFixedPosition.y})`)
+                .style('font-size', 14)
+                .style('font-weight', 700)
+                .text(formatTooltip(max));
+        }
 
         graph
             .append('g')
@@ -133,6 +136,7 @@ export function useLineChart(
                     .y((d) => y((d as any).value)!) as any,
             );
 
+        if (simple) return;
         // create tooltip
         const tooltipLine = graph
             .append('line')
@@ -225,7 +229,6 @@ export function useLineChart(
                 }
             }
         };
-        if (disableTooltip) return;
 
         const hide = () => {
             tooltip.call(callout, null);
@@ -282,6 +285,6 @@ export function useLineChart(
         contentHeight,
         color,
         height,
-        disableTooltip,
+        simple,
     ]);
 }

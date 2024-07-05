@@ -115,6 +115,9 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 msgid "Watching"
 msgstr "Watching"
 
+msgid "Rank #{0}"
+msgstr "Rank #{0}"
+
 msgid "Searching channel"
 msgstr "Searching channel"
 
