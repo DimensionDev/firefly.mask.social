@@ -60,7 +60,11 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
 
             const data = resolveFireflyResponseData(json);
             if (data.fid && data.accountId && data.accessToken) {
-                session.profileId = `${data.fid}`;
+                // overwrite the profile id and token
+                const farcasterSession = session as FarcasterSession;
+                farcasterSession.profileId = `${data.fid}`;
+                if (data.farcaster_signer_private_key) farcasterSession.token = data.farcaster_signer_private_key;
+
                 return new FireflySession(data.accountId, data.accessToken, session);
             }
             throw new Error('Failed to restore firefly session.');

@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { NotAllowedError, NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
@@ -30,6 +30,8 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
 }
 
 async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?: AbortSignal) {
+    if (!FarcasterSession.isGrantByPermission(session)) throw new NotAllowedError();
+
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindFarcaster'),
         {

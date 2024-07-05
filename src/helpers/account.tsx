@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { compact, first, groupBy } from 'lodash-es';
+import { compact, first, uniqBy } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -12,7 +12,6 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
-import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -31,15 +30,20 @@ function getContext(account: Account) {
 async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
-        Object.entries(groupBy(accounts, (x) => x.session.type)).forEach(([sessionType]) => {
-            const state = getProfileState(resolveSocialSourceFromSessionType(sessionType as SessionType));
+        SORTED_SOCIAL_SOURCES.forEach((source) => {
+            const state = getProfileState(source);
             state.removeCurrentAccount();
             state.updateAccounts([]);
         });
     }
 
     // add accounts to the store
-    await Promise.all(accounts.map((account) => getContext(account).state.addAccount(account, false)));
+    await Promise.all(
+        accounts.map((account) => {
+            const { state } = getContext(account);
+            state.addAccount(account, false);
+        }),
+    );
 
     // set the first account as the current account if no current account is set
     SORTED_SOCIAL_SOURCES.map((x) => {
@@ -125,7 +129,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     // restore accounts from firefly
     if (!skipRestoreFireflyAccounts && account.fireflySession) {
         const accountsSynced = await syncAccountsFromFirefly(account.fireflySession, signal);
-        const accounts = belongsTo ? accountsSynced : [account, ...accountsSynced];
+        const accounts = belongsTo ? accountsSynced : uniqBy([account, ...accountsSynced], (x) => x.profile.profileId);
 
         if (accounts.length) {
             LoginModalRef.close();
