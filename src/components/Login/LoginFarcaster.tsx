@@ -21,14 +21,12 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
-import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
@@ -144,36 +142,19 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                     setScanned(true);
                     setProfileError(null);
 
-                    // for relay service we need to sync the session from firefly
-                    // and find out the the signer key of the connected profile
-                    const accounts = await syncAccountsFromFirefly(account.fireflySession, controller.current.signal);
-
-                    // if the user has signed into Firefly before, a synced session could be found.
-                    const nextAccount = accounts.find((x) => isSameSession(x.session, account.session));
-
-                    if (!nextAccount) {
-                        try {
-                            setProfileError(
-                                new ProfileNotConnectedError(
-                                    account.profile,
-                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
-                                ),
-                            );
-                        } catch {
-                            setProfileError(
-                                new ProfileNotConnectedError(
-                                    null,
-                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
-                                ),
-                            );
-                        }
-
+                    if (!account.session.token) {
+                        setProfileError(
+                            new ProfileNotConnectedError(
+                                account.profile,
+                                t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                            ),
+                        );
                         throw new AbortError();
                     }
 
                     return account;
                 },
-                { skipRestoreFireflyAccounts: true, signal: controller.current.signal },
+                { signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {

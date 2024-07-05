@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { compact, first, groupBy } from 'lodash-es';
+import { compact, first, groupBy, uniqBy } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -125,7 +125,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     // restore accounts from firefly
     if (!skipRestoreFireflyAccounts && account.fireflySession) {
         const accountsSynced = await syncAccountsFromFirefly(account.fireflySession, signal);
-        const accounts = belongsTo ? accountsSynced : [account, ...accountsSynced];
+        const accounts = belongsTo ? accountsSynced : uniqBy([account, ...accountsSynced], (x) => x.profile.profileId);
 
         if (accounts.length) {
             LoginModalRef.close();
