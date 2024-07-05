@@ -55,18 +55,19 @@ class EVMTransfer implements Transfer<Config> {
     }
 
     async validateBalance({ token, amount }: TransferOptions): Promise<boolean> {
-        const balance = await getTokenBalance(token, this.getAccount(), token.chainId);
+        const balance = await getTokenBalance(token, await this.getAccount(), token.chainId);
 
         return !isGreaterThan(rightShift(amount, token.decimals), `${balance.value}`);
     }
 
     async validateGas({ token, to }: TransferOptions): Promise<boolean> {
+        const account = await this.getAccount();
         const nativeBalance = await getBalance(getFixedConfig(), {
-            address: this.getAccount(),
+            address: account,
             chainId: token.chainId,
         });
         const gas = await estimateGas(getFixedConfig(), {
-            account: this.getAccount(),
+            account,
             chainId: token.chainId,
             to,
         });
@@ -74,7 +75,7 @@ class EVMTransfer implements Transfer<Config> {
         return !isLessThan(`${nativeBalance.value}`, `${gas}`);
     }
 
-    getAccount(): Address {
+    async getAccount(): Promise<Address> {
         const account = getAccount(this._config);
         if (!account.address) {
             throw new Error('Wallet not connected');
@@ -100,7 +101,7 @@ class EVMTransfer implements Transfer<Config> {
 
     async _transferNative({ to, token, amount }: TransferOptions): Promise<Address> {
         return sendTransaction(this._config, {
-            account: this.getAccount(),
+            account: await this.getAccount(),
             to,
             value: parseUnits(amount, token.decimals),
         });

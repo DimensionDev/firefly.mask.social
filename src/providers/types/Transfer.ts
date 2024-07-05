@@ -41,7 +41,7 @@ export interface Transfer<Config = any, AddressLike = any> {
     connect: () => Promise<void>;
     validateBalance: (options: TransferOptions<AddressLike>) => Promise<boolean>;
     validateGas: (options: TransferOptions<AddressLike>) => Promise<boolean>;
-    getAccount: () => AddressLike;
+    getAccount: () => Promise<AddressLike>;
     switchChain: (chainId: number) => Promise<void>;
     getChainId: () => number;
     getAddressUrl: (chainId: number, address: AddressLike) => string | undefined;

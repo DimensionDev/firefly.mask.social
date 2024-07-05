@@ -2,8 +2,9 @@ import { formatBalance, multipliedBy } from '@masknet/web3-shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
-import { useAccount } from 'wagmi';
 
+import { resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
+import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { getTokensByAddressForTips } from '@/services/getTokensByAddress.js';
 
@@ -23,12 +24,14 @@ function sortTokensByUsdValue(tokens: Token[]) {
 }
 
 export const useTipsTokens = () => {
-    const account = useAccount();
+    const { receiver } = TipsContext.useContainer();
     const { data, isLoading } = useQuery({
-        queryKey: ['tokens', account.address],
-        enabled: account.isConnected && !!account.address,
+        queryKey: ['tokens', receiver?.address],
+        enabled: !!receiver,
         queryFn: async () => {
-            return await getTokensByAddressForTips(account.address!);
+            if (!receiver) return [];
+            const transfer = resolveTokenTransfer(receiver.blockchain);
+            return await getTokensByAddressForTips(await transfer.getAccount());
         },
     });
 
