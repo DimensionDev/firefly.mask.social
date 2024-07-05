@@ -205,6 +205,9 @@ msgstr "Solana"
 msgid "Casts"
 msgstr "Casts"
 
+msgid "Your account is now connected."
+msgstr "Your account is now connected."
+
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
 
@@ -219,6 +222,9 @@ msgstr "Failed to mute @{0} on {sourceName}"
 
 msgid "Login with QR Code"
 msgstr "Login with QR Code"
+
+msgid "Market Cap"
+msgstr "Market Cap"
 
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
@@ -495,9 +501,6 @@ msgstr "Recasts"
 
 msgid "Market Cap / FDV"
 msgstr "Market Cap / FDV"
-
-msgid "Market Capital"
-msgstr "Market Capital"
 
 msgid "Your action provider blocks execution of this action."
 msgstr "Your action provider blocks execution of this action."
@@ -808,6 +811,9 @@ msgstr "Set"
 msgid "[Poll]"
 msgstr "[Poll]"
 
+msgid "Confirm to connect your account status."
+msgstr "Confirm to connect your account status."
+
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
@@ -967,9 +973,6 @@ msgstr "Users"
 msgid "Describe a bug or suggest an improvement"
 msgstr "Describe a bug or suggest an improvement"
 
-msgid "The session is not the same as the current session. Please try again."
-msgstr "The session is not the same as the current session. Please try again."
-
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "The file \"{0}\" exceeds the size limit."
 
@@ -1123,9 +1126,6 @@ msgstr "Failed to parse session."
 msgid "Feedback"
 msgstr "Feedback"
 
-msgid "Loading..."
-msgstr "Loading..."
-
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 
@@ -1143,9 +1143,6 @@ msgstr "Cancel recast successfully"
 
 msgid "Failed to unfollow."
 msgstr "Failed to unfollow."
-
-msgid "One click to connect your account status."
-msgstr "One click to connect your account status."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
@@ -1203,6 +1200,9 @@ msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app an
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+
+msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
+msgstr "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 
 msgid "Discard"
 msgstr "Discard"
@@ -1381,9 +1381,6 @@ msgstr "<0>Copy The amount of coins that have already been created, minus any co
 msgid "Skip for now"
 msgstr "Skip for now"
 
-msgid "Failed to restore accounts."
-msgstr "Failed to restore accounts."
-
 msgid "Login to enable all features"
 msgstr "Login to enable all features"
 
@@ -1488,9 +1485,6 @@ msgstr "Post from /{0} will be hidden in your home timeline"
 
 msgid "Add"
 msgstr "Add"
-
-msgid "No device accounts detected."
-msgstr "No device accounts detected."
 
 msgid "Log out all"
 msgstr "Log out all"

@@ -10,10 +10,14 @@ describe('formatPrice', () => {
         [3234.71, undefined, '3,234.71'],
         [2.356, undefined, '2.36'],
         [2.356, undefined, '2.36'],
-        [0.00012345, undefined, '0.00'],
+        [0.00012345, undefined, '0.0001'],
         [0.00012345, 3, '0.00'],
-        [0.00000012345, undefined, '0.0{6}12'],
+        [0.00000012345, undefined, '0.0{6}1234'],
         [0.00000012345, 4, '0.0{6}1234'],
+        [0.00000012345678, 4, '0.0{6}1234'],
+        [0.01234, undefined, '0.01'],
+        [0.01255, undefined, '0.01'],
+        [0.001255, undefined, '0.0013'],
     ])('format %s with %s digits to %s', (price, digits, expected) => {
         expect(formatPrice(price, digits)).toBe(expected);
     });

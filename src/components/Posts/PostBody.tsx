@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
@@ -52,10 +52,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     ref,
 ) {
     const router = useRouter();
-    const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
-    const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
+    const { metadata, author } = post;
+    const canShowMore = !!(metadata.content?.content && metadata.content.content.length > 450) && showMore;
 
-    const [postContent, setPostContent] = useState(post.metadata.content?.content ?? '');
+    const [postContent, setPostContent] = useState(metadata.content?.content ?? '');
     const [postViewed, setPostViewed] = useState(false);
 
     const { observe } = useInView({
@@ -78,7 +78,22 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [post, postViewed]);
 
-    const muted = useIsProfileMuted(post.author, isDetail);
+    const muted = useIsProfileMuted(author, isDetail);
+
+    const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
+    const payloadImageUrl = payloadFromImageAttachment?.[2];
+    const attachments = metadata.content?.attachments ?? EMPTY_LIST;
+
+    const availableAttachments = useMemo(() => {
+        if (!payloadImageUrl) return attachments;
+        return attachments.filter((x) => x.uri !== payloadImageUrl);
+    }, [payloadImageUrl, attachments]);
+
+    const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
+    const asset =
+        metadata.content?.asset?.uri === payloadImageUrl && availableAttachments.length
+            ? availableAttachments[0]
+            : metadata.content?.asset;
 
     if (post.isEncrypted) {
         return (
@@ -129,15 +144,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         },
                     )}
                 >
-                    {post.metadata.content?.content}
+                    {metadata.content?.content}
                 </NakedMarkup>
                 {showAttachments ? (
-                    <Attachments
-                        post={post}
-                        asset={post.metadata.content?.asset}
-                        attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
-                        isQuote
-                    />
+                    <Attachments post={post} asset={asset} attachments={availableAttachments} isQuote />
                 ) : null}
             </div>
         );
@@ -220,16 +230,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {post.poll ? <PollCard post={post} /> : null}
 
-            {/* TODO: exclude the payload image from attachments */}
-            {showAttachments &&
-            (!payloads?.payloadFromImageAttachment ||
-                env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) ? (
-                <Attachments
-                    post={post}
-                    asset={post.metadata.content?.asset}
-                    attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
-                    isDetail={isDetail}
-                />
+            {showAttachments ? (
+                <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
 
             <PostLinks post={post} setContent={setPostContent} />
