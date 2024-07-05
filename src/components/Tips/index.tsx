@@ -1,15 +1,16 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import TipsIcon from '@/assets/tips.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { Source } from '@/constants/enum.js';
+import { type Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { TipsModalRef } from '@/modals/controls.js';
 
-interface TipsProps {
+interface TipsProps extends HTMLProps<HTMLDivElement> {
     identity: string;
     source: Source;
     disabled?: boolean;
@@ -28,6 +29,7 @@ export const Tips = memo(function Tips({
     tooltipDisabled = false,
     pureWallet = false,
     handle = '',
+    className,
     onClick,
 }: TipsProps) {
     const handleClick = () => {
@@ -35,9 +37,11 @@ export const Tips = memo(function Tips({
         onClick?.();
     };
 
+    if (env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled) return null;
+
     return (
         <ClickableArea
-            className={classNames('flex cursor-pointer items-center text-main md:space-x-2', {
+            className={classNames('flex cursor-pointer items-center text-main md:space-x-2', className, {
                 'opacity-50': disabled,
                 'hover:text-secondarySuccess': !disabled && !label,
                 'w-min': !label,

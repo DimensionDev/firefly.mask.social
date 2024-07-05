@@ -61,17 +61,16 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                     </Menu.Item>
                     <Menu.Item>
                         {({ close }) => (
-                            <div className="px-3 py-1 hover:bg-bg">
-                                <Tips
-                                    identity={profile.address}
-                                    source={Source.Wallet}
-                                    handle={profile.primary_ens || ens}
-                                    tooltipDisabled
-                                    label={t`Send tips`}
-                                    onClick={close}
-                                    pureWallet
-                                />
-                            </div>
+                            <Tips
+                                className="px-3 py-1 hover:bg-bg"
+                                identity={profile.address}
+                                source={Source.Wallet}
+                                handle={profile.primary_ens || ens}
+                                tooltipDisabled
+                                label={t`Send tips`}
+                                onClick={close}
+                                pureWallet
+                            />
                         )}
                     </Menu.Item>
                 </Menu.Items>

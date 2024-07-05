@@ -81,17 +81,16 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     ) : null}
                     <Menu.Item>
                         {({ close }) => (
-                            <div className="px-3 py-1 hover:bg-bg">
-                                <Tips
-                                    identity={address}
-                                    source={Source.Wallet}
-                                    handle={ens}
-                                    tooltipDisabled
-                                    label={t`Send tips`}
-                                    onClick={close}
-                                    pureWallet
-                                />
-                            </div>
+                            <Tips
+                                className="px-3 py-1 hover:bg-bg"
+                                identity={address}
+                                source={Source.Wallet}
+                                handle={ens}
+                                tooltipDisabled
+                                label={t`Send tips`}
+                                onClick={close}
+                                pureWallet
+                            />
                         )}
                     </Menu.Item>
                 </Menu.Items>

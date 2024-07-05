@@ -48,12 +48,13 @@ export const TokenSelector = memo(function TokenSelector() {
                 <Loading className="!min-h-[320px]" />
             ) : (
                 <div>
-                    <SearchInput
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        onClear={() => setSearch('')}
-                        className="rounded-lg !bg-lightBg"
-                    />
+                    <div className='rounded-lg !bg-lightBg'>
+                        <SearchInput
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            onClear={() => setSearch('')}
+                        />
+                    </div>
                     <div className="h-80 overflow-y-auto" ref={listRef}>
                         {filteredTokens?.map((token) => <TokenItem key={`${token.id}.${token.chain}`} token={token} />)}
                         {!filteredTokens?.length && !isLoading && (
