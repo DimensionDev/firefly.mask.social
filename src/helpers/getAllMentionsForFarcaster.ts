@@ -1,3 +1,4 @@
+import { CastType } from '@farcaster/core';
 import { first } from 'lodash-es';
 
 import { MENTION_REGEX } from '@/constants/regexp.js';
@@ -11,6 +12,7 @@ export async function getAllMentionsForFarcaster(text: string) {
             text: '',
             mentionsPositions: [],
             mentions: [],
+            type: CastType.CAST,
         };
     }
     let match;
@@ -42,5 +44,6 @@ export async function getAllMentionsForFarcaster(text: string) {
         text,
         mentionsPositions: replacedIndices,
         mentions,
+        type: text.length > 320 ? CastType.LONG_CAST : CastType.CAST,
     };
 }
