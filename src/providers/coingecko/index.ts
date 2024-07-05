@@ -41,7 +41,7 @@ export class Coingecko {
             urlcat(COINGECKO_URL_BASE, `/coins/${coinId}`, {
                 developer_data: false,
                 community_data: false,
-                tickers: true,
+                localization: false,
             }),
         );
     }
@@ -125,17 +125,6 @@ export class Coingecko {
                 });
                 return Object.fromEntries(entries);
             })(),
-            tickers: info.tickers.slice(0, 30).map((x) => ({
-                logo_url: x.market.logo,
-                trade_url: x.trade_url,
-                market_name: x.market.name,
-                base_name: x.base,
-                target_name: x.target,
-                price: x.converted_last.usd,
-                volume: x.converted_volume.usd,
-                score: x.trust_score,
-                updated: new Date(x.timestamp),
-            })),
         };
     }
 }

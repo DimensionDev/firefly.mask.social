@@ -1,11 +1,12 @@
 import { plural } from '@lingui/macro';
-import { memo, type ReactElement } from 'react';
+import { first } from 'lodash-es';
+import { Fragment, memo, type ReactElement } from 'react';
 
 import DangerIcon from '@/assets/danger.svg';
 import WarningIcon from '@/assets/warning.svg';
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
-import { SecurityMessageLevel, type TokenSecurityType } from '@/providers/types/Security.js';
+import { type SecurityMessage, SecurityMessageLevel, type TokenSecurityType } from '@/providers/types/Security.js';
 
 interface TokenCardProps {
     tokenSecurity?: TokenSecurityType;
@@ -33,7 +34,7 @@ export const TokenSecurityBar = memo<TokenCardProps>(function TokenSecurityBar({
             ) : null}
             {attentionFactors ? (
                 <TokenSecurityTippy tokenSecurity={tokenSecurity} level={SecurityMessageLevel.Medium}>
-                    <div className="flex flex-row items-center gap-1 rounded bg-[#FFB1001A] px-2 py-1">
+                    <div className="flex cursor-pointer flex-row items-center gap-1 rounded bg-[#FFB1001A] px-2 py-1">
                         <WarningIcon width={16} height={16} className="shrink-0" />
                         <span className="text-[12px] text-[#FFB100]">
                             {plural(attentionFactors, {
@@ -61,6 +62,7 @@ function TokenSecurityTippy({ children, level, tokenSecurity }: Props) {
     const matched = message_list?.filter((rule) => rule.level === level && rule.condition(tokenSecurity));
 
     if (!matched?.length) return children;
+    const theFirst = first(matched)!;
 
     return (
         <Tippy
@@ -74,20 +76,7 @@ function TokenSecurityTippy({ children, level, tokenSecurity }: Props) {
             trigger="mouseenter"
             hideOnClick
             interactive
-            content={
-                <div>
-                    {matched.map((rule) => {
-                        return (
-                            <RiskCard
-                                key={rule.type}
-                                level={rule.level}
-                                title={rule.title(tokenSecurity)}
-                                description={rule.message(tokenSecurity)}
-                            />
-                        );
-                    })}
-                </div>
-            }
+            content={<RiskCard level={theFirst.level} tokenSecurity={tokenSecurity} messages={matched} />}
         >
             {children}
         </Tippy>
@@ -96,11 +85,11 @@ function TokenSecurityTippy({ children, level, tokenSecurity }: Props) {
 
 interface RiskCardProps {
     level: SecurityMessageLevel;
-    title: string;
-    description: string;
+    messages: SecurityMessage[];
+    tokenSecurity: TokenSecurityType;
 }
 
-export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, title, description }) {
+export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, messages, tokenSecurity }) {
     const icon =
         level === SecurityMessageLevel.High ? (
             <DangerIcon width={16} height={16} className="shrink-0" />
@@ -108,28 +97,26 @@ export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, title, de
             <WarningIcon width={16} height={16} className="shrink-0" />
         ) : null;
 
+    const textColor = {
+        'text-warn': level === SecurityMessageLevel.Medium,
+        'text-danger': level === SecurityMessageLevel.High,
+        'text-success': level === SecurityMessageLevel.Safe,
+    };
+
     return (
-        <div className="flex cursor-pointer flex-row gap-1 rounded-lg border border-line bg-primaryBottom p-4 text-main">
-            <div
-                className={classNames('inline-flex items-center justify-center self-start', {
-                    'text-warn': level === SecurityMessageLevel.Medium,
-                    'text-danger': level === SecurityMessageLevel.High,
-                    'text-success': level === SecurityMessageLevel.Safe,
-                })}
-            >
-                {icon}
-            </div>
+        <div className="box-border flex w-[568px] cursor-pointer flex-row gap-3 rounded-lg border border-line bg-primaryBottom p-4 text-main">
+            <div className={classNames('inline-flex items-center justify-center self-start', textColor)}>{icon}</div>
             <div className="flex flex-col gap-1">
-                <div
-                    className={classNames('font-bold', {
-                        'text-warn': level === SecurityMessageLevel.Medium,
-                        'text-danger': level === SecurityMessageLevel.High,
-                        'text-success': level === SecurityMessageLevel.Safe,
-                    })}
-                >
-                    {title}
-                </div>
-                {description ? <div className="text-sm text-secondary">{description}</div> : null}
+                {messages.map((message) => {
+                    const title = message.title(tokenSecurity);
+                    const description = message.message(tokenSecurity);
+                    return (
+                        <Fragment key={title}>
+                            <div className={classNames('font-bold', textColor)}>{title}</div>
+                            {description ? <div className="text-sm text-secondary">{description}</div> : null}
+                        </Fragment>
+                    );
+                })}
             </div>
         </div>
     );
