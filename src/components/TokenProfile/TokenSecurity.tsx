@@ -33,7 +33,7 @@ export const TokenSecurityBar = memo<TokenCardProps>(function TokenSecurityBar({
             ) : null}
             {attentionFactors ? (
                 <TokenSecurityTippy tokenSecurity={tokenSecurity} level={SecurityMessageLevel.Medium}>
-                    <div className="flex flex-row items-center gap-1 rounded bg-[#FFB1001A] px-2 py-1">
+                    <div className="flex cursor-pointer flex-row items-center gap-1 rounded bg-[#FFB1001A] px-2 py-1">
                         <WarningIcon width={16} height={16} className="shrink-0" />
                         <span className="text-[12px] text-[#FFB100]">
                             {plural(attentionFactors, {
