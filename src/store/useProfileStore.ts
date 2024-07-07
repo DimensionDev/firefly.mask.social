@@ -238,7 +238,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
+                const payload = await TwitterSocialMediaProvider.login();
                 const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!me || !payload) {
