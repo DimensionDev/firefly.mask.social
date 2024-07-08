@@ -126,8 +126,8 @@ msgstr ""
 msgid "Searching channel"
 msgstr "查询频道中"
 
-msgid "Views"
-msgstr "浏览数"
+msgid "quotes"
+msgstr ""
 
 msgid "Functions that can suspend trading"
 msgstr ""
@@ -249,6 +249,9 @@ msgstr "投票目前仅支持 {0}"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
+msgid "likes"
+msgstr ""
+
 msgid "Offline"
 msgstr "离线"
 
@@ -333,6 +336,9 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 msgid "Mutes"
 msgstr "屏蔽"
 
+msgid "{0} channels"
+msgstr ""
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -387,14 +393,23 @@ msgstr "举报失败"
 msgid "Attendees"
 msgstr "出席人数"
 
+msgid "Connected accounts"
+msgstr ""
+
+msgid "via {0} <0>{sendFrom}</0>"
+msgstr ""
+
+msgid "comments"
+msgstr ""
+
 msgid "Functions with retrievable ownership"
+msgstr ""
+
+msgid "recast"
 msgstr ""
 
 msgid "Search"
 msgstr "搜索"
-
-msgid "Connected Accounts"
-msgstr "已链接的账号"
 
 msgid "Watch"
 msgstr "关注"
@@ -441,6 +456,9 @@ msgstr ""
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
+msgid "recasts"
+msgstr ""
+
 msgid "Items"
 msgstr "条目"
 
@@ -458,9 +476,6 @@ msgstr ""
 
 msgid "Recent"
 msgstr "最近"
-
-msgid "via <0>{sendFrom}</0>"
-msgstr "于 <0>{sendFrom}</0>"
 
 msgid "Info"
 msgstr ""
@@ -630,6 +645,9 @@ msgstr "举报垃圾"
 msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
 
+msgid "like"
+msgstr ""
+
 msgid "View Source"
 msgstr "查看原文"
 
@@ -672,6 +690,9 @@ msgstr "回复"
 msgid "Mirror or Quote"
 msgstr "转帖或者引用"
 
+msgid "{0} users"
+msgstr ""
+
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要屏蔽 /{0} 吗？"
 
@@ -709,6 +730,9 @@ msgid "Top Profiles"
 msgstr "热门用户"
 
 msgid "Forbidden. Please check your permissions"
+msgstr ""
+
+msgid "mirrors"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
@@ -933,6 +957,9 @@ msgstr "获取收藏失败。"
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
 
+msgid "collects"
+msgstr ""
+
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
@@ -1022,9 +1049,6 @@ msgstr ""
 
 msgid "Minting Date"
 msgstr "铸造日期"
-
-msgid "Comments"
-msgstr "评论"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
@@ -1353,9 +1377,6 @@ msgstr "登录以启用所有功能"
 msgid "Owner can change balance"
 msgstr ""
 
-msgid "Collects"
-msgstr "收藏"
-
 msgid "{identity} watched"
 msgstr "{identity} 已关注"
 
@@ -1386,20 +1407,23 @@ msgstr "未发现个人信息"
 msgid "Watch {identity}"
 msgstr "关注 {identity}"
 
+msgid "view"
+msgstr ""
+
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
 
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
-msgid "View"
-msgstr "查看"
-
 msgid "No whitelist"
 msgstr ""
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
+
+msgid "Cannot continue due to wallet mismatch"
+msgstr ""
 
 msgid "Muting..."
 msgstr "屏蔽中..."
@@ -1467,6 +1491,9 @@ msgstr "转帖失败。"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr ""
 
+msgid "collect"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
 
@@ -1475,6 +1502,9 @@ msgstr "开发者"
 
 msgid "Share to"
 msgstr "分享到"
+
+msgid "views"
+msgstr ""
 
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
@@ -1527,14 +1557,14 @@ msgstr "您的 {0} 账号已连接。"
 msgid "You cannot reply to @{author} on {0}."
 msgstr "您不能在 {0} 上评论 {author}。"
 
+msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr ""
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
-
-msgid "Posted via <0>{sendFrom}</0>"
-msgstr "发布于 <0>{sendFrom}</0>"
 
 msgid "Total Supply"
 msgstr ""

@@ -55,7 +55,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 </div>
 
                 <ClickableButton
-                    className="font-bold text-blueBottom"
+                    className="font-bold text-farcasterPrimary"
                     onClick={async () => {
                         if (source === Source.Farcaster && images.length > 2) {
                             enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
@@ -113,7 +113,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 )
             ) : (
                 <ClickableButton
-                    className="font-bold text-blueBottom"
+                    className="font-bold text-farcasterPrimary"
                     disabled={loading}
                     onClick={() => login({ profile, session })}
                 >

@@ -78,6 +78,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 asset: attachments?.[0],
                 attachments,
                 oembedUrl: last(oembedUrls),
+                oembedUrls,
             },
         },
     };

@@ -146,6 +146,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     safeUnreachable(source);
                     break;
             }
+
             throw error;
         }
     }, [postId, source, mirrored, queryClient, post.author.profileId]);
