@@ -1,4 +1,3 @@
-'use client';
 if (typeof window !== 'undefined') {
     window.requestIdleCallback =
         window.requestIdleCallback ||
