@@ -11,7 +11,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request) => {
-        const payload = await createTwitterSessionPayload(request, 'jwt');
+        const payload = await createTwitterSessionPayload(request);
         if (!payload) return createSuccessResponseJSON(null);
         return createSuccessResponseJSON(await TwitterSessionPayload.concealPayload(payload));
     },
