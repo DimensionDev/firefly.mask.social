@@ -642,6 +642,9 @@ msgstr ""
 msgid "Channel"
 msgstr "頻道"
 
+msgid "please<0/><1>Ignore warning and proceed</1>"
+msgstr ""
+
 msgid "Connect another account"
 msgstr ""
 
@@ -843,6 +846,9 @@ msgstr ""
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
+msgid "If you believe this action has been blocked in error,"
+msgstr ""
+
 msgid "1m"
 msgstr ""
 
@@ -961,9 +967,6 @@ msgid "Invalid URL."
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
-
-msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -1368,6 +1371,9 @@ msgstr "返回"
 msgid "Posting..."
 msgstr ""
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked."
+msgstr ""
+
 msgid "No Lens profile found. Please change to another wallet."
 msgstr ""
 
@@ -1552,9 +1558,6 @@ msgid "The whitelist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Claim on {0}: {1}"
-msgstr ""
-
-msgid "Ignore warning and proceed"
 msgstr ""
 
 msgid "NFT ID"
