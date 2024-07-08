@@ -112,7 +112,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const isSmall = useIsSmall();
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
-
+    const isFirefly = sendFrom?.toLowerCase() === 'firefly';
     return (
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
@@ -124,7 +124,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                               <span>
                                   <Trans>
                                       via{' '}
-                                      {sendFrom === 'Firefly' ? (
+                                      {isFirefly ? (
                                           <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
                                       ) : null}{' '}
                                       <span className="capitalize">{sendFrom}</span>
@@ -148,7 +148,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           sendFrom ? (
                               <Trans>
                                   Posted via{' '}
-                                  {sendFrom === 'Firefly' ? (
+                                  {isFirefly ? (
                                       <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
                                   ) : null}{' '}
                                   <span className="capitalize">{sendFrom}</span>
@@ -171,7 +171,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                         <div>
                             <Trans>
                                 via{' '}
-                                {sendFrom === 'Firefly' ? (
+                                {isFirefly ? (
                                     <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
                                 ) : null}{' '}
                                 <span className="capitalize">{sendFrom}</span>
