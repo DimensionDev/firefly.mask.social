@@ -28,7 +28,7 @@ export function createPostTo(source: SocialSource, options: Options) {
 
         updatePostInThread(post.id, (post) => ({
             ...post,
-            images: mergeMediaObjects(post.images, uploadedImages),
+            images: mergeMediaObjects(post.images, uploadedImages, source),
             video: first(uploadedVideos) ?? null,
         }));
 
