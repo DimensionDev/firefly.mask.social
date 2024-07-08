@@ -98,7 +98,6 @@ function createState(
                     }),
                 resetCurrentAccount: () =>
                     set((state) => {
-                        if (!state.currentProfile) return;
                         state.currentProfile = null;
                         state.currentProfileSession = null;
                     }),
@@ -239,12 +238,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const payload =
-                    // indicate that the user is switching account
-                    state.accounts.length && !state.currentProfile
-                        ? (await TwitterSocialMediaProvider.login()) ??
-                          (first(state.accounts)?.session as TwitterSession | undefined)?.payload
-                        : session?.payload ?? (await TwitterSocialMediaProvider.login());
+                const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
                 const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!me || !payload) {

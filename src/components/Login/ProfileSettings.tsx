@@ -73,23 +73,19 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
             <hr className="mb-3 border-b border-t-0 border-line" />
 
             <div className="flex flex-col md:mx-5">
-                <ClickableButton
-                    className="flex w-full items-center rounded px-2 py-3 text-main hover:bg-bg"
-                    onClick={async () => {
-                        if (source === Source.Twitter) {
-                            getProfileState(Source.Twitter).resetCurrentAccount();
-                            await signOut({
-                                redirect: false,
-                            });
-                        }
-                        LoginModalRef.open({ source });
-                        onClose?.();
-                    }}
-                >
-                    <span className="text-[17px] font-bold leading-[22px] text-main">
-                        <Trans>Connect another account</Trans>
-                    </span>
-                </ClickableButton>
+                {source !== Source.Twitter ? (
+                    <ClickableButton
+                        className="flex w-full items-center rounded px-2 py-3 text-main hover:bg-bg"
+                        onClick={async () => {
+                            LoginModalRef.open({ source });
+                            onClose?.();
+                        }}
+                    >
+                        <span className="text-[17px] font-bold leading-[22px] text-main">
+                            <Trans>Connect another account</Trans>
+                        </span>
+                    </ClickableButton>
+                ) : null}
                 <ClickableButton
                     className="flex items-center overflow-hidden whitespace-nowrap rounded px-2 py-3 hover:bg-bg md:mb-3"
                     onClick={() => {
