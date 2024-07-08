@@ -17,11 +17,11 @@ export function usePriceLineChart(
         color?: string;
         sign?: string;
         simple?: boolean;
-    },
+    } = {},
 ) {
     const startValue = first(data)?.value ?? 0;
     const endValue = last(data)?.value ?? 0;
-    const defaultColor = endValue - startValue < 0 ? 'var(--color-success)' : 'var(--color-fail)';
+    const defaultColor = endValue > startValue ? 'var(--color-success)' : 'var(--color-fail)';
 
     const { color = defaultColor, sign = CurrencyType.USD } = opts;
 

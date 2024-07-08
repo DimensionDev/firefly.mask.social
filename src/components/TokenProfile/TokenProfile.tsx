@@ -39,7 +39,6 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     const { priceStats, isPending, isUp } = useCoinPrice24hStats(token?.id);
 
     usePriceLineChart(chartRef, priceStats, DIMENSION, `price-chart-${symbol}`, {
-        color: 'currentColor',
         simple: true,
     });
 
@@ -72,11 +71,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 <Trans>
                     <span className="text-secondary">Price</span>
                     <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                    <PriceArrow
-                        width={16}
-                        height={16}
-                        className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
-                    />
+                    <PriceArrow width={16} height={16} className={isUp ? 'shrink-0' : 'shrink-0 rotate-180'} />
                     {market?.price_change_percentage_24h_in_currency !== undefined ? (
                         <span className={isUp ? 'text-success' : 'text-fail'}>
                             {market.price_change_percentage_24h_in_currency.toFixed(2)}%
@@ -96,13 +91,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 </Trans>
             </div>
             <div className={classNames('h-[100px] overflow-auto', isPending ? 'animate-pulse' : null)}>
-                <svg
-                    ref={chartRef}
-                    width={267}
-                    height={100}
-                    viewBox="0 0 317 100"
-                    className={isUp ? 'text-success' : 'text-fail'}
-                />
+                <svg ref={chartRef} width={267} height={100} viewBox="0 0 317 100" />
             </div>
             <ClickableButton
                 className="flex h-8 w-full items-center justify-center rounded-full bg-main text-[15px] font-semibold text-primaryBottom transition-all hover:opacity-80"

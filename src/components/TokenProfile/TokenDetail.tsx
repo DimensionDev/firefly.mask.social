@@ -104,7 +104,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token?.id, days);
     const { isUp } = useCoinPrice24hStats(token?.id);
 
-    usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`, { color: 'currentColor' });
+    usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`);
     const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, first(contracts)?.chainId);
 
     if (isLoading) {
@@ -154,13 +154,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                 {isPending ? (
                     <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
                 ) : (
-                    <svg
-                        ref={chartRef}
-                        width="100%"
-                        height={175}
-                        viewBox="0 0 543 175"
-                        className={isUp ? 'text-success' : 'text-fail'}
-                    />
+                    <svg ref={chartRef} width="100%" height={175} viewBox="0 0 543 175" />
                 )}
             </div>
 
