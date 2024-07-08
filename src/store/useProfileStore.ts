@@ -35,7 +35,7 @@ export interface ProfileState {
     removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
-    removeCurrentAccount: () => void;
+    resetCurrentAccount: () => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
     upgrade: () => void;
@@ -95,8 +95,9 @@ function createState(
                             state.accounts = [account];
                         }
                     }),
-                removeCurrentAccount: () =>
+                resetCurrentAccount: () =>
                     set((state) => {
+                        if (!state.currentProfile) return;
                         state.currentProfile = null;
                         state.currentProfileSession = null;
                     }),
@@ -230,7 +231,6 @@ const useTwitterStateBase = createState(
 
             try {
                 const session = state.currentProfileSession as TwitterSession | null;
-                if (session) twitterSessionHolder.resumeSession(session);
 
                 // clean the local store if the consumer secret is not hidden
                 if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
@@ -238,7 +238,11 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
+                const payload =
+                    // indicate that the user is switching account
+                    state.accounts.length && !state.currentProfile
+                        ? (await TwitterSocialMediaProvider.login()) ?? session?.payload
+                        : session?.payload ?? (await TwitterSocialMediaProvider.login());
                 const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!me || !payload) {
@@ -247,10 +251,13 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                state.updateCurrentAccount({
+                const account = {
                     profile: me,
                     session: TwitterSession.from(me, payload),
-                });
+                };
+
+                state.updateCurrentAccount(account);
+                twitterSessionHolder.resumeSession(account.session);
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
