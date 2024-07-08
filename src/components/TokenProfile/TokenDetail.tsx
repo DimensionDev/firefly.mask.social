@@ -152,7 +152,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                 )}
             >
                 {isPending ? (
-                    <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100" />
+                    <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
                 ) : (
                     <svg
                         ref={chartRef}
