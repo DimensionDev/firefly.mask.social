@@ -1,7 +1,7 @@
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
-import { createLensSDK, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
+import { createLensSDK, getLensCredentials, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -37,7 +37,7 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
         data: {
             refreshToken: string;
         };
-    }>(storage.getItem('lens.production.credentials'));
+    }>(getLensCredentials(storage));
     if (!parsed?.data.refreshToken) throw new Error('No refresh token found.');
 
     const now = Date.now();
