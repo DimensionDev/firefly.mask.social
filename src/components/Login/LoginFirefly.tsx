@@ -4,11 +4,9 @@ import { useAsyncFn, useMount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { AbortError, MalformedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { AbortError, MalformedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -46,7 +44,6 @@ export function LoginFirefly(props: LoginFireflyProps) {
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
-    const [profileError, setProfileError] = useState<ProfileNotConnectedError | null>(null);
 
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FIREFLY_SCAN_QR_CODE_COUNTDOWN,
@@ -108,33 +105,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                 </div>
             ) : (
                 <div className="relative flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
-                    {profileError ? (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
-                            {profileError.profile ? (
-                                <div className="mb-4 flex flex-col items-center justify-center">
-                                    <ProfileAvatar
-                                        className="mb-2"
-                                        profile={profileError.profile}
-                                        size={64}
-                                        enableSourceIcon={false}
-                                    />
-                                    <p className="text-base">{profileError.profile.displayName}</p>
-                                    <p className="text-xs">@{profileError.profile.handle}</p>
-                                </div>
-                            ) : null}
-                            <p className="mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
-                            <ClickableButton
-                                className="rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
-                                onClick={() => {
-                                    setScanned(false);
-                                    setProfileError(null);
-                                    resetCountdown();
-                                }}
-                            >
-                                <Trans>Back</Trans>
-                            </ClickableButton>
-                        </div>
-                    ) : url ? (
+                    {url ? (
                         <>
                             <div className="text-center text-[12px] leading-[16px] text-lightSecond">
                                 {count === 0 ? (
