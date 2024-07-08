@@ -13,7 +13,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 async function checkResolver(address: string, profile: Profile) {
     const profiles = await LensSocialMediaProvider.getProfilesByAddress(address);
     if (!profiles.some((x) => isSameProfile(x, profile))) {
-        throw new Error(t`Cannot continue due to wallet mismatch`);
+        throw new Error(t`Cannot continue due to wallet mismatch.`);
     }
 
     return true;
