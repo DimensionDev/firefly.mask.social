@@ -115,7 +115,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
             });
             throw error;
         }
-    }, []);
+    }, [resetCountdown, startCountdown]);
 
     const [, onLoginByRelayService] = useAsyncFn(async () => {
         controller.current.renew();

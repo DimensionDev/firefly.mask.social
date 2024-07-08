@@ -27,6 +27,14 @@ function getContext(account: Account) {
     };
 }
 
+function getFireflySession(account: Account) {
+    if (account.session.type === SessionType.Firefly) {
+        if (!account.session) throw new Error('Firefly session is not found');
+        return account.session as FireflySession;
+    }
+    return account.fireflySession;
+}
+
 async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
@@ -58,25 +66,20 @@ async function updateState(accounts: Account[], overwrite = false) {
  * @param session
  * @param signal
  */
-async function restoreFireflySession({ session, fireflySession }: Account, signal?: AbortSignal): Promise<void> {
-    // polling failed
-    if (!session.profileId)
-        throw new Error(
-            'Failed to query the signed key request status after several attempts. Please try again later.',
-        );
-
-    const account = {
+async function restoreFireflySession(account: Account, signal?: AbortSignal): Promise<void> {
+    const fireflySession = getFireflySession(account) ?? (await FireflySession.from(account.session, signal));
+    const fireflyAccount = {
         profile: createDummyProfile(Source.Farcaster),
-        session: fireflySession ?? (await FireflySession.from(session, signal)),
+        session: fireflySession,
     } satisfies Account;
 
     // update firefly state
     const state = getProfileState(Source.Firefly);
-    state.updateAccounts([account]);
-    state.updateCurrentAccount(account);
+    state.updateAccounts([fireflyAccount]);
+    state.updateCurrentAccount(fireflyAccount);
 
     // restore firefly session
-    fireflySessionHolder.resumeSession(account.session);
+    fireflySessionHolder.resumeSession(fireflyAccount.session);
 }
 
 /**
@@ -114,22 +117,26 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     const { state, sessionHolder } = getContext(account);
 
     // check if the account belongs to the current firefly session
-    const currentSession = getProfileState(Source.Firefly).currentProfileSession;
+    const fireflySession = getFireflySession(account);
+    const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession;
+
     const belongsTo =
-        skipBelongsToCheck || !currentSession || !account.fireflySession
+        skipBelongsToCheck || !currentFireflySession || !fireflySession
             ? true
-            : isSameSession(currentSession, account.fireflySession);
+            : isSameSession(currentFireflySession, fireflySession);
 
     // add account to store cause it's from the same firefly session
-    if (belongsTo) {
+    if (belongsTo && account.session.type !== SessionType.Firefly) {
         state.addAccount(account, setAsCurrent);
         if (setAsCurrent) sessionHolder.resumeSession(account.session);
     }
 
     // restore accounts from firefly
-    if (!skipRestoreFireflyAccounts && account.fireflySession) {
-        const accountsSynced = await syncAccountsFromFirefly(account.fireflySession, signal);
-        const accounts = belongsTo ? accountsSynced : uniqBy([account, ...accountsSynced], (x) => x.profile.profileId);
+    if (!skipRestoreFireflyAccounts && fireflySession) {
+        const accountsSynced = await syncAccountsFromFirefly(fireflySession, signal);
+        const accounts = (
+            belongsTo ? accountsSynced : uniqBy([account, ...accountsSynced], (x) => x.profile.profileId)
+        ).filter((y) => y.session.type !== SessionType.Firefly);
 
         if (accounts.length) {
             LoginModalRef.close();
@@ -155,12 +162,12 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                                     const bIndex = SORTED_SOCIAL_SOURCES.indexOf(b.profile.source);
                                     return aIndex - bIndex;
                                 })
-                                .map((account) => (
+                                .map(({ profile }) => (
                                     <ProfileInList
-                                        key={account.profile.profileId}
+                                        key={profile.profileId}
                                         selected
                                         selectable={false}
-                                        profile={account.profile}
+                                        profile={profile}
                                         ProfileAvatarProps={{
                                             enableSourceIcon: true,
                                         }}
@@ -199,8 +206,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     }
 
     // restore firefly session
-    if (account.session.type !== SessionType.Firefly && !skipRestoreFireflySession)
-        await restoreFireflySession(account, signal);
+    if (!skipRestoreFireflySession) await restoreFireflySession(account, signal);
 
     // account has been added to the store
     return true;
