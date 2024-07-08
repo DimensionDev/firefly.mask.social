@@ -12,22 +12,28 @@ import { type Attachment, type Post, ProfileStatus } from '@/providers/types/Soc
 function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | null {
     switch (twitterMedia.type) {
         case 'photo':
-            return twitterMedia.url ? {
-                type: 'Image',
-                uri: twitterMedia.url,
-            } : null;
+            return twitterMedia.url
+                ? {
+                      type: 'Image',
+                      uri: twitterMedia.url,
+                  }
+                : null;
         case 'animated_gif':
-            return twitterMedia.variants?.[0].url ? {
-                type: 'AnimatedGif',
-                uri: twitterMedia.variants[0].url,
-                coverUri: twitterMedia.preview_image_url,
-            } : null;
+            return twitterMedia.variants?.[0].url
+                ? {
+                      type: 'AnimatedGif',
+                      uri: twitterMedia.variants[0].url,
+                      coverUri: twitterMedia.preview_image_url,
+                  }
+                : null;
         case 'video':
-            return twitterMedia.variants?.[0].url ? {
-                type: 'Video',
-                uri: twitterMedia.variants[0].url,
-                coverUri: twitterMedia.preview_image_url,
-            } : null;
+            return twitterMedia.variants?.[0].url
+                ? {
+                      type: 'Video',
+                      uri: twitterMedia.variants[0].url,
+                      coverUri: twitterMedia.preview_image_url,
+                  }
+                : null;
         default:
             safeUnreachable(twitterMedia.type as never);
             return null;

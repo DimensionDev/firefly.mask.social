@@ -79,7 +79,7 @@ function VideoAsset({ asset, isQuote, source }: VideoAssetProps) {
     ) : (
         <Video src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri} poster={asset.coverUri}>
             {asset.type === 'AnimatedGif' ? (
-                <span className='absolute left-2.5 bottom-[5px]'>
+                <span className="absolute bottom-[5px] left-2.5">
                     <PlayButton />
                 </span>
             ) : null}

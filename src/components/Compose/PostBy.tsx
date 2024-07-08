@@ -19,8 +19,8 @@ export function PostBy(props: PostByProps) {
 
             const maxImageCount = getCurrentPostImageLimits(uniq([...availableSources, source]));
             return images.length > maxImageCount;
-        })
-    }, [availableSources, images, poll])
+        });
+    }, [availableSources, images, poll]);
 
     return (
         <Transition
@@ -34,11 +34,7 @@ export function PostBy(props: PostByProps) {
         >
             <Popover.Panel className="absolute bottom-full right-0 z-10 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none">
                 {SORTED_SOCIAL_SOURCES.map((source, index) => (
-                    <PostByItem
-                        key={source}
-                        source={source}
-                        disabled={postByDisabled[index]}
-                    />
+                    <PostByItem key={source} source={source} disabled={postByDisabled[index]} />
                 ))}
             </Popover.Panel>
         </Transition>
