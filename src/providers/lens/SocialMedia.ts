@@ -41,13 +41,13 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { checkLensAccountOwner } from '@/helpers/checkLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -71,8 +71,6 @@ import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 
-const ownerProfiles = new Map<string, string>();
-
 @SetQueryDataForLikePost(Source.Lens)
 @SetQueryDataForBookmarkPost(Source.Lens)
 @SetQueryDataForMirrorPost(Source.Lens)
@@ -82,21 +80,6 @@ const ownerProfiles = new Map<string, string>();
 @SetQueryDataForFollowProfile(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
-    private async verifyCurrentAccountWithAddress() {
-        const walletClient = await getWalletClientRequired(config);
-
-        const cached = ownerProfiles.get(walletClient.account.address);
-        if (cached) return;
-
-        const profiles = await this.getProfilesByAddress(walletClient.account.address);
-        const currentLensProfile = getCurrentProfile(Source.Lens);
-        if (!profiles.some((x) => isSameProfile(x, currentLensProfile))) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
-        if (currentLensProfile) ownerProfiles.set(walletClient.account.address, currentLensProfile.profileId);
-        return;
-    }
-
     getChannelById(channelId: string): Promise<Channel> {
         throw new NotImplementedError();
     }
@@ -141,8 +124,6 @@ class LensSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<string> {
-        await this.verifyCurrentAccountWithAddress();
-
         if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 
         if (post.author.signless) {
@@ -157,6 +138,8 @@ class LensSocialMedia implements Provider {
             return resultValue.id;
         } else {
             const walletClient = await getWalletClientRequired(config);
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(walletClient.account.address, currentProfile);
             const resultTypedData = await lensSessionHolder.sdk.publication.createMomokaPostTypedData({
                 contentURI: post.metadata.contentURI,
             });
@@ -186,8 +169,6 @@ class LensSocialMedia implements Provider {
     }
 
     async mirrorPostOnMomoka(postId: string) {
-        await this.verifyCurrentAccountWithAddress();
-
         const result = await lensSessionHolder.sdk.publication.mirrorOnMomoka({
             mirrorOn: postId,
         });
@@ -220,8 +201,6 @@ class LensSocialMedia implements Provider {
     }
 
     async mirrorPostOnChain(postId: string) {
-        await this.verifyCurrentAccountWithAddress();
-
         const result = await lensSessionHolder.sdk.publication.mirrorOnchain({
             mirrorOn: postId,
         });
@@ -229,7 +208,8 @@ class LensSocialMedia implements Provider {
 
         if (!isRelaySuccess(resultValue)) {
             const walletClient = await getWalletClientRequired(config);
-
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(walletClient.account.address, currentProfile);
             const resultTypedData = await lensSessionHolder.sdk.publication.createOnchainMirrorTypedData({
                 mirrorOn: postId,
             });
@@ -270,8 +250,6 @@ class LensSocialMedia implements Provider {
     }
 
     async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
-        await this.verifyCurrentAccountWithAddress();
-
         if (signless) {
             const result = await lensSessionHolder.sdk.publication.quoteOnMomoka({
                 quoteOn: postId,
@@ -285,7 +263,8 @@ class LensSocialMedia implements Provider {
             return resultValue.id;
         } else {
             const walletClient = await getWalletClientRequired(config);
-
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(walletClient.account.address, currentProfile);
             const resultTypedData = await lensSessionHolder.sdk.publication.createMomokaQuoteTypedData({
                 quoteOn: postId,
                 contentURI: intro,
@@ -315,8 +294,6 @@ class LensSocialMedia implements Provider {
     }
 
     async quotePostOnChain(postId: string, intro: string) {
-        await this.verifyCurrentAccountWithAddress();
-
         const result = await lensSessionHolder.sdk.publication.quoteOnchain({
             quoteOn: postId,
             contentURI: intro,
@@ -326,7 +303,8 @@ class LensSocialMedia implements Provider {
 
         if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
             const walletClient = await getWalletClientRequired(config);
-
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(walletClient.account.address, currentProfile);
             const resultTypedData = await lensSessionHolder.sdk.publication.createOnchainQuoteTypedData({
                 quoteOn: postId,
                 contentURI: intro,
@@ -384,8 +362,6 @@ class LensSocialMedia implements Provider {
     }
 
     async commentPostOnMomoka(postId: string, comment: string, signless?: boolean) {
-        await this.verifyCurrentAccountWithAddress();
-
         if (signless) {
             const result = await lensSessionHolder.sdk.publication.commentOnMomoka({
                 commentOn: postId,
@@ -399,7 +375,8 @@ class LensSocialMedia implements Provider {
             return resultValue.id;
         } else {
             const walletClient = await getWalletClientRequired(config);
-
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(walletClient.account.address, currentProfile);
             const resultTypedData = await lensSessionHolder.sdk.publication.createMomokaCommentTypedData({
                 commentOn: postId,
                 contentURI: comment,
@@ -429,8 +406,6 @@ class LensSocialMedia implements Provider {
     }
 
     async commentPostOnChain(postId: string, comment: string) {
-        await this.verifyCurrentAccountWithAddress();
-
         const result = await lensSessionHolder.sdk.publication.commentOnchain({
             commentOn: postId,
             contentURI: comment,
@@ -440,7 +415,8 @@ class LensSocialMedia implements Provider {
 
         if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
             const walletClient = await getWalletClientRequired(config);
-
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(walletClient.account.address, currentProfile);
             const resultTypedData = await lensSessionHolder.sdk.publication.createOnchainCommentTypedData({
                 commentOn: postId,
                 contentURI: comment,
@@ -799,8 +775,6 @@ class LensSocialMedia implements Provider {
     getReactors!: (postId: string) => Promise<Pageable<Profile>>;
 
     async follow(profileId: string): Promise<boolean> {
-        await this.verifyCurrentAccountWithAddress();
-
         const result = await lensSessionHolder.sdk.profile.follow({
             follow: [
                 {
@@ -820,7 +794,8 @@ class LensSocialMedia implements Provider {
 
             const data = result.unwrap();
             const walletClient = await getWalletClientRequired(config);
-
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(walletClient.account.address, currentProfile);
             const signedTypedData = await walletClient.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
                 types: data.typedData.types,
@@ -847,8 +822,6 @@ class LensSocialMedia implements Provider {
     }
 
     async unfollow(profileId: string): Promise<boolean> {
-        await this.verifyCurrentAccountWithAddress();
-
         const result = await lensSessionHolder.sdk.profile.unfollow({
             unfollow: [profileId],
         });
@@ -861,7 +834,8 @@ class LensSocialMedia implements Provider {
 
             const data = followTypedDataResult.unwrap();
             const client = await getWalletClientRequired(config);
-
+            const currentProfile = getCurrentProfile(Source.Lens);
+            if (currentProfile) await checkLensAccountOwner(client.account.address, currentProfile);
             const signedTypedData = await client.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
                 types: data.typedData.types,
