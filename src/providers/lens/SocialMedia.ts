@@ -71,6 +71,8 @@ import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 
+const ownerProfiles = new Map<string, string>();
+
 @SetQueryDataForLikePost(Source.Lens)
 @SetQueryDataForBookmarkPost(Source.Lens)
 @SetQueryDataForMirrorPost(Source.Lens)
@@ -82,12 +84,17 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 class LensSocialMedia implements Provider {
     private async verifyCurrentAccountWithAddress() {
         const walletClient = await getWalletClientRequired(config);
+
+        const cached = ownerProfiles.get(walletClient.account.address);
+        if (cached) return;
+
         const profiles = await this.getProfilesByAddress(walletClient.account.address);
         const currentLensProfile = getCurrentProfile(Source.Lens);
         if (!profiles.some((x) => isSameProfile(x, currentLensProfile))) {
             throw new Error(t`Cannot continue due to wallet mismatch`);
         }
-        return true;
+        if (currentLensProfile) ownerProfiles.set(walletClient.account.address, currentLensProfile.profileId);
+        return;
     }
 
     getChannelById(channelId: string): Promise<Channel> {
@@ -134,10 +141,8 @@ class LensSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<string> {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 
         if (post.author.signless) {
@@ -181,10 +186,8 @@ class LensSocialMedia implements Provider {
     }
 
     async mirrorPostOnMomoka(postId: string) {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         const result = await lensSessionHolder.sdk.publication.mirrorOnMomoka({
             mirrorOn: postId,
         });
@@ -217,10 +220,8 @@ class LensSocialMedia implements Provider {
     }
 
     async mirrorPostOnChain(postId: string) {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         const result = await lensSessionHolder.sdk.publication.mirrorOnchain({
             mirrorOn: postId,
         });
@@ -269,10 +270,8 @@ class LensSocialMedia implements Provider {
     }
 
     async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         if (signless) {
             const result = await lensSessionHolder.sdk.publication.quoteOnMomoka({
                 quoteOn: postId,
@@ -316,10 +315,8 @@ class LensSocialMedia implements Provider {
     }
 
     async quotePostOnChain(postId: string, intro: string) {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         const result = await lensSessionHolder.sdk.publication.quoteOnchain({
             quoteOn: postId,
             contentURI: intro,
@@ -387,10 +384,8 @@ class LensSocialMedia implements Provider {
     }
 
     async commentPostOnMomoka(postId: string, comment: string, signless?: boolean) {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         if (signless) {
             const result = await lensSessionHolder.sdk.publication.commentOnMomoka({
                 commentOn: postId,
@@ -434,10 +429,8 @@ class LensSocialMedia implements Provider {
     }
 
     async commentPostOnChain(postId: string, comment: string) {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         const result = await lensSessionHolder.sdk.publication.commentOnchain({
             commentOn: postId,
             contentURI: comment,
@@ -806,10 +799,8 @@ class LensSocialMedia implements Provider {
     getReactors!: (postId: string) => Promise<Pageable<Profile>>;
 
     async follow(profileId: string): Promise<boolean> {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         const result = await lensSessionHolder.sdk.profile.follow({
             follow: [
                 {
@@ -856,10 +847,8 @@ class LensSocialMedia implements Provider {
     }
 
     async unfollow(profileId: string): Promise<boolean> {
-        const isVerifiedAddress = await this.verifyCurrentAccountWithAddress();
-        if (!isVerifiedAddress) {
-            throw new Error(t`Cannot continue due to wallet mismatch`);
-        }
+        await this.verifyCurrentAccountWithAddress();
+
         const result = await lensSessionHolder.sdk.profile.unfollow({
             unfollow: [profileId],
         });

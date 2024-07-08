@@ -83,6 +83,7 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         const allNodes = $dfs();
                         const mentionNodes = allNodes.filter((x) => $isMentionNode(x.node));
+                        // avoid empty content with paragraph node
                         const temp = markdown.replace('\n', '') === '' ? '' : markdown;
                         const newChars: Chars = temp
                             .split(/(@[^\s()@:%+~#?&=,!?']+)/g)

@@ -1,4 +1,4 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
@@ -13,10 +13,10 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
     };
 }
 
-function toggleMirror(source: SocialSource, postId: string, status: boolean) {
+export function toggleMirror(source: SocialSource, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         // You can mirror many times on Lens.
-        const mirrored = source === Source.Lens || status;
+        const mirrored = status;
         draft.hasMirrored = mirrored;
         draft.stats = patchPostStats(draft.stats, mirrored);
     });

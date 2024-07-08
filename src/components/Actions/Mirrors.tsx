@@ -11,6 +11,7 @@ import QuoteDownIcon from '@/assets/quote-down.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { toggleMirror } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -146,6 +147,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     safeUnreachable(source);
                     break;
             }
+            toggleMirror(Source.Lens, postId, mirrored);
             throw error;
         }
     }, [postId, source, mirrored, queryClient, post.author.profileId]);
