@@ -28,12 +28,15 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
     };
 }
 
-export async function createTwitterSessionPayload(request: NextRequest) {
-    const fromHeaders = await createTwitterSessionPayloadFromHeaders(request);
-    if (fromHeaders) return fromHeaders;
-
-    const fromJWT = await createTwitterSessionPayloadFromJWT(request);
-    if (fromJWT) return fromJWT;
-
-    return null;
+export async function createTwitterSessionPayload(request: NextRequest, from: 'headers' | 'jwt' = 'headers') {
+    switch (from) {
+        case 'headers':
+            const fromHeaders = await createTwitterSessionPayloadFromHeaders(request);
+            return fromHeaders;
+        case 'jwt':
+            const fromJWT = await createTwitterSessionPayloadFromJWT(request);
+            return fromJWT;
+        default:
+            return null;
+    }
 }

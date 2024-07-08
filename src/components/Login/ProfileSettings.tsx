@@ -76,10 +76,12 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 <ClickableButton
                     className="flex w-full items-center rounded px-2 py-3 text-main hover:bg-bg"
                     onClick={async () => {
-                        if (source === Source.Twitter)
+                        if (source === Source.Twitter) {
+                            getProfileState(Source.Twitter).resetCurrentAccount();
                             await signOut({
                                 redirect: false,
                             });
+                        }
                         LoginModalRef.open({ source });
                         onClose?.();
                     }}

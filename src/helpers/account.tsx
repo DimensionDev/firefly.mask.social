@@ -40,7 +40,7 @@ async function updateState(accounts: Account[], overwrite = false) {
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.forEach((source) => {
             const state = getProfileState(source);
-            state.removeCurrentAccount();
+            state.resetCurrentAccount();
             state.updateAccounts([]);
         });
     }
