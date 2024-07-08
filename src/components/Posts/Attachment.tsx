@@ -102,7 +102,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     isQuote = false,
     isDetail = false,
 }) {
-    const videoAndImageAttachments = attachments.filter((x) => x.type === 'Video' || x.type === 'Image');
+    const videoAndImageAttachments = attachments.filter((x) => ['Video', 'Image', 'AnimatedGif'].includes(x.type));
     const attachmentsSnapshot = isDetail
         ? videoAndImageAttachments
         : videoAndImageAttachments.slice(0, isQuote ? 4 : 9);
