@@ -9,7 +9,7 @@ import { immer } from 'zustand/middleware/immer';
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_FRAME_SIZE_PER_POST, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { type Chars, readChars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
@@ -502,6 +502,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         poll: createPoll(),
                         // only keep the sources that support poll
                         availableSources: post.availableSources.filter((x) => SORTED_POLL_SOURCES.includes(x)),
+                        chars: [
+                            ...(Array.isArray(post.chars) ? post.chars : [post.chars]),
+                            { id: `poll-${uuid()}`, tag: CHAR_TAG.FRAME, visible: false, content: '' as never },
+                        ],
                     }),
                     cursor,
                 ),
@@ -513,6 +517,11 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         poll,
+                        chars: !poll
+                            ? (Array.isArray(post.chars) ? post.chars : [post.chars]).filter(
+                                  (x) => typeof x === 'string' || x.tag !== CHAR_TAG.FRAME,
+                              )
+                            : post.chars,
                     }),
                     cursor,
                 ),
