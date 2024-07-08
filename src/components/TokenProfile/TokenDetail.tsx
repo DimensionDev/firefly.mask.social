@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { first } from 'lodash-es';
+import { first, isNumber } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode, useRef, useState } from 'react';
 
@@ -32,10 +32,11 @@ interface InfoRowProps {
     description?: ReactNode;
     value?: string | number;
     amount?: string | number;
+    asInfinite?: boolean;
     extra?: ReactNode;
 }
 
-function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
+function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoRowProps) {
     return (
         <div className="flex items-center text-[15px]">
             <span className="text-second">{title}</span>
@@ -48,7 +49,7 @@ function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
                 <div className="ml-auto">{extra}</div>
             ) : (
                 <div className="ml-auto font-inter text-[15px] font-bold text-main">
-                    {value !== undefined ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
+                    {asInfinite ? '∞' : isNumber(value) ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
                 </div>
             )}
         </div>
@@ -247,6 +248,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                             </Trans>
                         }
                         amount={market?.total_supply}
+                        asInfinite={!market?.total_supply}
                     />
                     <InfoRow
                         title={t`Max Supply`}
@@ -260,6 +262,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                             </Trans>
                         }
                         amount={market?.max_supply}
+                        asInfinite={!market?.max_supply}
                     />
                 </div>
                 <h2 className="mt-3 font-inter font-bold text-main">{t`Info`}</h2>
