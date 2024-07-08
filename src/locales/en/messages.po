@@ -121,8 +121,8 @@ msgstr "Rank #{0}"
 msgid "Searching channel"
 msgstr "Searching channel"
 
-msgid "Views"
-msgstr "Views"
+msgid "quotes"
+msgstr "quotes"
 
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
@@ -244,6 +244,9 @@ msgstr "Poll is currently only supported on {0}"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
+msgid "likes"
+msgstr "likes"
+
 msgid "Offline"
 msgstr "Offline"
 
@@ -328,6 +331,9 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 msgid "Mutes"
 msgstr "Mutes"
 
+msgid "{0} channels"
+msgstr "{0} channels"
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -382,14 +388,23 @@ msgstr "Report Failed"
 msgid "Attendees"
 msgstr "Attendees"
 
+msgid "Connected accounts"
+msgstr "Connected accounts"
+
+msgid "via {0} <0>{sendFrom}</0>"
+msgstr "via {0} <0>{sendFrom}</0>"
+
+msgid "comments"
+msgstr "comments"
+
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
 
+msgid "recast"
+msgstr "recast"
+
 msgid "Search"
 msgstr "Search"
-
-msgid "Connected Accounts"
-msgstr "Connected Accounts"
 
 msgid "Watch"
 msgstr "Watch"
@@ -436,6 +451,9 @@ msgstr "No Airdrop Scam"
 msgid "Add another post..."
 msgstr "Add another post..."
 
+msgid "recasts"
+msgstr "recasts"
+
 msgid "Items"
 msgstr "Items"
 
@@ -453,9 +471,6 @@ msgstr "Fake Token"
 
 msgid "Recent"
 msgstr "Recent"
-
-msgid "via <0>{sendFrom}</0>"
-msgstr "via <0>{sendFrom}</0>"
 
 msgid "Info"
 msgstr "Info"
@@ -625,6 +640,9 @@ msgstr "Report spam"
 msgid "Failed to submit report on {0}"
 msgstr "Failed to submit report on {0}"
 
+msgid "like"
+msgstr "like"
+
 msgid "View Source"
 msgstr "View Source"
 
@@ -667,6 +685,9 @@ msgstr "Reply"
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
 
+msgid "{0} users"
+msgstr "{0} users"
+
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
@@ -705,6 +726,9 @@ msgstr "Top Profiles"
 
 msgid "Forbidden. Please check your permissions"
 msgstr "Forbidden. Please check your permissions"
+
+msgid "mirrors"
+msgstr "mirrors"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
@@ -928,6 +952,9 @@ msgstr "Failed to fetch bookmarks."
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
 
+msgid "collects"
+msgstr "collects"
+
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
@@ -1017,9 +1044,6 @@ msgstr "<0>The proportion of current market capitalization compares to market ca
 
 msgid "Minting Date"
 msgstr "Minting Date"
-
-msgid "Comments"
-msgstr "Comments"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
@@ -1348,9 +1372,6 @@ msgstr "Login to enable all features"
 msgid "Owner can change balance"
 msgstr "Owner can change balance"
 
-msgid "Collects"
-msgstr "Collects"
-
 msgid "{identity} watched"
 msgstr "{identity} watched"
 
@@ -1381,20 +1402,23 @@ msgstr "No profile found"
 msgid "Watch {identity}"
 msgstr "Watch {identity}"
 
+msgid "view"
+msgstr "view"
+
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
 
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
-msgid "View"
-msgstr "View"
-
 msgid "No whitelist"
 msgstr "No whitelist"
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} View} other {{1} Views}}"
+
+msgid "Cannot continue due to wallet mismatch"
+msgstr "Cannot continue due to wallet mismatch"
 
 msgid "Muting..."
 msgstr "Muting..."
@@ -1462,6 +1486,9 @@ msgstr "Failed to retweet."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 
+msgid "collect"
+msgstr "collect"
+
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
 
@@ -1470,6 +1497,9 @@ msgstr "Developers"
 
 msgid "Share to"
 msgstr "Share to"
+
+msgid "views"
+msgstr "views"
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
@@ -1522,14 +1552,14 @@ msgstr "Your {0} account is now connected."
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
 
+msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr "Posted via {0} <0>{sendFrom}</0>"
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
-
-msgid "Posted via <0>{sendFrom}</0>"
-msgstr "Posted via <0>{sendFrom}</0>"
 
 msgid "Total Supply"
 msgstr "Total Supply"
