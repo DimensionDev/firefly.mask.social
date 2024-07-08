@@ -477,7 +477,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(urls.slice(-1), [
                     ...frames.map((x) => x.url),
-                    ...actions.map((x) => (parseJSON(x.url) as ActionScheme)?.url),
+                    ...actions.map((x) => parseJSON<ActionScheme>(x.url)!.url),
                 ]),
             );
 
