@@ -13,7 +13,7 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
     };
 }
 
-export function toggleMirror(source: SocialSource, postId: string, status: boolean) {
+function toggleMirror(source: SocialSource, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         // You can mirror many times on Lens.
         const mirrored = source === Source.Lens || status;
