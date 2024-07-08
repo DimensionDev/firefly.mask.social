@@ -16,5 +16,5 @@ try {
             };
     }
 } catch (error) {
-    console.error(`[polyfill AbortSignal]: ${error}`);
+    console.error(`[polyfill AbortSignal.timeout]: ${error}`);
 }
