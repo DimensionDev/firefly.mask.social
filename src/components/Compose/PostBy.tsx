@@ -1,14 +1,26 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { uniq } from 'lodash-es';
+import { Fragment, useMemo } from 'react';
 
 import { PostByItem } from '@/components/Compose/PostByItem.js';
 import { SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 
 interface PostByProps {}
 
 export function PostBy(props: PostByProps) {
-    const { poll } = useCompositePost();
+    const { poll, availableSources, images } = useCompositePost();
+
+    const postByDisabled = useMemo(() => {
+        return SORTED_SOCIAL_SOURCES.map((source) => {
+            if (poll && !SORTED_POLL_SOURCES.includes(source)) return true;
+            // TODO: Check video limits
+
+            const maxImageCount = getCurrentPostImageLimits(uniq([...availableSources, source]));
+            return images.length > maxImageCount;
+        })
+    }, [availableSources, images, poll])
 
     return (
         <Transition
@@ -21,11 +33,11 @@ export function PostBy(props: PostByProps) {
             leaveTo="opacity-0 translate-y-1"
         >
             <Popover.Panel className="absolute bottom-full right-0 z-10 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none">
-                {SORTED_SOCIAL_SOURCES.map((source) => (
+                {SORTED_SOCIAL_SOURCES.map((source, index) => (
                     <PostByItem
                         key={source}
                         source={source}
-                        disabled={poll ? !SORTED_POLL_SOURCES.includes(source) : false}
+                        disabled={postByDisabled[index]}
                     />
                 ))}
             </Popover.Panel>
