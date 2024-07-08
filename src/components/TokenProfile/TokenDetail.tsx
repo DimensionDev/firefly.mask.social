@@ -26,6 +26,7 @@ import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
+import type { Contract } from '@/providers/types/Trending.js';
 
 interface InfoRowProps {
     title: string;
@@ -75,6 +76,11 @@ function getHost(url: string) {
     } catch {
         return url;
     }
+}
+
+function formatContractAddress(contract: Contract) {
+    if (contract.runtime === 'ethereum') formatEthereumAddress(contract.address, 4);
+    return `${contract.address.slice(0, 6)}...${contract.address.slice(-4)}`;
 }
 
 export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, ...rest }) {
@@ -281,9 +287,11 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                             height={16}
                                         />
                                     ) : null}
-                                    <span className="text-[15px] font-bold text-main">
-                                        {formatEthereumAddress(contracts[0].address, 4)}
-                                    </span>
+                                    <Tooltip content={contracts[0].address} placement="top">
+                                        <span className="overflow-hidden text-ellipsis text-[15px] font-bold text-main">
+                                            {formatContractAddress(contracts[0])}
+                                        </span>
+                                    </Tooltip>
                                     <CopyButton value={contracts[0].address} />
                                     {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
                                 </div>
