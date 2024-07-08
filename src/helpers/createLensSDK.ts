@@ -1,5 +1,31 @@
 import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
 
+import type { LensSession } from '@/providers/lens/Session.js';
+
+export function getLensCredentials(storage: IStorageProvider) {
+    const item = storage.getItem('lens.production.credentials');
+    return item as string | null;
+}
+
+export function setLensCredentials(storage: IStorageProvider, session: LensSession) {
+    if (!session.refreshToken) throw new Error('No refresh token found in Lens session');
+    const now = Date.now();
+
+    storage.setItem(
+        'lens.production.credentials',
+        JSON.stringify({
+            data: {
+                refreshToken: session.refreshToken,
+            },
+            metadata: {
+                createdAt: now,
+                updatedAt: now,
+                version: 2,
+            },
+        }),
+    );
+}
+
 const ls = typeof window === 'undefined' ? undefined : window.localStorage;
 
 export class LocalStorageProvider implements IStorageProvider {
@@ -37,4 +63,9 @@ export function createLensSDK(storage: IStorageProvider) {
         environment: production,
         storage,
     });
+}
+
+export function createLensSDKForSession(storage: IStorageProvider, session: LensSession) {
+    setLensCredentials(storage, session);
+    return createLensSDK(storage);
 }

@@ -11,7 +11,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
-import { resolveSessionHolder, resolveSessionHolderFromSessionType } from '@/helpers/resolveSessionHolder.js';
+import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -20,10 +20,10 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
-function getContext(account: Account) {
+function getContext(source: SocialSource) {
     return {
-        state: getProfileState(account.profile.source),
-        sessionHolder: resolveSessionHolderFromSessionType(account.session.type),
+        state: getProfileState(source),
+        sessionHolder: resolveSessionHolder(source),
     };
 }
 
@@ -46,18 +46,20 @@ async function updateState(accounts: Account[], overwrite = false) {
     }
 
     // add accounts to the store
-    await Promise.all(
-        accounts.map((account) => {
-            const { state } = getContext(account);
-            state.addAccount(account, false);
-        }),
-    );
+    accounts.forEach((account) => {
+        const { state } = getContext(account.profile.source);
+        state.addAccount(account, false);
+    });
 
     // set the first account as the current account if no current account is set
     SORTED_SOCIAL_SOURCES.map((x) => {
-        const { currentProfile, updateCurrentAccount, accounts } = getProfileState(x);
-        const account = first(accounts);
-        if (!currentProfile && account) updateCurrentAccount(account);
+        const { state, sessionHolder } = getContext(x);
+
+        const account = first(state.accounts);
+        if (!account) return;
+
+        if (!state.currentProfile) state.updateCurrentAccount(account);
+        if (!sessionHolder?.session) sessionHolder?.resumeSession(account.session);
     });
 }
 
@@ -114,7 +116,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         signal,
     } = options ?? {};
 
-    const { state, sessionHolder } = getContext(account);
+    const { state, sessionHolder } = getContext(account.profile.source);
 
     // check if the account belongs to the current firefly session
     const fireflySession = getFireflySession(account);
@@ -218,17 +220,14 @@ export async function addAccount(account: Account, options?: AccountOptions) {
  * @param signal
  */
 export async function switchAccount(account: Account, signal?: AbortSignal) {
-    await addAccount(account, {
-        setAsCurrent: true,
-        skipBelongsToCheck: true,
-        skipRestoreFireflyAccounts: true,
-        skipRestoreFireflySession: true,
-        signal,
-    });
+    const { state, sessionHolder } = getContext(account.profile.source);
+
+    state.addAccount(account, true);
+    sessionHolder.resumeSession(account.session);
 }
 
 export async function removeAccount(account: Account, signal?: AbortSignal) {
-    const { state, sessionHolder } = getContext(account);
+    const { state, sessionHolder } = getContext(account.profile.source);
 
     // switch to next available account if the current account is removing.
     if (isSameProfile(state.currentProfile, account.profile)) {
