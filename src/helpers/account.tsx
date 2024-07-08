@@ -218,13 +218,10 @@ export async function addAccount(account: Account, options?: AccountOptions) {
  * @param signal
  */
 export async function switchAccount(account: Account, signal?: AbortSignal) {
-    await addAccount(account, {
-        setAsCurrent: true,
-        skipBelongsToCheck: true,
-        skipRestoreFireflyAccounts: true,
-        skipRestoreFireflySession: true,
-        signal,
-    });
+    const { state, sessionHolder } = getContext(account);
+
+    state.addAccount(account, true);
+    sessionHolder.resumeSession(account.session);
 }
 
 export async function removeAccount(account: Account, signal?: AbortSignal) {
