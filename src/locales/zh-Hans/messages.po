@@ -421,7 +421,7 @@ msgid "The blacklist function is not included. If there is a blacklist, some add
 msgstr ""
 
 msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易(欺诈风险)。"
+msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易（欺诈风险）。"
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -586,7 +586,7 @@ msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
 
 msgid "Anti_whale(Limited number of transactions)"
-msgstr "反鲸鱼(有限的交易次数)"
+msgstr ""
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
@@ -916,7 +916,7 @@ msgid "Suggested Channels"
 msgstr "推荐频道"
 
 msgid "Email (optional)"
-msgstr "邮箱 (可选)"
+msgstr "邮箱（可选）"
 
 msgid "NFT Contract"
 msgstr "NFT 合约"
@@ -1069,7 +1069,7 @@ msgid "Contract Address"
 msgstr "合约地址"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
-msgstr "白名单功能未启用。如果启用，有些地址可能无法正常交易(欺诈风险)。"
+msgstr "白名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
@@ -1429,7 +1429,7 @@ msgid "Failed to mirror post."
 msgstr "转发失败。"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易(欺诈风险)。"
+msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易（欺诈风险）。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
@@ -1558,7 +1558,7 @@ msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-msgstr "如果包含可中止的代码，那么 Token 可能既不能被购买也不会被出售(欺诈风险)。"
+msgstr "如果包含可中止的代码，那么 Token 可能既不能被购买也不会被出售（欺诈风险）。"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
@@ -1576,7 +1576,7 @@ msgid "Owned"
 msgstr "拥有"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr "白名单功能已启用。有些地址可能无法正常交易(欺诈风险)。"
+msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
@@ -1690,7 +1690,7 @@ msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
-msgstr "没有反鲸鱼。(无限的交易次数)"
+msgstr ""
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
@@ -1747,13 +1747,13 @@ msgid "7d"
 msgstr "7天"
 
 msgid "Name (optional)"
-msgstr "姓名 (可选)"
+msgstr "姓名（可选）"
 
 msgid "Location"
 msgstr "地点"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-msgstr "对 Token 的交易次数没有限制。可疑Token的交易次数可能是有限的。"
+msgstr "对 Token 的交易次数没有限制。可疑 Token 的交易次数可能是有限的。"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
