@@ -1417,9 +1417,6 @@ msgstr ""
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr ""
 
-msgid "Cannot continue due to wallet mismatch"
-msgstr ""
-
 msgid "Muting..."
 msgstr ""
 
@@ -1607,6 +1604,9 @@ msgid "Detail"
 msgstr ""
 
 msgid "Post added to your Bookmarks"
+msgstr ""
+
+msgid "Cannot continue due to wallet mismatch."
 msgstr ""
 
 msgid "your.email@example.org"

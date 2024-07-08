@@ -1417,9 +1417,6 @@ msgstr "No whitelist"
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} View} other {{1} Views}}"
 
-msgid "Cannot continue due to wallet mismatch"
-msgstr "Cannot continue due to wallet mismatch"
-
 msgid "Muting..."
 msgstr "Muting..."
 
@@ -1608,6 +1605,9 @@ msgstr "Detail"
 
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
+
+msgid "Cannot continue due to wallet mismatch."
+msgstr "Cannot continue due to wallet mismatch."
 
 msgid "your.email@example.org"
 msgstr "your.email@example.org"

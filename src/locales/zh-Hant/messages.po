@@ -1422,9 +1422,6 @@ msgstr ""
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
 
-msgid "Cannot continue due to wallet mismatch"
-msgstr ""
-
 msgid "Muting..."
 msgstr ""
 
@@ -1613,6 +1610,9 @@ msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
+
+msgid "Cannot continue due to wallet mismatch."
+msgstr ""
 
 msgid "your.email@example.org"
 msgstr ""

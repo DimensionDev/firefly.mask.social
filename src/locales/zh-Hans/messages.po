@@ -1422,9 +1422,6 @@ msgstr "没有白名单"
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 
-msgid "Cannot continue due to wallet mismatch."
-msgstr "钱包不匹配无法继续。"
-
 msgid "Muting..."
 msgstr "屏蔽中..."
 
@@ -1613,6 +1610,9 @@ msgstr "详情"
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
+
+msgid "Cannot continue due to wallet mismatch."
+msgstr "钱包不匹配无法继续。"
 
 msgid "your.email@example.org"
 msgstr "your.email@example.org"
