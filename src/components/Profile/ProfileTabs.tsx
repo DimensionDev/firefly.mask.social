@@ -3,8 +3,7 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { usePathname } from 'next/navigation.js';
-import { startTransition } from 'react';
-import { useUpdateEffect } from 'react-use';
+import { startTransition, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -76,7 +75,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const isProfilePage = pathname === PageRoute.Profile;
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
 
-    useUpdateEffect(() => {
+    useEffect(() => {
         if (!isProfilePage || !(source in currentProfiles)) return;
 
         const profile = currentProfiles[source as SocialSource];
@@ -85,7 +84,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
             update?.({ source, identity });
             updateCurrentProfileState({ source, identity });
         }
-    }, [isProfilePage, currentProfiles, source]);
+    }, [isProfilePage, currentProfiles, source, update, updateCurrentProfileState]);
 
     if (profiles.length <= 1) return null;
 
