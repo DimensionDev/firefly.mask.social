@@ -481,6 +481,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
+msgstr ""
+
 msgid "Recasts"
 msgstr ""
 
@@ -635,9 +638,6 @@ msgid "and"
 msgstr ""
 
 msgid "Channel"
-msgstr ""
-
-msgid "please<0/><1>Ignore warning and proceed</1>"
 msgstr ""
 
 msgid "Connect another account"
@@ -839,9 +839,6 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
-msgstr ""
-
-msgid "If you believe this action has been blocked in error,"
 msgstr ""
 
 msgid "1m"

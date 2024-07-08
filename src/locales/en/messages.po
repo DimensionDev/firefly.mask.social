@@ -481,6 +481,9 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
+msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
+msgstr "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
+
 msgid "Recasts"
 msgstr "Recasts"
 
@@ -636,9 +639,6 @@ msgstr "and"
 
 msgid "Channel"
 msgstr "Channel"
-
-msgid "please<0/><1>Ignore warning and proceed</1>"
-msgstr "please<0/><1>Ignore warning and proceed</1>"
 
 msgid "Connect another account"
 msgstr "Connect another account"
@@ -840,9 +840,6 @@ msgstr "Your post has published successfully."
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "Failed to follow @{0} on {sourceName}"
-
-msgid "If you believe this action has been blocked in error,"
-msgstr "If you believe this action has been blocked in error,"
 
 msgid "1m"
 msgstr "1m"

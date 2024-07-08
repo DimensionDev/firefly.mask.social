@@ -486,6 +486,9 @@ msgstr "连接钱包"
 msgid "Feed"
 msgstr "信息流"
 
+msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
+msgstr ""
+
 msgid "Recasts"
 msgstr "转帖"
 
@@ -641,9 +644,6 @@ msgstr "和"
 
 msgid "Channel"
 msgstr "频道"
-
-msgid "please<0/><1>Ignore warning and proceed</1>"
-msgstr ""
 
 msgid "Connect another account"
 msgstr ""
@@ -845,9 +845,6 @@ msgstr "发布成功。"
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
-
-msgid "If you believe this action has been blocked in error,"
-msgstr ""
 
 msgid "1m"
 msgstr ""

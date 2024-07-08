@@ -486,6 +486,9 @@ msgstr "連接錢包"
 msgid "Feed"
 msgstr "資訊來源"
 
+msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
+msgstr ""
+
 msgid "Recasts"
 msgstr ""
 
@@ -641,9 +644,6 @@ msgstr ""
 
 msgid "Channel"
 msgstr "頻道"
-
-msgid "please<0/><1>Ignore warning and proceed</1>"
-msgstr ""
 
 msgid "Connect another account"
 msgstr ""
@@ -845,9 +845,6 @@ msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
-
-msgid "If you believe this action has been blocked in error,"
-msgstr ""
 
 msgid "1m"
 msgstr ""
