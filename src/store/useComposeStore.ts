@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { clone, difference, uniq } from 'lodash-es';
+import { clone, compact, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
@@ -477,7 +477,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             const openGraphs = await OpenGraphLoader.occupancyLoad(
                 difference(urls.slice(-1), [
                     ...frames.map((x) => x.url),
-                    ...actions.map((x) => parseJSON<ActionScheme>(x.url)!.url),
+                    ...compact(actions.map((x) => parseJSON<ActionScheme>(x.url)?.url)),
                 ]),
             );
 
