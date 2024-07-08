@@ -66,7 +66,8 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
             </div>
             <div className="mt-2 flex items-center justify-end pr-3 text-[13px] font-bold text-lightSecond">
                 <Trans>Powered by</Trans>
-                <Image className="ml-2" alt="GIPHY" src="/image/giphy.png" width={56} height={12} />
+                <Image className="ml-2" alt="GIPHY" src="/image/giphy.png" width={12} height={12} />
+                <span className="text-black dark:text-white">GIPHY</span>
             </div>
         </div>
     );

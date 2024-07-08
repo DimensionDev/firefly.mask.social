@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { PlayButton } from '@livepeer/react';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -76,7 +77,13 @@ function VideoAsset({ asset, isQuote, source }: VideoAssetProps) {
             ) : null}
         </div>
     ) : (
-        <Video src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri} poster={asset.coverUri} />
+        <Video src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri} poster={asset.coverUri}>
+            {asset.type === 'AnimatedGif' ? (
+                <span className="absolute bottom-[5px] left-2.5">
+                    <PlayButton />
+                </span>
+            ) : null}
+        </Video>
     );
 }
 

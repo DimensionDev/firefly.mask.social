@@ -1,12 +1,44 @@
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { compact, find, first, last } from 'lodash-es';
-import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
+import type { ApiV2Includes, MediaObjectV2, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
+
+function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | null {
+    switch (twitterMedia.type) {
+        case 'photo':
+            return twitterMedia.url
+                ? {
+                      type: 'Image',
+                      uri: twitterMedia.url,
+                  }
+                : null;
+        case 'animated_gif':
+            return twitterMedia.variants?.[0].url
+                ? {
+                      type: 'AnimatedGif',
+                      uri: twitterMedia.variants[0].url,
+                      coverUri: twitterMedia.preview_image_url,
+                  }
+                : null;
+        case 'video':
+            return twitterMedia.variants?.[0].url
+                ? {
+                      type: 'Video',
+                      uri: twitterMedia.variants[0].url,
+                      coverUri: twitterMedia.preview_image_url,
+                  }
+                : null;
+        default:
+            safeUnreachable(twitterMedia.type as never);
+            return null;
+    }
+}
 
 export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const user = includes?.users?.find((u) => u.id === item.author_id);
@@ -17,28 +49,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const attachments = compact(
         item.attachments?.media_keys?.map((key) => {
             const media = includes?.media?.find((m) => m.media_key === key);
-            let asset: Attachment | null = null;
-            if (!media) return asset;
-            const coverUri = media.preview_image_url;
-            if (['video', 'animated_gif'].includes(media.type) && media.variants?.[0].url) {
-                asset = {
-                    type: 'Video',
-                    uri: media.variants?.[0].url,
-                };
-                if (media.preview_image_url) {
-                    asset.coverUri = media.preview_image_url;
-                }
-            }
-            if (media.url) {
-                asset = {
-                    type: 'Image',
-                    uri: media.url,
-                };
-                if (coverUri) {
-                    asset.coverUri = coverUri;
-                }
-            }
-            return asset;
+            return media ? formatTwitterMedia(media) : null;
         }),
     );
 
