@@ -2,7 +2,6 @@ import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
-import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTMoreAction } from '@/components/NFTs/NFTMoreAction.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -36,19 +35,8 @@ export function NFTFeedHeader({
     });
 
     return (
-        <div
-            className={classNames(
-                'flex items-start gap-3',
-                className,
-                !displayInfo.ensHandle ? '-mb-4' : 'mb-1.5 sm:-mb-4',
-            )}
-            {...rest}
-        >
-            <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
-                <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={address} />
-            </Link>
-
-            <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 flex-row items-start overflow-hidden">
+        <div className={classNames('flex items-start gap-3', className)} {...rest}>
+            <div className="flex flex-1 flex-grow flex-row items-start overflow-hidden text-ellipsis whitespace-nowrap">
                 <Link
                     href={authorUrl}
                     onClick={(event) => event.stopPropagation()}

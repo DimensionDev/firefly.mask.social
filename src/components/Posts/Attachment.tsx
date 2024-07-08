@@ -25,23 +25,23 @@ const forwardTwitterVideo = (url: string) => {
     return urlcat(location.origin, '/api/twitter/videoForward', { url });
 };
 
-const getClass = (attachments: number) => {
-    if (attachments === 1) {
+const getClass = (size: number) => {
+    if (size === 1) {
         return {
             aspect: 'aspect-w-16 aspect-h-10',
             row: 'grid-cols-1 grid-rows-1',
         };
-    } else if (attachments >= 5) {
+    } else if (size >= 5) {
         return {
             aspect: 'aspect-square',
             row: 'grid-cols-3',
         };
-    } else if (attachments === 2) {
+    } else if (size === 2) {
         return {
             aspect: 'aspect-w-16 aspect-h-12',
             row: 'grid-cols-2 grid-rows-1',
         };
-    } else if (attachments > 2) {
+    } else if (size > 2) {
         return {
             aspect: 'aspect-w-16 aspect-h-12',
             row: 'grid-cols-2 grid-rows-2',
@@ -62,14 +62,14 @@ interface VideoAssetProps {
 function VideoAsset({ asset, isQuote, source }: VideoAssetProps) {
     return isQuote ? (
         <div className="relative h-full w-full">
-            <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
+            <div className="absolute inset-0 m-auto box-border flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-xl bg-white/80 text-[#181818]">
                 <Play width={16} height={16} />
             </div>
             {asset.coverUri ? (
                 <Image
                     width={120}
                     height={120}
-                    className="h-[120px] w-[120px] rounded-xl object-cover"
+                    className="h-full w-full rounded-xl object-cover"
                     src={asset.coverUri}
                     alt={asset.coverUri}
                 />
