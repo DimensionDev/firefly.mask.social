@@ -7,7 +7,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -63,7 +63,10 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 // overwrite the profile id and token
                 const farcasterSession = session as FarcasterSession;
                 farcasterSession.profileId = `${data.fid}`;
-                if (data.farcaster_signer_private_key) farcasterSession.token = data.farcaster_signer_private_key;
+                if (data.farcaster_signer_private_key) {
+                    farcasterSession.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
+                    farcasterSession.token = data.farcaster_signer_private_key;
+                }
 
                 return new FireflySession(data.accountId, data.accessToken, session);
             }
