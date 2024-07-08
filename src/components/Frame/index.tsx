@@ -24,6 +24,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
+import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
@@ -245,11 +246,11 @@ export const Frame = memo<FrameProps>(function Frame({ postId, source, urls, onD
 
             try {
                 const result = await attemptUntil(
-                    urls.map((x) => () => {
+                    urls.map((x) => async () => {
                         if (!x || isValidDomain(x)) return;
                         return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                             urlcat('/api/frame', {
-                                link: x,
+                                link: (await resolveTCOLink(x)) ?? x,
                             }),
                         );
                     }),
