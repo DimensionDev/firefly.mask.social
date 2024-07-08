@@ -481,9 +481,6 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
-msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
-msgstr "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
-
 msgid "Recasts"
 msgstr "Recasts"
 
@@ -921,6 +918,9 @@ msgstr "No post found"
 
 msgid "Clear All"
 msgstr "Clear All"
+
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+msgstr "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."

@@ -486,9 +486,6 @@ msgstr "连接钱包"
 msgid "Feed"
 msgstr "信息流"
 
-msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
-msgstr ""
-
 msgid "Recasts"
 msgstr "转帖"
 
@@ -926,6 +923,9 @@ msgstr "未找到帖子"
 
 msgid "Clear All"
 msgstr "全部清除"
+
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr ""

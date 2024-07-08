@@ -249,6 +249,7 @@ export function ActionContainer({
                             >
                                 Ignore warning and proceed
                             </ClickableButton>
+                            .
                         </Trans>
                     ) : null}
                 </div>
