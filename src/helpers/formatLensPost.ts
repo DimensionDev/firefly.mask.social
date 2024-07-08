@@ -92,11 +92,14 @@ function getOembedUrls(metadata: LinkMetadataV3Fragment | TextOnlyMetadataV3Frag
         metadata.content,
         metadata.attributes?.reduce<string[]>((acc, attr) => {
             if (attr.key === LensMetadataAttributeKey.Poll) {
-                acc.push(composePollFrameUrl(getPollFrameUrl(attr.value, undefined, author), Source.Lens));
+                acc.push(getPollFrameUrl(attr.value, undefined, author));
             }
             return acc;
         }, []) ?? [],
-    );
+    ).map((url) => {
+        if (isValidPollFrameUrl(url)) return composePollFrameUrl(url, Source.Lens);
+        return url;
+    })
 }
 
 function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
