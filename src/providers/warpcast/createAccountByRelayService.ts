@@ -4,7 +4,9 @@ import { FARCASTER_REPLY_URL, SITE_HOSTNAME, SITE_URL } from '@/constants/index.
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { restoreFireflySession } from '@/services/restoreFireflySession.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 interface FarcasterReplyResponse {
     channelToken: string;
@@ -45,14 +47,21 @@ async function createSession(signal?: AbortSignal) {
     };
 }
 
-export async function createSessionByRelayService(callback?: (url: string) => void, signal?: AbortSignal) {
+export async function createAccountByRelayService(callback?: (url: string) => void, signal?: AbortSignal) {
     const { deeplink, session } = await createSession(signal);
 
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
 
     // polling for the session to be ready
-    await restoreFireflySession(session, signal);
+    const fireflySession = await bindOrRestoreFireflySession(session, signal);
 
-    return session;
+    // profile id is available after the session is ready
+    const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+
+    return {
+        session,
+        profile,
+        fireflySession,
+    } satisfies Account;
 }

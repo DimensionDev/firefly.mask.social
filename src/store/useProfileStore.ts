@@ -7,7 +7,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
-import { addAccount } from '@/helpers/account.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -36,6 +35,7 @@ export interface ProfileState {
     removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
+    removeCurrentAccount: () => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
     upgrade: () => void;
@@ -65,8 +65,7 @@ function createState(
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
 
                         if (!account_) {
-                            // add new account to the top
-                            state.accounts = [account, ...state.accounts];
+                            state.accounts = [...state.accounts, account];
                         }
 
                         if (setAsCurrent) {
@@ -95,6 +94,11 @@ function createState(
                         if (!state.accounts.length) {
                             state.accounts = [account];
                         }
+                    }),
+                removeCurrentAccount: () =>
+                    set((state) => {
+                        state.currentProfile = null;
+                        state.currentProfileSession = null;
                     }),
                 refreshAccounts: async () => {
                     const { currentProfile: profile, accounts } = get();
@@ -243,15 +247,10 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                await addAccount(
-                    {
-                        profile: me,
-                        session: TwitterSession.from(me, payload),
-                    },
-                    {
-                        restoreSession: false,
-                    },
-                );
+                state.updateCurrentAccount({
+                    profile: me,
+                    session: TwitterSession.from(me, payload),
+                });
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();

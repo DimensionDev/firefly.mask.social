@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-03 12:01\n"
+"PO-Revision-Date: 2024-07-05 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -126,6 +126,9 @@ msgstr ""
 msgid "Watching"
 msgstr "观察中"
 
+msgid "Rank #{0}"
+msgstr ""
+
 msgid "Searching channel"
 msgstr "查询频道中"
 
@@ -213,6 +216,9 @@ msgstr ""
 msgid "Casts"
 msgstr "帖子"
 
+msgid "Your account is now connected."
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
@@ -251,6 +257,9 @@ msgstr ""
 
 msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
+
+msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
+msgstr ""
 
 msgid "Offline"
 msgstr "离线"
@@ -810,6 +819,9 @@ msgstr "成功取消转发"
 msgid "[Poll]"
 msgstr "[投票]"
 
+msgid "Confirm to connect your account status."
+msgstr ""
+
 msgid "Allow replies from"
 msgstr "允许回复"
 
@@ -972,9 +984,6 @@ msgstr "用户"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述问题或者提出建议"
 
-msgid "The session is not the same as the current session. Please try again."
-msgstr ""
-
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr "文件\"{0}\"超过了大小限制。"
 
@@ -1128,9 +1137,6 @@ msgstr "未能解析会话"
 msgid "Feedback"
 msgstr "问题反馈"
 
-msgid "Loading..."
-msgstr "加载中..."
-
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 
@@ -1148,9 +1154,6 @@ msgstr "成功取消转发"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
-
-msgid "One click to connect your account status."
-msgstr "一键同步你的账号。"
 
 msgid "Top Collectors"
 msgstr "热门收藏者"
@@ -1210,6 +1213,9 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
+msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr ""
 
 msgid "Discard"
@@ -1383,9 +1389,6 @@ msgstr "在 {sourceName} 上屏蔽 @{0}"
 msgid "Copy"
 msgstr "复制"
 
-msgid "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr ""
-
 msgid "Skip for now"
 msgstr "跳过"
 
@@ -1496,9 +1499,6 @@ msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
 
 msgid "Add"
 msgstr "添加"
-
-msgid "No device accounts detected."
-msgstr "未检测到设备账号。"
 
 msgid "Log out all"
 msgstr "登出所有"

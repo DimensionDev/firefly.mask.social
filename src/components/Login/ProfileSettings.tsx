@@ -10,11 +10,27 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { switchAccount } from '@/helpers/account.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import type { Account } from '@/providers/types/Account.js';
+
+function AccountButtonInList({ account, selected = false }: { account: Account; selected?: boolean }) {
+    return (
+        <ClickableButton
+            className="flex w-full min-w-0 items-center justify-between gap-3 rounded px-2 py-2 hover:bg-bg md:rounded-none md:px-5"
+            key={account.profile.profileId}
+            onClick={() => {
+                switchAccount(account);
+            }}
+        >
+            <ProfileAvatar profile={account.profile} clickable linkable />
+            <ProfileName profile={account.profile} />
+            {selected ? <CircleCheckboxIcon checked /> : null}
+        </ClickableButton>
+    );
+}
 
 interface ProfileSettingsProps {
     source: SocialSource;
@@ -30,26 +46,28 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
     if (!currentProfile) return null;
 
+    const selectedAccount = accounts.find((x) => isSameProfile(x.profile, currentProfile));
+
     return (
         <div className="flex flex-col overflow-x-hidden bg-primaryBottom md:w-[290px] md:rounded-2xl md:border md:border-line">
-            <div
-                className={classNames('max-h-[calc(62.5px*3)] overflow-auto md:max-h-[calc(72px*3)]', {
-                    'mb-3': accounts.length > 1,
-                })}
-            >
-                {accounts.map((account, index) => (
-                    <ClickableButton
-                        className="flex w-full min-w-0 items-center justify-between gap-3 rounded px-2 py-2 hover:bg-bg md:rounded-none md:px-5"
-                        key={account.profile.profileId}
-                        onClick={() => {
-                            switchAccount(account);
-                        }}
-                    >
-                        <ProfileAvatar profile={account.profile} clickable linkable />
-                        <ProfileName profile={account.profile} />
-                        {isSameProfile(account.profile, currentProfile) ? <CircleCheckboxIcon checked /> : null}
-                    </ClickableButton>
-                ))}
+            <div className="max-h-[calc(62.5px*3)] overflow-auto md:max-h-[calc(72px*3)]">
+                {/* the selected account goes first */}
+                {selectedAccount ? <AccountButtonInList account={selectedAccount} selected /> : null}
+                {accounts
+                    .filter((x) => !isSameProfile(x.profile, currentProfile))
+                    .map((account, index) => (
+                        <ClickableButton
+                            className="flex w-full min-w-0 items-center justify-between gap-3 rounded px-2 py-2 hover:bg-bg md:rounded-none md:px-5"
+                            key={account.profile.profileId}
+                            onClick={() => {
+                                switchAccount(account);
+                            }}
+                        >
+                            <ProfileAvatar profile={account.profile} clickable linkable />
+                            <ProfileName profile={account.profile} />
+                            {isSameProfile(account.profile, currentProfile) ? <CircleCheckboxIcon checked /> : null}
+                        </ClickableButton>
+                    ))}
             </div>
 
             <hr className="mb-3 border-b border-t-0 border-line" />

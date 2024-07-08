@@ -12,61 +12,27 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { FarcasterSignType, NODE_ENV, Source } from '@/constants/enum.js';
-import { AbortError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { FarcasterSignType, Source } from '@/constants/enum.js';
+import { AbortError, NotImplementedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
-import { addAccount } from '@/helpers/account.js';
+import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
-import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
+import { LoginModalRef } from '@/modals/controls.js';
+import type { Account } from '@/providers/types/Account.js';
+import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
+import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
 
-async function login(
-    createSession: () => Promise<FarcasterSession>,
-    options?: { skipSyncSessions?: boolean; signal?: AbortSignal },
-) {
+async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
-        const session = await createSession();
-        const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
-
-        // add new account for farcaster
-        await addAccount({
-            session,
-            profile,
-        });
-
-        enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
-
-        // restore profile exclude farcaster
-        if (!options?.skipSyncSessions) {
-            await FireflySessionConfirmModalRef.openAndWaitForClose({
-                source: Source.Farcaster,
-                accounts: await syncAccountsFromFirefly(options?.signal),
-                onDetected(profiles) {
-                    if (!profiles.length)
-                        enqueueInfoMessage(t`No device accounts detected.`, {
-                            environment: NODE_ENV.Development,
-                        });
-                    LoginModalRef.close();
-                },
-            });
-        } else {
-            LoginModalRef.close();
-        }
+        const done = await addAccount(await createAccount(), options);
+        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
+        LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;
@@ -136,7 +102,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermission((url) => {
+                    createAccountByGrantPermission((url) => {
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
@@ -162,9 +128,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 async () => {
-                    const previousSession = fireflySessionHolder.session;
-
-                    const session = await createSessionByRelayService((url) => {
+                    const account = await createAccountByRelayService((url) => {
                         resetCountdown();
                         startCountdown();
                         setScanned(false);
@@ -178,42 +142,19 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                     setScanned(true);
                     setProfileError(null);
 
-                    // for relay service we need to sync the session from firefly
-                    // and find out the the signer key of the connected profile
-                    const accounts = await syncAccountsFromFirefly(controller.current.signal);
-
-                    // if the user has signed into Firefly before, a synced session could be found.
-                    const nextAccount = accounts.find((x) => isSameSession(x.session, session));
-
-                    if (!nextAccount) {
-                        // the current profile did not connect to firefly
-                        // we need to restore the staled session and keep everything untouched
-                        if (previousSession) fireflySessionHolder.resumeSession(previousSession);
-
-                        try {
-                            const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
-
-                            setProfileError(
-                                new ProfileNotConnectedError(
-                                    profile,
-                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
-                                ),
-                            );
-                        } catch {
-                            setProfileError(
-                                new ProfileNotConnectedError(
-                                    null,
-                                    t`You didn't connect with Firefly before, need to connect first to fully log in.`,
-                                ),
-                            );
-                        }
-
+                    if (!account.session.token) {
+                        setProfileError(
+                            new ProfileNotConnectedError(
+                                account.profile,
+                                t`You didn't connect with Firefly before, need to connect first to fully log in.`,
+                            ),
+                        );
                         throw new AbortError();
                     }
 
-                    return nextAccount.session as FarcasterSession;
+                    return account;
                 },
-                { skipSyncSessions: true, signal: controller.current.signal },
+                { signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -229,8 +170,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         try {
             await login(
                 async () => {
-                    const client = await getWalletClientRequired(config);
-                    return createSessionByCustodyWallet(client);
+                    throw new NotImplementedError();
                 },
                 { signal: controller.current.signal },
             );

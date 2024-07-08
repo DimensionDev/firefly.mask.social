@@ -121,6 +121,9 @@ msgstr ""
 msgid "Watching"
 msgstr ""
 
+msgid "Rank #{0}"
+msgstr ""
+
 msgid "Searching channel"
 msgstr ""
 
@@ -208,6 +211,9 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Your account is now connected."
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr ""
 
@@ -245,6 +251,9 @@ msgid "Address is a contract address"
 msgstr ""
 
 msgid "Poll is currently only supported on {0}"
+msgstr ""
+
+msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
 msgid "Offline"
@@ -805,6 +814,9 @@ msgstr ""
 msgid "[Poll]"
 msgstr ""
 
+msgid "Confirm to connect your account status."
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -967,9 +979,6 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "The session is not the same as the current session. Please try again."
-msgstr ""
-
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
@@ -1123,9 +1132,6 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-msgid "Loading..."
-msgstr ""
-
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1142,9 +1148,6 @@ msgid "Cancel recast successfully"
 msgstr ""
 
 msgid "Failed to unfollow."
-msgstr ""
-
-msgid "One click to connect your account status."
 msgstr ""
 
 msgid "Top Collectors"
@@ -1205,6 +1208,9 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
+msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr ""
 
 msgid "Discard"
@@ -1378,9 +1384,6 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-msgid "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr ""
-
 msgid "Skip for now"
 msgstr ""
 
@@ -1490,9 +1493,6 @@ msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
-msgstr ""
-
-msgid "No device accounts detected."
 msgstr ""
 
 msgid "Log out all"

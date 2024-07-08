@@ -23,7 +23,9 @@ import { config } from '@/configs/wagmiClient.js';
 import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -69,8 +71,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         );
                         return;
                     }
-
-                    setProfiles(profiles);
+                    const { accounts } = getProfileState(Source.Lens);
+                    setProfiles(profiles.filter((x) => !accounts.some((y) => isSameProfile(x, y.profile))));
                     setCurrentAccount(account.address);
                     setSource(selectedSource);
                     return;

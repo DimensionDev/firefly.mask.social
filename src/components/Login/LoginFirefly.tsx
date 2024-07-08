@@ -8,43 +8,25 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { NODE_ENV, Source } from '@/constants/enum.js';
 import { AbortError, MalformedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
+import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import { createSessionByGrantPermission } from '@/providers/firefly/createSessionByGrantPermission.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
+import { LoginModalRef } from '@/modals/controls.js';
+import { createAccountByGrantPermission } from '@/providers/firefly/createAccountByGrantPermission.js';
+import type { Account } from '@/providers/types/Account.js';
 import { DeviceType } from '@/types/device.js';
 
-async function login(createSession: () => Promise<FireflySession>, options?: { signal?: AbortSignal }) {
+async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {
     try {
-        fireflySessionHolder.resumeSession(await createSession());
-
-        const accounts = await syncAccountsFromFirefly(options?.signal);
-        if (!accounts.length) {
-            LoginModalRef.close();
-            return;
-        }
-
-        await FireflySessionConfirmModalRef.openAndWaitForClose({
-            source: Source.Firefly,
-            accounts,
-            onDetected(profiles) {
-                if (!profiles.length)
-                    enqueueInfoMessage(t`No device accounts detected.`, {
-                        environment: NODE_ENV.Development,
-                    });
-                LoginModalRef.close();
-            },
-        });
+        const done = await addAccount(await createAccount(), options);
+        if (done) enqueueSuccessMessage(t`Your account is now connected.`);
+        LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;
@@ -79,7 +61,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
         try {
             await login(
                 () =>
-                    createSessionByGrantPermission(async (url) => {
+                    createAccountByGrantPermission(async (url) => {
                         resetCountdown();
                         startCountdown();
                         setScanned(false);

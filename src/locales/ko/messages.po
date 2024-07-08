@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-03 12:01\n"
+"PO-Revision-Date: 2024-07-05 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -204,6 +204,9 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Your account is now connected."
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr ""
 
@@ -214,6 +217,9 @@ msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Login with QR Code"
+msgstr ""
+
+msgid "Market Cap"
 msgstr ""
 
 msgid "Contract source code verified"
@@ -478,9 +484,6 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Cap / FDV"
-msgstr ""
-
-msgid "Market Capital"
 msgstr ""
 
 msgid "Your action provider blocks execution of this action."
@@ -780,6 +783,9 @@ msgstr ""
 msgid "[Poll]"
 msgstr ""
 
+msgid "Confirm to connect your account status."
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -939,9 +945,6 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "The session is not the same as the current session. Please try again."
-msgstr ""
-
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
@@ -1086,9 +1089,6 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-msgid "Loading..."
-msgstr ""
-
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1105,9 +1105,6 @@ msgid "Cancel recast successfully"
 msgstr ""
 
 msgid "Failed to unfollow."
-msgstr ""
-
-msgid "One click to connect your account status."
 msgstr ""
 
 msgid "Top Collectors"
@@ -1165,6 +1162,9 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
+msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr ""
 
 msgid "Discard"
@@ -1341,9 +1341,6 @@ msgstr ""
 msgid "Skip for now"
 msgstr ""
 
-msgid "Failed to restore accounts."
-msgstr ""
-
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1438,9 +1435,6 @@ msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
-msgstr ""
-
-msgid "No device accounts detected."
 msgstr ""
 
 msgid "Log out all"

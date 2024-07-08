@@ -3,8 +3,8 @@ import urlcat from 'urlcat';
 
 import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
-import { getCommunityLink } from '@/helpers/trending.js';
 import type { CoingeckoCoinInfo, CoingeckoPlatform, CoingeckoToken } from '@/providers/types/Coingecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 
@@ -41,7 +41,7 @@ export class Coingecko {
             urlcat(COINGECKO_URL_BASE, `/coins/${coinId}`, {
                 developer_data: false,
                 community_data: false,
-                tickers: true,
+                localization: false,
             }),
         );
     }
@@ -70,23 +70,16 @@ export class Coingecko {
             contracts:
                 coinId === 'avalanche-2'
                     ? [
-                          {
-                              address: '0x1ce0c2827e2ef14d5c4f29a091d735a204794041',
-                              chainId: 56,
-                              runtime: 'ethereum',
-                          },
-                          {
-                              address: '0x4792c1ecb969b036eb51330c63bd27899a13d84e',
-                              chainId: 1284,
-                              runtime: 'ethereum',
-                          },
+                          { address: '0x1ce0c2827e2ef14d5c4f29a091d735a204794041', chainId: 56, runtime: 'ethereum' },
+                          { address: '0x4792c1ecb969b036eb51330c63bd27899a13d84e', chainId: 1284, runtime: 'ethereum' },
                       ]
                     : (Object.entries(info.platforms)
-                          .map(([key, address]) => ({
+                          .map(([runtime, address]) => ({
                               chainId:
-                                  platforms.find((x) => x.id === key)?.chain_identifier ?? resolveCoinGeckoChainId(key),
+                                  platforms.find((x) => x.id === runtime)?.chain_identifier ??
+                                  resolveCoinGeckoChainId(runtime),
                               address,
-                              runtime: key === 'solana' ? 'solona' : 'ethereum',
+                              runtime,
                           }))
                           .filter((x) => x.address) as Contract[]),
             coin: {
@@ -132,17 +125,6 @@ export class Coingecko {
                 });
                 return Object.fromEntries(entries);
             })(),
-            tickers: info.tickers.slice(0, 30).map((x) => ({
-                logo_url: x.market.logo,
-                trade_url: x.trade_url,
-                market_name: x.market.name,
-                base_name: x.base,
-                target_name: x.target,
-                price: x.converted_last.usd,
-                volume: x.converted_volume.usd,
-                score: x.trust_score,
-                updated: new Date(x.timestamp),
-            })),
         };
     }
 }

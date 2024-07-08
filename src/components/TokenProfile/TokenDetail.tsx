@@ -2,9 +2,9 @@ import { t, Trans } from '@lingui/macro';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { first, last } from 'lodash-es';
+import { first } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import { type HTMLProps, memo, type ReactNode, useMemo, useRef, useState } from 'react';
+import { type HTMLProps, memo, type ReactNode, useRef, useState } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import QuestionIcon from '@/assets/question.svg';
@@ -19,7 +19,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
+import { useCoinPrice24hStats, useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
@@ -47,7 +47,7 @@ function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
             {extra ? (
                 <div className="ml-auto">{extra}</div>
             ) : (
-                <div className="ml-auto">
+                <div className="ml-auto font-inter text-[15px] font-bold text-main">
                     {value !== undefined ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
                 </div>
             )}
@@ -95,11 +95,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
 
     const [days, setDays] = useState<number | undefined>(ranges[0].days);
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token?.id, days);
-    const isUp = useMemo(() => {
-        const startPrice = first(priceStats)?.value ?? 0;
-        const endPrice = last(priceStats)?.value ?? 0;
-        return endPrice > startPrice;
-    }, [priceStats]);
+    const { isUp } = useCoinPrice24hStats(token?.id);
 
     usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`, { color: 'currentColor' });
     const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, first(contracts)?.chainId);
@@ -122,35 +118,24 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     width={40}
                     height={40}
                 />
-                <strong className="text-lg font-bold uppercase text-main">{token.symbol}</strong>
-                <span className="font-inter text-[15px] font-bold">{token.name}</span>
-            </div>
-            <div className="line-height-[22px] flex items-center gap-1 text-[15px]">
-                <Trans>
-                    <span className="text-secondary">Price</span>
-                    <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                    <PriceArrow
-                        width={16}
-                        height={16}
-                        className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
-                    />
-                    {market?.price_change_percentage_24h_in_currency !== undefined ? (
-                        <span className={isUp ? 'text-success' : 'text-fail'}>
-                            {market.price_change_percentage_24h_in_currency.toFixed(2)}%
-                        </span>
-                    ) : null}
-                </Trans>
+                <strong className="text-lg font-bold text-main">{token.name}</strong>
+                <span className="font-inter text-[15px] font-bold uppercase">{token.symbol}</span>
+                <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
+                    <Trans>Rank #{token.rank}</Trans>
+                </span>
             </div>
             <div className="line-height-[22px] flex items-center gap-1">
-                <Trans>
-                    <span className="text-[15px] text-secondary">Market Cap</span>
-                    <strong className="text-[15px] font-bold">
-                        {market?.market_cap ? `$${formatPrice(market.market_cap)}` : '-'}
-                    </strong>
-                    <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
-                        Rank #{token.rank}
+                <strong className="text-2xl font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
+                <PriceArrow
+                    width={20}
+                    height={20}
+                    className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
+                />
+                {market?.price_change_percentage_24h_in_currency !== undefined ? (
+                    <span className={isUp ? 'text-success' : 'text-fail'}>
+                        {market.price_change_percentage_24h_in_currency.toFixed(2)}%
                     </span>
-                </Trans>
+                ) : null}
             </div>
             <TokenSecurityBar tokenSecurity={security} />
             <div
@@ -254,9 +239,9 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                         description={
                             <Trans>
                                 <div>
-                                    Copy The amount of coins that have already been created, minus any coins that have
-                                    been burned (removed from circulation). It is comparable to outstanding shares in
-                                    the stock market.
+                                    The amount of coins that have already been created, minus any coins that have been
+                                    burned (removed from circulation). It is comparable to outstanding shares in the
+                                    stock market.
                                 </div>
                                 <div className="mt-2">Total Supply = Onchain supply - burned tokens</div>
                             </Trans>

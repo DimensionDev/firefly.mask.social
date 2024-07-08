@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotAllowedError, NotImplementedError, TimeoutError } from '@/constants/error.js';
+import { NotAllowedError, NotImplementedError, TimeoutError, UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -60,10 +60,14 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
 
             const data = resolveFireflyResponseData(json);
             if (data.fid && data.accountId && data.accessToken) {
-                session.profileId = `${data.fid}`;
+                // overwrite the profile id and token
+                const farcasterSession = session as FarcasterSession;
+                farcasterSession.profileId = `${data.fid}`;
+                if (data.farcaster_signer_private_key) farcasterSession.token = data.farcaster_signer_private_key;
+
                 return new FireflySession(data.accountId, data.accessToken, session);
             }
-            return null;
+            throw new Error('Failed to restore firefly session.');
         }
         case SessionType.Twitter:
             throw new NotImplementedError();
@@ -71,7 +75,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             throw new NotAllowedError();
         default:
             safeUnreachable(type);
-            return null;
+            throw new UnreachableError('session type', type);
     }
 }
 

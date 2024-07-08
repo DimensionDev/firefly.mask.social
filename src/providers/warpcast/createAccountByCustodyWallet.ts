@@ -6,6 +6,7 @@ import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { ErrorResponse, UserResponse } from '@/providers/types/Warpcast.js';
 
 function getWarpcastErrorMessage(response: ErrorResponse) {
@@ -18,7 +19,7 @@ function getWarpcastErrorMessage(response: ErrorResponse) {
  * @param signal
  * @returns
  */
-export async function createSessionByCustodyWallet(
+export async function createAccountByCustodyWallet(
     client: Exclude<GetWalletClientReturnType, null>,
     signal?: AbortSignal,
 ) {
@@ -52,10 +53,16 @@ export async function createSessionByCustodyWallet(
     const errorMessage = getWarpcastErrorMessage(userResponse);
     if (errorMessage) throw new Error(errorMessage);
 
-    return new FarcasterSession(
+    const session = new FarcasterSession(
         userResponse.result.user.fid.toString(),
         response.result.token.secret,
         payload.params.timestamp,
         payload.params.expiresAt,
     );
+    const profile = await FarcasterSocialMediaProvider.getProfileById(userResponse.result.user.fid.toString());
+
+    return {
+        session,
+        profile,
+    };
 }

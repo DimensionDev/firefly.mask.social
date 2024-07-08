@@ -13,25 +13,19 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { NODE_ENV, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { addAccount } from '@/helpers/account.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import {
-    AccountModalRef,
-    ConnectWalletModalRef,
-    FireflySessionConfirmModalRef,
-    LoginModalRef,
-} from '@/modals/controls.js';
-import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
+import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
+import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -46,7 +40,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     const account = useAccount();
     const currentProfile = selectedProfile || first(profiles);
-    const { accounts } = getProfileState(Source.Lens);
 
     const [{ loading }, login] = useAsyncFn(
         async (signless: boolean) => {
@@ -55,37 +48,23 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             controller.current.renew();
 
             try {
-                const session = await createSessionForProfileId(currentProfile.profileId, controller.current.signal);
+                const account = await createAccountForProfileId(currentProfile, controller.current.signal);
 
                 if (!currentProfile.signless && signless) {
                     await updateSignless(true);
                 }
 
-                // add new account for lens
-                await addAccount({
-                    profile: currentProfile,
-                    session,
+                const done = await addAccount(account, {
+                    signal: controller.current.signal,
                 });
-                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+                if (done) {
+                    enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
 
-                const accounts = await syncAccountsFromFirefly(controller.current.signal);
-                if (!accounts.length) {
-                    LoginModalRef.close();
-                    return;
+                    // after login, move the session storage to local storage
+                    await lensSessionHolder.resumeSession(account.session);
                 }
 
-                // restore profiles exclude lens
-                await FireflySessionConfirmModalRef.openAndWaitForClose({
-                    source: Source.Lens,
-                    accounts,
-                    onDetected(profiles) {
-                        if (!profiles.length)
-                            enqueueInfoMessage(t`No device accounts detected.`, {
-                                environment: NODE_ENV.Development,
-                            });
-                        LoginModalRef.close();
-                    },
-                });
+                LoginModalRef.close();
             } catch (error) {
                 // skip if the error is abort error
                 if (AbortError.is(error)) return;
@@ -106,27 +85,24 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     return (
         <div
-            className="flex flex-col overflow-auto rounded-[12px] md:max-h-[535px] md:w-[600px] md:pb-[80px]"
+            className="flex flex-col rounded-[12px] pb-[50px] md:max-h-[535px] md:w-[600px] md:overflow-auto md:pb-[80px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="no-scrollbar flex w-full flex-col gap-4 overflow-auto md:min-h-[300px] md:p-4">
+            <div className="md:no-scrollbar flex w-full flex-col gap-4 md:min-h-[300px] md:overflow-auto md:p-4">
                 {profiles.length ? (
                     <>
                         <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6">
                             <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
-                            {profiles.map((profile) => {
-                                const isAdded = accounts.some((x) => isSameProfile(x.profile, profile));
-                                return (
-                                    <ProfileInList
-                                        key={profile.profileId}
-                                        profile={profile}
-                                        selected={isSameProfile(currentProfile, profile) || isAdded}
-                                        onSelect={setSelectedProfile}
-                                    />
-                                );
-                            })}
+                            {profiles.map((profile) => (
+                                <ProfileInList
+                                    key={profile.profileId}
+                                    profile={profile}
+                                    selected={isSameProfile(currentProfile, profile)}
+                                    onSelect={setSelectedProfile}
+                                />
+                            ))}
                         </div>
                         {currentProfile?.signless ||
                         !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (

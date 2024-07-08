@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-03 12:01\n"
+"PO-Revision-Date: 2024-07-05 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -126,6 +126,9 @@ msgstr ""
 msgid "Watching"
 msgstr ""
 
+msgid "Rank #{0}"
+msgstr ""
+
 msgid "Searching channel"
 msgstr "搜尋頻道"
 
@@ -213,6 +216,9 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Your account is now connected."
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr ""
 
@@ -250,6 +256,9 @@ msgid "Address is a contract address"
 msgstr ""
 
 msgid "Poll is currently only supported on {0}"
+msgstr ""
+
+msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
 msgid "Offline"
@@ -810,6 +819,9 @@ msgstr "成功取消轉發"
 msgid "[Poll]"
 msgstr ""
 
+msgid "Confirm to connect your account status."
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -972,9 +984,6 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "The session is not the same as the current session. Please try again."
-msgstr ""
-
 msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
@@ -1128,9 +1137,6 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-msgid "Loading..."
-msgstr ""
-
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1148,9 +1154,6 @@ msgstr ""
 
 msgid "Failed to unfollow."
 msgstr "取消追蹤失敗"
-
-msgid "One click to connect your account status."
-msgstr ""
 
 msgid "Top Collectors"
 msgstr ""
@@ -1210,6 +1213,9 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr "在您安裝了 <0>Firefly</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼。"
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
+msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr ""
 
 msgid "Discard"
@@ -1383,9 +1389,6 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-msgid "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr ""
-
 msgid "Skip for now"
 msgstr ""
 
@@ -1495,9 +1498,6 @@ msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
-msgstr ""
-
-msgid "No device accounts detected."
 msgstr ""
 
 msgid "Log out all"

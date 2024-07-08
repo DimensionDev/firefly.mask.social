@@ -53,8 +53,28 @@ export interface Platform {
     slug: string;
     symbol: string;
 }
+
+// extract from https://coingecko-agent.r2d2.to/api/v3/coins/usd-coin
+export type Runtime =
+    | 'ethereum'
+    | 'polkadot'
+    | 'base'
+    | 'optimistic-ethereum'
+    | 'stellar'
+    | 'near-protocol'
+    | 'hedera-hashgraph'
+    | 'zksync'
+    | 'avalanche'
+    | 'tron'
+    | 'arbitrum-one'
+    | 'polygon-pos'
+    | 'algorand'
+    | 'solana'
+    | 'flow'
+    | 'celo';
+
 export interface Contract {
-    runtime: 'ethereum' | 'solona';
+    runtime: Runtime;
     chainId?: number;
     address: string;
     icon_url?: string;
@@ -131,6 +151,5 @@ export interface Trending {
     platform?: Platform;
     contracts?: Contract[];
     market?: Market;
-    tickers: Ticker[];
     lastUpdated: string;
 }

@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { NotAllowedError, NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
@@ -12,9 +12,9 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
-async function bindLensSessionToFirefly(session: LensSession, signal?: AbortSignal) {
+async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/bindLens'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindLens'),
         {
             method: 'POST',
             body: JSON.stringify({
@@ -30,8 +30,10 @@ async function bindLensSessionToFirefly(session: LensSession, signal?: AbortSign
 }
 
 async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?: AbortSignal) {
+    if (!FarcasterSession.isGrantByPermission(session)) throw new NotAllowedError();
+
     const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/bindFarcaster'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindFarcaster'),
         {
             method: 'POST',
             body: JSON.stringify({
@@ -56,7 +58,7 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
  * @param signal
  * @returns
  */
-export async function bindSessionToFirefly(session: Session, signal?: AbortSignal) {
+export async function bindFireflySession(session: Session, signal?: AbortSignal) {
     // Ensure that the Firefly session is resumed before calling this function.
     fireflySessionHolder.assertSession();
 
@@ -64,7 +66,7 @@ export async function bindSessionToFirefly(session: Session, signal?: AbortSigna
         case SessionType.Farcaster:
             return await bindFarcasterSessionToFirefly(session as FarcasterSession, signal);
         case SessionType.Lens:
-            return await bindLensSessionToFirefly(session as LensSession, signal);
+            return await bindLensToFirefly(session as LensSession, signal);
         case SessionType.Twitter:
             return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Firefly:
