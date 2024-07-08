@@ -38,10 +38,10 @@ interface InfoRowProps {
 function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
     return (
         <div className="flex items-center text-[15px]">
-            <span color="text-second">{title}</span>
+            <span className="text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description}>
-                    <QuestionIcon className="ml-1 cursor-pointer" width={14} height={14} />
+                    <QuestionIcon className="ml-1 cursor-pointer text-second" width={14} height={14} />
                 </Tooltip>
             ) : null}
             {extra ? (
