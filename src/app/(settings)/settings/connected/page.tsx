@@ -38,12 +38,12 @@ export default function Connected() {
         enqueueSuccessMessage(t`Copied`);
     }, [address, copyToClipboard]);
 
-    useNavigatorTitle(t`Connected Accounts`);
+    useNavigatorTitle(t`Connected accounts`);
 
     return (
         <Section>
             <Headline>
-                <Trans>Connected Accounts</Trans>
+                <Trans>Connected accounts</Trans>
             </Headline>
 
             {SORTED_SOCIAL_SOURCES.map((x) => {

@@ -83,8 +83,8 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         const allNodes = $dfs();
                         const mentionNodes = allNodes.filter((x) => $isMentionNode(x.node));
-
-                        const newChars: Chars = markdown
+                        const temp = markdown.replace('\n', '') === '' ? '' : markdown;
+                        const newChars: Chars = temp
                             .split(/(@[^\s()@:%+~#?&=,!?']+)/g)
                             .filter(Boolean)
                             .map((x) => {

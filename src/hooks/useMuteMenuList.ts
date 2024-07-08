@@ -21,28 +21,28 @@ export const useMuteMenuList = (): MuteMenu[] => {
         const fullMuteMenuList: MuteMenu[] = [
             {
                 id: MuteMenuId.FarcasterProfiles,
-                name: t`${resolveSourceName(Source.Farcaster)} Users`,
+                name: t`${resolveSourceName(Source.Farcaster)} users`,
                 source: Source.Farcaster,
                 type: 'profile',
                 disabled: false,
             },
             {
                 id: MuteMenuId.FarcasterChannels,
-                name: t`${resolveSourceName(Source.Farcaster)} Channels`,
+                name: t`${resolveSourceName(Source.Farcaster)} channels`,
                 source: Source.Farcaster,
                 type: 'channel',
                 disabled: false,
             },
             {
                 id: MuteMenuId.LensProfiles,
-                name: t`${resolveSourceName(Source.Lens)} Users`,
+                name: t`${resolveSourceName(Source.Lens)} users`,
                 source: Source.Lens,
                 type: 'profile',
                 disabled: false,
             },
             {
                 id: MuteMenuId.XProfiles,
-                name: t`${resolveSourceName(Source.Twitter)} Users`,
+                name: t`${resolveSourceName(Source.Twitter)} users`,
                 source: Source.Twitter,
                 type: 'profile',
                 disabled: false,
