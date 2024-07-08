@@ -99,7 +99,7 @@ function getOembedUrls(metadata: LinkMetadataV3Fragment | TextOnlyMetadataV3Frag
     ).map((url) => {
         if (isValidPollFrameUrl(url)) return composePollFrameUrl(url, Source.Lens);
         return url;
-    })
+    });
 }
 
 function formatContent(metadata: PublicationMetadataFragment, author: Profile) {

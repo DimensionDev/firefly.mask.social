@@ -287,12 +287,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         },
         compose(images, videos) {
             const video = first(videos) ?? null;
-            return publishPostForLens(
-                currentProfile.profileId,
-                readChars(chars, 'both', Source.Lens),
-                images,
-                video,
-            );
+            return publishPostForLens(currentProfile.profileId, readChars(chars, 'both', Source.Lens), images, video);
         },
         reply(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);

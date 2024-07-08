@@ -519,8 +519,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         poll,
                         chars: !poll
                             ? (Array.isArray(post.chars) ? post.chars : [post.chars]).filter(
-                                    (x) => typeof x === 'string' || x.tag !== CHAR_TAG.FRAME,
-                                )
+                                  (x) => typeof x === 'string' || x.tag !== CHAR_TAG.FRAME,
+                              )
                             : post.chars,
                     }),
                     cursor,
