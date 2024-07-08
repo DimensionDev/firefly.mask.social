@@ -736,6 +736,9 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
+msgid "There are images that were not uploaded successfully."
+msgstr ""
+
 msgid "No mint function"
 msgstr ""
 

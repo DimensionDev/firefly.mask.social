@@ -736,6 +736,9 @@ msgstr "Open in Firefly App"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
+msgid "There are images that were not uploaded successfully."
+msgstr "There are images that were not uploaded successfully."
+
 msgid "No mint function"
 msgstr "No mint function"
 
