@@ -35,7 +35,7 @@ function toggleBlock(address: string, status: boolean) {
         });
     });
     // Muted status in wallet profile
-    queryClient.setQueryData(['address-is-muted', address], status);
+    queryClient.setQueryData(['address-is-muted', address.toLowerCase()], status);
 
     const nftsPatcher = (old: Draft<NFTPagesData> | undefined) => {
         if (!old) return old;
