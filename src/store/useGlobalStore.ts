@@ -17,6 +17,7 @@ export function getCurrentSource() {
 
 interface GlobalState {
     routeChanged: boolean;
+    collapsedConnectWallet: boolean;
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
     virtuosoState: Record<'temporary' | 'cached', Record<string, StateSnapshot | undefined>>;
@@ -28,12 +29,14 @@ interface GlobalState {
         identity: string;
     };
     updateCurrentProfileState: (state: { source: Source; identity: string }) => void;
+    updateCollapsedConnectWallet: (collapsed: boolean) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
         immer((set) => ({
             routeChanged: false,
+            collapsedConnectWallet: false,
             currentSource: getCurrentSource(),
             updateCurrentSource: (source: Source) =>
                 set((state) => {
@@ -65,6 +68,11 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             setVirtuosoState: (key, listKey, snapshot) => {
                 set((state) => {
                     state.virtuosoState[key][listKey] = snapshot;
+                });
+            },
+            updateCollapsedConnectWallet(collapsed) {
+                set((state) => {
+                    state.collapsedConnectWallet = collapsed;
                 });
             },
         })),

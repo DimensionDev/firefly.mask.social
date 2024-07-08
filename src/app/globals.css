@@ -332,3 +332,18 @@ body.not-support .fixed.inset-y-0 {
     display: flex;
     justify-content: center;
 }
+
+.wallet-adapter-modal-list .wallet-adapter-button {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.wallet-adapter-modal-list li {
+    width: 100%;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button .wallet-adapter-button-start-icon {
+    min-width: 28px;
+}

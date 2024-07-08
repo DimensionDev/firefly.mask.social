@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { clone, difference, uniq } from 'lodash-es';
+import { clone, compact, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
@@ -13,6 +13,7 @@ import { CHAR_TAG, type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { createPoll } from '@/helpers/polls.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import { BlinkParser } from '@/providers/blink/Parser.js';
@@ -20,7 +21,7 @@ import { FrameLoader } from '@/providers/frame/Loader.js';
 import { OpenGraphLoader } from '@/providers/og/Loader.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
-import type { Action } from '@/types/blink.js';
+import type { Action, ActionScheme } from '@/types/blink.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { OpenGraph } from '@/types/og.js';
@@ -472,13 +473,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             const parsedActionSchemes = BlinkParser.extractSchemes(content);
             const urls = parsedActionSchemes.map((x) => x.url);
             const frames = await FrameLoader.occupancyLoad(urls);
-            const openGraphs = await OpenGraphLoader.occupancyLoad(
-                difference(
-                    urls.slice(-1),
-                    frames.map((x) => x.url),
-                ),
-            );
             const actions = await BlinkLoader.occupancyLoad(parsedActionSchemes.map((url) => JSON.stringify(url)));
+            const openGraphs = await OpenGraphLoader.occupancyLoad(
+                difference(urls.slice(-1), [
+                    ...frames.map((x) => x.url),
+                    ...compact(actions.map((x) => parseJSON<ActionScheme>(x.url)?.url)),
+                ]),
+            );
 
             set((state) =>
                 next(
