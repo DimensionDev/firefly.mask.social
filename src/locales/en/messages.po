@@ -943,6 +943,9 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+msgstr "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 
@@ -984,9 +987,6 @@ msgstr "Invalid URL."
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-
-msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
-msgstr "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
@@ -1384,6 +1384,9 @@ msgstr "Back"
 msgid "Posting..."
 msgstr "Posting..."
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked."
+msgstr "This Action has been flagged as an unsafe action, & has been blocked."
+
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "No Lens profile found. Please change to another wallet."
 
@@ -1578,9 +1581,6 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
-
-msgid "Ignore warning and proceed"
-msgstr "Ignore warning and proceed"
 
 msgid "NFT ID"
 msgstr "NFT ID"

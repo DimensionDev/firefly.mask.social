@@ -239,22 +239,18 @@ export function ActionContainer({
         if (actionState === 'malicious' && executionState.status === 'blocked') {
             return (
                 <div className="rounded-2xl border border-danger bg-danger/10 p-4 text-[15px] leading-5 text-danger">
-                    <p>
-                        <Trans>
-                            This Action has been flagged as an unsafe action, & has been blocked. If you believe this
-                            action has been blocked in error, please.
-                        </Trans>
-                        {!isPassingSecurityCheck ? (
-                            <Trans>Your action provider blocks execution of this action.</Trans>
-                        ) : null}
-                    </p>
+                    <Trans>This Action has been flagged as an unsafe action, & has been blocked.</Trans>
                     {isPassingSecurityCheck ? (
-                        <ClickableButton
-                            className="mt-3 text-[15px] font-bold leading-5 text-danger"
-                            onClick={() => dispatch({ type: ExecutionType.UNBLOCK })}
-                        >
-                            <Trans>Ignore warning and proceed</Trans>
-                        </ClickableButton>
+                        <Trans>
+                            If you believe this action has been blocked in error, please <br />
+                            <ClickableButton
+                                className="mt-3 text-[15px] font-bold leading-5 text-danger"
+                                onClick={() => dispatch({ type: ExecutionType.UNBLOCK })}
+                            >
+                                Ignore warning and proceed
+                            </ClickableButton>
+                            .
+                        </Trans>
                     ) : null}
                 </div>
             );

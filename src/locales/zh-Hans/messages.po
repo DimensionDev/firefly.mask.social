@@ -948,6 +948,9 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+msgstr ""
+
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr ""
 
@@ -989,9 +992,6 @@ msgstr "无效的 URL。"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
-
-msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
-msgstr ""
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -1389,6 +1389,9 @@ msgstr "返回"
 msgid "Posting..."
 msgstr "发帖中..."
 
+msgid "This Action has been flagged as an unsafe action, & has been blocked."
+msgstr ""
+
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"
 
@@ -1583,9 +1586,6 @@ msgstr ""
 
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
-
-msgid "Ignore warning and proceed"
-msgstr ""
 
 msgid "NFT ID"
 msgstr "NFT ID"
