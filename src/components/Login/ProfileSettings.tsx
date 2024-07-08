@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { signOut } from 'next-auth/react';
 import { useMount } from 'react-use';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';

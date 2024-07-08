@@ -1,5 +1,4 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { first } from 'lodash-es';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -98,6 +97,7 @@ function createState(
                     }),
                 resetCurrentAccount: () =>
                     set((state) => {
+                        if (!state.currentProfile) return;
                         state.currentProfile = null;
                         state.currentProfileSession = null;
                     }),
