@@ -8,7 +8,7 @@ import { ChainId as SolanaChainId, encodePublicKey, formatAddress } from '@maskn
 import { useAccountModal as useAccountModalEVM, useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -27,6 +27,8 @@ interface ConnectWalletProps {
     collapsed?: boolean;
 }
 
+let globalCollapsed = false;
+
 export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWalletProps) {
     const mounted = useMounted();
 
@@ -41,7 +43,11 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(globalCollapsed);
+
+    useEffect(() => {
+        globalCollapsed = collapsed;
+    }, [collapsed]);
 
     const chainTypes = [
         {
