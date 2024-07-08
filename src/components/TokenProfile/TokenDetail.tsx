@@ -110,15 +110,15 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
 
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 px-3 py-3 sm:px-6', rest.className)}>
-            <div className="flex items-center gap-2.5 text-second">
+            <div className="flex items-center gap-1 text-second">
                 <Image
                     className="overflow-hidden rounded-full"
                     src={token.logoURL}
                     alt={token.name}
-                    width={40}
-                    height={40}
+                    width={24}
+                    height={24}
                 />
-                <strong className="text-lg font-bold text-main">{token.name}</strong>
+                <strong className="ml-0.5 text-[15px] font-bold text-main">{token.name}</strong>
                 <span className="font-inter text-[15px] font-bold uppercase">{token.symbol}</span>
                 <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
                     <Trans>Rank #{token.rank}</Trans>
@@ -132,7 +132,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
                 />
                 {market?.price_change_percentage_24h_in_currency !== undefined ? (
-                    <span className={isUp ? 'text-success' : 'text-fail'}>
+                    <span className={isUp ? 'text-[15px] text-success' : 'text-[15px] text-fail'}>
                         {market.price_change_percentage_24h_in_currency.toFixed(2)}%
                     </span>
                 ) : null}
