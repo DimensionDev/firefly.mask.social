@@ -486,9 +486,6 @@ msgstr "连接钱包"
 msgid "Feed"
 msgstr "信息流"
 
-msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
-msgstr ""
-
 msgid "Recasts"
 msgstr "转帖"
 
@@ -1106,6 +1103,9 @@ msgstr "分享"
 
 msgid "Your frame URL."
 msgstr "您 Frame 的 URL。"
+
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>"
+msgstr ""
 
 msgid "Remaining"
 msgstr "剩余"

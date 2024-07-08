@@ -481,9 +481,6 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
-msgid "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
-msgstr "If you believe this action has been blocked in error, please <0/> <1>Ignore warning and proceed</1>"
-
 msgid "Recasts"
 msgstr "Recasts"
 
@@ -1101,6 +1098,9 @@ msgstr "Share"
 
 msgid "Your frame URL."
 msgstr "Your frame URL."
+
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>"
+msgstr "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>"
 
 msgid "Remaining"
 msgstr "Remaining"
