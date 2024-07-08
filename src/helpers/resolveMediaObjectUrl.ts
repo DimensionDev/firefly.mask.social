@@ -50,20 +50,28 @@ export function createIPFSMediaObject(ipfs: IPFSResponse, media: MediaObject): M
     };
 }
 
-export function createTwitterMediaObject(twitterRes: TwitterMediaResponse): MediaObject {
+export function createTwitterMediaObject(twitterRes: TwitterMediaResponse, media: MediaObject): MediaObject {
     return {
-        id: twitterRes.media_id_string,
+        ...media,
         file: twitterRes.file,
         mimeType: twitterRes.file.type,
+        uploadIds: {
+            [MediaSource.Twimg]: twitterRes.media_id_string,
+        },
     };
 }
 
-export function resolveMediaObjectUrl(media: MediaObject | null, sources = SORTED_MEDIA_SOURCES) {
-    if (!media) return '';
-    // the first source that has a url will be used as the preview
-    const source = sources.find((x) => !!media.urls?.[x]);
-    return source ? media.urls?.[source] ?? '' : '';
+function resolveMediaObjectBy(key: 'urls' | 'uploadIds') {
+    return function (media: MediaObject | null, sources = SORTED_MEDIA_SOURCES) {
+        if (!media) return '';
+        // the first source that has a url will be used as the preview
+        const source = sources.find((x) => !!media[key]?.[x]);
+        return source ? media[key]?.[source] ?? '' : '';
+    }
 }
+
+export const resolveMediaObjectUrl = resolveMediaObjectBy('urls');
+export const resolveMediaObjectUploadId = resolveMediaObjectBy('uploadIds');
 
 const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[]>(
     {
@@ -93,4 +101,8 @@ export function resolveImageUrl(source: SocialSource, media: MediaObject | null)
 
 export function resolveVideoUrl(source: SocialSource, media: MediaObject | null) {
     return resolveMediaObjectUrl(media, resolveVideoSources(source));
+}
+
+export function resolveUploadId(source: SocialSource, media: MediaObject | null) {
+    return resolveMediaObjectUploadId(media, resolveImageSources(source));
 }

@@ -14,4 +14,5 @@ export interface MediaObject {
     file: File;
     mimeType: string;
     urls?: Partial<Record<MediaSource, string>>;
+    uploadIds?: Partial<Record<MediaSource, string>>;
 }
