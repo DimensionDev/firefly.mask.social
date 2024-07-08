@@ -1390,9 +1390,6 @@ msgstr "Skip for now"
 msgid "Validate failed, please check your input"
 msgstr "Validate failed, please check your input"
 
-msgid "Failed to restore accounts."
-msgstr "Failed to restore accounts."
-
 msgid "Login to enable all features"
 msgstr "Login to enable all features"
 

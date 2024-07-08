@@ -1395,9 +1395,6 @@ msgstr "跳过"
 msgid "Validate failed, please check your input"
 msgstr ""
 
-msgid "Failed to restore accounts."
-msgstr ""
-
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
