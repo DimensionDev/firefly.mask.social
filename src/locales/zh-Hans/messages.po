@@ -49,7 +49,7 @@ msgid "Report @{0}"
 msgstr "报告 @{0}"
 
 msgid "Sell Tax: {0}%"
-msgstr "销售费用: {0}%"
+msgstr "售卖费用: {0}%"
 
 msgid "Retweet"
 msgstr "转帖"
@@ -114,8 +114,11 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
+msgid "Failed to fetch: {0}. Please try again later."
+msgstr "获取失败: {0}。请稍后重试。"
+
 msgid "We are not aware of any code that prevents the sale of tokens."
-msgstr "我们没察觉到有任何阻止 Token 销售的代码逻辑。"
+msgstr "我们没察觉到有任何阻止 Token 售卖的代码逻辑。"
 
 msgid "Watching"
 msgstr "观察中"
@@ -381,9 +384,6 @@ msgstr "至多可以选择 2 张图片。"
 msgid "Failed to delete"
 msgstr "删除失败"
 
-msgid "Failed to fetch: {0}. Please try again later"
-msgstr "获取失败: {0}. 请稍后重试"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -421,7 +421,7 @@ msgid "The blacklist function is not included. If there is a blacklist, some add
 msgstr ""
 
 msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr "合约所有人也许没有拥有修改交易费用的权力。 如果交易费用增加到超过49%，Token 将无法交易(欺诈风险)。"
+msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易(欺诈风险)。"
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -497,6 +497,9 @@ msgstr "OpenGraph 验证器"
 
 msgid "Connect Wallet"
 msgstr "连接钱包"
+
+msgid "Not Found. Please check your URL[{0}]."
+msgstr "未找到。请检查你的 URL [{0}]。"
 
 msgid "Feed"
 msgstr "信息流"
@@ -595,7 +598,7 @@ msgid "Unmuting..."
 msgstr "取消屏蔽中..."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
+msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
 msgid "Top Channels"
 msgstr "热门频道"
@@ -729,9 +732,6 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 msgid "Top Profiles"
 msgstr "热门用户"
 
-msgid "Forbidden. Please check your permissions"
-msgstr "禁用。请检查您的权限"
-
 msgid "mirrors"
 msgstr "转帖"
 
@@ -747,9 +747,6 @@ msgstr "[红包]"
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
 
-msgid "Unauthorized. Please check your login"
-msgstr "未授权认证。请重新登录"
-
 msgid "Choice {0}"
 msgstr "选项 {0}"
 
@@ -764,6 +761,9 @@ msgstr "打开 Firefly App"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
+
+msgid "Forbidden. Please check your permissions."
+msgstr "禁止！请检查您的权限。"
 
 msgid "There are images that were not uploaded successfully."
 msgstr ""
@@ -808,7 +808,7 @@ msgid "Only people you mention"
 msgstr "只有你提及的人"
 
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr "此 Token 不是由其声明的团队发布的。 某些骗子将创建一个相同名称的 Token 来欺诈用户。"
+msgstr "此 Token 不是由其声明的团队发布的。某些骗子将创建一个相同名称的 Token 来欺诈用户。"
 
 msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
@@ -836,9 +836,6 @@ msgstr ""
 
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
-
-msgid "Internal Server Error. Please try again later"
-msgstr "内部服务错误。请稍后重试"
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "未能解析铸造 URL = {0}。"
@@ -952,7 +949,7 @@ msgid "If you believe this action has been blocked in error, please <0/><1>Ignor
 msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
-msgstr "此合约是一个管理升级代理合约。 代理合约意味着合同所有者可以修改代币的功能，并且可能影响价格。 这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
+msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改代币的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
@@ -1057,7 +1054,7 @@ msgid "No matching channel"
 msgstr "没有匹配到频道"
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
+msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
 msgid "What's happening..."
 msgstr "正在发生..."
@@ -1148,9 +1145,6 @@ msgstr "引用"
 
 msgid "View engagements"
 msgstr "查看互动"
-
-msgid "Not Found. Please check your URL[{0}]"
-msgstr "未找到。请检查你的 URL [{0}]"
 
 msgid "Translated"
 msgstr "已翻译"
@@ -1341,6 +1335,9 @@ msgstr "通知"
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
 
+msgid "Internal Server Error. Please try again later."
+msgstr "内部服务错误。请稍后重试。"
+
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
@@ -1402,7 +1399,7 @@ msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
-msgstr "合约可能含有额外的发行功能，这可能会产生大量的代币，导致代币价格的重大波动。 建议向项目组确认它是否遵守 Token 发行准则。"
+msgstr "合约可能含有额外的发行功能，这可能会产生大量的代币，导致代币价格的重大波动。建议向项目组确认它是否遵守 Token 发行准则。"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
@@ -1425,8 +1422,8 @@ msgstr "没有白名单"
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 
-msgid "Cannot continue due to wallet mismatch"
-msgstr "钱包不匹配无法继续"
+msgid "Cannot continue due to wallet mismatch."
+msgstr "钱包不匹配无法继续。"
 
 msgid "Muting..."
 msgstr "屏蔽中..."
@@ -1435,7 +1432,7 @@ msgid "Failed to mirror post."
 msgstr "转发失败。"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr "合约所有人也许拥有修改交易费用的权力。 如果交易费用增加到超过49%，Token 将无法交易(欺诈风险)。"
+msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易(欺诈风险)。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
@@ -1628,6 +1625,9 @@ msgstr "点击复制"
 
 msgid "Unmute @{0}"
 msgstr "取消屏蔽 @{0}"
+
+msgid "Unauthorized. Please check your login."
+msgstr "未授权认证。请重新登录。"
 
 msgid "Mask Network"
 msgstr "Mask Network"
@@ -1835,4 +1835,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

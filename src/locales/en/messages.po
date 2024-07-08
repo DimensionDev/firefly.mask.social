@@ -109,6 +109,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
+msgid "Failed to fetch: {0}. Please try again later."
+msgstr "Failed to fetch: {0}. Please try again later."
+
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr "We are not aware of any code that prevents the sale of tokens."
 
@@ -376,9 +379,6 @@ msgstr "Only up to 2 images can be chosen."
 msgid "Failed to delete"
 msgstr "Failed to delete"
 
-msgid "Failed to fetch: {0}. Please try again later"
-msgstr "Failed to fetch: {0}. Please try again later"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
@@ -492,6 +492,9 @@ msgstr "OpenGraph Validator"
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
+
+msgid "Not Found. Please check your URL[{0}]."
+msgstr "Not Found. Please check your URL[{0}]."
 
 msgid "Feed"
 msgstr "Feed"
@@ -724,9 +727,6 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
-msgid "Forbidden. Please check your permissions"
-msgstr "Forbidden. Please check your permissions"
-
 msgid "mirrors"
 msgstr "mirrors"
 
@@ -742,9 +742,6 @@ msgstr "[LuckyDrop]"
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
 
-msgid "Unauthorized. Please check your login"
-msgstr "Unauthorized. Please check your login"
-
 msgid "Choice {0}"
 msgstr "Choice {0}"
 
@@ -759,6 +756,9 @@ msgstr "Open in Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
+
+msgid "Forbidden. Please check your permissions."
+msgstr "Forbidden. Please check your permissions."
 
 msgid "There are images that were not uploaded successfully."
 msgstr "There are images that were not uploaded successfully."
@@ -831,9 +831,6 @@ msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention ite
 
 msgid "Hide more comments"
 msgstr "Hide more comments"
-
-msgid "Internal Server Error. Please try again later"
-msgstr "Internal Server Error. Please try again later"
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "Failed to resolve mint URL = {0}."
@@ -1144,9 +1141,6 @@ msgstr "Quote"
 msgid "View engagements"
 msgstr "View engagements"
 
-msgid "Not Found. Please check your URL[{0}]"
-msgstr "Not Found. Please check your URL[{0}]"
-
 msgid "Translated"
 msgstr "Translated"
 
@@ -1335,6 +1329,9 @@ msgstr "All notifications"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
+
+msgid "Internal Server Error. Please try again later."
+msgstr "Internal Server Error. Please try again later."
 
 msgid "The frame server failed to process the request."
 msgstr "The frame server failed to process the request."
@@ -1623,6 +1620,9 @@ msgstr "Click to copy"
 
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"
+
+msgid "Unauthorized. Please check your login."
+msgstr "Unauthorized. Please check your login."
 
 msgid "Mask Network"
 msgstr "Mask Network"

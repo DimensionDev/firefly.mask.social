@@ -109,6 +109,9 @@ msgstr ""
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
+msgid "Failed to fetch: {0}. Please try again later."
+msgstr ""
+
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
@@ -376,9 +379,6 @@ msgstr ""
 msgid "Failed to delete"
 msgstr ""
 
-msgid "Failed to fetch: {0}. Please try again later"
-msgstr ""
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -491,6 +491,9 @@ msgid "OpenGraph Validator"
 msgstr ""
 
 msgid "Connect Wallet"
+msgstr ""
+
+msgid "Not Found. Please check your URL[{0}]."
 msgstr ""
 
 msgid "Feed"
@@ -724,9 +727,6 @@ msgstr ""
 msgid "Top Profiles"
 msgstr ""
 
-msgid "Forbidden. Please check your permissions"
-msgstr ""
-
 msgid "mirrors"
 msgstr ""
 
@@ -742,9 +742,6 @@ msgstr ""
 msgid "Failed to unvote post."
 msgstr ""
 
-msgid "Unauthorized. Please check your login"
-msgstr ""
-
 msgid "Choice {0}"
 msgstr ""
 
@@ -758,6 +755,9 @@ msgid "Open in Firefly App"
 msgstr ""
 
 msgid "Privacy Policy"
+msgstr ""
+
+msgid "Forbidden. Please check your permissions."
 msgstr ""
 
 msgid "There are images that were not uploaded successfully."
@@ -830,9 +830,6 @@ msgid "{attentionFactors, plural, one {# Attention item} other {# Attention item
 msgstr ""
 
 msgid "Hide more comments"
-msgstr ""
-
-msgid "Internal Server Error. Please try again later"
 msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
@@ -1144,9 +1141,6 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
-msgid "Not Found. Please check your URL[{0}]"
-msgstr ""
-
 msgid "Translated"
 msgstr ""
 
@@ -1334,6 +1328,9 @@ msgid "All notifications"
 msgstr ""
 
 msgid "You can save this to send later from your drafts."
+msgstr ""
+
+msgid "Internal Server Error. Please try again later."
 msgstr ""
 
 msgid "The frame server failed to process the request."
@@ -1622,6 +1619,9 @@ msgid "Click to copy"
 msgstr ""
 
 msgid "Unmute @{0}"
+msgstr ""
+
+msgid "Unauthorized. Please check your login."
 msgstr ""
 
 msgid "Mask Network"
