@@ -41,7 +41,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { checkLensAccountOwner } from '@/helpers/checkLensAccountOwner.js';
+import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
@@ -136,8 +136,9 @@ class LensSocialMedia implements Provider {
 
             return resultValue.id;
         } else {
+            await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const resultTypedData = await lensSessionHolder.sdk.publication.createMomokaPostTypedData({
                 contentURI: post.metadata.contentURI,
             });
@@ -205,8 +206,9 @@ class LensSocialMedia implements Provider {
         const resultValue = result.unwrap();
 
         if (!isRelaySuccess(resultValue)) {
+            await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const resultTypedData = await lensSessionHolder.sdk.publication.createOnchainMirrorTypedData({
                 mirrorOn: postId,
             });
@@ -259,8 +261,9 @@ class LensSocialMedia implements Provider {
 
             return resultValue.id;
         } else {
+            await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const resultTypedData = await lensSessionHolder.sdk.publication.createMomokaQuoteTypedData({
                 quoteOn: postId,
                 contentURI: intro,
@@ -298,8 +301,9 @@ class LensSocialMedia implements Provider {
         const resultValue = result.unwrap();
 
         if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
+            await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const resultTypedData = await lensSessionHolder.sdk.publication.createOnchainQuoteTypedData({
                 quoteOn: postId,
                 contentURI: intro,
@@ -369,8 +373,9 @@ class LensSocialMedia implements Provider {
 
             return resultValue.id;
         } else {
+            await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const resultTypedData = await lensSessionHolder.sdk.publication.createMomokaCommentTypedData({
                 commentOn: postId,
                 contentURI: comment,
@@ -408,8 +413,9 @@ class LensSocialMedia implements Provider {
         const resultValue = result.unwrap();
 
         if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
+            await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const resultTypedData = await lensSessionHolder.sdk.publication.createOnchainCommentTypedData({
                 commentOn: postId,
                 contentURI: comment,
@@ -777,6 +783,7 @@ class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
         if (!isRelaySuccess(resultValue)) {
+            await assertLensAccountOwner();
             const result = await lensSessionHolder.sdk.profile.createFollowTypedData({
                 follow: [
                     {
@@ -787,7 +794,7 @@ class LensSocialMedia implements Provider {
 
             const data = result.unwrap();
             const walletClient = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const signedTypedData = await walletClient.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
                 types: data.typedData.types,
@@ -820,13 +827,14 @@ class LensSocialMedia implements Provider {
         const resultValue = result.unwrap();
 
         if (!isRelaySuccess(resultValue)) {
+            await assertLensAccountOwner();
             const followTypedDataResult = await lensSessionHolder.sdk.profile.createUnfollowTypedData({
                 unfollow: [profileId],
             });
 
             const data = followTypedDataResult.unwrap();
             const client = await getWalletClientRequired(config);
-            await checkLensAccountOwner();
+
             const signedTypedData = await client.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
                 types: data.typedData.types,

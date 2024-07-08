@@ -21,7 +21,7 @@ async function checkResolver(address: string, profile: Profile) {
 
 const resolver = memoizePromise(memoize, checkResolver, (address, profile) => `${address}_${profile.profileId}`);
 
-export async function checkLensAccountOwner() {
+export async function assertLensAccountOwner() {
     const walletClient = await getWalletClientRequired(config);
     const currentProfile = getCurrentProfile(Source.Lens);
     if (!currentProfile) return;
