@@ -100,7 +100,7 @@ msgid "Mute @{0}"
 msgstr "屏蔽 @{0}"
 
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
-msgstr "合约所有者无权修改其他地址的代币余额。"
+msgstr "合约所有者无权修改其他地址的通证余额。"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
@@ -118,7 +118,7 @@ msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
 
 msgid "We are not aware of any code that prevents the sale of tokens."
-msgstr "我们没察觉到有任何阻止 Token 售卖的代码逻辑。"
+msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 
 msgid "Watching"
 msgstr "观察中"
@@ -250,7 +250,7 @@ msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr "<0>已创建的代币数量减去已销毁（从流通中移除）的代币数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的代币</1>"
+msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
 
 msgid "likes"
 msgstr "点赞"
@@ -292,7 +292,7 @@ msgid "comment"
 msgstr "评论"
 
 msgid "True Token"
-msgstr "真实 Token"
+msgstr "真实的通证"
 
 msgid "Failed"
 msgstr "失败"
@@ -352,7 +352,7 @@ msgid "Page not found"
 msgstr "找不到网页"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
-msgstr "铸币功能是透明的或不存在的。隐藏的铸币功能可能会增加代币的流通量并影响代币的价格。"
+msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会增加通证的流通量并影响通证的价格。"
 
 msgid "Password"
 msgstr "密码"
@@ -367,7 +367,7 @@ msgid "Please switch to the correct network in your wallet."
 msgstr "请在钱包中切换到正确的网络。"
 
 msgid "Token ID"
-msgstr "代币 ID"
+msgstr "通证 ID"
 
 msgid "Type something here..."
 msgstr "从这里开始..."
@@ -421,7 +421,7 @@ msgid "The blacklist function is not included. If there is a blacklist, some add
 msgstr ""
 
 msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易（欺诈风险）。"
+msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -472,7 +472,7 @@ msgid "Audio Cover"
 msgstr "音频封面"
 
 msgid "Fake Token"
-msgstr "伪造 Token"
+msgstr "伪造的通证"
 
 msgid "Recent"
 msgstr "最近"
@@ -610,7 +610,7 @@ msgid "post"
 msgstr "发帖"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
-msgstr "这个 Token 合约提到它不能出售。也许这是一个欺诈行为。"
+msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
@@ -769,7 +769,7 @@ msgid "There are images that were not uploaded successfully."
 msgstr ""
 
 msgid "No mint function"
-msgstr "没有铸币功能"
+msgstr "没有铸造功能"
 
 msgid "Switch"
 msgstr "切换"
@@ -790,7 +790,7 @@ msgid "Proxy contract"
 msgstr "代理合约"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
-msgstr "合约所有人有权修改其他地址的代币余额，这可能造成资产损失。"
+msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
 
 msgid "Tax cannot be modified"
 msgstr "不能修改税"
@@ -808,7 +808,7 @@ msgid "Only people you mention"
 msgstr "只有你提及的人"
 
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr "此 Token 不是由其声明的团队发布的。某些骗子将创建一个相同名称的 Token 来欺诈用户。"
+msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
 msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
@@ -883,7 +883,7 @@ msgid "Everyone"
 msgstr "任何人"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr "此代币由其宣称的团队发行。一些骗局会创建同名的知名代币来骗取用户的资产。"
+msgstr "此通证由其宣称的团队发行。一些骗局会创建同名的知名通证来骗取用户的资产。"
 
 msgid "Search ${symbol}"
 msgstr "搜索 ${symbol}"
@@ -949,7 +949,7 @@ msgid "If you believe this action has been blocked in error, please <0/><1>Ignor
 msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
-msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改代币的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
+msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
@@ -1003,7 +1003,7 @@ msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
 msgid "Token ${symbol} could not be found."
-msgstr "未找到代币 ${symbol} 。"
+msgstr "未找到通证 ${symbol} 。"
 
 msgid "Articles"
 msgstr "文章"
@@ -1222,7 +1222,7 @@ msgid "Delete"
 msgstr "删除"
 
 msgid "May the token is a honeypot."
-msgstr "也许这个 Token 是一个陷阱"
+msgstr "也许这个通证是一个陷阱"
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr "{minutes, plural, one {1 分钟} other {{minutes} 分钟}}"
@@ -1399,7 +1399,7 @@ msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
-msgstr "合约可能含有额外的发行功能，这可能会产生大量的代币，导致代币价格的重大波动。建议向项目组确认它是否遵守 Token 发行准则。"
+msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
@@ -1429,7 +1429,7 @@ msgid "Failed to mirror post."
 msgstr "转发失败。"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，Token 将无法交易（欺诈风险）。"
+msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
@@ -1543,7 +1543,7 @@ msgid "This Action has not yet been registered. Only use it if you trust the sou
 msgstr "这个操作还未被注册。请确认风险。"
 
 msgid "You may lose your assets if giving approval to the website of this token."
-msgstr "如果您授权此 Token 给这个网站，您可能会丢失您的资产。"
+msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
 msgid "Unfollow"
 msgstr "取消关注"
@@ -1558,7 +1558,7 @@ msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-msgstr "如果包含可中止的代码，那么 Token 可能既不能被购买也不会被出售（欺诈风险）。"
+msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
@@ -1753,7 +1753,7 @@ msgid "Location"
 msgstr "地点"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-msgstr "对 Token 的交易次数没有限制。可疑 Token 的交易次数可能是有限的。"
+msgstr "对通证的交易次数没有限制。可疑通证的交易次数可能是有限的。"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
