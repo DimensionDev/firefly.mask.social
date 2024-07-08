@@ -55,12 +55,27 @@ const getClass = (size: number) => {
 };
 
 interface VideoAssetProps {
+    post: Post;
     asset: Attachment;
     source: SocialSource;
     isQuote?: boolean;
+    canPreview?: boolean;
 }
 
-function VideoAsset({ asset, isQuote, source }: VideoAssetProps) {
+export function VideoAsset({ post, asset, isQuote, source, canPreview = true }: VideoAssetProps) {
+    const pathname = usePathname();
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+
+    const videoContent = (
+        <Video src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri} poster={asset.coverUri}>
+            {asset.type === 'AnimatedGif' ? (
+                <span className="absolute bottom-[5px] left-2.5">
+                    <PlayButton />
+                </span>
+            ) : null}
+        </Video>
+    );
+
     return isQuote ? (
         <div className="relative h-full w-full">
             <div className="absolute inset-0 m-auto box-border flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-xl bg-white/80 text-[#181818]">
@@ -76,14 +91,18 @@ function VideoAsset({ asset, isQuote, source }: VideoAssetProps) {
                 />
             ) : null}
         </div>
+    ) : asset.type === 'AnimatedGif' && canPreview ? (
+        <Link
+            href={getPostImageUrl(post, 1, isPostPage)}
+            scroll={false}
+            onClick={(event) => {
+                event.stopPropagation();
+            }}
+        >
+            {videoContent}
+        </Link>
     ) : (
-        <Video src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri} poster={asset.coverUri}>
-            {asset.type === 'AnimatedGif' ? (
-                <span className="absolute bottom-[5px] left-2.5">
-                    <PlayButton />
-                </span>
-            ) : null}
-        </Video>
+        videoContent
     );
 }
 
@@ -182,7 +201,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                             'w-full': !isQuote,
                         })}
                     >
-                        <VideoAsset asset={asset!} isQuote={isQuote} source={post.source} />
+                        <VideoAsset post={post} asset={asset!} isQuote={isQuote} source={post.source} />
                     </div>
                 )
             ) : null}
@@ -239,7 +258,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     </Link>
                                 ) : (
                                     <div className="h-full w-full">
-                                        <VideoAsset asset={attachment} isQuote={isQuote} source={post.source} />
+                                        <VideoAsset
+                                            post={post}
+                                            asset={attachment}
+                                            isQuote={isQuote}
+                                            source={post.source}
+                                        />
                                     </div>
                                 )}
                                 {isLast && moreImageCount > 0 ? (

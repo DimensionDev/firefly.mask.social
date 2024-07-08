@@ -1,14 +1,14 @@
 'use client';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/keyboard';
+import 'swiper/css/navigation';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { useMemo, useRef } from 'react';
+import { memo, useMemo, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -17,10 +17,12 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
+import { VideoAsset } from '@/components/Posts/Attachment.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     params: {
@@ -29,6 +31,26 @@ interface Props {
     };
     searchParams: { source: SocialSourceInURL };
 }
+
+interface PreviewContentProps {
+    post: Post;
+    asset: Attachment;
+}
+
+const PreviewContent = memo<PreviewContentProps>(function PreviewContent({ post, asset }) {
+    return asset.type === 'Image' ? (
+        <Image
+            key={asset.uri}
+            src={asset.uri}
+            alt={asset.title ?? asset.uri}
+            width={1000}
+            height={1000}
+            className="max-h-[calc(100vh-110px)] w-full object-contain max-md:h-[calc(calc(100vh-env(safe-area-inset-bottom)-env(safe-are-inset-top)-90px))] max-md:max-w-[calc(100%-30px)]"
+        />
+    ) : asset.type === 'AnimatedGif' ? (
+        <VideoAsset post={post} asset={asset} source={post.source} canPreview={false} />
+    ) : null;
+});
 
 export default function PreviewPhotoModal({ params: { id: postId, index }, searchParams: { source } }: Props) {
     const prevRef = useRef<HTMLButtonElement>(null);
@@ -57,11 +79,11 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
         const imageAttachments =
-            compact(post.metadata.content?.attachments?.filter((x) => x.type === 'Image').map((x) => x.uri)) ??
+            compact(post.metadata.content?.attachments?.filter((x) => ['Image', 'AnimatedGif'].includes(x.type))) ??
             EMPTY_LIST;
 
         if (asset?.type === 'Image' && imageAttachments.length === 1) {
-            return [asset.uri];
+            return [{ ...asset }];
         }
         return imageAttachments;
     }, [post]);
@@ -91,18 +113,11 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                         keyboard
                         initialSlide={Number(index) - 1}
                     >
-                        {images.map((x, key) => {
+                        {images.map((asset, key) => {
                             return (
                                 <SwiperSlide key={key} className="flex">
                                     <div className="flex h-full w-full items-center justify-center">
-                                        <Image
-                                            key={index}
-                                            src={x}
-                                            alt={x}
-                                            width={1000}
-                                            height={1000}
-                                            className="max-h-[calc(100vh-110px)] w-full object-contain max-md:h-[calc(calc(100vh-env(safe-area-inset-bottom)-env(safe-are-inset-top)-90px))] max-md:max-w-[calc(100%-30px)]"
-                                        />
+                                        <PreviewContent post={post!} asset={asset} />
                                     </div>
                                 </SwiperSlide>
                             );
