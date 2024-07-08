@@ -1,5 +1,5 @@
 if (!URL.canParse) {
-    URL.canParse = (url: string) => {
+    URL.canParse = function (url: string) {
         try {
             new URL(url);
             return true;
