@@ -8,7 +8,6 @@ import { ChainId as SolanaChainId, encodePublicKey, formatAddress } from '@maskn
 import { useAccountModal as useAccountModalEVM, useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
-import { useEffect, useState } from 'react';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -22,12 +21,11 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ConnectWalletProps {
     collapsed?: boolean;
 }
-
-let globalCollapsed = false;
 
 export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWalletProps) {
     const mounted = useMounted();
@@ -43,11 +41,8 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
-    const [collapsed, setCollapsed] = useState(globalCollapsed);
-
-    useEffect(() => {
-        globalCollapsed = collapsed;
-    }, [collapsed]);
+    const collapsed = useGlobalState((state) => state.collapsedConnectWallet);
+    const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
 
     const chainTypes = [
         {
@@ -101,7 +96,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                 )}
                 onClick={() => {
                     if (isConnected) {
-                        setCollapsed((c) => !c);
+                        setCollapsed(!collapsed);
                         return;
                     }
                     ConnectWalletModalRef.open();
