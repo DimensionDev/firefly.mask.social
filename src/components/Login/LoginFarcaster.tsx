@@ -20,7 +20,6 @@ import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -39,10 +38,6 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
         // if login timed out, let the user refresh the QR code
         if (error instanceof TimeoutError) return;
-
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
-            error,
-        });
 
         // user rejected request
         if (error instanceof UserRejectedRequestError) return;
