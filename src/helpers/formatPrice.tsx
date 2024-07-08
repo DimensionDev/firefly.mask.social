@@ -3,7 +3,7 @@ import { BigNumber } from 'bignumber.js';
 export function formatPrice(price: number | string | undefined, digits?: number) {
     if (price === undefined) return price;
     price = +price;
-    digits = digits ?? (price >= 0.01 ? 2 : 4);
+    digits = digits ?? (price >= 1 ? 2 : 4);
     if (price < 0.0001) {
         const bn = BigNumber(price);
         return bn
@@ -12,6 +12,13 @@ export function formatPrice(price: number | string | undefined, digits?: number)
             .replace(/^0\.(0+)/, (_, zeros) => {
                 return `0.0{${zeros.length}}`;
             });
+    }
+
+    if (price < 1) {
+        return price.toLocaleString('en-US', {
+            minimumSignificantDigits: Math.min(2, digits),
+            maximumSignificantDigits: digits,
+        });
     }
 
     return price.toLocaleString('en-US', {
