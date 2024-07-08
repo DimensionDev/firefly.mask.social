@@ -21,7 +21,7 @@ import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NODE_ENV } from '@/constants/enum.js';
+import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -112,7 +112,9 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' ? <PollButton /> : null}
 
-                <GifEntryButton disabled={mediaDisabled} />
+                {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
+                    <GifEntryButton disabled={mediaDisabled} />
+                ) : null}
 
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
