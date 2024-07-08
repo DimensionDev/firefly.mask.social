@@ -1,5 +1,4 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { first } from 'lodash-es';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -239,12 +238,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const payload =
-                    // indicate that the user is switching account
-                    state.accounts.length && !state.currentProfile
-                        ? (await TwitterSocialMediaProvider.login()) ??
-                          (first(state.accounts)?.session as TwitterSession | undefined)?.payload
-                        : session?.payload ?? (await TwitterSocialMediaProvider.login());
+                const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
                 const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!me || !payload) {
