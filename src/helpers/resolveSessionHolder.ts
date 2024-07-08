@@ -10,7 +10,7 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-export const resolveSessionHolder = createLookupTableResolver<SocialSource, SessionHolder<Session> | null>(
+export const resolveSessionHolder = createLookupTableResolver<SocialSource, SessionHolder<Session>>(
     {
         [Source.Farcaster]: farcasterSessionHolder,
         [Source.Lens]: lensSessionHolder,
