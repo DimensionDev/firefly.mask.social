@@ -17,7 +17,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
-import { VideoAsset } from '@/components/Posts/Attachment.js';
+import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -48,7 +48,7 @@ const PreviewContent = memo<PreviewContentProps>(function PreviewContent({ post,
             className="max-h-[calc(100vh-110px)] w-full object-contain max-md:h-[calc(calc(100vh-env(safe-area-inset-bottom)-env(safe-are-inset-top)-90px))] max-md:max-w-[calc(100%-30px)]"
         />
     ) : asset.type === 'AnimatedGif' ? (
-        <VideoAsset post={post} asset={asset} source={post.source} canPreview={false} />
+        <VideoAsset asset={asset} source={post.source} />
     ) : null;
 });
 

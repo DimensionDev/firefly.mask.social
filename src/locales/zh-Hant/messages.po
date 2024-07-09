@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-08 16:36\n"
+"PO-Revision-Date: 2024-07-09 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -303,6 +303,9 @@ msgstr "書籤"
 msgid "Confirm"
 msgstr "確認"
 
+msgid "{0} muted channels"
+msgstr ""
+
 msgid "[Video]"
 msgstr ""
 
@@ -337,9 +340,6 @@ msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Mutes"
-msgstr ""
-
-msgid "{0} channels"
 msgstr ""
 
 msgid "NFTs"
@@ -691,9 +691,6 @@ msgid "Reply"
 msgstr ""
 
 msgid "Mirror or Quote"
-msgstr ""
-
-msgid "{0} users"
 msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
@@ -1152,6 +1149,9 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr ""
 
+msgid "{0} muted users"
+msgstr ""
+
 msgid "Remove Poll"
 msgstr ""
 
@@ -1244,6 +1244,9 @@ msgstr ""
 
 msgid "Mirrored"
 msgstr "已鏡像"
+
+msgid "Muted contents"
+msgstr ""
 
 msgid "Unable to retrieve post details."
 msgstr ""
@@ -1835,3 +1838,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+

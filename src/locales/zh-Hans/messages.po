@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-08 16:36\n"
+"PO-Revision-Date: 2024-07-09 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -49,7 +49,7 @@ msgid "Report @{0}"
 msgstr "报告 @{0}"
 
 msgid "Sell Tax: {0}%"
-msgstr "售卖费用: {0}%"
+msgstr "售卖税率: {0}%"
 
 msgid "Retweet"
 msgstr "转帖"
@@ -79,7 +79,7 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
-msgstr ""
+msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
 
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
@@ -112,7 +112,7 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
-msgstr ""
+msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
 
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
@@ -139,7 +139,7 @@ msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
-msgstr ""
+msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
 msgid "Unknown error"
 msgstr "未知错误"
@@ -163,7 +163,7 @@ msgid "This entry has been permanently stored on-chain and signed by its creator
 msgstr "这个入口已经被其创建者签名并永久存储上链"
 
 msgid "Tax can be modified"
-msgstr "不能修改交易费用"
+msgstr "税率可以被修改"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -181,7 +181,7 @@ msgid "Change Wallet"
 msgstr "更换钱包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr ""
+msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -303,6 +303,9 @@ msgstr "收藏"
 msgid "Confirm"
 msgstr "确认"
 
+msgid "{0} muted channels"
+msgstr "{0} 屏蔽的频道"
+
 msgid "[Video]"
 msgstr "[视频]"
 
@@ -331,16 +334,13 @@ msgid "Blockchain"
 msgstr "区块链"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注你</4>"
 
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Mutes"
 msgstr "屏蔽"
-
-msgid "{0} channels"
-msgstr "{0} 频道"
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -385,7 +385,7 @@ msgid "Failed to delete"
 msgstr "删除失败"
 
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
-msgstr ""
+msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
 
 msgid "Report Failed"
 msgstr "举报失败"
@@ -418,13 +418,13 @@ msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
@@ -586,10 +586,10 @@ msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
 
 msgid "Anti_whale(Limited number of transactions)"
-msgstr ""
+msgstr "反鲸鱼（有限的交易次数）"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
-msgstr ""
+msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制（欺诈风险）。"
 
 msgid "Log out"
 msgstr "登出"
@@ -625,7 +625,7 @@ msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4> 交互了你的 </4><5><6/></5>"
 
 msgid "Search Filter"
 msgstr "查询规则"
@@ -693,9 +693,6 @@ msgstr "回复"
 msgid "Mirror or Quote"
 msgstr "转帖或者引用"
 
-msgid "{0} users"
-msgstr "{0} 用户"
-
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要屏蔽 /{0} 吗？"
 
@@ -712,7 +709,7 @@ msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
-msgstr ""
+msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "已收藏"
@@ -736,7 +733,7 @@ msgid "mirrors"
 msgstr "转帖"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/>  和 <2/>} other {<3/>}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "EVM"
 msgstr "EVM"
@@ -766,7 +763,7 @@ msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
 msgid "There are images that were not uploaded successfully."
-msgstr ""
+msgstr "图片上传失败。"
 
 msgid "No mint function"
 msgstr "没有铸造功能"
@@ -778,7 +775,7 @@ msgid "Follow"
 msgstr "关注"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
-msgstr ""
+msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
 
 msgid "Add account"
 msgstr "添加账号"
@@ -796,7 +793,7 @@ msgid "Tax cannot be modified"
 msgstr "不能修改税"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
-msgstr ""
+msgstr "此通证合约尚未验证。我们无法检查合约代码了解详情。 无法查证的通证合约有可能会欺诈用户。"
 
 msgid "Replies"
 msgstr "回复"
@@ -832,7 +829,7 @@ msgid "Description"
 msgstr "介绍"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
-msgstr ""
+msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
@@ -925,7 +922,7 @@ msgid "Failed to follow."
 msgstr "关注失败"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr ""
+msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
 msgid "Mute"
 msgstr "屏蔽"
@@ -946,7 +943,7 @@ msgid "Clear All"
 msgstr "全部清除"
 
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
-msgstr ""
+msgstr "如果您认为此操作警告是误报，请<0/><1>忽略警告并继续</1>。"
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
@@ -1042,7 +1039,7 @@ msgid "commented"
 msgstr "已回复"
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-msgstr ""
+msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全稀释估值，反之亦然。</1>"
 
 msgid "Minting Date"
 msgstr "铸造日期"
@@ -1152,6 +1149,9 @@ msgstr "已翻译"
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
+msgid "{0} muted users"
+msgstr "{0} 屏蔽的用户"
+
 msgid "Remove Poll"
 msgstr "删除投票"
 
@@ -1189,10 +1189,10 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
-msgstr ""
+msgstr "{type, select, compose {{0}} quote {添加一条评论} reply {发布你的评论} other {{1}}}"
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
-msgstr ""
+msgstr "您正在登录不同的 Firefly 账号。如果继续则会<0>覆盖</0>当前账号。"
 
 msgid "Discard"
 msgstr "放弃"
@@ -1245,11 +1245,14 @@ msgstr "下载图片"
 msgid "Mirrored"
 msgstr "已转发"
 
+msgid "Muted contents"
+msgstr "已屏蔽的内容"
+
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
-msgstr ""
+msgstr "市场上流通并可供公众交易的货币数量。这相当于市场上随时可买到的股票（未被内部人士或政府持有和锁定）。"
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
@@ -1387,7 +1390,7 @@ msgid "Posting..."
 msgstr "发帖中..."
 
 msgid "This Action has been flagged as an unsafe action, & has been blocked."
-msgstr ""
+msgstr "操作被认定为风险行为，已经被阻止。"
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"
@@ -1522,7 +1525,7 @@ msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Buy Tax: {0}%"
-msgstr "购买费用: {0}%"
+msgstr "购买税率: {0}%"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -1690,7 +1693,7 @@ msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
-msgstr ""
+msgstr "没有反鲸鱼（无限的交易次数）"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
@@ -1835,3 +1838,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+

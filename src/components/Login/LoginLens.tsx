@@ -115,7 +115,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                         {({ checked }) => (
                                             <span
                                                 className={`${
-                                                    checked ? 'bg-success' : 'bg-gray-200'
+                                                    checked ? 'bg-fireflyBrand' : 'bg-gray-200 dark:bg-lightBg'
                                                 } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
                                             >
                                                 <span className="sr-only">Enable signless</span>
@@ -162,12 +162,12 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         }}
                     >
                         <WalletIcon width={20} height={20} />
-                        <span className="text-[14px] font-bold leading-[18px] text-second">
+                        <span className="text-sm font-bold leading-[18px]">
                             <Trans>Change Wallet</Trans>
                         </span>
                     </ClickableButton>
                     <ClickableButton
-                        disabled={loading}
+                        disabled={loading || !profiles.length}
                         className="flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >

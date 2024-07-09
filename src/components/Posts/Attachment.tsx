@@ -1,30 +1,21 @@
 import { Trans } from '@lingui/macro';
-import { PlayButton } from '@livepeer/react';
-import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/link.svg';
 import Music from '@/assets/music.svg';
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { ATTACHMENT } from '@/constants/index.js';
+import { VideoAsset } from '@/components/Posts/VideoAsset.js';
+import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
+import { ATTACHMENT, SUPPORTED_MEDIA_PREVIEW_SOURCES } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
-const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
 const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });
-
-const forwardTwitterVideo = (url: string) => {
-    return urlcat(location.origin, '/api/twitter/videoForward', { url });
-};
 
 const getClass = (size: number) => {
     if (size === 1) {
@@ -54,58 +45,6 @@ const getClass = (size: number) => {
     };
 };
 
-interface VideoAssetProps {
-    post: Post;
-    asset: Attachment;
-    source: SocialSource;
-    isQuote?: boolean;
-    canPreview?: boolean;
-}
-
-export function VideoAsset({ post, asset, isQuote, source, canPreview = true }: VideoAssetProps) {
-    const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-
-    const videoContent = (
-        <Video src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri} poster={asset.coverUri}>
-            {asset.type === 'AnimatedGif' ? (
-                <span className="absolute bottom-[5px] left-2.5">
-                    <PlayButton />
-                </span>
-            ) : null}
-        </Video>
-    );
-
-    return isQuote ? (
-        <div className="relative h-full w-full">
-            <div className="absolute inset-0 m-auto box-border flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-xl bg-white/80 text-[#181818]">
-                <Play width={16} height={16} />
-            </div>
-            {asset.coverUri ? (
-                <Image
-                    width={120}
-                    height={120}
-                    className="h-full w-full rounded-xl object-cover"
-                    src={asset.coverUri}
-                    alt={asset.coverUri}
-                />
-            ) : null}
-        </div>
-    ) : asset.type === 'AnimatedGif' && canPreview ? (
-        <Link
-            href={getPostImageUrl(post, 1, isPostPage)}
-            scroll={false}
-            onClick={(event) => {
-                event.stopPropagation();
-            }}
-        >
-            {videoContent}
-        </Link>
-    ) : (
-        videoContent
-    );
-}
-
 interface AttachmentsProps {
     post: Post;
     asset?: Attachment;
@@ -125,9 +64,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     const attachmentsSnapshot = isDetail
         ? videoAndImageAttachments
         : videoAndImageAttachments.slice(0, isQuote ? 4 : 9);
-    const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
     const moreImageCount = videoAndImageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
+    const disablePreview = !SUPPORTED_MEDIA_PREVIEW_SOURCES.includes(post.source);
 
     if (isQuote && asset?.type === 'Audio') {
         return (
@@ -173,13 +111,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                         })}
                         onClick={(event) => event.stopPropagation()}
                     >
-                        <Link
-                            href={getPostImageUrl(post, 1, isPostPage)}
-                            scroll={false}
-                            onClick={(event) => {
-                                event.stopPropagation();
-                            }}
-                        >
+                        <WithPreviewLink post={post} index={1} disablePreview={disablePreview}>
                             <ImageAsset
                                 className={classNames('cursor-pointer rounded-lg object-cover', {
                                     'w-full': !isQuote,
@@ -192,7 +124,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 src={formatImageUrl(asset.uri, ATTACHMENT)}
                                 alt={formatImageUrl(asset.uri, ATTACHMENT)}
                             />
-                        </Link>
+                        </WithPreviewLink>
                     </div>
                 ) : (
                     <div
@@ -201,7 +133,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                             'w-full': !isQuote,
                         })}
                     >
-                        <VideoAsset post={post} asset={asset!} isQuote={isQuote} source={post.source} />
+                        <VideoAsset asset={asset!} isQuote={isQuote} source={post.source} />
                     </div>
                 )
             ) : null}
@@ -235,13 +167,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 })}
                             >
                                 {attachment.type === 'Image' ? (
-                                    <Link
-                                        href={getPostImageUrl(post, index + 1, isPostPage)}
-                                        onClick={(event) => {
-                                            event.stopPropagation();
-                                        }}
-                                        scroll={false}
-                                    >
+                                    <WithPreviewLink post={post} index={index + 1} disablePreview={disablePreview}>
                                         <Image
                                             className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                             loading="lazy"
@@ -255,15 +181,10 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                             src={formatImageUrl(uri, ATTACHMENT)}
                                             alt={formatImageUrl(uri, ATTACHMENT)}
                                         />
-                                    </Link>
+                                    </WithPreviewLink>
                                 ) : (
                                     <div className="h-full w-full">
-                                        <VideoAsset
-                                            post={post}
-                                            asset={attachment}
-                                            isQuote={isQuote}
-                                            source={post.source}
-                                        />
+                                        <VideoAsset asset={attachment} isQuote={isQuote} source={post.source} />
                                     </div>
                                 )}
                                 {isLast && moreImageCount > 0 ? (

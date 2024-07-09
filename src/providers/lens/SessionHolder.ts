@@ -15,7 +15,15 @@ export class LensSessionHolder extends SessionHolder<LensSession> {
     }
 
     override resumeSession(session: LensSession) {
-        if (session.refreshToken) setLensCredentials(localStorage, session);
+        if (session.refreshToken) {
+            const storage = new LocalStorageProvider();
+
+            // overwrite lens credentials in local storage
+            setLensCredentials(storage, session);
+
+            // renew the sdk instance, since it could possess the old credentials
+            this.lensClientSDK = createLensSDK(storage);
+        }
         super.resumeSession(session);
     }
 }

@@ -94,6 +94,17 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
+function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
+    const currentMax = MAX_CHAR_SIZE_PER_POST[source];
+
+    return post.poll
+        ? Math.min(
+              currentMax,
+              source !== Source.Twitter ? 255 + readChars(post.chars, 'invisible', source).length : currentMax,
+          )
+        : currentMax;
+}
+
 export function measureChars(post: CompositePost) {
     const { chars, availableSources } = post;
 
@@ -102,12 +113,14 @@ export function measureChars(post: CompositePost) {
     return {
         // max(visible x1, visible x2, visible x3)
         usedLength: Math.max(
-            ...availableSources.map((x) => resolveLengthCalculator(x)(readChars(chars, 'visible', x))),
+            ...availableSources.map((source) => resolveLengthCalculator(source)(readChars(chars, 'visible', source))),
         ),
         // min(limit_y1 - invisible, limit_y2 - invisible, limit_y3 - invisible)
         availableLength: Math.min(
             ...availableSources.map(
-                (x) => MAX_CHAR_SIZE_PER_POST[x] - resolveLengthCalculator(x)(readChars(chars, 'invisible', x)),
+                (source) =>
+                    resolvePeerPostMaxChars(source, post) -
+                    resolveLengthCalculator(source)(readChars(chars, 'invisible', source)),
             ),
         ),
     };

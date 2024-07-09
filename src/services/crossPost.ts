@@ -8,7 +8,7 @@ import { compact } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SORTED_SOCIAL_SOURCES, SUPPORT_FRAME_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -162,7 +162,7 @@ export async function crossPost(
     const { availableSources, poll, chars } = compositePost;
 
     // create common poll for farcaster and lens
-    if (poll && SUPPORT_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
+    if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
         compositePost = {
             ...compositePost,
