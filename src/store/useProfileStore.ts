@@ -252,6 +252,7 @@ const useTwitterStateBase = createState(
                     session: TwitterSession.from(me, payload),
                 };
 
+                state.updateAccounts([account]);
                 state.updateCurrentAccount(account);
                 twitterSessionHolder.resumeSession(account.session);
             } catch (error) {
