@@ -7,7 +7,7 @@ import { forwardRef } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export interface ConfirmFireflyModalOpenProps {
@@ -20,7 +20,7 @@ export type ConfirmFireflyModalCloseProps = boolean;
 export const ConfirmFireflyModal = forwardRef<
     SingletonModalRefCreator<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>
 >(function ConfirmFireflyModal(_, ref) {
-    const [, dispatch] = useSingletonModal(ref, {
+    useSingletonModal(ref, {
         onOpen: async (props) => {
             const { belongsTo, accounts } = props;
 
@@ -60,14 +60,20 @@ export const ConfirmFireflyModal = forwardRef<
                         <div className="flex gap-2">
                             <ClickableButton
                                 className="flex flex-1 items-center justify-center rounded-full border border-main py-2 font-bold text-main"
-                                onClick={() => ConfirmModalRef.close(false)}
+                                onClick={() => {
+                                    ConfirmModalRef.close(false);
+                                    ConfirmFireflyModalRef.close(false);
+                                }}
                             >
                                 <Trans>Skip for now</Trans>
                             </ClickableButton>
                             <ClickableButton
                                 className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                                 disabled={compact(Object.values(accounts)).length === 0}
-                                onClick={() => ConfirmModalRef.close(true)}
+                                onClick={() => {
+                                    ConfirmModalRef.close(true);
+                                    ConfirmFireflyModalRef.close(true);
+                                }}
                             >
                                 <Trans>Login</Trans>
                             </ClickableButton>
