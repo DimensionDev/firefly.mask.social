@@ -6,7 +6,6 @@ import 'swiper/css/navigation';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
