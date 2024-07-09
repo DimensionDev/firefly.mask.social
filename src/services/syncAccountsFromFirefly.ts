@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotAllowedError, UnreachableError } from '@/constants/error.js';
+import { AbortError, NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -98,6 +98,10 @@ export async function syncAccountsFromFirefly(session: FireflySession, signal?: 
             }
         }),
     );
+
+    // check if the request is aborted
+    if (signal?.aborted) throw new AbortError();
+
     const accounts = compact<Account>(
         allSettled.map((x, i) =>
             x.status === 'fulfilled' && x.value
