@@ -8,7 +8,7 @@ import { Image } from '@/components/Image.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
-import { ATTACHMENT, DISABLED_MEDIA_PREVIEW_SOURCES } from '@/constants/index.js';
+import { ATTACHMENT, SUPPORTED_MEDIA_PREVIEW_SOURCES } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -65,7 +65,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         ? videoAndImageAttachments
         : videoAndImageAttachments.slice(0, isQuote ? 4 : 9);
     const moreImageCount = videoAndImageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
-    const disablePreview = DISABLED_MEDIA_PREVIEW_SOURCES.includes(post.source);
+    const disablePreview = !SUPPORTED_MEDIA_PREVIEW_SOURCES.includes(post.source);
 
     if (isQuote && asset?.type === 'Audio') {
         return (
