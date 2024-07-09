@@ -73,7 +73,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         {enableCloseButton ? <div className="relative h-6 w-6" /> : null}
                     </div>
 
-                    <div className="flex flex-col gap-10 p-6">
+                    <div className="flex flex-col gap-2 p-6">
                         {content}
                         {enableCancelButton || enableConfirmButton ? (
                             <div className="flex flex-row gap-3">
