@@ -10,8 +10,8 @@
                 "paths": [
                     "/post/*",
                     "/profile/*",
-                    "/*",
-                    "/login/desktop/*"
+                    "/login/desktop",
+                    "/*"
                 ],
                 "components": [
                     {
@@ -28,7 +28,7 @@
                         "comment": "Matches any URL with a path that starts with /profile/."
                     },
                     {
-                        "/": "/login/desktop/*",
+                        "/": "/login/desktop",
                         "comment": "Matches any URL with a path that starts with /login/desktop/."
                     }
                 ]
