@@ -181,7 +181,7 @@ msgid "Change Wallet"
 msgstr "更换钱包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr "10%以上的税率可能被认为是高的税率。超过50%的税率可能无法交易。"
+msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -418,13 +418,13 @@ msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
-msgstr "黑明单功能未启用。如果启用，有些地址可能无法正常交易(欺诈风险)。"
+msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr "黑明单功能已启用。有些地址可能无法正常交易(欺诈风险)。"
+msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
@@ -589,7 +589,7 @@ msgid "Anti_whale(Limited number of transactions)"
 msgstr "反鲸鱼（有限的交易次数）"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
-msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制(欺诈风险)."
+msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制（欺诈风险）。"
 
 msgid "Log out"
 msgstr "登出"
