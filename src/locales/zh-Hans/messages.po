@@ -304,7 +304,7 @@ msgid "Confirm"
 msgstr "确认"
 
 msgid "{0} muted channels"
-msgstr ""
+msgstr "{0} 屏蔽的频道"
 
 msgid "[Video]"
 msgstr "[视频]"
@@ -1150,7 +1150,7 @@ msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
 msgid "{0} muted users"
-msgstr ""
+msgstr "{0} 已屏蔽的用户"
 
 msgid "Remove Poll"
 msgstr "删除投票"
@@ -1246,7 +1246,7 @@ msgid "Mirrored"
 msgstr "已转发"
 
 msgid "Muted contents"
-msgstr ""
+msgstr "已屏蔽内容"
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
