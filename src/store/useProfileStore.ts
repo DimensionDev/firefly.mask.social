@@ -231,6 +231,7 @@ const useTwitterStateBase = createState(
 
             try {
                 const session = state.currentProfileSession as TwitterSession | null;
+                if (session) twitterSessionHolder.resumeSession(session);
 
                 // clean the local store if the consumer secret is not hidden
                 if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
