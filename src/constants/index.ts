@@ -77,7 +77,8 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Giphy,
     MediaSource.Local,
 ];
-export const SUPPORT_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_MEDIA_PREVIEW_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
