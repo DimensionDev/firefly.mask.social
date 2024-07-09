@@ -6,6 +6,7 @@ import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
 import { ChainModal } from '@/modals/ChainModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
+import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
@@ -29,6 +30,7 @@ export const Modals = memo(function Modals() {
             <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
+            <ConfirmFireflyModal ref={controls.ConfirmFireflyModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
         </>
