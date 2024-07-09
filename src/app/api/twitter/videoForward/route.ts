@@ -1,4 +1,4 @@
-import { compose } from '@masknet/shared-base';
+import { compose } from '@/helpers/compose.js';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';

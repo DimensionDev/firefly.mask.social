@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { compose } from '@masknet/shared-base';
+import { compose } from '@/helpers/compose.js';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';

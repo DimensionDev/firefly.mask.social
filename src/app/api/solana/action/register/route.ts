@@ -1,4 +1,4 @@
-import { compose } from '@masknet/shared-base';
+import { compose } from '@/helpers/compose.js';
 
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';

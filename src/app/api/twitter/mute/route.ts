@@ -1,4 +1,4 @@
-import { compose } from '@masknet/shared-base';
+import { compose } from '@/helpers/compose.js';
 import { NextRequest } from 'next/server.js';
 
 import { TWITTER_MUTE_LIST_OPTIONS } from '@/constants/index.js';
