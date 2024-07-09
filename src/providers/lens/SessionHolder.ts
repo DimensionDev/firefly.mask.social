@@ -5,13 +5,8 @@ import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
 export class LensSessionHolder extends SessionHolder<LensSession> {
-    private lensClientSDK: LensClientSDK | null = null;
-
     get sdk() {
-        if (!this.lensClientSDK) {
-            this.lensClientSDK = createLensSDK(new LocalStorageProvider());
-        }
-        return this.lensClientSDK;
+        return createLensSDK(new LocalStorageProvider());
     }
 
     override resumeSession(session: LensSession) {
