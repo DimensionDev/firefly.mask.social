@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-08 16:36\n"
+"PO-Revision-Date: 2024-07-09 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -586,7 +586,7 @@ msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
 
 msgid "Anti_whale(Limited number of transactions)"
-msgstr ""
+msgstr "反鲸鱼(有限的交易次数)"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
@@ -1690,7 +1690,7 @@ msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
-msgstr ""
+msgstr "没有反鲸鱼。(无限的交易次数)"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
@@ -1835,3 +1835,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
