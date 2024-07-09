@@ -192,9 +192,9 @@ export function ActionContainer({
             const transaction = VersionedTransaction.deserialize(Buffer.from(tx.transaction, 'base64'));
             const {
                 context: { slot: minContextSlot },
-                value: { blockhash, lastValidBlockHeight },
             } = await connection.getLatestBlockhashAndContext();
             const signature = await wallet.sendTransaction(transaction, connection, { minContextSlot });
+            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
             await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
             if (tx.message) {
                 enqueueSuccessMessage(tx.message);
