@@ -1246,7 +1246,7 @@ msgid "Mirrored"
 msgstr "已转发"
 
 msgid "Muted contents"
-msgstr "已屏蔽内容"
+msgstr "已屏蔽的内容"
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"

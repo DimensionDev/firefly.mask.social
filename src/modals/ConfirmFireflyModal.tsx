@@ -24,7 +24,7 @@ export const ConfirmFireflyModal = forwardRef<
         onOpen: async (props) => {
             const { belongsTo, accounts } = props;
 
-            await ConfirmModalRef.openAndWaitForClose({
+            ConfirmModalRef.open({
                 title: t`Device Logged In`,
                 content: (
                     <div>
@@ -60,20 +60,14 @@ export const ConfirmFireflyModal = forwardRef<
                         <div className="flex gap-2">
                             <ClickableButton
                                 className="flex flex-1 items-center justify-center rounded-full border border-main py-2 font-bold text-main"
-                                onClick={() => {
-                                    ConfirmModalRef.close(false);
-                                    dispatch?.close(false);
-                                }}
+                                onClick={() => ConfirmModalRef.close(false)}
                             >
                                 <Trans>Skip for now</Trans>
                             </ClickableButton>
                             <ClickableButton
                                 className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                                 disabled={compact(Object.values(accounts)).length === 0}
-                                onClick={() => {
-                                    ConfirmModalRef.close(true);
-                                    dispatch?.close(true);
-                                }}
+                                onClick={() => ConfirmModalRef.close(true)}
                             >
                                 <Trans>Login</Trans>
                             </ClickableButton>
@@ -83,6 +77,12 @@ export const ConfirmFireflyModal = forwardRef<
                 enableCancelButton: false,
                 enableConfirmButton: false,
                 enableCloseButton: false,
+                onConfirm() {
+                    dispatch?.close(true);
+                },
+                onCancel() {
+                    dispatch?.close(false);
+                },
             });
         },
     });
