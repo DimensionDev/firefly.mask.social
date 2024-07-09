@@ -28,7 +28,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
     const { type, updateImages } = useComposeStateStore();
     const { availableSources } = useCompositePost();
 
-    const maxImageCount = getCurrentPostImageLimits(availableSources, type);
+    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
 
     const onGifClick = useCallback(
         (gif: IGif) => {

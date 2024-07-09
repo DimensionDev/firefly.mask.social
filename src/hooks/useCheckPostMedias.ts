@@ -18,7 +18,7 @@ export function useCheckPostMedias() {
                 enqueueErrorMessage(t`Failed to upload. Video is not supported yet`);
                 return true;
             }
-            const maxImageCount = getCurrentPostImageLimits(availableSources, type);
+            const maxImageCount = getCurrentPostImageLimits(type, availableSources);
             if (imageCount > maxImageCount) {
                 enqueueErrorMessage(t`Failed to upload. More than ${maxImageCount} images`);
                 return true;

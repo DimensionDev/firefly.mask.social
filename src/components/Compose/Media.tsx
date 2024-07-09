@@ -25,7 +25,7 @@ export function Media({ close }: MediaProps) {
     const { type, updateVideo, updateImages } = useComposeStateStore();
     const { availableSources, video, images } = useCompositePost();
 
-    const maxImageCount = getCurrentPostImageLimits(availableSources, type);
+    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {

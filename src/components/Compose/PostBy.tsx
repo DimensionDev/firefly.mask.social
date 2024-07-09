@@ -19,7 +19,7 @@ export function PostBy(props: PostByProps) {
             if (poll && !SORTED_POLL_SOURCES.includes(source)) return true;
             // TODO: Check video limits
 
-            const maxImageCount = getCurrentPostImageLimits(uniq([...availableSources, source]), type);
+            const maxImageCount = getCurrentPostImageLimits(type, uniq([...availableSources, source]));
             return images.length > maxImageCount;
         });
     }, [availableSources, images, poll, type]);
