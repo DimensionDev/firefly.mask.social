@@ -298,6 +298,9 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "{0} muted channels"
+msgstr ""
+
 msgid "[Video]"
 msgstr ""
 
@@ -332,9 +335,6 @@ msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Mutes"
-msgstr ""
-
-msgid "{0} channels"
 msgstr ""
 
 msgid "NFTs"
@@ -686,9 +686,6 @@ msgid "Reply"
 msgstr ""
 
 msgid "Mirror or Quote"
-msgstr ""
-
-msgid "{0} users"
 msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
@@ -1147,6 +1144,9 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr ""
 
+msgid "{0} muted users"
+msgstr ""
+
 msgid "Remove Poll"
 msgstr ""
 
@@ -1238,6 +1238,9 @@ msgid "Download image"
 msgstr ""
 
 msgid "Mirrored"
+msgstr ""
+
+msgid "Muted contents"
 msgstr ""
 
 msgid "Unable to retrieve post details."
