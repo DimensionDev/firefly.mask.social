@@ -77,12 +77,6 @@ export const ConfirmFireflyModal = forwardRef<
                 enableCancelButton: false,
                 enableConfirmButton: false,
                 enableCloseButton: false,
-                onConfirm() {
-                    dispatch?.close(true);
-                },
-                onCancel() {
-                    dispatch?.close(false);
-                },
             });
         },
     });
