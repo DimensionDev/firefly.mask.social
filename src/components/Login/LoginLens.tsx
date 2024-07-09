@@ -167,7 +167,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         </span>
                     </ClickableButton>
                     <ClickableButton
-                        disabled={loading}
+                        disabled={loading || !profiles.length}
                         className="flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
