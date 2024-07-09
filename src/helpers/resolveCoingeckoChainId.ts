@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveCoinGeckoChainId = createLookupTableResolver<string, number | undefined>(
     {

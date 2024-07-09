@@ -1,7 +1,7 @@
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import urlcat from 'urlcat';
 
 import { EMPTY_LIST } from '@/constants/index.js';
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { NFTCollectionsResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

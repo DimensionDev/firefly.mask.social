@@ -1,6 +1,5 @@
 'use client';
 import { Trans } from '@lingui/macro';
-import { createIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
@@ -10,6 +9,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';

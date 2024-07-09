@@ -14,10 +14,10 @@ import urlcat from 'urlcat';
 
 import { EMPTY_LIST, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
+import { EMPTY_ARRAY } from '@/constants/subscription.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EMPTY_ARRAY } from '@/constants/subscription.js';
 
 export function usePostInfo(post: Post) {
     return useMemo((): PostContext => {

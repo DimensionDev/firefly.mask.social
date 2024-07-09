@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { createIndicator } from '@/helpers/pageable.js';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
@@ -18,6 +17,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 

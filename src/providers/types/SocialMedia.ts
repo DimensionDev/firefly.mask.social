@@ -1,6 +1,5 @@
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-
 import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
 export enum SessionType {

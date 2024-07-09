@@ -17,13 +17,6 @@ import {
     PublicationType,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-} from '@/helpers/pageable.js';
 import { isZero } from '@masknet/web3-shared-base';
 import { compact, first, flatMap, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -47,6 +40,13 @@ import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';

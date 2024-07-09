@@ -2,7 +2,6 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
@@ -12,6 +11,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, SearchType } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';

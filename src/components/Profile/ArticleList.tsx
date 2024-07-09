@@ -1,9 +1,9 @@
-import { createIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 interface ArticleListProps {

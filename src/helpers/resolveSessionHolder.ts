@@ -1,7 +1,6 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

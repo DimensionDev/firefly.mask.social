@@ -1,8 +1,8 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
 import twitter from 'twitter-text';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 // calculate length for farcaster in bytes
 // learn more: https://hackmd.io/@farcasterxyz/BJeFoxdy3

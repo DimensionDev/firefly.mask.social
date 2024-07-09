@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
@@ -21,6 +20,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';

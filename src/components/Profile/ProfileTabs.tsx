@@ -1,6 +1,5 @@
 'use client';
 
-import { createLookupTableResolver } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { usePathname } from 'next/navigation.js';
 import { startTransition, useEffect } from 'react';
@@ -10,6 +9,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';

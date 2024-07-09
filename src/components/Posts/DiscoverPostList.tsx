@@ -1,6 +1,5 @@
 'use client';
 
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
@@ -10,6 +9,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

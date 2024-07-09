@@ -1,11 +1,11 @@
 /* cspell:disable */
 
-import { createLookupTableResolver } from '@masknet/shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { ChainId } from '@/types/frame.js';
 

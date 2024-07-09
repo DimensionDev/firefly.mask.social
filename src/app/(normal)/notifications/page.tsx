@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { createIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useState } from 'react';
@@ -12,6 +11,7 @@ import { NotificationItem } from '@/components/Notification/NotificationItem.js'
 import { ScrollListKey } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';

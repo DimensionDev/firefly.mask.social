@@ -1,10 +1,10 @@
-import { createIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import type { PostEngagementListProps } from '@/components/Engagement/type.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey } from '@/constants/enum.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

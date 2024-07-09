@@ -1,7 +1,6 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
-
 import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const narrowToSocialSource = createLookupTableResolver<Source, SocialSource>(
     {

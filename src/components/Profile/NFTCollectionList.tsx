@@ -1,6 +1,5 @@
 'use client';
 
-import { createIndicator } from '@/helpers/pageable.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -13,6 +12,7 @@ import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { Collection } from '@/providers/types/Firefly.js';

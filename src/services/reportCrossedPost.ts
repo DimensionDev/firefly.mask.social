@@ -1,4 +1,3 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
@@ -6,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { createIndicator } from '@/helpers/pageable.js';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
@@ -16,6 +15,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
