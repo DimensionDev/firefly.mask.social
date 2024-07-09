@@ -1,6 +1,6 @@
 'use client';
 
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -13,7 +13,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { Source } from '@/constants/enum.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';

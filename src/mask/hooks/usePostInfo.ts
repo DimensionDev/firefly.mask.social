@@ -3,7 +3,6 @@ import { type PostContext } from '@masknet/plugin-infra/content-script';
 import {
     createConstantSubscription,
     EMPTY_ARRAY,
-    EMPTY_LIST,
     EnhanceableSite,
     PostIdentifier,
     ProfileIdentifier,
@@ -14,7 +13,7 @@ import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import urlcat from 'urlcat';
 
-import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';

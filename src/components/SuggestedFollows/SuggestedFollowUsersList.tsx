@@ -1,6 +1,7 @@
 'use client';
 
-import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';

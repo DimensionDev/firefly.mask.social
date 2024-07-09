@@ -1,11 +1,10 @@
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { NEYNAR_URL } from '@/constants/index.js';
+import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';

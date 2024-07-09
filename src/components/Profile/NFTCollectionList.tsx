@@ -1,6 +1,6 @@
 'use client';
 
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -10,6 +10,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';

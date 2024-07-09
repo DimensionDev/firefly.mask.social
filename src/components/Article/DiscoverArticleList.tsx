@@ -1,12 +1,13 @@
 'use client';
 
-import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Article } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

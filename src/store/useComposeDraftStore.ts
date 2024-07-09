@@ -1,9 +1,9 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { type Draft as WritableDraft } from 'immer';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

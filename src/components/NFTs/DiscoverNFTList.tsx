@@ -1,4 +1,4 @@
-import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator, createPageable } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { NFTFeed } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

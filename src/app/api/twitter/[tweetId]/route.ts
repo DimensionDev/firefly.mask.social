@@ -1,9 +1,9 @@
-import { compose } from '@/helpers/compose.js';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
+import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';

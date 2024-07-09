@@ -1,15 +1,10 @@
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    EMPTY_LIST,
-    type PageIndicator,
-} from '@masknet/shared-base';
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@masknet/shared-base';
 import urlcat from 'urlcat';
 
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { NFTCollectionsResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 export interface Params {
     limit?: number;

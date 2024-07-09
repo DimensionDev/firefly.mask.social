@@ -1,8 +1,8 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first, last } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Coingecko } from '@/providers/coingecko/index.js';
 
 export function useCoinPriceStats(coinId: string | undefined, days: number | undefined) {

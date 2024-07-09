@@ -1,4 +1,4 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 /**
  * Query meta tag with name or property s

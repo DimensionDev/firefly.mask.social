@@ -1,11 +1,12 @@
 'use client';
 
-import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleFollowingNFTItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FollowingNFT } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

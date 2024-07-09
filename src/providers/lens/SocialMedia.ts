@@ -21,7 +21,6 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
-    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
@@ -67,6 +66,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 

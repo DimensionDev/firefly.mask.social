@@ -2,7 +2,6 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
-    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
@@ -77,6 +76,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 async function reportPost(params: ReportPostParams) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');

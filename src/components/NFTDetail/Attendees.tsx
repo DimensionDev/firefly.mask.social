@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
@@ -15,6 +15,7 @@ import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
