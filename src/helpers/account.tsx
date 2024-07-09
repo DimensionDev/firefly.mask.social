@@ -203,6 +203,9 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             } else {
                 // the user rejected to store conflicting accounts
                 if (!belongsTo) return false;
+
+                // the user rejected to restore accounts from firefly
+                if (account.session.type === SessionType.Firefly) return false;
             }
         }
     }
