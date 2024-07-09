@@ -1,4 +1,5 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
+
 import { createLensSDK, LocalStorageProvider, setLensCredentials } from '@/helpers/createLensSDK.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
