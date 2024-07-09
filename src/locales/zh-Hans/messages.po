@@ -1150,7 +1150,7 @@ msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
 msgid "{0} muted users"
-msgstr "{0} 已屏蔽的用户"
+msgstr "{0} 屏蔽的用户"
 
 msgid "Remove Poll"
 msgstr "删除投票"
