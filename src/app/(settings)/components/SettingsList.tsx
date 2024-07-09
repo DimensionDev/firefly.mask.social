@@ -19,7 +19,7 @@ export function SettingsList() {
                 { name: <Trans>General</Trans>, link: '/general' },
                 { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLoggedIn },
                 { name: <Trans>Communities</Trans>, link: '/communities' },
-                { name: <Trans>Mutes</Trans>, link: '/mutes', isHidden: !muteMenuList.length },
+                { name: <Trans>Muted contents</Trans>, link: '/mutes', isHidden: !muteMenuList.length },
                 { name: <Trans>More</Trans>, link: '/more' },
             ].map(({ name, link, isHidden }) => {
                 return isHidden ? null : <TextLink key={link} name={name} link={`/settings${link}`} />;
