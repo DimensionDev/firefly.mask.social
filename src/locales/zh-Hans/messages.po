@@ -303,6 +303,9 @@ msgstr "收藏"
 msgid "Confirm"
 msgstr "确认"
 
+msgid "{0} muted channels"
+msgstr "{0} 屏蔽的频道"
+
 msgid "[Video]"
 msgstr "[视频]"
 
@@ -338,9 +341,6 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Mutes"
 msgstr "屏蔽"
-
-msgid "{0} channels"
-msgstr "{0} 频道"
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -692,9 +692,6 @@ msgstr "回复"
 
 msgid "Mirror or Quote"
 msgstr "转帖或者引用"
-
-msgid "{0} users"
-msgstr "{0} 用户"
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要屏蔽 /{0} 吗？"
@@ -1152,6 +1149,9 @@ msgstr "已翻译"
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
+msgid "{0} muted users"
+msgstr "{0} 屏蔽的用户"
+
 msgid "Remove Poll"
 msgstr "删除投票"
 
@@ -1244,6 +1244,9 @@ msgstr "下载图片"
 
 msgid "Mirrored"
 msgstr "已转发"
+
+msgid "Muted contents"
+msgstr "已屏蔽内容"
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
@@ -1835,4 +1838,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
