@@ -39,9 +39,10 @@ async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.forEach((source) => {
-            const state = getProfileState(source);
+            const { state, sessionHolder } = getContext(source);
             state.resetCurrentAccount();
             state.updateAccounts([]);
+            sessionHolder.removeSession();
         });
     }
 
