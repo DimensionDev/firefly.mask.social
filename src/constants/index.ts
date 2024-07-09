@@ -79,6 +79,8 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SUPPORT_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 
+export const DISABLED_MEDIA_PREVIEW_SOURCES: SocialSource[] = [Source.Twitter];
+
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
