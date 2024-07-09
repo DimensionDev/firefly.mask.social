@@ -115,14 +115,14 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                         {({ checked }) => (
                                             <span
                                                 className={`${
-                                                    checked ? 'bg-success' : 'bg-gray-200 dark:bg-lightBg'
+                                                    checked ? 'bg-fireflyBrand' : 'bg-gray-200 dark:bg-lightBg'
                                                 } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
                                             >
                                                 <span className="sr-only">Enable signless</span>
                                                 <span
                                                     className={`${
                                                         checked ? 'translate-x-6' : 'translate-x-1'
-                                                    } inline-block h-3 w-3 transform rounded-full bg-fireflyBrand transition`}
+                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
                                             </span>
                                         )}
