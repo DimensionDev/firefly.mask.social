@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { createIndicator, createPageable } from '@masknet/shared-base';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 

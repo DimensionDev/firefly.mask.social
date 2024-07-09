@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import ComeBack from '@/assets/comeback.svg';

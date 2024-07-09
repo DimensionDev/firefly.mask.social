@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator } from '@/helpers/pageable.js';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';

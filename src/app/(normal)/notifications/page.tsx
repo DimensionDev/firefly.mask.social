@@ -1,7 +1,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useState } from 'react';

@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { compact } from 'lodash-es';
 import type {
     TweetV2,
@@ -13,6 +12,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';

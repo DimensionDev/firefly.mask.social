@@ -1,4 +1,4 @@
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 

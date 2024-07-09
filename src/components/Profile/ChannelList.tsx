@@ -1,4 +1,4 @@
-import { createIndicator, createPageable } from '@masknet/shared-base';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ChannelInList } from '@/components/ChannelInList.js';

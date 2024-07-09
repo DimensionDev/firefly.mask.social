@@ -1,4 +1,4 @@
-import { createIndicator, createPageable } from '@masknet/shared-base';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';

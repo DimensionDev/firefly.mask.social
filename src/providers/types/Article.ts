@@ -1,4 +1,4 @@
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { Address } from 'viem';
 
 import type { FollowingSource } from '@/providers/types/Firefly.js';

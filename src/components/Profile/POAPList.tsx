@@ -1,6 +1,6 @@
 'use client';
 
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator } from '@/helpers/pageable.js';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';

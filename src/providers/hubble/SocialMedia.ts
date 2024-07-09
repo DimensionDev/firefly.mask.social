@@ -1,6 +1,6 @@
 import { CastAddBody, CastRemoveBody, Factories, Message, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';

@@ -1,4 +1,4 @@
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { InfiniteData } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 

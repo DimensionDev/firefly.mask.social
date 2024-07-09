@@ -4,7 +4,7 @@ import {
     createPageable,
     type Pageable,
     type PageIndicator,
-} from '@masknet/shared-base';
+} from '@/helpers/pageable.js';
 import { isZero } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';

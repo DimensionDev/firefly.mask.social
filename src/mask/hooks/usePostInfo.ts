@@ -2,7 +2,6 @@ import { DOMProxy } from '@dimensiondev/holoflows-kit';
 import { type PostContext } from '@masknet/plugin-infra/content-script';
 import {
     createConstantSubscription,
-    EMPTY_ARRAY,
     EnhanceableSite,
     PostIdentifier,
     ProfileIdentifier,
@@ -18,6 +17,7 @@ import { URL_REGEX } from '@/constants/regexp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EMPTY_ARRAY } from '@/constants/subscription.js';
 
 export function usePostInfo(post: Post) {
     return useMemo((): PostContext => {

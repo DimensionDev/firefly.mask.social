@@ -1,4 +1,4 @@
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { SimpleHashEVM } from '@masknet/web3-providers';
 import type { BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';

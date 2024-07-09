@@ -1,4 +1,4 @@
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';

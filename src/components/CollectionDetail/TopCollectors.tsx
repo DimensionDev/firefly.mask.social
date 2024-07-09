@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator } from '@/helpers/pageable.js';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';

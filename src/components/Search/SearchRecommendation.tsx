@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useQuery } from '@tanstack/react-query';
 import { first, uniqBy } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';

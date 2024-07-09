@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { compact, find, first, last } from 'lodash-es';
 import type { ApiV2Includes, MediaObjectV2, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
