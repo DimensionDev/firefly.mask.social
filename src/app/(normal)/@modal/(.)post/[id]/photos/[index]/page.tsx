@@ -6,7 +6,6 @@ import 'swiper/css/navigation';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
@@ -79,8 +78,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
         const imageAttachments =
-            compact(post.metadata.content?.attachments?.filter((x) => ['Image', 'AnimatedGif'].includes(x.type))) ??
-            EMPTY_LIST;
+            post.metadata.content?.attachments?.filter((x) => ['Image', 'AnimatedGif'].includes(x.type)) ?? EMPTY_LIST;
 
         if (asset?.type === 'Image' && imageAttachments.length === 1) {
             return [{ ...asset }];
