@@ -1,4 +1,5 @@
 import { plural, Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -6,21 +7,33 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileCardProps {
     profile?: Profile;
-    loading?: boolean;
+    source: SocialSource;
+    identity: string;
 }
 
-export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile, loading }) {
-    if (loading) {
+export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile: defaultProfile, source, identity }) {
+    const { data: profile, isLoading } = useQuery({
+        enabled: !!identity && !!source,
+        queryKey: ['profile', source, identity],
+        queryFn: async () => {
+            if (defaultProfile) return defaultProfile;
+            if (!identity || !source) return;
+            const provider = resolveSocialMediaProvider(source);
+            return source === Source.Lens ? provider.getProfileByHandle(identity) : provider.getProfileById(identity);
+        },
+    });
+    if (isLoading) {
         return (
             <div className="h-[182px] w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
                 <div className="animate-pulse">
