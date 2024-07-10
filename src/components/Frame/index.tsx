@@ -1,6 +1,5 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { openWindow } from '@masknet/shared-base-ui';
 import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
@@ -40,6 +39,7 @@ import {
     type RedirectUrlResponse,
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { openWindow } from '@/helpers/openWindow.js';
 
 export const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network
