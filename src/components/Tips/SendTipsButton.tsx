@@ -38,7 +38,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 token,
                 amount,
             });
-            const hashUrl = transfer.network.getTransactionUrl(chainId, hash) ?? transfer.network.getAddressUrl(chainId, id);
+            const hashUrl =
+                transfer.network.getTransactionUrl(chainId, hash) ?? transfer.network.getAddressUrl(chainId, id);
             if (hashUrl) {
                 update((prev) => ({ ...prev, hash: hashUrl }));
             }

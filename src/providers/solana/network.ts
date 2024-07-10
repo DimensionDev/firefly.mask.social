@@ -16,7 +16,6 @@ export const Endpoints: Record<ChainId, string> = {
 
 const defaultChain = ChainId.Mainnet;
 
-
 export class SolanaNetwork implements NetworkProvider<Connection, string, string> {
     _config: Connection;
     constructor(chainId: ChainId) {
