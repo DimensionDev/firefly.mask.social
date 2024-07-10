@@ -9,7 +9,7 @@ import { type FunctionComponent, memo, type SVGAttributes, useMemo } from 'react
 import CollectIcon from '@/assets/collect-large.svg';
 import FollowIcon from '@/assets/follow.svg';
 import LikeIcon from '@/assets/like-large.svg';
-import MessageIcon from '@/assets/messages.svg';
+import MessagesIcon from '@/assets/messages.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
@@ -34,11 +34,11 @@ export const resolveNotificationIcon = createLookupTableResolver<
     {
         [NotificationType.Reaction]: LikeIcon,
         [NotificationType.Act]: CollectIcon,
-        [NotificationType.Comment]: MessageIcon,
+        [NotificationType.Comment]: MessagesIcon,
         [NotificationType.Mirror]: MirrorIcon,
         [NotificationType.Quote]: MirrorIcon,
         [NotificationType.Follow]: FollowIcon,
-        [NotificationType.Mention]: MessageIcon,
+        [NotificationType.Mention]: MessagesIcon,
     },
     null,
 );
