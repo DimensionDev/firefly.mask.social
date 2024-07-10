@@ -1,11 +1,11 @@
 import { t, Trans } from '@lingui/macro';
-import { useSingletonModal } from '@masknet/shared-base-ui';
 import { compact } from 'lodash-es';
 import { forwardRef } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';

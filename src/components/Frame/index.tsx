@@ -1,7 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
-import { attemptUntil } from '@masknet/web3-shared-base';
 import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
@@ -17,6 +16,7 @@ import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';

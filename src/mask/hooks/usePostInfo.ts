@@ -1,18 +1,20 @@
 import { DOMProxy } from '@dimensiondev/holoflows-kit';
 import { type PostContext } from '@masknet/plugin-infra/content-script';
-import { createConstantSubscription, PostIdentifier, ProfileIdentifier, ValueRef } from '@masknet/shared-base';
+import { PostIdentifier, ProfileIdentifier } from '@masknet/shared-base';
 import { makeTypedMessageEmpty, makeTypedMessageTuple } from '@masknet/typed-message';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import urlcat from 'urlcat';
 
+import { EnhanceableSite } from '@/constants/enum.js';
 import { EMPTY_LIST, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { EMPTY_ARRAY } from '@/constants/subscription.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { createConstantSubscription } from '@/helpers/subscription.js';
+import { ValueRef } from '@/libs/ValueRef.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EnhanceableSite } from '@/constants/enum.js';
 
 export function usePostInfo(post: Post) {
     return useMemo((): PostContext => {
@@ -51,7 +53,9 @@ export function usePostInfo(post: Post) {
             mentionedLinks: createConstantSubscription(mentionedLinks),
             postMetadataImages: createConstantSubscription(imageUris),
             rawMessage: createConstantSubscription(makeTypedMessageTuple([makeTypedMessageEmpty()])),
+            // @ts-ignore
             encryptComment: new ValueRef<null | ((commentToEncrypt: string) => Promise<string>)>(null),
+            // @ts-ignore
             decryptComment: new ValueRef<null | ((commentToEncrypt: string) => Promise<string | null>)>(null),
             hasMaskPayload: createConstantSubscription(true),
             postIVIdentifier: createConstantSubscription(null),

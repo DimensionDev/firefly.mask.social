@@ -3,7 +3,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/keyboard';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, useRef, useState } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,6 +12,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 interface CustomArrowProps extends Omit<ClickableButtonProps, 'children'> {

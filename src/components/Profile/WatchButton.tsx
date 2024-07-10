@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { useEverSeen } from '@masknet/shared-base-ui';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { memo, useState } from 'react';
 import type { Address } from 'viem';
@@ -10,6 +9,7 @@ import FollowedIcon from '@/assets/followed.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';

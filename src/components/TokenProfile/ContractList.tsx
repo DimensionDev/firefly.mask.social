@@ -1,6 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
@@ -10,6 +9,7 @@ import DotsIcon from '@/assets/dots.svg';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 

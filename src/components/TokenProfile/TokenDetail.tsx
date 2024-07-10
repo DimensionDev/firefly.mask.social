@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { first, isNumber } from 'lodash-es';
@@ -16,6 +15,7 @@ import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurity.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';

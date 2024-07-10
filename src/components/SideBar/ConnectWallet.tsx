@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId, formatDomainName, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId, encodePublicKey, formatAddress } from '@masknet/web3-shared-solana';
@@ -17,6 +16,7 @@ import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';

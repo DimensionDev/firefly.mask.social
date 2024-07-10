@@ -1,6 +1,6 @@
-import { useSingletonModal } from '@masknet/shared-base-ui';
 import { type ForwardedRef, useEffect, useRef } from 'react';
 
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export function useRainbowModal(
