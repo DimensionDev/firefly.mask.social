@@ -1,6 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { NetworkPluginID, type SingletonModalRefCreator } from '@masknet/shared-base';
-import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { ChainId as SolanaChainId, formatAddress } from '@masknet/web3-shared-solana';
@@ -14,7 +12,10 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
+import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function SolanaAccountModal(_, ref) {

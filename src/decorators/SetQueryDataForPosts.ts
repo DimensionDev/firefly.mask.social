@@ -1,7 +1,6 @@
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
-
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 

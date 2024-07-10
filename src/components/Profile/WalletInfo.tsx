@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { usePathname } from 'next/navigation.js';
 import { useCallback } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
@@ -20,6 +19,7 @@ import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';

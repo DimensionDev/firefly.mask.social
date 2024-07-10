@@ -1,13 +1,13 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import ComeBack from '@/assets/comeback.svg';
 import { getFollowInList } from '@/components/FollowInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, type SocialSourceInURL } from '@/constants/enum.js';
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';

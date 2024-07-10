@@ -1,10 +1,10 @@
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId, EthereumMethodType, isValidChainId, type RequestArguments } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
 
 // @ts-expect-error TODO: define the custom event

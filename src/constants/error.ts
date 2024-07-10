@@ -88,3 +88,9 @@ export class InvalidResultError extends Error {
         super('Invalid result.');
     }
 }
+
+export class NotFoundError extends Error {
+    constructor(message?: string) {
+        super(message ?? 'Not Found.');
+    }
+}

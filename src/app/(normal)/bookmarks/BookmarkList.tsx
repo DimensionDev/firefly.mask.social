@@ -1,5 +1,4 @@
 'use client';
-import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -8,6 +7,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -34,7 +34,7 @@ export function BookmarkList({ source }: Props) {
                 return result;
             } catch (error) {
                 enqueueErrorMessage('Failed to fetch bookmarks', { error });
-                return;
+                throw error;
             }
         },
         initialPageParam: '',

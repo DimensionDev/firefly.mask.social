@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
@@ -16,11 +15,13 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { type SocialSourceInURL, Source } from '@/constants/enum.js';
-import { MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
+import { NotFoundError } from '@/constants/error.js';
+import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -75,9 +76,9 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
 
                 if (currentSource === Source.Lens) fetchAndStoreViews([post.postId]);
                 return post;
-            } catch (err) {
-                if (err instanceof Error && err.message === 'Post not found') return null;
-                throw err;
+            } catch (error) {
+                if (error instanceof NotFoundError) return null;
+                throw error;
             }
         },
     });

@@ -1,6 +1,5 @@
 'use client';
 
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
@@ -10,6 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 
 interface MirrorProps {

@@ -1,14 +1,12 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { openWindow } from '@masknet/shared-base-ui';
-import { attemptUntil } from '@masknet/web3-shared-base';
-import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
+import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 import { memo, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { encodePacked } from 'viem';
+import { encodePacked, isAddress } from 'viem';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
@@ -17,11 +15,13 @@ import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
@@ -51,7 +51,7 @@ export const TransactionSchema = z.object({
     params: z.object({
         // JSON ABI which must include encoded function type and should include potential error types. Can be empty.
         abi: z.union([z.object({}), z.array(z.object({}))]).optional(),
-        to: z.string().refine((x) => isValidAddress(x), { message: 'Invalid address format.' }),
+        to: z.string().refine((x) => isAddress(x), { message: 'Invalid address format.' }),
         value: z.string().optional(),
         data: z.string().optional(),
     }),

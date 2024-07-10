@@ -1,10 +1,10 @@
 'use client';
 
-import { NetworkPluginID } from '@masknet/shared-base';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 
 interface ChainIconProps extends HTMLProps<HTMLImageElement> {
     chainId: number;

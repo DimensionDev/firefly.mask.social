@@ -1,7 +1,6 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
-
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveSourceName = createLookupTableResolver<Source, string>(
     {

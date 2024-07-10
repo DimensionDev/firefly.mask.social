@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation.js';
 import { Fragment } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -12,7 +13,7 @@ import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
@@ -29,6 +30,8 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
     const { data } = useNFTDetail(contractAddress, tokenId, chainId);
     const collectionId = data?.collection?.id;
     const { data: isMuted } = useIsWalletMuted(address);
+    const pathname = usePathname();
+    const isMyProfile = pathname === PageRoute.Profile; // My wallet profile page has no path param
     return (
         <Menu
             className="relative"
@@ -66,14 +69,25 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                         event.preventDefault();
                     }}
                 >
-                    <Menu.Item>
-                        {({ close }) => <WatchWalletButton identity={identity} address={address} onClick={close} />}
-                    </Menu.Item>
-                    <Menu.Item>
-                        {({ close }) => (
-                            <MuteWalletButton identity={identity} address={address} isMuted={isMuted} onClick={close} />
-                        )}
-                    </Menu.Item>
+                    {!isMyProfile ? (
+                        <>
+                            <Menu.Item>
+                                {({ close }) => (
+                                    <WatchWalletButton identity={identity} address={address} onClick={close} />
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ close }) => (
+                                    <MuteWalletButton
+                                        identity={identity}
+                                        address={address}
+                                        isMuted={isMuted}
+                                        onClick={close}
+                                    />
+                                )}
+                            </Menu.Item>
+                        </>
+                    ) : null}
                     {collectionId ? (
                         <Menu.Item>
                             {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
