@@ -71,7 +71,7 @@ export function TipSuccess() {
                                 {amount} ${token?.symbol}{' '}
                             </span>
                             tips to
-                            <span className="font-bold text-link">{' '}{handle || receiver?.displayName}</span>!{' '}
+                            <span className="font-bold text-link"> {handle || receiver?.displayName}</span>!{' '}
                             {canShare ? 'Share this news by mentioning and posting.' : null}
                         </Trans>
                     </p>

@@ -48,7 +48,7 @@ export const TokenSelector = memo(function TokenSelector() {
                 <Loading className="!min-h-[320px]" />
             ) : (
                 <div>
-                    <div className='rounded-lg !bg-lightBg'>
+                    <div className="rounded-lg !bg-lightBg">
                         <SearchInput
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
