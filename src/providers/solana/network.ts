@@ -1,7 +1,7 @@
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { Connection } from '@solana/web3.js';
 
-import { SUPPORTED_SOLANA_CHAIN_IDS as ChainId } from '@/constants/enum.js';
+import { SUPPORTED_SOLANA_CHAIN_IDS as ChainId } from '@/constants/chain.js';
 import { env } from '@/constants/env.js';
 // eslint-disable-next-line no-restricted-imports
 import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';

@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { SUPPORTED_EVM_CHAIN_IDS } from '@/constants/enum.js';
+import { SUPPORTED_EVM_CHAIN_IDS } from '@/constants/chain.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { DebankTokensResponse } from '@/providers/types/Firefly.js';
 import type { DebankToken } from '@/providers/types/Transfer.js';

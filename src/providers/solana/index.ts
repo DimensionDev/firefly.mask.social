@@ -4,7 +4,7 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { CoinbaseWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 
-import { SUPPORTED_SOLANA_CHAIN_IDS } from '@/constants/enum.js';
+import { SUPPORTED_SOLANA_CHAIN_IDS } from '@/constants/chain.js';
 import { env } from '@/constants/env.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
