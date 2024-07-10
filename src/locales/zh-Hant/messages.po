@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-09 12:01\n"
+"PO-Revision-Date: 2024-07-10 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -34,7 +34,7 @@ msgid "Muted"
 msgstr "已靜音"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "斷開連接"
 
 msgid "Quote Post"
 msgstr "引用"
@@ -121,10 +121,10 @@ msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
 msgid "Watching"
-msgstr ""
+msgstr "正在觀看"
 
 msgid "Rank #{0}"
-msgstr ""
+msgstr "排名#{0}"
 
 msgid "Searching channel"
 msgstr "搜尋頻道"
@@ -205,7 +205,7 @@ msgid "Poll"
 msgstr "投票"
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Casts"
 msgstr ""
@@ -226,7 +226,7 @@ msgid "Login with QR Code"
 msgstr ""
 
 msgid "Market Cap"
-msgstr ""
+msgstr "市值"
 
 msgid "Contract source code verified"
 msgstr ""
@@ -235,7 +235,7 @@ msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
-msgstr ""
+msgstr "NFT 標準"
 
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
@@ -277,7 +277,7 @@ msgid "Copied"
 msgstr "已複製"
 
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 msgid "Your posts have published successfully."
 msgstr "你的貼文已成功發佈"
@@ -295,7 +295,7 @@ msgid "True Token"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "失敗"
 
 msgid "Bookmarks"
 msgstr "書籤"
@@ -304,7 +304,7 @@ msgid "Confirm"
 msgstr "確認"
 
 msgid "{0} muted channels"
-msgstr ""
+msgstr "{0} 個已靜音的頻道"
 
 msgid "[Video]"
 msgstr ""
@@ -388,19 +388,19 @@ msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]}
 msgstr ""
 
 msgid "Report Failed"
-msgstr ""
+msgstr "舉報失敗"
 
 msgid "Attendees"
-msgstr ""
+msgstr "參與者"
 
 msgid "Connected accounts"
-msgstr ""
+msgstr "已連接的帳戶"
 
 msgid "via {0} <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "comments"
-msgstr ""
+msgstr "評論"
 
 msgid "Functions with retrievable ownership"
 msgstr ""
@@ -415,7 +415,7 @@ msgid "Watch"
 msgstr ""
 
 msgid "24 Hour Trading Vol"
-msgstr ""
+msgstr "24 小時交易量"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -526,7 +526,7 @@ msgid "Failed to mute /{0}."
 msgstr ""
 
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 msgid "[Photo]"
 msgstr ""
@@ -607,7 +607,7 @@ msgid "Failed to un-bookmark"
 msgstr "從書籤中移除失敗"
 
 msgid "post"
-msgstr ""
+msgstr "貼文"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
@@ -649,7 +649,7 @@ msgid "Failed to submit report on {0}"
 msgstr ""
 
 msgid "like"
-msgstr ""
+msgstr "喜歡"
 
 msgid "View Source"
 msgstr ""
@@ -1838,3 +1838,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+
