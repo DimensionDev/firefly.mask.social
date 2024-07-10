@@ -6,7 +6,7 @@ import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/Con
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
-import type { SchedulePostModalCloseProps, SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.jsx';
+import type { SchedulePostModalCloseProps, SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 
 export const AccountModalRef = new SingletonModal();

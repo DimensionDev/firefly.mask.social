@@ -20,7 +20,7 @@ import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { ConfirmModalRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

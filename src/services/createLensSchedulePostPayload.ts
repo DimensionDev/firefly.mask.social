@@ -7,7 +7,6 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
 import { createIPFSMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
@@ -33,7 +32,7 @@ export async function createLensSchedulePostPayload(
     compositePost: CompositePost,
     isThread = false,
 ): Promise<LensSchedulePayload> {
-    const { images, video, poll, chars, parentPost, postId } = compositePost;
+    const { images, video, chars, parentPost } = compositePost;
 
     const lensParentPost = parentPost.Lens;
     const sourceName = resolveSourceName(Source.Lens);
@@ -46,8 +45,6 @@ export async function createLensSchedulePostPayload(
     );
 
     const videoResult = video?.file ? createIPFSMediaObject(await uploadFileToIPFS(video.file), video) : null;
-
-    const pollResult = !poll ? [] : [await LensPollProvider.createPoll(poll, readChars(chars, 'both', Source.Lens))];
 
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to schedule post on ${sourceName}`);
