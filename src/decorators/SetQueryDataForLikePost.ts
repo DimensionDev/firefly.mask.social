@@ -13,7 +13,7 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
     };
 }
 
-export function toggleLike(source: SocialSource, postId: string, status: boolean) {
+function toggleLike(source: SocialSource, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         draft.hasLiked = status;
         draft.stats = patchPostStats(draft.stats, status);
