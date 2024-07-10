@@ -15,6 +15,25 @@ export enum STATUS {
     Disabled = 'disabled',
 }
 
+// The maskbook blockchain network plugin ID
+export enum NetworkPluginID {
+    PLUGIN_EVM = 'com.mask.evm',
+    PLUGIN_FLOW = 'com.mask.flow',
+    PLUGIN_SOLANA = 'com.mask.solana',
+}
+
+// The maskbook supported enhanceable websites
+export enum EnhanceableSite {
+    Localhost = 'localhost',
+    Twitter = 'twitter.com',
+    Facebook = 'facebook.com',
+    Minds = 'minds.com',
+    Instagram = 'instagram.com',
+    OpenSea = 'opensea.io',
+    Mirror = 'mirror.xyz',
+    Firefly = 'firefly.mask.social',
+}
+
 export type ThemeMode = 'light' | 'dark' | 'default';
 
 export enum Locale {

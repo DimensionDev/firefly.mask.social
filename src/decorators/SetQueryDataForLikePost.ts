@@ -13,7 +13,7 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
     };
 }
 
-export function toggleLike(source: SocialSource, postId: string, status: boolean) {
+function toggleLike(source: SocialSource, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         draft.hasLiked = status;
         draft.stats = patchPostStats(draft.stats, status);
@@ -41,10 +41,10 @@ export function SetQueryDataForLikePost(source: SocialSource) {
                         toggleLike(source, postId, status);
                         const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
                         return await m.call(target.prototype, postId, ...args);
-                    } catch (err) {
+                    } catch (error) {
                         // rolling back
                         toggleLike(source, postId, !status);
-                        throw err;
+                        throw error;
                     }
                 },
             });

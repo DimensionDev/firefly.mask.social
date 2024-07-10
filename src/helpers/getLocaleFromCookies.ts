@@ -1,8 +1,8 @@
 import { getEnumAsArray } from '@masknet/kit';
-import { getCookie } from '@masknet/shared-base';
 import { cookies } from 'next/headers.js';
 
 import { Locale } from '@/constants/enum.js';
+import { getCookie } from '@/helpers/getCookie.js';
 import { defaultLocale } from '@/i18n/index.js';
 
 function resolveLocale(locale: string): Locale {

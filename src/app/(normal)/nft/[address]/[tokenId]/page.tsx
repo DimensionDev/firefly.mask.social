@@ -1,7 +1,6 @@
 'use client';
 
 import { TextOverflowTooltip } from '@masknet/theme';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
@@ -15,6 +14,7 @@ import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';

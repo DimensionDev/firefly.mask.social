@@ -1,6 +1,6 @@
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
 
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { Article } from '@/providers/types/Article.js';
 import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
 import { WatchType } from '@/providers/types/Firefly.js';

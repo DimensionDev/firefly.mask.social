@@ -1,6 +1,5 @@
-import { SingletonModal } from '@masknet/shared-base';
-
 import type { DraggablePopoverProps } from '@/components/DraggablePopover.js';
+import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { ComposeModalCloseProps, ComposeModalProps } from '@/modals/ComposeModal.js';
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';

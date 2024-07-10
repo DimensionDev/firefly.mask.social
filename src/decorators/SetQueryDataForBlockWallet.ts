@@ -1,8 +1,8 @@
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
@@ -72,10 +72,10 @@ export function SetQueryDataForBlockWallet() {
                     try {
                         toggleBlock(address, status);
                         return await m.call(target.prototype, address);
-                    } catch (err) {
+                    } catch (error) {
                         // rolling back
                         toggleBlock(address, !status);
-                        throw err;
+                        throw error;
                     }
                 },
             });

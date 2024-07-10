@@ -1,12 +1,12 @@
 import { Menu, type MenuProps, Transition } from '@headlessui/react';
 import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 

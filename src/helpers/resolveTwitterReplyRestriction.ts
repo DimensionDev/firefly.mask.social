@@ -1,6 +1,5 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
-
 import { RestrictionType } from '@/constants/enum.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveTwitterReplyRestriction = createLookupTableResolver<
     RestrictionType,

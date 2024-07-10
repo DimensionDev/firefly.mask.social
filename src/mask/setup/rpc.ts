@@ -1,7 +1,8 @@
-import { encoder } from '@masknet/shared-base';
 import { AsyncCall, type EventBasedChannel } from 'async-call-rpc/full';
 
 import { addListener, postMessage } from '@/mask/setup/message.js';
+// eslint-disable-next-line no-restricted-imports
+import { encoder } from '@/maskbook/packages/shared-base/src/serializer/index.js';
 
 const channel: EventBasedChannel = {
     on(listener) {

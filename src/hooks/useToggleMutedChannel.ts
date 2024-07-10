@@ -26,7 +26,6 @@ export function useToggleMutedChannel() {
                 channel.blocked ? t`Failed to unmute /${channel.name}.` : t`Failed to mute /${channel.name}.`,
                 { error },
             );
-
             throw error;
         }
     }, []);

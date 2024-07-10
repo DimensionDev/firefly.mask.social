@@ -1,21 +1,14 @@
 import { t } from '@lingui/macro';
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    EMPTY_LIST,
-    type Pageable,
-    type PageIndicator,
-} from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { isValidAddress } from '@masknet/web3-shared-evm';
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
+import { isAddress } from 'viem';
 
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { NotFoundError, NotImplementedError } from '@/constants/error.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -27,6 +20,13 @@ import {
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -342,7 +342,7 @@ export class FireflySocialMedia implements Provider {
             });
 
             const post = cast ? formatFarcasterPostFromFirefly(cast) : null;
-            if (!post) throw new Error('Post not found');
+            if (!post) throw new NotFoundError('Post not found');
             return post;
         });
     }
@@ -990,7 +990,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async watchWallet(address: string) {
-        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,
@@ -1000,7 +1000,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async unwatchWallet(address: string) {
-        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,

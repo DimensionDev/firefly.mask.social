@@ -129,7 +129,6 @@
             "@masknet/plugin-approval": ["./src/maskbook/packages/plugins/Approval/src/index.ts"],
             "@masknet/plugin-scam-warning": ["./src/maskbook/packages/plugins/ScamWarning/src/index.ts"],
             "@masknet/plugin-gitcoin": ["./src/maskbook/packages/plugins/Gitcoin/src/index.ts"],
-            "@masknet/plugin-avatar": ["./src/maskbook/packages/plugins/Avatar/src/index.ts"],
             "@masknet/plugin-redpacket": ["./src/maskbook/packages/plugins/RedPacket/src/index.ts"],
             "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"],
             "@masknet/plugin-maskbox": ["./src/maskbook/packages/plugins/MaskBox/src/index.ts"],

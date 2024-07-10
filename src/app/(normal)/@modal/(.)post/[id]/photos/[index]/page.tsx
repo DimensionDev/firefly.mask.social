@@ -4,7 +4,6 @@ import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo, useRef } from 'react';
@@ -18,6 +17,7 @@ import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

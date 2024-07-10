@@ -1,8 +1,8 @@
 import { WalletConnectQRCodeModal } from '@masknet/shared';
-import { EMPTY_ARRAY } from '@masknet/shared-base';
 import { initWallet } from '@masknet/web3-providers';
 import type { WalletAPI } from '@masknet/web3-providers/types';
 
+import { EMPTY_ARRAY } from '@/constants/subscription.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 

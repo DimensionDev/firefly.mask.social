@@ -1,6 +1,5 @@
 import { CastAddBody, CastRemoveBody, Factories, Message, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
@@ -9,6 +8,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import {
     type Channel,

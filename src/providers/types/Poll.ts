@@ -1,7 +1,6 @@
-import type { Pageable } from '@masknet/shared-base';
-
 import type { SocialSource } from '@/constants/enum.js';
 import type { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
+import type { Pageable } from '@/helpers/pageable.js';
 import type { Response } from '@/providers/types/Firefly.js';
 
 export interface PollOption {
