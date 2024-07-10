@@ -3,7 +3,6 @@ import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
-import dayjs from 'dayjs';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -29,14 +28,14 @@ import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useScheduleButtonHandler } from '@/hooks/useScheduleButtonHandler.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { ComposeModalRef, ConnectWalletModalRef, SchedulePostModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
@@ -47,8 +46,8 @@ export function ComposeAction(props: ComposeActionProps) {
 
     const currentProfileAll = useCurrentProfileAll();
     const post = useCompositePost();
-    const { type, posts, addPostInThread, updateRestriction, scheduleTime, clearScheduleTime, updateScheduleTime } =
-        useComposeStateStore();
+    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
+
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
     const { usedLength, availableLength } = measureChars(post);
@@ -89,27 +88,7 @@ export function ComposeAction(props: ComposeActionProps) {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
 
-    const [, handleScheduleClick] = useAsyncFn(async () => {
-        try {
-            const result = await SchedulePostModalRef.openAndWaitForClose({
-                action: scheduleTime ? 'update' : 'create',
-                initialValue: scheduleTime,
-            });
-            if (result === 'clear') clearScheduleTime();
-            else if (result) {
-                if (dayjs(result).isBefore(new Date())) {
-                    enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
-                    return;
-                }
-                updateScheduleTime(result);
-            }
-        } catch (error) {
-            enqueueErrorMessage('description', {
-                error,
-            });
-            throw error;
-        }
-    }, [scheduleTime]);
+    const [, handleScheduleClick] = useScheduleButtonHandler();
 
     return (
         <div className="px-4 pb-4">

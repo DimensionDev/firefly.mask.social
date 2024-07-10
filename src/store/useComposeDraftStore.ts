@@ -13,6 +13,7 @@ export interface Draft extends ComposeBaseState {
     draftId: string;
     createdAt: Date;
     availableProfiles: Profile[];
+    scheduleTime?: Date;
 }
 
 interface ComposeDraftState {

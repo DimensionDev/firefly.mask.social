@@ -2,7 +2,6 @@ import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outlin
 import { t, Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import { memo, useRef, useState } from 'react';
-import { useAsyncFn } from 'react-use';
 
 import ScheduleIcon from '@/assets/schedule.svg';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
@@ -12,40 +11,21 @@ import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.
 import { Tooltip } from '@/components/Tooltip.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { SchedulePostModalRef } from '@/modals/controls.js';
+import { useScheduleButtonHandler } from '@/hooks/useScheduleButtonHandler.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const ComposeUI = memo(function ComposeUI() {
     const contentRef = useRef<HTMLDivElement>(null);
     const isMedium = useIsMedium();
-    const { posts, scheduleTime, clearScheduleTime, updateScheduleTime } = useComposeStateStore();
+    const { posts } = useComposeStateStore();
+    const { scheduleTime } = useComposeScheduleStateStore();
+
+    const [, handleScheduleClick] = useScheduleButtonHandler();
     const compositePost = useCompositePost();
     const [warningsOpen, setWarningsOpen] = useState(true);
-
-    const [, handleScheduleClick] = useAsyncFn(async () => {
-        try {
-            const result = await SchedulePostModalRef.openAndWaitForClose({
-                action: scheduleTime ? 'update' : 'create',
-                initialValue: scheduleTime,
-            });
-            if (result === 'clear') clearScheduleTime();
-            else if (result) {
-                if (dayjs(result).isBefore(new Date())) {
-                    enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
-                    return;
-                }
-                updateScheduleTime(result);
-            }
-        } catch (error) {
-            enqueueErrorMessage('description', {
-                error,
-            });
-            throw error;
-        }
-    }, [scheduleTime, clearScheduleTime]);
 
     return (
         <>

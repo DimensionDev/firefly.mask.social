@@ -63,6 +63,7 @@ import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -206,6 +207,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateChannel,
             clear,
         } = useComposeStateStore();
+        const { clearScheduleTime } = useComposeScheduleStateStore();
         const compositePost = useCompositePost();
         const { typedMessage, rpPayload, id } = compositePost;
 
@@ -228,6 +230,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             onClose: (props) => {
                 if (props?.disableClear) return;
                 clear();
+                clearScheduleTime();
                 router.navigate({ to: '/' });
                 setTimeout(() => {
                     editor.update(() => $getRoot().clear());
@@ -237,7 +240,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
-            const { posts, cursor, draftId, type, scheduleTime } = useComposeStateStore.getState();
+            const { posts, cursor, draftId, type } = useComposeStateStore.getState();
+            const { scheduleTime } = useComposeScheduleStateStore.getState();
             const compositePost = getCompositePost(cursor);
             const { availableSources = EMPTY_LIST } = compositePost ?? {};
             if (posts.some((x) => !isEmptyPost(x))) {

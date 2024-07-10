@@ -4,9 +4,10 @@ import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { compact, first, uniq } from 'lodash-es';
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import LoadingIcon from '@/assets/loading.svg';
 import Trash from '@/assets/trash2.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -19,46 +20,49 @@ import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { ConfirmModalRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { ScheduleTask } from '@/providers/types/Firefly.js';
+import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
+
+function getTitle(displayInfo: SchedulePostDisplayInfo) {
+    switch (displayInfo.type) {
+        case 'compose':
+            if (displayInfo.posts.length > 1) return <Trans>THREAD POST</Trans>;
+            return <Trans>POST</Trans>;
+        case 'reply':
+            const target = first(displayInfo.posts);
+            const parent = target?.parentPost;
+            const post = parent?.Farcaster || parent?.Lens;
+            const profileUrl = post ? getProfileUrl(post.author) : '';
+            return (
+                <Trans>
+                    REPLY to
+                    <span className="ml-1">
+                        <Link href={profileUrl}>@{post?.author.handle}</Link>
+                    </span>
+                </Trans>
+            );
+        case 'quote':
+            return <Trans>QUOTE</Trans>;
+        default:
+            safeUnreachable(displayInfo.type);
+            return;
+    }
+}
 
 const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task: ScheduleTask; index: number }) {
     const displayInfo = task.display_info;
-    const title = useMemo(() => {
-        switch (displayInfo.type) {
-            case 'compose':
-                if (displayInfo.posts.length > 1) return <Trans>THREAD POST</Trans>;
-                return <Trans>POST</Trans>;
-            case 'reply':
-                const target = first(displayInfo.posts);
-                const parent = target?.parentPost;
-                const post = parent?.Farcaster || parent?.Lens;
-                const profileUrl = post ? getProfileUrl(post.author) : '';
-                return (
-                    <Trans>
-                        REPLY to
-                        <span className="ml-1">
-                            <Link href={profileUrl}>@{post?.author.handle}</Link>
-                        </span>
-                    </Trans>
-                );
-            case 'quote':
-                return <Trans>QUOTE</Trans>;
-            default:
-                safeUnreachable(displayInfo.type);
-                return;
-        }
-    }, [displayInfo]);
+    const title = getTitle(displayInfo);
 
     const post = first(displayInfo.posts);
     const content = post ? readChars(post.chars, 'visible') : '';
 
     const isFailed = task.status === 'fail';
 
-    const handleRemove = useCallback(async () => {
+    const [{ loading: removeLoading }, handleRemove] = useAsyncFn(async () => {
         try {
             if (!task.uuid) return;
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
@@ -78,12 +82,14 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                 queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
             });
         } catch (error) {
-            if (error instanceof Error) {
-                enqueueErrorMessage(error.message);
-            }
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete scheduled post.`), {
+                error,
+            });
+            throw error;
         }
     }, [task.uuid]);
 
+    // Becasue it will refetch queries each time, the entire list will be loading. So there's no need to handle the loading UI.
     const [, handleClick] = useAsyncFn(async () => {
         const time = await SchedulePostModalRef.openAndWaitForClose({
             action: 'update',
@@ -98,7 +104,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                 });
             }
         } catch (error) {
-            enqueueErrorMessage('description', {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to update schedule time.`), {
                 error,
             });
             throw error;
@@ -116,7 +122,11 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                 >
                     {title}
                 </div>
-                <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={handleRemove} />
+                {removeLoading ? (
+                    <LoadingIcon className="h-5 w-5 animate-spin cursor-pointer text-danger" />
+                ) : (
+                    <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={handleRemove} />
+                )}
             </div>
             <div className="my-2 cursor-pointer text-fourMain" onClick={handleClick}>
                 <div className="line-clamp-5 min-h-[24px] break-words text-left text-[15px] leading-[24px]">
@@ -145,7 +155,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                         </Trans>
                     ) : (
                         <Trans>
-                            Will send on {dayjs(task.publish_timestamp).format('DD MMM, YYYY')} at{' '}
+                            The post will send on {dayjs(task.publish_timestamp).format('DD MMM, YYYY')} at{' '}
                             {dayjs(task.publish_timestamp).format('hh:mm A')}
                         </Trans>
                     )}

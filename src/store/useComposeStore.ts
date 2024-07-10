@@ -69,9 +69,6 @@ export interface ComposeBaseState {
     type: ComposeType;
     posts: CompositePost[];
 
-    // The time set for sending. if not present, means it's not a scheduled sending task.
-    scheduleTime?: Date;
-
     // tracking the current editable post
     cursor: Cursor;
     // tracking the current applied draft id
@@ -123,8 +120,6 @@ interface ComposeState extends ComposeBaseState {
     createPoll: (cursor?: Cursor) => void;
     updatePoll: (poll: CompositePoll | null, cursor?: Cursor) => void;
 
-    updateScheduleTime: (time: Date) => void;
-    clearScheduleTime: () => void;
     // reset the editor
     apply: (state: ComposeBaseState) => void;
     clear: () => void;
@@ -516,14 +511,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        updateScheduleTime: (time) =>
-            set((state) => {
-                state.scheduleTime = time;
-            }),
-        clearScheduleTime: () =>
-            set((state) => {
-                state.scheduleTime = undefined;
-            }),
         updatePoll: (poll, cursor) =>
             set((state) =>
                 next(
@@ -552,7 +539,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor: id,
                     draftId: undefined,
                     posts: [createInitSinglePostState(id)],
-                    scheduleTime: undefined,
                 } satisfies ComposeBaseState;
 
                 Object.assign(state, nextState);

@@ -22,8 +22,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         payload.forEach((x) => {
             const origin = results.get(x.platform);
             results.set(x.platform, {
-                platform: x.platform,
-                platformUserId: x.platformUserId,
+                ...x,
                 payload: origin ? [...origin.payload, x.payload] : [x.payload],
             });
         });

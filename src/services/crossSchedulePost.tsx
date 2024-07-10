@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 
+import { UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -35,7 +36,7 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
     return Promise.all(
         availableSources.map(async (x) => {
             const profile = allProfiles[x];
-            if (!profile) throw new Error('Login required');
+            if (!profile) throw new UnauthorizedError();
             const payload = await resolveCreateSchedulePostPayload(x)(type, compositePost, isThread);
 
             return {

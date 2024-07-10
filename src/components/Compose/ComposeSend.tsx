@@ -27,13 +27,15 @@ import { crossPostThread } from '@/services/crossPostThread.js';
 import { crossSchedulePost } from '@/services/crossSchedulePost.js';
 import { crossPostScheduleThread } from '@/services/crossSchedulePostThread.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
     const post = useCompositePost();
-    const { type, posts, addPostInThread, draftId, scheduleTime } = useComposeStateStore();
+    const { type, posts, addPostInThread, draftId } = useComposeStateStore();
+    const { scheduleTime } = useComposeScheduleStateStore();
     const { removeDraft } = useComposeDraftStateStore();
 
     const { usedLength, availableLength } = measureChars(post);
