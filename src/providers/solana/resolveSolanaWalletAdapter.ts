@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { createLookupTableResolver } from '@masknet/shared-base';
 import {
     AlphaWalletAdapter,
