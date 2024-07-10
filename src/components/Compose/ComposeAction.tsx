@@ -79,7 +79,7 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll]);
 
-    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
     const hasError = useMemo(() => {

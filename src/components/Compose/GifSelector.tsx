@@ -25,10 +25,10 @@ function LoadingIndicator() {
 
 export function GifSelector({ onSelected }: GifSelectorProps) {
     const { isFetching, fetchGifs, searchKey } = useContext(SearchContext);
-    const { type, updateImages } = useComposeStateStore();
+    const { updateImages } = useComposeStateStore();
     const { availableSources } = useCompositePost();
 
-    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const maxImageCount = getCurrentPostImageLimits(availableSources);
 
     const onGifClick = useCallback(
         (gif: IGif) => {
