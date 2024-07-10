@@ -879,7 +879,7 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         if (response) return true;
-        throw new Error('Failed to bookmark');
+        throw new Error('Failed to bookmark.');
     }
 
     async unbookmark(postId: string): Promise<boolean> {
@@ -891,7 +891,7 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         if (response) return true;
-        throw new Error('Failed to bookmark');
+        throw new Error('Failed to remove bookmark.');
     }
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
