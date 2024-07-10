@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId, formatDomainName, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId, encodePublicKey, formatAddress } from '@masknet/web3-shared-solana';

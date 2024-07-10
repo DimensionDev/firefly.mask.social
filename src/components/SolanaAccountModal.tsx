@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { NetworkPluginID, type SingletonModalRefCreator } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatBalance } from '@masknet/web3-shared-base';

@@ -1,12 +1,6 @@
 import { DOMProxy } from '@dimensiondev/holoflows-kit';
 import { type PostContext } from '@masknet/plugin-infra/content-script';
-import {
-    createConstantSubscription,
-    EnhanceableSite,
-    PostIdentifier,
-    ProfileIdentifier,
-    ValueRef,
-} from '@masknet/shared-base';
+import { createConstantSubscription, PostIdentifier, ProfileIdentifier, ValueRef } from '@masknet/shared-base';
 import { makeTypedMessageEmpty, makeTypedMessageTuple } from '@masknet/typed-message';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -18,6 +12,7 @@ import { EMPTY_ARRAY } from '@/constants/subscription.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EnhanceableSite } from '@/constants/enum.js';
 
 export function usePostInfo(post: Post) {
     return useMemo((): PostContext => {

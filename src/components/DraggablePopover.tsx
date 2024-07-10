@@ -1,10 +1,10 @@
 'use client';
 
-import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, useState } from 'react';
 
 import { Popover } from '@/components/Popover.js';
+import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface DraggablePopoverProps {
     backdrop?: boolean;

@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
-import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -26,6 +25,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

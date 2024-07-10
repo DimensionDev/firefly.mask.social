@@ -5,13 +5,14 @@ import {
     __setUIContext__,
     startPluginSiteAdaptor,
 } from '@masknet/plugin-infra/content-script';
-import { BooleanPreference, createI18NBundle, EnhanceableSite, i18NextInstance } from '@masknet/shared-base';
+import { BooleanPreference, createI18NBundle, i18NextInstance } from '@masknet/shared-base';
 import { setupReactShadowRootEnvironment } from '@masknet/theme';
 import { Emitter } from '@servie/events';
 
 import { createMaskSiteAdaptorContext, createMaskUIContext } from '@/helpers/createMaskContext.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 import { indexedDBStorage, inMemoryStorage } from '@/mask/setup/storage.js';
+import { EnhanceableSite } from '@/constants/enum.js';
 
 __setUIContext__(createMaskUIContext());
 __setSiteAdaptorContext__(createMaskSiteAdaptorContext());

@@ -1,6 +1,6 @@
 'use client';
 
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import type { HTMLProps } from 'react';
 

@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { NetworkPluginID, type SingletonModalRefCreator } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
@@ -14,6 +14,7 @@ import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function ConnectWalletModal(_, ref) {
