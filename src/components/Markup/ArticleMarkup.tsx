@@ -1,8 +1,7 @@
 'use client';
 
 import { memo, useRef } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { type Options as ReactMarkdownOptions } from 'react-markdown';
+import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
@@ -11,10 +10,11 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.js';
+import { Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { trimify } from '@/helpers/trimify.js';
-import { PreviewImageModalRef } from '@/modals/controls.js';
+import { PreviewMediaModalRef } from '@/modals/controls.js';
 
 const PLUGINS = [
     [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'image'] }],
@@ -54,6 +54,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                     images.current = !images.current.includes(props.src)
                         ? [...images.current, props.src]
                         : images.current;
+                    const index = images.current.findIndex((uri) => uri === props.src);
                     return (
                         <ImageAsset
                             className={classNames('cursor-pointer', props.className)}
@@ -65,9 +66,10 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                                 event.preventDefault();
                                 event.stopPropagation();
                                 if (!props.src) return;
-                                PreviewImageModalRef.open({
-                                    current: props.src,
-                                    images: images.current,
+                                PreviewMediaModalRef.open({
+                                    index: `${Math.max(index, 0)}`,
+                                    medias: images.current.map((uri) => ({ type: 'Image', uri })),
+                                    source: Source.Article,
                                 });
                             }}
                             {...imageProps}

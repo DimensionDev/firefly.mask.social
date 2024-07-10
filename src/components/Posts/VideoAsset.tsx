@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 
@@ -15,7 +15,7 @@ const forwardTwitterVideo = (url: string) => {
 
 interface VideoAssetProps {
     asset: Attachment;
-    source: SocialSource;
+    source: Source;
     isQuote?: boolean;
 }
 
