@@ -1,6 +1,5 @@
 'use client';
 
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { usePathname } from 'next/navigation.js';
 import { startTransition, useEffect } from 'react';
 import urlcat from 'urlcat';
@@ -12,6 +11,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';

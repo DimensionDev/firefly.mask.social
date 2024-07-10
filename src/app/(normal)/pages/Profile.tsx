@@ -1,8 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { isSameAddress } from '@masknet/web3-shared-base';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
 import { notFound, usePathname } from 'next/navigation.js';
@@ -16,7 +14,9 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';

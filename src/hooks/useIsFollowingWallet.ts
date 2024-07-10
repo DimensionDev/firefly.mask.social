@@ -1,7 +1,7 @@
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { WalletsFollowStatusResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

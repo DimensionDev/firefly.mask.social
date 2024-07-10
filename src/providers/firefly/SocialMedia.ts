@@ -1,7 +1,7 @@
 import { isZero } from '@masknet/web3-shared-base';
-import { isValidAddress } from '@masknet/web3-shared-evm';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
+import { isAddress } from 'viem';
 
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -983,7 +983,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async watchWallet(address: string) {
-        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,
@@ -993,7 +993,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async unwatchWallet(address: string) {
-        if (!isValidAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,

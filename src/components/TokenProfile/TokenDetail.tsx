@@ -1,6 +1,5 @@
 import { t, Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { first, isNumber } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode, useRef, useState } from 'react';
@@ -19,6 +18,7 @@ import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { useCoinPrice24hStats, useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';

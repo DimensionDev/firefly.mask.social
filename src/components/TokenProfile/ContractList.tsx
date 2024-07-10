@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment, type HTMLProps, memo } from 'react';
 
@@ -11,6 +10,7 @@ import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
 interface Props {

@@ -3,7 +3,6 @@
 import { Switch } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -18,6 +17,7 @@ import { AbortError } from '@/constants/error.js';
 import { addAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
