@@ -21,7 +21,13 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
     const enabled = isMedium && show;
 
     const content = (
-        <Link className="cursor-pointer text-link hover:underline" href={`/token/${symbol}`}>
+        <Link
+            className="cursor-pointer text-link hover:underline"
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
+            href={`/token/${symbol}`}
+        >
             {title}
         </Link>
     );
