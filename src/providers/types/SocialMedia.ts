@@ -81,7 +81,7 @@ export interface MediaObject {
 }
 
 export interface Attachment {
-    type: 'Image' | 'Video' | 'Audio' | 'Poll' | 'Unknown';
+    type: 'Image' | 'Video' | 'Audio' | 'Poll' | 'AnimatedGif' | 'Unknown';
     uri: string;
     coverUri?: string;
     artist?: string;

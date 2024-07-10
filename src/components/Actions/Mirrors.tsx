@@ -146,6 +146,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     safeUnreachable(source);
                     break;
             }
+
             throw error;
         }
     }, [postId, source, mirrored, queryClient, post.author.profileId]);
@@ -164,7 +165,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             content={
                 <div className="z-[5] mt-1 space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main">
                     <div
-                        className={classNames('flex cursor-pointer items-center md:space-x-2', {
+                        className={classNames('flex cursor-pointer items-center space-x-1 md:space-x-2', {
                             'text-secondarySuccess': mirrored,
                         })}
                         onClick={() => {
@@ -172,12 +173,12 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                             handleMirror();
                         }}
                     >
-                        <MirrorLargeIcon width={24} height={24} />
+                        <MirrorLargeIcon width={18} height={18} />
                         <span className="font-medium">{mirrorActionText}</span>
                     </div>
 
                     <div
-                        className="flex cursor-pointer items-center md:space-x-2"
+                        className="flex cursor-pointer items-center space-x-1 md:space-x-2"
                         onClick={() => {
                             setOpen(false);
                             ComposeModalRef.open({
@@ -187,7 +188,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                             });
                         }}
                     >
-                        <QuoteDownIcon width={24} height={24} />
+                        <QuoteDownIcon width={17} height={17} />
                         <span className="font-medium">
                             <Trans>Quote Post</Trans>
                         </span>

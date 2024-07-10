@@ -1,8 +1,10 @@
 import { CastType } from '@farcaster/core';
 import { first } from 'lodash-es';
 
+import { Source } from '@/constants/enum.js';
 import { MENTION_REGEX } from '@/constants/regexp.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
 export async function getAllMentionsForFarcaster(text: string) {
     const replacedIndices = [];
@@ -40,10 +42,12 @@ export async function getAllMentionsForFarcaster(text: string) {
         }
     }
 
+    const length = resolveLengthCalculator(Source.Farcaster)(text);
+
     return {
         text,
         mentionsPositions: replacedIndices,
         mentions,
-        type: text.length > 320 ? CastType.LONG_CAST : CastType.CAST,
+        type: length > 320 ? CastType.LONG_CAST : CastType.CAST,
     };
 }

@@ -1,7 +1,7 @@
 {
     "name": "mask.social",
     "type": "module",
-    "version": "5.4.5",
+    "version": "5.5.0",
     "private": true,
     "packageManager": "pnpm@8.10.4",
     "scripts": {
@@ -107,7 +107,7 @@
         "ts-results-es": "^4.0.0",
         "twemoji-parser": "^14.0.0",
         "twitter-api-v2": "^1.16.1",
-        "typescript": "5.5.0-beta",
+        "typescript": "5.5.3",
         "unstated-next": "^1.1.0",
         "urlcat": "^3.1.0",
         "use-subscription": "^1.8.0",

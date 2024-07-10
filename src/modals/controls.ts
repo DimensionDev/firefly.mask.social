@@ -2,6 +2,7 @@ import { SingletonModal } from '@masknet/shared-base';
 
 import type { DraggablePopoverProps } from '@/components/DraggablePopover.js';
 import type { ComposeModalCloseProps, ComposeModalProps } from '@/modals/ComposeModal.js';
+import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
@@ -19,6 +20,7 @@ export const PreviewImageModalRef = new SingletonModal<PreviewImagesModalOpenPro
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalProps, ComposeModalCloseProps>();
 export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseProps>();
+export const ConfirmFireflyModalRef = new SingletonModal<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
 export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();

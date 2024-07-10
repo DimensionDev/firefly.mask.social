@@ -21,7 +21,7 @@ import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NODE_ENV } from '@/constants/enum.js';
+import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -82,8 +82,6 @@ export function ComposeAction(props: ComposeActionProps) {
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
-    const redPacketDisabled = !!poll;
-
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
@@ -114,7 +112,9 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' ? <PollButton /> : null}
 
-                <GifEntryButton disabled={mediaDisabled} />
+                {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
+                    <GifEntryButton disabled={mediaDisabled} />
+                ) : null}
 
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
@@ -145,13 +145,13 @@ export function ComposeAction(props: ComposeActionProps) {
                     className={classNames(
                         'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
                         {
-                            'opacity-50': loading || redPacketDisabled,
-                            'cursor-not-allowed': redPacketDisabled,
-                            'cursor-pointer': !redPacketDisabled,
+                            'opacity-50': loading || mediaDisabled,
+                            'cursor-not-allowed': mediaDisabled,
+                            'cursor-pointer': !mediaDisabled,
                         },
                     )}
                     onClick={async () => {
-                        if (loading || redPacketDisabled) return;
+                        if (loading || mediaDisabled) return;
                         openRedPacketComposeDialog();
                     }}
                 >

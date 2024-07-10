@@ -15,4 +15,6 @@ try {
                 return signal;
             };
     }
-} catch {}
+} catch (error) {
+    console.error(`[polyfill AbortSignal.timeout]: ${error}`);
+}

@@ -3,11 +3,15 @@ import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo, useState } from 'react';
+import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
+import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { NFTFeedBody, type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
+import { SourceInURL } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -49,6 +53,11 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
         });
     }, [chainId, token]);
 
+    const authorUrl = urlcat('/profile/:address', {
+        address: ownerAddress,
+        source: SourceInURL.Wallet,
+    });
+
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
@@ -66,20 +75,27 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
             }}
         >
             <FeedFollowSource source={first(followingSources)} />
-            <NFTFeedHeader
-                address={ownerAddress}
-                contractAddress={contractAddress}
-                tokenId={token.id}
-                chainId={chainId}
-                displayInfo={displayInfo}
-                time={time}
-            />
-            <NFTFeedBody
-                index={activeTokenIndex}
-                onChangeIndex={setActiveTokenIndex}
-                tokenList={tokenList}
-                chainId={chainId}
-            />
+            <div className="flex gap-3 overflow-auto">
+                <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={(event) => event.stopPropagation()}>
+                    <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={ownerAddress} />
+                </Link>
+                <div className="flex-grow overflow-auto">
+                    <NFTFeedHeader
+                        address={ownerAddress}
+                        contractAddress={contractAddress}
+                        tokenId={token.id}
+                        chainId={chainId}
+                        displayInfo={displayInfo}
+                        time={time}
+                    />
+                    <NFTFeedBody
+                        index={activeTokenIndex}
+                        onChangeIndex={setActiveTokenIndex}
+                        tokenList={tokenList}
+                        chainId={chainId}
+                    />
+                </div>
+            </div>
         </motion.article>
     );
 });

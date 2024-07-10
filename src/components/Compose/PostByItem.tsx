@@ -48,14 +48,14 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     if (!currentProfile || !accounts?.length)
         return (
-            <div className="flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
+            <div className="flex h-10 items-center justify-between">
                 <div className="flex items-center gap-2 text-main">
                     <SocialSourceIcon size={24} source={source} />
                     <span className="font-bold text-main">{resolveSourceName(source)}</span>
                 </div>
 
                 <ClickableButton
-                    className="font-bold text-blueBottom"
+                    className="font-bold text-farcasterPrimary"
                     onClick={async () => {
                         if (source === Source.Farcaster && images.length > 2) {
                             enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
@@ -77,7 +77,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
     return accounts.map(({ profile, session }) => (
         <div
             className={classNames(
-                'flex h-10 items-center justify-between border-b border-secondaryLine last:border-none',
+                'flex h-10 items-center justify-between',
                 disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
             )}
             key={profile.profileId}
@@ -113,7 +113,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                 )
             ) : (
                 <ClickableButton
-                    className="font-bold text-blueBottom"
+                    className="font-bold text-farcasterPrimary"
                     disabled={loading}
                     onClick={() => login({ profile, session })}
                 >

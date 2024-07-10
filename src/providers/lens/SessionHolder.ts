@@ -1,6 +1,6 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
 
-import { createLensSDK, LocalStorageProvider } from '@/helpers/createLensSDK.js';
+import { createLensSDK, LocalStorageProvider, setLensCredentials } from '@/helpers/createLensSDK.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
@@ -14,24 +14,17 @@ export class LensSessionHolder extends SessionHolder<LensSession> {
         return this.lensClientSDK;
     }
 
-    override async resumeSession(session: LensSession) {
-        const refreshToken = session.refreshToken;
-        if (!refreshToken) return;
+    override resumeSession(session: LensSession) {
+        if (session.refreshToken) {
+            const storage = new LocalStorageProvider();
 
-        const now = Date.now();
-        localStorage.setItem(
-            'lens.production.credentials',
-            JSON.stringify({
-                data: {
-                    refreshToken,
-                },
-                metadata: {
-                    createdAt: now,
-                    updatedAt: now,
-                    version: 2,
-                },
-            }),
-        );
+            // overwrite lens credentials in local storage
+            setLensCredentials(storage, session);
+
+            // renew the sdk instance, since it could possess the old credentials
+            this.lensClientSDK = createLensSDK(storage);
+        }
+        super.resumeSession(session);
     }
 }
 

@@ -212,7 +212,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
     };
 
     return (
-        <div className="w-full space-y-1.5 pl-[52px]">
+        <div className="w-full space-y-1.5">
             {activeToken ? <NFTFeedAction {...activeToken.action} /> : null}
             <div className="flex w-full overflow-hidden sm:h-[120px]">
                 <div className="h-auto w-full sm:h-[120px]">

@@ -115,6 +115,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
+msgid "Failed to fetch: {0}. Please try again later."
+msgstr "Failed to fetch: {0}. Please try again later."
+
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr "We are not aware of any code that prevents the sale of tokens."
 
@@ -127,8 +130,8 @@ msgstr "Rank #{0}"
 msgid "Searching channel"
 msgstr "Searching channel"
 
-msgid "Views"
-msgstr "Views"
+msgid "quotes"
+msgstr "quotes"
 
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
@@ -256,6 +259,9 @@ msgstr "Poll is currently only supported on {0}"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
+msgid "likes"
+msgstr "likes"
+
 msgid "Offline"
 msgstr "Offline"
 
@@ -303,6 +309,9 @@ msgstr "Bookmarks"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "{0} muted channels"
+msgstr "{0} muted channels"
 
 msgid "[Video]"
 msgstr "[Video]"
@@ -382,9 +391,6 @@ msgstr "Only up to 2 images can be chosen."
 msgid "Failed to delete"
 msgstr "Failed to delete"
 
-msgid "Failed to fetch: {0}. Please try again later"
-msgstr "Failed to fetch: {0}. Please try again later"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
@@ -394,14 +400,23 @@ msgstr "Report Failed"
 msgid "Attendees"
 msgstr "Attendees"
 
+msgid "Connected accounts"
+msgstr "Connected accounts"
+
+msgid "via {0} <0>{sendFrom}</0>"
+msgstr "via {0} <0>{sendFrom}</0>"
+
+msgid "comments"
+msgstr "comments"
+
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
 
+msgid "recast"
+msgstr "recast"
+
 msgid "Search"
 msgstr "Search"
-
-msgid "Connected Accounts"
-msgstr "Connected Accounts"
 
 msgid "Watch"
 msgstr "Watch"
@@ -448,6 +463,9 @@ msgstr "No Airdrop Scam"
 msgid "Add another post..."
 msgstr "Add another post..."
 
+msgid "recasts"
+msgstr "recasts"
+
 msgid "Items"
 msgstr "Items"
 
@@ -465,9 +483,6 @@ msgstr "Fake Token"
 
 msgid "Recent"
 msgstr "Recent"
-
-msgid "via <0>{sendFrom}</0>"
-msgstr "via <0>{sendFrom}</0>"
 
 msgid "Info"
 msgstr "Info"
@@ -489,6 +504,9 @@ msgstr "OpenGraph Validator"
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
+
+msgid "Not Found. Please check your URL[{0}]."
+msgstr "Not Found. Please check your URL[{0}]."
 
 msgid "Feed"
 msgstr "Feed"
@@ -640,6 +658,9 @@ msgstr "Report spam"
 msgid "Failed to submit report on {0}"
 msgstr "Failed to submit report on {0}"
 
+msgid "like"
+msgstr "like"
+
 msgid "View Source"
 msgstr "View Source"
 
@@ -727,8 +748,8 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
-msgid "Forbidden. Please check your permissions"
-msgstr "Forbidden. Please check your permissions"
+msgid "mirrors"
+msgstr "mirrors"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
@@ -741,9 +762,6 @@ msgstr "[LuckyDrop]"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
-
-msgid "Unauthorized. Please check your login"
-msgstr "Unauthorized. Please check your login"
 
 msgid "Choice {0}"
 msgstr "Choice {0}"
@@ -762,6 +780,12 @@ msgstr "Open in Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
+
+msgid "Forbidden. Please check your permissions."
+msgstr "Forbidden. Please check your permissions."
+
+msgid "There are images that were not uploaded successfully."
+msgstr "There are images that were not uploaded successfully."
 
 msgid "No mint function"
 msgstr "No mint function"
@@ -834,9 +858,6 @@ msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention ite
 
 msgid "Hide more comments"
 msgstr "Hide more comments"
-
-msgid "Internal Server Error. Please try again later"
-msgstr "Internal Server Error. Please try again later"
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "Failed to resolve mint URL = {0}."
@@ -949,6 +970,9 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+msgstr "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 
@@ -957,6 +981,9 @@ msgstr "Failed to fetch bookmarks."
 
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
+
+msgid "collects"
+msgstr "collects"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
@@ -987,9 +1014,6 @@ msgstr "Invalid URL."
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-
-msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
-msgstr "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
@@ -1047,9 +1071,6 @@ msgstr "<0>The proportion of current market capitalization compares to market ca
 
 msgid "Minting Date"
 msgstr "Minting Date"
-
-msgid "Comments"
-msgstr "Comments"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
@@ -1159,9 +1180,6 @@ msgstr "Quote"
 msgid "View engagements"
 msgstr "View engagements"
 
-msgid "Not Found. Please check your URL[{0}]"
-msgstr "Not Found. Please check your URL[{0}]"
-
 msgid "Translated"
 msgstr "Translated"
 
@@ -1170,6 +1188,9 @@ msgstr "Select Wallet"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
+
+msgid "{0} muted users"
+msgstr "{0} muted users"
 
 msgid "Remove Poll"
 msgstr "Remove Poll"
@@ -1264,6 +1285,9 @@ msgstr "Download image"
 msgid "Mirrored"
 msgstr "Mirrored"
 
+msgid "Muted contents"
+msgstr "Muted contents"
+
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
 
@@ -1357,6 +1381,9 @@ msgstr "All notifications"
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
 
+msgid "Internal Server Error. Please try again later."
+msgstr "Internal Server Error. Please try again later."
+
 msgid "The frame server failed to process the request."
 msgstr "The frame server failed to process the request."
 
@@ -1396,9 +1423,6 @@ msgstr "Login to enable all features"
 msgid "Owner can change balance"
 msgstr "Owner can change balance"
 
-msgid "Collects"
-msgstr "Collects"
-
 msgid "{identity} watched"
 msgstr "{identity} watched"
 
@@ -1410,6 +1434,9 @@ msgstr "Back"
 
 msgid "Posting..."
 msgstr "Posting..."
+
+msgid "This Action has been flagged as an unsafe action, & has been blocked."
+msgstr "This Action has been flagged as an unsafe action, & has been blocked."
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "No Lens profile found. Please change to another wallet."
@@ -1432,14 +1459,14 @@ msgstr "No profile found"
 msgid "Watch {identity}"
 msgstr "Watch {identity}"
 
+msgid "view"
+msgstr "view"
+
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
 
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
-
-msgid "View"
-msgstr "View"
 
 msgid "No whitelist"
 msgstr "No whitelist"
@@ -1516,6 +1543,9 @@ msgstr "Failed to retweet."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 
+msgid "collect"
+msgstr "collect"
+
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
 
@@ -1524,6 +1554,9 @@ msgstr "Developers"
 
 msgid "Share to"
 msgstr "Share to"
+
+msgid "views"
+msgstr "views"
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
@@ -1576,14 +1609,14 @@ msgstr "Your {0} account is now connected."
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
 
+msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr "Posted via {0} <0>{sendFrom}</0>"
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
-
-msgid "Posted via <0>{sendFrom}</0>"
-msgstr "Posted via <0>{sendFrom}</0>"
 
 msgid "Total Supply"
 msgstr "Total Supply"
@@ -1602,9 +1635,6 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"
-
-msgid "Ignore warning and proceed"
-msgstr "Ignore warning and proceed"
 
 msgid "NFT ID"
 msgstr "NFT ID"
@@ -1636,6 +1666,9 @@ msgstr "Detail"
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 
+msgid "Cannot continue due to wallet mismatch."
+msgstr "Cannot continue due to wallet mismatch."
+
 msgid "your.email@example.org"
 msgstr "your.email@example.org"
 
@@ -1650,6 +1683,9 @@ msgstr "Click to copy"
 
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"
+
+msgid "Unauthorized. Please check your login."
+msgstr "Unauthorized. Please check your login."
 
 msgid "Mask Network"
 msgstr "Mask Network"

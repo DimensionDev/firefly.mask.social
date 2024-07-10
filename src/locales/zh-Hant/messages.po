@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-05 00:04\n"
+"PO-Revision-Date: 2024-07-10 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -37,7 +37,7 @@ msgid "Muted"
 msgstr "已靜音"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "斷開連接"
 
 msgid "Quote Post"
 msgstr "引用"
@@ -120,19 +120,22 @@ msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼�
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
+msgid "Failed to fetch: {0}. Please try again later."
+msgstr ""
+
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
 msgid "Watching"
-msgstr ""
+msgstr "正在觀看"
 
 msgid "Rank #{0}"
-msgstr ""
+msgstr "排名#{0}"
 
 msgid "Searching channel"
 msgstr "搜尋頻道"
 
-msgid "Views"
+msgid "quotes"
 msgstr ""
 
 msgid "Functions that can suspend trading"
@@ -211,7 +214,7 @@ msgid "Poll"
 msgstr "投票"
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Casts"
 msgstr ""
@@ -232,7 +235,7 @@ msgid "Login with QR Code"
 msgstr ""
 
 msgid "Market Cap"
-msgstr ""
+msgstr "市值"
 
 msgid "Contract source code verified"
 msgstr ""
@@ -241,7 +244,7 @@ msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
-msgstr ""
+msgstr "NFT 標準"
 
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
@@ -259,6 +262,9 @@ msgid "Poll is currently only supported on {0}"
 msgstr ""
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
+msgstr ""
+
+msgid "likes"
 msgstr ""
 
 msgid "Offline"
@@ -283,7 +289,7 @@ msgid "Copied"
 msgstr "已複製"
 
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 msgid "Your posts have published successfully."
 msgstr "你的貼文已成功發佈"
@@ -301,13 +307,16 @@ msgid "True Token"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "失敗"
 
 msgid "Bookmarks"
 msgstr "書籤"
 
 msgid "Confirm"
 msgstr "確認"
+
+msgid "{0} muted channels"
+msgstr "{0} 個已靜音的頻道"
 
 msgid "[Video]"
 msgstr ""
@@ -387,32 +396,38 @@ msgstr "最多只能選擇 2 張圖片"
 msgid "Failed to delete"
 msgstr ""
 
-msgid "Failed to fetch: {0}. Please try again later"
-msgstr ""
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
 msgid "Report Failed"
-msgstr ""
+msgstr "舉報失敗"
 
 msgid "Attendees"
+msgstr "參與者"
+
+msgid "Connected accounts"
+msgstr "已連接的帳戶"
+
+msgid "via {0} <0>{sendFrom}</0>"
 msgstr ""
 
+msgid "comments"
+msgstr "評論"
+
 msgid "Functions with retrievable ownership"
+msgstr ""
+
+msgid "recast"
 msgstr ""
 
 msgid "Search"
 msgstr "搜尋"
 
-msgid "Connected Accounts"
-msgstr "已連接的帳戶"
-
 msgid "Watch"
 msgstr ""
 
 msgid "24 Hour Trading Vol"
-msgstr ""
+msgstr "24 小時交易量"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -453,6 +468,9 @@ msgstr ""
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
 
+msgid "recasts"
+msgstr ""
+
 msgid "Items"
 msgstr ""
 
@@ -470,9 +488,6 @@ msgstr ""
 
 msgid "Recent"
 msgstr "最近"
-
-msgid "via <0>{sendFrom}</0>"
-msgstr ""
 
 msgid "Info"
 msgstr ""
@@ -494,6 +509,9 @@ msgstr "OpenGraph 驗證器"
 
 msgid "Connect Wallet"
 msgstr "連接錢包"
+
+msgid "Not Found. Please check your URL[{0}]."
+msgstr ""
 
 msgid "Feed"
 msgstr "資訊來源"
@@ -520,7 +538,7 @@ msgid "Failed to mute /{0}."
 msgstr ""
 
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 msgid "[Photo]"
 msgstr ""
@@ -604,7 +622,7 @@ msgid "Failed to un-bookmark"
 msgstr "從書籤中移除失敗"
 
 msgid "post"
-msgstr ""
+msgstr "貼文"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
@@ -644,6 +662,9 @@ msgstr ""
 
 msgid "Failed to submit report on {0}"
 msgstr ""
+
+msgid "like"
+msgstr "喜歡"
 
 msgid "View Source"
 msgstr ""
@@ -732,7 +753,7 @@ msgstr ""
 msgid "Top Profiles"
 msgstr ""
 
-msgid "Forbidden. Please check your permissions"
+msgid "mirrors"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
@@ -745,9 +766,6 @@ msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Failed to unvote post."
-msgstr ""
-
-msgid "Unauthorized. Please check your login"
 msgstr ""
 
 msgid "Choice {0}"
@@ -767,6 +785,12 @@ msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隱私政策"
+
+msgid "Forbidden. Please check your permissions."
+msgstr ""
+
+msgid "There are images that were not uploaded successfully."
+msgstr ""
 
 msgid "No mint function"
 msgstr ""
@@ -838,9 +862,6 @@ msgid "{attentionFactors, plural, one {# Attention item} other {# Attention item
 msgstr ""
 
 msgid "Hide more comments"
-msgstr ""
-
-msgid "Internal Server Error. Please try again later"
 msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
@@ -954,6 +975,9 @@ msgstr ""
 msgid "Clear All"
 msgstr "清除所有"
 
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+msgstr ""
+
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr ""
 
@@ -961,6 +985,9 @@ msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
 msgid "Are you sure you want to report this article?"
+msgstr ""
+
+msgid "collects"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -991,9 +1018,6 @@ msgid "Invalid URL."
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
-
-msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -1051,9 +1075,6 @@ msgid "<0>The proportion of current market capitalization compares to market cap
 msgstr ""
 
 msgid "Minting Date"
-msgstr ""
-
-msgid "Comments"
 msgstr ""
 
 msgid "The page could not be found."
@@ -1164,9 +1185,6 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
-msgid "Not Found. Please check your URL[{0}]"
-msgstr ""
-
 msgid "Translated"
 msgstr ""
 
@@ -1174,6 +1192,9 @@ msgid "Select Wallet"
 msgstr ""
 
 msgid "Failed to bookmark post."
+msgstr ""
+
+msgid "{0} muted users"
 msgstr ""
 
 msgid "Remove Poll"
@@ -1269,6 +1290,9 @@ msgstr ""
 msgid "Mirrored"
 msgstr "已鏡像"
 
+msgid "Muted contents"
+msgstr ""
+
 msgid "Unable to retrieve post details."
 msgstr ""
 
@@ -1362,6 +1386,9 @@ msgstr ""
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
+msgid "Internal Server Error. Please try again later."
+msgstr ""
+
 msgid "The frame server failed to process the request."
 msgstr ""
 
@@ -1401,9 +1428,6 @@ msgstr ""
 msgid "Owner can change balance"
 msgstr ""
 
-msgid "Collects"
-msgstr ""
-
 msgid "{identity} watched"
 msgstr ""
 
@@ -1414,6 +1438,9 @@ msgid "Back"
 msgstr "返回"
 
 msgid "Posting..."
+msgstr ""
+
+msgid "This Action has been flagged as an unsafe action, & has been blocked."
 msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
@@ -1437,14 +1464,14 @@ msgstr ""
 msgid "Watch {identity}"
 msgstr ""
 
+msgid "view"
+msgstr ""
+
 msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
-
-msgid "View"
-msgstr ""
 
 msgid "No whitelist"
 msgstr ""
@@ -1521,6 +1548,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr ""
 
+msgid "collect"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -1529,6 +1559,9 @@ msgstr ""
 
 msgid "Share to"
 msgstr "分享至"
+
+msgid "views"
+msgstr ""
 
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
@@ -1581,14 +1614,14 @@ msgstr "您的 {0} 帳戶現已連接。"
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你無法在 {0} 上回覆 @{author}。"
 
+msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr ""
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
-
-msgid "Posted via <0>{sendFrom}</0>"
-msgstr ""
 
 msgid "Total Supply"
 msgstr ""
@@ -1606,9 +1639,6 @@ msgid "The whitelist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Claim on {0}: {1}"
-msgstr ""
-
-msgid "Ignore warning and proceed"
 msgstr ""
 
 msgid "NFT ID"
@@ -1641,6 +1671,9 @@ msgstr ""
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
 
+msgid "Cannot continue due to wallet mismatch."
+msgstr ""
+
 msgid "your.email@example.org"
 msgstr ""
 
@@ -1655,6 +1688,9 @@ msgstr "點擊複製"
 
 msgid "Unmute @{0}"
 msgstr "取消對 @{0} 的靜音"
+
+msgid "Unauthorized. Please check your login."
+msgstr ""
 
 msgid "Mask Network"
 msgstr "Mask Network"

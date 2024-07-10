@@ -1,7 +1,7 @@
 import 'plyr-react/plyr.css';
 
 import { Player } from '@livepeer/react';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -10,13 +10,13 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 
-interface VideoProps {
+interface VideoProps extends HTMLProps<HTMLDivElement> {
     src: string;
     poster?: string;
     className?: string;
 }
 
-export const Video = memo<VideoProps>(function Video({ src, poster, className = '' }) {
+export const Video = memo<VideoProps>(function Video({ src, poster, className = '', children }) {
     const account = useAccount();
 
     return (
@@ -36,7 +36,9 @@ export const Video = memo<VideoProps>(function Video({ src, poster, className = 
                     ipfsGateway: IPFS_GATEWAY,
                     arweaveGateway: ARWEAVE_GATEWAY,
                 }}
-            />
+            >
+                {children}
+            </Player>
         </ClickableArea>
     );
 });

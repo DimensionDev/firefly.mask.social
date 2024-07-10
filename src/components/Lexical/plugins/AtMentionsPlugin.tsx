@@ -196,35 +196,31 @@ export function MentionsPlugin(): JSX.Element | null {
             const data = await FireflySocialMediaProvider.searchIdentity(debounceQuery, availableSources);
 
             if (!data) return EMPTY_LIST;
-            return compact(
-                data.list
-                    .map((x) => {
-                        const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInURL(source)])
-                            .flatMap((value) => value ?? EMPTY_LIST)
-                            .find((profile) => profile.hit);
-                        if (!target) return;
+            return data.list
+                .map((x) => {
+                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInURL(source)])
+                        .flatMap((value) => value ?? EMPTY_LIST)
+                        .find((profile) => profile.hit);
+                    if (!target) return;
 
-                        const allProfile = compact(
-                            SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInURL(source)])).map(
-                                (x) => {
-                                    if (target.platform === x?.platform) return target;
-                                    return x;
-                                },
-                            ),
-                        );
+                    const allProfile = compact(
+                        SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInURL(source)])).map((x) => {
+                            if (target.platform === x?.platform) return target;
+                            return x;
+                        }),
+                    );
 
-                        const platform = resolveSocialSource(target.platform);
-                        return {
-                            platform,
-                            profileId: target.platform_id,
-                            avatar: getStampAvatarByProfileId(platform, target.platform_id),
-                            handle: target.handle,
-                            name: target.name,
-                            allProfile,
-                        };
-                    })
-                    .filter((handle) => !!handle),
-            );
+                    const platform = resolveSocialSource(target.platform);
+                    return {
+                        platform,
+                        profileId: target.platform_id,
+                        avatar: getStampAvatarByProfileId(platform, target.platform_id),
+                        handle: target.handle,
+                        name: target.name,
+                        allProfile,
+                    };
+                })
+                .filter((handle) => !!handle);
         },
     });
 
