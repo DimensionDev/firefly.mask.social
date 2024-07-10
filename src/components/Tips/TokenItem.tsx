@@ -19,8 +19,8 @@ export function TokenItem({ token }: TokenItemProps) {
     const handleSelectToken = async (token: Token) => {
         if (receiver?.blockchain === NetworkType.Ethereum) {
             const transfer = resolveTokenTransfer(receiver.blockchain);
-            if (token.chainId !== transfer.getChainId()) {
-                await transfer.switchChain(token.chainId);
+            if (token.chainId !== transfer.network.getChainId()) {
+                await transfer.network.switchChain(token.chainId);
             }
         }
         update((prev) => ({ ...prev, token, amount: token.id !== selectedToken?.id ? '' : prev.amount }));

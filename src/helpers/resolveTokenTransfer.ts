@@ -9,7 +9,7 @@ export const resolveTokenTransfer = createLookupTableResolver<NetworkType, Trans
     {
         [NetworkType.Ethereum]: evmTransfer,
         [NetworkType.Solana]: solanaTransfer,
-    },
+    } as Record<NetworkType, Transfer>,
     (network: NetworkType) => {
         throw new Error(`Unsupported network: ${network}`);
     },

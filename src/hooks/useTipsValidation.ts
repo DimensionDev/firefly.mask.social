@@ -16,7 +16,7 @@ export function useTipsValidation() {
 
         const transfer = resolveTokenTransfer(receiver.blockchain);
 
-        if (isSameAddress(receiver.address, await transfer.getAccount())) {
+        if (isSameAddress(receiver.address, await transfer.network.getAccount())) {
             return { label: t`Cannot send to yourself`, disabled: true };
         }
 

@@ -4,14 +4,14 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { CoinbaseWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 
+import { SUPPORTED_SOLANA_CHAIN_IDS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-// eslint-disable-next-line no-restricted-imports
-import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
 import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
+import { SolanaNetwork } from '@/providers/solana/network.js';
 import { resolveSolanaWalletAdapter } from '@/providers/solana/resolveSolanaWalletAdapter.js';
 import { ChainId } from '@/providers/types/Solana.js';
 import type { Token, Transfer, TransferOptions } from '@/providers/types/Transfer.js';
@@ -52,17 +52,19 @@ function resolveWalletAdapter() {
     return adapter;
 }
 
-class SolanaTransfer implements Transfer<Connection, string> {
+class SolanaTransfer implements Transfer<Connection> {
     _config: Connection;
+    network: SolanaNetwork;
     constructor(chainId: ChainId) {
         this._config = new Connection(Endpoints[chainId], 'confirmed');
+        this.network = new SolanaNetwork(SUPPORTED_SOLANA_CHAIN_IDS.Mainnet);
     }
 
     async transfer(options: TransferOptions<string>): Promise<string> {
         const { token } = options;
         let signature: string;
 
-        await this.connect();
+        await this.network.connect();
 
         if (!token || this.isNativeToken(token)) {
             signature = await this._transferNative(options);
@@ -82,20 +84,13 @@ class SolanaTransfer implements Transfer<Connection, string> {
         await this._config.confirmTransaction(signature, 'processed');
     }
 
-    async connect() {
-        const adapter = resolveWalletAdapter();
-        if (!adapter.connected) {
-            await adapter.connect();
-        }
-    }
-
     async validateBalance({ token, amount }: TransferOptions<string>): Promise<boolean> {
-        const balance = await getTokenBalance(token, await this.getAccount(), defaultChain);
+        const balance = await getTokenBalance(token, await this.network.getAccount(), defaultChain);
         return !isGreaterThan(rightShift(amount, token.decimals), balance.value);
     }
 
     async validateGas(options: TransferOptions<string>): Promise<boolean> {
-        const nativeBalance = await getNativeTokenBalance(await this.getAccount(), defaultChain);
+        const nativeBalance = await getNativeTokenBalance(await this.network.getAccount(), defaultChain);
         let transaction: Transaction;
         if (this.isNativeToken(options.token)) {
             transaction = await this._getNativeTransferTransaction(options);
@@ -104,31 +99,6 @@ class SolanaTransfer implements Transfer<Connection, string> {
         }
         const fees = await transaction.getEstimatedFee(this._config);
         return fees !== null ? !isGreaterThan(fees, nativeBalance.value) : false;
-    }
-
-    async getAccount(): Promise<string> {
-        await this.connect();
-
-        const adapter = resolveWalletAdapter();
-        if (!adapter.publicKey) throw new WalletNotConnectedError();
-
-        return adapter.publicKey.toBase58();
-    }
-
-    switchChain(chainId: number): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
-    getChainId(): number {
-        return defaultChain;
-    }
-
-    getAddressUrl(chainId: number, token: string): string | undefined {
-        return SolanaExplorerResolver.addressLink(chainId, token);
-    }
-
-    getTransactionUrl(chainId: number, hash: string): string | undefined {
-        return SolanaExplorerResolver.transactionLink(chainId, hash);
     }
 
     async _transferNative(options: TransferOptions<string>): Promise<string> {
@@ -166,7 +136,7 @@ class SolanaTransfer implements Transfer<Connection, string> {
     async _getNativeTransferTransaction(options: TransferOptions<string>) {
         return new Transaction().add(
             SystemProgram.transfer({
-                fromPubkey: new PublicKey(await this.getAccount()),
+                fromPubkey: new PublicKey(await this.network.getAccount()),
                 toPubkey: new PublicKey(options.to),
                 lamports: Number.parseInt(options.amount, 10),
             }),

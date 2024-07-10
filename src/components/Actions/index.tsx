@@ -15,7 +15,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { resolveIdentityFromProfile } from '@/helpers/resolveIdentityFromProfile.js';
+import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -39,6 +39,8 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     const views = useMemo(() => {
         return publicationViews.find((x) => x.id === post.postId)?.views;
     }, [publicationViews, post]);
+
+    const identity = getProfileIdentity(post.author);
 
     const actions = compact([
         <div key="comment">
@@ -88,13 +90,9 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
-        <Tips
-            key="tips"
-            identity={resolveIdentityFromProfile(post.author)}
-            source={post.source}
-            disabled={disabled}
-            handle={post.author.handle}
-        />,
+        identity ? (
+            <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
+        ) : null,
         <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
     ]);
     const actionLength = actions.length;
@@ -131,6 +129,8 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     ...rest
 }) {
     const isComment = post.type === 'Comment';
+
+    const identity = getProfileIdentity(post.author);
 
     if (post.source === Source.Twitter) {
         return null;
@@ -183,12 +183,14 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         />
                     ) : null}
                     <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
-                    <Tips
-                        identity={resolveIdentityFromProfile(post.author)}
-                        source={post.source}
-                        disabled={disabled}
-                        handle={post.author.handle}
-                    />
+                    {identity ? (
+                        <Tips
+                            identity={identity}
+                            source={post.source}
+                            disabled={disabled}
+                            handle={post.author.handle}
+                        />
+                    ) : null}
                     <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>

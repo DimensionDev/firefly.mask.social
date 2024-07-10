@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -10,14 +9,14 @@ import { resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
 
 interface AddressLinkProps {
     address: string;
-    chainId?: ChainId;
+    chainId?: number;
     networkType: NetworkType;
 }
 
 export function AddressLink({ address, chainId, networkType }: AddressLinkProps) {
     const addressLink = useMemo(() => {
         const transfer = resolveTokenTransfer(networkType);
-        return transfer.getAddressUrl(chainId ?? transfer.getChainId(), address);
+        return transfer.network.getAddressUrl(chainId ?? transfer.network.getChainId(), address);
     }, [networkType, chainId, address]);
 
     if (!addressLink) return null;

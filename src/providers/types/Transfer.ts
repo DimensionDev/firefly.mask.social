@@ -1,5 +1,7 @@
 import type { Address } from 'viem';
 
+import type { Provider } from '@/providers/types/network.js';
+
 export interface DebankToken<T = Address> {
     amount: number;
     chain: string;
@@ -33,19 +35,14 @@ export interface TransferOptions<AddressLike = Address> {
     token: Token<AddressLike>;
 }
 
-export interface Transfer<Config = any, AddressLike = any> {
+export interface Transfer<Config = unknown, AddressLike = string, HashLike = string> {
     _config: Config;
-    transfer: (options: TransferOptions<AddressLike>) => Promise<AddressLike>;
+    network: Provider<Config, AddressLike, HashLike>;
+    transfer: (options: TransferOptions<AddressLike>) => Promise<HashLike>;
     isNativeToken: (token: Token) => boolean;
-    waitForTransaction: (hash: AddressLike) => Promise<void>;
-    connect: () => Promise<void>;
+    waitForTransaction: (hash: HashLike) => Promise<void>;
     validateBalance: (options: TransferOptions<AddressLike>) => Promise<boolean>;
     validateGas: (options: TransferOptions<AddressLike>) => Promise<boolean>;
-    getAccount: () => Promise<AddressLike>;
-    switchChain: (chainId: number) => Promise<void>;
-    getChainId: () => number;
-    getAddressUrl: (chainId: number, address: AddressLike) => string | undefined;
-    getTransactionUrl: (chainId: number, hash: AddressLike) => string | undefined;
-    _transferNative: (options: TransferOptions<AddressLike>) => Promise<AddressLike>;
-    _transferContract: (options: TransferOptions<AddressLike> & { token: AddressLike }) => Promise<AddressLike>;
+    _transferNative: (options: TransferOptions<AddressLike>) => Promise<HashLike>;
+    _transferContract: (options: TransferOptions<AddressLike>) => Promise<HashLike>;
 }

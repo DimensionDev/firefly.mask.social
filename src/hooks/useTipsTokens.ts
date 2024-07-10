@@ -31,7 +31,7 @@ export const useTipsTokens = () => {
         queryFn: async () => {
             if (!receiver) return [];
             const transfer = resolveTokenTransfer(receiver.blockchain);
-            return await getTokensByAddressForTips(await transfer.getAccount());
+            return await getTokensByAddressForTips(await transfer.network.getAccount());
         },
     });
 

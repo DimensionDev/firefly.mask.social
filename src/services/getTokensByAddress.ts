@@ -1,6 +1,6 @@
-import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
+import { SUPPORTED_EVM_CHAIN_IDS } from '@/constants/enum.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { DebankTokensResponse } from '@/providers/types/Firefly.js';
 import type { DebankToken } from '@/providers/types/Transfer.js';
@@ -22,13 +22,13 @@ export async function getTokensByAddressForTips(address: string): Promise<
     >
 > {
     const tokens = await getTokensByAddress(address);
-    const chains = Object.keys(ChainId);
+    const chains = Object.keys(SUPPORTED_EVM_CHAIN_IDS);
 
     return tokens.map((token) => {
         const chainName = chains.find((chain) => token.chain === chain.toLowerCase());
         return {
             ...token,
-            chainId: chainName ? ChainId[chainName as keyof typeof ChainId] : null,
+            chainId: chainName ? SUPPORTED_EVM_CHAIN_IDS[chainName as keyof typeof SUPPORTED_EVM_CHAIN_IDS] : null,
         };
     });
 }
