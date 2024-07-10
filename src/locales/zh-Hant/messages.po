@@ -246,6 +246,9 @@ msgstr "按讚留言失敗"
 msgid "Failed to login"
 msgstr "登入失敗"
 
+msgid "Failed to set schedule time"
+msgstr ""
+
 msgid "<0>Posted</0>an article"
 msgstr ""
 
@@ -392,9 +395,6 @@ msgstr ""
 
 msgid "Report Failed"
 msgstr ""
-
-msgid "Will send on {0} at {1}"
-msgstr "舉報失敗"
 
 msgid "Attendees"
 msgstr "參與者"
@@ -817,6 +817,9 @@ msgid "Replies"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "Failed to update schedule time."
 msgstr ""
 
 msgid "Only people you mention"
@@ -1480,6 +1483,9 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "The post will send on {0} at {1}"
 msgstr ""
 
 msgid "Properties"

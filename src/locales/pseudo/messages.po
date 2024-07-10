@@ -241,6 +241,9 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
+msgid "Failed to set schedule time"
+msgstr ""
+
 msgid "<0>Posted</0>an article"
 msgstr ""
 
@@ -386,9 +389,6 @@ msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]}
 msgstr ""
 
 msgid "Report Failed"
-msgstr ""
-
-msgid "Will send on {0} at {1}"
 msgstr ""
 
 msgid "Attendees"
@@ -812,6 +812,9 @@ msgid "Replies"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "Failed to update schedule time."
 msgstr ""
 
 msgid "Only people you mention"
@@ -1475,6 +1478,9 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "The post will send on {0} at {1}"
 msgstr ""
 
 msgid "Properties"

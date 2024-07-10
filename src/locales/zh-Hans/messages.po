@@ -246,6 +246,9 @@ msgstr "点赞失败。"
 msgid "Failed to login"
 msgstr "登录失败"
 
+msgid "Failed to set schedule time"
+msgstr ""
+
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
 
@@ -392,9 +395,6 @@ msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[�
 
 msgid "Report Failed"
 msgstr "举报失败"
-
-msgid "Will send on {0} at {1}"
-msgstr ""
 
 msgid "Attendees"
 msgstr "出席人数"
@@ -818,6 +818,9 @@ msgstr "回复"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "Failed to update schedule time."
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -1480,6 +1483,9 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "The post will send on {0} at {1}"
 msgstr ""
 
 msgid "Properties"
