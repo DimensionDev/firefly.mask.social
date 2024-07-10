@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { isAddress } from 'viem';
 
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
@@ -335,7 +335,7 @@ export class FireflySocialMedia implements Provider {
             });
 
             const post = cast ? formatFarcasterPostFromFirefly(cast) : null;
-            if (!post) throw new Error('Post not found');
+            if (!post) throw new NotFoundError('Post not found');
             return post;
         });
     }

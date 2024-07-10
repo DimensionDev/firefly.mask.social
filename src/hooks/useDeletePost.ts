@@ -28,6 +28,7 @@ export function useDeletePost(source: SocialSource) {
                 enqueueErrorMessage(t`Failed to delete`, {
                     error,
                 });
+                throw error;
             }
         },
         [source, router, pathname, navBack],

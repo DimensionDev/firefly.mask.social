@@ -28,6 +28,7 @@ import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js'
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { NotFoundError } from '@/constants/error.js';
 
 const PostActionsWithGrid = dynamic(
     () => import('@/components/Actions/index.js').then((module) => module.PostActionsWithGrid),
@@ -75,9 +76,9 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
 
                 if (currentSource === Source.Lens) fetchAndStoreViews([post.postId]);
                 return post;
-            } catch (err) {
-                if (err instanceof Error && err.message === 'Post not found') return null;
-                throw err;
+            } catch (error) {
+                if (error instanceof NotFoundError) return null;
+                throw error;
             }
         },
     });
