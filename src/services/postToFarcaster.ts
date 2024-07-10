@@ -1,11 +1,9 @@
 import { t } from '@lingui/macro';
-import { toInteger, uniqBy } from 'lodash-es';
-import { toBytes } from 'viem';
+import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
-import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
