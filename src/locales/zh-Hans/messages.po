@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-03 12:01\n"
+"PO-Revision-Date: 2024-07-09 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -34,7 +34,7 @@ msgid "Muted"
 msgstr "已屏蔽"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "断开"
 
 msgid "Quote Post"
 msgstr "引用"
@@ -49,7 +49,7 @@ msgid "Report @{0}"
 msgstr "报告 @{0}"
 
 msgid "Sell Tax: {0}%"
-msgstr ""
+msgstr "售卖税率: {0}%"
 
 msgid "Retweet"
 msgstr "转帖"
@@ -79,7 +79,7 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
-msgstr ""
+msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
 
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
@@ -100,7 +100,7 @@ msgid "Mute @{0}"
 msgstr "屏蔽 @{0}"
 
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
-msgstr ""
+msgstr "合约所有者无权修改其他地址的通证余额。"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
@@ -115,31 +115,37 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
-msgstr ""
+msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
+
+msgid "Failed to fetch: {0}. Please try again later."
+msgstr "获取失败: {0}。请稍后重试。"
 
 msgid "We are not aware of any code that prevents the sale of tokens."
-msgstr ""
+msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 
 msgid "Watching"
 msgstr "观察中"
 
+msgid "Rank #{0}"
+msgstr "排名 #{0}"
+
 msgid "Searching channel"
 msgstr "查询频道中"
 
-msgid "Views"
-msgstr "浏览数"
+msgid "quotes"
+msgstr "引用"
 
 msgid "Functions that can suspend trading"
-msgstr ""
+msgstr "可以暂停交易的功能"
 
 msgid "Failed to upload. Video is not supported yet"
 msgstr "视频还未支持上传。"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
-msgstr ""
+msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
 msgid "Unknown error"
-msgstr ""
+msgstr "未知错误"
 
 msgid "More"
 msgstr "更多"
@@ -151,7 +157,7 @@ msgid "Searching users"
 msgstr "查找用户中"
 
 msgid "Airdrop Scam"
-msgstr ""
+msgstr "空投骗局"
 
 msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
@@ -160,7 +166,7 @@ msgid "This entry has been permanently stored on-chain and signed by its creator
 msgstr "这个入口已经被其创建者签名并永久存储上链"
 
 msgid "Tax can be modified"
-msgstr ""
+msgstr "税率可以被修改"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -169,7 +175,7 @@ msgid "Found arweaveTxId is empty."
 msgstr "ArweaveTxId 为空。"
 
 msgid "Blocked"
-msgstr ""
+msgstr "被屏蔽"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -178,7 +184,7 @@ msgid "Change Wallet"
 msgstr "更换钱包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr ""
+msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -205,13 +211,13 @@ msgid "Scheduled"
 msgstr ""
 
 msgid "Solana"
-msgstr ""
+msgstr "Solana"
 
 msgid "Casts"
 msgstr "帖子"
 
 msgid "Your account is now connected."
-msgstr ""
+msgstr "您的账号已连接。"
 
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
@@ -229,13 +235,13 @@ msgid "Login with QR Code"
 msgstr "使用二维码登录"
 
 msgid "Market Cap"
-msgstr ""
+msgstr "市值"
 
 msgid "Contract source code verified"
-msgstr ""
+msgstr "已验证合约源代码"
 
 msgid "Profile not found"
-msgstr ""
+msgstr "未找到个人资料"
 
 msgid "NFT Standard"
 msgstr "NFT 标准"
@@ -251,6 +257,12 @@ msgstr "<0>发布了</0>一篇文章"
 
 msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
+
+msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
+msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
+
+msgid "likes"
+msgstr "点赞"
 
 msgid "Offline"
 msgstr "离线"
@@ -289,16 +301,19 @@ msgid "comment"
 msgstr "评论"
 
 msgid "True Token"
-msgstr ""
+msgstr "真实的通证"
 
 msgid "Failed"
-msgstr ""
+msgstr "失败"
 
 msgid "Bookmarks"
 msgstr "收藏"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "{0} muted channels"
+msgstr "{0} 屏蔽的频道"
 
 msgid "[Video]"
 msgstr "[视频]"
@@ -328,7 +343,7 @@ msgid "Blockchain"
 msgstr "区块链"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注你</4>"
 
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
@@ -349,7 +364,7 @@ msgid "Page not found"
 msgstr "找不到网页"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
-msgstr ""
+msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会增加通证的流通量并影响通证的价格。"
 
 msgid "Password"
 msgstr "密码"
@@ -364,7 +379,7 @@ msgid "Please switch to the correct network in your wallet."
 msgstr "请在钱包中切换到正确的网络。"
 
 msgid "Token ID"
-msgstr "代币 ID"
+msgstr "通证 ID"
 
 msgid "Type something here..."
 msgstr "从这里开始..."
@@ -381,11 +396,8 @@ msgstr "至多可以选择 2 张图片。"
 msgid "Failed to delete"
 msgstr "删除失败"
 
-msgid "Failed to fetch: {0}. Please try again later"
-msgstr ""
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
-msgstr ""
+msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
 
 msgid "Report Failed"
 msgstr "举报失败"
@@ -396,29 +408,38 @@ msgstr ""
 msgid "Attendees"
 msgstr "出席人数"
 
+msgid "Connected accounts"
+msgstr "已链接的账号"
+
+msgid "via {0} <0>{sendFrom}</0>"
+msgstr "于 {0} <0>{sendFrom}</0>"
+
+msgid "comments"
+msgstr "评论"
+
 msgid "Functions with retrievable ownership"
-msgstr ""
+msgstr "具有可检索所有权的功能"
+
+msgid "recast"
+msgstr "转帖"
 
 msgid "Search"
 msgstr "搜索"
-
-msgid "Connected Accounts"
-msgstr "已链接的账号"
 
 msgid "Watch"
 msgstr "关注"
 
 msgid "24 Hour Trading Vol"
-msgstr ""
+msgstr "24h 交易总额"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "The contract owner may not contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr ""
+msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
@@ -442,16 +463,19 @@ msgid "Mirror again"
 msgstr "转帖"
 
 msgid "There are images or videos that were not uploaded successfully."
-msgstr ""
+msgstr "图片或者视频上传失败。"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>扫描二维码，授权 <2>Firefly</2> 连接您的账号。"
 
 msgid "No Airdrop Scam"
-msgstr ""
+msgstr "没有空投骗局"
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
+
+msgid "recasts"
+msgstr "转帖"
 
 msgid "Items"
 msgstr "条目"
@@ -469,19 +493,16 @@ msgid "Audio Cover"
 msgstr "音频封面"
 
 msgid "Fake Token"
-msgstr ""
+msgstr "伪造的通证"
 
 msgid "Recent"
 msgstr "最近"
 
-msgid "via <0>{sendFrom}</0>"
-msgstr "于 <0>{sendFrom}</0>"
-
 msgid "Info"
-msgstr ""
+msgstr "信息"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
@@ -498,6 +519,9 @@ msgstr "OpenGraph 验证器"
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
+msgid "Not Found. Please check your URL[{0}]."
+msgstr "未找到。请检查你的 URL [{0}]。"
+
 msgid "Feed"
 msgstr "信息流"
 
@@ -505,10 +529,10 @@ msgid "Recasts"
 msgstr "转帖"
 
 msgid "Market Cap / FDV"
-msgstr ""
+msgstr "完全稀释估值"
 
 msgid "Your action provider blocks execution of this action."
-msgstr ""
+msgstr "操作被限制。"
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！"
@@ -517,7 +541,7 @@ msgid "Confirmation"
 msgstr "确认"
 
 msgid "Whitelist function"
-msgstr ""
+msgstr "白名单功能"
 
 msgid "Failed to mute /{0}."
 msgstr "屏蔽 /{0} 失败。"
@@ -544,7 +568,7 @@ msgid "<0>Poap</0> received"
 msgstr "<0>Poap</0> 已收到"
 
 msgid "No proxy"
-msgstr ""
+msgstr "无代理"
 
 msgid "<0>Sold</0> an NFT"
 msgstr "<0>出售</0> 一个 NFT"
@@ -580,16 +604,16 @@ msgid "Connection failed"
 msgstr "连接失败"
 
 msgid "Owner can't change balance"
-msgstr ""
+msgstr "所有者不能更改余额"
 
 msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
 
 msgid "Anti_whale(Limited number of transactions)"
-msgstr ""
+msgstr "反鲸鱼（有限的交易次数）"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
-msgstr ""
+msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制（欺诈风险）。"
 
 msgid "Log out"
 msgstr "登出"
@@ -598,7 +622,7 @@ msgid "Unmuting..."
 msgstr "取消屏蔽中..."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
+msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
 msgid "Top Channels"
 msgstr "热门频道"
@@ -610,7 +634,7 @@ msgid "post"
 msgstr "发帖"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
-msgstr ""
+msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
@@ -625,7 +649,7 @@ msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4> 交互了你的 </4><5><6/></5>"
 
 msgid "Search Filter"
 msgstr "查询规则"
@@ -648,6 +672,9 @@ msgstr "举报垃圾"
 msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
 
+msgid "like"
+msgstr "点赞"
+
 msgid "View Source"
 msgstr "查看原文"
 
@@ -664,7 +691,7 @@ msgid "Channel"
 msgstr "频道"
 
 msgid "Connect another account"
-msgstr ""
+msgstr "登录另一个账号"
 
 msgid "Comment cannot be empty."
 msgstr "评论不能为空。"
@@ -679,7 +706,7 @@ msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
 msgid "Blacklist function"
-msgstr ""
+msgstr "黑名单功能"
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -706,10 +733,10 @@ msgid "Are you sure you want to report this post?"
 msgstr "您确定要举报这个帖子吗？"
 
 msgid "No function found that retrieves ownership"
-msgstr ""
+msgstr "没有找到检索所有权的功能"
 
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
-msgstr ""
+msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "已收藏"
@@ -729,23 +756,20 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 msgid "Top Profiles"
 msgstr "热门用户"
 
-msgid "Forbidden. Please check your permissions"
-msgstr ""
+msgid "mirrors"
+msgstr "转帖"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/>  和 <2/>} other {<3/>}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "EVM"
-msgstr ""
+msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
-
-msgid "Unauthorized. Please check your login"
-msgstr ""
 
 msgid "Choice {0}"
 msgstr "选项 {0}"
@@ -754,7 +778,7 @@ msgid "Send Feedback"
 msgstr "提交反馈"
 
 msgid "The chainId mismatch."
-msgstr ""
+msgstr "chainId 不匹配"
 
 msgid "Open in Firefly App"
 msgstr "打开 Firefly App"
@@ -762,8 +786,14 @@ msgstr "打开 Firefly App"
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
+msgid "Forbidden. Please check your permissions."
+msgstr "禁止！请检查您的权限。"
+
+msgid "There are images that were not uploaded successfully."
+msgstr "图片上传失败。"
+
 msgid "No mint function"
-msgstr ""
+msgstr "没有铸造功能"
 
 msgid "Switch"
 msgstr "切换"
@@ -772,7 +802,7 @@ msgid "Follow"
 msgstr "关注"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
-msgstr ""
+msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
 
 msgid "Add account"
 msgstr "添加账号"
@@ -784,16 +814,16 @@ msgid "Schedule Post"
 msgstr ""
 
 msgid "Proxy contract"
-msgstr ""
+msgstr "代理合约"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
-msgstr ""
+msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
 
 msgid "Tax cannot be modified"
-msgstr ""
+msgstr "不能修改税"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
-msgstr ""
+msgstr "此通证合约尚未验证。我们无法检查合约代码了解详情。 无法查证的通证合约有可能会欺诈用户。"
 
 msgid "Replies"
 msgstr "回复"
@@ -805,7 +835,7 @@ msgid "Only people you mention"
 msgstr "只有你提及的人"
 
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr ""
+msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
 msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
@@ -817,7 +847,7 @@ msgid "[Poll]"
 msgstr "[投票]"
 
 msgid "Confirm to connect your account status."
-msgstr ""
+msgstr "一键同步你的账号"
 
 msgid "Allow replies from"
 msgstr "允许回复"
@@ -832,13 +862,10 @@ msgid "Description"
 msgstr "介绍"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
-msgstr ""
+msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
-
-msgid "Internal Server Error. Please try again later"
-msgstr ""
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr "未能解析铸造 URL = {0}。"
@@ -853,13 +880,13 @@ msgid "Unlike"
 msgstr "取消点赞"
 
 msgid "No blacklist"
-msgstr ""
+msgstr "无黑名单"
 
 msgid "Post was deleted"
 msgstr "帖子已被删除"
 
 msgid "Website"
-msgstr ""
+msgstr "网站"
 
 msgid "Your post has published successfully."
 msgstr "发布成功。"
@@ -868,13 +895,13 @@ msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
 
 msgid "1m"
-msgstr ""
+msgstr "1个月"
 
 msgid "Bookmark"
 msgstr "收藏"
 
 msgid "Circulating Supply"
-msgstr ""
+msgstr "流通总量"
 
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
@@ -886,10 +913,10 @@ msgid "Everyone"
 msgstr "任何人"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr ""
+msgstr "此通证由其宣称的团队发行。一些骗局会创建同名的知名通证来骗取用户的资产。"
 
 msgid "Search ${symbol}"
-msgstr ""
+msgstr "搜索 ${symbol}"
 
 msgid "Failed to unmute /{0}."
 msgstr "取消屏蔽失败/{0}。"
@@ -913,13 +940,13 @@ msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
 
 msgid "Fully Diluted Valuation"
-msgstr ""
+msgstr "完全稀释估值"
 
 msgid "Suggested Channels"
 msgstr "推荐频道"
 
 msgid "Email (optional)"
-msgstr "邮箱 (可选)"
+msgstr "邮箱（可选）"
 
 msgid "NFT Contract"
 msgstr "NFT 合约"
@@ -928,7 +955,7 @@ msgid "Failed to follow."
 msgstr "关注失败"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr ""
+msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
 msgid "Mute"
 msgstr "屏蔽"
@@ -937,7 +964,7 @@ msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
-msgstr ""
+msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标。该指标以 24 小时为单位进行连续跟踪，没有开盘/收盘时间。"
 
 msgid "Failed to recast."
 msgstr "转帖失败。"
@@ -948,14 +975,20 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
+msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
+msgstr "如果您认为此操作警告是误报，请<0/><1>忽略警告并继续</1>。"
+
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
-msgstr ""
+msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
+
+msgid "collects"
+msgstr "收藏"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -990,9 +1023,6 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
-msgid "This Action has been flagged as an unsafe action, & has been blocked. If you believe this action has been blocked in error, please."
-msgstr ""
-
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
@@ -1009,7 +1039,7 @@ msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
 msgid "Token ${symbol} could not be found."
-msgstr ""
+msgstr "未找到通证 ${symbol} 。"
 
 msgid "Articles"
 msgstr "文章"
@@ -1033,10 +1063,10 @@ msgid "No preview found for shared link"
 msgstr "无法预加载"
 
 msgid "Contract source code not verified"
-msgstr ""
+msgstr "合约源代码未验证"
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr ""
+msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Failed to unwatch {identity}"
 msgstr "取消关注 {identity} 失败"
@@ -1048,13 +1078,10 @@ msgid "commented"
 msgstr "已回复"
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-msgstr ""
+msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全稀释估值，反之亦然。</1>"
 
 msgid "Minting Date"
 msgstr "铸造日期"
-
-msgid "Comments"
-msgstr "评论"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
@@ -1063,22 +1090,22 @@ msgid "No matching channel"
 msgstr "没有匹配到频道"
 
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。 请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。 请点击重试。}}"
+msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
 msgid "What's happening..."
 msgstr "正在发生..."
 
 msgid "24h"
-msgstr ""
+msgstr "24小时"
 
 msgid "Like"
 msgstr "点赞"
 
 msgid "Contract Address"
-msgstr ""
+msgstr "合约地址"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "白名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
@@ -1114,7 +1141,7 @@ msgid "Mute successfully."
 msgstr "屏蔽成功。"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
-msgstr ""
+msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
 
 msgid "Show More"
 msgstr "显示更多"
@@ -1158,14 +1185,14 @@ msgstr "引用"
 msgid "View engagements"
 msgstr "查看互动"
 
-msgid "Not Found. Please check your URL[{0}]"
-msgstr ""
-
 msgid "Translated"
 msgstr "已翻译"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
+
+msgid "{0} muted users"
+msgstr "{0} 屏蔽的用户"
 
 msgid "Remove Poll"
 msgstr "删除投票"
@@ -1204,10 +1231,10 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
-msgstr ""
+msgstr "{type, select, compose {{0}} quote {添加一条评论} reply {发布你的评论} other {{1}}}"
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
-msgstr ""
+msgstr "您正在登录不同的 Firefly 账号。如果继续则会<0>覆盖</0>当前账号。"
 
 msgid "Discard"
 msgstr "放弃"
@@ -1228,16 +1255,16 @@ msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
 msgid "Executing"
-msgstr ""
+msgstr "执行中"
 
 msgid "Community"
-msgstr ""
+msgstr "社区"
 
 msgid "Delete"
 msgstr "删除"
 
 msgid "May the token is a honeypot."
-msgstr ""
+msgstr "也许这个通证是一个陷阱"
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr "{minutes, plural, one {1 分钟} other {{minutes} 分钟}}"
@@ -1258,19 +1285,22 @@ msgid "Failed to like the post."
 msgstr "点赞失败。"
 
 msgid "Download image"
-msgstr ""
+msgstr "下载图片"
 
 msgid "Mirrored"
 msgstr "已转发"
+
+msgid "Muted contents"
+msgstr "已屏蔽的内容"
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
-msgstr ""
+msgstr "市场上流通并可供公众交易的货币数量。这相当于市场上随时可买到的股票（未被内部人士或政府持有和锁定）。"
 
 msgid "This does not appear to be a honeypot."
-msgstr ""
+msgstr "这看起来不像是一个陷阱。"
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
@@ -1330,7 +1360,7 @@ msgid "Suspended"
 msgstr "已暂停"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
-msgstr ""
+msgstr "合约中没有代理。代理合同意味着合同所有者可以修改令牌的功能，并可能影响价格。"
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr "{totalVotes, plural, one {{totalVotes} 投票} other {{totalVotes} 投票}}"
@@ -1339,7 +1369,7 @@ msgid "Full"
 msgstr "完整的"
 
 msgid "Powered by"
-msgstr ""
+msgstr "技术支持来自"
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "未找到 Lens 账号。请尝试其他钱包。"
@@ -1348,10 +1378,13 @@ msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
 msgid "All notifications"
-msgstr ""
+msgstr "通知"
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
+
+msgid "Internal Server Error. Please try again later."
+msgstr "内部服务错误。请稍后重试。"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
@@ -1380,9 +1413,6 @@ msgstr "在 {sourceName} 上屏蔽 @{0}"
 msgid "Copy"
 msgstr "复制"
 
-msgid "<0>Copy The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr ""
-
 msgid "Skip for now"
 msgstr "跳过"
 
@@ -1390,10 +1420,7 @@ msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
 msgid "Owner can change balance"
-msgstr ""
-
-msgid "Collects"
-msgstr "收藏"
+msgstr "所有者可以更改余额"
 
 msgid "{identity} watched"
 msgstr "{identity} 已关注"
@@ -1406,6 +1433,9 @@ msgstr "返回"
 
 msgid "Posting..."
 msgstr "发帖中..."
+
+msgid "This Action has been flagged as an unsafe action, & has been blocked."
+msgstr "操作被认定为风险行为，已经被阻止。"
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"
@@ -1431,17 +1461,17 @@ msgstr "关注 {identity}"
 msgid "Please enable Momoka to support sending posts on Lens"
 msgstr ""
 
+msgid "view"
+msgstr ""
+
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
 
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
-msgid "View"
-msgstr "查看"
-
 msgid "No whitelist"
-msgstr ""
+msgstr "没有白名单"
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
@@ -1453,7 +1483,7 @@ msgid "Failed to mirror post."
 msgstr "转发失败。"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
-msgstr ""
+msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
@@ -1507,13 +1537,16 @@ msgid "Date"
 msgstr "日期"
 
 msgid "Confirm to log out all accounts?"
-msgstr ""
+msgstr "确认登出这些账号？"
 
 msgid "Failed to retweet."
 msgstr "转帖失败。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了您的} Farcaster {转帖了您的} other {转帖了您的}} <4><5/></4>"
+
+msgid "collect"
+msgstr "收藏"
 
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
@@ -1524,11 +1557,14 @@ msgstr "开发者"
 msgid "Share to"
 msgstr "分享到"
 
+msgid "views"
+msgstr "浏览数"
+
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
 msgid "Image upload failed. Please try again."
-msgstr ""
+msgstr "图片上传失败。请重试。"
 
 msgid "Only people you follow"
 msgstr "只有你关注的人"
@@ -1537,13 +1573,13 @@ msgid "Add another option"
 msgstr "添加另一个选项"
 
 msgid "1y"
-msgstr ""
+msgstr "1年"
 
 msgid "No codes found to suspend trading."
-msgstr ""
+msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Buy Tax: {0}%"
-msgstr ""
+msgstr "购买税率: {0}%"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -1558,13 +1594,13 @@ msgid "Online"
 msgstr "在线"
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
-msgstr ""
+msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
 msgid "This Action has not yet been registered. Only use it if you trust the source."
-msgstr ""
+msgstr "这个操作还未被注册。请确认风险。"
 
 msgid "You may lose your assets if giving approval to the website of this token."
-msgstr ""
+msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
 msgid "Unfollow"
 msgstr "取消关注"
@@ -1575,17 +1611,17 @@ msgstr "您的 {0} 账号已连接。"
 msgid "You cannot reply to @{author} on {0}."
 msgstr "您不能在 {0} 上评论 {author}。"
 
+msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr "发布于 {0} <0>{sendFrom}</0>"
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-msgstr ""
+msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
-msgid "Posted via <0>{sendFrom}</0>"
-msgstr "发布于 <0>{sendFrom}</0>"
-
 msgid "Total Supply"
-msgstr ""
+msgstr "总供应量"
 
 msgid "Collection"
 msgstr "NFT 系列"
@@ -1597,13 +1633,10 @@ msgid "Owned"
 msgstr "拥有"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
+msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "Claim on {0}: {1}"
 msgstr "在 {0}: {1} 领取"
-
-msgid "Ignore warning and proceed"
-msgstr ""
 
 msgid "NFT ID"
 msgstr "NFT ID"
@@ -1612,7 +1645,7 @@ msgid "Farcaster channel"
 msgstr "Farcaster 频道"
 
 msgid "Completed"
-msgstr ""
+msgstr "已完成"
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
@@ -1624,16 +1657,19 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Statistic"
-msgstr ""
+msgstr "统计"
 
 msgid "Your post have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
 msgid "Detail"
-msgstr ""
+msgstr "详情"
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
+
+msgid "Cannot continue due to wallet mismatch."
+msgstr "钱包不匹配无法继续。"
 
 msgid "your.email@example.org"
 msgstr "your.email@example.org"
@@ -1646,6 +1682,9 @@ msgstr "点击复制"
 
 msgid "Unmute @{0}"
 msgstr "取消屏蔽 @{0}"
+
+msgid "Unauthorized. Please check your login."
+msgstr "未授权认证。请重新登录。"
 
 msgid "Mask Network"
 msgstr "Mask Network"
@@ -1684,7 +1723,7 @@ msgid "Save"
 msgstr "保存"
 
 msgid "<0/> and <1>{0} others</1>"
-msgstr ""
+msgstr "<0/> 和 <1>{0} 其他的</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
@@ -1702,16 +1741,16 @@ msgid "Unsent Posts"
 msgstr ""
 
 msgid "Suspended account"
-msgstr ""
+msgstr "被冻结账户"
 
 msgid "Recasted"
 msgstr "已转发"
 
 msgid "Failed to parse transaction."
-msgstr ""
+msgstr "未能解析交易。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
-msgstr ""
+msgstr "没有反鲸鱼（无限的交易次数）"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
@@ -1756,7 +1795,7 @@ msgid "Please confirm the login with X."
 msgstr "请在 X 确认登陆。"
 
 msgid "Max Supply"
-msgstr ""
+msgstr "最大供应量"
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
@@ -1765,22 +1804,22 @@ msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
 
 msgid "7d"
-msgstr ""
+msgstr "7天"
 
 msgid "Name (optional)"
-msgstr "姓名 (可选)"
+msgstr "姓名（可选）"
 
 msgid "Location"
 msgstr "地点"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-msgstr ""
+msgstr "对通证的交易次数没有限制。可疑通证的交易次数可能是有限的。"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
-msgstr ""
+msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 msgid "Recast"
 msgstr "转推"

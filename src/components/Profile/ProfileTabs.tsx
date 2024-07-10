@@ -3,15 +3,17 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { usePathname } from 'next/navigation.js';
-import { startTransition } from 'react';
+import { startTransition, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
@@ -65,12 +67,24 @@ const resolveProfileTabColor = createLookupTableResolver<
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
     const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
-    const { update, identity: currentProfile } = ProfileContext.useContainer();
+    const currentProfiles = useCurrentProfileAll();
+    const { update, identity: currentProfile, source } = ProfileContext.useContainer();
     const pathname = usePathname();
     const updateParams = useUpdateParams();
 
     const isProfilePage = pathname === PageRoute.Profile;
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+
+    useEffect(() => {
+        if (!isProfilePage || !(source in currentProfiles)) return;
+
+        const profile = currentProfiles[source as SocialSource];
+        if (profile) {
+            const identity = getProfileIdentity(profile) ?? '';
+            update?.({ source, identity });
+            updateCurrentProfileState({ source, identity });
+        }
+    }, [isProfilePage, currentProfiles, source, update, updateCurrentProfileState]);
 
     if (profiles.length <= 1) return null;
 

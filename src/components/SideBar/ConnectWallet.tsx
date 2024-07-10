@@ -8,7 +8,6 @@ import { ChainId as SolanaChainId, encodePublicKey, formatAddress } from '@maskn
 import { useAccountModal as useAccountModalEVM, useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
-import { useState } from 'react';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -22,6 +21,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ConnectWalletProps {
     collapsed?: boolean;
@@ -41,7 +41,8 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
-    const [collapsed, setCollapsed] = useState(false);
+    const collapsed = useGlobalState((state) => state.collapsedConnectWallet);
+    const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
 
     const chainTypes = [
         {
@@ -82,7 +83,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     return (
         <div
-            className={classNames('w-full space-y-3 rounded-md px-4 py-3 leading-6 hover:bg-bg', {
+            className={classNames('w-full space-y-3 rounded-md p-2 leading-6 hover:bg-bg md:px-4 md:py-3', {
                 'bg-lightBg': collapsed,
             })}
             onClick={(e) => {
@@ -95,7 +96,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                 )}
                 onClick={() => {
                     if (isConnected) {
-                        setCollapsed((c) => !c);
+                        setCollapsed(!collapsed);
                         return;
                     }
                     ConnectWalletModalRef.open();
@@ -114,7 +115,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                         {
                             'font-bold': collapsed,
                         },
-                        sideBarCollapsed ? 'none' : 'inline',
+                        sideBarCollapsed ? 'hidden' : 'inline',
                     )}
                     onClick={(e) => {
                         if (activeType?.isConnected) {

@@ -85,8 +85,6 @@ export function ComposeAction(props: ComposeActionProps) {
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
-    const redPacketDisabled = !!poll;
-
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
@@ -137,7 +135,9 @@ export function ComposeAction(props: ComposeActionProps) {
                     />
                 ) : null}
 
-                <GifEntryButton disabled={mediaDisabled} />
+                {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
+                    <GifEntryButton disabled={mediaDisabled} />
+                ) : null}
 
                 {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
@@ -168,13 +168,13 @@ export function ComposeAction(props: ComposeActionProps) {
                     className={classNames(
                         'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
                         {
-                            'opacity-50': loading || redPacketDisabled,
-                            'cursor-not-allowed': redPacketDisabled,
-                            'cursor-pointer': !redPacketDisabled,
+                            'opacity-50': loading || mediaDisabled,
+                            'cursor-not-allowed': mediaDisabled,
+                            'cursor-pointer': !mediaDisabled,
                         },
                     )}
                     onClick={async () => {
-                        if (loading || redPacketDisabled) return;
+                        if (loading || mediaDisabled) return;
                         openRedPacketComposeDialog();
                     }}
                 >

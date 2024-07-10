@@ -5,7 +5,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Connected Accounts`),
+        title: createPageTitleSSR(t`Connected accounts`),
     });
 }
 

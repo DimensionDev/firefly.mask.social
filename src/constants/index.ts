@@ -77,7 +77,8 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Giphy,
     MediaSource.Local,
 ];
-export const SUPPORT_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_MEDIA_PREVIEW_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
@@ -113,7 +114,7 @@ export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Twitter]: 280,
 };
 export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
-    [Source.Farcaster]: 2,
+    [Source.Farcaster]: 1,
     [Source.Lens]: 20,
     [Source.Twitter]: 4,
 };

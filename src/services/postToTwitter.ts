@@ -6,7 +6,7 @@ import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
-import { createTwitterMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createTwitterMediaObject, resolveImageUrl, resolveUploadId } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
@@ -34,6 +34,9 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
+        if (images.some((media) => !resolveUploadId(Source.Twitter, media))) {
+            throw new Error(t`There are images that were not uploaded successfully.`);
+        }
         return {
             publicationId: '',
             type: postType,
@@ -46,7 +49,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                 },
             },
             mediaObjects: images.map((media) => ({
-                id: media.id,
+                id: resolveUploadId(Source.Twitter, media),
                 url: resolveImageUrl(Source.Twitter, media),
                 mimeType: media.mimeType,
             })),
@@ -66,7 +69,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
         uploadImages: async () => {
             const downloaded = await downloadMediaObjects(images);
             const uploaded = await uploadToTwitter(downloaded.map((x) => x.file));
-            return uploaded.map((x) => createTwitterMediaObject(x));
+            return uploaded.map((x, index) => createTwitterMediaObject(x, downloaded[index]));
         },
         compose: (images, _, polls) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, polls)),
         reply: (images, _, polls) => {

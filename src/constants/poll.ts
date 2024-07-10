@@ -23,7 +23,7 @@ export enum POLL_STRATEGIES {
 }
 
 export const POLL_OPTIONS_MAX_COUNT: Record<SocialSource, number> = {
-    [Source.Lens]: 10,
+    [Source.Lens]: 4,
     [Source.Farcaster]: 4,
     [Source.Twitter]: 4,
 };

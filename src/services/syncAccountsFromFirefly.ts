@@ -1,12 +1,15 @@
+import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import { Source } from '@/constants/enum.js';
+import { AbortError, NotAllowedError, UnreachableError } from '@/constants/error.js';
+import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
@@ -62,17 +65,43 @@ export async function syncAccountsFromFirefly(session: FireflySession, signal?: 
 
     const sessions = await decryptMetricsFromFirefly(cipher, signal);
 
-    // convert session to profile
+    // validate and convert session to profile
     const allSettled = await Promise.allSettled(
-        sessions.map((x) => {
-            if (x.type === SessionType.Twitter) {
-                const session = x as TwitterSession;
-                return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(x.profileId, session.payload);
+        sessions.map(async (x) => {
+            switch (x.type) {
+                case SessionType.Twitter: {
+                    const twitterSession = x as TwitterSession;
+                    return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
+                        x.profileId,
+                        twitterSession.payload,
+                    );
+                }
+                case SessionType.Lens: {
+                    const lensSession = x as LensSession;
+                    if (!lensSession.refreshToken) return null;
+
+                    const sdk = createLensSDKForSession(new MemoryStorageProvider(), lensSession);
+                    const profileId = await sdk.authentication.getProfileId();
+                    if (!profileId) return null;
+
+                    const provider = resolveSocialMediaProvider(Source.Lens);
+                    return provider.getProfileById(x.profileId);
+                }
+                case SessionType.Farcaster:
+                    const provider = resolveSocialMediaProvider(Source.Farcaster);
+                    return provider.getProfileById(x.profileId);
+                case SessionType.Firefly:
+                    throw new NotAllowedError();
+                default:
+                    safeUnreachable(x.type);
+                    throw new UnreachableError('session type', x);
             }
-            const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
-            return provider.getProfileById(x.profileId);
         }),
     );
+
+    // check if the request is aborted
+    if (signal?.aborted) throw new AbortError();
+
     const accounts = compact<Account>(
         allSettled.map((x, i) =>
             x.status === 'fulfilled' && x.value

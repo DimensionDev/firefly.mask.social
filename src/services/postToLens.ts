@@ -161,7 +161,6 @@ async function publishPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
-    polls?: Poll[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
     const title = `Post by #${profile.handle}`;
@@ -176,7 +175,6 @@ async function publishPostForLens(
             },
         },
         createPayloadAttachments(images, video),
-        createPayloadSharingLink(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -201,7 +199,6 @@ async function commentPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
-    polls?: Poll[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -217,7 +214,6 @@ async function commentPostForLens(
             },
         },
         createPayloadAttachments(images, video),
-        createPayloadSharingLink(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -235,7 +231,6 @@ async function quotePostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
-    polls?: Poll[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -251,7 +246,6 @@ async function quotePostForLens(
             },
         },
         createPayloadAttachments(images, video),
-        createPayloadSharingLink(polls),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -300,17 +294,11 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             const pollStub = await LensPollProvider.createPoll(poll, readChars(chars, 'both', Source.Lens));
             return [pollStub];
         },
-        compose(images, videos, polls) {
+        compose(images, videos) {
             const video = first(videos) ?? null;
-            return publishPostForLens(
-                currentProfile.profileId,
-                readChars(chars, 'both', Source.Lens),
-                images,
-                video,
-                polls,
-            );
+            return publishPostForLens(currentProfile.profileId, readChars(chars, 'both', Source.Lens), images, video);
         },
-        reply(images, videos, polls) {
+        reply(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
             return commentPostForLens(
@@ -319,10 +307,9 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 readChars(chars, 'both', Source.Lens),
                 images,
                 video,
-                polls,
             );
         },
-        quote(images, videos, polls) {
+        quote(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
             return quotePostForLens(
@@ -331,7 +318,6 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 readChars(chars, 'both', Source.Lens),
                 images,
                 video,
-                polls,
             );
         },
     });

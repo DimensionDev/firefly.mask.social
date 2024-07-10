@@ -164,7 +164,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     components={{
                         // @ts-ignore
                         // eslint-disable-next-line react/no-unstable-nested-components
-                        a: ({ title }) => <span>{isValidUrl(title) ? formatUrl(title, 30) : title}</span>,
+                        a: ({ title }) => <span>{title && isValidUrl(title) ? formatUrl(title, 30) : title}</span>,
                     }}
                 >
                     {post.metadata.content?.content}

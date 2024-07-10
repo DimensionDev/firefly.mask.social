@@ -35,7 +35,7 @@ export interface ProfileState {
     removeAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     updateCurrentAccount: (account: Account) => void;
-    removeCurrentAccount: () => void;
+    resetCurrentAccount: () => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
     upgrade: () => void;
@@ -95,8 +95,9 @@ function createState(
                             state.accounts = [account];
                         }
                     }),
-                removeCurrentAccount: () =>
+                resetCurrentAccount: () =>
                     set((state) => {
+                        if (!state.currentProfile) return;
                         state.currentProfile = null;
                         state.currentProfileSession = null;
                     }),
@@ -247,10 +248,14 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                state.updateCurrentAccount({
+                const account = {
                     profile: me,
                     session: TwitterSession.from(me, payload),
-                });
+                };
+
+                state.updateAccounts([account]);
+                state.updateCurrentAccount(account);
+                twitterSessionHolder.resumeSession(account.session);
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();

@@ -1,7 +1,7 @@
 {
     "name": "mask.social",
     "type": "module",
-    "version": "5.4.5",
+    "version": "5.5.0",
     "private": true,
     "packageManager": "pnpm@8.10.4",
     "scripts": {
@@ -25,7 +25,7 @@
         "@aws-sdk/client-s3": "^3.456.0",
         "@aws-sdk/lib-storage": "^3.456.0",
         "@dimensiondev/holoflows-kit": "0.9.0-20240322092738-f9180f3",
-        "@farcaster/core": "^0.14.8",
+        "@farcaster/core": "^0.14.17",
         "@giphy/react-components": "^9.5.0",
         "@headlessui/react": "1.7.17",
         "@heroicons/react": "^2.0.18",
@@ -105,7 +105,7 @@
         "ts-results-es": "^4.0.0",
         "twemoji-parser": "^14.0.0",
         "twitter-api-v2": "^1.16.1",
-        "typescript": "5.5.0-beta",
+        "typescript": "5.5.3",
         "unstated-next": "^1.1.0",
         "urlcat": "^3.1.0",
         "use-subscription": "^1.8.0",

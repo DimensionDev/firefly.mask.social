@@ -4,18 +4,32 @@
         "details": [
             {
                 "appIDs": [
-                    "L57MZV93G4.io.mask.Mask"
+                    "7LFDZ96332.io.mask.Mask"
                 ],
-                "appID": "L57MZV93G4.io.mask.Mask",
+                "appID": "7LFDZ96332.io.mask.Mask",
                 "paths": [
                     "/post/*",
                     "/profile/*",
                     "/*",
-                    "/login/desktop"
+                    "/login/desktop/*"
                 ],
                 "components": [
                     {
-                        "/": "/*"
+                        "#": "no_universal_links",
+                        "exclude": true,
+                        "comment": "Matches any URL with a fragment that equals no_universal_links and instructs the system not to open it as a universal link."
+                    },
+                    {
+                        "/": "/post/*",
+                        "comment": "Matches any URL with a path that starts with /post/."
+                    },
+                    {
+                        "/": "/profile/*",
+                        "comment": "Matches any URL with a path that starts with /profile/."
+                    },
+                    {
+                        "/": "/login/desktop/*",
+                        "comment": "Matches any URL with a path that starts with /login/desktop/."
                     }
                 ]
             }
@@ -23,7 +37,7 @@
     },
     "webcredentials": {
         "apps": [
-            "L57MZV93G4.io.mask.Mask"
+            "7LFDZ96332.io.mask.Mask"
         ]
     }
 }

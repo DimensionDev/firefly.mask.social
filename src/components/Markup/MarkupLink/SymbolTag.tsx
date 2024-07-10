@@ -16,7 +16,8 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
 
     if (!title) return null;
     const symbol = title.slice(1);
-    if (symbol.match(/^\d+$/)) return title;
+    // $123 or $100M
+    if (symbol.match(/^\d+$/) || /^\d+(k|m|b|t)$/i.test(symbol)) return title;
     const enabled = isMedium && show;
 
     const content = (

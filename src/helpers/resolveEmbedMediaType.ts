@@ -6,7 +6,7 @@ export function isValidPollFrameUrl(url: string): boolean {
     return url.startsWith(FRAME_SERVER_URL);
 }
 
-export const resolveEmbedMediaType = (url: string, type?: EmbedMediaType) => {
+export function resolveEmbedMediaType(url: string, type?: EmbedMediaType) {
     if (!type) return getResourceType(url);
 
     switch (type) {
@@ -23,4 +23,4 @@ export const resolveEmbedMediaType = (url: string, type?: EmbedMediaType) => {
             if (isValidPollFrameUrl(url)) return 'Poll';
             return;
     }
-};
+}

@@ -44,7 +44,6 @@
     --color-twitter-primary: 29 161 243;
     --color-secondary: rgba(118, 127, 141, 1);
     --color-collected: 255 150 142;
-    --color-second: rgba(118, 127, 141, 1);
     --color-bottom80: rgba(255, 255, 255, 0.8);
     --color-bottom-blue: rgba(36, 107, 253, 1);
     --color-bg: rgba(249, 249, 249, 1);
@@ -332,6 +331,21 @@ body.not-support .fixed.inset-y-0 {
 .image-swiper-slide > div {
     display: flex;
     justify-content: center;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.wallet-adapter-modal-list li {
+    width: 100%;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button .wallet-adapter-button-start-icon {
+    min-width: 28px;
 }
 
 .schedule-time-picker .react-time-picker__wrapper {

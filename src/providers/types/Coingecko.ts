@@ -1,3 +1,5 @@
+import type { Runtime } from '@/providers/types/Trending.js';
+
 export interface CoingeckoToken {
     pluginID: 'string';
     id: string;
@@ -43,7 +45,6 @@ export interface CoingeckoCoinInfo {
         twitter_screen_name: string;
     };
     liquidity_score: string;
-    localization: Record<string, string>;
     market_cap_rank: number;
     market_data: {
         current_price: Record<string, number>;
@@ -65,7 +66,7 @@ export interface CoingeckoCoinInfo {
         total_supply: number;
         total_volume: Record<string, number>;
     };
-    platforms: Record<string, string>;
+    platforms: Record<Runtime, string>;
     name: string;
     symbol: string;
     tickers: Array<{

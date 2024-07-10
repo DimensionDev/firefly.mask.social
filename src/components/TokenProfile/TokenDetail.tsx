@@ -2,9 +2,9 @@ import { t, Trans } from '@lingui/macro';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { first, last } from 'lodash-es';
+import { first, isNumber } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import { type HTMLProps, memo, type ReactNode, useMemo, useRef, useState } from 'react';
+import { type HTMLProps, memo, type ReactNode, useRef, useState } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import QuestionIcon from '@/assets/question.svg';
@@ -19,36 +19,38 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
+import { useCoinPrice24hStats, useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
+import type { Contract } from '@/providers/types/Trending.js';
 
 interface InfoRowProps {
     title: string;
     description?: ReactNode;
     value?: string | number;
     amount?: string | number;
+    asInfinite?: boolean;
     extra?: ReactNode;
 }
 
-function InfoRow({ title, description, amount, value, extra }: InfoRowProps) {
+function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoRowProps) {
     return (
         <div className="flex items-center text-[15px]">
-            <span color="text-second">{title}</span>
+            <span className="text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description}>
-                    <QuestionIcon className="ml-1 cursor-pointer" width={14} height={14} />
+                    <QuestionIcon className="ml-1 cursor-pointer text-second" width={14} height={14} />
                 </Tooltip>
             ) : null}
             {extra ? (
                 <div className="ml-auto">{extra}</div>
             ) : (
-                <div className="ml-auto">
-                    {value !== undefined ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
+                <div className="ml-auto font-inter text-[15px] font-bold text-main">
+                    {asInfinite ? '∞' : isNumber(value) ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
                 </div>
             )}
         </div>
@@ -76,6 +78,11 @@ function getHost(url: string) {
     }
 }
 
+function formatContractAddress(contract: Contract) {
+    if (contract.runtime === 'ethereum') formatEthereumAddress(contract.address, 4);
+    return `${contract.address.slice(0, 6)}...${contract.address.slice(-4)}`;
+}
+
 export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, ...rest }) {
     const chartRef = useRef<SVGSVGElement>(null);
     const { data: token, isLoading } = useTokenInfo(symbol);
@@ -95,13 +102,9 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
 
     const [days, setDays] = useState<number | undefined>(ranges[0].days);
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token?.id, days);
-    const isUp = useMemo(() => {
-        const startPrice = first(priceStats)?.value ?? 0;
-        const endPrice = last(priceStats)?.value ?? 0;
-        return endPrice > startPrice;
-    }, [priceStats]);
+    const { isUp } = useCoinPrice24hStats(token?.id);
 
-    usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`, { color: 'currentColor' });
+    usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`);
     const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, first(contracts)?.chainId);
 
     if (isLoading) {
@@ -114,43 +117,32 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
 
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 px-3 py-3 sm:px-6', rest.className)}>
-            <div className="flex items-center gap-2.5 text-second">
+            <div className="flex items-center gap-1 text-second">
                 <Image
                     className="overflow-hidden rounded-full"
                     src={token.logoURL}
                     alt={token.name}
-                    width={40}
-                    height={40}
+                    width={24}
+                    height={24}
                 />
-                <strong className="text-lg font-bold uppercase text-main">{token.symbol}</strong>
-                <span className="font-inter text-[15px] font-bold">{token.name}</span>
-            </div>
-            <div className="line-height-[22px] flex items-center gap-1 text-[15px]">
-                <Trans>
-                    <span className="text-secondary">Price</span>
-                    <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                    <PriceArrow
-                        width={16}
-                        height={16}
-                        className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
-                    />
-                    {market?.price_change_percentage_24h_in_currency !== undefined ? (
-                        <span className={isUp ? 'text-success' : 'text-fail'}>
-                            {market.price_change_percentage_24h_in_currency.toFixed(2)}%
-                        </span>
-                    ) : null}
-                </Trans>
+                <strong className="ml-0.5 text-[15px] font-bold text-main">{token.name}</strong>
+                <span className="font-inter text-[15px] font-bold uppercase">{token.symbol}</span>
+                <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
+                    <Trans>Rank #{token.rank}</Trans>
+                </span>
             </div>
             <div className="line-height-[22px] flex items-center gap-1">
-                <Trans>
-                    <span className="text-[15px] text-secondary">Market Cap</span>
-                    <strong className="text-[15px] font-bold">
-                        {market?.market_cap ? `$${formatPrice(market.market_cap)}` : '-'}
-                    </strong>
-                    <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
-                        Rank #{token.rank}
+                <strong className="text-2xl font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
+                <PriceArrow
+                    width={20}
+                    height={20}
+                    className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
+                />
+                {market?.price_change_percentage_24h_in_currency !== undefined ? (
+                    <span className={isUp ? 'text-[15px] text-success' : 'text-[15px] text-fail'}>
+                        {market.price_change_percentage_24h_in_currency.toFixed(2)}%
                     </span>
-                </Trans>
+                ) : null}
             </div>
             <TokenSecurityBar tokenSecurity={security} />
             <div
@@ -160,15 +152,9 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                 )}
             >
                 {isPending ? (
-                    <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100" />
+                    <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
                 ) : (
-                    <svg
-                        ref={chartRef}
-                        width="100%"
-                        height={175}
-                        viewBox="0 0 543 175"
-                        className={isUp ? 'text-success' : 'text-fail'}
-                    />
+                    <svg ref={chartRef} width="100%" height={175} viewBox="0 0 543 175" />
                 )}
             </div>
 
@@ -254,14 +240,15 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                         description={
                             <Trans>
                                 <div>
-                                    Copy The amount of coins that have already been created, minus any coins that have
-                                    been burned (removed from circulation). It is comparable to outstanding shares in
-                                    the stock market.
+                                    The amount of coins that have already been created, minus any coins that have been
+                                    burned (removed from circulation). It is comparable to outstanding shares in the
+                                    stock market.
                                 </div>
                                 <div className="mt-2">Total Supply = Onchain supply - burned tokens</div>
                             </Trans>
                         }
                         amount={market?.total_supply}
+                        asInfinite={!market?.total_supply}
                     />
                     <InfoRow
                         title={t`Max Supply`}
@@ -275,6 +262,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                             </Trans>
                         }
                         amount={market?.max_supply}
+                        asInfinite={!market?.max_supply}
                     />
                 </div>
                 <h2 className="mt-3 font-inter font-bold text-main">{t`Info`}</h2>
@@ -293,9 +281,11 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                             height={16}
                                         />
                                     ) : null}
-                                    <span className="text-[15px] font-bold text-main">
-                                        {formatEthereumAddress(contracts[0].address, 4)}
-                                    </span>
+                                    <Tooltip content={contracts[0].address} placement="top">
+                                        <span className="overflow-hidden text-ellipsis text-[15px] font-bold text-main">
+                                            {formatContractAddress(contracts[0])}
+                                        </span>
+                                    </Tooltip>
                                     <CopyButton value={contracts[0].address} />
                                     {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
                                 </div>

@@ -43,9 +43,11 @@ export function useLineChart(
         color?: string;
         tickFormat?: string;
         formatTooltip?: (value: number) => number | string;
+        /** disable tooltip and low/high price */
+        simple?: boolean;
     },
 ) {
-    const { color = 'currentColor', tickFormat = ',.2s', formatTooltip = defaultFormatTooltip } = opts;
+    const { color = 'currentColor', tickFormat = ',.2s', formatTooltip = defaultFormatTooltip, simple } = opts;
     const { top, right, bottom, left, width, height } = dimension;
     const contentWidth = width - left - right;
     const contentHeight = height - top - bottom;
@@ -93,21 +95,25 @@ export function useLineChart(
         const minFixedPosition = fixOverPosition(contentWidth, contentHeight, minPosition.x, minPosition.y, 40);
         const maxFixedPosition = fixOverPosition(contentWidth, contentHeight, maxPosition.x, maxPosition.y, 40);
 
-        graph
-            .append('g')
-            .append('text')
-            .attr('transform', `translate(${minFixedPosition.x}, ${minFixedPosition.y})`)
-            .style('font-size', 14)
-            .style('font-weight', 700)
-            .text(formatTooltip(min));
+        if (!simple) {
+            graph
+                .append('g')
+                .append('text')
+                .attr('transform', `translate(${minFixedPosition.x}, ${minFixedPosition.y})`)
+                .attr('fill', 'rgb(var(--color-main))')
+                .style('font-size', 14)
+                .style('font-weight', 700)
+                .text(formatTooltip(min));
 
-        graph
-            .append('g')
-            .append('text')
-            .attr('transform', `translate(${maxFixedPosition.x}, ${maxFixedPosition.y})`)
-            .style('font-size', 14)
-            .style('font-weight', 700)
-            .text(formatTooltip(max));
+            graph
+                .append('g')
+                .append('text')
+                .attr('transform', `translate(${maxFixedPosition.x}, ${maxFixedPosition.y})`)
+                .attr('fill', 'rgb(var(--color-main))')
+                .style('font-size', 14)
+                .style('font-weight', 700)
+                .text(formatTooltip(max));
+        }
 
         graph
             .append('g')
@@ -132,10 +138,11 @@ export function useLineChart(
                     .y((d) => y((d as any).value)!) as any,
             );
 
+        if (simple) return;
         // create tooltip
         const tooltipLine = graph
             .append('line')
-            .style('stroke', '#E0ECFF')
+            .style('stroke', 'var(--color-line)')
             .style('stroke-width', 1)
             .style('stroke-dasharray', '5,5')
             .style('display', 'none')
@@ -186,7 +193,7 @@ export function useLineChart(
                         .attr('x', 0)
                         .attr('y', (d, i) => `${i * 1.2}em`)
                         .style('font-weight', (_, i) => (i ? null : 'bold'))
-                        .attr('fill', '#f5f5f5')
+                        .attr('fill', 'rgb(var(--color-bottom))')
                         .text((d) => d),
                 );
 
@@ -205,22 +212,28 @@ export function useLineChart(
                 const isFirstIndex = position.x === 35;
 
                 if (position.y + 54 > contentHeight) {
-                    text.attr('transform', `translate(${-boxHalfWidth + offset},${-46 - yValue})`);
+                    text.attr('transform', `translate(${-boxHalfWidth + offset},${-46 - yValue})`).attr(
+                        'color',
+                        'rgb(var(--color-bottom))',
+                    );
                     path.attr(
                         'd',
                         `M-${boxArrowX} -54h105s4 0 4 4v38s0 4 -4 4h-120s-4 0 -4 -4v-38s0 -4 4 -4 ${
                             isFirstIndex ? 'M -35 0 L -42 -10 L 11 -10 L -28 -10 Z' : 'M0 0L-7 -10L12 -10L7 -10Z'
                         }`,
-                    );
+                    ).attr('fill', 'var(--color-tooltip-bg)');
                 } else {
-                    text.attr('transform', `translate(${-boxHalfWidth + offset},${18 - yValue})`);
+                    text.attr('transform', `translate(${-boxHalfWidth + offset},${18 - yValue})`).attr(
+                        'color',
+                        'rgb(var(--color-bottom))',
+                    );
 
                     path.attr(
                         'd',
                         `M-${boxArrowX} 10h105s4 0 4 4v38s0 4 -4 4h-120s-4 0 -4 -4v-38s0 -4 4 -4 ${
                             isFirstIndex ? 'M -35 2 L -41 10 L 12 10 L -23 16 Z' : 'M0 2L-7 10L12 10L7 10Z'
                         } `,
-                    );
+                    ).attr('fill', 'var(--color-tooltip-bg)');
                 }
             }
         };
@@ -267,5 +280,19 @@ export function useLineChart(
         });
 
         d3.select(svgRef.current).on('mouseleave', hide);
-    }, [data, dimension, tickFormat, formatTooltip, svgRef, id, left, top, contentWidth, contentHeight, color, height]);
+    }, [
+        data,
+        dimension,
+        tickFormat,
+        formatTooltip,
+        svgRef,
+        id,
+        left,
+        top,
+        contentWidth,
+        contentHeight,
+        color,
+        height,
+        simple,
+    ]);
 }
