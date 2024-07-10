@@ -1,8 +1,11 @@
+/* cspell:disable */
+
 import { CastAddBody, CastRemoveBody, Factories, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
+import { z } from 'zod';
 
 import { NotImplementedError, UnauthorizedError } from '@/constants/error.js';
 import { HUBBLE_URL } from '@/constants/index.js';
@@ -20,6 +23,16 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
+const ErrorResponseSchema = z.custom<Response<never>>((response) => {
+    const error = response as Response<never>;
+    return (
+        typeof error.code === 'number' &&
+        typeof error.name === 'string' &&
+        typeof error.errCode === 'string' &&
+        typeof error.details === 'string'
+    );
+});
+
 class HubbleSocialMedia implements Provider {
     private async submitMessage<T>(messageBytes: Buffer) {
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
@@ -28,17 +41,12 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
 
-        const isErrorResponse = (response: Response<T>): response is Exclude<Response<T>, T> => {
-            const error = response as Exclude<Response<T>, T>;
-            return (
-                typeof error.code === 'number' && typeof error.name === 'string' && typeof error.errCode === 'string'
-            );
-        };
+        const parsed = ErrorResponseSchema.safeParse(response);
 
-        if (isErrorResponse(response)) {
-            if (response.code === 3 && response.errCode === 'bad_request.validation_failure')
+        if (parsed.success) {
+            if (parsed.data.code === 3 && parsed.data.errCode === 'bad_request.validation_failure')
                 throw new UnauthorizedError();
-            throw new Error(response.details);
+            throw new Error(parsed.data.details);
         } else {
             return response as T;
         }
