@@ -15,6 +15,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { type SocialSourceInURL, Source } from '@/constants/enum.js';
+import { NotFoundError } from '@/constants/error.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -28,7 +29,6 @@ import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js'
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { NotFoundError } from '@/constants/error.js';
 
 const PostActionsWithGrid = dynamic(
     () => import('@/components/Actions/index.js').then((module) => module.PostActionsWithGrid),
