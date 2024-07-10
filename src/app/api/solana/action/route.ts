@@ -1,10 +1,10 @@
 import { safeUnreachable } from '@masknet/kit';
-import { compose } from '@masknet/shared-base';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
+import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';

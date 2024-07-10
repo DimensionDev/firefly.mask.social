@@ -1,9 +1,9 @@
-import { compose } from '@masknet/shared-base';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { MalformedError } from '@/constants/error.js';
+import { compose } from '@/helpers/compose.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

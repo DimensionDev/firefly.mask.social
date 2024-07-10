@@ -1,5 +1,4 @@
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { compact, find, first, last } from 'lodash-es';
 import type { ApiV2Includes, MediaObjectV2, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
@@ -7,6 +6,7 @@ import { Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | null {

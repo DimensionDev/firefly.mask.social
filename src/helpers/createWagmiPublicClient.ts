@@ -1,8 +1,9 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
 import { getRPCConstant } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { type Chain, createPublicClient as createClient, http, type PublicClient } from 'viem';
 import { polygon } from 'viem/chains';
+
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 const resolvePublicProviderUrl = createLookupTableResolver<number, string>(
     {

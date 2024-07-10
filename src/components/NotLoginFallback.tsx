@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { createLookupTableResolver } from '@masknet/shared-base';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -7,6 +6,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

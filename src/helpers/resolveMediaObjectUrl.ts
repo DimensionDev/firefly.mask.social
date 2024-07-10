@@ -1,9 +1,9 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_MEDIA_SOURCES } from '@/constants/index.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 import type { TwitterMediaResponse } from '@/services/uploadToTwitter.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';

@@ -2,7 +2,6 @@
 
 import { Plural, Select, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createLookupTableResolver } from '@masknet/shared-base';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useMemo } from 'react';
@@ -23,6 +22,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';

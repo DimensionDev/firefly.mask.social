@@ -1,5 +1,4 @@
 'use client';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
@@ -10,6 +9,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import type { Article } from '@/providers/types/Article.js';
 

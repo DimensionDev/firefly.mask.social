@@ -1,6 +1,6 @@
-import { compose } from '@masknet/shared-base';
 import { NextRequest } from 'next/server.js';
 
+import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterSessionPayload } from '@/helpers/createTwitterSessionPayload.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

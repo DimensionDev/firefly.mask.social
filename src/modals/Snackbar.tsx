@@ -1,7 +1,8 @@
-import type { SingletonModalRefCreator } from '@masknet/shared-base';
-import { useSingletonModal } from '@masknet/shared-base-ui';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage, useSnackbar } from 'notistack';
 import { forwardRef } from 'react';
+
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
+import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export type SnackbarOpenProps =
     | {

@@ -1,7 +1,7 @@
-import { compose } from '@masknet/shared-base';
 import { NextRequest } from 'next/server.js';
 
 import { TWITTER_MUTE_LIST_OPTIONS } from '@/constants/index.js';
+import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';

@@ -1,6 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
 import { useEnsName } from 'wagmi';
@@ -12,6 +11,7 @@ import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
 

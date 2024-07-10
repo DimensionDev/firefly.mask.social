@@ -1,11 +1,11 @@
 'use client';
 
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { notFound, usePathname, useSearchParams } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';

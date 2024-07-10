@@ -1,6 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import type { SingletonModalRefCreator } from '@masknet/shared-base';
-import { useSingletonModal } from '@masknet/shared-base-ui';
 import { noop } from 'lodash-es';
 import React, { forwardRef, useState } from 'react';
 
@@ -8,6 +6,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
+import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface ConfirmModalOpenProps {
     title?: string;

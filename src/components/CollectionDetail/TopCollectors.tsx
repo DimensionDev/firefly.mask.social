@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
@@ -10,11 +9,13 @@ import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 

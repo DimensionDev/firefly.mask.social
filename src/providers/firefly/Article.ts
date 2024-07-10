@@ -1,16 +1,16 @@
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-} from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type Article, ArticlePlatform, type Provider } from '@/providers/types/Article.js';

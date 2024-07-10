@@ -1,6 +1,5 @@
 'use client';
 
-import { EMPTY_OBJECT } from '@masknet/shared-base';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
 import { type TableComponents } from 'react-virtuoso';
@@ -9,6 +8,7 @@ import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoR
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { VirtualTableList, type VirtualTableListProps } from '@/components/VirtualList/VirtualTableList.js';
+import { EMPTY_OBJECT } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

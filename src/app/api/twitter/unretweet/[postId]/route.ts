@@ -1,7 +1,7 @@
-import { compose } from '@masknet/shared-base';
 import { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
+import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
