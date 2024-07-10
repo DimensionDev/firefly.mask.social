@@ -1,14 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { compact, uniqBy } from 'lodash-es';
+import { compact, first } from 'lodash-es';
+import { redirect, RedirectType } from 'next/navigation.js';
 import { useMemo } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
-import { Loading } from '@/components/Loading.js';
 import { Source } from '@/constants/enum.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
@@ -19,38 +18,21 @@ export default function Page() {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
-    const { data: profiles, isLoading } = useQuery({
-        queryKey: [
-            'all-profiles',
-            'myself',
-            currentLensProfile?.handle,
-            currentFarcasterProfile?.profileId,
-            currentTwitterProfile?.profileId,
-        ],
-        queryFn: async () => {
-            return FireflySocialMediaProvider.getAllPlatformProfiles(
-                currentLensProfile?.handle,
-                currentFarcasterProfile?.profileId,
-                currentTwitterProfile?.profileId,
-            );
-        },
-    });
-
     const defaultProfiles = useMemo(() => {
         return compact([
-            currentLensProfile
-                ? {
-                      identity: currentLensProfile.handle,
-                      source: Source.Lens,
-                      displayName: currentLensProfile.handle,
-                      __origin__: null,
-                  }
-                : undefined,
             currentFarcasterProfile
                 ? {
                       identity: currentFarcasterProfile.profileId,
                       source: Source.Farcaster,
                       displayName: currentFarcasterProfile.handle,
+                      __origin__: null,
+                  }
+                : undefined,
+            currentLensProfile
+                ? {
+                      identity: currentLensProfile.handle,
+                      source: Source.Lens,
+                      displayName: currentLensProfile.handle,
                       __origin__: null,
                   }
                 : undefined,
@@ -65,8 +47,9 @@ export default function Page() {
         ]);
     }, [currentLensProfile, currentFarcasterProfile, currentTwitterProfile]);
 
-    if (isLoading) {
-        return <Loading />;
+    const profile = first(defaultProfiles);
+    if (profile) {
+        redirect(`/profile/${profile.identity}?source=${resolveSourceInURL(profile.source)}`, RedirectType.replace);
     }
 
     return (
@@ -78,9 +61,7 @@ export default function Page() {
                     defaultProfiles.find((x) => x.source === currentProfileTabState.source)?.identity,
             }}
         >
-            <ProfilePage
-                profiles={profiles ? uniqBy([...profiles, ...defaultProfiles], (x) => x.identity) : defaultProfiles}
-            />
+            <ProfilePage profiles={defaultProfiles} />
         </ProfileContext.Provider>
     );
 }
