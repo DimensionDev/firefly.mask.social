@@ -45,6 +45,7 @@ export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
+export const NOT_DEPEND_HUBBLE_KEY = '[TO_BE_REPLACED_LATER]';
 
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],

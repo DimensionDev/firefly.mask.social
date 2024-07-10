@@ -1,4 +1,5 @@
 import { env } from '@/constants/env.js';
+import { NOT_DEPEND_HUBBLE_KEY } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -23,7 +24,7 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
         const headers = {
             'Content-Type': 'application/octet-stream',
             ...options?.headers,
-            api_key: 'TO_BE_REPLACED_LATER',
+            api_key: NOT_DEPEND_HUBBLE_KEY,
         };
 
         if (env.internal.HUBBLE_TOKEN) {

@@ -308,7 +308,7 @@ class HubbleSocialMedia implements Provider {
     async upvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error(t`Failed to upvote post.`);
 
-        const { messageBytes, messageDataHash, messageData } = await encodeMessageData(
+        const { messageBytes } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
                     type: ReactionType.LIKE,
