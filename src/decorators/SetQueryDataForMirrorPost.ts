@@ -1,5 +1,6 @@
+import { v4 as uuid } from 'uuid';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
@@ -18,16 +19,10 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
     };
 }
 
-function toggleMirror(source: SocialSource, postId: string, status: boolean) {
+function toggleMirror(source: SocialSource, postId: string, status: boolean, key?: string) {
     patchPostQueryData(source, postId, (draft) => {
         // Since lens only supports mirror and can mirror many times, rollback when the status is false.
-        if (source === Source.Lens) {
-            const currentLensProfile = getCurrentProfile(Source.Lens);
-
-            if (!currentLensProfile) return;
-
-            const key = `${postId}_${currentLensProfile.profileId}`;
-
+        if (source === Source.Lens && key) {
             if (status) {
                 lensOriginalMirrored.set(key, draft.hasMirrored ?? false);
                 draft.hasMirrored = status;
@@ -57,18 +52,19 @@ export function SetQueryDataForMirrorPost(source: SocialSource) {
             Object.defineProperty(target.prototype, key, {
                 value: async (postId: string, ...args: unknown[]) => {
                     const status = key === 'mirrorPost';
+                    const id = uuid();
                     try {
                         const m = method as (
                             postId: string,
                             ...args: unknown[]
                         ) => ReturnType<Exclude<Provider[K], undefined>>;
-                        toggleMirror(source, postId, status);
+                        toggleMirror(source, postId, status, id);
                         const result = await m.call(target.prototype, postId, ...args);
 
                         return result;
                     } catch (error) {
                         // rolling back
-                        toggleMirror(source, postId, !status);
+                        toggleMirror(source, postId, !status, id);
                         throw error;
                     }
                 },
