@@ -90,63 +90,6 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
-        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-        if (!postId || !post || !profileId) throw new Error(t`Failed to quote post.`);
-
-        const { messageBytes } = await encodeMessageData(
-            () => {
-                const data: {
-                    castAddBody: CastAddBody;
-                } = {
-                    castAddBody: {
-                        ...result,
-                        embedsDeprecated: [],
-                        embeds: [
-                            {
-                                castId: {
-                                    fid: toInteger(profileId),
-                                    hash: toBytes(postId),
-                                },
-                            },
-                            ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
-                        ],
-                        parentCastId: undefined,
-                        parentUrl: undefined,
-                    },
-                };
-
-                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
-                    data.castAddBody.parentCastId = {
-                        fid: toInteger(post.commentOn.author.profileId),
-                        hash: toBytes(post.commentOn.postId),
-                    };
-                } else if (post.parentChannelUrl) {
-                    data.castAddBody.parentUrl = post.parentChannelUrl;
-                }
-                return data;
-            },
-            async (messageData, signer) => {
-                return Factories.CastAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to quote post.`);
-        return hash;
-    }
-
     collectPost(postId: string, collectionId?: string): Promise<void> {
         throw new NotImplementedError();
     }
@@ -154,6 +97,7 @@ class HubbleSocialMedia implements Provider {
     getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new NotImplementedError();
     }
+
     getProfilesByIds(ids: string[]): Promise<Profile[]> {
         throw new NotImplementedError();
     }
@@ -218,8 +162,121 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async reportProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async reportPost(post: Post): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async blockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async unblockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async blockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async unblockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async bookmark(postId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async unbookmark(postId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
+    }
+
+    async quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
+        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
+        if (!postId || !post || !profileId) throw new Error(t`Failed to quote post.`);
+
+        const { messageBytes } = await encodeMessageData(
+            () => {
+                const data: {
+                    castAddBody: CastAddBody;
+                } = {
+                    castAddBody: {
+                        ...result,
+                        embedsDeprecated: [],
+                        embeds: [
+                            {
+                                castId: {
+                                    fid: toInteger(profileId),
+                                    hash: toBytes(postId),
+                                },
+                            },
+                            ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
+                        ],
+                        parentCastId: undefined,
+                        parentUrl: undefined,
+                    },
+                };
+
+                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
+                    data.castAddBody.parentCastId = {
+                        fid: toInteger(post.commentOn.author.profileId),
+                        hash: toBytes(post.commentOn.postId),
+                    };
+                } else if (post.parentChannelUrl) {
+                    data.castAddBody.parentUrl = post.parentChannelUrl;
+                }
+                return data;
+            },
+            async (messageData, signer) => {
+                return Factories.CastAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
+            method: 'POST',
+            body: messageBytes,
+        });
+        if (!data) throw new Error(t`Failed to quote post.`);
+        return hash;
     }
 
     async publishPost(post: Post): Promise<string> {
@@ -501,60 +558,6 @@ class HubbleSocialMedia implements Provider {
         });
         if (!data) throw new Error(t`Failed to unfollow.`);
         return true;
-    }
-
-    async reportProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async reportPost(post: Post): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async blockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unblockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async blockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unblockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async bookmark(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unbookmark(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
     }
 }
 
