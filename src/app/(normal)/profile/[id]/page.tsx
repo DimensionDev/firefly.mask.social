@@ -23,8 +23,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     return createSiteMetadata();
 }
 
-export default function Page(props: Props) {
+export default function Page({ params, searchParams }: Props) {
     if (isBotRequest()) return null;
 
-    return <ProfileDetailPage />;
+    return <ProfileDetailPage identity={params.id} source={searchParams.source} />;
 }
