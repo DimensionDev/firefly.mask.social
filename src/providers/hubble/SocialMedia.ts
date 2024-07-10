@@ -1,4 +1,4 @@
-import { CastAddBody, CastRemoveBody, Factories, Message, ReactionType } from '@farcaster/core';
+import { CastAddBody, CastRemoveBody, Factories, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
