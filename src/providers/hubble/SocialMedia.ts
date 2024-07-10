@@ -4,12 +4,13 @@ import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
-import { NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError, UnauthorizedError } from '@/constants/error.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { Response } from '@/providers/types/Hubble.js';
 import {
     type Channel,
     type Notification,
@@ -20,6 +21,29 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 class HubbleSocialMedia implements Provider {
+    private async submitMessage<T>(messageBytes: Buffer) {
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
+        const response = await farcasterSessionHolder.fetchHubble<Response<T>>(url, {
+            method: 'POST',
+            body: messageBytes,
+        });
+
+        const isErrorResponse = (response: Response<T>): response is Exclude<Response<T>, T> => {
+            const error = response as Exclude<Response<T>, T>;
+            return (
+                typeof error.code === 'number' && typeof error.name === 'string' && typeof error.errCode === 'string'
+            );
+        };
+
+        if (isErrorResponse(response)) {
+            if (response.code === 3 && response.errCode === 'bad_request.validation_failure')
+                throw new UnauthorizedError();
+            throw new Error(response.details);
+        } else {
+            return response as T;
+        }
+    }
+
     commentPost(postId: string, post: Post): Promise<string> {
         return this.publishPost(post);
     }
@@ -281,7 +305,6 @@ class HubbleSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<string> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-
         const { messageBytes } = await encodeMessageData(
             () => {
                 const data: {
@@ -318,12 +341,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to publish post.`);
+        const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
         return hash;
     }
 
@@ -352,13 +370,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to publish post.`);
-
+        await this.submitMessage(messageBytes);
         return true;
     }
 
@@ -387,13 +399,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to upvote post.`);
-        return;
+        await this.submitMessage(messageBytes);
     }
 
     async unvotePost(postId: string, authorId?: number) {
@@ -421,13 +427,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to unvote post.`);
-        return;
+        await this.submitMessage(messageBytes);
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
@@ -457,12 +457,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to mirror post.`);
+        await this.submitMessage(messageBytes);
 
         // FIXME: should return post id here
         return null!;
@@ -493,12 +488,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to unmirror post.`);
+        await this.submitMessage(messageBytes);
         return;
     }
 
@@ -522,12 +512,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to follow.`);
+        await this.submitMessage(messageBytes);
         return true;
     }
 
@@ -551,12 +536,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to unfollow.`);
+        await this.submitMessage(messageBytes);
         return true;
     }
 }

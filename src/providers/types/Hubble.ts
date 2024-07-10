@@ -1,5 +1,18 @@
 import type { FarcasterNetwork } from '@farcaster/core';
 
+export type Response<T> =
+    | {
+          name: string;
+          code: number;
+          errCode: string;
+          presentable: boolean;
+          details: string;
+          metadata: {
+              errcode: string[];
+          };
+      }
+    | T;
+
 export interface SignaturePacket {
     signer: `0x${string}`;
     messageHash: `0x${string}`;

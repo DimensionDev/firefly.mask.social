@@ -20,7 +20,7 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
             : fetchJSON<T>(url, options);
     }
 
-    fetchHubble<T>(url: string, options?: RequestInit) {
+    async fetchHubble<T>(url: string, options?: RequestInit) {
         const headers = {
             'Content-Type': 'application/octet-stream',
             ...options?.headers,
@@ -35,10 +35,16 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
             throw new Error('token not found.');
         }
 
-        return fetchJSON<T>(url, {
+        const response = await fetch(url, {
             ...options,
-            headers,
+            headers: {
+                ...headers,
+                ...options?.headers,
+            },
         });
+
+        const json = await response.json();
+        return json as T;
     }
 }
 
