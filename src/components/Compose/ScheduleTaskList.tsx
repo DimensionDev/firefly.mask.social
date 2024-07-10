@@ -89,7 +89,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
         }
     }, [task.uuid]);
 
-    // Becasue it will refetch queries each time, the entire list will be loading. So there's no need to handle the loading UI.
+    // Because it will refetch queries each time, the entire list will be loading. So there's no need to handle the loading UI.
     const [, handleClick] = useAsyncFn(async () => {
         const time = await SchedulePostModalRef.openAndWaitForClose({
             action: 'update',

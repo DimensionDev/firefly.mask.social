@@ -2,9 +2,15 @@ import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createFarcasterSchedulePostPayload, type FarcasterSchedulePostPayload } from '@/services/postToFarcaster.js';
-import { createLensSchedulePostPayload, type LensSchedulePayload } from '@/services/postToLens.js';
-import { createTwitterSchedulePostPayload, type TwitterSchedulePostPayload } from '@/services/postToTwitter.js';
+import {
+    createFarcasterSchedulePostPayload,
+    type FarcasterSchedulePostPayload,
+} from '@/services/createFarcasterSchedulePostPayload.js';
+import { createLensSchedulePostPayload, type LensSchedulePayload } from '@/services/createLensSchedulePostPayload.js';
+import {
+    createTwitterSchedulePostPayload,
+    type TwitterSchedulePostPayload,
+} from '@/services/createTwitterSchedulePostPayload.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 

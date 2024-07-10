@@ -1,0 +1,99 @@
+import { t } from '@lingui/macro';
+
+import { Source } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
+import { readChars } from '@/helpers/chars.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
+import { createIPFSMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { LensPollProvider } from '@/providers/lens/Poll.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
+import { uploadToArweave } from '@/services/uploadToArweave.js';
+import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
+import { type CompositePost } from '@/store/useComposeStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
+import { type ComposeType } from '@/types/compose.js';
+
+export interface LensSchedulePayload {
+    operationName: 'PostOnMomoka' | 'QuoteOnMomoka' | 'CommentOnMomoka';
+    variables: {
+        request: {
+            contentURI: `ar://${string}`;
+            quoteOn?: string;
+            commentOn?: string;
+        };
+    };
+    query: string;
+}
+
+export async function createLensSchedulePostPayload(
+    type: ComposeType,
+    compositePost: CompositePost,
+    isThread = false,
+): Promise<LensSchedulePayload> {
+    const { images, video, poll, chars, parentPost, postId } = compositePost;
+
+    const lensParentPost = parentPost.Lens;
+    const sourceName = resolveSourceName(Source.Lens);
+
+    const imageResults = await Promise.all(
+        images.map(async (media) => {
+            if (resolveImageUrl(Source.Lens, media)) return media;
+            return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
+        }),
+    );
+
+    const videoResult = video?.file ? createIPFSMediaObject(await uploadFileToIPFS(video.file), video) : null;
+
+    const pollResult = !poll ? [] : [await LensPollProvider.createPoll(poll, readChars(chars, 'both', Source.Lens))];
+
+    const { currentProfile } = useLensStateStore.getState();
+    if (!currentProfile?.profileId) throw new Error(t`Login required to schedule post on ${sourceName}`);
+    if (!currentProfile.signless) {
+        const message = t`Please enable Momoka to support sending posts on Lens.`;
+        enqueueErrorMessage(message);
+        throw new Error(message);
+    }
+
+    const title = `Post by #${currentProfile.handle}`;
+    const content = readChars(chars, 'both', Source.Lens);
+    const metadata = createPostMetadata(
+        {
+            title,
+            content,
+            marketplace: {
+                name: title,
+                description: content,
+                external_url: SITE_URL,
+            },
+        },
+        createPayloadAttachments(imageResults, videoResult),
+    );
+
+    const tokenRes = await LensSocialMediaProvider.getAccessToken();
+    const token = tokenRes.unwrap();
+    const arweaveId = await uploadToArweave(metadata, token);
+
+    const commentOn =
+        type === 'reply'
+            ? lensParentPost
+                ? lensParentPost.postId
+                : isThread
+                  ? '$$commentOn$$'
+                  : undefined
+            : undefined;
+
+    return {
+        operationName: resolveLensOperationName(type),
+        variables: {
+            request: {
+                contentURI: `ar://${arweaveId}`,
+                quoteOn: type === 'quote' && lensParentPost ? lensParentPost.postId : undefined,
+                commentOn,
+            },
+        },
+        query: resolveLensQuery(type),
+    };
+}
