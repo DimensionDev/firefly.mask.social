@@ -34,7 +34,7 @@ export function BookmarkList({ source }: Props) {
                 return result;
             } catch (error) {
                 enqueueErrorMessage('Failed to fetch bookmarks', { error });
-                return;
+                throw error;
             }
         },
         initialPageParam: '',

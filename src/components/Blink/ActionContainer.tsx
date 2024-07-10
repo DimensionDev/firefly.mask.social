@@ -208,6 +208,7 @@ export function ActionContainer({
                 error,
             });
             dispatch({ type: ExecutionType.RESET });
+            throw error;
         }
     };
 

@@ -72,10 +72,10 @@ export function SetQueryDataForBlockWallet() {
                     try {
                         toggleBlock(address, status);
                         return await m.call(target.prototype, address);
-                    } catch (err) {
+                    } catch (error) {
                         // rolling back
                         toggleBlock(address, !status);
-                        throw err;
+                        throw error;
                     }
                 },
             });

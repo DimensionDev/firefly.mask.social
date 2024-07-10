@@ -15,6 +15,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { type SocialSourceInURL, Source } from '@/constants/enum.js';
+import { NotFoundError } from '@/constants/error.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -75,9 +76,9 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
 
                 if (currentSource === Source.Lens) fetchAndStoreViews([post.postId]);
                 return post;
-            } catch (err) {
-                if (err instanceof Error && err.message === 'Post not found') return null;
-                throw err;
+            } catch (error) {
+                if (error instanceof NotFoundError) return null;
+                throw error;
             }
         },
     });

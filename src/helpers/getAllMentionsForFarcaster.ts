@@ -38,7 +38,7 @@ export async function getAllMentionsForFarcaster(text: string) {
                 regex.lastIndex = startIndex;
             }
         } catch (error) {
-            console.log(error);
+            console.error(`[getAllMentionsForFarcaster]: ${error}`);
         }
     }
 
