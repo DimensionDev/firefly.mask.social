@@ -294,12 +294,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to quote post.`);
+        const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
         return hash;
     }
 
