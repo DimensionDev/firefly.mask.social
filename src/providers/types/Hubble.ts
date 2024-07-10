@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import type { FarcasterNetwork } from '@farcaster/core';
 
 export type Response<T> =
