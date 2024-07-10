@@ -36,7 +36,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { ComposeModalRef, ConnectWalletModalRef, ScheduleModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectWalletModalRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
@@ -89,6 +89,28 @@ export function ComposeAction(props: ComposeActionProps) {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
 
+    const [, handleScheduleClick] = useAsyncFn(async () => {
+        try {
+            const result = await SchedulePostModalRef.openAndWaitForClose({
+                action: scheduleTime ? 'update' : 'create',
+                initialValue: scheduleTime,
+            });
+            if (result === 'clear') clearScheduleTime();
+            else if (result) {
+                if (dayjs(result).isBefore(new Date())) {
+                    enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
+                    return;
+                }
+                updateScheduleTime(result);
+            }
+        } catch (error) {
+            enqueueErrorMessage('description', {
+                error,
+            });
+            throw error;
+        }
+    }, [scheduleTime]);
+
     return (
         <div className="px-4 pb-4">
             <div className="relative flex h-9 items-center gap-3">
@@ -116,23 +138,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 {type === 'compose' ? <PollButton /> : null}
 
                 {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
-                    <ScheduleIcon
-                        className="cursor-pointer text-main"
-                        onClick={async () => {
-                            const result = await ScheduleModalRef.openAndWaitForClose({
-                                type: scheduleTime ? 'update' : 'create',
-                                initialValue: scheduleTime,
-                            });
-                            if (result === 'clear') clearScheduleTime();
-                            else if (result) {
-                                if (dayjs(result).isBefore(new Date())) {
-                                    enqueueErrorMessage(t`The scheduled time has passed. Please reset it.`);
-                                    return;
-                                }
-                                updateScheduleTime(result);
-                            }
-                        }}
-                    />
+                    <ScheduleIcon className="cursor-pointer text-main" onClick={handleScheduleClick} />
                 ) : null}
 
                 {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (

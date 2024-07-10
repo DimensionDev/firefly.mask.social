@@ -1,9 +1,11 @@
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { compact, first, uniq } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import Trash from '@/assets/trash2.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -18,7 +20,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { ConfirmModalRef, ScheduleModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
@@ -45,6 +47,9 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                 );
             case 'quote':
                 return <Trans>QUOTE</Trans>;
+            default:
+                safeUnreachable(displayInfo.type);
+                return;
         }
     }, [displayInfo]);
 
@@ -60,14 +65,14 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                 title: t`Delete`,
                 content: (
                     <div className="text-fourMain">
-                        <Trans>This can’t be undone and the scheduled send will be canceled.</Trans>
+                        <Trans>This can’t be undone, and the scheduled send will be canceled.</Trans>
                     </div>
                 ),
                 confirmButtonText: t`Confirm`,
             });
 
             if (!confirmed) return;
-            const result = await FireflySocialMediaProvider.deleteSchedulePost(task.uuid);
+            const result = await FireflySocialMediaProvider.deleteScheduledPost(task.uuid);
             if (!result) return;
             queryClient.refetchQueries({
                 queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
@@ -76,6 +81,27 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
             if (error instanceof Error) {
                 enqueueErrorMessage(error.message);
             }
+        }
+    }, [task.uuid]);
+
+    const [, handleClick] = useAsyncFn(async () => {
+        const time = await SchedulePostModalRef.openAndWaitForClose({
+            action: 'update',
+            enableClearButton: false,
+        });
+        try {
+            if (time && time !== 'clear') {
+                const result = await FireflySocialMediaProvider.updateScheduledPost(task.uuid, time);
+                if (!result) return;
+                queryClient.refetchQueries({
+                    queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
+                });
+            }
+        } catch (error) {
+            enqueueErrorMessage('description', {
+                error,
+            });
+            throw error;
         }
     }, [task.uuid]);
 
@@ -92,28 +118,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                 </div>
                 <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={handleRemove} />
             </div>
-            <div
-                className="my-2 cursor-pointer text-fourMain"
-                onClick={async () => {
-                    const time = await ScheduleModalRef.openAndWaitForClose({
-                        type: 'update',
-                        disableClear: true,
-                    });
-                    try {
-                        if (time && time !== 'clear') {
-                            const result = await FireflySocialMediaProvider.updateSchedulePost(task.uuid, time);
-                            if (!result) return;
-                            queryClient.refetchQueries({
-                                queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
-                            });
-                        }
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            enqueueErrorMessage(error.message);
-                        }
-                    }
-                }}
-            >
+            <div className="my-2 cursor-pointer text-fourMain" onClick={handleClick}>
                 <div className="line-clamp-5 min-h-[24px] break-words text-left text-[15px] leading-[24px]">
                     {content}
                 </div>
@@ -157,7 +162,7 @@ export function ScheduleTaskList() {
     const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
         queryFn: async ({ pageParam }) => {
-            return FireflySocialMediaProvider.getSchedulePosts(createIndicator(undefined, pageParam));
+            return FireflySocialMediaProvider.getScheduledPosts(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
@@ -185,7 +190,7 @@ export function ScheduleTaskList() {
                     Footer: VirtualListFooter,
                 }}
                 className={classNames('max-md:no-scrollbar schedule-task-list h-full')}
-                listKey={`$${ScrollListKey.ScheduleTasks}`}
+                listKey={`$${ScrollListKey.SchedulePosts}`}
                 computeItemKey={(index, item) => item.uuid}
                 itemContent={(index, task) => getScheduleTaskItemContent(index, task)}
             />

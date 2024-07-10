@@ -100,9 +100,6 @@ msgstr "The contract owner is not found to have the authority to modify the bala
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
-msgid "Up to 7 days can be set as the scheduled time to send this post."
-msgstr "Up to 7 days can be set as the scheduled time to send this post."
-
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -216,9 +213,6 @@ msgstr "Your account is now connected."
 
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
-
-msgid "This can’t be undone and the scheduled send will be canceled."
-msgstr "This can’t be undone and the scheduled send will be canceled."
 
 msgid "Debug Console"
 msgstr "Debug Console"
@@ -346,9 +340,6 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 msgid "Mutes"
 msgstr "Mutes"
 
-msgid "Failed to update schedule post"
-msgstr "Failed to update schedule post"
-
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -427,6 +418,9 @@ msgstr "Watch"
 msgid "24 Hour Trading Vol"
 msgstr "24 Hour Trading Vol"
 
+msgid "Failed to delete scheduled post."
+msgstr "Failed to delete scheduled post."
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 
@@ -438,9 +432,6 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
-
-msgid "Your schedule post has created successfully."
-msgstr "Your schedule post has created successfully."
 
 msgid "Select Account"
 msgstr "Select Account"
@@ -480,9 +471,6 @@ msgstr "Less than a minute left"
 
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
-
-msgid "Failed to create schedule post"
-msgstr "Failed to create schedule post"
 
 msgid "Audio Cover"
 msgstr "Audio Cover"
@@ -970,6 +958,9 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr "This can’t be undone, and the scheduled send will be canceled."
+
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 
@@ -1011,9 +1002,6 @@ msgstr "The file \"{0}\" exceeds the size limit."
 
 msgid "Invalid URL."
 msgstr "Invalid URL."
-
-msgid "Failed to delete schedule post"
-msgstr "Failed to delete schedule post"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
@@ -1128,6 +1116,9 @@ msgstr "Your website URL."
 
 msgid "Visit firefly.social"
 msgstr "Visit firefly.social"
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
+msgstr "The scheduled time to send this post can be set up to 7 days in advance."
 
 msgid "Display"
 msgstr "Display"
@@ -1453,11 +1444,11 @@ msgstr "No profile found"
 msgid "Watch {identity}"
 msgstr "Watch {identity}"
 
-msgid "Please enable Momoka to support sending posts on Lens"
-msgstr "Please enable Momoka to support sending posts on Lens"
-
 msgid "view"
 msgstr "view"
+
+msgid "Failed to create scheduled post."
+msgstr "Failed to create scheduled post."
 
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
@@ -1572,6 +1563,9 @@ msgstr "1y"
 
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
+
+msgid "Please enable Momoka to support sending posts on Lens."
+msgstr "Please enable Momoka to support sending posts on Lens."
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
@@ -1719,6 +1713,9 @@ msgstr "Save"
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> and <1>{0} others</1>"
+
+msgid "Your scheduled post has been created successfully."
+msgstr "Your scheduled post has been created successfully."
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
@@ -1869,6 +1866,9 @@ msgstr "<0>{0}</0> recasted"
 
 msgid "Close"
 msgstr "Close"
+
+msgid "Failed to update scheduled post."
+msgstr "Failed to update scheduled post."
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"

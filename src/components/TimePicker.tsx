@@ -27,7 +27,7 @@ export const TimePicker = memo<TimePickerProps>(function TimePicker({
                 {({ close }) => (
                     <>
                         <Popover.Button className="w-full">
-                            <div className={className}>{children}</div>
+                            <span className={className}>{children}</span>
                         </Popover.Button>
                         <Transition
                             as={Fragment}

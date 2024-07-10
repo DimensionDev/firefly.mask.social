@@ -105,9 +105,6 @@ msgstr "合约所有者无权修改其他地址的通证余额。"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
-msgid "Up to 7 days can be set as the scheduled time to send this post."
-msgstr ""
-
 msgid "Debug Connection"
 msgstr "诊断网络"
 
@@ -221,9 +218,6 @@ msgstr "您的账号已连接。"
 
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
-
-msgid "This can’t be undone and the scheduled send will be canceled."
-msgstr ""
 
 msgid "Debug Console"
 msgstr "诊断命令行"
@@ -351,9 +345,6 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 msgid "Mutes"
 msgstr "屏蔽"
 
-msgid "Failed to update schedule post"
-msgstr ""
-
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -432,6 +423,9 @@ msgstr "关注"
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
+msgid "Failed to delete scheduled post."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
@@ -443,9 +437,6 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
-
-msgid "Your schedule post has created successfully."
-msgstr ""
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -485,9 +476,6 @@ msgstr "剩不到一分钟"
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
-
-msgid "Failed to create schedule post"
-msgstr ""
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -975,6 +963,9 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr ""
+
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr "如果您认为此操作警告是误报，请<0/><1>忽略警告并继续</1>。"
 
@@ -1016,9 +1007,6 @@ msgstr "文件\"{0}\"超过了大小限制。"
 
 msgid "Invalid URL."
 msgstr "无效的 URL。"
-
-msgid "Failed to delete schedule post"
-msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
@@ -1133,6 +1121,9 @@ msgstr "您网站的 URL。"
 
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
+msgstr ""
 
 msgid "Display"
 msgstr "显示"
@@ -1458,10 +1449,10 @@ msgstr "未发现个人信息"
 msgid "Watch {identity}"
 msgstr "关注 {identity}"
 
-msgid "Please enable Momoka to support sending posts on Lens"
+msgid "view"
 msgstr ""
 
-msgid "view"
+msgid "Failed to create scheduled post."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1577,6 +1568,9 @@ msgstr "1年"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
+
+msgid "Please enable Momoka to support sending posts on Lens."
+msgstr ""
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
@@ -1724,6 +1718,9 @@ msgstr "保存"
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>{0} 其他的</1>"
+
+msgid "Your scheduled post has been created successfully."
+msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
@@ -1874,6 +1871,9 @@ msgstr "<0>{0}</0> 已转发"
 
 msgid "Close"
 msgstr "关闭"
+
+msgid "Failed to update scheduled post."
+msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"

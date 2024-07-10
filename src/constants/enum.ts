@@ -129,7 +129,7 @@ export enum ScrollListKey {
     NFTList = 'nft-list',
     TopCollectors = 'top-collectors',
     SuggestedUsers = 'suggested-users',
-    ScheduleTasks = 'schedule-tasks',
+    SchedulePosts = 'schedule-posts',
 }
 
 export enum FarcasterSignType {

@@ -33,7 +33,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
     const postsPayload = [...results.values()];
 
     try {
-        const result = await FireflySocialMediaProvider.createSchedulePost(
+        const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
             postsPayload.map((x) => ({
                 ...x,
@@ -48,8 +48,9 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         if (!result) return;
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
-        if (error instanceof Error) {
-            enqueueErrorMessage(error.message);
-        }
+        enqueueErrorMessage('description', {
+            error,
+        });
+        throw error;
     }
 }

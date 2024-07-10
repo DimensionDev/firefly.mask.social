@@ -1083,7 +1083,7 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
-    async createSchedulePost(
+    async schedulePost(
         scheduleTime: Date,
         posts: SchedulePostPayload[],
         displayInfo: { posts: CompositePost[]; type: ComposeType },
@@ -1105,10 +1105,10 @@ export class FireflySocialMedia implements Provider {
             true,
         );
         if (response.data) return true;
-        throw new Error(t`Failed to create schedule post`);
+        throw new Error(t`Failed to create scheduled post.`);
     }
 
-    async updateSchedulePost(id: string, scheduleTime: Date) {
+    async updateScheduledPost(id: string, scheduleTime: Date) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/updateTasks');
         const response = await fireflySessionHolder.fetch<Response<string>>(
             url,
@@ -1123,10 +1123,10 @@ export class FireflySocialMedia implements Provider {
             true,
         );
         if (response.data) return true;
-        throw new Error(t`Failed to update schedule post`);
+        throw new Error(t`Failed to update scheduled post.`);
     }
 
-    async deleteSchedulePost(id: string) {
+    async deleteScheduledPost(id: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/deleteTask');
         const response = await fireflySessionHolder.fetch<Response<string>>(
             url,
@@ -1139,10 +1139,10 @@ export class FireflySocialMedia implements Provider {
             true,
         );
         if (response.data) return true;
-        throw new Error(t`Failed to delete schedule post`);
+        throw new Error(t`Failed to delete scheduled post.`);
     }
 
-    async getSchedulePosts(indicator?: PageIndicator) {
+    async getScheduledPosts(indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/tasks');
         const response = await fireflySessionHolder.fetch<ScheduleTasksResponse>(url, {
             method: 'POST',

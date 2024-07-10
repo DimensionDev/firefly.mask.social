@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 
-import { SUPPORT_FRAME_SOURCES } from '@/constants/index.js';
+import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
@@ -13,7 +13,7 @@ import type { ComposeType } from '@/types/compose.js';
 
 export async function createSchedulePostsPayload(type: ComposeType, compositePost: CompositePost, isThread = false) {
     const { chars, poll, availableSources } = compositePost;
-    if (poll && SUPPORT_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
+    if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(chars));
         compositePost = {
             ...compositePost,
@@ -51,7 +51,7 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
     const posts = await createSchedulePostsPayload(type, compositePost);
 
     try {
-        const result = await FireflySocialMediaProvider.createSchedulePost(
+        const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
             posts.map((x) => ({
                 ...x,
@@ -64,10 +64,11 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         );
 
         if (!result) return;
-        enqueueSuccessMessage(t`Your schedule post has created successfully.`);
+        enqueueSuccessMessage(t`Your scheduled post has been created successfully.`);
     } catch (error) {
-        if (error instanceof Error) {
-            enqueueErrorMessage(error.message);
-        }
+        enqueueErrorMessage('description', {
+            error,
+        });
+        throw error;
     }
 }

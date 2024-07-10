@@ -105,9 +105,6 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "Up to 7 days can be set as the scheduled time to send this post."
-msgstr ""
-
 msgid "Debug Connection"
 msgstr "除錯連接"
 
@@ -220,9 +217,6 @@ msgid "Your account is now connected."
 msgstr ""
 
 msgid "Report submitted on {0}"
-msgstr ""
-
-msgid "This can’t be undone and the scheduled send will be canceled."
 msgstr ""
 
 msgid "Debug Console"
@@ -351,9 +345,6 @@ msgstr ""
 msgid "Mutes"
 msgstr ""
 
-msgid "Failed to update schedule post"
-msgstr ""
-
 msgid "NFTs"
 msgstr ""
 
@@ -432,6 +423,9 @@ msgstr ""
 msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
 
+msgid "Failed to delete scheduled post."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -442,9 +436,6 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Verified by {0}"
-msgstr ""
-
-msgid "Your schedule post has created successfully."
 msgstr ""
 
 msgid "Select Account"
@@ -484,9 +475,6 @@ msgid "Less than a minute left"
 msgstr ""
 
 msgid "Minting Txn Hash"
-msgstr ""
-
-msgid "Failed to create schedule post"
 msgstr ""
 
 msgid "Audio Cover"
@@ -975,6 +963,9 @@ msgstr ""
 msgid "Clear All"
 msgstr "清除所有"
 
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr ""
+
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr ""
 
@@ -1015,9 +1006,6 @@ msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "Invalid URL."
-msgstr ""
-
-msgid "Failed to delete schedule post"
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
@@ -1133,6 +1121,9 @@ msgstr "你的網站連結"
 
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
+msgstr ""
 
 msgid "Display"
 msgstr "顯示"
@@ -1458,10 +1449,10 @@ msgstr ""
 msgid "Watch {identity}"
 msgstr ""
 
-msgid "Please enable Momoka to support sending posts on Lens"
+msgid "view"
 msgstr ""
 
-msgid "view"
+msgid "Failed to create scheduled post."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1576,6 +1567,9 @@ msgid "1y"
 msgstr ""
 
 msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
@@ -1723,6 +1717,9 @@ msgid "Save"
 msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
+msgstr ""
+
+msgid "Your scheduled post has been created successfully."
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
@@ -1873,6 +1870,9 @@ msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"

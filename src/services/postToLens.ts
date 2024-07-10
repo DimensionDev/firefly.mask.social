@@ -328,7 +328,7 @@ export interface LensSchedulePayload {
     operationName: 'PostOnMomoka' | 'QuoteOnMomoka' | 'CommentOnMomoka';
     variables: {
         request: {
-            contentURI: `ar//${string}`;
+            contentURI: `ar://${string}`;
             quoteOn?: string;
             commentOn?: string;
         };
@@ -360,7 +360,7 @@ export async function createLensSchedulePostPayload(
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to schedule post on ${sourceName}`);
     if (!currentProfile.signless) {
-        const message = t`Please enable Momoka to support sending posts on Lens`;
+        const message = t`Please enable Momoka to support sending posts on Lens.`;
         enqueueErrorMessage(message);
         throw new Error(message);
     }
@@ -398,7 +398,7 @@ export async function createLensSchedulePostPayload(
         operationName: resolveLensOperationName(type),
         variables: {
             request: {
-                contentURI: `ar//${arweaveId}`,
+                contentURI: `ar://${arweaveId}`,
                 quoteOn: type === 'quote' && lensParentPost ? lensParentPost.postId : undefined,
                 commentOn,
             },
