@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { formatBalance } from '@masknet/web3-shared-base';
-import { ChainId as SolanaChainId, formatAddress } from '@masknet/web3-shared-solana';
+import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +13,8 @@ import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatBalance } from '@/helpers/formatBalance.js';
+import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
@@ -61,7 +62,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                     <div className="flex h-[58px] flex-col items-start justify-start gap-3 self-stretch">
                         <div className="inline-flex h-6 items-center justify-center gap-1.5 self-stretch">
                             <div className="text-center text-[15px] font-bold leading-tight text-main">
-                                {publicKeyStr ? formatAddress(publicKeyStr, 10) : '-'}
+                                {publicKeyStr ? formatSolanaAddress(publicKeyStr, 10) : '-'}
                             </div>
                             {publicKeyStr ? <CopyButton value={publicKeyStr} /> : null}
                         </div>

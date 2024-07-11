@@ -937,9 +937,6 @@ msgstr "Email (optional)"
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
-msgid "Failed to follow."
-msgstr "Failed to follow."
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
@@ -1161,9 +1158,6 @@ msgstr "Remaining"
 
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
-
-msgid "Failed to unfollow."
-msgstr "Failed to unfollow."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
@@ -1467,9 +1461,6 @@ msgstr "{count, plural, one {{0} View} other {{1} Views}}"
 
 msgid "Muting..."
 msgstr "Muting..."
-
-msgid "Failed to mirror post."
-msgstr "Failed to mirror post."
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."

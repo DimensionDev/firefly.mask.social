@@ -1,7 +1,8 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-import { formatBalance, isZero, minus } from '@masknet/web3-shared-base';
 
+import { formatBalance } from '@/helpers/formatBalance.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+import { isZero, minus } from '@/helpers/number.js';
 import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {

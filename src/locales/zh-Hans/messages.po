@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-09 12:01\n"
+"PO-Revision-Date: 2024-07-10 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -942,9 +942,6 @@ msgstr "邮箱（可选）"
 msgid "NFT Contract"
 msgstr "NFT 合约"
 
-msgid "Failed to follow."
-msgstr "关注失败"
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
@@ -1166,9 +1163,6 @@ msgstr "剩余"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
-
-msgid "Failed to unfollow."
-msgstr "取消关注失败"
 
 msgid "Top Collectors"
 msgstr "热门收藏者"
@@ -1472,9 +1466,6 @@ msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 
 msgid "Muting..."
 msgstr "屏蔽中..."
-
-msgid "Failed to mirror post."
-msgstr "转发失败。"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"

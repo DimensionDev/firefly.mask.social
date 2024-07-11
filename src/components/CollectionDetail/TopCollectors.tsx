@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
-import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -13,6 +13,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';

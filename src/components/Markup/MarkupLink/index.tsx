@@ -1,7 +1,6 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
-import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { memo } from 'react';
@@ -21,6 +20,7 @@ import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.j
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterProfileUrl } from '@/helpers/getTwitterProfileUrl.js';
+import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 

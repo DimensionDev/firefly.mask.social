@@ -1,7 +1,7 @@
 'use client';
 
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, formatEthereumAddress, SchemaType } from '@masknet/web3-shared-evm';
+import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -15,6 +15,7 @@ import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

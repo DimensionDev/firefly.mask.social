@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
-import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation.js';
 import { Fragment } from 'react';
@@ -13,6 +13,7 @@ import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 

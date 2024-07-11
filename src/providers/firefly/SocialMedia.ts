@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { isZero } from '@masknet/web3-shared-base';
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -20,6 +19,7 @@ import {
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -886,7 +886,7 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         if (response) return true;
-        throw new Error('Failed to bookmark');
+        throw new Error('Failed to bookmark.');
     }
 
     async unbookmark(postId: string): Promise<boolean> {
@@ -898,7 +898,7 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         if (response) return true;
-        throw new Error('Failed to bookmark');
+        throw new Error('Failed to remove bookmark.');
     }
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
