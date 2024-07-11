@@ -8,15 +8,15 @@ export interface PreviewMediaModalOpenProps extends Omit<PreviewMediaProps, 'ope
 
 export const PreviewMediaModal = forwardRef<SingletonModalRefCreator<PreviewMediaModalOpenProps>>(
     function PreviewMediaModal(_, ref) {
-        const [previewData, setPreviewData] = useState<PreviewMediaModalOpenProps>();
+        const [props, setProps] = useState<PreviewMediaModalOpenProps>();
 
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: (props) => setPreviewData(props),
-            onClose: () => setPreviewData(undefined),
+            onOpen: (props) => setProps(props),
+            onClose: () => setProps(undefined),
         });
 
-        if (!previewData) return null;
+        if (!props) return null;
 
-        return <PreviewMedia {...previewData} open={open} onClose={() => dispatch?.close()} />;
+        return <PreviewMedia {...props} open={open} onClose={() => dispatch?.close()} />;
     },
 );
