@@ -40,6 +40,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
     NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
 
+    NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FRAME: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_BLINK: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),

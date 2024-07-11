@@ -112,7 +112,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
 
-                {type === 'compose' ? <PollButton /> : null}
+                {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
                 {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                     <ScheduleIcon
