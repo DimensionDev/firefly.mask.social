@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
+import { EMPTY_LIST, NEYNAR_URL, NOT_DEPEND_HUBBLE_KEY } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
@@ -24,7 +24,7 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
     const headers = {
         'Content-Type': 'application/json',
         ...options.headers,
-        api_key: 'TO_BE_REPLACED_LATER',
+        api_key: NOT_DEPEND_HUBBLE_KEY,
     };
 
     if (env.internal.HUBBLE_TOKEN) {

@@ -17,7 +17,6 @@ import {
     PublicationType,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
-import { isZero } from '@masknet/web3-shared-base';
 import { compact, first, flatMap, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
@@ -40,6 +39,7 @@ import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
+import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,

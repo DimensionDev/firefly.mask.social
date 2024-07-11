@@ -162,7 +162,8 @@
         "Gifs",
         "determenistic",
         "SYSVAR",
-        "Debank"
+        "Debank",
+        "ampm"
     ],
     "flagWords": [],
     "ignorePaths": [

@@ -1,15 +1,19 @@
-import { CastAddBody, CastRemoveBody, Factories, Message, ReactionType } from '@farcaster/core';
+/* cspell:disable */
+
+import { CastAddBody, CastRemoveBody, Factories, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
+import { z } from 'zod';
 
-import { NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError, UnauthorizedError } from '@/constants/error.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { Response } from '@/providers/types/Hubble.js';
 import {
     type Channel,
     type Notification,
@@ -19,7 +23,35 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
+const ErrorResponseSchema = z.custom<Response<never>>((response) => {
+    const error = response as Response<never>;
+    return (
+        typeof error.code === 'number' &&
+        typeof error.name === 'string' &&
+        typeof error.errCode === 'string' &&
+        typeof error.details === 'string'
+    );
+});
+
 class HubbleSocialMedia implements Provider {
+    private async submitMessage<T>(messageBytes: Buffer) {
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
+        const response = await farcasterSessionHolder.fetchHubble<Response<T>>(url, {
+            method: 'POST',
+            body: messageBytes,
+        });
+
+        const parsed = ErrorResponseSchema.safeParse(response);
+
+        if (parsed.success) {
+            if (parsed.data.code === 3 && parsed.data.errCode === 'bad_request.validation_failure')
+                throw new UnauthorizedError();
+            throw new Error(parsed.data.details);
+        } else {
+            return response as T;
+        }
+    }
+
     commentPost(postId: string, post: Post): Promise<string> {
         return this.publishPost(post);
     }
@@ -90,63 +122,6 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
-        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-        if (!postId || !post || !profileId) throw new Error(t`Failed to quote post.`);
-
-        const { messageBytes } = await encodeMessageData(
-            () => {
-                const data: {
-                    castAddBody: CastAddBody;
-                } = {
-                    castAddBody: {
-                        ...result,
-                        embedsDeprecated: [],
-                        embeds: [
-                            {
-                                castId: {
-                                    fid: toInteger(profileId),
-                                    hash: toBytes(postId),
-                                },
-                            },
-                            ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
-                        ],
-                        parentCastId: undefined,
-                        parentUrl: undefined,
-                    },
-                };
-
-                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
-                    data.castAddBody.parentCastId = {
-                        fid: toInteger(post.commentOn.author.profileId),
-                        hash: toBytes(post.commentOn.postId),
-                    };
-                } else if (post.parentChannelUrl) {
-                    data.castAddBody.parentUrl = post.parentChannelUrl;
-                }
-                return data;
-            },
-            async (messageData, signer) => {
-                return Factories.CastAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to quote post.`);
-        return hash;
-    }
-
     collectPost(postId: string, collectionId?: string): Promise<void> {
         throw new NotImplementedError();
     }
@@ -154,6 +129,7 @@ class HubbleSocialMedia implements Provider {
     getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new NotImplementedError();
     }
+
     getProfilesByIds(ids: string[]): Promise<Profile[]> {
         throw new NotImplementedError();
     }
@@ -218,297 +194,14 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    get type() {
-        return SessionType.Farcaster;
-    }
-
-    async publishPost(post: Post): Promise<string> {
-        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-
-        const { messageBytes } = await encodeMessageData(
-            () => {
-                const data: {
-                    castAddBody: CastAddBody;
-                } = {
-                    castAddBody: {
-                        ...result,
-                        embedsDeprecated: [],
-                        embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
-                        parentCastId: undefined,
-                        parentUrl: undefined,
-                    },
-                };
-
-                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
-                    data.castAddBody.parentCastId = {
-                        fid: toInteger(post.commentOn.author.profileId),
-                        hash: toBytes(post.commentOn.postId),
-                    };
-                } else if (post.parentChannelUrl) {
-                    data.castAddBody.parentUrl = post.parentChannelUrl;
-                }
-                return data;
-            },
-            async (messageData, signer) => {
-                return Factories.CastAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to publish post.`);
-        return hash;
-    }
-
-    async deletePost(postId: string): Promise<boolean> {
-        const { messageBytes } = await encodeMessageData(
-            () => {
-                const data: {
-                    castRemoveBody: CastRemoveBody;
-                } = {
-                    castRemoveBody: {
-                        targetHash: toBytes(postId),
-                    },
-                };
-
-                return data;
-            },
-            async (messageData, signer) => {
-                return Factories.CastRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to publish post.`);
-
-        return true;
-    }
-
-    async upvotePost(postId: string, authorId?: number) {
-        if (!authorId) throw new Error(t`Failed to upvote post.`);
-
-        const { messageBytes, messageDataHash, messageData } = await encodeMessageData(
-            (fid) => ({
-                reactionBody: {
-                    type: ReactionType.LIKE,
-                    targetCastId: {
-                        fid: authorId,
-                        hash: toBytes(postId),
-                    },
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to upvote post.`);
-        return;
-    }
-
-    async unvotePost(postId: string, authorId?: number) {
-        if (!authorId) throw new Error(t`Failed to unvote post.`);
-
-        const { messageBytes } = await encodeMessageData(
-            (fid) => ({
-                reactionBody: {
-                    type: ReactionType.LIKE,
-                    targetCastId: {
-                        fid: authorId,
-                        hash: toBytes(postId),
-                    },
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to unvote post.`);
-        return;
-    }
-
-    async mirrorPost(postId: string, options?: { authorId?: number }) {
-        if (!options?.authorId) throw new Error(t`Failed to recast post`);
-
-        const reactionBody = {
-            type: ReactionType.RECAST,
-            targetCastId: {
-                fid: options.authorId,
-                hash: toBytes(postId),
-            },
-        };
-
-        const { messageBytes } = await encodeMessageData(
-            (fid) => ({
-                reactionBody,
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to mirror post.`);
-
-        // FIXME: should return post id here
-        return null!;
-    }
-
-    async unmirrorPost(postId: string, authorId?: number) {
-        if (!authorId) throw new Error(t`Failed to unmirror post.`);
-
-        const { messageBytes } = await encodeMessageData(
-            (fid) => ({
-                reactionBody: {
-                    type: ReactionType.RECAST,
-                    targetCastId: {
-                        fid: authorId,
-                        hash: toBytes(postId),
-                    },
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to unmirror post.`);
-        return;
-    }
-
-    async follow(profileId: string) {
-        const { messageBytes } = await encodeMessageData(
-            () => ({
-                linkBody: {
-                    type: 'follow',
-                    targetFid: Number(profileId),
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.LinkAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to follow.`);
-        return true;
-    }
-
-    async unfollow(profileId: string) {
-        const { messageBytes } = await encodeMessageData(
-            () => ({
-                linkBody: {
-                    type: 'follow',
-                    targetFid: Number(profileId),
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.LinkRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
-
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await farcasterSessionHolder.fetchHubble<Message>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to unfollow.`);
-        return true;
-    }
-
     async reportProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
+
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
+
     async blockProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
@@ -555,6 +248,299 @@ class HubbleSocialMedia implements Provider {
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
+    }
+
+    get type() {
+        return SessionType.Farcaster;
+    }
+
+    async quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
+        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
+        if (!postId || !post || !profileId) throw new Error(t`Failed to quote post.`);
+
+        const { messageBytes } = await encodeMessageData(
+            () => {
+                const data: {
+                    castAddBody: CastAddBody;
+                } = {
+                    castAddBody: {
+                        ...result,
+                        embedsDeprecated: [],
+                        embeds: [
+                            {
+                                castId: {
+                                    fid: toInteger(profileId),
+                                    hash: toBytes(postId),
+                                },
+                            },
+                            ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
+                        ],
+                        parentCastId: undefined,
+                        parentUrl: undefined,
+                    },
+                };
+
+                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
+                    data.castAddBody.parentCastId = {
+                        fid: toInteger(post.commentOn.author.profileId),
+                        hash: toBytes(post.commentOn.postId),
+                    };
+                } else if (post.parentChannelUrl) {
+                    data.castAddBody.parentUrl = post.parentChannelUrl;
+                }
+                return data;
+            },
+            async (messageData, signer) => {
+                return Factories.CastAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
+        return hash;
+    }
+
+    async publishPost(post: Post): Promise<string> {
+        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
+        const { messageBytes } = await encodeMessageData(
+            () => {
+                const data: {
+                    castAddBody: CastAddBody;
+                } = {
+                    castAddBody: {
+                        ...result,
+                        embedsDeprecated: [],
+                        embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
+                        parentCastId: undefined,
+                        parentUrl: undefined,
+                    },
+                };
+
+                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
+                    data.castAddBody.parentCastId = {
+                        fid: toInteger(post.commentOn.author.profileId),
+                        hash: toBytes(post.commentOn.postId),
+                    };
+                } else if (post.parentChannelUrl) {
+                    data.castAddBody.parentUrl = post.parentChannelUrl;
+                }
+                return data;
+            },
+            async (messageData, signer) => {
+                return Factories.CastAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
+        return hash;
+    }
+
+    async deletePost(postId: string): Promise<boolean> {
+        const { messageBytes } = await encodeMessageData(
+            () => {
+                const data: {
+                    castRemoveBody: CastRemoveBody;
+                } = {
+                    castRemoveBody: {
+                        targetHash: toBytes(postId),
+                    },
+                };
+
+                return data;
+            },
+            async (messageData, signer) => {
+                return Factories.CastRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+        return true;
+    }
+
+    async upvotePost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error(t`Failed to upvote post.`);
+
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                reactionBody: {
+                    type: ReactionType.LIKE,
+                    targetCastId: {
+                        fid: authorId,
+                        hash: toBytes(postId),
+                    },
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+    }
+
+    async unvotePost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error(t`Failed to unvote post.`);
+
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                reactionBody: {
+                    type: ReactionType.LIKE,
+                    targetCastId: {
+                        fid: authorId,
+                        hash: toBytes(postId),
+                    },
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+    }
+
+    async mirrorPost(postId: string, options?: { authorId?: number }) {
+        if (!options?.authorId) throw new Error(t`Failed to recast post`);
+
+        const reactionBody = {
+            type: ReactionType.RECAST,
+            targetCastId: {
+                fid: options.authorId,
+                hash: toBytes(postId),
+            },
+        };
+
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                reactionBody,
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+
+        // FIXME: should return post id here
+        return null!;
+    }
+
+    async unmirrorPost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error(t`Failed to unmirror post.`);
+
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                reactionBody: {
+                    type: ReactionType.RECAST,
+                    targetCastId: {
+                        fid: authorId,
+                        hash: toBytes(postId),
+                    },
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+        return;
+    }
+
+    async follow(profileId: string) {
+        const { messageBytes } = await encodeMessageData(
+            () => ({
+                linkBody: {
+                    type: 'follow',
+                    targetFid: Number(profileId),
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.LinkAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+        return true;
+    }
+
+    async unfollow(profileId: string) {
+        const { messageBytes } = await encodeMessageData(
+            () => ({
+                linkBody: {
+                    type: 'follow',
+                    targetFid: Number(profileId),
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.LinkRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+        return true;
     }
 }
 

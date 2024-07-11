@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-09 12:01\n"
+"PO-Revision-Date: 2024-07-10 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -213,6 +213,9 @@ msgstr "错误的钱包"
 msgid "Poll"
 msgstr "投票"
 
+msgid "Scheduled"
+msgstr ""
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -251,6 +254,9 @@ msgstr "点赞失败。"
 
 msgid "Failed to login"
 msgstr "登录失败"
+
+msgid "Failed to set schedule time"
+msgstr ""
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
@@ -429,6 +435,9 @@ msgstr "关注"
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
+msgid "Failed to delete scheduled post."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
@@ -573,6 +582,9 @@ msgstr "转帖失败。"
 msgid "Remove Choice"
 msgstr "删除选项"
 
+msgid "Update"
+msgstr ""
+
 msgid "Mute {identity}"
 msgstr "屏蔽 @{identity}"
 
@@ -671,6 +683,9 @@ msgstr "查看原文"
 
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"
+
+msgid "The scheduled time has passed. Please reset it."
+msgstr ""
 
 msgid "and"
 msgstr "和"
@@ -810,6 +825,9 @@ msgstr "添加账号"
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
+msgid "Schedule Post"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr "代理合约"
 
@@ -839,6 +857,9 @@ msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一
 
 msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
+
+msgid "Set"
+msgstr ""
 
 msgid "[Poll]"
 msgstr "[投票]"
@@ -975,6 +996,9 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr ""
+
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr "如果您认为此操作警告是误报，请<0/><1>忽略警告并继续</1>。"
 
@@ -1028,6 +1052,9 @@ msgstr "您需要连接您的 {0} 账号来使用此功能。"
 
 msgid "Suggested Follows"
 msgstr "推荐关注"
+
+msgid "Login required to schedule post on {sourceName}"
+msgstr ""
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
@@ -1107,6 +1134,9 @@ msgstr "请输入 URL 重新验证。"
 msgid "Select Token"
 msgstr ""
 
+msgid "Your schedule thread has created successfully."
+msgstr ""
+
 msgid "General"
 msgstr "通用"
 
@@ -1133,6 +1163,9 @@ msgstr "您网站的 URL。"
 
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
+msgstr ""
 
 msgid "Display"
 msgstr "显示"
@@ -1173,8 +1206,8 @@ msgstr "剩余"
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
 
-msgid "Failed to unfollow."
-msgstr "取消关注失败"
+msgid "Failed to create schedule thread posts."
+msgstr ""
 
 msgid "Top Collectors"
 msgstr "热门收藏者"
@@ -1280,6 +1313,9 @@ msgstr "没有可显示的数据。"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Send on schedule"
+msgstr ""
 
 msgid "Failed to like the post."
 msgstr "点赞失败。"
@@ -1456,16 +1492,25 @@ msgid "View transaction on explorer"
 msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
-msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
+msgstr ""
+
+msgid "Saved on {0} at {1}"
+msgstr ""
 
 msgid "No profile found"
 msgstr "未发现个人信息"
+
+msgid "Your post will be sent on {0} at {1} <0>View</0>"
+msgstr ""
 
 msgid "Watch {identity}"
 msgstr "关注 {identity}"
 
 msgid "view"
-msgstr "查看"
+msgstr ""
+
+msgid "Failed to create scheduled post."
+msgstr ""
 
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
@@ -1482,14 +1527,17 @@ msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 msgid "Muting..."
 msgstr "屏蔽中..."
 
-msgid "Failed to mirror post."
-msgstr "转发失败。"
-
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
+
+msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "The post will send on {0} at {1}"
+msgstr ""
 
 msgid "Properties"
 msgstr "属性"
@@ -1580,6 +1628,9 @@ msgstr "1年"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
+
+msgid "Please enable Momoka to support sending posts on Lens."
+msgstr ""
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
@@ -1749,6 +1800,9 @@ msgstr "{0} 用户"
 msgid "Final results"
 msgstr "最终结果"
 
+msgid "Unsent Posts"
+msgstr ""
+
 msgid "Suspended account"
 msgstr "被冻结账户"
 
@@ -1846,7 +1900,10 @@ msgid "Followers"
 msgstr "粉丝"
 
 msgid "Mint function"
-msgstr "铸造功能"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
@@ -1878,11 +1935,17 @@ msgstr "正在关注"
 msgid "Hours"
 msgstr "小时"
 
+msgid "Failed to create schedule post."
+msgstr ""
+
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
 
 msgid "Close"
 msgstr "关闭"
+
+msgid "Failed to update scheduled post."
+msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"

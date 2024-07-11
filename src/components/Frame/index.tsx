@@ -1,6 +1,5 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 import { memo, useEffect, useState } from 'react';
@@ -21,6 +20,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';

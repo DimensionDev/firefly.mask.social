@@ -36,7 +36,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeUI } from '@/components/Compose/ComposeUI.js';
-import { DraftList } from '@/components/Compose/DraftList.js';
+import { DraftPage } from '@/components/Compose/DraftPage.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -63,6 +63,7 @@ import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -90,6 +91,7 @@ export interface ComposeModalProps {
         claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
     };
     channel?: Channel | null;
+    initialPath?: string
 }
 export type ComposeModalCloseProps = {
     disableClear?: boolean;
@@ -108,7 +110,7 @@ const composeRoute = createRoute({
 const draftRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: 'draft',
-    component: DraftList,
+    component: DraftPage,
 });
 
 const routeTree = rootRoute.addChildren([composeRoute, draftRoute]);
@@ -206,6 +208,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateChannel,
             clear,
         } = useComposeStateStore();
+        const { clearScheduleTime } = useComposeScheduleStateStore();
         const compositePost = useCompositePost();
         const { typedMessage, rpPayload, id } = compositePost;
 
@@ -213,7 +216,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel }) => {
+            onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
                 updateType(type || 'compose');
                 updateAvailableSources(
                     source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
@@ -226,10 +229,14 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
+                if(initialPath) {
+                    router.navigate({ to: initialPath })
+                }
             },
             onClose: (props) => {
                 if (props?.disableClear) return;
                 clear();
+                clearScheduleTime();
                 router.navigate({ to: '/' });
                 setTimeout(() => {
                     editor.update(() => $getRoot().clear());
@@ -240,6 +247,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
             const { posts, cursor, draftId, type } = useComposeStateStore.getState();
+            const { scheduleTime } = useComposeScheduleStateStore.getState();
             const compositePost = getCompositePost(cursor);
             const { availableSources = EMPTY_LIST } = compositePost ?? {};
             if (posts.some((x) => !isEmptyPost(x))) {
@@ -288,6 +296,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
                         type,
                         availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
+                        scheduleTime,
                     });
                     enqueueSuccessMessage(t`Your draft was saved`);
                     ComposeModalRef.close();

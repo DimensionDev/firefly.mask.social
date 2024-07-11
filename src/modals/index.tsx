@@ -15,6 +15,7 @@ import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
 import { RainbowKitConnectModal } from '@/modals/RainbowKitConnectModal.js';
+import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { TipsModal } from '@/modals/TipsModal.js';
 
@@ -35,6 +36,7 @@ export const Modals = memo(function Modals() {
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
             <TipsModal ref={controls.TipsModalRef.register} />
+            <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
         </>
     );
 });

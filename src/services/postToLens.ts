@@ -46,7 +46,7 @@ interface Attachments {
     }>;
 }
 
-function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
+export function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
     if (
         images.some((image) => !resolveImageUrl(Source.Lens, image)) ||
         (video && !resolveVideoUrl(Source.Lens, video))
@@ -89,7 +89,7 @@ function createPayloadAttachments(images: MediaObject[], video: MediaObject | nu
         : undefined;
 }
 
-function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
+export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),

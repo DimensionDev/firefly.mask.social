@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { formatBalance } from '@masknet/web3-shared-base';
 import { useMemo } from 'react';
 import { isAddress } from 'viem';
 
@@ -11,6 +10,7 @@ import PoapIcon from '@/assets/nft-action/poap.svg';
 import SellIcon from '@/assets/nft-action/sell.svg';
 import SendIcon from '@/assets/nft-action/send.svg';
 import { TokenPrice } from '@/components/TokenPrice.js';
+import { formatBalance } from '@/helpers/formatBalance.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
