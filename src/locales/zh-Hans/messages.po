@@ -819,9 +819,6 @@ msgstr "回复"
 msgid "Comment"
 msgstr "评论"
 
-msgid "Failed to update schedule time."
-msgstr ""
-
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
@@ -1446,6 +1443,9 @@ msgstr ""
 msgid "No profile found"
 msgstr "未发现个人信息"
 
+msgid "Your post will be sent on {0} at {1} <0>View</0>"
+msgstr ""
+
 msgid "Watch {identity}"
 msgstr "关注 {identity}"
 
@@ -1718,9 +1718,6 @@ msgstr "保存"
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>{0} 其他的</1>"
-
-msgid "Your scheduled post has been created successfully."
-msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"

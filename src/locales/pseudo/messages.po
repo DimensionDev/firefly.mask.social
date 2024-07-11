@@ -814,9 +814,6 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-msgid "Failed to update schedule time."
-msgstr ""
-
 msgid "Only people you mention"
 msgstr ""
 
@@ -1441,6 +1438,9 @@ msgstr ""
 msgid "No profile found"
 msgstr ""
 
+msgid "Your post will be sent on {0} at {1} <0>View</0>"
+msgstr ""
+
 msgid "Watch {identity}"
 msgstr ""
 
@@ -1712,9 +1712,6 @@ msgid "Save"
 msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
-msgstr ""
-
-msgid "Your scheduled post has been created successfully."
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
