@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
@@ -11,6 +10,7 @@ import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 export interface CollectionInfoProps {
     address: string;

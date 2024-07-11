@@ -2,8 +2,8 @@
 
 import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { ChainId as EVMChainId, formatDomainName } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId, encodePublicKey, formatAddress } from '@masknet/web3-shared-solana';
+import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
+import { ChainId as SolanaChainId, encodePublicKey } from '@masknet/web3-shared-solana';
 import { useAccountModal as useAccountModalEVM, useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
@@ -18,11 +18,13 @@ import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatDomainName } from '@/helpers/formatDomainName.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
 import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 interface ConnectWalletProps {
     collapsed?: boolean;
@@ -63,7 +65,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             label: resolve(() => {
                 if (!solanaWallet.publicKey) return null;
                 const publicKey = encodePublicKey(solanaWallet.publicKey);
-                return formatAddress(publicKey, 4);
+                return formatSolanaAddress(publicKey, 4);
             }),
             onOpenConnectModal: () => connectModalSolana.setVisible(true),
             onOpenAccountModal: () => SolanaAccountModalRef.open(),

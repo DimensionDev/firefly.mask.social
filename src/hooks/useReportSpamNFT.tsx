@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { isSameAddress, type NonFungibleAsset } from '@masknet/web3-shared-base';
+import { type NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';
@@ -8,6 +8,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';

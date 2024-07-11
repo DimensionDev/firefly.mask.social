@@ -16,9 +16,9 @@ import { NFTImage } from '@/components/NFTImage.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;

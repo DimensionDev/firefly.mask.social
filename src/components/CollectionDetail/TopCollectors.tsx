@@ -13,12 +13,12 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 export interface TopCollectorsProps {
     address: string;

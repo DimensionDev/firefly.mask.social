@@ -8,8 +8,8 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import type { NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 
 interface NFTFeedHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     address: Address;
