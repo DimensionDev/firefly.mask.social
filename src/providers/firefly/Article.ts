@@ -1,9 +1,9 @@
-import { isZero } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
+import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,

@@ -2,6 +2,8 @@ import type { Address } from 'viem';
 
 import { FireflyPlatform, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { CompositePost } from '@/store/useComposeStore.js';
+import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -793,3 +795,39 @@ export type SessionStatus =
       };
 
 export type SessionStatusResponse = Response<SessionStatus>;
+
+export interface SchedulePostPayload {
+    platform: SocialSourceInURL;
+    platformUserId: string;
+    payload: string;
+}
+
+export interface SchedulePostDisplayInfo {
+    posts: CompositePost[];
+    type: ComposeType;
+}
+
+export type ScheduleStatus = 'pending' | 'fail';
+export interface ScheduleTask {
+    uuid: string;
+    publish_timestamp: string;
+    status: ScheduleStatus;
+    updated_at: string;
+    created_at: string;
+    account_id: number;
+    display_info: SchedulePostDisplayInfo;
+    schedulePosts: Array<{
+        uuid: string;
+        platform: SocialSourceInURL;
+        status: ScheduleStatus;
+        updated_at: string;
+        created_at: string;
+        job_id: string;
+    }>;
+    platforms: SocialSourceInURL[];
+}
+
+export type ScheduleTasksResponse = Response<{
+    tasks: ScheduleTask[];
+    cursor: string | null;
+}>;

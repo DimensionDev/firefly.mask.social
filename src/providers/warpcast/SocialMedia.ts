@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { isZero, resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -8,6 +7,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastProfile } from '@/helpers/formatWarpcastProfile.js';
+import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -118,7 +118,7 @@ class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await farcasterSessionHolder.fetch<CastsResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterSessionHolder.fetch<CastsResponse>(url, {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
@@ -560,7 +560,7 @@ class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterSessionHolder.fetch<SearchUsersResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterSessionHolder.fetch<SearchUsersResponse>(url, {
             method: 'GET',
         });
         const data = result.users.map(formatWarpcastProfile);
@@ -578,7 +578,7 @@ class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterSessionHolder.fetch<SearchCastsResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterSessionHolder.fetch<SearchCastsResponse>(url, {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
@@ -686,7 +686,7 @@ class WarpcastSocialMedia implements Provider {
      */
     async baseBookmark(postId: string, method: 'PUT' | 'DELETE'): Promise<boolean> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts');
-        const { result } = await farcasterSessionHolder.fetch<SuccessResponse>(resolveCrossOriginURL(url), {
+        const { result } = await farcasterSessionHolder.fetch<SuccessResponse>(url, {
             method,
             body: JSON.stringify({
                 castHash: postId,
@@ -705,9 +705,7 @@ class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterSessionHolder.fetch<BookmarkedCastsResponse>(
-            resolveCrossOriginURL(url),
-        );
+        const { result, next } = await farcasterSessionHolder.fetch<BookmarkedCastsResponse>(url);
         const data = result.bookmarks.map(formatWarpcastPost);
         return createPageable(
             data,

@@ -6,6 +6,7 @@ import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/Con
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
+import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 
 export const AccountModalRef = new SingletonModal();
@@ -22,3 +23,4 @@ export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
 export const SolanaAccountModalRef = new SingletonModal();
 export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();
+export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();

@@ -199,6 +199,9 @@ msgstr "Wrong wallet"
 msgid "Poll"
 msgstr "Poll"
 
+msgid "Scheduled"
+msgstr "Scheduled"
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -237,6 +240,9 @@ msgstr "Failed to like the comment."
 
 msgid "Failed to login"
 msgstr "Failed to login"
+
+msgid "Failed to set schedule time"
+msgstr "Failed to set schedule time"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
@@ -412,6 +418,9 @@ msgstr "Watch"
 msgid "24 Hour Trading Vol"
 msgstr "24 Hour Trading Vol"
 
+msgid "Failed to delete scheduled post."
+msgstr "Failed to delete scheduled post."
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 
@@ -556,6 +565,9 @@ msgstr "Failed to mirror."
 msgid "Remove Choice"
 msgstr "Remove Choice"
 
+msgid "Update"
+msgstr "Update"
+
 msgid "Mute {identity}"
 msgstr "Mute {identity}"
 
@@ -651,6 +663,9 @@ msgstr "View Source"
 
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"
+
+msgid "The scheduled time has passed. Please reset it."
+msgstr "The scheduled time has passed. Please reset it."
 
 msgid "and"
 msgstr "and"
@@ -778,6 +793,9 @@ msgstr "Add account"
 msgid "{0} Comments"
 msgstr "{0} Comments"
 
+msgid "Schedule Post"
+msgstr "Schedule Post"
+
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
@@ -804,6 +822,9 @@ msgstr "This token is not issued by its declared team. Some scams will create a 
 
 msgid "Cancel retweet successfully"
 msgstr "Cancel retweet successfully"
+
+msgid "Set"
+msgstr "Set"
 
 msgid "[Poll]"
 msgstr "[Poll]"
@@ -913,9 +934,6 @@ msgstr "Email (optional)"
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
-msgid "Failed to follow."
-msgstr "Failed to follow."
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
@@ -937,6 +955,9 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr "This can’t be undone, and the scheduled send will be canceled."
+
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 
@@ -954,9 +975,6 @@ msgstr "collects"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
-
-msgid "Open Mobile App"
-msgstr "Open Mobile App"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
@@ -990,6 +1008,9 @@ msgstr "You need to connect your {0} account to use this feature."
 
 msgid "Suggested Follows"
 msgstr "Suggested Follows"
+
+msgid "Login required to schedule post on {sourceName}"
+msgstr "Login required to schedule post on {sourceName}"
 
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
@@ -1066,6 +1087,9 @@ msgstr "The whitelist function is not included. If there is a whitelist, some ad
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
 
+msgid "Your schedule thread has created successfully."
+msgstr "Your schedule thread has created successfully."
+
 msgid "General"
 msgstr "General"
 
@@ -1086,6 +1110,9 @@ msgstr "Your website URL."
 
 msgid "Visit firefly.social"
 msgstr "Visit firefly.social"
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
+msgstr "The scheduled time to send this post can be set up to 7 days in advance."
 
 msgid "Display"
 msgstr "Display"
@@ -1126,8 +1153,8 @@ msgstr "Remaining"
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
 
-msgid "Failed to unfollow."
-msgstr "Failed to unfollow."
+msgid "Failed to create schedule thread posts."
+msgstr "Failed to create schedule thread posts."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
@@ -1231,6 +1258,9 @@ msgstr "There is no data available for display."
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Send on schedule"
+msgstr "Send on schedule"
+
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
@@ -1330,6 +1360,9 @@ msgstr "<0>{0}</0> mirrored"
 msgid "All notifications"
 msgstr "All notifications"
 
+msgid "Mobile App"
+msgstr "Mobile App"
+
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
 
@@ -1399,14 +1432,23 @@ msgstr "Sign in with Custody Wallet"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 
+msgid "Saved on {0} at {1}"
+msgstr "Saved on {0} at {1}"
+
 msgid "No profile found"
 msgstr "No profile found"
+
+msgid "Your post will be sent on {0} at {1} <0>View</0>"
+msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 
 msgid "Watch {identity}"
 msgstr "Watch {identity}"
 
 msgid "view"
 msgstr "view"
+
+msgid "Failed to create scheduled post."
+msgstr "Failed to create scheduled post."
 
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
@@ -1423,14 +1465,17 @@ msgstr "{count, plural, one {{0} View} other {{1} Views}}"
 msgid "Muting..."
 msgstr "Muting..."
 
-msgid "Failed to mirror post."
-msgstr "Failed to mirror post."
-
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "<0>Minted</0> an NFT for free"
+
+msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr "Will send on <0>{0} at <1>{1}</1></0>"
+
+msgid "The post will send on {0} at {1}"
+msgstr "The post will send on {0} at {1}"
 
 msgid "Properties"
 msgstr "Properties"
@@ -1518,6 +1563,9 @@ msgstr "1y"
 
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
+
+msgid "Please enable Momoka to support sending posts on Lens."
+msgstr "Please enable Momoka to support sending posts on Lens."
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
@@ -1678,6 +1726,9 @@ msgstr "{0} Users"
 msgid "Final results"
 msgstr "Final results"
 
+msgid "Unsent Posts"
+msgstr "Unsent Posts"
+
 msgid "Suspended account"
 msgstr "Suspended account"
 
@@ -1774,6 +1825,9 @@ msgstr "Followers"
 msgid "Mint function"
 msgstr "Mint function"
 
+msgid "Clear"
+msgstr "Clear"
+
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"
 
@@ -1804,11 +1858,17 @@ msgstr "Following"
 msgid "Hours"
 msgstr "Hours"
 
+msgid "Failed to create schedule post."
+msgstr "Failed to create schedule post."
+
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
 
 msgid "Close"
 msgstr "Close"
+
+msgid "Failed to update scheduled post."
+msgstr "Failed to update scheduled post."
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-10 00:04\n"
+"PO-Revision-Date: 2024-07-10 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -204,6 +204,9 @@ msgstr "錯誤的錢包"
 msgid "Poll"
 msgstr "投票"
 
+msgid "Scheduled"
+msgstr ""
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -242,6 +245,9 @@ msgstr "按讚留言失敗"
 
 msgid "Failed to login"
 msgstr "登入失敗"
+
+msgid "Failed to set schedule time"
+msgstr ""
 
 msgid "<0>Posted</0>an article"
 msgstr ""
@@ -388,7 +394,7 @@ msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]}
 msgstr ""
 
 msgid "Report Failed"
-msgstr "舉報失敗"
+msgstr ""
 
 msgid "Attendees"
 msgstr "參與者"
@@ -416,6 +422,9 @@ msgstr ""
 
 msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
+
+msgid "Failed to delete scheduled post."
+msgstr ""
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -561,6 +570,9 @@ msgstr "鏡像失敗"
 msgid "Remove Choice"
 msgstr ""
 
+msgid "Update"
+msgstr ""
+
 msgid "Mute {identity}"
 msgstr ""
 
@@ -655,6 +667,9 @@ msgid "View Source"
 msgstr ""
 
 msgid "Are you sure you want to report this collection?"
+msgstr ""
+
+msgid "The scheduled time has passed. Please reset it."
 msgstr ""
 
 msgid "and"
@@ -783,6 +798,9 @@ msgstr "新增帳户"
 msgid "{0} Comments"
 msgstr ""
 
+msgid "Schedule Post"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr ""
 
@@ -809,6 +827,9 @@ msgstr ""
 
 msgid "Cancel retweet successfully"
 msgstr "成功取消轉發"
+
+msgid "Set"
+msgstr ""
 
 msgid "[Poll]"
 msgstr ""
@@ -918,9 +939,6 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
-msgid "Failed to follow."
-msgstr "追蹤失敗"
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
@@ -942,6 +960,9 @@ msgstr ""
 msgid "Clear All"
 msgstr "清除所有"
 
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr ""
+
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr ""
 
@@ -958,9 +979,6 @@ msgid "collects"
 msgstr ""
 
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "Open Mobile App"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -994,6 +1012,9 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 
 msgid "Suggested Follows"
+msgstr ""
+
+msgid "Login required to schedule post on {sourceName}"
 msgstr ""
 
 msgid "Post has been encrypted"
@@ -1071,6 +1092,9 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
 
+msgid "Your schedule thread has created successfully."
+msgstr ""
+
 msgid "General"
 msgstr "一般"
 
@@ -1091,6 +1115,9 @@ msgstr "你的網站連結"
 
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
+msgstr ""
 
 msgid "Display"
 msgstr "顯示"
@@ -1131,8 +1158,8 @@ msgstr ""
 msgid "Cancel recast successfully"
 msgstr ""
 
-msgid "Failed to unfollow."
-msgstr "取消追蹤失敗"
+msgid "Failed to create schedule thread posts."
+msgstr ""
 
 msgid "Top Collectors"
 msgstr ""
@@ -1236,6 +1263,9 @@ msgstr ""
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Send on schedule"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
@@ -1335,6 +1365,9 @@ msgstr ""
 msgid "All notifications"
 msgstr ""
 
+msgid "Mobile App"
+msgstr "手機應用"
+
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -1404,13 +1437,22 @@ msgstr "通過託管錢包登入"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
+msgid "Saved on {0} at {1}"
+msgstr ""
+
 msgid "No profile found"
+msgstr ""
+
+msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
 msgid "Watch {identity}"
 msgstr ""
 
 msgid "view"
+msgstr ""
+
+msgid "Failed to create scheduled post."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1428,13 +1470,16 @@ msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
 msgid "Muting..."
 msgstr ""
 
-msgid "Failed to mirror post."
-msgstr ""
-
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr ""
 
 msgid "<0>Minted</0> an NFT for free"
+msgstr ""
+
+msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "The post will send on {0} at {1}"
 msgstr ""
 
 msgid "Properties"
@@ -1522,6 +1567,9 @@ msgid "1y"
 msgstr ""
 
 msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
@@ -1683,6 +1731,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Unsent Posts"
+msgstr ""
+
 msgid "Suspended account"
 msgstr ""
 
@@ -1779,6 +1830,9 @@ msgstr "追蹤者"
 msgid "Mint function"
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
@@ -1809,10 +1863,16 @@ msgstr "追蹤中"
 msgid "Hours"
 msgstr ""
 
+msgid "Failed to create schedule post."
+msgstr ""
+
 msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"

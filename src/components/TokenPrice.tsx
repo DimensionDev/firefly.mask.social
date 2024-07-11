@@ -1,5 +1,4 @@
-import { formatBalance } from '@masknet/web3-shared-base';
-
+import { formatBalance } from '@/helpers/formatBalance.js';
 import { useCoinInfo } from '@/hooks/useCoinInfo.js';
 // eslint-disable-next-line no-restricted-imports
 import { multipliedBy } from '@/maskbook/packages/web3-shared/base/src/helpers/number.js';

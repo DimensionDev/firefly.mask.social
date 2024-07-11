@@ -68,6 +68,7 @@ export interface CompositePost {
 export interface ComposeBaseState {
     type: ComposeType;
     posts: CompositePost[];
+
     // tracking the current editable post
     cursor: Cursor;
     // tracking the current applied draft id

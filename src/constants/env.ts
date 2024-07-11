@@ -43,6 +43,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FRAME: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_BLINK: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_SCHEDULE_POST: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_WARNINGS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_CALENDAR_WIDGET: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -89,6 +90,7 @@ export const env = {
 
         NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,
+        NEXT_PUBLIC_SCHEDULE_POST: process.env.NEXT_PUBLIC_SCHEDULE_POST,
         NEXT_PUBLIC_CALENDAR_WIDGET: process.env.NEXT_PUBLIC_CALENDAR_WIDGET,
         NEXT_PUBLIC_COMPOSE_WARNINGS: process.env.NEXT_PUBLIC_COMPOSE_WARNINGS,
         NEXT_PUBLIC_REACT_DEV_TOOLS: process.env.NEXT_PUBLIC_REACT_DEV_TOOLS,

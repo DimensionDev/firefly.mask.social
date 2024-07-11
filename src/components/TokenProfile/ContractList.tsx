@@ -1,12 +1,12 @@
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { motion } from 'framer-motion';
-import { Fragment, type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import DotsIcon from '@/assets/dots.svg';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -19,48 +19,34 @@ interface Props {
 export const ContractList = memo<Props>(function ContractList({ contracts }) {
     if (!contracts?.length) return null;
     return (
-        <Menu as="div" className="relative">
-            <Menu.Button
-                whileTap={{ scale: 0.9 }}
-                as={motion.button}
-                className="flex items-center text-secondary"
-                aria-label="More"
-            >
+        <MoreActionMenu
+            button={
                 <Tooltip content={t`More`} placement="top">
                     <DotsIcon className="text-secondary" width={16} height={16} />
                 </Tooltip>
-            </Menu.Button>
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
+            }
+        >
+            <Menu.Items
+                className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+                data-hide-scrollbar
+                onClick={(event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                }}
             >
-                <Menu.Items
-                    className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
-                    data-hide-scrollbar
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }}
-                >
-                    {contracts.map((contract, index) => (
-                        <Menu.Item key={contract.address}>
-                            {({ close }) => (
-                                <ContractItem
-                                    className={index < contracts.length - 1 ? 'border-b border-line' : ''}
-                                    contract={contract}
-                                    onClick={close}
-                                />
-                            )}
-                        </Menu.Item>
-                    ))}
-                </Menu.Items>
-            </Transition>
-        </Menu>
+                {contracts.map((contract, index) => (
+                    <Menu.Item key={contract.address}>
+                        {({ close }) => (
+                            <ContractItem
+                                className={index < contracts.length - 1 ? 'border-b border-line' : ''}
+                                contract={contract}
+                                onClick={close}
+                            />
+                        )}
+                    </Menu.Item>
+                ))}
+            </Menu.Items>
+        </MoreActionMenu>
     );
 });
 

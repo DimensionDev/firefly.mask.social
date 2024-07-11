@@ -1,4 +1,5 @@
 import { env } from '@/constants/env.js';
+import { NOT_DEPEND_HUBBLE_KEY } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -19,11 +20,11 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
             : fetchJSON<T>(url, options);
     }
 
-    fetchHubble<T>(url: string, options?: RequestInit) {
+    async fetchHubble<T>(url: string, options?: RequestInit) {
         const headers = {
             'Content-Type': 'application/octet-stream',
             ...options?.headers,
-            api_key: 'TO_BE_REPLACED_LATER',
+            api_key: NOT_DEPEND_HUBBLE_KEY,
         };
 
         if (env.internal.HUBBLE_TOKEN) {
@@ -34,10 +35,16 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
             throw new Error('token not found.');
         }
 
-        return fetchJSON<T>(url, {
+        const response = await fetch(url, {
             ...options,
-            headers,
+            headers: {
+                ...headers,
+                ...options?.headers,
+            },
         });
+
+        const json = await response.json();
+        return json as T;
     }
 }
 
