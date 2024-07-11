@@ -1164,6 +1164,9 @@ msgstr ""
 msgid "Cancel recast successfully"
 msgstr ""
 
+msgid "Failed to create schedule thread posts."
+msgstr ""
+
 msgid "Top Collectors"
 msgstr ""
 
@@ -1861,6 +1864,9 @@ msgid "Following"
 msgstr "追蹤中"
 
 msgid "Hours"
+msgstr ""
+
+msgid "Failed to create schedule post."
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

@@ -1164,6 +1164,9 @@ msgstr "剩余"
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
 
+msgid "Failed to create schedule thread posts."
+msgstr ""
+
 msgid "Top Collectors"
 msgstr "热门收藏者"
 
@@ -1862,6 +1865,9 @@ msgstr "正在关注"
 
 msgid "Hours"
 msgstr "小时"
+
+msgid "Failed to create schedule post."
+msgstr ""
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
