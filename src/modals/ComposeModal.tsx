@@ -91,7 +91,7 @@ export interface ComposeModalProps {
         claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
     };
     channel?: Channel | null;
-    initialPath?: string
+    initialPath?: string;
 }
 export type ComposeModalCloseProps = {
     disableClear?: boolean;
@@ -229,8 +229,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
-                if(initialPath) {
-                    router.navigate({ to: initialPath })
+                if (initialPath) {
+                    router.navigate({ to: initialPath });
                 }
             },
             onClose: (props) => {
