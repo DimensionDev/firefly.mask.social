@@ -5,6 +5,7 @@ import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -67,7 +68,7 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         if (!result) return;
         enqueueSuccessMessage(t`Your scheduled post has been created successfully.`);
     } catch (error) {
-        enqueueErrorMessage('description', {
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
             error,
         });
         throw error;

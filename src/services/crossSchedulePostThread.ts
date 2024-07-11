@@ -3,6 +3,7 @@ import { delay } from '@masknet/kit';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
@@ -47,7 +48,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         if (!result) return;
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
-        enqueueErrorMessage('description', {
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
             error,
         });
         throw error;

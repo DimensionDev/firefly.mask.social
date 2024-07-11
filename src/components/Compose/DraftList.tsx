@@ -18,6 +18,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DraftListItemProps {
@@ -141,6 +142,7 @@ export const DraftList = memo(function DraftList() {
     const currentProfileAll = useCurrentProfileAll();
     const { drafts, removeDraft } = useComposeDraftStateStore();
     const { updateChars, apply, draftId, clear } = useComposeStateStore();
+    const { updateScheduleTime } = useComposeScheduleStateStore();
     const setEditorContent = useSetEditorContent();
 
     const router = useRouter();
@@ -202,6 +204,7 @@ export const DraftList = memo(function DraftList() {
                 updateChars(post.chars, post.id);
                 setEditorContent(post.chars);
             }
+            if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
             router.history.push('/');
         },
         [apply, router, setEditorContent, updateChars, currentProfileAll],
