@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
-import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation.js';
 import { Fragment } from 'react';

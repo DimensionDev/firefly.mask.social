@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
-import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -18,6 +18,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 export interface TopCollectorsProps {
     address: string;

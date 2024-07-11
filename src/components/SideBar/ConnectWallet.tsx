@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { ChainId as EVMChainId, formatDomainName, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId as EVMChainId, formatDomainName } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId, encodePublicKey, formatAddress } from '@masknet/web3-shared-solana';
 import { useAccountModal as useAccountModalEVM, useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
@@ -22,6 +22,7 @@ import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 interface ConnectWalletProps {
     collapsed?: boolean;

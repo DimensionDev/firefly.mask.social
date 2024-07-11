@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
-import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';

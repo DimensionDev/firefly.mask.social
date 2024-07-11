@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
-import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
 import { useEnsName } from 'wagmi';
 
@@ -18,6 +18,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 export interface NFTInfoProps {
     ownerAddress?: string;

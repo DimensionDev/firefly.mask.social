@@ -1,4 +1,4 @@
-import { ChainId, formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
@@ -9,6 +9,7 @@ import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 interface NFTFeedHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     address: Address;
