@@ -112,7 +112,9 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' ? <PollButton /> : null}
 
-                <SchedulePostEntryButton className="text-main" />
+                {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
+                    <SchedulePostEntryButton className="text-main" />
+                ) : null}
 
                 {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
                     <GifEntryButton disabled={mediaDisabled} />

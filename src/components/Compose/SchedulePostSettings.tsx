@@ -51,7 +51,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 
             onClose();
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to set schedule time`), {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to set schedule time.`), {
                 error,
             });
             throw error;

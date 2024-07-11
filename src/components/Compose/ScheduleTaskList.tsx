@@ -9,7 +9,7 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import Trash from '@/assets/trash2.svg';
-import { SchedulePostSetting } from '@/components/Compose/SchedulePostSetting.js';
+import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -122,7 +122,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                     } else {
                         DraggablePopoverRef.open({
                             content: (
-                                <SchedulePostSetting
+                                <SchedulePostSettings
                                     action="update"
                                     task={task}
                                     onClose={() => DraggablePopoverRef.close()}
