@@ -1,51 +1,22 @@
 import { forwardRef, useState } from 'react';
 
-import { PreviewMedia } from '@/components/PreviewMedia/index.js';
-import type { Source } from '@/constants/enum.js';
+import { PreviewMedia, type PreviewMediaProps } from '@/components/PreviewMedia/index.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
-export interface PreviewMediaModalOpenProps {
-    post?: Post;
-    index: string;
-    source: Source;
-    medias?: Attachment[];
-    showAction?: boolean;
-}
+export interface PreviewMediaModalOpenProps extends Omit<PreviewMediaProps, 'open' | 'onClose'> {}
 
 export const PreviewMediaModal = forwardRef<SingletonModalRefCreator<PreviewMediaModalOpenProps>>(
     function PreviewMediaModal(_, ref) {
-        const [medias, setMedias] = useState<Attachment[]>();
-        const [post, setPost] = useState<Post>();
-        const [index, setIndex] = useState<string>('');
-        const [source, setSource] = useState<Source>();
-        const [showAction, setShowAction] = useState<boolean>();
+        const [previewData, setPreviewData] = useState<PreviewMediaModalOpenProps>();
+
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: (props) => {
-                setMedias(props.medias);
-                setPost(props.post);
-                setIndex(props.index);
-                setSource(props.source);
-                setShowAction(props.showAction);
-            },
-            onClose: () => {
-                setMedias(undefined);
-                setPost(undefined);
-                setShowAction(false);
-                setIndex('');
-            },
+            onOpen: (props) => setPreviewData(props),
+            onClose: () => setPreviewData(undefined),
         });
-        return (
-            <PreviewMedia
-                post={post}
-                medias={medias}
-                source={source}
-                index={index}
-                open={open}
-                showAction={showAction}
-                onClose={() => dispatch?.close()}
-            />
-        );
+
+        if (!previewData) return null;
+
+        return <PreviewMedia {...previewData} open={open} onClose={() => dispatch?.close()} />;
     },
 );

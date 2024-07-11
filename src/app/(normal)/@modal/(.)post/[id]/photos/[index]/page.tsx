@@ -39,5 +39,13 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         staleTime: Infinity,
     });
 
-    return <PreviewMedia open post={post} source={currentSource} index={index} onClose={() => router.back()} />;
+    return (
+        <PreviewMedia
+            open
+            post={post}
+            source={currentSource}
+            index={Number.isNaN(+index) ? 0 : +index}
+            onClose={() => router.back()}
+        />
+    );
 }

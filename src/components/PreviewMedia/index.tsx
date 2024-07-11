@@ -18,10 +18,10 @@ import { EMPTY_LIST, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js'
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
-interface PreviewMediaProps {
-    index: string;
+export interface PreviewMediaProps {
+    index: number;
     open: boolean;
-    source?: Source;
+    source: Source;
     post?: Post;
     medias?: Attachment[];
     showAction?: boolean;
@@ -33,18 +33,18 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
     const nextRef = useRef<HTMLButtonElement>(null);
     const isMedium = useIsMedium();
 
-    const images = useMemo(() => {
-        if (medias) return [...medias];
+    const assets = useMemo(() => {
+        if (medias) return medias;
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
-        const imageAttachments =
+        const attachments =
             post.metadata.content?.attachments?.filter((x) => SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type)) ??
             EMPTY_LIST;
 
-        if (asset?.type === 'Image' && imageAttachments.length === 1) {
-            return [{ ...asset }];
+        if (asset?.type === 'Image' && attachments.length === 1) {
+            return [asset];
         }
-        return imageAttachments;
+        return attachments;
     }, [post, medias]);
 
     return (
@@ -70,26 +70,26 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
                             }
                         }}
                         keyboard
-                        initialSlide={Number(index) - 1}
+                        initialSlide={index}
                     >
-                        {images.map((asset, key) => {
+                        {assets.map((asset, key) => {
                             return (
                                 <SwiperSlide key={key} className="flex">
                                     <div className="flex h-full w-full items-center justify-center">
-                                        <PreviewContent source={source!} asset={asset} />
+                                        <PreviewContent source={source} asset={asset} />
                                     </div>
                                 </SwiperSlide>
                             );
                         })}
                         <ClickableButton
                             ref={prevRef}
-                            className="prev-button absolute left-[50px] top-[50%] z-[9999] max-md:hidden"
+                            className="prev-button absolute left-[50px] top-[50%] z-50 max-md:hidden"
                         >
                             <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                         </ClickableButton>
                         <ClickableButton
                             ref={nextRef}
-                            className="next-button absolute right-[50px] top-[50%] z-[9999] max-md:hidden"
+                            className="next-button absolute right-[50px] top-[50%] z-50 max-md:hidden"
                         >
                             <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                         </ClickableButton>

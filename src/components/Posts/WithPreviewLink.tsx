@@ -27,7 +27,7 @@ export function WithPreviewLink({
     const openPreviewModal = () => {
         PreviewMediaModalRef.open({
             post,
-            index: index.toString(),
+            index,
             source: post.source,
             showAction: false,
         });

@@ -105,7 +105,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             {attachmentsSnapshot.length === 1 && asset ? (
                 <WithPreviewLink
                     post={post}
-                    index={1}
+                    index={0}
                     useModal={post.source === Source.Twitter}
                     disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(asset.type)}
                 >
@@ -172,7 +172,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                             >
                                 <WithPreviewLink
                                     post={post}
-                                    index={index + 1}
+                                    index={index}
                                     useModal={post.source === Source.Twitter}
                                     disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(attachment.type)}
                                 >
