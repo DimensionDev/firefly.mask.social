@@ -1,5 +1,6 @@
-import { formatBalance } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
+
+import { formatBalance } from '@/helpers/formatBalance.js';
 
 export function getFloorPrice<
     F extends { value: number | string; payment_token: { decimals: number; symbol: string } },

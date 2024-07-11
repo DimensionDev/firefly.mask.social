@@ -1,5 +1,4 @@
 import { safeUnreachable } from '@masknet/kit';
-import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { memo, Suspense, useEffect } from 'react';
 import urlcat from 'urlcat';
@@ -12,6 +11,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
+import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
