@@ -4,7 +4,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, useState } from 'react';
 
 import { CloseButton } from '@/components/CloseButton.js';
-import { SchedulePostSetting } from '@/components/Compose/SchedulePostSetting.js';
+import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Modal } from '@/components/Modal.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 
@@ -22,7 +22,6 @@ export const SchedulePostModal = forwardRef<SingletonModalRefCreator<SchedulePos
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen({ action, task }) {
                 setAction(action);
-
                 setTask(task);
             },
         });
@@ -47,7 +46,7 @@ export const SchedulePostModal = forwardRef<SingletonModalRefCreator<SchedulePos
                         <CloseButton onClick={() => dispatch?.close()} />
                     </div>
 
-                    <SchedulePostSetting task={task} action={action} onClose={() => dispatch?.close()} />
+                    <SchedulePostSettings task={task} action={action} onClose={() => dispatch?.close()} />
                 </div>
             </Modal>
         );

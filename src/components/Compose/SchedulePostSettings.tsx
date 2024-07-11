@@ -17,13 +17,13 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 
-interface SchedulePostSettingProps {
+interface SchedulePostSettingsProps {
     task?: ScheduleTask;
     action: 'create' | 'update';
     onClose: () => void;
 }
 
-export const SchedulePostSetting = memo<SchedulePostSettingProps>(function SchedulePostSetting({
+export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function SchedulePostSetting({
     task,
     action,
     onClose,

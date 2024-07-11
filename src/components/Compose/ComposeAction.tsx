@@ -18,7 +18,7 @@ import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
-import { ScheduleIcon } from '@/components/Compose/ScheduleIcon.js';
+import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -35,7 +35,6 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
-import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
@@ -47,7 +46,6 @@ export function ComposeAction(props: ComposeActionProps) {
     const currentProfileAll = useCurrentProfileAll();
     const post = useCompositePost();
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { scheduleTime } = useComposeScheduleStateStore();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
     const { usedLength, availableLength } = measureChars(post);
@@ -114,7 +112,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' ? <PollButton /> : null}
 
-                <ScheduleIcon className="text-main" />
+                <SchedulePostEntryButton className="text-main" />
 
                 {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
                     <GifEntryButton disabled={mediaDisabled} />

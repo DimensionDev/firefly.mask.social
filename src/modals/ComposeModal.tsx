@@ -227,9 +227,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
-                if (initialPath) {
-                    router.navigate({ to: initialPath });
-                }
+                if (initialPath) router.navigate({ to: initialPath });
             },
             onClose: (props) => {
                 if (props?.disableClear) return;
