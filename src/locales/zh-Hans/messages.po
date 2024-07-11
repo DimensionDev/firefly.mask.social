@@ -957,9 +957,6 @@ msgstr "收藏"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
-msgid "Open Mobile App"
-msgstr "打开移动端应用"
-
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
@@ -1328,6 +1325,9 @@ msgstr "<0>{0}</0> 已转发"
 
 msgid "All notifications"
 msgstr "通知"
+
+msgid "Mobile App"
+msgstr "手机应用"
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
