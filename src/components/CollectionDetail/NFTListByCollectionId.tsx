@@ -5,7 +5,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
-import { ChainId,SchemaType  } from '@/constants/ethereum.js';
+import { ChainId, SchemaType } from '@/constants/ethereum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';

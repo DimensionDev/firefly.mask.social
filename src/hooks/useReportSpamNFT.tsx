@@ -5,7 +5,7 @@ import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { ChainId,SchemaType  } from '@/constants/ethereum.js';
+import { ChainId, SchemaType } from '@/constants/ethereum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';

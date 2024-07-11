@@ -11,7 +11,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { Source } from '@/constants/enum.js';
-import { ChainId,SchemaType  } from '@/constants/ethereum.js';
+import { ChainId, SchemaType } from '@/constants/ethereum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
