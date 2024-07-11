@@ -1,5 +1,6 @@
-import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
+
+import { ChainId } from '@/constants/ethereum.js';
 
 export function resolveNftUrl(
     contractAddress: string,

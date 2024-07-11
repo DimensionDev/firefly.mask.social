@@ -1,7 +1,6 @@
 'use client';
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -13,6 +12,7 @@ import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';

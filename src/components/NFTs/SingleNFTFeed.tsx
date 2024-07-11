@@ -1,4 +1,3 @@
-import { ChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
@@ -11,6 +10,7 @@ import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { NFTFeedBody, type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { SourceInURL } from '@/constants/enum.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';

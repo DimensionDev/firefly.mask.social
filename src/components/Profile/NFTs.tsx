@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
@@ -10,6 +9,7 @@ import { NFTListByCollectionId } from '@/components/CollectionDetail/NFTListByCo
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { ChainId } from '@/constants/ethereum.js';
 import type { Collection } from '@/providers/types/Firefly.js';
 
 export interface SelectedCollection {

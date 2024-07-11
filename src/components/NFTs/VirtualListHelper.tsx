@@ -1,8 +1,8 @@
-import { ChainId } from '@masknet/web3-shared-evm';
 import { uniqBy } from 'lodash-es';
 import { parseEther } from 'viem';
 
 import { SingleNFTFeed } from '@/components/NFTs/SingleNFTFeed.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 

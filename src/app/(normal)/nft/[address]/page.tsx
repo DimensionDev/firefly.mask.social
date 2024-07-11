@@ -1,7 +1,6 @@
 'use client';
 
 import { TextOverflowTooltip } from '@masknet/theme';
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
@@ -10,6 +9,7 @@ import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js'
 import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js';
 import { Loading } from '@/components/Loading.js';
 import type { SourceInURL } from '@/constants/enum.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';

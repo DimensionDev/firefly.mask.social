@@ -10,12 +10,12 @@ import {
     ShadowRootIsolation,
 } from '@masknet/theme';
 import { EVMWeb3ContextProvider } from '@masknet/web3-hooks-base';
-import { ProviderType } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
 import { type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount, useChainId } from 'wagmi';
 
+import { ProviderType } from '@/constants/ethereum.js';
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
 export function MaskProviders({ children }: PropsWithChildren<{}>) {

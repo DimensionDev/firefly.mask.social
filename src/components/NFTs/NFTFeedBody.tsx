@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/macro';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
 import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
@@ -14,6 +13,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFeedAction.js';
 import { TokenPrice } from '@/components/TokenPrice.js';
+import { ChainId, SchemaType } from '@/constants/ethereum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

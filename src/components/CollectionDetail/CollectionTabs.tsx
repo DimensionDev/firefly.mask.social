@@ -1,13 +1,13 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
 import { Suspense, useState } from 'react';
 
 import { NFTList } from '@/components/CollectionDetail/NFTList.js';
 import { TopCollectors } from '@/components/CollectionDetail/TopCollectors.js';
 import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
+import { ChainId } from '@/constants/ethereum.js';
 
 interface CollectionTabsProps {
     address: string;

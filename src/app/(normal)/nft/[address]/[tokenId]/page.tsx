@@ -1,7 +1,6 @@
 'use client';
 
 import { TextOverflowTooltip } from '@masknet/theme';
-import { SchemaType } from '@masknet/web3-shared-evm';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
@@ -11,6 +10,7 @@ import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
+import { SchemaType } from '@/constants/ethereum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';

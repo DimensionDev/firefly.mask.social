@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/macro';
 import { TextOverflowTooltip } from '@masknet/theme';
-import { ChainId } from '@masknet/web3-shared-evm';
 import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniq } from 'lodash-es';
@@ -14,6 +13,7 @@ import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';

@@ -17,7 +17,6 @@ import {
     aurora,
     avalanche,
     base,
-    baseSepolia,
     bsc,
     confluxESpace,
     degen,
@@ -61,7 +60,6 @@ const XLayer = defineChain({
 export const chains = [
     mainnet,
     base,
-    baseSepolia,
     bsc,
     degen,
     polygon,

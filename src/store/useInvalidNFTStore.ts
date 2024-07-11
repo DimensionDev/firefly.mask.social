@@ -1,8 +1,8 @@
-import { ChainId } from '@masknet/web3-shared-evm';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { ChainId } from '@/constants/ethereum.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 
 type ContractAddress = string;

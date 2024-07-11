@@ -1,6 +1,6 @@
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
+import { ChainId } from '@/constants/ethereum.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 

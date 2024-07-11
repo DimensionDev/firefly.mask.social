@@ -1,7 +1,8 @@
 /* cspell:disable */
 
-import { ChainId } from '@masknet/web3-shared-evm';
 import { first, memoize } from 'lodash-es';
+
+import { ChainId } from '@/constants/ethereum.js';
 
 const EVM_CHAIN: { [key in ChainId]?: string } = {
     [ChainId.Mainnet]: 'ethereum',

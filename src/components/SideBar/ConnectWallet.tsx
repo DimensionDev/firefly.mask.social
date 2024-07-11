@@ -2,8 +2,6 @@
 
 import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId, encodePublicKey } from '@masknet/web3-shared-solana';
 import { useAccountModal as useAccountModalEVM, useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
@@ -17,6 +15,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkPluginID } from '@/constants/enum.js';
+import { ChainId as EVMChainId } from '@/constants/ethereum.js';
+import { ChainId as SolanaChainId } from '@/constants/solana.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatDomainName } from '@/helpers/formatDomainName.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
@@ -64,7 +64,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             icon: solanaNetworkDescriptor?.icon,
             label: resolve(() => {
                 if (!solanaWallet.publicKey) return null;
-                const publicKey = encodePublicKey(solanaWallet.publicKey);
+                const publicKey = solanaWallet.publicKey.toBase58();
                 return formatSolanaAddress(publicKey, 4);
             }),
             onOpenConnectModal: () => connectModalSolana.setVisible(true),

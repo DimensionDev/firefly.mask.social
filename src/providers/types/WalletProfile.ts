@@ -1,7 +1,7 @@
 import type { BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
+import type { ChainId, SchemaType } from '@/constants/ethereum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 
 export interface Provider {

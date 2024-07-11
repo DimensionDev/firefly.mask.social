@@ -2,12 +2,12 @@
 
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
-import { SchemaType } from '@masknet/web3-shared-evm';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CopyButton } from '@/components/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { SchemaType } from '@/constants/ethereum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 

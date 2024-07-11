@@ -1,4 +1,3 @@
-import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
@@ -6,6 +5,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTMoreAction } from '@/components/NFTs/NFTMoreAction.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
