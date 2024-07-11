@@ -18,9 +18,9 @@ interface TimePickerProps extends PropsWithChildren<MultiSectionDigitalClockProp
 
 export const TimePicker = memo<TimePickerProps>(function TimePicker({
     className,
-    children,
     containerClassName,
     panelClassName,
+    children,
     ...props
 }) {
     return (

@@ -41,6 +41,7 @@ import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -227,9 +228,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
-                if (initialPath) {
-                    router.navigate({ to: initialPath });
-                }
+                if (initialPath) router.navigate({ to: initialPath });
             },
             onClose: (props) => {
                 if (props?.disableClear) return;
@@ -296,7 +295,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
                         scheduleTime,
                     });
-                    enqueueSuccessMessage(t`Your draft was saved`);
+                    enqueueSuccessMessage(t`Your draft was saved.`);
                     ComposeModalRef.close();
                 } else {
                     dispatch?.close();
@@ -314,7 +313,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
             try {
                 const throws = () => {
-                    throw new Error('Unreachable');
+                    throw new UnreachableError('throws', 'This function should not be called.');
                 };
                 const encrypted = await encrypt(
                     {

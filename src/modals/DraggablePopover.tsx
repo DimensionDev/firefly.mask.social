@@ -21,8 +21,8 @@ export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePop
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {
                 setEnableBackdrop(props.backdrop ?? true);
-                setContent(props.content);
                 setEnableOverflow(props.enableOverflow ?? true);
+                setContent(props.content);
             },
         });
 

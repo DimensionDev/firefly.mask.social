@@ -7,7 +7,7 @@ import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
-import { ScheduleIcon } from '@/components/Compose/ScheduleIcon.js';
+import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -34,7 +34,7 @@ export const ComposeUI = memo(function ComposeUI() {
                 >
                     {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <div className="mb-3 flex items-center gap-[10px] text-[13px] text-second">
-                            <ScheduleIcon />
+                            <SchedulePostEntryButton />
                             <span>
                                 <Trans>
                                     Will send on{' '}
