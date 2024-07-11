@@ -1,11 +1,10 @@
-import { Menu, type MenuProps, Transition } from '@headlessui/react';
+import { Menu, type MenuProps } from '@headlessui/react';
 import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
-import { Fragment, memo } from 'react';
+import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -21,43 +20,25 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const { data: isMuted } = useIsWalletMuted(profile.address);
 
     return (
-        <Menu className={classNames('relative', className as string)} as="div" {...rest}>
-            <Menu.Button
-                whileTap={{ scale: 0.9 }}
-                as={motion.button}
-                className="flex items-center text-secondary"
-                aria-label="More"
+        <MoreActionMenu button={<EllipsisHorizontalCircleIcon width={32} height={32} />} className={className}>
+            <Menu.Items
+                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
+                onClick={(event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                }}
             >
-                <EllipsisHorizontalCircleIcon width={32} height={32} />
-            </Menu.Button>
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-            >
-                <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }}
-                >
-                    <Menu.Item>
-                        {({ close }) => (
-                            <MuteWalletButton
-                                identity={identity}
-                                isMuted={isMuted}
-                                address={profile.address}
-                                onClick={close}
-                            />
-                        )}
-                    </Menu.Item>
-                </Menu.Items>
-            </Transition>
-        </Menu>
+                <Menu.Item>
+                    {({ close }) => (
+                        <MuteWalletButton
+                            identity={identity}
+                            isMuted={isMuted}
+                            address={profile.address}
+                            onClick={close}
+                        />
+                    )}
+                </Menu.Item>
+            </Menu.Items>
+        </MoreActionMenu>
     );
 });
