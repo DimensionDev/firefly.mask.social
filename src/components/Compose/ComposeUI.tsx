@@ -1,7 +1,9 @@
 import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
+import dayjs from 'dayjs';
 import { memo, useRef, useState } from 'react';
 
+import ScheduleIcon from '@/assets/schedule.svg';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
@@ -11,12 +13,16 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { SchedulePostModalRef } from '@/modals/controls.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const ComposeUI = memo(function ComposeUI() {
     const contentRef = useRef<HTMLDivElement>(null);
     const isMedium = useIsMedium();
     const { posts } = useComposeStateStore();
+    const { scheduleTime } = useComposeScheduleStateStore();
+
     const compositePost = useCompositePost();
     const [warningsOpen, setWarningsOpen] = useState(true);
 
@@ -27,6 +33,27 @@ export const ComposeUI = memo(function ComposeUI() {
                     ref={contentRef}
                     className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
                 >
+                    {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
+                        <div className="mb-3 flex items-center gap-[10px] text-[13px] text-second">
+                            <ScheduleIcon
+                                className="cursor-pointer"
+                                onClick={() => {
+                                    SchedulePostModalRef.open({
+                                        action: scheduleTime ? 'update' : 'create',
+                                    });
+                                }}
+                            />
+                            <span>
+                                <Trans>
+                                    Will send on{' '}
+                                    <span>
+                                        {dayjs(scheduleTime).format('D MMM, YYYY')} at{' '}
+                                        <span>{dayjs(scheduleTime).format('hh:mm A')}</span>
+                                    </span>
+                                </Trans>
+                            </span>
+                        </div>
+                    ) : null}
                     {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                 </div>
             </div>
