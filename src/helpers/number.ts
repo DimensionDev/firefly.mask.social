@@ -1,5 +1,4 @@
 import { BigNumber } from 'bignumber.js';
-import { isUndefined, trimEnd } from 'lodash-es';
 
 export const ZERO = new BigNumber('0');
 export const ONE = new BigNumber('1');
@@ -98,34 +97,4 @@ export function dividedBy(a: BigNumber.Value, b: BigNumber.Value) {
 /** new BigNumber(n).toNumber() */
 export function toNumber(value?: BigNumber.Value, fallback = 0) {
     return new BigNumber(value ?? fallback).toNumber();
-}
-
-export function toFixed(value: BigNumber.Value | undefined): string;
-export function toFixed(value: BigNumber.Value | undefined, decimalPlaces: number): string;
-export function toFixed(value: BigNumber.Value = 0, decimalPlaces?: number) {
-    const n = new BigNumber(value);
-    return !isUndefined(decimalPlaces) ? n.toFixed(decimalPlaces) : n.toFixed();
-}
-
-/** Trim ending zeros of decimals */
-export function trimZero(digit: string) {
-    const result = digit.replaceAll(/\.([1-9]*)?0+$/g, (_, p1) => {
-        return p1 ? `.${p1}` : '';
-    });
-
-    if (isLessThan(result, 1)) {
-        return trimEnd(result, '0');
-    }
-
-    return result;
-}
-
-export function addThousandSeparators(num: string | number) {
-    try {
-        return num.toString().replaceAll(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-    } catch (err) {
-        // Safari doesn't support regexp look behind yet
-        const value = typeof num === 'number' ? num : Number.parseFloat(num);
-        return value.toLocaleString('en-US');
-    }
 }

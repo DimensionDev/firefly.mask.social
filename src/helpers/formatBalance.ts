@@ -1,6 +1,30 @@
 import { BigNumber } from 'bignumber.js';
+import { trimEnd } from 'lodash-es';
 
-import { addThousandSeparators, isLessThan, leftShift, pow10, scale10, trimZero } from '@/helpers/number.js';
+import { isLessThan, leftShift, pow10, scale10 } from '@/helpers/number.js';
+
+/** Trim ending zeros of decimals */
+function trimZero(digit: string) {
+    const result = digit.replaceAll(/\.([1-9]*)?0+$/g, (_, p1) => {
+        return p1 ? `.${p1}` : '';
+    });
+
+    if (isLessThan(result, 1)) {
+        return trimEnd(result, '0');
+    }
+
+    return result;
+}
+
+function addThousandSeparators(num: string | number) {
+    try {
+        return num.toString().replaceAll(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+    } catch (err) {
+        // Safari doesn't support regexp look behind yet
+        const value = typeof num === 'number' ? num : Number.parseFloat(num);
+        return value.toLocaleString('en-US');
+    }
+}
 
 export interface FormatBalanceOptions {
     significant?: number;
