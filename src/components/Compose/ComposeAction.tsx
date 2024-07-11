@@ -11,7 +11,6 @@ import { useAccount } from 'wagmi';
 import AddThread from '@/assets/addThread.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
-import ScheduleIcon from '@/assets/schedule.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
 import { GifEntryButton } from '@/components/Compose/GifEntryButton.js';
@@ -19,6 +18,7 @@ import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
+import { ScheduleIcon } from '@/components/Compose/ScheduleIcon.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -34,7 +34,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { ComposeModalRef, ConnectWalletModalRef, SchedulePostModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -114,16 +114,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' ? <PollButton /> : null}
 
-                {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
-                    <ScheduleIcon
-                        className="cursor-pointer text-main"
-                        onClick={() => {
-                            SchedulePostModalRef.open({
-                                action: scheduleTime ? 'update' : 'create',
-                            });
-                        }}
-                    />
-                ) : null}
+                <ScheduleIcon className="text-main" />
 
                 {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
                     <GifEntryButton disabled={mediaDisabled} />
