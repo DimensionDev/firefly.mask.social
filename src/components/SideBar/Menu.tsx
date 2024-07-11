@@ -154,7 +154,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             })}
                             {!isMedium && IS_IOS ? (
                                 <li>
-                                    <OpenFireflyAppButton className="flex items-center w-full gap-x-3 px-2 py-2.5 text-fireflyBrand">
+                                    <OpenFireflyAppButton className="flex w-full items-center gap-x-3 px-2 py-2.5 text-fireflyBrand">
                                         <CircleShareIcon width={20} height={20} />
                                         <span className="text-xl font-bold leading-6">
                                             <Trans>Mobile App</Trans>
