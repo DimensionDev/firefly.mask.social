@@ -9,6 +9,7 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import Trash from '@/assets/trash2.svg';
+import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -23,7 +24,8 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { ConfirmModalRef, SchedulePostModalRef } from '@/modals/controls.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { ConfirmModalRef, DraggablePopoverRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
@@ -57,7 +59,7 @@ function getTitle(displayInfo: SchedulePostDisplayInfo) {
 const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task: ScheduleTask; index: number }) {
     const displayInfo = task.display_info;
     const title = getTitle(displayInfo);
-
+    const isMedium = useIsMedium();
     const post = first(displayInfo.posts);
     const content = post ? readChars(post.chars, 'visible') : '';
 
@@ -112,10 +114,22 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
             <div
                 className="my-2 cursor-pointer text-fourMain"
                 onClick={() => {
-                    SchedulePostModalRef.open({
-                        action: 'update',
-                        task,
-                    });
+                    if (isMedium) {
+                        SchedulePostModalRef.open({
+                            action: 'update',
+                            task,
+                        });
+                    } else {
+                        DraggablePopoverRef.open({
+                            content: (
+                                <SchedulePostSettings
+                                    action="update"
+                                    task={task}
+                                    onClose={() => DraggablePopoverRef.close()}
+                                />
+                            ),
+                        });
+                    }
                 }}
             >
                 <div className="line-clamp-5 min-h-[24px] break-words text-left text-[15px] leading-[24px]">

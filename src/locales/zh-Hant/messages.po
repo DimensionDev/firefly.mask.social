@@ -246,9 +246,6 @@ msgstr "按讚留言失敗"
 msgid "Failed to login"
 msgstr "登入失敗"
 
-msgid "Failed to set schedule time"
-msgstr ""
-
 msgid "<0>Posted</0>an article"
 msgstr ""
 
@@ -764,6 +761,9 @@ msgstr ""
 
 msgid "Send Feedback"
 msgstr "發送反饋"
+
+msgid "Your draft was saved."
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr ""
@@ -1485,6 +1485,9 @@ msgstr ""
 msgid "Properties"
 msgstr "屬性"
 
+msgid "Failed to set schedule time."
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr "指定簽名（推薦）"
 
@@ -1882,9 +1885,6 @@ msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
-msgstr ""
-
-msgid "Your draft was saved"
 msgstr ""
 
 msgid "A thread must have at least two posts."

@@ -207,7 +207,7 @@ export const DraftList = memo(function DraftList() {
             if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
             router.history.push('/');
         },
-        [apply, router, setEditorContent, updateChars, currentProfileAll],
+        [apply, router, setEditorContent, updateChars, updateScheduleTime, currentProfileAll],
     );
 
     if (!drafts.length) {
