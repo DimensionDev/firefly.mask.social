@@ -976,9 +976,6 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
-msgid "Open Mobile App"
-msgstr ""
-
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
@@ -1361,6 +1358,9 @@ msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "All notifications"
+msgstr ""
+
+msgid "Mobile App"
 msgstr ""
 
 msgid "You can save this to send later from your drafts."

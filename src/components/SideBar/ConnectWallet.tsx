@@ -86,7 +86,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     return (
         <div
-            className={classNames('w-full space-y-3 rounded-md p-2 leading-6 hover:bg-bg md:px-4 md:py-3', {
+            className={classNames('w-full space-y-3 rounded-md px-2 py-2.5 leading-6 hover:bg-bg md:px-4 md:py-3', {
                 'bg-lightBg': collapsed,
             })}
             onClick={(e) => {

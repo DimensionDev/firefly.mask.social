@@ -8,9 +8,9 @@ import { memo } from 'react';
 
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
+import CircleShareIcon from '@/assets/circle-share.svg';
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
-import FireflyLogo from '@/assets/firefly.logo.svg';
 import FollowingSelectedIcon from '@/assets/following.selected.svg';
 import FollowingIcon from '@/assets/following.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
@@ -67,7 +67,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
             <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li className="flex overflow-hidden">
-                        <ul role="list" className="w-full space-y-1 overflow-hidden">
+                        <ul role="list" className="w-full overflow-hidden">
                             {[
                                 {
                                     href: PageRoute.Home,
@@ -128,7 +128,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <Link
                                                 href={item.href}
                                                 className={classNames(
-                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg p-2 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3',
+                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2.5 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3',
                                                     { 'font-bold': isSelected },
                                                 )}
                                             >
@@ -154,10 +154,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             })}
                             {!isMedium && IS_IOS ? (
                                 <li>
-                                    <OpenFireflyAppButton className="flex items-center gap-x-3 px-4 py-2">
-                                        <FireflyLogo width={20} height={20} />
-                                        <span className="text-xl font-bold leading-6 text-fireflyBrand">
-                                            <Trans>Open Mobile App</Trans>
+                                    <OpenFireflyAppButton className="flex w-full items-center gap-x-3 px-2 py-2.5 text-fireflyBrand">
+                                        <CircleShareIcon width={20} height={20} />
+                                        <span className="text-xl font-bold leading-6">
+                                            <Trans>Mobile App</Trans>
                                         </span>
                                     </OpenFireflyAppButton>
                                 </li>
