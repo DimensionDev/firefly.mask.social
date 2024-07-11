@@ -13,7 +13,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useScheduleButtonHandler } from '@/hooks/useScheduleButtonHandler.js';
+import { SchedulePostModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -23,7 +23,6 @@ export const ComposeUI = memo(function ComposeUI() {
     const { posts } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
-    const [, handleScheduleClick] = useScheduleButtonHandler();
     const compositePost = useCompositePost();
     const [warningsOpen, setWarningsOpen] = useState(true);
 
@@ -36,7 +35,14 @@ export const ComposeUI = memo(function ComposeUI() {
                 >
                     {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <div className="mb-3 flex items-center gap-[10px] text-[13px] text-second">
-                            <ScheduleIcon className="cursor-pointer" onClick={handleScheduleClick} />
+                            <ScheduleIcon
+                                className="cursor-pointer"
+                                onClick={() => {
+                                    SchedulePostModalRef.open({
+                                        action: scheduleTime ? 'update' : 'create',
+                                    });
+                                }}
+                            />
                             <span>
                                 <Trans>
                                     Will send on{' '}

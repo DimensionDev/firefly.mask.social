@@ -32,10 +32,10 @@ import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.j
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useScheduleButtonHandler } from '@/hooks/useScheduleButtonHandler.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectWalletModalRef, SchedulePostModalRef } from '@/modals/controls.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
@@ -47,7 +47,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const currentProfileAll = useCurrentProfileAll();
     const post = useCompositePost();
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-
+    const { scheduleTime } = useComposeScheduleStateStore();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
     const { usedLength, availableLength } = measureChars(post);
@@ -88,8 +88,6 @@ export function ComposeAction(props: ComposeActionProps) {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
 
-    const [, handleScheduleClick] = useScheduleButtonHandler();
-
     return (
         <div className="px-4 pb-4">
             <div className="relative flex h-9 items-center gap-3">
@@ -117,7 +115,14 @@ export function ComposeAction(props: ComposeActionProps) {
                 {type === 'compose' ? <PollButton /> : null}
 
                 {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
-                    <ScheduleIcon className="cursor-pointer text-main" onClick={handleScheduleClick} />
+                    <ScheduleIcon
+                        className="cursor-pointer text-main"
+                        onClick={() => {
+                            SchedulePostModalRef.open({
+                                action: scheduleTime ? 'update' : 'create',
+                            });
+                        }}
+                    />
                 ) : null}
 
                 {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (

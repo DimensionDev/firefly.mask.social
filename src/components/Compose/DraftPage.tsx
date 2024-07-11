@@ -1,5 +1,7 @@
 import { Trans } from '@lingui/macro';
+import { useLocation } from '@tanstack/react-router';
 import { memo, Suspense, useState } from 'react';
+import { useUpdateEffect } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { DraftList } from '@/components/Compose/DraftList.js';
@@ -7,13 +9,20 @@ import { ScheduleTaskList } from '@/components/Compose/ScheduleTaskList.js';
 import { Loading } from '@/components/Loading.js';
 import { classNames } from '@/helpers/classNames.js';
 
-enum DraftPageTab {
+export enum DraftPageTab {
     Draft = 'Draft',
     Scheduled = 'Scheduled',
 }
 
 export const DraftPage = memo(function DraftPage() {
     const [currentTab, setCurrentTab] = useState(DraftPageTab.Draft);
+
+    const location = useLocation();
+
+    useUpdateEffect(() => {
+        const search = location.search;
+        if (search.tab) setCurrentTab(search.tab);
+    }, [location.search]);
 
     return (
         <div>

@@ -1,5 +1,8 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import dayjs from 'dayjs';
+import urlcat from 'urlcat';
 
+import { DraftPageTab } from '@/components/Compose/DraftPage.js';
 import { UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
@@ -8,6 +11,7 @@ import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { commitPoll } from '@/services/commitPoll.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -66,7 +70,25 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         );
 
         if (!result) return;
-        enqueueSuccessMessage(t`Your scheduled post has been created successfully.`);
+
+        enqueueSuccessMessage(
+            <span>
+                <Trans>
+                    Your post will be sent on {dayjs(scheduleTime).format('DD MMM, YYYY')} at{' '}
+                    {dayjs(scheduleTime).format('hh:mm A')}{' '}
+                    <span
+                        className="cursor-pointer underline"
+                        onClick={() => {
+                            ComposeModalRef.open({
+                                initialPath: urlcat('/draft', { tab: DraftPageTab.Scheduled }),
+                            });
+                        }}
+                    >
+                        View
+                    </span>
+                </Trans>
+            </span>,
+        );
     } catch (error) {
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
             error,

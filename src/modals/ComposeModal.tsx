@@ -91,6 +91,7 @@ export interface ComposeModalProps {
         claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
     };
     channel?: Channel | null;
+    initialPath?: string
 }
 export type ComposeModalCloseProps = {
     disableClear?: boolean;
@@ -215,7 +216,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel }) => {
+            onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
                 updateType(type || 'compose');
                 updateAvailableSources(source ? [source] : getCurrentAvailableSources());
                 if (typedMessage) updateTypedMessage(typedMessage);
@@ -226,6 +227,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 }
                 if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
+                if(initialPath) {
+                    router.navigate({ to: initialPath })
+                }
             },
             onClose: (props) => {
                 if (props?.disableClear) return;

@@ -11,6 +11,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import Trash from '@/assets/trash2.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -89,28 +90,6 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
         }
     }, [task.uuid]);
 
-    // Because it will refetch queries each time, the entire list will be loading. So there's no need to handle the loading UI.
-    const [, handleClick] = useAsyncFn(async () => {
-        const time = await SchedulePostModalRef.openAndWaitForClose({
-            action: 'update',
-            enableClearButton: false,
-        });
-        try {
-            if (time && time !== 'clear') {
-                const result = await FireflySocialMediaProvider.updateScheduledPost(task.uuid, time);
-                if (!result) return;
-                queryClient.refetchQueries({
-                    queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
-                });
-            }
-        } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to update schedule time.`), {
-                error,
-            });
-            throw error;
-        }
-    }, [task.uuid]);
-
     return (
         <div className="border-b border-line py-3">
             <div className="flex items-center justify-between">
@@ -123,12 +102,22 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                     {title}
                 </div>
                 {removeLoading ? (
-                    <LoadingIcon className="h-5 w-5 animate-spin cursor-pointer text-danger" />
+                    <LoadingIcon className="h-5 w-5 animate-spin cursor-pointer text-secondary" />
                 ) : (
-                    <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={handleRemove} />
+                    <Tooltip content={t`Delete`}>
+                        <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={handleRemove} />
+                    </Tooltip>
                 )}
             </div>
-            <div className="my-2 cursor-pointer text-fourMain" onClick={handleClick}>
+            <div
+                className="my-2 cursor-pointer text-fourMain"
+                onClick={() => {
+                    SchedulePostModalRef.open({
+                        action: 'update',
+                        task,
+                    });
+                }}
+            >
                 <div className="line-clamp-5 min-h-[24px] break-words text-left text-[15px] leading-[24px]">
                     {content}
                 </div>
@@ -188,7 +177,7 @@ export function ScheduleTaskList() {
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (!data?.length) {
-        return <NoResultsFallback />;
+        return <NoResultsFallback className="h-[478px] justify-center" />;
     }
 
     return (
