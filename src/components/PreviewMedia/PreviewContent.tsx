@@ -21,6 +21,6 @@ export const PreviewContent = memo<PreviewContentProps>(function PreviewContent(
             className="max-h-[calc(100vh-110px)] w-full object-contain max-md:h-[calc(calc(100vh-env(safe-area-inset-bottom)-env(safe-are-inset-top)-90px))] max-md:max-w-[calc(100%-30px)]"
         />
     ) : asset.type === 'AnimatedGif' ? (
-        <VideoAsset asset={asset} source={source} />
+        <VideoAsset asset={asset} source={source} autoPlay />
     ) : null;
 });

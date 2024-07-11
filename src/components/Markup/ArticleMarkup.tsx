@@ -67,7 +67,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                                 event.stopPropagation();
                                 if (!props.src) return;
                                 PreviewMediaModalRef.open({
-                                    index: `${Math.max(index, 0)}`,
+                                    index: `${Math.min(index + 1, 1)}`,
                                     medias: images.current.map((uri) => ({ type: 'Image', uri })),
                                     source: Source.Article,
                                 });

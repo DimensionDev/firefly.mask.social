@@ -13,6 +13,7 @@ import {
     VERCEL_NEV,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { MediaSource } from '@/types/compose.js';
 
 export const EMPTY_LIST = Object.freeze([]) as never[];
@@ -81,7 +82,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Local,
 ];
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
-export const SUPPORTED_MEDIA_PREVIEW_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';

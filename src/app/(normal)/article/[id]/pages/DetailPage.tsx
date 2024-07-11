@@ -94,7 +94,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                             if (cover.data)
                                 PreviewMediaModalRef.open({
                                     medias: [{ type: 'Image', uri: cover.data }],
-                                    index: '0',
+                                    index: '1',
                                     source: Source.Article,
                                 });
                         }}

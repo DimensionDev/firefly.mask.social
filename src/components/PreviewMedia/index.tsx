@@ -14,7 +14,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { PreviewContent } from '@/components/PreviewMedia/PreviewContent.js';
 import type { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
@@ -24,10 +24,11 @@ interface PreviewMediaProps {
     source?: Source;
     post?: Post;
     medias?: Attachment[];
+    showAction?: boolean;
     onClose: () => void;
 }
 
-export function PreviewMedia({ post, source, medias, index, open, onClose }: PreviewMediaProps) {
+export function PreviewMedia({ post, source, medias, index, open, showAction = true, onClose }: PreviewMediaProps) {
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
     const isMedium = useIsMedium();
@@ -37,7 +38,7 @@ export function PreviewMedia({ post, source, medias, index, open, onClose }: Pre
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
         const imageAttachments =
-            post.metadata.content?.attachments?.filter((x) => ['Image', 'AnimatedGif'].includes(x.type)) ?? EMPTY_LIST;
+            post.metadata.content?.attachments?.filter((x) => SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type)) ?? EMPTY_LIST;
 
         if (asset?.type === 'Image' && imageAttachments.length === 1) {
             return [{ ...asset }];
@@ -94,7 +95,7 @@ export function PreviewMedia({ post, source, medias, index, open, onClose }: Pre
                     </Swiper>
                 </div>
                 <div className="absolute my-1 flex items-center justify-between bottom-safe">
-                    {post ? <PostActionsWithGrid className="gap-8" post={post} disablePadding /> : null}
+                    {post && showAction ? <PostActionsWithGrid className="gap-8" post={post} disablePadding /> : null}
                 </div>
             </div>
         </Modal>

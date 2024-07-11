@@ -9,12 +9,12 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface WithPreviewLinkProps {
     post: Post;
     index: number;
-    disablePreview: boolean;
+    disablePreview?: boolean;
     children: React.ReactNode;
     useModal?: boolean;
 }
 
-export function WithPreviewLink({ disablePreview, children, post, index, useModal = false }: WithPreviewLinkProps) {
+export function WithPreviewLink({ disablePreview = false, children, post, index, useModal = false }: WithPreviewLinkProps) {
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
 
@@ -23,29 +23,27 @@ export function WithPreviewLink({ disablePreview, children, post, index, useModa
             post,
             index: index.toString(),
             source: post.source,
+            showAction: false,
         });
     };
 
-    return disablePreview ? (
-        children
-    ) : useModal ? (
+    return !disablePreview && !useModal ? (
+        <Link
+            href={getPostImageUrl(post, index, isPostPage)}
+            scroll={false}
+            onClick={(event) => event.stopPropagation()}
+        >
+            {children}
+        </Link>
+    ) : (
         <span
             onClick={(event) => {
                 event.stopPropagation();
+                if (disablePreview) return;
                 openPreviewModal();
             }}
         >
             {children}
         </span>
-    ) : (
-        <Link
-            href={getPostImageUrl(post, index, isPostPage)}
-            scroll={false}
-            onClick={(event) => {
-                event.stopPropagation();
-            }}
-        >
-            {children}
-        </Link>
     );
 }

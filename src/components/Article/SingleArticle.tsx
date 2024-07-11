@@ -124,7 +124,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                                     if (cover.data)
                                         PreviewMediaModalRef.open({
                                             medias: [{ type: 'Image', uri: cover.data }],
-                                            index: '0',
+                                            index: '1',
                                             source: Source.Article,
                                         });
                                 }}

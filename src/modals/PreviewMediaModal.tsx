@@ -11,6 +11,7 @@ export interface PreviewMediaModalOpenProps {
     index: string;
     source: Source;
     medias?: Attachment[];
+    showAction?: boolean;
 }
 
 export const PreviewMediaModal = forwardRef<SingletonModalRefCreator<PreviewMediaModalOpenProps>>(
@@ -19,16 +20,19 @@ export const PreviewMediaModal = forwardRef<SingletonModalRefCreator<PreviewMedi
         const [post, setPost] = useState<Post>();
         const [index, setIndex] = useState<string>('');
         const [source, setSource] = useState<Source>();
+        const [showAction, setShowAction] = useState<boolean>();
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
                 setMedias(props.medias);
                 setPost(props.post);
                 setIndex(props.index);
                 setSource(props.source);
+                setShowAction(props.showAction);
             },
             onClose: () => {
                 setMedias(undefined);
                 setPost(undefined);
+                setShowAction(false);
                 setIndex('');
             },
         });
@@ -39,6 +43,7 @@ export const PreviewMediaModal = forwardRef<SingletonModalRefCreator<PreviewMedi
                 source={source}
                 index={index}
                 open={open}
+                showAction={showAction}
                 onClose={() => dispatch?.close()}
             />
         );
