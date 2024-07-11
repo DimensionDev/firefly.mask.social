@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-10 12:01\n"
+"PO-Revision-Date: 2024-07-11 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1435,7 +1435,7 @@ msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
-msgstr ""
+msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
 msgid "Saved on {0} at {1}"
 msgstr ""
@@ -1450,7 +1450,7 @@ msgid "Watch {identity}"
 msgstr "关注 {identity}"
 
 msgid "view"
-msgstr ""
+msgstr "查看"
 
 msgid "Failed to create scheduled post."
 msgstr ""
@@ -1828,7 +1828,7 @@ msgid "Followers"
 msgstr "粉丝"
 
 msgid "Mint function"
-msgstr ""
+msgstr "铸造功能"
 
 msgid "Clear"
 msgstr ""
@@ -1898,3 +1898,4 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
