@@ -14,7 +14,13 @@ interface WithPreviewLinkProps {
     useModal?: boolean;
 }
 
-export function WithPreviewLink({ disablePreview = false, children, post, index, useModal = false }: WithPreviewLinkProps) {
+export function WithPreviewLink({
+    disablePreview = false,
+    children,
+    post,
+    index,
+    useModal = false,
+}: WithPreviewLinkProps) {
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
 

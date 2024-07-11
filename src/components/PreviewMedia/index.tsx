@@ -38,7 +38,8 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
         if (!post) return EMPTY_LIST;
         const asset = post.metadata.content?.asset;
         const imageAttachments =
-            post.metadata.content?.attachments?.filter((x) => SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type)) ?? EMPTY_LIST;
+            post.metadata.content?.attachments?.filter((x) => SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type)) ??
+            EMPTY_LIST;
 
         if (asset?.type === 'Image' && imageAttachments.length === 1) {
             return [{ ...asset }];
