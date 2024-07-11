@@ -3,13 +3,14 @@ import { compact, sortBy, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { Source } from '@/constants/enum.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export function useMyAllProfiles(enabled = true) {
-    const lensProfile = useLensStateStore.use.currentProfile();
-    const farcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const twitterProfile = useTwitterStateStore.use.currentProfile();
+    const map = useCurrentProfileAll();
+    const lensProfile = map[Source.Lens];
+    const farcasterProfile = map[Source.Farcaster];
+    const twitterProfile = map[Source.Twitter];
 
     const lensHandle = lensProfile?.handle;
     const farcasterProfileId = farcasterProfile?.profileId;
@@ -25,19 +26,19 @@ export function useMyAllProfiles(enabled = true) {
 
     const defaultProfiles = useMemo(() => {
         return compact([
-            lensHandle
-                ? {
-                      identity: lensHandle,
-                      source: Source.Lens,
-                      displayName: lensHandle,
-                      __origin__: null,
-                  }
-                : undefined,
             farcasterProfileId
                 ? {
                       identity: farcasterProfileId,
                       source: Source.Farcaster,
                       displayName: farcasterProfile.handle,
+                      __origin__: null,
+                  }
+                : undefined,
+            lensHandle
+                ? {
+                      identity: lensHandle,
+                      source: Source.Lens,
+                      displayName: lensHandle,
                       __origin__: null,
                   }
                 : undefined,

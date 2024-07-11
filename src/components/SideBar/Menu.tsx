@@ -3,9 +3,9 @@
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { first } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { usePathname, useSearchParams } from 'next/navigation.js';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
@@ -28,12 +28,13 @@ import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { IS_IOS } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { useActiveProfiles } from '@/hooks/useActiveProfiles.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -51,14 +52,14 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = rawSource ? resolveSourceFromUrl(rawSource) : undefined;
     const currentChannel = useCurrentVisitingChannel();
     const isMedium = useIsMedium();
+    const map = useCurrentProfileAll();
 
     const { updateSidebarOpen } = useNavigatorState();
 
     const isLogin = useIsLogin();
     const pathname = usePathname();
 
-    const profiles = useActiveProfiles();
-    const firstActiveProfile = first(profiles);
+    const firstActiveProfile = useMemo(() => first(compact(SORTED_SOCIAL_SOURCES.map((x) => map[x]))), [map]);
     const profileUrl = firstActiveProfile ? getProfileUrl(firstActiveProfile) : null;
 
     const myProfiles = useMyAllProfiles();
