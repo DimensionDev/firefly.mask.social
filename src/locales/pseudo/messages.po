@@ -130,9 +130,6 @@ msgstr ""
 msgid "Functions that can suspend trading"
 msgstr ""
 
-msgid "Failed to upload. Video is not supported yet"
-msgstr ""
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
@@ -518,6 +515,9 @@ msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr ""
 
 msgid "Confirmation"
+msgstr ""
+
+msgid "Failed to upload. Video is not supported yet."
 msgstr ""
 
 msgid "Whitelist function"
