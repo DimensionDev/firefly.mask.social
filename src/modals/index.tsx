@@ -13,7 +13,7 @@ import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
-import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
+import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { RainbowKitConnectModal } from '@/modals/RainbowKitConnectModal.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
@@ -29,13 +29,13 @@ export const Modals = memo(function Modals() {
             <SolanaAccountModal ref={controls.SolanaAccountModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
-            <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
             <ConfirmFireflyModal ref={controls.ConfirmFireflyModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
             <TipsModal ref={controls.TipsModalRef.register} />
+            <PreviewMediaModal ref={controls.PreviewMediaModalRef.register} />
             <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
         </>
     );

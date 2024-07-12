@@ -250,9 +250,6 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
-msgid "Failed to set schedule time"
-msgstr ""
-
 msgid "<0>Posted</0>an article"
 msgstr ""
 
@@ -787,6 +784,9 @@ msgstr ""
 msgid "Send tips"
 msgstr ""
 
+msgid "Your draft was saved."
+msgstr ""
+
 msgid "The chainId mismatch."
 msgstr ""
 
@@ -1010,9 +1010,6 @@ msgid "collects"
 msgstr ""
 
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "Open Mobile App"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -1414,6 +1411,9 @@ msgstr ""
 msgid "All notifications"
 msgstr ""
 
+msgid "Mobile App"
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -1538,6 +1538,9 @@ msgid "Properties"
 msgstr ""
 
 msgid "Cannot send to yourself"
+msgstr ""
+
+msgid "Failed to set schedule time."
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -1949,9 +1952,6 @@ msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
-msgstr ""
-
-msgid "Your draft was saved"
 msgstr ""
 
 msgid "A thread must have at least two posts."
