@@ -1,10 +1,10 @@
 import { Menu, type MenuProps } from '@headlessui/react';
-import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
+import MoreCircleIcon from '@/assets/more-circle.svg';
 import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
@@ -33,7 +33,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
     const isMyProfile = useIsMyProfile(profile);
 
     return (
-        <MoreActionMenu button={<EllipsisHorizontalCircleIcon width={32} height={32} />} className={className}>
+        <MoreActionMenu button={<MoreCircleIcon width={32} height={32} />} className={className}>
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                 onClick={(event) => {

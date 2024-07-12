@@ -36,8 +36,8 @@ export function ToggleMutedButton({ loading, isMuted, className, ...rest }: Prop
             ref={hoverRef}
             className={classNames(
                 'flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger px-2 text-[15px] font-semibold transition-all',
-                buttonState === MuteLabel.Muted ? 'border-[1.5px]' : '',
-                buttonState === MuteLabel.Unmute ? 'border-[1.5px] border-danger border-opacity-50' : '',
+                buttonState === MuteLabel.Muted ? 'border' : '',
+                buttonState === MuteLabel.Unmute ? 'border border-danger border-opacity-50' : '',
                 isMuted ? 'bg-danger text-white' : 'text-danger',
                 className,
             )}
