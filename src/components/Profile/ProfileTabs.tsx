@@ -15,10 +15,10 @@ import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { useFireflyProfileState } from '@/store/useProfileTabsStore.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfileTabsProps {
     profiles: FireflyProfile[];
@@ -67,8 +67,8 @@ const resolveProfileTabColor = createLookupTableResolver<
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
     const currentProfileAll = useCurrentProfileAll();
-    const updateCurrentProfileState = useFireflyProfileState.use.updateFireflyProfile();
-    const { updateFireflyProfile, fireflyProfile } = FireflyProfileContext.useContainer();
+    const { setProfileTab } = useProfileTabState();
+    const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
@@ -77,15 +77,15 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const isNoProfilePage = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
 
     useEffect(() => {
-        if (!isProfilePage || !(fireflyProfile.source in currentProfileAll)) return;
+        if (!isProfilePage || !(profileTabContext.source in currentProfileAll)) return;
 
-        const profile = currentProfileAll[fireflyProfile.source as SocialSource];
+        const profile = currentProfileAll[profileTabContext.source as SocialSource];
         if (profile) {
             const identity = resolveProfileId(profile) ?? '';
-            updateFireflyProfile({ source: fireflyProfile.source, identity });
-            updateCurrentProfileState({ source: fireflyProfile.source, identity });
+            setProfileTabContext({ source: profileTabContext.source, identity });
+            setProfileTab({ source: profileTabContext.source, identity });
         }
-    }, [isProfilePage, fireflyProfile, updateFireflyProfile, currentProfileAll, updateCurrentProfileState]);
+    }, [isProfilePage, setProfileTab, profileTabContext, setProfileTabContext, currentProfileAll]);
 
     if (profiles.length <= 1) return null;
 
@@ -96,20 +96,20 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                 const isActive =
                     profile.source === Source.Wallet
-                        ? isSameAddress(profile.identity, fireflyProfile.identity)
-                        : fireflyProfile.identity === profile.identity;
+                        ? isSameAddress(profile.identity, profileTabContext.identity)
+                        : profileTabContext.identity === profile.identity;
 
                 return (
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                updateFireflyProfile({
+                                setProfileTabContext({
                                     source: profile.source,
                                     identity: profile.identity,
                                 });
 
                                 if (isProfilePage)
-                                    updateCurrentProfileState({
+                                    setProfileTab({
                                         source: profile.source,
                                         identity: profile.identity,
                                     });

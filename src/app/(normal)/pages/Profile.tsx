@@ -15,51 +15,38 @@ import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isSameFireflyProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
+import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
-import { ProfileTabContext } from '@/hooks/useFireflyProfileContext.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
-interface ProfilePageProps {
-    profiles: FireflyProfile[];
-}
-
-export function ProfilePage({ profiles }: ProfilePageProps) {
-    const { fireflyProfile } = ProfileTabContext.useContainer();
+export function ProfilePage() {
+    const { profileTab } = ProfileTabContext.useContainer();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
 
-    const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
-    const isMyProfile = currentFireflyProfilesAll.some((x) => isSameFireflyProfile(x, fireflyProfile));
-
-    const walletProfile =
-        fireflyProfile.source === Source.Wallet
-            ? (profiles.find((x) => x.source === Source.Wallet && isSameAddress(x.identity, fireflyProfile.source))
-                  ?.__origin__ as WalletProfile)
-            : undefined;
+    const profiles = useCurrentFireflyProfilesAll(profileTab);
+    const { socialProfile, walletProfile } = resolveFireflyProfiles(profileTab, profiles);
 
     const {
         data: profile = null,
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['profile', fireflyProfile],
+        queryKey: ['profile', profileTab],
         queryFn: async () => {
-            if (!fireflyProfile.identity || fireflyProfile.source === Source.Wallet) return null;
+            if (!profileTab.identity || profileTab.source === Source.Wallet) return null;
             // can't access the profile If not login Twitter.
-            if (fireflyProfile.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
-            const socialSource = narrowToSocialSource(fireflyProfile.source);
-
-            return getProfileById(socialSource, fireflyProfile.identity);
+            if (profileTab.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
+            const socialSource = narrowToSocialSource(profileTab.source);
+            return getProfileById(socialSource, profileTab.identity);
         },
         retry(failureCount, error) {
             if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
@@ -68,12 +55,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     });
 
     const { data: relations } = useQuery({
-        enabled: fireflyProfile.source === Source.Wallet,
-        queryKey: ['relation', fireflyProfile],
+        enabled: profileTab.source === Source.Wallet,
+        queryKey: ['relation', profileTab],
         queryFn: async () => {
-            if (fireflyProfile.source !== Source.Wallet || !fireflyProfile.identity) return EMPTY_LIST;
-
-            return FireflySocialMediaProvider.getNextIDRelations('ethereum', fireflyProfile.identity);
+            if (profileTab.source !== Source.Wallet || !profileTab.identity) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getNextIDRelations('ethereum', profileTab.identity);
         },
     });
 
@@ -92,11 +78,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     if (
         !isSuspended &&
-        !isMyProfile &&
+        !socialProfile &&
         !profile &&
         !walletProfile &&
         !isLoading &&
-        (!(fireflyProfile.source === Source.Twitter && !currentTwitterProfile) || !profiles.length)
+        (!(profileTab.source === Source.Twitter && !currentTwitterProfile) || !profiles.length)
     ) {
         notFound();
     }
@@ -108,7 +94,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
                     profile={profile}
                     walletProfile={walletProfile}
                     isSingleProfile={profiles.length === 1}
-                    isOtherProfile={!isMyProfile}
+                    isOtherProfile={!socialProfile}
                     displayName={
                         walletProfile
                             ? walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4)
@@ -119,9 +105,9 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
             {profiles.length > 1 || isProfilePage ? <ProfileSourceTabs profiles={profiles} /> : null}
             <ProfileContent
                 loading={isLoading}
-                source={fireflyProfile.source}
-                walletProfile={walletProfile}
+                source={profileTab.source}
                 profile={profile}
+                walletProfile={walletProfile}
                 profiles={profiles}
                 relations={relations}
                 isSuspended={isSuspended}

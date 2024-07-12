@@ -14,7 +14,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
-import { useFireflyProfileState } from '@/store/useProfileTabsStore.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 export interface LogoutModalProps {
     account?: Account;
@@ -66,7 +66,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                 await removeAllAccounts();
             }
 
-            useFireflyProfileState.getState().reset();
+            useProfileTabState.getState().reset();
 
             dispatch?.close();
             await delay(300);

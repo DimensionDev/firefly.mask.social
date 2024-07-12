@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 import { Source } from '@/constants/enum.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
-import { useFireflyProfiles } from '@/hooks/useFireflyProfile.js';
 
 export interface ProfileTab {
     source: Source;
@@ -15,14 +13,7 @@ export interface ProfileTab {
 function useProfileTabState(initialTab?: ProfileTab) {
     const [profileTab, setProfileTab] = useState<ProfileTab>(initialTab ?? { source: Source.Farcaster });
 
-    const fireflyProfiles = useFireflyProfiles(profileTab.source, profileTab.identity);
-    const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
-
     return {
-        profile: currentFireflyProfilesAll.find(
-            (x) => x.source === profileTab.source && x.identity === profileTab.identity,
-        ),
-
         profileTab,
         setProfileTab,
     };

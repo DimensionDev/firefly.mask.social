@@ -13,18 +13,18 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { useFireflyProfileState } from '@/store/useProfileTabsStore.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfileSourceTabs {
     profiles: FireflyProfile[];
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const { updateFireflyProfile, fireflyProfile: profile } = FireflyProfileContext.useContainer();
-    const updateCurrentProfileState = useFireflyProfileState.use.updateFireflyProfile();
+    const { setProfileTab } = useProfileTabState();
+    const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
@@ -46,11 +46,13 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
                             className={classNames(
-                                profile.source === value ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
+                                profileTabContext.source === value
+                                    ? 'border-b-2 border-fireflyBrand text-main'
+                                    : 'text-third',
                                 'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
                                 'md:h-[60px] md:py-[18px] md:leading-6',
                             )}
-                            aria-current={profile.source === value ? 'page' : undefined}
+                            aria-current={profileTabContext.source === value ? 'page' : undefined}
                             onClick={() =>
                                 startTransition(() => {
                                     scrollTo(0, 0);
@@ -69,12 +71,12 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                         : profiles.find((x) => x.source === value);
 
                                     if (isProfilePage)
-                                        updateCurrentProfileState({
+                                        setProfileTab({
                                             source: value,
                                             identity: target?.identity ?? '',
                                         });
 
-                                    updateFireflyProfile({
+                                    setProfileTabContext({
                                         source: value,
                                         identity: target?.identity,
                                     });

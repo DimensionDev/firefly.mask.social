@@ -3,21 +3,23 @@ import { compact, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { NotImplementedError } from '@/constants/error.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import type { ProfileTab } from '@/hooks/useProfileTabContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
-export function useCurrentFireflyProfile(source: SocialSource) {
-    const all = useCurrentFireflyProfiles()
-    return all.find((x) => x.source === source) ?? null;
+export function useCurrentFireflyProfiles(profileTab: ProfileTab) {
+    throw new NotImplementedError();
 }
 
-export function useCurrentFireflyProfiles() {
+export function useCurrentFireflyProfilesAll(profileTab?: ProfileTab) {
     const currentProfileAll = useCurrentProfileAll();
 
-    return useMemo<FireflyProfile[]>(() => {
+    // convert currentProfileAll to currentFireflyProfiles
+    const currentFireflyProfiles = useMemo<FireflyProfile[]>(() => {
         const currentFarcasterProfile = currentProfileAll[Source.Farcaster];
         const currentLensProfile = currentProfileAll[Source.Lens];
         const currentTwitterProfile = currentProfileAll[Source.Twitter];
@@ -53,14 +55,16 @@ export function useCurrentFireflyProfiles() {
                 SORTED_SOCIAL_SOURCES.indexOf(b.source as SocialSource),
         );
     }, [currentProfileAll]);
-}
 
-export function useCurrentFireflyProfilesAll(enabled = true) {
-    const currentProfileAll = useCurrentProfileAll();
-    const currentFireflyProfiles = useCurrentFireflyProfiles();
+    const { data: profilesByWallet = EMPTY_LIST } = useQuery({
+        queryKey: ['all-profiles', profileTab],
+        queryFn: async () => {
+            if (profileTab?.source !== Source.Wallet || !profileTab?.identity) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(profileTab.source, profileTab.identity);
+        },
+    });
 
-    const { data: profiles } = useQuery({
-        enabled,
+    const { data: profilesByPlatforms = EMPTY_LIST } = useQuery({
         queryKey: ['all-profiles', 'myself', currentProfileAll],
         queryFn: async () => {
             return FireflySocialMediaProvider.getAllPlatformProfiles(
@@ -72,8 +76,9 @@ export function useCurrentFireflyProfilesAll(enabled = true) {
     });
 
     return useMemo(() => {
-        if (!profiles) return currentFireflyProfiles;
-        // profile from currentProfileAll is always the first
-        return uniqBy([...currentFireflyProfiles, ...profiles], (x) => `${x.source}/${x.identity}`);
-    }, [profiles, currentFireflyProfiles]);
+        return uniqBy(
+            [...currentFireflyProfiles, ...profilesByPlatforms, ...profilesByWallet],
+            (x) => `${x.source}/${x.identity}`,
+        );
+    }, [profilesByPlatforms, currentFireflyProfiles, profilesByWallet]);
 }

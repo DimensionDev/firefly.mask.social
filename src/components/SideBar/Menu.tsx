@@ -31,12 +31,11 @@ import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createProfileTab } from '@/helpers/createDummyFireflyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSameFireflyProfile } from '@/helpers/isSameProfile.js';
+import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -68,11 +67,13 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {
+            if (!currentSource) return false;
             const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
-            const isMyProfile = currentFireflyProfilesAll.some(
-                (profile) => currentSource && isSameFireflyProfile(profile, createProfileTab(currentSource, identity)),
+            const { socialProfile } = resolveFireflyProfiles(
+                { source: currentSource, identity },
+                currentFireflyProfilesAll,
             );
-            return isMyProfile || pathname === PageRoute.Profile;
+            return !!socialProfile || pathname === PageRoute.Profile;
         }
         return isRoutePathname(pathname, href);
     };

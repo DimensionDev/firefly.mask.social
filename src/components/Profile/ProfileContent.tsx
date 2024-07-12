@@ -19,8 +19,8 @@ import { useTwitterStateStore } from '@/store/useProfileStore.js';
 interface ProfileContentProps {
     loading: boolean;
     source: Source;
-    walletProfile?: WalletProfile;
     profile?: Profile | null;
+    walletProfile?: WalletProfile | null;
     profiles: FireflyProfile[];
     relations?: Relation[];
     isSuspended?: boolean;
