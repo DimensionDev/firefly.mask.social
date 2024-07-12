@@ -1,4 +1,6 @@
 import { plural, Trans } from '@lingui/macro';
+import { useMotionValueEvent, useScroll } from 'framer-motion';
+import { useState } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
@@ -37,6 +39,12 @@ export function ProfileAction({ profile, isMyProfile }: InfoProps) {
 
 export function Info({ profile, isMyProfile }: InfoProps) {
     const isMedium = useIsMedium();
+    const [reached, setReached] = useState(false);
+    const { scrollY } = useScroll();
+
+    useMotionValueEvent(scrollY, 'change', (value) => {
+        setReached(value > 60);
+    });
 
     const source = profile.source;
     const followingCount = profile.followingCount ?? 0;
@@ -60,7 +68,9 @@ export function Info({ profile, isMyProfile }: InfoProps) {
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
-                        {profile && isMedium ? <ProfileAction profile={profile} isMyProfile={isMyProfile} /> : null}
+                        {profile && isMedium && !reached ? (
+                            <ProfileAction profile={profile} isMyProfile={isMyProfile} />
+                        ) : null}
                     </div>
                     <span className="text-[15px] text-secondary">@{profile.handle}</span>
                 </div>
