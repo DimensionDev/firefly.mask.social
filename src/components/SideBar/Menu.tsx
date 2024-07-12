@@ -3,8 +3,9 @@
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { usePathname } from 'next/navigation.js';
-import { memo } from 'react';
+import { compact, first } from 'lodash-es';
+import { usePathname, useSearchParams } from 'next/navigation.js';
+import { memo, useMemo } from 'react';
 
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
@@ -27,16 +28,18 @@ import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { IS_IOS } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useMyAllProfiles } from '@/hooks/useMyAllProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface MenuProps {
@@ -44,186 +47,188 @@ interface MenuProps {
 }
 
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
+    const params = useSearchParams();
+    const rawSource = params.get('source');
+    const currentSource = rawSource ? resolveSourceFromUrl(rawSource) : undefined;
     const currentChannel = useCurrentVisitingChannel();
     const isMedium = useIsMedium();
+    const map = useCurrentProfileAll();
 
     const { updateSidebarOpen } = useNavigatorState();
 
     const isLogin = useIsLogin();
     const pathname = usePathname();
 
-    const isMyProfile = useIsMyProfile(
-        currentSocialSource,
-        isRoutePathname(pathname, '/profile') ? pathname.split('/')[3] ?? '' : '',
-    );
+    const firstActiveProfile = useMemo(() => first(compact(SORTED_SOCIAL_SOURCES.map((x) => map[x]))), [map]);
+    const profileUrl = firstActiveProfile ? getProfileUrl(firstActiveProfile) : null;
 
-    const checkIsSelected = (href: `/${string}`) =>
-        href === PageRoute.Profile ? isMyProfile || pathname === PageRoute.Profile : isRoutePathname(pathname, href);
+    const myProfiles = useMyAllProfiles();
+
+    const checkIsSelected = (href: `/${string}`) => {
+        if (isRoutePathname(href, '/profile')) {
+            const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
+            const isMyProfile = myProfiles.some(
+                (profile) => profile.source === currentSource && profile.identity === identity,
+            );
+            return isMyProfile || pathname === PageRoute.Profile;
+        }
+        return isRoutePathname(pathname, href);
+    };
 
     return (
-        <>
-            <nav className="flex flex-1 flex-col">
-                <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                    <li className="flex overflow-hidden">
-                        <ul role="list" className="w-full overflow-hidden">
-                            {[
-                                {
-                                    href: PageRoute.Home,
-                                    name: <Trans>Discover</Trans>,
-                                    icon: DiscoverIcon,
-                                    selectedIcon: DiscoverSelectedIcon,
-                                },
-                                {
-                                    href: PageRoute.Following,
-                                    name: <Trans>Following</Trans>,
-                                    icon: FollowingIcon,
-                                    selectedIcon: FollowingSelectedIcon,
-                                },
-                                {
-                                    href: PageRoute.Notifications,
-                                    name: <Trans>Notifications</Trans>,
-                                    icon: NotificationIcon,
-                                    selectedIcon: NotificationSelectedIcon,
-                                },
-                                {
-                                    href: PageRoute.Bookmarks,
-                                    name: <Trans>Bookmarks</Trans>,
-                                    icon: BookmarkIcon,
-                                    selectedIcon: BookmarkSelectedIcon,
-                                },
-                                {
-                                    href: PageRoute.Profile,
-                                    name: <Trans>Profile</Trans>,
-                                    icon: ProfileIcon,
-                                    selectedIcon: ProfileSelectedIcon,
-                                },
-                                {
-                                    href: '/connect-wallet',
-                                    name: <Trans>Connect</Trans>,
-                                    icon: WalletIcon,
-                                    selectedIcon: WalletIcon,
-                                },
-                                {
-                                    href: PageRoute.Settings,
-                                    name: <Trans>Settings</Trans>,
-                                    icon: SettingsIcon,
-                                    selectedIcon: SettingsSelectedIcon,
-                                },
-                            ].map((item) => {
-                                const isSelected =
-                                    item.href === '/' ? pathname === '/' : checkIsSelected(item.href as `/${string}`);
-                                const Icon = isSelected ? item.selectedIcon : item.icon;
+        <nav className="flex flex-1 flex-col">
+            <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                <li className="flex overflow-hidden">
+                    <ul role="list" className="w-full overflow-hidden">
+                        {[
+                            {
+                                href: PageRoute.Home,
+                                name: <Trans>Discover</Trans>,
+                                icon: DiscoverIcon,
+                                selectedIcon: DiscoverSelectedIcon,
+                            },
+                            {
+                                href: PageRoute.Following,
+                                name: <Trans>Following</Trans>,
+                                icon: FollowingIcon,
+                                selectedIcon: FollowingSelectedIcon,
+                            },
+                            {
+                                href: PageRoute.Notifications,
+                                name: <Trans>Notifications</Trans>,
+                                icon: NotificationIcon,
+                                selectedIcon: NotificationSelectedIcon,
+                            },
+                            {
+                                href: PageRoute.Bookmarks,
+                                name: <Trans>Bookmarks</Trans>,
+                                icon: BookmarkIcon,
+                                selectedIcon: BookmarkSelectedIcon,
+                            },
+                            {
+                                href: profileUrl ?? PageRoute.Profile,
+                                name: <Trans>Profile</Trans>,
+                                icon: ProfileIcon,
+                                selectedIcon: ProfileSelectedIcon,
+                            },
+                            {
+                                href: '/connect-wallet',
+                                name: <Trans>Connect</Trans>,
+                                icon: WalletIcon,
+                                selectedIcon: WalletIcon,
+                            },
+                            {
+                                href: PageRoute.Settings,
+                                name: <Trans>Settings</Trans>,
+                                icon: SettingsIcon,
+                                selectedIcon: SettingsSelectedIcon,
+                            },
+                        ].map((item) => {
+                            const isSelected =
+                                item.href === '/' ? pathname === '/' : checkIsSelected(item.href as `/${string}`);
+                            const Icon = isSelected ? item.selectedIcon : item.icon;
 
-                                return (
-                                    <li
-                                        className="flex rounded-lg text-main outline-none"
-                                        key={item.href}
-                                        onClick={() => updateSidebarOpen(false)}
-                                    >
-                                        {item.href === '/connect-wallet' ? (
-                                            <ConnectWallet collapsed={collapsed} />
-                                        ) : (
-                                            <Link
-                                                href={item.href}
-                                                className={classNames(
-                                                    'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2.5 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3',
-                                                    { 'font-bold': isSelected },
-                                                )}
-                                            >
-                                                {collapsed ? (
-                                                    <Tooltip content={item.name} placement="right">
-                                                        <Icon width={20} height={20} />
-                                                    </Tooltip>
-                                                ) : (
+                            return (
+                                <li
+                                    className="flex rounded-lg text-main outline-none"
+                                    key={item.href}
+                                    onClick={() => updateSidebarOpen(false)}
+                                >
+                                    {item.href === '/connect-wallet' ? (
+                                        <ConnectWallet collapsed={collapsed} />
+                                    ) : (
+                                        <Link
+                                            href={item.href}
+                                            className={classNames(
+                                                'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2.5 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3',
+                                                { 'font-bold': isSelected },
+                                            )}
+                                        >
+                                            {collapsed ? (
+                                                <Tooltip content={item.name} placement="right">
                                                     <Icon width={20} height={20} />
-                                                )}
+                                                </Tooltip>
+                                            ) : (
+                                                <Icon width={20} height={20} />
+                                            )}
 
-                                                <span
-                                                    style={{
-                                                        display: collapsed ? 'none' : 'inline',
-                                                    }}
-                                                >
-                                                    {item.name}
-                                                </span>
-                                            </Link>
-                                        )}
-                                    </li>
-                                );
-                            })}
-                            {!isMedium && IS_IOS ? (
-                                <li>
-                                    <OpenFireflyAppButton className="flex w-full items-center gap-x-3 px-2 py-2.5 text-fireflyBrand">
-                                        <CircleShareIcon width={20} height={20} />
-                                        <span className="text-xl font-bold leading-6">
-                                            <Trans>Mobile App</Trans>
-                                        </span>
-                                    </OpenFireflyAppButton>
+                                            <span style={{ display: collapsed ? 'none' : 'inline' }}>{item.name}</span>
+                                        </Link>
+                                    )}
                                 </li>
-                            ) : null}
-                            {isLogin ? (
-                                collapsed ? (
-                                    <li className="text-center">
-                                        <Tooltip content={t`Post`} placement="right">
-                                            <ClickableButton
-                                                className="rounded-full bg-main p-1 text-primaryBottom"
-                                                onClick={() =>
-                                                    ComposeModalRef.open({
-                                                        type: 'compose',
-                                                        channel: currentChannel,
-                                                    })
-                                                }
-                                            >
-                                                <PlusIcon className="h-5 w-5" aria-hidden="true" />
-                                            </ClickableButton>
-                                        </Tooltip>
-                                    </li>
-                                ) : (
-                                    <li>
+                            );
+                        })}
+                        {!isMedium && IS_IOS ? (
+                            <li>
+                                <OpenFireflyAppButton className="flex w-full items-center gap-x-3 px-2 py-2.5 text-fireflyBrand">
+                                    <CircleShareIcon width={20} height={20} />
+                                    <span className="text-xl font-bold leading-6">
+                                        <Trans>Mobile App</Trans>
+                                    </span>
+                                </OpenFireflyAppButton>
+                            </li>
+                        ) : null}
+                        {isLogin ? (
+                            collapsed ? (
+                                <li className="text-center">
+                                    <Tooltip content={t`Post`} placement="right">
                                         <ClickableButton
-                                            className="mt-6 hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
-                                            onClick={() => {
+                                            className="rounded-full bg-main p-1 text-primaryBottom"
+                                            onClick={() =>
                                                 ComposeModalRef.open({
                                                     type: 'compose',
                                                     channel: currentChannel,
-                                                });
-                                            }}
+                                                })
+                                            }
                                         >
-                                            <Trans>Post</Trans>
+                                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
                                         </ClickableButton>
-                                    </li>
-                                )
-                            ) : null}
-                        </ul>
-                    </li>
-                    <li className="-mx-2 mb-20 mt-auto text-center">
-                        {isLogin ? (
-                            <LoginStatusBar collapsed={collapsed} />
-                        ) : collapsed ? (
-                            <ClickableButton
-                                onClick={() => {
-                                    LoginModalRef.open();
-                                }}
-                                className="rounded-full bg-main p-1 text-primaryBottom"
-                            >
-                                <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
-                            </ClickableButton>
-                        ) : (
-                            <ClickableButton
-                                onClick={async () => {
-                                    updateSidebarOpen(false);
-                                    await delay(300);
-                                    LoginModalRef.open();
-                                }}
-                                className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
-                            >
-                                <Trans>Login</Trans>
-                            </ClickableButton>
-                        )}
-                    </li>
-                </ul>
-            </nav>
-        </>
+                                    </Tooltip>
+                                </li>
+                            ) : (
+                                <li>
+                                    <ClickableButton
+                                        className="mt-6 hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
+                                        onClick={() => {
+                                            ComposeModalRef.open({
+                                                type: 'compose',
+                                                channel: currentChannel,
+                                            });
+                                        }}
+                                    >
+                                        <Trans>Post</Trans>
+                                    </ClickableButton>
+                                </li>
+                            )
+                        ) : null}
+                    </ul>
+                </li>
+                <li className="-mx-2 mb-20 mt-auto text-center">
+                    {isLogin ? (
+                        <LoginStatusBar collapsed={collapsed} />
+                    ) : collapsed ? (
+                        <ClickableButton
+                            onClick={() => {
+                                LoginModalRef.open();
+                            }}
+                            className="rounded-full bg-main p-1 text-primaryBottom"
+                        >
+                            <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
+                        </ClickableButton>
+                    ) : (
+                        <ClickableButton
+                            onClick={async () => {
+                                updateSidebarOpen(false);
+                                await delay(300);
+                                LoginModalRef.open();
+                            }}
+                            className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
+                        >
+                            <Trans>Login</Trans>
+                        </ClickableButton>
+                    )}
+                </li>
+            </ul>
+        </nav>
     );
 });

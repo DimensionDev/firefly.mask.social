@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import MessageIcon from '@/assets/message.svg';
+import MessagesIcon from '@/assets/messages.svg';
 import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/CommentsFooter.js';
 import { LensHideComments } from '@/components/LensHideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -63,7 +63,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                     },
                 }}
                 NoResultsFallbackProps={{
-                    icon: <MessageIcon width={24} height={24} />,
+                    icon: <MessagesIcon width={24} height={24} />,
                     message: <Trans>Be the first one to comment!</Trans>,
                 }}
             />
