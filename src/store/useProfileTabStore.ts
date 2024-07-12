@@ -5,18 +5,15 @@ import { immer } from 'zustand/middleware/immer';
 import { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
-import type { FireFlyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
-interface FireflyProfileState {
-    fireflyProfile: Omit<FireFlyProfile, 'displayName' | '__origin__'>;
+interface ProfileTabState {
+    fireflyProfile: Omit<FireflyProfile, 'displayName' | '__origin__'>;
     updateFireflyProfile: (state: { source: Source; identity: string }) => void;
     reset: () => void;
 }
 
-const useFireflyProfileStateBase = create<
-    FireflyProfileState,
-    [['zustand/persist', unknown], ['zustand/immer', never]]
->(
+const useProfileTabBase = create<ProfileTabState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
         immer((set) => ({
             fireflyProfile: {
@@ -43,4 +40,4 @@ const useFireflyProfileStateBase = create<
     ),
 );
 
-export const useFireflyProfileState = createSelectors(useFireflyProfileStateBase);
+export const useProfileTabState = createSelectors(useProfileTabBase);

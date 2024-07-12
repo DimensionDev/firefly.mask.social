@@ -17,11 +17,11 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import type { FireFlyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import { useFireflyProfileState } from '@/store/useProfileTabsStore.js';
 
 interface ProfileTabsProps {
-    profiles: FireFlyProfile[];
+    profiles: FireflyProfile[];
 }
 
 const resolveProfileTabColor = createLookupTableResolver<

@@ -50,7 +50,7 @@ import {
     type CommentsResponse,
     type DiscoverChannelsResponse,
     type FireflyFarcasterProfileResponse,
-    type FireFlyProfile,
+    type FireflyProfile,
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
@@ -367,7 +367,7 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getAllPlatformProfileByIdentity(identity: string, source: Source): Promise<FireFlyProfile[]> {
+    async getAllPlatformProfileByIdentity(identity: string, source: Source): Promise<FireflyProfile[]> {
         let queryKey = '';
         switch (source) {
             case Source.Lens:
@@ -402,7 +402,7 @@ export class FireflySocialMedia implements Provider {
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
 
-    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireFlyProfile[]> {
+    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
         if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
 
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {

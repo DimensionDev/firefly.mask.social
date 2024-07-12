@@ -7,7 +7,7 @@ import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
 import { type SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { createDummyFireflyProfile } from '@/helpers/createDummyFireflyProfile.js';
+import { createProfileTab } from '@/helpers/createDummyFireflyProfile.js';
 import { isSameFireflyProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
@@ -24,7 +24,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
 
     const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
     const isMyProfile = currentFireflyProfilesAll.some((profile) =>
-        isSameFireflyProfile(profile, createDummyFireflyProfile(currentSource, identity)),
+        isSameFireflyProfile(profile, createProfileTab(currentSource, identity)),
     );
 
     const { data: otherProfiles = EMPTY_LIST, isLoading } = useQuery({

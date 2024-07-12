@@ -20,19 +20,19 @@ import { isSameFireflyProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
+import { ProfileTabContext } from '@/hooks/useFireflyProfileContext.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflyProfileContext } from '@/hooks/useFireflyProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireFlyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface ProfilePageProps {
-    profiles: FireFlyProfile[];
+    profiles: FireflyProfile[];
 }
 
 export function ProfilePage({ profiles }: ProfilePageProps) {
-    const { fireflyProfile } = FireflyProfileContext.useContainer();
+    const { fireflyProfile } = ProfileTabContext.useContainer();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();

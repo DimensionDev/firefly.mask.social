@@ -31,7 +31,7 @@ import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createDummyFireflyProfile } from '@/helpers/createDummyFireflyProfile.js';
+import { createProfileTab } from '@/helpers/createDummyFireflyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyProfile } from '@/helpers/isSameProfile.js';
@@ -70,8 +70,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
         if (isRoutePathname(href, '/profile')) {
             const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
             const isMyProfile = currentFireflyProfilesAll.some(
-                (profile) =>
-                    currentSource && isSameFireflyProfile(profile, createDummyFireflyProfile(currentSource, identity)),
+                (profile) => currentSource && isSameFireflyProfile(profile, createProfileTab(currentSource, identity)),
             );
             return isMyProfile || pathname === PageRoute.Profile;
         }

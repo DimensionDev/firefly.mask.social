@@ -12,7 +12,7 @@ import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.
 import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import type { FireFlyProfile, Relation, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, Relation, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
@@ -21,7 +21,7 @@ interface ProfileContentProps {
     source: Source;
     walletProfile?: WalletProfile;
     profile?: Profile | null;
-    profiles: FireFlyProfile[];
+    profiles: FireflyProfile[];
     relations?: Relation[];
     isSuspended?: boolean;
 }

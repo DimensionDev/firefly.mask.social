@@ -3,16 +3,16 @@ import { compact, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireFlyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 export function useCurrentFireflyProfiles() {
     const currentProfileAll = useCurrentProfileAll();
 
-    return useMemo<FireFlyProfile[]>(() => {
+    return useMemo<FireflyProfile[]>(() => {
         const currentFarcasterProfile = currentProfileAll[Source.Farcaster];
         const currentLensProfile = currentProfileAll[Source.Lens];
         const currentTwitterProfile = currentProfileAll[Source.Twitter];
