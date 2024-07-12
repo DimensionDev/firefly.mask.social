@@ -9,9 +9,8 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
@@ -29,7 +28,6 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
-    const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
 
     const tabs = useMemo(() => {
         return SORTED_PROFILE_SOURCES.filter((source) => {
@@ -44,8 +42,8 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const updateParams = useUpdateParams();
 
     return (
-        <div className="border-b border-line bg-primaryBottom px-4">
-            <nav className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
+        <nav className="border-b border-line bg-primaryBottom px-4">
+            <ul className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
                 {tabs.map((value) => (
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
@@ -67,21 +65,23 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                     const target = currentProfile
                                         ? {
                                               source: currentProfile.source,
-                                              identity: getProfileIdentity(currentProfile),
+                                              identity: resolveProfileId(currentProfile),
                                           }
                                         : profiles.find((x) => x.source === value);
 
                                     if (isProfilePage)
-                                        updateCurrentProfileState({ source: value, identity: target?.identity ?? '' });
+                                        updateCurrentProfileState({
+                                            source: value,
+                                            identity: target?.identity ?? '',
+                                        });
 
                                     update?.({
                                         source: value,
                                         identity: target?.identity,
                                     });
-                                    const pathname =
-                                        isOtherProfile && target
-                                            ? urlcat('/profile/:id', { id: target.identity })
-                                            : undefined;
+                                    const pathname = target
+                                        ? urlcat('/profile/:id', { id: target.identity })
+                                        : undefined;
 
                                     updateParams(
                                         new URLSearchParams({
@@ -96,7 +96,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                         </ClickableButton>
                     </li>
                 ))}
-            </nav>
-        </div>
+            </ul>
+        </nav>
     );
 }

@@ -15,10 +15,10 @@ import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
+import { useMyAllProfiles } from '@/hooks/useMyAllProfiles.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -33,9 +33,10 @@ interface ProfilePageProps {
 export function ProfilePage({ profiles }: ProfilePageProps) {
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
     const { source, identity } = ProfileContext.useContainer();
+    const myProfiles = useMyAllProfiles();
 
     const pathname = usePathname();
-    const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
+    const isOtherProfile = !myProfiles.some((x) => x.source === source && x.identity === identity);
 
     const walletProfile = useMemo(() => {
         return source === Source.Wallet

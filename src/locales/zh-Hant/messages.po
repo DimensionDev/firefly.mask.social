@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-11 12:01\n"
+"PO-Revision-Date: 2024-07-12 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -103,7 +103,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr ""
 
 msgid "The post you quoted/replied has already deleted"
-msgstr ""
+msgstr "您引用/回覆的貼文已經被刪除"
 
 msgid "Debug Connection"
 msgstr "除錯連接"
@@ -205,7 +205,7 @@ msgid "Poll"
 msgstr "投票"
 
 msgid "Scheduled"
-msgstr ""
+msgstr "已排程"
 
 msgid "Solana"
 msgstr "Solana"
@@ -217,7 +217,7 @@ msgid "Your account is now connected."
 msgstr "您的帳戶現已連接。"
 
 msgid "Report submitted on {0}"
-msgstr ""
+msgstr "檢舉已於{0} 提交"
 
 msgid "Debug Console"
 msgstr ""
@@ -247,7 +247,7 @@ msgid "Failed to login"
 msgstr "登入失敗"
 
 msgid "<0>Posted</0>an article"
-msgstr ""
+msgstr "<0>發布</0>一篇文章"
 
 msgid "Poll is currently only supported on {0}"
 msgstr "投票功能目前僅在 {0} 支持"
@@ -322,7 +322,7 @@ msgid "Device Logged In"
 msgstr "裝置已登入"
 
 msgid "Report submitted"
-msgstr ""
+msgstr "檢舉已提交"
 
 msgid "Username"
 msgstr "用戶名"

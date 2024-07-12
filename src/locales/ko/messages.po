@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-11 12:01\n"
+"PO-Revision-Date: 2024-07-12 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -244,9 +244,6 @@ msgid "Failed to like the comment."
 msgstr ""
 
 msgid "Failed to login"
-msgstr ""
-
-msgid "Failed to set schedule time"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
@@ -763,6 +760,9 @@ msgid "Choice {0}"
 msgstr ""
 
 msgid "Send Feedback"
+msgstr ""
+
+msgid "Your draft was saved."
 msgstr ""
 
 msgid "The chainId mismatch."
@@ -1485,6 +1485,9 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
+msgid "Failed to set schedule time."
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr ""
 
@@ -1882,9 +1885,6 @@ msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
-msgstr ""
-
-msgid "Your draft was saved"
 msgstr ""
 
 msgid "A thread must have at least two posts."
