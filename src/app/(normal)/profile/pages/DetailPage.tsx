@@ -4,7 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
-import { type SourceInURL } from '@/constants/enum.js';
+import { Loading } from '@/components/Loading.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -13,7 +14,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Props {
     identity: string;
-    source: SourceInURL;
+    source: SocialSourceInURL;
 }
 
 export function ProfileDetailPage({ identity, source }: Props) {
@@ -24,7 +25,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
     );
 
-    const { data: othersProfiles = EMPTY_LIST } = useQuery({
+    const { data: othersProfiles = EMPTY_LIST, isLoading } = useQuery({
         enabled: !isCurrentProfile,
         queryKey: ['all-profiles', profileTab.source, profileTab.identity],
         queryFn: async () => {
@@ -32,6 +33,10 @@ export function ProfileDetailPage({ identity, source }: Props) {
             return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(profileTab.source, profileTab.identity);
         },
     });
+
+    if (isLoading && !isCurrentProfile) {
+        return <Loading />;
+    }
 
     if (!identity) {
         notFound();

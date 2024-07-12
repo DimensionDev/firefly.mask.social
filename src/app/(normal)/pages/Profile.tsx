@@ -42,7 +42,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
     );
 
-    const { socialProfile, walletProfile } = resolveFireflyProfiles(profileTab, profiles);
+    const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
 
     const {
         data: profile = null,

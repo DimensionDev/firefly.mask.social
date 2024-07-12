@@ -55,7 +55,7 @@ export function useCurrentFireflyProfilesAll() {
     const currentProfileAll = useCurrentProfileAll();
     const currentFireflyProfiles = useCurrentFireflyProfiles();
 
-    const { data: profilesByPlatforms = EMPTY_LIST } = useQuery({
+    const { data: profiles = EMPTY_LIST } = useQuery({
         queryKey: ['all-profiles', 'myself', currentProfileAll],
         queryFn: async () => {
             return FireflySocialMediaProvider.getAllPlatformProfiles(
@@ -67,6 +67,6 @@ export function useCurrentFireflyProfilesAll() {
     });
 
     return useMemo(() => {
-        return uniqBy([...currentFireflyProfiles, ...profilesByPlatforms], (x) => `${x.source}/${x.identity}`);
-    }, [currentFireflyProfiles, profilesByPlatforms]);
+        return uniqBy([...currentFireflyProfiles, ...profiles], (x) => `${x.source}/${x.identity}`);
+    }, [currentFireflyProfiles, profiles]);
 }

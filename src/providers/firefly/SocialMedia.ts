@@ -402,19 +402,13 @@ export class FireflySocialMedia implements Provider {
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
 
-    async getAllPlatformProfiles(
-        lensHandle?: string,
-        fid?: string,
-        twitterId?: string,
-        walletAddress?: string,
-    ): Promise<FireflyProfile[]> {
+    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
         if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
 
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {
             twitterId,
             lensHandle,
             fid,
-            walletAddress,
         });
 
         const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
@@ -436,7 +430,6 @@ export class FireflySocialMedia implements Provider {
         });
 
         const relations = resolveFireflyResponseData(response);
-
         return relations;
     }
 
