@@ -6,10 +6,10 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { useDeveloperSettings } from '@/store/useDeveloperSettings.js';
+import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 export default function Settings() {
-    const { useDevelopmentAPI, updateUseDevelopmentAPI } = useDeveloperSettings();
+    const { useDevelopmentAPI, updateUseDevelopmentAPI } = useDeveloperSettingsState();
 
     return (
         <Section>
