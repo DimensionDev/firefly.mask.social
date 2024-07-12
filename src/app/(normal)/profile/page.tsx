@@ -5,14 +5,14 @@ import { redirect, RedirectType } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentFireflyProfileAll } from '@/hooks/useCurrentProfile.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfile.js';
+import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
 import { useProfileTabState } from '@/store/useProfileTabsStore.js';
 
 export default function Page() {
     const { currentProfileTabState } = useProfileTabState();
 
-    const currentFireflyProfileAll = useCurrentFireflyProfileAll();
+    const currentFireflyProfileAll = useCurrentFireflyProfiles();
     const profile = first(currentFireflyProfileAll);
 
     if (profile) {
@@ -20,7 +20,7 @@ export default function Page() {
     }
 
     return (
-        <ProfileContext.Provider
+        <FireflyProfileContext.Provider
             initialState={{
                 source: currentProfileTabState.source,
                 identity:
@@ -29,6 +29,6 @@ export default function Page() {
             }}
         >
             <ProfilePage profiles={currentFireflyProfileAll} />
-        </ProfileContext.Provider>
+        </FireflyProfileContext.Provider>
     );
 }

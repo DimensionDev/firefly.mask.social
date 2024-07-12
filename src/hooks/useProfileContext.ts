@@ -4,18 +4,20 @@ import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 import { Source } from '@/constants/enum.js';
+import { createDummyFireflyProfile } from '@/helpers/createDummyFireflyProfile.js';
 
-interface ProfileState {
+interface FireflyProfileState {
     source: Source;
     identity?: string;
 }
-function useProfileContext(initialState?: ProfileState) {
-    const [value, setValue] = useState<ProfileState>(initialState ?? { source: Source.Farcaster });
+
+function useFireflyProfileContext(initialState?: FireflyProfileState) {
+    const [value, setValue] = useState<FireflyProfileState>(initialState ?? { source: Source.Farcaster });
 
     return {
-        ...value,
-        update: setValue,
+        fireflyProfile: createDummyFireflyProfile(value.source, value.identity),
+        updateFireflyProfile: setValue,
     };
 }
 
-export const ProfileContext = createContainer(useProfileContext);
+export const FireflyProfileContext = createContainer(useFireflyProfileContext);

@@ -4,7 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { getCurrentSource } from '@/store/useGlobalStore.js';
+import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 
 interface ProfileTabState {
     currentProfileTabState: {
@@ -19,7 +19,7 @@ const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unkn
     persist(
         immer((set) => ({
             currentProfileTabState: {
-                source: getCurrentSource(),
+                source: getCurrentSourceFromUrl(),
                 identity: '',
             },
             updateCurrentProfileState: (profileState: { source: Source; identity: string }) =>
@@ -29,7 +29,7 @@ const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unkn
             reset: () => {
                 set((state) => {
                     state.currentProfileTabState = {
-                        source: getCurrentSource(),
+                        source: getCurrentSourceFromUrl(),
                         identity: '',
                     };
                 });

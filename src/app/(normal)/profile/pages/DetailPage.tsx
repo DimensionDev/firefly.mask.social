@@ -7,9 +7,11 @@ import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
 import { type SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { createDummyFireflyProfile } from '@/helpers/createDummyFireflyProfile.js';
+import { isSameFireflyProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { useMyAllProfiles } from '@/hooks/useMyAllProfiles.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
+import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Props {
@@ -20,8 +22,11 @@ interface Props {
 export function ProfileDetailPage({ identity, source }: Props) {
     const currentSource = resolveSourceFromUrl(source);
 
-    const myProfiles = useMyAllProfiles();
-    const isMyProfile = myProfiles.some((profile) => profile.source === currentSource && profile.identity === identity);
+    const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
+    const isMyProfile = currentFireflyProfilesAll.some((profile) =>
+        isSameFireflyProfile(profile, createDummyFireflyProfile(currentSource, identity)),
+    );
+
     const { data: otherProfiles = EMPTY_LIST, isLoading } = useQuery({
         enabled: !isMyProfile,
         queryKey: ['all-profiles', currentSource, identity],
@@ -33,8 +38,6 @@ export function ProfileDetailPage({ identity, source }: Props) {
               },
     });
 
-    const profiles = isMyProfile ? myProfiles : otherProfiles;
-
     if (isLoading && !isMyProfile) {
         return <Loading />;
     }
@@ -43,9 +46,11 @@ export function ProfileDetailPage({ identity, source }: Props) {
         notFound();
     }
 
+    const profiles = isMyProfile ? currentFireflyProfilesAll : otherProfiles;
+
     return (
-        <ProfileContext.Provider initialState={{ source: currentSource, identity }}>
+        <FireflyProfileContext.Provider initialState={{ source: currentSource, identity }}>
             <ProfilePage profiles={profiles} />
-        </ProfileContext.Provider>
+        </FireflyProfileContext.Provider>
     );
 }
