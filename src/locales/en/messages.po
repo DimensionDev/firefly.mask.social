@@ -151,9 +151,6 @@ msgstr "Airdrop Scam"
 msgid "Collect Action is not supported yet."
 msgstr "Collect Action is not supported yet."
 
-msgid "This entry has been permanently stored on-chain and signed by its creator"
-msgstr "This entry has been permanently stored on-chain and signed by its creator"
-
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
 
@@ -540,6 +537,9 @@ msgstr "No wallet client found. Please connect your wallet."
 
 msgid "THREAD POST"
 msgstr "THREAD POST"
+
+msgid "This entry has been permanently stored on-chain and signed by its creator."
+msgstr "This entry has been permanently stored on-chain and signed by its creator."
 
 msgid "Frame Validator"
 msgstr "Frame Validator"

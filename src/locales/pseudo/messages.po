@@ -151,9 +151,6 @@ msgstr ""
 msgid "Collect Action is not supported yet."
 msgstr ""
 
-msgid "This entry has been permanently stored on-chain and signed by its creator"
-msgstr ""
-
 msgid "Tax can be modified"
 msgstr ""
 
@@ -539,6 +536,9 @@ msgid "No wallet client found. Please connect your wallet."
 msgstr ""
 
 msgid "THREAD POST"
+msgstr ""
+
+msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr ""
 
 msgid "Frame Validator"

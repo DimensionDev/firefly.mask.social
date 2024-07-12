@@ -128,7 +128,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 {authorUrl && !isMuted ? (
                     <div className="mb-4 mt-4 rounded-2xl border border-line bg-bg p-2">
                         <div className="border-b border-line pb-2 text-sm">
-                            <Trans>This entry has been permanently stored on-chain and signed by its creator</Trans>
+                            <Trans>This entry has been permanently stored on-chain and signed by its creator.</Trans>
                         </div>
 
                         <Link rel="noreferrer noopener" target="_blank" href={authorUrl} className="mt-3 text-sm">

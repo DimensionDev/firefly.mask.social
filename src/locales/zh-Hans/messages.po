@@ -156,9 +156,6 @@ msgstr "空投骗局"
 msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
 
-msgid "This entry has been permanently stored on-chain and signed by its creator"
-msgstr "这个入口已经被其创建者签名并永久存储上链"
-
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
 
@@ -545,6 +542,9 @@ msgstr "未找到钱包。请尝试连接。"
 
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
+
+msgid "This entry has been permanently stored on-chain and signed by its creator."
+msgstr "这个入口已经被其创建者签名并永久存储上链"
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"
