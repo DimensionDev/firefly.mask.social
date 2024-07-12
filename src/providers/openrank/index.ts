@@ -6,7 +6,7 @@ import type { TopProfile } from '@/providers/openrank/types.js';
 
 class OpenRank {
     getTopProfiles(options?: { offset?: number; limit?: number }) {
-        const url = urlcat(`${env.external.OPENRANK_URL}`, '/scores/global/engagement/rankings', {
+        const url = urlcat(`${env.external.NEXT_PUBLIC_OPENRANK_URL}`, '/scores/global/engagement/rankings', {
             offset: options?.offset,
             limit: options?.limit,
         });
