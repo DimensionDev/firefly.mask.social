@@ -1,5 +1,4 @@
 import { plural, Trans } from '@lingui/macro';
-import { usePathname } from 'next/navigation.js';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
@@ -7,7 +6,7 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileLoginStatus } from '@/components/Profile/ProfileLoginStatus.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -18,29 +17,25 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
     profile: Profile;
+    isMyProfile: boolean;
 }
 
-export function ProfileAction({ profile }: InfoProps) {
-    const pathname = usePathname();
-
+export function ProfileAction({ profile, isMyProfile }: InfoProps) {
     if (profile.source === Source.Twitter) return null;
-
-    // TODO: This is a temporary solution
-    const isSelf = pathname === PageRoute.Profile;
 
     return (
         <>
-            {isSelf ? (
+            {isMyProfile ? (
                 <ProfileLoginStatus className="ml-auto" profile={profile} />
             ) : (
                 <FollowButton className="ml-auto" profile={profile} />
             )}
-            <ProfileMoreAction profile={profile} isSelf={isSelf} />
+            <ProfileMoreAction profile={profile} isMyProfile={isMyProfile} />
         </>
     );
 }
 
-export function Info({ profile }: InfoProps) {
+export function Info({ profile, isMyProfile }: InfoProps) {
     const isMedium = useIsMedium();
 
     const source = profile.source;
@@ -65,7 +60,7 @@ export function Info({ profile }: InfoProps) {
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
-                        {profile && isMedium ? <ProfileAction profile={profile} /> : null}
+                        {profile && isMedium ? <ProfileAction profile={profile} isMyProfile={isMyProfile} /> : null}
                     </div>
                     <span className="text-[15px] text-secondary">@{profile.handle}</span>
                 </div>

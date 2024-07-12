@@ -16,9 +16,10 @@ interface TitleProps {
     walletProfile?: WalletProfile | null;
     displayName?: string;
     isSingleProfile?: boolean;
+    isMyProfile: boolean;
 }
 
-export function Title({ profile, walletProfile, displayName, isSingleProfile }: TitleProps) {
+export function Title({ profile, walletProfile, displayName, isSingleProfile, isMyProfile }: TitleProps) {
     const [reached, setReached] = useState(false);
 
     const { scrollY } = useScroll();
@@ -35,7 +36,7 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile }: 
     const renderActions = () => {
         if (!reached && isMedium) return null;
         if (profile?.source === Source.Twitter) return null;
-        if (profile) return <ProfileAction profile={profile} />;
+        if (profile) return <ProfileAction profile={profile} isMyProfile={isMyProfile} />;
         if (walletProfile)
             return (
                 <>

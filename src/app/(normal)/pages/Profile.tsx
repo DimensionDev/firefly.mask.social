@@ -104,6 +104,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         <div>
             {!isSuspended ? (
                 <Title
+                    isMyProfile={!isOtherProfile}
                     profile={profile}
                     walletProfile={walletProfile}
                     isSingleProfile={profiles.length === 1}
@@ -116,6 +117,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
             ) : null}
             {profiles.length > 1 || pathname === PageRoute.Profile ? <ProfileSourceTabs profiles={profiles} /> : null}
             <ProfileContent
+                isMyProfile={!isOtherProfile}
                 loading={isLoading}
                 source={source}
                 walletProfile={walletProfile}

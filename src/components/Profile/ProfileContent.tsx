@@ -24,6 +24,7 @@ interface ProfileContentProps {
     profiles: FireFlyProfile[];
     relations?: Relation[];
     isSuspended?: boolean;
+    isMyProfile: boolean;
 }
 
 export function ProfileContent({
@@ -34,6 +35,7 @@ export function ProfileContent({
     profiles,
     relations,
     isSuspended,
+    isMyProfile,
 }: ProfileContentProps) {
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
@@ -45,13 +47,13 @@ export function ProfileContent({
             return <WalletInfo profile={walletProfile} relations={relations} />;
         }
         if (profile) {
-            return <Info profile={profile} />;
+            return <Info profile={profile} isMyProfile={isMyProfile} />;
         }
         if (isSuspended) {
             return <SuspendedAccountInfo source={source as SocialSource} />;
         }
         return null;
-    }, [profile, walletProfile, source, relations, isSuspended]);
+    }, [profile, walletProfile, source, relations, isSuspended, isMyProfile]);
 
     const content = useMemo(() => {
         if (isSuspended) {

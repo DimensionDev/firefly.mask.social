@@ -50,7 +50,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
     return (
         <ClickableButton
             className={getButtonClassName('bg-lightMain text-lightBottom', className)}
-            onClick={() => LoginModalRef.open({ source: profile.source })}
+            onClick={() => LoginModalRef.open({ source: profile.source, expectProfile: profile })}
         >
             <Trans>Login</Trans>
         </ClickableButton>
