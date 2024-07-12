@@ -15,7 +15,7 @@ import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
 import { useProfileTabState } from '@/store/useProfileTabsStore.js';
@@ -68,23 +68,24 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
     const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
     const currentProfiles = useCurrentProfileAll();
-    const { update, identity: currentProfile, source } = ProfileContext.useContainer();
+    const { updateFireflyProfile, fireflyProfile } = FireflyProfileContext.useContainer();
+
     const pathname = usePathname();
     const updateParams = useUpdateParams();
 
     const isProfilePage = pathname === PageRoute.Profile;
-    const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+    const isNoProfilePage = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
 
     useEffect(() => {
-        if (!isProfilePage || !(source in currentProfiles)) return;
+        if (!isProfilePage || !(fireflyProfile.source in currentProfiles)) return;
 
-        const profile = currentProfiles[source as SocialSource];
+        const profile = currentProfiles[fireflyProfile.source as SocialSource];
         if (profile) {
             const identity = resolveProfileId(profile) ?? '';
-            update?.({ source, identity });
-            updateCurrentProfileState({ source, identity });
+            updateFireflyProfile({ source: fireflyProfile.source, identity });
+            updateCurrentProfileState({ source: fireflyProfile.source, identity });
         }
-    }, [isProfilePage, currentProfiles, source, update, updateCurrentProfileState]);
+    }, [isProfilePage, fireflyProfile, updateFireflyProfile, currentProfiles, updateCurrentProfileState]);
 
     if (profiles.length <= 1) return null;
 
@@ -95,14 +96,14 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                 const isActive =
                     profile.source === Source.Wallet
-                        ? isSameAddress(profile.identity, currentProfile)
-                        : currentProfile === profile.identity;
+                        ? isSameAddress(profile.identity, fireflyProfile.identity)
+                        : fireflyProfile.identity === profile.identity;
 
                 return (
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                update?.({
+                                updateFireflyProfile({
                                     source: profile.source,
                                     identity: profile.identity,
                                 });
@@ -117,7 +118,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                     new URLSearchParams({
                                         source: resolveSourceInURL(profile.source),
                                     }),
-                                    isOtherProfile ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
+                                    isNoProfilePage ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
                                 );
                             });
                         }}

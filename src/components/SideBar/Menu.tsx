@@ -31,14 +31,16 @@ import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createDummyFireflyProfile } from '@/helpers/createDummyFireflyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameFireflyProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useMyAllProfiles } from '@/hooks/useMyAllProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
@@ -62,13 +64,14 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const firstActiveProfile = useMemo(() => first(compact(SORTED_SOCIAL_SOURCES.map((x) => map[x]))), [map]);
     const profileUrl = firstActiveProfile ? getProfileUrl(firstActiveProfile) : null;
 
-    const myProfiles = useMyAllProfiles();
+    const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
 
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {
             const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
-            const isMyProfile = myProfiles.some(
-                (profile) => profile.source === currentSource && profile.identity === identity,
+            const isMyProfile = currentFireflyProfilesAll.some(
+                (profile) =>
+                    currentSource && isSameFireflyProfile(profile, createDummyFireflyProfile(currentSource, identity)),
             );
             return isMyProfile || pathname === PageRoute.Profile;
         }
