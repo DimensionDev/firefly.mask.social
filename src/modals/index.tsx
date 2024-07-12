@@ -11,6 +11,7 @@ import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
+import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
@@ -35,6 +36,7 @@ export const Modals = memo(function Modals() {
             <Snackbar ref={controls.SnackbarRef.register} />
             <PreviewMediaModal ref={controls.PreviewMediaModalRef.register} />
             <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
+            <EditProfileModal ref={controls.EditProfileModalRef.register} />
         </>
     );
 });

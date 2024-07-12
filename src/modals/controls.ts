@@ -3,6 +3,7 @@ import type { ComposeModalCloseProps, ComposeModalProps } from '@/modals/Compose
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
+import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
@@ -24,3 +25,4 @@ export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarClosePr
 export const SolanaAccountModalRef = new SingletonModal();
 export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();
 export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();
+export const EditProfileModalRef = new SingletonModal<EditProfileModalOpenProps>();

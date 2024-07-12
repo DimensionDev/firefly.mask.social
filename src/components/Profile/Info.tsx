@@ -1,16 +1,17 @@
 import { plural, Trans } from '@lingui/macro';
+import { usePathname } from 'next/navigation.js';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
+import { ProfileLoginStatus } from '@/components/Profile/ProfileLoginStatus.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
-import { isMyProfile } from '@/helpers/isMyProfile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -19,12 +20,32 @@ interface InfoProps {
     profile: Profile;
 }
 
+export function ProfileAction({ profile }: InfoProps) {
+    const pathname = usePathname();
+
+    if (profile.source === Source.Twitter) return null;
+
+    // TODO: This is a temporary solution
+    const isSelf = pathname === PageRoute.Profile;
+
+    return (
+        <>
+            {isSelf ? (
+                <ProfileLoginStatus className="ml-auto" profile={profile} />
+            ) : (
+                <FollowButton className="ml-auto" profile={profile} />
+            )}
+            <ProfileMoreAction profile={profile} isSelf={isSelf} />
+        </>
+    );
+}
+
 export function Info({ profile }: InfoProps) {
+    const isMedium = useIsMedium();
+
     const source = profile.source;
     const followingCount = profile.followingCount ?? 0;
     const followerCount = profile.followerCount ?? 0;
-
-    const isMedium = useIsMedium();
 
     return (
         <div className="flex gap-3 p-3">
@@ -44,12 +65,7 @@ export function Info({ profile }: InfoProps) {
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
-                        {profile && !isMyProfile(profile) && isMedium && source !== Source.Twitter ? (
-                            <>
-                                <FollowButton className="ml-auto" profile={profile} />
-                                <ProfileMoreAction profile={profile} />
-                            </>
-                        ) : null}
+                        {profile && isMedium ? <ProfileAction profile={profile} /> : null}
                     </div>
                     <span className="text-[15px] text-secondary">@{profile.handle}</span>
                 </div>

@@ -19,11 +19,12 @@ import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
+    isSelf?: boolean;
     profile: Profile;
     className?: string;
 }
 
-export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className }) {
+export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, isSelf = false }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
     const [, reportProfile] = useReportProfile();
@@ -55,18 +56,20 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                     )}
                 </Menu.Item>
 
-                {profile.source === Source.Lens ? (
+                {profile.source === Source.Lens && !isSelf ? (
                     <Menu.Item>
                         {({ close }) => (
                             <ReportProfileButton onConfirm={close} profile={profile} onReport={reportProfile} />
                         )}
                     </Menu.Item>
                 ) : null}
-                <Menu.Item>
-                    {({ close }) => (
-                        <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />
-                    )}
-                </Menu.Item>
+                {!isSelf ? (
+                    <Menu.Item>
+                        {({ close }) => (
+                            <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />
+                        )}
+                    </Menu.Item>
+                ) : null}
             </Menu.Items>
         </MoreActionMenu>
     );

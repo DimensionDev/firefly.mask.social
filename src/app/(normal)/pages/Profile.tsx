@@ -101,7 +101,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     return (
         <div>
-            {isOtherProfile && !isSuspended ? (
+            {!isSuspended ? (
                 <Title
                     profile={profile}
                     walletProfile={walletProfile}
