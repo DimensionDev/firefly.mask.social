@@ -26,7 +26,6 @@ const useProfileTabBase = create<ProfileTabState, [['zustand/persist', unknown],
                 set((state) => {
                     state.profileTab = {
                         source: getCurrentSourceFromUrl(),
-                        identity: '',
                     };
                 });
             },

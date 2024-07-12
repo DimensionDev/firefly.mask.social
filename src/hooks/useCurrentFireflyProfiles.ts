@@ -80,5 +80,5 @@ export function useCurrentFireflyProfilesAll(profileTab?: ProfileTab) {
             [...currentFireflyProfiles, ...profilesByPlatforms, ...profilesByWallet],
             (x) => `${x.source}/${x.identity}`,
         );
-    }, [profilesByPlatforms, currentFireflyProfiles, profilesByWallet]);
+    }, [currentFireflyProfiles, profilesByPlatforms, profilesByWallet]);
 }

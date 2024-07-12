@@ -8,3 +8,9 @@ export function getCurrentSourceFromUrl() {
     if (!source) return Source.Farcaster;
     return resolveSourceFromUrl(source);
 }
+
+export function getCurrentSourceFromParams(params: URLSearchParams) {
+    const source = params.get('source');
+    if (!source) return Source.Farcaster;
+    return resolveSourceFromUrl(source);
+}

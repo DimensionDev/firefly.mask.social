@@ -70,16 +70,13 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                           }
                                         : profiles.find((x) => x.source === value);
 
-                                    if (isProfilePage)
-                                        setProfileTab({
-                                            source: value,
-                                            identity: target?.identity ?? '',
-                                        });
-
-                                    setProfileTabContext({
+                                    const profileTab = {
                                         source: value,
                                         identity: target?.identity,
-                                    });
+                                    };
+
+                                    setProfileTabContext(profileTab);
+                                    if (isProfilePage) setProfileTab(profileTab);
 
                                     updateParams(
                                         new URLSearchParams({

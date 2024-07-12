@@ -3,9 +3,8 @@
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { compact, first } from 'lodash-es';
 import { usePathname, useSearchParams } from 'next/navigation.js';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
@@ -28,15 +27,14 @@ import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { IS_IOS } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -49,30 +47,21 @@ interface MenuProps {
 
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const params = useSearchParams();
-    const rawSource = params.get('source');
-    const currentSource = rawSource ? resolveSourceFromUrl(rawSource) : undefined;
     const currentChannel = useCurrentVisitingChannel();
     const isMedium = useIsMedium();
-    const map = useCurrentProfileAll();
-
     const { updateSidebarOpen } = useNavigatorState();
+
+    const profile = useCurrentProfileFirstAvailable();
+    const profiles = useCurrentFireflyProfilesAll();
 
     const isLogin = useIsLogin();
     const pathname = usePathname();
 
-    const firstActiveProfile = useMemo(() => first(compact(SORTED_SOCIAL_SOURCES.map((x) => map[x]))), [map]);
-    const profileUrl = firstActiveProfile ? getProfileUrl(firstActiveProfile) : null;
-
-    const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
-
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {
-            if (!currentSource) return false;
+            const source = getCurrentSourceFromParams(params);
             const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
-            const { socialProfile } = resolveFireflyProfiles(
-                { source: currentSource, identity },
-                currentFireflyProfilesAll,
-            );
+            const { socialProfile } = resolveFireflyProfiles({ source, identity }, profiles);
             return !!socialProfile || pathname === PageRoute.Profile;
         }
         return isRoutePathname(pathname, href);
@@ -109,7 +98,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: BookmarkSelectedIcon,
                             },
                             {
-                                href: profileUrl ?? PageRoute.Profile,
+                                href: profile ? getProfileUrl(profile) : PageRoute.Profile,
                                 name: <Trans>Profile</Trans>,
                                 icon: ProfileIcon,
                                 selectedIcon: ProfileSelectedIcon,

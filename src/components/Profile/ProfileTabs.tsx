@@ -9,6 +9,7 @@ import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
@@ -66,7 +67,6 @@ const resolveProfileTabColor = createLookupTableResolver<
 
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const currentProfileAll = useCurrentProfileAll();
     const { setProfileTab } = useProfileTabState();
     const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
 
@@ -74,18 +74,18 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const updateParams = useUpdateParams();
 
     const isProfilePage = pathname === PageRoute.Profile;
-    const isNoProfilePage = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+    const isOtherProfilePage = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
 
     useEffect(() => {
-        if (!isProfilePage || !(profileTabContext.source in currentProfileAll)) return;
+        if (!isProfilePage) return;
 
-        const profile = currentProfileAll[profileTabContext.source as SocialSource];
-        if (profile) {
-            const identity = resolveProfileId(profile) ?? '';
-            setProfileTabContext({ source: profileTabContext.source, identity });
-            setProfileTab({ source: profileTabContext.source, identity });
-        }
-    }, [isProfilePage, setProfileTab, profileTabContext, setProfileTabContext, currentProfileAll]);
+        const profile = getCurrentProfile(profileTabContext.source as SocialSource);
+        if (!profile) return;
+
+        const profileTab = { source: profileTabContext.source, identity: resolveProfileId(profile) };
+        setProfileTabContext(profileTab);
+        setProfileTab(profileTab);
+    }, [isProfilePage, setProfileTab, profileTabContext, setProfileTabContext]);
 
     if (profiles.length <= 1) return null;
 
@@ -103,22 +103,16 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                setProfileTabContext({
-                                    source: profile.source,
-                                    identity: profile.identity,
-                                });
+                                const profileTab = { source: profile.source, identity: profile.identity };
 
-                                if (isProfilePage)
-                                    setProfileTab({
-                                        source: profile.source,
-                                        identity: profile.identity,
-                                    });
+                                setProfileTabContext(profileTab);
+                                if (isProfilePage) setProfileTab(profileTab);
 
                                 updateParams(
                                     new URLSearchParams({
                                         source: resolveSourceInURL(profile.source),
                                     }),
-                                    isNoProfilePage ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
+                                    isOtherProfilePage ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
                                 );
                             });
                         }}
