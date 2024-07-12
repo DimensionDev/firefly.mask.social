@@ -13,7 +13,10 @@ interface FireflyProfileState {
     reset: () => void;
 }
 
-const useFireflyProfileStateBase = create<FireflyProfileState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
+const useFireflyProfileStateBase = create<
+    FireflyProfileState,
+    [['zustand/persist', unknown], ['zustand/immer', never]]
+>(
     persist(
         immer((set) => ({
             fireflyProfile: {
