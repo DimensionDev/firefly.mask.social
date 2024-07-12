@@ -130,9 +130,6 @@ msgstr "quotes"
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
-msgid "Failed to upload. Video is not supported yet"
-msgstr "Failed to upload. Video is not supported yet"
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 
@@ -153,9 +150,6 @@ msgstr "Airdrop Scam"
 
 msgid "Collect Action is not supported yet."
 msgstr "Collect Action is not supported yet."
-
-msgid "This entry has been permanently stored on-chain and signed by its creator"
-msgstr "This entry has been permanently stored on-chain and signed by its creator"
 
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
@@ -520,6 +514,9 @@ msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !
 msgid "Confirmation"
 msgstr "Confirmation"
 
+msgid "Failed to upload. Video is not supported yet."
+msgstr "Failed to upload. Video is not supported yet."
+
 msgid "Whitelist function"
 msgstr "Whitelist function"
 
@@ -540,6 +537,9 @@ msgstr "No wallet client found. Please connect your wallet."
 
 msgid "THREAD POST"
 msgstr "THREAD POST"
+
+msgid "This entry has been permanently stored on-chain and signed by its creator."
+msgstr "This entry has been permanently stored on-chain and signed by its creator."
 
 msgid "Frame Validator"
 msgstr "Frame Validator"

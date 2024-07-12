@@ -5,30 +5,29 @@ import { redirect, RedirectType } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentFireflyProfileAll } from '@/hooks/useCurrentProfile.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
-import { useProfileTabState } from '@/store/useProfileTabsStore.js';
+import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 export default function Page() {
-    const { currentProfileTabState } = useProfileTabState();
+    const { profileTab } = useProfileTabState();
 
-    const currentFireflyProfileAll = useCurrentFireflyProfileAll();
-    const profile = first(currentFireflyProfileAll);
+    const profiles = useCurrentFireflyProfiles();
+    const profile = first(profiles);
 
+    // profile link should be shareable
     if (profile) {
         redirect(`/profile/${profile.identity}?source=${resolveSourceInURL(profile.source)}`, RedirectType.replace);
     }
 
     return (
-        <ProfileContext.Provider
+        <ProfileTabContext.Provider
             initialState={{
-                source: currentProfileTabState.source,
-                identity:
-                    currentProfileTabState.identity ||
-                    currentFireflyProfileAll.find((x) => x.source === currentProfileTabState.source)?.identity,
+                source: profileTab.source,
+                identity: profileTab.identity ?? profiles.find((x) => x.source === profileTab.source)?.identity,
             }}
         >
-            <ProfilePage profiles={currentFireflyProfileAll} />
-        </ProfileContext.Provider>
+            <ProfilePage profiles={profiles} />
+        </ProfileTabContext.Provider>
     );
 }

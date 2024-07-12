@@ -15,7 +15,7 @@ export function useCheckPostMedias() {
     return useCallback(() => {
         if (availableSources.includes(Source.Farcaster)) {
             if (hasVideo) {
-                enqueueErrorMessage(t`Failed to upload. Video is not supported yet`);
+                enqueueErrorMessage(t`Failed to upload. Video is not supported yet.`);
                 return true;
             }
             const maxImageCount = getCurrentPostImageLimits(type, availableSources);

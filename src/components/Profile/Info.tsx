@@ -10,8 +10,8 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -24,7 +24,6 @@ export function Info({ profile }: InfoProps) {
     const followingCount = profile.followingCount ?? 0;
     const followerCount = profile.followerCount ?? 0;
 
-    const isMyProfile = useIsMyProfile(profile);
     const isMedium = useIsMedium();
 
     return (
@@ -47,7 +46,7 @@ export function Info({ profile }: InfoProps) {
                         <SocialSourceIcon className="mr-auto" source={source} size={20} />
                         {profile && isMedium && source !== Source.Twitter ? (
                             <>
-                                {!isMyProfile ? <FollowButton profile={profile} /> : null}
+                                {!isCurrentProfile(profile) ? <FollowButton profile={profile} /> : null}
                                 <ProfileMoreAction profile={profile} />
                             </>
                         ) : null}

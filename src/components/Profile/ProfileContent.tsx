@@ -1,7 +1,6 @@
 import { usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 
-import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Info } from '@/components/Profile/Info.js';
 import { ProfileContentTabs } from '@/components/Profile/ProfileContentTabs.js';
@@ -12,33 +11,28 @@ import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.
 import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import type { FireFlyProfile, Relation, WalletProfile } from '@/providers/types/Firefly.js';
+import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
+import type { FireflyProfile, Relation } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface ProfileContentProps {
-    loading: boolean;
-    source: Source;
-    walletProfile?: WalletProfile;
     profile?: Profile | null;
-    profiles: FireFlyProfile[];
+    profiles: FireflyProfile[];
     relations?: Relation[];
     isSuspended?: boolean;
 }
 
-export function ProfileContent({
-    loading,
-    source,
-    walletProfile,
-    profile,
-    profiles,
-    relations,
-    isSuspended,
-}: ProfileContentProps) {
+export function ProfileContent({ profile, profiles, relations, isSuspended }: ProfileContentProps) {
+    const { profileTab } = ProfileTabContext.useContainer();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
+
+    const { source } = profileTab;
+    const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
 
     const info = useMemo(() => {
         if (source === Source.Wallet && walletProfile) {
@@ -51,7 +45,7 @@ export function ProfileContent({
             return <SuspendedAccountInfo source={source as SocialSource} />;
         }
         return null;
-    }, [profile, walletProfile, source, relations, isSuspended]);
+    }, [profile, walletProfile, relations, isSuspended, source]);
 
     const content = useMemo(() => {
         if (isSuspended) {
@@ -65,8 +59,6 @@ export function ProfileContent({
         }
         return null;
     }, [isSuspended, walletProfile, profile]);
-
-    if (loading) return <Loading />;
 
     if (source === Source.Twitter && !currentTwitterProfile?.profileId) {
         return <NotLoginFallback source={Source.Twitter} />;

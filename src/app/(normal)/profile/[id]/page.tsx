@@ -25,6 +25,5 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
 export default function Page({ params, searchParams }: Props) {
     if (isBotRequest()) return null;
-
     return <ProfileDetailPage identity={params.id} source={searchParams.source} />;
 }

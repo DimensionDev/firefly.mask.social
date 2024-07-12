@@ -9,19 +9,19 @@ import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import type { FireFlyProfile } from '@/providers/types/Firefly.js';
-import { useProfileTabState } from '@/store/useProfileTabsStore.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfileTabsProps {
-    profiles: FireFlyProfile[];
+    profiles: FireflyProfile[];
 }
 
 const resolveProfileTabColor = createLookupTableResolver<
@@ -66,25 +66,25 @@ const resolveProfileTabColor = createLookupTableResolver<
 
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
-    const currentProfiles = useCurrentProfileAll();
-    const { update, identity: currentProfile, source } = ProfileContext.useContainer();
+    const { setProfileTab } = useProfileTabState();
+    const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
+
     const pathname = usePathname();
     const updateParams = useUpdateParams();
 
     const isProfilePage = pathname === PageRoute.Profile;
-    const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+    const isCompleteProfilePage = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
 
     useEffect(() => {
-        if (!isProfilePage || !(source in currentProfiles)) return;
+        if (!isProfilePage) return;
 
-        const profile = currentProfiles[source as SocialSource];
-        if (profile) {
-            const identity = resolveProfileId(profile) ?? '';
-            update?.({ source, identity });
-            updateCurrentProfileState({ source, identity });
-        }
-    }, [isProfilePage, currentProfiles, source, update, updateCurrentProfileState]);
+        const profile = getCurrentProfile(profileTabContext.source as SocialSource);
+        if (!profile) return;
+
+        const profileTab = { source: profileTabContext.source, identity: resolveProfileId(profile) };
+        setProfileTabContext(profileTab);
+        setProfileTab(profileTab);
+    }, [isProfilePage, setProfileTab, profileTabContext, setProfileTabContext]);
 
     if (profiles.length <= 1) return null;
 
@@ -95,29 +95,25 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                 const isActive =
                     profile.source === Source.Wallet
-                        ? isSameAddress(profile.identity, currentProfile)
-                        : currentProfile === profile.identity;
+                        ? isSameAddress(profile.identity, profileTabContext.identity)
+                        : profileTabContext.identity === profile.identity;
 
                 return (
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                update?.({
-                                    source: profile.source,
-                                    identity: profile.identity,
-                                });
+                                const profileTab = { source: profile.source, identity: profile.identity };
 
-                                if (isProfilePage)
-                                    updateCurrentProfileState({
-                                        source: profile.source,
-                                        identity: profile.identity,
-                                    });
+                                setProfileTabContext(profileTab);
+                                if (isProfilePage) setProfileTab(profileTab);
 
                                 updateParams(
                                     new URLSearchParams({
                                         source: resolveSourceInURL(profile.source),
                                     }),
-                                    isOtherProfile ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
+                                    isCompleteProfilePage
+                                        ? urlcat('/profile/:id', { id: profile.identity })
+                                        : undefined,
                                 );
                             });
                         }}
