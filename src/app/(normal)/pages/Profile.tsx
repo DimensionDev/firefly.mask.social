@@ -21,7 +21,7 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfile.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
+import { FireflyProfileContext } from '@/hooks/useFireflyProfileContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireFlyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
@@ -39,7 +39,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const isProfilePage = pathname === PageRoute.Profile;
 
     const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
-    const isMyProfile = !currentFireflyProfilesAll.some((x) => isSameFireflyProfile(x, fireflyProfile));
+    const isMyProfile = currentFireflyProfilesAll.some((x) => isSameFireflyProfile(x, fireflyProfile));
 
     const walletProfile =
         fireflyProfile.source === Source.Wallet
@@ -103,11 +103,12 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     return (
         <div>
-            {isMyProfile && !isSuspended ? (
+            {!isSuspended ? (
                 <Title
                     profile={profile}
                     walletProfile={walletProfile}
                     isSingleProfile={profiles.length === 1}
+                    isOtherProfile={!isMyProfile}
                     displayName={
                         walletProfile
                             ? walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4)

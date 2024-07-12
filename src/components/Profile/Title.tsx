@@ -17,9 +17,10 @@ interface TitleProps {
     walletProfile?: WalletProfile | null;
     displayName?: string;
     isSingleProfile?: boolean;
+    isOtherProfile?: boolean;
 }
 
-export function Title({ profile, walletProfile, displayName, isSingleProfile }: TitleProps) {
+export function Title({ profile, walletProfile, displayName, isSingleProfile, isOtherProfile }: TitleProps) {
     const [reached, setReached] = useState(false);
 
     const { scrollY } = useScroll();
@@ -39,14 +40,14 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile }: 
         if (profile)
             return (
                 <>
-                    <FollowButton className="ml-auto" profile={profile} />
+                    {isOtherProfile ? <FollowButton profile={profile} /> : null}
                     <ProfileMoreAction className="ml-2 text-main" profile={profile} />
                 </>
             );
         if (walletProfile)
             return (
                 <>
-                    <WatchButton className="ml-auto" address={walletProfile.address} />
+                    {isOtherProfile ? <WatchButton address={walletProfile.address} /> : null}
                     <WalletMoreAction className="ml-2 text-main" profile={walletProfile} />
                 </>
             );
@@ -55,7 +56,7 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile }: 
 
     return (
         <div className="sticky top-0 z-30 flex h-[60px] items-center bg-primaryBottom px-4">
-            <div className="mr-1 flex items-center gap-7 overflow-auto">
+            <div className="mr-1 mr-auto flex items-center gap-7 overflow-auto">
                 <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-black text-lightMain">
                     {displayName ?? '-'}
