@@ -24,7 +24,11 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
     className?: string;
 }
 
-export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, isMyProfile = false }) {
+export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({
+    profile,
+    className,
+    isMyProfile = false,
+}) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
     const [, reportProfile] = useReportProfile();
