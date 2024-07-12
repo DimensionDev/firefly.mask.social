@@ -18,7 +18,7 @@ import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
-import { useProfileTabState } from '@/store/useProfileTabsStore.js';
+import { useFireflyProfileState } from '@/store/useProfileTabsStore.js';
 
 interface ProfileTabsProps {
     profiles: FireFlyProfile[];
@@ -66,8 +66,8 @@ const resolveProfileTabColor = createLookupTableResolver<
 
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
-    const currentProfiles = useCurrentProfileAll();
+    const currentProfileAll = useCurrentProfileAll();
+    const updateCurrentProfileState = useFireflyProfileState.use.updateFireflyProfile();
     const { updateFireflyProfile, fireflyProfile } = FireflyProfileContext.useContainer();
 
     const pathname = usePathname();
@@ -77,15 +77,15 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const isNoProfilePage = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
 
     useEffect(() => {
-        if (!isProfilePage || !(fireflyProfile.source in currentProfiles)) return;
+        if (!isProfilePage || !(fireflyProfile.source in currentProfileAll)) return;
 
-        const profile = currentProfiles[fireflyProfile.source as SocialSource];
+        const profile = currentProfileAll[fireflyProfile.source as SocialSource];
         if (profile) {
             const identity = resolveProfileId(profile) ?? '';
             updateFireflyProfile({ source: fireflyProfile.source, identity });
             updateCurrentProfileState({ source: fireflyProfile.source, identity });
         }
-    }, [isProfilePage, fireflyProfile, updateFireflyProfile, currentProfiles, updateCurrentProfileState]);
+    }, [isProfilePage, fireflyProfile, updateFireflyProfile, currentProfileAll, updateCurrentProfileState]);
 
     if (profiles.length <= 1) return null;
 

@@ -7,10 +7,10 @@ import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfile.js';
 import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
-import { useProfileTabState } from '@/store/useProfileTabsStore.js';
+import { useFireflyProfileState } from '@/store/useProfileTabsStore.js';
 
 export default function Page() {
-    const { currentProfileTabState } = useProfileTabState();
+    const { fireflyProfile: currentProfileTabState } = useFireflyProfileState();
 
     const currentFireflyProfiles = useCurrentFireflyProfiles();
     const profile = first(currentFireflyProfiles);

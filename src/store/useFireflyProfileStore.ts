@@ -5,30 +5,28 @@ import { immer } from 'zustand/middleware/immer';
 import { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
+import type { FireFlyProfile } from '@/providers/types/Firefly.js';
 
-interface ProfileTabState {
-    currentProfileTabState: {
-        source: Source;
-        identity: string;
-    };
-    updateCurrentProfileState: (state: { source: Source; identity: string }) => void;
+interface FireflyProfileState {
+    fireflyProfile: Omit<FireFlyProfile, 'displayName' | '__origin__'>;
+    updateFireflyProfile: (state: { source: Source; identity: string }) => void;
     reset: () => void;
 }
 
-const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
+const useFireflyProfileStateBase = create<FireflyProfileState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
         immer((set) => ({
-            currentProfileTabState: {
+            fireflyProfile: {
                 source: getCurrentSourceFromUrl(),
                 identity: '',
             },
-            updateCurrentProfileState: (profileState: { source: Source; identity: string }) =>
+            updateFireflyProfile: (profileState: { source: Source; identity: string }) =>
                 set((state) => {
-                    state.currentProfileTabState = profileState;
+                    state.fireflyProfile = profileState;
                 }),
             reset: () => {
                 set((state) => {
-                    state.currentProfileTabState = {
+                    state.fireflyProfile = {
                         source: getCurrentSourceFromUrl(),
                         identity: '',
                     };
@@ -36,10 +34,10 @@ const useProfileTabStateBase = create<ProfileTabState, [['zustand/persist', unkn
             },
         })),
         {
-            name: 'profile-tab-state',
+            name: 'profile-profile-state',
             storage: createJSONStorage(() => localStorage),
         },
     ),
 );
 
-export const useProfileTabState = createSelectors(useProfileTabStateBase);
+export const useFireflyProfileState = createSelectors(useFireflyProfileStateBase);

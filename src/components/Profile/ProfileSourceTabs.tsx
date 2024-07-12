@@ -16,7 +16,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FireflyProfileContext } from '@/hooks/useProfileContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
-import { useProfileTabState } from '@/store/useProfileTabsStore.js';
+import { useFireflyProfileState } from '@/store/useProfileTabsStore.js';
 
 interface ProfileSourceTabs {
     profiles: FireFlyProfile[];
@@ -24,7 +24,7 @@ interface ProfileSourceTabs {
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const { updateFireflyProfile, fireflyProfile: profile } = FireflyProfileContext.useContainer();
-    const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
+    const updateCurrentProfileState = useFireflyProfileState.use.updateFireflyProfile();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
