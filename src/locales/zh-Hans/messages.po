@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-10 12:01\n"
+"PO-Revision-Date: 2024-07-12 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -245,9 +245,6 @@ msgstr "点赞失败。"
 
 msgid "Failed to login"
 msgstr "登录失败"
-
-msgid "Failed to set schedule time"
-msgstr ""
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
@@ -764,6 +761,9 @@ msgstr "选项 {0}"
 
 msgid "Send Feedback"
 msgstr "提交反馈"
+
+msgid "Your draft was saved."
+msgstr "草稿已被保存"
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -1435,7 +1435,7 @@ msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
-msgstr ""
+msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
 msgid "Saved on {0} at {1}"
 msgstr ""
@@ -1450,7 +1450,7 @@ msgid "Watch {identity}"
 msgstr "关注 {identity}"
 
 msgid "view"
-msgstr ""
+msgstr "查看"
 
 msgid "Failed to create scheduled post."
 msgstr ""
@@ -1484,6 +1484,9 @@ msgstr ""
 
 msgid "Properties"
 msgstr "属性"
+
+msgid "Failed to set schedule time."
+msgstr ""
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
@@ -1828,7 +1831,7 @@ msgid "Followers"
 msgstr "粉丝"
 
 msgid "Mint function"
-msgstr ""
+msgstr "铸造功能"
 
 msgid "Clear"
 msgstr ""
@@ -1883,9 +1886,6 @@ msgstr "登录"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
-
-msgid "Your draft was saved"
-msgstr "草稿已被保存"
 
 msgid "A thread must have at least two posts."
 msgstr "一条 thread 至少包含 2 个帖子。"

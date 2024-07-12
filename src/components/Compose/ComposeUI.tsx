@@ -3,17 +3,16 @@ import { t, Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import { memo, useRef, useState } from 'react';
 
-import ScheduleIcon from '@/assets/schedule.svg';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
+import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { SchedulePostModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -35,14 +34,7 @@ export const ComposeUI = memo(function ComposeUI() {
                 >
                     {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <div className="mb-3 flex items-center gap-[10px] text-[13px] text-second">
-                            <ScheduleIcon
-                                className="cursor-pointer"
-                                onClick={() => {
-                                    SchedulePostModalRef.open({
-                                        action: scheduleTime ? 'update' : 'create',
-                                    });
-                                }}
-                            />
+                            <SchedulePostEntryButton />
                             <span>
                                 <Trans>
                                     Will send on{' '}
