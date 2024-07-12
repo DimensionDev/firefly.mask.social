@@ -14,7 +14,6 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';

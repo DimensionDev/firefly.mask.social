@@ -12,8 +12,8 @@ import { useProfileTabState } from '@/store/useProfileTabStore.js';
 export default function Page() {
     const { profileTab } = useProfileTabState();
 
-    const currentFireflyProfilesAll = useCurrentFireflyProfilesAll();
-    const profile = currentFireflyProfilesAll.find((x) => SORTED_PROFILE_SOURCES.includes(x.source));
+    const profiles = useCurrentFireflyProfilesAll();
+    const profile = profiles.find((x) => SORTED_PROFILE_SOURCES.includes(x.source));
 
     // profile link should be shareable
     if (profile) {
@@ -22,7 +22,7 @@ export default function Page() {
 
     return (
         <ProfileTabContext.Provider initialState={profileTab}>
-            <ProfilePage />
+            <ProfilePage profiles={profiles} />
         </ProfileTabContext.Provider>
     );
 }

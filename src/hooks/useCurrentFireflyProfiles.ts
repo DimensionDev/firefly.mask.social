@@ -7,15 +7,14 @@ import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import type { ProfileTab } from '@/hooks/useProfileTabContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
-export function useCurrentFireflyProfiles(profileTab: ProfileTab) {
+export function useCurrentFireflyProfiles() {
     throw new NotImplementedError();
 }
 
-export function useCurrentFireflyProfilesAll(profileTab?: ProfileTab) {
+export function useCurrentFireflyProfilesAll() {
     const currentProfileAll = useCurrentProfileAll();
 
     // convert currentProfileAll to currentFireflyProfiles
@@ -56,14 +55,6 @@ export function useCurrentFireflyProfilesAll(profileTab?: ProfileTab) {
         );
     }, [currentProfileAll]);
 
-    const { data: profilesByWallet = EMPTY_LIST } = useQuery({
-        queryKey: ['all-profiles', profileTab],
-        queryFn: async () => {
-            if (profileTab?.source !== Source.Wallet || !profileTab?.identity) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(profileTab.source, profileTab.identity);
-        },
-    });
-
     const { data: profilesByPlatforms = EMPTY_LIST } = useQuery({
         queryKey: ['all-profiles', 'myself', currentProfileAll],
         queryFn: async () => {
@@ -76,9 +67,6 @@ export function useCurrentFireflyProfilesAll(profileTab?: ProfileTab) {
     });
 
     return useMemo(() => {
-        return uniqBy(
-            [...currentFireflyProfiles, ...profilesByPlatforms, ...profilesByWallet],
-            (x) => `${x.source}/${x.identity}`,
-        );
-    }, [currentFireflyProfiles, profilesByPlatforms, profilesByWallet]);
+        return uniqBy([...currentFireflyProfiles, ...profilesByPlatforms], (x) => `${x.source}/${x.identity}`);
+    }, [currentFireflyProfiles, profilesByPlatforms]);
 }

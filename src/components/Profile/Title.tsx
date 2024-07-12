@@ -7,20 +7,21 @@ import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { Source } from '@/constants/enum.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
     profile?: Profile | null;
-    walletProfile?: WalletProfile | null;
-    displayName?: string;
-    isSingleProfile?: boolean;
-    isOtherProfile?: boolean;
+    profiles: FireflyProfile[];
+    isOthersProfile: boolean;
 }
 
-export function Title({ profile, walletProfile, displayName, isSingleProfile, isOtherProfile }: TitleProps) {
+export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
     const [reached, setReached] = useState(false);
 
     const { scrollY } = useScroll();
@@ -31,8 +32,11 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile, is
     });
 
     const comeback = useComeBack();
+    const { profileTab } = ProfileTabContext.useContainer();
 
-    if (!isSingleProfile && !reached && isMedium) return null;
+    const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
+
+    if (profiles.length > 1 && !reached && isMedium) return null;
 
     const renderActions = () => {
         if (!reached && isMedium) return null;
@@ -40,19 +44,23 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile, is
         if (profile)
             return (
                 <>
-                    {isOtherProfile ? <FollowButton profile={profile} /> : null}
+                    {!isOthersProfile ? <FollowButton profile={profile} /> : null}
                     <ProfileMoreAction className="ml-2 text-main" profile={profile} />
                 </>
             );
         if (walletProfile)
             return (
                 <>
-                    {isOtherProfile ? <WatchButton address={walletProfile.address} /> : null}
+                    {!isOthersProfile ? <WatchButton address={walletProfile.address} /> : null}
                     <WalletMoreAction className="ml-2 text-main" profile={walletProfile} />
                 </>
             );
         return null;
     };
+
+    const displayName = walletProfile
+        ? walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4)
+        : profile?.displayName;
 
     return (
         <div className="sticky top-0 z-30 flex h-[60px] items-center bg-primaryBottom px-4">
