@@ -6,11 +6,12 @@ import { startTransition, useEffect, useLayoutEffect } from 'react';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import { getCurrentSource, useGlobalState } from '@/store/useGlobalStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -45,7 +46,7 @@ export function SourceTabs() {
     }, [shouldReset, updateCurrentSource]);
 
     useEffect(() => {
-        updateCurrentSource(getCurrentSource());
+        updateCurrentSource(getCurrentSourceFromUrl());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 

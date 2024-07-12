@@ -4,9 +4,7 @@ import { useState } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
-import { FollowButton } from '@/components/Profile/FollowButton.js';
-import { ProfileLoginStatus } from '@/components/Profile/ProfileLoginStatus.js';
-import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
+import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -19,25 +17,9 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
     profile: Profile;
-    isMyProfile: boolean;
 }
 
-export function ProfileAction({ profile, isMyProfile }: InfoProps) {
-    if (profile.source === Source.Twitter) return null;
-
-    return (
-        <>
-            {isMyProfile ? (
-                <ProfileLoginStatus className="ml-auto" profile={profile} />
-            ) : (
-                <FollowButton className="ml-auto" profile={profile} />
-            )}
-            <ProfileMoreAction profile={profile} isMyProfile={isMyProfile} />
-        </>
-    );
-}
-
-export function Info({ profile, isMyProfile }: InfoProps) {
+export function Info({ profile }: InfoProps) {
     const isMedium = useIsMedium();
     const [reached, setReached] = useState(false);
     const { scrollY } = useScroll();
@@ -68,9 +50,7 @@ export function Info({ profile, isMyProfile }: InfoProps) {
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
                         <SocialSourceIcon source={source} size={20} />
-                        {profile && isMedium && !reached ? (
-                            <ProfileAction profile={profile} isMyProfile={isMyProfile} />
-                        ) : null}
+                        {profile && isMedium && !reached ? <ProfileAction profile={profile} /> : null}
                     </div>
                     <span className="text-[15px] text-secondary">@{profile.handle}</span>
                 </div>

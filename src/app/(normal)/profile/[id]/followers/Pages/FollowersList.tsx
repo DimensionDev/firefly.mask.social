@@ -7,6 +7,7 @@ import ComeBack from '@/assets/comeback.svg';
 import { getFollowInList } from '@/components/FollowInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, type SocialSourceInURL } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -25,7 +26,7 @@ export function FollowersList({ profileId, source }: { profileId: string; source
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? []),
+        select: (data) => data.pages.flatMap((page) => page?.data ?? EMPTY_LIST),
     });
 
     return (

@@ -20,8 +20,6 @@ function getButtonClassName(...rest: string[]) {
 export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStatusProps) {
     const { accounts, currentProfile } = useProfileStore(profile.source);
 
-    const relatedAccount = accounts.find((account) => isSameProfile(account.profile, profile));
-
     // current using profile
     if (isSameProfile(profile, currentProfile)) {
         return (
@@ -33,6 +31,8 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
             </ClickableButton>
         );
     }
+
+    const relatedAccount = accounts.find((account) => isSameProfile(account.profile, profile));
 
     // has other account connected
     if (relatedAccount) {

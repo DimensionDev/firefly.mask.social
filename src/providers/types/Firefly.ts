@@ -455,7 +455,7 @@ export interface WalletProfiles {
 
 export type WalletProfileResponse = Response<WalletProfiles>;
 
-export interface FireFlyProfile {
+export interface FireflyProfile {
     identity: string;
     source: Source;
     displayName: string;

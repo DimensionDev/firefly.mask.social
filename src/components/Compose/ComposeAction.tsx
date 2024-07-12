@@ -79,7 +79,7 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll]);
 
-    const maxImageCount = getCurrentPostImageLimits(availableSources);
+    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
     const hasError = useMemo(() => {
@@ -110,7 +110,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
 
-                {type === 'compose' ? <PollButton /> : null}
+                {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
                 {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                     <SchedulePostEntryButton className="text-main" />

@@ -30,4 +30,4 @@ const useDeveloperSettingsBase = create<
     ),
 );
 
-export const useDeveloperSettings = createSelectors(useDeveloperSettingsBase);
+export const useDeveloperSettingsState = createSelectors(useDeveloperSettingsBase);

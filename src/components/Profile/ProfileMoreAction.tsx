@@ -13,22 +13,18 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
-    isMyProfile?: boolean;
-    profile: Profile;
+interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
     className?: string;
+    profile: Profile;
 }
 
-export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({
-    profile,
-    className,
-    isMyProfile = false,
-}) {
+export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMoreAction({ className, profile }) {
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
     const [, reportProfile] = useReportProfile();
@@ -60,7 +56,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({
                     )}
                 </Menu.Item>
 
-                {!isMyProfile ? (
+                {!isCurrentProfile(profile) ? (
                     <>
                         {profile.source === Source.Lens ? (
                             <Menu.Item>

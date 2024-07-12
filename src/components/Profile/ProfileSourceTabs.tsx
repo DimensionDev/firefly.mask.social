@@ -13,21 +13,23 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import type { FireFlyProfile } from '@/providers/types/Firefly.js';
-import { useProfileTabState } from '@/store/useProfileTabsStore.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfileSourceTabs {
-    profiles: FireFlyProfile[];
+    profiles: FireflyProfile[];
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const updateCurrentProfileState = useProfileTabState.use.updateCurrentProfileState();
-    const { update, source } = ProfileContext.useContainer();
+    const { setProfileTab } = useProfileTabState();
+    const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
+
+    const updateParams = useUpdateParams();
 
     const tabs = useMemo(() => {
         return SORTED_PROFILE_SOURCES.filter((source) => {
@@ -39,8 +41,6 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
         });
     }, [profiles, isProfilePage]);
 
-    const updateParams = useUpdateParams();
-
     return (
         <nav className="border-b border-line bg-primaryBottom px-4">
             <ul className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
@@ -48,11 +48,13 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
                             className={classNames(
-                                source === value ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
+                                profileTabContext.source === value
+                                    ? 'border-b-2 border-fireflyBrand text-main'
+                                    : 'text-third',
                                 'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
                                 'md:h-[60px] md:py-[18px] md:leading-6',
                             )}
-                            aria-current={source === value ? 'page' : undefined}
+                            aria-current={profileTabContext.source === value ? 'page' : undefined}
                             onClick={() =>
                                 startTransition(() => {
                                     scrollTo(0, 0);
@@ -69,25 +71,19 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                           }
                                         : profiles.find((x) => x.source === value);
 
-                                    if (isProfilePage)
-                                        updateCurrentProfileState({
-                                            source: value,
-                                            identity: target?.identity ?? '',
-                                        });
-
-                                    update?.({
+                                    const profileTab = {
                                         source: value,
                                         identity: target?.identity,
-                                    });
-                                    const pathname = target
-                                        ? urlcat('/profile/:id', { id: target.identity })
-                                        : undefined;
+                                    };
+
+                                    setProfileTabContext(profileTab);
+                                    if (isProfilePage) setProfileTab(profileTab);
 
                                     updateParams(
                                         new URLSearchParams({
                                             source: resolveSourceInURL(value),
                                         }),
-                                        pathname,
+                                        target ? urlcat('/profile/:id', { id: target.identity }) : undefined,
                                     );
                                 })
                             }
