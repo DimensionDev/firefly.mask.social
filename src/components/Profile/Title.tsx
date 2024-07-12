@@ -40,7 +40,7 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile, is
         if (walletProfile)
             return (
                 <>
-                    <WatchButton className="ml-auto" address={walletProfile.address} />
+                    {!isMyProfile ? <WatchButton address={walletProfile.address} /> : null}
                     <WalletMoreAction className="ml-2 text-main" profile={walletProfile} />
                 </>
             );
@@ -49,7 +49,7 @@ export function Title({ profile, walletProfile, displayName, isSingleProfile, is
 
     return (
         <div className="sticky top-0 z-30 flex h-[60px] items-center bg-primaryBottom px-4">
-            <div className="mr-1 flex items-center gap-7 overflow-auto">
+            <div className="mr-1 mr-auto flex items-center gap-7 overflow-auto">
                 <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-black text-lightMain">
                     {displayName ?? '-'}

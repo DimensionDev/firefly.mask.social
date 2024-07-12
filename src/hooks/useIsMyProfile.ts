@@ -1,24 +1,17 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useMemo } from 'react';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { Source } from '@/constants/enum.js';
+import { useMyAllProfiles } from '@/hooks/useMyAllProfiles.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function useIsMyProfile(source: SocialSource, handleOrProfileId: string) {
-    const currentProfile = useCurrentProfile(source);
+export function useIsMyProfile(profile: Profile) {
+    const profiles = useMyAllProfiles();
 
     return useMemo(() => {
-        if (!currentProfile) return false;
-        switch (currentProfile.source) {
-            case Source.Lens:
-                return currentProfile.handle === handleOrProfileId;
-            case Source.Farcaster:
-                return currentProfile.profileId === handleOrProfileId;
-            case Source.Twitter:
-                return currentProfile.profileId === handleOrProfileId;
-            default:
-                safeUnreachable(currentProfile.source);
-                return false;
-        }
-    }, [handleOrProfileId, currentProfile]);
+        return profiles.some((x) => {
+            if (profile.source !== x.source) return false;
+            if (profile.source === Source.Lens) return x.identity === profile.handle;
+            return x.identity === profile.profileId;
+        });
+    }, [profiles, profile]);
 }
