@@ -33,10 +33,10 @@ interface ProfilePageProps {
 export function ProfilePage({ profiles }: ProfilePageProps) {
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
     const { source, identity } = ProfileContext.useContainer();
-    const myProfiles = useMyAllProfiles();
 
-    const pathname = usePathname();
+    const myProfiles = useMyAllProfiles();
     const isOtherProfile = !myProfiles.some((x) => x.source === source && x.identity === identity);
+    const pathname = usePathname();
 
     const walletProfile = useMemo(() => {
         return source === Source.Wallet
@@ -102,11 +102,12 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     return (
         <div>
-            {isOtherProfile && !isSuspended ? (
+            {!isSuspended ? (
                 <Title
                     profile={profile}
                     walletProfile={walletProfile}
                     isSingleProfile={profiles.length === 1}
+                    isOtherProfile={isOtherProfile}
                     displayName={
                         walletProfile
                             ? walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4)
