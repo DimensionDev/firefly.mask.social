@@ -3,7 +3,9 @@ import { safeUnreachable } from '@masknet/kit';
 import { Source } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function getProfileIdentity(profile: Profile) {
+export function resolveProfileId(profile: Profile | null) {
+    if (!profile) return;
+
     switch (profile.source) {
         case Source.Lens:
             return profile.handle;

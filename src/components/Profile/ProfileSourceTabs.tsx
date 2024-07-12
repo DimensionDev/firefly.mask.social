@@ -9,8 +9,8 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { ProfileContext } from '@/hooks/useProfileContext.js';
@@ -65,7 +65,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                     const target = currentProfile
                                         ? {
                                               source: currentProfile.source,
-                                              identity: getProfileIdentity(currentProfile),
+                                              identity: resolveProfileId(currentProfile),
                                           }
                                         : profiles.find((x) => x.source === value);
 
