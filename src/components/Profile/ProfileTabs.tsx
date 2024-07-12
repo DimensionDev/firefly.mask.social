@@ -9,9 +9,9 @@ import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
@@ -80,7 +80,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
         const profile = currentProfiles[source as SocialSource];
         if (profile) {
-            const identity = getProfileIdentity(profile) ?? '';
+            const identity = resolveProfileId(profile) ?? '';
             update?.({ source, identity });
             updateCurrentProfileState({ source, identity });
         }
