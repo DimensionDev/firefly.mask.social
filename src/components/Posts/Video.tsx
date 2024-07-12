@@ -4,7 +4,6 @@ import { Player } from '@livepeer/react';
 import { type HTMLProps, memo } from 'react';
 import { useAccount } from 'wagmi';
 
-import { ClickableArea } from '@/components/ClickableArea.js';
 import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
@@ -14,17 +13,19 @@ interface VideoProps extends HTMLProps<HTMLDivElement> {
     src: string;
     poster?: string;
     className?: string;
+    autoPlay?: boolean;
 }
 
-export const Video = memo<VideoProps>(function Video({ src, poster, className = '', children }) {
+export const Video = memo<VideoProps>(function Video({ src, poster, className = '', autoPlay, children }) {
     const account = useAccount();
 
     return (
-        <ClickableArea className={classNames('lp-player', className)}>
+        <div className={classNames('lp-player', className)}>
             <Player
                 src={src}
                 poster={formatImageUrl(sanitizeDStorageUrl(poster))}
                 objectFit="contain"
+                autoPlay={autoPlay}
                 showLoadingSpinner
                 showUploadingIndicator
                 showPipButton={false}
@@ -39,6 +40,6 @@ export const Video = memo<VideoProps>(function Video({ src, poster, className = 
             >
                 {children}
             </Player>
-        </ClickableArea>
+        </div>
     );
 });

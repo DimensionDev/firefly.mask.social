@@ -241,9 +241,6 @@ msgstr "Failed to like the comment."
 msgid "Failed to login"
 msgstr "Failed to login"
 
-msgid "Failed to set schedule time"
-msgstr "Failed to set schedule time"
-
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
 
@@ -759,6 +756,9 @@ msgstr "Choice {0}"
 
 msgid "Send Feedback"
 msgstr "Send Feedback"
+
+msgid "Your draft was saved."
+msgstr "Your draft was saved."
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -1480,6 +1480,9 @@ msgstr "The post will send on {0} at {1}"
 msgid "Properties"
 msgstr "Properties"
 
+msgid "Failed to set schedule time."
+msgstr "Failed to set schedule time."
+
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
 
@@ -1878,9 +1881,6 @@ msgstr "Login"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
-
-msgid "Your draft was saved"
-msgstr "Your draft was saved"
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."

@@ -8,7 +8,8 @@ import { Image } from '@/components/Image.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
-import { ATTACHMENT, SUPPORTED_MEDIA_PREVIEW_SOURCES } from '@/constants/index.js';
+import { Source } from '@/constants/enum.js';
+import { ATTACHMENT, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -65,7 +66,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         ? videoAndImageAttachments
         : videoAndImageAttachments.slice(0, isQuote ? 4 : 9);
     const moreImageCount = videoAndImageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
-    const disablePreview = !SUPPORTED_MEDIA_PREVIEW_SOURCES.includes(post.source);
 
     if (isQuote && asset?.type === 'Audio') {
         return (
@@ -102,16 +102,20 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
 
     return (
         <div className={isQuote ? '' : 'mt-3'}>
-            {attachmentsSnapshot.length === 1 ? (
-                asset?.type === 'Image' ? (
-                    <div
-                        className={classNames({
-                            'w-full': !isQuote,
-                            'w-[120px]': isQuote,
-                        })}
-                        onClick={(event) => event.stopPropagation()}
-                    >
-                        <WithPreviewLink post={post} index={1} disablePreview={disablePreview}>
+            {attachmentsSnapshot.length === 1 && asset ? (
+                <WithPreviewLink
+                    post={post}
+                    index={0}
+                    useModal={post.source === Source.Twitter}
+                    disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(asset.type)}
+                >
+                    {asset.type === 'Image' ? (
+                        <div
+                            className={classNames({
+                                'w-full': !isQuote,
+                                'w-[120px]': isQuote,
+                            })}
+                        >
                             <ImageAsset
                                 className={classNames('cursor-pointer rounded-lg object-cover', {
                                     'w-full': !isQuote,
@@ -124,18 +128,18 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 src={formatImageUrl(asset.uri, ATTACHMENT)}
                                 alt={formatImageUrl(asset.uri, ATTACHMENT)}
                             />
-                        </WithPreviewLink>
-                    </div>
-                ) : (
-                    <div
-                        className={classNames({
-                            'h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': isQuote,
-                            'w-full': !isQuote,
-                        })}
-                    >
-                        <VideoAsset asset={asset!} isQuote={isQuote} source={post.source} />
-                    </div>
-                )
+                        </div>
+                    ) : (
+                        <div
+                            className={classNames({
+                                'h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': isQuote,
+                                'w-full': !isQuote,
+                            })}
+                        >
+                            <VideoAsset asset={asset} isQuote={isQuote} source={post.source} />
+                        </div>
+                    )}
+                </WithPreviewLink>
             ) : null}
 
             {attachmentsSnapshot.length > 1 ? (
@@ -166,8 +170,13 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     relative: isLast && moreImageCount > 0,
                                 })}
                             >
-                                {attachment.type === 'Image' ? (
-                                    <WithPreviewLink post={post} index={index + 1} disablePreview={disablePreview}>
+                                <WithPreviewLink
+                                    post={post}
+                                    index={index}
+                                    useModal={post.source === Source.Twitter}
+                                    disablePreview={!SUPPORTED_PREVIEW_MEDIA_TYPES.includes(attachment.type)}
+                                >
+                                    {attachment.type === 'Image' ? (
                                         <Image
                                             className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                             loading="lazy"
@@ -181,12 +190,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                             src={formatImageUrl(uri, ATTACHMENT)}
                                             alt={formatImageUrl(uri, ATTACHMENT)}
                                         />
-                                    </WithPreviewLink>
-                                ) : (
-                                    <div className="h-full w-full">
-                                        <VideoAsset asset={attachment} isQuote={isQuote} source={post.source} />
-                                    </div>
-                                )}
+                                    ) : (
+                                        <div className="h-full w-full">
+                                            <VideoAsset asset={attachment} isQuote={isQuote} source={post.source} />
+                                        </div>
+                                    )}
+                                </WithPreviewLink>
                                 {isLast && moreImageCount > 0 ? (
                                     <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                         <div className={classNames('font-bold', isQuote ? 'text-[15px]' : 'text-2xl')}>
