@@ -969,9 +969,6 @@ msgstr ""
 msgid "NFT Contract"
 msgstr "NFT合約"
 
-msgid "Failed to follow."
-msgstr "追蹤失敗"
-
 msgid "Share Now"
 msgstr ""
 
@@ -1542,10 +1539,10 @@ msgstr ""
 msgid "Properties"
 msgstr "屬性"
 
-msgid "Failed to set schedule time."
+msgid "Cannot send to yourself"
 msgstr ""
 
-msgid "Cannot send to yourself"
+msgid "Failed to set schedule time."
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -1970,4 +1967,3 @@ msgstr "喜歡"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

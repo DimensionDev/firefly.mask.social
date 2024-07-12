@@ -786,11 +786,11 @@ msgstr "选项 {0}"
 msgid "Send Feedback"
 msgstr "提交反馈"
 
-msgid "Send tips"
-msgstr ""
-
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
+
+msgid "Send tips"
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -968,9 +968,6 @@ msgstr "邮箱（可选）"
 
 msgid "NFT Contract"
 msgstr "NFT 合约"
-
-msgid "Failed to follow."
-msgstr "关注失败"
 
 msgid "Share Now"
 msgstr ""
@@ -1970,4 +1967,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

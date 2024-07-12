@@ -781,11 +781,11 @@ msgstr "Choice {0}"
 msgid "Send Feedback"
 msgstr "Send Feedback"
 
-msgid "Send tips"
-msgstr "Send tips"
-
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
+
+msgid "Send tips"
+msgstr "Send tips"
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -963,9 +963,6 @@ msgstr "Email (optional)"
 
 msgid "NFT Contract"
 msgstr "NFT Contract"
-
-msgid "Failed to follow."
-msgstr "Failed to follow."
 
 msgid "Share Now"
 msgstr "Share Now"
