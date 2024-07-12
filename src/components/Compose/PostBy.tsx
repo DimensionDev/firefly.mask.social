@@ -6,21 +6,23 @@ import { PostByItem } from '@/components/Compose/PostByItem.js';
 import { SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface PostByProps {}
 
 export function PostBy(props: PostByProps) {
     const { poll, availableSources, images } = useCompositePost();
+    const { type } = useComposeStateStore();
 
     const postByDisabled = useMemo(() => {
         return SORTED_SOCIAL_SOURCES.map((source) => {
             if (poll && !SORTED_POLL_SOURCES.includes(source)) return true;
             // TODO: Check video limits
 
-            const maxImageCount = getCurrentPostImageLimits(uniq([...availableSources, source]));
+            const maxImageCount = getCurrentPostImageLimits(type, uniq([...availableSources, source]));
             return images.length > maxImageCount;
         });
-    }, [availableSources, images, poll]);
+    }, [availableSources, images, poll, type]);
 
     return (
         <Transition
