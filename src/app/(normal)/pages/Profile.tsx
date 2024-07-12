@@ -49,12 +49,12 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['profile', socialProfile?.source, socialProfile?.identity],
+        queryKey: ['profile', profileTab?.source, profileTab?.identity],
         queryFn: async () => {
-            if (!socialProfile) return null;
+            if (!profileTab?.identity || profileTab.source === Source.Wallet) return null;
             // only current twitter profile is allowed
-            if (socialProfile.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
-            return getProfileById(narrowToSocialSource(socialProfile.source), socialProfile.identity);
+            if (profileTab.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
+            return getProfileById(narrowToSocialSource(profileTab.source), profileTab.identity);
         },
         retry(failureCount, error) {
             if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
@@ -63,11 +63,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     });
 
     const { data: relations = EMPTY_LIST } = useQuery({
-        enabled: !!walletProfile,
-        queryKey: ['relation', walletProfile],
+        enabled: profileTab.source === Source.Wallet,
+        queryKey: ['relation', profileTab.source, profileTab.identity],
         queryFn: async () => {
-            if (!walletProfile) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getNextIDRelations('ethereum', walletProfile.address);
+            if (profileTab.source !== Source.Wallet || !profileTab.identity) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getNextIDRelations('ethereum', profileTab.identity);
         },
     });
 
@@ -86,7 +86,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     if (
         !isSuspended &&
-        !isOthersProfile &&
+        isOthersProfile &&
         !profile &&
         !walletProfile &&
         !isLoading &&

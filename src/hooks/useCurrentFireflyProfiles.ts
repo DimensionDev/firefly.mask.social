@@ -3,7 +3,6 @@ import { compact, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -11,14 +10,10 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 export function useCurrentFireflyProfiles() {
-    throw new NotImplementedError();
-}
-
-export function useCurrentFireflyProfilesAll() {
     const currentProfileAll = useCurrentProfileAll();
 
     // convert currentProfileAll to currentFireflyProfiles
-    const currentFireflyProfiles = useMemo<FireflyProfile[]>(() => {
+    return useMemo<FireflyProfile[]>(() => {
         const currentFarcasterProfile = currentProfileAll[Source.Farcaster];
         const currentLensProfile = currentProfileAll[Source.Lens];
         const currentTwitterProfile = currentProfileAll[Source.Twitter];
@@ -54,6 +49,11 @@ export function useCurrentFireflyProfilesAll() {
                 SORTED_SOCIAL_SOURCES.indexOf(b.source as SocialSource),
         );
     }, [currentProfileAll]);
+}
+
+export function useCurrentFireflyProfilesAll() {
+    const currentProfileAll = useCurrentProfileAll();
+    const currentFireflyProfiles = useCurrentFireflyProfiles();
 
     const { data: profilesByPlatforms = EMPTY_LIST } = useQuery({
         queryKey: ['all-profiles', 'myself', currentProfileAll],

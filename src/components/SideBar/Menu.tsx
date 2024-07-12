@@ -32,7 +32,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -61,8 +60,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
         if (isRoutePathname(href, '/profile')) {
             const source = getCurrentSourceFromParams(params);
             const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
-            const { socialProfile } = resolveFireflyProfiles({ source, identity }, profiles);
-            return !!socialProfile || pathname === PageRoute.Profile;
+            const isCurrentProfile = profiles.some((x) => x.source === source && x.identity === identity);
+            return isCurrentProfile || pathname === PageRoute.Profile;
         }
         return isRoutePathname(pathname, href);
     };

@@ -1,19 +1,19 @@
 'use client';
 
+import { first } from 'lodash-es';
 import { redirect, RedirectType } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
-import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
+import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 export default function Page() {
     const { profileTab } = useProfileTabState();
 
-    const profiles = useCurrentFireflyProfilesAll();
-    const profile = profiles.find((x) => SORTED_PROFILE_SOURCES.includes(x.source));
+    const profiles = useCurrentFireflyProfiles();
+    const profile = first(profiles);
 
     // profile link should be shareable
     if (profile) {
@@ -21,7 +21,12 @@ export default function Page() {
     }
 
     return (
-        <ProfileTabContext.Provider initialState={profileTab}>
+        <ProfileTabContext.Provider
+            initialState={{
+                source: profileTab.source,
+                identity: profileTab.identity ?? profiles.find((x) => x.source === profileTab.source)?.identity,
+            }}
+        >
             <ProfilePage profiles={profiles} />
         </ProfileTabContext.Provider>
     );

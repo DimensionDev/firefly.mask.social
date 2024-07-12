@@ -44,14 +44,14 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
         if (profile)
             return (
                 <>
-                    {!isOthersProfile ? <FollowButton profile={profile} /> : null}
+                    {isOthersProfile ? <FollowButton profile={profile} /> : null}
                     <ProfileMoreAction className="ml-2 text-main" profile={profile} />
                 </>
             );
         if (walletProfile)
             return (
                 <>
-                    {!isOthersProfile ? <WatchButton address={walletProfile.address} /> : null}
+                    {isOthersProfile ? <WatchButton address={walletProfile.address} /> : null}
                     <WalletMoreAction className="ml-2 text-main" profile={walletProfile} />
                 </>
             );

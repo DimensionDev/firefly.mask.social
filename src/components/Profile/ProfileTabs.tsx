@@ -73,7 +73,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const updateParams = useUpdateParams();
 
     const isProfilePage = pathname === PageRoute.Profile;
-    const isOtherProfilePage = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
+    const isCompleteProfilePage = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
 
     useEffect(() => {
         if (!isProfilePage) return;
@@ -111,7 +111,9 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                     new URLSearchParams({
                                         source: resolveSourceInURL(profile.source),
                                     }),
-                                    isOtherProfilePage ? urlcat('/profile/:id', { id: profile.identity }) : undefined,
+                                    isCompleteProfilePage
+                                        ? urlcat('/profile/:id', { id: profile.identity })
+                                        : undefined,
                                 );
                             });
                         }}

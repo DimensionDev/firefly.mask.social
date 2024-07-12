@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
-import { Source, type SourceInURL } from '@/constants/enum.js';
+import { type SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -17,10 +17,6 @@ interface Props {
 }
 
 export function ProfileDetailPage({ identity, source }: Props) {
-    if (!identity) {
-        notFound();
-    }
-
     const profileTab = { source: resolveSourceFromUrl(source), identity };
 
     const currentProfiles = useCurrentFireflyProfilesAll();
@@ -32,10 +28,14 @@ export function ProfileDetailPage({ identity, source }: Props) {
         enabled: !isCurrentProfile,
         queryKey: ['all-profiles', profileTab.source, profileTab.identity],
         queryFn: async () => {
-            if (profileTab.source !== Source.Wallet || !profileTab.identity) return EMPTY_LIST;
+            if (!profileTab.identity) return EMPTY_LIST;
             return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(profileTab.source, profileTab.identity);
         },
     });
+
+    if (!identity) {
+        notFound();
+    }
 
     return (
         <ProfileTabContext.Provider initialState={profileTab}>

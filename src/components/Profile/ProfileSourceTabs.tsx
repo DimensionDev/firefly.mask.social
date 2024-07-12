@@ -27,17 +27,19 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
 
     const pathname = usePathname();
+    const isProfilePage = pathname === PageRoute.Profile;
+
     const updateParams = useUpdateParams();
 
     const tabs = useMemo(() => {
         return SORTED_PROFILE_SOURCES.filter((source) => {
-            if (pathname === PageRoute.Profile) {
+            if (isProfilePage) {
                 if (source === Source.Wallet) return profiles.some((x) => x.source === Source.Wallet);
                 return true;
             }
             return profiles.some((x) => x.source === source);
         });
-    }, [profiles, pathname]);
+    }, [profiles, isProfilePage]);
 
     return (
         <nav className="border-b border-line bg-primaryBottom px-4">
@@ -57,7 +59,6 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                 startTransition(() => {
                                     scrollTo(0, 0);
 
-                                    const isProfilePage = pathname === PageRoute.Profile;
                                     const currentProfile =
                                         value !== Source.Wallet && value !== Source.Article && isProfilePage
                                             ? getCurrentProfile(narrowToSocialSource(value))
