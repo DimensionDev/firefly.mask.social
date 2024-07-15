@@ -1,4 +1,4 @@
-import * as BufferLayout from '@solana/buffer-layout';
+import { struct, u8, blob } from '@solana/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { type AccountMeta, type PublicKey, type Signer, TransactionInstruction } from '@solana/web3.js';
 import BN from 'bn.js';
@@ -47,10 +47,7 @@ export function createTransferInstruction(
     multiSigners: Signer[] = [],
     programId = TOKEN_PROGRAM_ID,
 ): TransactionInstruction {
-    const dataLayout = BufferLayout.struct<{ instruction: number; amount: Uint8Array }>([
-        BufferLayout.u8('instruction'),
-        BufferLayout.blob(8, 'amount'),
-    ]);
+    const dataLayout = struct<{ instruction: number; amount: Uint8Array }>([u8('instruction'), blob(8, 'amount')]);
 
     const keys = addSigners(
         [
