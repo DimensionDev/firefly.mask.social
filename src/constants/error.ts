@@ -95,12 +95,6 @@ export class NotFoundError extends Error {
     }
 }
 
-export class NoWalletClientError extends Error {
-    constructor(message?: string) {
-        super(message ?? 'No wallet client found. Please connect your wallet.');
-    }
-}
-
 export class SwitchChainError extends Error {
     constructor(chainName?: string) {
         super(

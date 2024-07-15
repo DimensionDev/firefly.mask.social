@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
+import { UserRejectedRequestError } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { BackButton } from '@/components/BackButton.js';
@@ -28,7 +29,6 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { NoWalletClientError } from '@/constants/error.js';
 
 export interface LoginModalProps {
     source?: ProfileSource;
@@ -99,19 +99,20 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     return;
             }
         } catch (error) {
-            if (error instanceof NoWalletClientError) throw error;
-            enqueueErrorMessage(
-                <div>
-                    <span className="font-bold">
-                        <Trans>Connection failed</Trans>
-                    </span>
-                    <br />
-                    <Trans>The user declined the request.</Trans>
-                </div>,
-                {
-                    noReport: true,
-                },
-            );
+            if (error instanceof UserRejectedRequestError) {
+                enqueueErrorMessage(
+                    <div>
+                        <span className="font-bold">
+                            <Trans>Connection failed</Trans>
+                        </span>
+                        <br />
+                        <Trans>The user declined the request.</Trans>
+                    </div>,
+                    {
+                        noReport: true,
+                    },
+                );
+            }
             throw error;
         }
     }, []);
