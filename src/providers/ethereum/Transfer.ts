@@ -1,12 +1,5 @@
 import { isGreaterThan, isLessThan, rightShift } from '@masknet/web3-shared-base';
-import {
-    type Config,
-    estimateGas,
-    getBalance,
-    sendTransaction,
-    waitForTransactionReceipt,
-    writeContract,
-} from '@wagmi/core';
+import { estimateGas, getBalance, sendTransaction, waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import { type Address, erc20Abi, type Hash, parseUnits } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -14,8 +7,6 @@ import { getTokenBalance } from '@/providers/ethereum/getTokenBalance.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { type Token, type TransactionOptions, type TransferProvider } from '@/providers/types/Transfer.js';
-
-const coreConfig = config as unknown as Config;
 
 class Provider implements TransferProvider<Address, Hash> {
     async transfer(options: TransactionOptions): Promise<Address> {
@@ -40,7 +31,7 @@ class Provider implements TransferProvider<Address, Hash> {
     }
 
     async waitForTransaction(hash: Hash): Promise<void> {
-        await waitForTransactionReceipt(coreConfig, { hash, chainId: EthereumNetwork.getChainId() });
+        await waitForTransactionReceipt(config, { hash, chainId: EthereumNetwork.getChainId() });
     }
 
     async validateBalance({ token, amount }: TransactionOptions): Promise<boolean> {
@@ -51,11 +42,11 @@ class Provider implements TransferProvider<Address, Hash> {
 
     async validateGas({ token, to }: TransactionOptions): Promise<boolean> {
         const account = await EthereumNetwork.getAccount();
-        const nativeBalance = await getBalance(coreConfig, {
+        const nativeBalance = await getBalance(config, {
             address: account,
             chainId: token.chainId,
         });
-        const gas = await estimateGas(coreConfig, {
+        const gas = await estimateGas(config, {
             account,
             chainId: token.chainId,
             to,
@@ -65,7 +56,7 @@ class Provider implements TransferProvider<Address, Hash> {
     }
 
     private async transferNative({ to, token, amount }: TransactionOptions): Promise<Address> {
-        return sendTransaction(coreConfig, {
+        return sendTransaction(config, {
             account: await EthereumNetwork.getAccount(),
             to,
             value: parseUnits(amount, token.decimals),
@@ -73,7 +64,7 @@ class Provider implements TransferProvider<Address, Hash> {
     }
 
     private async transferContract({ to, token, amount }: TransactionOptions): Promise<Address> {
-        return writeContract(coreConfig, {
+        return writeContract(config, {
             address: token.id,
             abi: erc20Abi,
             functionName: 'transfer',

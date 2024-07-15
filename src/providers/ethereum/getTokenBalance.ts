@@ -1,15 +1,13 @@
-import { type Config, getBalance, readContracts } from '@wagmi/core';
+import { getBalance, readContracts } from '@wagmi/core';
 import { type Address, erc20Abi } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
-const coreConfig = config as unknown as Config;
-
 export async function getTokenBalance(token: Token, address: Address, chainId: number) {
     if (isNativeToken(token)) {
-        const result = await getBalance(coreConfig, {
+        const result = await getBalance(config, {
             address,
             chainId,
         });
@@ -19,7 +17,7 @@ export async function getTokenBalance(token: Token, address: Address, chainId: n
             symbol: result.symbol,
         };
     }
-    const results = await readContracts(coreConfig, {
+    const results = await readContracts(config, {
         contracts: [
             {
                 address: token.id,

@@ -1,5 +1,4 @@
 import { EVMExplorerResolver } from '@masknet/web3-providers';
-import type { Config } from '@wagmi/core';
 import { getAccount, getChainId, switchChain } from '@wagmi/core';
 import { type Address, type Hash } from 'viem';
 
@@ -7,15 +6,13 @@ import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
 
-const coreConfig = config as unknown as Config;
-
 class Provider implements NetworkProvider<Address, Hash> {
     async connect(): Promise<void> {
         throw new NotImplementedError();
     }
 
     async getAccount(): Promise<Address> {
-        const account = getAccount(coreConfig);
+        const account = getAccount(config);
         if (!account.address) {
             throw new Error('Wallet not connected');
         }
@@ -23,11 +20,11 @@ class Provider implements NetworkProvider<Address, Hash> {
     }
 
     async switchChain(chainId: number): Promise<void> {
-        await switchChain(coreConfig, { chainId });
+        await switchChain(config, { chainId });
     }
 
     getChainId(): number {
-        return getChainId(coreConfig);
+        return getChainId(config);
     }
 
     getAddressUrl(chainId: number, address: Address): string | undefined {
