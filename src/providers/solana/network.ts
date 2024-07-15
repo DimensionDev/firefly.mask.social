@@ -5,7 +5,7 @@ import { NotImplementedError } from '@/constants/error.js';
 // eslint-disable-next-line no-restricted-imports
 import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
-import type { Provider as NetworkProvider } from '@/providers/types/network.js';
+import type { Provider as NetworkProvider } from '@/providers/types/Network.js';
 
 export class SolanaNetwork implements NetworkProvider {
     async connect() {

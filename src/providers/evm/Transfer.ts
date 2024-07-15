@@ -26,9 +26,9 @@ class EVMTransfer implements Transfer<Address, Hash> {
 
         let hash: Address;
         if (this.isNativeToken(token)) {
-            hash = await this._transferNative(options);
+            hash = await this.transferNative(options);
         } else {
-            hash = await this._transferContract({ ...options, token });
+            hash = await this.transferContract({ ...options, token });
         }
 
         await this.waitForTransaction(hash);
@@ -64,7 +64,7 @@ class EVMTransfer implements Transfer<Address, Hash> {
         return !isLessThan(`${nativeBalance.value}`, `${gas}`);
     }
 
-    async _transferNative({ to, token, amount }: TransactionOptions): Promise<Address> {
+    private async transferNative({ to, token, amount }: TransactionOptions): Promise<Address> {
         return sendTransaction(coreConfig, {
             account: await evmNetwork.getAccount(),
             to,
@@ -72,7 +72,7 @@ class EVMTransfer implements Transfer<Address, Hash> {
         });
     }
 
-    async _transferContract({ to, token, amount }: TransactionOptions): Promise<Address> {
+    private async transferContract({ to, token, amount }: TransactionOptions): Promise<Address> {
         return writeContract(coreConfig, {
             address: token.id,
             abi: erc20Abi,

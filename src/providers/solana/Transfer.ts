@@ -21,9 +21,9 @@ class SolanaTransfer implements Transfer {
         await solanaNetwork.connect();
 
         if (!token || this.isNativeToken(token)) {
-            signature = await this._transferNative(options);
+            signature = await this.transferNative(options);
         } else {
-            signature = await this._transferContract({ ...options, token });
+            signature = await this.transferContract({ ...options, token });
         }
 
         await this.waitForTransaction(signature);
@@ -55,7 +55,7 @@ class SolanaTransfer implements Transfer {
         return fees !== null ? !isGreaterThan(fees, nativeBalance.value) : false;
     }
 
-    async _transferNative(options: TransactionOptions<string>): Promise<string> {
+    private async transferNative(options: TransactionOptions<string>): Promise<string> {
         const adapter = resolveWalletAdapter();
         const account = await solanaNetwork.getAccount();
 
@@ -71,7 +71,7 @@ class SolanaTransfer implements Transfer {
         return signature;
     }
 
-    async _transferContract(options: TransactionOptions<string>): Promise<string> {
+    private async transferContract(options: TransactionOptions<string>): Promise<string> {
         const adapter = resolveWalletAdapter();
         const account = await solanaNetwork.getAccount();
 

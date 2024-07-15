@@ -39,6 +39,4 @@ export interface Transfer<AddressLike = string, HashLike = string> {
     waitForTransaction: (hash: HashLike) => Promise<void>;
     validateBalance: (options: TransactionOptions<AddressLike>) => Promise<boolean>;
     validateGas: (options: TransactionOptions<AddressLike>) => Promise<boolean>;
-    _transferNative: (options: TransactionOptions<AddressLike>) => Promise<HashLike>;
-    _transferContract: (options: TransactionOptions<AddressLike>) => Promise<HashLike>;
 }
