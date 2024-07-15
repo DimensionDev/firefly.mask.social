@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { resolveNetwork } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { getTokensByAddressForTips } from '@/services/getTokensByAddress.js';
+import { getTokensByAddress } from '@/services/getTokensByAddress.js';
 
 function sortTokensByUsdValue(tokens: Token[]) {
     const groups = groupBy(tokens, (token) => token.chainId);
@@ -31,7 +31,7 @@ export const useTipsTokens = () => {
         queryFn: async () => {
             if (!receiver) return [];
             const network = resolveNetwork(receiver.networkType);
-            return await getTokensByAddressForTips(await network.getAccount());
+            return await getTokensByAddress(await network.getAccount());
         },
     });
 

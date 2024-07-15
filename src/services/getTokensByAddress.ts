@@ -6,7 +6,7 @@ import type { DebankTokensResponse } from '@/providers/types/Firefly.js';
 import type { DebankToken } from '@/providers/types/Transfer.js';
 import { settings } from '@/settings/index.js';
 
-export async function getTokensByAddress(address: string) {
+async function getAllTokenList(address: string) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/misc/all_token_list', {
         address,
     });
@@ -14,14 +14,14 @@ export async function getTokensByAddress(address: string) {
     return result.data?.list ?? [];
 }
 
-export async function getTokensByAddressForTips(address: string): Promise<
+export async function getTokensByAddress(address: string): Promise<
     Array<
         DebankToken & {
             chainId: number | null;
         }
     >
 > {
-    const tokens = await getTokensByAddress(address);
+    const tokens = await getAllTokenList(address);
 
     return tokens.map((token) => {
         const chain = DEBANK_CHAINS.find((chain) => chain.id === token.chain);
