@@ -98,6 +98,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     return;
             }
         } catch (error) {
+            if (error instanceof Error && error.message.startsWith('No wallet client found')) {
+                throw error;
+            }
             enqueueErrorMessage(
                 <div>
                     <span className="font-bold">
