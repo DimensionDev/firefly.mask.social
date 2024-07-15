@@ -2,8 +2,7 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import { FollowButton } from '@/components/Profile/FollowButton.js';
-import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
+import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { Source } from '@/constants/enum.js';
@@ -41,13 +40,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
     const renderActions = () => {
         if (!reached && isMedium) return null;
         if (profile?.source === Source.Twitter) return null;
-        if (profile)
-            return (
-                <>
-                    {isOthersProfile ? <FollowButton profile={profile} /> : null}
-                    <ProfileMoreAction className="ml-2 text-main" profile={profile} />
-                </>
-            );
+        if (profile) return <ProfileAction profile={profile} ProfileMoreActionProps={{ className: 'ml-2' }} />;
         if (walletProfile)
             return (
                 <>
@@ -64,7 +57,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
 
     return (
         <div className="sticky top-0 z-30 flex h-[60px] items-center bg-primaryBottom px-4">
-            <div className="mr-1 mr-auto flex items-center gap-7 overflow-auto">
+            <div className="mr-auto flex items-center gap-7 overflow-auto">
                 <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-black text-lightMain">
                     {displayName ?? '-'}

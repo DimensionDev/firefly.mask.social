@@ -61,7 +61,6 @@ const XLayer = defineChain({
 export const chains = [
     mainnet,
     base,
-    baseSepolia,
     bsc,
     degen,
     polygon,

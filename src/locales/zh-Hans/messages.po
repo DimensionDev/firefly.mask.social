@@ -360,9 +360,6 @@ msgstr "已点赞"
 msgid "Term of Service"
 msgstr "服务条款"
 
-msgid "Please switch to the correct network in your wallet."
-msgstr "请在钱包中切换到正确的网络。"
-
 msgid "Token ID"
 msgstr "通证 ID"
 
@@ -525,6 +522,9 @@ msgstr "视频还未支持上传。"
 msgid "Whitelist function"
 msgstr "白名单功能"
 
+msgid "Profile could not be found."
+msgstr ""
+
 msgid "Failed to mute /{0}."
 msgstr "屏蔽 /{0} 失败。"
 
@@ -536,9 +536,6 @@ msgstr "[照片]"
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
-
-msgid "No wallet client found. Please connect your wallet."
-msgstr "未找到钱包。请尝试连接。"
 
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
@@ -635,6 +632,9 @@ msgstr "账号不匹配导致选择失败。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4> 交互了你的 </4><5><6/></5>"
+
+msgid "The file exceeds the size limit."
+msgstr ""
 
 msgid "Search Filter"
 msgstr "查询规则"
@@ -915,14 +915,14 @@ msgstr "请确认使用 Warpcast 登录。"
 msgid "The connection has timed out. Please try again later.·"
 msgstr "连接已经超时。请稍后重试。"
 
+msgid "Edit Profile"
+msgstr ""
+
 msgid "Confirm you want to mute @{0}?"
 msgstr "您确定要屏蔽 @{0} 吗？"
 
 msgid "Compose"
 msgstr "发帖"
-
-msgid "The user declined the request."
-msgstr "用户取消了请求。"
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
@@ -1236,9 +1236,6 @@ msgstr "在 X 上关注 @thefireflyapp"
 msgid "Light Mode"
 msgstr "浅色模式"
 
-msgid "Please switch to the {chainName} network in your wallet."
-msgstr "请切换钱包网络至 {chainName}"
-
 msgid "Executing"
 msgstr "执行中"
 
@@ -1541,9 +1538,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 
 msgid "collect"
 msgstr "收藏"
-
-msgid "Please switch to the wallet used for login."
-msgstr "请切换钱包登录。"
 
 msgid "Developers"
 msgstr "开发者"

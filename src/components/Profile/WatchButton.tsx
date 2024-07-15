@@ -11,8 +11,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
 enum State {
     Watch = 'Watch',
@@ -31,6 +33,7 @@ export const WatchButton = memo(function WatchButton({
     className,
     ...rest
 }: WatchButtonProps) {
+    const isLogin = useIsLogin();
     const [seen, ref] = useEverSeen<HTMLButtonElement>();
     const [hovering, setHovering] = useState(false);
     const { data: ens } = useEnsName({ address });
@@ -72,6 +75,9 @@ export const WatchButton = memo(function WatchButton({
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
+                if (!isLogin) {
+                    return LoginModalRef.open();
+                }
                 mutation.mutate();
             }}
         >

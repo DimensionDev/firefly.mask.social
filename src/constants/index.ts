@@ -15,6 +15,7 @@ import {
 import { env } from '@/constants/env.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { MediaSource } from '@/types/compose.js';
+import { ChainId } from '@masknet/web3-shared-evm';
 
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;

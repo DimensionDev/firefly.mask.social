@@ -355,9 +355,6 @@ msgstr "Liked"
 msgid "Term of Service"
 msgstr "Term of Service"
 
-msgid "Please switch to the correct network in your wallet."
-msgstr "Please switch to the correct network in your wallet."
-
 msgid "Token ID"
 msgstr "Token ID"
 
@@ -520,6 +517,9 @@ msgstr "Failed to upload. Video is not supported yet."
 msgid "Whitelist function"
 msgstr "Whitelist function"
 
+msgid "Profile could not be found."
+msgstr "Profile could not be found."
+
 msgid "Failed to mute /{0}."
 msgstr "Failed to mute /{0}."
 
@@ -531,9 +531,6 @@ msgstr "[Photo]"
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
-
-msgid "No wallet client found. Please connect your wallet."
-msgstr "No wallet client found. Please connect your wallet."
 
 msgid "THREAD POST"
 msgstr "THREAD POST"
@@ -630,6 +627,9 @@ msgstr "Cannot choose due to account mismatch."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
+
+msgid "The file exceeds the size limit."
+msgstr "The file exceeds the size limit."
 
 msgid "Search Filter"
 msgstr "Search Filter"
@@ -910,14 +910,14 @@ msgstr "Please confirm the login with Warpcast."
 msgid "The connection has timed out. Please try again later.·"
 msgstr "The connection has timed out. Please try again later.·"
 
+msgid "Edit Profile"
+msgstr "Edit Profile"
+
 msgid "Confirm you want to mute @{0}?"
 msgstr "Confirm you want to mute @{0}?"
 
 msgid "Compose"
 msgstr "Compose"
-
-msgid "The user declined the request."
-msgstr "The user declined the request."
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
@@ -1231,9 +1231,6 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Light Mode"
 msgstr "Light Mode"
 
-msgid "Please switch to the {chainName} network in your wallet."
-msgstr "Please switch to the {chainName} network in your wallet."
-
 msgid "Executing"
 msgstr "Executing"
 
@@ -1536,9 +1533,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 
 msgid "collect"
 msgstr "collect"
-
-msgid "Please switch to the wallet used for login."
-msgstr "Please switch to the wallet used for login."
 
 msgid "Developers"
 msgstr "Developers"

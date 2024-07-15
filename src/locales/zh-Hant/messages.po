@@ -360,9 +360,6 @@ msgstr "已喜歡"
 msgid "Term of Service"
 msgstr "服務條款"
 
-msgid "Please switch to the correct network in your wallet."
-msgstr ""
-
 msgid "Token ID"
 msgstr ""
 
@@ -525,6 +522,9 @@ msgstr ""
 msgid "Whitelist function"
 msgstr "白名單功能"
 
+msgid "Profile could not be found."
+msgstr ""
+
 msgid "Failed to mute /{0}."
 msgstr "對 @{0} 的靜音失敗"
 
@@ -536,9 +536,6 @@ msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
-
-msgid "No wallet client found. Please connect your wallet."
-msgstr "未找到錢包用戶。請連接您的錢包。"
 
 msgid "THREAD POST"
 msgstr ""
@@ -634,6 +631,9 @@ msgid "Cannot choose due to account mismatch."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
+msgstr ""
+
+msgid "The file exceeds the size limit."
 msgstr ""
 
 msgid "Search Filter"
@@ -915,14 +915,14 @@ msgstr "請至 Warpcast 確認登錄"
 msgid "The connection has timed out. Please try again later.·"
 msgstr "連結已超時。請稍候重試"
 
+msgid "Edit Profile"
+msgstr ""
+
 msgid "Confirm you want to mute @{0}?"
 msgstr "確認對 @{0} 的靜音？"
 
 msgid "Compose"
 msgstr "創作"
-
-msgid "The user declined the request."
-msgstr "用戶拒絕了請求"
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 喜歡了"
@@ -1236,9 +1236,6 @@ msgstr "在 X 上追蹤@thefireflyapp"
 msgid "Light Mode"
 msgstr "淺色模式"
 
-msgid "Please switch to the {chainName} network in your wallet."
-msgstr ""
-
 msgid "Executing"
 msgstr ""
 
@@ -1540,9 +1537,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr ""
 
 msgid "collect"
-msgstr ""
-
-msgid "Please switch to the wallet used for login."
 msgstr ""
 
 msgid "Developers"
