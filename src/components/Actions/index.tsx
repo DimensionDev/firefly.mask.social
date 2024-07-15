@@ -15,7 +15,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { getProfileIdentity } from '@/helpers/getProfileIdentity.js';
+import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -40,7 +40,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         return publicationViews.find((x) => x.id === post.postId)?.views;
     }, [publicationViews, post]);
 
-    const identity = getProfileIdentity(post.author);
+    const identity = resolveProfileId(post.author);
 
     const actions = compact([
         <div key="comment">
@@ -130,7 +130,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 }) {
     const isComment = post.type === 'Comment';
 
-    const identity = getProfileIdentity(post.author);
+    const identity = resolveProfileId(post.author);
 
     if (post.source === Source.Twitter) {
         return null;
