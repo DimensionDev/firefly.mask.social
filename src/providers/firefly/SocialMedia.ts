@@ -473,6 +473,27 @@ export class FireflySocialMedia implements Provider {
             );
         });
     }
+    async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followersmutual', {
+                fid: profileId,
+                size: 10,
+                cursor: indicator?.id,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
+                method: 'GET',
+            });
+            const { list, next_cursor } = resolveFireflyResponseData(response);
+            const data = list.map(formatFarcasterProfileFromFirefly);
+
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+            );
+        });
+    }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
