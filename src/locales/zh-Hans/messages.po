@@ -141,9 +141,6 @@ msgstr "引用"
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
-msgid "Failed to upload. Video is not supported yet"
-msgstr "视频还未支持上传。"
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
@@ -164,9 +161,6 @@ msgstr "空投骗局"
 
 msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
-
-msgid "This entry has been permanently stored on-chain and signed by its creator"
-msgstr "这个入口已经被其创建者签名并永久存储上链"
 
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
@@ -537,6 +531,9 @@ msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！
 msgid "Confirmation"
 msgstr "确认"
 
+msgid "Failed to upload. Video is not supported yet."
+msgstr "视频还未支持上传。"
+
 msgid "Whitelist function"
 msgstr "白名单功能"
 
@@ -557,6 +554,9 @@ msgstr "未找到钱包。请尝试连接。"
 
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
+
+msgid "This entry has been permanently stored on-chain and signed by its creator."
+msgstr "这个入口已经被其创建者签名并永久存储上链"
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"

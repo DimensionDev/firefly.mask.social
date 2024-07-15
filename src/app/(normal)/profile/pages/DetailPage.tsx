@@ -5,29 +5,36 @@ import { notFound } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import type { SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Props {
     identity: string;
-    source: SourceInURL;
+    source: SocialSourceInURL;
 }
 
 export function ProfileDetailPage({ identity, source }: Props) {
-    const currentSource = resolveSourceFromUrl(source);
+    const profileTab = { source: resolveSourceFromUrl(source), identity };
 
-    const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
-        queryKey: ['all-profiles', currentSource, identity],
+    const currentProfiles = useCurrentFireflyProfilesAll();
+    const isCurrentProfile = currentProfiles.some(
+        (x) => x.source === profileTab.source && x.identity === profileTab.identity,
+    );
+
+    const { data: othersProfiles = EMPTY_LIST, isLoading } = useQuery({
+        enabled: !isCurrentProfile,
+        queryKey: ['all-profiles', profileTab.source, profileTab.identity],
         queryFn: async () => {
-            if (!identity) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, currentSource);
+            if (!profileTab.identity) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(profileTab.source, profileTab.identity);
         },
     });
 
-    if (isLoading) {
+    if (isLoading && !isCurrentProfile) {
         return <Loading />;
     }
 
@@ -36,8 +43,8 @@ export function ProfileDetailPage({ identity, source }: Props) {
     }
 
     return (
-        <ProfileContext.Provider initialState={{ source: currentSource, identity }}>
-            <ProfilePage profiles={profiles} />
-        </ProfileContext.Provider>
+        <ProfileTabContext.Provider initialState={profileTab}>
+            <ProfilePage profiles={isCurrentProfile ? currentProfiles : othersProfiles} />
+        </ProfileTabContext.Provider>
     );
 }

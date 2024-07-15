@@ -39,7 +39,10 @@ const ExternalEnvSchema = z.object({
 
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
     NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
+    NEXT_PUBLIC_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
+    NEXT_PUBLIC_SOLANA_RPC_URL: z.string(),
 
+    NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FRAME: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_BLINK: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -58,8 +61,6 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SENTRY_DSN: z.string(),
     NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 
-    OPENRANK_URL: z.string(),
-
     // app url scheme
     NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: z.string().default('https://5euxu.app.link/PHvNiyVemIb'),
     NEXT_PUBLIC_FIREFLY_IOS_HOME: z.string().default('firefly://'),
@@ -68,8 +69,6 @@ const ExternalEnvSchema = z.object({
 
     // giphy api key.
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
-
-    NEXT_PUBLIC_SOLANA_RPC_URL: z.string(),
 });
 
 export const env = {
@@ -88,14 +87,19 @@ export const env = {
 
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_FIREFLY_API_URL: process.env.NEXT_PUBLIC_FIREFLY_API_URL,
+        NEXT_PUBLIC_OPENRANK_URL: process.env.NEXT_PUBLIC_OPENRANK_URL,
+        NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
 
+        NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
         NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
+        NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,
         NEXT_PUBLIC_SCHEDULE_POST: process.env.NEXT_PUBLIC_SCHEDULE_POST,
         NEXT_PUBLIC_CALENDAR_WIDGET: process.env.NEXT_PUBLIC_CALENDAR_WIDGET,
         NEXT_PUBLIC_COMPOSE_WARNINGS: process.env.NEXT_PUBLIC_COMPOSE_WARNINGS,
         NEXT_PUBLIC_REACT_DEV_TOOLS: process.env.NEXT_PUBLIC_REACT_DEV_TOOLS,
         NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
+        NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
 
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
         NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
@@ -103,17 +107,10 @@ export const env = {
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
         NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
 
-        OPENRANK_URL: process.env.NEXT_PUBLIC_OPENRANK_URL || 'https://graph.cast.k3l.io',
-
         NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,
         NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
-
-        NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
-        NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
-
-        NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
     }),
 };

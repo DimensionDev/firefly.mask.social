@@ -10,7 +10,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
-import { isMyProfile } from '@/helpers/isMyProfile.js';
+import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -43,10 +43,10 @@ export function Info({ profile }: InfoProps) {
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
-                        <SocialSourceIcon source={source} size={20} />
-                        {profile && !isMyProfile(profile) && isMedium && source !== Source.Twitter ? (
+                        <SocialSourceIcon className="mr-auto" source={source} size={20} />
+                        {profile && isMedium && source !== Source.Twitter ? (
                             <>
-                                <FollowButton className="ml-auto" profile={profile} />
+                                {!isCurrentProfile(profile) ? <FollowButton profile={profile} /> : null}
                                 <ProfileMoreAction profile={profile} />
                             </>
                         ) : null}
