@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-10 12:01\n"
+"PO-Revision-Date: 2024-07-12 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Crowdin-File-ID: 836\n"
 
 msgid "Do you want to retry with the full or remaining content?"
-msgstr ""
+msgstr "您想用全部內容還是剩餘內容重試？"
 
 msgid "Login required to post on {sourceName}."
 msgstr "需要登入後在{sourceName} 發佈貼文"
@@ -91,7 +91,7 @@ msgid "Failed to unbookmark post."
 msgstr "從書籤中移除失敗。"
 
 msgid "Delete post"
-msgstr ""
+msgstr "刪除貼文"
 
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以通過以下選項登入 Farcaster。"
@@ -103,7 +103,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr ""
 
 msgid "The post you quoted/replied has already deleted"
-msgstr ""
+msgstr "您引用/回覆的貼文已經被刪除"
 
 msgid "Debug Connection"
 msgstr "除錯連接"
@@ -121,7 +121,7 @@ msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
 msgid "Watching"
-msgstr "正在觀看"
+msgstr "正在觀察"
 
 msgid "Rank #{0}"
 msgstr "排名#{0}"
@@ -130,19 +130,16 @@ msgid "Searching channel"
 msgstr "搜尋頻道"
 
 msgid "quotes"
-msgstr ""
+msgstr "引用"
 
 msgid "Functions that can suspend trading"
 msgstr ""
-
-msgid "Failed to upload. Video is not supported yet"
-msgstr "上傳失敗。暫不接受影片上傳。"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
 msgid "Unknown error"
-msgstr ""
+msgstr "未知的錯誤"
 
 msgid "More"
 msgstr "更多"
@@ -154,13 +151,10 @@ msgid "Searching users"
 msgstr "搜尋用戶"
 
 msgid "Airdrop Scam"
-msgstr ""
+msgstr "空投騙局"
 
 msgid "Collect Action is not supported yet."
 msgstr "暫未接受收集功能。"
-
-msgid "This entry has been permanently stored on-chain and signed by its creator"
-msgstr "這個紀錄已被它的創作者簽名並永久儲存在鏈上。"
 
 msgid "Tax can be modified"
 msgstr ""
@@ -172,7 +166,7 @@ msgid "Found arweaveTxId is empty."
 msgstr ""
 
 msgid "Blocked"
-msgstr ""
+msgstr "已封鎖"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
@@ -187,13 +181,13 @@ msgid "OpenGraph"
 msgstr ""
 
 msgid "Trending"
-msgstr ""
+msgstr "流行趨勢"
 
 msgid "Log out @{0}"
-msgstr ""
+msgstr "退出 @{0} 的登錄"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
-msgstr ""
+msgstr "您可以將發送失敗的部分貼文保存，並在之後從草稿箱中發送"
 
 msgid "Please confirm the login with Firefly."
 msgstr ""
@@ -204,6 +198,9 @@ msgstr "錯誤的錢包"
 msgid "Poll"
 msgstr "投票"
 
+msgid "Scheduled"
+msgstr "已排程"
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -211,10 +208,10 @@ msgid "Casts"
 msgstr ""
 
 msgid "Your account is now connected."
-msgstr ""
+msgstr "您的帳戶現已連接。"
 
 msgid "Report submitted on {0}"
-msgstr ""
+msgstr "檢舉已於{0} 提交"
 
 msgid "Debug Console"
 msgstr ""
@@ -223,16 +220,16 @@ msgid "Failed to mute @{0} on {sourceName}"
 msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
 
 msgid "Login with QR Code"
-msgstr ""
+msgstr "通過 QR 碼登錄"
 
 msgid "Market Cap"
 msgstr "市值"
 
 msgid "Contract source code verified"
-msgstr ""
+msgstr "合約源代碼已驗證"
 
 msgid "Profile not found"
-msgstr ""
+msgstr "找不到帳戶"
 
 msgid "NFT Standard"
 msgstr "NFT 標準"
@@ -244,31 +241,31 @@ msgid "Failed to login"
 msgstr "登入失敗"
 
 msgid "<0>Posted</0>an article"
-msgstr ""
+msgstr "<0>發布</0>一篇文章"
 
 msgid "Poll is currently only supported on {0}"
-msgstr ""
+msgstr "投票功能目前僅在 {0} 支持"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
 msgid "likes"
-msgstr ""
+msgstr "喜歡"
 
 msgid "Offline"
 msgstr "離線"
 
 msgid "Username is required."
-msgstr ""
+msgstr "需要用戶名"
 
 msgid "<0>Sent</0> an NFT"
 msgstr ""
 
 msgid "Report post"
-msgstr ""
+msgstr "檢舉貼文"
 
 msgid "{0} left"
-msgstr ""
+msgstr "剩餘 {0}"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼，授權 <3>Firefly</3> 連結您的帳戶。"
@@ -307,7 +304,7 @@ msgid "{0} muted channels"
 msgstr "{0} 個已靜音的頻道"
 
 msgid "[Video]"
-msgstr ""
+msgstr "[影片]"
 
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
@@ -319,7 +316,7 @@ msgid "Device Logged In"
 msgstr "裝置已登入"
 
 msgid "Report submitted"
-msgstr ""
+msgstr "檢舉已提交"
 
 msgid "Username"
 msgstr "用戶名"
@@ -331,7 +328,7 @@ msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr ""
 
 msgid "Blockchain"
-msgstr ""
+msgstr "區塊練"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr ""
@@ -340,10 +337,10 @@ msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Mutes"
-msgstr ""
+msgstr "靜音"
 
 msgid "NFTs"
-msgstr ""
+msgstr "非同質化代幣 (NFT)"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "“{searchKeyword}” 無搜尋結果"
@@ -361,7 +358,7 @@ msgid "Liked"
 msgstr "已喜歡"
 
 msgid "Term of Service"
-msgstr ""
+msgstr "服務條款"
 
 msgid "Please switch to the correct network in your wallet."
 msgstr ""
@@ -373,7 +370,7 @@ msgid "Type something here..."
 msgstr ""
 
 msgid "Save Post?"
-msgstr ""
+msgstr "是否保存貼文？"
 
 msgid "Reconnect with Firefly"
 msgstr "通過 Firefly 重新連接"
@@ -382,7 +379,7 @@ msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
 
 msgid "Failed to delete"
-msgstr ""
+msgstr "刪除失敗"
 
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
@@ -412,10 +409,13 @@ msgid "Search"
 msgstr "搜尋"
 
 msgid "Watch"
-msgstr ""
+msgstr "觀察"
 
 msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
+
+msgid "Failed to delete scheduled post."
+msgstr ""
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -427,7 +427,7 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Verified by {0}"
-msgstr ""
+msgstr "通過 {0} 驗證"
 
 msgid "Select Account"
 msgstr "選定帳戶"
@@ -436,7 +436,7 @@ msgid "mirror"
 msgstr "鏡像"
 
 msgid "POST"
-msgstr ""
+msgstr "貼文"
 
 msgid "Failed to unlike the post."
 msgstr "點讚評論失敗"
@@ -460,10 +460,10 @@ msgid "recasts"
 msgstr ""
 
 msgid "Items"
-msgstr ""
+msgstr "物品"
 
 msgid "Less than a minute left"
-msgstr ""
+msgstr "剩餘不到一分鐘"
 
 msgid "Minting Txn Hash"
 msgstr ""
@@ -478,10 +478,10 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "Info"
-msgstr ""
+msgstr "資訊"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
@@ -499,7 +499,7 @@ msgid "Connect Wallet"
 msgstr "連接錢包"
 
 msgid "Not Found. Please check your URL[{0}]."
-msgstr ""
+msgstr "未找到。請檢查您的 URL [{0}]"
 
 msgid "Feed"
 msgstr "資訊來源"
@@ -519,11 +519,14 @@ msgstr "通過 Firefly 應用程式或 {SITE_URL} 查看我發送的紅包 🧧�
 msgid "Confirmation"
 msgstr "確認"
 
-msgid "Whitelist function"
+msgid "Failed to upload. Video is not supported yet."
 msgstr ""
 
+msgid "Whitelist function"
+msgstr "白名單功能"
+
 msgid "Failed to mute /{0}."
-msgstr ""
+msgstr "對 @{0} 的靜音失敗"
 
 msgid "Address"
 msgstr "地址"
@@ -538,6 +541,9 @@ msgid "No wallet client found. Please connect your wallet."
 msgstr "未找到錢包用戶。請連接您的錢包。"
 
 msgid "THREAD POST"
+msgstr ""
+
+msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr ""
 
 msgid "Frame Validator"
@@ -561,8 +567,11 @@ msgstr "鏡像失敗"
 msgid "Remove Choice"
 msgstr ""
 
-msgid "Mute {identity}"
+msgid "Update"
 msgstr ""
+
+msgid "Mute {identity}"
+msgstr "將 @{identity} 靜音"
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
@@ -574,10 +583,10 @@ msgid "The file not found"
 msgstr "找不到文件"
 
 msgid "Invalid file type. Allowed types: {0}"
-msgstr ""
+msgstr "無效的文件種類。有效種類：{0}"
 
 msgid "Connection failed"
-msgstr ""
+msgstr "連結失敗"
 
 msgid "Owner can't change balance"
 msgstr ""
@@ -657,6 +666,9 @@ msgstr ""
 msgid "Are you sure you want to report this collection?"
 msgstr ""
 
+msgid "The scheduled time has passed. Please reset it."
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -688,7 +700,7 @@ msgid "Enable development API version"
 msgstr ""
 
 msgid "Reply"
-msgstr ""
+msgstr "回覆"
 
 msgid "Mirror or Quote"
 msgstr ""
@@ -703,7 +715,7 @@ msgid "Owned By"
 msgstr ""
 
 msgid "Are you sure you want to report this post?"
-msgstr ""
+msgstr "是否確定要檢舉這條貼文？"
 
 msgid "No function found that retrieves ownership"
 msgstr ""
@@ -736,7 +748,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked 
 msgstr ""
 
 msgid "EVM"
-msgstr ""
+msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr ""
@@ -748,19 +760,22 @@ msgid "Choice {0}"
 msgstr ""
 
 msgid "Send Feedback"
+msgstr "發送反饋"
+
+msgid "Your draft was saved."
 msgstr ""
 
 msgid "The chainId mismatch."
 msgstr ""
 
 msgid "Open in Firefly App"
-msgstr ""
+msgstr "在 Firefly 應用程式中打開"
 
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
 msgid "Forbidden. Please check your permissions."
-msgstr ""
+msgstr "禁止。請檢查您的權限"
 
 msgid "There are images that were not uploaded successfully."
 msgstr ""
@@ -769,7 +784,7 @@ msgid "No mint function"
 msgstr ""
 
 msgid "Switch"
-msgstr ""
+msgstr "切換"
 
 msgid "Follow"
 msgstr "追蹤"
@@ -781,10 +796,13 @@ msgid "Add account"
 msgstr "新增帳户"
 
 msgid "{0} Comments"
+msgstr "{0} 評論"
+
+msgid "Schedule Post"
 msgstr ""
 
 msgid "Proxy contract"
-msgstr ""
+msgstr "代理合約"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
@@ -796,10 +814,10 @@ msgid "This token contract has not been verified. We cannot check the contract c
 msgstr ""
 
 msgid "Replies"
-msgstr ""
+msgstr "回覆"
 
 msgid "Comment"
-msgstr ""
+msgstr "評論"
 
 msgid "Only people you mention"
 msgstr ""
@@ -810,8 +828,11 @@ msgstr ""
 msgid "Cancel retweet successfully"
 msgstr "成功取消轉發"
 
-msgid "[Poll]"
+msgid "Set"
 msgstr ""
+
+msgid "[Poll]"
+msgstr "[投票]"
 
 msgid "Confirm to connect your account status."
 msgstr ""
@@ -826,13 +847,13 @@ msgid "Your posts have published successfully on {0}."
 msgstr ""
 
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
 msgid "Hide more comments"
-msgstr ""
+msgstr "隱藏更多評論"
 
 msgid "Failed to resolve mint URL = {0}."
 msgstr ""
@@ -847,22 +868,22 @@ msgid "Unlike"
 msgstr "取消按讚"
 
 msgid "No blacklist"
-msgstr ""
+msgstr "無黑名單"
 
 msgid "Post was deleted"
-msgstr ""
+msgstr "貼文被刪除"
 
 msgid "Website"
-msgstr ""
+msgstr "網站"
 
 msgid "Your post has published successfully."
-msgstr ""
+msgstr "你的貼文已成功發佈"
 
 msgid "Failed to follow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
 msgid "1m"
-msgstr ""
+msgstr "1個月"
 
 msgid "Bookmark"
 msgstr "書籤"
@@ -871,10 +892,10 @@ msgid "Circulating Supply"
 msgstr ""
 
 msgid "Post has been deleted"
-msgstr ""
+msgstr "貼文已被刪除"
 
 msgid "Report article"
-msgstr ""
+msgstr "檢舉文章"
 
 msgid "Everyone"
 msgstr "所有人"
@@ -883,28 +904,31 @@ msgid "This token is issued by its declared team. Some scams will create a well-
 msgstr ""
 
 msgid "Search ${symbol}"
-msgstr ""
+msgstr "搜尋 ${symbol}"
 
 msgid "Failed to unmute /{0}."
-msgstr ""
+msgstr "對 @{0} 的解除靜音失敗"
 
 msgid "Please confirm the login with Warpcast."
-msgstr ""
+msgstr "請至 Warpcast 確認登錄"
 
 msgid "The connection has timed out. Please try again later.·"
+msgstr "連結已超時。請稍候重試"
+
+msgid "Edit Profile"
 msgstr ""
 
 msgid "Confirm you want to mute @{0}?"
-msgstr ""
+msgstr "確認對 @{0} 的靜音？"
 
 msgid "Compose"
-msgstr ""
+msgstr "創作"
 
 msgid "The user declined the request."
-msgstr ""
+msgstr "用戶拒絕了請求"
 
 msgid "<0>{0}</0> liked"
-msgstr ""
+msgstr "<0>{0}</0> 喜歡了"
 
 msgid "Fully Diluted Valuation"
 msgstr ""
@@ -916,13 +940,13 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
-msgstr ""
+msgstr "NFT合約"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
 msgid "Mute"
-msgstr ""
+msgstr "靜音"
 
 msgid "Confirm to log out this account?"
 msgstr ""
@@ -934,10 +958,13 @@ msgid "Failed to recast."
 msgstr ""
 
 msgid "No post found"
-msgstr ""
+msgstr "未找到貼文"
 
 msgid "Clear All"
 msgstr "清除所有"
+
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr ""
 
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr ""
@@ -957,9 +984,6 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
-msgid "Open Mobile App"
-msgstr ""
-
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
@@ -970,27 +994,30 @@ msgid "liked"
 msgstr "已喜歡"
 
 msgid "Users"
-msgstr ""
+msgstr "用戶"
 
 msgid "Describe a bug or suggest an improvement"
-msgstr ""
+msgstr "描述錯誤或提供改進建議"
 
 msgid "The file \"{0}\" exceeds the size limit."
-msgstr ""
+msgstr "文件 “{0}” 超出了尺寸限制"
 
 msgid "Invalid URL."
-msgstr ""
+msgstr "無效的 URL"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
-msgstr ""
+msgstr "<0>校訂</0>一篇文章"
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 
 msgid "Suggested Follows"
+msgstr ""
+
+msgid "Login required to schedule post on {sourceName}"
 msgstr ""
 
 msgid "Post has been encrypted"
@@ -1009,7 +1036,7 @@ msgid "Settings"
 msgstr "設定"
 
 msgid "Creator"
-msgstr ""
+msgstr "創作者"
 
 msgid "Unmuted @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的靜音"
@@ -1018,7 +1045,7 @@ msgid "Details"
 msgstr "詳細資訊"
 
 msgid "No preview found for shared link"
-msgstr ""
+msgstr "分享的連結暫無預覽畫面"
 
 msgid "Contract source code not verified"
 msgstr ""
@@ -1027,7 +1054,7 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Failed to unwatch {identity}"
-msgstr ""
+msgstr "取消觀察 @{identity} 失敗"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
@@ -1039,7 +1066,7 @@ msgid "<0>The proportion of current market capitalization compares to market cap
 msgstr ""
 
 msgid "Minting Date"
-msgstr ""
+msgstr "鑄造日期"
 
 msgid "The page could not be found."
 msgstr "無法找到頁面"
@@ -1051,16 +1078,16 @@ msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to a
 msgstr ""
 
 msgid "What's happening..."
-msgstr ""
+msgstr "有什麼新鮮事"
 
 msgid "24h"
-msgstr ""
+msgstr "24小時"
 
 msgid "Like"
 msgstr "喜歡"
 
 msgid "Contract Address"
-msgstr ""
+msgstr "合約地址"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -1068,17 +1095,20 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
 
+msgid "Your schedule thread has created successfully."
+msgstr ""
+
 msgid "General"
 msgstr "一般"
 
 msgid "Page not found. Please try again."
-msgstr ""
+msgstr "未找到頁面。請重試"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
+msgstr "文章已從你的書籤中移除"
 
 msgid "Publications"
 msgstr "發表"
@@ -1088,6 +1118,9 @@ msgstr "你的網站連結"
 
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
+msgstr ""
 
 msgid "Display"
 msgstr "顯示"
@@ -1105,13 +1138,13 @@ msgid "Search..."
 msgstr "搜尋..."
 
 msgid "Show more comments"
-msgstr ""
+msgstr "顯示更多評論"
 
 msgid "Failed to parse session."
 msgstr ""
 
 msgid "Feedback"
-msgstr ""
+msgstr "反饋"
 
 msgid "%Of supply owned"
 msgstr ""
@@ -1123,55 +1156,58 @@ msgid "Your frame URL."
 msgstr ""
 
 msgid "Remaining"
-msgstr ""
+msgstr "剩餘"
 
 msgid "Cancel recast successfully"
+msgstr ""
+
+msgid "Failed to create schedule thread posts."
 msgstr ""
 
 msgid "Top Collectors"
 msgstr ""
 
 msgid "Quote"
-msgstr ""
+msgstr "引用"
 
 msgid "View engagements"
-msgstr ""
+msgstr "查看互動數據"
 
 msgid "Translated"
 msgstr ""
 
 msgid "Failed to bookmark post."
-msgstr ""
+msgstr "書籤標記失敗."
 
 msgid "{0} muted users"
-msgstr ""
+msgstr "{0} 位已靜音的用戶"
 
 msgid "Remove Poll"
-msgstr ""
+msgstr "移除投票"
 
 msgid "Unmute {identity}"
-msgstr ""
+msgstr "取消對 @{identity} 的靜音"
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
 msgid "Minutes"
-msgstr ""
+msgstr "分鐘"
 
 msgid "Floor Price"
-msgstr ""
+msgstr "地板價格"
 
 msgid "Unliked"
 msgstr "已取消喜歡"
 
 msgid "Please click and refresh the QR code to log in again."
-msgstr ""
+msgstr "請點擊刷新 QR 碼用以重新登錄"
 
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 
 msgid "No comments found"
-msgstr ""
+msgstr "未找到評論"
 
 msgid "Unfollow @{0}"
 msgstr "取消追蹤 @{0}"
@@ -1186,7 +1222,7 @@ msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply
 msgstr ""
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
-msgstr ""
+msgstr "您目前已經登錄了另一個 Firefly 帳戶。繼續會 <0>覆蓋</0> 您現有的帳戶"
 
 msgid "Discard"
 msgstr "捨棄"
@@ -1210,7 +1246,7 @@ msgid "Executing"
 msgstr ""
 
 msgid "Community"
-msgstr ""
+msgstr "社群"
 
 msgid "Delete"
 msgstr "刪除"
@@ -1222,28 +1258,31 @@ msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr ""
 
 msgid "The content of this account is currently unavailable"
-msgstr ""
+msgstr "該帳戶的內容目前不可見"
 
 msgid "There is no data available for display."
-msgstr ""
+msgstr "沒有可供展示的數據"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Send on schedule"
+msgstr ""
 
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
 msgid "Download image"
-msgstr ""
+msgstr "下載圖片"
 
 msgid "Mirrored"
 msgstr "已鏡像"
 
 msgid "Muted contents"
-msgstr ""
+msgstr "已靜音的內容"
 
 msgid "Unable to retrieve post details."
-msgstr ""
+msgstr "無法檢索貼文詳情"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
@@ -1252,25 +1291,25 @@ msgid "This does not appear to be a honeypot."
 msgstr ""
 
 msgid "Failed to publish post."
-msgstr ""
+msgstr "發布貼文失敗"
 
 msgid "Quotes"
-msgstr ""
+msgstr "引用"
 
 msgid "The user rejected the request."
 msgstr ""
 
 msgid "Unwatch {identity}"
-msgstr ""
+msgstr "取消觀察 {identity}"
 
 msgid "Recast or Quote"
 msgstr ""
 
 msgid "Draft"
-msgstr ""
+msgstr "草稿"
 
 msgid "Unwatch"
-msgstr ""
+msgstr "取消觀察"
 
 msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
@@ -1288,19 +1327,19 @@ msgid "Something went wrong. Please try again."
 msgstr ""
 
 msgid "Translated from {contentLanguage}"
-msgstr ""
+msgstr "由 {contentLanguage} 翻譯"
 
 msgid "POAPs"
-msgstr ""
+msgstr "POAPs"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上跟隨 @realMaskNetwork"
 
 msgid "Leaving Firefly"
-msgstr ""
+msgstr "離開 Firefly"
 
 msgid "24H Volume"
-msgstr ""
+msgstr "24 小時交易量"
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr ""
@@ -1318,7 +1357,7 @@ msgid "Full"
 msgstr ""
 
 msgid "Powered by"
-msgstr ""
+msgstr "提供者為"
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
@@ -1327,10 +1366,13 @@ msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "All notifications"
-msgstr ""
+msgstr "全部通知"
+
+msgid "Mobile App"
+msgstr "手機應用"
 
 msgid "You can save this to send later from your drafts."
-msgstr ""
+msgstr "您可以保存並在之後從草稿箱中發送"
 
 msgid "Internal Server Error. Please try again later."
 msgstr ""
@@ -1342,28 +1384,28 @@ msgid "Report"
 msgstr "檢舉"
 
 msgid "Post by {0}"
-msgstr ""
+msgstr "由 {0} 發布"
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr ""
+msgstr "來自 @{identity} 的文章將在您的主頁時間線中被隱藏"
 
 msgid "quote"
-msgstr ""
+msgstr "引用"
 
 msgid "Casts + Replies"
 msgstr ""
 
 msgid "Image"
-msgstr ""
+msgstr "圖片"
 
 msgid "Muted @{0} on {sourceName}"
-msgstr ""
+msgstr "已在{sourceName} 上靜音 @{0}"
 
 msgid "Copy"
-msgstr ""
+msgstr "複製"
 
 msgid "Skip for now"
-msgstr ""
+msgstr "暫時跳過"
 
 msgid "Login to enable all features"
 msgstr ""
@@ -1372,7 +1414,7 @@ msgid "Owner can change balance"
 msgstr ""
 
 msgid "{identity} watched"
-msgstr ""
+msgstr "{identity} 觀察了"
 
 msgid "Notifications"
 msgstr "通知"
@@ -1381,7 +1423,7 @@ msgid "Back"
 msgstr "返回"
 
 msgid "Posting..."
-msgstr ""
+msgstr "正在發布"
 
 msgid "This Action has been flagged as an unsafe action, & has been blocked."
 msgstr ""
@@ -1398,13 +1440,22 @@ msgstr "通過託管錢包登入"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
+msgid "Saved on {0} at {1}"
+msgstr ""
+
 msgid "No profile found"
+msgstr "未找到人物"
+
+msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
 msgid "Watch {identity}"
-msgstr ""
+msgstr "觀察 {identity}"
 
 msgid "view"
+msgstr "查看"
+
+msgid "Failed to create scheduled post."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1414,13 +1465,13 @@ msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
 msgid "No whitelist"
-msgstr ""
+msgstr "無白名單"
 
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
 
 msgid "Muting..."
-msgstr ""
+msgstr "正在靜音"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr ""
@@ -1428,7 +1479,16 @@ msgstr ""
 msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
+msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "The post will send on {0} at {1}"
+msgstr ""
+
 msgid "Properties"
+msgstr "屬性"
+
+msgid "Failed to set schedule time."
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -1444,7 +1504,7 @@ msgid "Channels"
 msgstr "頻道"
 
 msgid "Firefly"
-msgstr ""
+msgstr "Firefly"
 
 msgid "Switching..."
 msgstr "切換中..."
@@ -1456,10 +1516,10 @@ msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 msgid "Log out all"
-msgstr ""
+msgstr "退出所有登錄"
 
 msgid "LuckyDrop"
 msgstr ""
@@ -1471,13 +1531,13 @@ msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
 msgid "Failed to retweet."
-msgstr ""
+msgstr "轉推失敗"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr ""
@@ -1513,6 +1573,9 @@ msgid "1y"
 msgstr ""
 
 msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
@@ -1576,13 +1639,13 @@ msgid "Claim on {0}: {1}"
 msgstr ""
 
 msgid "NFT ID"
-msgstr ""
+msgstr "NFT ID"
 
 msgid "Farcaster channel"
-msgstr ""
+msgstr "Farcaster 頻道"
 
 msgid "Completed"
-msgstr ""
+msgstr "已完成"
 
 msgid "Failed to unmirror post."
 msgstr "取消鏡像貼文失敗"
@@ -1594,13 +1657,13 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
 msgid "Statistic"
-msgstr ""
+msgstr "統計數據"
 
 msgid "Your post have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上"
 
 msgid "Detail"
-msgstr ""
+msgstr "詳細資訊"
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
@@ -1609,7 +1672,7 @@ msgid "Cannot continue due to wallet mismatch."
 msgstr ""
 
 msgid "your.email@example.org"
-msgstr ""
+msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "取消靜音"
@@ -1630,10 +1693,10 @@ msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
 msgid "Failed to watch {identity}"
-msgstr ""
+msgstr "觀察 @{identity} 失敗"
 
 msgid "{identity} unwatched"
-msgstr ""
+msgstr "{identity} 取消了觀察"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
@@ -1657,7 +1720,7 @@ msgid "No matching users"
 msgstr "沒有符合的用戶"
 
 msgid "Save"
-msgstr ""
+msgstr "存檔"
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr ""
@@ -1672,6 +1735,9 @@ msgid "{0} Users"
 msgstr ""
 
 msgid "Final results"
+msgstr ""
+
+msgid "Unsent Posts"
 msgstr ""
 
 msgid "Suspended account"
@@ -1690,7 +1756,7 @@ msgid "<0>Burned</0> an NFT"
 msgstr ""
 
 msgid "Download App"
-msgstr ""
+msgstr "下載應用程式"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "在多次嘗試後仍無法獲取最新動態。請稍候再嘗試。"
@@ -1699,7 +1765,7 @@ msgid "Profile"
 msgstr "個人資料"
 
 msgid "QUOTE"
-msgstr ""
+msgstr "引用"
 
 msgid "Collect"
 msgstr "收集"
@@ -1714,19 +1780,19 @@ msgid "Language"
 msgstr "語言"
 
 msgid "Address on Watching Lists"
-msgstr ""
+msgstr "在觀察列表上的地址"
 
 msgid "FREE"
-msgstr ""
+msgstr "免費"
 
 msgid "Profiles"
-msgstr ""
+msgstr "個人資料"
 
 msgid "No parent post found."
 msgstr ""
 
 msgid "Please confirm the login with X."
-msgstr ""
+msgstr "請至 X 確認登錄"
 
 msgid "Max Supply"
 msgstr ""
@@ -1738,10 +1804,10 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "7d"
-msgstr ""
+msgstr "7天"
 
 msgid "Name (optional)"
-msgstr ""
+msgstr "姓名（非必須）"
 
 msgid "Location"
 msgstr ""
@@ -1753,31 +1819,34 @@ msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr ""
 
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
-msgstr ""
+msgstr "正在翻譯"
 
 msgid "Back to home"
-msgstr ""
+msgstr "回到首頁"
 
 msgid "Followers"
 msgstr "追蹤者"
 
 msgid "Mint function"
+msgstr "鑄造功能"
+
+msgid "Clear"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
 msgid "Media"
-msgstr ""
+msgstr "多媒體"
 
 msgid "No content to publish."
-msgstr ""
+msgstr "沒有可發布的內容"
 
 msgid "Mirror"
 msgstr ""
@@ -1798,12 +1867,18 @@ msgid "Following"
 msgstr "追蹤中"
 
 msgid "Hours"
+msgstr "小時"
+
+msgid "Failed to create schedule post."
 msgstr ""
 
 msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
@@ -1815,9 +1890,6 @@ msgstr ""
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
-msgid "Your draft was saved"
-msgstr ""
-
 msgid "A thread must have at least two posts."
 msgstr ""
 
@@ -1825,7 +1897,7 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
-msgstr ""
+msgstr "喜歡"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""

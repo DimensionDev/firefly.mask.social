@@ -18,6 +18,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface DraftListItemProps {
@@ -141,6 +142,7 @@ export const DraftList = memo(function DraftList() {
     const currentProfileAll = useCurrentProfileAll();
     const { drafts, removeDraft } = useComposeDraftStateStore();
     const { updateChars, apply, draftId, clear } = useComposeStateStore();
+    const { updateScheduleTime } = useComposeScheduleStateStore();
     const setEditorContent = useSetEditorContent();
 
     const router = useRouter();
@@ -202,21 +204,22 @@ export const DraftList = memo(function DraftList() {
                 updateChars(post.chars, post.id);
                 setEditorContent(post.chars);
             }
+            if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
             router.history.push('/');
         },
-        [apply, router, setEditorContent, updateChars, currentProfileAll],
+        [apply, router, setEditorContent, updateChars, updateScheduleTime, currentProfileAll],
     );
 
     if (!drafts.length) {
         return (
-            <div className="flex min-h-[528px] flex-col justify-center">
+            <div className="flex min-h-[477px] flex-col justify-center">
                 <NoResultsFallback className="h-full" />
             </div>
         );
     }
 
     return (
-        <div className="max-h-[818px] min-h-[582px] overflow-auto px-6">
+        <div className="h-[478px] overflow-auto px-6">
             {orderBy(
                 drafts,
                 (x) => {

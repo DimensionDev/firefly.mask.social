@@ -7,6 +7,7 @@ import { notFound, usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
+import { Loading } from '@/components/Loading.js';
 import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
@@ -14,50 +15,46 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireFlyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface ProfilePageProps {
-    profiles: FireFlyProfile[];
+    profiles: FireflyProfile[];
 }
 
 export function ProfilePage({ profiles }: ProfilePageProps) {
+    const { profileTab } = ProfileTabContext.useContainer();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
-    const { source, identity } = ProfileContext.useContainer();
 
     const pathname = usePathname();
-    const isOtherProfile = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
+    const isProfilePage = pathname === PageRoute.Profile;
 
-    const walletProfile = useMemo(() => {
-        return source === Source.Wallet
-            ? (profiles.find((x) => x.source === Source.Wallet && isSameAddress(x.identity, identity))?.__origin__ as
-                  | WalletProfile
-                  | undefined)
-            : undefined;
-    }, [source, profiles, identity]);
+    const currentProfiles = useCurrentFireflyProfilesAll();
+    const isOthersProfile = !currentProfiles.some(
+        (x) => x.source === profileTab.source && x.identity === profileTab.identity,
+    );
+
+    const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
 
     const {
         data: profile = null,
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['profile', source, identity],
+        queryKey: ['profile', profileTab?.source, profileTab?.identity],
         queryFn: async () => {
-            if (!identity || source === Source.Wallet) return null;
-            // can't access the profile If not login Twitter.
-            if (source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
-            const socialSource = narrowToSocialSource(source);
-
-            return getProfileById(socialSource, identity);
+            if (!profileTab?.identity || profileTab.source === Source.Wallet) return null;
+            // only current twitter profile is allowed
+            if (profileTab.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
+            return getProfileById(narrowToSocialSource(profileTab.source), profileTab.identity);
         },
         retry(failureCount, error) {
             if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
@@ -65,13 +62,12 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         },
     });
 
-    const { data: relations } = useQuery({
-        enabled: source === Source.Wallet,
-        queryKey: ['relation', identity, source],
+    const { data: relations = EMPTY_LIST } = useQuery({
+        enabled: profileTab.source === Source.Wallet,
+        queryKey: ['relation', profileTab.source, profileTab.identity],
         queryFn: async () => {
-            if (source !== Source.Wallet || !identity) return EMPTY_LIST;
-
-            return FireflySocialMediaProvider.getNextIDRelations('ethereum', identity);
+            if (profileTab.source !== Source.Wallet || !profileTab.identity) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getNextIDRelations('ethereum', profileTab.identity);
         },
     });
 
@@ -90,39 +86,24 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     if (
         !isSuspended &&
-        isOtherProfile &&
+        isOthersProfile &&
         !profile &&
         !walletProfile &&
         !isLoading &&
-        (!(source === Source.Twitter && !currentTwitterProfile) || !profiles.length)
+        (!(profileTab.source === Source.Twitter && !currentTwitterProfile) || !profiles.length)
     ) {
         notFound();
     }
 
     return (
         <div>
-            {isOtherProfile && !isSuspended ? (
-                <Title
-                    profile={profile}
-                    walletProfile={walletProfile}
-                    isSingleProfile={profiles.length === 1}
-                    displayName={
-                        walletProfile
-                            ? walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4)
-                            : profile?.displayName
-                    }
-                />
-            ) : null}
-            {profiles.length > 1 || pathname === PageRoute.Profile ? <ProfileSourceTabs profiles={profiles} /> : null}
-            <ProfileContent
-                loading={isLoading}
-                source={source}
-                walletProfile={walletProfile}
-                profile={profile}
-                profiles={profiles}
-                relations={relations}
-                isSuspended={isSuspended}
-            />
+            {!isSuspended ? <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} /> : null}
+            {profiles.length > 1 || isProfilePage ? <ProfileSourceTabs profiles={profiles} /> : null}
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <ProfileContent profile={profile} profiles={profiles} relations={relations} isSuspended={isSuspended} />
+            )}
         </div>
     );
 }

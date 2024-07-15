@@ -18,6 +18,7 @@ import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
+import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -43,9 +44,8 @@ export function ComposeAction(props: ComposeActionProps) {
     const account = useAccount();
 
     const currentProfileAll = useCurrentProfileAll();
-    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-
     const post = useCompositePost();
+    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
     const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
 
     const { usedLength, availableLength } = measureChars(post);
@@ -79,7 +79,7 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll]);
 
-    const maxImageCount = getCurrentPostImageLimits(availableSources);
+    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
 
     const hasError = useMemo(() => {
@@ -110,7 +110,11 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
 
-                {type === 'compose' ? <PollButton /> : null}
+                {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
+
+                {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
+                    <SchedulePostEntryButton className="text-main" />
+                ) : null}
 
                 {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
                     <GifEntryButton disabled={mediaDisabled} />

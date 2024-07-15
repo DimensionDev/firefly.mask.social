@@ -15,10 +15,11 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
-import { PreviewImageModalRef } from '@/modals/controls.js';
+import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -121,9 +122,10 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                                     event.preventDefault();
 
                                     if (cover.data)
-                                        PreviewImageModalRef.open({
-                                            images: [cover.data],
-                                            current: cover.data,
+                                        PreviewMediaModalRef.open({
+                                            medias: [{ type: 'Image', uri: cover.data }],
+                                            index: 0,
+                                            source: Source.Article,
                                         });
                                 }}
                             />

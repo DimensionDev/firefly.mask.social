@@ -1,5 +1,8 @@
+import { t } from '@lingui/macro';
+import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 import { isAddress } from 'viem';
 
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
@@ -47,7 +50,7 @@ import {
     type CommentsResponse,
     type DiscoverChannelsResponse,
     type FireflyFarcasterProfileResponse,
-    type FireFlyProfile,
+    type FireflyProfile,
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
@@ -56,6 +59,8 @@ import {
     type RelationResponse,
     type ReportPostParams,
     type Response,
+    type SchedulePostPayload,
+    type ScheduleTasksResponse,
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
@@ -77,6 +82,8 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
+import type { CompositePost } from '@/store/useComposeStore.js';
+import type { ComposeType } from '@/types/compose.js';
 
 async function reportPost(params: ReportPostParams) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');
@@ -360,7 +367,7 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getAllPlatformProfileByIdentity(identity: string, source: Source): Promise<FireFlyProfile[]> {
+    async getAllPlatformProfileByIdentity(source: Source, identity: string): Promise<FireflyProfile[]> {
         let queryKey = '';
         switch (source) {
             case Source.Lens:
@@ -395,7 +402,7 @@ export class FireflySocialMedia implements Provider {
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
 
-    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireFlyProfile[]> {
+    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
         if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
 
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {
@@ -423,7 +430,6 @@ export class FireflySocialMedia implements Provider {
         });
 
         const relations = resolveFireflyResponseData(response);
-
         return relations;
     }
 
@@ -1073,6 +1079,84 @@ export class FireflySocialMedia implements Provider {
             response.data.result,
             indicator,
             response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
+        );
+    }
+
+    async schedulePost(
+        scheduleTime: Date,
+        posts: SchedulePostPayload[],
+        displayInfo: { posts: CompositePost[]; type: ComposeType },
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/schedule');
+
+        const response = await fireflySessionHolder.fetch<Response<string>>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    scheduleTime: dayjs(scheduleTime).toISOString(),
+                    posts,
+                    display_info: JSON.stringify(displayInfo),
+                    ua_type: 'web',
+                    groupId: uuid(),
+                }),
+            },
+            true,
+        );
+        if (response.data) return true;
+        throw new Error(t`Failed to create scheduled post.`);
+    }
+
+    async updateScheduledPost(id: string, scheduleTime: Date) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/updateTasks');
+        const response = await fireflySessionHolder.fetch<Response<string>>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    taskUUID: id,
+                    publishTime: dayjs(scheduleTime).toISOString(),
+                    ua_type: 'web',
+                }),
+            },
+            true,
+        );
+        if (response.data) return true;
+        throw new Error(t`Failed to update scheduled post.`);
+    }
+
+    async deleteScheduledPost(id: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/deleteTask');
+        const response = await fireflySessionHolder.fetch<Response<string>>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    taskUUID: id,
+                }),
+            },
+            true,
+        );
+        if (response.data) return true;
+        throw new Error(t`Failed to delete scheduled post.`);
+    }
+
+    async getScheduledPosts(indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/tasks');
+        const response = await fireflySessionHolder.fetch<ScheduleTasksResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                cursor: indicator?.id,
+                size: 20,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data.tasks,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
 }

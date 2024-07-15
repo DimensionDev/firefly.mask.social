@@ -1,7 +1,7 @@
 {
     "name": "mask.social",
     "type": "module",
-    "version": "5.5.0",
+    "version": "5.5.1",
     "private": true,
     "packageManager": "pnpm@8.10.4",
     "scripts": {
@@ -41,6 +41,7 @@
         "@livepeer/react": "^3.0.5",
         "@masknet/kit": "^0.3.0",
         "@mui/material": "5.15.12",
+        "@mui/x-date-pickers": "^7.7.1",
         "@napi-rs/image": "1.7.0",
         "@next/third-parties": "^14.2.3",
         "@noble/ed25519": "^1.7.3",

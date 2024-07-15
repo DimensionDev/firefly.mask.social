@@ -45,7 +45,7 @@ export interface Tag {
 }
 
 export interface Profile {
-    /** fid for Farcaster */
+    /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
     displayName: string;
     handle: string;

@@ -1,8 +1,7 @@
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
-import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
-import { Fragment, memo } from 'react';
+import { memo } from 'react';
 
 import EngagementIcon from '@/assets/engagement.svg';
 import FollowUserIcon from '@/assets/follow-user.svg';
@@ -15,6 +14,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -56,138 +56,115 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
     return (
-        <Menu
-            className="relative"
-            as="div"
-            onClick={(e) => {
-                e.stopPropagation();
-            }}
-        >
-            <Menu.Button
-                whileTap={{ scale: 0.9 }}
-                as={motion.button}
-                className="flex items-center text-secondary"
-                aria-label="More"
-                onClick={async (event) => {
-                    event.stopPropagation();
-                    if (!isLogin) {
-                        event.preventDefault();
-                        if (source === Source.Lens) await getWalletClientRequired(config);
-                        LoginModalRef.open({ source });
-                    }
-                }}
-            >
+        <MoreActionMenu
+            button={
                 <Tooltip content={t`More`} placement="top">
                     <MoreIcon width={24} height={24} />
                 </Tooltip>
-            </Menu.Button>
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
+            }
+            onClick={async (event) => {
+                if (!isLogin) {
+                    event.preventDefault();
+                    if (source === Source.Lens) await getWalletClientRequired(config);
+                    LoginModalRef.open({ source });
+                }
+            }}
+        >
+            <Menu.Items
+                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
+                onClick={(event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                }}
             >
-                <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }}
-                >
-                    {isMyPost ? (
+                {isMyPost ? (
+                    <Menu.Item>
+                        {({ close }) => (
+                            <MenuButton
+                                onClick={async () => {
+                                    close();
+                                    if (post?.postId) deletePost(post);
+                                }}
+                            >
+                                {deleting ? (
+                                    <LoadingIcon width={18} height={18} className="animate-spin text-danger" />
+                                ) : (
+                                    <TrashIcon width={18} height={18} className="text-danger" />
+                                )}
+                                <span className="font-bold leading-[22px] text-danger">
+                                    <Trans>Delete post</Trans>
+                                </span>
+                            </MenuButton>
+                        )}
+                    </Menu.Item>
+                ) : (
+                    <>
                         <Menu.Item>
                             {({ close }) => (
                                 <MenuButton
                                     onClick={async () => {
                                         close();
-                                        if (post?.postId) deletePost(post);
+                                        toggleFollow.mutate();
                                     }}
                                 >
-                                    {deleting ? (
-                                        <LoadingIcon width={18} height={18} className="animate-spin text-danger" />
+                                    {isFollowing ? (
+                                        <UnFollowUserIcon width={18} height={18} />
                                     ) : (
-                                        <TrashIcon width={18} height={18} className="text-danger" />
+                                        <FollowUserIcon width={18} height={18} />
                                     )}
-                                    <span className="font-bold leading-[22px] text-danger">
-                                        <Trans>Delete post</Trans>
+                                    <span className="font-bold leading-[22px] text-main">
+                                        {isFollowing ? t`Unfollow @${author.handle}` : t`Follow @${author.handle}`}
                                     </span>
                                 </MenuButton>
                             )}
                         </Menu.Item>
-                    ) : (
-                        <>
+                        {post && [Source.Lens, Source.Farcaster].includes(source) ? (
+                            <Menu.Item>
+                                {({ close }) => <ReportPostButton post={post} onReport={reportPost} onClick={close} />}
+                            </Menu.Item>
+                        ) : null}
+                        {channel && currentProfile ? (
                             <Menu.Item>
                                 {({ close }) => (
-                                    <MenuButton
-                                        onClick={async () => {
-                                            close();
-                                            toggleFollow.mutate();
+                                    <MuteChannelButton
+                                        channel={channel}
+                                        onToggle={async (channel: Channel) => {
+                                            const result = await toggleMutedChannel(channel);
+                                            queryClient.refetchQueries({
+                                                queryKey: ['posts', channel.source],
+                                            });
+                                            return result;
                                         }}
-                                    >
-                                        {isFollowing ? (
-                                            <UnFollowUserIcon width={18} height={18} />
-                                        ) : (
-                                            <FollowUserIcon width={18} height={18} />
-                                        )}
-                                        <span className="font-bold leading-[22px] text-main">
-                                            {isFollowing ? t`Unfollow @${author.handle}` : t`Follow @${author.handle}`}
-                                        </span>
-                                    </MenuButton>
+                                        onClick={close}
+                                    />
                                 )}
                             </Menu.Item>
-                            {post && [Source.Lens, Source.Farcaster].includes(source) ? (
-                                <Menu.Item>
-                                    {({ close }) => (
-                                        <ReportPostButton post={post} onReport={reportPost} onClick={close} />
-                                    )}
-                                </Menu.Item>
-                            ) : null}
-                            {channel && currentProfile ? (
-                                <Menu.Item>
-                                    {({ close }) => (
-                                        <MuteChannelButton
-                                            channel={channel}
-                                            onToggle={async (channel: Channel) => {
-                                                const result = await toggleMutedChannel(channel);
-                                                queryClient.refetchQueries({
-                                                    queryKey: ['posts', channel.source],
-                                                });
-                                                return result;
-                                            }}
-                                            onClick={close}
-                                        />
-                                    )}
-                                </Menu.Item>
-                            ) : null}
-                            <Menu.Item>
-                                {({ close }) => (
-                                    <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
-                                )}
-                            </Menu.Item>
-                        </>
-                    )}
-                    {post && post.source !== Source.Twitter ? (
-                        <Menu.Item>{({ close }) => <BookmarkButton post={post} onClick={close} />}</Menu.Item>
-                    ) : null}
-                    {post?.postId ? (
-                        <Menu.Item
-                            as={Link}
-                            shallow
-                            href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
-                            className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <EngagementIcon width={18} height={18} />
-                            <span className="font-bold leading-[22px] text-main">
-                                <Trans>View engagements</Trans>
-                            </span>
+                        ) : null}
+                        <Menu.Item>
+                            {({ close }) => (
+                                <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
+                            )}
                         </Menu.Item>
-                    ) : null}
-                </Menu.Items>
-            </Transition>
-        </Menu>
+                    </>
+                )}
+                {post && post.source !== Source.Twitter ? (
+                    <Menu.Item>{({ close }) => <BookmarkButton post={post} onClick={close} />}</Menu.Item>
+                ) : null}
+                {post?.postId ? (
+                    <Menu.Item
+                        as={Link}
+                        shallow
+                        href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
+                        className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <EngagementIcon width={18} height={18} />
+                        <span className="font-bold leading-[22px] text-main">
+                            <Trans>View engagements</Trans>
+                        </span>
+                    </Menu.Item>
+                ) : null}
+            </Menu.Items>
+        </MoreActionMenu>
     );
 });

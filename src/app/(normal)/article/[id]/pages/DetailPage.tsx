@@ -12,13 +12,14 @@ import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { Source } from '@/constants/enum.js';
 import { ChainId } from '@/constants/ethereum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { PreviewImageModalRef } from '@/modals/controls.js';
+import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -91,9 +92,10 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                             event.stopPropagation();
                             event.preventDefault();
                             if (cover.data)
-                                PreviewImageModalRef.open({
-                                    images: [cover.data],
-                                    current: cover.data,
+                                PreviewMediaModalRef.open({
+                                    medias: [{ type: 'Image', uri: cover.data }],
+                                    index: 0,
+                                    source: Source.Article,
                                 });
                         }}
                     />
@@ -126,7 +128,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 {authorUrl && !isMuted ? (
                     <div className="mb-4 mt-4 rounded-2xl border border-line bg-bg p-2">
                         <div className="border-b border-line pb-2 text-sm">
-                            <Trans>This entry has been permanently stored on-chain and signed by its creator</Trans>
+                            <Trans>This entry has been permanently stored on-chain and signed by its creator.</Trans>
                         </div>
 
                         <Link rel="noreferrer noopener" target="_blank" href={authorUrl} className="mt-3 text-sm">

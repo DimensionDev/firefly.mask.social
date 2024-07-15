@@ -130,9 +130,6 @@ msgstr ""
 msgid "Functions that can suspend trading"
 msgstr ""
 
-msgid "Failed to upload. Video is not supported yet"
-msgstr ""
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
@@ -152,9 +149,6 @@ msgid "Airdrop Scam"
 msgstr ""
 
 msgid "Collect Action is not supported yet."
-msgstr ""
-
-msgid "This entry has been permanently stored on-chain and signed by its creator"
 msgstr ""
 
 msgid "Tax can be modified"
@@ -197,6 +191,9 @@ msgid "Wrong wallet"
 msgstr ""
 
 msgid "Poll"
+msgstr ""
+
+msgid "Scheduled"
 msgstr ""
 
 msgid "Solana"
@@ -412,6 +409,9 @@ msgstr ""
 msgid "24 Hour Trading Vol"
 msgstr ""
 
+msgid "Failed to delete scheduled post."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -514,6 +514,9 @@ msgstr ""
 msgid "Confirmation"
 msgstr ""
 
+msgid "Failed to upload. Video is not supported yet."
+msgstr ""
+
 msgid "Whitelist function"
 msgstr ""
 
@@ -535,6 +538,9 @@ msgstr ""
 msgid "THREAD POST"
 msgstr ""
 
+msgid "This entry has been permanently stored on-chain and signed by its creator."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr ""
 
@@ -554,6 +560,9 @@ msgid "Failed to mirror."
 msgstr ""
 
 msgid "Remove Choice"
+msgstr ""
+
+msgid "Update"
 msgstr ""
 
 msgid "Mute {identity}"
@@ -652,6 +661,9 @@ msgstr ""
 msgid "Are you sure you want to report this collection?"
 msgstr ""
 
+msgid "The scheduled time has passed. Please reset it."
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -745,6 +757,9 @@ msgstr ""
 msgid "Send Feedback"
 msgstr ""
 
+msgid "Your draft was saved."
+msgstr ""
+
 msgid "The chainId mismatch."
 msgstr ""
 
@@ -778,6 +793,9 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
+msgid "Schedule Post"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr ""
 
@@ -803,6 +821,9 @@ msgid "This token is not issued by its declared team. Some scams will create a w
 msgstr ""
 
 msgid "Cancel retweet successfully"
+msgstr ""
+
+msgid "Set"
 msgstr ""
 
 msgid "[Poll]"
@@ -889,6 +910,9 @@ msgstr ""
 msgid "The connection has timed out. Please try again later.·"
 msgstr ""
 
+msgid "Edit Profile"
+msgstr ""
+
 msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
@@ -934,6 +958,9 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
+msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr ""
+
 msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr ""
 
@@ -950,9 +977,6 @@ msgid "collects"
 msgstr ""
 
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "Open Mobile App"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -986,6 +1010,9 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
 msgid "Suggested Follows"
+msgstr ""
+
+msgid "Login required to schedule post on {sourceName}"
 msgstr ""
 
 msgid "Post has been encrypted"
@@ -1063,6 +1090,9 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr ""
 
+msgid "Your schedule thread has created successfully."
+msgstr ""
+
 msgid "General"
 msgstr ""
 
@@ -1082,6 +1112,9 @@ msgid "Your website URL."
 msgstr ""
 
 msgid "Visit firefly.social"
+msgstr ""
+
+msgid "The scheduled time to send this post can be set up to 7 days in advance."
 msgstr ""
 
 msgid "Display"
@@ -1121,6 +1154,9 @@ msgid "Remaining"
 msgstr ""
 
 msgid "Cancel recast successfully"
+msgstr ""
+
+msgid "Failed to create schedule thread posts."
 msgstr ""
 
 msgid "Top Collectors"
@@ -1225,6 +1261,9 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Send on schedule"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr ""
 
@@ -1324,6 +1363,9 @@ msgstr ""
 msgid "All notifications"
 msgstr ""
 
+msgid "Mobile App"
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -1393,13 +1435,22 @@ msgstr ""
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
+msgid "Saved on {0} at {1}"
+msgstr ""
+
 msgid "No profile found"
+msgstr ""
+
+msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
 msgid "Watch {identity}"
 msgstr ""
 
 msgid "view"
+msgstr ""
+
+msgid "Failed to create scheduled post."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1423,7 +1474,16 @@ msgstr ""
 msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
+msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "The post will send on {0} at {1}"
+msgstr ""
+
 msgid "Properties"
+msgstr ""
+
+msgid "Failed to set schedule time."
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -1508,6 +1568,9 @@ msgid "1y"
 msgstr ""
 
 msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
@@ -1669,6 +1732,9 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
+msgid "Unsent Posts"
+msgstr ""
+
 msgid "Suspended account"
 msgstr ""
 
@@ -1765,6 +1831,9 @@ msgstr ""
 msgid "Mint function"
 msgstr ""
 
+msgid "Clear"
+msgstr ""
+
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
@@ -1795,10 +1864,16 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
+msgid "Failed to create schedule post."
+msgstr ""
+
 msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
@@ -1808,9 +1883,6 @@ msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
-msgstr ""
-
-msgid "Your draft was saved"
 msgstr ""
 
 msgid "A thread must have at least two posts."

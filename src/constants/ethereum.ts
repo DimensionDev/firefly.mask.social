@@ -27,3 +27,21 @@ export enum SchemaType {
 export enum ProviderType {
     CustomEvent = 'CustomEvent',
 }
+
+export enum MethodType {
+    ETH_CHAIN_ID = 'eth_chainId',
+    ETH_ACCOUNTS = 'eth_accounts',
+    PERSONAL_SIGN = 'personal_sign',
+    ETH_REQUEST_ACCOUNTS = 'eth_requestAccounts',
+    ETH_SEND_TRANSACTION = 'eth_sendTransaction',
+    ETH_SEND_RAW_TRANSACTION = 'eth_sendRawTransaction',
+    // https://eips.ethereum.org/EIPS/eip-3085
+    WALLET_ADD_ETHEREUM_CHAIN = 'wallet_addEthereumChain',
+    // https://eips.ethereum.org/EIPS/eip-3326
+    WALLET_SWITCH_ETHEREUM_CHAIN = 'wallet_switchEthereumChain',
+}
+
+export interface RequestArguments {
+    method: MethodType;
+    params: any[];
+}

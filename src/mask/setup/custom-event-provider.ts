@@ -1,9 +1,10 @@
-import { ChainId, EthereumMethodType, isValidChainId, type RequestArguments } from '@masknet/web3-shared-evm';
+import { isValidChainId } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { ChainId, MethodType, type RequestArguments } from '@/constants/ethereum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
 
@@ -30,7 +31,7 @@ document.addEventListener(
 
         try {
             switch (requestArguments.method) {
-                case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
+                case MethodType.ETH_REQUEST_ACCOUNTS: {
                     const accountFirstTry = getAccount(config);
                     if (!accountFirstTry.isConnected) await ConnectWalletModalRef.openAndWaitForClose();
 
@@ -39,24 +40,24 @@ document.addEventListener(
                     else dispatchEvent(accountSecondTry.address ? [accountSecondTry.address] : []);
                     return;
                 }
-                case EthereumMethodType.ETH_ACCOUNTS: {
+                case MethodType.ETH_ACCOUNTS: {
                     const account = getAccount(config);
                     dispatchEvent(account.address ? [account.address] : []);
                     return;
                 }
-                case EthereumMethodType.ETH_CHAIN_ID: {
+                case MethodType.ETH_CHAIN_ID: {
                     const account = getAccount(config);
                     dispatchEvent(account.chain ? numberToHex(account.chain.id) : ChainId.Mainnet);
                     return;
                 }
-                case EthereumMethodType.PERSONAL_SIGN: {
+                case MethodType.PERSONAL_SIGN: {
                     const signature = await signMessage(config, {
                         message: requestArguments.params[0],
                     });
                     dispatchEvent(signature);
                     return;
                 }
-                case EthereumMethodType.ETH_SEND_TRANSACTION: {
+                case MethodType.ETH_SEND_TRANSACTION: {
                     const transactionConfig = requestArguments.params[0];
                     const hash = await sendTransaction(config, {
                         ...transactionConfig,
@@ -72,7 +73,7 @@ document.addEventListener(
                     dispatchEvent(hash);
                     return;
                 }
-                case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
+                case MethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
                     const chainId = requestArguments.params[0].chainId;
                     if (isValidChainId(hexToNumber(chainId))) {
                         await switchNetwork(config, {
