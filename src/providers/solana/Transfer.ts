@@ -9,9 +9,9 @@ import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreat
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
-import type { Token, TransactionOptions, Transfer } from '@/providers/types/Transfer.js';
+import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
-class Provider implements Transfer {
+class Provider implements TransferProvider {
     private connection = new Connection(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, 'confirmed');
 
     async transfer(options: TransactionOptions<string>): Promise<string> {

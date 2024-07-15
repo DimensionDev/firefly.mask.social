@@ -2,18 +2,18 @@ import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { NetworkType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { evmNetwork } from '@/providers/evm/Network.js';
-import { EthereumTransfer } from '@/providers/evm/Transfer.js';
+import { EthereumNetwork } from '@/providers/ethereum/Network.js';
+import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';
-import type { Provider as NetworkProvider } from '@/providers/types/Network.js';
-import type { Transfer } from '@/providers/types/Transfer.js';
+import type { NetworkProvider } from '@/providers/types/Network.js';
+import type { TransferProvider } from '@/providers/types/Transfer.js';
 
-export const resolveTokenTransfer = createLookupTableResolver<NetworkType, Transfer>(
+export const resolveTokenTransfer = createLookupTableResolver<NetworkType, TransferProvider>(
     {
         [NetworkType.Ethereum]: EthereumTransfer,
         [NetworkType.Solana]: SolanaTransfer,
-    } as Record<NetworkType, Transfer>,
+    } as Record<NetworkType, TransferProvider>,
     (network: NetworkType) => {
         throw new UnreachableError('network', network);
     },
@@ -21,7 +21,7 @@ export const resolveTokenTransfer = createLookupTableResolver<NetworkType, Trans
 
 export const resolveNetwork = createLookupTableResolver<NetworkType, NetworkProvider>(
     {
-        [NetworkType.Ethereum]: evmNetwork,
+        [NetworkType.Ethereum]: EthereumNetwork,
         [NetworkType.Solana]: SolanaNetwork,
     } as Record<NetworkType, NetworkProvider>,
     (network: NetworkType) => {

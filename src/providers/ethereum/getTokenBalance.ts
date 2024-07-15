@@ -2,7 +2,7 @@ import { type Config, getBalance, readContracts } from '@wagmi/core';
 import { type Address, erc20Abi } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { isNativeToken } from '@/providers/evm/isNativeToken.js';
+import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 const coreConfig = config as unknown as Config;

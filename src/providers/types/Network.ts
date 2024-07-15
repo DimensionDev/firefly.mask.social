@@ -1,4 +1,4 @@
-export interface Provider<AddressLike = string, HashLike = string> {
+export interface NetworkProvider<AddressLike = string, HashLike = string> {
     connect: () => Promise<void>;
     getAccount: () => Promise<AddressLike>;
     switchChain: (chainId: number) => Promise<void>;

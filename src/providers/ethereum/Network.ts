@@ -5,11 +5,11 @@ import { type Address, type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
-import type { Provider as NetworkProvider } from '@/providers/types/Network.js';
+import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
 
 const coreConfig = config as unknown as Config;
 
-export class EVMNetwork implements NetworkProvider<Address, Hash> {
+class Provider implements NetworkProvider<Address, Hash> {
     async connect(): Promise<void> {
         throw new NotImplementedError();
     }
@@ -39,4 +39,4 @@ export class EVMNetwork implements NetworkProvider<Address, Hash> {
     }
 }
 
-export const evmNetwork = new EVMNetwork();
+export const EthereumNetwork = new Provider();

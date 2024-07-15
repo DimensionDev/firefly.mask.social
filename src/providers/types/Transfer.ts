@@ -33,7 +33,7 @@ export interface TransactionOptions<AddressLike = Address> {
     token: Token<AddressLike>;
 }
 
-export interface Transfer<AddressLike = string, HashLike = string> {
+export interface TransferProvider<AddressLike = string, HashLike = string> {
     transfer: (options: TransactionOptions<AddressLike>) => Promise<HashLike>;
     isNativeToken: (token: Token) => boolean;
     waitForTransaction: (hash: HashLike) => Promise<void>;

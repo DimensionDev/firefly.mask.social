@@ -10,18 +10,18 @@ import {
 import { type Address, erc20Abi, type Hash, parseUnits } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { getTokenBalance } from '@/providers/evm/getTokenBalance.js';
-import { isNativeToken } from '@/providers/evm/isNativeToken.js';
-import { evmNetwork } from '@/providers/evm/Network.js';
-import { type Token, type TransactionOptions, type Transfer } from '@/providers/types/Transfer.js';
+import { getTokenBalance } from '@/providers/ethereum/getTokenBalance.js';
+import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
+import { EthereumNetwork } from '@/providers/ethereum/Network.js';
+import { type Token, type TransactionOptions, type TransferProvider } from '@/providers/types/Transfer.js';
 
 const coreConfig = config as unknown as Config;
 
-class Provider implements Transfer<Address, Hash> {
+class Provider implements TransferProvider<Address, Hash> {
     async transfer(options: TransactionOptions): Promise<Address> {
         const { token } = options;
-        if (token.chainId !== evmNetwork.getChainId()) {
-            await evmNetwork.switchChain(token.chainId);
+        if (token.chainId !== EthereumNetwork.getChainId()) {
+            await EthereumNetwork.switchChain(token.chainId);
         }
 
         let hash: Address;
@@ -40,17 +40,17 @@ class Provider implements Transfer<Address, Hash> {
     }
 
     async waitForTransaction(hash: Hash): Promise<void> {
-        await waitForTransactionReceipt(coreConfig, { hash, chainId: evmNetwork.getChainId() });
+        await waitForTransactionReceipt(coreConfig, { hash, chainId: EthereumNetwork.getChainId() });
     }
 
     async validateBalance({ token, amount }: TransactionOptions): Promise<boolean> {
-        const balance = await getTokenBalance(token, await evmNetwork.getAccount(), token.chainId);
+        const balance = await getTokenBalance(token, await EthereumNetwork.getAccount(), token.chainId);
 
         return !isGreaterThan(rightShift(amount, token.decimals), `${balance.value}`);
     }
 
     async validateGas({ token, to }: TransactionOptions): Promise<boolean> {
-        const account = await evmNetwork.getAccount();
+        const account = await EthereumNetwork.getAccount();
         const nativeBalance = await getBalance(coreConfig, {
             address: account,
             chainId: token.chainId,
@@ -66,7 +66,7 @@ class Provider implements Transfer<Address, Hash> {
 
     private async transferNative({ to, token, amount }: TransactionOptions): Promise<Address> {
         return sendTransaction(coreConfig, {
-            account: await evmNetwork.getAccount(),
+            account: await EthereumNetwork.getAccount(),
             to,
             value: parseUnits(amount, token.decimals),
         });
