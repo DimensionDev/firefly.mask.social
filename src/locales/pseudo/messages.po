@@ -13,9 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-msgid "You {0} sent<0>{amount} ${1} </0>tips to<1> {2}</1>! {3}"
-msgstr ""
-
 msgid "Do you want to retry with the full or remaining content?"
 msgstr ""
 
@@ -151,6 +148,9 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
+msgid "Cannot send tips to yourself"
+msgstr ""
+
 msgid "Airdrop Scam"
 msgstr ""
 
@@ -176,9 +176,6 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr ""
-
-msgid "Starting Tips failed, please try again later"
 msgstr ""
 
 msgid "OpenGraph"
@@ -245,9 +242,6 @@ msgid "Failed to login"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
-msgstr ""
-
-msgid "Address is a contract address"
 msgstr ""
 
 msgid "Poll is currently only supported on {0}"
@@ -413,6 +407,9 @@ msgid "recast"
 msgstr ""
 
 msgid "Search"
+msgstr ""
+
+msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
 msgstr ""
 
 msgid "Watch"
@@ -706,10 +703,13 @@ msgstr ""
 msgid "Blacklist function"
 msgstr ""
 
-msgid "Address is a malicious address"
+msgid "AUTHOR ADDRESS"
 msgstr ""
 
-msgid "AUTHOR ADDRESS"
+msgid "Failed to send tips."
+msgstr ""
+
+msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Enable development API version"
@@ -1087,6 +1087,9 @@ msgstr ""
 msgid "commented"
 msgstr ""
 
+msgid "Validate failed, please check your input."
+msgstr ""
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr ""
 
@@ -1132,16 +1135,10 @@ msgstr ""
 msgid "Page not found. Please try again."
 msgstr ""
 
-msgid "Select token first"
-msgstr ""
-
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
-
-msgid "There is no token available to select"
 msgstr ""
 
 msgid "Publications"
@@ -1291,6 +1288,9 @@ msgstr ""
 msgid "May the token is a honeypot."
 msgstr ""
 
+msgid "Please select token."
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr ""
 
@@ -1328,9 +1328,6 @@ msgid "This does not appear to be a honeypot."
 msgstr ""
 
 msgid "Failed to publish post."
-msgstr ""
-
-msgid "Failed to send tips"
 msgstr ""
 
 msgid "Quotes"
@@ -1447,9 +1444,6 @@ msgstr ""
 msgid "Skip for now"
 msgstr ""
 
-msgid "Validate failed, please check your input"
-msgstr ""
-
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1460,6 +1454,9 @@ msgid "{identity} watched"
 msgstr ""
 
 msgid "Notifications"
+msgstr ""
+
+msgid "No available token."
 msgstr ""
 
 msgid "Back"
@@ -1532,9 +1529,6 @@ msgid "The post will send on {0} at {1}"
 msgstr ""
 
 msgid "Properties"
-msgstr ""
-
-msgid "Cannot send to yourself"
 msgstr ""
 
 msgid "Failed to set schedule time."
@@ -1808,6 +1802,9 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
+msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
