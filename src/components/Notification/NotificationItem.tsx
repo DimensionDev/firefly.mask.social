@@ -352,8 +352,10 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
         >
             <div className="flex justify-between">
-                <div className="flex max-w-full flex-1 items-start space-x-4">
-                    {Icon ? <Icon className="text-secondary" width={24} height={24} /> : null}
+                <div className="flex max-w-full flex-1 items-start gap-4">
+                    <div className="flex h-10 items-center">
+                        {Icon ? <Icon className="text-secondary" width={24} height={24} /> : null}
+                    </div>
                     <div className="max-w-[calc(100%-40px)] flex-1">
                         <div className="flex flex-1 items-center justify-between">
                             <AvatarGroup profiles={profiles.slice(0, 5)} />
