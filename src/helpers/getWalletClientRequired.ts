@@ -14,6 +14,7 @@ export async function getWalletClientRequired(
     } catch (error) {
         const errorWithName = error as { name: string };
         const errorName = errorWithName.name;
+        // cannot use `instanceof` because the package does not export the class
         if (errorName === 'ConnectorNotConnectedError') await RainbowKitModalRef.openAndWaitForClose();
         throw error;
     }
