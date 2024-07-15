@@ -7,18 +7,18 @@ import { env } from '@/constants/env.js';
 import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
-import { solanaNetwork } from '@/providers/solana/Network.js';
+import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { Token, TransactionOptions, Transfer } from '@/providers/types/Transfer.js';
 
-const connection = new Connection(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, 'confirmed');
+class Provider implements Transfer {
+    private connection = new Connection(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, 'confirmed');
 
-class SolanaTransfer implements Transfer {
     async transfer(options: TransactionOptions<string>): Promise<string> {
         const { token } = options;
         let signature: string;
 
-        await solanaNetwork.connect();
+        await SolanaNetwork.connect();
 
         if (!token || this.isNativeToken(token)) {
             signature = await this.transferNative(options);
@@ -35,36 +35,36 @@ class SolanaTransfer implements Transfer {
     }
 
     async waitForTransaction(signature: string): Promise<void> {
-        await connection.confirmTransaction(signature, 'processed');
+        await this.connection.confirmTransaction(signature, 'processed');
     }
 
     async validateBalance({ token, amount }: TransactionOptions<string>): Promise<boolean> {
-        const balance = await getTokenBalance(token, await solanaNetwork.getAccount(), SOLANA_DEFAULT_CHAIN);
+        const balance = await getTokenBalance(token, await SolanaNetwork.getAccount(), SOLANA_DEFAULT_CHAIN);
         return !isGreaterThan(rightShift(amount, token.decimals), balance.value);
     }
 
     async validateGas(options: TransactionOptions<string>): Promise<boolean> {
-        const nativeBalance = await getNativeTokenBalance(await solanaNetwork.getAccount(), SOLANA_DEFAULT_CHAIN);
+        const nativeBalance = await getNativeTokenBalance(await SolanaNetwork.getAccount(), SOLANA_DEFAULT_CHAIN);
         let transaction: Transaction;
         if (this.isNativeToken(options.token)) {
             transaction = await this._getNativeTransferTransaction(options);
         } else {
             transaction = await this._getSplTransferTransaction(options);
         }
-        const fees = await transaction.getEstimatedFee(connection);
+        const fees = await transaction.getEstimatedFee(this.connection);
         return fees !== null ? !isGreaterThan(fees, nativeBalance.value) : false;
     }
 
     private async transferNative(options: TransactionOptions<string>): Promise<string> {
         const adapter = resolveWalletAdapter();
-        const account = await solanaNetwork.getAccount();
+        const account = await SolanaNetwork.getAccount();
 
         const transaction = await this._getNativeTransferTransaction(options);
-        const blockHash = await connection.getLatestBlockhash();
+        const blockHash = await this.connection.getLatestBlockhash();
         transaction.feePayer = new PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
 
-        const signature = await adapter.sendTransaction(transaction, connection);
+        const signature = await adapter.sendTransaction(transaction, this.connection);
 
         await this.waitForTransaction(signature);
 
@@ -73,14 +73,14 @@ class SolanaTransfer implements Transfer {
 
     private async transferContract(options: TransactionOptions<string>): Promise<string> {
         const adapter = resolveWalletAdapter();
-        const account = await solanaNetwork.getAccount();
+        const account = await SolanaNetwork.getAccount();
 
         const transaction = await this._getSplTransferTransaction(options);
-        const blockHash = await connection.getLatestBlockhash();
+        const blockHash = await this.connection.getLatestBlockhash();
         transaction.feePayer = new PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
 
-        const signature = await adapter.sendTransaction(transaction, connection);
+        const signature = await adapter.sendTransaction(transaction, this.connection);
 
         await this.waitForTransaction(signature);
 
@@ -90,7 +90,7 @@ class SolanaTransfer implements Transfer {
     async _getNativeTransferTransaction(options: TransactionOptions<string>) {
         return new Transaction().add(
             SystemProgram.transfer({
-                fromPubkey: new PublicKey(await solanaNetwork.getAccount()),
+                fromPubkey: new PublicKey(await SolanaNetwork.getAccount()),
                 toPubkey: new PublicKey(options.to),
                 lamports: Number.parseInt(options.amount, 10),
             }),
@@ -99,7 +99,7 @@ class SolanaTransfer implements Transfer {
 
     async _getSplTransferTransaction(options: TransactionOptions<string>) {
         const adapter = resolveWalletAdapter();
-        const accountPublicKey = new PublicKey(await solanaNetwork.getAccount());
+        const accountPublicKey = new PublicKey(await SolanaNetwork.getAccount());
 
         const recipientPubkey = new PublicKey(options.to);
         const mintPubkey = new PublicKey(options.token.id);
@@ -107,14 +107,14 @@ class SolanaTransfer implements Transfer {
             return adapter.signTransaction(transaction);
         }
         const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-            connection,
+            this.connection,
             accountPublicKey,
             mintPubkey,
             accountPublicKey,
             signTransaction,
         );
         const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-            connection,
+            this.connection,
             accountPublicKey,
             mintPubkey,
             recipientPubkey,
@@ -132,4 +132,4 @@ class SolanaTransfer implements Transfer {
     }
 }
 
-export const solanaTransfer = new SolanaTransfer();
+export const SolanaTransfer = new Provider();
