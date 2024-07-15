@@ -14,6 +14,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 
 export interface TipsModalOpenProps {
     identity: string;
@@ -106,9 +107,10 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                     }
                 } catch (error) {
                     enqueueErrorMessage(
-                        error instanceof Error ? error.message : t`Failed to send tips, please try again later.`,
+                        getSnackbarMessageFromError(error, t`Failed to send tips, please try again later.`),
                         { error },
                     );
+                    throw error;
                 }
             },
             onClose: () => {
