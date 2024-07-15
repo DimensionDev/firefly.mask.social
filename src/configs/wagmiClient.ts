@@ -17,7 +17,6 @@ import {
     aurora,
     avalanche,
     base,
-    baseSepolia,
     bsc,
     confluxESpace,
     degen,

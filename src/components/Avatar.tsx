@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isDomainOrSubdomainOf } from '@/helpers/domain-test.js';
 import { resolveFirstAvailableUrl } from '@/helpers/resolveFirstAvailableUrl.js';
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
@@ -23,7 +24,7 @@ export interface AvatarProps extends Omit<NextImageProps, 'src'> {
 export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: AvatarProps) {
     const { isDarkMode } = useDarkMode();
 
-    const isNormalUrl = !src?.startsWith('data:image/');
+    const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
     const { data: url } = useQuery({
         enabled: isNormalUrl,
         queryKey: ['avatar', isNormalUrl ? src : '[disabled-url]', fallbackUrl],
