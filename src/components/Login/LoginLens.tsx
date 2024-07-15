@@ -51,7 +51,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 const account = await createAccountForProfileId(currentProfile, controller.current.signal);
 
                 if (!currentProfile.signless && signless) {
-                    await updateSignless(true);
+                    await updateSignless(true, account.session);
                 }
 
                 const done = await addAccount(account, {

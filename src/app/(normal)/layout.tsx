@@ -1,4 +1,5 @@
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
+import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
@@ -107,6 +108,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
             <IfPathname isNotOneOf={['/token']}>
                 <ComposeButton />
             </IfPathname>
+            <ComposeWatcher />
         </>
     );
 }

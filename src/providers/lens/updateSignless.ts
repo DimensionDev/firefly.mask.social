@@ -1,11 +1,13 @@
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
+import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 
-export async function updateSignless(enable: boolean): Promise<void> {
-    const typedDataResult = await lensSessionHolder.sdk.profile.createChangeProfileManagersTypedData({
+export async function updateSignless(enable: boolean, session: LensSession): Promise<void> {
+    const sdk = createLensSDKForSession(new MemoryStorageProvider(), session);
+    const typedDataResult = await sdk.profile.createChangeProfileManagersTypedData({
         approveSignless: enable,
     });
 
@@ -18,7 +20,7 @@ export async function updateSignless(enable: boolean): Promise<void> {
         message: typedData.value,
     });
 
-    const broadcastOnchainResult = await lensSessionHolder.sdk.transaction.broadcastOnchain({
+    const broadcastOnchainResult = await sdk.transaction.broadcastOnchain({
         id,
         signature: signedTypedData,
     });
