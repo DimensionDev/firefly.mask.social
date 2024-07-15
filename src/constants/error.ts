@@ -100,3 +100,18 @@ export class RPC_Error extends Error {
         super(message ?? 'RPC Error.');
     }
 }
+export class NoWalletClientError extends Error {
+    constructor(message?: string) {
+        super(message ?? 'No wallet client found. Please connect your wallet.');
+    }
+}
+
+export class SwitchChainError extends Error {
+    constructor(chainName?: string) {
+        super(
+            chainName
+                ? `Please switch to the ${chainName} network in your wallet.`
+                : `Please switch to the correct network in your wallet.`,
+        );
+    }
+}

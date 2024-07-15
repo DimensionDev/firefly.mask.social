@@ -366,9 +366,6 @@ msgstr "已点赞"
 msgid "Term of Service"
 msgstr "服务条款"
 
-msgid "Please switch to the correct network in your wallet."
-msgstr "请在钱包中切换到正确的网络。"
-
 msgid "Token ID"
 msgstr "通证 ID"
 
@@ -545,9 +542,6 @@ msgstr "[照片]"
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
-
-msgid "No wallet client found. Please connect your wallet."
-msgstr "未找到钱包。请尝试连接。"
 
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
@@ -1277,9 +1271,6 @@ msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Light Mode"
 msgstr "浅色模式"
-
-msgid "Please switch to the {chainName} network in your wallet."
-msgstr "请切换钱包网络至 {chainName}"
 
 msgid "Executing"
 msgstr "执行中"

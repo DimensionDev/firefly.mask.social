@@ -1,3 +1,4 @@
+import type { ChainId } from '@masknet/web3-shared-solana';
 import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
@@ -50,7 +51,7 @@ export async function getSplTokenBalance(tokenAddress: string, address: string, 
     return { value: tokenInfo.amount };
 }
 
-export async function getTokenBalance(token: Token<string>, address: string, chainId: number) {
+export async function getTokenBalance(token: Token<ChainId>, address: string, chainId: number) {
     return isNativeTokenAddress(token.id)
         ? await getNativeTokenBalance(address, chainId)
         : await getSplTokenBalance(token.id, address, chainId);

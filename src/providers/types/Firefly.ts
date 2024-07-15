@@ -2,7 +2,7 @@ import type { Address } from 'viem';
 
 import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
-import type { DebankToken } from '@/providers/types/Transfer.js';
+import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 

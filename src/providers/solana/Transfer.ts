@@ -10,10 +10,10 @@ import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
-class Provider implements TransferProvider {
+class Provider implements TransferProvider<ChainId> {
     private connection = new Connection(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, 'confirmed');
 
-    async transfer(options: TransactionOptions<string>): Promise<string> {
+    async transfer(options: TransactionOptions<ChainId>): Promise<string> {
         const { token } = options;
         let signature: string;
 
@@ -29,7 +29,7 @@ class Provider implements TransferProvider {
         return signature;
     }
 
-    isNativeToken(token: Token<string>): boolean {
+    isNativeToken(token: Token<ChainId>): boolean {
         return isNativeTokenAddress(token.id);
     }
 
@@ -37,12 +37,12 @@ class Provider implements TransferProvider {
         await this.connection.confirmTransaction(signature, 'processed');
     }
 
-    async validateBalance({ token, amount }: TransactionOptions<string>): Promise<boolean> {
+    async validateBalance({ token, amount }: TransactionOptions<ChainId>): Promise<boolean> {
         const balance = await getTokenBalance(token, await SolanaNetwork.getAccount(), ChainId.Mainnet);
         return !isGreaterThan(rightShift(amount, token.decimals), balance.value);
     }
 
-    async validateGas(options: TransactionOptions<string>): Promise<boolean> {
+    async validateGas(options: TransactionOptions<ChainId>): Promise<boolean> {
         const nativeBalance = await getNativeTokenBalance(await SolanaNetwork.getAccount(), ChainId.Mainnet);
         let transaction: Transaction;
         if (this.isNativeToken(options.token)) {
@@ -54,7 +54,7 @@ class Provider implements TransferProvider {
         return fees !== null ? !isGreaterThan(fees, nativeBalance.value) : false;
     }
 
-    private async transferNative(options: TransactionOptions<string>): Promise<string> {
+    private async transferNative(options: TransactionOptions<ChainId>): Promise<string> {
         const adapter = resolveWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 
@@ -70,7 +70,7 @@ class Provider implements TransferProvider {
         return signature;
     }
 
-    private async transferContract(options: TransactionOptions<string>): Promise<string> {
+    private async transferContract(options: TransactionOptions<ChainId>): Promise<string> {
         const adapter = resolveWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 
@@ -86,7 +86,7 @@ class Provider implements TransferProvider {
         return signature;
     }
 
-    private async getNativeTransferTransaction(options: TransactionOptions<string>) {
+    private async getNativeTransferTransaction(options: TransactionOptions<ChainId>) {
         return new Transaction().add(
             SystemProgram.transfer({
                 fromPubkey: new PublicKey(await SolanaNetwork.getAccount()),
@@ -96,7 +96,7 @@ class Provider implements TransferProvider {
         );
     }
 
-    private async getSplTransferTransaction(options: TransactionOptions<string>) {
+    private async getSplTransferTransaction(options: TransactionOptions<ChainId>) {
         const adapter = resolveWalletAdapter();
         const accountPublicKey = new PublicKey(await SolanaNetwork.getAccount());
 

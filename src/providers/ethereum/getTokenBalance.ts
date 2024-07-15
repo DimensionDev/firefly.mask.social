@@ -1,3 +1,4 @@
+import type { ChainId } from '@masknet/web3-shared-evm';
 import { getBalance, readContracts } from '@wagmi/core';
 import { type Address, erc20Abi } from 'viem';
 
@@ -5,7 +6,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
-export async function getTokenBalance(token: Token, address: Address, chainId: number) {
+export async function getTokenBalance(token: Token<ChainId, Address>, address: Address, chainId: number) {
     if (isNativeToken(token)) {
         const result = await getBalance(config, {
             address,
