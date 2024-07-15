@@ -17,7 +17,7 @@ export function ProfileAction({ profile }: ProfileActionProps) {
         return current.source === profile.source && current.identity === resolveProfileId(profile);
     });
 
-    if (profile.source === Source.Twitter) return null;
+    if (profile.source === Source.Twitter) return <ProfileMoreAction profile={profile} />;
 
     return (
         <>
