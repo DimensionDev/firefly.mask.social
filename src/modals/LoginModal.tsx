@@ -28,6 +28,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { NoWalletClientError } from '@/constants/error.js';
 
 export interface LoginModalProps {
     source?: ProfileSource;
@@ -98,9 +99,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     return;
             }
         } catch (error) {
-            if (error instanceof Error && error.message.startsWith('No wallet client found')) {
-                throw error;
-            }
+            if (error instanceof NoWalletClientError) throw error;
             enqueueErrorMessage(
                 <div>
                     <span className="font-bold">

@@ -355,9 +355,6 @@ msgstr "Liked"
 msgid "Term of Service"
 msgstr "Term of Service"
 
-msgid "Please switch to the correct network in your wallet."
-msgstr "Please switch to the correct network in your wallet."
-
 msgid "Token ID"
 msgstr "Token ID"
 
@@ -531,9 +528,6 @@ msgstr "[Photo]"
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
-
-msgid "No wallet client found. Please connect your wallet."
-msgstr "No wallet client found. Please connect your wallet."
 
 msgid "THREAD POST"
 msgstr "THREAD POST"
@@ -1233,9 +1227,6 @@ msgstr "Follow @thefireflyapp on X"
 
 msgid "Light Mode"
 msgstr "Light Mode"
-
-msgid "Please switch to the {chainName} network in your wallet."
-msgstr "Please switch to the {chainName} network in your wallet."
 
 msgid "Executing"
 msgstr "Executing"
