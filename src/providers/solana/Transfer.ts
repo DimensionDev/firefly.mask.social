@@ -46,9 +46,9 @@ class Provider implements TransferProvider {
         const nativeBalance = await getNativeTokenBalance(await SolanaNetwork.getAccount(), ChainId.Mainnet);
         let transaction: Transaction;
         if (this.isNativeToken(options.token)) {
-            transaction = await this._getNativeTransferTransaction(options);
+            transaction = await this.getNativeTransferTransaction(options);
         } else {
-            transaction = await this._getSplTransferTransaction(options);
+            transaction = await this.getSplTransferTransaction(options);
         }
         const fees = await transaction.getEstimatedFee(this.connection);
         return fees !== null ? !isGreaterThan(fees, nativeBalance.value) : false;
@@ -58,7 +58,7 @@ class Provider implements TransferProvider {
         const adapter = resolveWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 
-        const transaction = await this._getNativeTransferTransaction(options);
+        const transaction = await this.getNativeTransferTransaction(options);
         const blockHash = await this.connection.getLatestBlockhash();
         transaction.feePayer = new PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
@@ -74,7 +74,7 @@ class Provider implements TransferProvider {
         const adapter = resolveWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 
-        const transaction = await this._getSplTransferTransaction(options);
+        const transaction = await this.getSplTransferTransaction(options);
         const blockHash = await this.connection.getLatestBlockhash();
         transaction.feePayer = new PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
@@ -86,7 +86,7 @@ class Provider implements TransferProvider {
         return signature;
     }
 
-    async _getNativeTransferTransaction(options: TransactionOptions<string>) {
+    private async getNativeTransferTransaction(options: TransactionOptions<string>) {
         return new Transaction().add(
             SystemProgram.transfer({
                 fromPubkey: new PublicKey(await SolanaNetwork.getAccount()),
@@ -96,7 +96,7 @@ class Provider implements TransferProvider {
         );
     }
 
-    async _getSplTransferTransaction(options: TransactionOptions<string>) {
+    private async getSplTransferTransaction(options: TransactionOptions<string>) {
         const adapter = resolveWalletAdapter();
         const accountPublicKey = new PublicKey(await SolanaNetwork.getAccount());
 
