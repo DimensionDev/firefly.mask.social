@@ -630,6 +630,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr ""
 
+msgid "The file exceeds the size limit."
+msgstr ""
+
 msgid "Search Filter"
 msgstr "進階搜尋"
 
