@@ -1,5 +1,5 @@
-import { chains } from "@/configs/wagmiClient.js";
+import { chains } from '@/configs/wagmiClient.js';
 
 export function isSupportedChainId(chainId: number) {
-    return chains.some(x => x.id === chainId)
+    return chains.some((x) => x.id === chainId);
 }
