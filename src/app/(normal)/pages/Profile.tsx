@@ -84,21 +84,22 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     const isSuspended = error instanceof FetchError && error.status === StatusCodes.FORBIDDEN;
 
-    if (
-        !isSuspended &&
-        isOthersProfile &&
+    const isFinalized = !isSuspended && !isLoading;
+    const profileMissing =
         !profile &&
         !walletProfile &&
-        !isLoading &&
-        (!(profileTab.source === Source.Twitter && !currentTwitterProfile) || !profiles.length)
-    ) {
+        (!(profileTab.source === Source.Twitter && !currentTwitterProfile) || !profiles.length);
+
+    if (!isProfilePage && isFinalized && profileMissing) {
         notFound();
     }
 
     return (
         <div>
-            {!isSuspended ? <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} /> : null}
-            {profiles.length > 1 || isProfilePage ? <ProfileSourceTabs profiles={profiles} /> : null}
+            {!isSuspended && profile ? (
+                <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} />
+            ) : null}
+            <ProfileSourceTabs profiles={profiles} />
             {isLoading ? (
                 <Loading />
             ) : (
