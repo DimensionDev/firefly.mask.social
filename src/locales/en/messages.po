@@ -625,6 +625,9 @@ msgstr "Cannot choose due to account mismatch."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 
+msgid "The file exceeds the size limit."
+msgstr "The file exceeds the size limit."
+
 msgid "Search Filter"
 msgstr "Search Filter"
 

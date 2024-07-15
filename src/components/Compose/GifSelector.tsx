@@ -4,7 +4,9 @@ import { useCallback, useContext } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
+import { FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { createGiphyMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -32,6 +34,11 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
 
     const onGifClick = useCallback(
         (gif: IGif) => {
+            const gifSize = gif.images.original.size;
+            if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE_IN_BYTES) {
+                enqueueErrorMessage(t`The file exceeds the size limit.`);
+                return;
+            }
             updateImages((images) => {
                 if (images.length === maxImageCount) return images;
                 return [...images, createGiphyMediaObject(gif)].slice(0, maxImageCount);

@@ -630,6 +630,9 @@ msgstr "账号不匹配导致选择失败。"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4> 交互了你的 </4><5><6/></5>"
 
+msgid "The file exceeds the size limit."
+msgstr ""
+
 msgid "Search Filter"
 msgstr "查询规则"
 
