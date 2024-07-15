@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import type { SnackbarMessage } from 'notistack';
+import { UserRejectedRequestError } from 'viem';
 
 import { FetchError } from '@/constants/error.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
@@ -13,7 +14,7 @@ import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetc
  */
 export function getSnackbarMessageFromError(error: unknown, fallback: string): SnackbarMessage {
     return error instanceof Error ? (
-        error.name === 'UserRejectedRequestError' ? (
+        error instanceof UserRejectedRequestError ? (
             <div>
                 <span className="font-bold">
                     <Trans>Connection failed</Trans>
@@ -21,8 +22,6 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
                 <br />
                 <Trans>The user rejected the request.</Trans>
             </div>
-        ) : error.message.startsWith('NotAllowed') ? (
-            <Trans>Please switch to the wallet used for login.</Trans>
         ) : error instanceof FetchError && IS_PRODUCTION ? (
             getErrorMessageFromFetchError(error)
         ) : (

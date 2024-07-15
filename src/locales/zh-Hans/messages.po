@@ -918,9 +918,6 @@ msgstr "您确定要屏蔽 @{0} 吗？"
 msgid "Compose"
 msgstr "发帖"
 
-msgid "The user declined the request."
-msgstr "用户取消了请求。"
-
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
 
@@ -1535,9 +1532,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 
 msgid "collect"
 msgstr "收藏"
-
-msgid "Please switch to the wallet used for login."
-msgstr "请切换钱包登录。"
 
 msgid "Developers"
 msgstr "开发者"

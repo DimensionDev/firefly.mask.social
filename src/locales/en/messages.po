@@ -913,9 +913,6 @@ msgstr "Confirm you want to mute @{0}?"
 msgid "Compose"
 msgstr "Compose"
 
-msgid "The user declined the request."
-msgstr "The user declined the request."
-
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
 
@@ -1530,9 +1527,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 
 msgid "collect"
 msgstr "collect"
-
-msgid "Please switch to the wallet used for login."
-msgstr "Please switch to the wallet used for login."
 
 msgid "Developers"
 msgstr "Developers"
