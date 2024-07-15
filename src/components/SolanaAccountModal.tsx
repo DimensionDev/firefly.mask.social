@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { ChainId } from '@masknet/web3-shared-solana';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { useQuery } from '@tanstack/react-query';
@@ -20,7 +20,7 @@ import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function SolanaAccountModal(_, ref) {
-    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, ChainId.Mainnet);
     const connectModalSolana = useConnectModalSolana();
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen() {
