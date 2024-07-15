@@ -149,7 +149,7 @@ importers:
         version: 0.3.0
       '@mui/material':
         specifier: 5.15.12
-        version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/x-date-pickers':
         specifier: ^7.7.1
         version: 7.7.1(@mui/material@5.15.12)(@types/react@18.2.48)(dayjs@1.11.10)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -211,7 +211,7 @@ importers:
         specifier: ^0.1.16
         version: 0.1.16(@solana/web3.js@1.91.2)(@vercel/kv@1.0.1)
       '@solana/web3.js':
-        specifier: ^1.75.0
+        specifier: ^1.91.2
         version: 1.91.2
       '@tailwindcss/forms':
         specifier: ^0.5.6
@@ -311,7 +311,7 @@ importers:
         version: 4.24.7(next@14.1.4)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       notistack:
         specifier: 2.0.8
-        version: 2.0.8(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -498,7 +498,7 @@ importers:
         version: 6.0.3
       copy-webpack-plugin:
         specifier: ^11.0.0
-        version: 11.0.0
+        version: 11.0.0(webpack@5.88.2)
       cross-fetch:
         specifier: ^4.0.0
         version: 4.0.0
@@ -549,7 +549,7 @@ importers:
         version: 6.1.0(graphql@16.8.1)
       html-webpack-plugin:
         specifier: ^5.5.3
-        version: 5.5.3
+        version: 5.5.3(webpack@5.88.2)
       https-browserify:
         specifier: ^1.0.0
         version: 1.0.0
@@ -579,7 +579,7 @@ importers:
         version: 3.1.0
       vitest:
         specifier: ^0.34.6
-        version: 0.34.6(jsdom@24.1.0)
+        version: 0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.0)
       zlib-browserify:
         specifier: ^0.0.3
         version: 0.0.3
@@ -5053,6 +5053,20 @@ packages:
       '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.3)
     dev: false
 
+  /@babel/plugin-proposal-nullish-coalescing-operator@7.18.6:
+    resolution: {integrity: sha512-wQxQzxYeJqHcfppzBDnm1yAY0jSRkUXR2z8RePZYrKwMKgMlE8+Z6LUno+bd6LvbGh8Gltvy74+9pIYkr+XkKA==}
+    engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+    dependencies:
+      '@babel/helper-plugin-utils': 7.24.6
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
+    dev: false
+
   /@babel/plugin-proposal-nullish-coalescing-operator@7.18.6(@babel/core@7.24.6):
     resolution: {integrity: sha512-wQxQzxYeJqHcfppzBDnm1yAY0jSRkUXR2z8RePZYrKwMKgMlE8+Z6LUno+bd6LvbGh8Gltvy74+9pIYkr+XkKA==}
     engines: {node: '>=6.9.0'}
@@ -5111,6 +5125,21 @@ packages:
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
       '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.3)
+    dev: false
+
+  /@babel/plugin-proposal-optional-chaining@7.21.0:
+    resolution: {integrity: sha512-p4zeefM72gpmEe2fkUr/OnOXpWEf8nAgk7ZYVqqfFiyIG7oFfVZcCrU64hWn5xp4tQ9LkV4bTIa5rD0KANpKNA==}
+    engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+    dependencies:
+      '@babel/helper-plugin-utils': 7.24.6
+      '@babel/helper-skip-transparent-expression-wrappers': 7.24.6
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
     dev: false
 
   /@babel/plugin-proposal-optional-chaining@7.21.0(@babel/core@7.24.6):
@@ -5412,7 +5441,6 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.6
-    dev: true
 
   /@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.24.6):
     resolution: {integrity: sha512-aSff4zPII1u2QD7y+F8oDsz19ew4IGEJg9SVW+bqwpwtfFleiQDMdzA/R+UlWDzfnHFCxxleFT0PMIrR36XLNQ==}
@@ -5505,7 +5533,6 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-plugin-utils': 7.24.6
-    dev: true
 
   /@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.24.6):
     resolution: {integrity: sha512-KoK9ErH1MBlCPxV0VANkXW2/dw4vlbGDrFgz8bmUsBGYkFRcbRwMh6cIJubdPrkxRwuGdtCk0v/wPTKbQgBjkg==}
@@ -6207,7 +6234,7 @@ packages:
       '@babel/core':
         optional: true
     dependencies:
-      '@babel/helper-module-transforms': 7.24.6(@babel/core@7.24.6)
+      '@babel/helper-module-transforms': 7.24.6(@babel/core@7.24.3)
       '@babel/helper-plugin-utils': 7.24.6
     dev: false
 
@@ -6225,6 +6252,20 @@ packages:
       '@babel/helper-plugin-utils': 7.24.6
       '@babel/helper-simple-access': 7.24.6
     dev: true
+
+  /@babel/plugin-transform-modules-commonjs@7.24.6:
+    resolution: {integrity: sha512-JEV8l3MHdmmdb7S7Cmx6rbNEjRCgTQMZxllveHO0mx6uiclB0NflCawlQQ6+o5ZrwjUBYPzHm2XoK4wqGVUFuw==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+    dependencies:
+      '@babel/helper-module-transforms': 7.24.6(@babel/core@7.24.3)
+      '@babel/helper-plugin-utils': 7.24.6
+      '@babel/helper-simple-access': 7.24.6
+    dev: false
 
   /@babel/plugin-transform-modules-commonjs@7.24.6(@babel/core@7.24.6):
     resolution: {integrity: sha512-JEV8l3MHdmmdb7S7Cmx6rbNEjRCgTQMZxllveHO0mx6uiclB0NflCawlQQ6+o5ZrwjUBYPzHm2XoK4wqGVUFuw==}
@@ -6267,7 +6308,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-hoist-variables': 7.24.6
-      '@babel/helper-module-transforms': 7.24.6(@babel/core@7.24.6)
+      '@babel/helper-module-transforms': 7.24.6(@babel/core@7.24.3)
       '@babel/helper-plugin-utils': 7.24.6
       '@babel/helper-validator-identifier': 7.24.6
     dev: false
@@ -6295,7 +6336,7 @@ packages:
       '@babel/core':
         optional: true
     dependencies:
-      '@babel/helper-module-transforms': 7.24.6(@babel/core@7.24.6)
+      '@babel/helper-module-transforms': 7.24.6(@babel/core@7.24.3)
       '@babel/helper-plugin-utils': 7.24.6
     dev: false
 
@@ -6375,7 +6416,7 @@ packages:
         optional: true
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
     dev: false
 
   /@babel/plugin-transform-numeric-separator@7.24.1(@babel/core@7.24.3):
@@ -6516,7 +6557,7 @@ packages:
     dependencies:
       '@babel/helper-plugin-utils': 7.24.6
       '@babel/helper-skip-transparent-expression-wrappers': 7.24.6
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
     dev: false
 
   /@babel/plugin-transform-parameters@7.24.1(@babel/core@7.24.3):
@@ -7226,11 +7267,11 @@ packages:
       '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.24.3)
       '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.3)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.3)
       '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.3)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-private-property-in-object': 7.14.5(@babel/core@7.24.3)
       '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.24.3)
       '@babel/plugin-syntax-unicode-sets-regex': 7.18.6(@babel/core@7.24.3)
@@ -7256,7 +7297,7 @@ packages:
       '@babel/plugin-transform-logical-assignment-operators': 7.24.6
       '@babel/plugin-transform-member-expression-literals': 7.24.6
       '@babel/plugin-transform-modules-amd': 7.24.6
-      '@babel/plugin-transform-modules-commonjs': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-modules-commonjs': 7.24.6
       '@babel/plugin-transform-modules-systemjs': 7.24.6
       '@babel/plugin-transform-modules-umd': 7.24.6
       '@babel/plugin-transform-named-capturing-groups-regex': 7.24.6
@@ -7286,7 +7327,7 @@ packages:
       babel-plugin-polyfill-corejs2: 0.4.11
       babel-plugin-polyfill-corejs3: 0.10.4(@babel/core@7.24.3)
       babel-plugin-polyfill-regenerator: 0.6.2
-      core-js-compat: 3.36.1
+      core-js-compat: 3.36.0
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -12429,45 +12470,6 @@ packages:
     dev: false
     patched: true
 
-  /@mui/material@5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-vXJGg6KNKucsvbW6l7w9zafnpOp0CWc0Wx4mDykuABTpQ5QQBnZxP7+oB4yAS1hDZQ1WobbeIl0CjxK4EEahkA==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      '@emotion/react': ^11.5.0
-      '@emotion/styled': ^11.3.0
-      '@types/react': 18.2.48
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      '@emotion/react':
-        optional: true
-      '@emotion/styled':
-        optional: true
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.24.1
-      '@mui/base': 5.0.0-beta.38(patch_hash=oukor3tid7cl6jy4xpoprwzzym)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/core-downloads-tracker': 5.15.14
-      '@mui/system': 5.15.12(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/types': 7.2.14(@types/react@18.2.48)
-      '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@types/react': 18.2.48
-      '@types/react-transition-group': 4.4.10
-      clsx: 2.1.0
-      csstype: 3.1.3
-      prop-types: 15.8.1
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-      react-is: 18.2.0
-      react-transition-group: 4.4.5(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-    dev: false
-    patched: true
-
   /@mui/private-theming@5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-UH0EiZckOWcxiXLX3Jbb0K7rC8mxTr9L9l6QhOZxYc4r8FHUkefltV9VDGLrzCaWh30SQiJvAEd7djX3XXY6Xw==}
     engines: {node: '>=12.0.0'}
@@ -12530,28 +12532,6 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
-  /@mui/styled-engine@5.15.14(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-RILkuVD8gY6PvjZjqnWhz8fu68dVkqhM5+jYWfB5yhlSQKg+2rHkmEwm75XIeAqI3qwOndK6zELK5H6Zxn4NHw==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      '@emotion/react': ^11.4.1
-      '@emotion/styled': ^11.3.0
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      '@emotion/react':
-        optional: true
-      '@emotion/styled':
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.24.7
-      '@emotion/cache': 11.11.0
-      csstype: 3.1.3
-      prop-types: 15.8.1
-      react: 0.0.0-experimental-8039e6d0b-20231026
-    dev: false
-
   /@mui/system@5.15.12(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-/pq+GO6yN3X7r3hAwFTrzkAh7K1bTF5r8IzS79B9eyKJg7v6B/t4/zZYMR6OT9qEPtwf6rYN2Utg1e6Z7F1OgQ==}
     engines: {node: '>=12.0.0'}
@@ -12584,36 +12564,6 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
-  /@mui/system@5.15.12(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-/pq+GO6yN3X7r3hAwFTrzkAh7K1bTF5r8IzS79B9eyKJg7v6B/t4/zZYMR6OT9qEPtwf6rYN2Utg1e6Z7F1OgQ==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      '@emotion/react': ^11.5.0
-      '@emotion/styled': ^11.3.0
-      '@types/react': 18.2.48
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      '@emotion/react':
-        optional: true
-      '@emotion/styled':
-        optional: true
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.24.7
-      '@mui/private-theming': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/styled-engine': 5.15.14(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/types': 7.2.14(@types/react@18.2.48)
-      '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@types/react': 18.2.48
-      clsx: 2.1.0
-      csstype: 3.1.3
-      prop-types: 15.8.1
-      react: 0.0.0-experimental-8039e6d0b-20231026
-    dev: false
-
   /@mui/system@5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-LoMq4IlAAhxzL2VNUDBTQxAb4chnBe8JvRINVNDiMtHE2PiPOoHlhOPutSxEbaL5mkECPVWSv6p8JEV+uykwIA==}
     engines: {node: '>=12.0.0'}
@@ -12634,7 +12584,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.7
       '@mui/private-theming': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/styled-engine': 5.15.14(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/styled-engine': 5.15.14(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/types': 7.2.14(@types/react@18.2.48)
       '@mui/utils': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
@@ -12739,7 +12689,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.7
       '@mui/base': 5.0.0-beta.38(patch_hash=oukor3tid7cl6jy4xpoprwzzym)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/system': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/utils': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react-transition-group': 4.4.10
@@ -14598,16 +14548,16 @@ packages:
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.24.6)
       '@babel/plugin-proposal-export-default-from': 7.24.6
       '@babel/plugin-proposal-logical-assignment-operators': 7.20.7
-      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6(@babel/core@7.24.6)
+      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6
       '@babel/plugin-proposal-numeric-separator': 7.18.6
       '@babel/plugin-proposal-object-rest-spread': 7.20.7
       '@babel/plugin-proposal-optional-catch-binding': 7.18.6
-      '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.24.6)
+      '@babel/plugin-proposal-optional-chaining': 7.21.0
       '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-syntax-export-default-from': 7.24.6
       '@babel/plugin-syntax-flow': 7.24.6(@babel/core@7.24.6)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.6)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.3)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-transform-arrow-functions': 7.24.6
       '@babel/plugin-transform-async-to-generator': 7.24.6
       '@babel/plugin-transform-block-scoping': 7.24.6
@@ -14617,7 +14567,7 @@ packages:
       '@babel/plugin-transform-flow-strip-types': 7.24.6(@babel/core@7.24.6)
       '@babel/plugin-transform-function-name': 7.24.6
       '@babel/plugin-transform-literals': 7.24.6
-      '@babel/plugin-transform-modules-commonjs': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-modules-commonjs': 7.24.6
       '@babel/plugin-transform-named-capturing-groups-regex': 7.24.6
       '@babel/plugin-transform-parameters': 7.24.6
       '@babel/plugin-transform-private-methods': 7.24.6
@@ -17056,7 +17006,7 @@ packages:
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-      vitest: 0.34.6(jsdom@24.1.0)
+      vitest: 0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.0)
     dev: true
 
   /@testing-library/react@16.0.0(@testing-library/dom@10.1.0)(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
@@ -22684,20 +22634,6 @@ packages:
       toggle-selection: 1.0.6
     dev: false
 
-  /copy-webpack-plugin@11.0.0:
-    resolution: {integrity: sha512-fX2MWpamkW0hZxMEg0+mYnA40LTosOSa5TqZ9GYIBzyJa9C3QUaMPSE2xAi/buNr8u89SfD9wHSQVBzrRa/SOQ==}
-    engines: {node: '>= 14.15.0'}
-    peerDependencies:
-      webpack: Jack-Works/webpack#528c91e564d5756e21c9c462b607d913452af770
-    dependencies:
-      fast-glob: 3.3.2
-      glob-parent: 6.0.2
-      globby: 13.2.2
-      normalize-path: 3.0.0
-      schema-utils: 4.2.0
-      serialize-javascript: 6.0.2
-    dev: true
-
   /copy-webpack-plugin@11.0.0(webpack@5.88.2):
     resolution: {integrity: sha512-fX2MWpamkW0hZxMEg0+mYnA40LTosOSa5TqZ9GYIBzyJa9C3QUaMPSE2xAi/buNr8u89SfD9wHSQVBzrRa/SOQ==}
     engines: {node: '>= 14.15.0'}
@@ -22717,7 +22653,6 @@ packages:
     resolution: {integrity: sha512-iV9Pd/PsgjNWBXeq8XRtWVSgz2tKAfhfvBs7qxYty+RlRd+OCksaWmOnc4JKrTc1cToXL1N0s3l/vwlxPtdElw==}
     dependencies:
       browserslist: 4.23.0
-    dev: true
 
   /core-js-compat@3.36.1:
     resolution: {integrity: sha512-Dk997v9ZCt3X/npqzyGdTlq6t7lDBhZwGvV94PKzDArjp7BTRm7WlDAXYd/OWdeFHO8OChQYRJNJvUCqCbrtKA==}
@@ -27447,19 +27382,6 @@ packages:
     resolution: {integrity: sha512-0quDb7s97CfemeJAnW9wC0hw78MtW7NU3hqtCD75g2vFlDLt36llsYD7uB7SUzojLMP24N5IatXf7ylGXiGG9A==}
     dev: false
 
-  /html-webpack-plugin@5.5.3:
-    resolution: {integrity: sha512-6YrDKTuqaP/TquFH7h4srYWsZx+x6k6+FbsTm0ziCwGHDP78Unr1r9F/H4+sGmMbX08GQcJ+K64x55b+7VM/jg==}
-    engines: {node: '>=10.13.0'}
-    peerDependencies:
-      webpack: Jack-Works/webpack#528c91e564d5756e21c9c462b607d913452af770
-    dependencies:
-      '@types/html-minifier-terser': 6.1.0
-      html-minifier-terser: 6.1.0
-      lodash: 4.17.21
-      pretty-error: 4.0.0
-      tapable: 2.2.1
-    dev: true
-
   /html-webpack-plugin@5.5.3(webpack@5.88.2):
     resolution: {integrity: sha512-6YrDKTuqaP/TquFH7h4srYWsZx+x6k6+FbsTm0ziCwGHDP78Unr1r9F/H4+sGmMbX08GQcJ+K64x55b+7VM/jg==}
     engines: {node: '>=10.13.0'}
@@ -29543,7 +29465,7 @@ packages:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.17.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -32182,33 +32104,6 @@ packages:
     dependencies:
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      clsx: 1.2.1
-      hoist-non-react-statics: 3.3.2
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-    dev: false
-
-  /notistack@2.0.8(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-/IY14wkFp5qjPgKNvAdfL5Jp6q90+MjgKTPh4c81r/lW70KeuX6b9pE/4f8L4FG31cNudbN9siiFS5ql1aSLRw==}
-    peerDependencies:
-      '@emotion/react': ^11.4.1
-      '@emotion/styled': ^11.3.0
-      '@mui/material': ^5.0.0
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      '@emotion/react':
-        optional: true
-      '@emotion/styled':
-        optional: true
-      '@mui/material':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       clsx: 1.2.1
       hoist-non-react-statics: 3.3.2
       react: 0.0.0-experimental-8039e6d0b-20231026
@@ -35320,7 +35215,7 @@ packages:
       '@babel/runtime': 7.24.7
       eventemitter3: 4.0.7
       uuid: 8.3.2
-      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.17.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
@@ -38844,72 +38739,6 @@ packages:
       - terser
     dev: true
 
-  /vitest@0.34.6(jsdom@24.1.0):
-    resolution: {integrity: sha512-+5CALsOvbNKnS+ZHMXtuUC7nL8/7F1F2DnHGjSsszX8zCjWSSviphCb/NuS9Nzf4Q03KyyDRBAXhF/8lffME4Q==}
-    engines: {node: '>=v14.18.0'}
-    hasBin: true
-    peerDependencies:
-      '@edge-runtime/vm': '*'
-      '@vitest/browser': '*'
-      '@vitest/ui': '*'
-      happy-dom: '*'
-      jsdom: '*'
-      playwright: '*'
-      safaridriver: '*'
-      webdriverio: '*'
-    peerDependenciesMeta:
-      '@edge-runtime/vm':
-        optional: true
-      '@vitest/browser':
-        optional: true
-      '@vitest/ui':
-        optional: true
-      happy-dom:
-        optional: true
-      jsdom:
-        optional: true
-      playwright:
-        optional: true
-      safaridriver:
-        optional: true
-      webdriverio:
-        optional: true
-    dependencies:
-      '@types/chai': 4.3.14
-      '@types/chai-subset': 1.3.5
-      '@types/node': 20.11.9
-      '@vitest/expect': 0.34.6
-      '@vitest/runner': 0.34.6
-      '@vitest/snapshot': 0.34.6
-      '@vitest/spy': 0.34.6
-      '@vitest/utils': 0.34.6
-      acorn: 8.11.3
-      acorn-walk: 8.3.2
-      cac: 6.7.14
-      chai: 4.4.1
-      debug: 4.3.4
-      jsdom: 24.1.0
-      local-pkg: 0.4.3
-      magic-string: 0.30.8
-      pathe: 1.1.2
-      picocolors: 1.0.0
-      std-env: 3.7.0
-      strip-literal: 1.3.0
-      tinybench: 2.6.0
-      tinypool: 0.7.0
-      vite: 4.5.3(@types/node@20.11.9)
-      vite-node: 0.34.6(@types/node@20.11.9)
-      why-is-node-running: 2.2.2
-    transitivePeerDependencies:
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
   /vlq@0.2.3:
     resolution: {integrity: sha512-DRibZL6DsNhIgYQ+wNdWDL2SL3bKPlVrRiBqV5yuMm++op8W4kGFtaQfCs4KEJn0wBZcHVHJ3eoywX8983k1ow==}
     dev: false
@@ -39775,7 +39604,7 @@ packages:
       webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.106)(esbuild@0.19.7)(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-dev-server@4.15.1)(webpack@5.88.2)
       webpack-dev-middleware: 5.3.4(webpack@5.88.2)
-      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.16.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -40177,7 +40006,7 @@ packages:
       utf-8-validate:
         optional: true
 
-  /ws@8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+  /ws@8.16.0:
     resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -40188,9 +40017,6 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
-    dependencies:
-      bufferutil: 4.0.8
-      utf-8-validate: 5.0.10
 
   /ws@8.17.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}

@@ -61,7 +61,7 @@
         "@solana/wallet-adapter-tokenpocket": "^0.4.19",
         "@solana/wallet-adapter-trust": "^0.1.13",
         "@solana/wallet-adapter-walletconnect": "^0.1.16",
-        "@solana/web3.js": "^1.75.0",
+        "@solana/web3.js": "^1.91.2",
         "@tailwindcss/forms": "^0.5.6",
         "@tanstack/react-query": "^5.29.2",
         "@tanstack/react-query-devtools": "^5.29.2",

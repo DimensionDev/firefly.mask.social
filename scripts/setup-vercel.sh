@@ -26,7 +26,7 @@ cd -
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "notistack@2.0.8"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "urlcat@3.1.0"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@solana/spl-token@0.1.8"
-./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@solana/web3.js@1.75.0"
+./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@solana/web3.js@1.91.2"
 
 # Compile i18n
 pnpm run lingui:compile
