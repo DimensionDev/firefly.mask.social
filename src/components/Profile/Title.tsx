@@ -40,7 +40,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
     const renderActions = () => {
         if (!reached && isMedium) return null;
         if (profile?.source === Source.Twitter) return null;
-        if (profile) return <ProfileAction profile={profile} />;
+        if (profile) return <ProfileAction profile={profile} ProfileMoreActionProps={{ className: 'ml-2' }} />;
         if (walletProfile)
             return (
                 <>

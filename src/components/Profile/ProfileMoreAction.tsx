@@ -20,7 +20,7 @@ import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
+export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
     className?: string;
     profile: Profile;
 }

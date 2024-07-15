@@ -49,7 +49,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
     // try login new account
     return (
         <ClickableButton
-            className={getButtonClassName('bg-lightMain text-lightBottom', className)}
+            className={getButtonClassName('bg-main text-primaryBottom', className)}
             onClick={() => LoginModalRef.open({ source: profile.source, expectProfile: profile })}
         >
             <Trans>Login</Trans>
