@@ -1,4 +1,5 @@
 import { Avatar, type AvatarProps } from '@/components/Avatar.js';
+import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -13,16 +14,22 @@ export function AvatarGroup({ profiles, AvatarProps }: AvatarGroupProps) {
     return (
         <div className="flex items-center">
             {profiles.map((profile, index, self) => (
-                <Link
-                    key={index}
-                    href={getProfileUrl(profile)}
-                    className={classNames('inline-flex items-center', {
-                        '-ml-5': index > 0 && self.length > 1,
-                    })}
-                    style={{ zIndex: self.length - index }}
+                <ProfileTippy
+                    key={profile.profileId}
+                    source={profile.source}
+                    identity={profile.handle}
+                    profile={profile}
                 >
-                    <Avatar src={profile.pfp} size={40} alt={profile.profileId} {...AvatarProps} />
-                </Link>
+                    <Link
+                        href={getProfileUrl(profile)}
+                        className={classNames('inline-flex items-center', {
+                            '-ml-5': index > 0 && self.length > 1,
+                        })}
+                        style={{ zIndex: self.length - index }}
+                    >
+                        <Avatar src={profile.pfp} size={40} alt={profile.profileId} {...AvatarProps} />
+                    </Link>
+                </ProfileTippy>
             ))}
         </div>
     );

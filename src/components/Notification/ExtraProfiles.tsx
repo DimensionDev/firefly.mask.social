@@ -11,7 +11,10 @@ export function ExtraProfiles({ profiles }: Props) {
     return (
         <Trans>
             <ProfileLink profile={profiles[0]} /> and{' '}
-            <UserListTippy users={profiles.slice(1)} className="cursor-pointer hover:underline sm:underline">
+            <UserListTippy
+                users={profiles.slice(1)}
+                className="cursor-pointer underline hover:underline md:no-underline"
+            >
                 {profiles.length - 1} others
             </UserListTippy>
         </Trans>
