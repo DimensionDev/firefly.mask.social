@@ -1,4 +1,4 @@
-import type { Config } from 'wagmi';
+import { type Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
 import { chains } from '@/configs/wagmiClient.js';
@@ -9,11 +9,16 @@ export async function getWalletClientRequired(
     config: Config,
     args?: GetWalletClientParameters,
 ): Promise<Exclude<GetWalletClientReturnType, null>> {
-    await getWalletClient(config, args);
-    await RainbowKitModalRef.openAndWaitForClose();
+    try {
+        await getWalletClient(config, args);
+    } catch (error) {
+        const errorWithName = error as { name: string };
+        const errorName = errorWithName.name;
+        if (errorName === 'ConnectorNotConnectedError') await RainbowKitModalRef.openAndWaitForClose();
+        throw error;
+    }
 
     const client = await getWalletClient(config, args);
-
     if (args?.chainId && args.chainId !== client.chain.id) {
         await ChainModalRef.openAndWaitForClose();
         if (args?.chainId !== client.chain.id) {
