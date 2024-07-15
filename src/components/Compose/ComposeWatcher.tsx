@@ -4,18 +4,19 @@ import { memo } from 'react';
 import { useMount } from 'react-use';
 
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
 export const ComposeWatcher = memo(function ComposeWatcher() {
     const search = useSearchParams();
     const isLogin = useIsLogin();
+    const isMedium = useIsMedium();
 
-    // console.log(modal, text, rest);
     useMount(() => {
         const modal = search.get('modal');
         const text = search.get('text');
 
-        if (!modal || !text || !isLogin) return;
+        if (!modal || !text || !isLogin || !isMedium) return;
 
         ComposeModalRef.open({
             type: 'compose',
