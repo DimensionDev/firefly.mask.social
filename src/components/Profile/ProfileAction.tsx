@@ -22,11 +22,7 @@ export function ProfileAction({ profile, ProfileMoreActionProps }: ProfileAction
 
     return (
         <>
-            {!isRelatedProfile ? (
-                <FollowButton className="ml-auto" profile={profile} />
-            ) : (
-                <ProfileLoginStatus className="ml-auto" profile={profile} />
-            )}
+            {!isRelatedProfile ? <FollowButton profile={profile} /> : <ProfileLoginStatus profile={profile} />}
             <ProfileMoreAction {...ProfileMoreActionProps} profile={profile} />
         </>
     );

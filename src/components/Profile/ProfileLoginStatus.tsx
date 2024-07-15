@@ -6,7 +6,7 @@ import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { EditProfileModalRef, LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileLoginStatusProps extends HTMLProps<HTMLDivElement> {
@@ -20,21 +20,12 @@ function getButtonClassName(...rest: string[]) {
 export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStatusProps) {
     const { accounts, currentProfile } = useProfileStore(profile.source);
 
-    // current using profile
-    if (isSameProfile(profile, currentProfile)) {
-        return (
-            <ClickableButton
-                className={getButtonClassName('text-lightMain', className)}
-                onClick={() => EditProfileModalRef.open({ profile })}
-            >
-                <Trans>Edit Profile</Trans>
-            </ClickableButton>
-        );
-    }
+    // current active profile
+    if (isSameProfile(profile, currentProfile)) return null;
 
     const relatedAccount = accounts.find((account) => isSameProfile(account.profile, profile));
 
-    // has other account connected
+    // has other accounts connected
     if (relatedAccount) {
         return (
             <ClickableButton

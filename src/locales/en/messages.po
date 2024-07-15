@@ -910,9 +910,6 @@ msgstr "Please confirm the login with Warpcast."
 msgid "The connection has timed out. Please try again later.·"
 msgstr "The connection has timed out. Please try again later.·"
 
-msgid "Edit Profile"
-msgstr "Edit Profile"
-
 msgid "Confirm you want to mute @{0}?"
 msgstr "Confirm you want to mute @{0}?"
 
