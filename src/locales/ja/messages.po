@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-12 00:04\n"
+"PO-Revision-Date: 2024-07-13 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -135,9 +135,6 @@ msgstr ""
 msgid "Functions that can suspend trading"
 msgstr ""
 
-msgid "Failed to upload. Video is not supported yet"
-msgstr ""
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
@@ -157,9 +154,6 @@ msgid "Airdrop Scam"
 msgstr ""
 
 msgid "Collect Action is not supported yet."
-msgstr ""
-
-msgid "This entry has been permanently stored on-chain and signed by its creator"
 msgstr ""
 
 msgid "Tax can be modified"
@@ -525,6 +519,9 @@ msgstr ""
 msgid "Confirmation"
 msgstr ""
 
+msgid "Failed to upload. Video is not supported yet."
+msgstr ""
+
 msgid "Whitelist function"
 msgstr ""
 
@@ -544,6 +541,9 @@ msgid "No wallet client found. Please connect your wallet."
 msgstr ""
 
 msgid "THREAD POST"
+msgstr ""
+
+msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr ""
 
 msgid "Frame Validator"
