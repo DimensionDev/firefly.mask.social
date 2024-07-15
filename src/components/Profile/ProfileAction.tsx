@@ -1,6 +1,6 @@
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileLoginStatus } from '@/components/Profile/ProfileLoginStatus.js';
-import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
+import { ProfileMoreAction, type ProfileMoreActionProps } from '@/components/Profile/ProfileMoreAction.js';
 import { Source } from '@/constants/enum.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -8,9 +8,10 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileActionProps {
     profile: Profile;
+    moreActionProps?: Partial<ProfileMoreActionProps>;
 }
 
-export function ProfileAction({ profile }: ProfileActionProps) {
+export function ProfileAction({ profile, moreActionProps }: ProfileActionProps) {
     const profiles = useCurrentFireflyProfilesAll();
 
     const isRelatedProfile = profiles.some((current) => {
@@ -26,7 +27,7 @@ export function ProfileAction({ profile }: ProfileActionProps) {
             ) : (
                 <ProfileLoginStatus className="ml-auto" profile={profile} />
             )}
-            <ProfileMoreAction profile={profile} />
+            <ProfileMoreAction {...moreActionProps} profile={profile} />
         </>
     );
 }
