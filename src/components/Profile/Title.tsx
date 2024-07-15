@@ -2,8 +2,7 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import { FollowButton } from '@/components/Profile/FollowButton.js';
-import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
+import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { Source } from '@/constants/enum.js';
@@ -41,13 +40,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
     const renderActions = () => {
         if (!reached && isMedium) return null;
         if (profile?.source === Source.Twitter) return null;
-        if (profile)
-            return (
-                <>
-                    {isOthersProfile ? <FollowButton profile={profile} /> : null}
-                    <ProfileMoreAction className="ml-2 text-main" profile={profile} />
-                </>
-            );
+        if (profile) return <ProfileAction profile={profile} />;
         if (walletProfile)
             return (
                 <>

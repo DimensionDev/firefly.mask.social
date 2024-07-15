@@ -6,7 +6,7 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isMyProfile } from '@/helpers/isMyProfile.js';
+import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -65,7 +65,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
             </Link>
 
             <div className="ml-2 w-[100px]">
-                {!noFollowButton && !isMyProfile(profile) ? <FollowButton profile={profile} /> : null}
+                {!noFollowButton && !isCurrentProfile(profile) ? <FollowButton profile={profile} /> : null}
             </div>
         </div>
     );

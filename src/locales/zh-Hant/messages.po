@@ -915,6 +915,9 @@ msgstr "請至 Warpcast 確認登錄"
 msgid "The connection has timed out. Please try again later.·"
 msgstr "連結已超時。請稍候重試"
 
+msgid "Edit Profile"
+msgstr ""
+
 msgid "Confirm you want to mute @{0}?"
 msgstr "確認對 @{0} 的靜音？"
 

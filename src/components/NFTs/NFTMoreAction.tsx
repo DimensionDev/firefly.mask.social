@@ -30,7 +30,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
     const collectionId = data?.collection?.id;
     const { data: isMuted } = useIsWalletMuted(address);
     const pathname = usePathname();
-    const isMyProfile = pathname === PageRoute.Profile; // My wallet profile page has no path param
+    const isProfilePage = pathname === PageRoute.Profile; // My wallet profile page has no path param
     return (
         <MoreActionMenu
             button={
@@ -46,7 +46,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     event.preventDefault();
                 }}
             >
-                {!isMyProfile ? (
+                {!isProfilePage ? (
                     <>
                         <Menu.Item>
                             {({ close }) => <WatchWalletButton identity={identity} address={address} onClick={close} />}

@@ -910,6 +910,9 @@ msgstr ""
 msgid "The connection has timed out. Please try again later.·"
 msgstr ""
 
+msgid "Edit Profile"
+msgstr ""
+
 msgid "Confirm you want to mute @{0}?"
 msgstr ""
 

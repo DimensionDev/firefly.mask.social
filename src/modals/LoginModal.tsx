@@ -31,6 +31,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LoginModalProps {
     source?: ProfileSource;
+    expectProfile?: Profile;
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
@@ -46,7 +47,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     // for farcaster only
     const [signType, setSignType] = useState<FarcasterSignType | null>(null);
 
-    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: ProfileSource) => {
+    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: ProfileSource, expectProfile?: Profile) => {
         try {
             switch (selectedSource) {
                 case Source.Lens: {
@@ -71,7 +72,13 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         return;
                     }
                     const { accounts } = getProfileState(Source.Lens);
-                    setProfiles(profiles.filter((x) => !accounts.some((y) => isSameProfile(x, y.profile))));
+                    setProfiles(
+                        profiles
+                            .filter((x) => !accounts.some((y) => isSameProfile(x, y.profile)))
+                            .sort((a) => {
+                                return expectProfile && isSameProfile(a, expectProfile) ? -1 : 0;
+                            }),
+                    );
                     setCurrentAccount(account.address);
                     setSource(selectedSource);
                     return;
@@ -110,7 +117,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: async (props) => {
             if (!props?.source) return;
-            await handleLogin(props.source);
+            await handleLogin(props.source, props.expectProfile);
         },
         onClose: async () => {
             // setSource will trigger a re-render, so we need to delay the setSource(null) to avoid the re-render
