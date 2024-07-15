@@ -13,7 +13,7 @@ import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireFlyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export interface TipsModalOpenProps {
     identity: string;
@@ -28,7 +28,7 @@ function formatDisplayName(address: string, handle?: string | null) {
     return handle ? `${handle}(${formatEthereumAddress(address, 4)})` : formatEthereumAddress(address, 8);
 }
 
-function formatTipsProfiles(profiles: FireFlyProfile[]) {
+function formatTipsProfiles(profiles: FireflyProfile[]) {
     const socialProfiles = profiles
         .filter((x) => x.source !== Source.Wallet)
         .map(
@@ -49,7 +49,7 @@ function formatTipsProfiles(profiles: FireFlyProfile[]) {
                 ...profile,
                 displayName: formatDisplayName(address, primary_ens),
                 address,
-                blockchain,
+                networkType: blockchain,
             };
         });
     return { walletProfiles, socialProfiles };
@@ -66,8 +66,8 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                     router.navigate({ to: TipsRoutePath.LOADING, replace: true });
                     if (!pureWallet) {
                         const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(
-                            identity,
                             source,
+                            identity,
                         );
                         const formattedProfiles = formatTipsProfiles(profiles);
                         receiverList = formattedProfiles.walletProfiles;
@@ -85,7 +85,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                                 source,
                                 address: identity as `0x${string}`,
                                 __origin__: null,
-                                blockchain: NetworkType.Ethereum,
+                                networkType: NetworkType.Ethereum,
                                 displayName: formatDisplayName(identity, handle),
                             },
                         ];
@@ -106,7 +106,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                     }
                 } catch (error) {
                     enqueueErrorMessage(
-                        error instanceof Error ? error.message : t`Starting Tips failed, please try again later`,
+                        error instanceof Error ? error.message : t`Failed to send tips, please try again later.`,
                         { error },
                     );
                 }

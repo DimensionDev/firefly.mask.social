@@ -1,5 +1,4 @@
-export interface Provider<Config, AddressLike, HashLike> {
-    _config: Config;
+export interface Provider<AddressLike = string, HashLike = string> {
     connect: () => Promise<void>;
     getAccount: () => Promise<AddressLike>;
     switchChain: (chainId: number) => Promise<void>;

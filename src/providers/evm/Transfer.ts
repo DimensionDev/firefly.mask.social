@@ -10,24 +10,18 @@ import {
 import { type Address, erc20Abi, type Hash, parseUnits } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { getFixedConfig } from '@/providers/evm/getFixedConfig.js';
 import { getTokenBalance } from '@/providers/evm/getTokenBalance.js';
 import { isNativeToken } from '@/providers/evm/isNativeToken.js';
-import { EVMNetwork } from '@/providers/evm/network.js';
-import { type Token, type Transfer, type TransferOptions } from '@/providers/types/Transfer.js';
+import { evmNetwork } from '@/providers/evm/Network.js';
+import { type Token, type TransactionOptions, type Transfer } from '@/providers/types/Transfer.js';
 
-class EVMTransfer implements Transfer<Config, Address, Hash> {
-    _config: Config;
-    network: EVMNetwork;
-    constructor(config: Config) {
-        this._config = config;
-        this.network = new EVMNetwork(config);
-    }
+const coreConfig = config as unknown as Config;
 
-    async transfer(options: TransferOptions): Promise<Address> {
+class EVMTransfer implements Transfer<Address, Hash> {
+    async transfer(options: TransactionOptions): Promise<Address> {
         const { token } = options;
-        if (token.chainId !== this.network.getChainId()) {
-            await this.network.switchChain(token.chainId);
+        if (token.chainId !== evmNetwork.getChainId()) {
+            await evmNetwork.switchChain(token.chainId);
         }
 
         let hash: Address;
@@ -46,22 +40,22 @@ class EVMTransfer implements Transfer<Config, Address, Hash> {
     }
 
     async waitForTransaction(hash: Hash): Promise<void> {
-        await waitForTransactionReceipt(this._config, { hash });
+        await waitForTransactionReceipt(coreConfig, { hash, chainId: evmNetwork.getChainId() });
     }
 
-    async validateBalance({ token, amount }: TransferOptions): Promise<boolean> {
-        const balance = await getTokenBalance(token, await this.network.getAccount(), token.chainId);
+    async validateBalance({ token, amount }: TransactionOptions): Promise<boolean> {
+        const balance = await getTokenBalance(token, await evmNetwork.getAccount(), token.chainId);
 
         return !isGreaterThan(rightShift(amount, token.decimals), `${balance.value}`);
     }
 
-    async validateGas({ token, to }: TransferOptions): Promise<boolean> {
-        const account = await this.network.getAccount();
-        const nativeBalance = await getBalance(getFixedConfig(), {
+    async validateGas({ token, to }: TransactionOptions): Promise<boolean> {
+        const account = await evmNetwork.getAccount();
+        const nativeBalance = await getBalance(coreConfig, {
             address: account,
             chainId: token.chainId,
         });
-        const gas = await estimateGas(getFixedConfig(), {
+        const gas = await estimateGas(coreConfig, {
             account,
             chainId: token.chainId,
             to,
@@ -70,16 +64,16 @@ class EVMTransfer implements Transfer<Config, Address, Hash> {
         return !isLessThan(`${nativeBalance.value}`, `${gas}`);
     }
 
-    async _transferNative({ to, token, amount }: TransferOptions): Promise<Address> {
-        return sendTransaction(this._config, {
-            account: await this.network.getAccount(),
+    async _transferNative({ to, token, amount }: TransactionOptions): Promise<Address> {
+        return sendTransaction(coreConfig, {
+            account: await evmNetwork.getAccount(),
             to,
             value: parseUnits(amount, token.decimals),
         });
     }
 
-    async _transferContract({ to, token, amount }: TransferOptions): Promise<Address> {
-        return writeContract(this._config, {
+    async _transferContract({ to, token, amount }: TransactionOptions): Promise<Address> {
+        return writeContract(coreConfig, {
             address: token.id,
             abi: erc20Abi,
             functionName: 'transfer',
@@ -88,4 +82,4 @@ class EVMTransfer implements Transfer<Config, Address, Hash> {
     }
 }
 
-export const evmTransfer = new EVMTransfer(config as unknown as Config);
+export const evmTransfer = new EVMTransfer();

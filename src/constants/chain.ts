@@ -1,142 +1,264 @@
 /* cspell:disable */
 
-export enum SUPPORTED_EVM_CHAIN_IDS {
-    // Mainnet
-    Mainnet = 1,
-    Ropsten = 3,
-    Rinkeby = 4,
-    Gorli = 5,
-    Kovan = 42,
-
-    // Base
-    Base = 8453,
-    Base_Goerli = 84531,
-
-    // BSC
-    BSC = 56,
-    BSCT = 97,
-
-    // Matic
-    Matic = 137,
-    Mumbai = 80001,
-
-    // Arbitrum
-    Arbitrum = 42161,
-    Arbitrum_Rinkeby = 421611,
-    Arbitrum_Nova = 42170,
-
-    // xDai
-    xDai = 100,
-
-    // Avalanche
-    Avalanche = 43114,
-    Avalanche_Fuji = 43113,
-
-    // Celo
-    Celo = 42220,
-
-    // Fantom
-    Fantom = 250,
-
-    // Aurora
-    Aurora = 1313161554,
-    Aurora_Testnet = 1313161555,
-
-    // Fuse
-    Fuse = 122,
-
-    // Boba
-    Boba = 288,
-
-    // Metis
-    Metis = 1088,
-    Metis_Sepolia = 59902,
-
-    // Optimism
-    Optimism = 10,
-    Optimism_Kovan = 69,
-    Optimism_Goerli = 420,
-
-    // Conflux
-    Conflux = 1030,
-
-    // Astar
-    Astar = 592,
-
-    Scroll = 534352,
-
-    ZKSync_Alpha_Testnet = 280,
-
-    Crossbell = 3737,
-
-    Moonbeam = 1284,
-
-    Pulse = 369,
-
-    Klaytn = 8217,
-
-    Harmony = 1666600000,
-
-    Moonriver = 1285,
-
-    Cronos = 25,
-
-    Brise = 32520,
-
-    Canto = 7700,
-
-    DFK = 53935,
-
-    Doge = 2000,
-
-    Evmos = 9001,
-
-    HuobiEco = 128,
-
-    IoTex = 4689,
-
-    Kava = 2222,
-
-    Kcc = 321,
-
-    Milkomeda = 2001,
-
-    OKXChain = 66,
-
-    Palm = 11297108109,
-
-    RSK = 30,
-
-    SmartBitcoinCash = 10000,
-
-    Shiden = 336,
-
-    SongbirdCanary = 19,
-
-    Step = 1234,
-
-    Telos = 40,
-
-    Wanchain = 888,
-
-    XLayer = 196,
-    XLayer_Testnet = 195,
-
-    /** BitTorrent Chain Mainnet */
-    BitTorrent = 199,
-
-    // For any chains not supported yet.
-    Invalid = 0,
-
-    Zora = 7777777,
-
-    ZkSyncEra = 324,
-
-    Linea = 59144,
-}
-
 export enum SUPPORTED_SOLANA_CHAIN_IDS {
     Mainnet = 101,
     Testnet = 102,
     Devnet = 103,
 }
+
+export const SOLANA_DEFAULT_CHAIN = SUPPORTED_SOLANA_CHAIN_IDS.Mainnet;
+
+export const DEBANK_CHAINS = [
+    {
+        id: 'eth',
+        community_id: 1,
+        name: 'Ethereum',
+        native_token_id: 'eth',
+    },
+    {
+        id: 'bsc',
+        community_id: 56,
+        name: 'BSC',
+        native_token_id: 'bsc',
+    },
+    {
+        id: 'xdai',
+        community_id: 100,
+        name: 'Gnosis',
+        native_token_id: 'xdai',
+    },
+    {
+        id: 'matic',
+        community_id: 137,
+        name: 'Polygon',
+        native_token_id: 'matic',
+    },
+    {
+        id: 'ftm',
+        community_id: 250,
+        name: 'Fantom',
+        native_token_id: 'ftm',
+    },
+    {
+        id: 'okt',
+        community_id: 66,
+        name: 'OEC',
+        native_token_id: 'okt',
+    },
+    {
+        id: 'heco',
+        community_id: 128,
+        name: 'HECO',
+        native_token_id: 'heco',
+    },
+    {
+        id: 'avax',
+        community_id: 43114,
+        name: 'Avalanche',
+        native_token_id: 'avax',
+    },
+    {
+        id: 'op',
+        community_id: 10,
+        name: 'Optimism',
+        native_token_id: 'op',
+    },
+    {
+        id: 'arb',
+        community_id: 42161,
+        name: 'Arbitrum',
+        native_token_id: 'arb',
+    },
+    {
+        id: 'celo',
+        community_id: 42220,
+        name: 'Celo',
+        native_token_id: 'celo',
+    },
+    {
+        id: 'movr',
+        community_id: 1285,
+        name: 'Moonriver',
+        native_token_id: 'movr',
+    },
+    {
+        id: 'cro',
+        community_id: 25,
+        name: 'Cronos',
+        native_token_id: 'cro',
+    },
+    {
+        id: 'boba',
+        community_id: 288,
+        name: 'Boba',
+        native_token_id: 'boba',
+    },
+    {
+        id: 'metis',
+        community_id: 1088,
+        name: 'Metis',
+        native_token_id: 'metis',
+    },
+    {
+        id: 'btt',
+        community_id: 199,
+        name: 'BitTorrent',
+        native_token_id: 'btt',
+    },
+    {
+        id: 'aurora',
+        community_id: 1313161554,
+        name: 'Aurora',
+        native_token_id: 'aurora',
+    },
+    {
+        id: 'mobm',
+        community_id: 1284,
+        name: 'Moonbeam',
+        native_token_id: 'mobm',
+    },
+    {
+        id: 'sbch',
+        community_id: 10000,
+        name: 'SmartBch',
+        native_token_id: 'sbch',
+    },
+    {
+        id: 'fuse',
+        community_id: 122,
+        name: 'Fuse',
+        native_token_id: 'fuse',
+    },
+    {
+        id: 'hmy',
+        community_id: 1666600000,
+        name: 'Harmony',
+        native_token_id: 'hmy',
+    },
+    {
+        id: 'klay',
+        community_id: 8217,
+        name: 'Klaytn',
+        native_token_id: 'klay',
+    },
+    {
+        id: 'astar',
+        community_id: 592,
+        name: 'Astar',
+        native_token_id: 'astar',
+    },
+    {
+        id: 'sdn',
+        community_id: 336,
+        name: 'Shiden',
+        native_token_id: 'sdn',
+    },
+    {
+        id: 'palm',
+        community_id: 11297108109,
+        name: 'Palm',
+        native_token_id: 'palm',
+    },
+    {
+        id: 'iotx',
+        community_id: 4689,
+        name: 'IoTeX',
+        native_token_id: 'iotx',
+    },
+    {
+        id: 'rsk',
+        community_id: 30,
+        name: 'RSK',
+        native_token_id: 'rsk',
+    },
+    {
+        id: 'wan',
+        community_id: 888,
+        name: 'Wanchain',
+        native_token_id: 'wan',
+    },
+    {
+        id: 'kcc',
+        community_id: 321,
+        name: 'KCC',
+        native_token_id: 'kcc',
+    },
+    {
+        id: 'sgb',
+        community_id: 19,
+        name: 'Songbird',
+        native_token_id: 'sgb',
+    },
+    {
+        id: 'evmos',
+        community_id: 9001,
+        name: 'EvmOS',
+        native_token_id: 'evmos',
+    },
+    {
+        id: 'dfk',
+        community_id: 53935,
+        name: 'DFK',
+        native_token_id: 'dfk',
+    },
+    {
+        id: 'tlos',
+        community_id: 40,
+        name: 'Telos',
+        native_token_id: 'tlos',
+    },
+    {
+        id: 'swm',
+        community_id: 73772,
+        name: 'Swimmer',
+        native_token_id: 'swm',
+    },
+    {
+        id: 'nova',
+        community_id: 42170,
+        name: 'Arbitrum Nova',
+        native_token_id: 'nova',
+    },
+    {
+        id: 'canto',
+        community_id: 7700,
+        name: 'Canto',
+        native_token_id: 'canto',
+    },
+    {
+        id: 'doge',
+        community_id: 2000,
+        name: 'Dogechain',
+        native_token_id: 'doge',
+    },
+    {
+        id: 'kava',
+        community_id: 2222,
+        name: 'Kava',
+        native_token_id: 'kava',
+    },
+    {
+        id: 'step',
+        community_id: 1234,
+        name: 'Step',
+        native_token_id: 'step',
+    },
+    {
+        id: 'mada',
+        community_id: 2001,
+        name: 'Milkomeda',
+        native_token_id: 'mada',
+    },
+    {
+        id: 'cfx',
+        community_id: 1030,
+        name: 'Conflux',
+        native_token_id: 'cfx',
+    },
+    {
+        id: 'brise',
+        community_id: 32520,
+        name: 'Bitgert',
+        native_token_id: 'brise',
+    },
+];

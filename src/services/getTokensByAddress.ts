@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { SUPPORTED_EVM_CHAIN_IDS } from '@/constants/chain.js';
+import { DEBANK_CHAINS } from '@/constants/chain.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { DebankTokensResponse } from '@/providers/types/Firefly.js';
 import type { DebankToken } from '@/providers/types/Transfer.js';
@@ -22,13 +22,12 @@ export async function getTokensByAddressForTips(address: string): Promise<
     >
 > {
     const tokens = await getTokensByAddress(address);
-    const chains = Object.keys(SUPPORTED_EVM_CHAIN_IDS);
 
     return tokens.map((token) => {
-        const chainName = chains.find((chain) => token.chain === chain.toLowerCase());
+        const chain = DEBANK_CHAINS.find((chain) => chain.id === token.chain);
         return {
             ...token,
-            chainId: chainName ? SUPPORTED_EVM_CHAIN_IDS[chainName as keyof typeof SUPPORTED_EVM_CHAIN_IDS] : null,
+            chainId: chain ? chain.community_id : null,
         };
     });
 }

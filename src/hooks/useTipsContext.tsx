@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 import type { NetworkType } from '@/constants/enum.js';
-import type { FireFlyProfile, Profile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, Profile } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
-export type TipsProfile = FireFlyProfile & { address: `0x${string}`; blockchain: NetworkType };
+export type TipsProfile = FireflyProfile & { address: string; networkType: NetworkType };
 
 interface TipsContext {
     receiverList: TipsProfile[];

@@ -58,7 +58,7 @@ export const TokenSelector = memo(function TokenSelector() {
                     <div className="h-80 overflow-y-auto" ref={listRef}>
                         {filteredTokens?.map((token) => <TokenItem key={`${token.id}.${token.chain}`} token={token} />)}
                         {!filteredTokens?.length && !isLoading && (
-                            <NoResultsFallback message={t`There is no token available to select`} />
+                            <NoResultsFallback message={t`No available token.`} />
                         )}
                     </div>
                 </div>

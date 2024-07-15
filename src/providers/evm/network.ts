@@ -1,21 +1,21 @@
 import { EVMExplorerResolver } from '@masknet/web3-providers';
-import { type Config, getAccount, getChainId, switchChain } from '@wagmi/core';
+import type { Config } from '@wagmi/core';
+import { getAccount, getChainId, switchChain } from '@wagmi/core';
 import { type Address, type Hash } from 'viem';
 
+import { config } from '@/configs/wagmiClient.js';
+import { NotImplementedError } from '@/constants/error.js';
 import type { Provider as NetworkProvider } from '@/providers/types/network.js';
 
-export class EVMNetwork implements NetworkProvider<Config, Address, Hash> {
-    _config: Config;
-    constructor(config: Config) {
-        this._config = config;
-    }
+const coreConfig = config as unknown as Config;
 
+export class EVMNetwork implements NetworkProvider<Address, Hash> {
     async connect(): Promise<void> {
-        throw new Error('Method not implemented.');
+        throw new NotImplementedError();
     }
 
     async getAccount(): Promise<Address> {
-        const account = getAccount(this._config);
+        const account = getAccount(coreConfig);
         if (!account.address) {
             throw new Error('Wallet not connected');
         }
@@ -23,11 +23,11 @@ export class EVMNetwork implements NetworkProvider<Config, Address, Hash> {
     }
 
     async switchChain(chainId: number): Promise<void> {
-        await switchChain(this._config, { chainId });
+        await switchChain(coreConfig, { chainId });
     }
 
     getChainId(): number {
-        return getChainId(this._config);
+        return getChainId(coreConfig);
     }
 
     getAddressUrl(chainId: number, address: Address): string | undefined {
@@ -38,3 +38,5 @@ export class EVMNetwork implements NetworkProvider<Config, Address, Hash> {
         return EVMExplorerResolver.transactionLink(chainId, hash);
     }
 }
+
+export const evmNetwork = new EVMNetwork();

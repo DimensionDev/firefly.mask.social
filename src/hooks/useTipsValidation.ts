@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro';
-import { isSameAddress, isZero } from '@masknet/web3-shared-base';
+import { isZero } from '@masknet/web3-shared-base';
 import { useAsync } from 'react-use';
 
-import { resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { resolveNetwork, resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
@@ -14,10 +15,11 @@ export function useTipsValidation() {
             return { label: t`Send Tips`, disabled: true };
         }
 
-        const transfer = resolveTokenTransfer(receiver.blockchain);
+        const transfer = resolveTokenTransfer(receiver.networkType);
+        const network = resolveNetwork(receiver.networkType);
 
-        if (isSameAddress(receiver.address, await transfer.network.getAccount())) {
-            return { label: t`Cannot send to yourself`, disabled: true };
+        if (isSameAddress(receiver.address, await network.getAccount())) {
+            return { label: t`Cannot send tips to yourself`, disabled: true };
         }
 
         const isBalanceValid = await transfer.validateBalance({

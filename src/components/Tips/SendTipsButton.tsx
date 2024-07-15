@@ -9,7 +9,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { resolveNetwork, resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
@@ -32,24 +33,24 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             if (!receiver || !token) return;
             update((prev) => ({ ...prev, isSending: true }));
             const { chainId, id } = token;
-            const transfer = resolveTokenTransfer(receiver.blockchain);
+            const transfer = resolveTokenTransfer(receiver.networkType);
+            const network = resolveNetwork(receiver.networkType);
             const hash = await transfer.transfer({
                 to: receiver.address,
                 token,
                 amount,
             });
-            const hashUrl =
-                transfer.network.getTransactionUrl(chainId, hash) ?? transfer.network.getAddressUrl(chainId, id);
+            const hashUrl = network.getTransactionUrl(chainId, hash) ?? network.getAddressUrl(chainId, id);
             if (hashUrl) {
                 update((prev) => ({ ...prev, hash: hashUrl }));
             }
             router.navigate({ to: TipsRoutePath.SUCCESS });
         } catch (error) {
-            enqueueErrorMessage(error instanceof Error ? error.message : t`Failed to send tips`, { error });
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to send tips.`), { error });
         } finally {
             update((prev) => ({ ...prev, isSending: false }));
         }
-    }, [connected, receiver, token, amount]);
+    }, [connected, receiver, token, amount, onConnect]);
 
     return (
         <ClickableButton
@@ -62,7 +63,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             ) : isSending || isValidating ? (
                 <LoadingIcon className="animate-spin" width={24} height={24} />
             ) : error ? (
-                t`Validate failed, please check your input`
+                t`Validate failed, please check your input.`
             ) : (
                 value?.label
             )}

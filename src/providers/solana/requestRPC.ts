@@ -1,4 +1,4 @@
-import { Endpoints } from '@/providers/solana/index.js';
+import { env } from '@/constants/env.js';
 import { ChainId } from '@/providers/types/Solana.js';
 
 interface RpcOptions {
@@ -7,7 +7,7 @@ interface RpcOptions {
 }
 
 export async function requestRPC<T = unknown>(chainId: ChainId, options: RpcOptions): Promise<T> {
-    const response = await globalThis.fetch(Endpoints[chainId], {
+    const response = await globalThis.fetch(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
