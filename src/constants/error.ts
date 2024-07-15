@@ -94,3 +94,9 @@ export class NotFoundError extends Error {
         super(message ?? 'Not Found.');
     }
 }
+
+export class RPC_Error extends Error {
+    constructor(message?: string) {
+        super(message ?? 'RPC Error.');
+    }
+}
