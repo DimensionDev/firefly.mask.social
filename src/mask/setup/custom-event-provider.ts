@@ -1,4 +1,3 @@
-import { isValidChainId } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
@@ -6,6 +5,7 @@ import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/a
 import { config } from '@/configs/wagmiClient.js';
 import { ChainId, MethodType, type RequestArguments } from '@/constants/ethereum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isValidChainId } from '@/helpers/isValidChainId.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
 
 // @ts-expect-error TODO: define the custom event
