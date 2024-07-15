@@ -1,4 +1,4 @@
-import { blob,struct, u8 } from '@solana/buffer-layout';
+import { blob, struct, u8 } from '@solana/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { type AccountMeta, type PublicKey, type Signer, TransactionInstruction } from '@solana/web3.js';
 import BN from 'bn.js';
