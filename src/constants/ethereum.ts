@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 export enum ChainId {
     Mainnet = 1,
     Base = 8453,
