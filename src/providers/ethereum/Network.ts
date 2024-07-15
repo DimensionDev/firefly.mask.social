@@ -5,8 +5,9 @@ import { type Address, type Hash } from 'viem';
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
+import type { ChainId } from '@masknet/web3-shared-evm';
 
-class Provider implements NetworkProvider<Address, Hash> {
+class Provider implements NetworkProvider<ChainId, Address, Hash> {
     async connect(): Promise<void> {
         throw new NotImplementedError();
     }
@@ -19,19 +20,19 @@ class Provider implements NetworkProvider<Address, Hash> {
         return account.address;
     }
 
-    async switchChain(chainId: number): Promise<void> {
+    async switchChain(chainId: ChainId): Promise<void> {
         await switchChain(config, { chainId });
     }
 
-    getChainId(): number {
+    getChainId(): ChainId {
         return getChainId(config);
     }
 
-    getAddressUrl(chainId: number, address: Address): string | undefined {
+    getAddressUrl(chainId: ChainId, address: Address): string | undefined {
         return EVMExplorerResolver.addressLink(chainId, address);
     }
 
-    getTransactionUrl(chainId: number, hash: Hash): string | undefined {
+    getTransactionUrl(chainId: ChainId, hash: Hash): string | undefined {
         return EVMExplorerResolver.transactionLink(chainId, hash);
     }
 }

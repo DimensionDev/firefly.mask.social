@@ -1,8 +1,8 @@
-export interface NetworkProvider<AddressLike = string, HashLike = string> {
+export interface NetworkProvider<ChainIdLike = number, AddressLike = string, HashLike = string> {
     connect: () => Promise<void>;
     getAccount: () => Promise<AddressLike>;
-    switchChain: (chainId: number) => Promise<void>;
-    getChainId: () => number;
-    getAddressUrl: (chainId: number, address: AddressLike) => string | undefined;
-    getTransactionUrl: (chainId: number, hash: HashLike) => string | undefined;
+    switchChain: (chainId: ChainIdLike) => Promise<void>;
+    getChainId: () => ChainIdLike;
+    getAddressUrl: (chainId: ChainIdLike, address: AddressLike) => string | undefined;
+    getTransactionUrl: (chainId: ChainIdLike, hash: HashLike) => string | undefined;
 }

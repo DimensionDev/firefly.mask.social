@@ -1,13 +1,5 @@
 /* cspell:disable */
 
-export enum SUPPORTED_SOLANA_CHAIN_IDS {
-    Mainnet = 101,
-    Testnet = 102,
-    Devnet = 103,
-}
-
-export const SOLANA_DEFAULT_CHAIN = SUPPORTED_SOLANA_CHAIN_IDS.Mainnet;
-
 export const DEBANK_CHAINS = [
     {
         id: 'eth',

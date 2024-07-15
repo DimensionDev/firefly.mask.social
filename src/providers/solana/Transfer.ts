@@ -1,8 +1,7 @@
 import { isGreaterThan, rightShift } from '@masknet/web3-shared-base';
-import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
+import { ChainId, isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 
-import { SOLANA_DEFAULT_CHAIN } from '@/constants/chain.js';
 import { env } from '@/constants/env.js';
 import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
@@ -39,12 +38,12 @@ class Provider implements TransferProvider {
     }
 
     async validateBalance({ token, amount }: TransactionOptions<string>): Promise<boolean> {
-        const balance = await getTokenBalance(token, await SolanaNetwork.getAccount(), SOLANA_DEFAULT_CHAIN);
+        const balance = await getTokenBalance(token, await SolanaNetwork.getAccount(), ChainId.Mainnet);
         return !isGreaterThan(rightShift(amount, token.decimals), balance.value);
     }
 
     async validateGas(options: TransactionOptions<string>): Promise<boolean> {
-        const nativeBalance = await getNativeTokenBalance(await SolanaNetwork.getAccount(), SOLANA_DEFAULT_CHAIN);
+        const nativeBalance = await getNativeTokenBalance(await SolanaNetwork.getAccount(), ChainId.Mainnet);
         let transaction: Transaction;
         if (this.isNativeToken(options.token)) {
             transaction = await this._getNativeTransferTransaction(options);
