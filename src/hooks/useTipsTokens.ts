@@ -36,21 +36,23 @@ export const useTipsTokens = () => {
     });
 
     const tokens = useMemo(() => {
-        return (data || [])
-            .reduce<Token[]>((acc, token) => {
-                if (!token.chainId) return acc;
-                return [
-                    ...acc,
-                    {
-                        ...token,
-                        chainId: token.chainId,
-                        balance: formatBalance(token.raw_amount, token.decimals, { isFixed: true }),
-                        usdValue: +multipliedBy(token.price, token.amount).toFixed(2),
-                    },
-                ];
-            }, [])
-            .filter((token) => !token.balance.includes('<'));
+        return sortTokensByUsdValue(
+            (data || [])
+                .reduce<Token[]>((acc, token) => {
+                    if (!token.chainId) return acc;
+                    return [
+                        ...acc,
+                        {
+                            ...token,
+                            chainId: token.chainId,
+                            balance: formatBalance(token.raw_amount, token.decimals, { isFixed: true }),
+                            usdValue: +multipliedBy(token.price, token.amount).toFixed(2),
+                        },
+                    ];
+                }, [])
+                .filter((token) => !token.balance.includes('<')),
+        );
     }, [data]);
 
-    return { tokens: sortTokensByUsdValue(tokens), isLoading };
+    return { tokens, isLoading };
 };

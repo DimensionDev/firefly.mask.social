@@ -42,13 +42,9 @@ export async function getSplTokenBalance(tokenAddress: string, address: string, 
         return account.mint === tokenAddress;
     });
 
-    if (!tokenProgram) {
-        return { value: '0' };
-    }
+    if (!tokenProgram) return { value: '0' };
 
-    const tokenInfo = tokenProgram.account.data.parsed.info.tokenAmount;
-
-    return { value: tokenInfo.amount };
+    return { value: tokenProgram.account.data.parsed.info.tokenAmount.amount };
 }
 
 export async function getTokenBalance(token: Token<ChainId>, address: string, chainId: number) {

@@ -27,7 +27,7 @@ export async function getTokensByAddress(address: string): Promise<
         const chain = DEBANK_CHAINS.find((chain) => chain.id === token.chain);
         return {
             ...token,
-            chainId: chain ? chain.community_id : null,
+            chainId: chain?.community_id ?? null,
         };
     });
 }
