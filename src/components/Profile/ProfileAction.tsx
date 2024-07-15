@@ -8,10 +8,10 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileActionProps {
     profile: Profile;
-    moreActionProps?: Partial<ProfileMoreActionProps>;
+    ProfileMoreActionProps?: Partial<ProfileMoreActionProps>;
 }
 
-export function ProfileAction({ profile, moreActionProps }: ProfileActionProps) {
+export function ProfileAction({ profile, ProfileMoreActionProps }: ProfileActionProps) {
     const profiles = useCurrentFireflyProfilesAll();
 
     const isRelatedProfile = profiles.some((current) => {
@@ -27,7 +27,7 @@ export function ProfileAction({ profile, moreActionProps }: ProfileActionProps) 
             ) : (
                 <ProfileLoginStatus className="ml-auto" profile={profile} />
             )}
-            <ProfileMoreAction {...moreActionProps} profile={profile} />
+            <ProfileMoreAction {...ProfileMoreActionProps} profile={profile} />
         </>
     );
 }
