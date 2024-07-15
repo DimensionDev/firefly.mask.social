@@ -34,6 +34,14 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
                 sizes: '384x384',
                 type: 'image/png',
             },
+            {
+                rel: 'icon',
+                url: '/favicon.ico',
+            },
+            {
+                rel: 'apple-touch-icon',
+                url: '/apple-touch-icon-57x57.png',
+            },
         ],
         ...metadata,
     } satisfies Metadata;
