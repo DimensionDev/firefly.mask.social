@@ -50,7 +50,7 @@
         "@sentry/browser": "^7.112.2",
         "@servie/events": "^3.0.0",
         "@solana/buffer-layout": "^4.0.1",
-        "@solana/spl-token": "0.4.8",
+        "@solana/spl-token": "0.1.8",
         "@solana/wallet-adapter-base": "^0.9.23",
         "@solana/wallet-adapter-react": "^0.15.35",
         "@solana/wallet-adapter-react-ui": "^0.9.35",
