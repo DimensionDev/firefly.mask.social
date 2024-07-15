@@ -7,7 +7,7 @@ import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/W
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { Provider as NetworkProvider } from '@/providers/types/Network.js';
 
-export class SolanaNetwork implements NetworkProvider {
+class Provider implements NetworkProvider {
     async connect() {
         const adapter = resolveWalletAdapter();
         if (!adapter.connected) {
@@ -41,4 +41,4 @@ export class SolanaNetwork implements NetworkProvider {
     }
 }
 
-export const solanaNetwork = new SolanaNetwork();
+export const SolanaNetwork = new Provider();
