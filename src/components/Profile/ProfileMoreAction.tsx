@@ -13,7 +13,8 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
+import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
@@ -29,6 +30,11 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const currentProfile = useCurrentProfile(profile.source);
     const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
+    const profiles = useCurrentFireflyProfilesAll();
+
+    const isRelatedProfile = profiles.some((current) => {
+        return current.source === profile.source && current.identity === resolveProfileId(profile);
+    });
 
     return (
         <MoreActionMenu button={<MoreCircleIcon width={32} height={32} />} className={className}>
@@ -56,7 +62,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                     )}
                 </Menu.Item>
 
-                {!isCurrentProfile(profile) ? (
+                {!isRelatedProfile ? (
                     <>
                         {profile.source === Source.Lens ? (
                             <Menu.Item>
