@@ -17,7 +17,7 @@ import { type Token, type TransactionOptions, type Transfer } from '@/providers/
 
 const coreConfig = config as unknown as Config;
 
-class EVMTransfer implements Transfer<Address, Hash> {
+class Provider implements Transfer<Address, Hash> {
     async transfer(options: TransactionOptions): Promise<Address> {
         const { token } = options;
         if (token.chainId !== evmNetwork.getChainId()) {
@@ -82,4 +82,4 @@ class EVMTransfer implements Transfer<Address, Hash> {
     }
 }
 
-export const evmTransfer = new EVMTransfer();
+export const EthereumTransfer = new Provider();
