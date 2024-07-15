@@ -11,9 +11,11 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { Views } from '@/components/Actions/Views.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -37,6 +39,8 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     const views = useMemo(() => {
         return publicationViews.find((x) => x.id === post.postId)?.views;
     }, [publicationViews, post]);
+
+    const identity = resolveProfileId(post.author);
 
     const actions = compact([
         <div key="comment">
@@ -86,6 +90,9 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
+        identity ? (
+            <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
+        ) : null,
         <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
     ]);
     const actionLength = actions.length;
@@ -122,6 +129,8 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     ...rest
 }) {
     const isComment = post.type === 'Comment';
+
+    const identity = resolveProfileId(post.author);
 
     if (post.source === Source.Twitter) {
         return null;
@@ -174,6 +183,14 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         />
                     ) : null}
                     <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+                    {identity ? (
+                        <Tips
+                            identity={identity}
+                            source={post.source}
+                            disabled={disabled}
+                            handle={post.author.handle}
+                        />
+                    ) : null}
                     <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>

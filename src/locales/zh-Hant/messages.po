@@ -102,6 +102,9 @@ msgstr "將 @{0} 靜音"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr ""
 
+msgid "Select token"
+msgstr ""
+
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
@@ -149,6 +152,9 @@ msgstr "翻譯貼文"
 
 msgid "Searching users"
 msgstr "搜尋用戶"
+
+msgid "Cannot send tips to yourself"
+msgstr ""
 
 msgid "Airdrop Scam"
 msgstr "空投騙局"
@@ -405,6 +411,9 @@ msgstr ""
 msgid "Search"
 msgstr "搜尋"
 
+msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
+msgstr ""
+
 msgid "Watch"
 msgstr "觀察"
 
@@ -603,6 +612,9 @@ msgstr "登出"
 msgid "Unmuting..."
 msgstr ""
 
+msgid "Send Tips"
+msgstr ""
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -687,6 +699,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
+msgid "Insufficient Gas"
+msgstr ""
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
 
@@ -694,6 +709,12 @@ msgid "Blacklist function"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
+msgstr ""
+
+msgid "Failed to send tips."
+msgstr ""
+
+msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Enable development API version"
@@ -709,6 +730,9 @@ msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Tip to @{0}"
 msgstr ""
 
 msgid "Owned By"
@@ -765,6 +789,9 @@ msgstr "發送反饋"
 msgid "Your draft was saved."
 msgstr ""
 
+msgid "Send tips"
+msgstr ""
+
 msgid "The chainId mismatch."
 msgstr ""
 
@@ -805,6 +832,9 @@ msgid "Proxy contract"
 msgstr "代理合約"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
+msgstr ""
+
+msgid "Insufficient Balance"
 msgstr ""
 
 msgid "Tax cannot be modified"
@@ -936,6 +966,9 @@ msgstr ""
 msgid "NFT Contract"
 msgstr "NFT合約"
 
+msgid "Share Now"
+msgstr ""
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
@@ -1056,6 +1089,9 @@ msgstr ""
 msgid "commented"
 msgstr "已評論"
 
+msgid "Validate failed, please check your input."
+msgstr ""
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr ""
 
@@ -1088,6 +1124,9 @@ msgstr ""
 
 msgid "Please input the frame url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
+
+msgid "Select Token"
+msgstr ""
 
 msgid "Your schedule thread has created successfully."
 msgstr ""
@@ -1170,6 +1209,9 @@ msgstr "查看互動數據"
 msgid "Translated"
 msgstr ""
 
+msgid "Select Wallet"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr "書籤標記失敗."
 
@@ -1243,6 +1285,9 @@ msgid "Delete"
 msgstr "刪除"
 
 msgid "May the token is a honeypot."
+msgstr ""
+
+msgid "Please select token."
 msgstr ""
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
@@ -1410,6 +1455,9 @@ msgstr "{identity} 觀察了"
 msgid "Notifications"
 msgstr "通知"
 
+msgid "No available token."
+msgstr ""
+
 msgid "Back"
 msgstr "返回"
 
@@ -1427,6 +1475,9 @@ msgstr "連接"
 
 msgid "Sign in with Custody Wallet"
 msgstr "通過託管錢包登入"
+
+msgid "View transaction on explorer"
+msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
@@ -1665,6 +1716,9 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "取消靜音"
 
+msgid "View on explorer"
+msgstr ""
+
 msgid "Click to copy"
 msgstr "點擊複製"
 
@@ -1704,6 +1758,9 @@ msgstr ""
 msgid "Malformed twitter session payload."
 msgstr ""
 
+msgid "Sorry, there is no wallet address available for tipping."
+msgstr ""
+
 msgid "No matching users"
 msgstr "沒有符合的用戶"
 
@@ -1714,6 +1771,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "Max: {0}"
 msgstr ""
 
 msgid "Log in to Farcaster account"
@@ -1738,6 +1798,9 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
+msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
@@ -1817,6 +1880,9 @@ msgstr "正在翻譯"
 
 msgid "Back to home"
 msgstr "回到首頁"
+
+msgid "Tips"
+msgstr ""
 
 msgid "Followers"
 msgstr "追蹤者"

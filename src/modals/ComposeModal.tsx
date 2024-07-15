@@ -84,7 +84,7 @@ const initialConfig = {
 export interface ComposeModalProps {
     type?: ComposeType;
     chars?: Chars;
-    source?: SocialSource;
+    source?: SocialSource | SocialSource[];
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
     rpPayload?: {
@@ -219,7 +219,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
                 updateType(type || 'compose');
-                updateAvailableSources(source ? [source] : getCurrentAvailableSources());
+                updateAvailableSources(
+                    source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
+                );
                 if (typedMessage) updateTypedMessage(typedMessage);
                 if (post) updateParentPost(post.source, post);
                 if (chars) {

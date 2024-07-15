@@ -95,6 +95,12 @@ export class NotFoundError extends Error {
     }
 }
 
+export class RPC_Error extends Error {
+    constructor(message?: string) {
+        super(message ?? 'RPC Error.');
+    }
+}
+
 export class SwitchChainError extends Error {
     constructor(chainName?: string) {
         super(

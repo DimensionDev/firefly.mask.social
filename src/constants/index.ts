@@ -4,6 +4,7 @@ import type { TweetV2UserTimelineParams, UserV2TimelineParams } from 'twitter-ap
 
 import {
     EngagementType,
+    NetworkType,
     NODE_ENV,
     ProfileTabType,
     RestrictionType,
@@ -84,6 +85,8 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
+
+export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
@@ -182,3 +185,5 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
 export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
     'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics'],
 };
+
+export const SOLANA_WALLET_CACHE_KEY = 'walletName';

@@ -18,6 +18,7 @@ import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { RainbowKitConnectModal } from '@/modals/RainbowKitConnectModal.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
+import { TipsModal } from '@/modals/TipsModal.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -34,6 +35,7 @@ export const Modals = memo(function Modals() {
             <ConfirmFireflyModal ref={controls.ConfirmFireflyModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
+            <TipsModal ref={controls.TipsModalRef.register} />
             <PreviewMediaModal ref={controls.PreviewMediaModalRef.register} />
             <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
             <EditProfileModal ref={controls.EditProfileModalRef.register} />

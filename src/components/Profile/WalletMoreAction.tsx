@@ -1,10 +1,13 @@
 import { Menu, type MenuProps } from '@headlessui/react';
 import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
+import { t } from '@lingui/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { Tips } from '@/components/Tips/index.js';
+import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -35,6 +38,20 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                             isMuted={isMuted}
                             address={profile.address}
                             onClick={close}
+                        />
+                    )}
+                </Menu.Item>
+                <Menu.Item>
+                    {({ close }) => (
+                        <Tips
+                            className="px-3 py-1 hover:bg-bg"
+                            identity={profile.address}
+                            source={Source.Wallet}
+                            handle={profile.primary_ens || ens}
+                            tooltipDisabled
+                            label={t`Send tips`}
+                            onClick={close}
+                            pureWallet
                         />
                     )}
                 </Menu.Item>

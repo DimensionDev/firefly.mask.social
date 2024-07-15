@@ -10,8 +10,9 @@ import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoute } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
@@ -68,6 +69,20 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                         {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
                     </Menu.Item>
                 ) : null}
+                <Menu.Item>
+                    {({ close }) => (
+                        <Tips
+                            className="px-3 py-1 hover:bg-bg"
+                            identity={address}
+                            source={Source.Wallet}
+                            handle={ens}
+                            tooltipDisabled
+                            label={t`Send tips`}
+                            onClick={close}
+                            pureWallet
+                        />
+                    )}
+                </Menu.Item>
             </Menu.Items>
         </MoreActionMenu>
     );

@@ -177,3 +177,8 @@ export enum MuteMenuId {
     LensProfiles = '3',
     XProfiles = '4',
 }
+
+export enum NetworkType {
+    Ethereum = 'ethereum',
+    Solana = 'solana',
+}

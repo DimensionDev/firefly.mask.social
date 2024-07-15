@@ -10,7 +10,9 @@ import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -78,6 +80,20 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                     )}
                 </Menu.Item>
                 <Menu.Item>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</Menu.Item>
+                <Menu.Item>
+                    {({ close }) => (
+                        <Tips
+                            className="px-3 py-1 hover:bg-bg"
+                            identity={author.id}
+                            source={Source.Wallet}
+                            handle={author.handle || ens}
+                            tooltipDisabled
+                            label={t`Send tips`}
+                            onClick={close}
+                            pureWallet
+                        />
+                    )}
+                </Menu.Item>
             </Menu.Items>
         </MoreActionMenu>
     );

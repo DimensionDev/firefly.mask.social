@@ -1,7 +1,8 @@
 import type { Address } from 'viem';
 
-import { FireflyPlatform, type SocialSourceInURL, type Source } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -386,7 +387,7 @@ export interface FollowingSource {
 export interface WalletProfile {
     address: Address;
     ens: string[];
-    blockchain: string;
+    blockchain: NetworkType;
     is_connected: boolean;
     verifiedSources: Array<{
         source: RelatedWalletSource;
@@ -795,6 +796,10 @@ export type SessionStatus =
       };
 
 export type SessionStatusResponse = Response<SessionStatus>;
+
+export type DebankTokensResponse = Response<{
+    list: DebankToken[];
+}>;
 
 export interface SchedulePostPayload {
     platform: SocialSourceInURL;

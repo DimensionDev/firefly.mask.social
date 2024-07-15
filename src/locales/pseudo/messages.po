@@ -97,6 +97,9 @@ msgstr ""
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr ""
 
+msgid "Select token"
+msgstr ""
+
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
@@ -143,6 +146,9 @@ msgid "Translate post"
 msgstr ""
 
 msgid "Searching users"
+msgstr ""
+
+msgid "Cannot send tips to yourself"
 msgstr ""
 
 msgid "Airdrop Scam"
@@ -400,6 +406,9 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
+msgstr ""
+
 msgid "Watch"
 msgstr ""
 
@@ -598,6 +607,9 @@ msgstr ""
 msgid "Unmuting..."
 msgstr ""
 
+msgid "Send Tips"
+msgstr ""
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -682,6 +694,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr ""
 
+msgid "Insufficient Gas"
+msgstr ""
+
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
@@ -689,6 +704,12 @@ msgid "Blacklist function"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
+msgstr ""
+
+msgid "Failed to send tips."
+msgstr ""
+
+msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Enable development API version"
@@ -704,6 +725,9 @@ msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Tip to @{0}"
 msgstr ""
 
 msgid "Owned By"
@@ -760,6 +784,9 @@ msgstr ""
 msgid "Your draft was saved."
 msgstr ""
 
+msgid "Send tips"
+msgstr ""
+
 msgid "The chainId mismatch."
 msgstr ""
 
@@ -800,6 +827,9 @@ msgid "Proxy contract"
 msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
+msgstr ""
+
+msgid "Insufficient Balance"
 msgstr ""
 
 msgid "Tax cannot be modified"
@@ -931,6 +961,9 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
+msgid "Share Now"
+msgstr ""
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
@@ -1051,6 +1084,9 @@ msgstr ""
 msgid "commented"
 msgstr ""
 
+msgid "Validate failed, please check your input."
+msgstr ""
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr ""
 
@@ -1082,6 +1118,9 @@ msgid "The whitelist function is not included. If there is a whitelist, some add
 msgstr ""
 
 msgid "Please input the frame url to be revalidated."
+msgstr ""
+
+msgid "Select Token"
 msgstr ""
 
 msgid "Your schedule thread has created successfully."
@@ -1165,6 +1204,9 @@ msgstr ""
 msgid "Translated"
 msgstr ""
 
+msgid "Select Wallet"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -1238,6 +1280,9 @@ msgid "Delete"
 msgstr ""
 
 msgid "May the token is a honeypot."
+msgstr ""
+
+msgid "Please select token."
 msgstr ""
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
@@ -1405,6 +1450,9 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
+msgid "No available token."
+msgstr ""
+
 msgid "Back"
 msgstr ""
 
@@ -1421,6 +1469,9 @@ msgid "Connect"
 msgstr ""
 
 msgid "Sign in with Custody Wallet"
+msgstr ""
+
+msgid "View transaction on explorer"
 msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
@@ -1660,6 +1711,9 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
+msgid "View on explorer"
+msgstr ""
+
 msgid "Click to copy"
 msgstr ""
 
@@ -1699,6 +1753,9 @@ msgstr ""
 msgid "Malformed twitter session payload."
 msgstr ""
 
+msgid "Sorry, there is no wallet address available for tipping."
+msgstr ""
+
 msgid "No matching users"
 msgstr ""
 
@@ -1709,6 +1766,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "Max: {0}"
 msgstr ""
 
 msgid "Log in to Farcaster account"
@@ -1733,6 +1793,9 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
+msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
@@ -1811,6 +1874,9 @@ msgid "Translating..."
 msgstr ""
 
 msgid "Back to home"
+msgstr ""
+
+msgid "Tips"
 msgstr ""
 
 msgid "Followers"

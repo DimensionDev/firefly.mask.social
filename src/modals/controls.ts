@@ -9,6 +9,7 @@ import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
+import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 
 export const AccountModalRef = new SingletonModal();
 export const RainbowKitModalRef = new SingletonModal();
@@ -22,6 +23,7 @@ export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, Confirm
 export const ConfirmFireflyModalRef = new SingletonModal<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
+export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();
 export const SolanaAccountModalRef = new SingletonModal();
 export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();
 export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();

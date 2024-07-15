@@ -1,4 +1,4 @@
-import { type Config } from 'wagmi';
+import type { Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
 import { chains } from '@/configs/wagmiClient.js';
