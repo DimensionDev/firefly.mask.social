@@ -517,6 +517,9 @@ msgstr ""
 msgid "Whitelist function"
 msgstr ""
 
+msgid "Profile could not be found."
+msgstr ""
+
 msgid "Failed to mute /{0}."
 msgstr ""
 

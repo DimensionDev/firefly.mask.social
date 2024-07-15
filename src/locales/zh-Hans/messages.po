@@ -522,6 +522,9 @@ msgstr "视频还未支持上传。"
 msgid "Whitelist function"
 msgstr "白名单功能"
 
+msgid "Profile could not be found."
+msgstr ""
+
 msgid "Failed to mute /{0}."
 msgstr "屏蔽 /{0} 失败。"
 
