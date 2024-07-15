@@ -360,9 +360,6 @@ msgstr "已喜歡"
 msgid "Term of Service"
 msgstr "服務條款"
 
-msgid "Please switch to the correct network in your wallet."
-msgstr ""
-
 msgid "Token ID"
 msgstr ""
 
@@ -536,9 +533,6 @@ msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
-
-msgid "No wallet client found. Please connect your wallet."
-msgstr "未找到錢包用戶。請連接您的錢包。"
 
 msgid "THREAD POST"
 msgstr ""
@@ -924,9 +918,6 @@ msgstr "確認對 @{0} 的靜音？"
 msgid "Compose"
 msgstr "創作"
 
-msgid "The user declined the request."
-msgstr "用戶拒絕了請求"
-
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 喜歡了"
 
@@ -1239,9 +1230,6 @@ msgstr "在 X 上追蹤@thefireflyapp"
 msgid "Light Mode"
 msgstr "淺色模式"
 
-msgid "Please switch to the {chainName} network in your wallet."
-msgstr ""
-
 msgid "Executing"
 msgstr ""
 
@@ -1543,9 +1531,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr ""
 
 msgid "collect"
-msgstr ""
-
-msgid "Please switch to the wallet used for login."
 msgstr ""
 
 msgid "Developers"

@@ -21,6 +21,7 @@ import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -98,18 +99,12 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     return;
             }
         } catch (error) {
-            enqueueErrorMessage(
-                <div>
-                    <span className="font-bold">
-                        <Trans>Connection failed</Trans>
-                    </span>
-                    <br />
-                    <Trans>The user declined the request.</Trans>
-                </div>,
-                {
+            const errorMessage = getSnackbarMessageFromError(error, '');
+            if (errorMessage) {
+                enqueueErrorMessage(errorMessage, {
                     noReport: true,
-                },
-            );
+                });
+            }
             throw error;
         }
     }, []);

@@ -94,3 +94,13 @@ export class NotFoundError extends Error {
         super(message ?? 'Not Found.');
     }
 }
+
+export class SwitchChainError extends Error {
+    constructor(chainName?: string) {
+        super(
+            chainName
+                ? `Please switch to the ${chainName} network in your wallet.`
+                : `Please switch to the correct network in your wallet.`,
+        );
+    }
+}

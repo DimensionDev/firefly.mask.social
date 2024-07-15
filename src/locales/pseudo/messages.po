@@ -355,9 +355,6 @@ msgstr ""
 msgid "Term of Service"
 msgstr ""
 
-msgid "Please switch to the correct network in your wallet."
-msgstr ""
-
 msgid "Token ID"
 msgstr ""
 
@@ -530,9 +527,6 @@ msgid "[Photo]"
 msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
-msgstr ""
-
-msgid "No wallet client found. Please connect your wallet."
 msgstr ""
 
 msgid "THREAD POST"
@@ -919,9 +913,6 @@ msgstr ""
 msgid "Compose"
 msgstr ""
 
-msgid "The user declined the request."
-msgstr ""
-
 msgid "<0>{0}</0> liked"
 msgstr ""
 
@@ -1234,9 +1225,6 @@ msgstr ""
 msgid "Light Mode"
 msgstr ""
 
-msgid "Please switch to the {chainName} network in your wallet."
-msgstr ""
-
 msgid "Executing"
 msgstr ""
 
@@ -1538,9 +1526,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr ""
 
 msgid "collect"
-msgstr ""
-
-msgid "Please switch to the wallet used for login."
 msgstr ""
 
 msgid "Developers"
