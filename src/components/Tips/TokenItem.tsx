@@ -5,7 +5,7 @@ import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveNetwork } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -18,7 +18,7 @@ export function TokenItem({ token }: TokenItemProps) {
 
     const handleSelectToken = async (token: Token) => {
         if (receiver?.networkType === NetworkType.Ethereum) {
-            const network = resolveNetwork(receiver.networkType);
+            const network = resolveNetworkProvider(receiver.networkType);
             if (token.chainId !== network.getChainId()) {
                 await network.switchChain(token.chainId);
             }

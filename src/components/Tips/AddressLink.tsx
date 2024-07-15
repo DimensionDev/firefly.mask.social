@@ -5,7 +5,7 @@ import LinkIcon from '@/assets/link-square.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { resolveNetwork } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 
 interface AddressLinkProps {
     address: string;
@@ -15,7 +15,7 @@ interface AddressLinkProps {
 
 export function AddressLink({ address, chainId, networkType }: AddressLinkProps) {
     const addressLink = useMemo(() => {
-        const network = resolveNetwork(networkType);
+        const network = resolveNetworkProvider(networkType);
         return network.getAddressUrl(chainId ?? network.getChainId(), address);
     }, [networkType, chainId, address]);
 

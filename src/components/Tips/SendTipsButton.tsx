@@ -10,7 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { resolveNetwork, resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
@@ -33,8 +33,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             if (!receiver || !token) return;
             update((prev) => ({ ...prev, isSending: true }));
             const { chainId, id } = token;
-            const transfer = resolveTokenTransfer(receiver.networkType);
-            const network = resolveNetwork(receiver.networkType);
+            const transfer = resolveTransferProvider(receiver.networkType);
+            const network = resolveNetworkProvider(receiver.networkType);
             const hash = await transfer.transfer({
                 to: receiver.address,
                 token,

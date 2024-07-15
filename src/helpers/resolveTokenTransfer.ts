@@ -9,7 +9,7 @@ import { SolanaTransfer } from '@/providers/solana/Transfer.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 import type { TransferProvider } from '@/providers/types/Transfer.js';
 
-export const resolveTokenTransfer = createLookupTableResolver<NetworkType, TransferProvider>(
+export const resolveTransferProvider = createLookupTableResolver<NetworkType, TransferProvider>(
     {
         [NetworkType.Ethereum]: EthereumTransfer,
         [NetworkType.Solana]: SolanaTransfer,
@@ -19,7 +19,7 @@ export const resolveTokenTransfer = createLookupTableResolver<NetworkType, Trans
     },
 );
 
-export const resolveNetwork = createLookupTableResolver<NetworkType, NetworkProvider>(
+export const resolveNetworkProvider = createLookupTableResolver<NetworkType, NetworkProvider>(
     {
         [NetworkType.Ethereum]: EthereumNetwork,
         [NetworkType.Solana]: SolanaNetwork,

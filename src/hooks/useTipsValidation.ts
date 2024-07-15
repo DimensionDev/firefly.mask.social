@@ -3,7 +3,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { useAsync } from 'react-use';
 
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { resolveNetwork, resolveTokenTransfer } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
@@ -15,8 +15,8 @@ export function useTipsValidation() {
             return { label: t`Send Tips`, disabled: true };
         }
 
-        const transfer = resolveTokenTransfer(receiver.networkType);
-        const network = resolveNetwork(receiver.networkType);
+        const transfer = resolveTransferProvider(receiver.networkType);
+        const network = resolveNetworkProvider(receiver.networkType);
 
         if (isSameAddress(receiver.address, await network.getAccount())) {
             return { label: t`Cannot send tips to yourself`, disabled: true };

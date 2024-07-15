@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { resolveNetwork } from '@/helpers/resolveTokenTransfer.js';
+import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { getTokensByAddress } from '@/services/getTokensByAddress.js';
@@ -30,7 +30,7 @@ export const useTipsTokens = () => {
         enabled: !!receiver,
         queryFn: async () => {
             if (!receiver) return [];
-            const network = resolveNetwork(receiver.networkType);
+            const network = resolveNetworkProvider(receiver.networkType);
             return await getTokensByAddress(await network.getAccount());
         },
     });
