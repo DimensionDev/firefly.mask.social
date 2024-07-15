@@ -31,7 +31,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         }
         try {
             if (!receiver || !token) return;
-            update((prev) => ({ ...prev, isSending: true }));
+            update((prev) => ({ ...prev, hash: null, isSending: true }));
             const { chainId, id } = token;
             const transfer = resolveTransferProvider(receiver.networkType);
             const network = resolveNetworkProvider(receiver.networkType);
