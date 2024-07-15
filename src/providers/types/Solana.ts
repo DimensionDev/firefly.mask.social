@@ -1,15 +1,3 @@
-export enum ChainId {
-    Mainnet = 101,
-    Testnet = 102,
-    Devnet = 103,
-}
-
-export const SolAddress = {
-    [ChainId.Mainnet]: 'So11111111111111111111111111111111111111112',
-    [ChainId.Testnet]: 'So11111111111111111111111111111111111111112',
-    [ChainId.Devnet]: 'So11111111111111111111111111111111111111112',
-};
-
 interface RpcResponse<T> {
     jsonrpc: '2.0';
     result: T | null;

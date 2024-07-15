@@ -1,5 +1,5 @@
 import { env } from '@/constants/env.js';
-import { ChainId } from '@/providers/types/Solana.js';
+import { ChainId } from '@masknet/web3-shared-solana';
 
 interface RpcOptions {
     method: string;
