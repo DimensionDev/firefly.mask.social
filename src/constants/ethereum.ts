@@ -26,6 +26,10 @@ export enum SchemaType {
     SBT = 5,
 }
 
+export enum NetworkType {
+    Ethereum = 'ethereum',
+}
+
 export enum ProviderType {
     CustomEvent = 'CustomEvent',
 }
@@ -41,9 +45,4 @@ export enum MethodType {
     WALLET_ADD_ETHEREUM_CHAIN = 'wallet_addEthereumChain',
     // https://eips.ethereum.org/EIPS/eip-3326
     WALLET_SWITCH_ETHEREUM_CHAIN = 'wallet_switchEthereumChain',
-}
-
-export interface RequestArguments {
-    method: MethodType;
-    params: any[];
 }

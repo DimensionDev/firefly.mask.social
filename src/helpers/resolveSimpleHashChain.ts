@@ -8,16 +8,14 @@ const EVM_CHAIN: { [key in ChainId]?: string } = {
     [ChainId.Mainnet]: 'ethereum',
     [ChainId.Base]: 'base',
     [ChainId.BSC]: 'bsc',
-    [ChainId.Matic]: 'polygon',
-    [ChainId.Arbitrum]: 'arbitrum',
+    [ChainId.Degen]: 'degen',
+    [ChainId.Polygon]: 'polygon',
     [ChainId.Optimism]: 'optimism',
+    [ChainId.Arbitrum]: 'arbitrum',
+    [ChainId.Gnosis]: 'gnosis',
+    [ChainId.Aurora]: 'aurora',
     [ChainId.Avalanche]: 'avalanche',
-    [ChainId.xDai]: 'gnosis',
-    [ChainId.Scroll]: 'scroll',
-    [ChainId.Celo]: 'celo',
     [ChainId.Zora]: 'zora',
-    [ChainId.ZkSyncEra]: 'zksync-era',
-    [ChainId.Linea]: 'linea',
 };
 
 export function resolveSimpleHashChain(chain: ChainId) {

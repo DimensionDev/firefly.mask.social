@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -10,6 +9,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { SchemaType } from '@/constants/ethereum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+import { EthereumResolver } from '@/providers/explorer/index.js';
 
 export interface NFTOverflowProps {
     description: string;
@@ -34,9 +34,10 @@ export function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
 export function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
     if (props.chainId) {
         const resolveExplorerLink = {
-            address: EVMExplorerResolver.addressLink.bind(EVMExplorerResolver),
-            tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
+            address: EthereumResolver.addressLink.bind(EthereumResolver),
+            tx: EthereumResolver.transactionLink.bind(EthereumResolver),
         }[props.type];
+
         return (
             <span className="break-all">
                 {props.address}

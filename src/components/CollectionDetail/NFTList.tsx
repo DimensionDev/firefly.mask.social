@@ -1,14 +1,14 @@
 'use client';
 
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
-import { ChainId, SchemaType } from '@/constants/ethereum.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import type { NonFungibleAsset } from '@/types/ethereum.js';
 
 export function NFTList(props: { address: string; chainId?: ChainId }) {
     const { address, chainId } = props;
@@ -33,7 +33,7 @@ export function NFTList(props: { address: string; chainId?: ChainId }) {
             VirtualGridListProps={{
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
-                    return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                    return getNFTItemContent(index, item as unknown as NonFungibleAsset, {
                         isShowOwner: true,
                     });
                 },

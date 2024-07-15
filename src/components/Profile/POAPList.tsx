@@ -1,6 +1,5 @@
 'use client';
 
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -11,7 +10,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { Source } from '@/constants/enum.js';
-import { ChainId, SchemaType } from '@/constants/ethereum.js';
+import { ChainId } from '@/constants/ethereum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -20,6 +19,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import type { NonFungibleAsset } from '@/types/ethereum.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
@@ -52,7 +52,7 @@ function Owner({ address }: { address: `0x${string}` }) {
 
 export function getNFTItemContent(
     index: number,
-    item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>,
+    item: NonFungibleAsset,
     options?: {
         isPoap?: boolean;
         isShowOwner?: boolean;
@@ -114,7 +114,7 @@ export function POAPList(props: { address: string }) {
             );
             return SimpleHashWalletProfileProvider.getPOAPs(address, {
                 indicator,
-                chainId: ChainId.xDai,
+                chainId: ChainId.Gnosis,
                 contractAddress: POAP_CONTRACT_ADDRESS,
             });
         },
@@ -130,7 +130,7 @@ export function POAPList(props: { address: string }) {
                 VirtualGridListProps={{
                     components: POAPGridListComponent,
                     itemContent: (index, item) => {
-                        return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                        return getNFTItemContent(index, item as unknown as NonFungibleAsset, {
                             isPoap: true,
                         });
                     },

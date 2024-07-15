@@ -41,7 +41,7 @@ class SimpleHashWalletProfile implements Provider {
         return response as Pageable<SimpleHash.TopCollector, PageIndicator>;
     }
 
-    async getPoapEvent(eventId: number, options: Omit<BaseHubOptions<ChainId>, 'chainId'> = {}) {
+    async getPoapEvent(eventId: number, options?: BaseHubOptions<ChainId>) {
         return SimpleHashEVM.getPoapEvent(eventId, options);
     }
 }

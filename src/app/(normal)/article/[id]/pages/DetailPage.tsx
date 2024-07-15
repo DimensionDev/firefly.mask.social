@@ -1,6 +1,5 @@
 'use client';
 import { t, Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -20,6 +19,7 @@ import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
+import { EthereumResolver } from '@/providers/explorer/index.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -68,7 +68,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
 
     if (!article) return null;
 
-    const authorUrl = EVMExplorerResolver.addressLink(ChainId.Mainnet, article.author.id);
+    const authorUrl = EthereumResolver.addressLink(ChainId.Mainnet, article.author.id);
 
     return (
         <div className="min-h-screen">
