@@ -1009,6 +1009,9 @@ msgstr "This contract is an Admin Upgradeability Proxy. The proxy contract means
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
 
+msgid "Follow Back"
+msgstr "Follow Back"
+
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
 

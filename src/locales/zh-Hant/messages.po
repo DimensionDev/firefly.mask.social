@@ -1014,6 +1014,9 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
+msgid "Follow Back"
+msgstr ""
+
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
