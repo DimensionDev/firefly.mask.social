@@ -520,6 +520,9 @@ msgstr "Failed to upload. Video is not supported yet."
 msgid "Whitelist function"
 msgstr "Whitelist function"
 
+msgid "Profile could not be found."
+msgstr "Profile could not be found."
+
 msgid "Failed to mute /{0}."
 msgstr "Failed to mute /{0}."
 

@@ -525,6 +525,9 @@ msgstr ""
 msgid "Whitelist function"
 msgstr "白名單功能"
 
+msgid "Profile could not be found."
+msgstr ""
+
 msgid "Failed to mute /{0}."
 msgstr "對 @{0} 的靜音失敗"
 
