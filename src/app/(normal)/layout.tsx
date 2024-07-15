@@ -1,4 +1,5 @@
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
+import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
@@ -15,11 +16,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
         <>
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
-                    {/* add navigator bar for profile page */}
-                    <IfPathname isOneOf={['/profile']} exact>
-                        <NavigatorBar />
-                    </IfPathname>
-
                     <IfPathname
                         isNotOneOf={[
                             {
@@ -112,6 +108,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
             <IfPathname isNotOneOf={['/token']}>
                 <ComposeButton />
             </IfPathname>
+            <ComposeWatcher />
         </>
     );
 }
