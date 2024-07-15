@@ -41,8 +41,8 @@ export const TipsUI = memo(function TipsUI() {
                             className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
                             placeholder={token ? t`Max: ${token.balance}` : t`Please select token.`}
                             value={amount}
-                            autoComplete='off'
-                            spellCheck='false'
+                            autoComplete="off"
+                            spellCheck="false"
                             onChange={handleAmountChange}
                             disabled={!account.isConnected || !token || isSending}
                         />
