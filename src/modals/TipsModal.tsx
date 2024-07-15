@@ -11,10 +11,10 @@ import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 
 export interface TipsModalOpenProps {
     identity: string;
