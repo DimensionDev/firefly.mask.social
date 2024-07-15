@@ -49,7 +49,7 @@ export function Info({ profile }: InfoProps) {
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
-                        <SocialSourceIcon source={source} size={20} />
+                        <SocialSourceIcon className="mr-auto" source={source} size={20} />
                         {profile && isMedium && !reached ? <ProfileAction profile={profile} /> : null}
                     </div>
                     <span className="text-[15px] text-secondary">@{profile.handle}</span>
