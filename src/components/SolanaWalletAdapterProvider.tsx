@@ -5,9 +5,10 @@
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 import { type Adapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { PhantomWalletAdapter, WalletConnectWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect';
 import { type PropsWithChildren } from 'react';
 
 import { env } from '@/constants/env.js';
