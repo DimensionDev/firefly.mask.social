@@ -1,11 +1,11 @@
 import { EVMExplorerResolver } from '@masknet/web3-providers';
+import type { ChainId } from '@masknet/web3-shared-evm';
 import { getAccount, getChainId, switchChain } from '@wagmi/core';
 import { type Address, type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
-import type { ChainId } from '@masknet/web3-shared-evm';
 
 class Provider implements NetworkProvider<ChainId, Address, Hash> {
     async connect(): Promise<void> {

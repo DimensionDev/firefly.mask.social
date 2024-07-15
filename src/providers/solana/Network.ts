@@ -1,3 +1,4 @@
+import { ChainId } from '@masknet/web3-shared-solana';
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 
 import { NotImplementedError } from '@/constants/error.js';
@@ -5,7 +6,6 @@ import { NotImplementedError } from '@/constants/error.js';
 import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
-import { ChainId } from '@masknet/web3-shared-solana';
 
 class Provider implements NetworkProvider<ChainId> {
     async connect() {
