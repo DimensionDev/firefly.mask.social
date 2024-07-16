@@ -11,6 +11,7 @@ const cspConfig = {
         '*.vercel-scripts.com',
         '*.firefly.land/',
         'vercel.live',
+        'tag.safary.club',
     ],
     'image-src': ["'self'", 'https:', 'data:', 'blob:'],
     'style-src': ["'self'", "'unsafe-inline'", 'vercel.live', 'fonts.googleapis.com'],
