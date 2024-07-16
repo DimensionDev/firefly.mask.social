@@ -55,7 +55,7 @@ export const TokenSelector = memo(function TokenSelector() {
                             onClear={() => setSearch('')}
                         />
                     </div>
-                    <div className="h-80 overflow-y-auto" ref={listRef}>
+                    <div className="mt-3 h-80 overflow-y-auto" ref={listRef}>
                         {filteredTokens?.map((token) => <TokenItem key={`${token.id}.${token.chain}`} token={token} />)}
                         {!filteredTokens?.length && !isLoading && (
                             <NoResultsFallback message={t`No available token.`} />

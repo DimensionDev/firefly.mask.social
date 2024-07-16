@@ -729,6 +729,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr "確認對 @{0} 的靜音？"
 
+msgid "Enter amount"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -1285,9 +1288,6 @@ msgid "Delete"
 msgstr "刪除"
 
 msgid "May the token is a honeypot."
-msgstr ""
-
-msgid "Please select token."
 msgstr ""
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
@@ -1955,4 +1955,3 @@ msgstr "喜歡"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-
