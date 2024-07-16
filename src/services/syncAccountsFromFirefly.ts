@@ -2,11 +2,10 @@ import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { CipherUsage, Source } from '@/constants/enum.js';
+import { CryptoUsage, Source } from '@/constants/enum.js';
 import { AbortError, NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -22,6 +21,8 @@ import type { MetricsDownloadResponse, MetricsUploadResponse } from '@/providers
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
+
+type CryptoSession = FarcasterSession | LensSession | TwitterSession;
 
 async function downloadMetrics(session: FireflySession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetchWithSession(session)<MetricsDownloadResponse>(
@@ -44,11 +45,31 @@ async function uploadMetrics(cipher: string, signal?: AbortSignal) {
         true,
     );
     const data = resolveFireflyResponseData(response);
-    return;
+    return data;
 }
 
 /**
- * Decrypt the metrics from Firefly.
+ * Encrypt sessions as firefly metrics.
+ * @param sessions
+ * @param signal
+ * @returns
+ */
+async function encryptMetrics(session: FireflySession, sessions: CryptoSession[], signal?: AbortSignal) {
+    const response = await fetchJSON<ResponseJSON<string>>('/api/firefly/metrics', {
+        method: 'POST',
+        body: JSON.stringify({
+            accountId: session.profileId,
+            usage: CryptoUsage.Encrypt,
+            sessions: sessions.map((x) => x.serialize()),
+        }),
+        signal,
+    });
+    if (!response.success) throw new Error(response.error.message);
+    return response.data;
+}
+
+/**
+ * Decrypt firefly metrics to sessions.
  * @param cipher
  * @param signal
  * @returns
@@ -57,32 +78,13 @@ async function decryptMetrics(cipher: string, signal?: AbortSignal) {
     const response = await fetchJSON<ResponseJSON<string[]>>('/api/firefly/metrics', {
         method: 'POST',
         body: JSON.stringify({
-            usage: CipherUsage.Decrypt,
-            text: cipher,
+            usage: CryptoUsage.Decrypt,
+            cipher,
         }),
         signal,
     });
     if (!response.success) throw new Error(response.error.message);
-    return response.data.map(SessionFactory.createSession) as Array<FarcasterSession | LensSession | TwitterSession>;
-}
-
-/**
- * Encrypt firefly metrics.
- * @param sessions
- * @param signal
- * @returns
- */
-async function encryptMetrics(sessions: Array<FarcasterSession | LensSession | TwitterSession>, signal?: AbortSignal) {
-    const response = await fetchJSON<ResponseJSON<string>>('/api/firefly/metrics', {
-        method: 'POST',
-        body: JSON.stringify({
-            usage: CipherUsage.Encrypt,
-            text: sessions.map((x) => x.serialize()),
-        }),
-        signal,
-    });
-    if (!response.success) throw new Error(response.error.message);
-    return response.data;
+    return response.data.map(SessionFactory.createSession) as CryptoSession[];
 }
 
 /**
@@ -132,7 +134,7 @@ export async function downloadAccounts(session: FireflySession, signal?: AbortSi
     // check if the request is aborted
     if (signal?.aborted) throw new AbortError();
 
-    const accounts = compact<Account>(
+    return compact<Account>(
         allSettled.map((x, i) =>
             x.status === 'fulfilled' && x.value
                 ? {
@@ -143,17 +145,19 @@ export async function downloadAccounts(session: FireflySession, signal?: AbortSi
                 : null,
         ),
     );
-
-    return accounts.filter((x) => {
-        const state = getProfileState(x.profile.source);
-        return !state.accounts.find((y) => isSameAccount(x, y));
-    });
 }
 
 export async function uploadAccounts(session: FireflySession, accounts: Account[], signal?: AbortSignal) {
-    // Ensure that the Firefly session is resumed before calling this function.
-    fireflySessionHolder.assertSession();
+    const syncedAccounts = await downloadAccounts(session, signal);
+    const mergedAccounts = accounts.filter((x) => !syncedAccounts.some((y) => isSameAccount(x, y)));
 
-    const cipher = await encryptMetrics([], signal);
+    console.log('DEBUG: upload accounts');
+    console.log({
+        accounts,
+        syncedAccounts,
+        mergedAccounts,
+    });
+
+    const cipher = await encryptMetrics(session, mergedAccounts.map((x) => x.session) as CryptoSession[], signal);
     await uploadMetrics(cipher, signal);
 }

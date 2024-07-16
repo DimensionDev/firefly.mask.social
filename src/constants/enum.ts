@@ -183,7 +183,7 @@ export enum NetworkType {
     Solana = 'solana',
 }
 
-export enum CipherUsage {
+export enum CryptoUsage {
     Encrypt = 'encrypt',
     Decrypt = 'decrypt',
 }

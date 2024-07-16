@@ -134,8 +134,12 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     // restore accounts from firefly
     if (!skipRestoreFireflyAccounts && fireflySession) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
+        const accountsFiltered = accountsSynced.filter((x) => {
+            const state = getProfileState(x.profile.source);
+            return !state.accounts.find((y) => isSameAccount(x, y));
+        });
         const accounts = (
-            belongsTo ? accountsSynced : uniqBy([account, ...accountsSynced], (x) => x.profile.profileId)
+            belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => x.profile.profileId)
         ).filter((y) => y.session.type !== SessionType.Firefly);
 
         if (accounts.length) {

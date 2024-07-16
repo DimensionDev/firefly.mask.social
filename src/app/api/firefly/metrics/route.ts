@@ -1,23 +1,38 @@
+import { NobleEd25519Signer } from '@farcaster/core';
 import { safeUnreachable } from '@masknet/kit';
 import crypto from 'crypto';
 import { StatusCodes } from 'http-status-codes';
+import { compact, groupBy } from 'lodash-es';
+import { toBytes } from 'viem';
 import { z } from 'zod';
 
-import { CipherUsage } from '@/constants/enum.js';
+import { CryptoUsage } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
+import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
+import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { getPublicKeyInHex } from '@/services/ed25519.js';
 
-const CipherSchema = z.object({
-    usage: z.nativeEnum(CipherUsage),
-    text: z.string(),
-});
+const CryptoUsageSchema = z.union([
+    z.object({
+        usage: z.literal(CryptoUsage.Encrypt),
+        accountId: z.string(),
+        sessions: z.array(z.string()),
+    }),
+    z.object({
+        usage: z.literal(CryptoUsage.Decrypt),
+        cipher: z.string(),
+    }),
+]);
 
 const TwitterMetricsSchema = z.object({
     account_id: z.string(),
@@ -28,9 +43,9 @@ const TwitterMetricsSchema = z.object({
             client_id: z.string(),
             login_time: z.number(),
             access_token: z.string(),
+            access_token_secret: z.string(),
             consumer_key: z.string(),
             consumer_secret: z.string(),
-            access_token_secret: z.string(),
         }),
     ),
 });
@@ -110,6 +125,54 @@ function convertMetricToSession(metric: Metrics[0]) {
     }
 }
 
+async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['login_metadata'][0] | null> {
+    switch (session.type) {
+        case SessionType.Lens:
+            const lensSession = session as LensSession;
+            if (!lensSession.refreshToken) {
+                console.error('[metrics] lens found session w/o refresh token.');
+                return null;
+            }
+            return {
+                token: lensSession.token,
+                address: '',
+                login_time: lensSession.createdAt,
+                profile_id: lensSession.profileId,
+                refresh_token: lensSession.refreshToken!,
+            };
+        case SessionType.Farcaster:
+            const farcasterSession = session as FarcasterSession;
+            const signer = new NobleEd25519Signer(toBytes(farcasterSession.token));
+            const publicKey = await getPublicKeyInHex(signer);
+            if (!publicKey) {
+                console.error('[metrics] farcaster found session w/ invalid signer token.');
+                return null;
+            }
+            return {
+                fid: Number.parseInt(farcasterSession.profileId, 10),
+                login_time: farcasterSession.createdAt,
+                signer_public_key: farcasterSession.token,
+                signer_private_key: publicKey,
+            };
+        case SessionType.Twitter:
+            const twitterSession = session as TwitterSession;
+            const payload = await TwitterSessionPayload.revealPayload(twitterSession.payload);
+            return {
+                client_id: payload.clientId,
+                login_time: twitterSession.createdAt,
+                access_token: payload.accessToken,
+                access_token_secret: payload.accessTokenSecret,
+                consumer_key: payload.consumerKey,
+                consumer_secret: payload.consumerSecret,
+            };
+        case SessionType.Firefly:
+            throw new NotAllowedError();
+        default:
+            safeUnreachable(session.type);
+            throw new UnreachableError('session type', session.type);
+    }
+}
+
 function decrypt(cipherText: string) {
     const decipher = crypto.createDecipheriv(
         'aes-256-cbc',
@@ -129,18 +192,41 @@ function encrypt(plaintext: string) {
 }
 
 export async function POST(request: Request) {
-    const cipher = CipherSchema.safeParse(await request.json());
-    if (!cipher.success) return createErrorResponseJSON(cipher.error.message, { status: StatusCodes.BAD_REQUEST });
+    const parsed = CryptoUsageSchema.safeParse(await request.json());
+    if (!parsed.success) return createErrorResponseJSON(parsed.error.message, { status: StatusCodes.BAD_REQUEST });
 
-    const { usage, text } = cipher.data;
+    const { usage } = parsed.data;
 
     switch (usage) {
-        case CipherUsage.Encrypt: {
-            const encrypted = encrypt(text);
-            return createSuccessResponseJSON(encrypted);
+        case CryptoUsage.Encrypt: {
+            const accountId = parsed.data.accountId;
+            const sessions = parsed.data.sessions.map(SessionFactory.createSession);
+            const metrics = Object.entries(groupBy(sessions, (x) => x.type)).map(([type, sessions]) => {
+                return {
+                    account_id: accountId,
+                    platform: resolveSocialSourceFromSessionType(type as SessionType),
+                    client_os: 'web',
+                    login_metadata: compact(sessions.map(convertSessionToMetadata)),
+                };
+            });
+
+            console.log('DEBUG: encrypt');
+            console.log({
+                accountId,
+                sessions,
+                metrics,
+            });
+
+            const cipher = encrypt(JSON.stringify(metrics));
+            return createSuccessResponseJSON(cipher);
         }
-        case CipherUsage.Decrypt: {
-            const decrypted = parseJSON<unknown[]>(decrypt(cipher.data.text));
+        case CryptoUsage.Decrypt: {
+            const decrypted = parseJSON<unknown[]>(decrypt(parsed.data.cipher));
+
+            console.log('DEBUG: decrypted')
+            console.log({
+                decrypted,
+            })
 
             // validate metrics
             const metrics = MetricsSchema.safeParse(decrypted);

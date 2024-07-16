@@ -4,6 +4,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { toBytes } from 'viem';
 
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { getPublicKeyInHex, signMessageInHex } from '@/services/ed25519.js';
 import type { PartialWith } from '@/types/index.js';
 
 export async function encodeMessageData(
@@ -25,21 +26,21 @@ export async function encodeMessageData(
     const messageDataBytes = MessageData.encode(messageData).finish();
     const messageDataHash = blake3(messageDataBytes, { dkLen: 20 });
 
-    const publicKey = await signer.getSignerKey();
-    const signature = await signer.signMessageHash(messageDataHash);
+    const publicKey = await getPublicKeyInHex(signer);
+    const signature = await signMessageInHex(signer, messageDataHash);
 
     const message = await withMessage(messageData, signer);
     const messageBytes = Message.encode(message).finish();
 
-    if (publicKey.isErr() || signature.isErr()) {
+    if (!publicKey || !signature) {
         throw new Error('Invalid signer key or signature.');
     }
 
     return {
-        signer: `0x${bytesToHex(publicKey.value)}`,
+        signer: publicKey,
         messageBytes: Buffer.from(messageBytes),
         messageData,
         messageDataHash: `0x${bytesToHex(messageDataHash)}`,
-        messageDataSignature: `0x${bytesToHex(signature.value)}`,
+        messageDataSignature: signature,
     } as const;
 }
