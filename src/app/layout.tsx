@@ -58,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <head>
                 <Polyfills />
                 <Script src="/js/browser-detector.js" defer />
+                <Script src="/js/safary.js" defer />
                 <meta name="theme-color" content="#ffffff" />
                 <GoogleTagManager gtmId="GTM-WZZF2ZCF" />
                 <GoogleAnalytics gaId="G-5VSBSKJ6JM" />
