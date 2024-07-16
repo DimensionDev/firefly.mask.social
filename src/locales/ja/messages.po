@@ -621,7 +621,7 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
-msgid "Failed to un-bookmark"
+msgid "Failed to un-bookmark article."
 msgstr ""
 
 msgid "post"
@@ -696,7 +696,7 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-msgid "Failed to unfollow @{0} on {sourceName}"
+msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Insufficient Gas"
@@ -909,7 +909,7 @@ msgstr ""
 msgid "Your post has published successfully."
 msgstr ""
 
-msgid "Failed to follow @{0} on {sourceName}"
+msgid "Failed to follow @{0} on {sourceName}."
 msgstr ""
 
 msgid "1m"
@@ -1080,7 +1080,7 @@ msgstr ""
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
-msgid "Failed to unwatch {identity}"
+msgid "Failed to unwatch {identity}."
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
@@ -1434,7 +1434,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-msgid "Muted @{0} on {sourceName}"
+msgid "Muted @{0} on {sourceName}."
 msgstr ""
 
 msgid "Copy"
@@ -1569,7 +1569,7 @@ msgstr ""
 msgid "{0} and others"
 msgstr ""
 
-msgid "Failed to unmute @{0} on {sourceName}"
+msgid "Failed to unmute @{0} on {sourceName}."
 msgstr ""
 
 msgid "Date"

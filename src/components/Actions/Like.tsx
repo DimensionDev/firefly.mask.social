@@ -11,6 +11,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -59,13 +60,25 @@ export const Like = memo<LikeProps>(function Like({
             return;
         } catch (error) {
             if (isComment) {
-                enqueueErrorMessage(hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`, {
-                    error,
-                });
+                enqueueErrorMessage(
+                    getSnackbarMessageFromError(
+                        error,
+                        hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`,
+                    ),
+                    {
+                        error,
+                    },
+                );
             } else {
-                enqueueErrorMessage(hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`, {
-                    error,
-                });
+                enqueueErrorMessage(
+                    getSnackbarMessageFromError(
+                        error,
+                        hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`,
+                    ),
+                    {
+                        error,
+                    },
+                );
             }
             throw error;
         }

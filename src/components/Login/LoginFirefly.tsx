@@ -12,6 +12,7 @@ import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -83,7 +84,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                 },
             );
         } catch (error) {
-            enqueueErrorMessage(t`Failed to login.`, {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;

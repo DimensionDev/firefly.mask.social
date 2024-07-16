@@ -38,12 +38,18 @@ export class FetchError extends Error {
 /**
  * Connected a profile that is not logged firefly before.
  */
-export class ProfileNotConnectedError extends Error {
+export class FarcasterProfileNotConnectedError extends Error {
     constructor(
         public profile: Profile | null,
         public override message: string,
     ) {
         super(message);
+    }
+}
+
+export class FarcasterInvalidSignerKey extends Error {
+    constructor(message?: string) {
+        super(message ?? 'Invalid Farcaster signer key.');
     }
 }
 

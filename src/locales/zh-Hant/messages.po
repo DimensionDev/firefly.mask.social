@@ -88,7 +88,7 @@ msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 
 msgid "Failed to unbookmark post."
-msgstr "從書籤中移除失敗。"
+msgstr "從書籤中移除貼文失敗。"
 
 msgid "Delete post"
 msgstr "刪除貼文"
@@ -116,6 +116,9 @@ msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼�
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
+
+msgid "Failed to unwatch {identity}."
+msgstr "取消觀察 @{identity} 失敗。"
 
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
@@ -201,6 +204,9 @@ msgstr ""
 msgid "Wrong wallet"
 msgstr "錯誤的錢包"
 
+msgid "Failed to un-bookmark article."
+msgstr "從書籤中移除文章失敗。"
+
 msgid "Poll"
 msgstr "投票"
 
@@ -222,9 +228,6 @@ msgstr "檢舉已於{0} 提交"
 msgid "Debug Console"
 msgstr ""
 
-msgid "Failed to mute @{0} on {sourceName}"
-msgstr "在 {sourceName} 上對 @{0} 的靜音失敗"
-
 msgid "Login with QR Code"
 msgstr "通過 QR 碼登錄"
 
@@ -242,9 +245,6 @@ msgstr "NFT 標準"
 
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
-
-msgid "Failed to login"
-msgstr "登入失敗"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>發布</0>一篇文章"
@@ -381,14 +381,11 @@ msgstr "通過 Firefly 重新連接"
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
 
-msgid "Failed to delete"
-msgstr "刪除失敗"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
-msgid "Report Failed"
-msgstr "舉報失敗"
+msgid "Failed to follow @{0} on {sourceName}."
+msgstr "在 {sourceName} 上追蹤 @{0} 失敗。"
 
 msgid "Attendees"
 msgstr "參與者"
@@ -413,6 +410,9 @@ msgstr "搜尋"
 
 msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
 msgstr ""
+
+msgid "Failed to unfollow @{0} on {sourceName}."
+msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
 msgid "Watch"
 msgstr "觀察"
@@ -485,6 +485,9 @@ msgstr "最近"
 
 msgid "Info"
 msgstr "資訊"
+
+msgid "Failed to bookmark article."
+msgstr ""
 
 msgid "Max"
 msgstr "最大"
@@ -621,9 +624,6 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
-msgid "Failed to un-bookmark"
-msgstr "從書籤中移除失敗"
-
 msgid "post"
 msgstr "貼文"
 
@@ -666,7 +666,13 @@ msgstr ""
 msgid "Report spam"
 msgstr "檢舉垃圾訊息"
 
+msgid "Failed to un-bookmark post."
+msgstr ""
+
 msgid "Failed to submit report on {0}"
+msgstr ""
+
+msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
 msgid "like"
@@ -695,9 +701,6 @@ msgstr ""
 
 msgid "Days"
 msgstr "天"
-
-msgid "Failed to unfollow @{0} on {sourceName}"
-msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
 msgid "Insufficient Gas"
 msgstr "Gas不足"
@@ -752,9 +755,6 @@ msgstr ""
 
 msgid "Collected"
 msgstr ""
-
-msgid "Failed to bookmark"
-msgstr "書籤標記失敗"
 
 msgid "<0>You</0> mirrored"
 msgstr ""
@@ -837,6 +837,9 @@ msgstr "代理合約"
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
 
+msgid "Failed to unmute @{0} on {sourceName}."
+msgstr ""
+
 msgid "Insufficient Balance"
 msgstr ""
 
@@ -909,11 +912,11 @@ msgstr "貼文被刪除"
 msgid "Website"
 msgstr "網站"
 
+msgid "Failed to report @{0}."
+msgstr ""
+
 msgid "Your post has published successfully."
 msgstr "你的貼文已成功發佈"
-
-msgid "Failed to follow @{0} on {sourceName}"
-msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
 msgid "1m"
 msgstr "1個月"
@@ -974,6 +977,9 @@ msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
+
+msgid "Failed to watch {identity}."
+msgstr "觀察 @{identity} 失敗。"
 
 msgid "Mute"
 msgstr "靜音"
@@ -1068,9 +1074,6 @@ msgstr "設定"
 msgid "Creator"
 msgstr "創作者"
 
-msgid "Unmuted @{0} on {sourceName}"
-msgstr "在{sourceName} 上已取消對 @{0} 的靜音"
-
 msgid "Details"
 msgstr "詳細資訊"
 
@@ -1083,8 +1086,8 @@ msgstr ""
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
-msgid "Failed to unwatch {identity}"
-msgstr "取消觀察 @{identity} 失敗"
+msgid "Invalid signer key"
+msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
@@ -1216,7 +1219,7 @@ msgid "Select Wallet"
 msgstr ""
 
 msgid "Failed to bookmark post."
-msgstr "書籤標記失敗."
+msgstr "書籤標記失敗。"
 
 msgid "{0} muted users"
 msgstr "{0} 位已靜音的用戶"
@@ -1278,6 +1281,9 @@ msgstr "在 X 上追蹤@thefireflyapp"
 msgid "Light Mode"
 msgstr "淺色模式"
 
+msgid "Failed to submit report on {0}."
+msgstr ""
+
 msgid "Executing"
 msgstr ""
 
@@ -1328,6 +1334,9 @@ msgstr ""
 
 msgid "Failed to publish post."
 msgstr "發布貼文失敗"
+
+msgid "Muted @{0} on {sourceName}."
+msgstr "已在 {sourceName} 上靜音 @{0}"
 
 msgid "Quotes"
 msgstr "引用"
@@ -1434,8 +1443,8 @@ msgstr ""
 msgid "Image"
 msgstr "圖片"
 
-msgid "Muted @{0} on {sourceName}"
-msgstr "已在{sourceName} 上靜音 @{0}"
+msgid "Failed to delete post."
+msgstr ""
 
 msgid "Copy"
 msgstr "複製"
@@ -1569,9 +1578,6 @@ msgstr ""
 msgid "{0} and others"
 msgstr ""
 
-msgid "Failed to unmute @{0} on {sourceName}"
-msgstr ""
-
 msgid "Date"
 msgstr "日期"
 
@@ -1604,6 +1610,9 @@ msgstr ""
 
 msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
+
+msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
 
 msgid "Add another option"
 msgstr ""
@@ -1651,6 +1660,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr "你無法在 {0} 上回覆 @{author}。"
 
 msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr ""
+
+msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
@@ -1734,9 +1746,6 @@ msgstr "Mask Network"
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
-msgid "Failed to watch {identity}"
-msgstr "觀察 @{identity} 失敗"
-
 msgid "{identity} unwatched"
 msgstr "{identity} 取消了觀察"
 
@@ -1750,6 +1759,9 @@ msgid "Follow @{0}"
 msgstr "追蹤 @{0}"
 
 msgid "Cancel Recast"
+msgstr ""
+
+msgid "Failed to report spam NFT."
 msgstr ""
 
 msgid "{hours, plural, one {1 hour} other {{hours} hours}}"

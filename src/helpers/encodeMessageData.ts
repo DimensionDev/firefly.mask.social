@@ -11,9 +11,9 @@ export async function encodeMessageData(
     withMessage: (messageData: MessageData, signer: NobleEd25519Signer) => Promise<Message>,
 ) {
     const { token, profileId } = farcasterSessionHolder.sessionRequired;
+
     // token is the private key of signer
     const signer = new NobleEd25519Signer(toBytes(token));
-
     const fid = Number.parseInt(profileId, 10);
 
     // @ts-ignore timestamp is not needed
@@ -25,21 +25,21 @@ export async function encodeMessageData(
     const messageDataBytes = MessageData.encode(messageData).finish();
     const messageDataHash = blake3(messageDataBytes, { dkLen: 20 });
 
+    const publicKey = await signer.getSignerKey();
+    const signature = await signer.signMessageHash(messageDataHash);
+
     const message = await withMessage(messageData, signer);
     const messageBytes = Message.encode(message).finish();
 
-    const signerKeyResult = await signer.getSignerKey();
-    const signatureResult = await signer.signMessageHash(messageDataHash);
-
-    if (signerKeyResult.isErr() || signatureResult.isErr()) {
+    if (publicKey.isErr() || signature.isErr()) {
         throw new Error('Invalid signer key or signature.');
     }
 
     return {
-        signer: `0x${bytesToHex(signerKeyResult.value)}`,
+        signer: `0x${bytesToHex(publicKey.value)}`,
         messageBytes: Buffer.from(messageBytes),
         messageData,
         messageDataHash: `0x${bytesToHex(messageDataHash)}`,
-        messageDataSignature: `0x${bytesToHex(signatureResult.value)}`,
+        messageDataSignature: `0x${bytesToHex(signature.value)}`,
     } as const;
 }

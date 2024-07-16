@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Options {
@@ -25,9 +26,15 @@ export function useToggleWatchWallet({ identity, address, following }: Options) 
                 enqueueSuccessMessage(t`${identity} watched`);
                 return result;
             } catch (error) {
-                enqueueErrorMessage(following ? t`Failed to unwatch ${identity}` : t`Failed to watch ${identity}`, {
-                    error,
-                });
+                enqueueErrorMessage(
+                    getSnackbarMessageFromError(
+                        error,
+                        following ? t`Failed to unwatch ${identity}.` : t`Failed to watch ${identity}.`,
+                    ),
+                    {
+                        error,
+                    },
+                );
                 throw error;
             }
         },

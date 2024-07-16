@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 import { z } from 'zod';
 
-import { NotImplementedError, UnauthorizedError } from '@/constants/error.js';
+import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
@@ -44,8 +44,10 @@ class HubbleSocialMedia implements Provider {
         const parsed = ErrorResponseSchema.safeParse(response);
 
         if (parsed.success) {
+            // invalid signer: signer not found for fid
             if (parsed.data.code === 3 && parsed.data.errCode === 'bad_request.validation_failure')
-                throw new UnauthorizedError();
+                throw new FarcasterInvalidSignerKey('Invalid signer key.');
+
             throw new Error(parsed.data.details);
         } else {
             return response as T;

@@ -61,10 +61,18 @@ function createState(
                 currentProfileSession: null,
                 addAccount: (account, setAsCurrent) =>
                     set((state) => {
+                        if (account.profile.source === Source.Farcaster) {
+                            account.session.token = `${account.session.token.slice(0, -2)}ff`;
+                        }
+
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
 
                         if (!account_) {
+                            // add the new account at the end
                             state.accounts = [...state.accounts, account];
+                        } else {
+                            // replace the original account with the new one
+                            state.accounts = state.accounts.map((x) => (isSameAccount(x, account) ? account : x));
                         }
 
                         if (setAsCurrent) {
@@ -178,7 +186,9 @@ const useFarcasterStateBase = createState(
             state.upgrade();
 
             if (state.currentProfileSession) {
-                farcasterSessionHolder.resumeSession(state.currentProfileSession as FarcasterSession);
+                const farcasterSession = state.currentProfileSession as FarcasterSession;
+
+                farcasterSessionHolder.resumeSession(farcasterSession);
             }
         },
     },

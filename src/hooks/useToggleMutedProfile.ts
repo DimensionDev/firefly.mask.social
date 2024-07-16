@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -26,18 +27,21 @@ export function useToggleMutedProfile(operator: Profile | null) {
                 const provider = resolveSocialMediaProvider(profile.source);
                 if (muted) {
                     const result = await provider.unblockProfile(profile.profileId);
-                    enqueueSuccessMessage(t`Unmuted @${profile.handle} on ${sourceName}`);
+                    enqueueSuccessMessage(t`Unmuted @${profile.handle} on ${sourceName}.`);
                     return result;
                 } else {
                     const result = await provider.blockProfile(profile.profileId);
-                    enqueueSuccessMessage(t`Muted @${profile.handle} on ${sourceName}`);
+                    enqueueSuccessMessage(t`Muted @${profile.handle} on ${sourceName}.`);
                     return result;
                 }
             } catch (error) {
                 enqueueErrorMessage(
-                    muted
-                        ? t`Failed to unmute @${profile.handle} on ${sourceName}`
-                        : t`Failed to mute @${profile.handle} on ${sourceName}`,
+                    getSnackbarMessageFromError(
+                        error,
+                        muted
+                            ? t`Failed to unmute @${profile.handle} on ${sourceName}.`
+                            : t`Failed to mute @${profile.handle} on ${sourceName}.`,
+                    ),
                     { error },
                 );
                 throw error;

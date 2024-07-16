@@ -15,6 +15,7 @@ import { LoginLens } from '@/components/Login/LoginLens.js';
 import { LoginTwitter } from '@/components/Login/LoginTwitter.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
+import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
@@ -30,12 +31,17 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface LoginModalProps {
+export interface LoginModalOpenProps {
     source?: ProfileSource;
-    expectProfile?: Profile;
+    options?: {
+        // sort the expected profile to the top
+        expectedProfile?: Profile;
+        // open the farcaster login modal with the specified sign type
+        expectedSignType?: FarcasterSignType;
+    };
 }
 
-export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
+export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
 
     // shared
@@ -48,71 +54,75 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     // for farcaster only
     const [signType, setSignType] = useState<FarcasterSignType | null>(null);
 
-    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: ProfileSource, expectProfile?: Profile) => {
-        try {
-            switch (selectedSource) {
-                case Source.Lens: {
-                    const { account } = await getWalletClientRequired(config);
-                    const profiles = await queryClient.fetchQuery({
-                        queryKey: ['lens', 'profiles', account.address],
-                        queryFn: async () => {
-                            if (!account.address) return EMPTY_LIST;
-                            return LensSocialMediaProvider.getProfilesByAddress(account.address);
-                        },
-                    });
-                    if (!profiles.length) {
-                        enqueueErrorMessage(
-                            <div>
-                                <span className="font-bold">
-                                    <Trans>Wrong wallet</Trans>
-                                </span>
-                                <br />
-                                <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
-                            </div>,
+    const [{ loading }, handleLogin] = useAsyncFn(
+        async (
+            selectedSource: ProfileSource,
+            { expectedProfile, expectedSignType }: LoginModalOpenProps['options'] = {},
+        ) => {
+            try {
+                switch (selectedSource) {
+                    case Source.Lens: {
+                        const { account } = await getWalletClientRequired(config);
+                        const profiles = await queryClient.fetchQuery({
+                            queryKey: ['lens', 'profiles', account.address],
+                            queryFn: async () => {
+                                if (!account.address) return EMPTY_LIST;
+                                return LensSocialMediaProvider.getProfilesByAddress(account.address);
+                            },
+                        });
+                        if (!profiles.length) {
+                            enqueueErrorMessage(
+                                <SnackbarErrorMessage
+                                    title={<Trans>Wrong wallet</Trans>}
+                                    message={
+                                        <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
+                                    }
+                                />,
+                            );
+                            return;
+                        }
+                        const { accounts } = getProfileState(Source.Lens);
+
+                        setProfiles(
+                            profiles
+                                .filter((x) => !accounts.some((y) => isSameProfile(x, y.profile)))
+                                .sort((a) => (isSameProfile(a, expectedProfile) ? -1 : 0)),
                         );
+                        setCurrentAccount(account.address);
+                        setSource(selectedSource);
                         return;
                     }
-                    const { accounts } = getProfileState(Source.Lens);
-                    setProfiles(
-                        profiles
-                            .filter((x) => !accounts.some((y) => isSameProfile(x, y.profile)))
-                            .sort((a) => {
-                                return expectProfile && isSameProfile(a, expectProfile) ? -1 : 0;
-                            }),
-                    );
-                    setCurrentAccount(account.address);
-                    setSource(selectedSource);
-                    return;
+                    case Source.Farcaster:
+                        setSource(selectedSource);
+                        setSignType(expectedSignType ?? null);
+                        return;
+                    case Source.Twitter:
+                        setSource(selectedSource);
+                        return;
+                    case Source.Firefly:
+                        setSource(selectedSource);
+                        return;
+                    default:
+                        safeUnreachable(selectedSource);
+                        return;
                 }
-                case Source.Farcaster:
-                    setSignType(null);
-                    setSource(selectedSource);
-                    return;
-                case Source.Twitter:
-                    setSource(selectedSource);
-                    return;
-                case Source.Firefly:
-                    setSource(selectedSource);
-                    return;
-                default:
-                    safeUnreachable(selectedSource);
-                    return;
+            } catch (error) {
+                const errorMessage = getSnackbarMessageFromError(error, '');
+                if (errorMessage) {
+                    enqueueErrorMessage(errorMessage, {
+                        noReport: true,
+                    });
+                }
+                throw error;
             }
-        } catch (error) {
-            const errorMessage = getSnackbarMessageFromError(error, '');
-            if (errorMessage) {
-                enqueueErrorMessage(errorMessage, {
-                    noReport: true,
-                });
-            }
-            throw error;
-        }
-    }, []);
+        },
+        [],
+    );
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: async (props) => {
             if (!props?.source) return;
-            await handleLogin(props.source, props.expectProfile);
+            await handleLogin(props.source, props.options);
         },
         onClose: async () => {
             // setSource will trigger a re-render, so we need to delay the setSource(null) to avoid the re-render

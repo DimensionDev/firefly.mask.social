@@ -45,7 +45,7 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
             const payload = await resolveCreateSchedulePostPayload(x)(type, compositePost, isThread);
 
             return {
-                platformUserId: profile?.profileId,
+                platformUserId: profile.profileId,
                 platform: resolveSocialSourceInURL(x),
                 payload,
             };

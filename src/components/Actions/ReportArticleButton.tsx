@@ -6,6 +6,7 @@ import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -43,7 +44,9 @@ export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function
                 try {
                     await mutation.mutateAsync();
                 } catch (error) {
-                    enqueueErrorMessage(t`Failed to report @${article.title}`, { error });
+                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report @${article.title}.`), {
+                        error,
+                    });
                     throw error;
                 }
             }}

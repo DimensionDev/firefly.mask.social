@@ -4,7 +4,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type Dispatch, type SetStateAction, useMemo, useState } from 'react';
-import { useAsyncFn, useUnmount } from 'react-use';
+import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
@@ -14,12 +14,13 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, Source } from '@/constants/enum.js';
-import { AbortError, NotImplementedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { AbortError, FarcasterProfileNotConnectedError, NotImplementedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -82,7 +83,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
-    const [profileError, setProfileError] = useState<ProfileNotConnectedError | null>(null);
+    const [profileError, setProfileError] = useState<FarcasterProfileNotConnectedError | null>(null);
 
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
@@ -110,7 +111,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                 { signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(t`Failed to login.`, {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;
@@ -139,7 +140,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     if (!account.session.token) {
                         setProfileError(
-                            new ProfileNotConnectedError(
+                            new FarcasterProfileNotConnectedError(
                                 account.profile,
                                 t`You didn't connect with Firefly before, need to connect first to fully log in.`,
                             ),
@@ -152,7 +153,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                 { signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(t`Failed to login.`, {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;
@@ -170,12 +171,32 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                 { signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(t`Failed to login.`, {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;
         }
     }, []);
+
+    const onClick = (type: FarcasterSignType | null) => {
+        if (!type) return;
+
+        switch (type) {
+            case FarcasterSignType.GrantPermission:
+                onLoginByGrantPermission();
+                break;
+            case FarcasterSignType.RelayService:
+                onLoginByRelayService();
+                break;
+            case FarcasterSignType.CustodyWallet:
+                onLoginWithCustodyWallet();
+                break;
+        }
+    };
+
+    useMount(() => {
+        onClick(signType);
+    });
 
     useUnmount(() => {
         if (IS_MOBILE_DEVICE) resetCountdown();
@@ -196,17 +217,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         key={type}
                         onClick={() => {
                             setSignType(type);
-                            switch (type) {
-                                case FarcasterSignType.GrantPermission:
-                                    onLoginByGrantPermission();
-                                    break;
-                                case FarcasterSignType.RelayService:
-                                    onLoginByRelayService();
-                                    break;
-                                case FarcasterSignType.CustodyWallet:
-                                    onLoginWithCustodyWallet();
-                                    break;
-                            }
+                            onClick(type);
                         }}
                     >
                         <span className="flex flex-1 items-center">

@@ -3,7 +3,9 @@ import { usePathname, useRouter } from 'next/navigation.js';
 import { useAsyncFn } from 'react-use';
 
 import { type SocialSource } from '@/constants/enum.js';
+import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -25,9 +27,10 @@ export function useDeletePost(source: SocialSource) {
                 }
                 enqueueSuccessMessage(t`Post was deleted`);
             } catch (error) {
-                enqueueErrorMessage(t`Failed to delete`, {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete post.`), {
                     error,
                 });
+                checkFarcasterInvalidSignerKey(error);
                 throw error;
             }
         },
