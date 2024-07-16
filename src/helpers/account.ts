@@ -14,7 +14,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { syncAccountsFromFirefly } from '@/services/syncAccountsFromFirefly.js';
+import { downloadAccounts } from '@/services/syncAccountsFromFirefly.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(source: SocialSource) {
@@ -133,7 +133,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // restore accounts from firefly
     if (!skipRestoreFireflyAccounts && fireflySession) {
-        const accountsSynced = await syncAccountsFromFirefly(fireflySession, signal);
+        const accountsSynced = await downloadAccounts(fireflySession, signal);
         const accounts = (
             belongsTo ? accountsSynced : uniqBy([account, ...accountsSynced], (x) => x.profile.profileId)
         ).filter((y) => y.session.type !== SessionType.Firefly);

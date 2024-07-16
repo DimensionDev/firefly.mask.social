@@ -18,17 +18,12 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
+import type { MetricsDownloadResponse, MetricsUploadResponse } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-/**
- * Download encrypted metrics from Firefly.
- * @param session
- * @returns
- */
-async function downloadMetricsFromFirefly(session: FireflySession, signal?: AbortSignal) {
+async function downloadMetrics(session: FireflySession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetchWithSession(session)<MetricsDownloadResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/download'),
         {
@@ -39,16 +34,32 @@ async function downloadMetricsFromFirefly(session: FireflySession, signal?: Abor
     return data?.ciphertext;
 }
 
+async function uploadMetrics(cipher: string, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<MetricsUploadResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/upload'),
+        {
+            body: JSON.stringify({ ciphertext: cipher }),
+            signal,
+        },
+        true,
+    );
+    const data = resolveFireflyResponseData(response);
+    return;
+}
+
 /**
  * Decrypt the metrics from Firefly.
  * @param cipher
  * @param signal
  * @returns
  */
-async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
-    const response = await fetchJSON<ResponseJSON<string[]>>('/api/firefly/decrypt-metrics', {
+async function decryptMetrics(cipher: string, signal?: AbortSignal) {
+    const response = await fetchJSON<ResponseJSON<string[]>>('/api/firefly/metrics', {
         method: 'POST',
-        body: JSON.stringify({ text: cipher }),
+        body: JSON.stringify({
+            usage: 'decrypt',
+            text: cipher,
+        }),
         signal,
     });
     if (!response.success) throw new Error(response.error.message);
@@ -56,14 +67,33 @@ async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
 }
 
 /**
+ * Encrypt firefly metrics.
+ * @param sessions
+ * @param signal
+ * @returns
+ */
+async function encryptMetrics(sessions: Array<FarcasterSession | LensSession | TwitterSession>, signal?: AbortSignal) {
+    const response = await fetchJSON<ResponseJSON<string>>('/api/firefly/metrics', {
+        method: 'POST',
+        body: JSON.stringify({
+            usage: 'encrypt',
+            text: sessions.map((x) => x.serialize()),
+        }),
+        signal,
+    });
+    if (!response.success) throw new Error(response.error.message);
+    return response.data;
+}
+
+/**
  * Download and decrypt metrics from Firefly, then convert them to accounts.
  * @returns
  */
-export async function syncAccountsFromFirefly(session: FireflySession, signal?: AbortSignal) {
-    const cipher = await downloadMetricsFromFirefly(session, signal);
+export async function downloadAccounts(session: FireflySession, signal?: AbortSignal) {
+    const cipher = await downloadMetrics(session, signal);
     if (!cipher) return [];
 
-    const sessions = await decryptMetricsFromFirefly(cipher, signal);
+    const sessions = await decryptMetrics(cipher, signal);
 
     // validate and convert session to profile
     const allSettled = await Promise.allSettled(
@@ -118,4 +148,12 @@ export async function syncAccountsFromFirefly(session: FireflySession, signal?: 
         const state = getProfileState(x.profile.source);
         return !state.accounts.find((y) => isSameAccount(x, y));
     });
+}
+
+export async function uploadAccounts(session: FireflySession, accounts: Account[], signal?: AbortSignal) {
+    // Ensure that the Firefly session is resumed before calling this function.
+    fireflySessionHolder.assertSession();
+
+    const cipher = await encryptMetrics([], signal);
+    await uploadMetrics(cipher, signal);
 }
