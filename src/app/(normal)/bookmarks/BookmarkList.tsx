@@ -1,4 +1,5 @@
 'use client';
+import { t } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -6,6 +7,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -33,7 +35,7 @@ export function BookmarkList({ source }: Props) {
                 const result = await provider.getBookmarks(createIndicator(undefined, pageParam));
                 return result;
             } catch (error) {
-                enqueueErrorMessage('Failed to fetch bookmarks', { error });
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to fetch bookmarks.`), { error });
                 throw error;
             }
         },

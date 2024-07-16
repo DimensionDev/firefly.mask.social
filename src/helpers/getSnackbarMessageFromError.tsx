@@ -1,4 +1,6 @@
 import { Trans } from '@lingui/macro';
+import { ClientError } from 'graphql-request';
+import { first } from 'lodash-es';
 import type { SnackbarMessage } from 'notistack';
 import { UserRejectedRequestError } from 'viem';
 
@@ -15,6 +17,15 @@ import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetc
  */
 export function getSnackbarMessageFromError(error: unknown, fallback: string): SnackbarMessage {
     if (!(error instanceof Error)) return fallback;
+
+    if (error instanceof ClientError) {
+        const message = first(error.response.errors)?.message;
+        if (message) return message;
+    }
+
+    if (error instanceof FetchError && IS_PRODUCTION) {
+        return getErrorMessageFromFetchError(error);
+    }
 
     if (error instanceof UnauthorizedError) {
         return (
@@ -34,10 +45,6 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
                 message={<Trans>The user rejected the request.</Trans>}
             />
         );
-    }
-
-    if (error instanceof FetchError && IS_PRODUCTION) {
-        return getErrorMessageFromFetchError(error);
     }
 
     return error.message;

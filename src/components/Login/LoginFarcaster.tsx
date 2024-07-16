@@ -20,6 +20,7 @@ import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -110,7 +111,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                 { signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(t`Failed to login.`, {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;
@@ -152,7 +153,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                 { signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(t`Failed to login.`, {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;
@@ -170,7 +171,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                 { signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(t`Failed to login.`, {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;

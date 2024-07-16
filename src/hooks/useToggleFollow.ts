@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
-import { ClientError } from 'graphql-request';
 
+import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -42,15 +42,6 @@ export function useToggleFollow(profile: Profile) {
                     return result;
                 }
             } catch (error) {
-                if (error instanceof ClientError) {
-                    const message = error.response.errors?.[0]?.message;
-                    if (message) {
-                        enqueueErrorMessage(message, {
-                            error,
-                        });
-                        throw error;
-                    }
-                }
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(
                         error,
@@ -60,6 +51,9 @@ export function useToggleFollow(profile: Profile) {
                     ),
                     { error },
                 );
+
+                checkFarcasterInvalidSignerKey(error);
+
                 throw error;
             }
         },

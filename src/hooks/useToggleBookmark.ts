@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { BookmarkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -29,9 +30,15 @@ export function useToggleBookmark(source: SocialSource) {
                     return result;
                 }
             } catch (error) {
-                enqueueErrorMessage(hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`, {
-                    error,
-                });
+                enqueueErrorMessage(
+                    getSnackbarMessageFromError(
+                        error,
+                        hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`,
+                    ),
+                    {
+                        error,
+                    },
+                );
                 throw error;
             }
         },

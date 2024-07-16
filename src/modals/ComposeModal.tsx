@@ -49,6 +49,7 @@ import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
@@ -362,7 +363,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {
-                enqueueErrorMessage(t`Failed to create image payload.`, {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create image payload.`), {
                     error,
                 });
                 throw error;

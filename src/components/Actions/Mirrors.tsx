@@ -12,6 +12,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
+import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -147,6 +148,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     safeUnreachable(source);
                     break;
             }
+
+            checkFarcasterInvalidSignerKey(error);
 
             throw error;
         }

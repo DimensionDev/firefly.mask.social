@@ -19,6 +19,7 @@ import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -213,7 +214,7 @@ async function getNextFrame(
                 return;
         }
     } catch (error) {
-        enqueueErrorMessage(t`Something went wrong. Please try again.`, {
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Something went wrong. Please try again.`), {
             error,
         });
         throw error;

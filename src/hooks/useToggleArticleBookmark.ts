@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -32,9 +33,15 @@ export function useToggleArticleBookmark() {
                     return result;
                 }
             } catch (error) {
-                enqueueErrorMessage(hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`, {
-                    error,
-                });
+                enqueueErrorMessage(
+                    getSnackbarMessageFromError(
+                        error,
+                        hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`,
+                    ),
+                    {
+                        error,
+                    },
+                );
                 throw error;
             }
         },

@@ -1,12 +1,11 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
-import { FarcasterSignType, Source } from '@/constants/enum.js';
-import { FarcasterInvalidSignerKey } from '@/constants/error.js';
+import { Source } from '@/constants/enum.js';
+import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { validateFarcasterSession } from '@/services/validateFarcasterSignerKey.js';
 
@@ -22,14 +21,7 @@ export function useCheckSessions() {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to validate farcaster session.`), {
                 error,
             });
-            if (error instanceof FarcasterInvalidSignerKey) {
-                LoginModalRef.open({
-                    source: Source.Farcaster,
-                    options: {
-                        expectedSignType: FarcasterSignType.GrantPermission,
-                    },
-                });
-            }
+            checkFarcasterInvalidSignerKey(error);
             throw error;
         }
 

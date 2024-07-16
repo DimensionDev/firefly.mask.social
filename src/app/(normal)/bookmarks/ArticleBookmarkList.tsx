@@ -1,5 +1,6 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
@@ -7,6 +8,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -25,7 +27,7 @@ export function ArticleBookmarkList() {
                 const result = await FireflyArticleProvider.getBookmarks(createIndicator(undefined, pageParam));
                 return result;
             } catch (error) {
-                enqueueErrorMessage('Failed to fetch bookmarks', { error });
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to fetch bookmarks.`), { error });
                 throw error;
             }
         },

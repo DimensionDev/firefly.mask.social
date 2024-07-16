@@ -5,7 +5,7 @@ import { memo } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isDomainOrSubdomainOf } from '@/helpers/domain-test.js';
+import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { resolveFirstAvailableUrl } from '@/helpers/resolveFirstAvailableUrl.js';
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
