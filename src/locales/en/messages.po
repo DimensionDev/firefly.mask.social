@@ -1459,9 +1459,6 @@ msgstr "{identity} watched"
 msgid "Notifications"
 msgstr "Notifications"
 
-msgid "No available token."
-msgstr "No available token."
-
 msgid "Back"
 msgstr "Back"
 
@@ -1723,8 +1720,14 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "Unmute"
 
+msgid "No available token"
+msgstr "No available token"
+
 msgid "View on explorer"
 msgstr "View on explorer"
+
+msgid "Tip to {0}"
+msgstr "Tip to {0}"
 
 msgid "Click to copy"
 msgstr "Click to copy"

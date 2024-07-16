@@ -1459,9 +1459,6 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-msgid "No available token."
-msgstr ""
-
 msgid "Back"
 msgstr ""
 
@@ -1723,7 +1720,13 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
+msgid "No available token"
+msgstr ""
+
 msgid "View on explorer"
+msgstr ""
+
+msgid "Tip to {0}"
 msgstr ""
 
 msgid "Click to copy"

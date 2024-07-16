@@ -1464,9 +1464,6 @@ msgstr "{identity} 觀察了"
 msgid "Notifications"
 msgstr "通知"
 
-msgid "No available token."
-msgstr ""
-
 msgid "Back"
 msgstr "返回"
 
@@ -1728,7 +1725,13 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "取消靜音"
 
+msgid "No available token"
+msgstr ""
+
 msgid "View on explorer"
+msgstr ""
+
+msgid "Tip to {0}"
 msgstr ""
 
 msgid "Click to copy"
