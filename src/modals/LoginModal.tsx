@@ -15,6 +15,7 @@ import { LoginLens } from '@/components/Login/LoginLens.js';
 import { LoginTwitter } from '@/components/Login/LoginTwitter.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
+import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
@@ -29,7 +30,6 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 
 export interface LoginModalOpenProps {
     source?: ProfileSource;
