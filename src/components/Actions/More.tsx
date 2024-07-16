@@ -17,21 +17,17 @@ import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmiClient.js';
 import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
@@ -42,7 +38,6 @@ interface MoreProps {
 }
 
 export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, post, channel }) {
-    const isLogin = useIsLogin(source);
     const currentProfile = useCurrentProfile(source);
 
     const isMyPost = isSameProfile(author, currentProfile);
@@ -57,18 +52,12 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     return (
         <MoreActionMenu
+            source={source}
             button={
                 <Tooltip content={t`More`} placement="top">
                     <MoreIcon width={24} height={24} />
                 </Tooltip>
             }
-            onClick={async (event) => {
-                if (!isLogin) {
-                    event.preventDefault();
-                    if (source === Source.Lens) await getWalletClientRequired(config);
-                    LoginModalRef.open({ source });
-                }
-            }}
         >
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"

@@ -8,7 +8,8 @@ import MuteIcon from '@/assets/mute.svg';
 import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
@@ -21,6 +22,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
     { identity, address, isMuted, ...rest }: Props,
     ref,
 ) {
+    const isLogin = useIsLogin();
     const mutation = useMutation({
         mutationFn: () => {
             if (isMuted) return FireflySocialMediaProvider.unblockWallet(address);
@@ -33,6 +35,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
+                if (!isLogin) return LoginModalRef.open();
                 if (!isMuted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
                         title: t`Mute ${identity}`,
@@ -43,10 +46,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
                             </div>
                         ),
                     });
-                    if (!confirmed) {
-                        rest.onClick?.();
-                        return;
-                    }
+                    if (!confirmed) return;
                 }
                 await mutation.mutateAsync();
             }}

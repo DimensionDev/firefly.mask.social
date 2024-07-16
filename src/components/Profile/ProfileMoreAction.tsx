@@ -37,7 +37,11 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     });
 
     return (
-        <MoreActionMenu button={<MoreCircleIcon width={32} height={32} />} className={className}>
+        <MoreActionMenu
+            source={profile.source}
+            button={<MoreCircleIcon width={32} height={32} />}
+            className={className}
+        >
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                 onClick={(event) => {

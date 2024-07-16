@@ -1,18 +1,23 @@
 import { Menu, type MenuProps, Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
-import { Fragment, type MouseEvent } from 'react';
+import { Fragment } from 'react';
 
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
-interface MoreActionMenuProps extends Omit<MenuProps<'div'>, 'onClick'> {
+interface MoreActionMenuProps extends MenuProps<'div'> {
     button: React.ReactNode;
     children: React.ReactNode;
+    source?: SocialSource;
     disabled?: boolean;
     className?: string;
-    onClick?: (event: MouseEvent<HTMLButtonElement>) => Promise<void>;
 }
 
-export function MoreActionMenu({ disabled, button, children, className, onClick }: MoreActionMenuProps) {
+export function MoreActionMenu({ disabled, button, children, className, source }: MoreActionMenuProps) {
+    const isLogin = useIsLogin();
+
     return (
         <Menu
             className={classNames('relative', className)}
@@ -29,8 +34,9 @@ export function MoreActionMenu({ disabled, button, children, className, onClick 
                 aria-label="More"
                 onClick={async (event) => {
                     event.stopPropagation();
-                    if (onClick) {
-                        await onClick(event);
+                    if (!isLogin) {
+                        event.preventDefault();
+                        return LoginModalRef.open({ source });
                     }
                 }}
             >
