@@ -34,7 +34,11 @@ export function TokenIcon({ token, tokenSize = 30, chainSize = 12 }: TokenIconPr
                     right: -chainSize / 2,
                 }}
             >
-                <ChainIcon size={chainSize} chainId={token.chainId} />
+                {token.chainLogoUrl ? (
+                    <Image src={token.chainLogoUrl} width={chainSize} height={chainSize} alt={token.chain} />
+                ) : (
+                    <ChainIcon size={chainSize} chainId={token.chainId} />
+                )}
             </span>
         </span>
     );

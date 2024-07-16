@@ -17,7 +17,8 @@ async function getAllTokenList(address: string) {
 export async function getTokensByAddress(address: string): Promise<
     Array<
         DebankToken & {
-            chainId: number | null;
+            chainId?: number;
+            chainLogoUrl?: string;
         }
     >
 > {
@@ -27,7 +28,8 @@ export async function getTokensByAddress(address: string): Promise<
         const chain = DEBANK_CHAINS.find((chain) => chain.id === token.chain);
         return {
             ...token,
-            chainId: chain?.community_id ?? null,
+            chainId: chain?.community_id,
+            chainLogoUrl: chain?.logo_url,
         };
     });
 }
