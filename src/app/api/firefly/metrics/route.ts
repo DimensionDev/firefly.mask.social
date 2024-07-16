@@ -223,10 +223,10 @@ export async function POST(request: Request) {
         case CryptoUsage.Decrypt: {
             const decrypted = parseJSON<unknown[]>(decrypt(parsed.data.cipher));
 
-            console.log('DEBUG: decrypted')
+            console.log('DEBUG: decrypted');
             console.log({
                 decrypted,
-            })
+            });
 
             // validate metrics
             const metrics = MetricsSchema.safeParse(decrypted);
