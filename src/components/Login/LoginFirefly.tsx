@@ -12,7 +12,6 @@ import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -20,6 +19,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import { createAccountByGrantPermission } from '@/providers/firefly/createAccountByGrantPermission.js';
 import type { Account } from '@/providers/types/Account.js';
 import { DeviceType } from '@/types/device.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 
 async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {
     try {

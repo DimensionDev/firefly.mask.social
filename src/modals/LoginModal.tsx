@@ -29,6 +29,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 
 export interface LoginModalOpenProps {
     source?: ProfileSource;
@@ -71,13 +72,12 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
                         });
                         if (!profiles.length) {
                             enqueueErrorMessage(
-                                <div>
-                                    <span className="font-bold">
-                                        <Trans>Wrong wallet</Trans>
-                                    </span>
-                                    <br />
-                                    <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
-                                </div>,
+                                <SnackbarErrorMessage
+                                    title={<Trans>Wrong wallet</Trans>}
+                                    message={
+                                        <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
+                                    }
+                                />,
                             );
                             return;
                         }
