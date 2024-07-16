@@ -31,6 +31,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
 
 function getTitle(displayInfo: SchedulePostDisplayInfo) {
+    if (!displayInfo) return;
     switch (displayInfo.type) {
         case 'compose':
             if (displayInfo.posts.length > 1) return <Trans>THREAD POST</Trans>;

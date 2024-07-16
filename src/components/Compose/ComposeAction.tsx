@@ -35,6 +35,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {}
@@ -46,8 +47,9 @@ export function ComposeAction(props: ComposeActionProps) {
     const currentProfileAll = useCurrentProfileAll();
     const post = useCompositePost();
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { availableSources, images, video, restriction, parentPost, channel, poll } = post;
+    const { availableSources, images, video, restriction, parentPost, channel, poll, rpPayload } = post;
 
+    const { scheduleTime } = useComposeScheduleStateStore();
     const { usedLength, availableLength } = measureChars(post);
 
     const setEditorContent = useSetEditorContent();
@@ -112,7 +114,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
-                {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
+                {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled && !rpPayload ? (
                     <SchedulePostEntryButton className="text-main" />
                 ) : null}
 
@@ -145,25 +147,27 @@ export function ComposeAction(props: ComposeActionProps) {
                     </>
                 ) : null}
 
-                <div
-                    className={classNames(
-                        'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
-                        {
-                            'opacity-50': loading || mediaDisabled,
-                            'cursor-not-allowed': mediaDisabled,
-                            'cursor-pointer': !mediaDisabled,
-                        },
-                    )}
-                    onClick={async () => {
-                        if (loading || mediaDisabled) return;
-                        openRedPacketComposeDialog();
-                    }}
-                >
-                    <RedPacketIcon width={16} height={16} />
-                    <span className="text-[13px] font-medium leading-6 text-lightMain">
-                        <Trans>LuckyDrop</Trans>
-                    </span>
-                </div>
+                {!scheduleTime ? (
+                    <div
+                        className={classNames(
+                            'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
+                            {
+                                'opacity-50': loading || mediaDisabled,
+                                'cursor-not-allowed': mediaDisabled,
+                                'cursor-pointer': !mediaDisabled,
+                            },
+                        )}
+                        onClick={async () => {
+                            if (loading || mediaDisabled) return;
+                            openRedPacketComposeDialog();
+                        }}
+                    >
+                        <RedPacketIcon width={16} height={16} />
+                        <span className="text-[13px] font-medium leading-6 text-lightMain">
+                            <Trans>LuckyDrop</Trans>
+                        </span>
+                    </div>
+                ) : null}
 
                 {usedLength && !isMedium ? (
                     <div className="ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">

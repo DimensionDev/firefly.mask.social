@@ -8,31 +8,38 @@ import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import dayjs from 'dayjs';
 
 export async function crossPostScheduleThread(scheduleTime: Date) {
-    const { posts, type } = useComposeStateStore.getState();
-    if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
-
-    const results = new Map<
-        SocialSourceInURL,
-        { platform: SocialSourceInURL; platformUserId: string; payload: SchedulePayload[] }
-    >();
-
-    for (const [index, post] of posts.entries()) {
-        const payload = await createSchedulePostsPayload(index === 0 ? 'compose' : 'reply', post, true);
-        payload.forEach((x) => {
-            const origin = results.get(x.platform);
-            results.set(x.platform, {
-                ...x,
-                payload: origin ? [...origin.payload, x.payload] : [x.payload],
-            });
-        });
-        await delay(1000);
-    }
-
-    const postsPayload = [...results.values()];
-
     try {
+        const { posts, type } = useComposeStateStore.getState();
+        if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
+
+        if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
+            throw new Error(t`Up to 7 days can be set as the scheduled time. Please reset it.`);
+        } else if (dayjs().isAfter(scheduleTime, 'minute')) {
+            throw new Error(t`The scheduled time has passed. Please reset it.`);
+        }
+
+        const results = new Map<
+            SocialSourceInURL,
+            { platform: SocialSourceInURL; platformUserId: string; payload: SchedulePayload[] }
+        >();
+
+        for (const [index, post] of posts.entries()) {
+            const payload = await createSchedulePostsPayload(index === 0 ? 'compose' : 'reply', post, true);
+            payload.forEach((x) => {
+                const origin = results.get(x.platform);
+                results.set(x.platform, {
+                    ...x,
+                    payload: origin ? [...origin.payload, x.payload] : [x.payload],
+                });
+            });
+            await delay(1000);
+        }
+
+        const postsPayload = [...results.values()];
+
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
             postsPayload.map((x) => ({
