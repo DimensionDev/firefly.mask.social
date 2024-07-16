@@ -4,6 +4,7 @@ import { useAsyncFn } from 'react-use';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -25,7 +26,7 @@ export function useDeletePost(source: SocialSource) {
                 }
                 enqueueSuccessMessage(t`Post was deleted`);
             } catch (error) {
-                enqueueErrorMessage(t`Failed to delete`, {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete`), {
                     error,
                 });
                 throw error;

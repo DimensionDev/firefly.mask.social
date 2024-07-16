@@ -1176,6 +1176,9 @@ msgstr "顯示更多評論"
 msgid "Failed to parse session."
 msgstr ""
 
+msgid "The signer is not authorized to perform the requested operation. Please login again."
+msgstr ""
+
 msgid "Feedback"
 msgstr "反饋"
 
@@ -1447,6 +1450,9 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Owner can change balance"
+msgstr ""
+
+msgid "Failed to validate farcaster session."
 msgstr ""
 
 msgid "{identity} watched"

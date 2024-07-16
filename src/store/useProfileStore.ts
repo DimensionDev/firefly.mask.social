@@ -178,7 +178,9 @@ const useFarcasterStateBase = createState(
             state.upgrade();
 
             if (state.currentProfileSession) {
-                farcasterSessionHolder.resumeSession(state.currentProfileSession as FarcasterSession);
+                const farcasterSession = state.currentProfileSession as FarcasterSession;
+
+                farcasterSessionHolder.resumeSession(farcasterSession);
             }
         },
     },

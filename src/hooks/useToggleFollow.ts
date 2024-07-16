@@ -3,6 +3,7 @@ import { useIsMutating, useMutation } from '@tanstack/react-query';
 import { ClientError } from 'graphql-request';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -51,9 +52,12 @@ export function useToggleFollow(profile: Profile) {
                     }
                 }
                 enqueueErrorMessage(
-                    following
-                        ? t`Failed to unfollow @${profile.handle} on ${sourceName}`
-                        : t`Failed to follow @${profile.handle} on ${sourceName}`,
+                    getSnackbarMessageFromError(
+                        error,
+                        following
+                            ? t`Failed to unfollow @${profile.handle} on ${sourceName}`
+                            : t`Failed to follow @${profile.handle} on ${sourceName}`,
+                    ),
                     { error },
                 );
                 throw error;

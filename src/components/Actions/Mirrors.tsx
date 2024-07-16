@@ -15,6 +15,7 @@ import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -96,7 +97,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const [{ loading }, handleMirror] = useAsyncFn(async () => {
         if (!postId) return;
 
-        const mirror = async () => {
+        const mirrorOrUnmirror = async () => {
             switch (source) {
                 case Source.Farcaster: {
                     const result = await (mirrored
@@ -124,21 +125,21 @@ export const Mirror = memo<MirrorProps>(function Mirror({
         };
 
         try {
-            await mirror();
+            await mirrorOrUnmirror();
         } catch (error) {
             switch (source) {
                 case Source.Farcaster:
-                    enqueueErrorMessage(t`Failed to recast.`, {
+                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to recast.`), {
                         error,
                     });
                     break;
                 case Source.Lens:
-                    enqueueErrorMessage(t`Failed to mirror.`, {
+                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mirror.`), {
                         error,
                     });
                     break;
                 case Source.Twitter:
-                    enqueueErrorMessage(t`Failed to retweet.`, {
+                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to retweet.`), {
                         error,
                     });
                     break;

@@ -14,7 +14,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, Source } from '@/constants/enum.js';
-import { AbortError, NotImplementedError, ProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { AbortError, NotImplementedError, FarcasterProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -82,7 +82,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
-    const [profileError, setProfileError] = useState<ProfileNotConnectedError | null>(null);
+    const [profileError, setProfileError] = useState<FarcasterProfileNotConnectedError | null>(null);
 
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
@@ -139,7 +139,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
 
                     if (!account.session.token) {
                         setProfileError(
-                            new ProfileNotConnectedError(
+                            new FarcasterProfileNotConnectedError(
                                 account.profile,
                                 t`You didn't connect with Firefly before, need to connect first to fully log in.`,
                             ),

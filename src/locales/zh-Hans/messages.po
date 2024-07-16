@@ -1176,6 +1176,9 @@ msgstr "展示更多评论"
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
+msgid "The signer is not authorized to perform the requested operation. Please login again."
+msgstr ""
+
 msgid "Feedback"
 msgstr "问题反馈"
 
@@ -1448,6 +1451,9 @@ msgstr "登录以启用所有功能"
 
 msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
+
+msgid "Failed to validate farcaster session."
+msgstr ""
 
 msgid "{identity} watched"
 msgstr "{identity} 已关注"

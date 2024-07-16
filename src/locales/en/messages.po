@@ -1171,6 +1171,9 @@ msgstr "Show more comments"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
+msgid "The signer is not authorized to perform the requested operation. Please login again."
+msgstr "The signer is not authorized to perform the requested operation. Please login again."
+
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -1443,6 +1446,9 @@ msgstr "Login to enable all features"
 
 msgid "Owner can change balance"
 msgstr "Owner can change balance"
+
+msgid "Failed to validate farcaster session."
+msgstr "Failed to validate farcaster session."
 
 msgid "{identity} watched"
 msgstr "{identity} watched"

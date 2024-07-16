@@ -1,8 +1,8 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { SnackbarMessage } from 'notistack';
 import { UserRejectedRequestError } from 'viem';
 
-import { FetchError } from '@/constants/error.js';
+import { FetchError, UnauthorizedError } from '@/constants/error.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
@@ -13,8 +13,14 @@ import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetc
  * @returns
  */
 export function getSnackbarMessageFromError(error: unknown, fallback: string): SnackbarMessage {
-    return error instanceof Error ? (
-        error instanceof UserRejectedRequestError ? (
+    if (!(error instanceof Error)) return fallback;
+
+    if (error instanceof UnauthorizedError) {
+        return t`The signer is not authorized to perform the requested operation. Please login again.`;
+    }
+
+    if (error instanceof UserRejectedRequestError) {
+        return (
             <div>
                 <span className="font-bold">
                     <Trans>Connection failed</Trans>
@@ -22,12 +28,12 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
                 <br />
                 <Trans>The user rejected the request.</Trans>
             </div>
-        ) : error instanceof FetchError && IS_PRODUCTION ? (
-            getErrorMessageFromFetchError(error)
-        ) : (
-            error.message
-        )
-    ) : (
-        fallback
-    );
+        );
+    }
+
+    if (error instanceof FetchError && IS_PRODUCTION) {
+        return getErrorMessageFromFetchError(error);
+    }
+
+    return error.message;
 }
