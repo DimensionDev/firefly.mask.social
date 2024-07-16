@@ -47,5 +47,5 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
         );
     }
 
-    return error.message;
+    return fallback;
 }

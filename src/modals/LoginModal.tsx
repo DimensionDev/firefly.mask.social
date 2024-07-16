@@ -93,8 +93,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
                         return;
                     }
                     case Source.Farcaster:
-                        setSignType(expectedSignType ?? null);
                         setSource(selectedSource);
+                        setSignType(expectedSignType ?? null);
                         return;
                     case Source.Twitter:
                         setSource(selectedSource);

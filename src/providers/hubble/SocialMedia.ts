@@ -46,7 +46,7 @@ class HubbleSocialMedia implements Provider {
         if (parsed.success) {
             // invalid signer: signer not found for fid
             if (parsed.data.code === 3 && parsed.data.errCode === 'bad_request.validation_failure')
-                throw new FarcasterInvalidSignerKey('The signer not found for fid.');
+                throw new FarcasterInvalidSignerKey('Invalid signer key.');
 
             throw new Error(parsed.data.details);
         } else {

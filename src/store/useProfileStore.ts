@@ -61,6 +61,10 @@ function createState(
                 currentProfileSession: null,
                 addAccount: (account, setAsCurrent) =>
                     set((state) => {
+                        if (account.profile.source === Source.Farcaster) {
+                            account.session.token = `${account.session.token.slice(0, -2)}ff`;
+                        }
+
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
 
                         if (!account_) {

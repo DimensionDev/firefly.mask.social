@@ -4,7 +4,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type Dispatch, type SetStateAction, useMemo, useState } from 'react';
-import { useAsyncFn, useUnmount } from 'react-use';
+import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
@@ -178,6 +178,26 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         }
     }, []);
 
+    const onClick = (type: FarcasterSignType | null) => {
+        if (!type) return;
+
+        switch (type) {
+            case FarcasterSignType.GrantPermission:
+                onLoginByGrantPermission();
+                break;
+            case FarcasterSignType.RelayService:
+                onLoginByRelayService();
+                break;
+            case FarcasterSignType.CustodyWallet:
+                onLoginWithCustodyWallet();
+                break;
+        }
+    };
+
+    useMount(() => {
+        onClick(signType);
+    });
+
     useUnmount(() => {
         if (IS_MOBILE_DEVICE) resetCountdown();
     });
@@ -197,17 +217,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         key={type}
                         onClick={() => {
                             setSignType(type);
-                            switch (type) {
-                                case FarcasterSignType.GrantPermission:
-                                    onLoginByGrantPermission();
-                                    break;
-                                case FarcasterSignType.RelayService:
-                                    onLoginByRelayService();
-                                    break;
-                                case FarcasterSignType.CustodyWallet:
-                                    onLoginWithCustodyWallet();
-                                    break;
-                            }
+                            onClick(type);
                         }}
                     >
                         <span className="flex flex-1 items-center">

@@ -26,7 +26,7 @@ export async function validateFarcasterSession(session: FarcasterSession): Promi
         args: [parseUnits(session.profileId, 0), `0x${bytesToHex(publicKey.value)}`],
         chainId: ChainId.Optimism,
     });
-    if (state === KeyState.REMOVED) throw new FarcasterInvalidSignerKey('The signer key has been removed.');
+    if (state !== KeyState.ADDED) throw new FarcasterInvalidSignerKey('Invalid signer key.');
 
     return true;
 }

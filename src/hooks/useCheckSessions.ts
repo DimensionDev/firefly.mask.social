@@ -2,7 +2,6 @@ import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
 import { Source } from '@/constants/enum.js';
-import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -21,7 +20,6 @@ export function useCheckSessions() {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to validate farcaster session.`), {
                 error,
             });
-            checkFarcasterInvalidSignerKey(error);
             throw error;
         }
 
