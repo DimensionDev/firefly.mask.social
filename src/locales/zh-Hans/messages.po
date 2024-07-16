@@ -1083,6 +1083,9 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 msgid "Failed to unwatch {identity}"
 msgstr "取消关注 {identity} 失败"
 
+msgid "Invalid signer key"
+msgstr ""
+
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
 

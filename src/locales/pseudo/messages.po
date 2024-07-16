@@ -1078,6 +1078,9 @@ msgstr ""
 msgid "Failed to unwatch {identity}"
 msgstr ""
 
+msgid "Invalid signer key"
+msgstr ""
+
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
 

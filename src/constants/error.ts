@@ -49,7 +49,7 @@ export class FarcasterProfileNotConnectedError extends Error {
 
 export class FarcasterInvalidSignerKey extends Error {
     constructor(message?: string) {
-        super(message ?? 'Invalid Farcaster signer key');
+        super(message ?? 'Invalid Farcaster signer key.');
     }
 }
 

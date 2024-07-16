@@ -1,7 +1,8 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { SnackbarMessage } from 'notistack';
 import { UserRejectedRequestError } from 'viem';
 
+import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { FetchError, UnauthorizedError } from '@/constants/error.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
@@ -16,18 +17,22 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
     if (!(error instanceof Error)) return fallback;
 
     if (error instanceof UnauthorizedError) {
-        return t`The signer is not authorized to perform the requested operation. Please login again.`;
+        return (
+            <SnackbarErrorMessage
+                title={<Trans>Invalid signer key</Trans>}
+                message={
+                    <Trans>The signer is not authorized to perform the requested operation. Please login again.</Trans>
+                }
+            />
+        );
     }
 
     if (error instanceof UserRejectedRequestError) {
         return (
-            <div>
-                <span className="font-bold">
-                    <Trans>Connection failed</Trans>
-                </span>
-                <br />
-                <Trans>The user rejected the request.</Trans>
-            </div>
+            <SnackbarErrorMessage
+                title={<Trans>Connection failed</Trans>}
+                message={<Trans>The user rejected the request.</Trans>}
+            />
         );
     }
 

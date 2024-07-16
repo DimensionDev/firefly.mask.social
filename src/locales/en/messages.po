@@ -1078,6 +1078,9 @@ msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgid "Failed to unwatch {identity}"
 msgstr "Failed to unwatch {identity}"
 
+msgid "Invalid signer key"
+msgstr "Invalid signer key"
+
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"
 
