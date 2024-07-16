@@ -9,7 +9,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { NotificationFilter } from '@/components/Notification/NotificationFilter.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -25,13 +24,13 @@ function useNotificationTypes(source: SocialSource) {
         [Source.Twitter]: [],
     });
 
-    const types = typesMap[source] || EMPTY_LIST;
+    const types = typesMap[source];
     const setTypes: Dispatch<SetStateAction<NotificationType[]>> = useCallback(
         (types) => {
             setTypesMap((map) => {
                 return {
                     ...map,
-                    [source]: typeof types === 'function' ? types(map[source] || EMPTY_LIST) : types,
+                    [source]: typeof types === 'function' ? types(map[source]) : types,
                 };
             });
         },

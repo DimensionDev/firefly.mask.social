@@ -14,7 +14,7 @@ build/
 
 # Ignore all files of a specific type in a specific directory
 public/*.html
-public/js/polyfills/*.js
+public/js/*.js
 
 # Ignore specific files in a directory
 src/specialFile.js
