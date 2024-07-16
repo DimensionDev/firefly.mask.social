@@ -60,7 +60,9 @@ export function useCurrentFireflyProfilesAll(source?: SocialSource) {
         queryFn: async () => {
             return FireflySocialMediaProvider.getAllPlatformProfiles(
                 source && source !== Source.Lens ? undefined : resolveProfileId(currentProfileAll[Source.Lens]),
-                source && source !== Source.Farcaster ? undefined : resolveProfileId(currentProfileAll[Source.Farcaster]),
+                source && source !== Source.Farcaster
+                    ? undefined
+                    : resolveProfileId(currentProfileAll[Source.Farcaster]),
                 source && source !== Source.Twitter ? undefined : resolveProfileId(currentProfileAll[Source.Twitter]),
             );
         },
