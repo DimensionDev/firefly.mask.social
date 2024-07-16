@@ -51,7 +51,7 @@ export function useCurrentFireflyProfiles() {
     }, [currentProfileAll]);
 }
 
-export function useCurrentFireflyProfilesAll() {
+export function useCurrentFireflyProfilesAll(source?: SocialSource) {
     const currentProfileAll = useCurrentProfileAll();
     const currentFireflyProfiles = useCurrentFireflyProfiles();
 
@@ -59,9 +59,9 @@ export function useCurrentFireflyProfilesAll() {
         queryKey: ['all-profiles', 'myself', currentProfileAll],
         queryFn: async () => {
             return FireflySocialMediaProvider.getAllPlatformProfiles(
-                resolveProfileId(currentProfileAll[Source.Lens]),
-                resolveProfileId(currentProfileAll[Source.Farcaster]),
-                resolveProfileId(currentProfileAll[Source.Twitter]),
+                source && source !== Source.Lens ? undefined : resolveProfileId(currentProfileAll[Source.Lens]),
+                source && source !== Source.Farcaster ? undefined : resolveProfileId(currentProfileAll[Source.Farcaster]),
+                source && source !== Source.Twitter ? undefined : resolveProfileId(currentProfileAll[Source.Twitter]),
             );
         },
         staleTime: 1000 * 60 * 5,

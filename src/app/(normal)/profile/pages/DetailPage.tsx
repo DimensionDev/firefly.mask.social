@@ -8,6 +8,7 @@ import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
 import { type SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -22,7 +23,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
     const profileTab = { source: resolveSourceFromUrl(source), identity };
 
     const { setProfileTab } = useProfileTabState();
-    const currentProfiles = useCurrentFireflyProfilesAll();
+    const currentProfiles = useCurrentFireflyProfilesAll(narrowToSocialSource(profileTab.source));
     const isCurrentProfile = currentProfiles.some(
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
     );
