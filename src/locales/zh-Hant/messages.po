@@ -976,7 +976,7 @@ msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
 msgid "Failed to watch {identity}."
-msgstr ""
+msgstr "觀察 @{identity} 失敗。"
 
 msgid "Mute"
 msgstr "靜音"
@@ -1336,7 +1336,7 @@ msgid "Failed to publish post."
 msgstr "發布貼文失敗"
 
 msgid "Muted @{0} on {sourceName}."
-msgstr "已在{sourceName} 上靜音 @{0}"
+msgstr "已在 {sourceName} 上靜音 @{0}"
 
 msgid "Quotes"
 msgstr "引用"

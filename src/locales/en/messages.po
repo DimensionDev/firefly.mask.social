@@ -200,7 +200,7 @@ msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
 msgid "Failed to un-bookmark article."
-msgstr "Failed to un-bookmark"
+msgstr "Failed to un-bookmark article."
 
 msgid "Poll"
 msgstr "Poll"
