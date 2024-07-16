@@ -463,6 +463,9 @@ msgstr ""
 msgid "Items"
 msgstr ""
 
+msgid "Failed to upload. More than {maxImageCount} images."
+msgstr ""
+
 msgid "Less than a minute left"
 msgstr ""
 
@@ -698,9 +701,6 @@ msgid "Days"
 msgstr ""
 
 msgid "Insufficient Gas"
-msgstr ""
-
-msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "Blacklist function"

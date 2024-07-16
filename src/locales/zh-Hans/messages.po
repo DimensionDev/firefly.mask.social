@@ -468,6 +468,9 @@ msgstr "转帖"
 msgid "Items"
 msgstr "条目"
 
+msgid "Failed to upload. More than {maxImageCount} images."
+msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
+
 msgid "Less than a minute left"
 msgstr "剩不到一分钟"
 
@@ -704,9 +707,6 @@ msgstr "天"
 
 msgid "Insufficient Gas"
 msgstr ""
-
-msgid "Failed to upload. More than {maxImageCount} images"
-msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制"
 
 msgid "Blacklist function"
 msgstr "黑名单功能"

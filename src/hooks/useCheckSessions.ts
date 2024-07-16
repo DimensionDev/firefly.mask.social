@@ -11,7 +11,7 @@ import { validateFarcasterSession } from '@/services/validateFarcasterSignerKey.
 export function useCheckSessions() {
     const { availableSources } = useCompositePost();
 
-    return useCallback<() => Promise<true>>(async () => {
+    return useCallback(async () => {
         try {
             if (availableSources.includes(Source.Farcaster)) {
                 await validateFarcasterSession(farcasterSessionHolder.sessionRequired);
@@ -26,9 +26,10 @@ export function useCheckSessions() {
                     error,
                 },
             );
-            throw error;
+            // indicate that the session is not valid
+            return true;
         }
 
-        return true;
+        return false;
     }, [availableSources]);
 }
