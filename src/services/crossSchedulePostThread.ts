@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
+import dayjs from 'dayjs';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -8,7 +9,6 @@ import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import dayjs from 'dayjs';
 
 export async function crossPostScheduleThread(scheduleTime: Date) {
     try {
