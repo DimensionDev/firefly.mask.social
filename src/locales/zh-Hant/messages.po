@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-15 12:01\n"
+"PO-Revision-Date: 2024-07-16 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -103,7 +103,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr ""
 
 msgid "Select token"
-msgstr ""
+msgstr "選擇代幣"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
@@ -532,7 +532,7 @@ msgid "Whitelist function"
 msgstr "白名單功能"
 
 msgid "Profile could not be found."
-msgstr ""
+msgstr "無法找到個人資料"
 
 msgid "Failed to mute /{0}."
 msgstr "對 @{0} 的靜音失敗"
@@ -574,7 +574,7 @@ msgid "Remove Choice"
 msgstr ""
 
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 msgid "Mute {identity}"
 msgstr "將 @{identity} 靜音"
@@ -610,10 +610,10 @@ msgid "Log out"
 msgstr "登出"
 
 msgid "Unmuting..."
-msgstr ""
+msgstr "正在靜音中"
 
 msgid "Send Tips"
-msgstr ""
+msgstr "發送小費"
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -664,7 +664,7 @@ msgid "{0} Channels"
 msgstr ""
 
 msgid "Report spam"
-msgstr ""
+msgstr "檢舉垃圾訊息"
 
 msgid "Failed to submit report on {0}"
 msgstr ""
@@ -673,16 +673,16 @@ msgid "like"
 msgstr "喜歡"
 
 msgid "View Source"
-msgstr ""
+msgstr "查看來源"
 
 msgid "Are you sure you want to report this collection?"
-msgstr ""
+msgstr "是否確定要檢舉這條收藏？"
 
 msgid "The scheduled time has passed. Please reset it."
 msgstr ""
 
 msgid "and"
-msgstr ""
+msgstr "以及"
 
 msgid "Channel"
 msgstr "頻道"
@@ -694,31 +694,31 @@ msgid "Comment cannot be empty."
 msgstr ""
 
 msgid "Days"
-msgstr ""
+msgstr "天"
 
 msgid "Failed to unfollow @{0} on {sourceName}"
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗"
 
 msgid "Insufficient Gas"
-msgstr ""
+msgstr "Gas不足"
 
 msgid "Failed to upload. More than {maxImageCount} images"
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
 
 msgid "Blacklist function"
-msgstr ""
+msgstr "黑名單功能"
 
 msgid "AUTHOR ADDRESS"
-msgstr ""
+msgstr "作者地址"
 
 msgid "Failed to send tips."
-msgstr ""
+msgstr "發送小費失敗"
 
 msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
-msgstr ""
+msgstr "你剛給 <1>{1}</1> 發送了 <0>{amount}${0}</0> 的小費！通過提及和發布的方式分享這個訊息吧！"
 
 msgid "Enable development API version"
-msgstr ""
+msgstr "開啟開發API版本"
 
 msgid "Reply"
 msgstr "回覆"
@@ -727,16 +727,16 @@ msgid "Mirror or Quote"
 msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
-msgstr ""
+msgstr "確認對 @{0} 的靜音？"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Tip to @{0}"
-msgstr ""
+msgstr "給 @{0} 發送小費"
 
 msgid "Owned By"
-msgstr ""
+msgstr "擁有者"
 
 msgid "Are you sure you want to report this post?"
 msgstr "是否確定要檢舉這條貼文？"
@@ -1961,3 +1961,4 @@ msgstr "喜歡"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
+
