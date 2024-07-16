@@ -724,6 +724,9 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "Enter amount"
+msgstr "Enter amount"
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
 
@@ -1281,9 +1284,6 @@ msgstr "Delete"
 
 msgid "May the token is a honeypot."
 msgstr "May the token is a honeypot."
-
-msgid "Please select token."
-msgstr "Please select token."
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr "{minutes, plural, one {1 minute} other {{minutes} minutes}}"

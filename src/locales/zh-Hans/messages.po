@@ -729,6 +729,9 @@ msgstr "转帖或者引用"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要屏蔽 /{0} 吗？"
 
+msgid "Enter amount"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
@@ -1286,9 +1289,6 @@ msgstr "删除"
 
 msgid "May the token is a honeypot."
 msgstr "也许这个通证是一个陷阱"
-
-msgid "Please select token."
-msgstr ""
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr "{minutes, plural, one {1 分钟} other {{minutes} 分钟}}"
@@ -1955,4 +1955,3 @@ msgstr "点赞"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
