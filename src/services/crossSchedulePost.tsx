@@ -54,9 +54,15 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
 }
 
 export async function crossSchedulePost(type: ComposeType, compositePost: CompositePost, scheduleTime: Date) {
-    const posts = await createSchedulePostsPayload(type, compositePost);
-
     try {
+        if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
+            throw new Error(t`Up to 7 days can be set as the scheduled time. Please reset it.`);
+        } else if (dayjs().isAfter(scheduleTime, 'minute')) {
+            throw new Error(t`The scheduled time has passed. Please reset it.`);
+        }
+
+        const posts = await createSchedulePostsPayload(type, compositePost);
+
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
             posts.map((x) => ({

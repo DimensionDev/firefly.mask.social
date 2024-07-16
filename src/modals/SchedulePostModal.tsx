@@ -31,7 +31,7 @@ export const SchedulePostModal = forwardRef<SingletonModalRefCreator<SchedulePos
         return (
             <Modal open={open} onClose={() => dispatch?.close()}>
                 <div
-                    className="relative w-[355px] max-w-[90vw] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950"
+                    className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all dark:text-gray-950"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
