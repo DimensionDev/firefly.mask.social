@@ -64,6 +64,7 @@ export function useCurrentFireflyProfilesAll() {
                 resolveProfileId(currentProfileAll[Source.Twitter]),
             );
         },
+        staleTime: 1000 * 60 * 5,
     });
 
     return useMemo(() => {

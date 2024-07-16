@@ -23,7 +23,7 @@ export const WalletSelector = memo(function WalletSelector() {
     return (
         <>
             <TipsModalHeader back title={t`Select Wallet`} />
-            <div className="h-80 overflow-y-auto">
+            <div className="h-80 overflow-y-auto no-scrollbar">
                 {receiverList.map((receiver) => (
                     <ClickableButton
                         key={receiver.address}

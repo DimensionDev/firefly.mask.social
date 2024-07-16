@@ -8,6 +8,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { type Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { TipsModalRef } from '@/modals/controls.js';
 
 interface TipsProps extends HTMLProps<HTMLDivElement> {
@@ -32,12 +33,18 @@ export const Tips = memo(function Tips({
     className,
     onClick,
 }: TipsProps) {
+    const profiles = useCurrentFireflyProfilesAll();
+
     const handleClick = () => {
         TipsModalRef.open({ identity, source, handle, pureWallet });
         onClick?.();
     };
 
-    if (env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled) return null;
+    if (
+        env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||
+        profiles.some((profile) => profile.identity === identity && profile.source === source)
+    )
+        return null;
 
     return (
         <ClickableArea

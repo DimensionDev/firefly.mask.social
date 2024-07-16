@@ -15,19 +15,19 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
-    const { amount, token, receiver, handle, hash: hashUrl, pureWallet, socialProfiles } = TipsContext.useContainer();
+    const { amount, token, receiver, handle, hash: hashUrl, socialProfiles } = TipsContext.useContainer();
     const currentChannel = useCurrentVisitingChannel();
     const { context } = useMatch({ from: rootRouteId });
 
     const { canShare, walletName } = useMemo(() => {
         const __origin__ = receiver?.__origin__ as WalletProfile;
-        if (pureWallet || !handle || !__origin__?.verifiedSources?.length || !socialProfiles.length)
+        if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length)
             return { canShare: false };
         return {
             canShare: true,
             walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
         };
-    }, [receiver, pureWallet, handle, socialProfiles]);
+    }, [receiver, handle, socialProfiles]);
 
     const onShare = () => {
         const expectedSources = getCurrentAvailableSources().filter((source) => {
