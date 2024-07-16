@@ -46,8 +46,8 @@ export function useToggleFollow(profile: Profile) {
                     getSnackbarMessageFromError(
                         error,
                         following
-                            ? t`Failed to unfollow @${profile.handle} on ${sourceName}`
-                            : t`Failed to follow @${profile.handle} on ${sourceName}`,
+                            ? t`Failed to unfollow @${profile.handle} on ${sourceName}.`
+                            : t`Failed to follow @${profile.handle} on ${sourceName}.`,
                     ),
                     { error },
                 );

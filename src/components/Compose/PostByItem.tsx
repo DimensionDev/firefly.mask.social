@@ -39,7 +39,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
             await switchAccount(account);
             enqueueSuccessMessage(t`Your ${resolveSourceName(account.profile.source)} account is now connected.`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;

@@ -18,7 +18,7 @@ export function useReportPost() {
 
             return result;
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to submit report on ${post.source}`), {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to submit report on ${post.source}.`), {
                 error,
             });
             throw error;

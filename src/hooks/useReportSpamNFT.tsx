@@ -77,7 +77,7 @@ export function useReportSpamNFT() {
             await muteNFT(collectionId);
             enqueueSuccessMessage(t`Report submitted`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Report Failed`), {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report spam NFT.`), {
                 error,
             });
             throw error;

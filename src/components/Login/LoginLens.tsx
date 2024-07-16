@@ -69,7 +69,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 // skip if the error is abort error
                 if (AbortError.is(error)) return;
 
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                     error,
                 });
                 throw error;

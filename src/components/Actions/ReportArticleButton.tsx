@@ -44,7 +44,7 @@ export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function
                 try {
                     await mutation.mutateAsync();
                 } catch (error) {
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report @${article.title}`), {
+                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report @${article.title}.`), {
                         error,
                     });
                     throw error;

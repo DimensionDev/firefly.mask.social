@@ -381,9 +381,6 @@ msgstr "通過 Firefly 重新連接"
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
 
-msgid "Failed to delete"
-msgstr "刪除失敗"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -1179,9 +1176,6 @@ msgstr "顯示更多評論"
 msgid "Failed to parse session."
 msgstr ""
 
-msgid "The signer is not authorized to perform the requested operation. Please login again."
-msgstr ""
-
 msgid "Feedback"
 msgstr "反饋"
 
@@ -1440,6 +1434,9 @@ msgstr ""
 msgid "Image"
 msgstr "圖片"
 
+msgid "Failed to delete post."
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}"
 msgstr "已在{sourceName} 上靜音 @{0}"
 
@@ -1453,9 +1450,6 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Owner can change balance"
-msgstr ""
-
-msgid "Failed to validate farcaster session."
 msgstr ""
 
 msgid "{identity} watched"
@@ -1613,6 +1607,9 @@ msgstr ""
 
 msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
+
+msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
 
 msgid "Add another option"
 msgstr ""

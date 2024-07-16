@@ -33,7 +33,7 @@ export function useToggleBookmark(source: SocialSource) {
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(
                         error,
-                        hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`,
+                        hasBookmarked ? t`Failed to un-bookmark post.` : t`Failed to bookmark post.`,
                     ),
                     {
                         error,

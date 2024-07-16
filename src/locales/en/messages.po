@@ -376,9 +376,6 @@ msgstr "Reconnect with Firefly"
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
-msgid "Failed to delete"
-msgstr "Failed to delete"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
@@ -1174,9 +1171,6 @@ msgstr "Show more comments"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
-msgid "The signer is not authorized to perform the requested operation. Please login again."
-msgstr "The signer is not authorized to perform the requested operation. Please login again."
-
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -1435,6 +1429,9 @@ msgstr "Casts + Replies"
 msgid "Image"
 msgstr "Image"
 
+msgid "Failed to delete post."
+msgstr "Failed to delete post."
+
 msgid "Muted @{0} on {sourceName}"
 msgstr "Muted @{0} on {sourceName}"
 
@@ -1449,9 +1446,6 @@ msgstr "Login to enable all features"
 
 msgid "Owner can change balance"
 msgstr "Owner can change balance"
-
-msgid "Failed to validate farcaster session."
-msgstr "Failed to validate farcaster session."
 
 msgid "{identity} watched"
 msgstr "{identity} watched"
@@ -1608,6 +1602,9 @@ msgstr "Image upload failed. Please try again."
 
 msgid "Only people you follow"
 msgstr "Only people you follow"
+
+msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr "The signer is not authorized to perform the requested operation. Please approve again."
 
 msgid "Add another option"
 msgstr "Add another option"

@@ -17,9 +17,15 @@ export function useCheckSessions() {
                 await validateFarcasterSession(farcasterSessionHolder.sessionRequired);
             }
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to validate farcaster session.`), {
-                error,
-            });
+            enqueueErrorMessage(
+                getSnackbarMessageFromError(
+                    error,
+                    t`The signer is not authorized to perform the requested operation. Please approve again.`,
+                ),
+                {
+                    error,
+                },
+            );
             throw error;
         }
 

@@ -18,7 +18,7 @@ export function useReportProfile() {
             else enqueueErrorMessage(t`Failed to report @${profile.handle}`);
             return result;
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report @${profile.handle}`), { error });
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report @${profile.handle}.`), { error });
             throw error;
         }
     }, []);

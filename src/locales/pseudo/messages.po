@@ -376,9 +376,6 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
-msgid "Failed to delete"
-msgstr ""
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -1174,9 +1171,6 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr ""
 
-msgid "The signer is not authorized to perform the requested operation. Please login again."
-msgstr ""
-
 msgid "Feedback"
 msgstr ""
 
@@ -1435,6 +1429,9 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
+msgid "Failed to delete post."
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}"
 msgstr ""
 
@@ -1448,9 +1445,6 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Owner can change balance"
-msgstr ""
-
-msgid "Failed to validate farcaster session."
 msgstr ""
 
 msgid "{identity} watched"
@@ -1607,6 +1601,9 @@ msgid "Image upload failed. Please try again."
 msgstr ""
 
 msgid "Only people you follow"
+msgstr ""
+
+msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr ""
 
 msgid "Add another option"

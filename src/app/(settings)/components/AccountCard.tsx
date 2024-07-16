@@ -22,7 +22,7 @@ export function AccountCard({ account, isCurrent }: AccountCardProps) {
             await switchAccount(nextAccount);
             enqueueSuccessMessage(t`Your ${resolveSourceName(nextAccount.profile.source)} account is now connected.`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
                 error,
             });
             throw error;

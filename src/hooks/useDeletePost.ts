@@ -27,7 +27,7 @@ export function useDeletePost(source: SocialSource) {
                 }
                 enqueueSuccessMessage(t`Post was deleted`);
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete`), {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete post.`), {
                     error,
                 });
                 checkFarcasterInvalidSignerKey(error);

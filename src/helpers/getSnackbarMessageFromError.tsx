@@ -5,7 +5,7 @@ import type { SnackbarMessage } from 'notistack';
 import { UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
-import { FetchError, UnauthorizedError } from '@/constants/error.js';
+import { FarcasterInvalidSignerKey, FetchError } from '@/constants/error.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
@@ -27,12 +27,14 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
         return getErrorMessageFromFetchError(error);
     }
 
-    if (error instanceof UnauthorizedError) {
+    if (error instanceof FarcasterInvalidSignerKey) {
         return (
             <SnackbarErrorMessage
                 title={<Trans>Invalid signer key</Trans>}
                 message={
-                    <Trans>The signer is not authorized to perform the requested operation. Please login again.</Trans>
+                    <Trans>
+                        The signer is not authorized to perform the requested operation. Please approve again.
+                    </Trans>
                 }
             />
         );

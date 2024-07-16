@@ -36,7 +36,7 @@ export function useToggleArticleBookmark() {
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(
                         error,
-                        hasBookmarked ? t`Failed to un-bookmark` : t`Failed to bookmark`,
+                        hasBookmarked ? t`Failed to un-bookmark article.` : t`Failed to bookmark article.`,
                     ),
                     {
                         error,

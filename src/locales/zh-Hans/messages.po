@@ -381,9 +381,6 @@ msgstr "使用 Firefly 重连"
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
-msgid "Failed to delete"
-msgstr "删除失败"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
 
@@ -1179,9 +1176,6 @@ msgstr "展示更多评论"
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
-msgid "The signer is not authorized to perform the requested operation. Please login again."
-msgstr ""
-
 msgid "Feedback"
 msgstr "问题反馈"
 
@@ -1440,6 +1434,9 @@ msgstr "帖子+回复"
 msgid "Image"
 msgstr "图片"
 
+msgid "Failed to delete post."
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}"
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
@@ -1454,9 +1451,6 @@ msgstr "登录以启用所有功能"
 
 msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
-
-msgid "Failed to validate farcaster session."
-msgstr ""
 
 msgid "{identity} watched"
 msgstr "{identity} 已关注"
@@ -1613,6 +1607,9 @@ msgstr "图片上传失败。请重试。"
 
 msgid "Only people you follow"
 msgstr "只有你关注的人"
+
+msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
 
 msgid "Add another option"
 msgstr "添加另一个选项"

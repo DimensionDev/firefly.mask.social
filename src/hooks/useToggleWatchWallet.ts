@@ -29,7 +29,7 @@ export function useToggleWatchWallet({ identity, address, following }: Options) 
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(
                         error,
-                        following ? t`Failed to unwatch ${identity}` : t`Failed to watch ${identity}`,
+                        following ? t`Failed to unwatch ${identity}.` : t`Failed to watch ${identity}.`,
                     ),
                     {
                         error,
