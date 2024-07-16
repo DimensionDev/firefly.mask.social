@@ -14,7 +14,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, Source } from '@/constants/enum.js';
-import { AbortError, NotImplementedError, FarcasterProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { AbortError, FarcasterProfileNotConnectedError, NotImplementedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';

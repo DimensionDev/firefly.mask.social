@@ -5,7 +5,7 @@ import { readContract } from '@wagmi/core';
 import { parseUnits, toBytes } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { FarcasterInvalidSignerKey, MalformedError, UnauthorizedError } from '@/constants/error.js';
+import { FarcasterInvalidSignerKey, MalformedError } from '@/constants/error.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 enum KeyState {

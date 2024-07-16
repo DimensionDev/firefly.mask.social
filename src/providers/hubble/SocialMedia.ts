@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 import { z } from 'zod';
 
-import { FarcasterInvalidSignerKey, NotImplementedError, UnauthorizedError } from '@/constants/error.js';
+import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
