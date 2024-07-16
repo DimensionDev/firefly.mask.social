@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
+import { CipherUsage } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
@@ -13,13 +14,8 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-enum Usage {
-    Encrypt = 'encrypt',
-    Decrypt = 'decrypt',
-}
-
 const CipherSchema = z.object({
-    usage: z.nativeEnum(Usage),
+    usage: z.nativeEnum(CipherUsage),
     text: z.string(),
 });
 
@@ -139,11 +135,11 @@ export async function POST(request: Request) {
     const { usage, text } = cipher.data;
 
     switch (usage) {
-        case Usage.Encrypt: {
+        case CipherUsage.Encrypt: {
             const encrypted = encrypt(text);
             return createSuccessResponseJSON(encrypted);
         }
-        case Usage.Decrypt: {
+        case CipherUsage.Decrypt: {
             const decrypted = parseJSON<unknown[]>(decrypt(cipher.data.text));
 
             // validate metrics

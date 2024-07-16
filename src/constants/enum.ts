@@ -182,3 +182,8 @@ export enum NetworkType {
     Ethereum = 'ethereum',
     Solana = 'solana',
 }
+
+export enum CipherUsage {
+    Encrypt = 'encrypt',
+    Decrypt = 'decrypt',
+}

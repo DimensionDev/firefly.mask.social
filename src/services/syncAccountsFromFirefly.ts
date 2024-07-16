@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { CipherUsage, Source } from '@/constants/enum.js';
 import { AbortError, NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -57,7 +57,7 @@ async function decryptMetrics(cipher: string, signal?: AbortSignal) {
     const response = await fetchJSON<ResponseJSON<string[]>>('/api/firefly/metrics', {
         method: 'POST',
         body: JSON.stringify({
-            usage: 'decrypt',
+            usage: CipherUsage.Decrypt,
             text: cipher,
         }),
         signal,
@@ -76,7 +76,7 @@ async function encryptMetrics(sessions: Array<FarcasterSession | LensSession | T
     const response = await fetchJSON<ResponseJSON<string>>('/api/firefly/metrics', {
         method: 'POST',
         body: JSON.stringify({
-            usage: 'encrypt',
+            usage: CipherUsage.Encrypt,
             text: sessions.map((x) => x.serialize()),
         }),
         signal,
