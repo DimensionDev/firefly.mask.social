@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-16 00:05\n"
+"PO-Revision-Date: 2024-07-16 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -117,6 +117,9 @@ msgstr ""
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
+msgid "Failed to unwatch {identity}."
+msgstr ""
+
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
 
@@ -201,6 +204,9 @@ msgstr ""
 msgid "Wrong wallet"
 msgstr ""
 
+msgid "Failed to un-bookmark article."
+msgstr ""
+
 msgid "Poll"
 msgstr ""
 
@@ -222,9 +228,6 @@ msgstr ""
 msgid "Debug Console"
 msgstr ""
 
-msgid "Failed to mute @{0} on {sourceName}"
-msgstr ""
-
 msgid "Login with QR Code"
 msgstr ""
 
@@ -241,9 +244,6 @@ msgid "NFT Standard"
 msgstr ""
 
 msgid "Failed to like the comment."
-msgstr ""
-
-msgid "Failed to login"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
@@ -381,13 +381,10 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
-msgid "Failed to delete"
-msgstr ""
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
-msgid "Report Failed"
+msgid "Failed to follow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Attendees"
@@ -412,6 +409,9 @@ msgid "Search"
 msgstr ""
 
 msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
+msgstr ""
+
+msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Watch"
@@ -468,6 +468,9 @@ msgstr ""
 msgid "Items"
 msgstr ""
 
+msgid "Failed to upload. More than {maxImageCount} images."
+msgstr ""
+
 msgid "Less than a minute left"
 msgstr ""
 
@@ -484,6 +487,9 @@ msgid "Recent"
 msgstr ""
 
 msgid "Info"
+msgstr ""
+
+msgid "Failed to bookmark article."
 msgstr ""
 
 msgid "Max"
@@ -621,9 +627,6 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
-msgid "Failed to un-bookmark article."
-msgstr ""
-
 msgid "post"
 msgstr ""
 
@@ -666,7 +669,13 @@ msgstr ""
 msgid "Report spam"
 msgstr ""
 
+msgid "Failed to un-bookmark post."
+msgstr ""
+
 msgid "Failed to submit report on {0}"
+msgstr ""
+
+msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
 msgid "like"
@@ -696,13 +705,7 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-msgid "Failed to unfollow @{0} on {sourceName}."
-msgstr ""
-
 msgid "Insufficient Gas"
-msgstr ""
-
-msgid "Failed to upload. More than {maxImageCount} images"
 msgstr ""
 
 msgid "Blacklist function"
@@ -729,6 +732,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "Enter amount"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -748,9 +754,6 @@ msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
 msgid "Collected"
-msgstr ""
-
-msgid "Failed to bookmark"
 msgstr ""
 
 msgid "<0>You</0> mirrored"
@@ -834,6 +837,9 @@ msgstr ""
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
 
+msgid "Failed to unmute @{0} on {sourceName}."
+msgstr ""
+
 msgid "Insufficient Balance"
 msgstr ""
 
@@ -906,10 +912,10 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-msgid "Your post has published successfully."
+msgid "Failed to report @{0}."
 msgstr ""
 
-msgid "Failed to follow @{0} on {sourceName}."
+msgid "Your post has published successfully."
 msgstr ""
 
 msgid "1m"
@@ -970,6 +976,9 @@ msgid "Share Now"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+msgstr ""
+
+msgid "Failed to watch {identity}."
 msgstr ""
 
 msgid "Mute"
@@ -1065,9 +1074,6 @@ msgstr ""
 msgid "Creator"
 msgstr ""
 
-msgid "Unmuted @{0} on {sourceName}"
-msgstr ""
-
 msgid "Details"
 msgstr ""
 
@@ -1080,7 +1086,7 @@ msgstr ""
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
-msgid "Failed to unwatch {identity}."
+msgid "Invalid signer key"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
@@ -1209,9 +1215,6 @@ msgstr ""
 msgid "Translated"
 msgstr ""
 
-msgid "Select Wallet"
-msgstr ""
-
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -1275,6 +1278,9 @@ msgstr ""
 msgid "Light Mode"
 msgstr ""
 
+msgid "Failed to submit report on {0}."
+msgstr ""
+
 msgid "Executing"
 msgstr ""
 
@@ -1285,9 +1291,6 @@ msgid "Delete"
 msgstr ""
 
 msgid "May the token is a honeypot."
-msgstr ""
-
-msgid "Please select token."
 msgstr ""
 
 msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
@@ -1327,6 +1330,9 @@ msgid "This does not appear to be a honeypot."
 msgstr ""
 
 msgid "Failed to publish post."
+msgstr ""
+
+msgid "Muted @{0} on {sourceName}."
 msgstr ""
 
 msgid "Quotes"
@@ -1434,7 +1440,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-msgid "Muted @{0} on {sourceName}."
+msgid "Failed to delete post."
 msgstr ""
 
 msgid "Copy"
@@ -1453,9 +1459,6 @@ msgid "{identity} watched"
 msgstr ""
 
 msgid "Notifications"
-msgstr ""
-
-msgid "No available token."
 msgstr ""
 
 msgid "Back"
@@ -1569,9 +1572,6 @@ msgstr ""
 msgid "{0} and others"
 msgstr ""
 
-msgid "Failed to unmute @{0} on {sourceName}."
-msgstr ""
-
 msgid "Date"
 msgstr ""
 
@@ -1603,6 +1603,9 @@ msgid "Image upload failed. Please try again."
 msgstr ""
 
 msgid "Only people you follow"
+msgstr ""
+
+msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr ""
 
 msgid "Add another option"
@@ -1651,6 +1654,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
 msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr ""
+
+msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
@@ -1716,7 +1722,13 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
+msgid "No available token"
+msgstr ""
+
 msgid "View on explorer"
+msgstr ""
+
+msgid "Tip to {0}"
 msgstr ""
 
 msgid "Click to copy"
@@ -1734,9 +1746,6 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
-msgid "Failed to watch {identity}"
-msgstr ""
-
 msgid "{identity} unwatched"
 msgstr ""
 
@@ -1752,6 +1761,9 @@ msgstr ""
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "Failed to report spam NFT."
+msgstr ""
+
 msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
 msgstr ""
 
@@ -1765,6 +1777,9 @@ msgid "No matching users"
 msgstr ""
 
 msgid "Save"
+msgstr ""
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it."
 msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
