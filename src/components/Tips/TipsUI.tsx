@@ -9,7 +9,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsUI = memo(function TipsUI() {
-    const { token, receiver, amount, handle, isSending, update } = TipsContext.useContainer();
+    const { token, receiver, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({
@@ -28,9 +28,15 @@ export const TipsUI = memo(function TipsUI() {
         }
     };
 
+    const tipTitle = receiver
+        ? pureWallet
+            ? t`Tip to ${handle || receiver.displayName}`
+            : t`Tip to @${handle || receiver.displayName}`
+        : '';
+
     return (
         <>
-            <TipsModalHeader title={receiver ? t`Tip to @${handle || receiver.displayName}` : undefined} />
+            <TipsModalHeader title={tipTitle} />
             <div className="font-bold">
                 <WalletSelectorEntry disabled={isSending} />
                 <div className="mt-3 flex gap-x-3">

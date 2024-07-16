@@ -1215,9 +1215,6 @@ msgstr "查看互动"
 msgid "Translated"
 msgstr "已翻译"
 
-msgid "Select Wallet"
-msgstr ""
-
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
@@ -1463,9 +1460,6 @@ msgstr "{identity} 已关注"
 
 msgid "Notifications"
 msgstr "通知"
-
-msgid "No available token."
-msgstr ""
 
 msgid "Back"
 msgstr "返回"
@@ -1728,7 +1722,13 @@ msgstr "your.email@example.org"
 msgid "Unmute"
 msgstr "取消屏蔽"
 
+msgid "No available token"
+msgstr ""
+
 msgid "View on explorer"
+msgstr ""
+
+msgid "Tip to {0}"
 msgstr ""
 
 msgid "Click to copy"

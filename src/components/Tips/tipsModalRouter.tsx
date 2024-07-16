@@ -6,13 +6,11 @@ import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { TipSuccess } from '@/components/Tips/TipSuccess.js';
 import { TipsUI } from '@/components/Tips/TipsUI.js';
 import { TokenSelector } from '@/components/Tips/TokenSelector.js';
-import { WalletSelector } from '@/components/Tips/WalletSelector.js';
 
 export enum TipsRoutePath {
     TIPS = '/tips',
     NO_AVAILABLE_WALLET = '/no-available-wallet',
     SELECT_TOKEN = '/select-token',
-    SELECT_WALLET = '/select-wallet',
     LOADING = '/',
     SUCCESS = '/success',
 }
@@ -39,12 +37,6 @@ const tokenSelectRoute = createRoute({
     component: TokenSelector,
 });
 
-const walletSelectRoute = createRoute({
-    getParentRoute: () => tipsRootRoute,
-    path: TipsRoutePath.SELECT_WALLET,
-    component: WalletSelector,
-});
-
 const loadingRoute = createRoute({
     getParentRoute: () => tipsRootRoute,
     path: TipsRoutePath.LOADING,
@@ -66,7 +58,6 @@ const routeTree = tipsRootRoute.addChildren([
     tipsRoute,
     noAvailableWalletRoute,
     tokenSelectRoute,
-    walletSelectRoute,
     loadingRoute,
     successRoute,
 ]);

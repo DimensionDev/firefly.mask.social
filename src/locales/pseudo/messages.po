@@ -1210,9 +1210,6 @@ msgstr ""
 msgid "Translated"
 msgstr ""
 
-msgid "Select Wallet"
-msgstr ""
-
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -1457,9 +1454,6 @@ msgid "{identity} watched"
 msgstr ""
 
 msgid "Notifications"
-msgstr ""
-
-msgid "No available token."
 msgstr ""
 
 msgid "Back"
@@ -1723,7 +1717,13 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
+msgid "No available token"
+msgstr ""
+
 msgid "View on explorer"
+msgstr ""
+
+msgid "Tip to {0}"
 msgstr ""
 
 msgid "Click to copy"
