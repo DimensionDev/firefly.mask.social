@@ -3,13 +3,12 @@
 import { t } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useState } from 'react';
+import { type Dispatch, type SetStateAction, useCallback, useState } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { NotificationFilter } from '@/components/Notification/NotificationFilter.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
-import { ScrollListKey } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -17,6 +16,28 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+
+function useNotificationTypes(source: SocialSource) {
+    const [typesMap, setTypesMap] = useState<Record<SocialSource, NotificationType[]>>({
+        [Source.Farcaster]: [],
+        [Source.Lens]: [],
+        [Source.Twitter]: [],
+    });
+
+    const types = typesMap[source];
+    const setTypes: Dispatch<SetStateAction<NotificationType[]>> = useCallback(
+        (types) => {
+            setTypesMap((map) => {
+                return {
+                    ...map,
+                    [source]: typeof types === 'function' ? types(map[source]) : types,
+                };
+            });
+        },
+        [source],
+    );
+    return [types, setTypes] as const;
+}
 
 const getNotificationItemContent = (index: number, notification: NotificationObject) => {
     return <NotificationItem key={notification.notificationId} notification={notification} />;
@@ -27,7 +48,8 @@ export default function Notification() {
     const currentSocialSource = narrowToSocialSource(currentSource);
     const isLogin = useIsLogin(currentSocialSource);
 
-    const [types, setTypes] = useState<NotificationType[]>(EMPTY_LIST);
+    const [types, setTypes] = useNotificationTypes(currentSocialSource);
+
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['notifications', currentSource, isLogin],
         queryFn: async ({ pageParam }) => {
