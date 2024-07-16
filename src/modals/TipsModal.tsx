@@ -11,6 +11,7 @@ import { Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -23,10 +24,6 @@ export interface TipsModalOpenProps {
 }
 
 export type TipsModalCloseProps = {} | void;
-
-function formatDisplayName(address: string, handle?: string | null) {
-    return handle ? `${handle}(${formatEthereumAddress(address, 4)})` : formatEthereumAddress(address, 8);
-}
 
 function formatTipsProfiles(profiles: FireflyProfile[]) {
     const socialProfiles = profiles
@@ -47,7 +44,7 @@ function formatTipsProfiles(profiles: FireflyProfile[]) {
             const { address, primary_ens, blockchain } = profile.__origin__ as WalletProfile;
             return {
                 ...profile,
-                displayName: formatDisplayName(address, primary_ens),
+                displayName: primary_ens || formatEthereumAddress(address, 8),
                 address,
                 networkType: blockchain,
             };
@@ -56,7 +53,7 @@ function formatTipsProfiles(profiles: FireflyProfile[]) {
 }
 
 function formatWalletHandle(profiles: TipsProfile[], address: string) {
-    const profile = profiles.find((profile) => profile.address === address)?.__origin__ as WalletProfile;
+    const profile = profiles.find((profile) => isSameAddress(profile.address, address))?.__origin__ as WalletProfile;
     return profile?.primary_ens ?? formatEthereumAddress(address, 4);
 }
 
