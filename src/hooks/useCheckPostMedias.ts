@@ -20,7 +20,7 @@ export function useCheckPostMedias() {
             }
             const maxImageCount = getCurrentPostImageLimits(type, availableSources);
             if (imageCount > maxImageCount) {
-                enqueueErrorMessage(t`Failed to upload. More than ${maxImageCount} images`);
+                enqueueErrorMessage(t`Failed to upload. More than ${maxImageCount} images.`);
                 return true;
             }
         }

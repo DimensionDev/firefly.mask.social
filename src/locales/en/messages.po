@@ -463,6 +463,9 @@ msgstr "recasts"
 msgid "Items"
 msgstr "Items"
 
+msgid "Failed to upload. More than {maxImageCount} images."
+msgstr "Failed to upload. More than {maxImageCount} images."
+
 msgid "Less than a minute left"
 msgstr "Less than a minute left"
 
@@ -699,9 +702,6 @@ msgstr "Days"
 
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
-
-msgid "Failed to upload. More than {maxImageCount} images"
-msgstr "Failed to upload. More than {maxImageCount} images"
 
 msgid "Blacklist function"
 msgstr "Blacklist function"
