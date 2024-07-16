@@ -64,7 +64,11 @@ function createState(
                         const account_ = state.accounts.find((x) => isSameAccount(x, account));
 
                         if (!account_) {
+                            // add the new account at the end
                             state.accounts = [...state.accounts, account];
+                        } else {
+                            // replace the original account with the new one
+                            state.accounts = state.accounts.map((x) => (isSameAccount(x, account) ? account : x));
                         }
 
                         if (setAsCurrent) {
