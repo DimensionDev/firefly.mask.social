@@ -1779,6 +1779,9 @@ msgstr "沒有符合的用戶"
 msgid "Save"
 msgstr "存檔"
 
+msgid "Up to 7 days can be set as the scheduled time. Please reset it."
+msgstr ""
+
 msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 

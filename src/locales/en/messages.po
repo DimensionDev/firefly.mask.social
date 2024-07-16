@@ -1774,6 +1774,9 @@ msgstr "No matching users"
 msgid "Save"
 msgstr "Save"
 
+msgid "Up to 7 days can be set as the scheduled time. Please reset it."
+msgstr "Up to 7 days can be set as the scheduled time. Please reset it."
+
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> and <1>{0} others</1>"
 
