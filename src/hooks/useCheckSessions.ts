@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
 import { Source } from '@/constants/enum.js';
+import { FarcasterInvalidSignerKey } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -17,17 +18,21 @@ export function useCheckSessions() {
                 await validateFarcasterSession(farcasterSessionHolder.sessionRequired);
             }
         } catch (error) {
-            enqueueErrorMessage(
-                getSnackbarMessageFromError(
-                    error,
-                    t`The signer is not authorized to perform the requested operation. Please approve again.`,
-                ),
-                {
-                    error,
-                },
-            );
-            // indicate that the session is not valid
-            return true;
+            if (error instanceof FarcasterInvalidSignerKey) {
+                enqueueErrorMessage(
+                    getSnackbarMessageFromError(
+                        error,
+                        t`The signer is not authorized to perform the requested operation. Please approve again.`,
+                    ),
+                    {
+                        error,
+                    },
+                );
+                // indicate that the session is not valid
+                return true;
+            }
+
+            throw error;
         }
 
         return false;
