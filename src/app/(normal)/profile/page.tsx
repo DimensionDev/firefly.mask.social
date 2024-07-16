@@ -20,8 +20,8 @@ export default function Page() {
             setProfileTab({
                 isMyProfile: true,
                 source: profileTab.source,
-                identity: profiles.find((x) => x.source === profileTab.source)?.identity
-            })
+                identity: profiles.find((x) => x.source === profileTab.source)?.identity,
+            });
         }
     }, [profiles, profileTab.identity, profileTab.source, setProfileTab]);
 
@@ -30,5 +30,5 @@ export default function Page() {
         redirect(`/profile/${profile.identity}?source=${resolveSourceInURL(profile.source)}`, RedirectType.replace);
     }
 
-    return <ProfilePage profiles={profiles} />
+    return <ProfilePage profiles={profiles} />;
 }
