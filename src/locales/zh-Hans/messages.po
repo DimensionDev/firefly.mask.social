@@ -117,6 +117,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
 
+msgid "Failed to unwatch {identity}."
+msgstr "取消关注 {identity} 失败。"
+
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
 
@@ -201,6 +204,9 @@ msgstr "请在 Firefly 上确认登录。"
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
+msgid "Failed to un-bookmark article."
+msgstr "取消收藏失败"
+
 msgid "Poll"
 msgstr "投票"
 
@@ -222,9 +228,6 @@ msgstr "举报已提交 {0}"
 msgid "Debug Console"
 msgstr "诊断命令行"
 
-msgid "Failed to mute @{0} on {sourceName}"
-msgstr "在 {sourceName} 上屏蔽 @{0}"
-
 msgid "Login with QR Code"
 msgstr "使用二维码登录"
 
@@ -242,9 +245,6 @@ msgstr "NFT 标准"
 
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
-
-msgid "Failed to login"
-msgstr "登录失败"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
@@ -384,8 +384,8 @@ msgstr "至多可以选择 2 张图片。"
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
 
-msgid "Report Failed"
-msgstr "举报失败"
+msgid "Failed to follow @{0} on {sourceName}."
+msgstr "在 {sourceName} 上关注 @{0} 失败。"
 
 msgid "Attendees"
 msgstr "出席人数"
@@ -410,6 +410,9 @@ msgstr "搜索"
 
 msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
 msgstr ""
+
+msgid "Failed to unfollow @{0} on {sourceName}."
+msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 
 msgid "Watch"
 msgstr "关注"
@@ -482,6 +485,9 @@ msgstr "最近"
 
 msgid "Info"
 msgstr "信息"
+
+msgid "Failed to bookmark article."
+msgstr ""
 
 msgid "Max"
 msgstr "最大"
@@ -618,9 +624,6 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 msgid "Top Channels"
 msgstr "热门频道"
 
-msgid "Failed to un-bookmark"
-msgstr "取消收藏失败"
-
 msgid "post"
 msgstr "发帖"
 
@@ -663,8 +666,14 @@ msgstr "{0} 频道"
 msgid "Report spam"
 msgstr "举报垃圾"
 
+msgid "Failed to un-bookmark post."
+msgstr ""
+
 msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
+
+msgid "Failed to mute @{0} on {sourceName}."
+msgstr ""
 
 msgid "like"
 msgstr "点赞"
@@ -692,9 +701,6 @@ msgstr "评论不能为空。"
 
 msgid "Days"
 msgstr "天"
-
-msgid "Failed to unfollow @{0} on {sourceName}"
-msgstr "在 {sourceName} 上取消关注 @{0} 失败"
 
 msgid "Insufficient Gas"
 msgstr ""
@@ -746,9 +752,6 @@ msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "已收藏"
-
-msgid "Failed to bookmark"
-msgstr "收藏失败"
 
 msgid "<0>You</0> mirrored"
 msgstr "<0>你</0> 已转发"
@@ -831,6 +834,9 @@ msgstr "代理合约"
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
 
+msgid "Failed to unmute @{0} on {sourceName}."
+msgstr "在 {sourceName} 上屏蔽 @{0} 失败。"
+
 msgid "Insufficient Balance"
 msgstr ""
 
@@ -903,11 +909,11 @@ msgstr "帖子已被删除"
 msgid "Website"
 msgstr "网站"
 
+msgid "Failed to report @{0}."
+msgstr ""
+
 msgid "Your post has published successfully."
 msgstr "发布成功。"
-
-msgid "Failed to follow @{0} on {sourceName}"
-msgstr "在 {sourceName} 上关注 @{0} 失败。"
 
 msgid "1m"
 msgstr "1个月"
@@ -968,6 +974,9 @@ msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
+
+msgid "Failed to watch {identity}."
+msgstr ""
 
 msgid "Mute"
 msgstr "屏蔽"
@@ -1062,9 +1071,6 @@ msgstr "设置"
 msgid "Creator"
 msgstr "创建者"
 
-msgid "Unmuted @{0} on {sourceName}"
-msgstr "在 {sourceName} 上取消屏蔽 @{0}"
-
 msgid "Details"
 msgstr "详情"
 
@@ -1076,9 +1082,6 @@ msgstr "合约源代码未验证"
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
-
-msgid "Failed to unwatch {identity}"
-msgstr "取消关注 {identity} 失败"
 
 msgid "Invalid signer key"
 msgstr ""
@@ -1275,6 +1278,9 @@ msgstr "在 X 上关注 @thefireflyapp"
 msgid "Light Mode"
 msgstr "浅色模式"
 
+msgid "Failed to submit report on {0}."
+msgstr ""
+
 msgid "Executing"
 msgstr "执行中"
 
@@ -1328,6 +1334,9 @@ msgstr "这看起来不像是一个陷阱。"
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
+
+msgid "Muted @{0} on {sourceName}."
+msgstr "在 {sourceName} 上屏蔽 @{0}"
 
 msgid "Quotes"
 msgstr "引用"
@@ -1436,9 +1445,6 @@ msgstr "图片"
 
 msgid "Failed to delete post."
 msgstr ""
-
-msgid "Muted @{0} on {sourceName}"
-msgstr "在 {sourceName} 上屏蔽 @{0}"
 
 msgid "Copy"
 msgstr "复制"
@@ -1572,9 +1578,6 @@ msgstr "红包"
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
-msgid "Failed to unmute @{0} on {sourceName}"
-msgstr "在 {sourceName} 上屏蔽 @{0} 失败"
-
 msgid "Date"
 msgstr "日期"
 
@@ -1659,6 +1662,9 @@ msgstr "您不能在 {0} 上评论 {author}。"
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
+msgid "Unmuted @{0} on {sourceName}."
+msgstr "在 {sourceName} 上已取消對 @{0} 的屏蔽。"
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
 
@@ -1740,9 +1746,6 @@ msgstr "Mask Network"
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>获得</0> 一个 NFT 来自 <1>{0}</1>"
 
-msgid "Failed to watch {identity}"
-msgstr "关注 {identity} 失败"
-
 msgid "{identity} unwatched"
 msgstr "{identity} 取消关注"
 
@@ -1757,6 +1760,9 @@ msgstr "关注 @{0}"
 
 msgid "Cancel Recast"
 msgstr "取消转帖"
+
+msgid "Failed to report spam NFT."
+msgstr ""
 
 msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
 msgstr "{hours, plural, one {1 小时} other {{hours} 小时}}"

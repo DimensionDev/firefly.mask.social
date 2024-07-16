@@ -112,6 +112,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
+msgid "Failed to unwatch {identity}."
+msgstr "Failed to unwatch {identity}"
+
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "Failed to fetch: {0}. Please try again later."
 
@@ -196,6 +199,9 @@ msgstr "Please confirm the login with Firefly."
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
+msgid "Failed to un-bookmark article."
+msgstr "Failed to un-bookmark"
+
 msgid "Poll"
 msgstr "Poll"
 
@@ -217,9 +223,6 @@ msgstr "Report submitted on {0}"
 msgid "Debug Console"
 msgstr "Debug Console"
 
-msgid "Failed to mute @{0} on {sourceName}"
-msgstr "Failed to mute @{0} on {sourceName}"
-
 msgid "Login with QR Code"
 msgstr "Login with QR Code"
 
@@ -237,9 +240,6 @@ msgstr "NFT Standard"
 
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
-
-msgid "Failed to login"
-msgstr "Failed to login"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
@@ -379,8 +379,8 @@ msgstr "Only up to 2 images can be chosen."
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
-msgid "Report Failed"
-msgstr "Report Failed"
+msgid "Failed to follow @{0} on {sourceName}."
+msgstr "Failed to follow @{0} on {sourceName}."
 
 msgid "Attendees"
 msgstr "Attendees"
@@ -405,6 +405,9 @@ msgstr "Search"
 
 msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
 msgstr "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
+
+msgid "Failed to unfollow @{0} on {sourceName}."
+msgstr "Failed to unfollow @{0} on {sourceName}."
 
 msgid "Watch"
 msgstr "Watch"
@@ -477,6 +480,9 @@ msgstr "Recent"
 
 msgid "Info"
 msgstr "Info"
+
+msgid "Failed to bookmark article."
+msgstr "Failed to bookmark article."
 
 msgid "Max"
 msgstr "Max"
@@ -613,9 +619,6 @@ msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to a
 msgid "Top Channels"
 msgstr "Top Channels"
 
-msgid "Failed to un-bookmark"
-msgstr "Failed to un-bookmark"
-
 msgid "post"
 msgstr "post"
 
@@ -658,8 +661,14 @@ msgstr "{0} Channels"
 msgid "Report spam"
 msgstr "Report spam"
 
+msgid "Failed to un-bookmark post."
+msgstr "Failed to un-bookmark post."
+
 msgid "Failed to submit report on {0}"
 msgstr "Failed to submit report on {0}"
+
+msgid "Failed to mute @{0} on {sourceName}."
+msgstr "Failed to mute @{0} on {sourceName}."
 
 msgid "like"
 msgstr "like"
@@ -687,9 +696,6 @@ msgstr "Comment cannot be empty."
 
 msgid "Days"
 msgstr "Days"
-
-msgid "Failed to unfollow @{0} on {sourceName}"
-msgstr "Failed to unfollow @{0} on {sourceName}"
 
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
@@ -741,9 +747,6 @@ msgstr "<0>Price</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "Collected"
-
-msgid "Failed to bookmark"
-msgstr "Failed to bookmark"
 
 msgid "<0>You</0> mirrored"
 msgstr "<0>You</0> mirrored"
@@ -826,6 +829,9 @@ msgstr "Proxy contract"
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 
+msgid "Failed to unmute @{0} on {sourceName}."
+msgstr "Failed to unmute @{0} on {sourceName}."
+
 msgid "Insufficient Balance"
 msgstr "Insufficient Balance"
 
@@ -898,11 +904,11 @@ msgstr "Post was deleted"
 msgid "Website"
 msgstr "Website"
 
+msgid "Failed to report @{0}."
+msgstr "Failed to report @{0}."
+
 msgid "Your post has published successfully."
 msgstr "Your post has published successfully."
-
-msgid "Failed to follow @{0} on {sourceName}"
-msgstr "Failed to follow @{0} on {sourceName}"
 
 msgid "1m"
 msgstr "1m"
@@ -963,6 +969,9 @@ msgstr "Share Now"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+
+msgid "Failed to watch {identity}."
+msgstr "Failed to watch {identity}."
 
 msgid "Mute"
 msgstr "Mute"
@@ -1057,9 +1066,6 @@ msgstr "Settings"
 msgid "Creator"
 msgstr "Creator"
 
-msgid "Unmuted @{0} on {sourceName}"
-msgstr "Unmuted @{0} on {sourceName}"
-
 msgid "Details"
 msgstr "Details"
 
@@ -1071,9 +1077,6 @@ msgstr "Contract source code not verified"
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
-
-msgid "Failed to unwatch {identity}"
-msgstr "Failed to unwatch {identity}"
 
 msgid "Invalid signer key"
 msgstr "Invalid signer key"
@@ -1270,6 +1273,9 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Light Mode"
 msgstr "Light Mode"
 
+msgid "Failed to submit report on {0}."
+msgstr "Failed to submit report on {0}."
+
 msgid "Executing"
 msgstr "Executing"
 
@@ -1323,6 +1329,9 @@ msgstr "This does not appear to be a honeypot."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
+
+msgid "Muted @{0} on {sourceName}."
+msgstr "Muted @{0} on {sourceName}."
 
 msgid "Quotes"
 msgstr "Quotes"
@@ -1431,9 +1440,6 @@ msgstr "Image"
 
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
-
-msgid "Muted @{0} on {sourceName}"
-msgstr "Muted @{0} on {sourceName}"
 
 msgid "Copy"
 msgstr "Copy"
@@ -1567,9 +1573,6 @@ msgstr "LuckyDrop"
 msgid "{0} and others"
 msgstr "{0} and others"
 
-msgid "Failed to unmute @{0} on {sourceName}"
-msgstr "Failed to unmute @{0} on {sourceName}"
-
 msgid "Date"
 msgstr "Date"
 
@@ -1654,6 +1657,9 @@ msgstr "You cannot reply to @{author} on {0}."
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
 
+msgid "Unmuted @{0} on {sourceName}."
+msgstr "Unmuted @{0} on {sourceName}."
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 
@@ -1735,9 +1741,6 @@ msgstr "Mask Network"
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
 
-msgid "Failed to watch {identity}"
-msgstr "Failed to watch {identity}"
-
 msgid "{identity} unwatched"
 msgstr "{identity} unwatched"
 
@@ -1752,6 +1755,9 @@ msgstr "Follow @{0}"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
+
+msgid "Failed to report spam NFT."
+msgstr "Failed to report spam NFT."
 
 msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
 msgstr "{hours, plural, one {1 hour} other {{hours} hours}}"
