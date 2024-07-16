@@ -1,7 +1,7 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import type { ProfileTab } from '@/hooks/useProfileTabContext.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { ProfileTab } from '@/store/useProfileTabStore.js';
 
 export function resolveFireflyProfiles(
     profileTab: ProfileTab,

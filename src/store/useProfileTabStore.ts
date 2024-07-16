@@ -2,9 +2,15 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import type { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
-import type { ProfileTab } from '@/hooks/useProfileTabContext.js';
+
+export interface ProfileTab {
+    source: Source;
+    isMyProfile?: boolean;
+    identity?: string;
+}
 
 interface ProfileTabState {
     profileTab: ProfileTab;

@@ -13,7 +13,6 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import { useProfileTabState } from '@/store/useProfileTabStore.js';
@@ -23,8 +22,7 @@ interface ProfileSourceTabs {
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const { setProfileTab } = useProfileTabState();
-    const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
+    const { profileTab, setProfileTab } = useProfileTabState();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
@@ -48,13 +46,11 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
                             className={classNames(
-                                profileTabContext.source === value
-                                    ? 'border-b-2 border-fireflyBrand text-main'
-                                    : 'text-third',
+                                profileTab.source === value ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
                                 'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
                                 'md:h-[60px] md:py-[18px] md:leading-6',
                             )}
-                            aria-current={profileTabContext.source === value ? 'page' : undefined}
+                            aria-current={profileTab.source === value ? 'page' : undefined}
                             onClick={() =>
                                 startTransition(() => {
                                     scrollTo(0, 0);
@@ -71,13 +67,10 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                           }
                                         : profiles.find((x) => x.source === value);
 
-                                    const profileTab = {
+                                    setProfileTab({
                                         source: value,
                                         identity: target?.identity,
-                                    };
-
-                                    setProfileTabContext(profileTab);
-                                    if (isProfilePage) setProfileTab(profileTab);
+                                    });
 
                                     updateParams(
                                         new URLSearchParams({
