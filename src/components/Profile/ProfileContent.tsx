@@ -12,10 +12,10 @@ import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
-import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import type { FireflyProfile, Relation } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfileContentProps {
     profile?: Profile | null;
@@ -25,7 +25,7 @@ interface ProfileContentProps {
 }
 
 export function ProfileContent({ profile, profiles, relations, isSuspended }: ProfileContentProps) {
-    const { profileTab } = ProfileTabContext.useContainer();
+    const { profileTab } = useProfileTabState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();

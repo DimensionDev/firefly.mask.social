@@ -1,21 +1,18 @@
 'use client';
 
 import { usePathname } from 'next/navigation.js';
-import { startTransition, useEffect } from 'react';
+import { startTransition } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
-import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import { useProfileTabState } from '@/store/useProfileTabStore.js';
@@ -66,25 +63,12 @@ const resolveProfileTabColor = createLookupTableResolver<
 
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const { setProfileTab } = useProfileTabState();
-    const { profileTab: profileTabContext, setProfileTab: setProfileTabContext } = ProfileTabContext.useContainer();
+    const { profileTab, setProfileTab } = useProfileTabState();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
 
-    const isProfilePage = pathname === PageRoute.Profile;
     const isCompleteProfilePage = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
-
-    useEffect(() => {
-        if (!isProfilePage) return;
-
-        const profile = getCurrentProfile(profileTabContext.source as SocialSource);
-        if (!profile) return;
-
-        const profileTab = { source: profileTabContext.source, identity: resolveProfileId(profile) };
-        setProfileTabContext(profileTab);
-        setProfileTab(profileTab);
-    }, [isProfilePage, setProfileTab, profileTabContext, setProfileTabContext]);
 
     if (profiles.length <= 1) return null;
 
@@ -95,17 +79,14 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                 const isActive =
                     profile.source === Source.Wallet
-                        ? isSameAddress(profile.identity, profileTabContext.identity)
-                        : profileTabContext.identity === profile.identity;
+                        ? isSameAddress(profile.identity, profileTab.identity)
+                        : profileTab.identity === profile.identity;
 
                 return (
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                const profileTab = { source: profile.source, identity: profile.identity };
-
-                                setProfileTabContext(profileTab);
-                                if (isProfilePage) setProfileTab(profileTab);
+                                setProfileTab({ source: profile.source, identity: profile.identity });
 
                                 updateParams(
                                     new URLSearchParams({

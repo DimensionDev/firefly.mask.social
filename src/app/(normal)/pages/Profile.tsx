@@ -20,18 +20,18 @@ import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfilePageProps {
     profiles: FireflyProfile[];
 }
 
 export function ProfilePage({ profiles }: ProfilePageProps) {
-    const { profileTab } = ProfileTabContext.useContainer();
+    const { profileTab } = useProfileTabState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();

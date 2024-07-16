@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
+import { useEffect } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
@@ -9,8 +10,8 @@ import { type SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface Props {
     identity: string;
@@ -20,6 +21,7 @@ interface Props {
 export function ProfileDetailPage({ identity, source }: Props) {
     const profileTab = { source: resolveSourceFromUrl(source), identity };
 
+    const { setProfileTab } = useProfileTabState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some(
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
@@ -34,6 +36,14 @@ export function ProfileDetailPage({ identity, source }: Props) {
         },
     });
 
+    useEffect(() => {
+        setProfileTab({
+            source: resolveSourceFromUrl(source),
+            identity,
+            isMyProfile: isCurrentProfile,
+        });
+    }, [identity, source, isCurrentProfile, setProfileTab]);
+
     if (isLoading && !isCurrentProfile) {
         return <Loading />;
     }
@@ -42,9 +52,5 @@ export function ProfileDetailPage({ identity, source }: Props) {
         notFound();
     }
 
-    return (
-        <ProfileTabContext.Provider initialState={profileTab}>
-            <ProfilePage profiles={isCurrentProfile ? currentProfiles : othersProfiles} />
-        </ProfileTabContext.Provider>
-    );
+    return <ProfilePage profiles={isCurrentProfile ? currentProfiles : othersProfiles} />;
 }

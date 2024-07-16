@@ -9,9 +9,9 @@ import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ProfileTabContext } from '@/hooks/useProfileTabContext.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface TitleProps {
     profile?: Profile | null;
@@ -30,7 +30,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
     });
 
     const comeback = useComeBack();
-    const { profileTab } = ProfileTabContext.useContainer();
+    const { profileTab } = useProfileTabState();
 
     const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
 
