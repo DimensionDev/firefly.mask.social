@@ -5,7 +5,6 @@ import ComeBackIcon from '@/assets/comeback.svg';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
-import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -39,13 +38,12 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
 
     const renderActions = () => {
         if (!reached && isMedium) return null;
-        if (profile?.source === Source.Twitter) return null;
-        if (profile) return <ProfileAction profile={profile} ProfileMoreActionProps={{ className: 'ml-2' }} />;
+        if (profile) return <ProfileAction profile={profile} />;
         if (walletProfile)
             return (
                 <>
                     {isOthersProfile ? <WatchButton address={walletProfile.address} /> : null}
-                    <WalletMoreAction className="ml-2 text-main" profile={walletProfile} />
+                    <WalletMoreAction className="text-main" profile={walletProfile} />
                 </>
             );
         return null;
@@ -64,7 +62,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
                 </span>
             </div>
 
-            {renderActions()}
+            <div className="flex flex-shrink-0 gap-2.5"> {renderActions()}</div>
         </div>
     );
 }
