@@ -1215,9 +1215,6 @@ msgstr "查看互動數據"
 msgid "Translated"
 msgstr ""
 
-msgid "Select Wallet"
-msgstr ""
-
 msgid "Failed to bookmark post."
 msgstr "書籤標記失敗。"
 

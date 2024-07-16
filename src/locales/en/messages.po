@@ -1210,9 +1210,6 @@ msgstr "View engagements"
 msgid "Translated"
 msgstr "Translated"
 
-msgid "Select Wallet"
-msgstr "Select Wallet"
-
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
