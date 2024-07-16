@@ -4,6 +4,7 @@ export type Token<ChainIdLike = number, AddressLike = string> = DebankToken<Addr
     chainId: ChainIdLike;
     balance: string;
     usdValue: number;
+    chainLogoUrl?: string;
 };
 
 export interface TransactionOptions<ChainIdLike = number, AddressLike = string> {
