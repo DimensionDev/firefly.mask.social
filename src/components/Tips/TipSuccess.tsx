@@ -21,8 +21,7 @@ export function TipSuccess() {
 
     const { canShare, walletName } = useMemo(() => {
         const __origin__ = receiver?.__origin__ as WalletProfile;
-        if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length)
-            return { canShare: false };
+        if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length) return { canShare: false };
         return {
             canShare: true,
             walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
