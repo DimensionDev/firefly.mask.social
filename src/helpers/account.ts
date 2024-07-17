@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { getProfileSessionsAll, getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
@@ -14,7 +14,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts } from '@/services/metrics.js';
+import { downloadAccounts, uploadSessions } from '@/services/metrics.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(source: SocialSource) {
@@ -97,6 +97,8 @@ export interface AccountOptions {
     setAsCurrent?: boolean;
     // skip the belongs to check, default: false
     skipBelongsToCheck?: boolean;
+    // skip updating metrics, default: false
+    skipUploadFireflySession?: boolean;
     // restore accounts from firefly, default: false
     skipRestoreFireflyAccounts?: boolean;
     // restore the firefly session, default: false
@@ -111,6 +113,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipBelongsToCheck = false,
         skipRestoreFireflyAccounts = false,
         skipRestoreFireflySession = false,
+        skipUploadFireflySession = false,
         signal,
     } = options ?? {};
 
@@ -164,6 +167,11 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // restore firefly session
     if (!skipRestoreFireflySession) await restoreFireflySession(account, signal);
+
+    // upload sessions to firefly
+    if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
+        await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
+    }
 
     // account has been added to the store
     return true;
