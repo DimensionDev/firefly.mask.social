@@ -57,7 +57,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
         });
         if (!profiles?.length) return accounts;
         return profiles.map((profile) => ({
-            ...(accounts.find((account) => isSameProfile(account.profile, profile))),
+            ...accounts.find((account) => isSameProfile(account.profile, profile)),
             profile,
         }));
     }, [source, accounts]);
