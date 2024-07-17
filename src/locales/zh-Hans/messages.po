@@ -717,9 +717,6 @@ msgstr "作者地址"
 msgid "Failed to send tips."
 msgstr ""
 
-msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
-msgstr ""
-
 msgid "Enable development API version"
 msgstr "启用开发环境接口"
 
@@ -1787,6 +1784,9 @@ msgstr ""
 
 msgid "No matching users"
 msgstr "未找到匹配用户"
+
+msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
+msgstr ""
 
 msgid "Save"
 msgstr "保存"
