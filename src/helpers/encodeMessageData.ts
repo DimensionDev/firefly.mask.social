@@ -4,7 +4,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { toBytes } from 'viem';
 
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { getPublicKeyInHex, signMessageInHex } from '@/services/ed25519.js';
+import { getPublicKeyInHex, signMessageInHex } from '@/helpers/ed25519.js';
 import type { PartialWith } from '@/types/index.js';
 
 export async function encodeMessageData(

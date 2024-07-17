@@ -6,7 +6,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { bindFireflySession } from '@/services/bindFireflySession.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
-import { uploadSessions } from '@/services/syncAccountsFromFirefly.js';
+import { uploadSessions } from '@/services/metrics.js';
 
 export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
     try {
