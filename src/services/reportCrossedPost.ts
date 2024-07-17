@@ -78,6 +78,9 @@ async function report(post: CompositePost) {
     allSettled.forEach((x, i) => {
         const source = SORTED_SOCIAL_SOURCES[i];
 
+        // ignore null report
+        if (x.status === 'fulfilled' && x.value === null) return;
+
         if (x.status === 'rejected') {
             console.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.reason);
         } else if (x.value?.code !== 0) {
