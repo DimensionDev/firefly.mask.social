@@ -166,7 +166,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                 ) : (
                     <>
                         <SinglePost post={post} disableAnimate isDetail showTranslate className="border-b-0" />
-                        <PostStatistics post={post} isDetail className="mb-1.5 px-3" />
+                        <PostStatistics post={post} className="mb-1.5 px-3" />
                         <PostActionsWithGrid
                             disablePadding
                             post={post}

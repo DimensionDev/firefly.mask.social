@@ -147,7 +147,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     {metadata.content?.content}
                 </NakedMarkup>
                 {showAttachments ? (
-                    <Attachments post={post} asset={asset} attachments={availableAttachments} isQuote />
+                    <Attachments
+                        post={post}
+                        asset={asset}
+                        attachments={availableAttachments}
+                        isQuote={!!metadata.content?.content?.length}
+                    />
                 ) : null}
             </div>
         );

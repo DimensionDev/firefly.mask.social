@@ -93,6 +93,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         identity ? (
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
+        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
         <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
     ]);
     const actionLength = actions.length;
