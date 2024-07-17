@@ -741,6 +741,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 msgid "Tip to @{0}"
 msgstr ""
 
+msgid "Invalid Blink."
+msgstr ""
+
 msgid "Owned By"
 msgstr "属于"
 
@@ -1083,6 +1086,9 @@ msgstr "创建者"
 msgid "Details"
 msgstr "详情"
 
+msgid "Blink"
+msgstr ""
+
 msgid "No preview found for shared link"
 msgstr "无法预加载"
 
@@ -1175,6 +1181,9 @@ msgstr "屏蔽成功。"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
+
+msgid "Your Blink URL."
+msgstr ""
 
 msgid "Show More"
 msgstr "显示更多"
@@ -1599,6 +1608,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 msgid "collect"
 msgstr "收藏"
 
+msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
+msgstr ""
+
 msgid "Developers"
 msgstr "开发者"
 
@@ -1973,6 +1985,9 @@ msgstr "您确定要举报这个用户么？"
 
 msgid "Likes"
 msgstr "点赞"
+
+msgid "Blink Validator"
+msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"

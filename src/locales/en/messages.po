@@ -736,6 +736,9 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 msgid "Tip to @{0}"
 msgstr "Tip to @{0}"
 
+msgid "Invalid Blink."
+msgstr "Invalid Blink."
+
 msgid "Owned By"
 msgstr "Owned By"
 
@@ -1078,6 +1081,9 @@ msgstr "Creator"
 msgid "Details"
 msgstr "Details"
 
+msgid "Blink"
+msgstr "Blink"
+
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
@@ -1170,6 +1176,9 @@ msgstr "Mute successfully."
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+
+msgid "Your Blink URL."
+msgstr "Your Blink URL."
 
 msgid "Show More"
 msgstr "Show More"
@@ -1594,6 +1603,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 msgid "collect"
 msgstr "collect"
 
+msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
+msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"
+
 msgid "Developers"
 msgstr "Developers"
 
@@ -1968,6 +1980,9 @@ msgstr "Are you sure you want to report this user?"
 
 msgid "Likes"
 msgstr "Likes"
+
+msgid "Blink Validator"
+msgstr "Blink Validator"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> quoted your <1><2/></1>"
