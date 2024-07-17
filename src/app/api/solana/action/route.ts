@@ -146,6 +146,7 @@ export async function DELETE(request: NextRequest) {
             blink: z.string(),
         }),
     );
+    // cspell:disable
     await kv.hdel(KeyType.GetBlink, cacheBlinkResolver(url, type, blink));
     return createSuccessResponseJSON(null);
 }
