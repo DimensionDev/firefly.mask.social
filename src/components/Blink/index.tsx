@@ -27,6 +27,9 @@ export const Blink = memo<Props>(function Blink({ schemes, onData, children }) {
                 url: (await resolveTCOLink(scheme.url)) ?? scheme.url,
             });
         },
+        retry: false,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
     });
 
     useEffect(() => {
