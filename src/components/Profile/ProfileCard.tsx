@@ -121,14 +121,9 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                 </div>
             </div>
 
-            <Link href={url}>
-                <BioMarkup
-                    className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain"
-                    source={profile.source}
-                >
-                    {profile.bio ?? '-'}
-                </BioMarkup>
-            </Link>
+            <BioMarkup className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain" source={profile.source}>
+                {profile.bio ?? '-'}
+            </BioMarkup>
 
             <FollowButton style={{ height: 40 }} className="min-h-[40px] w-full" profile={profile} />
         </ClickableArea>
