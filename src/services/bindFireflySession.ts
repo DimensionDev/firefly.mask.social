@@ -30,14 +30,14 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
 }
 
 async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?: AbortSignal) {
-    if (!FarcasterSession.isGrantByPermission(session)) throw new NotAllowedError();
+    if (!FarcasterSession.isGrantByPermission(session, true)) throw new NotAllowedError();
 
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindFarcaster'),
         {
             method: 'POST',
             body: JSON.stringify({
-                accessToken: session.token,
+                token: session.signerRequestToken,
                 isForce: false,
             }),
             signal,
