@@ -100,6 +100,7 @@ export enum KeyType {
     RefreshLensThreadLock = 'RefreshLensThreadLock',
     GetFollowings = 'getFollowings',
     ConsumerSecret = 'consumerSecret',
+    GetBlink = 'getBlink',
 }
 
 export type TrendingUserSource = Source.Farcaster | Source.Lens;
