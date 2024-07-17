@@ -135,7 +135,7 @@ function ComposeRouteRoot() {
     const isDraft = router.history.location.href === '/draft';
 
     const title = useMemo(() => {
-        if (isDraft) return t`Draft`;
+        if (isDraft) return t`Drafts`;
         switch (type) {
             case 'compose':
                 return t`Compose`;

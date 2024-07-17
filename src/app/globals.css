@@ -386,3 +386,22 @@ body.not-support .fixed.inset-y-0 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
+
+.custom-time-picker > * {
+    overflow-x: auto;
+    max-width: 100%;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.custom-time-picker > *::-webkit-scrollbar {
+    display: none;
+}
+
+.custom-time-picker .MuiMenuItem-root.Mui-selected {
+    border-radius: 8px;
+}
+
+.custom-time-picker > :first-child {
+    border-right: 1px solid var(--color-line2);
+}

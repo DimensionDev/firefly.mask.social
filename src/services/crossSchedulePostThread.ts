@@ -1,8 +1,10 @@
 import { t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import dayjs from 'dayjs';
+import { compact, first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
+import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
@@ -40,6 +42,16 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
 
         const postsPayload = [...results.values()];
 
+        const post = first(posts);
+        const assets = compact([
+            post?.images.length ? t`[Photo]` : undefined,
+            post?.video ? t`[Video]` : undefined,
+            post?.poll ? t`[Poll]` : undefined,
+        ]).join('');
+
+        const chars = post ? readChars(post.chars, 'visible') : '';
+        const content = `${chars}${chars.length > 0 ? '\n' : ''}${assets}`;
+
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
             postsPayload.map((x) => ({
@@ -47,7 +59,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
                 payload: JSON.stringify(x.payload),
             })),
             {
-                posts,
+                content,
                 type,
             },
         );

@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { useLocation } from '@tanstack/react-router';
 import { memo, Suspense, useState } from 'react';
-import { useUpdateEffect } from 'react-use';
+import { useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { DraftList } from '@/components/Compose/DraftList.js';
@@ -19,10 +19,10 @@ export const DraftPage = memo(function DraftPage() {
 
     const location = useLocation();
 
-    useUpdateEffect(() => {
+    useMount(() => {
         const search = location.search;
         if (search.tab) setCurrentTab(search.tab);
-    }, [location.search]);
+    });
 
     return (
         <div>
@@ -30,7 +30,7 @@ export const DraftPage = memo(function DraftPage() {
                 {[
                     {
                         type: DraftPageTab.Draft,
-                        title: <Trans>Unsent Posts</Trans>,
+                        title: <Trans>Unsent posts</Trans>,
                     },
                     {
                         type: DraftPageTab.Scheduled,
