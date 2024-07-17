@@ -84,7 +84,13 @@ export const TipsUI = memo(function TipsUI() {
                     </div>
                     <TokenSelectorEntry disabled={isSending} />
                 </div>
-                {recipient ? recipient.networkType === NetworkType.Ethereum ? <SendWithEVM /> : <SendWithSolana /> : null}
+                {recipient ? (
+                    recipient.networkType === NetworkType.Ethereum ? (
+                        <SendWithEVM />
+                    ) : (
+                        <SendWithSolana />
+                    )
+                ) : null}
             </div>
         </>
     );
