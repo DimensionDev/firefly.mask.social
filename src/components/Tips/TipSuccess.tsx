@@ -71,8 +71,9 @@ export function TipSuccess() {
                                     {amount} ${token?.symbol}{' '}
                                 </span>
                                 tips to
-                                <span className="font-bold text-link"> {handle || recipient?.displayName}</span>! Share
-                                this news by mentioning and posting.
+                                <span className="font-bold text-link"> {handle || recipient?.displayName}</span>!
+                                <br />
+                                Share this news by mentioning and posting.
                             </Trans>
                         ) : (
                             <Trans>
@@ -87,7 +88,7 @@ export function TipSuccess() {
                         )}
                     </p>
                     {hashUrl ? (
-                        <p className="mt-2 text-right">
+                        <p className="mt-2 text-center">
                             <Link
                                 className="italic text-link underline"
                                 target="_blank"
@@ -101,7 +102,7 @@ export function TipSuccess() {
                 </div>
                 {canShare ? (
                     <ClickableButton
-                        className="mt-6 h-10 w-full rounded-full border border-lightMain bg-lightBottom text-center font-bold text-darkBottom"
+                        className="mt-6 h-10 w-full rounded-full border border-lightMain bg-transparent text-center font-bold text-lightMain"
                         onClick={onShare}
                     >
                         <Trans>Share Now</Trans>
