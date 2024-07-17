@@ -88,7 +88,7 @@ export const TokenSelectorEntry = memo(function TokenSelectorEntry({ disabled = 
                     token ? 'w-[calc(100%_-_48px)]' : 'w-[calc(100%_-_24px)]',
                 )}
             >
-                {token ? token.symbol : t`Select token`}
+                {token ? token.symbol : t`Please select a token.`}
             </span>
             <ArrowDown className="shrink-0 text-lightSecond" width={24} height={24} />
         </ClickableButton>

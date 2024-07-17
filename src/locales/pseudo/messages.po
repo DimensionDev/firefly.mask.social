@@ -97,9 +97,6 @@ msgstr ""
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr ""
 
-msgid "Select token"
-msgstr ""
-
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
@@ -1802,6 +1799,9 @@ msgid "Up to 7 days can be set as the scheduled time. Please reset it."
 msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
+msgstr ""
+
+msgid "Please select a token."
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
