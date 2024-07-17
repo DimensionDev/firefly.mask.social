@@ -18,7 +18,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
-import { useCheckSessions } from '@/hooks/useCheckSessions.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
@@ -43,7 +42,6 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
-    const checkSessions = useCheckSessions();
     const checkPostMedias = useCheckPostMedias();
 
     const hasThread = (post.images.length > 0 || usedLength) && type === 'compose';
@@ -51,7 +49,6 @@ export function ComposeSend(props: ComposeSendProps) {
     const [percentage, setPercentage] = useState(0);
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
-            if (await checkSessions()) return;
             if (checkPostMedias()) return;
             if (posts.length > 1) {
                 scheduleTime
@@ -72,7 +69,7 @@ export function ComposeSend(props: ComposeSendProps) {
             if (draftId) removeDraft(draftId);
             ComposeModalRef.close();
         },
-        [type, post, posts.length > 1, checkSessions, checkPostMedias, draftId, removeDraft, scheduleTime],
+        [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft, scheduleTime],
     );
 
     const hasError = useMemo(() => {

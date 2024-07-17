@@ -183,7 +183,6 @@ const useFarcasterStateBase = createState(
 
             if (state.currentProfileSession) {
                 const farcasterSession = state.currentProfileSession as FarcasterSession;
-
                 farcasterSessionHolder.resumeSession(farcasterSession);
             }
         },
