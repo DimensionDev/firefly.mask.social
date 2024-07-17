@@ -14,7 +14,7 @@ export function withRequestRedisCache(
         resolver?: (...args: Parameters<Handler>) => string;
     } = {},
 ) {
-    return (handler: (request: NextRequest, context?: NextRequestContext) => Promise<Response>) => {
+    return (handler: Handler) => {
         const cachedHandler = memoizeWithRedis(handler, { key, resolver });
         return async (request: NextRequest, context?: NextRequestContext) => {
             return cachedHandler(request, context);
