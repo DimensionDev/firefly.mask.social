@@ -66,7 +66,7 @@ async function updateState(accounts: Account[], overwrite = false) {
  * @param session
  * @param signal
  */
-async function restoreFireflySession(account: Account, signal?: AbortSignal): Promise<void> {
+async function resumeFireflySession(account: Account, signal?: AbortSignal): Promise<void> {
     const fireflySession = getFireflySession(account) ?? (await FireflySession.from(account.session, signal));
     const fireflyAccount = {
         profile: createDummyProfile(Source.Farcaster),
@@ -99,10 +99,10 @@ export interface AccountOptions {
     skipBelongsToCheck?: boolean;
     // skip updating metrics, default: false
     skipUploadFireflySession?: boolean;
-    // restore accounts from firefly, default: false
-    skipRestoreFireflyAccounts?: boolean;
-    // restore the firefly session, default: false
-    skipRestoreFireflySession?: boolean;
+    // resume accounts from firefly, default: false
+    skipResumeFireflyAccounts?: boolean;
+    // resume the firefly session, default: false
+    skipResumeFireflySession?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -111,8 +111,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     const {
         setAsCurrent = true,
         skipBelongsToCheck = false,
-        skipRestoreFireflyAccounts = false,
-        skipRestoreFireflySession = false,
+        skipResumeFireflyAccounts = false,
+        skipResumeFireflySession = false,
         skipUploadFireflySession = false,
         signal,
     } = options ?? {};
@@ -134,12 +134,12 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         if (setAsCurrent) sessionHolder.resumeSession(account.session);
     }
 
-    // restore accounts from firefly
-    if (!skipRestoreFireflyAccounts && fireflySession) {
+    // resume accounts from firefly
+    if (!skipResumeFireflyAccounts && fireflySession) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
-        const accountsFiltered = accountsSynced.filter((x) => {
-            const state = getProfileState(x.profile.source);
-            return !state.accounts.find((y) => isSameAccount(x, y));
+        const accountsFiltered = SORTED_SOCIAL_SOURCES.flatMap((x) => {
+            const state = getProfileState(x);
+            return state.accounts.filter((y) => !accountsSynced.some((z) => isSameAccount(y, z)));
         });
         const accounts = (
             belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => x.profile.profileId)
@@ -165,8 +165,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         }
     }
 
-    // restore firefly session
-    if (!skipRestoreFireflySession) await restoreFireflySession(account, signal);
+    // resume firefly session
+    if (!skipResumeFireflySession) await resumeFireflySession(account, signal);
 
     // upload sessions to firefly
     if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {

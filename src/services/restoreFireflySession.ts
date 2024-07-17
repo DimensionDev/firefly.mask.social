@@ -21,9 +21,7 @@ import { settings } from '@/settings/index.js';
  * @returns
  */
 export async function restoreFireflySession(session: Session, signal?: AbortSignal) {
-    const type = session.type;
-
-    switch (type) {
+    switch (session.type) {
         case SessionType.Lens: {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
             const response = await fetchJSON<LensLoginResponse>(url, {
@@ -39,8 +37,9 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
         case SessionType.Farcaster: {
             if (FarcasterSession.isCustodyWallet(session)) throw new NotAllowedError();
 
-            const isGrantByPermission = FarcasterSession.isGrantByPermission(session);
+            const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
             const isRelayService = FarcasterSession.isRelayService(session);
+            if (!isGrantByPermission && !isRelayService) throw new NotAllowedError();
 
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
             const response = await fetch(url, {
@@ -77,8 +76,8 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
         case SessionType.Firefly:
             throw new NotAllowedError();
         default:
-            safeUnreachable(type);
-            throw new UnreachableError('session type', type);
+            safeUnreachable(session.type);
+            throw new UnreachableError('session type', session.type);
     }
 }
 
