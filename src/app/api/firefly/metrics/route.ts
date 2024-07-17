@@ -21,6 +21,7 @@ import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { getPublicKeyInHex } from '@/services/ed25519.js';
+import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 const CryptoUsageSchema = z.union([
     z.object({
@@ -106,7 +107,7 @@ function convertMetricToSession(metric: Metrics[0]) {
             );
         case 'lens':
             return metric.login_metadata.map(
-                (x) => new LensSession(x.profile_id, x.token, x.login_time, x.login_time, x.refresh_token),
+                (x) => new LensSession(x.profile_id, x.token, x.login_time, x.login_time, x.refresh_token, x.address),
             );
         case 'twitter':
             return metric.login_metadata.map(
@@ -135,10 +136,10 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             }
             return {
                 token: lensSession.token,
-                address: '',
+                address: lensSession.address ?? '',
                 login_time: lensSession.createdAt,
                 profile_id: lensSession.profileId,
-                refresh_token: lensSession.refreshToken!,
+                refresh_token: lensSession.refreshToken,
             };
         case SessionType.Farcaster:
             const farcasterSession = session as FarcasterSession;
@@ -151,8 +152,8 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             return {
                 fid: Number.parseInt(farcasterSession.profileId, 10),
                 login_time: farcasterSession.createdAt,
-                signer_public_key: farcasterSession.token,
-                signer_private_key: publicKey,
+                signer_public_key: publicKey,
+                signer_private_key: farcasterSession.token,
             };
         case SessionType.Twitter:
             const twitterSession = session as TwitterSession;
@@ -201,32 +202,24 @@ export async function POST(request: Request) {
         case CryptoUsage.Encrypt: {
             const accountId = parsed.data.accountId;
             const sessions = parsed.data.sessions.map(SessionFactory.createSession);
-            const metrics = Object.entries(groupBy(sessions, (x) => x.type)).map(([type, sessions]) => {
-                return {
-                    account_id: accountId,
-                    platform: resolveSocialSourceFromSessionType(type as SessionType),
-                    client_os: 'web',
-                    login_metadata: compact(sessions.map(convertSessionToMetadata)),
-                };
-            });
-
-            console.log('DEBUG: encrypt');
-            console.log({
-                accountId,
-                sessions,
-                metrics,
-            });
+            const groups = Object.entries(groupBy(sessions, (x) => x.type));
+            const metrics = await Promise.all(
+                groups.map(async ([type, sessions]) => {
+                    const allSettled = await Promise.allSettled(sessions.map(convertSessionToMetadata));
+                    return {
+                        account_id: accountId,
+                        platform: resolveSocialSourceInURL(resolveSocialSourceFromSessionType(type as SessionType)),
+                        client_os: 'web',
+                        login_metadata: compact(allSettled.map((x) => (x.status === 'fulfilled' ? x.value : null))),
+                    };
+                }),
+            );
 
             const cipher = encrypt(JSON.stringify(metrics));
             return createSuccessResponseJSON(cipher);
         }
         case CryptoUsage.Decrypt: {
             const decrypted = parseJSON<unknown[]>(decrypt(parsed.data.cipher));
-
-            console.log('DEBUG: decrypted');
-            console.log({
-                decrypted,
-            });
 
             // validate metrics
             const metrics = MetricsSchema.safeParse(decrypted);

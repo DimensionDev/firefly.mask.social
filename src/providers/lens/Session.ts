@@ -10,12 +10,13 @@ export class LensSession extends BaseSession implements Session {
         createdAt: number,
         expiresAt: number,
         public refreshToken?: string,
+        public address?: string,
     ) {
         super(SessionType.Lens, profileId, token, createdAt, expiresAt);
     }
 
     override serialize(): `${SessionType}:${string}:${string}` {
-        return `${super.serialize()}:${this.refreshToken ?? ''}`;
+        return `${super.serialize()}:${this.refreshToken ?? ''}:${this.address ?? ''}`;
     }
 
     refresh(): Promise<void> {

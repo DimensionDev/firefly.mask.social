@@ -11,10 +11,11 @@ import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
@@ -23,10 +24,12 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
 import { crossSchedulePost } from '@/services/crossSchedulePost.js';
 import { crossPostScheduleThread } from '@/services/crossSchedulePostThread.js';
+import { uploadSessions } from '@/services/syncAccountsFromFirefly.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -51,6 +54,11 @@ export function ComposeSend(props: ComposeSendProps) {
     const [percentage, setPercentage] = useState(0);
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
+            const sessions = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts.map((y) => y.session));
+            await uploadSessions(fireflySessionHolder.sessionRequired, sessions);
+
+            if (Math.random() < 1) return;
+
             if (await checkSessions()) return;
             if (checkPostMedias()) return;
             if (posts.length > 1) {
