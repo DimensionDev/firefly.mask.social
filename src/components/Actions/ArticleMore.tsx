@@ -14,6 +14,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
 
@@ -25,6 +26,8 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const mutation = useToggleArticleBookmark();
     const author = article.author;
     const isBusy = mutation.isPending;
+
+    const isMyProfile = useIsMyRelatedProfile(author.id, Source.Wallet);
 
     const { data: ens } = useEnsName({ address: author.id });
     const identity = author.handle || ens || formatEthereumAddress(author.id, 4);
@@ -59,26 +62,30 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         />
                     )}
                 </Menu.Item>
-                <Menu.Item>
-                    {({ close }) => (
-                        <WatchWalletButton
-                            identity={identity}
-                            isFollowing={author.isFollowing}
-                            address={author.id}
-                            onClick={close}
-                        />
-                    )}
-                </Menu.Item>
-                <Menu.Item>
-                    {({ close }) => (
-                        <MuteWalletButton
-                            identity={identity}
-                            isMuted={author.isMuted}
-                            address={author.id}
-                            onClick={close}
-                        />
-                    )}
-                </Menu.Item>
+                {!isMyProfile && (
+                    <>
+                        <Menu.Item>
+                            {({ close }) => (
+                                <WatchWalletButton
+                                    identity={identity}
+                                    isFollowing={author.isFollowing}
+                                    address={author.id}
+                                    onClick={close}
+                                />
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ close }) => (
+                                <MuteWalletButton
+                                    identity={identity}
+                                    isMuted={author.isMuted}
+                                    address={author.id}
+                                    onClick={close}
+                                />
+                            )}
+                        </Menu.Item>
+                    </>
+                )}
                 <Menu.Item>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</Menu.Item>
                 <Menu.Item>
                     {({ close }) => (

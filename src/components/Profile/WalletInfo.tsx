@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { usePathname } from 'next/navigation.js';
 import { useCallback } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 
@@ -15,12 +14,13 @@ import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoute } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -40,8 +40,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
 
     const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
 
-    const pathname = usePathname();
-    const isMyWallets = pathname === PageRoute.Profile; // My wallet profile page has no path param
+    const isMyWallets = useIsMyRelatedProfile(profile.address, Source.Wallet);
 
     return (
         <div className="flex gap-3 p-3">

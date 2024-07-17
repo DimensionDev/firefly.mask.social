@@ -21,9 +21,11 @@ import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
@@ -41,6 +43,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const currentProfile = useCurrentProfile(source);
 
     const isMyPost = isSameProfile(author, currentProfile);
+    const isMyProfile = useIsMyRelatedProfile(resolveProfileId(author) ?? '', source);
 
     const isFollowing = !!author.viewerContext?.following;
     const [, toggleFollow] = useToggleFollow(author);
@@ -88,29 +91,37 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     </Menu.Item>
                 ) : (
                     <>
-                        <Menu.Item>
-                            {({ close }) => (
-                                <MenuButton
-                                    onClick={async () => {
-                                        close();
-                                        toggleFollow.mutate();
-                                    }}
-                                >
-                                    {isFollowing ? (
-                                        <UnFollowUserIcon width={18} height={18} />
-                                    ) : (
-                                        <FollowUserIcon width={18} height={18} />
+                        {!isMyProfile ? (
+                            <>
+                                <Menu.Item>
+                                    {({ close }) => (
+                                        <MenuButton
+                                            onClick={async () => {
+                                                close();
+                                                toggleFollow.mutate();
+                                            }}
+                                        >
+                                            {isFollowing ? (
+                                                <UnFollowUserIcon width={18} height={18} />
+                                            ) : (
+                                                <FollowUserIcon width={18} height={18} />
+                                            )}
+                                            <span className="font-bold leading-[22px] text-main">
+                                                {isFollowing
+                                                    ? t`Unfollow @${author.handle}`
+                                                    : t`Follow @${author.handle}`}
+                                            </span>
+                                        </MenuButton>
                                     )}
-                                    <span className="font-bold leading-[22px] text-main">
-                                        {isFollowing ? t`Unfollow @${author.handle}` : t`Follow @${author.handle}`}
-                                    </span>
-                                </MenuButton>
-                            )}
-                        </Menu.Item>
-                        {post && [Source.Lens, Source.Farcaster].includes(source) ? (
-                            <Menu.Item>
-                                {({ close }) => <ReportPostButton post={post} onReport={reportPost} onClick={close} />}
-                            </Menu.Item>
+                                </Menu.Item>
+                                {post && [Source.Lens, Source.Farcaster].includes(source) ? (
+                                    <Menu.Item>
+                                        {({ close }) => (
+                                            <ReportPostButton post={post} onReport={reportPost} onClick={close} />
+                                        )}
+                                    </Menu.Item>
+                                ) : null}
+                            </>
                         ) : null}
                         {channel && currentProfile ? (
                             <Menu.Item>
@@ -129,11 +140,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 )}
                             </Menu.Item>
                         ) : null}
-                        <Menu.Item>
-                            {({ close }) => (
-                                <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
-                            )}
-                        </Menu.Item>
+                        {!isMyProfile ? (
+                            <Menu.Item>
+                                {({ close }) => (
+                                    <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
+                                )}
+                            </Menu.Item>
+                        ) : null}
                     </>
                 )}
                 {post && post.source !== Source.Twitter ? (
