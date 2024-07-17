@@ -116,16 +116,16 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
     const isFirefly = sendFrom?.toLowerCase() === 'firefly';
 
-    const isDetail = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
 
     return (
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
-                {(!isDetail
+                {(!isDetailPage
                     ? compact([
                           comments,
                           likes,
-                          !isDetail && !isSmall && sendFrom ? (
+                          !isDetailPage && !isSmall && sendFrom ? (
                               <span>
                                   <Trans>
                                       via{' '}
@@ -136,7 +136,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                                   </Trans>
                               </span>
                           ) : null,
-                          !isDetail && !isSmall && showChannelTag && post.channel ? (
+                          !isDetailPage && !isSmall && showChannelTag && post.channel ? (
                               <ChannelAnchor
                                   className="!inline-flex translate-y-1"
                                   channel={post.channel}
@@ -170,7 +170,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                     );
                 })}
             </div>
-            {!isDetail && isSmall ? (
+            {!isDetailPage && isSmall ? (
                 <div className="flex items-center">
                     {sendFrom ? (
                         <div>
