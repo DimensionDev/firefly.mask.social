@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import { kv } from '@vercel/kv';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
@@ -82,11 +83,20 @@ function createAction(url: string, data: ActionGetResponse, blink: string) {
     return actionResult;
 }
 
+const cacheBlinkResolver = (url: string, type: SchemeType, blink: string) => `${url}-${type}-${blink}`;
+
 /**
  * reference: https://docs.dialect.to/documentation/actions/blinks/detecting-actions-via-url-schemes
  */
 export const GET = compose(
-    withRequestRedisCache(KeyType.GetBlink),
+    withRequestRedisCache(KeyType.GetBlink, {
+        resolver(request) {
+            const url = request.nextUrl.searchParams.get('url');
+            const type = request.nextUrl.searchParams.get('type');
+            const blink = request.nextUrl.searchParams.get('blink');
+            return cacheBlinkResolver(url!, type as SchemeType, blink!);
+        },
+    }),
     withRequestErrorHandler(),
     async (request: NextRequest) => {
         const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
@@ -126,3 +136,16 @@ export const GET = compose(
         }
     },
 );
+
+export async function DELETE(request: NextRequest) {
+    const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
+        request,
+        z.object({
+            url: HttpUrl,
+            type: z.nativeEnum(SchemeType),
+            blink: z.string(),
+        }),
+    );
+    await kv.hdel(KeyType.GetBlink, cacheBlinkResolver(url, type, blink));
+    return createSuccessResponseJSON(null);
+}

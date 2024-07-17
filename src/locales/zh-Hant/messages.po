@@ -741,6 +741,9 @@ msgstr ""
 msgid "Tip to @{0}"
 msgstr "給 @{0} 發送小費"
 
+msgid "Invalid Blink."
+msgstr ""
+
 msgid "Owned By"
 msgstr "擁有者"
 
@@ -1077,6 +1080,9 @@ msgstr "創作者"
 msgid "Details"
 msgstr "詳細資訊"
 
+msgid "Blink"
+msgstr ""
+
 msgid "No preview found for shared link"
 msgstr "分享的連結暫無預覽畫面"
 
@@ -1168,6 +1174,9 @@ msgid "Mute successfully."
 msgstr "已成功靜音"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+msgstr ""
+
+msgid "Your Blink URL."
 msgstr ""
 
 msgid "Show More"
@@ -1587,6 +1596,9 @@ msgstr ""
 msgid "collect"
 msgstr ""
 
+msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
+msgstr ""
+
 msgid "Developers"
 msgstr ""
 
@@ -1964,6 +1976,9 @@ msgstr ""
 
 msgid "Likes"
 msgstr "喜歡"
+
+msgid "Blink Validator"
+msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""

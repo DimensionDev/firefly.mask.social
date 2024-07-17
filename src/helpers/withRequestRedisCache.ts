@@ -4,9 +4,18 @@ import type { KeyType } from '@/constants/enum.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import type { NextRequestContext } from '@/types/index.js';
 
-export function withRequestRedisCache(key: KeyType) {
+type Handler = (request: NextRequest, context?: NextRequestContext) => Promise<Response>;
+
+export function withRequestRedisCache(
+    key: KeyType,
+    {
+        resolver,
+    }: {
+        resolver?: (...args: Parameters<Handler>) => string;
+    } = {},
+) {
     return (handler: (request: NextRequest, context?: NextRequestContext) => Promise<Response>) => {
-        const cachedHandler = memoizeWithRedis(handler, { key });
+        const cachedHandler = memoizeWithRedis(handler, { key, resolver });
         return async (request: NextRequest, context?: NextRequestContext) => {
             return cachedHandler(request, context);
         };

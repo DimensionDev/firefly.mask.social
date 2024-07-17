@@ -736,6 +736,9 @@ msgstr ""
 msgid "Tip to @{0}"
 msgstr ""
 
+msgid "Invalid Blink."
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -1072,6 +1075,9 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
+msgid "Blink"
+msgstr ""
+
 msgid "No preview found for shared link"
 msgstr ""
 
@@ -1163,6 +1169,9 @@ msgid "Mute successfully."
 msgstr ""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+msgstr ""
+
+msgid "Your Blink URL."
 msgstr ""
 
 msgid "Show More"
@@ -1582,6 +1591,9 @@ msgstr ""
 msgid "collect"
 msgstr ""
 
+msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
+msgstr ""
+
 msgid "Developers"
 msgstr ""
 
@@ -1958,6 +1970,9 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
+msgstr ""
+
+msgid "Blink Validator"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
