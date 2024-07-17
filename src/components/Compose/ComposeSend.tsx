@@ -54,11 +54,6 @@ export function ComposeSend(props: ComposeSendProps) {
     const [percentage, setPercentage] = useState(0);
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
-            const sessions = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts.map((y) => y.session));
-            await uploadSessions(fireflySessionHolder.sessionRequired, sessions);
-
-            if (Math.random() < 1) return;
-
             if (await checkSessions()) return;
             if (checkPostMedias()) return;
             if (posts.length > 1) {
