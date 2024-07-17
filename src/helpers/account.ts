@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { getProfileSessionsAll, getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
@@ -169,9 +169,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (!skipRestoreFireflySession) await restoreFireflySession(account, signal);
 
     // upload sessions to firefly
-    if (belongsTo && !skipUploadFireflySession && account.session.type !== SessionType.Firefly) {
-        const sessions = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts.map((x) => x.session));
-        await uploadSessions(fireflySessionHolder.sessionRequired, sessions, signal);
+    if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
+        await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
     }
 
     // account has been added to the store
