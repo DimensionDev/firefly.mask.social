@@ -9,11 +9,13 @@ import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
+import { validateFarcasterSession } from '@/services/validateFarcasterSignerKey.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -72,6 +74,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         } satisfies Post;
     };
 
+    const validateSignerKey = async () => {
+        await validateFarcasterSession(farcasterSessionHolder.sessionRequired);
+    };
+
     const postTo = createPostTo(Source.Farcaster, {
         uploadImages: () => {
             return Promise.all(
@@ -86,15 +92,18 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars, 'both', Source.Farcaster));
             return [pollStub];
         },
-        compose: (images, _, polls) => {
+        compose: async (images, _, polls) => {
+            await validateSignerKey();
             return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, polls));
         },
-        reply: (images, _, polls) => {
+        reply: async (images, _, polls) => {
+            await validateSignerKey();
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             // for farcaster, post id is read from post.commentOn.postId
             return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, polls));
         },
-        quote: (images, _, polls) => {
+        quote: async (images, _, polls) => {
+            await validateSignerKey();
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             return FarcasterSocialMediaProvider.quotePost(
                 farcasterParentPost.postId,

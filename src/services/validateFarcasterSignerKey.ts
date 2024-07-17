@@ -18,14 +18,18 @@ export async function validateFarcasterSession(session: FarcasterSession): Promi
     const publicKey = await getPublicKeyInHex(signer);
     if (!publicKey) throw new MalformedError('Invalid signer key.');
 
-    const [state, _] = await readContract(config, {
-        abi: keyRegistryABI,
-        address: '0x00000000Fc1237824fb747aBDE0FF18990E59b7e',
-        functionName: 'keys',
-        args: [parseUnits(session.profileId, 0), publicKey],
-        chainId: ChainId.Optimism,
-    });
-    if (state !== KeyState.ADDED) throw new FarcasterInvalidSignerKey('Invalid signer key.');
+    try {
+        const [state, _] = await readContract(config, {
+            abi: keyRegistryABI,
+            address: '0x00000000Fc1237824fb747aBDE0FF18990E59b7e',
+            functionName: 'keys',
+            args: [parseUnits(session.profileId, 0), publicKey],
+            chainId: ChainId.Optimism,
+        });
+        if (state !== KeyState.ADDED) throw new FarcasterInvalidSignerKey('Invalid signer key.');
+    } catch {
+        return true;
+    }
 
     return true;
 }

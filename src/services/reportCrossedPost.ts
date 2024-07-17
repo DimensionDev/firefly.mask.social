@@ -61,8 +61,8 @@ async function report(post: CompositePost) {
     });
 
     const allSettled = await Promise.allSettled(
-        reports.map((x) => {
-            if (!x) return Promise.resolve(null);
+        reports.map(async (x) => {
+            if (!x) return null;
             return fireflySessionHolder.fetch<ReportCrossPostResponse>(
                 // cspell: disable-next-line
                 urlcat(settings.FIREFLY_ROOT_URL, '/api/logpush'),
