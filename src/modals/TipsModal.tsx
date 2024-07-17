@@ -77,8 +77,8 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                     } else {
                         update((prev) => ({
                             ...prev,
-                            receiverList: walletProfiles,
-                            receiver: walletProfiles[0],
+                            recipientList: walletProfiles,
+                            recipient: walletProfiles[0],
                             handle:
                                 source === Source.Wallet && !handle
                                     ? formatWalletHandle(walletProfiles, identity)

@@ -8,8 +8,8 @@ import type { Token } from '@/providers/types/Transfer.js';
 export type TipsProfile = FireflyProfile & { address: string; networkType: NetworkType };
 
 interface TipsContext {
-    receiverList: TipsProfile[];
-    receiver: TipsProfile | null;
+    recipientList: TipsProfile[];
+    recipient: TipsProfile | null;
     amount: string;
     token: Token | null;
     handle: string | null;
@@ -21,10 +21,10 @@ interface TipsContext {
 
 function createEmptyContext(): TipsContext {
     return {
-        receiver: null,
+        recipient: null,
         amount: '',
         token: null,
-        receiverList: [],
+        recipientList: [],
         handle: null,
         hash: null,
         pureWallet: false,

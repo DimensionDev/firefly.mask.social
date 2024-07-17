@@ -25,13 +25,13 @@ function sortTokensByUsdValue(tokens: Token[]) {
 }
 
 export const useTipsTokens = () => {
-    const { receiver } = TipsContext.useContainer();
+    const { recipient } = TipsContext.useContainer();
     const { data, isLoading } = useQuery({
-        queryKey: ['tokens', receiver?.address],
-        enabled: !!receiver,
+        queryKey: ['tokens', recipient?.address],
+        enabled: !!recipient,
         queryFn: async () => {
-            if (!receiver) return [];
-            const network = resolveNetworkProvider(receiver.networkType);
+            if (!recipient) return [];
+            const network = resolveNetworkProvider(recipient.networkType);
             return await getTokensByAddress(await network.getAccount());
         },
     });

@@ -14,11 +14,11 @@ interface TokenItemProps {
 }
 
 export function TokenItem({ token }: TokenItemProps) {
-    const { token: selectedToken, receiver, update } = TipsContext.useContainer();
+    const { token: selectedToken, recipient, update } = TipsContext.useContainer();
 
     const handleSelectToken = async (token: Token) => {
-        if (receiver?.networkType === NetworkType.Ethereum) {
-            const network = resolveNetworkProvider(receiver.networkType);
+        if (recipient?.networkType === NetworkType.Ethereum) {
+            const network = resolveNetworkProvider(recipient.networkType);
             if (token.chainId !== network.getChainId()) {
                 await network.switchChain(token.chainId);
             }

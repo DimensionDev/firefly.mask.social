@@ -13,7 +13,7 @@ export async function getAvailableBalance(options: TransactionOptions<ChainId, A
     const account = await EthereumNetwork.getAccount();
     const balance = await getTokenBalance(token, account, token.chainId);
     if (EthereumTransfer.isNativeToken(token)) {
-        const gas = await getDefaultGas(options);
+        const { gas } = await getDefaultGas(options);
         const available = minus(balance.value.toString(), gas);
         return isLessThan(available, 0) ? '0' : available.toString();
     }

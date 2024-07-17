@@ -52,7 +52,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
             address: account,
             chainId: token.chainId,
         });
-        const gas = await getDefaultGas(options);
+        const { gas } = await getDefaultGas(options);
 
         return !isLessThan(`${nativeBalance.value}`, `${gas}`);
     }

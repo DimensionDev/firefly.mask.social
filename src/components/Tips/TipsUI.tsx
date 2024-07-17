@@ -13,7 +13,7 @@ import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resol
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsUI = memo(function TipsUI() {
-    const { token, receiver, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
+    const { token, recipient, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({
@@ -33,23 +33,23 @@ export const TipsUI = memo(function TipsUI() {
     };
 
     const [{ loading }, handleUseMaxBalance] = useAsyncFn(async () => {
-        if (!receiver || !token) return;
-        const network = resolveNetworkProvider(receiver.networkType);
+        if (!recipient || !token) return;
+        const network = resolveNetworkProvider(recipient.networkType);
         const account = await network.getAccount();
         if (!account) return;
-        const transfer = resolveTransferProvider(receiver.networkType);
+        const transfer = resolveTransferProvider(recipient.networkType);
         const balance = await transfer.getAvailableBalance({
-            to: receiver.address,
+            to: recipient.address,
             token,
             amount,
         });
         update((prev) => ({ ...prev, amount: balance }));
     }, []);
 
-    const tipTitle = receiver
+    const tipTitle = recipient
         ? pureWallet
-            ? t`Tip to ${handle || receiver.displayName}`
-            : t`Tip to @${handle || receiver.displayName}`
+            ? t`Tip to ${handle || recipient.displayName}`
+            : t`Tip to @${handle || recipient.displayName}`
         : '';
 
     return (
@@ -68,7 +68,7 @@ export const TipsUI = memo(function TipsUI() {
                             onChange={handleAmountChange}
                             disabled={isSending}
                         />
-                        {token && receiver ? (
+                        {token && recipient ? (
                             <ClickableButton
                                 className="font-bold text-link"
                                 disabled={isSending || loading}
@@ -84,7 +84,7 @@ export const TipsUI = memo(function TipsUI() {
                     </div>
                     <TokenSelectorEntry disabled={isSending} />
                 </div>
-                {receiver ? receiver.networkType === NetworkType.Ethereum ? <SendWithEVM /> : <SendWithSolana /> : null}
+                {recipient ? recipient.networkType === NetworkType.Ethereum ? <SendWithEVM /> : <SendWithSolana /> : null}
             </div>
         </>
     );
