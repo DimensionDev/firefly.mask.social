@@ -137,9 +137,9 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     // resume accounts from firefly
     if (!skipResumeFireflyAccounts && fireflySession) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
-        const accountsFiltered = SORTED_SOCIAL_SOURCES.flatMap((x) => {
-            const state = getProfileState(x);
-            return state.accounts.filter((y) => !accountsSynced.some((z) => isSameAccount(y, z)));
+        const accountsFiltered = accountsSynced.filter((x) => {
+            const state = getProfileState(x.profile.source);
+            return !state.accounts.find((y) => isSameAccount(x, y));
         });
         const accounts = (
             belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => x.profile.profileId)

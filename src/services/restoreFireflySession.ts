@@ -35,11 +35,11 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             return new FireflySession(data.accountId, data.accessToken, session);
         }
         case SessionType.Farcaster: {
-            if (FarcasterSession.isCustodyWallet(session)) throw new NotAllowedError();
+            if (FarcasterSession.isCustodyWallet(session)) throw new NotAllowedError('Custody wallet is not allowed.');
 
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
             const isRelayService = FarcasterSession.isRelayService(session);
-            if (!isGrantByPermission && !isRelayService) throw new NotAllowedError();
+            if (!isGrantByPermission && !isRelayService) throw new NotAllowedError('Invalid farcaster session.');
 
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
             const response = await fetch(url, {
@@ -74,7 +74,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
         case SessionType.Twitter:
             throw new NotImplementedError();
         case SessionType.Firefly:
-            throw new NotAllowedError();
+            throw new NotAllowedError('Firefly session is not allowed.');
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('session type', session.type);

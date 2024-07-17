@@ -84,8 +84,8 @@ export class NotImplementedError extends Error {
 }
 
 export class NotAllowedError extends Error {
-    constructor() {
-        super('Not allowed.');
+    constructor(message?: string) {
+        super(message ?? 'Not allowed.');
     }
 }
 
