@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-16 12:01\n"
+"PO-Revision-Date: 2024-07-17 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -103,7 +103,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr "合约所有者无权修改其他地址的通证余额。"
 
 msgid "Select token"
-msgstr ""
+msgstr "选择代币"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
@@ -580,7 +580,7 @@ msgid "Remove Choice"
 msgstr "删除选项"
 
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 msgid "Mute {identity}"
 msgstr "屏蔽 @{identity}"
@@ -871,7 +871,7 @@ msgid "Cancel retweet successfully"
 msgstr "成功取消转发"
 
 msgid "Set"
-msgstr ""
+msgstr "设置"
 
 msgid "[Poll]"
 msgstr "[投票]"
@@ -919,7 +919,7 @@ msgid "Website"
 msgstr "网站"
 
 msgid "Failed to report @{0}."
-msgstr ""
+msgstr "举报 @{0} 失败。"
 
 msgid "Your post has published successfully."
 msgstr "发布成功。"
@@ -979,7 +979,7 @@ msgid "NFT Contract"
 msgstr "NFT 合约"
 
 msgid "Share Now"
-msgstr ""
+msgstr "分享"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -1099,7 +1099,7 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Invalid signer key"
-msgstr ""
+msgstr "无效的 singer key"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
@@ -1144,7 +1144,7 @@ msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
 msgid "Select Token"
-msgstr ""
+msgstr "选择代币"
 
 msgid "Your schedule thread has created successfully."
 msgstr ""
@@ -1324,7 +1324,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Send on schedule"
-msgstr ""
+msgstr "发送定时任务"
 
 msgid "Failed to like the post."
 msgstr "点赞失败。"
@@ -1462,7 +1462,7 @@ msgid "Image"
 msgstr "图片"
 
 msgid "Failed to delete post."
-msgstr ""
+msgstr "删除帖子失败。"
 
 msgid "Copy"
 msgstr "复制"
@@ -1501,7 +1501,7 @@ msgid "Sign in with Custody Wallet"
 msgstr "使用托管钱包登录"
 
 msgid "View transaction on explorer"
-msgstr ""
+msgstr "查看交易详情"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
@@ -1522,7 +1522,7 @@ msgid "view"
 msgstr "查看"
 
 msgid "Failed to create scheduled post."
-msgstr ""
+msgstr "创建定时任务失败"
 
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
@@ -1834,7 +1834,7 @@ msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
 
 msgid "Failed to send tips, please try again later."
-msgstr ""
+msgstr "打赏失败，请稍后重试。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
@@ -1915,7 +1915,7 @@ msgid "Back to home"
 msgstr "返回主页"
 
 msgid "Tips"
-msgstr ""
+msgstr "打赏"
 
 msgid "Followers"
 msgstr "粉丝"
@@ -1924,7 +1924,7 @@ msgid "Mint function"
 msgstr "铸造功能"
 
 msgid "Clear"
-msgstr ""
+msgstr "清空"
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
@@ -1957,7 +1957,7 @@ msgid "Hours"
 msgstr "小时"
 
 msgid "Failed to create schedule post."
-msgstr ""
+msgstr "创建定时任务失败"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
@@ -1966,7 +1966,7 @@ msgid "Close"
 msgstr "关闭"
 
 msgid "Failed to update scheduled post."
-msgstr ""
+msgstr "更新定时任务失败"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"
@@ -1991,3 +1991,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+

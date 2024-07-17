@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-16 12:01\n"
+"PO-Revision-Date: 2024-07-17 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -741,6 +741,9 @@ msgstr ""
 msgid "Tip to @{0}"
 msgstr ""
 
+msgid "Invalid Blink."
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -814,6 +817,9 @@ msgid "No mint function"
 msgstr ""
 
 msgid "Switch"
+msgstr ""
+
+msgid "Drafts"
 msgstr ""
 
 msgid "Follow"
@@ -1071,10 +1077,16 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "Unsent posts"
+msgstr ""
+
 msgid "Creator"
 msgstr ""
 
 msgid "Details"
+msgstr ""
+
+msgid "Blink"
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -1168,6 +1180,9 @@ msgid "Mute successfully."
 msgstr ""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+msgstr ""
+
+msgid "Your Blink URL."
 msgstr ""
 
 msgid "Show More"
@@ -1264,6 +1279,9 @@ msgid "You are logging into a different Firefly account. Continuing will <0>over
 msgstr ""
 
 msgid "Discard"
+msgstr ""
+
+msgid "REPLY"
 msgstr ""
 
 msgid "Sign"
@@ -1423,6 +1441,9 @@ msgid "The frame server failed to process the request."
 msgstr ""
 
 msgid "Report"
+msgstr ""
+
+msgid "Schedule"
 msgstr ""
 
 msgid "Post by {0}"
@@ -1585,6 +1606,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr ""
 
 msgid "collect"
+msgstr ""
+
+msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
 msgid "Developers"
@@ -1788,9 +1812,6 @@ msgstr ""
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
-msgid "Max: {0}"
-msgstr ""
-
 msgid "Log in to Farcaster account"
 msgstr ""
 
@@ -1798,9 +1819,6 @@ msgid "{0} Users"
 msgstr ""
 
 msgid "Final results"
-msgstr ""
-
-msgid "Unsent Posts"
 msgstr ""
 
 msgid "Suspended account"
@@ -1966,6 +1984,9 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
+msgstr ""
+
+msgid "Blink Validator"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
