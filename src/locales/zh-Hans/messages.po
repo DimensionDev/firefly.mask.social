@@ -1788,9 +1788,6 @@ msgstr "<0/> 和 <1>{0} 其他的</1>"
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
-msgid "Max: {0}"
-msgstr ""
-
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
