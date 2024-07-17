@@ -1,6 +1,7 @@
 'use client';
 
 import { last } from 'lodash-es';
+import { useState } from 'react';
 
 import { Blink } from '@/components/Blink/index.js';
 import { Frame } from '@/components/Frame/index.js';
@@ -14,6 +15,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 export function PostLinks({ post, setContent }: { post: Post; setContent?: (content: string) => void }) {
     // a blink could be a normal url, so the result is also available for the oembed and frame components
     const schemes = post.metadata.content?.content ? BlinkParser.extractSchemes(post.metadata.content?.content) : [];
+    const [disabledBlink, setDisabledBlink] = useState(false);
 
     const oembed =
         post.metadata.content?.oembedUrl && !post.quoteOn ? (
@@ -27,7 +29,7 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
             />
         ) : null;
 
-    if (schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
+    if (!disabledBlink && schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
         const scheme = last(schemes);
         if (!scheme?.url) return oembed;
 
@@ -45,9 +47,8 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
                             setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));
                         }
                     }}
-                >
-                    {oembed}
-                </Blink>
+                    onFailed={() => setDisabledBlink(true)}
+                />
             </>
         );
     }

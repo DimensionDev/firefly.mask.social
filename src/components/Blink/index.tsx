@@ -11,11 +11,12 @@ import type { Action, ActionScheme } from '@/types/blink.js';
 
 interface Props {
     schemes: ActionScheme[];
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onData?: (data: Action) => void;
+    onFailed?: (error: Error) => void;
 }
 
-export const Blink = memo<Props>(function Blink({ schemes, onData, children }) {
+export const Blink = memo<Props>(function Blink({ schemes, onData, onFailed, children }) {
     const { data, error, isLoading } = useQuery({
         queryKey: ['action', schemes.map((x) => x.url)],
         queryFn: async () => {
@@ -35,6 +36,10 @@ export const Blink = memo<Props>(function Blink({ schemes, onData, children }) {
     useEffect(() => {
         if (data) onData?.(data);
     }, [onData, data]);
+
+    useEffect(() => {
+        if (error) onFailed?.(error);
+    }, [onFailed, error]);
 
     const action = data?.error ? null : data;
 
