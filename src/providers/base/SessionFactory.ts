@@ -42,6 +42,7 @@ export class SessionFactory {
         // for twitter session, the second part is payload in base64 encoded
         // for firefly session, the second part is the parent session in base64 encoded
         const secondPart = fragments[2] ?? '';
+        // for lens session, the third part is the wallet address
         // for farcaster session, the third part is the channel token
         const thirdPart = fragments[3] ?? '';
 
@@ -68,7 +69,8 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        secondPart,
+                        secondPart, // refresh token
+                        thirdPart, // wallet address
                     );
                 case SessionType.Farcaster:
                     return new FarcasterSession(
@@ -76,8 +78,8 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        secondPart,
-                        thirdPart,
+                        secondPart, // signer request token
+                        thirdPart, // channel token
                     );
                 case SessionType.Twitter:
                     const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));
@@ -87,13 +89,13 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        parsed.data,
+                        parsed.data, // payload
                     );
                 case SessionType.Firefly:
                     return new FireflySession(
                         session.profileId,
                         session.token,
-                        secondPart ? SessionFactory.createSession(atob(secondPart)) : null,
+                        secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
                     );
                 default:
                     safeUnreachable(type);

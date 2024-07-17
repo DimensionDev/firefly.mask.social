@@ -1,3 +1,4 @@
+import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -42,6 +43,7 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
 
     const now = Date.now();
     const accessToken = await sdk.authentication.getAccessToken();
+    const address = await sdk.authentication.getWalletAddress();
 
     const session = new LensSession(
         profile.profileId,
@@ -49,6 +51,7 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
         now,
         now + THIRTY_DAYS,
         parsed.data.refreshToken,
+        address ?? ZERO_ADDRESS,
     );
 
     return {
