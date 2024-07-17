@@ -1,5 +1,6 @@
 import { NobleEd25519Signer } from '@farcaster/core';
 import { safeUnreachable } from '@masknet/kit';
+import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import crypto from 'crypto';
 import { StatusCodes } from 'http-status-codes';
 import { compact, groupBy } from 'lodash-es';
@@ -136,7 +137,7 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             }
             return {
                 token: lensSession.token,
-                address: lensSession.address ?? '',
+                address: lensSession.address ?? ZERO_ADDRESS,
                 login_time: lensSession.createdAt,
                 profile_id: lensSession.profileId,
                 refresh_token: lensSession.refreshToken,

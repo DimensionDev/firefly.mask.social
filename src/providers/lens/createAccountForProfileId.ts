@@ -1,3 +1,4 @@
+import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -50,7 +51,7 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
         now,
         now + THIRTY_DAYS,
         parsed.data.refreshToken,
-        address ?? '',
+        address ?? ZERO_ADDRESS,
     );
 
     return {
