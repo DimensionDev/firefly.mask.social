@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { isGreaterThan } from '@/helpers/number.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -50,7 +51,7 @@ export const useTipsTokens = () => {
                         },
                     ];
                 }, [])
-                .filter((token) => !token.balance.includes('<')),
+                .filter((token) => isGreaterThan(token.usdValue, 0)),
         );
     }, [data]);
 

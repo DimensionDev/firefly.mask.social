@@ -54,6 +54,12 @@ class Provider implements TransferProvider<ChainId> {
         return fees !== null ? !isGreaterThan(fees, nativeBalance.value) : false;
     }
 
+    async getAvailableBalance({ token }: TransactionOptions<ChainId>): Promise<string> {
+        const account = await SolanaNetwork.getAccount();
+        const balance = await getTokenBalance(token, account, ChainId.Mainnet);
+        return balance.value;
+    }
+
     private async transferNative(options: TransactionOptions<ChainId>): Promise<string> {
         const adapter = resolveWalletAdapter();
         const account = await SolanaNetwork.getAccount();
