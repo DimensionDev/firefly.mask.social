@@ -1,6 +1,6 @@
 'use client';
 import { Trans } from '@lingui/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { usePathname, useSearchParams } from 'next/navigation.js';
 import type React from 'react';
 import type { PropsWithChildren } from 'react';
@@ -42,8 +42,9 @@ export default function DetailLayout({ children, params }: Props) {
     const source = resolveSourceFromUrl(rawSource);
     const identity = params.id;
 
-    const { data: profile = null } = useSuspenseQuery({
+    const { data: profile = null } = useQuery({
         queryKey: ['profile', source, identity],
+        retry: 3,
         queryFn: async () => {
             if (!identity || !source || source === Source.Wallet) return null;
             if (source === Source.Twitter) return null;
@@ -55,7 +56,7 @@ export default function DetailLayout({ children, params }: Props) {
 
     return (
         <>
-            {profile ? <Title profile={profile} /> : null}
+            {profile ? <Title profile={profile} sticky /> : null}
             <nav className="border-b border-line bg-primaryBottom px-4">
                 <ul className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
                     {tabs.map((tab) => {

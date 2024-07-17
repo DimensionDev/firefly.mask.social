@@ -7,9 +7,11 @@ import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ profile }) {
+    const isSmall = useIsSmall('max');
     return (
         <Link
             href={getProfileUrl(profile)}
@@ -19,7 +21,7 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
             <Avatar
                 className="w-17.5 h-17.5 min-w-[70px] shrink-0"
                 src={profile.pfp}
-                size={70}
+                size={isSmall ? 40 : 44}
                 alt={profile.profileId}
                 fallbackUrl={profile.source === Source.Lens ? getLennyURL(profile.pfp) : undefined}
             />
