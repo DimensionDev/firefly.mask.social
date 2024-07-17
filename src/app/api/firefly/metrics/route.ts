@@ -13,6 +13,7 @@ import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -21,7 +22,6 @@ import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { getPublicKeyInHex } from '@/services/ed25519.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 const CryptoUsageSchema = z.union([
     z.object({
