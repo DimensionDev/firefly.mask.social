@@ -816,6 +816,9 @@ msgstr ""
 msgid "Switch"
 msgstr "切換"
 
+msgid "Drafts"
+msgstr ""
+
 msgid "Follow"
 msgstr "追蹤"
 
@@ -1071,6 +1074,9 @@ msgstr "連接到 {0}"
 msgid "Settings"
 msgstr "設定"
 
+msgid "Unsent posts"
+msgstr ""
+
 msgid "Creator"
 msgstr "創作者"
 
@@ -1266,6 +1272,9 @@ msgstr "您目前已經登錄了另一個 Firefly 帳戶。繼續會 <0>覆蓋</
 msgid "Discard"
 msgstr "捨棄"
 
+msgid "REPLY"
+msgstr ""
+
 msgid "Sign"
 msgstr "簽署"
 
@@ -1424,6 +1433,9 @@ msgstr ""
 
 msgid "Report"
 msgstr "檢舉"
+
+msgid "Schedule"
+msgstr ""
 
 msgid "Post by {0}"
 msgstr "由 {0} 發布"
@@ -1795,9 +1807,6 @@ msgid "{0} Users"
 msgstr ""
 
 msgid "Final results"
-msgstr ""
-
-msgid "Unsent Posts"
 msgstr ""
 
 msgid "Suspended account"

@@ -82,7 +82,6 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 async function reportPost(params: ReportPostParams) {
@@ -1085,7 +1084,7 @@ export class FireflySocialMedia implements Provider {
     async schedulePost(
         scheduleTime: Date,
         posts: SchedulePostPayload[],
-        displayInfo: { posts: CompositePost[]; type: ComposeType },
+        displayInfo: { content: string; type: ComposeType },
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/schedule');
 

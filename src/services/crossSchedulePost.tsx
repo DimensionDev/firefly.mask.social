@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
@@ -63,6 +64,16 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
 
         const posts = await createSchedulePostsPayload(type, compositePost);
 
+        const assets = compact([
+            compositePost?.images.length ? t`[Photo]` : undefined,
+            compositePost?.video ? t`[Video]` : undefined,
+            compositePost?.poll ? t`[Poll]` : undefined,
+        ]).join('');
+
+        const chars = readChars(compositePost.chars, 'visible');
+
+        const content = `${chars}${chars.length > 0 ? '\n' : ''}${assets}`;
+
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
             posts.map((x) => ({
@@ -70,7 +81,7 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
                 payload: JSON.stringify([x.payload]),
             })),
             {
-                posts: [compositePost],
+                content,
                 type,
             },
         );

@@ -115,7 +115,9 @@ export function ComposeAction(props: ComposeActionProps) {
                 {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
                 {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled && !rpPayload ? (
-                    <SchedulePostEntryButton className="text-main" />
+                    <Tooltip content={t`Schedule`} placement="top">
+                        <SchedulePostEntryButton className="text-main" />
+                    </Tooltip>
                 ) : null}
 
                 {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (

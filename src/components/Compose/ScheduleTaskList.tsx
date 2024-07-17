@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { compact, first, uniq } from 'lodash-es';
+import { uniq } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -17,11 +17,8 @@ import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { ScrollListKey } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
-import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -34,21 +31,9 @@ function getTitle(displayInfo: SchedulePostDisplayInfo) {
     if (!displayInfo) return;
     switch (displayInfo.type) {
         case 'compose':
-            if (displayInfo.posts.length > 1) return <Trans>THREAD POST</Trans>;
             return <Trans>POST</Trans>;
         case 'reply':
-            const target = first(displayInfo.posts);
-            const parent = target?.parentPost;
-            const post = parent?.Farcaster || parent?.Lens;
-            const profileUrl = post ? getProfileUrl(post.author) : '';
-            return (
-                <Trans>
-                    REPLY to
-                    <span className="ml-1">
-                        <Link href={profileUrl}>@{post?.author.handle}</Link>
-                    </span>
-                </Trans>
-            );
+            return <Trans>REPLY</Trans>;
         case 'quote':
             return <Trans>QUOTE</Trans>;
         default:
@@ -61,8 +46,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
     const displayInfo = task.display_info;
     const title = getTitle(displayInfo);
     const isMedium = useIsMedium();
-    const post = first(displayInfo.posts);
-    const content = post ? readChars(post.chars, 'visible') : '';
+    const content = displayInfo.content;
 
     const isFailed = task.status === 'fail';
 
@@ -135,14 +119,6 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
             >
                 <div className="line-clamp-5 min-h-[24px] break-words text-left text-[15px] leading-[24px]">
                     {content}
-                </div>
-                <div className="text-left">
-                    {compact([
-                        post?.images.length ? t`[Photo]` : undefined,
-                        post?.video ? t`[Video]` : undefined,
-                        post?.rpPayload ? t`[LuckyDrop]` : undefined,
-                        post?.poll ? t`[Poll]` : undefined,
-                    ]).join('')}
                 </div>
             </div>
             <div className="flex gap-x-1">

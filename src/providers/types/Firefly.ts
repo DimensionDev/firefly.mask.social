@@ -3,7 +3,6 @@ import type { Address } from 'viem';
 import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
@@ -810,7 +809,7 @@ export interface SchedulePostPayload {
 }
 
 export interface SchedulePostDisplayInfo {
-    posts: CompositePost[];
+    content: string;
     type: ComposeType;
 }
 
