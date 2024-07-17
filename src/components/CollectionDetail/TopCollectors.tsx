@@ -1,13 +1,13 @@
 import { Trans } from '@lingui/macro';
-import { TextOverflowTooltip } from '@masknet/theme';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -49,11 +49,11 @@ export function getTopCollectorsItemContent(
                     />
                     <div className="flex max-w-[calc(100%-38px)] items-center text-left">
                         {item.owner_ens_name ? (
-                            <TextOverflowTooltip title={addressOrEns} placement="right">
+                            <TextOverflowTooltip content={addressOrEns} placement="right">
                                 <div className="w-full truncate">{item.owner_ens_name}</div>
                             </TextOverflowTooltip>
                         ) : (
-                            <Tooltip title={addressOrEns} placement="right">
+                            <Tooltip content={addressOrEns} placement="right">
                                 <span>{formatEthereumAddress(item.owner_address, 4)}</span>
                             </Tooltip>
                         )}
@@ -67,7 +67,7 @@ export function getTopCollectorsItemContent(
                 })}
             >
                 <div className="truncate">
-                    <Tooltip title={item.distinct_nfts_owned} placement="right">
+                    <Tooltip content={item.distinct_nfts_owned} placement="right">
                         <span>{nFormatter(item.distinct_nfts_owned)}</span>
                     </Tooltip>
                 </div>

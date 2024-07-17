@@ -1,6 +1,5 @@
 'use client';
 
-import { TextOverflowTooltip } from '@masknet/theme';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
@@ -11,6 +10,7 @@ import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
@@ -49,7 +49,7 @@ export default function Page({
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
-                <TextOverflowTooltip title={data.metadata.name}>
+                <TextOverflowTooltip content={data.metadata.name}>
                     <h2 className="max-w-[calc(100%-24px-32px)] truncate text-xl font-black leading-6">
                         {data.metadata.name}
                     </h2>

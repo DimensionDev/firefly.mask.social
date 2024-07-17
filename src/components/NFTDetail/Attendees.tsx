@@ -1,9 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { Tooltip } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniq } from 'lodash-es';
 import type { Address } from 'viem';
@@ -13,6 +11,8 @@ import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -76,13 +76,13 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
                     height={30}
                     className="mr-2 min-w-[30px] rounded-full"
                 />
-                <div className="flex max-w-[calc(100%-38px)] items-center text-left" title={ownerAddress}>
+                <div className="flex max-w-[calc(100%-38px)] items-center text-left">
                     {ensName ? (
-                        <TextOverflowTooltip title={addressOrEns} placement="right">
+                        <TextOverflowTooltip content={addressOrEns} placement="top">
                             <div className="w-full truncate">{ensName}</div>
                         </TextOverflowTooltip>
                     ) : (
-                        <Tooltip title={addressOrEns} placement="right">
+                        <Tooltip content={addressOrEns} placement="top">
                             <span>{formatEthereumAddress(ownerAddress, 4)}</span>
                         </Tooltip>
                     )}

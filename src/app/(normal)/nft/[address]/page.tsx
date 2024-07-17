@@ -1,6 +1,5 @@
 'use client';
 
-import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
@@ -9,6 +8,7 @@ import ComeBack from '@/assets/comeback.svg';
 import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js';
 import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js';
 import { Loading } from '@/components/Loading.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -45,7 +45,7 @@ export default function Page({
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
-                <TextOverflowTooltip title={data?.name}>
+                <TextOverflowTooltip content={data?.name ?? ''}>
                     <h2 className="max-w-[calc(100%-24px-32px)] truncate text-xl font-black leading-6">{data?.name}</h2>
                 </TextOverflowTooltip>
             </div>

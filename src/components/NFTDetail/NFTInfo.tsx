@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { TextOverflowTooltip } from '@masknet/theme';
 import { ChainId } from '@masknet/web3-shared-evm';
 import type { ReactNode } from 'react';
 import { useEnsName } from 'wagmi';
@@ -13,6 +12,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
 import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -96,7 +96,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                         src={collection.icon}
                                     />
                                 ) : null}
-                                <TextOverflowTooltip title={collection.name}>
+                                <TextOverflowTooltip content={collection.name}>
                                     <div className="max-w-[calc(100%-20px-16px-8px-8px)] truncate">
                                         {collection.name}
                                     </div>
@@ -104,7 +104,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                 <LinkIcon className="min-w-4 ml-1 h-4 w-4 text-secondary" />
                             </Link>
                         ) : null}
-                        <TextOverflowTooltip title={name}>
+                        <TextOverflowTooltip content={name}>
                             <div
                                 className={classNames(
                                     'mt-2 line-clamp-2 w-full text-center text-2xl font-bold leading-6 sm:text-left',
