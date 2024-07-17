@@ -14,7 +14,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts } from '@/services/metrics.js';
+import { downloadAccounts, uploadSessions } from '@/services/metrics.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(source: SocialSource) {
@@ -97,6 +97,8 @@ export interface AccountOptions {
     setAsCurrent?: boolean;
     // skip the belongs to check, default: false
     skipBelongsToCheck?: boolean;
+    // skip updating metrics, default: false
+    skipUploadFireflySession?: boolean;
     // restore accounts from firefly, default: false
     skipRestoreFireflyAccounts?: boolean;
     // restore the firefly session, default: false
@@ -111,6 +113,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipBelongsToCheck = false,
         skipRestoreFireflyAccounts = false,
         skipRestoreFireflySession = false,
+        skipUploadFireflySession = false,
         signal,
     } = options ?? {};
 
@@ -164,6 +167,12 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // restore firefly session
     if (!skipRestoreFireflySession) await restoreFireflySession(account, signal);
+
+    // upload sessions to firefly
+    if (belongsTo && !skipUploadFireflySession && account.session.type !== SessionType.Firefly) {
+        const sessions = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts.map((x) => x.session));
+        await uploadSessions(fireflySessionHolder.sessionRequired, sessions, signal);
+    }
 
     // account has been added to the store
     return true;
