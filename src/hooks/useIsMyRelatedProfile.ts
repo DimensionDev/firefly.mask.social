@@ -6,9 +6,8 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 export function useIsMyRelatedProfile(identity: string, source: Source) {
     const profiles = useCurrentFireflyProfilesAll();
 
-    return useMemo(() => (
-        profiles.some(
-            (profile) => profile.identity === identity && profile.source === source,
-        )
-    ), [profiles, identity, source]);
+    return useMemo(
+        () => profiles.some((profile) => profile.identity === identity && profile.source === source),
+        [profiles, identity, source],
+    );
 }
