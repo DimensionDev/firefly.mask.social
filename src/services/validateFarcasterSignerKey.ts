@@ -5,8 +5,8 @@ import { parseUnits, toBytes } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FarcasterInvalidSignerKey, MalformedError } from '@/constants/error.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getPublicKeyInHex } from '@/helpers/ed25519.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 enum KeyState {
     ADDED = 1,

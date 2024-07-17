@@ -3,8 +3,8 @@ import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex } from '@noble/hashes/utils';
 import { toBytes } from 'viem';
 
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getPublicKeyInHex, signMessageInHex } from '@/helpers/ed25519.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { PartialWith } from '@/types/index.js';
 
 export async function encodeMessageData(

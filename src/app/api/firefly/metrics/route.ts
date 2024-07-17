@@ -12,6 +12,7 @@ import { env } from '@/constants/env.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { getPublicKeyInHex } from '@/helpers/ed25519.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -22,7 +23,6 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { getPublicKeyInHex } from '@/helpers/ed25519.js';
 
 const CryptoUsageSchema = z.union([
     z.object({

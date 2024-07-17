@@ -5,8 +5,8 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { bindFireflySession } from '@/services/bindFireflySession.js';
-import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { uploadSessions } from '@/services/metrics.js';
+import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 
 export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
     try {
