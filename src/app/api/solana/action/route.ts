@@ -1,5 +1,4 @@
 import { safeUnreachable } from '@masknet/kit';
-import { kv } from '@vercel/kv';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
@@ -10,8 +9,8 @@ import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withRequestRedisCache } from '@/helpers/withRequestRedisCache.js';
 import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { type Action, type ActionComponent, type ActionParameter, SchemeType } from '@/types/blink.js';
@@ -83,36 +82,15 @@ function createAction(url: string, data: ActionGetResponse, blink: string) {
     return actionResult;
 }
 
-const cacheBlinkResolver = (url: string, type: SchemeType, blink: string) => `${url}-${type}-${blink}`;
+const cacheBlinkResolver = (url: string, type: SchemeType, blink: string) => `${url}:${type}:${blink}`;
 
-/**
- * reference: https://docs.dialect.to/documentation/actions/blinks/detecting-actions-via-url-schemes
- */
-export const GET = compose(
-    withRequestRedisCache(KeyType.GetBlink, {
-        resolver(request) {
-            const url = request.nextUrl.searchParams.get('url');
-            const type = request.nextUrl.searchParams.get('type');
-            const blink = request.nextUrl.searchParams.get('blink');
-            return cacheBlinkResolver(url!, type as SchemeType, blink!);
-        },
-    }),
-    withRequestErrorHandler(),
-    async (request: NextRequest) => {
-        const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
-            request,
-            z.object({
-                url: HttpUrl,
-                type: z.nativeEnum(SchemeType),
-                blink: z.string(),
-            }),
-        );
-
+const queryBlink = memoizeWithRedis(
+    async (url: string, type: SchemeType, blink: string, signal: AbortSignal) => {
         switch (type) {
             case SchemeType.ActionUrl:
             case SchemeType.Interstitial: {
-                const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal: request.signal });
-                return createSuccessResponseJSON(createAction(url, response, blink));
+                const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
+                return createAction(url, response, blink);
             }
             case SchemeType.ActionsJson: {
                 const u = new URL(url);
@@ -126,16 +104,36 @@ export const GET = compose(
                 const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
                 const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, {
                     method: 'GET',
-                    signal: request.signal,
+                    signal,
                 });
-                return createSuccessResponseJSON(createAction(matchedApiUrl, response, blink));
+                return createAction(matchedApiUrl, response, blink);
             }
             default:
                 safeUnreachable(type);
                 throw new UnreachableError('scheme type', type);
         }
     },
+    {
+        key: KeyType.GetBlink,
+        resolver: cacheBlinkResolver,
+    },
 );
+
+/**
+ * reference: https://docs.dialect.to/documentation/actions/blinks/detecting-actions-via-url-schemes
+ */
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
+        request,
+        z.object({
+            url: HttpUrl,
+            type: z.nativeEnum(SchemeType),
+            blink: z.string(),
+        }),
+    );
+    const response = await queryBlink(url, type, blink, request.signal);
+    return createSuccessResponseJSON(response);
+});
 
 export async function DELETE(request: NextRequest) {
     const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
@@ -146,7 +144,6 @@ export async function DELETE(request: NextRequest) {
             blink: z.string(),
         }),
     );
-    // cspell: disable-next-line
-    await kv.hdel(KeyType.GetBlink, cacheBlinkResolver(url, type, blink));
+    await queryBlink.cache.delete(cacheBlinkResolver(url, type, blink));
     return createSuccessResponseJSON(null);
 }
