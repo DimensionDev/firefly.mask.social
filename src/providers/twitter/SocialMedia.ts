@@ -106,6 +106,10 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     isFollowedByMe(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }

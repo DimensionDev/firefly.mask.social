@@ -70,6 +70,7 @@ export interface User {
     following: number;
     followers: number;
     addresses: string[];
+    solanaAddresses: string[];
     fid: string;
     isFollowing?: boolean;
     isFollowedBack?: boolean;

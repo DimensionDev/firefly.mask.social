@@ -24,12 +24,14 @@ export function ProfileCell({ profile, source, className, ...rest }: Props) {
         >
             <div className="flex w-full items-center">
                 <ProfileTippy source={source} identity={profile.profileId}>
-                    <Avatar
-                        className="mr-3 shrink-0 rounded-full border"
-                        src={profile?.pfp || profile.pfp}
-                        size={40}
-                        alt={profile.handle}
-                    />
+                    <span>
+                        <Avatar
+                            className="mr-3 shrink-0 rounded-full border"
+                            src={profile?.pfp || profile.pfp}
+                            size={40}
+                            alt={profile.handle}
+                        />
+                    </span>
                 </ProfileTippy>
                 <div className="mr-auto flex max-w-[calc(100%-16px-40px-16px-32px)] flex-col">
                     <div className="flex-start flex items-center truncate text-sm font-bold leading-5">

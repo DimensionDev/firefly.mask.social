@@ -45,7 +45,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
                 interactive
                 content={enabled ? <ProfileCard source={source} profile={defaultProfile} identity={identity} /> : null}
             >
-                <span className={className}>{children}</span>
+                {children}
             </Tippy>
         </TippyContext.Provider>
     );

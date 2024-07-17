@@ -56,8 +56,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
                 const link = getProfileUrl(createDummyProfileFromLensHandle(handle));
                 return (
-                    <ProfileTippy className="inline-block" source={Source.Lens} identity={handle}>
-                        <MentionLink handle={handle} link={link} />
+                    <ProfileTippy source={Source.Lens} identity={handle}>
+                        <span className="inline-block">
+                            <MentionLink handle={handle} link={link} />
+                        </span>
                     </ProfileTippy>
                 );
             }
@@ -70,8 +72,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
                 const link = getProfileUrl(profile);
                 return (
-                    <ProfileTippy className="inline-block" source={Source.Farcaster} identity={profile.profileId}>
-                        <MentionLink handle={profile.handle} link={link} />
+                    <ProfileTippy source={Source.Farcaster} identity={profile.profileId}>
+                        <span className="inline-block">
+                            <MentionLink handle={profile.handle} link={link} />
+                        </span>
                     </ProfileTippy>
                 );
             }

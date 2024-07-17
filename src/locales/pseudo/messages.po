@@ -142,6 +142,9 @@ msgstr ""
 msgid "Functions that can suspend trading"
 msgstr ""
 
+msgid "Followed by <0/> , <1/>, and <2/>"
+msgstr ""
+
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
@@ -1207,6 +1210,9 @@ msgstr ""
 msgid "Your frame URL."
 msgstr ""
 
+msgid "Followed by <0/>"
+msgstr ""
+
 msgid "Remaining"
 msgstr ""
 
@@ -1468,6 +1474,9 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
+msgid "Followed by <0/> and <1/>"
+msgstr ""
+
 msgid "Skip for now"
 msgstr ""
 
@@ -1664,6 +1673,9 @@ msgid "Online"
 msgstr ""
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgstr ""
+
+msgid "Followed by <0/> , <1/>, and {0} others you follow"
 msgstr ""
 
 msgid "This Action has not yet been registered. Only use it if you trust the source."

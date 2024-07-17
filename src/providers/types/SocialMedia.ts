@@ -610,6 +610,8 @@ export interface Provider {
      */
     getFollowings: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
+    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>>;
+
     /**
      * Checks if a user is followed by the current logged user by specifying their profile ID.
      *

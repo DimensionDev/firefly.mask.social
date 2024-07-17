@@ -93,6 +93,7 @@ export function ListInPage<T = unknown, C = unknown>({
                 return el.getBoundingClientRect().height;
             }}
             {...(VirtualListProps as VirtualListProps<T, C>)}
+            key={VirtualListProps.key}
             context={Context as C}
             components={Components}
             className={classNames('max-md:no-scrollbar', className)}

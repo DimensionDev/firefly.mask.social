@@ -75,6 +75,9 @@ module.exports = {
             fontFamily: {
                 inter: ['var(--font-inter)'],
             },
+            fontWeight: {
+                inherit: 'inherit',
+            },
         },
         screens: {
             sm: '640px',
