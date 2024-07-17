@@ -1,4 +1,5 @@
 /* cspell:disable */
+import { ChainId } from '@masknet/web3-shared-evm';
 
 export const DEBANK_CHAINS = [
     {
@@ -296,3 +297,51 @@ export const DEBANK_CHAINS = [
         logo_url: 'https://static.debank.com/image/chain/logo_url/brise/4f6c040cf49f4d8c4eabbad7cd2f4ae4.png',
     },
 ];
+
+export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
+    arb: ChainId.Arbitrum,
+    astar: ChainId.Astar,
+    aurora: ChainId.Aurora,
+    avax: ChainId.Avalanche,
+    boba: ChainId.Boba,
+    brise: ChainId.Brise,
+    bsc: ChainId.BSC,
+    btt: ChainId.BitTorrent,
+    canto: ChainId.Canto,
+    celo: ChainId.Celo,
+    cfx: ChainId.Conflux,
+    cro: ChainId.Cronos,
+    dfk: ChainId.DFK,
+    doge: ChainId.Doge,
+    eth: ChainId.Mainnet,
+    evmos: ChainId.Evmos,
+    ftm: ChainId.Fantom,
+    fuse: ChainId.Fuse,
+    heco: ChainId.HuobiEco,
+    hmy: ChainId.Harmony,
+    iotx: ChainId.IoTex,
+    kava: ChainId.Kava,
+    kcc: ChainId.Kcc,
+    klay: ChainId.Klaytn,
+    mada: ChainId.Milkomeda,
+    matic: ChainId.Matic,
+    metis: ChainId.Metis,
+    mobm: ChainId.Moonbeam,
+    movr: ChainId.Moonriver,
+    nova: ChainId.Arbitrum_Nova,
+    okt: ChainId.OKXChain,
+    op: ChainId.Optimism,
+    palm: ChainId.Palm,
+    pls: ChainId.Pulse,
+    rsk: ChainId.RSK,
+    sbch: ChainId.SmartBitcoinCash,
+    sdn: ChainId.Shiden,
+    sgb: ChainId.SongbirdCanary,
+    step: ChainId.Step,
+    swm: 73772,
+    tlos: ChainId.Telos,
+    wan: ChainId.Wanchain,
+    xdai: ChainId.xDai,
+    base: ChainId.Base,
+    scrl: ChainId.Scroll,
+};
