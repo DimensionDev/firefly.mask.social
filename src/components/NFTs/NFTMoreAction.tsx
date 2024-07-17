@@ -1,7 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { usePathname } from 'next/navigation.js';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -12,8 +11,9 @@ import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
@@ -30,8 +30,8 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
     const { data } = useNFTDetail(contractAddress, tokenId, chainId);
     const collectionId = data?.collection?.id;
     const { data: isMuted } = useIsWalletMuted(address);
-    const pathname = usePathname();
-    const isProfilePage = pathname === PageRoute.Profile; // My wallet profile page has no path param
+    const isMyProfile = useIsMyRelatedProfile(address, Source.Wallet);
+
     return (
         <MoreActionMenu
             button={
@@ -47,7 +47,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     event.preventDefault();
                 }}
             >
-                {!isProfilePage ? (
+                {!isMyProfile ? (
                     <>
                         <Menu.Item>
                             {({ close }) => <WatchWalletButton identity={identity} address={address} onClick={close} />}
