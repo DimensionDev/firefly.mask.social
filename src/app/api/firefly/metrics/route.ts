@@ -203,17 +203,13 @@ export async function POST(request: Request) {
         case CryptoUsage.Encrypt: {
             const accountId = parsed.data.accountId;
             const sessions = parsed.data.sessions.map(SessionFactory.createSession);
-            const groups = Object.entries(groupBy(sessions, (x) => x.type));
             const metrics = await Promise.all(
-                groups.map(async ([type, sessions]) => {
-                    const allSettled = await Promise.allSettled(sessions.map(convertSessionToMetadata));
-                    return {
-                        account_id: accountId,
-                        platform: resolveSocialSourceInURL(resolveSocialSourceFromSessionType(type as SessionType)),
-                        client_os: 'web',
-                        login_metadata: compact(allSettled.map((x) => (x.status === 'fulfilled' ? x.value : null))),
-                    };
-                }),
+                Object.entries(groupBy(sessions, (x) => x.type)).map(async ([type, sessions]) => ({
+                    account_id: accountId,
+                    platform: resolveSocialSourceInURL(resolveSocialSourceFromSessionType(type as SessionType)),
+                    client_os: 'web',
+                    login_metadata: compact(await Promise.all(sessions.map(convertSessionToMetadata))),
+                })),
             );
 
             const cipher = encrypt(JSON.stringify(metrics));
