@@ -717,9 +717,6 @@ msgstr "作者地址"
 msgid "Failed to send tips."
 msgstr "發送小費失敗"
 
-msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
-msgstr "你剛給 <1>{1}</1> 發送了 <0>{amount}${0}</0> 的小費！通過提及和發布的方式分享這個訊息吧！"
-
 msgid "Enable development API version"
 msgstr "開啟開發API版本"
 
@@ -1799,6 +1796,9 @@ msgstr ""
 
 msgid "No matching users"
 msgstr "沒有符合的用戶"
+
+msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
+msgstr ""
 
 msgid "Save"
 msgstr "存檔"

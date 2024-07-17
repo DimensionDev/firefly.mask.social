@@ -712,9 +712,6 @@ msgstr "AUTHOR ADDRESS"
 msgid "Failed to send tips."
 msgstr "Failed to send tips."
 
-msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
-msgstr "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
-
 msgid "Enable development API version"
 msgstr "Enable development API version"
 
@@ -1794,6 +1791,9 @@ msgstr "Sorry, there is no wallet address available for tipping."
 
 msgid "No matching users"
 msgstr "No matching users"
+
+msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
+msgstr "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
 
 msgid "Save"
 msgstr "Save"
