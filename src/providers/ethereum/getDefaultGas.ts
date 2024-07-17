@@ -31,14 +31,17 @@ export async function getDefaultGas({ token, to }: TransactionOptions<ChainId, A
             gasPrice,
         });
     }
+
+    const gasFee = isEIP1559
+        ? !maxFeePerGas
+            ? ZERO
+            : multipliedBy(maxFeePerGas.toString(), gasLimit.toString())
+        : !gasPrice
+          ? ZERO
+          : multipliedBy(gasPrice.toString(), gasLimit.toString());
+
     return {
-        gas: isEIP1559
-            ? !maxFeePerGas
-                ? ZERO
-                : multipliedBy(maxFeePerGas.toString(), gasLimit.toString())
-            : !gasPrice
-              ? ZERO
-              : multipliedBy(gasPrice.toString(), gasLimit.toString()),
+        gas: multipliedBy(gasFee, '1.3'),
         maxFeePerGas,
         maxPriorityFeePerGas,
         gasPrice,
