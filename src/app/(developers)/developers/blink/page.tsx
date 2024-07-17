@@ -47,6 +47,7 @@ export default function BlinkPage() {
                     <Link
                         href="https://docs.dialect.to/documentation/actions/actions/url-scheme"
                         className="text-farcasterPrimary underline"
+                        target="_blank"
                     >
                         URL Scheme
                     </Link>
