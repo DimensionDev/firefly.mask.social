@@ -816,6 +816,9 @@ msgstr "没有铸造功能"
 msgid "Switch"
 msgstr "切换"
 
+msgid "Drafts"
+msgstr ""
+
 msgid "Follow"
 msgstr "关注"
 
@@ -1071,6 +1074,9 @@ msgstr "连接到 {0}"
 msgid "Settings"
 msgstr "设置"
 
+msgid "Unsent posts"
+msgstr ""
+
 msgid "Creator"
 msgstr "创建者"
 
@@ -1266,6 +1272,9 @@ msgstr "您正在登录不同的 Firefly 账号。如果继续则会<0>覆盖</0
 msgid "Discard"
 msgstr "放弃"
 
+msgid "REPLY"
+msgstr ""
+
 msgid "Sign"
 msgstr "签名"
 
@@ -1424,6 +1433,9 @@ msgstr "Frame 服务器未能处理请求"
 
 msgid "Report"
 msgstr "报告"
+
+msgid "Schedule"
+msgstr ""
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
@@ -1796,9 +1808,6 @@ msgstr "{0} 用户"
 
 msgid "Final results"
 msgstr "最终结果"
-
-msgid "Unsent Posts"
-msgstr ""
 
 msgid "Suspended account"
 msgstr "被冻结账户"

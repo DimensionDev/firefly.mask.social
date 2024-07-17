@@ -811,6 +811,9 @@ msgstr "No mint function"
 msgid "Switch"
 msgstr "Switch"
 
+msgid "Drafts"
+msgstr "Drafts"
+
 msgid "Follow"
 msgstr "Follow"
 
@@ -1066,6 +1069,9 @@ msgstr "Connect to {0}"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "Unsent posts"
+msgstr "Unsent posts"
+
 msgid "Creator"
 msgstr "Creator"
 
@@ -1261,6 +1267,9 @@ msgstr "You are logging into a different Firefly account. Continuing will <0>ove
 msgid "Discard"
 msgstr "Discard"
 
+msgid "REPLY"
+msgstr "REPLY"
+
 msgid "Sign"
 msgstr "Sign"
 
@@ -1419,6 +1428,9 @@ msgstr "The frame server failed to process the request."
 
 msgid "Report"
 msgstr "Report"
+
+msgid "Schedule"
+msgstr "Schedule"
 
 msgid "Post by {0}"
 msgstr "Post by {0}"
@@ -1791,9 +1803,6 @@ msgstr "{0} Users"
 
 msgid "Final results"
 msgstr "Final results"
-
-msgid "Unsent Posts"
-msgstr "Unsent Posts"
 
 msgid "Suspended account"
 msgstr "Suspended account"

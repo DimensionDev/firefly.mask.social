@@ -811,6 +811,9 @@ msgstr ""
 msgid "Switch"
 msgstr ""
 
+msgid "Drafts"
+msgstr ""
+
 msgid "Follow"
 msgstr ""
 
@@ -1066,6 +1069,9 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "Unsent posts"
+msgstr ""
+
 msgid "Creator"
 msgstr ""
 
@@ -1261,6 +1267,9 @@ msgstr ""
 msgid "Discard"
 msgstr ""
 
+msgid "REPLY"
+msgstr ""
+
 msgid "Sign"
 msgstr ""
 
@@ -1418,6 +1427,9 @@ msgid "The frame server failed to process the request."
 msgstr ""
 
 msgid "Report"
+msgstr ""
+
+msgid "Schedule"
 msgstr ""
 
 msgid "Post by {0}"
@@ -1790,9 +1802,6 @@ msgid "{0} Users"
 msgstr ""
 
 msgid "Final results"
-msgstr ""
-
-msgid "Unsent Posts"
 msgstr ""
 
 msgid "Suspended account"
