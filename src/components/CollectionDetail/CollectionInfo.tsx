@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { TextOverflowTooltip } from '@masknet/theme';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 
@@ -9,6 +8,7 @@ import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
@@ -59,7 +59,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                 <div className="ml-2.5 w-full max-w-[calc(100%-100px)] flex-1 space-y-1">
                     <div className="flex w-full items-center text-xl font-bold leading-6">
                         <ChainIcon chainId={chainId} size={24} />
-                        <TextOverflowTooltip title={name}>
+                        <TextOverflowTooltip content={name}>
                             <div className="ml-2 w-[calc(100%-32px-32px)] truncate">{name}</div>
                         </TextOverflowTooltip>
                         {collectionId ? <ReportSpamButton collectionId={collectionId} /> : null}

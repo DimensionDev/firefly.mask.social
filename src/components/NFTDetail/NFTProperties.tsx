@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
-import { TextOverflowTooltip } from '@masknet/theme';
 import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
 
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { getNFTPropertyValue } from '@/helpers/getNFTPropertyValue.js';
 
 export interface NFTPropertiesProps {
@@ -23,12 +23,12 @@ export function NFTProperties(props: NFTPropertiesProps) {
                             key={type}
                             className="flex flex-col items-center justify-center space-y-2.5 rounded-[10px] border border-input bg-lightBg p-[10px] px-2 py-1 text-center"
                         >
-                            <TextOverflowTooltip title={type}>
+                            <TextOverflowTooltip content={type}>
                                 <div className="w-full truncate text-base font-normal leading-[22px] text-second">
                                     {type}
                                 </div>
                             </TextOverflowTooltip>
-                            <TextOverflowTooltip title={value}>
+                            <TextOverflowTooltip content={value}>
                                 <div className="w-full truncate text-base font-bold leading-6 text-lightMain">
                                     {value}
                                 </div>
