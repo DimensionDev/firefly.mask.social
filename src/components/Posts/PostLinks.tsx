@@ -1,3 +1,5 @@
+'use client';
+
 import { last } from 'lodash-es';
 
 import { Blink } from '@/components/Blink/index.js';
@@ -25,33 +27,37 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
             />
         ) : null;
 
-    const frame =
-        post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled ? (
-            <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
-                {oembed}
-            </Frame>
-        ) : null;
-
     if (schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
         const scheme = last(schemes);
         if (!scheme?.url) return oembed;
 
         return (
-            <Blink
-                schemes={[scheme]}
-                onData={() => {
-                    if (post.metadata.content?.content) {
-                        setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));
-                    }
-                }}
-            >
-                {frame}
-            </Blink>
+            <>
+                {post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled ? (
+                    <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+                        <></>
+                    </Frame>
+                ) : null}
+                <Blink
+                    schemes={[scheme]}
+                    onData={() => {
+                        if (post.metadata.content?.content) {
+                            setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));
+                        }
+                    }}
+                >
+                    {oembed}
+                </Blink>
+            </>
         );
     }
 
     if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
-        return frame;
+        return (
+            <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+                {oembed}
+            </Frame>
+        );
     }
 
     return oembed;
