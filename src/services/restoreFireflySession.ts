@@ -48,8 +48,8 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    channelToken: isRelayService ? session.channelToken : undefined,
                     token: isGrantByPermission ? session.signerRequestToken : undefined,
+                    channelToken: isRelayService ? session.channelToken : undefined,
                 }),
                 signal,
             });
