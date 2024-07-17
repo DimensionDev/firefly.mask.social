@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Avatar } from '@/components/Avatar.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
-import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
@@ -21,6 +20,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { FollowCategory } from '@/types/social.js';
 
 interface InfoProps {
     profile: Profile;
@@ -41,14 +41,15 @@ export function Info({ profile }: InfoProps) {
     });
 
     const source = profile.source;
-    const { data: mutuals } = useQuery({
+    const { data } = useQuery({
         enabled: myProfileId !== profileId,
-        queryKey: ['mutual-followers', source, myProfileId, profileId],
+        queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getMutualFollowers(profile.profileId);
         },
     });
+    const mutuals = data?.data;
     const mutualCount = mutuals?.length;
 
     const followingCount = profile.followingCount || 0;
@@ -116,35 +117,30 @@ export function Info({ profile }: InfoProps) {
                     </Link>
                 </div>
                 {mutualCount ? (
-                    <div className="mt-3 flex items-center gap-2 leading-[22px]">
+                    <div className="mt-3 flex items-center gap-2 leading-[22px] hover:underline">
                         <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
                         <Link
                             className="text-sm text-secondary"
                             href={{
-                                pathname: `/profile/${profileId}/follow`,
-                                query: { mutuals: true },
+                                pathname: `/profile/${profileId}/${FollowCategory.Mutuals}`,
+                                query: { source: resolveSourceInURL(source) },
                             }}
                         >
                             {mutualCount === 1 ? (
-                                <Trans>
-                                    Followed by <ProfileLink className="!font-normal" profile={mutuals[0]} />
-                                </Trans>
+                                <Trans>Followed by {mutuals[0].displayName}</Trans>
                             ) : mutualCount === 2 ? (
                                 <Trans>
-                                    Followed by <ProfileLink className="!font-normal" profile={mutuals[0]} /> and{' '}
-                                    <ProfileLink className="!font-normal" profile={mutuals[1]} />
+                                    Followed by {mutuals[0].displayName} and {mutuals[1].displayName}
                                 </Trans>
                             ) : mutualCount === 3 ? (
                                 <Trans>
-                                    Followed by <ProfileLink className="!font-normal" profile={mutuals[0]} /> ,{' '}
-                                    <ProfileLink className="!font-normal" profile={mutuals[1]} />, and{' '}
-                                    <ProfileLink className="!font-normal" profile={mutuals[2]} />
+                                    Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
+                                    {mutuals[2].displayName}
                                 </Trans>
                             ) : (
                                 <Trans>
-                                    Followed by <ProfileLink className="!font-normal" profile={mutuals[0]} /> ,{' '}
-                                    <ProfileLink className="!font-normal" profile={mutuals[1]} />, and {mutualCount - 2}{' '}
-                                    others you follow
+                                    Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
+                                    {mutualCount - 2} others you follow
                                 </Trans>
                             )}
                         </Link>

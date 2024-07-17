@@ -142,9 +142,6 @@ msgstr "quotes"
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
-msgid "Followed by <0/> , <1/>, and <2/>"
-msgstr "Followed by <0/> , <1/>, and <2/>"
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 
@@ -307,6 +304,9 @@ msgstr "Failed"
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr "Followed by {0} , {1}, and {2} others you follow"
+
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -408,6 +408,9 @@ msgstr "recast"
 
 msgid "Search"
 msgstr "Search"
+
+msgid "Followed by {0}"
+msgstr "Followed by {0}"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
@@ -654,6 +657,9 @@ msgstr "Search Filter"
 
 msgid "Resend full or remaining?"
 msgstr "Resend full or remaining?"
+
+msgid "Followed by {0} and {1}"
+msgstr "Followed by {0} and {1}"
 
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
@@ -1075,6 +1081,9 @@ msgstr "Articles"
 msgid "Connect to {0}"
 msgstr "Connect to {0}"
 
+msgid "Followers you know"
+msgstr "Followers you know"
+
 msgid "Settings"
 msgstr "Settings"
 
@@ -1209,9 +1218,6 @@ msgstr "Share"
 
 msgid "Your frame URL."
 msgstr "Your frame URL."
-
-msgid "Followed by <0/>"
-msgstr "Followed by <0/>"
 
 msgid "Remaining"
 msgstr "Remaining"
@@ -1474,9 +1480,6 @@ msgstr "Failed to delete post."
 msgid "Copy"
 msgstr "Copy"
 
-msgid "Followed by <0/> and <1/>"
-msgstr "Followed by <0/> and <1/>"
-
 msgid "Skip for now"
 msgstr "Skip for now"
 
@@ -1576,6 +1579,9 @@ msgstr "Sign the transaction to verify you are the owner of the selected profile
 msgid "Refresh"
 msgstr "Refresh"
 
+msgid "Followed by {0} , {1}, and {2}"
+msgstr "Followed by {0} , {1}, and {2}"
+
 msgid "Channels"
 msgstr "Channels"
 
@@ -1674,9 +1680,6 @@ msgstr "Online"
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
-
-msgid "Followed by <0/> , <1/>, and {0} others you follow"
-msgstr "Followed by <0/> , <1/>, and {0} others you follow"
 
 msgid "This Action has not yet been registered. Only use it if you trust the source."
 msgstr "This Action has not yet been registered. Only use it if you trust the source."

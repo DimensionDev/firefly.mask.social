@@ -48,17 +48,17 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     );
 
     const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
+    const { source, identity } = profileTab;
 
     const {
         data: profile = null,
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['profile', profileTab?.source, profileTab?.identity],
+        queryKey: ['profile', source, identity],
         queryFn: async () => {
-            if (!profileTab?.identity || profileTab.source === Source.Wallet || (!isOthersProfile && !isLogin))
-                return null;
-            return getProfileById(resolvedSource, profileTab.identity);
+            if (!identity || source === Source.Wallet || (!isOthersProfile && !isLogin)) return null;
+            return getProfileById(resolvedSource, identity);
         },
         retry(failureCount, error) {
             if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
@@ -67,11 +67,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     });
 
     const { data: relations = EMPTY_LIST } = useQuery({
-        enabled: profileTab.source === Source.Wallet,
-        queryKey: ['relation', profileTab.source, profileTab.identity],
+        enabled: source === Source.Wallet,
+        queryKey: ['relation', source, identity],
         queryFn: async () => {
-            if (profileTab.source !== Source.Wallet || !profileTab.identity) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getNextIDRelations('ethereum', profileTab.identity);
+            if (source !== Source.Wallet || !identity) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getNextIDRelations('ethereum', identity);
         },
     });
 

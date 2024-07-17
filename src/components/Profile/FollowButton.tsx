@@ -50,7 +50,7 @@ export const FollowButton = memo(function FollowButton({
         return <ToggleMutedProfileButton profile={profile} className={className} {...rest} />;
     }
     const variantClassName = {
-        text: 'min-w-[112px] box-border px-5',
+        text: 'min-w-[112px] box-border px-5 whitespace-nowrap',
         icon: 'w-8 max-w-8',
     }[variant];
     const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;

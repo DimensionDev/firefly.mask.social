@@ -147,9 +147,6 @@ msgstr "引用"
 msgid "Functions that can suspend trading"
 msgstr ""
 
-msgid "Followed by <0/> , <1/>, and <2/>"
-msgstr ""
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
@@ -312,6 +309,9 @@ msgstr "失敗"
 msgid "Bookmarks"
 msgstr "書籤"
 
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
 msgid "Confirm"
 msgstr "確認"
 
@@ -413,6 +413,9 @@ msgstr ""
 
 msgid "Search"
 msgstr "搜尋"
+
+msgid "Followed by {0}"
+msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
@@ -658,6 +661,9 @@ msgid "Search Filter"
 msgstr "進階搜尋"
 
 msgid "Resend full or remaining?"
+msgstr ""
+
+msgid "Followed by {0} and {1}"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -1080,6 +1086,9 @@ msgstr "文章"
 msgid "Connect to {0}"
 msgstr "連接到 {0}"
 
+msgid "Followers you know"
+msgstr ""
+
 msgid "Settings"
 msgstr "設定"
 
@@ -1213,9 +1222,6 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Your frame URL."
-msgstr ""
-
-msgid "Followed by <0/>"
 msgstr ""
 
 msgid "Remaining"
@@ -1479,9 +1485,6 @@ msgstr ""
 msgid "Copy"
 msgstr "複製"
 
-msgid "Followed by <0/> and <1/>"
-msgstr ""
-
 msgid "Skip for now"
 msgstr "暫時跳過"
 
@@ -1581,6 +1584,9 @@ msgstr ""
 msgid "Refresh"
 msgstr "重新整理"
 
+msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
 msgid "Channels"
 msgstr "頻道"
 
@@ -1678,9 +1684,6 @@ msgid "Online"
 msgstr "線上"
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
-msgstr ""
-
-msgid "Followed by <0/> , <1/>, and {0} others you follow"
 msgstr ""
 
 msgid "This Action has not yet been registered. Only use it if you trust the source."

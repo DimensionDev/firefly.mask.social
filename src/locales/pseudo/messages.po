@@ -142,9 +142,6 @@ msgstr ""
 msgid "Functions that can suspend trading"
 msgstr ""
 
-msgid "Followed by <0/> , <1/>, and <2/>"
-msgstr ""
-
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
@@ -307,6 +304,9 @@ msgstr ""
 msgid "Bookmarks"
 msgstr ""
 
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
@@ -407,6 +407,9 @@ msgid "recast"
 msgstr ""
 
 msgid "Search"
+msgstr ""
+
+msgid "Followed by {0}"
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
@@ -653,6 +656,9 @@ msgid "Search Filter"
 msgstr ""
 
 msgid "Resend full or remaining?"
+msgstr ""
+
+msgid "Followed by {0} and {1}"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -1075,6 +1081,9 @@ msgstr ""
 msgid "Connect to {0}"
 msgstr ""
 
+msgid "Followers you know"
+msgstr ""
+
 msgid "Settings"
 msgstr ""
 
@@ -1208,9 +1217,6 @@ msgid "Share"
 msgstr ""
 
 msgid "Your frame URL."
-msgstr ""
-
-msgid "Followed by <0/>"
 msgstr ""
 
 msgid "Remaining"
@@ -1474,9 +1480,6 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-msgid "Followed by <0/> and <1/>"
-msgstr ""
-
 msgid "Skip for now"
 msgstr ""
 
@@ -1576,6 +1579,9 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
+msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
 msgid "Channels"
 msgstr ""
 
@@ -1673,9 +1679,6 @@ msgid "Online"
 msgstr ""
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
-msgstr ""
-
-msgid "Followed by <0/> , <1/>, and {0} others you follow"
 msgstr ""
 
 msgid "This Action has not yet been registered. Only use it if you trust the source."

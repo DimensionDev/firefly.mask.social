@@ -138,6 +138,7 @@ export enum ScrollListKey {
     Discover = 'discover-list',
     Following = 'following-list',
     Followers = 'followers-list',
+    MutualFollowers = 'mutual-followers-list',
     Notification = 'notification-list',
     Search = 'search-list',
     Comment = 'comment-list',
