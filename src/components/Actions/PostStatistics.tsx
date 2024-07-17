@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
+import { usePathname } from 'next/navigation.js';
 import { Fragment, type HTMLProps, memo, useMemo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
@@ -8,6 +9,7 @@ import { EngagementType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -16,7 +18,7 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 interface Props extends HTMLProps<HTMLDivElement> {
     post: Post;
     showChannelTag?: boolean;
-    isDetail?: boolean;
+
     onSetScrollIndex?: () => void;
 }
 
@@ -54,10 +56,10 @@ function EngagementLink(props: {
 export const PostStatistics = memo<Props>(function PostStatistics({
     className,
     post,
-    isDetail = false,
     showChannelTag = true,
     onSetScrollIndex,
 }: Props) {
+    const pathname = usePathname();
     const publicationViews = useImpressionsStore.use.publicationViews();
     const viewCount = useMemo(
         () => publicationViews.find((x) => x.id === post.postId)?.views,
@@ -113,6 +115,9 @@ export const PostStatistics = memo<Props>(function PostStatistics({
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
     const isFirefly = sendFrom?.toLowerCase() === 'firefly';
+
+    const isDetail = isRoutePathname(pathname, '/post/:detail');
+
     return (
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
