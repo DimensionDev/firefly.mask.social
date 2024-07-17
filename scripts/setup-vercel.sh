@@ -1,5 +1,7 @@
 #!/bin/bash
 
+npm i -g pnpm@8.15.8
+
 # Change to the submodule directory
 cd src/maskbook
 
