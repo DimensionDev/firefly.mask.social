@@ -12,11 +12,11 @@ import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 const WalletSelector = memo<{ onSelected: () => void }>(function WalletSelector({ onSelected }) {
-    const { receiverList, receiver: selectedReceiver, update } = TipsContext.useContainer();
+    const { recipientList, recipient: selectedRecipient, update } = TipsContext.useContainer();
 
-    const handleSelectReceiver = (receiver: TipsProfile) => {
-        if (!isSameAddress(receiver.address, selectedReceiver?.address)) {
-            update((prev) => ({ ...prev, receiver }));
+    const handleSelectRecipient = (recipient: TipsProfile) => {
+        if (!isSameAddress(recipient.address, selectedRecipient?.address)) {
+            update((prev) => ({ ...prev, recipient }));
         }
         onSelected();
         router.navigate({ to: TipsRoutePath.TIPS, replace: true });
@@ -37,23 +37,23 @@ const WalletSelector = memo<{ onSelected: () => void }>(function WalletSelector(
                 className="absolute left-2/4 top-full z-50 flex w-full -translate-x-1/2 translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover"
             >
                 <div className="no-scrollbar max-h-[175px] overflow-y-auto">
-                    {receiverList.map((receiver) => {
-                        const walletProfile = receiver.__origin__ as WalletProfile;
+                    {recipientList.map((recipient) => {
+                        const walletProfile = recipient.__origin__ as WalletProfile;
                         return (
                             <ClickableButton
-                                key={receiver.address}
+                                key={recipient.address}
                                 className={classNames(
                                     'flex w-full cursor-pointer items-center justify-center gap-x-1 rounded-lg px-3 py-2 font-bold text-lightMain hover:bg-lightBg',
-                                    isSameAddress(receiver.address, selectedReceiver?.address) ? 'opacity-50' : '',
+                                    isSameAddress(recipient.address, selectedRecipient?.address) ? 'opacity-50' : '',
                                 )}
-                                onClick={() => handleSelectReceiver(receiver)}
+                                onClick={() => handleSelectRecipient(recipient)}
                             >
                                 <span className="max-w-[calc(100%_-_24px)] truncate">
                                     {walletProfile?.primary_ens
-                                        ? `${walletProfile.primary_ens}(${formatEthereumAddress(receiver.address, 4)})`
-                                        : receiver.displayName}
+                                        ? `${walletProfile.primary_ens}(${formatEthereumAddress(recipient.address, 4)})`
+                                        : recipient.displayName}
                                 </span>
-                                <AddressLink address={receiver.address} networkType={receiver.networkType} />
+                                <AddressLink address={recipient.address} networkType={recipient.networkType} />
                             </ClickableButton>
                         );
                     })}
@@ -68,9 +68,9 @@ interface WalletSelectorEntryProps {
 }
 
 export const WalletSelectorEntry = memo(function WalletSelectorEntry({ disabled = false }: WalletSelectorEntryProps) {
-    const { receiver, receiverList, token } = TipsContext.useContainer();
+    const { recipient, recipientList, token } = TipsContext.useContainer();
 
-    const noMoreReceiver = receiverList.length <= 1;
+    const noMoreRecipient = recipientList.length <= 1;
 
     return (
         <Popover as="div" className="relative">
@@ -79,26 +79,26 @@ export const WalletSelectorEntry = memo(function WalletSelectorEntry({ disabled 
                     <Popover.Button
                         className={classNames(
                             'flex h-10 w-full cursor-pointer items-center justify-between rounded-2xl bg-lightBg px-3',
-                            noMoreReceiver ? '!cursor-default' : '',
+                            noMoreRecipient ? '!cursor-default' : '',
                         )}
-                        disabled={disabled || noMoreReceiver}
+                        disabled={disabled || noMoreRecipient}
                     >
                         <div
                             className={classNames(
                                 'flex items-center justify-center gap-x-1',
-                                noMoreReceiver ? 'w-full' : 'w-[calc(100%_-_24px)]',
+                                noMoreRecipient ? 'w-full' : 'w-[calc(100%_-_24px)]',
                             )}
                         >
-                            <span className="max-w-[calc(100%_-_24px)] truncate">{receiver?.displayName}</span>
-                            {receiver && token ? (
+                            <span className="max-w-[calc(100%_-_24px)] truncate">{recipient?.displayName}</span>
+                            {recipient && token ? (
                                 <AddressLink
-                                    address={receiver.address}
-                                    networkType={receiver.networkType}
+                                    address={recipient.address}
+                                    networkType={recipient.networkType}
                                     chainId={token.chainId}
                                 />
                             ) : null}
                         </div>
-                        {!noMoreReceiver ? (
+                        {!noMoreRecipient ? (
                             <ArrowDown
                                 className={classNames('shrink-0 text-lightSecond', open ? 'rotate-180' : '')}
                                 width={24}

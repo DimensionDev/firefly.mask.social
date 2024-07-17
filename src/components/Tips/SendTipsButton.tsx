@@ -21,7 +21,7 @@ interface SendTipsButtonProps {
 }
 
 const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ connected, onConnect }) {
-    const { token, receiver, amount, update } = TipsContext.useContainer();
+    const { token, recipient, amount, update } = TipsContext.useContainer();
     const { value, loading: isValidating, error } = useTipsValidation();
 
     const [{ loading: isSending }, handleSendTips] = useAsyncFn(async () => {
@@ -30,13 +30,13 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             return;
         }
         try {
-            if (!receiver || !token) return;
+            if (!recipient || !token) return;
             update((prev) => ({ ...prev, hash: null, isSending: true }));
             const { chainId, id } = token;
-            const transfer = resolveTransferProvider(receiver.networkType);
-            const network = resolveNetworkProvider(receiver.networkType);
+            const transfer = resolveTransferProvider(recipient.networkType);
+            const network = resolveNetworkProvider(recipient.networkType);
             const hash = await transfer.transfer({
-                to: receiver.address,
+                to: recipient.address,
                 token,
                 amount,
             });
@@ -50,7 +50,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         } finally {
             update((prev) => ({ ...prev, isSending: false }));
         }
-    }, [connected, receiver, token, amount, onConnect]);
+    }, [connected, recipient, token, amount, onConnect]);
 
     return (
         <ClickableButton

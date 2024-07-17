@@ -15,18 +15,18 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
-    const { amount, token, receiver, handle, hash: hashUrl, socialProfiles } = TipsContext.useContainer();
+    const { amount, token, recipient, handle, hash: hashUrl, socialProfiles } = TipsContext.useContainer();
     const currentChannel = useCurrentVisitingChannel();
     const { context } = useMatch({ from: rootRouteId });
 
     const { canShare, walletName } = useMemo(() => {
-        const __origin__ = receiver?.__origin__ as WalletProfile;
+        const __origin__ = recipient?.__origin__ as WalletProfile;
         if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length) return { canShare: false };
         return {
             canShare: true,
             walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
         };
-    }, [receiver, handle, socialProfiles]);
+    }, [recipient, handle, socialProfiles]);
 
     const onShare = () => {
         const expectedSources = getCurrentAvailableSources().filter((source) => {
@@ -71,7 +71,7 @@ export function TipSuccess() {
                                     {amount} ${token?.symbol}{' '}
                                 </span>
                                 tips to
-                                <span className="font-bold text-link"> {handle || receiver?.displayName}</span>! Share
+                                <span className="font-bold text-link"> {handle || recipient?.displayName}</span>! Share
                                 this news by mentioning and posting.
                             </Trans>
                         ) : (
@@ -82,7 +82,7 @@ export function TipSuccess() {
                                     {amount} ${token?.symbol}{' '}
                                 </span>
                                 tips to
-                                <span className="font-bold text-link"> {handle || receiver?.displayName}</span>!
+                                <span className="font-bold text-link"> {handle || recipient?.displayName}</span>!
                             </Trans>
                         )}
                     </p>

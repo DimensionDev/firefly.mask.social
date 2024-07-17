@@ -1783,9 +1783,6 @@ msgstr "<0/> and <1>{0} others</1>"
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
 
-msgid "Max: {0}"
-msgstr "Max: {0}"
-
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
 

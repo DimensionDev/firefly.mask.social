@@ -1,15 +1,19 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { memo, useMemo } from 'react';
+import { useAsyncFn } from 'react-use';
 
+import LoadingIcon from '@/assets/loading.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { SendWithEVM, SendWithSolana } from '@/components/Tips/SendTipsButton.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { TokenSelectorEntry } from '@/components/Tips/TokenSelector.js';
 import { WalletSelectorEntry } from '@/components/Tips/WalletSelector.js';
 import { NetworkType } from '@/constants/enum.js';
+import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsUI = memo(function TipsUI() {
-    const { token, receiver, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
+    const { token, recipient, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({
@@ -28,10 +32,24 @@ export const TipsUI = memo(function TipsUI() {
         }
     };
 
-    const tipTitle = receiver
+    const [{ loading }, handleUseMaxBalance] = useAsyncFn(async () => {
+        if (!recipient || !token) return;
+        const network = resolveNetworkProvider(recipient.networkType);
+        const account = await network.getAccount();
+        if (!account) return;
+        const transfer = resolveTransferProvider(recipient.networkType);
+        const balance = await transfer.getAvailableBalance({
+            to: recipient.address,
+            token,
+            amount,
+        });
+        update((prev) => ({ ...prev, amount: balance }));
+    }, []);
+
+    const tipTitle = recipient
         ? pureWallet
-            ? t`Tip to ${handle || receiver.displayName}`
-            : t`Tip to @${handle || receiver.displayName}`
+            ? t`Tip to ${handle || recipient.displayName}`
+            : t`Tip to @${handle || recipient.displayName}`
         : '';
 
     return (
@@ -40,20 +58,39 @@ export const TipsUI = memo(function TipsUI() {
             <div className="font-bold">
                 <WalletSelectorEntry disabled={isSending} />
                 <div className="mt-3 flex gap-x-3">
-                    <div className="h-10 flex-1 rounded-2xl bg-lightBg">
+                    <div className="flex h-10 flex-1 items-center rounded-2xl bg-lightBg pr-3">
                         <input
                             className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-                            placeholder={token ? t`Max: ${token.balance}` : t`Enter amount`}
+                            placeholder={t`Enter amount`}
                             value={amount}
                             autoComplete="off"
                             spellCheck="false"
                             onChange={handleAmountChange}
                             disabled={isSending}
                         />
+                        {token && recipient ? (
+                            <ClickableButton
+                                className="font-bold text-link"
+                                disabled={isSending || loading}
+                                onClick={handleUseMaxBalance}
+                            >
+                                {loading ? (
+                                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                                ) : (
+                                    <Trans>Max</Trans>
+                                )}
+                            </ClickableButton>
+                        ) : null}
                     </div>
                     <TokenSelectorEntry disabled={isSending} />
                 </div>
-                {receiver ? receiver.networkType === NetworkType.Ethereum ? <SendWithEVM /> : <SendWithSolana /> : null}
+                {recipient ? (
+                    recipient.networkType === NetworkType.Ethereum ? (
+                        <SendWithEVM />
+                    ) : (
+                        <SendWithSolana />
+                    )
+                ) : null}
             </div>
         </>
     );

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { isGreaterThan } from '@/helpers/number.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -24,13 +25,13 @@ function sortTokensByUsdValue(tokens: Token[]) {
 }
 
 export const useTipsTokens = () => {
-    const { receiver } = TipsContext.useContainer();
+    const { recipient } = TipsContext.useContainer();
     const { data, isLoading } = useQuery({
-        queryKey: ['tokens', receiver?.address],
-        enabled: !!receiver,
+        queryKey: ['tokens', recipient?.address],
+        enabled: !!recipient,
         queryFn: async () => {
-            if (!receiver) return [];
-            const network = resolveNetworkProvider(receiver.networkType);
+            if (!recipient) return [];
+            const network = resolveNetworkProvider(recipient.networkType);
             return await getTokensByAddress(await network.getAccount());
         },
     });
@@ -50,7 +51,7 @@ export const useTipsTokens = () => {
                         },
                     ];
                 }, [])
-                .filter((token) => !token.balance.includes('<')),
+                .filter((token) => isGreaterThan(token.usdValue, 0)),
         );
     }, [data]);
 

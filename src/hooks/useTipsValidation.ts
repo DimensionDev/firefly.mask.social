@@ -8,22 +8,22 @@ import { trimify } from '@/helpers/trimify.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export function useTipsValidation() {
-    const { receiver, token, amount } = TipsContext.useContainer();
+    const { recipient, token, amount } = TipsContext.useContainer();
 
     const { value, loading, error } = useAsync(async () => {
-        if (!receiver || !token || !trimify(amount) || isZero(trimify(amount))) {
+        if (!recipient || !token || !trimify(amount) || isZero(trimify(amount))) {
             return { label: t`Send Tips`, disabled: true };
         }
 
-        const transfer = resolveTransferProvider(receiver.networkType);
-        const network = resolveNetworkProvider(receiver.networkType);
+        const transfer = resolveTransferProvider(recipient.networkType);
+        const network = resolveNetworkProvider(recipient.networkType);
 
-        if (isSameAddress(receiver.address, await network.getAccount())) {
+        if (isSameAddress(recipient.address, await network.getAccount())) {
             return { label: t`Cannot send tips to yourself`, disabled: true };
         }
 
         const isBalanceValid = await transfer.validateBalance({
-            to: receiver.address,
+            to: recipient.address,
             token,
             amount,
         });
@@ -32,7 +32,7 @@ export function useTipsValidation() {
         }
 
         const isGasValid = await transfer.validateGas({
-            to: receiver.address,
+            to: recipient.address,
             token,
             amount,
         });
@@ -40,7 +40,7 @@ export function useTipsValidation() {
             return { label: t`Insufficient Gas`, disabled: true };
         }
         return { label: t`Send Tips`, disabled: false };
-    }, [receiver, token, amount]);
+    }, [recipient, token, amount]);
 
     return { value, loading, error };
 }
