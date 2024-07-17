@@ -34,7 +34,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
 
     const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
 
-    if (profiles.length > 1 && !reached && isMedium) return null;
+    if ((profiles.length > 1 || !isOthersProfile) && !reached && isMedium) return null;
 
     const renderActions = () => {
         if (!reached && isMedium) return null;
@@ -62,7 +62,7 @@ export function Title({ profile, profiles, isOthersProfile }: TitleProps) {
                 </span>
             </div>
 
-            <div className="flex flex-shrink-0 gap-2.5"> {renderActions()}</div>
+            <div className="flex flex-shrink-0 gap-2.5">{renderActions()}</div>
         </div>
     );
 }

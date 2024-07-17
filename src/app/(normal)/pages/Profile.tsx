@@ -88,7 +88,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const profileMissing =
         !profile &&
         !walletProfile &&
-        (!(profileTab.source === Source.Twitter && !currentTwitterProfile) || !profiles.length);
+        ((profileTab.source === Source.Twitter && !currentTwitterProfile) || !profiles.length);
 
     if (!isProfilePage && isFinalized && profileMissing) {
         notFound();

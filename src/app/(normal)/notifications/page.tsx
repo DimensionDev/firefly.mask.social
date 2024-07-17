@@ -73,12 +73,14 @@ export default function Notification() {
 
     return (
         <>
-            <NotificationFilter
-                className="mb-2 px-4 pt-3"
-                source={currentSource}
-                types={types}
-                onTypesChange={setTypes}
-            />
+            {isLogin ? (
+                <NotificationFilter
+                    className="mb-2 px-4 pt-3"
+                    source={currentSource}
+                    types={types}
+                    onTypesChange={setTypes}
+                />
+            ) : null}
             <ListInPage
                 key={currentSource}
                 queryResult={queryResult}
