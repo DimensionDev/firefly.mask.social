@@ -35,9 +35,9 @@ export function ListInPage<T = unknown, C = unknown>({
 }: ListInPageProps<T, C>) {
     const { currentSource, virtuosoState, setVirtuosoState } = useGlobalState();
     const currentSocialSource = narrowToSocialSource(currentSource);
+    const isLogin = useIsLogin(currentSocialSource);
 
     const itemsRendered = useRef(false);
-    const isLogin = useIsLogin(currentSocialSource);
 
     const virtuoso = useRef<VirtuosoHandle>(null);
 
