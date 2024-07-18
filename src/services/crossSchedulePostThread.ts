@@ -6,10 +6,13 @@ import { compact, first } from 'lodash-es';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
+import { uploadSessions } from '@/services/metrics.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export async function crossPostScheduleThread(scheduleTime: Date) {
@@ -51,6 +54,8 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
 
         const chars = post ? readChars(post.chars, 'visible') : '';
         const content = `${chars}${chars.length > 0 ? '\n' : ''}${assets}`;
+
+        await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,

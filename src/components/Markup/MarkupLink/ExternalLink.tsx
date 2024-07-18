@@ -3,6 +3,7 @@
 import type { LinkProps } from 'next/link.js';
 import { memo } from 'react';
 
+import { TLD_DOMAIN } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
@@ -17,8 +18,10 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
     if (!title) return null;
 
     const u = parseURL(title);
+    const domainType = u?.hostname.split('.').pop()?.toLocaleLowerCase();
 
-    if (!u) return <span className={classNames('text-link')}> {title ? formatUrl(title, 30) : title}</span>;
+    if (!u || (domainType && !TLD_DOMAIN.includes(domainType))) return <span> {title}</span>;
+
     return (
         <Link
             onClick={(event) => event.stopPropagation()}

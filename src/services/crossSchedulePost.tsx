@@ -9,12 +9,15 @@ import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { commitPoll } from '@/services/commitPoll.js';
+import { uploadSessions } from '@/services/metrics.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -73,6 +76,8 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         const chars = readChars(compositePost.chars, 'visible');
 
         const content = `${chars}${chars.length > 0 ? '\n' : ''}${assets}`;
+
+        await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
