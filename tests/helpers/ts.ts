@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { toMilliseconds,toUnix } from '@/helpers/ts.js';
+import { toMilliseconds, toUnix } from '@/helpers/ts.js';
 
 describe('toUnix', () => {
     test('should convert milliseconds timestamp to Unix timestamp', () => {
