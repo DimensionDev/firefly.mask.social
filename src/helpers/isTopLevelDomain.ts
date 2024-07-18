@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { parseURL } from '@/helpers/parseURL.js';
 
 const TLD_DOMAIN = [
