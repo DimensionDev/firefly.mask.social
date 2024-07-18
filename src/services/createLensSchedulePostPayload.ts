@@ -1,16 +1,16 @@
 import { t } from '@lingui/macro';
 
-import { Source } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
-import { createIPFSMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
-import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType } from '@/types/compose.js';
@@ -40,11 +40,11 @@ export async function createLensSchedulePostPayload(
     const imageResults = await Promise.all(
         images.map(async (media) => {
             if (resolveImageUrl(Source.Lens, media)) return media;
-            return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
+            return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Lens), media);
         }),
     );
 
-    const videoResult = video?.file ? createIPFSMediaObject(await uploadFileToIPFS(video.file), video) : null;
+    const videoResult = video?.file ? createS3MediaObject(await uploadToS3(video.file, SourceInURL.Lens), video) : null;
 
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to schedule post on ${sourceName}`);

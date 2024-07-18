@@ -75,7 +75,7 @@ export const resolveMediaObjectUploadId = resolveMediaObjectBy('uploadIds');
 
 const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[]>(
     {
-        [Source.Lens]: [MediaSource.IPFS, MediaSource.Giphy],
+        [Source.Lens]: [MediaSource.IPFS, MediaSource.S3, MediaSource.Giphy],
         [Source.Farcaster]: [MediaSource.S3, MediaSource.Giphy],
         [Source.Twitter]: [MediaSource.Twimg],
     },
@@ -86,7 +86,7 @@ const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[
 
 const resolveVideoSources = createLookupTableResolver<SocialSource, MediaSource[]>(
     {
-        [Source.Lens]: [MediaSource.IPFS],
+        [Source.Lens]: [MediaSource.S3],
         [Source.Farcaster]: [MediaSource.S3],
         [Source.Twitter]: [MediaSource.Twimg],
     },
