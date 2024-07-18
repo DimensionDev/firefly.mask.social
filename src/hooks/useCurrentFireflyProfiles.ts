@@ -55,14 +55,15 @@ export function useCurrentFireflyProfilesAll() {
     const currentProfileAll = useCurrentProfileAll();
     const currentFireflyProfiles = useCurrentFireflyProfiles();
 
+    const lensIdentity = resolveProfileId(currentProfileAll[Source.Lens]);
+    const farcasterIdentity = resolveProfileId(currentProfileAll[Source.Farcaster]);
+    const twitterIdentity =
+        !lensIdentity && !farcasterIdentity ? resolveProfileId(currentProfileAll[Source.Twitter]) : undefined;
+
     const { data: profiles = EMPTY_LIST } = useQuery({
-        queryKey: ['all-profiles', 'myself', currentProfileAll],
+        queryKey: ['all-profiles', 'my-own', lensIdentity, farcasterIdentity, twitterIdentity],
         queryFn: async () => {
-            return FireflySocialMediaProvider.getAllPlatformProfiles(
-                resolveProfileId(currentProfileAll[Source.Lens]),
-                resolveProfileId(currentProfileAll[Source.Farcaster]),
-                resolveProfileId(currentProfileAll[Source.Twitter]),
-            );
+            return FireflySocialMediaProvider.getAllPlatformProfiles(lensIdentity, farcasterIdentity, twitterIdentity);
         },
         staleTime: 1000 * 60 * 5,
     });
