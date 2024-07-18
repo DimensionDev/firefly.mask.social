@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-17 12:01\n"
+"PO-Revision-Date: 2024-07-18 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -100,9 +100,6 @@ msgid "Mute @{0}"
 msgstr ""
 
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
-msgstr ""
-
-msgid "Select token"
 msgstr ""
 
 msgid "The post you quoted/replied has already deleted"
@@ -715,9 +712,6 @@ msgid "AUTHOR ADDRESS"
 msgstr ""
 
 msgid "Failed to send tips."
-msgstr ""
-
-msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>! Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Enable development API version"
@@ -1800,6 +1794,9 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
+msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
+msgstr ""
+
 msgid "Save"
 msgstr ""
 
@@ -1807,6 +1804,9 @@ msgid "Up to 7 days can be set as the scheduled time. Please reset it."
 msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
+msgstr ""
+
+msgid "Please select a token."
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
