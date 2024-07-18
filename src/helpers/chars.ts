@@ -23,6 +23,8 @@ interface Segment {
     visible: boolean;
     // content is the actual content
     content: string;
+    // sortNo is used to sort the content
+    sortNo?: number;
 }
 
 interface RP_Chars extends Segment {
@@ -57,6 +59,12 @@ export type Chars = string | Array<string | ComplexChars>;
  */
 export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisible' = 'both', source?: SocialSource) {
     return (Array.isArray(chars) ? chars : [chars])
+        .slice()
+        .sort((a, b) => {
+            const aSortNo = typeof a === 'string' ? 0 : a.sortNo || 0;
+            const bSortNo = typeof b === 'string' ? 0 : b.sortNo || 0;
+            return aSortNo - bSortNo;
+        })
         .map((x) => {
             if (typeof x === 'string') {
                 return strategy === 'invisible' ? '' : x;
