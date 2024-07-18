@@ -29,7 +29,7 @@ export function TokenIcon({ token, tokenSize = 30, chainSize = 12 }: TokenIconPr
                 />
             )}
             <span
-                className="absolute -bottom-[1px] rounded-full bg-lightBottom p-[1px]"
+                className="absolute -bottom-[1px] rounded-full bg-lightBottom p-[1px] overflow-hidden"
                 style={{
                     right: -chainSize / 2,
                 }}

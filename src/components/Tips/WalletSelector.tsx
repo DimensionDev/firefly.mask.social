@@ -80,6 +80,7 @@ export const WalletSelectorEntry = memo(function WalletSelectorEntry({ disabled 
                         className={classNames(
                             'flex h-10 w-full cursor-pointer items-center justify-between rounded-2xl bg-lightBg px-3',
                             noMoreRecipient ? '!cursor-default' : '',
+                            disabled ? 'opacity-50' : '',
                         )}
                         disabled={disabled || noMoreRecipient}
                     >
