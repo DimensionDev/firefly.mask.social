@@ -3,18 +3,18 @@ import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-import { Source } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
-import { createIPFSMediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
-import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -42,6 +42,7 @@ interface Attachments {
     attachments: Array<{
         item: string;
         type: string;
+        /** cover url */
         cover?: string;
     }>;
 }
@@ -268,7 +269,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return Promise.all(
                 images.map(async (media) => {
                     if (resolveImageUrl(Source.Lens, media)) return media;
-                    return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
+                    return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Lens), media);
                 }),
             );
         },
@@ -276,7 +277,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
                     if (resolveVideoUrl(Source.Lens, media)) return media;
-                    return createIPFSMediaObject(await uploadFileToIPFS(media.file), media);
+                    return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Lens), media);
                 }),
             );
         },
