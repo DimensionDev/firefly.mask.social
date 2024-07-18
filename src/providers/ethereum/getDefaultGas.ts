@@ -17,19 +17,24 @@ export async function getDefaultGas({ token, to }: TransactionOptions<ChainId, A
     });
     const parameters = { chainId: token.chainId, account, to };
     let gasLimit: bigint;
-    if (isEIP1559) {
-        gasLimit = await estimateGas(config, {
-            ...parameters,
-            type: 'eip1559',
-            maxFeePerGas,
-            maxPriorityFeePerGas,
-        });
-    } else {
-        gasLimit = await estimateGas(config, {
-            ...parameters,
-            type: 'legacy',
-            gasPrice,
-        });
+    try {
+        if (isEIP1559) {
+            gasLimit = await estimateGas(config, {
+                ...parameters,
+                type: 'eip1559',
+                maxFeePerGas,
+                maxPriorityFeePerGas,
+            });
+        } else {
+            gasLimit = await estimateGas(config, {
+                ...parameters,
+                type: 'legacy',
+                gasPrice,
+            });
+        }
+    } catch {
+        // Fallback to default gas limit
+        gasLimit = BigInt(21000);
     }
 
     const gasFee = isEIP1559
