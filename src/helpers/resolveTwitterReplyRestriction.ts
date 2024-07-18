@@ -3,12 +3,12 @@ import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.j
 
 export const resolveTwitterReplyRestriction = createLookupTableResolver<
     RestrictionType,
-    '' | 'following' | 'mentionedUsers'
+    'following' | 'mentionedUsers' | undefined
 >(
     {
-        [RestrictionType.Everyone]: '',
+        [RestrictionType.Everyone]: undefined,
         [RestrictionType.OnlyPeopleYouFollow]: 'following',
         [RestrictionType.MentionedProfiles]: 'mentionedUsers',
     },
-    '',
+    undefined,
 );

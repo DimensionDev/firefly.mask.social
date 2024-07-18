@@ -1,6 +1,6 @@
 import { compact } from '@apollo/client/utilities';
 
-import { RestrictionType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
 import { createTwitterMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
@@ -17,7 +17,7 @@ export interface TwitterSchedulePostPayload {
     media?: {
         media_ids: string[];
     };
-    reply_settings?: '' | 'following' | 'mentionedUsers';
+    reply_settings?: 'following' | 'mentionedUsers';
     poll?: {
         options: Array<{ label: string }>;
         duration_minutes: number;
@@ -53,8 +53,7 @@ export async function createTwitterSchedulePostPayload(
                   media_ids: compact(imageResults?.map((x) => x.id)),
               }
             : undefined,
-        reply_settings:
-            restriction === RestrictionType.Everyone ? undefined : resolveTwitterReplyRestriction(restriction),
+        reply_settings: resolveTwitterReplyRestriction(restriction),
         poll: pollResult
             ? {
                   options: pollResult.options.map((option) => ({ label: option.label })),
