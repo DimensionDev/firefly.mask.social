@@ -133,12 +133,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             ? true
             : isSameSession(currentFireflySession, fireflySession);
 
-    // add account to store cause it's from the same firefly session
-    if (belongsTo && account.session.type !== SessionType.Firefly) {
-        state.addAccount(account, setAsCurrent);
-        if (setAsCurrent) sessionHolder.resumeSession(account.session);
-    }
-
     // resume accounts from firefly
     if (!skipResumeFireflyAccounts && fireflySession) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
@@ -168,6 +162,12 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 if (account.session.type === SessionType.Firefly) return false;
             }
         }
+    }
+
+    // add account to store cause it's from the same firefly session
+    if (belongsTo && account.session.type !== SessionType.Firefly) {
+        state.addAccount(account, setAsCurrent);
+        if (setAsCurrent) sessionHolder.resumeSession(account.session);
     }
 
     // resume firefly session
