@@ -59,7 +59,10 @@ export const TransactionSchema = z.object({
     }),
 });
 
-const whitelist: Array<string | ((url: string) => boolean)> = [(url) => isSameOriginUrl(url, location.origin)];
+const whitelist: Array<string | ((url: string) => boolean)> = [
+    (url) => isSameOriginUrl(url, location.origin),
+    'https://firefly.mask.social',
+];
 
 function confirmBeforeLeaving(targetUrl: string) {
     const isWhitelisted = whitelist.some((x) =>
