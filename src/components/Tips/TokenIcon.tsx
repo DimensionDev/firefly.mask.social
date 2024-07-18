@@ -29,13 +29,19 @@ export function TokenIcon({ token, tokenSize = 30, chainSize = 12 }: TokenIconPr
                 />
             )}
             <span
-                className="absolute -bottom-[1px] rounded-full bg-lightBottom p-[1px] overflow-hidden"
+                className="absolute -bottom-[1px] overflow-hidden rounded-full bg-lightBottom p-[1px]"
                 style={{
                     right: -chainSize / 2,
                 }}
             >
                 {token.chainLogoUrl ? (
-                    <Image src={token.chainLogoUrl} width={chainSize} height={chainSize} alt={token.chain} />
+                    <Image
+                        className="rounded-full"
+                        src={token.chainLogoUrl}
+                        width={chainSize}
+                        height={chainSize}
+                        alt={token.chain}
+                    />
                 ) : (
                     <ChainIcon size={chainSize} chainId={token.chainId} />
                 )}
