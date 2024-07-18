@@ -20,9 +20,9 @@ export function MutualFollowersList({ profileId, source }: { profileId: string; 
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['profiles', socialSource, 'mutual-followers', myProfileId, profileId],
-        queryFn({ pageParam }) {
+        async queryFn({ pageParam }) {
             const provider = resolveSocialMediaProvider(socialSource);
-            return provider.getFollowers(profileId, createIndicator(undefined, pageParam));
+            return provider.getMutualFollowers(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
@@ -34,7 +34,7 @@ export function MutualFollowersList({ profileId, source }: { profileId: string; 
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
-                key: `${ScrollListKey.Followers}:${source}:${profileId}`,
+                key: `${ScrollListKey.MutualFollowers}:${source}:${profileId}`,
                 computeItemKey: (index, item: Profile) => `${item.profileId}-${index}`,
                 itemContent: (index, item: Profile) => getFollowInList(index, item),
             }}

@@ -1,6 +1,8 @@
 import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
+import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
@@ -10,38 +12,46 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
+const overrideComponents = {
+    p: PlainParagraph,
+    br: VoidLineBreak,
+};
 export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ profile }) {
     const isSmall = useIsSmall('max');
     return (
-        <Link
-            href={getProfileUrl(profile)}
-            className="grid gap-2.5 border-b border-line py-3 pl-3 pr-5"
-            style={{ gridTemplateColumns: '70px calc(100% - 70px - 100px - 20px) 100px' }}
-        >
-            <Avatar
-                className="w-17.5 h-17.5 min-w-[70px] shrink-0"
-                src={profile.pfp}
-                size={isSmall ? 40 : 44}
-                alt={profile.profileId}
-                fallbackUrl={profile.source === Source.Lens ? getLennyURL(profile.pfp) : undefined}
-            />
-            <div className="leading-5.5 flex flex-col text-[15px]">
-                <div className="flex w-full items-center">
-                    <div className="max-w-[calc(100% - 32px)] mr-2 truncate text-xl leading-6">
-                        {profile.displayName}
+        <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
+            <Link href={getProfileUrl(profile)} className="flex-start flex flex-1 gap-3 overflow-auto">
+                <Avatar
+                    className="shrink-0 rounded-full border"
+                    src={profile.pfp}
+                    size={isSmall ? 40 : 44}
+                    alt={profile.profileId}
+                    fallbackUrl={profile.source === Source.Lens ? getLennyURL(profile.pfp) : undefined}
+                />
+                <div className="flex-start flex flex-1 flex-col overflow-auto">
+                    <div className="flex-start flex items-center text-sm font-bold leading-5">
+                        <div className="mr-2 truncate text-xl">{profile.displayName}</div>
+                        <SocialSourceIcon
+                            source={profile.source}
+                            className={profile.source === Source.Lens ? 'dark:opacity-70' : undefined}
+                        />
                     </div>
-                    <SocialSourceIcon
-                        source={profile.source}
-                        className={profile.source === Source.Lens ? 'dark:opacity-70' : undefined}
-                    />
+                    <div className="text-sm text-secondary">@{profile.handle}</div>
+                    {profile.bio ? (
+                        <BioMarkup
+                            className="mt-1.5 truncate text-sm"
+                            components={overrideComponents}
+                            source={profile.source}
+                        >
+                            {profile.bio}
+                        </BioMarkup>
+                    ) : null}
                 </div>
-                <div className="w-full truncate text-secondary">@{profile.handle}</div>
-                <div className="w-full truncate">{profile.bio}</div>
-            </div>
-            <div className="flex shrink-0 justify-end">
-                <FollowButton profile={profile} />
-            </div>
-        </Link>
+                <div className="flex shrink-0 justify-end">
+                    <FollowButton profile={profile} />
+                </div>
+            </Link>
+        </div>
     );
 });
 

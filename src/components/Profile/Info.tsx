@@ -1,5 +1,5 @@
 import { plural, Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 
@@ -41,15 +41,19 @@ export function Info({ profile }: InfoProps) {
     });
 
     const source = profile.source;
-    const { data } = useQuery({
+    // Fetch the first page with useInfiniteQuery, the same as
+    // MutualFollowersList, to make it reuseable in MutualFollowersList
+    const { data } = useInfiniteQuery({
         enabled: myProfileId !== profileId,
         queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getMutualFollowers(profile.profileId);
         },
+        initialPageParam: '',
+        getNextPageParam: () => null,
     });
-    const mutuals = data?.data;
+    const mutuals = data?.pages[0]?.data;
     const mutualCount = mutuals?.length;
 
     const followingCount = profile.followingCount || 0;

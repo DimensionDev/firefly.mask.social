@@ -2,6 +2,7 @@ import { isUndefined } from 'lodash-es';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
+import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
@@ -18,6 +19,10 @@ interface ProfileInListProps {
     index?: number;
 }
 
+const overrideComponents = {
+    p: PlainParagraph,
+    br: VoidLineBreak,
+};
 export function ProfileInList({ profile, noFollowButton, listKey, index }: ProfileInListProps) {
     const isSmall = useIsSmall('max');
 
@@ -29,11 +34,11 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 onClick={() => {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                 }}
-                className="flex-start flex flex-1 overflow-auto"
+                className="flex-start flex flex-1 gap-3 overflow-auto"
                 href={getProfileUrl(profile)}
             >
                 <Avatar
-                    className="mr-3 shrink-0 rounded-full border"
+                    className="shrink-0 rounded-full border"
                     src={profile.pfp}
                     size={isSmall ? 40 : 44}
                     alt={profile.displayName}
@@ -48,12 +53,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                     {profile.bio ? (
                         <BioMarkup
                             className="mt-1.5 truncate text-sm"
-                            components={{
-                                // @ts-ignore
-                                // eslint-disable-next-line react/no-unstable-nested-components
-                                p: (props) => <>{props.children}</>,
-                                br: () => null,
-                            }}
+                            components={overrideComponents}
                             source={profile.source}
                         >
                             {profile.bio}
@@ -62,7 +62,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 </div>
             </Link>
 
-            <div className="ml-2 w-[100px]">
+            <div className="ml-2 w-[112px]">
                 {!noFollowButton && !isCurrentProfile(profile) ? <FollowButton profile={profile} /> : null}
             </div>
         </div>
