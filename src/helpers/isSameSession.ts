@@ -27,8 +27,7 @@ export function isSameSession(session: Session | null, otherSession: Session | n
             const otherTwitterSession = otherSession as TwitterSession;
             return (
                 twitterSession.payload.accessToken === otherTwitterSession.payload.accessToken &&
-                twitterSession.payload.accessTokenSecret === otherTwitterSession.payload.accessTokenSecret &&
-                twitterSession.payload === otherTwitterSession.payload
+                twitterSession.payload.accessTokenSecret === otherTwitterSession.payload.accessTokenSecret
             );
         case SessionType.Firefly:
             return session.token === otherSession.token;
