@@ -2,10 +2,11 @@
 
 import { Trans } from '@lingui/macro';
 import { Reorder } from 'framer-motion';
-import { noop, sortBy } from 'lodash-es';
+import { noop, sortBy, uniqBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { useAsync, useMount } from 'react-use';
 import urlcat from 'urlcat';
+import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
@@ -13,12 +14,10 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmiClient.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { switchAccount } from '@/helpers/account.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
@@ -39,6 +38,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const pathname = usePathname();
     const updateParams = useUpdateParams();
     const { profileTab } = useProfileTabState();
+    const account = useAccount();
 
     const isPureProfilePage = pathname === PageRoute.Profile;
     const isMyProfilePage =
@@ -46,7 +46,6 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
     const { value: wrappedAccounts, loading } = useAsync(async () => {
         if (source !== Source.Lens) return accounts;
-        const { account } = await getWalletClientRequired(config);
         const profiles = await queryClient.fetchQuery({
             queryKey: ['lens', 'profiles', account.address],
             staleTime: 1000 * 60 * 10,
@@ -56,10 +55,16 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
             },
         });
         if (!profiles?.length) return accounts;
-        return profiles.map((profile) => ({
-            ...accounts.find((account) => isSameProfile(account.profile, profile)),
-            profile,
-        }));
+        return uniqBy(
+            [
+                ...profiles.map((profile) => ({
+                    ...accounts.find((account) => isSameProfile(account.profile, profile)),
+                    profile,
+                })),
+                ...accounts,
+            ],
+            (account) => `${account.profile.source}:${account.profile.profileId}`,
+        );
     }, [source, accounts]);
 
     useMount(() => {
