@@ -1,5 +1,5 @@
 try {
-    if ('AbortSignal' in window) {
+    if (typeof window !== 'undefined' && 'AbortSignal' in window) {
         // https://dom.spec.whatwg.org/#dom-abortsignal-timeout
         AbortSignal.timeout =
             AbortSignal.timeout ||

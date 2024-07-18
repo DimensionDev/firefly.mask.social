@@ -16,6 +16,7 @@ import { getPublicKeyInHex } from '@/helpers/ed25519.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { toMilliseconds, toUnix } from '@/helpers/ts.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -98,8 +99,8 @@ function convertMetricToSession(metric: Metrics[0]) {
                     new FarcasterSession(
                         `${x.fid}`,
                         x.signer_private_key.startsWith('0x') ? x.signer_private_key : `0x${x.signer_private_key}`,
-                        x.login_time,
-                        x.login_time,
+                        toMilliseconds(x.login_time),
+                        toMilliseconds(x.login_time),
                         // the signerRequestToken cannot recover from the metric
                         // but it is necessary for distinguish grant by permission session
                         // so we use a fake token here
@@ -108,12 +109,20 @@ function convertMetricToSession(metric: Metrics[0]) {
             );
         case 'lens':
             return metric.login_metadata.map(
-                (x) => new LensSession(x.profile_id, x.token, x.login_time, x.login_time, x.refresh_token, x.address),
+                (x) =>
+                    new LensSession(
+                        x.profile_id,
+                        x.token,
+                        toMilliseconds(x.login_time),
+                        toMilliseconds(x.login_time),
+                        x.refresh_token,
+                        x.address,
+                    ),
             );
         case 'twitter':
             return metric.login_metadata.map(
                 (x) =>
-                    new TwitterSession(x.client_id, '', x.login_time, x.login_time, {
+                    new TwitterSession(x.client_id, '', toMilliseconds(x.login_time), toMilliseconds(x.login_time), {
                         clientId: x.client_id,
                         consumerKey: x.consumer_key,
                         consumerSecret: x.consumer_secret,
@@ -138,7 +147,7 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             return {
                 token: lensSession.token,
                 address: lensSession.address ?? ZERO_ADDRESS,
-                login_time: lensSession.createdAt,
+                login_time: toUnix(lensSession.createdAt),
                 profile_id: lensSession.profileId,
                 refresh_token: lensSession.refreshToken,
             };
@@ -152,7 +161,7 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             }
             return {
                 fid: Number.parseInt(farcasterSession.profileId, 10),
-                login_time: farcasterSession.createdAt,
+                login_time: toUnix(farcasterSession.createdAt),
                 signer_public_key: publicKey,
                 signer_private_key: farcasterSession.token,
             };
@@ -161,7 +170,7 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             const payload = await TwitterSessionPayload.revealPayload(twitterSession.payload);
             return {
                 client_id: payload.clientId,
-                login_time: twitterSession.createdAt,
+                login_time: toUnix(twitterSession.createdAt),
                 access_token: payload.accessToken,
                 access_token_secret: payload.accessTokenSecret,
                 consumer_key: payload.consumerKey,
@@ -208,7 +217,9 @@ export async function POST(request: Request) {
                     account_id: accountId,
                     platform: resolveSocialSourceInURL(resolveSocialSourceFromSessionType(type as SessionType)),
                     client_os: 'web',
-                    login_metadata: compact(await Promise.all(sessions.map(convertSessionToMetadata))),
+                    login_metadata: compact(await Promise.all(sessions.map(convertSessionToMetadata))).sort(
+                        (a, z) => a.login_time - z.login_time,
+                    ),
                 })),
             );
 
