@@ -59,12 +59,14 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
 
             const data = resolveFireflyResponseData(json);
             if (data.fid && data.accountId && data.accessToken) {
-                // overwrite the profile id and token
+                // overwrite the profile id and signer token
                 const farcasterSession = session as FarcasterSession;
                 farcasterSession.profileId = `${data.fid}`;
                 if (data.farcaster_signer_private_key) {
                     farcasterSession.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
                     farcasterSession.token = data.farcaster_signer_private_key;
+                } else {
+                    console.warn(`[restore firefly session] No farcaster signer keys found in the response.`);
                 }
 
                 return new FireflySession(data.accountId, data.accessToken, session);
