@@ -128,12 +128,10 @@ export async function downloadSessions(session: FireflySession, signal?: AbortSi
 
 export async function uploadSessions(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
     const syncedSessions = await downloadSessions(session, signal);
-    const mergedSessions = [
-        ...syncedSessions,
-        ...sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y))),
-    ];
+    const unsyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y)));
+    if (!unsyncedSessions.length) return;
 
-    const cipher = await encryptMetrics(session, mergedSessions, signal);
+    const cipher = await encryptMetrics(session, [...syncedSessions, ...unsyncedSessions], signal);
     await uploadMetrics(cipher, signal);
 }
 
