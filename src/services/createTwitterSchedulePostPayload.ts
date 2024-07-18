@@ -14,8 +14,10 @@ export interface TwitterSchedulePostPayload {
     quote_tweet_id?: string;
     in_reply_to_tweet_id?: string;
     text: string;
-    media_ids: string[];
-    reply_settings: '' | 'following' | 'mentionedUsers';
+    media?: {
+        media_ids: string[];
+    };
+    reply_settings?: 'following' | 'mentionedUsers';
     poll?: {
         options: Array<{ label: string }>;
         duration_minutes: number;
@@ -46,7 +48,11 @@ export async function createTwitterSchedulePostPayload(
                 : undefined
             : '$$in_reply_to_tweet_id$$',
         text: readChars(chars, 'both', Source.Twitter),
-        media_ids: compact(imageResults?.map((x) => x.id)),
+        media: imageResults.length
+            ? {
+                  media_ids: compact(imageResults?.map((x) => x.id)),
+              }
+            : undefined,
         reply_settings: resolveTwitterReplyRestriction(restriction),
         poll: pollResult
             ? {
