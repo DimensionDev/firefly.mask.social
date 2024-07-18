@@ -31,8 +31,7 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
 
 async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?: AbortSignal) {
     const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
-    const isRelayService = FarcasterSession.isRelayService(session);
-    if (!isGrantByPermission && !isRelayService) throw new NotAllowedError('Invalid farcaster session.');
+    if (!isGrantByPermission) throw new NotAllowedError('Invalid farcaster session.');
 
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindFarcaster'),
@@ -40,7 +39,6 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
             method: 'POST',
             body: JSON.stringify({
                 token: isGrantByPermission ? session.signerRequestToken : undefined,
-                channelToken: isRelayService ? session.channelToken : undefined,
                 isForce: false,
             }),
             signal,
