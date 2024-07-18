@@ -6,7 +6,7 @@ import { type Address, erc20Abi, type Hash, parseUnits } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isZero } from '@/helpers/number.js';
+import { isZero, multipliedBy } from '@/helpers/number.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
@@ -73,20 +73,30 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
         );
     }
 
-    private async transferNative({ to, token, amount }: TransactionOptions<ChainId, Address>): Promise<Address> {
+    private async transferNative(options: TransactionOptions<ChainId, Address>): Promise<Address> {
+        const { maxFeePerGas } = await getDefaultGas(options);
+        const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
+
         return sendTransaction(config, {
             account: await EthereumNetwork.getAccount(),
-            to,
-            value: parseUnits(amount, token.decimals),
+            to: options.to,
+            value: parseUnits(options.amount, options.token.decimals),
+            maxFeePerGas,
+            gas: BigInt(gas),
         });
     }
 
-    private async transferContract({ to, token, amount }: TransactionOptions<ChainId, Address>): Promise<Address> {
+    private async transferContract(options: TransactionOptions<ChainId, Address>): Promise<Address> {
+        const { maxFeePerGas } = await getDefaultGas(options);
+        const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
+
         return writeContract(config, {
-            address: token.id,
+            address: options.token.id,
             abi: erc20Abi,
             functionName: 'transfer',
-            args: [to, parseUnits(amount, token.decimals)],
+            args: [options.to, parseUnits(options.amount, options.token.decimals)],
+            maxFeePerGas,
+            gas: BigInt(gas),
         });
     }
 }
