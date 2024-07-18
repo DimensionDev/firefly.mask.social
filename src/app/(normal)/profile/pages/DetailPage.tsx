@@ -27,8 +27,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
     );
 
-    const { data: othersProfiles = EMPTY_LIST, isLoading } = useQuery({
-        enabled: !isCurrentProfile,
+    const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['all-profiles', profileTab.source, profileTab.identity],
         queryFn: async () => {
             if (!profileTab.identity) return EMPTY_LIST;
@@ -52,5 +51,5 @@ export function ProfileDetailPage({ identity, source }: Props) {
         notFound();
     }
 
-    return <ProfilePage profiles={isCurrentProfile ? currentProfiles : othersProfiles} />;
+    return <ProfilePage profiles={profiles} />;
 }
