@@ -128,13 +128,16 @@ export async function downloadSessions(session: FireflySession, signal?: AbortSi
 
 export async function uploadSessions(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
     const syncedSessions = await downloadSessions(session, signal);
-    const noSyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y)));
-    if (!noSyncedSessions.length) {
-        console.warn('[uploadSessions] No new sessions to upload.');
-        return;
+    const noSyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y, true)));
+
+    if (noSyncedSessions.length) {
+        console.warn(`[uploadSessions] ${noSyncedSessions.length} sessions are not synced.`);
     }
 
-    const cipher = await encryptMetrics(session, [...syncedSessions, ...noSyncedSessions], signal);
+    const mergedSessions = Object.values(
+        Object.fromEntries([...syncedSessions, ...noSyncedSessions].map((x) => [`${x.type}:${x.profileId}`, x])),
+    );
+    const cipher = await encryptMetrics(session, mergedSessions, signal);
     await uploadMetrics(cipher, signal);
 }
 
