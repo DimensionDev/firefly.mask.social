@@ -37,7 +37,7 @@ async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.map(async (source) => {
-            // we haven't supported to sync ffid with a twitter account
+            // we haven't supported to sync firefly id with a twitter account
             if (source === Source.Twitter) return;
 
             const { state, sessionHolder } = getContext(source);
@@ -91,7 +91,7 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
  * @returns
  */
 async function removeFireflyAccountIfNeeded() {
-    // ffid doesn't take twitter profile into account
+    // firefly id doesn't take twitter profile into account
     if (SORTED_SOCIAL_SOURCES.some((x) => (x === Source.Twitter ? false : getProfileState(x).currentProfile))) return;
     useFireflyStateStore.getState().clear();
     fireflySessionHolder.removeSession();
