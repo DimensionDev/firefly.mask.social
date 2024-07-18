@@ -129,7 +129,10 @@ export async function downloadSessions(session: FireflySession, signal?: AbortSi
 export async function uploadSessions(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
     const syncedSessions = await downloadSessions(session, signal);
     const noSyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y)));
-    if (!noSyncedSessions.length) return;
+    if (!noSyncedSessions.length) {
+        console.warn('[uploadSessions] No new sessions to upload.');
+        return;
+    }
 
     const cipher = await encryptMetrics(session, [...syncedSessions, ...noSyncedSessions], signal);
     await uploadMetrics(cipher, signal);
