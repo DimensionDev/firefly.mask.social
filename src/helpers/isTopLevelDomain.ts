@@ -276,8 +276,8 @@ const TLD_DOMAIN = [
     'zw',
 ];
 
-export function isTopLevelDomain(url: string) {
-    const u = parseURL(url);
+export function isTopLevelDomain(url: URL | string) {
+    const u = typeof url === 'string' ? parseURL(url) : url;
     const domain = u?.hostname.split('.').pop()?.toLocaleLowerCase();
     return domain && TLD_DOMAIN.includes(domain);
 }

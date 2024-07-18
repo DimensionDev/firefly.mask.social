@@ -8,6 +8,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
+import { parseURL } from '@/helpers/parseURL.js';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
     title: string;
@@ -15,7 +16,9 @@ interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
 
 export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ title }) {
     if (!title) return null;
-    if (!isTopLevelDomain(title)) return <span>{title}</span>;
+
+    const u = parseURL(title);
+    if (!u || !isTopLevelDomain(u)) return <span>{title}</span>;
 
     return (
         <Link
