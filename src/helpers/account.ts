@@ -177,11 +177,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     return true;
 }
 
-/**
- * Alias of addAccount
- * @param account
- * @param signal
- */
 export async function switchAccount(account: Account, signal?: AbortSignal) {
     const { state, sessionHolder } = getContext(account.profile.source);
 
@@ -195,11 +190,15 @@ export async function removeAccount(account: Account, signal?: AbortSignal) {
     // switch to next available account if the current account is removing.
     if (isSameProfile(state.currentProfile, account.profile)) {
         const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
-        if (nextAccount) await switchAccount(nextAccount, signal);
-        else sessionHolder.removeSession();
+        if (nextAccount) {
+            await switchAccount(nextAccount, signal);
+        } else {
+            state.removeAccount(account);
+            sessionHolder.removeSession();
+        }
+    } else {
+        state.removeAccount(account);
     }
-
-    state.removeAccount(account);
 }
 
 export async function removeCurrentAccount(source: SocialSource) {
@@ -207,13 +206,10 @@ export async function removeCurrentAccount(source: SocialSource) {
     const account = accounts.find((x) => isSameProfile(x.profile, currentProfile));
     if (!account) return;
 
-    if (source === Source.Twitter) {
-        await signOut({
-            redirect: false,
-        });
-    }
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
+
+    if (source === Source.Twitter) await signOut();
 }
 
 export async function removeAllAccounts() {
@@ -221,13 +217,10 @@ export async function removeAllAccounts() {
         const state = getProfileState(x);
         if (!state.accounts.length) return;
 
-        if (x === Source.Twitter) {
-            await signOut({
-                redirect: false,
-            });
-        }
         state.clear();
         resolveSessionHolder(x)?.removeSession();
+
+        if (x === Source.Twitter) await signOut();
     });
 
     await removeFireflyAccountIfNeeded();
