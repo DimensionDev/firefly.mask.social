@@ -52,6 +52,9 @@ msgstr "Retweet"
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
+msgid "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
+msgstr "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
+
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -304,6 +307,9 @@ msgstr "{0} muted channels"
 msgid "[Video]"
 msgstr "[Video]"
 
+msgid "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
+msgstr "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
+
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
@@ -399,9 +405,6 @@ msgstr "recast"
 
 msgid "Search"
 msgstr "Search"
-
-msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
-msgstr "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
@@ -1788,9 +1791,6 @@ msgstr "Sorry, there is no wallet address available for tipping."
 
 msgid "No matching users"
 msgstr "No matching users"
-
-msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
-msgstr "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
 
 msgid "Save"
 msgstr "Save"

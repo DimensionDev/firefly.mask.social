@@ -57,6 +57,9 @@ msgstr "转帖"
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
+msgid "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
@@ -309,6 +312,9 @@ msgstr "{0} 屏蔽的频道"
 msgid "[Video]"
 msgstr "[视频]"
 
+msgid "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
@@ -404,9 +410,6 @@ msgstr "转帖"
 
 msgid "Search"
 msgstr "搜索"
-
-msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
-msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
@@ -1793,9 +1796,6 @@ msgstr ""
 
 msgid "No matching users"
 msgstr "未找到匹配用户"
-
-msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
-msgstr ""
 
 msgid "Save"
 msgstr "保存"
