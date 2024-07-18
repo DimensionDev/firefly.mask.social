@@ -3,11 +3,11 @@
 import type { LinkProps } from 'next/link.js';
 import { memo } from 'react';
 
-import { TLD_DOMAIN } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
+import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { parseURL } from '@/helpers/parseURL.js';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
@@ -18,9 +18,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
     if (!title) return null;
 
     const u = parseURL(title);
-    const domainType = u?.hostname.split('.').pop()?.toLocaleLowerCase();
-
-    if (!u || (domainType && !TLD_DOMAIN.includes(domainType))) return <span> {title}</span>;
+    if (!u || !isTopLevelDomain(u)) return <span>{title}</span>;
 
     return (
         <Link
