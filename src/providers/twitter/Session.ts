@@ -3,6 +3,7 @@
 import { signOut } from 'next-auth/react';
 
 import { NotAllowedError } from '@/constants/error.js';
+import { HIDDEN_SECRET } from '@/constants/index.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -61,5 +62,14 @@ export class TwitterSession extends BaseSession implements Session {
             'X-Consumer-Key': payload.consumerKey,
             'X-Consumer-Secret': payload.consumerSecret,
         };
+    }
+
+    static isNextAuth(session: Session | null) {
+        if (!session) return false;
+        // if the hidden secret used by the Twitter session payload
+        // indicates that the session comes from the NextAuth service.
+        return (
+            session.type === SessionType.Twitter && (session as TwitterSession).payload.consumerSecret === HIDDEN_SECRET
+        );
     }
 }
