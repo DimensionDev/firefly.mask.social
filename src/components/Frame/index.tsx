@@ -21,6 +21,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
@@ -58,7 +59,13 @@ export const TransactionSchema = z.object({
     }),
 });
 
-function confirmBeforeLeaving() {
+const whitelist: Array<string | ((url: string) => boolean)> = [(url) => isSameOriginUrl(url, location.origin)];
+
+function confirmBeforeLeaving(targetUrl: string) {
+    const isWhitelisted = whitelist.some((x) =>
+        typeof x === 'function' ? x(targetUrl) : isSameOriginUrl(targetUrl, x),
+    );
+    if (isWhitelisted) return true;
     return ConfirmModalRef.openAndWaitForClose({
         title: t`Leaving Firefly`,
         content: (
@@ -156,12 +163,12 @@ async function getNextFrame(
                     return;
                 }
 
-                if (await confirmBeforeLeaving()) openWindow(redirectUrl, '_blank');
+                if (await confirmBeforeLeaving(redirectUrl)) openWindow(redirectUrl, '_blank');
                 return;
             }
             case ActionType.Link:
                 if (!button.target) return;
-                if (await confirmBeforeLeaving()) openWindow(button.target, '_blank');
+                if (await confirmBeforeLeaving(button.target)) openWindow(button.target, '_blank');
                 return;
             case ActionType.Mint: {
                 if (!button.target) return;
@@ -170,7 +177,7 @@ async function getNextFrame(
                     enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
                     return;
                 }
-                if (await confirmBeforeLeaving()) openWindow(mintUrl, '_blank');
+                if (await confirmBeforeLeaving(mintUrl)) openWindow(mintUrl, '_blank');
                 return;
             }
             case ActionType.Transaction:
