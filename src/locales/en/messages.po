@@ -1498,6 +1498,9 @@ msgstr "View transaction on explorer"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 
+msgid "Please select a token"
+msgstr "Please select a token"
+
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
 
@@ -1800,9 +1803,6 @@ msgstr "Up to 7 days can be set as the scheduled time. Please reset it."
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> and <1>{0} others</1>"
-
-msgid "Please select a token."
-msgstr "Please select a token."
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"

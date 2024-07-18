@@ -1503,6 +1503,9 @@ msgstr "查看交易详情"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
+msgid "Please select a token"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -1806,9 +1809,6 @@ msgstr ""
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>{0} 其他的</1>"
 
-msgid "Please select a token."
-msgstr "请选择代币。"
-
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
@@ -1991,4 +1991,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
