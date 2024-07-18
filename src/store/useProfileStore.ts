@@ -235,7 +235,6 @@ const useTwitterStateBase = createState(
 
             try {
                 const session = state.currentProfileSession as TwitterSession | null;
-                if (session) twitterSessionHolder.resumeSession(session);
 
                 // clean the local store if the consumer secret is not hidden
                 if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
@@ -244,21 +243,20 @@ const useTwitterStateBase = createState(
                 }
 
                 const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
-                const me = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
+                const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
-                if (!me || !payload) {
+                if (!profile || !payload) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');
                     state.clear();
                     return;
                 }
 
                 const account = {
-                    profile: me,
-                    session: TwitterSession.from(me, payload),
+                    profile,
+                    session: TwitterSession.from(profile, payload),
                 };
 
-                state.updateAccounts([account]);
-                state.updateCurrentAccount(account);
+                state.addAccount(account, true);
                 twitterSessionHolder.resumeSession(account.session);
             } catch (error) {
                 if (error instanceof FetchError) return;

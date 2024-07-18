@@ -12,6 +12,7 @@ import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, uploadSessions } from '@/services/metrics.js';
@@ -35,7 +36,10 @@ function getFireflySession(account: Account) {
 async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
-        SORTED_SOCIAL_SOURCES.forEach((source) => {
+        SORTED_SOCIAL_SOURCES.map(async (source) => {
+            // we haven't supported to sync ffid with a twitter account
+            if (source === Source.Twitter) return;
+
             const { state, sessionHolder } = getContext(source);
             state.resetCurrentAccount();
             state.updateAccounts([]);
@@ -87,7 +91,8 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
  * @returns
  */
 async function removeFireflyAccountIfNeeded() {
-    if (SORTED_SOCIAL_SOURCES.some((x) => getProfileState(x).currentProfile)) return;
+    // ffid doesn't take twitter profile into account
+    if (SORTED_SOCIAL_SOURCES.some((x) => (x === Source.Twitter ? false : getProfileState(x).currentProfile))) return;
     useFireflyStateStore.getState().clear();
     fireflySessionHolder.removeSession();
 }
@@ -184,7 +189,7 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
     sessionHolder.resumeSession(account.session);
 }
 
-export async function removeAccount(account: Account, signal?: AbortSignal) {
+async function removeAccount(account: Account, signal?: AbortSignal) {
     const { state, sessionHolder } = getContext(account.profile.source);
 
     // switch to next available account if the current account is removing.
@@ -192,6 +197,7 @@ export async function removeAccount(account: Account, signal?: AbortSignal) {
         const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
         if (nextAccount) {
             await switchAccount(nextAccount, signal);
+            state.removeAccount(account);
         } else {
             state.removeAccount(account);
             sessionHolder.removeSession();
@@ -209,7 +215,11 @@ export async function removeCurrentAccount(source: SocialSource) {
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
 
-    if (source === Source.Twitter) await signOut();
+    if (TwitterSession.isNextAuth(account.session)) {
+        await signOut({
+            redirect: false,
+        });
+    }
 }
 
 export async function removeAllAccounts() {
@@ -217,10 +227,16 @@ export async function removeAllAccounts() {
         const state = getProfileState(x);
         if (!state.accounts.length) return;
 
+        const hasTwitterSession = state.accounts.some((x) => TwitterSession.isNextAuth(x.session));
+
         state.clear();
         resolveSessionHolder(x)?.removeSession();
 
-        if (x === Source.Twitter) await signOut();
+        if (hasTwitterSession) {
+            await signOut({
+                redirect: false,
+            });
+        }
     });
 
     await removeFireflyAccountIfNeeded();
