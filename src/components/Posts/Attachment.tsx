@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { memo } from 'react';
+import { memo, type SyntheticEvent, useCallback } from 'react';
 
 import LinkIcon from '@/assets/link.svg';
 import Music from '@/assets/music.svg';
@@ -67,6 +67,14 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         : videoAndImageAttachments.slice(0, isQuote ? 4 : 9);
     const moreImageCount = videoAndImageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
 
+    const handleImageError = useCallback(
+        (event: SyntheticEvent<HTMLImageElement>) => {
+            if (!asset?.uri) return;
+            event.currentTarget.src = asset.uri;
+        },
+        [asset],
+    );
+
     if (isQuote && asset?.type === 'Audio') {
         return (
             <div className="h-[120px] w-[120px]">
@@ -124,7 +132,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 disableLoadHandler={isQuote}
                                 width={isQuote ? 120 : 1000}
                                 height={isQuote ? 120 : 1000}
-                                onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
+                                onError={handleImageError}
                                 src={formatImageUrl(asset.uri, ATTACHMENT)}
                                 alt={formatImageUrl(asset.uri, ATTACHMENT)}
                             />
