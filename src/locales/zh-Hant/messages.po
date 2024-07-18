@@ -57,6 +57,9 @@ msgstr "轉發"
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
+msgid "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -309,6 +312,9 @@ msgstr "{0} 個已靜音的頻道"
 msgid "[Video]"
 msgstr "[影片]"
 
+msgid "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
@@ -404,9 +410,6 @@ msgstr ""
 
 msgid "Search"
 msgstr "搜尋"
-
-msgid "You successfully sent<0>{amount} ${0} </0>tips to<1> {1}</1>!"
-msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
@@ -1793,9 +1796,6 @@ msgstr ""
 
 msgid "No matching users"
 msgstr "沒有符合的用戶"
-
-msgid "You just sent<0>{amount} ${0} </0>tips to<1> {1}</1>!<2/>Share this news by mentioning and posting."
-msgstr ""
 
 msgid "Save"
 msgstr "存檔"

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { chains } from '@/configs/wagmiClient.js';
 import { isGreaterThan } from '@/helpers/number.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
@@ -40,7 +41,7 @@ export const useTipsTokens = () => {
         return sortTokensByUsdValue(
             (data || [])
                 .reduce<Token[]>((acc, token) => {
-                    if (!token.chainId) return acc;
+                    if (!token.chainId || !chains.some((chain) => chain.id === token.chainId)) return acc;
                     return [
                         ...acc,
                         {

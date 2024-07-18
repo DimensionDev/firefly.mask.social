@@ -66,10 +66,7 @@ export function TipSuccess() {
                         {canShare ? (
                             <Trans>
                                 You just sent
-                                <span className="font-bold text-link">
-                                    {' '}
-                                    {amount} ${token?.symbol}{' '}
-                                </span>
+                                <span className="font-bold text-link"> {`${amount} ${'$'}${token?.symbol} `}</span>
                                 tips to
                                 <span className="font-bold text-link"> {handle || recipient?.displayName}</span>!
                                 <br />
@@ -78,10 +75,7 @@ export function TipSuccess() {
                         ) : (
                             <Trans>
                                 You successfully sent
-                                <span className="font-bold text-link">
-                                    {' '}
-                                    {amount} ${token?.symbol}{' '}
-                                </span>
+                                <span className="font-bold text-link"> {`${amount} ${'$'}${token?.symbol} `}</span>
                                 tips to
                                 <span className="font-bold text-link"> {handle || recipient?.displayName}</span>!
                             </Trans>
