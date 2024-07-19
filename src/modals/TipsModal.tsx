@@ -13,12 +13,12 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export interface TipsModalOpenProps {
     identity: string;
     source: Source;
+    profiles: FireflyProfile[];
     handle: string | null;
     pureWallet?: boolean;
 }
@@ -61,10 +61,8 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
     function TipsModalUI(_, ref) {
         const { reset, update } = TipsContext.useContainer();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: async ({ identity, source, handle, pureWallet = false }) => {
+            onOpen: async ({ identity, source, handle, profiles, pureWallet = false }) => {
                 try {
-                    router.navigate({ to: TipsRoutePath.LOADING, replace: true });
-                    const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(source, identity);
                     const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
                     walletProfiles.sort((a) => {

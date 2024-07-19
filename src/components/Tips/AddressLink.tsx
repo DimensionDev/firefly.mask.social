@@ -16,7 +16,9 @@ interface AddressLinkProps {
 export function AddressLink({ address, chainId, networkType }: AddressLinkProps) {
     const addressLink = useMemo(() => {
         const network = resolveNetworkProvider(networkType);
-        return network.getAddressUrl(chainId ?? network.getChainId(), address);
+        const targetChain = chainId ?? network.getChainId();
+        if (!targetChain) return;
+        return network.getAddressUrl(targetChain, address);
     }, [networkType, chainId, address]);
 
     if (!addressLink) return null;
@@ -24,7 +26,7 @@ export function AddressLink({ address, chainId, networkType }: AddressLinkProps)
     return (
         <Tooltip placement="top" content={t`View on explorer`}>
             <Link href={addressLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                <LinkIcon width={20} height={20} />
+                <LinkIcon width={16} height={16} />
             </Link>
         </Tooltip>
     );

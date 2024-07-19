@@ -74,29 +74,53 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
     }
 
     private async transferNative(options: TransactionOptions<ChainId, Address>): Promise<Address> {
-        const { maxFeePerGas } = await getDefaultGas(options);
+        const { isEIP1559, gasPrice, maxFeePerGas } = await getDefaultGas(options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
 
-        return sendTransaction(config, {
+        const parameters = {
             account: await EthereumNetwork.getAccount(),
             to: options.to,
             value: parseUnits(options.amount, options.token.decimals),
-            maxFeePerGas,
             gas: BigInt(gas),
+        } as const;
+
+        if (isEIP1559) {
+            return sendTransaction(config, {
+                ...parameters,
+                type: 'eip1559',
+                maxFeePerGas,
+            });
+        }
+        return sendTransaction(config, {
+            ...parameters,
+            type: 'legacy',
+            gasPrice,
         });
     }
 
     private async transferContract(options: TransactionOptions<ChainId, Address>): Promise<Address> {
-        const { maxFeePerGas } = await getDefaultGas(options);
+        const { isEIP1559, gasPrice, maxFeePerGas } = await getDefaultGas(options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
 
-        return writeContract(config, {
+        const parameters = {
             address: options.token.id,
             abi: erc20Abi,
             functionName: 'transfer',
             args: [options.to, parseUnits(options.amount, options.token.decimals)],
-            maxFeePerGas,
             gas: BigInt(gas),
+        } as const;
+
+        if (isEIP1559) {
+            return writeContract(config, {
+                ...parameters,
+                type: 'eip1559',
+                maxFeePerGas,
+            });
+        }
+        return writeContract(config, {
+            ...parameters,
+            type: 'legacy',
+            gasPrice,
         });
     }
 }
