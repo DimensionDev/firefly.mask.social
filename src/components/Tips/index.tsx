@@ -7,7 +7,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import TipsIcon from '@/assets/tips.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type Source, STATUS } from '@/constants/enum.js';
+import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -43,7 +43,7 @@ export const Tips = memo(function Tips({
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
             const relatedProfiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(source, identity);
-            if (!relatedProfiles.length) {
+            if (!relatedProfiles?.some((profile) => profile.source === Source.Wallet)) {
                 throw new Error('No available profiles');
             }
             TipsModalRef.open({ identity, source, handle, pureWallet, profiles: relatedProfiles });
