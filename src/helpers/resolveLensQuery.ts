@@ -19,8 +19,8 @@ export const resolveLensOperationName = createLookupTableResolver<
 
 export const resolveLensQuery = createLookupTableResolver<ComposeType, string>(
     {
-        compose: `mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
-            result: quoteOnMomoka(request: $request) {
+        compose: `mutation PostOnMomoka($request: MomokaPostRequest!) {
+            result: postOnMomoka(request: $request) {
                 ... on CreateMomokaPublicationResult {
                 ...CreateMomokaPublicationResult
                 }
@@ -40,7 +40,8 @@ export const resolveLensQuery = createLookupTableResolver<ComposeType, string>(
             id
             proof
             momokaId
-            }`,
+            }
+        `,
         quote: `mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
             result: quoteOnMomoka(request: $request) {
                 ... on CreateMomokaPublicationResult {
