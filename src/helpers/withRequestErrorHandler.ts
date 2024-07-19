@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
-import { MalformedError, UnauthorizedError } from '@/constants/error.js';
+import { MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import type { NextRequestContext } from '@/types/index.js';
 
@@ -33,6 +33,11 @@ export function withRequestErrorHandler(options?: { throwError?: boolean }) {
                 if (error instanceof UnauthorizedError) {
                     return createErrorResponseJSON(error.message, {
                         status: StatusCodes.UNAUTHORIZED,
+                    });
+                }
+                if (error instanceof NotFoundError) {
+                    return createErrorResponseJSON(error.message, {
+                        status: StatusCodes.NOT_FOUND,
                     });
                 }
                 if (!throwError) {

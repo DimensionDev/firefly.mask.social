@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
     if (!link) return Response.json({ error: 'Missing link' }, { status: 400 });
 
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
-    if (!linkDigested) return Response.json({ error: 'Unable to digest link' }, { status: 500 });
+    if (!linkDigested) return Response.json({ error: 'Unable to digest link' }, { status: StatusCodes.NOT_FOUND });
 
     return createSuccessResponseJSON(linkDigested);
 }

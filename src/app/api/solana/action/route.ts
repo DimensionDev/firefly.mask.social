@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
+import { FetchError, NotFoundError, UnreachableError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -86,31 +86,39 @@ const cacheBlinkResolver = (url: string, type: SchemeType, blink: string) => `${
 
 const queryBlink = memoizeWithRedis(
     async (url: string, type: SchemeType, blink: string, signal: AbortSignal) => {
-        switch (type) {
-            case SchemeType.ActionUrl:
-            case SchemeType.Interstitial: {
-                const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
-                return createAction(url, response, blink);
-            }
-            case SchemeType.ActionsJson: {
-                const u = new URL(url);
-                const actionJson = await fetchJSON<ActionRuleResponse>(
-                    urlcat(u.origin, 'actions.json'),
-                    {
+        try {
+            switch (type) {
+                case SchemeType.ActionUrl:
+                case SchemeType.Interstitial: {
+                    const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
+                    if (response?.error) throw new Error(response.error.message);
+                    return createAction(url, response, blink);
+                }
+                case SchemeType.ActionsJson: {
+                    const u = new URL(url);
+                    const actionJson = await fetchJSON<ActionRuleResponse>(
+                        urlcat(u.origin, 'actions.json'),
+                        {
+                            method: 'GET',
+                            signal,
+                        },
+                        { noDefaultContentType: true },
+                    );
+                    const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
+                    const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, {
                         method: 'GET',
-                    },
-                    { noDefaultContentType: true },
-                );
-                const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
-                const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, {
-                    method: 'GET',
-                    signal,
-                });
-                return createAction(matchedApiUrl, response, blink);
+                        signal,
+                    });
+                    if (response?.error) throw new Error(response.error.message);
+                    return createAction(matchedApiUrl, response, blink);
+                }
+                default:
+                    safeUnreachable(type);
+                    throw new UnreachableError('scheme type', type);
             }
-            default:
-                safeUnreachable(type);
-                throw new UnreachableError('scheme type', type);
+        } catch (error) {
+            if (error instanceof FetchError && error.status >= 400 && error.status < 500) return null;
+            throw error;
         }
     },
     {
@@ -131,8 +139,14 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             blink: z.string(),
         }),
     );
-    const response = await queryBlink(url, type, blink, request.signal);
-    return createSuccessResponseJSON(response);
+    try {
+        const response = await queryBlink(url, type, blink, request.signal);
+        if (!response) throw new NotFoundError();
+        return createSuccessResponseJSON(response);
+    } catch (error) {
+        if (error instanceof SyntaxError || error instanceof TypeError) throw new NotFoundError();
+        throw error;
+    }
 });
 
 export async function DELETE(request: NextRequest) {
