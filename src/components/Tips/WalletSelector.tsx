@@ -91,11 +91,11 @@ export const WalletSelectorEntry = memo(function WalletSelectorEntry({ disabled 
                             )}
                         >
                             <span className="max-w-[calc(100%_-_24px)] truncate">{recipient?.displayName}</span>
-                            {recipient && token ? (
+                            {recipient ? (
                                 <AddressLink
                                     address={recipient.address}
                                     networkType={recipient.networkType}
-                                    chainId={token.chainId}
+                                    chainId={token?.chainId}
                                 />
                             ) : null}
                         </div>

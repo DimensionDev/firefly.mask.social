@@ -63,7 +63,7 @@ const routeTree = tipsRootRoute.addChildren([
 ]);
 
 const memoryHistory = createMemoryHistory({
-    initialEntries: [TipsRoutePath.LOADING],
+    initialEntries: [TipsRoutePath.TIPS],
 });
 
 export const router = createRouter({
