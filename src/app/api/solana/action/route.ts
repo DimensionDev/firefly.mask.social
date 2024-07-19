@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
+import { NotFoundError, UnreachableError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -89,24 +89,32 @@ const queryBlink = memoizeWithRedis(
         switch (type) {
             case SchemeType.ActionUrl:
             case SchemeType.Interstitial: {
-                const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
-                return createAction(url, response, blink);
+                try {
+                    const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
+                    return createAction(url, response, blink);
+                } catch {
+                    return null;
+                }
             }
             case SchemeType.ActionsJson: {
-                const u = new URL(url);
-                const actionJson = await fetchJSON<ActionRuleResponse>(
-                    urlcat(u.origin, 'actions.json'),
-                    {
+                try {
+                    const u = new URL(url);
+                    const actionJson = await fetchJSON<ActionRuleResponse>(
+                        urlcat(u.origin, 'actions.json'),
+                        {
+                            method: 'GET',
+                        },
+                        { noDefaultContentType: true },
+                    );
+                    const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
+                    const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, {
                         method: 'GET',
-                    },
-                    { noDefaultContentType: true },
-                );
-                const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
-                const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, {
-                    method: 'GET',
-                    signal,
-                });
-                return createAction(matchedApiUrl, response, blink);
+                        signal,
+                    });
+                    return createAction(matchedApiUrl, response, blink);
+                } catch {
+                    return null;
+                }
             }
             default:
                 safeUnreachable(type);
@@ -132,6 +140,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         }),
     );
     const response = await queryBlink(url, type, blink, request.signal);
+    if (!response) throw new NotFoundError();
     return createSuccessResponseJSON(response);
 });
 

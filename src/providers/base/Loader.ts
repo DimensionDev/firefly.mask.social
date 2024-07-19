@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import { compact } from 'lodash-es';
 
 export abstract class BaseLoader<T> {
@@ -10,7 +11,11 @@ export abstract class BaseLoader<T> {
         if (!this.map?.has(url)) {
             const p = this.fetch(url, signal);
             this.map.set(url, p);
-            p.catch(() => this.map.delete(url));
+            p.catch((error) => {
+                if (error.status !== StatusCodes.NOT_FOUND) {
+                    this.map.delete(url);
+                }
+            });
         }
         return this.map.get(url)!;
     }
