@@ -26,7 +26,9 @@ export function ProfileAvatarInteractive({ profile }: ProfileAvatarInteractivePr
                     updateSidebarOpen(false);
                     await delay(300);
                     DraggablePopoverRef.open({
-                        content: <ProfileSettings source={profile.source} />,
+                        content: (
+                            <ProfileSettings source={profile.source} onClose={() => DraggablePopoverRef.close()} />
+                        ),
                     });
                 }}
             >

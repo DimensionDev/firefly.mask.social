@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import { Reorder } from 'framer-motion';
 import { noop, sortBy, uniqBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
@@ -94,6 +95,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                             className="flex w-full min-w-0 items-center justify-between gap-3 rounded px-2 py-2 hover:bg-bg md:rounded-none md:px-5"
                             onClick={async () => {
                                 if (!account.session) {
+                                    onClose?.();
+                                    await delay(300);
                                     return LoginModalRef.open({
                                         source,
                                         options: { expectedProfile: account.profile },
