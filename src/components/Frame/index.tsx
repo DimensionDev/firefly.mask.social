@@ -210,6 +210,7 @@ async function getNextFrame(
                         });
 
                         const response = await postAction<LinkDigestedResponse>({
+                            address: client.account.address,
                             transactionId,
                         });
                         return response.success ? response.data.frame : null;

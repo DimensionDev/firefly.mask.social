@@ -30,6 +30,7 @@ export interface FrameSignaturePacket {
         network: FarcasterNetwork;
         buttonIndex: number;
         inputText?: string;
+        address?: string;
         transactionId?: string;
         castId: {
             fid: number;

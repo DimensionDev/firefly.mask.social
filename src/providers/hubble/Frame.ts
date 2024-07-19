@@ -16,6 +16,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         additional?: {
             // the state is not read from frame, for initial frame it should not provide state
             state?: string;
+            address?: string;
             transactionId?: string;
         },
     ): Promise<FrameSignaturePacket> {
@@ -31,8 +32,8 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
                     },
                     inputText: input ? toBytes(input) : new Uint8Array([]),
                     state: additional?.state ? toBytes(additional?.state) : new Uint8Array([]),
+                    address: additional?.address ? toBytes(additional.address) : new Uint8Array([]),
                     transactionId: additional?.transactionId ? toBytes(additional.transactionId) : new Uint8Array([]),
-                    address: new Uint8Array([]),
                 },
             }),
             async (messageData, signer) => {

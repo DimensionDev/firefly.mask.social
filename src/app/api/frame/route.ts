@@ -56,17 +56,20 @@ export async function POST(request: Request) {
 
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
-    const packet = await request.clone().json();
-    const response = await fetch(target || postUrl || url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(packet),
+    const packet: { untrustedData: { transactionId?: string } } = await request.clone().json();
+    const response = await fetch(
+        packet.untrustedData.transactionId ? postUrl || target || url : target || postUrl || url,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(packet),
 
-        // for post_redirect, we need to handle the redirect manually
-        redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
-    });
+            // for post_redirect, we need to handle the redirect manually
+            redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
+        },
+    );
 
     // workaround: if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
     if (action === ActionType.PostRedirect && response.status >= 400) {
@@ -74,6 +77,17 @@ export async function POST(request: Request) {
             redirectUrl: url,
         });
     }
+
+    console.log('DEBUG: frame');
+    console.log({
+        action,
+        url,
+        target,
+        postUrl,
+        packet,
+    });
+    console.log('DEBUG: response status', response.status);
+    console.log('DEBUG: response body', await response.clone().text());
 
     if (response.status < 200 || response.status >= 400)
         return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });

@@ -35,7 +35,7 @@ export async function getDefaultGas({ token, to }: TransactionOptions<ChainId, A
         }
     } catch {
         // Fallback to default gas limit
-        gasLimit = isNativeToken(token) ?  21000n : 50000n;
+        gasLimit = isNativeToken(token) ? 21000n : 50000n;
     }
 
     const gasFee = isEIP1559
