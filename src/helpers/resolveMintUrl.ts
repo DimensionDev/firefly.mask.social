@@ -12,6 +12,7 @@ import { ChainId } from '@/types/frame.js';
 const resolveZoraChainName = createLookupTableResolver<ChainId, string>(
     {
         [ChainId.Ethereum]: 'ethereum',
+        [ChainId.Polygon]: 'polygon',
         [ChainId.Arbitrum]: 'arbitrum',
         [ChainId.Base]: 'base',
         [ChainId.Base_Sepolia]: 'base_sepolia',

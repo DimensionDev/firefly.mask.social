@@ -615,9 +615,6 @@ msgstr ""
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
-msgid "Unknown transaction method: {0}."
-msgstr ""
-
 msgid "Frame"
 msgstr ""
 
@@ -1189,6 +1186,9 @@ msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and
 msgstr "在您安裝了 <0>Firefly</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼。"
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+msgstr ""
+
+msgid "Unknown transaction method: {method}."
 msgstr ""
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
