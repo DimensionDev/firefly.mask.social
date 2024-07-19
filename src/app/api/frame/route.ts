@@ -56,13 +56,13 @@ export async function POST(request: Request) {
 
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
-    const packet = await request.clone().json();
+    const packet = await request.clone().text();
     const response = await fetch(target || postUrl || url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(packet),
+        body: packet,
 
         // for post_redirect, we need to handle the redirect manually
         redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',

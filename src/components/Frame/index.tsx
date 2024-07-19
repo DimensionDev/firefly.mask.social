@@ -184,6 +184,11 @@ async function getNextFrame(
                 return;
             }
             case ActionType.Transaction:
+                // TODO temporarily workaround for polymarket
+                if (button.target === 'https://frame.polymarket.com/sign-l1') {
+                    if (await confirmBeforeLeaving(frame.url)) openWindow(frame.url, '_blank');
+                    return;
+                }
                 const txResponse = await postAction<z.infer<typeof TransactionSchema>>();
                 if (!txResponse.success) throw new Error(t`Failed to parse transaction.`);
 
