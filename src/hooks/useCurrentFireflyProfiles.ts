@@ -57,14 +57,18 @@ export function useCurrentFireflyProfilesAll() {
 
     const lensIdentity = resolveProfileId(currentProfileAll[Source.Lens]);
     const farcasterIdentity = resolveProfileId(currentProfileAll[Source.Farcaster]);
-    const twitterIdentity =
-        !lensIdentity && !farcasterIdentity ? resolveProfileId(currentProfileAll[Source.Twitter]) : undefined;
+    const twitterIdentity = resolveProfileId(currentProfileAll[Source.Twitter]);
 
     const { data: profiles = EMPTY_LIST } = useQuery({
         queryKey: ['all-profiles', 'my-own', lensIdentity, farcasterIdentity, twitterIdentity],
+        enabled: !!lensIdentity || !!farcasterIdentity || !!twitterIdentity,
         queryFn: async () => {
-            return FireflySocialMediaProvider.getAllPlatformProfiles(lensIdentity, farcasterIdentity, twitterIdentity);
+            return [
+                ...(await FireflySocialMediaProvider.getAllPlatformProfiles(lensIdentity, farcasterIdentity)),
+                ...(await FireflySocialMediaProvider.getAllPlatformProfiles(undefined, undefined, twitterIdentity)),
+            ];
         },
+        select: (profiles) => uniqBy(profiles, (x) => `${x.source}/${x.identity}`),
         staleTime: 1000 * 60 * 5,
     });
 

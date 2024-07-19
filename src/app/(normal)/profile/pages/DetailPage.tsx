@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import { type SocialSourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -19,7 +19,8 @@ interface Props {
 }
 
 export function ProfileDetailPage({ identity, source }: Props) {
-    const profileTab = { source: resolveSourceFromUrl(source), identity };
+    const resolvedSource = resolveSourceFromUrl(source);
+    const profileTab = { source: resolvedSource, identity };
 
     const { setProfileTab } = useProfileTabState();
     const currentProfiles = useCurrentFireflyProfilesAll();
@@ -27,7 +28,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
     );
 
-    const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
+    const { data: otherProfiles = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['all-profiles', profileTab.source, profileTab.identity],
         queryFn: async () => {
             if (!profileTab.identity) return EMPTY_LIST;
@@ -37,11 +38,11 @@ export function ProfileDetailPage({ identity, source }: Props) {
 
     useEffect(() => {
         setProfileTab({
-            source: resolveSourceFromUrl(source),
+            source: resolvedSource,
             identity,
             isMyProfile: isCurrentProfile,
         });
-    }, [identity, source, isCurrentProfile, setProfileTab]);
+    }, [identity, resolvedSource, isCurrentProfile, setProfileTab]);
 
     if (isLoading && !isCurrentProfile) {
         return <Loading />;
@@ -51,5 +52,9 @@ export function ProfileDetailPage({ identity, source }: Props) {
         notFound();
     }
 
-    return <ProfilePage profiles={profiles} />;
+    return (
+        <ProfilePage
+            profiles={isCurrentProfile && resolvedSource !== Source.Twitter ? currentProfiles : otherProfiles}
+        />
+    );
 }
