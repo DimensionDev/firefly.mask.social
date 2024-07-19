@@ -86,25 +86,15 @@ const cacheBlinkResolver = (url: string, type: SchemeType, blink: string) => `${
 
 const queryBlink = memoizeWithRedis(
     async (url: string, type: SchemeType, blink: string, signal: AbortSignal) => {
-        const errorHandler = async <T>(callback: () => Promise<T | null>): Promise<T | null> => {
-            try {
-                return callback();
-            } catch (error) {
-                if (error instanceof FetchError && error.status >= 400 && error.status < 500) return null;
-                throw error;
-            }
-        };
-        switch (type) {
-            case SchemeType.ActionUrl:
-            case SchemeType.Interstitial: {
-                return errorHandler(async () => {
+        try {
+            switch (type) {
+                case SchemeType.ActionUrl:
+                case SchemeType.Interstitial: {
                     const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
                     if (response?.error) throw new Error(response.error.message);
                     return createAction(url, response, blink);
-                });
-            }
-            case SchemeType.ActionsJson: {
-                return errorHandler(async () => {
+                }
+                case SchemeType.ActionsJson: {
                     const u = new URL(url);
                     const actionJson = await fetchJSON<ActionRuleResponse>(
                         urlcat(u.origin, 'actions.json'),
@@ -121,11 +111,14 @@ const queryBlink = memoizeWithRedis(
                     });
                     if (response?.error) throw new Error(response.error.message);
                     return createAction(matchedApiUrl, response, blink);
-                });
+                }
+                default:
+                    safeUnreachable(type);
+                    throw new UnreachableError('scheme type', type);
             }
-            default:
-                safeUnreachable(type);
-                throw new UnreachableError('scheme type', type);
+        } catch (error) {
+            if (error instanceof FetchError && error.status >= 400 && error.status < 500) return null;
+            throw error;
         }
     },
     {
