@@ -634,9 +634,6 @@ msgstr "This token contract has a code that states that it cannot be sold. Maybe
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
 
-msgid "Unknown transaction method: {0}."
-msgstr "Unknown transaction method: {0}."
-
 msgid "Frame"
 msgstr "Frame"
 
@@ -1269,6 +1266,9 @@ msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app an
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
+
+msgid "Unknown transaction method: {method}."
+msgstr "Unknown transaction method: {method}."
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
