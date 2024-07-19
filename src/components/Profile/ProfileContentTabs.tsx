@@ -53,7 +53,8 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
 
     const computedCurrentTab =
         (source === Source.Lens && currentTab === ProfileTabType.Channels) ||
-        (source === Source.Farcaster && currentTab === ProfileTabType.Collected)
+        (source === Source.Farcaster && currentTab === ProfileTabType.Collected) ||
+        (source === Source.Twitter && currentTab !== ProfileTabType.Feed)
             ? ProfileTabType.Feed
             : currentTab;
 

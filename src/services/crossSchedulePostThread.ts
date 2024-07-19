@@ -11,7 +11,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
+import { CreateScheduleError, createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -21,9 +21,9 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
 
         if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
-            throw new Error(t`Up to 7 days can be set as the scheduled time. Please reset it.`);
+            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time. Please reset it.`);
         } else if (dayjs().isAfter(scheduleTime, 'minute')) {
-            throw new Error(t`The scheduled time has passed. Please reset it.`);
+            throw new CreateScheduleError(`The scheduled time has passed. Please reset it.`);
         }
 
         const results = new Map<
@@ -72,9 +72,13 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         if (!result) return;
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
-            error,
-        });
+        if (error instanceof CreateScheduleError) {
+            enqueueErrorMessage(error.message);
+        } else {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
+                error,
+            });
+        }
         throw error;
     }
 }

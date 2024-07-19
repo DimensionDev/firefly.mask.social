@@ -12,7 +12,10 @@ import { type ComposeType } from '@/types/compose.js';
 
 export interface TwitterSchedulePostPayload {
     quote_tweet_id?: string;
-    in_reply_to_tweet_id?: string;
+    reply?: {
+        exclude_reply_user_ids: [];
+        in_reply_to_tweet_id: string;
+    };
     text: string;
     media?: {
         media_ids: string[];
@@ -42,11 +45,14 @@ export async function createTwitterSchedulePostPayload(
 
     return {
         quote_tweet_id: twitterParentPost && type === 'quote' ? twitterParentPost.postId : undefined,
-        in_reply_to_tweet_id: !isThread
-            ? twitterParentPost && type === 'reply'
-                ? twitterParentPost.postId
-                : undefined
-            : '$$in_reply_to_tweet_id$$',
+        reply:
+            type === 'reply'
+                ? twitterParentPost
+                    ? { exclude_reply_user_ids: [], in_reply_to_tweet_id: twitterParentPost.postId }
+                    : isThread
+                      ? { exclude_reply_user_ids: [], in_reply_to_tweet_id: '$$in_reply_to_tweet_id$$' }
+                      : undefined
+                : undefined,
         text: readChars(chars, 'both', Source.Twitter),
         media: imageResults.length
             ? {

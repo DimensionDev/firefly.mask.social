@@ -21,6 +21,12 @@ import { uploadSessions } from '@/services/metrics.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
+export class CreateScheduleError extends Error {
+    constructor(public override message: string) {
+        super(message);
+    }
+}
+
 export async function createSchedulePostsPayload(type: ComposeType, compositePost: CompositePost, isThread = false) {
     const { chars, poll, availableSources } = compositePost;
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
@@ -60,9 +66,9 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
 export async function crossSchedulePost(type: ComposeType, compositePost: CompositePost, scheduleTime: Date) {
     try {
         if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
-            throw new Error(t`Up to 7 days can be set as the scheduled time. Please reset it.`);
+            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time. Please reset it.`);
         } else if (dayjs().isAfter(scheduleTime, 'minute')) {
-            throw new Error(t`The scheduled time has passed. Please reset it.`);
+            throw new CreateScheduleError(`The scheduled time has passed. Please reset it.`);
         }
 
         const posts = await createSchedulePostsPayload(type, compositePost);
@@ -112,9 +118,13 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
             </span>,
         );
     } catch (error) {
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
-            error,
-        });
+        if (error instanceof CreateScheduleError) {
+            enqueueErrorMessage(error.message);
+        } else {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
+                error,
+            });
+        }
         throw error;
     }
 }
