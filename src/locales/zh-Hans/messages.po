@@ -105,6 +105,9 @@ msgstr "屏蔽 @{0}"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "合约所有者无权修改其他地址的通证余额。"
 
+msgid "Select token"
+msgstr ""
+
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
@@ -1502,9 +1505,6 @@ msgstr "查看交易详情"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
-
-msgid "Please select a token"
-msgstr ""
 
 msgid "Saved on {0} at {1}"
 msgstr ""
