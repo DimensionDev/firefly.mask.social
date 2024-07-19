@@ -90,7 +90,6 @@ const queryBlink = memoizeWithRedis(
             try {
                 return callback();
             } catch (error) {
-                if (error instanceof SyntaxError || error instanceof TypeError) return null;
                 if (error instanceof FetchError && error.status >= 400 && error.status < 500) return null;
                 throw error;
             }
@@ -147,9 +146,14 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             blink: z.string(),
         }),
     );
-    const response = await queryBlink(url, type, blink, request.signal);
-    if (!response) throw new NotFoundError();
-    return createSuccessResponseJSON(response);
+    try {
+        const response = await queryBlink(url, type, blink, request.signal);
+        if (!response) throw new NotFoundError();
+        return createSuccessResponseJSON(response);
+    } catch (error) {
+        if (error instanceof SyntaxError || error instanceof TypeError) throw new NotFoundError();
+        throw error;
+    }
 });
 
 export async function DELETE(request: NextRequest) {
