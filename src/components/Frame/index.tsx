@@ -63,7 +63,7 @@ const TransactionSchema = z.object({
 const SignTypedDataV4Schema = z.object({
     // a CAIP-2 chain ID to identify the tx network
     chainId: z.string().refine((x) => x.startsWith('eip155:'), { message: 'Invalid chain ID format.' }),
-    method: z.literal(MethodType.ETH_SIGNTYPEDDATA_V4),
+    method: z.literal(MethodType.ETH_SIGN_TYPED_DATA_V4),
     params: z.object({
         domain: z.object({
             name: z.string().optional(),
@@ -242,7 +242,7 @@ async function getNextFrame(
                         });
                         return response.success ? response.data.frame : null;
                     }
-                    case MethodType.ETH_SIGNTYPEDDATA_V4: {
+                    case MethodType.ETH_SIGN_TYPED_DATA_V4: {
                         const signature = await client.signTypedData(action.params as SignTypedDataParameters);
                         const response = await postAction<LinkDigestedResponse>({
                             address,

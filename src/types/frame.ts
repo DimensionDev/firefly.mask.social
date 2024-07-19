@@ -71,7 +71,7 @@ export enum ChainId {
 
 export enum MethodType {
     ETH_SEND_TRANSACTION = 'eth_sendTransaction',
-    ETH_SIGNTYPEDDATA_V4 = 'eth_signTypedData_v4',
+    ETH_SIGN_TYPED_DATA_V4 = 'eth_signTypedData_v4',
 }
 
 export interface LinkDigestedResponse {
