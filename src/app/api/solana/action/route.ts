@@ -10,6 +10,7 @@ import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.j
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { ActionGetResponse, ActionRuleResponse } from '@/providers/types/Blink.js';
 import { HttpUrl } from '@/schemas/index.js';
@@ -19,7 +20,9 @@ import { type Action, type ActionComponent, type ActionParameter, SchemeType } f
  * reference: https://solana.com/docs/advanced/actions#actionsjson
  */
 function resolveActionJson(url: string, actions: ActionRuleResponse) {
-    const u = new URL(url);
+    const u = parseURL(url);
+    if (!u) return null;
+
     const paths = u.pathname.split('/');
 
     for (const rule of actions.rules) {
@@ -71,7 +74,9 @@ function createAction(url: string, data: ActionGetResponse, blink: string) {
         actions: [],
     };
     if (data.links?.actions) {
-        const u = new URL(url);
+        const u = parseURL(url);
+        if (!u) return null;
+
         actionResult.actions = data.links.actions.map((action) => {
             const href = action.href.startsWith('https://') ? action.href : urlcat(u.origin, action.href);
             return createActionComponent(action.label, href, action.parameters);
@@ -86,39 +91,35 @@ const cacheBlinkResolver = (url: string, type: SchemeType, blink: string) => `${
 
 const queryBlink = memoizeWithRedis(
     async (url: string, type: SchemeType, blink: string, signal: AbortSignal) => {
-        try {
-            switch (type) {
-                case SchemeType.ActionUrl:
-                case SchemeType.Interstitial: {
-                    const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
-                    if (response?.error) throw new Error(response.error.message);
-                    return createAction(url, response, blink);
-                }
-                case SchemeType.ActionsJson: {
-                    const u = new URL(url);
-                    const actionJson = await fetchJSON<ActionRuleResponse>(
-                        urlcat(u.origin, 'actions.json'),
-                        {
-                            method: 'GET',
-                            signal,
-                        },
-                        { noDefaultContentType: true },
-                    );
-                    const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
-                    const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, {
+        switch (type) {
+            case SchemeType.ActionUrl:
+            case SchemeType.Interstitial: {
+                const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
+                if (response?.error) throw new Error(response.error.message);
+                return createAction(url, response, blink);
+            }
+            case SchemeType.ActionsJson: {
+                const u = parseURL(url);
+                if (!u) return null;
+                const actionJson = await fetchJSON<ActionRuleResponse>(
+                    urlcat(u.origin, 'actions.json'),
+                    {
                         method: 'GET',
                         signal,
-                    });
-                    if (response?.error) throw new Error(response.error.message);
-                    return createAction(matchedApiUrl, response, blink);
-                }
-                default:
-                    safeUnreachable(type);
-                    throw new UnreachableError('scheme type', type);
+                    },
+                    { noDefaultContentType: true },
+                );
+                const matchedApiUrl = resolveActionJson(url, actionJson) ?? url;
+                const response = await fetchJSON<ActionGetResponse>(matchedApiUrl, {
+                    method: 'GET',
+                    signal,
+                });
+                if (response?.error) throw new Error(response.error.message);
+                return createAction(matchedApiUrl, response, blink);
             }
-        } catch (error) {
-            if (error instanceof FetchError && error.status >= 400 && error.status < 500) return null;
-            throw error;
+            default:
+                safeUnreachable(type);
+                throw new UnreachableError('scheme type', type);
         }
     },
     {
@@ -139,12 +140,20 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             blink: z.string(),
         }),
     );
+
     try {
         const response = await queryBlink(url, type, blink, request.signal);
         if (!response) throw new NotFoundError();
         return createSuccessResponseJSON(response);
     } catch (error) {
-        if (error instanceof SyntaxError || error instanceof TypeError) throw new NotFoundError();
+        if (
+            error instanceof SyntaxError ||
+            error instanceof TypeError ||
+            // client error
+            (error instanceof FetchError && error.status >= 400 && error.status < 500)
+        ) {
+            throw new NotFoundError();
+        }
         throw error;
     }
 });

@@ -14,9 +14,7 @@ export abstract class BaseLoader<T> {
             const p = this.fetch(url, signal);
             this.map.set(url, p);
             p.catch((error) => {
-                if (error instanceof FetchError && error.status === StatusCodes.NOT_FOUND) {
-                    return;
-                }
+                if (error instanceof FetchError && error.status === StatusCodes.NOT_FOUND) return;
                 this.map.delete(url);
             });
         }
