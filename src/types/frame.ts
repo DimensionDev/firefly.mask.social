@@ -59,6 +59,7 @@ export interface Frame {
  */
 export enum ChainId {
     Ethereum = 1,
+    Polygon = 137,
     Arbitrum = 42161,
     Base = 8453,
     Base_Sepolia = 84532,
@@ -70,6 +71,7 @@ export enum ChainId {
 
 export enum MethodType {
     ETH_SEND_TRANSACTION = 'eth_sendTransaction',
+    ETH_SIGN_TYPED_DATA_V4 = 'eth_signTypedData_v4',
 }
 
 export interface LinkDigestedResponse {
