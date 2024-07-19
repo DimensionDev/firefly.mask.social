@@ -136,7 +136,21 @@ export async function uploadSessions(session: FireflySession, sessions: Session[
 
     const mergedSessions = Object.values(
         Object.fromEntries([...syncedSessions, ...noSyncedSessions].map((x) => [`${x.type}:${x.profileId}`, x])),
-    );
+    ).filter((x) => {
+        switch (x.type) {
+            case SessionType.Farcaster:
+                return /^0x[a-f0-9]{64}$/.test(x.token);
+            case SessionType.Lens:
+                return true;
+            case SessionType.Twitter:
+                return true;
+            case SessionType.Firefly:
+                return false;
+            default:
+                safeUnreachable(x.type);
+                throw new UnreachableError('session type', x);
+        }
+    });
     const cipher = await encryptMetrics(session, mergedSessions, signal);
     await uploadMetrics(cipher, signal);
 }
