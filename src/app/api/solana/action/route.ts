@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
-import { NotFoundError, UnreachableError } from '@/constants/error.js';
+import { FetchError, NotFoundError, UnreachableError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -86,23 +86,32 @@ const cacheBlinkResolver = (url: string, type: SchemeType, blink: string) => `${
 
 const queryBlink = memoizeWithRedis(
     async (url: string, type: SchemeType, blink: string, signal: AbortSignal) => {
+        const errorHandler = async <T>(callback: () => Promise<T | null>): Promise<T | null> => {
+            try {
+                return callback();
+            } catch (error) {
+                if (error instanceof SyntaxError || error instanceof TypeError) return null;
+                if (error instanceof FetchError && error.status >= 400 && error.status < 500) return null;
+                throw error;
+            }
+        };
         switch (type) {
             case SchemeType.ActionUrl:
             case SchemeType.Interstitial: {
-                try {
+                return errorHandler(async () => {
                     const response = await fetchJSON<ActionGetResponse>(url, { method: 'GET', signal });
+                    if (response?.error) throw new Error(response.error.message);
                     return createAction(url, response, blink);
-                } catch {
-                    return null;
-                }
+                });
             }
             case SchemeType.ActionsJson: {
-                try {
+                return errorHandler(async () => {
                     const u = new URL(url);
                     const actionJson = await fetchJSON<ActionRuleResponse>(
                         urlcat(u.origin, 'actions.json'),
                         {
                             method: 'GET',
+                            signal,
                         },
                         { noDefaultContentType: true },
                     );
@@ -111,10 +120,9 @@ const queryBlink = memoizeWithRedis(
                         method: 'GET',
                         signal,
                     });
+                    if (response?.error) throw new Error(response.error.message);
                     return createAction(matchedApiUrl, response, blink);
-                } catch {
-                    return null;
-                }
+                });
             }
             default:
                 safeUnreachable(type);

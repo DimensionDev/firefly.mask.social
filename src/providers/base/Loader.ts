@@ -1,6 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { compact } from 'lodash-es';
 
+import { FetchError } from '@/constants/error.js';
+
 export abstract class BaseLoader<T> {
     protected ab: AbortController | null = null;
     protected map = new Map<string, Promise<T | null>>();
@@ -12,9 +14,10 @@ export abstract class BaseLoader<T> {
             const p = this.fetch(url, signal);
             this.map.set(url, p);
             p.catch((error) => {
-                if (error.status !== StatusCodes.NOT_FOUND) {
-                    this.map.delete(url);
+                if (error instanceof FetchError && error.status === StatusCodes.NOT_FOUND) {
+                    return;
                 }
+                this.map.delete(url);
             });
         }
         return this.map.get(url)!;
