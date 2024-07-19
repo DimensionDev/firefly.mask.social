@@ -73,7 +73,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                     onChange={(value) => {
                         setValue(value.toDate());
                     }}
-                    panelClassName="translate-y-[0%]"
+                    panelClassName="max-md:translate-y-[0%] translate-y-[110%]"
                 >
                     <CalendarIcon />
                     <span className="max-md:text-sm">{dayjs(value).format('MMM D')}</span>
@@ -85,7 +85,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                     timeSteps={{ minutes: 1 }}
                     containerClassName="flex-1"
                     className="flex w-full gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
-                    panelClassName="translate-y-[0%]"
+                    panelClassName="max-md:translate-y-[0%] translate-y-[110%]"
                     onChange={(value) => {
                         setValue((prev) => {
                             return dayjs(prev).hour(value.get('hour')).minute(value.get('minute')).toDate();

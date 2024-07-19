@@ -20,72 +20,45 @@ export const resolveLensOperationName = createLookupTableResolver<
 export const resolveLensQuery = createLookupTableResolver<ComposeType, string>(
     {
         compose: `mutation PostOnMomoka($request: MomokaPostRequest!) {
-            result: postOnMomoka(request: $request) {
+            postOnMomoka(request: $request) {
                 ... on CreateMomokaPublicationResult {
-                ...CreateMomokaPublicationResult
+                id
+                proof
+                momokaId
                 }
                 ... on LensProfileManagerRelayError {
-                ...LensProfileManagerRelayError
+                reason
                 }
             }
             }
 
-            fragment LensProfileManagerRelayError on LensProfileManagerRelayError {
-            __typename
-            reason
+        `,
+        reply: `mutation CommentOnMomoka($request: MomokaCommentRequest!) {
+            commentOnMomoka(request: $request) {
+                ... on CreateMomokaPublicationResult {
+                id
+                proof
+                momokaId
+                }
+                ... on LensProfileManagerRelayError {
+                    reason
+                    }
             }
-
-            fragment CreateMomokaPublicationResult on CreateMomokaPublicationResult {
-            __typename
-            id
-            proof
-            momokaId
-            }
+        }
         `,
         quote: `mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
-            result: quoteOnMomoka(request: $request) {
+             quoteOnMomoka(request: $request) {
                 ... on CreateMomokaPublicationResult {
-                ...CreateMomokaPublicationResult
+                id
+                proof
+                momokaId
                 }
                 ... on LensProfileManagerRelayError {
-                ...LensProfileManagerRelayError
+                    reason
+                    }
+            }
                 }
-            }
-            }
-
-            fragment LensProfileManagerRelayError on LensProfileManagerRelayError {
-            __typename
-            reason
-            }
-
-            fragment CreateMomokaPublicationResult on CreateMomokaPublicationResult {
-            __typename
-            id
-            proof
-            momokaId
-            }`,
-        reply: `mutation CommentOnMomoka($request: MomokaCommentRequest!) {
-            result: commentOnMomoka(request: $request) {
-                ... on CreateMomokaPublicationResult {
-                ...CreateMomokaPublicationResult
-                }
-                ... on LensProfileManagerRelayError {
-                ...LensProfileManagerRelayError
-                }
-            }
-            }
-
-            fragment LensProfileManagerRelayError on LensProfileManagerRelayError {
-            __typename
-            reason
-            }
-
-            fragment CreateMomokaPublicationResult on CreateMomokaPublicationResult {
-            __typename
-            id
-            proof
-            momokaId
-            }`,
+`,
     },
     (type: ComposeType) => {
         throw new UnreachableError('composeType', type);
