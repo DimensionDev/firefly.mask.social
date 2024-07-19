@@ -1,13 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
-import { FetchError, UnreachableError } from '@/constants/error.js';
+import { FetchError, NotFoundError, UnreachableError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
@@ -145,11 +143,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
 
     try {
         const response = await queryBlink(url, type, blink, request.signal);
-        if (!response) {
-            return createErrorResponseJSON('No action found', {
-                status: StatusCodes.NOT_FOUND,
-            });
-        }
+        if (!response) throw new NotFoundError();
         return createSuccessResponseJSON(response);
     } catch (error) {
         if (
@@ -158,9 +152,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             // client error
             (error instanceof FetchError && error.status >= 400 && error.status < 500)
         ) {
-            return createErrorResponseJSON('No action found', {
-                status: StatusCodes.NOT_FOUND,
-            });
+            throw new NotFoundError();
         }
         throw error;
     }
