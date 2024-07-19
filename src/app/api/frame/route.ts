@@ -8,6 +8,7 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     key: KeyType.DigestFrameLink,
@@ -58,16 +59,21 @@ export async function POST(request: Request) {
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().text();
-    const response = await fetch(target || postUrl || url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: packet,
+    const parsedPacket = parseJSON<{ untrustedData: { transactionId?: string } }>(packet);
+    const response = await fetch(
+        // if transactionId exists, then we post upon postUrl stead of target
+        parsedPacket?.untrustedData.transactionId ? postUrl || target || url : target || postUrl || url,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: packet,
 
-        // for post_redirect, we need to handle the redirect manually
-        redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
-    });
+            // for post_redirect, we need to handle the redirect manually
+            redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
+        },
+    );
 
     // workaround: if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
     if (action === ActionType.PostRedirect && response.status >= 400) {
@@ -120,6 +126,11 @@ export async function POST(request: Request) {
                 },
             );
         case ActionType.Transaction: {
+            if (parsedPacket?.untrustedData.transactionId) {
+                return createSuccessResponseJSON(
+                    await FrameProcessor.digestDocument(url, await response.text(), request.signal),
+                );
+            }
             const tx = await response.json();
             return createSuccessResponseJSON(tx);
         }

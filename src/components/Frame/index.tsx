@@ -1,11 +1,12 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
+import { getAccount } from '@wagmi/core';
 import { isUndefined } from 'lodash-es';
 import { memo, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { encodePacked, isAddress } from 'viem';
+import { encodePacked, isAddress, type SignTypedDataParameters } from 'viem';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
@@ -43,10 +44,10 @@ import {
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-export const TransactionSchema = z.object({
+const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network
     chainId: z.string().refine((x) => x.startsWith('eip155:'), { message: 'Invalid chain ID format.' }),
-    method: z.enum([MethodType.ETH_SEND_TRANSACTION]),
+    method: z.literal(MethodType.ETH_SEND_TRANSACTION),
     // identifying client in calldata
     // learn more: https://www.notion.so/warpcast/Frame-Transactions-Public-9d9f9f4f527249519a41bd8d16165f73?pvs=4#c1c3182208ce4ae4a7ffa72129b9795a
     attribution: z.boolean().optional(),
@@ -58,6 +59,25 @@ export const TransactionSchema = z.object({
         data: z.string().optional(),
     }),
 });
+
+const SignTypedDataV4Schema = z.object({
+    // a CAIP-2 chain ID to identify the tx network
+    chainId: z.string().refine((x) => x.startsWith('eip155:'), { message: 'Invalid chain ID format.' }),
+    method: z.literal(MethodType.ETH_SIGNTYPEDDATA_V4),
+    params: z.object({
+        domain: z.object({
+            name: z.string().optional(),
+            version: z.string().optional(),
+            chainId: z.union([z.number(), z.string()]).optional(),
+            verifyingContract: z.string().optional(),
+        }),
+        types: z.record(z.unknown()),
+        primaryType: z.string(),
+        message: z.record(z.unknown()),
+    }),
+});
+
+const WalletActionSchema = z.union([TransactionSchema, SignTypedDataV4Schema]);
 
 const whitelist: Array<string | ((url: string) => boolean)> = [
     (url) => isSameOriginUrl(url, location.origin),
@@ -184,44 +204,55 @@ async function getNextFrame(
                 return;
             }
             case ActionType.Transaction:
-                // TODO temporarily workaround for polymarket
-                if (button.target === 'https://frame.polymarket.com/sign-l1') {
-                    if (await confirmBeforeLeaving(frame.url)) openWindow(frame.url, '_blank');
+                const address = getAccount(config)?.address;
+                if (!address) {
+                    await getWalletClientRequired(config);
                     return;
                 }
-                const txResponse = await postAction<z.infer<typeof TransactionSchema>>();
-                if (!txResponse.success) throw new Error(t`Failed to parse transaction.`);
+                const walletAction = await postAction<z.infer<typeof WalletActionSchema>>({
+                    address,
+                });
+                if (!walletAction.success) throw new Error(t`Failed to parse transaction.`);
 
                 const profile = getCurrentProfile(Source.Farcaster);
                 if (!profile) throw new Error(t`Profile not found`);
 
-                const transaction = TransactionSchema.parse(txResponse.data);
-                const { chainId } = parseCAIP10(transaction.chainId);
+                const action = WalletActionSchema.parse(walletAction.data);
+                const { chainId } = parseCAIP10(action.chainId);
                 const client = await getWalletClientRequired(config, {
                     chainId,
                 });
 
                 if (client.chain.id !== chainId) throw new Error(t`The chainId mismatch.`);
 
-                switch (transaction.method) {
+                const method = action.method;
+                switch (method) {
                     case MethodType.ETH_SEND_TRANSACTION: {
                         const transactionId = await client.sendTransaction({
-                            to: transaction.params.to as `0x${string}`,
-                            data: (transaction.params.data ||
-                                (transaction.attribution !== false
+                            to: action.params.to as `0x${string}`,
+                            data: (action.params.data ||
+                                (action.attribution !== false
                                     ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
                                     : undefined)) as `0x${string}` | undefined,
-                            value: transaction.params.value ? BigInt(transaction.params.value) : BigInt(0),
+                            value: action.params.value ? BigInt(action.params.value) : BigInt(0),
                         });
-
                         const response = await postAction<LinkDigestedResponse>({
+                            address,
                             transactionId,
                         });
                         return response.success ? response.data.frame : null;
                     }
+                    case MethodType.ETH_SIGNTYPEDDATA_V4: {
+                        const signature = await client.signTypedData(action.params as SignTypedDataParameters);
+                        const response = await postAction<LinkDigestedResponse>({
+                            address,
+                            transactionId: signature,
+                        });
+                        return response.success ? response.data.frame : null;
+                    }
                     default:
-                        safeUnreachable(transaction.method);
-                        enqueueErrorMessage(t`Unknown transaction method: ${transaction.method}.`);
+                        safeUnreachable(method);
+                        enqueueErrorMessage(t`Unknown transaction method: ${method}.`);
                         return;
                 }
             default:
