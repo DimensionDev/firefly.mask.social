@@ -4,6 +4,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
+import { ProfileInList } from '@/components/ProfileInList.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -56,5 +57,5 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
 });
 
 export function getFollowInList(index: number, profile: Profile) {
-    return <FollowInList profile={profile} key={`${profile.profileId}-${index}`} />;
+    return <ProfileInList profile={profile} key={`${profile.profileId}-${index}`} />;
 }
