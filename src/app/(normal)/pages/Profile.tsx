@@ -3,12 +3,13 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
-import { notFound, usePathname } from 'next/navigation.js';
+import { usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import { Loading } from '@/components/Loading.js';
 import { ProfileContent } from '@/components/Profile/ProfileContent.js';
+import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
 import { PageRoute, Source } from '@/constants/enum.js';
@@ -90,9 +91,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         !walletProfile &&
         ((profileTab.source === Source.Twitter && !currentTwitterProfile) || !profiles.length);
 
-    if (!isProfilePage && isFinalized && profileMissing) {
-        notFound();
-    }
+    const profileNotFound = !isProfilePage && isFinalized && profileMissing;
 
     return (
         <div>
@@ -102,6 +101,8 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
             <ProfileSourceTabs profiles={profiles} />
             {isLoading ? (
                 <Loading />
+            ) : profileNotFound ? (
+                <ProfileNotFound />
             ) : (
                 <ProfileContent profile={profile} profiles={profiles} relations={relations} isSuspended={isSuspended} />
             )}
