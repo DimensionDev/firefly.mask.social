@@ -137,7 +137,11 @@ export async function uploadSessions(session: FireflySession, sessions: Session[
     const mergedSessions = Object.values(
         Object.fromEntries([...syncedSessions, ...noSyncedSessions].map((x) => [`${x.type}:${x.profileId}`, x])),
     );
-    const cipher = await encryptMetrics(session, mergedSessions, signal);
+    const cipher = await encryptMetrics(
+        session,
+        mergedSessions.filter((x) => !TwitterSession.isNextAuth(x)),
+        signal,
+    );
     await uploadMetrics(cipher, signal);
 }
 
