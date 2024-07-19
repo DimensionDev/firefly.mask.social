@@ -51,7 +51,6 @@ export const Tips = memo(function Tips({
         } catch (error) {
             enqueueErrorMessage(
                 getSnackbarMessageFromError(error, t`Sorry, there is no wallet address available for tipping.`),
-                { error },
             );
             throw error;
         }
