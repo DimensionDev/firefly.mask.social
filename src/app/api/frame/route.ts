@@ -5,10 +5,10 @@ import { z } from 'zod';
 import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     key: KeyType.DigestFrameLink,
