@@ -14,7 +14,7 @@ export function getResourceType(urlString: string) {
     }
 
     // cspell: disable-next-line
-    if (['supercast.mypinata.cloud'].includes(parsedURL.hostname)) {
+    if (['supercast.mypinata.cloud', 'cloudflare-ipfs.com'].includes(parsedURL.hostname)) {
         const fileName = parsedURL.searchParams.get('filename');
         const extension = fileName?.split('.').pop()?.toLowerCase();
         if (extension) fileExtension = extension;
