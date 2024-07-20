@@ -4,6 +4,7 @@ import { parseURL } from '@/helpers/parseURL.js';
 
 const TLD_DOMAIN = [
     'social',
+    'land',
     'com',
     'net',
     'org',
