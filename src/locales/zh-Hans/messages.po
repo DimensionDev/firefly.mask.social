@@ -615,9 +615,6 @@ msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
 
-msgid "Unknown transaction method: {0}."
-msgstr "未知交易方法：{0}。"
-
 msgid "Frame"
 msgstr "Frame"
 
@@ -1190,6 +1187,9 @@ msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {添加一条评论} reply {发布你的评论} other {{1}}}"
+
+msgid "Unknown transaction method: {method}."
+msgstr ""
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr "您正在登录不同的 Firefly 账号。如果继续则会<0>覆盖</0>当前账号。"
