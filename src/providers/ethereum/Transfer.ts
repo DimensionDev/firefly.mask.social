@@ -1,6 +1,12 @@
 import { isGreaterThan, isLessThan, leftShift, rightShift } from '@masknet/web3-shared-base';
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { getBalance, sendTransaction, waitForTransactionReceipt, writeContract } from '@wagmi/core';
+import {
+    getBalance,
+    getTransactionConfirmations,
+    sendTransaction,
+    waitForTransactionReceipt,
+    writeContract,
+} from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
 import { type Address, erc20Abi, type Hash, parseUnits } from 'viem';
 
@@ -36,7 +42,22 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
     }
 
     async waitForTransaction(hash: Hash): Promise<void> {
-        await waitForTransactionReceipt(config, { hash, chainId: EthereumNetwork.getChainId() });
+        try {
+            await waitForTransactionReceipt(config, {
+                hash,
+                chainId: EthereumNetwork.getChainId(),
+                retryCount: 15,
+                timeout: 1000 * 60 * 2,
+            });
+        } catch (error) {
+            const blocks = await getTransactionConfirmations(config, {
+                hash,
+                chainId: EthereumNetwork.getChainId(),
+            });
+            if (blocks < 1) {
+                throw error;
+            }
+        }
     }
 
     async validateBalance(options: TransactionOptions<ChainId, Address>): Promise<boolean> {
