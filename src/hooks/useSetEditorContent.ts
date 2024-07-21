@@ -1,10 +1,10 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { safeUnreachable } from '@masknet/kit';
 import { $createParagraphNode, $createTextNode, $getRoot, ParagraphNode } from 'lexical';
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { CHAR_TAG, type Chars, type ComplexChars } from '@/helpers/chars.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 
 function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {
     const { tag, visible } = chars;

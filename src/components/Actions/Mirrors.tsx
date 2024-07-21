@@ -1,5 +1,4 @@
 import { plural, t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
@@ -14,6 +13,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';

@@ -1,6 +1,5 @@
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { memo } from 'react';
@@ -16,6 +15,7 @@ import { components } from '@/components/Tweet/index.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

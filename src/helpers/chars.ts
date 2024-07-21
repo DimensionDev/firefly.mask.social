@@ -1,8 +1,8 @@
-import { safeUnreachable } from '@masknet/kit';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { MAX_CHAR_SIZE_PER_POST, type RP_HASH_TAG } from '@/constants/index.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';

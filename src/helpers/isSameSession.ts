@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { UnreachableError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';

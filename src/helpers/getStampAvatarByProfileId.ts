@@ -1,8 +1,8 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_STAMP_URL } from '@/constants/index.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 
 export function getStampAvatarByProfileId(source: Source, profileId: string) {
     switch (source) {

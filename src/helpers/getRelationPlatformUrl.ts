@@ -1,6 +1,6 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { RelationPlatform } from '@/providers/types/Firefly.js';
 
 export function getRelationPlatformUrl(platform: RelationPlatform, identity: string) {

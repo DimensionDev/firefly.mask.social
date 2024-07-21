@@ -1,10 +1,9 @@
 'use client';
-import { safeUnreachable } from '@masknet/kit';
-
 import GithubDarkIcon from '@/assets/github-dark.svg';
 import GithubLightIcon from '@/assets/github-light.svg';
 import KeyBaseIcon from '@/assets/keybase.svg';
 import RedditIcon from '@/assets/reddit.svg';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelationPlatform } from '@/providers/types/Firefly.js';

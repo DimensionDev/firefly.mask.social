@@ -1,9 +1,9 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotAllowedError, NotImplementedError, TimeoutError, UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';

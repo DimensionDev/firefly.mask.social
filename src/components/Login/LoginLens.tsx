@@ -2,7 +2,6 @@
 
 import { Switch } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { first } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -15,6 +14,7 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { addAccount } from '@/helpers/account.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';

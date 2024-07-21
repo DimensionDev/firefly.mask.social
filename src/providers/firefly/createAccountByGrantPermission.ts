@@ -1,8 +1,8 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { InvalidResultError, TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';

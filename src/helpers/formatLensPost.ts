@@ -22,12 +22,12 @@ import type {
     TransactionMetadataV3Fragment,
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
-import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';

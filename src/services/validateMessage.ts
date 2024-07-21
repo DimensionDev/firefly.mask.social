@@ -1,9 +1,9 @@
 import { Message } from '@farcaster/core';
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { HUBBLE_URL } from '@/constants/index.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 
 async function validateFarcasterMessage(messageBytes: string): Promise<boolean> {

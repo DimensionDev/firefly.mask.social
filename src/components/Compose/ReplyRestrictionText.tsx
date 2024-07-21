@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 
 import { RestrictionType } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 
 interface ReplyRestrictionTextProps {
     type: RestrictionType;

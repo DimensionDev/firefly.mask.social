@@ -1,8 +1,8 @@
-import { safeUnreachable } from '@masknet/kit';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseJSON } from '@/helpers/parseJSON.js';

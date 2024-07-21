@@ -1,6 +1,4 @@
 'use client';
-import { safeUnreachable } from '@masknet/kit';
-
 import FarcasterIcon from '@/assets/farcaster-square.svg';
 import LensIcon from '@/assets/lens-square.svg';
 import FireflyIcon from '@/assets/logo.svg';
@@ -9,6 +7,7 @@ import WalletSquareLightIcon from '@/assets/wallet-square-light.svg';
 import XSquareDarkIcon from '@/assets/x-square-dark.svg';
 import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 

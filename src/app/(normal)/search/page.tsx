@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
@@ -10,6 +9,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, SearchType } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

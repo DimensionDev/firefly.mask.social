@@ -1,7 +1,7 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export function getChannelUrl(channel: Channel) {

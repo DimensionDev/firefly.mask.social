@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
@@ -6,6 +5,7 @@ import { z } from 'zod';
 import { KeyType } from '@/constants/enum.js';
 import { FetchError, NotFoundError, UnreachableError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';

@@ -1,7 +1,7 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { NotAllowedError, NotImplementedError, UnreachableError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

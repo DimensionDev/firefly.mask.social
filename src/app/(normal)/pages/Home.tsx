@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { type ComponentType, memo, Suspense, useEffect } from 'react';
 
 import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.js';
@@ -12,6 +11,7 @@ import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { DiscoverType, type SocialSource, Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

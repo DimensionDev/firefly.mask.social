@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { memo, Suspense } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -10,6 +9,7 @@ import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { WalletProfileTabType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 
 const ContentList = memo(function ContentList({ type, address }: { type: WalletProfileTabType; address: string }) {

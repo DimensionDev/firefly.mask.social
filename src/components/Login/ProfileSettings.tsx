@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { Reorder } from 'framer-motion';
 import { noop, sortBy, uniqBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
@@ -18,6 +17,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { switchAccount } from '@/helpers/account.js';
+import { delay } from '@/helpers/delay.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

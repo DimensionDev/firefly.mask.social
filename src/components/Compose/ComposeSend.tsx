@@ -1,5 +1,4 @@
 import { Plural, t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { compact, values } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -15,6 +14,7 @@ import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';

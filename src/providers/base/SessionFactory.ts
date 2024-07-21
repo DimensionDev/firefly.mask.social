@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import z from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';

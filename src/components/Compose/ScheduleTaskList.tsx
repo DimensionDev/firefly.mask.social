@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -18,6 +17,7 @@ import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js
 import { queryClient } from '@/configs/queryClient.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';

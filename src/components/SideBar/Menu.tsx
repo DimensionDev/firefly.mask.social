@@ -2,7 +2,6 @@
 
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { usePathname, useSearchParams } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -29,6 +28,7 @@ import { IS_IOS } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

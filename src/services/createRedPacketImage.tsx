@@ -1,5 +1,4 @@
 /* cspell:disable */
-import { safeUnreachable } from '@masknet/kit';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import satori from 'satori';
 import urlcat from 'urlcat';
@@ -7,6 +6,7 @@ import urlcat from 'urlcat';
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { Locale } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';

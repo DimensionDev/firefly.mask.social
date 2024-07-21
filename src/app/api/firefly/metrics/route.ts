@@ -1,5 +1,4 @@
 import { NobleEd25519Signer } from '@farcaster/core';
-import { safeUnreachable } from '@masknet/kit';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import crypto from 'crypto';
 import { StatusCodes } from 'http-status-codes';
@@ -10,6 +9,7 @@ import { z } from 'zod';
 import { CryptoUsage } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getPublicKeyInHex } from '@/helpers/ed25519.js';

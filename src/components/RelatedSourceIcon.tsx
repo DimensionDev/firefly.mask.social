@@ -1,11 +1,12 @@
 'use client';
-import { safeUnreachable } from '@masknet/kit';
+
 import { useDarkMode } from 'usehooks-ts';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
 import XDarkIcon from '@/assets/x-circle-dark.svg';
 import XLightIcon from '@/assets/x-circle-light.svg';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 

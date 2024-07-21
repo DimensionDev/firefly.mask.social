@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -11,6 +10,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

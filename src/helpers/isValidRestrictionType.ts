@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 
 export function isValidRestrictionType(type: RestrictionType, availableSources: SocialSource[]) {
     switch (type) {

@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
@@ -9,6 +8,7 @@ import { forwardRef } from 'react';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/helpers/account.js';
+import { delay } from '@/helpers/delay.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';

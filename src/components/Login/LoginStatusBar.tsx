@@ -1,13 +1,12 @@
 'use client';
 
-import { delay } from '@masknet/kit';
-
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
 import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarInteractive.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';

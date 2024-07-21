@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo, Suspense, useEffect } from 'react';
 import urlcat from 'urlcat';
@@ -8,6 +7,7 @@ import { Mirror } from '@/components/Oembed/Mirror.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';

@@ -1,8 +1,8 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import { Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';

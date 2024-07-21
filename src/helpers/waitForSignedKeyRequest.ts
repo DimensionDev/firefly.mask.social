@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { AbortError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { delay } from '@/helpers/delay.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 

@@ -1,6 +1,5 @@
 'use client';
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { memo, Suspense } from 'react';
 
 import ComeBack from '@/assets/comeback.svg';
@@ -12,6 +11,7 @@ import { EngagementType, type SocialSource, type SocialSourceInURL } from '@/con
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 

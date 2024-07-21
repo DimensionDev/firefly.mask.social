@@ -1,9 +1,8 @@
 'use client';
-import { safeUnreachable } from '@masknet/kit';
-
 import FireflyIcon from '@/assets/logo.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfileSource, Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
 interface ProfileSourceIcon extends React.SVGProps<SVGSVGElement> {

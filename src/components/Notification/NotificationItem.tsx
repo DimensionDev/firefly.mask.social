@@ -1,7 +1,6 @@
 'use client';
 
 import { Plural, Select, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useMemo } from 'react';
@@ -22,6 +21,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';

@@ -1,9 +1,9 @@
-import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { CryptoUsage, Source } from '@/constants/enum.js';
 import { AbortError, NotAllowedError, NotImplementedError, UnreachableError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isSameSession } from '@/helpers/isSameSession.js';

@@ -1,9 +1,9 @@
-import { delay } from '@masknet/kit';
 import { once } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
 import { IS_IOS } from '@/constants/bowser.js';
 import { env } from '@/constants/env.js';
+import { delay } from '@/helpers/delay.js';
 import type { Schemes } from '@/types/device.js';
 
 const eventIdSet = new Set<string>();

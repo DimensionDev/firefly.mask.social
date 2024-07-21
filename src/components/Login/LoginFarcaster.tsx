@@ -2,7 +2,6 @@
 
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { type Dispatch, type SetStateAction, useMemo, useState } from 'react';
 import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
@@ -18,6 +17,7 @@ import { AbortError, FarcasterProfileNotConnectedError, NotImplementedError, Tim
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';

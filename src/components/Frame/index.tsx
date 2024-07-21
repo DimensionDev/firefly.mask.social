@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { getAccount } from '@wagmi/core';
 import { isUndefined } from 'lodash-es';
@@ -16,6 +15,7 @@ import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
 import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';

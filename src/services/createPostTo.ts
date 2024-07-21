@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { first } from 'lodash-es';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';

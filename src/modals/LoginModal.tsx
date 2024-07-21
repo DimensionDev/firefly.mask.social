@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { delay, safeUnreachable } from '@masknet/kit';
 import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -20,6 +19,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { safeUnreachable } from '@/helpers/controlFlow.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';

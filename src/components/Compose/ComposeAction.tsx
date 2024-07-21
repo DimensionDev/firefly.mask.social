@@ -1,7 +1,6 @@
 import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
@@ -28,6 +27,7 @@ import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { delay } from '@/helpers/delay.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
