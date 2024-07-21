@@ -12,8 +12,13 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Frame as FrameUI } from '@/components/Frame/index.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+
+const DummyPost = createDummyPost(Source.Farcaster, '');
+
+DummyPost.postId = '0x0000000000000000000000000000000000000000';
 
 export default function Frame() {
     const [url, setUrl] = useState('');
@@ -70,7 +75,7 @@ export default function Frame() {
 
             {cacheRemoved === true ? (
                 <div className="w-full max-w-[500px]">
-                    <FrameUI urls={[url]} postId="0x0000000000000000000000000000000000000000" source={Source.Farcaster}>
+                    <FrameUI urls={[url]} post={DummyPost}>
                         <></>
                     </FrameUI>
                 </div>
