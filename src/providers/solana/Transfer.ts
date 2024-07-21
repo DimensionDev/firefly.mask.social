@@ -24,17 +24,12 @@ class Provider implements TransferProvider<ChainId> {
         } else {
             signature = await this.transferContract({ ...options, token });
         }
-
-        await this.waitForTransaction(signature);
+        await this.connection.confirmTransaction(signature, 'processed');
         return signature;
     }
 
     isNativeToken(token: Token<ChainId>): boolean {
         return isNativeTokenAddress(token.id);
-    }
-
-    async waitForTransaction(signature: string): Promise<void> {
-        await this.connection.confirmTransaction(signature, 'processed');
     }
 
     async validateBalance({ token, amount }: TransactionOptions<ChainId>): Promise<boolean> {
@@ -70,8 +65,7 @@ class Provider implements TransferProvider<ChainId> {
         transaction.recentBlockhash = blockHash.blockhash;
 
         const signature = await adapter.sendTransaction(transaction, this.connection);
-
-        await this.waitForTransaction(signature);
+        await this.connection.confirmTransaction(signature, 'processed');
 
         return signature;
     }
@@ -86,8 +80,7 @@ class Provider implements TransferProvider<ChainId> {
         transaction.recentBlockhash = blockHash.blockhash;
 
         const signature = await adapter.sendTransaction(transaction, this.connection);
-
-        await this.waitForTransaction(signature);
+        await this.connection.confirmTransaction(signature, 'processed');
 
         return signature;
     }
