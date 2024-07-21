@@ -1,10 +1,10 @@
 import { t } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import dayjs from 'dayjs';
 import { compact, first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';

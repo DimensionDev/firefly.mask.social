@@ -1,10 +1,10 @@
 import { plural, t } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { safeUnreachable } from '@/helpers/controlFlow.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
