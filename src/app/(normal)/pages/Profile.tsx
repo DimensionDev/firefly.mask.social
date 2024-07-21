@@ -3,16 +3,16 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
-import { usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import { Loading } from '@/components/Loading.js';
+import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -20,6 +20,7 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
@@ -35,8 +36,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const { profileTab } = useProfileTabState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
-    const pathname = usePathname();
-    const isProfilePage = pathname === PageRoute.Profile;
+    const isMyProfile = useIsMyRelatedProfile(profileTab.identity ?? '', profileTab.source);
 
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isOthersProfile = !currentProfiles.some(
@@ -90,7 +90,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const profileMissing =
         !profile && !walletProfile && ((profileTab.source === Source.Twitter && !twitterProfile) || !profiles.length);
 
-    const profileNotFound = !isProfilePage && isFinalized && profileMissing;
+    const profileNotFound = isFinalized && profileMissing;
 
     return (
         <div>
@@ -101,7 +101,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
             {isLoading ? (
                 <Loading />
             ) : profileNotFound ? (
-                <ProfileNotFound />
+                isMyProfile ? (
+                    <NotLoginFallback source={narrowToSocialSource(profileTab.source)} />
+                ) : (
+                    <ProfileNotFound />
+                )
             ) : (
                 <ProfileContent profile={profile} profiles={profiles} relations={relations} isSuspended={isSuspended} />
             )}

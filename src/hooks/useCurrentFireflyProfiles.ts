@@ -59,13 +59,23 @@ export function useCurrentFireflyProfilesAll() {
     const farcasterIdentity = resolveProfileId(currentProfileAll[Source.Farcaster]);
     const twitterIdentity = resolveProfileId(currentProfileAll[Source.Twitter]);
 
+    const queryEnabled = !!lensIdentity || !!farcasterIdentity || !!twitterIdentity;
+
     const { data: profiles = EMPTY_LIST } = useQuery({
         queryKey: ['all-profiles', 'my-own', lensIdentity, farcasterIdentity, twitterIdentity],
-        enabled: !!lensIdentity || !!farcasterIdentity || !!twitterIdentity,
+        enabled: queryEnabled,
         queryFn: async () => {
+            const withTwitterProfiles = twitterIdentity
+                ? await FireflySocialMediaProvider.getAllPlatformProfiles(undefined, undefined, twitterIdentity)
+                : [];
+            const connectedProfiles = lensIdentity || farcasterIdentity
+                ? await FireflySocialMediaProvider.getAllPlatformProfiles()
+                : [];
             return [
-                ...(await FireflySocialMediaProvider.getAllPlatformProfiles(lensIdentity, farcasterIdentity)),
-                ...(await FireflySocialMediaProvider.getAllPlatformProfiles(undefined, undefined, twitterIdentity)),
+                ...connectedProfiles,
+                ...withTwitterProfiles.filter((profile) =>
+                    lensIdentity || farcasterIdentity ? profile.source === Source.Twitter : true,
+                ),
             ];
         },
         select: (profiles) => uniqBy(profiles, (x) => `${x.source}/${x.identity}`),
