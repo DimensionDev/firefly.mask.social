@@ -24,12 +24,14 @@ class Provider implements NetworkProvider<ChainId, Address, Hash> {
         const chain = chains.find((chain) => chain.id === chainId);
         await switchChain(config, {
             chainId,
-            addEthereumChainParameter: chain ? {
-                chainName: chain.name,
-                nativeCurrency: chain.nativeCurrency,
-                rpcUrls: chain.rpcUrls.default.http,
-                blockExplorerUrls: [chain.blockExplorers.default.url],
-            } : undefined,
+            addEthereumChainParameter: chain
+                ? {
+                      chainName: chain.name,
+                      nativeCurrency: chain.nativeCurrency,
+                      rpcUrls: chain.rpcUrls.default.http,
+                      blockExplorerUrls: [chain.blockExplorers.default.url],
+                  }
+                : undefined,
         });
     }
 
