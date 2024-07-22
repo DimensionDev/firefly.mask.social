@@ -5,8 +5,8 @@ import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import { ComposeModalRef } from '@/modals/controls.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal.jsx';
+import { ComposeModalRef } from '@/modals/controls.js';
 
 enum SiteType {
     Warpcast = 'warpcast',
