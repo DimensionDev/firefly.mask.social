@@ -3,7 +3,8 @@ import { getWalletClient, type GetWalletClientParameters, type GetWalletClientRe
 
 import { chains } from '@/configs/wagmiClient.js';
 import { SwitchChainError } from '@/constants/error.js';
-import { ChainModalRef, RainbowKitModalRef } from '@/modals/controls.js';
+import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
+import { RainbowKitModalRef } from '@/modals/controls.js';
 
 export async function getWalletClientRequired(
     config: Config,
@@ -20,11 +21,10 @@ export async function getWalletClientRequired(
     }
 
     const client = await getWalletClient(config, args);
-    if (args?.chainId && args.chainId !== client.chain.id) {
-        await ChainModalRef.openAndWaitForClose();
-        if (args?.chainId !== client.chain.id) {
+    if (args?.chainId && args.chainId !== (await client.getChainId())) {
+        await switchEthereumChain(args.chainId);
+        if (args?.chainId !== (await client.getChainId())) {
             const chainName = chains.find((x) => x.id === args?.chainId)?.name;
-
             if (chainName) throw new SwitchChainError(chainName);
             else throw new SwitchChainError();
         }
