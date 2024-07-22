@@ -34,7 +34,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 r: '/article/[^/]+$',
                                 flags: 'i',
                             },
-                            '/profile',
                             '/channel',
                             '/token',
                             '/nft',
