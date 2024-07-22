@@ -81,8 +81,10 @@ export async function POST(request: Request) {
         });
     }
 
-    if (response.status < 200 || response.status >= 400)
+    if (response.status < 200 || response.status >= 400) {
+        console.error(`[frame] response status: ${response.status}\n%s`, await response.text());
         return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });
+    }
 
     switch (action) {
         case ActionType.Post:
