@@ -20,8 +20,9 @@ function parseSiteType(url: string) {
 
 function generateComposeProps(url: string) {
     const siteType = parseSiteType(url);
-    const u = parseURL(url);
     if (!siteType) return;
+
+    const u = parseURL(url);
 
     switch (siteType) {
         case SiteType.Warpcast: {
