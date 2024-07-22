@@ -1,4 +1,5 @@
-import { memo, type PropsWithChildren, useState } from 'react';
+import type { TippyProps } from '@tippyjs/react';
+import { memo, useState } from 'react';
 
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
@@ -7,7 +8,7 @@ import { Tippy } from '@/esm/Tippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface ProfileTippyProps extends PropsWithChildren {
+export interface ProfileTippyProps extends TippyProps {
     identity: string;
     source: SocialSource;
     className?: string;
@@ -18,8 +19,8 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
     identity,
     source,
     children,
-    className,
     profile: defaultProfile,
+    ...rest
 }) {
     const isMedium = useIsMedium();
     const [enabled, setEnabled] = useState(!isMedium);
@@ -44,6 +45,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
                 hideOnClick
                 interactive
                 content={enabled ? <ProfileCard source={source} profile={defaultProfile} identity={identity} /> : null}
+                {...rest}
             >
                 {children}
             </Tippy>
