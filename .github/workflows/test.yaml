@@ -28,8 +28,6 @@ jobs:
 
             - uses: pnpm/action-setup@v4
             - name: Run unit tests
-              with:
-                version: 8.15.8
               run: pnpm run test
               env:
                   TWITTER_CLIENT_ID: ${{ secrets.TWITTER_CLIENT_ID }}
