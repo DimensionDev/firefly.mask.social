@@ -7,9 +7,8 @@ import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 const MATCHERS = [
     (text: string) => {
         const match = URL_REGEX.exec(text);
-        if (match === null) {
-            return null;
-        }
+        if (match === null) return null;
+
         const fullMatch = match[0];
         const url = fixUrlProtocol(fullMatch);
         if (!isTopLevelDomain(url)) return null;
@@ -33,8 +32,8 @@ const MATCHERS = [
     },
     (text: string) => {
         const match = MENTION_REGEX.exec(text);
-
         if (match === null) return null;
+
         const fullMatch = match[0];
         return {
             index: match.index,
