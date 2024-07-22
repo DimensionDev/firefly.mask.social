@@ -85,7 +85,7 @@ export async function POST(request: Request) {
     if (response.status < 200 || response.status >= 400) {
         const text = await response.text();
         console.error(`[frame] response status: ${response.status}\n%s`, text);
-        return Response.json({ error: getFrameErrorMessage(text) }, { status: 500 });
+        return Response.json({ error: getFrameErrorMessage(text) }, { status: 400 });
     }
 
     switch (action) {

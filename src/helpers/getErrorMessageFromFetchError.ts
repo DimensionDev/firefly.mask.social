@@ -5,6 +5,8 @@ import type { FetchError } from '@/constants/error.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
     switch (error.status) {
+        case StatusCodes.BAD_REQUEST:
+            return t`Bad Request. Please check your request.`;
         case StatusCodes.UNAUTHORIZED:
             return t`Unauthorized. Please check your login.`;
         case StatusCodes.FORBIDDEN:

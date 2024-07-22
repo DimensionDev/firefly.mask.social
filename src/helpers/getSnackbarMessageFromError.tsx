@@ -16,8 +16,6 @@ import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetc
  * @returns
  */
 export function getSnackbarMessageFromError(error: unknown, fallback: string): SnackbarMessage {
-    if (!(error instanceof Error)) return fallback;
-
     if (error instanceof ClientError) {
         const message = first(error.response.errors)?.message;
         if (message) return message;

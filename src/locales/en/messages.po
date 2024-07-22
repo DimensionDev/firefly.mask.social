@@ -1054,6 +1054,9 @@ msgstr "<0>Revised</0>an article"
 msgid "You need to connect your {0} account to use this feature."
 msgstr "You need to connect your {0} account to use this feature."
 
+msgid "Bad Request. Please check your request."
+msgstr "Bad Request. Please check your request."
+
 msgid "Suggested Follows"
 msgstr "Suggested Follows"
 
