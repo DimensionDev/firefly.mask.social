@@ -22,13 +22,15 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmBeforeLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConfirmBeforeLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
@@ -169,6 +171,22 @@ async function getNextFrame(
             }
             case ActionType.Link:
                 if (!button.target) return;
+                if (
+                    isDomainOrSubdomainOf(button.target, 'warpcast.com') &&
+                    getCurrentProfile(Source.Farcaster)?.profileId
+                ) {
+                    const u = parseURL(button.target);
+                    if (u?.pathname === '/~/compose') {
+                        const embeds = u.searchParams.get('embeds[]');
+                        const text = u.searchParams.get('text');
+                        ComposeModalRef.open({
+                            type: 'compose',
+                            chars: [[text, embeds].join('\n')],
+                        });
+                        return;
+                    }
+                }
+                // if(button.target)
                 if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
                 return;

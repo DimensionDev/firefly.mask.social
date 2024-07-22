@@ -1,6 +1,7 @@
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin.js';
 
 import { EMAIL_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 
 const MATCHERS = [
     (text: string) => {
@@ -9,11 +10,13 @@ const MATCHERS = [
             return null;
         }
         const fullMatch = match[0];
+        const url = fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`;
+        if (!isTopLevelDomain(url)) return null;
         return {
             index: match.index,
             length: fullMatch.length,
             text: fullMatch,
-            url: fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`,
+            url,
         };
     },
     (text: string) => {
