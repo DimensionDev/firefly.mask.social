@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { getAccount } from '@wagmi/core';
-import { compact, isUndefined } from 'lodash-es';
+import { isUndefined } from 'lodash-es';
 import { memo, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -19,18 +19,17 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { openComposeWithUrl } from '@/helpers/generateComposeProps.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
-import { parseURL } from '@/helpers/parseURL.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ComposeModalRef, ConfirmBeforeLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmBeforeLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
@@ -171,22 +170,10 @@ async function getNextFrame(
             }
             case ActionType.Link:
                 if (!button.target) return;
-                if (
-                    isDomainOrSubdomainOf(button.target, 'warpcast.com') &&
-                    getCurrentProfile(Source.Farcaster)?.profileId
-                ) {
-                    const u = parseURL(button.target);
-                    if (u?.pathname === '/~/compose') {
-                        const embeds = u.searchParams.get('embeds[]');
-                        const text = u.searchParams.get('text');
-                        ComposeModalRef.open({
-                            type: 'compose',
-                            chars: [compact([text, embeds]).join('\n')],
-                            source: [Source.Farcaster],
-                        });
-                        return;
-                    }
-                }
+
+                const opened = openComposeWithUrl(button.target);
+                if (opened) return;
+
                 if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
                 return;
