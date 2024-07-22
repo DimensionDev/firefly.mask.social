@@ -39,7 +39,7 @@ export function LinkCloud() {
                     link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
                 },
                 {
-                    name: <Trans>Term of Service</Trans>,
+                    name: <Trans>Terms of Service</Trans>,
                     link: 'https://mask.notion.site/Term-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
                 },
                 {
