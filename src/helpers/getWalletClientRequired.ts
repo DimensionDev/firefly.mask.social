@@ -3,8 +3,8 @@ import { getWalletClient, type GetWalletClientParameters, type GetWalletClientRe
 
 import { chains } from '@/configs/wagmiClient.js';
 import { SwitchChainError } from '@/constants/error.js';
-import { RainbowKitModalRef } from '@/modals/controls.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
+import { RainbowKitModalRef } from '@/modals/controls.js';
 
 export async function getWalletClientRequired(
     config: Config,
