@@ -5,12 +5,11 @@ import { useAsyncFn, useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
 import { NUMBER_STRING_REGEX } from '@/constants/regexp.js';
 import { getTargetLanguage } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
 import { trimify } from '@/helpers/trimify.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getContentLanguage } from '@/services/getContentLanguage.js';
 import { Language, translate } from '@/services/translate.js';
@@ -27,8 +26,6 @@ interface ContentWithTranslatorProps {
     canShowMore: boolean;
 }
 
-const sources: SocialSource[] = [Source.Lens, Source.Farcaster];
-
 export const ContentTranslator = memo<ContentWithTranslatorProps>(function ContentTranslator({
     content,
     post,
@@ -39,7 +36,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
         original: null,
         target: null,
     });
-    const isLogin = useIsLogin(sources);
+    const isLoginFirefly = useIsLoginFirefly();
 
     const [_, handleDetect] = useAsyncFn(async () => {
         const originalLanguage = await getContentLanguage(content);
@@ -58,11 +55,11 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     }, [content, translationConfig]);
 
     useMount(() => {
-        if (!isLogin || !isValidContentToTranslate(content)) return;
+        if (!isLoginFirefly || !isValidContentToTranslate(content)) return;
         handleDetect();
     });
 
-    if (!isLogin || !translationConfig.target) return null;
+    if (!isLoginFirefly || !translationConfig.target) return null;
 
     const translatedText = data?.translatedText;
     const contentLanguage = data?.contentLanguage;

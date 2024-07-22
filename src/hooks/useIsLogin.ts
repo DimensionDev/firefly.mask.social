@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { type SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export function useIsLogin(source?: SocialSource | SocialSource[], strategy: 'some' | 'every' = 'some') {
     const currentProfileAll = useCurrentProfileAll();
@@ -11,4 +12,9 @@ export function useIsLogin(source?: SocialSource | SocialSource[], strategy: 'so
         const sources = !source ? SORTED_SOCIAL_SOURCES : Array.isArray(source) ? source : [source];
         return sources.length ? sources[strategy]((x) => !!currentProfileAll[x]?.profileId) : false;
     }, [source, strategy, currentProfileAll]);
+}
+
+export function useIsLoginFirefly() {
+    const { currentProfileSession } = useFireflyStateStore();
+    return !!currentProfileSession;
 }
