@@ -6,6 +6,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import type { ComposeModalOpenProps } from '@/modals/ComposeModal.jsx';
 
 enum SiteType {
     Warpcast = 'warpcast',
@@ -18,9 +19,9 @@ function parseSiteType(url: string) {
     return;
 }
 
-function generateComposeProps(url: string) {
+function generateComposeProps(url: string): ComposeModalOpenProps | null {
     const siteType = parseSiteType(url);
-    if (!siteType) return;
+    if (!siteType) return null;
 
     const u = parseURL(url);
 
@@ -41,7 +42,7 @@ function generateComposeProps(url: string) {
             safeUnreachable(siteType);
             throw new UnreachableError('siteType', siteType);
     }
-    return;
+    return null;
 }
 
 export function openComposeWithUrl(url: string) {

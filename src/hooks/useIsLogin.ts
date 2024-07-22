@@ -5,13 +5,13 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
-export function useIsLogin(source?: SocialSource | SocialSource[], strategy: 'some' | 'every' = 'some') {
+export function useIsLogin(source?: SocialSource) {
     const currentProfileAll = useCurrentProfileAll();
 
     return useMemo(() => {
-        const sources = !source ? SORTED_SOCIAL_SOURCES : Array.isArray(source) ? source : [source];
-        return sources.length ? sources[strategy]((x) => !!currentProfileAll[x]?.profileId) : false;
-    }, [source, strategy, currentProfileAll]);
+        if (source) return !!currentProfileAll[source]?.profileId;
+        return SORTED_SOCIAL_SOURCES.some((x) => !!currentProfileAll[x]?.profileId);
+    }, [source, currentProfileAll]);
 }
 
 export function useIsLoginFirefly() {
