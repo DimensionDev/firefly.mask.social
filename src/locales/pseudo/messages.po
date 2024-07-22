@@ -277,6 +277,9 @@ msgstr ""
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr ""
 
+msgid "Terms of Services"
+msgstr ""
+
 msgid "Copied"
 msgstr ""
 
@@ -365,9 +368,6 @@ msgid "Password"
 msgstr ""
 
 msgid "Liked"
-msgstr ""
-
-msgid "Term of Service"
 msgstr ""
 
 msgid "Token ID"
@@ -1529,6 +1529,9 @@ msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
+msgstr ""
+
+msgid "Copy link to profile"
 msgstr ""
 
 msgid "No whitelist"

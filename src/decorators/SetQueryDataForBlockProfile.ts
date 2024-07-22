@@ -14,7 +14,6 @@ interface PagesData {
 function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;
     patchPostQueryData(source, matcher, (draft) => {
-        if (draft.author.profileId !== profileId) return;
         draft.author.viewerContext = {
             ...draft.author.viewerContext,
             blocking: status,

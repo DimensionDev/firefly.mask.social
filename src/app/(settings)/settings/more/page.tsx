@@ -25,8 +25,8 @@ export default function More() {
                         icon: <SecurityIcon width={24} height={24} />,
                     },
                     {
-                        href: 'https://mask.notion.site/Term-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
-                        title: t`Term of Service`,
+                        href: 'https://mask.notion.site/Terms-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
+                        title: t`Terms of Services`,
                         icon: <DocumentsIcon width={24} height={24} />,
                     },
                 ].map((document) => (

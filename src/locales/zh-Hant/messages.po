@@ -282,6 +282,9 @@ msgstr "剩餘 {0}"
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼，授權 <3>Firefly</3> 連結您的帳戶。"
 
+msgid "Terms of Services"
+msgstr ""
+
 msgid "Copied"
 msgstr "已複製"
 
@@ -371,9 +374,6 @@ msgstr "密碼"
 
 msgid "Liked"
 msgstr "已喜歡"
-
-msgid "Term of Service"
-msgstr "服務條款"
 
 msgid "Token ID"
 msgstr ""
@@ -1535,6 +1535,9 @@ msgstr ""
 
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
+
+msgid "Copy link to profile"
+msgstr ""
 
 msgid "No whitelist"
 msgstr "無白名單"
