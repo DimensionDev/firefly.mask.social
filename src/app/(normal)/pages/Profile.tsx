@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import { Loading } from '@/components/Loading.js';
+import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
@@ -53,8 +54,6 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         queryKey: ['profile', profileTab?.source, profileTab?.identity],
         queryFn: async () => {
             if (!profileTab?.identity || profileTab.source === Source.Wallet) return null;
-            // only current twitter profile is allowed
-            if (profileTab.source === Source.Twitter && !currentTwitterProfile?.profileId) return null;
             return getProfileById(narrowToSocialSource(profileTab.source), profileTab.identity);
         },
         retry(failureCount, error) {
@@ -92,15 +91,37 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     const profileNotFound = !isProfilePage && isFinalized && profileMissing;
 
-    return (
-        <div>
+    const header = (
+        <>
             {!isSuspended && profile ? (
                 <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} />
             ) : null}
             <ProfileSourceTabs profiles={profiles} />
-            {isLoading ? (
+        </>
+    );
+
+    if (isLoading) {
+        return (
+            <div>
+                {header}
                 <Loading />
-            ) : profileNotFound ? (
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div>
+                {header}
+                <NotLoginFallback source={Source.Twitter} />
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            {header}
+            {profileNotFound ? (
                 <ProfileNotFound />
             ) : (
                 <ProfileContent profile={profile} profiles={profiles} relations={relations} isSuspended={isSuspended} />
