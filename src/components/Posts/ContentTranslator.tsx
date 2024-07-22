@@ -5,6 +5,7 @@ import { useAsyncFn, useMount } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { NUMBER_STRING_REGEX } from '@/constants/regexp.js';
 import { getTargetLanguage } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
@@ -26,6 +27,8 @@ interface ContentWithTranslatorProps {
     canShowMore: boolean;
 }
 
+const sources: SocialSource[] = [Source.Lens, Source.Farcaster];
+
 export const ContentTranslator = memo<ContentWithTranslatorProps>(function ContentTranslator({
     content,
     post,
@@ -36,7 +39,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
         original: null,
         target: null,
     });
-    const isLogin = useIsLogin();
+    const isLogin = useIsLogin(sources);
 
     const [_, handleDetect] = useAsyncFn(async () => {
         const originalLanguage = await getContentLanguage(content);
