@@ -5,6 +5,8 @@ npm i -g pnpm
 # Change to the submodule directory
 cd src/maskbook
 
+ls
+
 # Install the submodule first
 pnpm install
 
