@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { getAccount } from '@wagmi/core';
@@ -22,17 +22,17 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmBeforeLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { validateMessage } from '@/services/validateMessage.js';
 import {
     ActionType,
@@ -78,29 +78,6 @@ const SignTypedDataV4Schema = z.object({
 });
 
 const WalletActionSchema = z.union([TransactionSchema, SignTypedDataV4Schema]);
-
-const whitelist: Array<string | ((url: string) => boolean)> = [
-    (url) => isSameOriginUrl(url, location.origin),
-    'https://firefly.mask.social',
-];
-
-function confirmBeforeLeaving(targetUrl: string) {
-    const isWhitelisted = whitelist.some((x) =>
-        typeof x === 'function' ? x(targetUrl) : isSameOriginUrl(targetUrl, x),
-    );
-    if (isWhitelisted) return true;
-    return ConfirmModalRef.openAndWaitForClose({
-        title: t`Leaving Firefly`,
-        content: (
-            <div className="text-main">
-                <Trans>
-                    Please be cautious when connecting your wallet, as malicious websites may attempt to access your
-                    funds.
-                </Trans>
-            </div>
-        ),
-    });
-}
 
 async function getNextFrame(
     source: SocialSource,
@@ -186,12 +163,14 @@ async function getNextFrame(
                     return;
                 }
 
-                if (await confirmBeforeLeaving(redirectUrl)) openWindow(redirectUrl, '_blank');
+                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(redirectUrl))
+                    openWindow(redirectUrl, '_blank');
                 return;
             }
             case ActionType.Link:
                 if (!button.target) return;
-                if (await confirmBeforeLeaving(button.target)) openWindow(button.target, '_blank');
+                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
+                    openWindow(button.target, '_blank');
                 return;
             case ActionType.Mint: {
                 if (!button.target) return;
@@ -200,7 +179,7 @@ async function getNextFrame(
                     enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
                     return;
                 }
-                if (await confirmBeforeLeaving(mintUrl)) openWindow(mintUrl, '_blank');
+                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
                 return;
             }
             case ActionType.Transaction:
@@ -268,14 +247,14 @@ async function getNextFrame(
 }
 
 interface FrameProps {
-    source: SocialSource;
+    post: Post;
     urls: string[];
-    postId: string;
     children: React.ReactNode;
     onData?: (frame: FrameType) => void;
 }
 
-export const Frame = memo<FrameProps>(function Frame({ postId, source, urls, onData, children }) {
+export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, children }) {
+    const { postId, source } = post;
     const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
 
     const {

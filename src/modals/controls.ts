@@ -1,5 +1,9 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { ComposeModalCloseProps, ComposeModalProps } from '@/modals/ComposeModal.js';
+import type {
+    ConfirmBeforeLeavingModalCloseProps,
+    ConfirmBeforeLeavingModalOpenProps,
+} from '@/modals/ConfirmBeforeLeavingModal.js';
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
@@ -21,6 +25,10 @@ export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalProps, ComposeModalCloseProps>();
 export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseProps>();
 export const ConfirmFireflyModalRef = new SingletonModal<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>();
+export const ConfirmBeforeLeavingModalRef = new SingletonModal<
+    ConfirmBeforeLeavingModalOpenProps,
+    ConfirmBeforeLeavingModalCloseProps
+>();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
 export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();
