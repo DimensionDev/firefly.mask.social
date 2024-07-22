@@ -235,6 +235,9 @@ msgstr ""
 msgid "Contract source code verified"
 msgstr ""
 
+msgid "The scheduled time has passed. Please reset it"
+msgstr ""
+
 msgid "Profile not found"
 msgstr ""
 
@@ -272,6 +275,9 @@ msgid "{0} left"
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+msgstr ""
+
+msgid "Terms of Services"
 msgstr ""
 
 msgid "Copied"
@@ -362,9 +368,6 @@ msgid "Password"
 msgstr ""
 
 msgid "Liked"
-msgstr ""
-
-msgid "Term of Service"
 msgstr ""
 
 msgid "Token ID"
@@ -625,6 +628,9 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
+msgid "Failed to upload. File type is not supported on X"
+msgstr ""
+
 msgid "post"
 msgstr ""
 
@@ -682,9 +688,6 @@ msgstr ""
 msgid "Are you sure you want to report this collection?"
 msgstr ""
 
-msgid "The scheduled time has passed. Please reset it."
-msgstr ""
-
 msgid "and"
 msgstr ""
 
@@ -704,6 +707,9 @@ msgid "Insufficient Gas"
 msgstr ""
 
 msgid "Blacklist function"
+msgstr ""
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
@@ -1525,6 +1531,9 @@ msgstr ""
 msgid "You've hit rock bottom."
 msgstr ""
 
+msgid "Copy link to profile"
+msgstr ""
+
 msgid "No whitelist"
 msgstr ""
 
@@ -1796,9 +1805,6 @@ msgid "No matching users"
 msgstr ""
 
 msgid "Save"
-msgstr ""
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it."
 msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"

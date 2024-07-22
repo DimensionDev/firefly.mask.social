@@ -82,7 +82,7 @@ const initialConfig = {
     onError: () => {},
 };
 
-export interface ComposeModalProps {
+export interface ComposeModalOpenProps {
     type?: ComposeType;
     chars?: Chars;
     source?: SocialSource | SocialSource[];
@@ -95,6 +95,7 @@ export interface ComposeModalProps {
     channel?: Channel | null;
     initialPath?: string;
 }
+
 export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
@@ -187,7 +188,7 @@ function ComposeRouteRoot() {
     );
 }
 
-export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
+export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
         const currentSource = useGlobalState.use.currentSource();
         const currentSocialSource = narrowToSocialSource(currentSource);
@@ -393,7 +394,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
     },
 );
 
-export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
+export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>(
     function ComposeModal(props, ref) {
         return (
             <LexicalComposer initialConfig={initialConfig}>

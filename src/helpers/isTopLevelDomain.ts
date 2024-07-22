@@ -3,6 +3,7 @@
 import { parseURL } from '@/helpers/parseURL.js';
 
 const TLD_DOMAIN = [
+    'limo',
     'social',
     'land',
     'com',
@@ -283,5 +284,5 @@ const TLD_DOMAIN = [
 export function isTopLevelDomain(url: URL | string) {
     const u = typeof url === 'string' ? parseURL(url) : url;
     const domain = u?.hostname.split('.').pop()?.toLocaleLowerCase();
-    return domain && TLD_DOMAIN.includes(domain);
+    return !!domain && TLD_DOMAIN.includes(domain);
 }

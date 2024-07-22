@@ -240,6 +240,9 @@ msgstr "市值"
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
 
+msgid "The scheduled time has passed. Please reset it"
+msgstr ""
+
 msgid "Profile not found"
 msgstr "未找到个人资料"
 
@@ -278,6 +281,9 @@ msgstr "{0} 剩余"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 <3>Firefly</3> 连接您的账号。"
+
+msgid "Terms of Services"
+msgstr ""
 
 msgid "Copied"
 msgstr "已复制"
@@ -368,9 +374,6 @@ msgstr "密码"
 
 msgid "Liked"
 msgstr "已点赞"
-
-msgid "Term of Service"
-msgstr "服务条款"
 
 msgid "Token ID"
 msgstr "通证 ID"
@@ -630,6 +633,9 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 msgid "Top Channels"
 msgstr "热门频道"
 
+msgid "Failed to upload. File type is not supported on X"
+msgstr ""
+
 msgid "post"
 msgstr "发帖"
 
@@ -687,9 +693,6 @@ msgstr "查看原文"
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"
 
-msgid "The scheduled time has passed. Please reset it."
-msgstr ""
-
 msgid "and"
 msgstr "和"
 
@@ -710,6 +713,9 @@ msgstr ""
 
 msgid "Blacklist function"
 msgstr "黑名单功能"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr ""
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -1530,6 +1536,9 @@ msgstr "<0>你</0> 已点赞"
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
+msgid "Copy link to profile"
+msgstr ""
+
 msgid "No whitelist"
 msgstr "没有白名单"
 
@@ -1802,9 +1811,6 @@ msgstr "未找到匹配用户"
 
 msgid "Save"
 msgstr "保存"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it."
-msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>{0} 其他的</1>"
