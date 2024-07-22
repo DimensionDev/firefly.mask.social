@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { getAccount } from '@wagmi/core';
-import { isUndefined } from 'lodash-es';
+import { compact, isUndefined } from 'lodash-es';
 import { memo, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -181,7 +181,8 @@ async function getNextFrame(
                         const text = u.searchParams.get('text');
                         ComposeModalRef.open({
                             type: 'compose',
-                            chars: [[text, embeds].join('\n')],
+                            chars: [compact([text, embeds]).join('\n')],
+                            source: [Source.Farcaster],
                         });
                         return;
                     }

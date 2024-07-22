@@ -66,9 +66,9 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
 export async function crossSchedulePost(type: ComposeType, compositePost: CompositePost, scheduleTime: Date) {
     try {
         if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
-            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time. Please reset it.`);
+            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time. Please reset it`);
         } else if (dayjs().isAfter(scheduleTime, 'minute')) {
-            throw new CreateScheduleError(`The scheduled time has passed. Please reset it.`);
+            throw new CreateScheduleError(`The scheduled time has passed. Please reset`);
         }
 
         const posts = await createSchedulePostsPayload(type, compositePost);

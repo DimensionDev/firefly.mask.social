@@ -240,6 +240,9 @@ msgstr "市值"
 msgid "Contract source code verified"
 msgstr "合約源代碼已驗證"
 
+msgid "The scheduled time has passed. Please reset it"
+msgstr ""
+
 msgid "Profile not found"
 msgstr "找不到帳戶"
 
@@ -687,9 +690,6 @@ msgstr "查看來源"
 msgid "Are you sure you want to report this collection?"
 msgstr "是否確定要檢舉這條收藏？"
 
-msgid "The scheduled time has passed. Please reset it."
-msgstr ""
-
 msgid "and"
 msgstr "以及"
 
@@ -710,6 +710,9 @@ msgstr "Gas不足"
 
 msgid "Blacklist function"
 msgstr "黑名單功能"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr ""
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -1802,9 +1805,6 @@ msgstr "沒有符合的用戶"
 
 msgid "Save"
 msgstr "存檔"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it."
-msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr ""

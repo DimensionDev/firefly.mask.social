@@ -240,6 +240,9 @@ msgstr "市值"
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
 
+msgid "The scheduled time has passed. Please reset it"
+msgstr ""
+
 msgid "Profile not found"
 msgstr "未找到个人资料"
 
@@ -687,9 +690,6 @@ msgstr "查看原文"
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"
 
-msgid "The scheduled time has passed. Please reset it."
-msgstr ""
-
 msgid "and"
 msgstr "和"
 
@@ -710,6 +710,9 @@ msgstr ""
 
 msgid "Blacklist function"
 msgstr "黑名单功能"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr ""
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -1802,9 +1805,6 @@ msgstr "未找到匹配用户"
 
 msgid "Save"
 msgstr "保存"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it."
-msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>{0} 其他的</1>"

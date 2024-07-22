@@ -235,6 +235,9 @@ msgstr "Market Cap"
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
 
+msgid "The scheduled time has passed. Please reset it"
+msgstr "The scheduled time has passed. Please reset it"
+
 msgid "Profile not found"
 msgstr "Profile not found"
 
@@ -682,9 +685,6 @@ msgstr "View Source"
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"
 
-msgid "The scheduled time has passed. Please reset it."
-msgstr "The scheduled time has passed. Please reset it."
-
 msgid "and"
 msgstr "and"
 
@@ -705,6 +705,9 @@ msgstr "Insufficient Gas"
 
 msgid "Blacklist function"
 msgstr "Blacklist function"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
 
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
@@ -1797,9 +1800,6 @@ msgstr "No matching users"
 
 msgid "Save"
 msgstr "Save"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it."
-msgstr "Up to 7 days can be set as the scheduled time. Please reset it."
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> and <1>{0} others</1>"
