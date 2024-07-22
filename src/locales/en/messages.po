@@ -274,6 +274,9 @@ msgstr "{0} left"
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 
+msgid "Terms of Services"
+msgstr "Terms of Services"
+
 msgid "Copied"
 msgstr "Copied"
 
@@ -1932,9 +1935,6 @@ msgstr "No content to publish."
 
 msgid "Mirror"
 msgstr "Mirror"
-
-msgid "Terms of Service"
-msgstr "Terms of Service"
 
 msgid "[Quote]"
 msgstr "[Quote]"
