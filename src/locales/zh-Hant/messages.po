@@ -1059,6 +1059,9 @@ msgstr "<0>校訂</0>一篇文章"
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 
+msgid "Bad Request. Please check your request."
+msgstr ""
+
 msgid "Suggested Follows"
 msgstr ""
 

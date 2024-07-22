@@ -1059,6 +1059,9 @@ msgstr "<0>修改了</0>文章"
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要连接您的 {0} 账号来使用此功能。"
 
+msgid "Bad Request. Please check your request."
+msgstr ""
+
 msgid "Suggested Follows"
 msgstr "推荐关注"
 

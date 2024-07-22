@@ -1054,6 +1054,9 @@ msgstr ""
 msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
+msgid "Bad Request. Please check your request."
+msgstr ""
+
 msgid "Suggested Follows"
 msgstr ""
 
