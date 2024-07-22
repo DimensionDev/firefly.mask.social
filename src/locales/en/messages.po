@@ -364,9 +364,6 @@ msgstr "Password"
 msgid "Liked"
 msgstr "Liked"
 
-msgid "Term of Service"
-msgstr "Term of Service"
-
 msgid "Token ID"
 msgstr "Token ID"
 
@@ -1525,6 +1522,9 @@ msgstr "<0>You</0> liked"
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
+msgid "Copy link to profile"
+msgstr "Copy link to profile"
+
 msgid "No whitelist"
 msgstr "No whitelist"
 
@@ -1932,6 +1932,9 @@ msgstr "No content to publish."
 
 msgid "Mirror"
 msgstr "Mirror"
+
+msgid "Terms of Service"
+msgstr "Terms of Service"
 
 msgid "[Quote]"
 msgstr "[Quote]"

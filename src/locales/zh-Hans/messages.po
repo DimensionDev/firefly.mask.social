@@ -369,9 +369,6 @@ msgstr "密码"
 msgid "Liked"
 msgstr "已点赞"
 
-msgid "Term of Service"
-msgstr "服务条款"
-
 msgid "Token ID"
 msgstr "通证 ID"
 
@@ -1530,6 +1527,9 @@ msgstr "<0>你</0> 已点赞"
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
+msgid "Copy link to profile"
+msgstr ""
+
 msgid "No whitelist"
 msgstr "没有白名单"
 
@@ -1937,6 +1937,9 @@ msgstr "没有发布的内容。"
 
 msgid "Mirror"
 msgstr "转发"
+
+msgid "Terms of Service"
+msgstr ""
 
 msgid "[Quote]"
 msgstr "[引用]"

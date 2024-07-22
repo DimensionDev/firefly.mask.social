@@ -364,9 +364,6 @@ msgstr ""
 msgid "Liked"
 msgstr ""
 
-msgid "Term of Service"
-msgstr ""
-
 msgid "Token ID"
 msgstr ""
 
@@ -1525,6 +1522,9 @@ msgstr ""
 msgid "You've hit rock bottom."
 msgstr ""
 
+msgid "Copy link to profile"
+msgstr ""
+
 msgid "No whitelist"
 msgstr ""
 
@@ -1931,6 +1931,9 @@ msgid "No content to publish."
 msgstr ""
 
 msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"

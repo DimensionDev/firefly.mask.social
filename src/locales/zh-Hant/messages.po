@@ -369,9 +369,6 @@ msgstr "密碼"
 msgid "Liked"
 msgstr "已喜歡"
 
-msgid "Term of Service"
-msgstr "服務條款"
-
 msgid "Token ID"
 msgstr ""
 
@@ -1530,6 +1527,9 @@ msgstr ""
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
+msgid "Copy link to profile"
+msgstr ""
+
 msgid "No whitelist"
 msgstr "無白名單"
 
@@ -1936,6 +1936,9 @@ msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
 msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
