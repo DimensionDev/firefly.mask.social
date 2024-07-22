@@ -9,6 +9,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
+import { getFrameErrorMessage } from '@/helpers/getFrameErrorMessage.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     key: KeyType.DigestFrameLink,
@@ -82,8 +83,9 @@ export async function POST(request: Request) {
     }
 
     if (response.status < 200 || response.status >= 400) {
-        console.error(`[frame] response status: ${response.status}\n%s`, await response.text());
-        return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });
+        const text = await response.text();
+        console.error(`[frame] response status: ${response.status}\n%s`, text);
+        return Response.json({ error: getFrameErrorMessage(text) }, { status: 500 });
     }
 
     switch (action) {
