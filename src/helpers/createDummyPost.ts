@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-import type { SocialSource } from '@/constants/enum.js';
+import { Source, type SocialSource } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
@@ -12,7 +12,7 @@ import type { CompositePost } from '@/store/useComposeStore.js';
 export function createDummyPost(source: SocialSource, content: string) {
     return {
         publicationId: '',
-        postId: '',
+        postId: source === Source.Farcaster ? '0x0000000000000000000000000000000000000000' : '',
         author: createDummyProfile(source),
         metadata: {
             locale: 'en',

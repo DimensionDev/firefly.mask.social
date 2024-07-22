@@ -18,8 +18,6 @@ import { isValidUrl } from '@/helpers/isValidUrl.js';
 
 const DummyPost = createDummyPost(Source.Farcaster, '');
 
-DummyPost.postId = '0x0000000000000000000000000000000000000000';
-
 export default function Frame() {
     const [url, setUrl] = useState('');
 
