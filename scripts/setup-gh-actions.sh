@@ -5,10 +5,8 @@ npm i -g pnpm
 # Change to the submodule directory
 cd src/maskbook
 
-ls
-
 # Install the submodule first
-pnpm install
+pnpm install --no-frozen-lockfile
 
 # Run Gulp tasks for polyfill and code generation
 npx gulp polyfill
