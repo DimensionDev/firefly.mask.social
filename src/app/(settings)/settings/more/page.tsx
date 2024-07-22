@@ -26,7 +26,7 @@ export default function More() {
                     },
                     {
                         href: 'https://mask.notion.site/Term-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
-                        title: t`Term of Service`,
+                        title: t`Terms of Service`,
                         icon: <DocumentsIcon width={24} height={24} />,
                     },
                 ].map((document) => (
