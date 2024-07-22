@@ -2,11 +2,11 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 
 enum SiteType {
     Hey = 'hey',
