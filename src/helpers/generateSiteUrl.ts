@@ -6,24 +6,66 @@ import { parseURL } from '@/helpers/parseURL.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
+
+enum SiteType {
+    Hey = 'hey',
+}
 
 export interface Context {
     post?: Post;
     profile?: Profile;
 }
 
+function parseSiteType(u: URL) {
+    if (isSameOriginUrl(u, 'hey.xyz')) {
+        return SiteType.Hey;
+    }
+    return;
+}
+
 function parsePostUrl(u: URL, context?: Context) {
-    return {
-        source: Source.Lens,
-        postId: '',
-    };
+    const siteType = parseSiteType(u);
+
+    switch (siteType) {
+        case SiteType.Hey:
+            if (u.pathname.startsWith('/posts')) {
+                const fragments = u.pathname.split('/');
+                const postId = fragments[2];
+
+                if (/0x[a-z\d-]+/.test(postId)) {
+                    return {
+                        source: Source.Lens,
+                        postId,
+                    };
+                }
+            }
+            return;
+        default:
+            return;
+    }
 }
 
 function parseProfileUrl(u: URL, context?: Context) {
-    return {
-        source: Source.Lens,
-        profileId: '',
-    };
+    const siteType = parseSiteType(u);
+
+    switch (siteType) {
+        case SiteType.Hey:
+            if (u.pathname.startsWith('/u')) {
+                const fragments = u.pathname.split('/');
+                const profileId = fragments[2];
+
+                if (/\w+/.test(profileId)) {
+                    return {
+                        source: Source.Lens,
+                        profileId,
+                    };
+                }
+            }
+            return;
+        default:
+            return;
+    }
 }
 
 export function generateSiteUrl(url: string | URL, context?: Context) {
@@ -40,7 +82,7 @@ export function generateSiteUrl(url: string | URL, context?: Context) {
     const profileUrl = parseProfileUrl(u);
     if (profileUrl) {
         return urlcat(SITE_URL, `/profile/${profileUrl.profileId}`, {
-            sourcE: resolveSourceInURL(profileUrl.source),
+            source: resolveSourceInURL(profileUrl.source),
         });
     }
 
