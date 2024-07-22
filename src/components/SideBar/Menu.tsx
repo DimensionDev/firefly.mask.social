@@ -67,7 +67,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     };
 
     return (
-        <nav className="flex flex-1 flex-col relative">
+        <nav className="relative flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li className="flex overflow-hidden">
                     <ul role="list" className="w-full overflow-hidden">
@@ -195,7 +195,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                     </ul>
                 </li>
             </ul>
-            <div className="absolute bottom-20 -left-2 -right-2 text-center">
+            <div className="absolute -left-2 -right-2 bottom-20 text-center">
                 {isLogin ? (
                     <LoginStatusBar collapsed={collapsed} />
                 ) : collapsed ? (
