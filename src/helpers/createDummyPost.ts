@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-import { Source, type SocialSource } from '@/constants/enum.js';
+import { type SocialSource,Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
