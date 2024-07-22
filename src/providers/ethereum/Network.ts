@@ -1,11 +1,11 @@
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { getAccount, getChainId, switchChain } from '@wagmi/core';
+import { getAccount, getChainId } from '@wagmi/core';
 import { type Address, type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
-import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
+import type { NetworkProvider } from '@/providers/types/Network.js';
 
 class Provider implements NetworkProvider<ChainId, Address, Hash> {
     async connect(): Promise<void> {
@@ -18,10 +18,6 @@ class Provider implements NetworkProvider<ChainId, Address, Hash> {
             throw new Error('Wallet not connected');
         }
         return account.address;
-    }
-
-    async switchChain(chainId: ChainId): Promise<void> {
-        await switchChain(config, { chainId });
     }
 
     getChainId(): ChainId {
