@@ -187,7 +187,6 @@ async function getNextFrame(
                         return;
                     }
                 }
-                // if(button.target)
                 if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
                 return;
