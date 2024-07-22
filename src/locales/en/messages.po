@@ -628,6 +628,9 @@ msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to a
 msgid "Top Channels"
 msgstr "Top Channels"
 
+msgid "Failed to upload. File type is not supported on X"
+msgstr "Failed to upload. File type is not supported on X"
+
 msgid "post"
 msgstr "post"
 

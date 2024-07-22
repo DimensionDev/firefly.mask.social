@@ -633,6 +633,9 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 msgid "Top Channels"
 msgstr "热门频道"
 
+msgid "Failed to upload. File type is not supported on X"
+msgstr ""
+
 msgid "post"
 msgstr "发帖"
 

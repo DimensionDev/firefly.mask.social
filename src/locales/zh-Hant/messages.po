@@ -633,6 +633,9 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
+msgid "Failed to upload. File type is not supported on X"
+msgstr ""
+
 msgid "post"
 msgstr "貼文"
 
