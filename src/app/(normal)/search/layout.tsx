@@ -11,5 +11,5 @@ export async function generateMetadata() {
 }
 
 export default function DetailLayout({ children }: { children: React.ReactNode }) {
-    return <div className="min-h-screen">{children}</div>;
+    return <div>{children}</div>;
 }
