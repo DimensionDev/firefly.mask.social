@@ -19,6 +19,7 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { openComposeWithUrl } from '@/helpers/generateComposeProps.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -169,6 +170,10 @@ async function getNextFrame(
             }
             case ActionType.Link:
                 if (!button.target) return;
+
+                const opened = openComposeWithUrl(button.target);
+                if (opened) return;
+
                 if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
                 return;

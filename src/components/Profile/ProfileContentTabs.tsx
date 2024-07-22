@@ -51,12 +51,7 @@ interface TabsProps {
 export function ProfileContentTabs({ profileId, source }: TabsProps) {
     const [currentTab, setCurrentTab] = useStateWithSearchParams<ProfileTabType>('profile_tab', ProfileTabType.Feed);
 
-    const computedCurrentTab =
-        (source === Source.Lens && currentTab === ProfileTabType.Channels) ||
-        (source === Source.Farcaster && currentTab === ProfileTabType.Collected) ||
-        (source === Source.Twitter && currentTab !== ProfileTabType.Feed)
-            ? ProfileTabType.Feed
-            : currentTab;
+    const computedCurrentTab = SORTED_PROFILE_TAB_TYPE[source].includes(currentTab) ? currentTab : ProfileTabType.Feed;
 
     return (
         <>
