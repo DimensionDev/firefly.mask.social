@@ -54,11 +54,7 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
 );
 
 const checkForAtSignMentions = (text: string, minMatchLength: number): MenuTextMatch | null => {
-    let match = AtSignMentionsRegex.exec(text);
-
-    if (match === null) {
-        match = AtSignMentionsRegexAliasRegex.exec(text);
-    }
+    const match = AtSignMentionsRegex.exec(text) || AtSignMentionsRegexAliasRegex.exec(text);
 
     if (match !== null) {
         const maybeLeadingWhitespace = match[1];
