@@ -95,7 +95,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
 
     private async transferContract(options: TransactionOptions<ChainId, Address>): Promise<Address> {
         const { isEIP1559, gasPrice, maxFeePerGas } = await getDefaultGas(options);
-        const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
+        const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.5').toFixed(0);
 
         const parameters = {
             address: options.token.id,
