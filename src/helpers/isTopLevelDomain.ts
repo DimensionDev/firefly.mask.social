@@ -3,6 +3,8 @@
 import { parseURL } from '@/helpers/parseURL.js';
 
 const TLD_DOMAIN = [
+    'app',
+    'xyz',
     'limo',
     'social',
     'land',

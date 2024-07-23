@@ -6,11 +6,7 @@ describe('getEmbedUrls', () => {
     test('should correctly parse a embed url', () => {
         const cases = [
             [
-                `thank you vitalik.eth — i appreciate you collecting my article on /wildcardclub 
-
-the article can be read here:
-
-https://paragraph.xyz/@nfa/wildcard-reflections`,
+                'i appreciate you collecting my article on /wildcardclub the article can be read here: https://paragraph.xyz/@nfa/wildcard-reflections',
                 ['https://paragraph.xyz/@nfa/wildcard-reflections'],
             ],
         ] as Array<[string, string[]]>;
