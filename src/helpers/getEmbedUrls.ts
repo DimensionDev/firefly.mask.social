@@ -9,7 +9,7 @@ function fixUrls(urls: Array<string | undefined>) {
 
 const emailRegExp = new RegExp(EMAIL_REGEX, 'g');
 
-const BLOCKED_URLS: string[] = ['imagedelivery.net'];
+const BLOCKED_URLS = ['imagedelivery.net'];
 
 export function getEmbedUrls(content: string, embedUrls: string[]) {
     const matchedUrls = fixUrls([...content.replaceAll(emailRegExp, '').matchAll(URL_REGEX)].map((x) => x[0]));
