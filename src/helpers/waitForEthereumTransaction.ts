@@ -1,9 +1,10 @@
+import type { ChainId } from '@masknet/web3-shared-evm';
 import { getTransactionConfirmations, waitForTransactionReceipt } from '@wagmi/core';
 import { type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 
-export async function waitForEthereumTransaction(hash: Hash, chainId: number): Promise<void> {
+export async function waitForEthereumTransaction(chainId: ChainId, hash: Hash): Promise<void> {
     try {
         await waitForTransactionReceipt(config, {
             hash,

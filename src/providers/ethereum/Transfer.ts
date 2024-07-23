@@ -26,7 +26,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
             ? await this.transferNative(options)
             : await this.transferContract({ ...options, token });
 
-        await waitForEthereumTransaction(hash, options.token.chainId);
+        await waitForEthereumTransaction(options.token.chainId, hash);
         return hash;
     }
 
