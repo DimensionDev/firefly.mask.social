@@ -316,9 +316,6 @@ msgstr "{0} muted channels"
 msgid "[Video]"
 msgstr "[Video]"
 
-msgid "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
-msgstr "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
-
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
@@ -1164,6 +1161,9 @@ msgstr "Article removed from your Bookmarks"
 
 msgid "Publications"
 msgstr "Publications"
+
+msgid "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
+msgstr "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
 
 msgid "Your website URL."
 msgstr "Your website URL."

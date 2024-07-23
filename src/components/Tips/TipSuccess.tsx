@@ -74,9 +74,9 @@ export function TipSuccess() {
                             </Trans>
                         ) : (
                             <Trans>
-                                You successfully sent
+                                You successfully sent{' '}
                                 <span className="font-bold text-link"> {`${amount} ${'$'}${token?.symbol} `}</span>
-                                tips to
+                                tips to{' '}
                                 <span className="font-bold text-link"> {handle || recipient?.displayName}</span>!
                             </Trans>
                         )}

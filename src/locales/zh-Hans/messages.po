@@ -160,7 +160,7 @@ msgid "Searching users"
 msgstr "查找用户中"
 
 msgid "Cannot send tips to yourself"
-msgstr "不能对资金进行打赏"
+msgstr "不能打赏给自己"
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
@@ -321,9 +321,6 @@ msgstr "{0} 屏蔽的频道"
 msgid "[Video]"
 msgstr "[视频]"
 
-msgid "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
-msgstr "你成功发送了<0> {amount} {0}{1} </0>的打赏到<1> {2}</1>!"
-
 msgid "The author is muted by you."
 msgstr "此作者已被屏蔽。"
 
@@ -427,7 +424,7 @@ msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
 msgid "Failed to delete scheduled post."
-msgstr "删除定时任务失败"
+msgstr "删除定时任务失败。"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
@@ -682,7 +679,7 @@ msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
 
 msgid "Failed to mute @{0} on {sourceName}."
-msgstr "未能在 {sourceName} 上屏蔽 @{0}."
+msgstr "未能在 {sourceName} 上屏蔽 @{0}。"
 
 msgid "like"
 msgstr "点赞"
@@ -721,7 +718,7 @@ msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
 msgid "Failed to send tips."
-msgstr "发送打赏失败"
+msgstr "发送打赏失败。"
 
 msgid "Enable development API version"
 msgstr "启用开发环境接口"
@@ -1066,7 +1063,7 @@ msgid "Suggested Follows"
 msgstr "推荐关注"
 
 msgid "Login required to schedule post on {sourceName}"
-msgstr "需要先登录{sourceName} 才能发送定时任务"
+msgstr "需要先登录 {sourceName} 才能发送定时任务。"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
@@ -1114,7 +1111,7 @@ msgid "commented"
 msgstr "已回复"
 
 msgid "Validate failed, please check your input."
-msgstr "验证失败，请检查。"
+msgstr "验证失败，请检查您的输入。"
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全稀释估值，反之亦然。</1>"
@@ -1170,6 +1167,9 @@ msgstr "文章已经从您的收藏中移除"
 msgid "Publications"
 msgstr "帖子"
 
+msgid "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
+msgstr "你成功发送了 <0> {amount} {0}{1} </0> 的打赏给 <1> {2}</1>！"
+
 msgid "Your website URL."
 msgstr "您网站的 URL。"
 
@@ -1189,7 +1189,7 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
 
 msgid "Your Blink URL."
-msgstr "有的 Blink URL"
+msgstr "您的 Blink URL。"
 
 msgid "Show More"
 msgstr "显示更多"
@@ -1222,7 +1222,7 @@ msgid "Cancel recast successfully"
 msgstr "成功取消转发"
 
 msgid "Failed to create schedule thread posts."
-msgstr "创建定时 thread 失败"
+msgstr "创建定时 thread 失败。"
 
 msgid "Top Collectors"
 msgstr "热门收藏者"
@@ -1561,13 +1561,13 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在<0>{0}<1>{1}</1></0>发送"
 
 msgid "The post will send on {0} at {1}"
-msgstr "帖子将会在 {1} 发发送到 {0}"
+msgstr "帖子将会在 {1} 发送到 {0}"
 
 msgid "Properties"
 msgstr "属性"
 
 msgid "Failed to set schedule time."
-msgstr "创建定时时间失败"
+msgstr "创建定时时间失败。"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
@@ -1621,7 +1621,7 @@ msgid "collect"
 msgstr "收藏"
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
-msgstr "请输入blink链接来验证. <0>URL格式</0>"
+msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
 
 msgid "Developers"
 msgstr "开发者"
@@ -1654,7 +1654,7 @@ msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Please enable Momoka to support sending posts on Lens."
-msgstr "请启用 Momoka 在 Lens 上发送帖子。"
+msgstr "请启用 Momoka 以支持在 Lens 上发送帖子。"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
@@ -1798,7 +1798,7 @@ msgid "Cancel Recast"
 msgstr "取消转帖"
 
 msgid "Failed to report spam NFT."
-msgstr "举报 垃圾NFT 失败。"
+msgstr "举报垃圾 NFT 失败。"
 
 msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
 msgstr "{hours, plural, one {1 小时} other {{hours} 小时}}"

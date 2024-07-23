@@ -321,9 +321,6 @@ msgstr "{0} 個已靜音的頻道"
 msgid "[Video]"
 msgstr "[影片]"
 
-msgid "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
-msgstr ""
-
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
@@ -889,7 +886,7 @@ msgid "No one likes this post yet."
 msgstr "還沒有人按讚這條貼文"
 
 msgid "Your posts have published successfully on {0}."
-msgstr "你的貼文已成功發布在 {0} 上"
+msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "Description"
 msgstr "描述"
@@ -1169,6 +1166,9 @@ msgstr "文章已從你的書籤中移除"
 
 msgid "Publications"
 msgstr "發表"
+
+msgid "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
+msgstr ""
 
 msgid "Your website URL."
 msgstr "你的網站連結"
@@ -1741,7 +1741,7 @@ msgid "Statistic"
 msgstr "統計數據"
 
 msgid "Your post have published successfully on {0}."
-msgstr "你的貼文已成功發布在 {0} 上"
+msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "Detail"
 msgstr "詳細資訊"
