@@ -26,7 +26,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
             ? await this.transferNative(options)
             : await this.transferContract({ ...options, token });
 
-        await waitForEthereumTransaction(hash);
+        await waitForEthereumTransaction(options.token.chainId, hash);
         return hash;
     }
 
@@ -73,6 +73,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
 
         const parameters = {
+            chainId: options.token.chainId,
             account: await EthereumNetwork.getAccount(),
             to: options.to,
             value: parseUnits(options.amount, options.token.decimals),
@@ -98,6 +99,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.5').toFixed(0);
 
         const parameters = {
+            chainId: options.token.chainId,
             address: options.token.id,
             abi: erc20Abi,
             functionName: 'transfer',
