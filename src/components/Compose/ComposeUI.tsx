@@ -1,6 +1,5 @@
 import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import dayjs from 'dayjs';
 import { memo, useRef, useState } from 'react';
 
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
@@ -33,18 +32,7 @@ export const ComposeUI = memo(function ComposeUI() {
                     className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
                 >
                     {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
-                        <div className="mb-3 flex items-center gap-[10px] text-[13px] text-second">
-                            <SchedulePostEntryButton />
-                            <span>
-                                <Trans>
-                                    Will send on{' '}
-                                    <span>
-                                        {dayjs(scheduleTime).format('D MMM, YYYY')} at{' '}
-                                        <span>{dayjs(scheduleTime).format('hh:mm A')}</span>
-                                    </span>
-                                </Trans>
-                            </span>
-                        </div>
+                        <SchedulePostEntryButton showText />
                     ) : null}
                     {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                 </div>
