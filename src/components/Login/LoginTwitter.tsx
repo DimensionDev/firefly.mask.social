@@ -1,13 +1,23 @@
 import { Trans } from '@lingui/macro';
+import { usePathname } from 'next/navigation.js';
 import { signIn } from 'next-auth/react';
 import { useEffectOnce } from 'react-use';
+import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { PageRoute } from '@/constants/enum.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 export function LoginTwitter() {
+    const pathname = usePathname();
+
     useEffectOnce(() => {
         signIn('twitter', {
             redirect: false,
+            callbackUrl:
+                pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile)
+                    ? urlcat(location.origin, '/profile?source=twitter')
+                    : undefined,
         });
     });
 
