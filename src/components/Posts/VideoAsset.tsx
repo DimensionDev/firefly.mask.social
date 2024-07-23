@@ -40,6 +40,7 @@ export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps
         </div>
     ) : (
         <Video
+            loop={isGif}
             autoPlay={autoPlay || isGif}
             src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri}
             poster={asset.coverUri}

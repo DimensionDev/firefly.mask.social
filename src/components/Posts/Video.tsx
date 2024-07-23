@@ -1,7 +1,7 @@
 import 'plyr-react/plyr.css';
 
-import { Player } from '@livepeer/react';
-import { type HTMLProps, memo } from 'react';
+import { Player, type PlayerProps } from '@livepeer/react';
+import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@/constants/index.js';
@@ -9,23 +9,20 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 
-interface VideoProps extends HTMLProps<HTMLDivElement> {
-    src: string;
+interface VideoProps extends Partial<PlayerProps<object, unknown>> {
     poster?: string;
     className?: string;
-    autoPlay?: boolean;
 }
 
-export const Video = memo<VideoProps>(function Video({ src, poster, className = '', autoPlay, children }) {
+export const Video = memo<VideoProps>(function Video({ poster, className = '', children, ...rest }) {
     const account = useAccount();
 
     return (
         <div className={classNames('lp-player', className)}>
             <Player
-                src={src}
+                {...rest}
                 poster={formatImageUrl(sanitizeDStorageUrl(poster))}
                 objectFit="contain"
-                autoPlay={autoPlay}
                 showLoadingSpinner
                 showUploadingIndicator
                 showPipButton={false}
