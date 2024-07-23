@@ -31,10 +31,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
         ),
     )
         .map((x) => {
-            if (isValidPollFrameUrl(x)) {
-                return composePollFrameUrl(x, Source.Farcaster);
-            }
-
+            if (isValidPollFrameUrl(x)) return composePollFrameUrl(x, Source.Farcaster);
             return x;
         })
         .filter((x) => isTopLevelDomain(x));

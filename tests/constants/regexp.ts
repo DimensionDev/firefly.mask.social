@@ -109,6 +109,10 @@ describe('URL_REGEX', () => {
                 `@lens/ris_707 - dance cult\n\nhttps://hey.xyz/posts/0x042e3c-0x01-DA-95038467\n\n#visualsound\n`,
                 'https://hey.xyz/posts/0x042e3c-0x01-DA-95038467',
             ],
+            [
+                'the article can be read here:\nhttps://paragraph.xyz/@nfa/wildcard-reflections',
+                'https://paragraph.xyz/@nfa/wildcard-reflections',
+            ],
         ] as Array<[string, string | null]>;
 
         cases.forEach(([input, expectedOutput]) => {
