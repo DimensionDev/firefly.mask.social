@@ -245,12 +245,6 @@ const useTwitterStateBase = createState(
                 const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
-                console.log('DEBUG: twitter state');
-                console.log({
-                    payload,
-                    profile,
-                });
-
                 if (!profile || !payload) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');
                     state.clear();
@@ -265,7 +259,10 @@ const useTwitterStateBase = createState(
                 state.addAccount(account, true);
                 twitterSessionHolder.resumeSession(account.session);
             } catch (error) {
-                if (error instanceof FetchError) return;
+                if (error instanceof FetchError) {
+                    console.log(error.status)
+                    return;
+                }
                 state.clear();
             }
         },
