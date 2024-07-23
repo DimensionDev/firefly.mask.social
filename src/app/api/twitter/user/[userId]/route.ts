@@ -28,6 +28,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
                 'connection_status',
             ],
         });
+
         if (errors && errors.length > 0) {
             for (const error of errors) {
                 if (error.title === 'Forbidden') {
