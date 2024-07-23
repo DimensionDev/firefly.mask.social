@@ -282,9 +282,6 @@ msgstr "剩餘 {0}"
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼，授權 <3>Firefly</3> 連結您的帳戶。"
 
-msgid "Terms of Services"
-msgstr ""
-
 msgid "Copied"
 msgstr "已複製"
 
@@ -1945,6 +1942,9 @@ msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
 msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
