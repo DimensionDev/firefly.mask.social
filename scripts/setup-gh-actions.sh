@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npm i -g pnpm@8.10.4
+npm i -g pnpm@8.15.8
 
 # Install the outer first, then cd into the submodule so submodule's patches can be applied.
 pnpm install
