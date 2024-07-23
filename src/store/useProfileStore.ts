@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
