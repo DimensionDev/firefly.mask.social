@@ -65,19 +65,17 @@ export function TipSuccess() {
                     <p>
                         {canShare ? (
                             <Trans>
-                                You just sent
-                                <span className="font-bold text-link"> {`${amount} ${'$'}${token?.symbol} `}</span>
-                                tips to
-                                <span className="font-bold text-link"> {handle || recipient?.displayName}</span>!
+                                You just sent{' '}
+                                <span className="font-bold text-link">{`${amount} ${'$'}${token?.symbol}`}</span> tips
+                                to <span className="font-bold text-link">{handle || recipient?.displayName}</span>!
                                 <br />
                                 Share this news by mentioning and posting.
                             </Trans>
                         ) : (
                             <Trans>
-                                You successfully sent
-                                <span className="font-bold text-link"> {`${amount} ${'$'}${token?.symbol} `}</span>
-                                tips to
-                                <span className="font-bold text-link"> {handle || recipient?.displayName}</span>!
+                                You successfully sent{' '}
+                                <span className="font-bold text-link">{`${amount} ${'$'}${token?.symbol}`}</span> tips
+                                to <span className="font-bold text-link">{handle || recipient?.displayName}</span>!
                             </Trans>
                         )}
                     </p>

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-20 00:04\n"
+"PO-Revision-Date: 2024-07-23 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -57,10 +57,10 @@ msgstr "轉發"
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
-msgid "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
+msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "Failed to fetch as Blob."
+msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Unmute successfully."
@@ -106,7 +106,7 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr ""
 
 msgid "Select token"
-msgstr ""
+msgstr "選擇代幣"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
@@ -321,9 +321,6 @@ msgstr "{0} 個已靜音的頻道"
 msgid "[Video]"
 msgstr "[影片]"
 
-msgid "You successfully sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!"
-msgstr ""
-
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
@@ -463,7 +460,7 @@ msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app an
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並掃描QR碼，授權 <2>Firefly</2> 連結您的帳戶。"
 
 msgid "No Airdrop Scam"
-msgstr ""
+msgstr "無空投騙局"
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
@@ -484,7 +481,7 @@ msgid "Minting Txn Hash"
 msgstr ""
 
 msgid "Audio Cover"
-msgstr ""
+msgstr "音頻封面"
 
 msgid "Fake Token"
 msgstr ""
@@ -505,7 +502,7 @@ msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
 msgid "Save failed post?"
-msgstr ""
+msgstr "保存失敗的貼文？"
 
 msgid "Owners"
 msgstr ""
@@ -538,7 +535,7 @@ msgid "Confirmation"
 msgstr "確認"
 
 msgid "Failed to upload. Video is not supported yet."
-msgstr ""
+msgstr "上傳失敗。暫不接受影片上傳。"
 
 msgid "Whitelist function"
 msgstr "白名單功能"
@@ -583,7 +580,7 @@ msgid "Failed to mirror."
 msgstr "鏡像失敗"
 
 msgid "Remove Choice"
-msgstr ""
+msgstr "移除選擇"
 
 msgid "Update"
 msgstr "更新"
@@ -787,19 +784,19 @@ msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Failed to unvote post."
-msgstr ""
+msgstr "上讚評論失敗"
 
 msgid "Choice {0}"
-msgstr ""
+msgstr "選擇 {0}"
 
 msgid "Send Feedback"
 msgstr "發送反饋"
 
 msgid "Your draft was saved."
-msgstr ""
+msgstr "你的草稿已被保存"
 
 msgid "Send tips"
-msgstr ""
+msgstr "發送小費"
 
 msgid "The chainId mismatch."
 msgstr ""
@@ -867,6 +864,9 @@ msgstr "評論"
 msgid "Only people you mention"
 msgstr ""
 
+msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
+msgstr ""
+
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
@@ -874,7 +874,7 @@ msgid "Cancel retweet successfully"
 msgstr "成功取消轉發"
 
 msgid "Set"
-msgstr ""
+msgstr "設定"
 
 msgid "[Poll]"
 msgstr "[投票]"
@@ -889,7 +889,7 @@ msgid "No one likes this post yet."
 msgstr "還沒有人按讚這條貼文"
 
 msgid "Your posts have published successfully on {0}."
-msgstr ""
+msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "Description"
 msgstr "描述"
@@ -1741,7 +1741,7 @@ msgid "Statistic"
 msgstr "統計數據"
 
 msgid "Your post have published successfully on {0}."
-msgstr "你的貼文已成功發布在 {0} 上"
+msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "Detail"
 msgstr "詳細資訊"
