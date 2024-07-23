@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -259,8 +260,8 @@ const useTwitterStateBase = createState(
                 state.addAccount(account, true);
                 twitterSessionHolder.resumeSession(account.session);
             } catch (error) {
-                if (error instanceof FetchError) {
-                    console.log(error.status)
+                if (error instanceof FetchError && error.status !== StatusCodes.UNAUTHORIZED) {
+                    console.log(error.status);
                     return;
                 }
                 state.clear();

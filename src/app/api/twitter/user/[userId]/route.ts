@@ -28,6 +28,13 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
                 'connection_status',
             ],
         });
+
+        console.log('DEBUG: twitter user');
+        console.log({
+            data,
+            errors,
+        })
+
         if (errors && errors.length > 0) {
             for (const error of errors) {
                 if (error.title === 'Forbidden') {
