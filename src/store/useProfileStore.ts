@@ -243,12 +243,15 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
+                if (session) twitterSessionHolder.resumeSession(session);
+
                 const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!profile || !payload) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');
                     state.clear();
+                    twitterSessionHolder.removeSession();
                     return;
                 }
 
@@ -258,13 +261,10 @@ const useTwitterStateBase = createState(
                 };
 
                 state.addAccount(account, true);
-                twitterSessionHolder.resumeSession(account.session);
             } catch (error) {
-                if (error instanceof FetchError && error.status !== StatusCodes.UNAUTHORIZED) {
-                    console.log(error.status);
-                    return;
-                }
+                if (error instanceof FetchError) return;
                 state.clear();
+                twitterSessionHolder.removeSession();
             }
         },
     },
