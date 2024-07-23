@@ -39,6 +39,9 @@ function EngagementLink(props: {
 }) {
     const count = countText(props.count, props.singular, props.plural);
     if (!count) return null;
+    if (props.post.source === Source.Twitter) {
+        return <span>{count}</span>;
+    }
     return (
         <Link
             className="hover:underline"
@@ -66,7 +69,13 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         [publicationViews, post],
     );
     const comments = post.stats?.comments ? (
-        <span className="hover:underline">{countText(post.stats.comments, t`comment`, t`comments`)}</span>
+        <span
+            className={classNames({
+                'hover:underline': post.source !== Source.Twitter,
+            })}
+        >
+            {countText(post.stats.comments, t`comment`, t`comments`)}
+        </span>
     ) : null;
     const likes = post.stats?.reactions ? (
         <EngagementLink

@@ -58,6 +58,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         postId: item.id,
         type: repliedTweetId ? 'Comment' : isRetweeted ? 'Mirror' : 'Post',
         source: Source.Twitter,
+        canComment: true,
         author: {
             profileId: item.author_id!,
             displayName: user?.name ?? '',
@@ -69,6 +70,12 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             status: ProfileStatus.Active,
             verified: user?.verified ?? false,
             source: Source.Twitter,
+        },
+        stats: {
+            reactions: item.public_metrics?.like_count ?? 0,
+            comments: item.public_metrics?.reply_count ?? 0,
+            mirrors: item.public_metrics?.retweet_count ?? 0,
+            quotes: item.public_metrics?.quote_count ?? 0,
         },
         timestamp: item?.created_at ? new Date(item.created_at).getTime() : Date.now(),
         metadata: {

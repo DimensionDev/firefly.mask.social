@@ -133,10 +133,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     const identity = resolveProfileId(post.author);
 
-    if (post.source === Source.Twitter) {
-        return null;
-    }
-
     return (
         <div
             className={classNames('mt-2 text-xs text-second', className, {
@@ -192,7 +188,9 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             handle={post.author.handle}
                         />
                     ) : null}
-                    <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
+                    {post.source !== Source.Twitter ? (
+                        <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
+                    ) : null}
                 </div>
             </ClickableArea>
             <PostStatistics post={post} showChannelTag={showChannelTag} onSetScrollIndex={onSetScrollIndex} />
