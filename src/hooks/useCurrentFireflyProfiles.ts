@@ -68,9 +68,8 @@ export function useCurrentFireflyProfilesAll() {
             const withTwitterProfiles = twitterIdentity
                 ? await FireflySocialMediaProvider.getAllPlatformProfiles(undefined, undefined, twitterIdentity)
                 : [];
-            const connectedProfiles = lensIdentity || farcasterIdentity
-                ? await FireflySocialMediaProvider.getAllPlatformProfiles()
-                : [];
+            const connectedProfiles =
+                lensIdentity || farcasterIdentity ? await FireflySocialMediaProvider.getAllPlatformProfiles() : [];
             return [
                 ...connectedProfiles,
                 ...withTwitterProfiles.filter((profile) =>
