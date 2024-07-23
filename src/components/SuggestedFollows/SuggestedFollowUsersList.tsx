@@ -1,6 +1,7 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { uniqBy } from 'lodash-es';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
@@ -24,11 +25,15 @@ export default function SuggestedFollowUsersList({ source }: Props) {
         queryFn({ pageParam }) {
             if (source === Source.Twitter) return createPageable<Profile>(EMPTY_LIST, createIndicator(undefined));
             const provider = resolveSocialMediaProvider(source);
-            return provider.getSuggestedFollowUsers({ indicator: createIndicator(undefined, pageParam) });
+            return provider.getSuggestedFollowUsers({ indicator: createIndicator(undefined, pageParam), limit: 100 });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? []),
+        select: (data) =>
+            uniqBy(
+                data.pages.flatMap((page) => page?.data ?? []),
+                'profileId',
+            ),
     });
 
     return (
