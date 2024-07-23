@@ -35,24 +35,24 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
             })}
             onClick={() => mutation.mutate(post)}
         >
-            <motion.button
+            <Tooltip
                 disabled={disabled}
-                whileTap={{ scale: 0.9 }}
-                className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
-                aria-label="Bookmark"
+                placement="top"
+                content={hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`}
             >
-                <Tooltip
+                <motion.button
                     disabled={disabled}
-                    placement="top"
-                    content={hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`}
+                    whileTap={{ scale: 0.9 }}
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
+                    aria-label="Bookmark"
                 >
                     {hasBookmarked ? (
                         <BookmarkActiveIcon width={20} height={20} className="text-warn" />
                     ) : (
                         <BookmarkIcon width={20} height={20} />
                     )}
-                </Tooltip>
-            </motion.button>
+                </motion.button>
+            </Tooltip>
             {!hiddenCount && count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
         </ClickableArea>
     );
