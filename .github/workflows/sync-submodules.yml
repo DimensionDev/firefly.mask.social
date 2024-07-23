@@ -10,7 +10,7 @@ on:
         description: 'The branch to sync the submodule with'
         required: true
         type: string
-        default: 'develop'
+        default: 'firefly'
 
 jobs:
   sync-submodule:

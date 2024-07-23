@@ -6,6 +6,7 @@ import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFi
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
 import {
@@ -28,13 +29,15 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
                 ?.filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
                 .map((x) => x.url),
         ),
-    ).map((x) => {
-        if (isValidPollFrameUrl(x)) {
-            return composePollFrameUrl(x, Source.Farcaster);
-        }
+    )
+        .map((x) => {
+            if (isValidPollFrameUrl(x)) {
+                return composePollFrameUrl(x, Source.Farcaster);
+            }
 
-        return x;
-    });
+            return x;
+        })
+        .filter((x) => isTopLevelDomain(x));
 
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 

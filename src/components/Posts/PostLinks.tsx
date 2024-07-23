@@ -36,7 +36,7 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
         return (
             <>
                 {post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled ? (
-                    <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+                    <Frame urls={post.metadata.content.oembedUrls} post={post}>
                         <></>
                     </Frame>
                 ) : null}
@@ -55,7 +55,7 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
 
     if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
         return (
-            <Frame urls={post.metadata.content.oembedUrls} postId={post.postId} source={post.source}>
+            <Frame urls={post.metadata.content.oembedUrls} post={post}>
                 {oembed}
             </Frame>
         );

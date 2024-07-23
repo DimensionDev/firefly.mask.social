@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { getFrameErrorMessage } from '@/helpers/getFrameErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
@@ -81,8 +82,11 @@ export async function POST(request: Request) {
         });
     }
 
-    if (response.status < 200 || response.status >= 400)
-        return Response.json({ error: 'The frame server cannot handle the post request correctly.' }, { status: 500 });
+    if (response.status < 200 || response.status >= 400) {
+        const text = await response.text();
+        console.error(`[frame] response status: ${response.status}\n%s`, text);
+        return Response.json({ error: getFrameErrorMessage(text) }, { status: 400 });
+    }
 
     switch (action) {
         case ActionType.Post:

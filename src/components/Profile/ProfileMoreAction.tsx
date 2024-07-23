@@ -60,7 +60,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                         >
                             <LinkIcon width={18} height={18} />
                             <span className="font-bold leading-[22px] text-main">
-                                <Trans>Copy link</Trans>
+                                <Trans>Copy link to profile</Trans>
                             </span>
                         </MenuButton>
                     )}

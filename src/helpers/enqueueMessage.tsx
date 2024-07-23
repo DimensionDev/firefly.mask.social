@@ -49,8 +49,7 @@ function environmentFilter(options?: MessageOptions) {
 
 function getDetailedErrorMessage(error: unknown) {
     if (!(error instanceof Error)) return `${error}`;
-    const lines = [error.message];
-    if (error.stack) lines.push(error.stack);
+    const lines = error.stack ? [error.stack] : [error.message];
     lines.push('');
     return lines.join('\n').trim();
 }

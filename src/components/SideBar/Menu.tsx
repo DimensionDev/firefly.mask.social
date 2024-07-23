@@ -67,7 +67,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     };
 
     return (
-        <nav className="flex flex-1 flex-col">
+        <nav className="relative flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li className="flex overflow-hidden">
                     <ul role="list" className="w-full overflow-hidden">
@@ -194,32 +194,32 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         ) : null}
                     </ul>
                 </li>
-                <li className="-mx-2 mb-20 mt-auto text-center">
-                    {isLogin ? (
-                        <LoginStatusBar collapsed={collapsed} />
-                    ) : collapsed ? (
-                        <ClickableButton
-                            onClick={() => {
-                                LoginModalRef.open();
-                            }}
-                            className="rounded-full bg-main p-1 text-primaryBottom"
-                        >
-                            <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
-                        </ClickableButton>
-                    ) : (
-                        <ClickableButton
-                            onClick={async () => {
-                                updateSidebarOpen(false);
-                                await delay(300);
-                                LoginModalRef.open();
-                            }}
-                            className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
-                        >
-                            <Trans>Login</Trans>
-                        </ClickableButton>
-                    )}
-                </li>
             </ul>
+            <div className="absolute -left-2 -right-2 bottom-20 text-center">
+                {isLogin ? (
+                    <LoginStatusBar collapsed={collapsed} />
+                ) : collapsed ? (
+                    <ClickableButton
+                        onClick={() => {
+                            LoginModalRef.open();
+                        }}
+                        className="rounded-full bg-main p-1 text-primaryBottom"
+                    >
+                        <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
+                    </ClickableButton>
+                ) : (
+                    <ClickableButton
+                        onClick={async () => {
+                            updateSidebarOpen(false);
+                            await delay(300);
+                            LoginModalRef.open();
+                        }}
+                        className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
+                    >
+                        <Trans>Login</Trans>
+                    </ClickableButton>
+                )}
+            </div>
         </nav>
     );
 });

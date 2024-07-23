@@ -24,6 +24,11 @@ export function useCheckPostMedias() {
                 return true;
             }
         }
+
+        if (availableSources.includes(Source.Twitter) && images.some((x) => x.mimeType === 'image/webp')) {
+            enqueueErrorMessage(t`Failed to upload. File type is not supported on X`);
+            return true;
+        }
         return false;
-    }, [availableSources, hasVideo, imageCount, type]);
+    }, [availableSources, hasVideo, imageCount, type, images]);
 }

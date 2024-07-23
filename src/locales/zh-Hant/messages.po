@@ -240,6 +240,9 @@ msgstr "市值"
 msgid "Contract source code verified"
 msgstr "合約源代碼已驗證"
 
+msgid "The scheduled time has passed. Please reset it"
+msgstr ""
+
 msgid "Profile not found"
 msgstr "找不到帳戶"
 
@@ -278,6 +281,9 @@ msgstr "剩餘 {0}"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼，授權 <3>Firefly</3> 連結您的帳戶。"
+
+msgid "Terms of Services"
+msgstr ""
 
 msgid "Copied"
 msgstr "已複製"
@@ -368,9 +374,6 @@ msgstr "密碼"
 
 msgid "Liked"
 msgstr "已喜歡"
-
-msgid "Term of Service"
-msgstr "服務條款"
 
 msgid "Token ID"
 msgstr ""
@@ -630,6 +633,9 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
+msgid "Failed to upload. File type is not supported on X"
+msgstr ""
+
 msgid "post"
 msgstr "貼文"
 
@@ -687,9 +693,6 @@ msgstr "查看來源"
 msgid "Are you sure you want to report this collection?"
 msgstr "是否確定要檢舉這條收藏？"
 
-msgid "The scheduled time has passed. Please reset it."
-msgstr ""
-
 msgid "and"
 msgstr "以及"
 
@@ -710,6 +713,9 @@ msgstr "Gas不足"
 
 msgid "Blacklist function"
 msgstr "黑名單功能"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr ""
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -1052,6 +1058,9 @@ msgstr "<0>校訂</0>一篇文章"
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
+
+msgid "Bad Request. Please check your request."
+msgstr ""
 
 msgid "Suggested Follows"
 msgstr ""
@@ -1530,6 +1539,9 @@ msgstr ""
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
+msgid "Copy link to profile"
+msgstr ""
+
 msgid "No whitelist"
 msgstr "無白名單"
 
@@ -1802,9 +1814,6 @@ msgstr "沒有符合的用戶"
 
 msgid "Save"
 msgstr "存檔"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it."
-msgstr ""
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr ""

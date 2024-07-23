@@ -235,6 +235,9 @@ msgstr "Market Cap"
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
 
+msgid "The scheduled time has passed. Please reset it"
+msgstr "The scheduled time has passed. Please reset it"
+
 msgid "Profile not found"
 msgstr "Profile not found"
 
@@ -273,6 +276,9 @@ msgstr "{0} left"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+
+msgid "Terms of Services"
+msgstr "Terms of Services"
 
 msgid "Copied"
 msgstr "Copied"
@@ -363,9 +369,6 @@ msgstr "Password"
 
 msgid "Liked"
 msgstr "Liked"
-
-msgid "Term of Service"
-msgstr "Term of Service"
 
 msgid "Token ID"
 msgstr "Token ID"
@@ -625,6 +628,9 @@ msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to a
 msgid "Top Channels"
 msgstr "Top Channels"
 
+msgid "Failed to upload. File type is not supported on X"
+msgstr "Failed to upload. File type is not supported on X"
+
 msgid "post"
 msgstr "post"
 
@@ -682,9 +688,6 @@ msgstr "View Source"
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"
 
-msgid "The scheduled time has passed. Please reset it."
-msgstr "The scheduled time has passed. Please reset it."
-
 msgid "and"
 msgstr "and"
 
@@ -705,6 +708,9 @@ msgstr "Insufficient Gas"
 
 msgid "Blacklist function"
 msgstr "Blacklist function"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
 
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
@@ -1047,6 +1053,9 @@ msgstr "<0>Revised</0>an article"
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "You need to connect your {0} account to use this feature."
+
+msgid "Bad Request. Please check your request."
+msgstr "Bad Request. Please check your request."
 
 msgid "Suggested Follows"
 msgstr "Suggested Follows"
@@ -1525,6 +1534,9 @@ msgstr "<0>You</0> liked"
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
+msgid "Copy link to profile"
+msgstr "Copy link to profile"
+
 msgid "No whitelist"
 msgstr "No whitelist"
 
@@ -1797,9 +1809,6 @@ msgstr "No matching users"
 
 msgid "Save"
 msgstr "Save"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it."
-msgstr "Up to 7 days can be set as the scheduled time. Please reset it."
 
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> and <1>{0} others</1>"

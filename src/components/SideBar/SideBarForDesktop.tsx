@@ -16,7 +16,7 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
     const { isDarkMode } = useDarkMode();
 
     return (
-        <div className="fixed inset-y-0 z-40 flex flex-col md:w-[289px]">
+        <div className="fixed inset-y-0 z-40 flex h-[100svh] flex-col md:w-[289px]">
             <div className="flex grow flex-col gap-y-5 border-r border-line px-3 lg:px-6">
                 <div className="flex h-16 shrink-0 items-center md:px-4">
                     <Link href={PageRoute.Home}>

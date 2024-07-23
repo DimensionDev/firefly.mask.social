@@ -49,7 +49,6 @@ export default function Page() {
         queryKey: ['search', searchType, searchKeyword, currentSource],
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
-
             const provider = resolveSocialMediaProvider(currentSocialSource);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
@@ -77,11 +76,13 @@ export default function Page() {
 
     useNavigatorTitle(t`Search`);
 
+    const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`;
     return (
         <ListInPage
+            key={listKey}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`,
+                listKey,
                 computeItemKey: (index, item) => {
                     switch (searchType) {
                         case SearchType.Profiles:
@@ -98,13 +99,7 @@ export default function Page() {
                             return index;
                     }
                 },
-                itemContent: (index, item) =>
-                    getSearchItemContent(
-                        index,
-                        item,
-                        searchType,
-                        `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`,
-                    ),
+                itemContent: (index, item) => getSearchItemContent(index, item, searchType, listKey),
             }}
             NoResultsFallbackProps={{
                 message: (
