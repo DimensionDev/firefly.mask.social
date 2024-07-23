@@ -130,12 +130,12 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                 <span className="text-[13px] font-medium leading-[24px] text-secondary">
                     {isFailed ? (
                         <Trans>
-                            Saved on {dayjs(task.created_at).format('DD MMM, YYYY')} at{' '}
+                            Saved on {dayjs(task.created_at).format('ddd, MMM DD, YYYY')} at{' '}
                             {dayjs(task.created_at).format('hh:mm A')}
                         </Trans>
                     ) : (
                         <Trans>
-                            The post will send on {dayjs(task.publish_timestamp).format('DD MMM, YYYY')} at{' '}
+                            The post will send on {dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')} at{' '}
                             {dayjs(task.publish_timestamp).format('hh:mm A')}
                         </Trans>
                     )}

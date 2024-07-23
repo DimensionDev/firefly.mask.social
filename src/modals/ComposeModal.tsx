@@ -133,7 +133,7 @@ function ComposeRouteRoot() {
     const { history } = useRouter();
     const { context } = useMatch({ from: rootRouteId });
 
-    const isDraft = router.history.location.href === '/draft';
+    const isDraft = router.history.location.pathname === '/draft';
 
     const title = useMemo(() => {
         if (isDraft) return t`Drafts`;
