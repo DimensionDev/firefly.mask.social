@@ -1,10 +1,10 @@
 'use client';
 
 import { Select, t, Trans } from '@lingui/macro';
+import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useMemo, useState } from 'react';
-import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
@@ -26,6 +26,7 @@ import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } f
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { trimify } from '@/helpers/trimify.js';
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -56,18 +57,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const canShowMore = !!(metadata.content?.content && metadata.content.content.length > 450) && showMore;
 
     const [postContent, setPostContent] = useState(metadata.content?.content ?? '');
-    const [postViewed, setPostViewed] = useState(false);
-
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (inView && !postViewed) setPostViewed(true);
-        },
-    });
+    const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
+    const mergedRef = useForkRef(ref, seenRef);
 
     const { value: payloads } = useAsync(async () => {
         // decode the image upon post viewing, to reduce unnecessary load of images
-        if (!postViewed) return;
+        if (!seen) return;
 
         // mask web components are disabled
         if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
@@ -76,7 +71,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             payloadFromText: getEncryptedPayloadFromText(post),
             payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(post),
         };
-    }, [post, postViewed]);
+    }, [post, seen]);
 
     const muted = useIsProfileMuted(author, isDetail);
 
@@ -196,17 +191,15 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             className={classNames('-mt-2 mb-2 break-words text-base text-main', {
                 ['pl-[52px]']: !disablePadding,
             })}
-            ref={ref}
+            ref={mergedRef}
         >
-            <div ref={observe} />
-
             <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
 
             {showTranslate && trimify(postContent) ? (
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
-            {postViewed ? (
+            {seen ? (
                 payloads?.payloadFromImageAttachment || payloads?.payloadFromText ? (
                     <mask-decrypted-post
                         props={encodeURIComponent(
