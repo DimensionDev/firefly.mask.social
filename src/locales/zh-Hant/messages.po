@@ -57,10 +57,10 @@ msgstr "轉發"
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
-msgid "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
+msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "Failed to fetch as Blob."
+msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Unmute successfully."
@@ -864,6 +864,9 @@ msgstr "評論"
 msgid "Only people you mention"
 msgstr ""
 
+msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
+msgstr ""
+
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
@@ -1166,9 +1169,6 @@ msgstr "文章已從你的書籤中移除"
 
 msgid "Publications"
 msgstr "發表"
-
-msgid "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
-msgstr ""
 
 msgid "Your website URL."
 msgstr "你的網站連結"

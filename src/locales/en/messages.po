@@ -52,11 +52,11 @@ msgstr "Retweet"
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
-msgid "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
-msgstr "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
-
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
+
+msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
+msgstr "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
 
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
@@ -859,6 +859,9 @@ msgstr "Comment"
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
+msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
+msgstr "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
+
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 
@@ -1161,9 +1164,6 @@ msgstr "Article removed from your Bookmarks"
 
 msgid "Publications"
 msgstr "Publications"
-
-msgid "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
-msgstr "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
 
 msgid "Your website URL."
 msgstr "Your website URL."

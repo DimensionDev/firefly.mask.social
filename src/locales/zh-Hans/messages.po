@@ -57,11 +57,11 @@ msgstr "转帖"
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
-msgid "You just sent<0> {amount} {0}{1} </0>tips to<1> {2}</1>!<2/>Share this news by mentioning and posting."
-msgstr ""
-
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
+
+msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
+msgstr "你刚刚发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！<2/>转发或者引用来分享这个消息。"
 
 msgid "Unmute successfully."
 msgstr "取消屏蔽成功。"
@@ -864,6 +864,9 @@ msgstr "评论"
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
+msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
+msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
+
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
@@ -877,7 +880,7 @@ msgid "[Poll]"
 msgstr "[投票]"
 
 msgid "Confirm to connect your account status."
-msgstr "一键同步你的账号"
+msgstr "一键同步您的账号"
 
 msgid "Allow replies from"
 msgstr "允许回复"
@@ -1166,9 +1169,6 @@ msgstr "文章已经从您的收藏中移除"
 
 msgid "Publications"
 msgstr "帖子"
-
-msgid "You successfully sent <0> {amount} {0}{1} </0>tips to <1> {2}</1>!"
-msgstr "你成功发送了 <0> {amount} {0}{1} </0> 的打赏给 <1> {2}</1>！"
 
 msgid "Your website URL."
 msgstr "您网站的 URL。"
@@ -1573,7 +1573,7 @@ msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
 msgid "Sign the transaction to verify you are the owner of the selected profile."
-msgstr "签署交易以验证你是所选账号的所有者。"
+msgstr "签署交易以验证您是所选账号的所有者。"
 
 msgid "Refresh"
 msgstr "刷新"
