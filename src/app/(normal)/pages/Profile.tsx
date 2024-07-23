@@ -3,7 +3,6 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
-import { usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -13,7 +12,7 @@ import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -35,9 +34,6 @@ interface ProfilePageProps {
 export function ProfilePage({ profiles }: ProfilePageProps) {
     const { profileTab } = useProfileTabState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
-
-    const pathname = usePathname();
-    const isProfilePage = pathname === PageRoute.Profile;
 
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isOthersProfile = !currentProfiles.some(
@@ -89,7 +85,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const profileMissing =
         !profile && !walletProfile && ((profileTab.source === Source.Twitter && !twitterProfile) || !profiles.length);
 
-    const profileNotFound = !isProfilePage && isFinalized && profileMissing;
+    const profileNotFound = isFinalized && profileMissing;
 
     const header = (
         <>

@@ -402,8 +402,6 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
-        if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
-
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {
             twitterId,
             lensHandle,
