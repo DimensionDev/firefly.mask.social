@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation.js';
-import { startTransition, useMemo } from 'react';
+import { useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -51,35 +51,31 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                 'md:h-[60px] md:py-[18px] md:leading-6',
                             )}
                             aria-current={profileTab.source === value ? 'page' : undefined}
-                            onClick={() =>
-                                startTransition(() => {
-                                    scrollTo(0, 0);
+                            onClick={() => {
+                                const currentProfile =
+                                    value !== Source.Wallet && value !== Source.Article && isProfilePage
+                                        ? getCurrentProfile(narrowToSocialSource(value))
+                                        : undefined;
 
-                                    const currentProfile =
-                                        value !== Source.Wallet && value !== Source.Article && isProfilePage
-                                            ? getCurrentProfile(narrowToSocialSource(value))
-                                            : undefined;
+                                const target = currentProfile
+                                    ? {
+                                          source: currentProfile.source,
+                                          identity: resolveProfileId(currentProfile),
+                                      }
+                                    : profiles.find((x) => x.source === value);
 
-                                    const target = currentProfile
-                                        ? {
-                                              source: currentProfile.source,
-                                              identity: resolveProfileId(currentProfile),
-                                          }
-                                        : profiles.find((x) => x.source === value);
+                                setProfileTab({
+                                    source: value,
+                                    identity: target?.identity,
+                                });
 
-                                    setProfileTab({
-                                        source: value,
-                                        identity: target?.identity,
-                                    });
-
-                                    updateParams(
-                                        new URLSearchParams({
-                                            source: resolveSourceInURL(value),
-                                        }),
-                                        target ? urlcat('/profile/:id', { id: target.identity }) : undefined,
-                                    );
-                                })
-                            }
+                                updateParams(
+                                    new URLSearchParams({
+                                        source: resolveSourceInURL(value),
+                                    }),
+                                    target ? urlcat('/profile/:id', { id: target.identity }) : undefined,
+                                );
+                            }}
                         >
                             {resolveSourceName(value)}
                         </ClickableButton>

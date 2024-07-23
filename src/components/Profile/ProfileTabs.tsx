@@ -98,13 +98,10 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                 );
                             });
                         }}
-                        className={classNames('flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2', {
-                            'bg-main': isActive,
-                            'text-primaryBottom': isActive,
-                            'bg-thirdMain': !isActive,
-                            'border-primaryBottom': isActive,
-                            border: isActive,
-                        })}
+                        className={classNames(
+                            'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2',
+                            isActive ? 'border border-primaryBottom bg-main text-primaryBottom' : 'bg-thirdMain',
+                        )}
                         style={{
                             background: isActive
                                 ? colors.activeBackground
@@ -124,12 +121,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                 border: isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
                             }}
                         />
-                        <span
-                            ref={(ref) => {
-                                if (isActive) ref?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-                            }}
-                            className="whitespace-nowrap text-[10px] leading-3"
-                        >
+                        <span className="whitespace-nowrap text-[10px] leading-3">
                             {profile.source === Source.Wallet ? profile.displayName : `@${profile.displayName}`}
                         </span>
                     </ClickableArea>
