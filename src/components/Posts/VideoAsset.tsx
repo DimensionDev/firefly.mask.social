@@ -21,6 +21,8 @@ interface VideoAssetProps {
 }
 
 export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps) {
+    const isGif = asset.type === 'AnimatedGif';
+
     return isQuote ? (
         <div className="relative h-full w-full">
             <div className="absolute inset-0 m-auto box-border flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-xl bg-white/80 text-[#181818]">
@@ -38,11 +40,11 @@ export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps
         </div>
     ) : (
         <Video
-            autoPlay={autoPlay}
+            autoPlay={autoPlay || isGif}
             src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri}
             poster={asset.coverUri}
         >
-            {asset.type === 'AnimatedGif' ? (
+            {isGif ? (
                 <span className="absolute bottom-[5px] left-2.5" onClick={(event) => event.stopPropagation()}>
                     <PlayButton />
                 </span>
