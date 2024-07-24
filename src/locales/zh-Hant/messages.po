@@ -708,9 +708,6 @@ msgstr "Gas不足"
 msgid "Blacklist function"
 msgstr "黑名單功能"
 
-msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr ""
-
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 

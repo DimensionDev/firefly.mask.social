@@ -703,9 +703,6 @@ msgstr ""
 msgid "Blacklist function"
 msgstr ""
 
-msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr ""
-
 msgid "AUTHOR ADDRESS"
 msgstr ""
 

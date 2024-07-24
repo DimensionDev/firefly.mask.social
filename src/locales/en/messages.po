@@ -703,9 +703,6 @@ msgstr "Insufficient Gas"
 msgid "Blacklist function"
 msgstr "Blacklist function"
 
-msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
-
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
 
