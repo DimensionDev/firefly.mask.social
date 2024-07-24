@@ -1,9 +1,10 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { getBalance, readContracts } from '@wagmi/core';
-import { type Address, erc20Abi } from 'viem';
+import { type Address } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
+import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { getAllTokenList } from '@/services/getTokensByAddress.js';
@@ -20,22 +21,24 @@ export async function getTokenBalance(token: Token<ChainId, Address>, address: A
             symbol: result.symbol,
         };
     }
+
+    const abi = getTokenAbiForWagmi(token.chainId, token.id);
     const results = await readContracts(config, {
         contracts: [
             {
                 address: token.id,
-                abi: erc20Abi,
+                abi,
                 functionName: 'balanceOf',
                 args: [address],
             },
             {
                 address: token.id,
-                abi: erc20Abi,
+                abi,
                 functionName: 'decimals',
             },
             {
                 address: token.id,
-                abi: erc20Abi,
+                abi,
                 functionName: 'symbol',
             },
         ],
