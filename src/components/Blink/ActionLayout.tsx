@@ -5,6 +5,7 @@ import ExclamationShieldIcon from '@/assets/exclamation-shield.svg';
 import InfoShieldIcon from '@/assets/info-shield.svg';
 import LinkIcon from '@/assets/link-classic.svg';
 import { ActionButton, type ButtonProps } from '@/components/Blink/ActionButton.js';
+import { ActionForm, type FormProps } from '@/components/Blink/ActionForm.js';
 import { ActionInput, type InputProps } from '@/components/Blink/ActionInput.js';
 import { Badge } from '@/components/Blink/Badge.js';
 import { Image } from '@/components/Image.js';
@@ -20,9 +21,31 @@ interface LayoutProps {
     disclaimer?: ReactNode;
     buttons?: ButtonProps[];
     inputs?: InputProps[];
+    form?: FormProps;
 }
 
-export function ActionLayout({ action, type, disclaimer, buttons, inputs, successMessage }: LayoutProps) {
+function ActionContent({ form, inputs, buttons }: Pick<LayoutProps, 'form' | 'buttons' | 'inputs'>) {
+    if (form) {
+        return <ActionForm {...form} />;
+    }
+
+    return (
+        <div className="flex flex-col gap-3">
+            {buttons && buttons.length > 0 ? (
+                <div className="flex flex-wrap items-center gap-2">
+                    {buttons?.map((it, index) => (
+                        <div key={index} className="flex flex-grow basis-[calc(33.333%-2*4px)]">
+                            <ActionButton {...it} />
+                        </div>
+                    ))}
+                </div>
+            ) : null}
+            {inputs?.map((input) => <ActionInput key={input.name} {...input} />)}
+        </div>
+    );
+}
+
+export function ActionLayout({ action, type, disclaimer, buttons, inputs, form, successMessage }: LayoutProps) {
     const { title, description, icon, websiteUrl } = action;
 
     return (
@@ -78,18 +101,7 @@ export function ActionLayout({ action, type, disclaimer, buttons, inputs, succes
                 <div className="text-left text-[15px] font-semibold text-main">{title}</div>
                 <div className="whitespace-pre-wrap text-left text-[15px] text-sm text-main">{description}</div>
                 {disclaimer ? <div>{disclaimer}</div> : null}
-                <div className="flex flex-col">
-                    {buttons && buttons.length > 0 ? (
-                        <ul className="flex flex-wrap items-center gap-3">
-                            {buttons?.map((it, index) => (
-                                <li key={index} className="flex-auto">
-                                    <ActionButton {...it} />
-                                </li>
-                            ))}
-                        </ul>
-                    ) : null}
-                    {inputs?.map((input) => <ActionInput key={input.name} {...input} />)}
-                </div>
+                <ActionContent form={form} inputs={inputs} buttons={buttons} />
                 {successMessage ? (
                     <div className="mt-4 flex justify-center text-sm text-secondarySuccess">{successMessage}</div>
                 ) : null}
