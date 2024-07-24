@@ -5,7 +5,7 @@ import { last } from 'lodash-es';
 import { memo, useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
-import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
+import { resolveBlinkTCO } from '@/helpers/resolveBlinkTCO.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Action, ActionScheme } from '@/types/blink.js';
 
@@ -22,11 +22,7 @@ export const Blink = memo<Props>(function Blink({ schemes, onData, onFailed, chi
         queryFn: async () => {
             const scheme = last(schemes);
             if (!scheme) return null;
-
-            return BlinkLoader.fetchAction({
-                ...scheme,
-                url: (await resolveTCOLink(scheme.url)) ?? scheme.url,
-            });
+            return BlinkLoader.fetchAction(await resolveBlinkTCO(scheme));
         },
         retry: false,
         refetchOnMount: false,
