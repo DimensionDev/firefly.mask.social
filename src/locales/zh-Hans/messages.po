@@ -1371,9 +1371,6 @@ msgstr "取消关注 {identity}"
 msgid "Recast or Quote"
 msgstr "转发或者引用"
 
-msgid "Draft"
-msgstr "草稿"
-
 msgid "Unwatch"
 msgstr "取消关注"
 
@@ -2000,4 +1997,3 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

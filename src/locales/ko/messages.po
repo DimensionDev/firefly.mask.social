@@ -1371,9 +1371,6 @@ msgstr ""
 msgid "Recast or Quote"
 msgstr ""
 
-msgid "Draft"
-msgstr ""
-
 msgid "Unwatch"
 msgstr ""
 
@@ -2000,4 +1997,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-
