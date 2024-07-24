@@ -35,14 +35,17 @@ export default function Page() {
     }, [profiles, currentProfiles, searchParam]);
 
     useEffect(() => {
-        if (!profileTab.identity && profile) {
+        const urlSource = searchParam.get('source') as SocialSourceInURL;
+        const source = profile ? profile.source : urlSource ? resolveSourceFromUrl(urlSource) : null;
+
+        if (source) {
             setProfileTab({
                 isMyProfile: true,
-                source: profile.source,
-                identity: profile.identity,
+                source,
+                identity: profile?.identity,
             });
         }
-    }, [profile, profileTab.identity, setProfileTab]);
+    }, [profile, profileTab.identity, searchParam, setProfileTab]);
 
     // profile link should be shareable
     if (profile) {
