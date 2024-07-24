@@ -72,7 +72,6 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         }
 
         const posts = await createSchedulePostsPayload(type, compositePost);
-
         const assets = compact([
             compositePost?.images.length ? t`[Photo]` : undefined,
             compositePost?.video ? t`[Video]` : undefined,
@@ -80,7 +79,6 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         ]).join('');
 
         const chars = readChars(compositePost.chars, 'visible');
-
         const content = `${chars}${chars.length > 0 ? '\n' : ''}${assets}`;
 
         await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll());
