@@ -1767,9 +1767,6 @@ msgstr ""
 msgid "Tip to {0}"
 msgstr ""
 
-msgid "Click to copy"
-msgstr "點擊複製"
-
 msgid "Unmute @{0}"
 msgstr "取消對 @{0} 的靜音"
 

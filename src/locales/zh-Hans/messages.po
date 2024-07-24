@@ -1767,9 +1767,6 @@ msgstr ""
 msgid "Tip to {0}"
 msgstr ""
 
-msgid "Click to copy"
-msgstr "点击复制"
-
 msgid "Unmute @{0}"
 msgstr "取消屏蔽 @{0}"
 
