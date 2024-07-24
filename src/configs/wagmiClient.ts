@@ -31,6 +31,7 @@ import {
 
 import { env } from '@/constants/env.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
+import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 
 const XLayer = defineChain({
     id: 196,
@@ -94,7 +95,7 @@ export const config = createConfig({
     client({ chain }) {
         return createClient({
             chain,
-            transport: http(undefined, {
+            transport: http(resolveRPCUrl(chain.id), {
                 batch: true,
             }),
         });

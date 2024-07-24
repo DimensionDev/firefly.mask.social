@@ -1,16 +1,6 @@
-import { getRPCConstant } from '@masknet/web3-shared-evm';
-import { first } from 'lodash-es';
 import { type Chain, createPublicClient as createClient, http, type PublicClient } from 'viem';
-import { polygon } from 'viem/chains';
 
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-
-const resolvePublicProviderUrl = createLookupTableResolver<number, string>(
-    {
-        [polygon.id]: 'https://polygon-rpc.com',
-    },
-    '',
-);
+import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 
 const map = new Map<number, PublicClient>();
 
@@ -18,7 +8,7 @@ export function createWagmiPublicClient(chain: Chain): PublicClient {
     const client = map.get(chain.id);
     if (client) return client;
 
-    const providerUrl = resolvePublicProviderUrl(chain.id) ?? first(getRPCConstant(chain.id, 'RPC_URLS'));
+    const providerUrl = resolveRPCUrl(chain.id);
     if (!providerUrl) throw new Error(`No provider url found for chain ${chain.id}`);
 
     const newClient = createClient({
