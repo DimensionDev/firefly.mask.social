@@ -1371,9 +1371,6 @@ msgstr "取消觀察 {identity}"
 msgid "Recast or Quote"
 msgstr ""
 
-msgid "Draft"
-msgstr "草稿"
-
 msgid "Unwatch"
 msgstr "取消觀察"
 

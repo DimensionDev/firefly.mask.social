@@ -1366,9 +1366,6 @@ msgstr ""
 msgid "Recast or Quote"
 msgstr ""
 
-msgid "Draft"
-msgstr ""
-
 msgid "Unwatch"
 msgstr ""
 

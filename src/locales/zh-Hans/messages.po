@@ -1371,9 +1371,6 @@ msgstr "取消关注 {identity}"
 msgid "Recast or Quote"
 msgstr "转发或者引用"
 
-msgid "Draft"
-msgstr "草稿"
-
 msgid "Unwatch"
 msgstr "取消关注"
 
