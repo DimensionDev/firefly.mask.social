@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-24 06:03\n"
+"PO-Revision-Date: 2024-07-24 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1567,7 +1567,7 @@ msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
 msgid "Sign the transaction to verify you are the owner of the selected profile."
-msgstr "签署交易以验证您是所选账号的所有者。"
+msgstr "签署交易以验证你是所选账号的所有者。"
 
 msgid "Refresh"
 msgstr "刷新"
@@ -1639,7 +1639,7 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "Signer key 未被授权。请重试。"
 
 msgid "Saved on {0}"
-msgstr ""
+msgstr "已保存在 {0}"
 
 msgid "Add another option"
 msgstr "添加另一个选项"
@@ -1924,7 +1924,7 @@ msgid "Tips"
 msgstr "打赏"
 
 msgid "Followers"
-msgstr "粉丝"
+msgstr "关注者"
 
 msgid "Mint function"
 msgstr "铸造功能"
@@ -1945,7 +1945,7 @@ msgid "Mirror"
 msgstr "转发"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "服务条款"
 
 msgid "[Quote]"
 msgstr "[引用]"
@@ -2000,3 +2000,4 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
