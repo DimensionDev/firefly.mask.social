@@ -33,6 +33,11 @@ function getFireflySession(account: Account) {
     return account.fireflySession;
 }
 
+function hasFireflySession() {
+    // firefly id doesn't take twitter profile into account
+    return SORTED_SOCIAL_SOURCES.some((x) => (x === Source.Twitter ? false : !!getProfileState(x).currentProfile));
+}
+
 async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
@@ -91,8 +96,7 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
  * @returns
  */
 async function removeFireflyAccountIfNeeded() {
-    // firefly id doesn't take twitter profile into account
-    if (SORTED_SOCIAL_SOURCES.some((x) => (x === Source.Twitter ? false : getProfileState(x).currentProfile))) return;
+    if (hasFireflySession()) return;
     useFireflyStateStore.getState().clear();
     fireflySessionHolder.removeSession();
 }
@@ -129,7 +133,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // check if the account belongs to the current firefly session
     const belongsTo =
-        skipBelongsToCheck || !currentFireflySession || !fireflySession
+        skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasFireflySession()
             ? true
             : isSameSession(currentFireflySession, fireflySession);
 
