@@ -34,5 +34,3 @@ export interface Nothing {}
 
 // We discard boolean as the default type.
 export type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
-
-export type MindNever<T extends never> = T extends never ? true : false;

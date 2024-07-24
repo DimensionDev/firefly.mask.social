@@ -62,7 +62,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 </div>
             </Link>
 
-            <div className="ml-2 w-[112px]">
+            <div className="ml-2 flex-shrink-0">
                 {!noFollowButton && !isCurrentProfile(profile) ? <FollowButton profile={profile} /> : null}
             </div>
         </div>
