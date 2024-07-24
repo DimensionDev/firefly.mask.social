@@ -3,9 +3,7 @@ import { multipliedBy } from '@masknet/web3-shared-base';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -14,12 +12,9 @@ interface TokenItemProps {
 }
 
 export function TokenItem({ token }: TokenItemProps) {
-    const { token: selectedToken, recipient, update } = TipsContext.useContainer();
+    const { token: selectedToken, update } = TipsContext.useContainer();
 
     const handleSelectToken = async (token: Token) => {
-        if (recipient?.networkType === NetworkType.Ethereum) {
-            await switchEthereumChain(token.chainId);
-        }
         update((prev) => ({ ...prev, token, amount: token.id !== selectedToken?.id ? '' : prev.amount }));
         router.navigate({ to: TipsRoutePath.TIPS, replace: true });
     };

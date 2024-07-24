@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-23 00:04\n"
+"PO-Revision-Date: 2024-07-24 06:03\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -281,9 +281,6 @@ msgstr "剩餘 {0}"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼，授權 <3>Firefly</3> 連結您的帳戶。"
-
-msgid "Terms of Services"
-msgstr ""
 
 msgid "Copied"
 msgstr "已複製"
@@ -1335,6 +1332,9 @@ msgstr "取消"
 msgid "Send on schedule"
 msgstr ""
 
+msgid "will send on {0} at {1}"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
@@ -1560,9 +1560,6 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
-msgid "The post will send on {0} at {1}"
-msgstr ""
-
 msgid "Properties"
 msgstr "屬性"
 
@@ -1642,6 +1639,9 @@ msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
+
+msgid "Saved on {0}"
 msgstr ""
 
 msgid "Add another option"
@@ -1766,9 +1766,6 @@ msgstr ""
 
 msgid "Tip to {0}"
 msgstr ""
-
-msgid "Click to copy"
-msgstr "點擊複製"
 
 msgid "Unmute @{0}"
 msgstr "取消對 @{0} 的靜音"
@@ -1945,6 +1942,9 @@ msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
 msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"

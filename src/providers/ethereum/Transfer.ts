@@ -2,10 +2,11 @@ import { isGreaterThan, isLessThan, leftShift, rightShift } from '@masknet/web3-
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { getBalance, sendTransaction, writeContract } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
-import { type Address, erc20Abi, type Hash, parseUnits } from 'viem';
+import { type Address, type Hash, parseUnits } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isZero, multipliedBy } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
@@ -26,7 +27,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
             ? await this.transferNative(options)
             : await this.transferContract({ ...options, token });
 
-        await waitForEthereumTransaction(hash);
+        await waitForEthereumTransaction(options.token.chainId, hash);
         return hash;
     }
 
@@ -73,6 +74,7 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.1').toFixed(0);
 
         const parameters = {
+            chainId: options.token.chainId,
             account: await EthereumNetwork.getAccount(),
             to: options.to,
             value: parseUnits(options.amount, options.token.decimals),
@@ -98,8 +100,9 @@ class Provider implements TransferProvider<ChainId, Address, Hash> {
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '1.5').toFixed(0);
 
         const parameters = {
+            chainId: options.token.chainId,
             address: options.token.id,
-            abi: erc20Abi,
+            abi: getTokenAbiForWagmi(options.token.chainId, options.token.id),
             functionName: 'transfer',
             args: [options.to, parseUnits(options.amount, options.token.decimals)],
             gas: BigInt(gas),

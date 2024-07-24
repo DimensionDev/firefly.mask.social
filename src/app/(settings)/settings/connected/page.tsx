@@ -1,21 +1,13 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { Fragment, useCallback, useRef } from 'react';
-import { useCopyToClipboard } from 'usehooks-ts';
-import { useAccount } from 'wagmi';
+import { Fragment } from 'react';
 
 import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
-import CopyIcon from '@/assets/copy.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Tooltip } from '@/components/Tooltip.js';
-import { Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -23,20 +15,8 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
 export default function Connected() {
-    const { address } = useAccount();
-
-    const timerRef = useRef<NodeJS.Timeout>();
-
     const accountsAll = useAccountsAll();
     const currentProfileAll = useCurrentProfileAll();
-
-    const [, copyToClipboard] = useCopyToClipboard();
-
-    const handleClick = useCallback(() => {
-        if (!address) return;
-        copyToClipboard(address);
-        enqueueSuccessMessage(t`Copied`);
-    }, [address, copyToClipboard]);
 
     useNavigatorTitle(t`Connected accounts`);
 
@@ -53,39 +33,8 @@ export default function Connected() {
                     <Fragment key={profile.profileId}>
                         <div className="flex w-full items-center justify-between">
                             <span className="text-base font-bold leading-[18px] text-main">{resolveSourceName(x)}</span>
-                            {x === Source.Lens ? (
-                                <div className="flex items-center gap-1">
-                                    <span className="text-base font-bold leading-[18px] text-second">
-                                        {address ? formatEthereumAddress(address, 4) : null}
-                                    </span>
-                                    <Tooltip
-                                        content={t`Click to copy`}
-                                        placement="top"
-                                        duration={200}
-                                        trigger="click"
-                                        onShow={(instance) => {
-                                            if (timerRef.current) clearTimeout(timerRef.current);
-                                            timerRef.current = setTimeout(() => {
-                                                instance.hide();
-                                            }, 1000);
-                                        }}
-                                    >
-                                        <ClickableButton onClick={handleClick}>
-                                            <CopyIcon width={14} height={14} />
-                                        </ClickableButton>
-                                    </Tooltip>
-                                </div>
-                            ) : null}
                         </div>
-                        <div className="flex w-full flex-col gap-4">
-                            {accountsAll[x].map((account) => (
-                                <AccountCard
-                                    key={account.profile.profileId}
-                                    account={account}
-                                    isCurrent={isSameProfile(profile, account.profile)}
-                                />
-                            ))}
-                        </div>
+                        <AccountCard source={x} />
                     </Fragment>
                 ) : null;
             })}

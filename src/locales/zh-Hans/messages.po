@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-23 00:04\n"
+"PO-Revision-Date: 2024-07-24 06:03\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -241,7 +241,7 @@ msgid "Contract source code verified"
 msgstr "已验证合约源代码"
 
 msgid "The scheduled time has passed. Please reset it"
-msgstr ""
+msgstr "定时任务已过期。请重新设置"
 
 msgid "Profile not found"
 msgstr "未找到个人资料"
@@ -281,9 +281,6 @@ msgstr "{0} 剩余"
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "在您装有 <0>Warpcast</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码，授权 <3>Firefly</3> 连接您的账号。"
-
-msgid "Terms of Services"
-msgstr "服务条款"
 
 msgid "Copied"
 msgstr "已复制"
@@ -631,7 +628,7 @@ msgid "Top Channels"
 msgstr "热门频道"
 
 msgid "Failed to upload. File type is not supported on X"
-msgstr ""
+msgstr "图片格式 X 不支持。上传失败。"
 
 msgid "post"
 msgstr "发帖"
@@ -712,7 +709,7 @@ msgid "Blacklist function"
 msgstr "黑名单功能"
 
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr ""
+msgstr "最长可以设置 7 天的定时任务。请重新设置。"
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -1060,7 +1057,7 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要连接您的 {0} 账号来使用此功能。"
 
 msgid "Bad Request. Please check your request."
-msgstr ""
+msgstr "请求错误。请检查你的请求。"
 
 msgid "Suggested Follows"
 msgstr "推荐关注"
@@ -1153,7 +1150,7 @@ msgid "Select Token"
 msgstr "选择代币"
 
 msgid "Your schedule thread has created successfully."
-msgstr ""
+msgstr "你设定的定时 thread 已经成功。"
 
 msgid "General"
 msgstr "通用"
@@ -1177,7 +1174,7 @@ msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
 
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
-msgstr ""
+msgstr "定时任务的时间跨度最长是 7 天。"
 
 msgid "Display"
 msgstr "显示"
@@ -1334,6 +1331,9 @@ msgstr "取消"
 
 msgid "Send on schedule"
 msgstr "发送定时任务"
+
+msgid "will send on {0} at {1}"
+msgstr ""
 
 msgid "Failed to like the post."
 msgstr "点赞失败。"
@@ -1516,7 +1516,7 @@ msgid "The contract may contain additional issuance functions, which could maybe
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
 msgid "Saved on {0} at {1}"
-msgstr "在{1} {0} 上保存成功"
+msgstr "保存于 {1} {0}"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
@@ -1558,10 +1558,7 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
-msgstr "将在<0>{0}<1>{1}</1></0>发送"
-
-msgid "The post will send on {0} at {1}"
-msgstr "帖子将会在 {1} 发送到 {0}"
+msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
 msgid "Properties"
 msgstr "属性"
@@ -1642,6 +1639,9 @@ msgid "Only people you follow"
 msgstr "只有你关注的人"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr "Signer key 未被授权。请重试。"
+
+msgid "Saved on {0}"
 msgstr ""
 
 msgid "Add another option"
@@ -1766,9 +1766,6 @@ msgstr "在区块链浏览器查看"
 
 msgid "Tip to {0}"
 msgstr "打赏给 {0}"
-
-msgid "Click to copy"
-msgstr "点击复制"
 
 msgid "Unmute @{0}"
 msgstr "取消屏蔽 @{0}"
@@ -1946,6 +1943,9 @@ msgstr "没有发布的内容。"
 
 msgid "Mirror"
 msgstr "转发"
+
+msgid "Terms of Service"
+msgstr ""
 
 msgid "[Quote]"
 msgstr "[引用]"

@@ -3,6 +3,7 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
+import { usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -12,7 +13,7 @@ import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -20,6 +21,7 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
@@ -35,6 +37,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const { profileTab } = useProfileTabState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
+    const resolvedSource = narrowToSocialSource(profileTab.source);
+
+    const isLogin = useIsLogin(resolvedSource);
+
+    const pathname = usePathname();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isOthersProfile = !currentProfiles.some(
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
@@ -49,8 +56,9 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     } = useQuery({
         queryKey: ['profile', profileTab?.source, profileTab?.identity],
         queryFn: async () => {
-            if (!profileTab?.identity || profileTab.source === Source.Wallet) return null;
-            return getProfileById(narrowToSocialSource(profileTab.source), profileTab.identity);
+            if (!profileTab?.identity || profileTab.source === Source.Wallet || (!isOthersProfile && !isLogin))
+                return null;
+            return getProfileById(resolvedSource, profileTab.identity);
         },
         retry(failureCount, error) {
             if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
@@ -87,9 +95,12 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     const profileNotFound = isFinalized && profileMissing;
 
+    const showFallback =
+        (!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile);
+
     const header = (
         <>
-            {!isSuspended && profile ? (
+            {!isSuspended && profile && !showFallback ? (
                 <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} />
             ) : null}
             <ProfileSourceTabs profiles={profiles} />
@@ -105,11 +116,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         );
     }
 
-    if (error) {
+    if (showFallback) {
         return (
             <div>
                 {header}
-                <NotLoginFallback source={Source.Twitter} />
+                <NotLoginFallback source={resolvedSource} />
             </div>
         );
     }

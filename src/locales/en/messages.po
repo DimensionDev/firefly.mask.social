@@ -277,9 +277,6 @@ msgstr "{0} left"
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 
-msgid "Terms of Services"
-msgstr "Terms of Services"
-
 msgid "Copied"
 msgstr "Copied"
 
@@ -1330,6 +1327,9 @@ msgstr "Cancel"
 msgid "Send on schedule"
 msgstr "Send on schedule"
 
+msgid "will send on {0} at {1}"
+msgstr "will send on {0} at {1}"
+
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
@@ -1555,9 +1555,6 @@ msgstr "<0>Minted</0> an NFT for free"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
-msgid "The post will send on {0} at {1}"
-msgstr "The post will send on {0} at {1}"
-
 msgid "Properties"
 msgstr "Properties"
 
@@ -1638,6 +1635,9 @@ msgstr "Only people you follow"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "The signer is not authorized to perform the requested operation. Please approve again."
+
+msgid "Saved on {0}"
+msgstr "Saved on {0}"
 
 msgid "Add another option"
 msgstr "Add another option"
@@ -1761,9 +1761,6 @@ msgstr "View on explorer"
 
 msgid "Tip to {0}"
 msgstr "Tip to {0}"
-
-msgid "Click to copy"
-msgstr "Click to copy"
 
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"
@@ -1941,6 +1938,9 @@ msgstr "No content to publish."
 
 msgid "Mirror"
 msgstr "Mirror"
+
+msgid "Terms of Service"
+msgstr "Terms of Service"
 
 msgid "[Quote]"
 msgstr "[Quote]"

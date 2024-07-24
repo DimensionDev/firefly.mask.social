@@ -18,8 +18,7 @@ const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Sourc
             'text-lensPrimary ring-lensPrimary hover:bg-[rgba(154,227,42,0.20)] hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
         [Source.Farcaster]:
             'text-farcasterPrimary ring-farcasterPrimary hover:bg-fireflyBrand/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
-        [Source.Twitter]:
-            'text-twitterPrimary ring-twitterPrimary hover:bg-[#1DA1F3]/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
+        [Source.Twitter]: 'w-[203px] text-main ring-main hover:bg-main/20 hover:shadow-[rgba(101,119,134,0.20)]',
         [Source.Article]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
     },
@@ -41,7 +40,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 height={isArticle ? 208 : 200}
                 alt={`${resolveSourceName(source)} login`}
             />
-            <span className="leading-3.5 px-6 text-base text-secondary">
+            <span className="leading-3.5 px-6 text-center text-base text-secondary">
                 {isArticle
                     ? t`Login to enable all features`
                     : t`You need to connect your ${resolveSourceName(source)} account to use this feature.`}

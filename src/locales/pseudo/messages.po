@@ -277,9 +277,6 @@ msgstr ""
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
 msgstr ""
 
-msgid "Terms of Services"
-msgstr ""
-
 msgid "Copied"
 msgstr ""
 
@@ -1330,6 +1327,9 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
+msgid "will send on {0} at {1}"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr ""
 
@@ -1555,9 +1555,6 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
-msgid "The post will send on {0} at {1}"
-msgstr ""
-
 msgid "Properties"
 msgstr ""
 
@@ -1637,6 +1634,9 @@ msgid "Only people you follow"
 msgstr ""
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
+
+msgid "Saved on {0}"
 msgstr ""
 
 msgid "Add another option"
@@ -1760,9 +1760,6 @@ msgid "View on explorer"
 msgstr ""
 
 msgid "Tip to {0}"
-msgstr ""
-
-msgid "Click to copy"
 msgstr ""
 
 msgid "Unmute @{0}"
@@ -1940,6 +1937,9 @@ msgid "No content to publish."
 msgstr ""
 
 msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"

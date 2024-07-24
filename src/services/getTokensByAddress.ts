@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
@@ -16,7 +17,7 @@ function resolveDeBankChain(deBankChain: string) {
     return;
 }
 
-async function getAllTokenList(address: string) {
+export async function getAllTokenList(address: string) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/misc/all_token_list', {
         address,
     });
@@ -32,7 +33,11 @@ export async function getTokensByAddress(address: string): Promise<
         }
     >
 > {
-    const tokens = await getAllTokenList(address);
+    const tokens = await queryClient.fetchQuery({
+        queryKey: ['debank', 'tokens', address],
+        queryFn: () => getAllTokenList(address),
+        staleTime: 1000 * 60 * 1,
+    });
 
     return tokens.map((token) => {
         const chain = resolveDeBankChain(token.chain);

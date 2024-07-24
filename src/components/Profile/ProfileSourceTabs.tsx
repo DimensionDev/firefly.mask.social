@@ -13,6 +13,7 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import { useProfileTabState } from '@/store/useProfileTabStore.js';
@@ -22,10 +23,12 @@ interface ProfileSourceTabs {
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const { profileTab, setProfileTab } = useProfileTabState();
+    const { profileTab } = useProfileTabState();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
+
+    const isMyProfile = useIsMyRelatedProfile(profileTab.identity ?? '', profileTab.source);
 
     const updateParams = useUpdateParams();
 
@@ -53,7 +56,9 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                             aria-current={profileTab.source === value ? 'page' : undefined}
                             onClick={() => {
                                 const currentProfile =
-                                    value !== Source.Wallet && value !== Source.Article && isProfilePage
+                                    value !== Source.Wallet &&
+                                    value !== Source.Article &&
+                                    (isProfilePage || isMyProfile)
                                         ? getCurrentProfile(narrowToSocialSource(value))
                                         : undefined;
 
@@ -63,11 +68,6 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                           identity: resolveProfileId(currentProfile),
                                       }
                                     : profiles.find((x) => x.source === value);
-
-                                setProfileTab({
-                                    source: value,
-                                    identity: target?.identity,
-                                });
 
                                 updateParams(
                                     new URLSearchParams({
