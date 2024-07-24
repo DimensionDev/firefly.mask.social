@@ -21,6 +21,7 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
@@ -35,6 +36,10 @@ interface ProfilePageProps {
 export function ProfilePage({ profiles }: ProfilePageProps) {
     const { profileTab } = useProfileTabState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
+
+    const resolvedSource = narrowToSocialSource(profileTab.source);
+
+    const isLogin = useIsLogin(resolvedSource);
 
     const pathname = usePathname();
     const currentProfiles = useCurrentFireflyProfilesAll();
@@ -51,8 +56,9 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     } = useQuery({
         queryKey: ['profile', profileTab?.source, profileTab?.identity],
         queryFn: async () => {
-            if (!profileTab?.identity || profileTab.source === Source.Wallet) return null;
-            return getProfileById(narrowToSocialSource(profileTab.source), profileTab.identity);
+            if (!profileTab?.identity || profileTab.source === Source.Wallet || (!isOthersProfile && !isLogin))
+                return null;
+            return getProfileById(resolvedSource, profileTab.identity);
         },
         retry(failureCount, error) {
             if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
@@ -107,11 +113,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         );
     }
 
-    if (error || (profileNotFound && pathname === PageRoute.Profile)) {
+    if (profileNotFound && (pathname === PageRoute.Profile || (!isOthersProfile && !isLogin))) {
         return (
             <div>
                 {header}
-                <NotLoginFallback source={narrowToSocialSource(profileTab.source)} />
+                <NotLoginFallback source={resolvedSource} />
             </div>
         );
     }
