@@ -36,7 +36,7 @@ function getFireflySession(account: Account) {
 async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
-        SORTED_SOCIAL_SOURCES.map(async (source) => {
+        SORTED_SOCIAL_SOURCES.forEach((source) => {
             // we haven't supported to sync firefly id with a twitter account
             if (source === Source.Twitter) return;
 
