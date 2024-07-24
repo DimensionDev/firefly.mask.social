@@ -1332,6 +1332,9 @@ msgstr "取消"
 msgid "Send on schedule"
 msgstr ""
 
+msgid "will send on {0} at {1}"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
@@ -1557,9 +1560,6 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
-msgid "The post will send on {0} at {1}"
-msgstr ""
-
 msgid "Properties"
 msgstr "屬性"
 
@@ -1639,6 +1639,9 @@ msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
+
+msgid "Saved on {0}"
 msgstr ""
 
 msgid "Add another option"
@@ -2000,4 +2003,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

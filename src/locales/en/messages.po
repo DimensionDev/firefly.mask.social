@@ -1327,6 +1327,9 @@ msgstr "Cancel"
 msgid "Send on schedule"
 msgstr "Send on schedule"
 
+msgid "will send on {0} at {1}"
+msgstr "will send on {0} at {1}"
+
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
@@ -1552,9 +1555,6 @@ msgstr "<0>Minted</0> an NFT for free"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
-msgid "The post will send on {0} at {1}"
-msgstr "The post will send on {0} at {1}"
-
 msgid "Properties"
 msgstr "Properties"
 
@@ -1635,6 +1635,9 @@ msgstr "Only people you follow"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "The signer is not authorized to perform the requested operation. Please approve again."
+
+msgid "Saved on {0}"
+msgstr "Saved on {0}"
 
 msgid "Add another option"
 msgstr "Add another option"
