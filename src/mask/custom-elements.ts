@@ -13,7 +13,7 @@ import '@/mask/custom-elements/PageInspector.js';
 import '@/mask/custom-elements/CalendarWidget.js';
 import '@/mask/custom-elements/DecryptedPostInspector.js';
 
-// no plugin avaiable for post inspector
+// no plugin available for post inspector
 // import '@/mask/custom-elements/PostInspector.js';
 
 import { setPluginDebuggerMessages } from '@/mask/message-host/index.js';

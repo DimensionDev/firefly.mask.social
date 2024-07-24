@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useMemo, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
