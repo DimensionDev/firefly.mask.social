@@ -24,16 +24,9 @@ export default function BlinkPage() {
         if (!scheme) {
             throw new Error(t`Invalid Blink.`);
         }
-        const actionScheme = await resolveBlinkTCO(scheme);
-        await fetchJSON(
-            urlcat('/api/solana/action', {
-                ...actionScheme,
-            }),
-            {
-                method: 'DELETE',
-            },
-        );
-
+        await fetchJSON(urlcat('/api/solana/action', await resolveBlinkTCO(scheme)), {
+            method: 'DELETE',
+        });
         return true;
     }, [scheme]);
 
