@@ -79,11 +79,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const payloadImageUrl = payloadFromImageAttachment?.[2];
     const attachments = metadata.content?.attachments ?? EMPTY_LIST;
 
-    const availableAttachments = useMemo(() => {
-        if (!payloadImageUrl) return attachments;
-        return attachments.filter((x) => x.uri !== payloadImageUrl);
-    }, [payloadImageUrl, attachments]);
-
+    // if payload image attachment is available, we don't need to show the attachments
+    const availableAttachments = payloadImageUrl ? EMPTY_LIST : attachments;
     const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
     const asset =
         metadata.content?.asset?.uri === payloadImageUrl && availableAttachments.length
