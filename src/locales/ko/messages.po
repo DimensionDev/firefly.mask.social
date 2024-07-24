@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-23 12:01\n"
+"PO-Revision-Date: 2024-07-24 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -280,9 +280,6 @@ msgid "{0} left"
 msgstr ""
 
 msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
-msgstr ""
-
-msgid "Terms of Services"
 msgstr ""
 
 msgid "Copied"
@@ -1945,6 +1942,9 @@ msgid "No content to publish."
 msgstr ""
 
 msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
