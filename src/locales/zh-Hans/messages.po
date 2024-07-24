@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-24 00:04\n"
+"PO-Revision-Date: 2024-07-24 06:03\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1516,7 +1516,7 @@ msgid "The contract may contain additional issuance functions, which could maybe
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
 msgid "Saved on {0} at {1}"
-msgstr "在{1} {0} 上保存成功"
+msgstr "保存于 {1} {0}"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
@@ -1558,7 +1558,7 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
-msgstr "将在<0>{0}<1>{1}</1></0>发送"
+msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
 msgid "Properties"
 msgstr "属性"
@@ -2000,3 +2000,4 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
