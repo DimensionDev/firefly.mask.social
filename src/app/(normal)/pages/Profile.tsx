@@ -95,9 +95,12 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     const profileNotFound = isFinalized && profileMissing;
 
+    const showFallback =
+        (!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile);
+
     const header = (
         <>
-            {!isSuspended && profile ? (
+            {!isSuspended && profile && !showFallback ? (
                 <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} />
             ) : null}
             <ProfileSourceTabs profiles={profiles} />
@@ -113,7 +116,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         );
     }
 
-    if (profileNotFound && (pathname === PageRoute.Profile || (!isOthersProfile && !isLogin))) {
+    if (showFallback) {
         return (
             <div>
                 {header}
