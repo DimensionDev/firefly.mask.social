@@ -1570,7 +1570,7 @@ msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
 msgid "Sign the transaction to verify you are the owner of the selected profile."
-msgstr "签署交易以验证你是所选账号的所有者。"
+msgstr "签署交易以验证您是所选账号的所有者。"
 
 msgid "Refresh"
 msgstr "刷新"
