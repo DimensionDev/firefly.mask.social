@@ -13,7 +13,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
+import { resolveBlinkTCO } from '@/helpers/resolveBlinkTCO.js';
 import { BlinkParser } from '@/providers/blink/Parser.js';
 
 export default function BlinkPage() {
@@ -24,11 +24,10 @@ export default function BlinkPage() {
         if (!scheme) {
             throw new Error(t`Invalid Blink.`);
         }
-        const url = (await resolveTCOLink(scheme.url)) ?? scheme.url;
+        const actionScheme = await resolveBlinkTCO(scheme);
         await fetchJSON(
             urlcat('/api/solana/action', {
-                ...scheme,
-                url,
+                ...actionScheme,
             }),
             {
                 method: 'DELETE',
