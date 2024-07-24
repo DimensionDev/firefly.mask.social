@@ -1332,6 +1332,9 @@ msgstr "取消"
 msgid "Send on schedule"
 msgstr "发送定时任务"
 
+msgid "will send on {0} at {1}"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr "点赞失败。"
 
@@ -1557,9 +1560,6 @@ msgstr "免费<0>铸造</0> 了一个 NFT"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在<0>{0}<1>{1}</1></0>发送"
 
-msgid "The post will send on {0} at {1}"
-msgstr "帖子将会在 {1} 发送到 {0}"
-
 msgid "Properties"
 msgstr "属性"
 
@@ -1640,6 +1640,9 @@ msgstr "只有你关注的人"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "Signer key 未被授权。请重试。"
+
+msgid "Saved on {0}"
+msgstr ""
 
 msgid "Add another option"
 msgstr "添加另一个选项"
@@ -2000,4 +2003,3 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

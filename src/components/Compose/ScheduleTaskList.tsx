@@ -135,7 +135,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                         </Trans>
                     ) : (
                         <Trans>
-                            The post will send on {dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')} at{' '}
+                            will send on {dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')} at{' '}
                             {dayjs(task.publish_timestamp).format('hh:mm A')}
                         </Trans>
                     )}

@@ -131,7 +131,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                     {post?.availableSources.map((y) => <SocialSourceIcon key={y} source={y} size={20} />)}
                 </span>
                 <span className="text-[13px] font-medium leading-[24px] text-secondary">
-                    {dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')}
+                    <Trans>Saved on {dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')}</Trans>
                 </span>
             </div>
         </div>

@@ -1327,6 +1327,9 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
+msgid "will send on {0} at {1}"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr ""
 
@@ -1552,9 +1555,6 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
-msgid "The post will send on {0} at {1}"
-msgstr ""
-
 msgid "Properties"
 msgstr ""
 
@@ -1634,6 +1634,9 @@ msgid "Only people you follow"
 msgstr ""
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
+
+msgid "Saved on {0}"
 msgstr ""
 
 msgid "Add another option"
