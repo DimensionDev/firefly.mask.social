@@ -44,6 +44,8 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const user = includes?.users?.find((u) => u.id === item.author_id);
     const repliedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'replied_to')?.id;
     const repliedTweet = repliedTweetId ? includes?.tweets?.find((tweet) => tweet.id === repliedTweetId) : undefined;
+    const quotedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'quoted')?.id;
+    const quotedTweet = quotedTweetId ? includes?.tweets?.find((tweet) => tweet.id === quotedTweetId) : undefined;
     const isRetweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
     const oembedUrls = getEmbedUrls(item.text ?? '', []);
     const attachments = compact(
@@ -56,7 +58,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const ret: Post = {
         publicationId: item.id,
         postId: item.id,
-        type: repliedTweetId ? 'Comment' : isRetweeted ? 'Mirror' : 'Post',
+        type: isRetweeted ? 'Mirror' : 'Post',
         source: Source.Twitter,
         canComment: true,
         author: {
@@ -90,6 +92,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         },
     };
     if (repliedTweet) {
+        ret.type = 'Comment';
         ret.commentOn = tweetV2ToPost(repliedTweet, includes);
         let endCommentOn = ret.commentOn;
         while (endCommentOn?.commentOn) {
@@ -107,6 +110,10 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         if (ret.root) {
             ret.isThread = true;
         }
+    }
+    if (quotedTweet) {
+        ret.quoteOn = tweetV2ToPost(quotedTweet, includes);
+        ret.type = 'Quote';
     }
     if (item.attachments?.poll_ids?.length) {
         const poll = find(includes?.polls ?? [], (poll) => poll.id === first(item.attachments?.poll_ids));
