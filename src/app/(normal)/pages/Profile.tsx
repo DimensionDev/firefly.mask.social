@@ -96,7 +96,8 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const profileNotFound = isFinalized && profileMissing;
 
     const showFallback =
-        (!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile);
+        profileTab.source !== Source.Wallet &&
+        ((!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile));
 
     const header = (
         <>
