@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import type { ComposeModalOpenProps } from '@/modals/ComposeModal.jsx';
+import type { ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
 enum SiteType {
@@ -45,7 +45,7 @@ function generateComposeProps(url: string): ComposeModalOpenProps | null {
     return null;
 }
 
-export function openComposeWithUrl(url: string) {
+export function openIntentUrl(url: string) {
     const composeProps = generateComposeProps(url);
     if (composeProps) {
         ComposeModalRef.open(composeProps);
