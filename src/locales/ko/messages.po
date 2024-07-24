@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-24 00:04\n"
+"PO-Revision-Date: 2024-07-24 06:03\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1332,6 +1332,9 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
+msgid "will send on {0} at {1}"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr ""
 
@@ -1557,9 +1560,6 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
-msgid "The post will send on {0} at {1}"
-msgstr ""
-
 msgid "Properties"
 msgstr ""
 
@@ -1639,6 +1639,9 @@ msgid "Only people you follow"
 msgstr ""
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
+
+msgid "Saved on {0}"
 msgstr ""
 
 msgid "Add another option"
@@ -1762,9 +1765,6 @@ msgid "View on explorer"
 msgstr ""
 
 msgid "Tip to {0}"
-msgstr ""
-
-msgid "Click to copy"
 msgstr ""
 
 msgid "Unmute @{0}"
