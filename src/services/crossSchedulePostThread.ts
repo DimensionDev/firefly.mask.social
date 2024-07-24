@@ -21,9 +21,9 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
 
         if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
-            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time. Please reset it`);
+            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time.`);
         } else if (dayjs().isAfter(scheduleTime, 'minute')) {
-            throw new CreateScheduleError(`The scheduled time has passed. Please reset`);
+            throw new CreateScheduleError(`The scheduled time has passed.`);
         }
 
         const results = new Map<

@@ -66,13 +66,12 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
 export async function crossSchedulePost(type: ComposeType, compositePost: CompositePost, scheduleTime: Date) {
     try {
         if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
-            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time. Please reset it`);
+            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time.`);
         } else if (dayjs().isAfter(scheduleTime, 'minute')) {
-            throw new CreateScheduleError(`The scheduled time has passed. Please reset`);
+            throw new CreateScheduleError(`The scheduled time has passed.`);
         }
 
         const posts = await createSchedulePostsPayload(type, compositePost);
-
         const assets = compact([
             compositePost?.images.length ? t`[Photo]` : undefined,
             compositePost?.video ? t`[Video]` : undefined,
@@ -80,7 +79,6 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         ]).join('');
 
         const chars = readChars(compositePost.chars, 'visible');
-
         const content = `${chars}${chars.length > 0 ? '\n' : ''}${assets}`;
 
         await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll());

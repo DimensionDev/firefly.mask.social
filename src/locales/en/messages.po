@@ -79,6 +79,9 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 
+msgid "Up to 7 days can be set as the scheduled time."
+msgstr "Up to 7 days can be set as the scheduled time."
+
 msgid "Followed @{0} on {sourceName}"
 msgstr "Followed @{0} on {sourceName}"
 
@@ -234,9 +237,6 @@ msgstr "Market Cap"
 
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
-
-msgid "The scheduled time has passed. Please reset it"
-msgstr "The scheduled time has passed. Please reset it"
 
 msgid "Profile not found"
 msgstr "Profile not found"
@@ -702,9 +702,6 @@ msgstr "Insufficient Gas"
 
 msgid "Blacklist function"
 msgstr "Blacklist function"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
 
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
@@ -1788,6 +1785,9 @@ msgstr "Follow @{0}"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
+
+msgid "The scheduled time has passed."
+msgstr "The scheduled time has passed."
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."

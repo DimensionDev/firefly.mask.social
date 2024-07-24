@@ -84,6 +84,9 @@ msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
 
+msgid "Up to 7 days can be set as the scheduled time."
+msgstr "最长可以设置 7 天的定时任务。"
+
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
 
@@ -239,9 +242,6 @@ msgstr "市值"
 
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
-
-msgid "The scheduled time has passed. Please reset it"
-msgstr "定时任务已过期。请重新设置"
 
 msgid "Profile not found"
 msgstr "未找到个人资料"
@@ -707,9 +707,6 @@ msgstr "燃油费不足"
 
 msgid "Blacklist function"
 msgstr "黑名单功能"
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr "最长可以设置 7 天的定时任务。请重新设置。"
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -1793,6 +1790,9 @@ msgstr "关注 @{0}"
 
 msgid "Cancel Recast"
 msgstr "取消转帖"
+
+msgid "The scheduled time has passed."
+msgstr ""
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
