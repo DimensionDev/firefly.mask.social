@@ -94,18 +94,17 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
         <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
-        <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
+        post.source !== Source.Twitter ? (
+            <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
+        ) : null,
     ]);
     const actionLength = actions.length;
 
     return (
         <ClickableArea
-            className={classNames('mt-2 grid grid-flow-col items-center', className, {
+            className={classNames('mt-2 flex items-center justify-between', className, {
                 'pl-[52px]': !disablePadding,
             })}
-            style={{
-                gridTemplateColumns: `repeat(${actionLength - 1}, 1fr)`,
-            }}
         >
             {actions}
         </ClickableArea>
