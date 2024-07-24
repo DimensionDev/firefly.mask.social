@@ -77,10 +77,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
     const payloadImageUrl = payloadFromImageAttachment?.[2];
-    const attachments = metadata.content?.attachments ?? EMPTY_LIST;
+    const hasEncryptedPayload = payloads?.payloadFromImageAttachment || payloads?.payloadFromText;
 
     // if payload image attachment is available, we don't need to show the attachments
+    const attachments = metadata.content?.attachments ?? EMPTY_LIST;
     const availableAttachments = payloadImageUrl ? EMPTY_LIST : attachments;
+
     const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
     const asset =
         metadata.content?.asset?.uri === payloadImageUrl && availableAttachments.length
@@ -196,19 +198,15 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
-            {seen ? (
-                payloads?.payloadFromImageAttachment || payloads?.payloadFromText ? (
-                    <mask-decrypted-post
-                        props={encodeURIComponent(
-                            JSON.stringify({
-                                post,
-                                payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
-                            }),
-                        )}
-                    />
-                ) : (
-                    <mask-post-inspector props={encodeURIComponent(JSON.stringify({ post }))} />
-                )
+            {seen && hasEncryptedPayload ? (
+                <mask-decrypted-post
+                    props={encodeURIComponent(
+                        JSON.stringify({
+                            post,
+                            payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
+                        }),
+                    )}
+                />
             ) : null}
 
             {canShowMore ? (
@@ -223,13 +221,17 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 </div>
             ) : null}
 
-            {post.poll ? <PollCard post={post} /> : null}
+            {!hasEncryptedPayload ? (
+                <>
+                    {post.poll ? <PollCard post={post} /> : null}
 
-            {showAttachments ? (
-                <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
+                    {showAttachments ? (
+                        <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
+                    ) : null}
+
+                    <PostLinks post={post} setContent={setPostContent} />
+                </>
             ) : null}
-
-            <PostLinks post={post} setContent={setPostContent} />
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>

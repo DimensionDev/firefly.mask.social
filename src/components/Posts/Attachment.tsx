@@ -105,8 +105,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         );
     }
 
-    const noText = !post?.metadata.content?.content;
-    const isSoloImage = noText && attachmentsSnapshot.length === 1 && attachmentsSnapshot[0].type === 'Image';
+    const isSoloImage =
+        !post?.metadata.content?.content && attachmentsSnapshot.length === 1 && attachmentsSnapshot[0].type === 'Image';
 
     return (
         <div className={isQuote ? '' : 'mt-3'}>
