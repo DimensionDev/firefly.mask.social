@@ -19,11 +19,11 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { openComposeWithUrl } from '@/helpers/generateComposeProps.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { openIntentUrl } from '@/helpers/openIntentUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
@@ -171,7 +171,7 @@ async function getNextFrame(
             case ActionType.Link:
                 if (!button.target) return;
 
-                const opened = openComposeWithUrl(button.target);
+                const opened = openIntentUrl(button.target);
                 if (opened) return;
 
                 if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
