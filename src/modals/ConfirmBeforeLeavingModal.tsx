@@ -26,8 +26,8 @@ export const ConfirmBeforeLeavingModal = forwardRef<
                     ConfirmModalRef.close(true);
                     ConfirmBeforeLeavingModalRef.close(true);
                 }, 100);
-                return
-            };
+                return;
+            }
 
             ConfirmModalRef.open({
                 title: t`Leaving Firefly`,
