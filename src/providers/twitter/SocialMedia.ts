@@ -13,7 +13,12 @@ import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
+import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
+import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
+import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
+import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
+import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -32,6 +37,11 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
+@SetQueryDataForLikePost(Source.Twitter)
+@SetQueryDataForBookmarkPost(Source.Twitter)
+@SetQueryDataForMirrorPost(Source.Twitter)
+@SetQueryDataForCommentPost(Source.Twitter)
+@SetQueryDataForDeletePost(Source.Twitter)
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
 class TwitterSocialMedia implements Provider {
