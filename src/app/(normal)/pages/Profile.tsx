@@ -3,6 +3,7 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
+import { usePathname } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -12,7 +13,7 @@ import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -35,6 +36,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const { profileTab } = useProfileTabState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
+    const pathname = usePathname();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isOthersProfile = !currentProfiles.some(
         (x) => x.source === profileTab.source && x.identity === profileTab.identity,
@@ -105,11 +107,11 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         );
     }
 
-    if (error) {
+    if (error || (profileNotFound && pathname === PageRoute.Profile)) {
         return (
             <div>
                 {header}
-                <NotLoginFallback source={Source.Twitter} />
+                <NotLoginFallback source={narrowToSocialSource(profileTab.source)} />
             </div>
         );
     }
