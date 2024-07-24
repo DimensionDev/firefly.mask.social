@@ -21,7 +21,13 @@ export const ConfirmBeforeLeavingModal = forwardRef<
     useSingletonModal(ref, {
         onOpen: async (url) => {
             // urls in the whitelist will not trigger the modal
-            if (WHITELIST.some((x) => (typeof x === 'function' ? x(url) : isSameOriginUrl(url, x)))) return;
+            if (WHITELIST.some((x) => (typeof x === 'function' ? x(url) : isSameOriginUrl(url, x)))) {
+                setTimeout(() => {
+                    ConfirmModalRef.close(true);
+                    ConfirmBeforeLeavingModalRef.close(true);
+                }, 100);
+                return
+            };
 
             ConfirmModalRef.open({
                 title: t`Leaving Firefly`,
