@@ -1762,9 +1762,6 @@ msgstr ""
 msgid "Tip to {0}"
 msgstr ""
 
-msgid "Click to copy"
-msgstr ""
-
 msgid "Unmute @{0}"
 msgstr ""
 

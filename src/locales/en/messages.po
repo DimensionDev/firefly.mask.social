@@ -1762,9 +1762,6 @@ msgstr "View on explorer"
 msgid "Tip to {0}"
 msgstr "Tip to {0}"
 
-msgid "Click to copy"
-msgstr "Click to copy"
-
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"
 
