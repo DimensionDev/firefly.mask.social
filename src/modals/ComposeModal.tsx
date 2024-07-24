@@ -177,7 +177,7 @@ function ComposeRouteRoot() {
                     ) : null}
                 </span>
                 {isMedium && !isDraft ? (
-                    <Tooltip content={t`Draft`} placement="top" className="absolute right-4 top-1/2 -translate-y-1/2">
+                    <Tooltip content={t`Drafts`} placement="top" className="absolute right-4 top-1/2 -translate-y-1/2">
                         <DraftIcon className="cursor-pointer text-fourMain" onClick={() => history.push('/draft')} />
                     </Tooltip>
                 ) : null}
