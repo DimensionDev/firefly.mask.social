@@ -41,7 +41,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
             }
         >
             <Menu.Items
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
+                className="no-scrollbar absolute right-0 z-[1000] flex max-h-[140px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                 onClick={(event) => {
                     event.stopPropagation();
                     event.preventDefault();
