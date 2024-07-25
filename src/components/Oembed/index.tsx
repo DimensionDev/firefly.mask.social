@@ -37,7 +37,7 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: async () => {
-            if (!url || isValidDomain(url)) return;
+            if (isValidDomain(url)) return;
             return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/oembed', {
                     link: (await resolveTCOLink(url)) ?? url,

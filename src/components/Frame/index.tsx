@@ -278,7 +278,7 @@ export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, child
             try {
                 const result = await attemptUntil(
                     urls.map((x) => async () => {
-                        if (!x || isValidDomain(x)) return;
+                        if (isValidDomain(x)) return;
                         return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                             urlcat('/api/frame', {
                                 link: (await resolveTCOLink(x)) ?? x,
@@ -311,7 +311,7 @@ export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, child
         onData?.(data.data.frame);
     }, [data, onData]);
 
-    const frame: FrameType | null = latestFrame ?? (data?.success ? data.data.frame : null);
+    const frame = latestFrame ?? (data?.success ? data.data.frame : null);
 
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {

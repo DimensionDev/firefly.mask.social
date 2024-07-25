@@ -100,7 +100,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         }}
                     />
                 ) : null}
-                {!isMuted ? <div className="text-2xl font-semibold">{article.title} </div> : null}
+                {!isMuted ? <div className="text-2xl font-semibold">{article.title}</div> : null}
                 {article.origin ? (
                     <Link
                         href={article.origin}
