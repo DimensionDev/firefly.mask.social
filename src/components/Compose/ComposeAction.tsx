@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
-import AddThread from '@/assets/addThread.svg';
+import AddThread from '@/assets/add-thread.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';

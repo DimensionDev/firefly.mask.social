@@ -6,7 +6,7 @@ import { RouterProvider } from '@tanstack/react-router';
 import { forwardRef, useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
-import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
+import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
