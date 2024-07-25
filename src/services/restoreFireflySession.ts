@@ -73,8 +73,20 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             }
             throw new Error('Failed to restore firefly session.');
         }
-        case SessionType.Twitter:
+        case SessionType.Twitter: {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: session.token,
+                }),
+                signal,
+            });
             throw new NotImplementedError();
+        }
         case SessionType.Firefly:
             throw new NotAllowedError('Firefly session is not allowed.');
         default:
