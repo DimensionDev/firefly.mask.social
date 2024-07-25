@@ -114,6 +114,9 @@ msgstr "選擇代幣"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
+msgid "<0/> <1>acted on your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
+
 msgid "Send tips to @{0}"
 msgstr ""
 
@@ -258,6 +261,9 @@ msgstr "NFT 標準"
 msgid "<0>{0}</0> reposted"
 msgstr ""
 
+msgid "<0/> mentioned you in a <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
 
@@ -306,8 +312,8 @@ msgstr "重試"
 msgid "Show less"
 msgstr "顯示更少"
 
-msgid "comment"
-msgstr "留言"
+msgid "<0/> commented on your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
 
 msgid "True Token"
 msgstr ""
@@ -357,9 +363,6 @@ msgstr ""
 msgid "Blockchain"
 msgstr "區塊練"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr ""
-
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -376,6 +379,9 @@ msgid "Page not found"
 msgstr "找不到網頁"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
+msgstr ""
+
+msgid "<0/> and <1/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
 msgstr ""
 
 msgid "Password"
@@ -426,6 +432,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
+msgid "<0/> and <1>{0} others</1><2> followed you</2>"
+msgstr ""
+
 msgid "Watch"
 msgstr "觀察"
 
@@ -449,9 +458,6 @@ msgstr "通過 {0} 驗證"
 
 msgid "Select Account"
 msgstr "選定帳戶"
-
-msgid "mirror"
-msgstr "鏡像"
 
 msgid "POST"
 msgstr "貼文"
@@ -645,9 +651,6 @@ msgstr ""
 msgid "Failed to upload. File type is not supported on X"
 msgstr ""
 
-msgid "post"
-msgstr "貼文"
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
@@ -658,9 +661,6 @@ msgid "Frame"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr ""
 
 msgid "The file exceeds the size limit."
@@ -735,6 +735,9 @@ msgstr "開啟開發API版本"
 msgid "Reply"
 msgstr "回覆"
 
+msgid "<0/> <1>liked your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
+
 msgid "Mirror or Quote"
 msgstr ""
 
@@ -772,9 +775,6 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Top Profiles"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "EVM"
@@ -1113,6 +1113,9 @@ msgstr "創作者"
 msgid "I want to hide this wallet address."
 msgstr ""
 
+msgid "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Details"
 msgstr "詳細資訊"
 
@@ -1124,6 +1127,9 @@ msgstr ""
 
 msgid "No preview found for shared link"
 msgstr "分享的連結暫無預覽畫面"
+
+msgid "<0/> and <1>{0} others</1> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
 
 msgid "Contract source code not verified"
 msgstr ""
@@ -1187,6 +1193,9 @@ msgstr "一般"
 
 msgid "Page not found. Please try again."
 msgstr "未找到頁面。請重試"
+
+msgid "<0/> and <1>{0} others</1> {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
@@ -1407,6 +1416,9 @@ msgstr ""
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
+msgid "<0/> quoted your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
@@ -1426,6 +1438,9 @@ msgid "Unwatch {identity}"
 msgstr "取消觀察 {identity}"
 
 msgid "Recast or Quote"
+msgstr ""
+
+msgid "<0/><1> followed you</1>"
 msgstr ""
 
 msgid "Unwatch"
@@ -1508,9 +1523,6 @@ msgstr "由 {0} 發布"
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr "來自 @{identity} 的文章將在您的主頁時間線中被隱藏"
-
-msgid "quote"
-msgstr "引用"
 
 msgid "Casts + Replies"
 msgstr ""
@@ -1668,9 +1680,6 @@ msgstr "日期"
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr ""
-
 msgid "Repost"
 msgstr ""
 
@@ -1678,6 +1687,9 @@ msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
 msgid "Developers"
+msgstr ""
+
+msgid "<0/> and <1/><2> followed you</2>"
 msgstr ""
 
 msgid "Share to"
@@ -1770,6 +1782,9 @@ msgstr ""
 msgid "Collection"
 msgstr ""
 
+msgid "<0/> and <1>{0} others</1> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1860,6 +1875,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Failed to report spam NFT."
 msgstr ""
 
@@ -1938,6 +1956,9 @@ msgstr "語言"
 msgid "Address on Watching Lists"
 msgstr "在觀察列表上的地址"
 
+msgid "<0/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Profiles"
 msgstr "個人資料"
 
@@ -1948,9 +1969,6 @@ msgid "Please confirm the login with X."
 msgstr "請至 X 確認登錄"
 
 msgid "Max Supply"
-msgstr ""
-
-msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"
@@ -2043,9 +2061,6 @@ msgstr ""
 msgid "Failed to update scheduled post."
 msgstr ""
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
 msgid "Login"
 msgstr ""
 
@@ -2065,7 +2080,4 @@ msgid "Likes"
 msgstr "喜歡"
 
 msgid "Blink Validator"
-msgstr ""
-
-msgid "<0/> quoted your <1><2/></1>"
 msgstr ""

@@ -109,6 +109,9 @@ msgstr "Select token"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
+msgid "<0/> <1>acted on your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr "<0/> <1>acted on your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+
 msgid "Send tips to @{0}"
 msgstr "Send tips to @{0}"
 
@@ -253,6 +256,9 @@ msgstr "NFT Standard"
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> reposted"
 
+msgid "<0/> mentioned you in a <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr "<0/> mentioned you in a <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
@@ -301,8 +307,8 @@ msgstr "Retry"
 msgid "Show less"
 msgstr "Show less"
 
-msgid "comment"
-msgstr "comment"
+msgid "<0/> commented on your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr "<0/> commented on your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
 
 msgid "True Token"
 msgstr "True Token"
@@ -352,9 +358,6 @@ msgstr "{days, plural, one {1 day} other {{days} days}}"
 msgid "Blockchain"
 msgstr "Blockchain"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {Follower} other {Followers}}"
 
@@ -372,6 +375,9 @@ msgstr "Page not found"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
+
+msgid "<0/> and <1/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr "<0/> and <1/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
 
 msgid "Password"
 msgstr "Password"
@@ -421,6 +427,9 @@ msgstr "Followed by {0}"
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
 
+msgid "<0/> and <1>{0} others</1><2> followed you</2>"
+msgstr "<0/> and <1>{0} others</1><2> followed you</2>"
+
 msgid "Watch"
 msgstr "Watch"
 
@@ -444,9 +453,6 @@ msgstr "Verified by {0}"
 
 msgid "Select Account"
 msgstr "Select Account"
-
-msgid "mirror"
-msgstr "mirror"
 
 msgid "POST"
 msgstr "POST"
@@ -640,9 +646,6 @@ msgstr "Top Channels"
 msgid "Failed to upload. File type is not supported on X"
 msgstr "Failed to upload. File type is not supported on X"
 
-msgid "post"
-msgstr "post"
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 
@@ -654,9 +657,6 @@ msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 
 msgid "The file exceeds the size limit."
 msgstr "The file exceeds the size limit."
@@ -730,6 +730,9 @@ msgstr "Enable development API version"
 msgid "Reply"
 msgstr "Reply"
 
+msgid "<0/> <1>liked your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr "<0/> <1>liked your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
 
@@ -768,9 +771,6 @@ msgstr "Failed to create image payload."
 
 msgid "Top Profiles"
 msgstr "Top Profiles"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 
 msgid "EVM"
 msgstr "EVM"
@@ -1108,6 +1108,9 @@ msgstr "Creator"
 msgid "I want to hide this wallet address."
 msgstr "I want to hide this wallet address."
 
+msgid "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+
 msgid "Details"
 msgstr "Details"
 
@@ -1119,6 +1122,9 @@ msgstr "Failed to disconnect wallet from your social graph."
 
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
+
+msgid "<0/> and <1>{0} others</1> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr "<0/> and <1>{0} others</1> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
 
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
@@ -1182,6 +1188,9 @@ msgstr "General"
 
 msgid "Page not found. Please try again."
 msgstr "Page not found. Please try again."
+
+msgid "<0/> and <1>{0} others</1> {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr "<0/> and <1>{0} others</1> {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
@@ -1402,6 +1411,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
 
+msgid "<0/> quoted your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr "<0/> quoted your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
 
@@ -1422,6 +1434,9 @@ msgstr "Unwatch {identity}"
 
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
+
+msgid "<0/><1> followed you</1>"
+msgstr "<0/><1> followed you</1>"
 
 msgid "Unwatch"
 msgstr "Unwatch"
@@ -1503,9 +1518,6 @@ msgstr "Post by {0}"
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr "Articles from @{identity} will now be hidden in your home timeline"
-
-msgid "quote"
-msgstr "quote"
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
@@ -1663,9 +1675,6 @@ msgstr "Date"
 msgid "Confirm to log out all accounts?"
 msgstr "Confirm to log out all accounts?"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-
 msgid "Repost"
 msgstr "Repost"
 
@@ -1674,6 +1683,9 @@ msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 
 msgid "Developers"
 msgstr "Developers"
+
+msgid "<0/> and <1/><2> followed you</2>"
+msgstr "<0/> and <1/><2> followed you</2>"
 
 msgid "Share to"
 msgstr "Share to"
@@ -1765,6 +1777,9 @@ msgstr "Total Supply"
 msgid "Collection"
 msgstr "Collection"
 
+msgid "<0/> and <1>{0} others</1> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr "<0/> and <1>{0} others</1> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+
 msgid "Your name"
 msgstr "Your name"
 
@@ -1855,6 +1870,9 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
+msgid "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
 
@@ -1933,6 +1951,9 @@ msgstr "Language"
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
 
+msgid "<0/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr "<0/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+
 msgid "Profiles"
 msgstr "Profiles"
 
@@ -1944,9 +1965,6 @@ msgstr "Please confirm the login with X."
 
 msgid "Max Supply"
 msgstr "Max Supply"
-
-msgid "<0/> commented on your <1><2/></1>"
-msgstr "<0/> commented on your <1><2/></1>"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
@@ -2038,9 +2056,6 @@ msgstr "Close"
 msgid "Failed to update scheduled post."
 msgstr "Failed to update scheduled post."
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr "<0/> mentioned you in a <1><2/></1>"
-
 msgid "Login"
 msgstr "Login"
 
@@ -2061,6 +2076,3 @@ msgstr "Likes"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
-
-msgid "<0/> quoted your <1><2/></1>"
-msgstr "<0/> quoted your <1><2/></1>"

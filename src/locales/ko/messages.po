@@ -114,6 +114,9 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
+msgid "<0/> <1>acted on your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
+
 msgid "Send tips to @{0}"
 msgstr ""
 
@@ -258,6 +261,9 @@ msgstr ""
 msgid "<0>{0}</0> reposted"
 msgstr ""
 
+msgid "<0/> mentioned you in a <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr ""
 
@@ -306,7 +312,7 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
-msgid "comment"
+msgid "<0/> commented on your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
 msgid "True Token"
@@ -357,9 +363,6 @@ msgstr ""
 msgid "Blockchain"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr ""
-
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -376,6 +379,9 @@ msgid "Page not found"
 msgstr ""
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
+msgstr ""
+
+msgid "<0/> and <1/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
 msgstr ""
 
 msgid "Password"
@@ -426,6 +432,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
+msgid "<0/> and <1>{0} others</1><2> followed you</2>"
+msgstr ""
+
 msgid "Watch"
 msgstr ""
 
@@ -448,9 +457,6 @@ msgid "Verified by {0}"
 msgstr ""
 
 msgid "Select Account"
-msgstr ""
-
-msgid "mirror"
 msgstr ""
 
 msgid "POST"
@@ -645,9 +651,6 @@ msgstr ""
 msgid "Failed to upload. File type is not supported on X"
 msgstr ""
 
-msgid "post"
-msgstr ""
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
@@ -658,9 +661,6 @@ msgid "Frame"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr ""
 
 msgid "The file exceeds the size limit."
@@ -735,6 +735,9 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
+msgid "<0/> <1>liked your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
+
 msgid "Mirror or Quote"
 msgstr ""
 
@@ -772,9 +775,6 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Top Profiles"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "EVM"
@@ -1113,6 +1113,9 @@ msgstr ""
 msgid "I want to hide this wallet address."
 msgstr ""
 
+msgid "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Details"
 msgstr ""
 
@@ -1123,6 +1126,9 @@ msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
 msgid "No preview found for shared link"
+msgstr ""
+
+msgid "<0/> and <1>{0} others</1> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
 msgstr ""
 
 msgid "Contract source code not verified"
@@ -1186,6 +1192,9 @@ msgid "General"
 msgstr ""
 
 msgid "Page not found. Please try again."
+msgstr ""
+
+msgid "<0/> and <1>{0} others</1> {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -1407,6 +1416,9 @@ msgstr ""
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
+msgid "<0/> quoted your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
@@ -1426,6 +1438,9 @@ msgid "Unwatch {identity}"
 msgstr ""
 
 msgid "Recast or Quote"
+msgstr ""
+
+msgid "<0/><1> followed you</1>"
 msgstr ""
 
 msgid "Unwatch"
@@ -1507,9 +1522,6 @@ msgid "Post by {0}"
 msgstr ""
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr ""
-
-msgid "quote"
 msgstr ""
 
 msgid "Casts + Replies"
@@ -1668,9 +1680,6 @@ msgstr ""
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr ""
-
 msgid "Repost"
 msgstr ""
 
@@ -1678,6 +1687,9 @@ msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
 msgid "Developers"
+msgstr ""
+
+msgid "<0/> and <1/><2> followed you</2>"
 msgstr ""
 
 msgid "Share to"
@@ -1770,6 +1782,9 @@ msgstr ""
 msgid "Collection"
 msgstr ""
 
+msgid "<0/> and <1>{0} others</1> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Your name"
 msgstr ""
 
@@ -1860,6 +1875,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Failed to report spam NFT."
 msgstr ""
 
@@ -1938,6 +1956,9 @@ msgstr ""
 msgid "Address on Watching Lists"
 msgstr ""
 
+msgid "<0/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Profiles"
 msgstr ""
 
@@ -1948,9 +1969,6 @@ msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "Max Supply"
-msgstr ""
-
-msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"
@@ -2043,9 +2061,6 @@ msgstr ""
 msgid "Failed to update scheduled post."
 msgstr ""
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
 msgid "Login"
 msgstr ""
 
@@ -2065,7 +2080,4 @@ msgid "Likes"
 msgstr ""
 
 msgid "Blink Validator"
-msgstr ""
-
-msgid "<0/> quoted your <1><2/></1>"
 msgstr ""

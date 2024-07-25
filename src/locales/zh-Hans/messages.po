@@ -114,6 +114,9 @@ msgstr "选择代币"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
+msgid "<0/> <1>acted on your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
+
 msgid "Send tips to @{0}"
 msgstr "发送打赏给 {0}"
 
@@ -258,6 +261,9 @@ msgstr "NFT 标准"
 msgid "<0>{0}</0> reposted"
 msgstr ""
 
+msgid "<0/> mentioned you in a <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
@@ -306,8 +312,8 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
-msgid "comment"
-msgstr "评论"
+msgid "<0/> commented on your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
 
 msgid "True Token"
 msgstr "真实的通证"
@@ -357,9 +363,6 @@ msgstr "{days, plural, one {1 天} other {{days} 天}}"
 msgid "Blockchain"
 msgstr "区块链"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注你</4>"
-
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
 
@@ -377,6 +380,9 @@ msgstr "找不到网页"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会增加通证的流通量并影响通证的价格。"
+
+msgid "<0/> and <1/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
 
 msgid "Password"
 msgstr "密码"
@@ -426,6 +432,9 @@ msgstr "被 {0} 关注"
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 
+msgid "<0/> and <1>{0} others</1><2> followed you</2>"
+msgstr ""
+
 msgid "Watch"
 msgstr "关注"
 
@@ -449,9 +458,6 @@ msgstr "由 {0} 校验"
 
 msgid "Select Account"
 msgstr "选择账号"
-
-msgid "mirror"
-msgstr "转帖"
 
 msgid "POST"
 msgstr "发帖"
@@ -645,9 +651,6 @@ msgstr "热门频道"
 msgid "Failed to upload. File type is not supported on X"
 msgstr "图片格式 X 不支持。上传失败。"
 
-msgid "post"
-msgstr "发帖"
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
@@ -659,9 +662,6 @@ msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4> 交互了你的 </4><5><6/></5>"
 
 msgid "The file exceeds the size limit."
 msgstr "文件超过了大小限制。"
@@ -735,6 +735,9 @@ msgstr "启用开发环境接口"
 msgid "Reply"
 msgstr "回复"
 
+msgid "<0/> <1>liked your </1><2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
+
 msgid "Mirror or Quote"
 msgstr "转帖或者引用"
 
@@ -773,9 +776,6 @@ msgstr "创建图片内容失败"
 
 msgid "Top Profiles"
 msgstr "热门用户"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/>  和 <2/>} other {<3/>}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "EVM"
 msgstr "EVM"
@@ -1113,6 +1113,9 @@ msgstr "创建者"
 msgid "I want to hide this wallet address."
 msgstr ""
 
+msgid "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Details"
 msgstr "详情"
 
@@ -1124,6 +1127,9 @@ msgstr ""
 
 msgid "No preview found for shared link"
 msgstr "无法预加载"
+
+msgid "<0/> and <1>{0} others</1> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
 
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
@@ -1187,6 +1193,9 @@ msgstr "通用"
 
 msgid "Page not found. Please try again."
 msgstr "未找到页面。请重试。"
+
+msgid "<0/> and <1>{0} others</1> {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <2>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</2>"
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
@@ -1407,6 +1416,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
+msgid "<0/> quoted your <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
 
@@ -1427,6 +1439,9 @@ msgstr "取消关注 {identity}"
 
 msgid "Recast or Quote"
 msgstr "转发或者引用"
+
+msgid "<0/><1> followed you</1>"
+msgstr ""
 
 msgid "Unwatch"
 msgstr "取消关注"
@@ -1508,9 +1523,6 @@ msgstr "由 {0} 发帖"
 
 msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr "@{identity} 的文章会从您的时间线中隐藏"
-
-msgid "quote"
-msgstr "引用"
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
@@ -1668,9 +1680,6 @@ msgstr "日期"
 msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账号？"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了您的} Farcaster {转帖了您的} other {转帖了您的}} <4><5/></4>"
-
 msgid "Repost"
 msgstr "转帖"
 
@@ -1679,6 +1688,9 @@ msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
 
 msgid "Developers"
 msgstr "开发者"
+
+msgid "<0/> and <1/><2> followed you</2>"
+msgstr ""
 
 msgid "Share to"
 msgstr "分享到"
@@ -1770,6 +1782,9 @@ msgstr "总供应量"
 msgid "Collection"
 msgstr "NFT 系列"
 
+msgid "<0/> and <1>{0} others</1> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Your name"
 msgstr "您的名字"
 
@@ -1860,6 +1875,9 @@ msgstr "取消转帖"
 msgid "The scheduled time has passed."
 msgstr "定时任务的时间已过期。"
 
+msgid "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
 
@@ -1938,6 +1956,9 @@ msgstr "语言"
 msgid "Address on Watching Lists"
 msgstr "已关注地址列表"
 
+msgid "<0/> {0, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <1>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Profiles"
 msgstr "个人信息"
 
@@ -1949,9 +1970,6 @@ msgstr "请在 X 确认登陆。"
 
 msgid "Max Supply"
 msgstr "最大供应量"
-
-msgid "<0/> commented on your <1><2/></1>"
-msgstr "<0/> 评论了你的 <1><2/></1>"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
@@ -2043,9 +2061,6 @@ msgstr "关闭"
 msgid "Failed to update scheduled post."
 msgstr "更新定时任务失败"
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr "<0/> 在 <1><2/></1> 提及了你"
-
 msgid "Login"
 msgstr "登录"
 
@@ -2066,6 +2081,3 @@ msgstr "点赞"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-
-msgid "<0/> quoted your <1><2/></1>"
-msgstr "<0/> 引用了你的 <1><2/></1>"

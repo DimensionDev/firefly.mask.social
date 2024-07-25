@@ -1,6 +1,6 @@
 'use client';
 
-import { Plural, Select, Trans } from '@lingui/macro';
+import { Select, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
@@ -15,8 +15,8 @@ import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Markup } from '@/components/Markup/Markup.js';
-import { ExtraProfiles } from '@/components/Notification/ExtraProfiles.js';
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
+import { UserListTippy } from '@/components/Notification/UserListTippy.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -25,7 +25,7 @@ import { Link } from '@/esm/Link.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
+import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
 
 export const resolveNotificationIcon = createLookupTableResolver<
     NotificationType,
@@ -45,22 +45,6 @@ export const resolveNotificationIcon = createLookupTableResolver<
 
 export interface NotificationItemProps {
     notification: Notification;
-}
-
-function PostTypeI18N({ type }: { type: PostType }) {
-    switch (type) {
-        case 'Post':
-            return <Trans>post</Trans>;
-        case 'Comment':
-            return <Trans>comment</Trans>;
-        case 'Quote':
-            return <Trans>quote</Trans>;
-        case 'Mirror':
-            return <Trans>mirror</Trans>;
-        default:
-            safeUnreachable(type);
-            return null;
-    }
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
@@ -89,105 +73,177 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
         }
     }, [notification]);
 
+    // We flatten i18n plur into multiple statements to produce friendly translation templates
     const title = useMemo(() => {
         const type = notification.type;
         switch (type) {
-            case NotificationType.Reaction:
+            case NotificationType.Reaction: {
                 const firstReactor = first(notification.reactors);
                 if (!firstReactor || !notification.post?.type) return;
+                const reactors = notification.reactors;
+                const length = reactors.length;
+
+                if (length === 1)
+                    return (
+                        <Trans>
+                            <ProfileLink profile={firstReactor} /> <span>liked your </span>
+                            <strong>
+                                <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
+                            </strong>
+                        </Trans>
+                    );
+
+                if (length === 2)
+                    return (
+                        <Trans>
+                            <Trans>
+                                <ProfileLink profile={firstReactor} /> and{' '}
+                                <ProfileLink profile={notification.reactors[1]} />
+                            </Trans>{' '}
+                            <span>liked your </span>
+                            <strong>
+                                <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
+                            </strong>
+                        </Trans>
+                    );
 
                 return (
                     <Trans>
-                        <Plural
-                            value={notification.reactors.length}
-                            offset={1}
-                            _1={<ProfileLink profile={firstReactor} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstReactor} /> and{' '}
-                                    <ProfileLink profile={notification.reactors[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={notification.reactors} />}
-                        />{' '}
+                        <ProfileLink profile={firstReactor} /> and{' '}
+                        <UserListTippy
+                            users={reactors.slice(1)}
+                            className="cursor-pointer underline hover:underline md:no-underline"
+                        >
+                            {length - 1} others
+                        </UserListTippy>{' '}
                         <span>liked your </span>
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
                         </strong>
                     </Trans>
                 );
-            case NotificationType.Quote:
+            }
+            case NotificationType.Quote: {
                 const by = notification.quote.author;
-                if (!notification.quote.quoteOn?.type) return;
+                const type = notification.quote.quoteOn?.type;
+                if (!type) return;
                 return (
                     <Trans>
                         <ProfileLink profile={by} /> quoted your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.quote.quoteOn.type} />
+                            <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
                         </strong>
                     </Trans>
                 );
+            }
             case NotificationType.Follow:
                 const firstFollower = first(notification.followers);
                 if (!firstFollower) return;
+                const followers = notification.followers;
+                const length = followers.length;
+
+                if (length === 1)
+                    <Trans>
+                        <ProfileLink profile={firstFollower} />
+                        <span> followed you</span>
+                    </Trans>;
+
+                if (length === 2)
+                    return (
+                        <Trans>
+                            <ProfileLink profile={firstFollower} /> and{' '}
+                            <ProfileLink profile={notification.followers[1]} />
+                            <span> followed you</span>
+                        </Trans>
+                    );
 
                 return (
                     <Trans>
-                        <Plural
-                            value={notification.followers.length}
-                            offset={1}
-                            _1={<ProfileLink profile={firstFollower} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstFollower} /> and{' '}
-                                    <ProfileLink profile={notification.followers[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={notification.followers} />}
-                        />
+                        <ProfileLink profile={firstFollower} /> and{' '}
+                        <UserListTippy
+                            users={followers.slice(1)}
+                            className="cursor-pointer underline hover:underline md:no-underline"
+                        >
+                            {length - 1} others
+                        </UserListTippy>
                         <span> followed you</span>
                     </Trans>
                 );
-            case NotificationType.Comment:
+            case NotificationType.Comment: {
                 if (!notification.comment?.commentOn?.type) return;
+                const type = notification.comment.commentOn.type;
                 const author = notification.comment.author;
                 return (
                     <Trans>
                         <ProfileLink profile={author} /> commented on your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.comment.commentOn.type} />
+                            <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
                         </strong>
                     </Trans>
                 );
-            case NotificationType.Mention:
+            }
+            case NotificationType.Mention: {
                 if (!notification.post?.type) return;
+                const type = notification.post?.type;
                 const mentionAuthor = notification.post.author;
                 return (
                     <Trans>
                         <ProfileLink profile={mentionAuthor} /> mentioned you in a{' '}
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
                         </strong>
                     </Trans>
                 );
-            case NotificationType.Mirror:
+            }
+            case NotificationType.Mirror: {
                 // It's allow to mirror multiple times.
                 const mirrors = uniqBy(notification.mirrors, (x) => x.profileId);
                 const firstMirror = first(mirrors);
-                if (!firstMirror || !notification.post?.type) return;
+                const type = notification.post?.type;
+                if (!firstMirror || !type) return;
+                const length = mirrors.length;
+                if (length === 1)
+                    return (
+                        <Trans>
+                            <ProfileLink profile={firstMirror} />{' '}
+                            <Select
+                                comment="mirror-action"
+                                value={notification.source}
+                                _Lens="mirrored your"
+                                _Farcaster="recasted your"
+                                other="mirrored your"
+                            />{' '}
+                            <strong>
+                                <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
+                            </strong>
+                        </Trans>
+                    );
+
+                if (length === 2)
+                    return (
+                        <Trans>
+                            <ProfileLink profile={firstMirror} /> and <ProfileLink profile={mirrors[1]} />{' '}
+                            <Select
+                                value={notification.source}
+                                _Lens="mirrored your"
+                                _Farcaster="recasted your"
+                                other="mirrored your"
+                            />{' '}
+                            <strong>
+                                <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
+                            </strong>
+                        </Trans>
+                    );
+
                 return (
                     <Trans>
-                        <Plural
-                            value={mirrors.length}
-                            offset={1}
-                            _1={<ProfileLink profile={firstMirror} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstMirror} /> and <ProfileLink profile={mirrors[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={mirrors} />}
-                        />{' '}
+                        <ProfileLink profile={firstMirror} /> and{' '}
+                        <UserListTippy
+                            users={mirrors.slice(1)}
+                            className="cursor-pointer underline hover:underline md:no-underline"
+                        >
+                            {length - 1} others
+                        </UserListTippy>{' '}
                         <Select
                             value={notification.source}
                             _Lens="mirrored your"
@@ -195,33 +251,56 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             other="mirrored your"
                         />{' '}
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
                         </strong>
                     </Trans>
                 );
-            case NotificationType.Act:
+            }
+            case NotificationType.Act: {
                 const firstActed = first(notification.actions);
-                if (!firstActed || !notification.post.type) return;
+                const type = notification.post.type;
+                if (!firstActed || !type) return;
+                const actions = notification.actions;
+                const length = notification.actions.length;
+                if (length === 1)
+                    return (
+                        <Trans>
+                            <ProfileLink profile={firstActed} /> <span>acted on your </span>
+                            <strong>
+                                <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
+                            </strong>
+                        </Trans>
+                    );
+                if (length === 2)
+                    return (
+                        <Trans>
+                            <Trans>
+                                <ProfileLink profile={firstActed} /> and{' '}
+                                <ProfileLink profile={notification.actions[1]} />
+                            </Trans>{' '}
+                            <span>acted on your </span>
+                            <strong>
+                                <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
+                            </strong>
+                        </Trans>
+                    );
+
                 return (
                     <Trans>
-                        <Plural
-                            value={notification.actions.length}
-                            offset={1}
-                            _1={<ProfileLink profile={firstActed} />}
-                            _2={
-                                <Trans>
-                                    <ProfileLink profile={firstActed} /> and{' '}
-                                    <ProfileLink profile={notification.actions[1]} />
-                                </Trans>
-                            }
-                            other={<ExtraProfiles profiles={notification.actions} />}
-                        />{' '}
+                        <ProfileLink profile={firstActed} /> and{' '}
+                        <UserListTippy
+                            users={actions.slice(1)}
+                            className="cursor-pointer underline hover:underline md:no-underline"
+                        >
+                            {length - 1} others
+                        </UserListTippy>{' '}
                         <span>acted on your </span>
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
                         </strong>
                     </Trans>
                 );
+            }
             default:
                 safeUnreachable(type);
                 return null;
