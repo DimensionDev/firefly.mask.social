@@ -75,30 +75,33 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 />
             </div>
         ) : null,
-        <div key="like">
-            <Like
-                isComment={isComment}
-                count={post.stats?.reactions}
-                hasLiked={post.hasLiked}
-                postId={post.postId}
-                source={post.source}
-                authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-                disabled={disabled}
-                hiddenCount
-            />
-        </div>,
+        post.source !== Source.Twitter ? (
+            <div key="like">
+                <Like
+                    isComment={isComment}
+                    count={post.stats?.reactions}
+                    hasLiked={post.hasLiked}
+                    postId={post.postId}
+                    source={post.source}
+                    authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
+                    disabled={disabled}
+                    hiddenCount
+                />
+            </div>
+        ) : null,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
         identity ? (
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
-        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
+        post.source !== Source.Twitter ? (
+            <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+        ) : null,
         post.source !== Source.Twitter ? (
             <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
         ) : null,
     ]);
-    const actionLength = actions.length;
 
     return (
         <ClickableArea
@@ -158,16 +161,18 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         post={post}
                         hiddenCount
                     />
-                    <Like
-                        isComment={isComment}
-                        count={post.stats?.reactions}
-                        hasLiked={post.hasLiked}
-                        postId={post.postId}
-                        source={post.source}
-                        authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-                        disabled={disabled}
-                        hiddenCount
-                    />
+                    {post.source !== Source.Twitter ? (
+                        <Like
+                            isComment={isComment}
+                            count={post.stats?.reactions}
+                            hasLiked={post.hasLiked}
+                            postId={post.postId}
+                            source={post.source}
+                            authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
+                            disabled={disabled}
+                            hiddenCount
+                        />
+                    ) : null}
                 </div>
                 <div className="flex translate-x-1.5 items-center space-x-2">
                     {post.source !== Source.Farcaster && post.canAct ? (
@@ -178,7 +183,9 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+                    {post.source !== Source.Twitter ? (
+                        <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+                    ) : null}
                     {identity ? (
                         <Tips
                             identity={identity}
