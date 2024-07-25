@@ -15,12 +15,11 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
     async (request: NextRequest) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
-        const limit = Number(queryParams.limit ?? '20');
         const { data: me } = await client.v2.me();
         const { data } = await client.v2.userMutingUsers(me.id, {
             ...TWITTER_MUTE_LIST_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
-            max_results: limit,
+            max_results: queryParams.limit,
         });
 
         return createSuccessResponseJSON(data);
