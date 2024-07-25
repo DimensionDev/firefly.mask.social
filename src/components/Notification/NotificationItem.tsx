@@ -3,7 +3,7 @@
 import { Plural, Select, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
-import { first } from 'lodash-es';
+import { first, uniqBy } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useMemo } from 'react';
 
 import CollectIcon from '@/assets/collect-large.svg';
@@ -80,7 +80,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Mention:
                 return notification.post ? [notification.post.author] : undefined;
             case NotificationType.Mirror:
-                return notification.mirrors;
+                return uniqBy(notification.mirrors, (x) => x.profileId);
             case NotificationType.Act:
                 return notification.actions;
             default:
@@ -171,21 +171,22 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             case NotificationType.Mirror:
-                const firstMirror = first(notification.mirrors);
+                // It's allow to mirror multiple times.
+                const mirrors = uniqBy(notification.mirrors, (x) => x.profileId);
+                const firstMirror = first(mirrors);
                 if (!firstMirror || !notification.post?.type) return;
                 return (
                     <Trans>
                         <Plural
-                            value={notification.mirrors.length}
+                            value={mirrors.length}
                             offset={1}
                             _1={<ProfileLink profile={firstMirror} />}
                             _2={
                                 <Trans>
-                                    <ProfileLink profile={firstMirror} /> and{' '}
-                                    <ProfileLink profile={notification.mirrors[1]} />
+                                    <ProfileLink profile={firstMirror} /> and <ProfileLink profile={mirrors[1]} />
                                 </Trans>
                             }
-                            other={<ExtraProfiles profiles={notification.mirrors} />}
+                            other={<ExtraProfiles profiles={mirrors} />}
                         />{' '}
                         <Select
                             value={notification.source}
