@@ -106,19 +106,19 @@ export enum KeyType {
 export type TrendingUserSource = Source.Farcaster | Source.Lens;
 
 export enum ProfileTabType {
-    Feed = 'Feed',
-    Replies = 'Replies',
-    Liked = 'Liked',
-    Media = 'Media',
-    Collected = 'Collected',
-    Channels = 'Channels',
+    Feed = 'feed',
+    Replies = 'replies',
+    Liked = 'liked',
+    Media = 'media',
+    Collected = 'collected',
+    Channels = 'channels',
 }
 
 export enum WalletProfileTabType {
-    Articles = 'Articles',
-    POAPs = 'POAPs',
-    NFTs = 'NFTs',
-    OnChainActivities = 'OnChainActivities',
+    Articles = 'articles',
+    POAPs = 'poaps',
+    NFTs = 'nfts',
+    OnChainActivities = 'on_chain_activities',
 }
 
 export enum EngagementType {

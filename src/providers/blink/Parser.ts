@@ -12,6 +12,26 @@ class Parser {
     );
 
     /**
+     * embedding an action url in an 'interstitial' site or mobile app deep link url
+     * @param blink
+     */
+    public parseInterstitial(blink: string) {
+        const u = parseURL(blink);
+        const action = u?.searchParams.get('action');
+        const actionUrl = action?.startsWith('solana-action:')
+            ? decodeURIComponent(action.replace('solana-action:', ''))
+            : null;
+        if (actionUrl?.match(URL_REGEX) && actionUrl.startsWith('https://')) {
+            return {
+                type: SchemeType.Interstitial,
+                url: actionUrl,
+                blink,
+            };
+        }
+        return null;
+    }
+
+    /**
      * Extracts all blinks from a given text.
      * @param text The text to parse.
      * @returns An array of found blink URLs.
@@ -31,18 +51,10 @@ class Parser {
                     return null;
                 }
 
-                // scheme c: embedding an action url in an 'interstitial' site or mobile app deep link url
                 const u = parseURL(blink);
-                const action = u?.searchParams.get('action');
-                const actionUrl = action?.startsWith('solana-action:')
-                    ? decodeURIComponent(action.replace('solana-action:', ''))
-                    : null;
-                if (actionUrl?.match(URL_REGEX) && actionUrl.startsWith('https://'))
-                    return {
-                        type: SchemeType.Interstitial,
-                        url: actionUrl,
-                        blink,
-                    };
+
+                const interstitial = this.parseInterstitial(blink);
+                if (interstitial) return interstitial;
 
                 // scheme b: linked to an actions API via an actions.json file
                 if (u && blink.startsWith('https://'))

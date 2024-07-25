@@ -64,7 +64,7 @@ export async function getDebankTokenBalance(token: Token<ChainId, Address>, acco
         staleTime: 1000 * 60 * 1,
     });
 
-    const currentToken = tokens.find((t) => t.id === token.id);
+    const currentToken = tokens.find((t) => t.id === token.id && t.chain === token.chain);
 
     return {
         value: currentToken?.raw_amount ? BigInt(currentToken.raw_amount) : 0n,

@@ -113,6 +113,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                                     onClose={() => DraggablePopoverRef.close()}
                                 />
                             ),
+                            enableOverflow: false,
                         });
                     }
                 }}

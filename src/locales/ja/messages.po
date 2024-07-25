@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-24 06:03\n"
+"PO-Revision-Date: 2024-07-24 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -82,6 +82,9 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr ""
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
+msgid "Up to 7 days can be set as the scheduled time."
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -238,9 +241,6 @@ msgid "Market Cap"
 msgstr ""
 
 msgid "Contract source code verified"
-msgstr ""
-
-msgid "The scheduled time has passed. Please reset it"
 msgstr ""
 
 msgid "Profile not found"
@@ -706,9 +706,6 @@ msgid "Insufficient Gas"
 msgstr ""
 
 msgid "Blacklist function"
-msgstr ""
-
-msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
@@ -1374,9 +1371,6 @@ msgstr ""
 msgid "Recast or Quote"
 msgstr ""
 
-msgid "Draft"
-msgstr ""
-
 msgid "Unwatch"
 msgstr ""
 
@@ -1794,6 +1788,9 @@ msgstr ""
 msgid "Cancel Recast"
 msgstr ""
 
+msgid "The scheduled time has passed."
+msgstr ""
+
 msgid "Failed to report spam NFT."
 msgstr ""
 
@@ -2000,4 +1997,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

@@ -10,6 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { DatePicker } from '@/components/DatePicker.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { checkScheduleTime, CreateScheduleError } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -35,11 +36,12 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
     const [{ loading }, handleSet] = useAsyncFn(async () => {
         try {
             if (dayjs(value).isBefore(new Date(), 'minute')) {
-                enqueueErrorMessage(t`The scheduled time has passed. Please reset it`);
+                enqueueErrorMessage(t`The scheduled time has passed.`);
                 return;
             }
 
             if (task) {
+                checkScheduleTime(value);
                 const result = await FireflySocialMediaProvider.updateScheduledPost(task.uuid, value);
                 if (!result) return;
                 queryClient.refetchQueries({
@@ -51,9 +53,13 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 
             onClose();
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to set schedule time.`), {
-                error,
-            });
+            if (error instanceof CreateScheduleError) {
+                enqueueErrorMessage(error.message);
+            } else {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to set schedule time.`), {
+                    error,
+                });
+            }
             throw error;
         }
     }, [value, task, onClose]);

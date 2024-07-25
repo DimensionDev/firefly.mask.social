@@ -1,15 +1,16 @@
 import { t, Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
-import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
 import { UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
+import { checkScheduleTime, CreateScheduleError } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
+import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -20,12 +21,6 @@ import { commitPoll } from '@/services/commitPoll.js';
 import { uploadSessions } from '@/services/metrics.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
-
-export class CreateScheduleError extends Error {
-    constructor(public override message: string) {
-        super(message);
-    }
-}
 
 export async function createSchedulePostsPayload(type: ComposeType, compositePost: CompositePost, isThread = false) {
     const { chars, poll, availableSources } = compositePost;
@@ -65,23 +60,11 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
 
 export async function crossSchedulePost(type: ComposeType, compositePost: CompositePost, scheduleTime: Date) {
     try {
-        if (dayjs().add(7, 'day').isBefore(scheduleTime)) {
-            throw new CreateScheduleError(t`Up to 7 days can be set as the scheduled time. Please reset it`);
-        } else if (dayjs().isAfter(scheduleTime, 'minute')) {
-            throw new CreateScheduleError(`The scheduled time has passed. Please reset`);
-        }
+        checkScheduleTime(scheduleTime);
 
         const posts = await createSchedulePostsPayload(type, compositePost);
 
-        const assets = compact([
-            compositePost?.images.length ? t`[Photo]` : undefined,
-            compositePost?.video ? t`[Video]` : undefined,
-            compositePost?.poll ? t`[Poll]` : undefined,
-        ]).join('');
-
-        const chars = readChars(compositePost.chars, 'visible');
-
-        const content = `${chars}${chars.length > 0 ? '\n' : ''}${assets}`;
+        const content = getScheduleTaskContent(compositePost);
 
         await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
