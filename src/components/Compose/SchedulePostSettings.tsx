@@ -117,6 +117,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                             <ClickableButton
                                 onClick={() => {
                                     clearScheduleTime();
+                                    onClose();
                                 }}
                                 className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
                             >
