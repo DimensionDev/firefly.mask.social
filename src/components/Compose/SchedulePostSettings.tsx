@@ -69,7 +69,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             <div className="text-center text-[15px] leading-[18px]">
                 <Trans>The scheduled time to send this post can be set up to 7 days in advance.</Trans>
             </div>
-            <div className="flex gap-2 md:gap-4 pt-3">
+            <div className="flex gap-2 pt-3 md:gap-4">
                 <DatePicker
                     className="flex w-full gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
                     minDate={dayjs()}
