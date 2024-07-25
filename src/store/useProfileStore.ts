@@ -254,12 +254,13 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const account = {
-                    profile,
-                    session: TwitterSession.from(profile, payload),
-                };
-
-                state.addAccount(account, true);
+                state.addAccount(
+                    {
+                        profile,
+                        session: TwitterSession.from(profile, payload),
+                    },
+                    true,
+                );
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
