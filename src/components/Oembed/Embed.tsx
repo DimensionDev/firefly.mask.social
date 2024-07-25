@@ -42,7 +42,7 @@ export function Embed({ og }: EmbedProps) {
                         ) : null}
                         <div className="truncate p-2 text-left text-second md:p-5">
                             <div className="space-y-1.5">
-                                <div className="truncate font-bold">{og.title || u.host}</div>
+                                {og.title ? <div className="truncate font-bold">{og.title}</div> : null}
                                 {og.description ? (
                                     <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
                                         {og.description}

@@ -58,7 +58,6 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
     if (isLoading || error || !data?.success) return null;
 
     const og: OpenGraph = data.data.og;
-    if (!og.title) return null;
 
     const payload = data.data.payload;
 

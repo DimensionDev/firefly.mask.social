@@ -23,7 +23,7 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
                 url={post.metadata.content.oembedUrl}
                 onData={() => {
                     if (post.metadata.content?.oembedUrl && post.metadata.content?.content) {
-                        setContent?.(removeAtEnd(post.metadata.content.content, post.metadata.content.oembedUrl));
+                        setContent?.(removeAtEnd(post.metadata.content?.content, post.metadata.content.oembedUrl));
                     }
                 }}
             />
@@ -44,7 +44,7 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
                     schemes={[scheme]}
                     onData={() => {
                         if (post.metadata.content?.content) {
-                            setContent?.(removeAtEnd(post.metadata.content.content, scheme.blink));
+                            setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));
                         }
                     }}
                     onFailed={() => setDisabledBlink(true)}
@@ -52,8 +52,6 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
             </>
         );
     }
-
-    if (disabledBlink && post.metadata.content?.oembedUrl) return null;
 
     if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
         return (
