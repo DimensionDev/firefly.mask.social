@@ -45,7 +45,14 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
         if (!props) return null;
 
         return (
-            <Modal disableBackdropClose={props.disableBackdropClose} open={open} onClose={() => dispatch?.close(false)}>
+            <Modal
+                disableBackdropClose={props.disableBackdropClose}
+                open={open}
+                onClose={() => {
+                    props.onCancel?.();
+                    dispatch?.close(false);
+                }}
+            >
                 <div
                     className="relative w-[355px] max-w-[90vw] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950"
                     onClick={(event) => {
@@ -54,7 +61,14 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                     }}
                 >
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
-                        {props.enableCloseButton ? <CloseButton onClick={() => dispatch?.close(false)} /> : null}
+                        {props.enableCloseButton ? (
+                            <CloseButton
+                                onClick={() => {
+                                    props.onCancel?.();
+                                    dispatch?.close(false);
+                                }}
+                            />
+                        ) : null}
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                             {props.title ? props.title : <Trans>Confirmation</Trans>}
                         </div>
