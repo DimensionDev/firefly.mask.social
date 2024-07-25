@@ -37,7 +37,7 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: async () => {
-            if (isValidDomain(url)) return;
+            if (!url || isValidDomain(url)) return;
             return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/oembed', {
                     link: (await resolveTCOLink(url)) ?? url,
@@ -58,6 +58,7 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
     if (isLoading || error || !data?.success) return null;
 
     const og: OpenGraph = data.data.og;
+    if (!og.title) return null;
 
     const payload = data.data.payload;
 

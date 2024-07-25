@@ -14,7 +14,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
-import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -258,7 +258,7 @@ interface FrameProps {
     onData?: (frame: FrameType) => void;
 }
 
-export const Frame = memo<FrameProps>(function Frame({ post, urls = [], onData, children }) {
+export const Frame = memo<FrameProps>(function Frame({ post, urls = EMPTY_LIST, onData, children }) {
     const { postId, source } = post;
     const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
 

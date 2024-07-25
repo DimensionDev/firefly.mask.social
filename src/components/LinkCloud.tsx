@@ -56,7 +56,7 @@ export function LinkCloud() {
                     {name}
                 </Link>
             ))}
-            <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl}>
+            <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl} role="button">
                 <Trans>Feedback</Trans>
             </span>
         </div>
