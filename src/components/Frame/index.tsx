@@ -14,7 +14,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
-import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -253,12 +253,12 @@ async function getNextFrame(
 
 interface FrameProps {
     post: Post;
-    urls: string[];
+    urls?: string[];
     children: React.ReactNode;
     onData?: (frame: FrameType) => void;
 }
 
-export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, children }) {
+export const Frame = memo<FrameProps>(function Frame({ post, urls = EMPTY_LIST, onData, children }) {
     const { postId, source } = post;
     const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
 
@@ -278,7 +278,7 @@ export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, child
             try {
                 const result = await attemptUntil(
                     urls.map((x) => async () => {
-                        if (!x || isValidDomain(x)) return;
+                        if (isValidDomain(x)) return;
                         return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                             urlcat('/api/frame', {
                                 link: (await resolveTCOLink(x)) ?? x,
@@ -311,7 +311,7 @@ export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, child
         onData?.(data.data.frame);
     }, [data, onData]);
 
-    const frame: FrameType | null = latestFrame ?? (data?.success ? data.data.frame : null);
+    const frame = latestFrame ?? (data?.success ? data.data.frame : null);
 
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {

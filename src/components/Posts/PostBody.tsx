@@ -223,6 +223,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {!hasEncryptedPayload ? (
                 <>
+                    {/* for twitter only */}
                     {post.poll ? <PollCard post={post} /> : null}
 
                     {showAttachments ? (
