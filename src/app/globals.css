@@ -387,6 +387,10 @@ body.not-support .fixed.inset-y-0 {
     padding-right: 1.5rem;
 }
 
+.custom-time-picker {
+    overflow: unset;
+}
+
 .custom-time-picker > * {
     overflow-x: auto;
     max-width: 100%;
