@@ -12,14 +12,13 @@ import { Pageable } from '@/schemas/index.js';
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
-    async (request: NextRequest) => {
+    async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
-        const limit = Number(queryParams.limit ?? '25');
         const { data } = await client.v2.homeTimeline({
             ...TWITTER_TIMELINE_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
-            max_results: limit,
+            max_results: queryParams.limit,
         });
         return createSuccessResponseJSON(data);
     },
