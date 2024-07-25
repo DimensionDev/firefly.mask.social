@@ -328,8 +328,9 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (!follower) return null;
                 return <MoreAction source={notification.source} author={follower} />;
             case NotificationType.Mirror:
-                if (notification.mirrors.length > 1) return null;
-                const reporter = first(notification.mirrors);
+                const mirrors = uniqBy(notification.mirrors, (x) => x.profileId);
+                if (mirrors.length > 1) return null;
+                const reporter = first(mirrors);
                 if (!reporter) return null;
                 return <MoreAction source={notification.source} author={reporter} />;
             case NotificationType.Reaction:
