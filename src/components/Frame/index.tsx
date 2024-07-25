@@ -253,12 +253,12 @@ async function getNextFrame(
 
 interface FrameProps {
     post: Post;
-    urls: string[];
+    urls?: string[];
     children: React.ReactNode;
     onData?: (frame: FrameType) => void;
 }
 
-export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, children }) {
+export const Frame = memo<FrameProps>(function Frame({ post, urls = [], onData, children }) {
     const { postId, source } = post;
     const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
 
