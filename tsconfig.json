@@ -14,7 +14,13 @@
             "path": "./src/maskbook/packages/plugins/Calendar/tsconfig.json"
         },
         {
+            "path": "./src/maskbook/packages/plugins/Snapshot/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/plugins/Debugger/tsconfig.json"
         },
         {
             "path": "./src/service-workers/tsconfig.json"
