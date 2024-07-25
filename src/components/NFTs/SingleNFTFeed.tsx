@@ -75,11 +75,11 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
             }}
         >
             <FeedFollowSource source={first(followingSources)} />
-            <div className="flex gap-3 overflow-auto">
+            <div className="flex gap-3">
                 <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={(event) => event.stopPropagation()}>
                     <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={ownerAddress} />
                 </Link>
-                <div className="flex-grow overflow-auto">
+                <div className="min-w-0 flex-grow">
                     <NFTFeedHeader
                         address={ownerAddress}
                         contractAddress={contractAddress}
