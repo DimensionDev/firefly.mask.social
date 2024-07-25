@@ -51,12 +51,11 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
     return null;
 }
 
-function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
+function createActionComponent(label: string, href: string, parameters?: ActionParameter[]): ActionComponent {
     return {
-        parameterValue: '',
         label,
         href,
-        parameters: [],
+        parameters: parameters ?? [],
         parameter: parameters?.[0],
     };
 }
