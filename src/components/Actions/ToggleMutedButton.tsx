@@ -2,7 +2,6 @@ import { t } from '@lingui/macro';
 import { useMemo, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -35,7 +34,7 @@ export function ToggleMutedButton({ loading, isMuted, className, ...rest }: Prop
         <ClickableButton
             ref={hoverRef}
             className={classNames(
-                'flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger px-2 text-[15px] font-semibold transition-all',
+                'flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger text-[15px] font-semibold transition-all',
                 buttonState === MuteLabel.Muted ? 'border' : '',
                 buttonState === MuteLabel.Unmute ? 'border border-danger border-opacity-50' : '',
                 isMuted ? 'bg-danger text-white' : 'text-danger',
@@ -44,7 +43,6 @@ export function ToggleMutedButton({ loading, isMuted, className, ...rest }: Prop
             {...rest}
             disabled={loading}
         >
-            {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
             {buttonText}
         </ClickableButton>
     );
