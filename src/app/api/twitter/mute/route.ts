@@ -12,7 +12,7 @@ import { Pageable } from '@/schemas/index.js';
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
-    async (request: NextRequest) => {
+    async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
         const { data: me } = await client.v2.me();

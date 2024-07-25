@@ -1,22 +1,18 @@
-import { StatusCodes } from 'http-status-codes';
-import { NextRequest } from 'next/server.js';
+import type { NextRequest } from 'next/server.js';
 
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
-import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import type { NextRequestContext } from '@/types/index.js';
 
-export const dynamic = 'force-dynamic';
-
-export async function GET(request: NextRequest) {
-    try {
+export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+    withRequestErrorHandler({ throwError: true }),
+    withTwitterRequestErrorHandler,
+    async (request) => {
         const client = await createTwitterClientV2(request);
         const { data } = await client.v2.me();
         return createSuccessResponseJSON(data);
-    } catch (error) {
-        console.error('[twitter]: error me/', error);
-        return createErrorResponseJSON(getTwitterErrorMessage(error), {
-            status: StatusCodes.INTERNAL_SERVER_ERROR,
-        });
-    }
-}
+    },
+);
