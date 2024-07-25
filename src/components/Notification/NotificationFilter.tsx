@@ -24,7 +24,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
     const tabs = useMemo(() => {
         const getClassNames = (active: boolean) => {
             return classNames(
-                'flex h-6 cursor-pointer items-center justify-center gap-x-1 rounded-md bg-farcasterPrimary px-1.5 text-xs leading-6',
+                'flex h-6 cursor-pointer items-center justify-center gap-x-1 whitespace-nowrap rounded-md bg-farcasterPrimary px-1.5 text-xs leading-6',
                 active
                     ? 'text-bg dark:text-white'
                     : 'cursor-pointer bg-opacity-10 text-farcasterPrimary dark:bg-opacity-30 dark:text-white',
@@ -70,7 +70,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
         ];
     }, [allTypes, setTypes, source, types]);
     return (
-        <div className={classNames('flex gap-x-2', className)} {...props}>
+        <div className={classNames('no-scrollbar flex w-full gap-x-2 overflow-x-auto', className)} {...props}>
             {tabs}
         </div>
     );
