@@ -53,7 +53,7 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
                 className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
                 onClick={isMedium ? onClose : undefined}
             >
-                <div className="absolute left-4 top-4 cursor-pointer text-main">
+                <div className="absolute left-4 top-4 cursor-pointer text-main z-50">
                     <CloseButton onClick={onClose} />
                 </div>
                 <div className="flex w-full text-main">
