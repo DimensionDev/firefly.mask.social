@@ -6,7 +6,7 @@ export enum ServerErrorCodes {
     UNKNOWN = 40001,
 }
 
-export function createErrorResponseJSON(message: string, init?: ResponseInit) {
+export function createErrorResponseJSON(message: string, init?: Omit<ResponseInit, 'headers'>) {
     return createResponseJSON(
         {
             success: false,

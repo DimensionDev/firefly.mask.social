@@ -10,7 +10,7 @@ import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
-import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
+import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { classNames } from '@/helpers/classNames.js';

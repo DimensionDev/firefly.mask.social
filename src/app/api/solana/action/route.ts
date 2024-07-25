@@ -130,7 +130,7 @@ const queryBlink = memoizeWithRedis(
 /**
  * reference: https://docs.dialect.to/documentation/actions/blinks/detecting-actions-via-url-schemes
  */
-export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+export const GET = compose(withRequestErrorHandler(), async (request) => {
     const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
         request,
         z.object({
