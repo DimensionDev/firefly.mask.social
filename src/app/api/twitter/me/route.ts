@@ -6,6 +6,8 @@ import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.j
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
     try {
         const client = await createTwitterClientV2(request);
