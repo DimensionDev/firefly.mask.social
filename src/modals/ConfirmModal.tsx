@@ -17,8 +17,8 @@ export interface ConfirmModalOpenProps {
     enableCancelButton?: boolean;
     enableCloseButton?: boolean;
     disableBackdropClose?: boolean;
-    onCancel?: () => void;
     onConfirm?: () => void;
+    onCancel?: () => void;
     variant?: 'normal' | 'danger';
 }
 
