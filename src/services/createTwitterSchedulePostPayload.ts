@@ -22,7 +22,7 @@ export interface TwitterSchedulePostPayload {
     };
     reply_settings?: 'following' | 'mentionedUsers';
     poll?: {
-        options: Array<{ label: string }>;
+        options: string[];
         duration_minutes: number;
     };
 }
@@ -62,8 +62,8 @@ export async function createTwitterSchedulePostPayload(
         reply_settings: resolveTwitterReplyRestriction(restriction),
         poll: pollResult
             ? {
-                  options: pollResult.options.map((option) => ({ label: option.label })),
-                  duration_minutes: pollResult.durationSeconds,
+                  options: pollResult.options.map((option) => option.label),
+                  duration_minutes: Math.floor(pollResult.durationSeconds / 60),
               }
             : undefined,
     };
