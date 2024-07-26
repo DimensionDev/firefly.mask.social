@@ -13,7 +13,7 @@ import {
 import { EVMWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { ProviderType } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
-import { type PropsWithChildren, Suspense } from 'react';
+import { memo, type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useMount } from 'react-use';
 import { useAccount, useChainId } from 'wagmi';
@@ -35,7 +35,7 @@ function resolveMaskLocale(locale: Locale) {
     }
 }
 
-export function MaskProviders({ children }: PropsWithChildren<{}>) {
+export const MaskProviders = memo(function MaskProviders({ children }: PropsWithChildren<{}>) {
     const account = useAccount();
     const chainId = useChainId();
 
@@ -70,4 +70,4 @@ export function MaskProviders({ children }: PropsWithChildren<{}>) {
             </DialogStackingProvider>
         </DisableShadowRootContext.Provider>
     );
-}
+});
