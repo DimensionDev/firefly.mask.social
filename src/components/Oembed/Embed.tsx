@@ -11,6 +11,22 @@ interface EmbedProps {
 export function Embed({ og }: EmbedProps) {
     const u = parseURL(og.url);
     if (!u) return null;
+
+    const imageProps = og.image
+        ? {
+              ...og.image,
+              src: og.image.base64 || og.image.url,
+              alt: og.description || og.title || 'Thumbnail',
+          }
+        : og.favicon
+          ? {
+                width: 16,
+                height: 16,
+                src: og.favicon,
+                alt: 'Favicon',
+            }
+          : null;
+
     return (
         <div className="mt-4 max-w-full text-sm">
             <Link
@@ -20,23 +36,16 @@ export function Embed({ og }: EmbedProps) {
                 rel="noreferrer noopener"
             >
                 <div className="rounded-xl border bg-white text-main dark:border-gray-700 dark:bg-black">
-                    {og.isLarge && og.image ? (
-                        <Image
-                            className="divider aspect-2 w-full rounded-xl object-cover"
-                            src={og.image.base64 || og.image.url}
-                            alt={og.description || og.title || 'Thumbnail'}
-                            width={og.image.width}
-                            height={og.image.height}
-                        />
+                    {og.isLarge && imageProps ? (
+                        <Image className="divider aspect-2 w-full rounded-xl object-cover" {...imageProps} />
                     ) : null}
                     <div className="flex items-center">
-                        {!og.isLarge && og.image ? (
+                        {!og.isLarge && imageProps ? (
                             <div className="relative aspect-square h-20 shrink-0 md:h-36">
                                 <Image
                                     className="rounded-l-xl border-r object-cover dark:border-gray-700"
                                     layout="fill"
-                                    src={og.image.base64 || og.image.url}
-                                    alt={og.description || og.title || 'Thumbnail'}
+                                    {...imageProps}
                                 />
                             </div>
                         ) : null}
