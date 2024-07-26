@@ -11,6 +11,7 @@ import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BookmarkButton } from '@/components/Actions/BookmarkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { MuteAllByProfile } from '@/components/Actions/MuteAllProfile.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
@@ -141,11 +142,20 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             </Menu.Item>
                         ) : null}
                         {!isMyProfile ? (
-                            <Menu.Item>
-                                {({ close }) => (
-                                    <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
-                                )}
-                            </Menu.Item>
+                            <>
+                                <Menu.Item>
+                                    {({ close }) => (
+                                        <MuteProfileButton
+                                            profile={author}
+                                            onToggle={toggleMutedProfile}
+                                            onClick={close}
+                                        />
+                                    )}
+                                </Menu.Item>
+                                <Menu.Item>
+                                    {({ close }) => <MuteAllByProfile profile={author} onClose={close} />}
+                                </Menu.Item>
+                            </>
                         ) : null}
                     </>
                 )}
