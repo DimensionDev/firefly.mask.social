@@ -66,7 +66,7 @@ async function composeTweet(rawTweet: unknown) {
     if (tweet.poll) {
         composedTweet.poll = {
             options: tweet.poll.options.map((option) => option.label),
-            duration_minutes: tweet.poll.durationSeconds / 60,
+            duration_minutes: Math.floor(tweet.poll.durationSeconds / 60),
         };
     }
 
