@@ -237,9 +237,6 @@ importers:
       bn.js:
         specifier: ^4.12.0
         version: 4.12.0
-      bowser:
-        specifier: ^2.11.0
-        version: 2.11.0
       bs58:
         specifier: ^5.0.0
         version: 5.0.0
@@ -270,9 +267,6 @@ importers:
       image-size:
         specifier: ^1.0.2
         version: 1.0.2
-      imgur:
-        specifier: ^2.3.0
-        version: 2.3.0
       immer:
         specifier: 10.0.2
         version: 10.0.2
@@ -20616,14 +20610,6 @@ packages:
       - debug
     dev: false
 
-  /axios@0.25.0:
-    resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
-    dependencies:
-      follow-redirects: 1.15.6
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /axobject-query@3.2.1:
     resolution: {integrity: sha512-jsyHu61e6N4Vbz/v18DHwWYKK0bSWLqn47eeDSKPB7m8tqMHF9YJ+mhIk2lVteyZrY8tnSj/jHOv4YiTCuCJgg==}
     dependencies:
@@ -26018,6 +26004,7 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    dev: true
 
   /formdata-polyfill@4.0.10:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
@@ -27391,16 +27378,6 @@ packages:
     hasBin: true
     dependencies:
       queue: 6.0.2
-    dev: false
-
-  /imgur@2.3.0:
-    resolution: {integrity: sha512-ZAgK0YXHfrR+P1KavYSBRQyr0kSvBFrSYrCAr0Zm8EddAakTn8T5WcdX+NvI6GMvHuzwMePjNvV9sFD4sETIUg==}
-    engines: {node: '>=14'}
-    dependencies:
-      axios: 0.25.0
-      form-data: 4.0.0
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   /immediate@3.0.6:
