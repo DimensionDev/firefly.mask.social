@@ -1,5 +1,6 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { ProfileTab } from '@/store/useProfileTabStore.js';
 
@@ -21,7 +22,7 @@ export function resolveFireflyProfiles(
                     x.identity === profileTab.identity,
             ) ?? null,
         walletProfile:
-            (profiles.find((x) => x.source === Source.Wallet && x.identity === profileTab.identity)?.__origin__ as
+            (profiles.find((x) => x.source === Source.Wallet && isSameAddress(x.identity, profileTab.identity))?.__origin__ as
                 | WalletProfile
                 | undefined) ?? null,
     };
