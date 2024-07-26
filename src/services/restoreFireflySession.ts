@@ -80,6 +80,11 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 signal,
             });
 
+            console.log('DEBUG: encrypted')
+            console.log({
+                encrypted,
+            })
+
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
             const response = await fetchJSON<TwitterLoginResponse>(url, {
                 method: 'POST',
@@ -88,6 +93,11 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 }),
                 signal,
             });
+
+            console.log('DEBUG: response')
+            console.log({
+                response,
+            })
 
             const data = resolveFireflyResponseData(response);
             return new FireflySession(data.accountId, data.accessToken, session);
