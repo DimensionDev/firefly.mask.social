@@ -29,7 +29,7 @@ import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmBeforeLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
@@ -164,8 +164,7 @@ async function getNextFrame(
                     return;
                 }
 
-                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(redirectUrl))
-                    openWindow(redirectUrl, '_blank');
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(redirectUrl)) openWindow(redirectUrl, '_blank');
                 return;
             }
             case ActionType.Link:
@@ -174,7 +173,7 @@ async function getNextFrame(
                 const opened = openIntentUrl(button.target);
                 if (opened) return;
 
-                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
                 return;
             case ActionType.Mint: {
@@ -184,7 +183,7 @@ async function getNextFrame(
                     enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
                     return;
                 }
-                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
                 return;
             }
             case ActionType.Transaction:
