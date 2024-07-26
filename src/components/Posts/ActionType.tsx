@@ -30,7 +30,6 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
     const currentProfile = useCurrentProfile(post.source);
 
     const isComment = post.type === 'Comment';
-
     const showThread = isComment || !post.comments?.length;
 
     const pathname = usePathname();

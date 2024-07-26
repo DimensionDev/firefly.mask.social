@@ -184,7 +184,8 @@
         "src/maskbook",
         "src/providers/hubble/proto",
         "src/assets/**",
-        "src/locales/**"
+        "src/locales/**",
+        "src/mask/setup/locales/*"
     ],
     "overrides": []
 }

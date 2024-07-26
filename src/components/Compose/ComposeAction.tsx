@@ -33,7 +33,6 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -132,7 +131,6 @@ export function ComposeAction(props: ComposeActionProps) {
                                 onClick={async () => {
                                     ComposeModalRef.close();
                                     await delay(300);
-                                    PluginDebuggerMessages?.connectionDialogUpdated.sendToLocal({ open: true });
                                 }}
                             />
                         </Tooltip>
@@ -142,7 +140,6 @@ export function ComposeAction(props: ComposeActionProps) {
                                 onClick={async () => {
                                     ComposeModalRef.close();
                                     await delay(300);
-                                    PluginDebuggerMessages?.consoleDialogUpdated.sendToLocal({ open: true });
                                 }}
                             />
                         </Tooltip>
