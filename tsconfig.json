@@ -2,9 +2,6 @@
     "extends": "./src/maskbook/packages/config/tsconfig.json",
     "references": [
         {
-            "path": "./src/maskbook/packages/mask-sdk/public-api/tsconfig.json"
-        },
-        {
             "path": "./src/maskbook/packages/shared-base/tsconfig.json"
         },
         {
@@ -14,19 +11,10 @@
             "path": "./src/maskbook/packages/plugins/Calendar/tsconfig.json"
         },
         {
-            "path": "./src/maskbook/packages/plugins/Snapshot/tsconfig.json"
-        },
-        {
             "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
         },
         {
-            "path": "./src/maskbook/packages/plugins/Debugger/tsconfig.json"
-        },
-        {
             "path": "./src/service-workers/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/mask/tsconfig.json"
         },
         {
             "path": "./src/maskbook/packages/shared/tsconfig.json"
@@ -116,37 +104,10 @@
             "@masknet/web3-telemetry": ["./src/maskbook/packages/web3-telemetry/src/entry.ts"],
             "@masknet/web3-telemetry/helpers": ["./src/maskbook/packages/web3-telemetry/src/entry-helpers.ts"],
             "@masknet/web3-telemetry/types": ["./src/maskbook/packages/web3-telemetry/src/entry-types.ts"],
-            "@masknet/plugin-debugger/messages": ["./src/maskbook/packages/plugins/Debugger/src/messages.ts"],
-            "@masknet/plugin-debugger/register": ["./src/maskbook/packages/plugins/Debugger/src/register.ts"],
-            "@masknet/plugin-file-service": ["./src/maskbook/packages/plugins/FileService/src/index.ts"],
-            "@masknet/plugin-rss3": ["./src/maskbook/packages/plugins/RSS3/src/index.ts"],
-            "@masknet/plugin-template": ["./src/maskbook/packages/plugins/template/src/index.ts"],
-            "@masknet/plugin-cyberconnect": ["./src/maskbook/packages/plugins/CyberConnect/src/index.ts"],
-            "@masknet/plugin-go-plus-security": ["./src/maskbook/packages/plugins/GoPlusSecurity/src/index.ts"],
-            "@masknet/plugin-cross-chain-bridge": ["./src/maskbook/packages/plugins/CrossChainBridge/src/index.ts"],
-            "@masknet/plugin-web3-profile": ["./src/maskbook/packages/plugins/Web3Profile/src/index.ts"],
-            "@masknet/plugin-handle": ["./src/maskbook/packages/plugins/Handle/src/index.ts"],
-            "@masknet/plugin-approval": ["./src/maskbook/packages/plugins/Approval/src/index.ts"],
-            "@masknet/plugin-scam-warning": ["./src/maskbook/packages/plugins/ScamWarning/src/index.ts"],
-            "@masknet/plugin-gitcoin": ["./src/maskbook/packages/plugins/Gitcoin/src/index.ts"],
             "@masknet/plugin-redpacket": ["./src/maskbook/packages/plugins/RedPacket/src/index.ts"],
             "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"],
-            "@masknet/plugin-maskbox": ["./src/maskbook/packages/plugins/MaskBox/src/index.ts"],
-            "@masknet/plugin-smart-pay": ["./src/maskbook/packages/plugins/SmartPay/src/index.ts"],
-            "@masknet/plugin-transak": ["./src/maskbook/packages/plugins/Transak/src/index.ts"],
-            "@masknet/plugin-vcent": ["./src/maskbook/packages/plugins/VCent/src/index.ts"],
-            "@masknet/plugin-collectible": ["./src/maskbook/packages/plugins/Collectible/src/index.ts"],
-            "@masknet/plugin-claim": ["./src/maskbook/packages/plugins/Claim/src/index.ts"],
-            "@masknet/plugin-artblocks": ["./src/maskbook/packages/plugins/ArtBlocks/src/index.ts"],
-            "@masknet/plugin-pets": ["./src/maskbook/packages/plugins/Pets/src/index.ts"],
-            "@masknet/plugin-tips": ["./src/maskbook/packages/plugins/Tips/src/index.ts"],
-            "@masknet/plugin-nextid": ["./src/maskbook/packages/plugins/NextID/src/index.ts"],
-            "@masknet/plugin-trader": ["./src/maskbook/packages/plugins/Trader/src/index.ts"],
-            "@masknet/plugin-profilecard": ["./src/maskbook/packages/plugins/ProfileCard/src/index.ts"],
-            "@masknet/plugin-savings": ["./src/maskbook/packages/plugins/Savings/src/index.ts"],
             "@masknet/plugin-snapshot": ["./src/maskbook/packages/plugins/Snapshot/src/index.ts"],
             "@masknet/plugin-snapshot/register": ["./src/maskbook/packages/plugins/Snapshot/src/register.ts"],
-            "@masknet/plugin-switch-logo": ["./src/maskbook/packages/plugins/SwitchLogo/src/index.ts"],
             "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"],
             "@masknet/plugin-calendar/register": ["./src/maskbook/packages/plugins/Calendar/src/register.ts"]
         }
@@ -156,42 +117,10 @@
         "node_modules",
         "src/service-workers",
         "src/maskbook",
-        "src/maskbook/packages/mask/background",
-        "src/maskbook/packages/mask/popups",
-        "src/maskbook/packages/mask/dashboard",
         "src/maskbook/packages/gun-utils",
         "src/maskbook/packages/app",
         "src/maskbook/packages/backup-format",
         "src/maskbook/packages/gun-utils",
-        "src/maskbook/packages/plugins/Approval",
-        "src/maskbook/packages/plugins/ArtBlocks",
-        "src/maskbook/packages/plugins/Avatar",
-        "src/maskbook/packages/plugins/Claim",
-        "src/maskbook/packages/plugins/Collectible",
-        "src/maskbook/packages/plugins/CrossChainBridge",
-        "src/maskbook/packages/plugins/CyberConnect",
-        "src/maskbook/packages/plugins/FileService",
-        "src/maskbook/packages/plugins/FriendTech",
-        "src/maskbook/packages/plugins/Gitcoin",
-        "src/maskbook/packages/plugins/GoPlusSecurity",
-        "src/maskbook/packages/plugins/Handle",
-        "src/maskbook/packages/plugins/MaskBox",
-        "src/maskbook/packages/plugins/NextID",
-        "src/maskbook/packages/plugins/Pets",
-        "src/maskbook/packages/plugins/ProfileCard",
-        "src/maskbook/packages/plugins/RSS3",
-        "src/maskbook/packages/plugins/Savings",
-        "src/maskbook/packages/plugins/ScamSniffer",
-        "src/maskbook/packages/plugins/ScamWarning",
-        "src/maskbook/packages/plugins/SmartPay",
-        "src/maskbook/packages/plugins/Snapshot",
-        "src/maskbook/packages/plugins/SwitchLogo",
-        "src/maskbook/packages/plugins/Tips",
-        "src/maskbook/packages/plugins/Trader",
-        "src/maskbook/packages/plugins/Transak",
-        "src/maskbook/packages/plugins/VCent",
-        "src/maskbook/packages/plugins/Web3Profile",
-        "src/maskbook/packages/plugins/template",
         "src/maskbook/packages/mask-sdk",
         "src/maskbook/packages/scripts",
         "src/maskbook/packages/test-serializer",
