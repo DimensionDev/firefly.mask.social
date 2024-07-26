@@ -22,8 +22,7 @@ export function resolveFireflyProfiles(
                     x.identity === profileTab.identity,
             ) ?? null,
         walletProfile:
-            (profiles.find((x) => x.source === Source.Wallet && isSameAddress(x.identity, profileTab.identity))?.__origin__ as
-                | WalletProfile
-                | undefined) ?? null,
+            (profiles.find((x) => x.source === Source.Wallet && isSameAddress(x.identity, profileTab.identity))
+                ?.__origin__ as WalletProfile | undefined) ?? null,
     };
 }
