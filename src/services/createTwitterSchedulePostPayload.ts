@@ -63,7 +63,7 @@ export async function createTwitterSchedulePostPayload(
         poll: pollResult
             ? {
                   options: pollResult.options.map((option) => option.label),
-                  duration_minutes: pollResult.durationSeconds / 60,
+                  duration_minutes: Math.floor(pollResult.durationSeconds / 60),
               }
             : undefined,
     };
