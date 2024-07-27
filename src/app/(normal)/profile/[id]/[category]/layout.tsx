@@ -2,17 +2,15 @@
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useSearchParams } from 'next/navigation.js';
-import type React from 'react';
 import type { PropsWithChildren } from 'react';
 
 import { Title } from '@/components/Profile/Title.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { FollowCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { getProfileById } from '@/services/getProfileById.js';
-import { FollowCategory } from '@/types/social.js';
 
 interface Props extends PropsWithChildren {
     params: {
@@ -20,21 +18,6 @@ interface Props extends PropsWithChildren {
         FollowCategory: FollowCategory;
     };
 }
-
-const tabs = [
-    {
-        label: <Trans>Followers you know</Trans>,
-        category: FollowCategory.Mutuals,
-    },
-    {
-        label: <Trans>Following</Trans>,
-        category: FollowCategory.Following,
-    },
-    {
-        label: <Trans>Followers</Trans>,
-        category: FollowCategory.Followers,
-    },
-] as const;
 
 export default function DetailLayout({ children, params }: Props) {
     const searchParams = useSearchParams();
@@ -44,7 +27,6 @@ export default function DetailLayout({ children, params }: Props) {
 
     const { data: profile = null } = useQuery({
         queryKey: ['profile', source, identity],
-        retry: 3,
         queryFn: async () => {
             if (!identity || !source || source === Source.Wallet) return null;
             if (source === Source.Twitter) return null;
@@ -53,6 +35,21 @@ export default function DetailLayout({ children, params }: Props) {
     });
 
     const pathname = usePathname();
+
+    const tabs = [
+        {
+            label: <Trans>Followers you know</Trans>,
+            category: FollowCategory.Mutuals,
+        },
+        {
+            label: <Trans>Following</Trans>,
+            category: FollowCategory.Following,
+        },
+        {
+            label: <Trans>Followers</Trans>,
+            category: FollowCategory.Followers,
+        },
+    ] as const;
 
     return (
         <>

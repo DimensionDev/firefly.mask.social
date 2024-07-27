@@ -189,3 +189,9 @@ export enum CryptoUsage {
     Encrypt = 'encrypt',
     Decrypt = 'decrypt',
 }
+
+export const enum FollowCategory {
+    Following = 'following',
+    Followers = 'followers',
+    Mutuals = 'mutuals',
+}

@@ -8,11 +8,12 @@ import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Source } from '@/constants/enum.js';
+import { FollowCategory, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -20,7 +21,6 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { FollowCategory } from '@/types/social.js';
 
 interface InfoProps {
     profile: Profile;
@@ -44,7 +44,7 @@ export function Info({ profile }: InfoProps) {
     // Fetch the first page with useInfiniteQuery, the same as
     // MutualFollowersList, to make it reuseable in MutualFollowersList
     const { data } = useInfiniteQuery({
-        enabled: myProfileId !== profileId,
+        enabled: isSameProfile(myProfile, profile),
         queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);

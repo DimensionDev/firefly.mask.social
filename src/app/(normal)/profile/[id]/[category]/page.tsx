@@ -4,8 +4,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { FollowersList } from '@/app/(normal)/profile/[id]/[category]/pages/FollowersList.js';
 import { FollowingList } from '@/app/(normal)/profile/[id]/[category]/pages/FollowingList.js';
 import { MutualFollowersList } from '@/app/(normal)/profile/[id]/[category]/pages/MutualFollowersList.js';
-import { type SocialSourceInURL } from '@/constants/enum.js';
-import { FollowCategory } from '@/types/social.js';
+import { FollowCategory, type SocialSourceInURL } from '@/constants/enum.js';
 
 interface Props {
     params: {
