@@ -309,6 +309,9 @@ msgstr "失敗"
 msgid "Bookmarks"
 msgstr "書籤"
 
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
 msgid "Confirm"
 msgstr "確認"
 
@@ -410,6 +413,9 @@ msgstr ""
 
 msgid "Search"
 msgstr "搜尋"
+
+msgid "Followed by {0}"
+msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
@@ -655,6 +661,9 @@ msgid "Search Filter"
 msgstr "進階搜尋"
 
 msgid "Resend full or remaining?"
+msgstr ""
+
+msgid "Followed by {0} and {1}"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -1014,6 +1023,9 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
 
+msgid "Follow Back"
+msgstr ""
+
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
@@ -1073,6 +1085,9 @@ msgstr "文章"
 
 msgid "Connect to {0}"
 msgstr "連接到 {0}"
+
+msgid "Followers you know"
+msgstr ""
 
 msgid "Settings"
 msgstr "設定"
@@ -1569,6 +1584,9 @@ msgstr ""
 msgid "Refresh"
 msgstr "重新整理"
 
+msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
 msgid "Channels"
 msgstr "頻道"
 
@@ -1997,4 +2015,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

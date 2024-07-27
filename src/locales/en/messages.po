@@ -304,6 +304,9 @@ msgstr "Failed"
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr "Followed by {0} , {1}, and {2} others you follow"
+
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -405,6 +408,9 @@ msgstr "recast"
 
 msgid "Search"
 msgstr "Search"
+
+msgid "Followed by {0}"
+msgstr "Followed by {0}"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
@@ -651,6 +657,9 @@ msgstr "Search Filter"
 
 msgid "Resend full or remaining?"
 msgstr "Resend full or remaining?"
+
+msgid "Followed by {0} and {1}"
+msgstr "Followed by {0} and {1}"
 
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
@@ -1009,6 +1018,9 @@ msgstr "This contract is an Admin Upgradeability Proxy. The proxy contract means
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
 
+msgid "Follow Back"
+msgstr "Follow Back"
+
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
 
@@ -1068,6 +1080,9 @@ msgstr "Articles"
 
 msgid "Connect to {0}"
 msgstr "Connect to {0}"
+
+msgid "Followers you know"
+msgstr "Followers you know"
 
 msgid "Settings"
 msgstr "Settings"
@@ -1563,6 +1578,9 @@ msgstr "Sign the transaction to verify you are the owner of the selected profile
 
 msgid "Refresh"
 msgstr "Refresh"
+
+msgid "Followed by {0} , {1}, and {2}"
+msgstr "Followed by {0} , {1}, and {2}"
 
 msgid "Channels"
 msgstr "Channels"

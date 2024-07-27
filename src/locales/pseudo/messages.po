@@ -304,6 +304,9 @@ msgstr ""
 msgid "Bookmarks"
 msgstr ""
 
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
@@ -404,6 +407,9 @@ msgid "recast"
 msgstr ""
 
 msgid "Search"
+msgstr ""
+
+msgid "Followed by {0}"
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
@@ -650,6 +656,9 @@ msgid "Search Filter"
 msgstr ""
 
 msgid "Resend full or remaining?"
+msgstr ""
+
+msgid "Followed by {0} and {1}"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -1009,6 +1018,9 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
+msgid "Follow Back"
+msgstr ""
+
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
@@ -1067,6 +1079,9 @@ msgid "Articles"
 msgstr ""
 
 msgid "Connect to {0}"
+msgstr ""
+
+msgid "Followers you know"
 msgstr ""
 
 msgid "Settings"
@@ -1562,6 +1577,9 @@ msgid "Sign the transaction to verify you are the owner of the selected profile.
 msgstr ""
 
 msgid "Refresh"
+msgstr ""
+
+msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
 msgid "Channels"

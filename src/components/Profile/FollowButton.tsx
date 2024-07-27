@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro';
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
+import MutualFollowIcon from '@/assets/mutual-follow.svg';
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -34,16 +35,22 @@ export const FollowButton = memo(function FollowButton({
 
     const muted = useIsProfileMuted(profile, hasMutedButton);
 
+    const isFollowing = !!profile.viewerContext?.following;
+    const isFollowingBy = !!profile.viewerContext?.followedBy;
+    const buttonText = useMemo(() => {
+        if (variant === 'text') {
+            if (isFollowing) return hovering && !loading ? t`Unfollow` : t`Following`;
+            return isFollowingBy ? t`Follow Back` : t`Follow`;
+        }
+        if (isFollowing) return <FollowedIcon className="h-4 w-4" />;
+        return isFollowingBy ? <MutualFollowIcon className="h-4 w-4" /> : <FollowIcon className="h-4 w-4" />;
+    }, [hovering, isFollowing, isFollowingBy, loading, variant]);
+
     if (hasMutedButton && muted) {
         return <ToggleMutedProfileButton profile={profile} className={className} {...rest} />;
     }
-    const isFollowing = !!profile.viewerContext?.following;
-    const buttonText = {
-        text: isFollowing ? (hovering && !loading ? t`Unfollow` : t`Following`) : t`Follow`,
-        icon: isFollowing ? <FollowedIcon className="h-4 w-4" /> : <FollowIcon className="h-4 w-4" />,
-    }[variant];
     const variantClassName = {
-        text: 'min-w-[100px] px-2',
+        text: 'min-w-[112px] box-border px-5 whitespace-nowrap',
         icon: 'w-8 max-w-8',
     }[variant];
     const buttonState = isFollowing ? (hovering && !loading ? State.Unfollow : State.Following) : State.Follow;

@@ -309,6 +309,9 @@ msgstr "失败"
 msgid "Bookmarks"
 msgstr "收藏"
 
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
 msgid "Confirm"
 msgstr "确认"
 
@@ -410,6 +413,9 @@ msgstr "转帖"
 
 msgid "Search"
 msgstr "搜索"
+
+msgid "Followed by {0}"
+msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
@@ -656,6 +662,9 @@ msgstr "查询规则"
 
 msgid "Resend full or remaining?"
 msgstr "重新完整发送或者发送剩余部分？"
+
+msgid "Followed by {0} and {1}"
+msgstr ""
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -1014,6 +1023,9 @@ msgstr "此合约是一个管理升级代理合约。代理合约意味着合同
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
+msgid "Follow Back"
+msgstr ""
+
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
 
@@ -1073,6 +1085,9 @@ msgstr "文章"
 
 msgid "Connect to {0}"
 msgstr "连接到 {0}"
+
+msgid "Followers you know"
+msgstr ""
 
 msgid "Settings"
 msgstr "设置"
@@ -1569,6 +1584,9 @@ msgstr "签署交易以验证你是所选账号的所有者。"
 msgid "Refresh"
 msgstr "刷新"
 
+msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
 msgid "Channels"
 msgstr "频道"
 
@@ -1997,4 +2015,3 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
