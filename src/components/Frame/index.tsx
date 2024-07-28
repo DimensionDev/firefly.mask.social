@@ -14,7 +14,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
-import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -29,7 +29,7 @@ import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmBeforeLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
@@ -164,8 +164,7 @@ async function getNextFrame(
                     return;
                 }
 
-                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(redirectUrl))
-                    openWindow(redirectUrl, '_blank');
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(redirectUrl)) openWindow(redirectUrl, '_blank');
                 return;
             }
             case ActionType.Link:
@@ -174,7 +173,7 @@ async function getNextFrame(
                 const opened = openIntentUrl(button.target);
                 if (opened) return;
 
-                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(button.target))
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
                 return;
             case ActionType.Mint: {
@@ -184,7 +183,7 @@ async function getNextFrame(
                     enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
                     return;
                 }
-                if (await ConfirmBeforeLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
                 return;
             }
             case ActionType.Transaction:
@@ -253,12 +252,12 @@ async function getNextFrame(
 
 interface FrameProps {
     post: Post;
-    urls: string[];
+    urls?: string[];
     children: React.ReactNode;
     onData?: (frame: FrameType) => void;
 }
 
-export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, children }) {
+export const Frame = memo<FrameProps>(function Frame({ post, urls = EMPTY_LIST, onData, children }) {
     const { postId, source } = post;
     const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
 
@@ -278,7 +277,7 @@ export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, child
             try {
                 const result = await attemptUntil(
                     urls.map((x) => async () => {
-                        if (!x || isValidDomain(x)) return;
+                        if (isValidDomain(x)) return;
                         return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                             urlcat('/api/frame', {
                                 link: (await resolveTCOLink(x)) ?? x,
@@ -311,7 +310,7 @@ export const Frame = memo<FrameProps>(function Frame({ post, urls, onData, child
         onData?.(data.data.frame);
     }, [data, onData]);
 
-    const frame: FrameType | null = latestFrame ?? (data?.success ? data.data.frame : null);
+    const frame = latestFrame ?? (data?.success ? data.data.frame : null);
 
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {

@@ -1,7 +1,6 @@
 'use client';
 
 import { last } from 'lodash-es';
-import { useState } from 'react';
 
 import { Blink } from '@/components/Blink/index.js';
 import { Frame } from '@/components/Frame/index.js';
@@ -13,12 +12,8 @@ import { BlinkParser } from '@/providers/blink/Parser.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function PostLinks({ post, setContent }: { post: Post; setContent?: (content: string) => void }) {
-    // a blink could be a normal url, so the result is also available for the oembed and frame components
-    const schemes = post.metadata.content?.content ? BlinkParser.extractSchemes(post.metadata.content?.content) : [];
-    const [disabledBlink, setDisabledBlink] = useState(false);
-
-    const oembed =
-        post.metadata.content?.oembedUrl && !post.quoteOn ? (
+    const renderOembed = () => {
+        return post.metadata.content?.oembedUrl && !post.quoteOn ? (
             <Oembed
                 url={post.metadata.content.oembedUrl}
                 onData={() => {
@@ -28,38 +23,31 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
                 }}
             />
         ) : null;
+    };
 
-    if (!disabledBlink && schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
+    // a blink could be a normal url, so the result is also available for the oembed and frame components
+    const schemes = post.metadata.content?.content ? BlinkParser.extractSchemes(post.metadata.content?.content) : [];
+    const showBlink = schemes.length && env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled;
+    const showFrame = post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled;
+
+    if (showBlink) {
         const scheme = last(schemes);
-        if (!scheme?.url) return oembed;
+        if (!scheme?.url) return renderOembed();
 
-        return (
-            <>
-                {post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled ? (
-                    <Frame urls={post.metadata.content.oembedUrls} post={post}>
-                        <></>
-                    </Frame>
-                ) : null}
-                <Blink
-                    schemes={[scheme]}
-                    onData={() => {
-                        if (post.metadata.content?.content) {
-                            setContent?.(removeAtEnd(post.metadata.content?.content, scheme.blink));
-                        }
-                    }}
-                    onFailed={() => setDisabledBlink(true)}
-                />
-            </>
-        );
+        return showFrame ? (
+            <Frame urls={post.metadata.content?.oembedUrls} post={post}>
+                <Blink schemes={[scheme]}>{renderOembed()}</Blink>
+            </Frame>
+        ) : null;
     }
 
-    if (post.metadata.content?.oembedUrls?.length && env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled) {
+    if (showFrame) {
         return (
-            <Frame urls={post.metadata.content.oembedUrls} post={post}>
-                {oembed}
+            <Frame urls={post.metadata.content?.oembedUrls} post={post}>
+                {renderOembed()}
             </Frame>
         );
     }
 
-    return oembed;
+    return renderOembed();
 }

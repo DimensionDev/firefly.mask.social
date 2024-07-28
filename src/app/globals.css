@@ -375,7 +375,7 @@ body.not-support .fixed.inset-y-0 {
 }
 
 .custom-date-picker * {
-    color: var(--color-main) !important;
+    color: rgb(var(--color-main)) !important;
 }
 
 .custom-date-picker button.Mui-disabled {
@@ -385,6 +385,11 @@ body.not-support .fixed.inset-y-0 {
 .schedule-task-list [data-test-id='virtuoso-item-list'] {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+.custom-time-picker {
+    overflow: unset;
+    color: rgb(var(--color-main)) !important;
 }
 
 .custom-time-picker > * {

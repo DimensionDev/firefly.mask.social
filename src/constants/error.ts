@@ -26,12 +26,14 @@ export class FetchError extends Error {
     status: number;
     url: string;
     statusText: string;
+    text: string;
 
-    constructor(message: string, status: number, statusText: string, url: string) {
+    constructor(message: string, status: number, statusText: string, url: string, text: string) {
         super(message);
         this.status = status;
         this.statusText = statusText;
         this.url = url;
+        this.text = text;
     }
 }
 

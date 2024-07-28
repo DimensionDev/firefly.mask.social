@@ -25,6 +25,7 @@ export async function fetch(input: RequestInfo | URL, init?: RequestInit, fetche
             response.status,
             response.statusText,
             response.url,
+            text,
         );
     }
     return response;

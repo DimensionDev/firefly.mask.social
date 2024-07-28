@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-24 12:01\n"
+"PO-Revision-Date: 2024-07-26 04:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -91,7 +91,7 @@ msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
-msgstr "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 
 msgid "Failed to unbookmark post."
 msgstr "取消收藏失败。"
@@ -1330,7 +1330,7 @@ msgid "Send on schedule"
 msgstr "发送定时任务"
 
 msgid "will send on {0} at {1}"
-msgstr ""
+msgstr "将在 {0} {1} 发送"
 
 msgid "Failed to like the post."
 msgstr "点赞失败。"
@@ -1789,7 +1789,7 @@ msgid "Cancel Recast"
 msgstr "取消转帖"
 
 msgid "The scheduled time has passed."
-msgstr ""
+msgstr "定时任务的时间已过期。"
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
@@ -1997,3 +1997,4 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+

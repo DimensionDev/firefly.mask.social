@@ -4,6 +4,7 @@ import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-sc
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
 import { Modals } from '@masknet/shared';
 import { noop } from 'lodash-es';
+import { memo } from 'react';
 
 import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
@@ -13,7 +14,7 @@ const GlobalInjection = createInjectHooksRenderer(
     (x) => x.GlobalInjection,
 );
 
-export default function PageInspector() {
+export default memo(function PageInspector() {
     return (
         <Providers>
             <MaskProviders>
@@ -22,4 +23,4 @@ export default function PageInspector() {
             </MaskProviders>
         </Providers>
     );
-}
+});

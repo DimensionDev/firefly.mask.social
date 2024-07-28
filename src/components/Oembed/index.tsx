@@ -62,8 +62,8 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
 
     const payload = data.data.payload;
 
-    if (payload?.type) {
-        const type = payload.type;
+    const type = payload?.type;
+    if (type) {
         switch (type) {
             case PayloadType.Mirror:
                 return (

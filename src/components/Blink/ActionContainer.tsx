@@ -10,13 +10,15 @@ import type { ButtonProps } from '@/components/Blink/ActionButton.js';
 import type { InputProps } from '@/components/Blink/ActionInput.js';
 import { ActionLayout } from '@/components/Blink/ActionLayout.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { FetchError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { BlinkRegistry } from '@/providers/blink/Registry.js';
 import type { ActionPostResponse } from '@/providers/types/Blink.js';
-import type { Action, ActionComponent, ActionType } from '@/types/blink.js';
+import type { Action, ActionComponent, ActionParameter, ActionType } from '@/types/blink.js';
 
 type ExecutionStatus = 'blocked' | 'idle' | 'executing' | 'success' | 'error';
 
@@ -154,23 +156,42 @@ export function ActionContainer({
         () =>
             action?.actions
                 ? take(
-                      action.actions.filter((it) => it.parameter),
+                      action.actions.filter((it) => it.parameters.length === 1),
                       SOFT_LIMIT_INPUTS,
                   )
                 : [],
         [action.actions],
     );
 
+    const form = useMemo(() => {
+        const [formComponent] = action?.actions.filter((it) => it.parameters.length > 1) ?? [];
+        return formComponent;
+    }, [action]);
+
     const walletModal = useWalletModal();
     const { connection } = useConnection();
     const wallet = useWallet();
 
+    function getHref(component: ActionComponent, parameterValue: Record<string, string> = {}) {
+        // input with a button
+        if (component.parameters.length === 1) {
+            return component.href.replace(
+                `{${component.parameter?.name}}`,
+                encodeURIComponent(parameterValue[component.parameter!.name]?.trim() ?? ''),
+            );
+        }
+        // form
+        if (component.parameters.length > 1) {
+            return component.parameters.reduce((href, param) => {
+                return href.replace(`{${param.name}}`, encodeURIComponent(parameterValue[param.name]?.trim() ?? ''));
+            }, component.href);
+        }
+        // button
+        return component.href;
+    }
+
     const postActionComponent = (account: string, component: ActionComponent, params?: Record<string, string>) => {
-        const parameterValue =
-            component.parameter && params ? params[component.parameter.name] : component.parameterValue;
-        const href = component.parameter
-            ? component.href.replace(`{${component.parameter.name}}`, parameterValue.trim())
-            : component.href;
+        const href = getHref(component, params);
         return fetchJSON<ActionPostResponse>(href, {
             method: 'POST',
             body: JSON.stringify({ account }),
@@ -204,11 +225,17 @@ export function ActionContainer({
                 successMessage: tx.message,
             });
         } catch (error) {
+            if (error instanceof FetchError) {
+                const resp = parseJSON<{ message: string }>(error.text);
+                enqueueErrorMessage(resp?.message ?? t`Unknown error`);
+                throw error;
+            }
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Unknown error`), {
                 error,
             });
-            dispatch({ type: ExecutionType.RESET });
             throw error;
+        } finally {
+            dispatch({ type: ExecutionType.RESET });
         }
     };
 
@@ -228,13 +255,27 @@ export function ActionContainer({
         onClick: (params?: Record<string, string>) => execute(it, params),
     });
 
-    const asInputProps = (it: ActionComponent): InputProps => ({
-        // since we already filter this, we can safely assume that parameter is not null
-        placeholder: it.parameter!.label,
-        disabled: action.disabled || executionState.status !== 'idle' || !!executionState.executingAction,
-        name: it.parameter!.name,
-        button: asButtonProps(it),
-    });
+    const asInputProps = (it: ActionComponent, parameter?: ActionParameter): InputProps => {
+        const placeholder = !parameter ? it.parameter!.label : parameter.label;
+        const name = !parameter ? it.parameter!.name : parameter.name;
+        const required = !parameter ? it.parameter!.required : parameter.required;
+
+        return {
+            // since we already filter this, we can safely assume that parameter is not null
+            placeholder,
+            disabled: action.disabled || executionState.status !== 'idle' || !!executionState.executingAction,
+            name,
+            required,
+            button: !parameter ? asButtonProps(it) : undefined,
+        };
+    };
+
+    const asFormProps = (it: ActionComponent) => {
+        return {
+            button: asButtonProps(it),
+            inputs: it.parameters.map((parameter) => asInputProps(it, parameter)),
+        };
+    };
 
     const disclaimer = useMemo(() => {
         if (actionState === 'malicious' && executionState.status === 'blocked') {
@@ -278,7 +319,8 @@ export function ActionContainer({
             disclaimer={isLoadingRegistry ? null : disclaimer}
             successMessage={executionState.successMessage}
             buttons={buttons.map(asButtonProps)}
-            inputs={inputs.map(asInputProps)}
+            inputs={inputs.map((input) => asInputProps(input))}
+            form={form ? asFormProps(form) : undefined}
         />
     );
 }
