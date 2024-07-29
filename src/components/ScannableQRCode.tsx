@@ -1,4 +1,4 @@
-import QRCode from 'react-qr-code';
+import { QRCode } from 'react-qrcode-logo';
 
 import ReloadIcon from '@/assets/reload.svg';
 import { classNames } from '@/helpers/classNames.js';
@@ -13,11 +13,16 @@ export function ScannableQRCode(props: Props) {
     const { url, scanned, countdown } = props;
     return (
         <div className="relative flex items-center justify-center">
-            <div className={classNames('rounded-2xl bg-white p-4', countdown === 0 || scanned ? 'blur-md' : '')}>
-                <QRCode value={url} size={328} />
+            <div
+                className={classNames(
+                    'overflow-hidden rounded-2xl bg-white shadow-[0_0_20px_0_rgba(0,0,0,0.05)] backdrop-blur',
+                    countdown === 0 || scanned ? 'blur-md' : '',
+                )}
+            >
+                <QRCode value={url} ecLevel="M" size={238} quietZone={16} eyeRadius={150} qrStyle="dots" />
             </div>
             {countdown === 0 ? (
-                <ReloadIcon className="absolute inset-0 m-auto text-white" width={48} height={48} />
+                <ReloadIcon className="absolute inset-0 m-auto text-white" width={80} height={80} />
             ) : null}
         </div>
     );

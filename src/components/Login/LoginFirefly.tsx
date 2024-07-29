@@ -96,36 +96,30 @@ export function LoginFirefly(props: LoginFireflyProps) {
     });
 
     return (
-        <div className="flex flex-col rounded-[12px] md:w-[600px]">
+        <div className="flex flex-col rounded-[12px]">
             {IS_MOBILE_DEVICE ? (
-                <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
+                <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-3">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
                     <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                         <Trans>Please confirm the login with Firefly.</Trans>
                     </div>
                 </div>
             ) : (
-                <div className="relative flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
+                <div className="relative flex w-full flex-col items-center gap-3">
                     {url ? (
                         <>
                             <div className="text-center text-[12px] leading-[16px] text-lightSecond">
-                                {count === 0 ? (
-                                    <Trans>Please click and refresh the QR code to log in again.</Trans>
-                                ) : (
-                                    <Trans>
-                                        On your mobile device with <span className="font-bold">Firefly</span>, open the{' '}
-                                        <span className="font-bold">Camera</span> app and scan the QR code in{' '}
-                                        {
-                                            <span className="font-bold">
-                                                {plural(count, {
-                                                    one: '1 second',
-                                                    other: `${count} seconds`,
-                                                })}
-                                            </span>
-                                        }
-                                        .
-                                    </Trans>
-                                )}
+                                <Trans>
+                                    On your mobile device with <span className="font-bold">Firefly</span>, open the{' '}
+                                    <span className="font-bold">Camera</span> app and scan the QR code in{' '}
+                                    <span className="font-mono font-bold">
+                                        {plural(count, {
+                                            one: '1 second',
+                                            other: `${count} seconds`,
+                                        })}
+                                    </span>
+                                    .
+                                </Trans>
                             </div>
                             <div
                                 className={classNames('relative flex items-center justify-center', {
@@ -146,8 +140,10 @@ export function LoginFirefly(props: LoginFireflyProps) {
                             </div>
                         </>
                     ) : (
-                        <div className="flex w-full flex-1 flex-col items-center justify-center">
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        <div className="pt-7">
+                            <div className="mx-auto p-4">
+                                <div className="h-[238px] w-[238px] flex-grow rounded-2xl bg-gray-100 shadow-[0_0_20px_0_rgba(0,0,0,0.05)] backdrop-blur dark:bg-gray-800" />
+                            </div>
                         </div>
                     )}
                 </div>

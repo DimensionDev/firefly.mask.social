@@ -5,7 +5,7 @@ import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
-import type { LoginModalOpenProps } from '@/modals/LoginModal.js';
+import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';

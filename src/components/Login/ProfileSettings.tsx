@@ -69,7 +69,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                     await delay(300);
                                     return LoginModalRef.open({
                                         source,
-                                        options: { expectedProfile: account.profile },
+                                        options: { expectedProfile: account.profile.profileId },
                                     });
                                 }
                                 await switchAccount({ ...account, session: account.session });

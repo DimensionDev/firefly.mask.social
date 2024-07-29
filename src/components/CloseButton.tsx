@@ -13,8 +13,8 @@ interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export function CloseButton({ size = 24, tooltip = t`Close`, ...props }: CloseButtonProps) {
     return (
-        <ClickableButton {...props}>
-            <Tooltip content={tooltip} placement="top">
+        <Tooltip content={tooltip} placement="top">
+            <ClickableButton {...props} className={classNames('rounded p-1 hover:bg-lightBg', props.className)}>
                 <CloseIcon
                     className={classNames('text-main', {
                         'cursor-pointer': !props.disabled,
@@ -22,7 +22,7 @@ export function CloseButton({ size = 24, tooltip = t`Close`, ...props }: CloseBu
                     width={size}
                     height={size}
                 />
-            </Tooltip>
-        </ClickableButton>
+            </ClickableButton>
+        </Tooltip>
     );
 }
