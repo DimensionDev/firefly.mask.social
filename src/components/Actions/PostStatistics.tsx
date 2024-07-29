@@ -80,9 +80,9 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         </EngagementLink>
     ) : null;
     const collects = post.stats?.countOpenActions
-        ? plural(post.stats?.countOpenActions, {
+        ? plural(post.stats.countOpenActions, {
               one: '1 comment',
-              other: `${post.stats?.countOpenActions} comments`,
+              other: `${post.stats.countOpenActions} comments`,
           })
         : null;
     const mirrors = post.stats?.mirrors ? (
