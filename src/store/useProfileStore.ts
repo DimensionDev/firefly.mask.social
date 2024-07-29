@@ -244,6 +244,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
+                // set session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
                 const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
@@ -256,11 +257,12 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                await addAccount({
+                const done = await addAccount({
                     profile,
                     session: TwitterSession.from(profile, payload),
                     fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
                 });
+                if (!done) state.clear();
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
