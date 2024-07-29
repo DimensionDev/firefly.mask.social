@@ -79,10 +79,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             case Source.Twitter:
                 const profile = post?.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
                 if (!profile) return title;
-                const link = getProfileUrl(profile);
                 return (
                     <ProfileTippy className="inline-block" source={Source.Twitter} identity={profile.profileId}>
-                        <MentionLink handle={profile.handle} link={link} />
+                        <MentionLink handle={profile.handle} link={getProfileUrl(profile)} />
                     </ProfileTippy>
                 );
             default:

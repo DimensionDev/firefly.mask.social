@@ -13,6 +13,7 @@ import { Views } from '@/components/Actions/Views.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
@@ -99,7 +100,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
         ) : null,
         post.source !== Source.Twitter ? (
-            <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
+            <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
         ) : null,
     ]);
 
@@ -195,7 +196,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         />
                     ) : null}
                     {post.source !== Source.Twitter ? (
-                        <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
+                        <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                     ) : null}
                 </div>
             </ClickableArea>
