@@ -1,9 +1,7 @@
-'use client';
-
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { plural, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { type Dispatch, type SetStateAction, useMemo, useState } from 'react';
+import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
@@ -13,9 +11,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { FarcasterSignType, Source } from '@/constants/enum.js';
-import { AbortError, FarcasterProfileNotConnectedError, NotImplementedError, TimeoutError } from '@/constants/error.js';
-import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
+import { FarcasterSignType as SignType, Source } from '@/constants/enum.js';
+import { AbortError, FarcasterProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -50,35 +48,11 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
     }
 }
 
-interface LoginFarcasterProps {
-    signType: FarcasterSignType | null;
-    setSignType: Dispatch<SetStateAction<FarcasterSignType | null>>;
+export interface LoginFarcasterProps {
+    signType: SignType | null;
 }
 
-export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
-    const options = useMemo(() => {
-        return [
-            {
-                label: t`New connect with Warpcast`,
-                type: FarcasterSignType.GrantPermission,
-                developmentOnly: false,
-                isFreeOfTransactionFee: false,
-            },
-            {
-                label: t`Reconnect with Firefly`,
-                type: FarcasterSignType.RelayService,
-                developmentOnly: false,
-                isFreeOfTransactionFee: true,
-            },
-            {
-                label: t`Sign in with Custody Wallet`,
-                type: FarcasterSignType.CustodyWallet,
-                developmentOnly: true,
-                isFreeOfTransactionFee: true,
-            },
-        ].filter((x) => (IS_PRODUCTION ? !x.developmentOnly : true));
-    }, []);
-
+export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const controller = useAbortController();
 
     const [url, setUrl] = useState('');
@@ -160,90 +134,28 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
         }
     }, [resetCountdown, startCountdown]);
 
-    const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        controller.current.abort();
-
-        try {
-            await login(
-                async () => {
-                    throw new NotImplementedError();
-                },
-                { signal: controller.current.signal },
-            );
-        } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
-                error,
-            });
-            throw error;
-        }
-    }, []);
-
-    const onClick = (type: FarcasterSignType | null) => {
-        if (!type) return;
-
-        switch (type) {
-            case FarcasterSignType.GrantPermission:
+    useMount(() => {
+        if (!signType) return;
+        switch (signType) {
+            case SignType.GrantPermission:
                 onLoginByGrantPermission();
                 break;
-            case FarcasterSignType.RelayService:
+            case SignType.RelayService:
                 onLoginByRelayService();
                 break;
-            case FarcasterSignType.CustodyWallet:
-                onLoginWithCustodyWallet();
-                break;
         }
-    };
-
-    useMount(() => {
-        onClick(signType);
     });
 
     useUnmount(() => {
         if (IS_MOBILE_DEVICE) resetCountdown();
     });
 
-    if (signType === FarcasterSignType.RecoveryPhrase) return null;
+    if (!signType || signType === SignType.RecoveryPhrase) return null;
 
-    // step 1: select sign type
-    if (!signType || signType === FarcasterSignType.CustodyWallet) {
-        return (
-            <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
-                <p className="pb-2 text-left text-sm">
-                    <Trans>You can sign in to Farcaster with the following options.</Trans>
-                </p>
-                {options.map(({ label, type, isFreeOfTransactionFee }) => (
-                    <ClickableButton
-                        className="flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg"
-                        key={type}
-                        onClick={() => {
-                            setSignType(type);
-                            onClick(type);
-                        }}
-                    >
-                        <span className="flex flex-1 items-center">
-                            {label}
-                            {isFreeOfTransactionFee ? (
-                                <span className="ml-2 rounded-md border border-main px-1 text-xs font-bold text-main">
-                                    {t`FREE`}
-                                </span>
-                            ) : null}
-                        </span>
-                        {loadingCustodyWallet && type === FarcasterSignType.CustodyWallet ? (
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
-                        ) : (
-                            <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main" />
-                        )}
-                    </ClickableButton>
-                ))}
-            </div>
-        );
-    }
-
-    // step 2: display qr code
     return (
-        <div className="flex flex-col rounded-[12px] md:w-[600px]">
+        <div className="box-border flex flex-col rounded-xl p-6 md:w-[500px]">
             {IS_MOBILE_DEVICE ? (
-                <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
+                <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4">
                     {count !== 0 ? <LoadingIcon className="animate-spin" width={24} height={24} /> : null}
                     <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                         {count !== 0 ? (
@@ -254,7 +166,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                     </div>
                 </div>
             ) : (
-                <div className="relative flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
+                <div className="relative flex w-full flex-col items-center gap-4">
                     {profileError ? (
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
                             {profileError.profile ? (
@@ -273,7 +185,6 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                             <ClickableButton
                                 className="rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
                                 onClick={() => {
-                                    setSignType(null);
                                     setScanned(false);
                                     setProfileError(null);
                                     resetCountdown();
@@ -284,28 +195,18 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         </div>
                     ) : url ? (
                         <>
-                            <div className="text-center text-[12px] leading-[16px] text-lightSecond">
-                                {count === 0 ? (
-                                    <Trans>Please click and refresh the QR code to log in again.</Trans>
-                                ) : signType === FarcasterSignType.GrantPermission ? (
+                            <div className="text-center text-xs leading-4 text-lightSecond">
+                                {signType === SignType.GrantPermission ? (
                                     <Trans>
-                                        On your mobile device with <span className="font-bold">Warpcast</span>, open the{' '}
-                                        <span className="font-bold">Camera</span> app and scan the QR code. Approve a
-                                        new Farcaster signer to <span className="font-bold">Firefly</span>.
+                                        Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
+                                        {count}s. <br />
+                                        Approve a new Farcaster signer to Firefly.
                                     </Trans>
-                                ) : signType === FarcasterSignType.RelayService ? (
+                                ) : signType === SignType.RelayService ? (
                                     <Trans>
-                                        On your mobile device with <span className="font-bold">Warpcast</span>, open the{' '}
-                                        <span className="font-bold">Camera</span> app and scan the QR code in{' '}
-                                        {
-                                            <span className="font-bold">
-                                                {plural(count, {
-                                                    one: '1 second',
-                                                    other: `${count} seconds`,
-                                                })}
-                                            </span>
-                                        }
-                                        . Approve a new Farcaster signer to <span className="font-bold">Firefly</span>.
+                                        Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
+                                        {count}s.
+                                        <br /> Approve the existing Farcaster signer to Firefly.
                                     </Trans>
                                 ) : null}
                             </div>
@@ -315,14 +216,13 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                 })}
                                 onClick={() => {
                                     if (scanned) return;
-
                                     controller.current.abort();
 
                                     switch (signType) {
-                                        case FarcasterSignType.GrantPermission:
+                                        case SignType.GrantPermission:
                                             onLoginByGrantPermission();
                                             break;
-                                        case FarcasterSignType.RelayService:
+                                        case SignType.RelayService:
                                             resetCountdown();
                                             onLoginByRelayService();
                                             break;
@@ -339,9 +239,37 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     </div>
                                 ) : null}
                             </div>
+                            <div className="text-center text-xs leading-4 text-lightSecond">
+                                {signType === SignType.GrantPermission ? (
+                                    <Trans>
+                                        Already logged in?
+                                        <br /> Approve the{' '}
+                                        <Link
+                                            to={`/farcaster?signType=${SignType.RelayService}`}
+                                            className="font-bold hover:underline"
+                                        >
+                                            existing Farcaster signer
+                                        </Link>{' '}
+                                        to Firefly
+                                    </Trans>
+                                ) : signType === SignType.RelayService ? (
+                                    <Trans>
+                                        Never login on Firefly?
+                                        <br />
+                                        Approve{' '}
+                                        <Link
+                                            to={`/farcaster?signType=${SignType.GrantPermission}`}
+                                            className="font-bold hover:underline"
+                                        >
+                                            a new Farcaster signer
+                                        </Link>{' '}
+                                        to Firefly
+                                    </Trans>
+                                ) : null}
+                            </div>
                         </>
                     ) : (
-                        <div className="flex w-full flex-1 flex-col items-center justify-center">
+                        <div className="flex min-h-[200px] flex-col items-center justify-center">
                             <LoadingIcon className="animate-spin" width={24} height={24} />
                         </div>
                     )}

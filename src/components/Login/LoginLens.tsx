@@ -84,31 +84,30 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     }, [currentProfile, account, currentAccount]);
 
     return (
-        <div
-            className="flex flex-col rounded-[12px] pb-[50px] md:max-h-[535px] md:w-[600px] md:overflow-auto md:pb-[80px]"
-            style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
-        >
-            <div className="md:no-scrollbar flex w-full flex-col gap-4 md:min-h-[300px] md:overflow-auto md:p-4">
+        <div className="flex flex-col rounded-xl md:max-h-[535px] md:w-[500px] md:overflow-auto">
+            <div className="flex w-full flex-col md:min-h-[300px] md:overflow-auto">
                 {profiles.length ? (
-                    <>
-                        <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6">
-                            <div className="w-full text-left text-[14px] leading-[16px] text-second">
+                    <div className="flex flex-col gap-4 overflow-auto p-4">
+                        <div className="flex flex-col gap-4 overflow-auto rounded-[8px] bg-lightBg px-4 py-6">
+                            <div className="text-left text-sm leading-4 text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
-                            {profiles.map((profile) => (
-                                <ProfileInList
-                                    key={profile.profileId}
-                                    profile={profile}
-                                    selected={isSameProfile(currentProfile, profile)}
-                                    onSelect={setSelectedProfile}
-                                />
-                            ))}
+                            <div className="no-scrollbar flex flex-grow flex-col gap-4 overflow-auto">
+                                {profiles.map((profile) => (
+                                    <ProfileInList
+                                        key={profile.profileId}
+                                        profile={profile}
+                                        selected={isSameProfile(currentProfile, profile)}
+                                        onSelect={setSelectedProfile}
+                                    />
+                                ))}
+                            </div>
                         </div>
                         {currentProfile?.signless ||
                         !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
-                            <div className="flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
+                            <div className="flex flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[14px] font-bold leading-[18px] text-lightMain">
+                                    <span className="text-sm font-bold leading-[18px] text-lightMain">
                                         <Trans>Delegate Signing (Recommend)</Trans>
                                     </span>
                                     <Switch checked={signless} onChange={setSignless}>
@@ -128,7 +127,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                         )}
                                     </Switch>
                                 </div>
-                                <div className="w-full text-left text-[14px] leading-[16px] text-second">
+                                <div className="text-left text-sm leading-4 text-second">
                                     <Trans>
                                         Allow Lens Manager to perform actions such as posting, liking, and commenting
                                         without the need to sign each transaction.
@@ -136,7 +135,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                 </div>
                             </div>
                         )}
-                    </>
+                    </div>
                 ) : (
                     <div className="flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
                         <div className="w-full text-left text-[14px] leading-[16px] text-second">
@@ -146,9 +145,9 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 )}
 
                 <div
-                    className="absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-4"
+                    className="left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-4"
                     style={{
-                        boxShadow: 'box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.05)',
+                        boxShadow: '-1px 0px 20px 0px rgba(0, 0, 0, 0.05)',
                         backdropFilter: 'blur(8px)',
                     }}
                 >
@@ -162,7 +161,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         }}
                     >
                         <WalletIcon width={20} height={20} />
-                        <span className="text-sm font-bold leading-[18px]">
+                        <span className="text-sm font-bold leading-[18px] text-second">
                             <Trans>Change Wallet</Trans>
                         </span>
                     </ClickableButton>

@@ -13,7 +13,7 @@ import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { EditProfileModal } from '@/modals/EditProfileModal.js';
-import { LoginModal } from '@/modals/LoginModal.js';
+import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { RainbowKitConnectModal } from '@/modals/RainbowKitConnectModal.js';
