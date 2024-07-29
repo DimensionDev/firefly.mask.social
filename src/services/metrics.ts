@@ -138,9 +138,15 @@ export async function uploadSessions(session: FireflySession, sessions: Session[
         groupBy([...syncedSessions, ...noSyncedSessions], (x) => `${x.type}:${x.profileId}`),
     )
         .map((group) => {
-            if (group.length === 1) return group[0];
+            if (group.length === 1) {
+                const [a] = group;
+                return a
+            }
             // TODO: merge the same sessions
-            if (group.length === 2) return group[0];
+            if (group.length === 2) {
+                const [a, b] = group;
+                return a;
+            }
             throw new Error('Not available group length.');
         })
         .filter((x) => {
