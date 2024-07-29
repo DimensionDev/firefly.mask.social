@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { compact } from 'lodash-es';
+import { compact, groupBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { CryptoUsage, Source } from '@/constants/enum.js';
@@ -135,22 +135,36 @@ export async function uploadSessions(session: FireflySession, sessions: Session[
     }
 
     const mergedSessions = Object.values(
-        Object.fromEntries([...syncedSessions, ...noSyncedSessions].map((x) => [`${x.type}:${x.profileId}`, x])),
-    ).filter((x) => {
-        switch (x.type) {
-            case SessionType.Farcaster:
-                return /^0x[a-f0-9]{64}$/.test(x.token);
-            case SessionType.Lens:
-                return true;
-            case SessionType.Twitter:
-                return true;
-            case SessionType.Firefly:
-                return false;
-            default:
-                safeUnreachable(x.type);
-                throw new UnreachableError('session type', x);
-        }
-    });
+        groupBy([...syncedSessions, ...noSyncedSessions], (x) => `${x.type}:${x.profileId}`),
+    )
+        .map((group) => {
+            if (group.length === 1) {
+                const [a] = group;
+                return a;
+            }
+            // TODO: merge the same sessions
+            if (group.length === 2) {
+                const [a, b] = group;
+                return a;
+            }
+            throw new Error('Not available group length.');
+        })
+        .filter((x) => {
+            switch (x.type) {
+                case SessionType.Farcaster:
+                    return /^0x[a-f0-9]{64}$/.test(x.token);
+                case SessionType.Lens:
+                    return true;
+                case SessionType.Twitter:
+                    return true;
+                case SessionType.Firefly:
+                    return false;
+                default:
+                    safeUnreachable(x.type);
+                    throw new UnreachableError('session type', x);
+            }
+        });
+
     const cipher = await encryptMetrics(session, mergedSessions, signal);
     await uploadMetrics(cipher, signal);
 }

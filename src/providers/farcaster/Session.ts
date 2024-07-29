@@ -16,7 +16,7 @@ export class FarcasterSession extends BaseSession implements Session {
          */
         profileId: string,
         /**
-         * the private key
+         * the private key of the signer
          */
         token: string,
         createdAt: number,
