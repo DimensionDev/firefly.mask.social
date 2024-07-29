@@ -66,19 +66,19 @@ export const Tips = memo(function Tips({
         <ClickableArea
             className={classNames('flex cursor-pointer items-center text-main md:space-x-2', className, {
                 'opacity-50': disabled,
-                'hover:text-secondarySuccess': !disabled && !label && !loading,
+                'hover:text-lightWarn': !disabled && !label && !loading,
                 'w-min': !label,
             })}
         >
             <Tooltip
                 className="w-full"
-                content={t`Tips`}
+                content={t`Send tips`}
                 placement="top"
                 disabled={disabled || tooltipDisabled || loading}
             >
                 <motion.button
                     className={classNames('inline-flex items-center', {
-                        'hover:bg-secondarySuccess/[.20]': !disabled && !label && !loading,
+                        'hover:bg-lightWarn/[.20]': !disabled && !label && !loading,
                         'cursor-not-allowed': disabled,
                         'h-7 w-7 justify-center rounded-full': !label,
                         'w-full': !!label,
