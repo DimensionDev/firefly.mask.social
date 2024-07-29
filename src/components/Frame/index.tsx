@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { getAccount } from '@wagmi/core';
 import { isUndefined } from 'lodash-es';
-import { memo, useEffect, useState } from 'react';
+import { memo, type ReactNode, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import { encodePacked, isAddress, type SignTypedDataParameters } from 'viem';
@@ -250,17 +250,47 @@ async function getNextFrame(
     }
 }
 
+export interface FrameLayoutProps {
+    frame: FrameType;
+    post: Pick<Post, 'postId' | 'source'>;
+    children?: ReactNode;
+}
+
+export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ children, post, ...props }) {
+    const { source, postId } = post;
+    const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
+    const frame = latestFrame ?? props.frame;
+
+    const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
+        async (button: FrameButton, input?: string) => {
+            if (!frame) return;
+
+            if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
+                LoginModalRef.open({
+                    source,
+                });
+                return;
+            }
+
+            const nextFrame = await getNextFrame(source, postId, frame, latestFrame, button, input);
+            if (nextFrame) setLatestFrame(nextFrame);
+        },
+        [source, frame, latestFrame, postId],
+    );
+
+    if (!frame) return children;
+
+    return <Card frame={frame} source={source} loading={isLoadingNextFrame} onButtonClick={handleClick} />;
+});
+
 interface FrameProps {
     post: Post;
     urls?: string[];
-    children: React.ReactNode;
+    children: ReactNode;
     onData?: (frame: FrameType) => void;
 }
 
 export const Frame = memo<FrameProps>(function Frame({ post, urls = EMPTY_LIST, onData, children }) {
-    const { postId, source } = post;
-    const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
-
     const {
         isLoading: isLoadingFrame,
         error,
@@ -310,28 +340,15 @@ export const Frame = memo<FrameProps>(function Frame({ post, urls = EMPTY_LIST, 
         onData?.(data.data.frame);
     }, [data, onData]);
 
-    const frame = latestFrame ?? (data?.success ? data.data.frame : null);
-
-    const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
-        async (button: FrameButton, input?: string) => {
-            if (!frame) return;
-
-            if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
-                LoginModalRef.open({
-                    source,
-                });
-                return;
-            }
-
-            const nextFrame = await getNextFrame(source, postId, frame, latestFrame, button, input);
-            if (nextFrame) setLatestFrame(nextFrame);
-        },
-        [source, frame, latestFrame, postId],
-    );
+    const frame = data?.success ? data.data.frame : null;
 
     if (isLoadingFrame) return null;
 
     if (error || !frame) return children;
 
-    return <Card frame={frame} source={source} loading={isLoadingNextFrame} onButtonClick={handleClick} />;
+    return (
+        <FrameLayout post={post} frame={frame}>
+            {children}
+        </FrameLayout>
+    );
 });

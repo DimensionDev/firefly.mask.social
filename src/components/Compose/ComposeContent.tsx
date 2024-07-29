@@ -1,14 +1,16 @@
-import { ActionContainer } from '@/components/Blink/ActionContainer.js';
+import { last } from 'lodash-es';
+
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
-import { Card as FrameUI } from '@/components/Frame/Card.js';
-import { OembedUI } from '@/components/Oembed/index.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
+import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
+import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
+import { BlinkParser } from '@/providers/blink/Parser.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {
@@ -18,13 +20,16 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, video, frames, openGraphs, actions, poll, availableSources } = props.post;
+    const { id, parentPost, images, video, poll, availableSources, chars } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens;
     const replying = type === 'reply' && !!post;
 
-    const differenceOpenGraphs = openGraphs.filter((x) => !frames.find((y) => x.url === y.url));
+    const content = readChars(chars, 'visible');
+    const parsedActionSchemes = BlinkParser.extractSchemes(content);
+    const oembedUrls = parsedActionSchemes.map((x) => x.url);
+    const oembedUrl = last(oembedUrls);
 
     return (
         <div className="relative flex flex-1 flex-col">
@@ -72,33 +77,21 @@ export function ComposeContent(props: ComposeContentProps) {
             {/* quote */}
             {type === 'quote' && post ? <Quote post={post} className="text-left" /> : null}
 
-            {/* open graphs */}
-            {differenceOpenGraphs.length ? (
-                <div className="flex w-full gap-2">
-                    {differenceOpenGraphs.map((o) => (
-                        <OembedUI key={o.url} og={o} />
-                    ))}
-                </div>
-            ) : null}
-
-            {/* frame */}
-            {frames.length ? (
-                <div className="flex w-full gap-2">
-                    {frames.map((f) => (
-                        // its readonly, so we can use the first source because it just work when clicking on the frame
-                        <FrameUI key={f.url} frame={f} readonly source={availableSources[0]} />
-                    ))}
-                </div>
-            ) : null}
-
-            {/* blink actions */}
-            {actions.length ? (
-                <div className="flex w-full gap-2">
-                    {actions.map((action) => (
-                        <ActionContainer action={action} key={action.title + action.url} />
-                    ))}
-                </div>
-            ) : null}
+            <PostLinks
+                post={{
+                    postId: '',
+                    metadata: {
+                        locale: 'en',
+                        content: {
+                            content,
+                            oembedUrl,
+                            oembedUrls,
+                        },
+                    },
+                    quoteOn: type === 'quote' ? post ?? undefined : undefined,
+                    source: post?.source ?? availableSources[0],
+                }}
+            />
         </div>
     );
 }

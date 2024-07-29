@@ -28,42 +28,13 @@ export const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
     );
 });
 
-interface OembedProps {
-    url?: string;
-    onData?: (data: OpenGraph) => void;
-    postId?: string;
-}
-
-export const Oembed = memo<OembedProps>(function Oembed({ url, onData, postId }) {
-    const { isLoading, error, data } = useQuery({
-        queryKey: ['oembed', url],
-        queryFn: async () => {
-            if (!url || isValidDomain(url)) return;
-            return fetchJSON<ResponseJSON<LinkDigested>>(
-                urlcat('/api/oembed', {
-                    link: (await resolveTCOLink(url)) ?? url,
-                }),
-            );
-        },
-        enabled: !!url,
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        retry: false,
-    });
-
-    useEffect(() => {
-        if (!data?.success || !data?.data?.og) return;
-        onData?.(data.data.og);
-    }, [data, onData]);
-
-    if (isLoading || error || !data?.success) return null;
-
-    const og: OpenGraph = data.data.og;
+export const OembedUIAndPayload = memo<{ data: LinkDigested; postId?: string }>(function OembedPayload(props) {
+    const {
+        data: { payload, og },
+        postId,
+    } = props;
     if (!og.title) return null;
-    if (data.data.payload?.type === 'Post' && data.data.payload.id === postId) return null;
-
-    const payload = data.data.payload;
-
+    if (payload?.type === 'Post' && payload.id === postId) return null;
     const type = payload?.type;
     if (type) {
         switch (type) {
@@ -94,6 +65,38 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData, postId })
                 break;
         }
     }
-
     return <OembedUI og={og} />;
+});
+
+interface OembedProps {
+    url?: string;
+    onData?: (data: OpenGraph) => void;
+    postId?: string;
+}
+
+export const Oembed = memo<OembedProps>(function Oembed({ url, onData, postId }) {
+    const { isLoading, error, data } = useQuery({
+        queryKey: ['oembed', url],
+        queryFn: async () => {
+            if (!url || isValidDomain(url)) return;
+            return fetchJSON<ResponseJSON<LinkDigested>>(
+                urlcat('/api/oembed', {
+                    link: (await resolveTCOLink(url)) ?? url,
+                }),
+            );
+        },
+        enabled: !!url,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        retry: false,
+    });
+
+    useEffect(() => {
+        if (!data?.success || !data?.data?.og) return;
+        onData?.(data.data.og);
+    }, [data, onData]);
+
+    if (isLoading || error || !data?.success) return null;
+
+    return <OembedUIAndPayload data={data.data} />;
 });
