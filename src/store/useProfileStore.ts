@@ -25,6 +25,8 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
+import { addAccount } from '@/helpers/account.js';
 
 export interface ProfileState {
     accounts: Account[];
@@ -254,13 +256,11 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                state.addAccount(
-                    {
-                        profile,
-                        session: TwitterSession.from(profile, payload),
-                    },
-                    true,
-                );
+                await addAccount({
+                    profile,
+                    session: TwitterSession.from(profile, payload),
+                    fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
+                });
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
