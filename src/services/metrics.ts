@@ -140,7 +140,7 @@ export async function uploadSessions(session: FireflySession, sessions: Session[
         .map((group) => {
             if (group.length === 1) {
                 const [a] = group;
-                return a
+                return a;
             }
             // TODO: merge the same sessions
             if (group.length === 2) {
