@@ -141,9 +141,6 @@ msgstr "排名#{0}"
 msgid "Searching channel"
 msgstr "搜尋頻道"
 
-msgid "quotes"
-msgstr "引用"
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -263,9 +260,6 @@ msgstr "投票功能目前僅在 {0} 支持"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
-
-msgid "likes"
-msgstr "喜歡"
 
 msgid "Offline"
 msgstr "離線"
@@ -402,13 +396,7 @@ msgstr "已連接的帳戶"
 msgid "via {0} <0>{sendFrom}</0>"
 msgstr ""
 
-msgid "comments"
-msgstr "評論"
-
 msgid "Functions with retrievable ownership"
-msgstr ""
-
-msgid "recast"
 msgstr ""
 
 msgid "Search"
@@ -465,7 +453,7 @@ msgstr "無空投騙局"
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
 
-msgid "recasts"
+msgid "{0, plural, one {1 quote} other {{1} quotes}}"
 msgstr ""
 
 msgid "Items"
@@ -588,6 +576,9 @@ msgstr "更新"
 msgid "Mute {identity}"
 msgstr "將 @{identity} 靜音"
 
+msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
 
@@ -681,9 +672,6 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
-msgid "like"
-msgstr "喜歡"
-
 msgid "View Source"
 msgstr "查看來源"
 
@@ -766,9 +754,6 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr ""
 
 msgid "Top Profiles"
-msgstr ""
-
-msgid "mirrors"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
@@ -1020,9 +1005,6 @@ msgstr "加入書籤失敗。"
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
-msgid "collects"
-msgstr ""
-
 msgid "Failed to upvote post."
 msgstr ""
 
@@ -1244,6 +1226,9 @@ msgstr "移除投票"
 
 msgid "Unmute {identity}"
 msgstr "取消對 @{identity} 的靜音"
+
+msgid "{0, plural, one {1 recast} other {{1} recasts}}"
+msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
@@ -1527,9 +1512,6 @@ msgstr ""
 msgid "Watch {identity}"
 msgstr "觀察 {identity}"
 
-msgid "view"
-msgstr "查看"
-
 msgid "Failed to create scheduled post."
 msgstr ""
 
@@ -1614,9 +1596,6 @@ msgstr "轉推失敗"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr ""
 
-msgid "collect"
-msgstr ""
-
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
@@ -1625,9 +1604,6 @@ msgstr ""
 
 msgid "Share to"
 msgstr "分享至"
-
-msgid "views"
-msgstr ""
 
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
@@ -1685,6 +1661,9 @@ msgstr "取消追蹤"
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
+
+msgid "{0, plural, one {1 comment} other {{1} comments}}"
+msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你無法在 {0} 上回覆 @{author}。"
@@ -1833,6 +1812,9 @@ msgstr ""
 msgid "Suspended account"
 msgstr ""
 
+msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -1943,6 +1925,9 @@ msgstr "多媒體"
 
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
+
+msgid "{0, plural, one {1 like} other {{1} likes}}"
+msgstr ""
 
 msgid "Mirror"
 msgstr ""
