@@ -16,7 +16,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         const payload = await createTwitterSessionPayload(request);
         if (!payload) throw new UnauthorizedError();
 
-        const data = await encrypt(
+        const data = encrypt(
             JSON.stringify({
                 consumer_key: payload.consumerKey,
                 consumer_secret: payload.consumerSecret,
