@@ -60,6 +60,13 @@ export async function POST(request: Request) {
 
     const packet = await request.clone().text();
     const parsedPacket = parseJSON<{ untrustedData: { transactionId?: string } }>(packet);
+
+    console.log('DEBUG: post');
+    console.log({
+        url: parsedPacket?.untrustedData.transactionId ? postUrl || target || url : target || postUrl || url,
+        parsedPacket: JSON.stringify(parsedPacket),
+    });
+
     const response = await fetch(
         // if transactionId exists, then we post upon postUrl stead of target
         parsedPacket?.untrustedData.transactionId ? postUrl || target || url : target || postUrl || url,
@@ -74,6 +81,11 @@ export async function POST(request: Request) {
             redirect: action === ActionType.PostRedirect ? 'manual' : 'follow',
         },
     );
+
+    console.log('DEBUG: response');
+    console.log({
+        text: await response.clone().text(),
+    });
 
     // workaround: if the server cannot handle the post_redirect action correctly, then redirecting to the frame url
     if (action === ActionType.PostRedirect && response.status >= 400) {
