@@ -249,6 +249,9 @@ msgstr ""
 msgid "NFT Standard"
 msgstr ""
 
+msgid "<0>{0}</0> reposted"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr ""
 
@@ -1506,6 +1509,9 @@ msgstr ""
 msgid "View transaction on explorer"
 msgstr ""
 
+msgid "<0>You</0> reposted"
+msgstr ""
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
@@ -1997,4 +2003,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
-

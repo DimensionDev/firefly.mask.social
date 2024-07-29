@@ -249,6 +249,9 @@ msgstr "未找到个人资料"
 msgid "NFT Standard"
 msgstr "NFT 标准"
 
+msgid "<0>{0}</0> reposted"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
@@ -1506,6 +1509,9 @@ msgstr "使用托管钱包登录"
 msgid "View transaction on explorer"
 msgstr "查看交易详情"
 
+msgid "<0>You</0> reposted"
+msgstr ""
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
@@ -1997,4 +2003,3 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

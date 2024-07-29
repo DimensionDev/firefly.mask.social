@@ -15,6 +15,7 @@ export function PostLinks({ post, setContent }: { post: Post; setContent?: (cont
     const renderOembed = () => {
         return post.metadata.content?.oembedUrl && !post.quoteOn ? (
             <Oembed
+                postId={post.postId}
                 url={post.metadata.content.oembedUrl}
                 onData={() => {
                     if (post.metadata.content?.oembedUrl && post.metadata.content?.content) {

@@ -31,9 +31,10 @@ export const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
 interface OembedProps {
     url?: string;
     onData?: (data: OpenGraph) => void;
+    postId?: string;
 }
 
-export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
+export const Oembed = memo<OembedProps>(function Oembed({ url, onData, postId }) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: async () => {
@@ -59,6 +60,7 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
 
     const og: OpenGraph = data.data.og;
     if (!og.title) return null;
+    if (data.data.payload?.type === 'Post' && data.data.payload.id === postId) return null;
 
     const payload = data.data.payload;
 

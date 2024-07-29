@@ -244,6 +244,9 @@ msgstr "Profile not found"
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
+msgid "<0>{0}</0> reposted"
+msgstr "<0>{0}</0> reposted"
+
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
@@ -1500,6 +1503,9 @@ msgstr "Sign in with Custody Wallet"
 
 msgid "View transaction on explorer"
 msgstr "View transaction on explorer"
+
+msgid "<0>You</0> reposted"
+msgstr "<0>You</0> reposted"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
