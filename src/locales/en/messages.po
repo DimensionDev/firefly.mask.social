@@ -136,9 +136,6 @@ msgstr "Rank #{0}"
 msgid "Searching channel"
 msgstr "Searching channel"
 
-msgid "quotes"
-msgstr "quotes"
-
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
@@ -258,9 +255,6 @@ msgstr "Poll is currently only supported on {0}"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-
-msgid "likes"
-msgstr "likes"
 
 msgid "Offline"
 msgstr "Offline"
@@ -397,14 +391,8 @@ msgstr "Connected accounts"
 msgid "via {0} <0>{sendFrom}</0>"
 msgstr "via {0} <0>{sendFrom}</0>"
 
-msgid "comments"
-msgstr "comments"
-
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
-
-msgid "recast"
-msgstr "recast"
 
 msgid "Search"
 msgstr "Search"
@@ -460,8 +448,8 @@ msgstr "No Airdrop Scam"
 msgid "Add another post..."
 msgstr "Add another post..."
 
-msgid "recasts"
-msgstr "recasts"
+msgid "{0, plural, one {1 quote} other {{1} quotes}}"
+msgstr "{0, plural, one {1 quote} other {{1} quotes}}"
 
 msgid "Items"
 msgstr "Items"
@@ -583,6 +571,9 @@ msgstr "Update"
 msgid "Mute {identity}"
 msgstr "Mute {identity}"
 
+msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
+msgstr "{0, plural, one {1 mirror} other {{1} mirrors}}"
+
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
 
@@ -676,9 +667,6 @@ msgstr "Failed to submit report on {0}"
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "Failed to mute @{0} on {sourceName}."
 
-msgid "like"
-msgstr "like"
-
 msgid "View Source"
 msgstr "View Source"
 
@@ -762,9 +750,6 @@ msgstr "You didn't connect with Firefly before, need to connect first to fully l
 
 msgid "Top Profiles"
 msgstr "Top Profiles"
-
-msgid "mirrors"
-msgstr "mirrors"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
@@ -1015,9 +1000,6 @@ msgstr "Failed to fetch bookmarks."
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
 
-msgid "collects"
-msgstr "collects"
-
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
@@ -1239,6 +1221,9 @@ msgstr "Remove Poll"
 
 msgid "Unmute {identity}"
 msgstr "Unmute {identity}"
+
+msgid "{0, plural, one {1 recast} other {{1} recasts}}"
+msgstr "{0, plural, one {1 recast} other {{1} recasts}}"
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
@@ -1522,9 +1507,6 @@ msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 msgid "Watch {identity}"
 msgstr "Watch {identity}"
 
-msgid "view"
-msgstr "view"
-
 msgid "Failed to create scheduled post."
 msgstr "Failed to create scheduled post."
 
@@ -1609,9 +1591,6 @@ msgstr "Failed to retweet."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 
-msgid "collect"
-msgstr "collect"
-
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 
@@ -1620,9 +1599,6 @@ msgstr "Developers"
 
 msgid "Share to"
 msgstr "Share to"
-
-msgid "views"
-msgstr "views"
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
@@ -1680,6 +1656,9 @@ msgstr "Unfollow"
 
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
+
+msgid "{0, plural, one {1 comment} other {{1} comments}}"
+msgstr "{0, plural, one {1 comment} other {{1} comments}}"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
@@ -1828,6 +1807,9 @@ msgstr "Final results"
 msgid "Suspended account"
 msgstr "Suspended account"
 
+msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
+msgstr "{viewCount, plural, one {1 view} other {{viewCount} views}}"
+
 msgid "Recasted"
 msgstr "Recasted"
 
@@ -1938,6 +1920,9 @@ msgstr "Media"
 
 msgid "No content to publish."
 msgstr "No content to publish."
+
+msgid "{0, plural, one {1 like} other {{1} likes}}"
+msgstr "{0, plural, one {1 like} other {{1} likes}}"
 
 msgid "Mirror"
 msgstr "Mirror"
