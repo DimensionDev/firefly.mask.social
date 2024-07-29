@@ -1,14 +1,12 @@
 import { NobleEd25519Signer } from '@farcaster/core';
 import { safeUnreachable } from '@masknet/kit';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
-import crypto from 'crypto';
 import { StatusCodes } from 'http-status-codes';
 import { compact, groupBy } from 'lodash-es';
 import { toBytes } from 'viem';
 import { z } from 'zod';
 
 import { CryptoUsage } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
@@ -24,6 +22,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { decrypt, encrypt } from '@/services/crypto.js';
 
 const CryptoUsageSchema = z.union([
     z.object({
@@ -182,24 +181,6 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             safeUnreachable(session.type);
             throw new UnreachableError('session type', session.type);
     }
-}
-
-function decrypt(cipherText: string) {
-    const decipher = crypto.createDecipheriv(
-        'aes-256-cbc',
-        Buffer.from(env.internal.SESSION_CIPHER_KEY, 'hex'),
-        Buffer.from(env.internal.SESSION_CIPHER_IV, 'hex'),
-    );
-    return [decipher.update(cipherText, 'hex', 'utf-8'), decipher.final('utf-8')].join('');
-}
-
-function encrypt(plaintext: string) {
-    const cipher = crypto.createCipheriv(
-        'aes-256-cbc',
-        Buffer.from(env.internal.SESSION_CIPHER_KEY, 'hex'),
-        Buffer.from(env.internal.SESSION_CIPHER_IV, 'hex'),
-    );
-    return [cipher.update(plaintext, 'utf-8', 'hex'), cipher.final('hex')].join('');
 }
 
 export async function POST(request: Request) {

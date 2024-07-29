@@ -281,6 +281,11 @@ export type FarcasterLoginResponse = Response<{
     fid: string | number;
 }>;
 
+export type TwitterLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+}>;
+
 export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
