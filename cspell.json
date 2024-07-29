@@ -92,7 +92,8 @@
         "xdai",
         "zksync",
         "zora",
-        "zustand"
+        "zustand",
+        "reposted"
     ],
     "ignoreWords": [
         "DEVNET",

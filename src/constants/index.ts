@@ -52,7 +52,7 @@ export const NOT_DEPEND_HUBBLE_KEY = '[TO_BE_REPLACED_LATER]';
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
     [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
-    [Source.Twitter]: [ProfileTabType.Feed],
+    [Source.Twitter]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
@@ -175,9 +175,19 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
         'author_id',
         'referenced_tweets.id',
         'referenced_tweets.id.author_id',
+        'entities.mentions.username',
     ],
     'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
-    'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
+    'tweet.fields': [
+        'text',
+        'note_tweet',
+        'attachments',
+        'author_id',
+        'created_at',
+        'lang',
+        'public_metrics',
+        'referenced_tweets',
+    ],
     'user.fields': ['profile_image_url', 'name', 'username'],
     'poll.fields': ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status'],
 };

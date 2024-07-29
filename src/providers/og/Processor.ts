@@ -8,6 +8,8 @@ import {
     MASK_SOCIAL_DETAIL_REGEX,
     MASK_SOCIAL_POST_PATH_REGEX,
     MIRROR_HOSTNAME_REGEXP,
+    TWEET_REGEX,
+    TWEET_WEB_REGEX,
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
@@ -77,6 +79,34 @@ class Processor {
             html: generateIframe(getEmbedUrl(document), url.href),
             locale: null,
         } satisfies OpenGraph;
+
+        if (TWEET_REGEX.test(documentUrl)) {
+            const match = documentUrl.match(TWEET_REGEX);
+            const id = match ? match[3] : null;
+            if (!id) return { og };
+            return {
+                og,
+                payload: {
+                    type: PayloadType.Post,
+                    id,
+                    source: SourceInURL.Twitter,
+                },
+            };
+        }
+
+        if (TWEET_WEB_REGEX.test(documentUrl)) {
+            const match = documentUrl.match(TWEET_WEB_REGEX);
+            const id = match ? match[2] : null;
+            if (!id) return { og };
+            return {
+                og,
+                payload: {
+                    type: PayloadType.Post,
+                    id,
+                    source: SourceInURL.Twitter,
+                },
+            };
+        }
 
         if (MIRROR_HOSTNAME_REGEXP.test(url.hostname)) {
             return {

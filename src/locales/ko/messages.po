@@ -141,9 +141,6 @@ msgstr ""
 msgid "Searching channel"
 msgstr ""
 
-msgid "quotes"
-msgstr ""
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -249,6 +246,9 @@ msgstr ""
 msgid "NFT Standard"
 msgstr ""
 
+msgid "<0>{0}</0> reposted"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr ""
 
@@ -259,9 +259,6 @@ msgid "Poll is currently only supported on {0}"
 msgstr ""
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
-msgstr ""
-
-msgid "likes"
 msgstr ""
 
 msgid "Offline"
@@ -402,13 +399,7 @@ msgstr ""
 msgid "via {0} <0>{sendFrom}</0>"
 msgstr ""
 
-msgid "comments"
-msgstr ""
-
 msgid "Functions with retrievable ownership"
-msgstr ""
-
-msgid "recast"
 msgstr ""
 
 msgid "Search"
@@ -468,7 +459,7 @@ msgstr ""
 msgid "Add another post..."
 msgstr ""
 
-msgid "recasts"
+msgid "{0, plural, one {1 quote} other {{1} quotes}}"
 msgstr ""
 
 msgid "Items"
@@ -591,6 +582,9 @@ msgstr ""
 msgid "Mute {identity}"
 msgstr ""
 
+msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr ""
 
@@ -687,9 +681,6 @@ msgstr ""
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
-msgid "like"
-msgstr ""
-
 msgid "View Source"
 msgstr ""
 
@@ -772,9 +763,6 @@ msgid "You didn't connect with Firefly before, need to connect first to fully lo
 msgstr ""
 
 msgid "Top Profiles"
-msgstr ""
-
-msgid "mirrors"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
@@ -1029,9 +1017,6 @@ msgstr ""
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
-msgid "collects"
-msgstr ""
-
 msgid "Failed to upvote post."
 msgstr ""
 
@@ -1255,6 +1240,9 @@ msgid "Remove Poll"
 msgstr ""
 
 msgid "Unmute {identity}"
+msgstr ""
+
+msgid "{0, plural, one {1 recast} other {{1} recasts}}"
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
@@ -1521,6 +1509,9 @@ msgstr ""
 msgid "View transaction on explorer"
 msgstr ""
 
+msgid "<0>You</0> reposted"
+msgstr ""
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
@@ -1534,9 +1525,6 @@ msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
 msgid "Watch {identity}"
-msgstr ""
-
-msgid "view"
 msgstr ""
 
 msgid "Failed to create scheduled post."
@@ -1626,9 +1614,6 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr ""
 
-msgid "collect"
-msgstr ""
-
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
@@ -1636,9 +1621,6 @@ msgid "Developers"
 msgstr ""
 
 msgid "Share to"
-msgstr ""
-
-msgid "views"
 msgstr ""
 
 msgid "Failed to quote post."
@@ -1696,6 +1678,9 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "Your {0} account is now connected."
+msgstr ""
+
+msgid "{0, plural, one {1 comment} other {{1} comments}}"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
@@ -1845,6 +1830,9 @@ msgstr ""
 msgid "Suspended account"
 msgstr ""
 
+msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -1954,6 +1942,9 @@ msgid "Media"
 msgstr ""
 
 msgid "No content to publish."
+msgstr ""
+
+msgid "{0, plural, one {1 like} other {{1} likes}}"
 msgstr ""
 
 msgid "Mirror"

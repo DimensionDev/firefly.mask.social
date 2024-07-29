@@ -1,14 +1,13 @@
-import { t, Trans } from '@lingui/macro';
+import { plural, Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { Fragment, type HTMLProps, memo, useMemo } from 'react';
+import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { EngagementType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
@@ -22,23 +21,18 @@ interface Props extends HTMLProps<HTMLDivElement> {
     onSetScrollIndex?: () => void;
 }
 
-function countText(count?: number, singular?: string, plural?: string) {
-    if (!count) return null;
-    const countFormatted = nFormatter(count).toUpperCase();
-    if (count === 1) return `${countFormatted} ${singular}`;
-    return `${countFormatted} ${plural}`;
-}
-
-function EngagementLink(props: {
+function EngagementLink({
+    children,
+    ...props
+}: {
     post: Post;
     type: EngagementType;
-    count?: number;
-    singular?: string;
-    plural?: string;
+    children?: ReactNode;
     onSetScrollIndex?: () => void;
 }) {
-    const count = countText(props.count, props.singular, props.plural);
-    if (!count) return null;
+    if (props.post.source === Source.Twitter) {
+        return <span>{children}</span>;
+    }
     return (
         <Link
             className="hover:underline"
@@ -48,7 +42,7 @@ function EngagementLink(props: {
                 props.onSetScrollIndex?.();
             }}
         >
-            {count}
+            {children}
         </Link>
     );
 }
@@ -66,51 +60,62 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         [publicationViews, post],
     );
     const comments = post.stats?.comments ? (
-        <span className="hover:underline">{countText(post.stats.comments, t`comment`, t`comments`)}</span>
+        <span
+            className={classNames({
+                'hover:underline': post.source !== Source.Twitter,
+            })}
+        >
+            {plural(post.stats.comments, {
+                one: '1 comment',
+                other: `${post.stats.comments} comments`,
+            })}
+        </span>
     ) : null;
     const likes = post.stats?.reactions ? (
-        <EngagementLink
-            post={post}
-            count={post.stats.reactions}
-            singular={t`like`}
-            plural={t`likes`}
-            type={EngagementType.Likes}
-            onSetScrollIndex={onSetScrollIndex}
-        />
+        <EngagementLink post={post} type={EngagementType.Likes} onSetScrollIndex={onSetScrollIndex}>
+            {plural(post.stats.reactions, {
+                one: '1 like',
+                other: `${post.stats.reactions} likes`,
+            })}
+        </EngagementLink>
     ) : null;
-    const collects = countText(post.stats?.countOpenActions, t`collect`, t`collects`);
+    const collects = post.stats?.countOpenActions
+        ? plural(post.stats.countOpenActions, {
+              one: '1 comment',
+              other: `${post.stats.countOpenActions} comments`,
+          })
+        : null;
     const mirrors = post.stats?.mirrors ? (
         post.source === Source.Farcaster ? (
-            <EngagementLink
-                post={post}
-                type={EngagementType.Recasts}
-                count={post.stats.mirrors}
-                singular={t`recast`}
-                plural={t`recasts`}
-                onSetScrollIndex={onSetScrollIndex}
-            />
+            <EngagementLink post={post} type={EngagementType.Recasts} onSetScrollIndex={onSetScrollIndex}>
+                {plural(post.stats.mirrors, {
+                    one: '1 recast',
+                    other: `${post.stats.mirrors} recasts`,
+                })}
+            </EngagementLink>
         ) : (
-            <EngagementLink
-                post={post}
-                type={EngagementType.Mirrors}
-                count={post.stats.mirrors}
-                singular={t`mirror`}
-                plural={t`mirrors`}
-                onSetScrollIndex={onSetScrollIndex}
-            />
+            <EngagementLink post={post} type={EngagementType.Mirrors} onSetScrollIndex={onSetScrollIndex}>
+                {plural(post.stats.mirrors, {
+                    one: '1 mirror',
+                    other: `${post.stats.mirrors} mirrors`,
+                })}
+            </EngagementLink>
         )
     ) : null;
     const quotes = post.stats?.quotes ? (
-        <EngagementLink
-            post={post}
-            type={EngagementType.Quotes}
-            count={post.stats.quotes}
-            singular={t`quote`}
-            plural={t`quotes`}
-            onSetScrollIndex={onSetScrollIndex}
-        />
+        <EngagementLink post={post} type={EngagementType.Quotes} onSetScrollIndex={onSetScrollIndex}>
+            {plural(post.stats.quotes, {
+                one: '1 quote',
+                other: `${post.stats.quotes} quotes`,
+            })}
+        </EngagementLink>
     ) : null;
-    const views = countText(viewCount, t`view`, t`views`);
+    const views = viewCount
+        ? plural(viewCount, {
+              one: '1 view',
+              other: `${viewCount} views`,
+          })
+        : null;
     const isSmall = useIsSmall();
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
