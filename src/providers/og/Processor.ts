@@ -65,11 +65,15 @@ class Processor {
         const imageUrl = getImageUrl(document);
         const image = imageUrl && URL.canParse(imageUrl) ? await this.digestImageUrl(imageUrl, signal) : null;
 
+        const title = getTitle(document);
+
+        if (!title) return null;
+
         const og = {
             type: 'website',
             url: documentUrl,
             favicon: urlcat('https://www.google.com/s2/favicons', { domain: documentUrl, sz: 128 }),
-            title: getTitle(document),
+            title,
             description: getDescription(document),
             site: getSite(document),
             image,
@@ -77,8 +81,6 @@ class Processor {
             html: generateIframe(getEmbedUrl(document), url.href),
             locale: null,
         } satisfies OpenGraph;
-
-        if (!og.title) return null;
 
         if (MIRROR_HOSTNAME_REGEXP.test(url.hostname)) {
             return {
