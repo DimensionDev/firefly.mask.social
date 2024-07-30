@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { NUMERIC_INPUT_REGEXP_PATTERN } from '@masknet/shared-base';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -24,11 +25,12 @@ export const TipsUI = memo(function TipsUI() {
     );
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const amount_ = e.currentTarget.value.replaceAll(',', '.');
-        if (RE_MATCH_FRACTION_AMOUNT.test(amount_)) {
-            update((prev) => ({ ...prev, amount: `0${amount_}` }));
-        } else if (amount_ === '' || RE_MATCH_WHOLE_AMOUNT.test(amount_)) {
-            update((prev) => ({ ...prev, amount: amount_ }));
+        const amount = e.currentTarget.value;
+        if (amount && !new RegExp(NUMERIC_INPUT_REGEXP_PATTERN).test(amount)) return;
+        if (RE_MATCH_FRACTION_AMOUNT.test(amount)) {
+            update((prev) => ({ ...prev, amount: `0${amount}` }));
+        } else if (amount === '' || RE_MATCH_WHOLE_AMOUNT.test(amount)) {
+            update((prev) => ({ ...prev, amount }));
         }
     };
 
@@ -60,13 +62,17 @@ export const TipsUI = memo(function TipsUI() {
                 <div className="mt-3 flex gap-x-3">
                     <div className="flex h-10 flex-1 items-center rounded-2xl bg-lightBg pr-3">
                         <input
+                            title={t`Tips amount`}
                             className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
                             placeholder={t`Enter amount`}
                             value={amount}
                             autoComplete="off"
+                            autoCorrect='off'
                             spellCheck="false"
                             onChange={handleAmountChange}
                             disabled={isSending}
+                            inputMode='decimal'
+                            pattern={NUMERIC_INPUT_REGEXP_PATTERN}
                         />
                         {token && recipient ? (
                             <ClickableButton
