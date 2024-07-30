@@ -41,37 +41,33 @@ export function PostLinks({ post, setContent }: Props) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['post-embed', url, urls, scheme],
         queryFn: async () => {
-            // parallel request
-            const blinkPromise = scheme
-                ? (async () => BlinkLoader.fetchAction(await resolveBlinkTCO(scheme)).catch(() => null))()
-                : null;
-            const framePromise =
-                env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled && urls.length > 0
-                    ? attemptUntil(
-                          urls.map((x) => async () => {
-                              if (isValidDomain(x)) return;
-                              return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-                                  urlcat('/api/frame', {
-                                      link: (await resolveTCOLink(x)) ?? x,
-                                  }),
-                              );
-                          }),
-                          undefined,
-                          (response) => {
-                              if (isUndefined(response)) return true;
-                              return !response?.success;
-                          },
-                      )
-                          .then((res) => {
-                              if (!res?.success) return null;
-                              return res.data.frame;
-                          })
-                          .catch(() => null)
-                    : null;
-            const [blink, frame] = await Promise.all([blinkPromise, framePromise]);
+            if (env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled && urls.length > 0) {
+                const frame = await attemptUntil(
+                    urls.map((x) => async () => {
+                        if (isValidDomain(x)) return;
+                        return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                            urlcat('/api/frame', {
+                                link: (await resolveTCOLink(x)) ?? x,
+                            }),
+                        );
+                    }),
+                    undefined,
+                    (response) => {
+                        if (isUndefined(response)) return true;
+                        return !response?.success;
+                    },
+                )
+                    .then((res) => {
+                        if (!res?.success) return null;
+                        return res.data.frame;
+                    })
+                    .catch(() => null);
+                return { frame };
+            }
 
-            if (blink || frame) {
-                return { frame, blink };
+            if (env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled && scheme) {
+                const blink = await BlinkLoader.fetchAction(await resolveBlinkTCO(scheme));
+                return { blink };
             }
 
             if (!url || isValidDomain(url) || post.quoteOn) return;
@@ -100,9 +96,7 @@ export function PostLinks({ post, setContent }: Props) {
         <>
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.blink ? <ActionContainer action={data.blink} /> : null}
-            {!data.blink && !data.frame && data.oembed ? (
-                <OembedUIAndPayload data={data.oembed} postId={post.postId} />
-            ) : null}
+            {data.oembed ? <OembedUIAndPayload data={data.oembed} postId={post.postId} /> : null}
         </>
     );
 }
