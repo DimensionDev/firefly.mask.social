@@ -887,10 +887,11 @@ class LensSocialMedia implements Provider {
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return lensSessionHolder.withSession(async (session) => {
-            if (!session?.profileId) return createPageable([], createIndicator(indicator));
+            if (!session?.profileId || session.profileId === profileId)
+                return createPageable([], createIndicator(indicator));
 
             const result = await lensSessionHolder.sdk.profile.mutualFollowers({
-                observer: session?.profileId,
+                observer: session.profileId,
                 viewing: profileId,
             });
 

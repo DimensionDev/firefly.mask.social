@@ -17,6 +17,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -201,6 +202,9 @@ const useLensStateBase = createState(
             if (typeof window === 'undefined' || !state) return;
 
             state.upgrade();
+            if (state.currentProfileSession) {
+                lensSessionHolder.resumeSession(state.currentProfileSession as LensSession);
+            }
 
             try {
                 const profileId = state.currentProfile?.profileId;
