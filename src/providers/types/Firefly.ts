@@ -208,7 +208,7 @@ export type Relationship = {
     address: string;
     snsId: string;
     snsPlatform: string;
-}
+};
 
 export type UsersResponse = Response<UsersData>;
 

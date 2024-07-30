@@ -98,16 +98,14 @@ export function SetQueryDataForMuteAllWallets() {
                 value: async (source: Source, identity: string) => {
                     const m = method as (source: Source, identity: string) => ReturnType<Provider[K]>;
                     const relationships = await m.call(target.prototype, source, identity);
-                    [...relationships, { snsId: identity, snsPlatform: source }].forEach(
-                        ({ snsId, snsPlatform }) => {
-                            const source = resolveSourceFromUrl(snsPlatform);
-                            queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
+                    [...relationships, { snsId: identity, snsPlatform: source }].forEach(({ snsId, snsPlatform }) => {
+                        const source = resolveSourceFromUrl(snsPlatform);
+                        queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
 
-                            if (source === Source.Wallet) {
-                                toggleBlock(snsId, true);
-                            }
+                        if (source === Source.Wallet) {
+                            toggleBlock(snsId, true);
                         }
-                    );
+                    });
 
                     return relationships;
                 },
@@ -116,5 +114,5 @@ export function SetQueryDataForMuteAllWallets() {
 
         METHODS_BE_OVERRIDDEN_MUTE_ALL.forEach(overrideMethod);
         return target;
-    }
+    };
 }
