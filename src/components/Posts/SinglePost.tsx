@@ -93,7 +93,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             />
 
             <PostBody post={post} showMore={showMore} showTranslate={showTranslate} isDetail={isDetail} />
-            {!isDetail ? (
+            {!post.isHidden && !isDetail ? (
                 <PostActions
                     post={post}
                     disabled={post.isHidden}
