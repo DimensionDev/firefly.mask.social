@@ -52,7 +52,7 @@ export const NOT_DEPEND_HUBBLE_KEY = '[TO_BE_REPLACED_LATER]';
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
     [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
-    [Source.Twitter]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
+    [Source.Twitter]: [ProfileTabType.Feed, ProfileTabType.Replies],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
