@@ -23,7 +23,8 @@ export async function GET(request: Request) {
     if (!link) return Response.json({ error: 'Missing link' }, { status: 400 });
 
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
-    if (!linkDigested) return Response.json({ error: 'Unable to digest link' }, { status: StatusCodes.NOT_FOUND });
+    if (!linkDigested)
+        return Response.json({ error: `Unable to digest link = ${link}` }, { status: StatusCodes.NOT_FOUND });
 
     return createSuccessResponseJSON(linkDigested);
 }
@@ -88,57 +89,64 @@ export async function POST(request: Request) {
         return Response.json({ error: getFrameErrorMessage(text) }, { status: 400 });
     }
 
-    switch (action) {
-        case ActionType.Post:
-            return createSuccessResponseJSON(
-                await FrameProcessor.digestDocument(url, await response.text(), request.signal),
-            );
-        case ActionType.PostRedirect:
-            const locationUrl = response.headers.get('Location');
-            if (response.status >= 300 && response.status < 400) {
-                if (locationUrl && HttpUrl.safeParse(locationUrl).success)
-                    return createSuccessResponseJSON({
-                        redirectUrl: locationUrl,
-                    });
-            }
-            console.error(`Failed to redirect to ${locationUrl}\n%s`, await response.text());
-            return Response.json(
-                {
-                    error: 'The frame server cannot handle the post-redirect request correctly.',
-                },
-                {
-                    status: 502,
-                },
-            );
-        case ActionType.Link:
-            return Response.json(
-                {
-                    error: 'Not available',
-                },
-                {
-                    status: 400,
-                },
-            );
-        case ActionType.Mint:
-            return Response.json(
-                {
-                    error: 'Not available',
-                },
-                {
-                    status: 400,
-                },
-            );
-        case ActionType.Transaction: {
-            if (parsedPacket?.untrustedData.transactionId) {
+    try {
+        switch (action) {
+            case ActionType.Post:
                 return createSuccessResponseJSON(
                     await FrameProcessor.digestDocument(url, await response.text(), request.signal),
                 );
+            case ActionType.PostRedirect:
+                const locationUrl = response.headers.get('Location');
+                if (response.status >= 300 && response.status < 400) {
+                    if (locationUrl && HttpUrl.safeParse(locationUrl).success)
+                        return createSuccessResponseJSON({
+                            redirectUrl: locationUrl,
+                        });
+                }
+                console.error(`Failed to redirect to ${locationUrl}\n%s`, await response.text());
+                return Response.json(
+                    {
+                        error: 'The frame server cannot handle the post-redirect request correctly.',
+                    },
+                    {
+                        status: 502,
+                    },
+                );
+            case ActionType.Link:
+                return Response.json(
+                    {
+                        error: 'Not available',
+                    },
+                    {
+                        status: 400,
+                    },
+                );
+            case ActionType.Mint:
+                return Response.json(
+                    {
+                        error: 'Not available',
+                    },
+                    {
+                        status: 400,
+                    },
+                );
+            case ActionType.Transaction: {
+                if (parsedPacket?.untrustedData.transactionId) {
+                    return createSuccessResponseJSON(
+                        await FrameProcessor.digestDocument(url, await response.text(), request.signal),
+                    );
+                }
+                const tx = await response.json();
+                return createSuccessResponseJSON(tx);
             }
-            const tx = await response.json();
-            return createSuccessResponseJSON(tx);
+            default:
+                safeUnreachable(action);
+                return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });
         }
-        default:
-            safeUnreachable(action);
-            return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });
+    } catch (error) {
+        return Response.json(
+            { error: error instanceof Error ? error.message : JSON.stringify(error) },
+            { status: 400 },
+        );
     }
 }
