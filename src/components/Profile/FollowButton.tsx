@@ -21,6 +21,7 @@ interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     variant?: 'text' | 'icon';
     hasMutedButton?: boolean;
+    hasFollowBack?: boolean;
 }
 
 export const FollowButton = memo(function FollowButton({
@@ -28,6 +29,7 @@ export const FollowButton = memo(function FollowButton({
     profile,
     className,
     hasMutedButton = true,
+    hasFollowBack = true,
     ...rest
 }: FollowButtonProps) {
     const [hovering, setHovering] = useState(false);
@@ -36,7 +38,7 @@ export const FollowButton = memo(function FollowButton({
     const muted = useIsProfileMuted(profile, hasMutedButton);
 
     const isFollowing = !!profile.viewerContext?.following;
-    const isFollowingBy = !!profile.viewerContext?.followedBy;
+    const isFollowingBy = hasFollowBack && !!profile.viewerContext?.followedBy;
     const buttonText = useMemo(() => {
         if (variant === 'text') {
             if (isFollowing) return hovering && !loading ? t`Unfollow` : t`Following`;

@@ -117,6 +117,9 @@ msgstr "選擇代幣"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
+msgid "Send tips to @{0}"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr "除錯連接"
 
@@ -737,9 +740,6 @@ msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
-
-msgid "Tip to @{0}"
-msgstr "給 @{0} 發送小費"
 
 msgid "Invalid Blink."
 msgstr ""
@@ -1767,10 +1767,10 @@ msgstr "取消靜音"
 msgid "No available token"
 msgstr ""
 
-msgid "View on explorer"
+msgid "Send tips to {0}"
 msgstr ""
 
-msgid "Tip to {0}"
+msgid "View on explorer"
 msgstr ""
 
 msgid "Unmute @{0}"
