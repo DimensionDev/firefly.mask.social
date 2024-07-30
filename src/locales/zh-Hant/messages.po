@@ -27,6 +27,9 @@ msgstr "需要登入後在{sourceName} 發佈貼文"
 msgid "Be the first one to comment!"
 msgstr "來留下第一條評論吧！"
 
+msgid "Failed to mute all wallets and accounts."
+msgstr ""
+
 msgid "Onchain Activities"
 msgstr "鏈上活動"
 
@@ -495,6 +498,9 @@ msgstr ""
 msgid "Max"
 msgstr "最大"
 
+msgid "Mute all"
+msgstr ""
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
@@ -887,6 +893,9 @@ msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "Description"
 msgstr "描述"
+
+msgid "All wallets and accounts are muted."
+msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
@@ -1840,6 +1849,9 @@ msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "All wallets and social accounts associated with {handle} will be muted."
 msgstr ""
 
 msgid "Download App"

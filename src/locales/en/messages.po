@@ -22,6 +22,9 @@ msgstr "Login required to post on {sourceName}."
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
+msgid "Failed to mute all wallets and accounts."
+msgstr "Failed to mute all wallets and accounts."
+
 msgid "Onchain Activities"
 msgstr "Onchain Activities"
 
@@ -490,6 +493,9 @@ msgstr "Failed to bookmark article."
 msgid "Max"
 msgstr "Max"
 
+msgid "Mute all"
+msgstr "Mute all"
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
 
@@ -882,6 +888,9 @@ msgstr "Your posts have published successfully on {0}."
 
 msgid "Description"
 msgstr "Description"
+
+msgid "All wallets and accounts are muted."
+msgstr "All wallets and accounts are muted."
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
@@ -1836,6 +1845,9 @@ msgstr "Failed to send tips, please try again later."
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
+
+msgid "All wallets and social accounts associated with {handle} will be muted."
+msgstr "All wallets and social accounts associated with {handle} will be muted."
 
 msgid "Download App"
 msgstr "Download App"
