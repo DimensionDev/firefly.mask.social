@@ -55,6 +55,10 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             return media ? formatTwitterMedia(media) : null;
         }),
     );
+    let content = item.note_tweet?.text || item.text || '';
+    if (repliedTweetId) {
+        content = content.replace(/^(@\w+\s*)+/, '');
+    }
 
     const ret: Post = {
         publicationId: item.id,
@@ -98,7 +102,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         metadata: {
             locale: item.lang!,
             content: {
-                content: item.note_tweet?.text || item.text,
+                content,
                 asset: attachments?.[0],
                 attachments,
                 oembedUrl: last(oembedUrls),
