@@ -67,11 +67,11 @@ export const TipsUI = memo(function TipsUI() {
                             placeholder={t`Enter amount`}
                             value={amount}
                             autoComplete="off"
-                            autoCorrect='off'
+                            autoCorrect="off"
                             spellCheck="false"
                             onChange={handleAmountChange}
                             disabled={isSending}
-                            inputMode='decimal'
+                            inputMode="decimal"
                             pattern={NUMERIC_INPUT_REGEXP_PATTERN}
                         />
                         {token && recipient ? (
