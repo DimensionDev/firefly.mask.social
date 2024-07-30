@@ -78,6 +78,8 @@ class Processor {
             locale: null,
         } satisfies OpenGraph;
 
+        if (!og.title) return null;
+
         if (MIRROR_HOSTNAME_REGEXP.test(url.hostname)) {
             return {
                 og,
