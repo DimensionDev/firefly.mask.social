@@ -837,3 +837,13 @@ export type ScheduleTasksResponse = Response<{
     tasks: ScheduleTask[];
     cursor: string | null;
 }>;
+
+export type BindWalletResponse = Response<{
+    id: string;
+    address: Address;
+    ens: string;
+    is_connected: boolean;
+    blockchain: NetworkType;
+    signMessage: string;
+    signature: string;
+}>;

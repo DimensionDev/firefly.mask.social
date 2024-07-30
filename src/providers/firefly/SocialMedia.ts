@@ -3,12 +3,17 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
-import { isAddress } from 'viem';
+import { type Hex, isAddress } from 'viem';
 
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
+import {
+    SetQueryDataForDeleteWallet,
+    SetQueryDataForReportAndDeleteWallet,
+} from '@/decorators/SetQueryDataForDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -34,6 +39,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import {
+    type BindWalletResponse,
     type BlockChannelResponse,
     type BlockedChannelsResponse,
     type BlockedUsersResponse,
@@ -116,6 +122,9 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
     throw new Error('Failed to mute user');
 }
 
+@SetQueryDataForAddWallet()
+@SetQueryDataForDeleteWallet()
+@SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
 @SetQueryDataForBlockWallet()
 export class FireflySocialMedia implements Provider {
@@ -1155,6 +1164,66 @@ export class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async getMessageToSignForBindWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/messageToSign', {
+            address,
+        });
+
+        const response = await fireflySessionHolder.fetch<Response<{ message: Hex }>>(url, {
+            method: 'GET',
+        });
+
+        const { message } = resolveFireflyResponseData(response);
+
+        if (!message) throw new Error('Failed to get message to sign');
+
+        return message;
+    }
+
+    async verifyAndBindWallet(signMessage: string, signature: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/verify');
+
+        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                signMessage,
+                signature,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        return data;
+    }
+
+    async deleteWallet(addresses: string[]) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
+
+        await fireflySessionHolder.fetch<Response<void>>(url, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                addresses,
+            }),
+        });
+    }
+
+    async reportAndDeleteWallet(options: {
+        twitterId: string;
+        walletAddress: string;
+        reportReason: string;
+        sources: string[];
+    }) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/twitter/wallet/report');
+
+        await fireflySessionHolder.fetch<Response<void>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                ...options,
+                sources: options.sources.join(','),
+            }),
+        });
     }
 }
 

@@ -17,6 +17,7 @@ export function SettingsList() {
             </div>
             {[
                 { name: <Trans>General</Trans>, link: '/general' },
+                { name: <Trans>Associated wallets</Trans>, link: '/wallets', isHidden: !isLoggedIn },
                 { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLoggedIn },
                 { name: <Trans>Muted contents</Trans>, link: '/mutes', isHidden: !muteMenuList.length },
                 { name: <Trans>More</Trans>, link: '/more' },
