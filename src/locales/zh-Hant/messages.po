@@ -219,6 +219,9 @@ msgstr "投票"
 msgid "Scheduled"
 msgstr "已排程"
 
+msgid "Tips amount"
+msgstr ""
+
 msgid "Solana"
 msgstr "Solana"
 

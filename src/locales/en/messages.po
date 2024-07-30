@@ -214,6 +214,9 @@ msgstr "Poll"
 msgid "Scheduled"
 msgstr "Scheduled"
 
+msgid "Tips amount"
+msgstr "Tips amount"
+
 msgid "Solana"
 msgstr "Solana"
 

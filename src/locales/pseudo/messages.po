@@ -214,6 +214,9 @@ msgstr ""
 msgid "Scheduled"
 msgstr ""
 
+msgid "Tips amount"
+msgstr ""
+
 msgid "Solana"
 msgstr ""
 
