@@ -80,7 +80,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 signal,
             });
 
-            console.log('DEBUG: encrypted');
+            console.log('DEBUG: restoreFireflySession - encrypted');
             console.log({
                 encrypted,
             });
