@@ -1,5 +1,6 @@
 /* cspell:disable */
 
+import { StatusCodes } from 'http-status-codes';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
@@ -95,15 +96,16 @@ export async function GET(request: NextRequest) {
             locale: Locale.en,
         });
         return new Response(result.success ? 'Invalid Params.' : `Full Params: ${result.error.message}`, {
-            status: 400,
+            status: StatusCodes.BAD_REQUEST,
         });
     }
 
     const parsedParams = parseParams(request.nextUrl.searchParams);
-    if (!parsedParams?.success) return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: 400 });
+    if (!parsedParams?.success)
+        return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: StatusCodes.BAD_REQUEST });
 
     const image = await createRedPacketImage(parsedParams.data, request.signal);
-    if (!image) return new Response('Failed to create image', { status: 500 });
+    if (!image) return new Response('Failed to create image', { status: StatusCodes.INTERNAL_SERVER_ERROR });
 
     return new Response(image, {
         headers: {

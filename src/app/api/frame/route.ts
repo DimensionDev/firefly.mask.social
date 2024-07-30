@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const link = searchParams.get('link');
-    if (!link) return Response.json({ error: 'Missing link' }, { status: 400 });
+    if (!link) return Response.json({ error: 'Missing link' }, { status: StatusCodes.BAD_REQUEST });
 
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
     if (!linkDigested)
@@ -33,7 +33,7 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const link = searchParams.get('link');
-    if (!link) return Response.json({ error: 'Missing link' }, { status: 400 });
+    if (!link) return Response.json({ error: 'Missing link' }, { status: StatusCodes.BAD_REQUEST });
 
     await digestLinkRedis.cache.delete(link);
     return createSuccessResponseJSON(null);
@@ -55,7 +55,8 @@ export async function POST(request: Request) {
         target: searchParams.get('target'),
         postUrl: searchParams.get('post-url'),
     });
-    if (!parsedFrameAction.success) return Response.json({ error: parsedFrameAction.error.message }, { status: 400 });
+    if (!parsedFrameAction.success)
+        return Response.json({ error: parsedFrameAction.error.message }, { status: StatusCodes.BAD_REQUEST });
 
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
@@ -86,7 +87,7 @@ export async function POST(request: Request) {
     if (response.status < 200 || response.status >= 400) {
         const text = await response.text();
         console.error(`[frame] response status: ${response.status}\n%s`, text);
-        return Response.json({ error: getFrameErrorMessage(text) }, { status: 400 });
+        return Response.json({ error: getFrameErrorMessage(text) }, { status: StatusCodes.BAD_REQUEST });
     }
 
     try {
@@ -109,7 +110,7 @@ export async function POST(request: Request) {
                         error: 'The frame server cannot handle the post-redirect request correctly.',
                     },
                     {
-                        status: 502,
+                        status: StatusCodes.BAD_GATEWAY,
                     },
                 );
             case ActionType.Link:
@@ -118,7 +119,7 @@ export async function POST(request: Request) {
                         error: 'Not available',
                     },
                     {
-                        status: 400,
+                        status: StatusCodes.BAD_REQUEST,
                     },
                 );
             case ActionType.Mint:
@@ -127,7 +128,7 @@ export async function POST(request: Request) {
                         error: 'Not available',
                     },
                     {
-                        status: 400,
+                        status: StatusCodes.BAD_REQUEST,
                     },
                 );
             case ActionType.Transaction: {
@@ -141,12 +142,12 @@ export async function POST(request: Request) {
             }
             default:
                 safeUnreachable(action);
-                return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });
+                return Response.json({ error: `Unknown action: ${action}` }, { status: StatusCodes.BAD_REQUEST });
         }
     } catch (error) {
         return Response.json(
             { error: error instanceof Error ? error.message : JSON.stringify(error) },
-            { status: 500 },
+            { status: StatusCodes.BAD_GATEWAY },
         );
     }
 }
