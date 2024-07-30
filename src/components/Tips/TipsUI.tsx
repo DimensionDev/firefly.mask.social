@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { NUMERIC_INPUT_REGEXP_PATTERN } from '@masknet/shared-base';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -24,7 +25,9 @@ export const TipsUI = memo(function TipsUI() {
     );
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const amount_ = e.currentTarget.value.replaceAll(',', '.');
+        const value = e.currentTarget.value;
+        if (value && !new RegExp(NUMERIC_INPUT_REGEXP_PATTERN).test(value)) return;
+        const amount_ = value.replaceAll(',', '.');
         if (RE_MATCH_FRACTION_AMOUNT.test(amount_)) {
             update((prev) => ({ ...prev, amount: `0${amount_}` }));
         } else if (amount_ === '' || RE_MATCH_WHOLE_AMOUNT.test(amount_)) {
@@ -64,9 +67,12 @@ export const TipsUI = memo(function TipsUI() {
                             placeholder={t`Enter amount`}
                             value={amount}
                             autoComplete="off"
+                            autoCorrect='off'
                             spellCheck="false"
                             onChange={handleAmountChange}
                             disabled={isSending}
+                            inputMode='decimal'
+                            pattern={NUMERIC_INPUT_REGEXP_PATTERN}
                         />
                         {token && recipient ? (
                             <ClickableButton
