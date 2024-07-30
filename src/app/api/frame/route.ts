@@ -146,7 +146,7 @@ export async function POST(request: Request) {
     } catch (error) {
         return Response.json(
             { error: error instanceof Error ? error.message : JSON.stringify(error) },
-            { status: 400 },
+            { status: 500 },
         );
     }
 }

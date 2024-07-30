@@ -26,6 +26,10 @@ import { type ImageDigested, type LinkDigested, type OpenGraph, PayloadType } fr
 
 class Processor {
     digestImageUrl = async (url: string, signal?: AbortSignal): Promise<ImageDigested | null> => {
+        // skip data URLs
+        if (url.startsWith('data:')) return null;
+
+        // skip non-HTTP URLs
         if (!url.startsWith('http')) return null;
 
         try {
