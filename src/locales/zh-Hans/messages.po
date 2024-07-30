@@ -117,6 +117,9 @@ msgstr "选择代币"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
+msgid "Send tips to @{0}"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr "诊断网络"
 
@@ -737,9 +740,6 @@ msgstr "输入金额"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
-
-msgid "Tip to @{0}"
-msgstr "打赏给 @{0}"
 
 msgid "Invalid Blink."
 msgstr "非法的 Blinks"
@@ -1767,11 +1767,11 @@ msgstr "取消屏蔽"
 msgid "No available token"
 msgstr "没有适合的代币"
 
+msgid "Send tips to {0}"
+msgstr ""
+
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
-
-msgid "Tip to {0}"
-msgstr "打赏给 {0}"
 
 msgid "Unmute @{0}"
 msgstr "取消屏蔽 @{0}"
