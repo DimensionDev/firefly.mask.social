@@ -112,6 +112,9 @@ msgstr "Select token"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
+msgid "Send tips to @{0}"
+msgstr "Send tips to @{0}"
+
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -732,9 +735,6 @@ msgstr "Enter amount"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
-
-msgid "Tip to @{0}"
-msgstr "Tip to @{0}"
 
 msgid "Invalid Blink."
 msgstr "Invalid Blink."
@@ -1762,11 +1762,11 @@ msgstr "Unmute"
 msgid "No available token"
 msgstr "No available token"
 
+msgid "Send tips to {0}"
+msgstr "Send tips to {0}"
+
 msgid "View on explorer"
 msgstr "View on explorer"
-
-msgid "Tip to {0}"
-msgstr "Tip to {0}"
 
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"

@@ -112,6 +112,9 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
+msgid "Send tips to @{0}"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr ""
 
@@ -731,9 +734,6 @@ msgid "Enter amount"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
-msgstr ""
-
-msgid "Tip to @{0}"
 msgstr ""
 
 msgid "Invalid Blink."
@@ -1762,10 +1762,10 @@ msgstr ""
 msgid "No available token"
 msgstr ""
 
-msgid "View on explorer"
+msgid "Send tips to {0}"
 msgstr ""
 
-msgid "Tip to {0}"
+msgid "View on explorer"
 msgstr ""
 
 msgid "Unmute @{0}"
