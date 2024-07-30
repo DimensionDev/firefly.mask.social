@@ -1,15 +1,18 @@
 'use client';
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 import { usePathname, useSearchParams } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
 import { Title } from '@/components/Profile/Title.js';
-import { FollowCategory, Source, SourceInURL } from '@/constants/enum.js';
+import { FollowCategory, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
 interface Props extends PropsWithChildren {
@@ -24,6 +27,7 @@ export default function DetailLayout({ children, params }: Props) {
     const rawSource = searchParams.get('source') as SourceInURL;
     const source = resolveSourceFromUrl(rawSource);
     const identity = params.id;
+    const myProfile = useCurrentProfile(source as SocialSource);
 
     const { data: profile = null } = useQuery({
         queryKey: ['profile', source, identity],
@@ -36,11 +40,13 @@ export default function DetailLayout({ children, params }: Props) {
 
     const pathname = usePathname();
 
-    const tabs = [
-        {
-            label: <Trans>Followers you know</Trans>,
-            category: FollowCategory.Mutuals,
-        },
+    const tabs = compact([
+        !isSameProfile(myProfile, profile)
+            ? {
+                  label: <Trans>Followers you know</Trans>,
+                  category: FollowCategory.Mutuals,
+              }
+            : null,
         {
             label: <Trans>Following</Trans>,
             category: FollowCategory.Following,
@@ -49,7 +55,7 @@ export default function DetailLayout({ children, params }: Props) {
             label: <Trans>Followers</Trans>,
             category: FollowCategory.Followers,
         },
-    ] as const;
+    ]);
 
     return (
         <>
