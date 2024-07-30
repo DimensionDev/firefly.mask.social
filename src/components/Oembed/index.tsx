@@ -51,7 +51,7 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
     });
 
     useEffect(() => {
-        if (!data?.success || !data?.data?.og) return;
+        if (!data?.success || !data?.data?.og.title) return;
         onData?.(data.data.og);
     }, [data, onData]);
 
