@@ -27,6 +27,9 @@ msgstr "请先登录 {sourceName}。"
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
 
+msgid "Failed to mute all wallets and accounts."
+msgstr ""
+
 msgid "Onchain Activities"
 msgstr "链上活动"
 
@@ -492,6 +495,9 @@ msgstr "收藏文章失败。"
 msgid "Max"
 msgstr "最大"
 
+msgid "Mute all"
+msgstr ""
+
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
 
@@ -884,6 +890,9 @@ msgstr "您已在 {0} 发布成功。"
 
 msgid "Description"
 msgstr "介绍"
+
+msgid "All wallets and accounts are muted."
+msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -1847,6 +1856,9 @@ msgstr "打赏失败，请稍后重试。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
+
+msgid "All wallets and social accounts associated with {handle} will be muted."
+msgstr ""
 
 msgid "Download App"
 msgstr "下载应用"

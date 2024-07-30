@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 import MoreCircleIcon from '@/assets/more-circle.svg';
 import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { MuteAllByProfile } from '@/components/Actions/MuteAllProfile.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -80,6 +81,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                                 <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />
                             )}
                         </Menu.Item>
+                        <Menu.Item>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</Menu.Item>
                     </>
                 ) : null}
             </Menu.Items>
