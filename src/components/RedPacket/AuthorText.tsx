@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
@@ -12,8 +13,6 @@ interface AuthorTextProps {
 }
 
 export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorTextProps) {
-    const authorText = `From ${formatEthereumAddress(from, 4)}`;
-
     switch (usage) {
         case UsageType.Cover:
             return (
@@ -26,7 +25,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                         ...props.ContainerStyle,
                     }}
                 >
-                    {authorText}
+                    {`From ${formatEthereumAddress(from, 4)}`}
                 </div>
             );
         case UsageType.Payload:
@@ -48,6 +47,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                 </div>
             );
         default:
+            safeUnreachable(usage);
             return null;
     }
 }
