@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { Locale } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
@@ -81,6 +82,6 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
             });
         default:
             safeUnreachable(usage);
-            return;
+            throw new UnreachableError('usage', usage);
     }
 }
