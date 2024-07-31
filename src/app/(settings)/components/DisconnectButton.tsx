@@ -35,7 +35,7 @@ export function DisconnectButton({ profile, relations }: DisconnectButtonProps) 
             await FireflySocialMediaProvider.deleteWallet([profile.identity]);
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect`), { error });
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect wallet from your social graph.`), { error });
             throw error;
         }
     }, [profile, relations]);
