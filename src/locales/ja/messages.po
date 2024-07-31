@@ -42,6 +42,9 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
+msgstr ""
+
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr ""
 
@@ -222,6 +225,9 @@ msgstr ""
 msgid "Scheduled"
 msgstr ""
 
+msgid "Failed to add wallet"
+msgstr ""
+
 msgid "Solana"
 msgstr ""
 
@@ -235,6 +241,9 @@ msgid "Report submitted on {0}"
 msgstr ""
 
 msgid "Debug Console"
+msgstr ""
+
+msgid "Adding..."
 msgstr ""
 
 msgid "Login with QR Code"
@@ -313,6 +322,9 @@ msgid "Bookmarks"
 msgstr ""
 
 msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
+msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr ""
 
 msgid "Confirm"
@@ -753,6 +765,9 @@ msgstr ""
 msgid "No function found that retrieves ownership"
 msgstr ""
 
+msgid "Send"
+msgstr ""
+
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
@@ -811,6 +826,9 @@ msgid "There are images that were not uploaded successfully."
 msgstr ""
 
 msgid "No mint function"
+msgstr ""
+
+msgid "Please choose issue to report this wallet:"
 msgstr ""
 
 msgid "Switch"
@@ -892,6 +910,9 @@ msgid "Description"
 msgstr ""
 
 msgid "All wallets and accounts are muted."
+msgstr ""
+
+msgid "Disconnected from your social graph"
 msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
@@ -1068,6 +1089,9 @@ msgstr ""
 msgid "Login required to schedule post on {sourceName}"
 msgstr ""
 
+msgid "Failed to disconnect"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -1092,10 +1116,16 @@ msgstr ""
 msgid "Creator"
 msgstr ""
 
+msgid "I want to hide this wallet address."
+msgstr ""
+
 msgid "Details"
 msgstr ""
 
 msgid "Blink"
+msgstr ""
+
+msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -1191,6 +1221,9 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
+msgid "Add wallet"
+msgstr ""
+
 msgid "Your Blink URL."
 msgstr ""
 
@@ -1278,10 +1311,16 @@ msgstr ""
 msgid "Unfollow @{0}"
 msgstr ""
 
+msgid "Not my wallet address."
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
+msgstr ""
+
+msgid "Connected in Firefly"
 msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
@@ -1308,6 +1347,9 @@ msgstr ""
 msgid "Follow @thefireflyapp on X"
 msgstr ""
 
+msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
 msgid "Light Mode"
 msgstr ""
 
@@ -1330,6 +1372,9 @@ msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
 msgstr ""
 
 msgid "The content of this account is currently unavailable"
+msgstr ""
+
+msgid "Wallet added successfully"
 msgstr ""
 
 msgid "There is no data available for display."
@@ -1485,6 +1530,9 @@ msgstr ""
 msgid "Skip for now"
 msgstr ""
 
+msgid "No available wallet."
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1537,6 +1585,9 @@ msgid "Watch {identity}"
 msgstr ""
 
 msgid "Failed to create scheduled post."
+msgstr ""
+
+msgid "I don’t use anymore."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1717,6 +1768,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "Owned"
+msgstr ""
+
+msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
@@ -1966,6 +2020,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Related by platforms"
 msgstr ""
 
 msgid "Copy link"

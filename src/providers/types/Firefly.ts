@@ -839,6 +839,16 @@ export type ScheduleTasksResponse = Response<{
     cursor: string | null;
 }>;
 
+export type BindWalletResponse = Response<{
+    id: string;
+    address: Address;
+    ens: string;
+    is_connected: boolean;
+    blockchain: NetworkType;
+    signMessage: string;
+    signature: string;
+}>;
+
 export type IsMutedAllResponse = Response<{
     isBlockAll: boolean;
 }>;
