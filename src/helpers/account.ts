@@ -176,7 +176,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // upload sessions to firefly
     if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
-        await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
+        await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
     }
 
     // account has been added to the store

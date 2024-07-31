@@ -44,7 +44,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         const post = first(posts);
         const content = getScheduleTaskContent(post);
 
-        await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll());
+        await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,
