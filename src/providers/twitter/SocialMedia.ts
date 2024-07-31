@@ -484,9 +484,6 @@ class TwitterSocialMedia implements Provider {
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async getSuggestedFollowUsers(): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
 }
 
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();

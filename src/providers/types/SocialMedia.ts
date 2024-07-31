@@ -285,19 +285,6 @@ export type Notification =
     | MentionNotification
     | ActedNotification;
 
-export interface ChannelLead {
-    pfp: string;
-    displayName: string;
-    bio: string;
-    username: string;
-    following: number;
-    followers: number;
-    addresses: string[];
-    fid: number;
-    isFollowing: boolean;
-    isFollowedBack: boolean;
-}
-
 export interface Channel {
     source: SocialSource;
     id: string;
@@ -819,9 +806,4 @@ export interface Provider {
      * Report spam or inappropriate channel content.
      */
     reportChannel?: (channelId: string) => Promise<boolean>;
-
-    getSuggestedFollowUsers?: (options?: {
-        limit?: number;
-        indicator?: PageIndicator;
-    }) => Promise<Pageable<Profile, PageIndicator>>;
 }

@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { uniqBy } from 'lodash-es';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -13,11 +12,10 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import { OpenRankProvider } from '@/providers/openrank/index.js';
 import {
     type Channel,
     type Notification,
@@ -27,6 +25,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import { getFarcasterSuggestFollows } from '@/services/getFarcasterSuggestFollows.js';
 
 @SetQueryDataForLikePost(Source.Farcaster)
 @SetQueryDataForBookmarkPost(Source.Farcaster)
@@ -267,7 +266,12 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        return WarpcastSocialMediaProvider.getSuggestedFollows(indicator);
+        const response = await getFarcasterSuggestFollows(indicator);
+        // get full profiles
+        response.data = await NeynarSocialMediaProvider.getProfilesByIds(
+            response.data.map((profile) => `${profile.profileId}`),
+        );
+        return response;
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
@@ -329,25 +333,6 @@ class FarcasterSocialMedia implements Provider {
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getBookmarks(indicator);
-    }
-
-    async getSuggestedFollowUsers({
-        limit = 40,
-        indicator,
-    }: {
-        limit?: number;
-        indicator?: PageIndicator;
-    } = {}): Promise<Pageable<Profile, PageIndicator>> {
-        const offset = indicator?.id ? parseInt(indicator.id, 10) : 0;
-        const { result } = await OpenRankProvider.getTopProfiles({ offset, limit });
-        const profiles = await NeynarSocialMediaProvider.getProfilesByIds(
-            uniqBy(result, 'fid').map((profile) => `${profile.fid}`),
-        );
-        return createPageable(
-            profiles,
-            createIndicator(indicator),
-            result.length > 0 ? createIndicator(undefined, `${offset + limit}`) : undefined,
-        );
     }
 }
 
