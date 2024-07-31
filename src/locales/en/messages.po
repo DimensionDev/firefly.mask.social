@@ -43,8 +43,8 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {1 second} other {{count} seconds}}"
 
-msgid "New connect with Warpcast"
-msgstr "New connect with Warpcast"
+msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
+msgstr "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 
 msgid "Report @{0}"
 msgstr "Report @{0}"
@@ -99,9 +99,6 @@ msgstr "Failed to unbookmark post."
 
 msgid "Delete post"
 msgstr "Delete post"
-
-msgid "You can sign in to Farcaster with the following options."
-msgstr "You can sign in to Farcaster with the following options."
 
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -208,11 +205,11 @@ msgstr "You can save the failed parts of posts and send them later from your Dra
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
 
-msgid "Wrong wallet"
-msgstr "Wrong wallet"
-
 msgid "Failed to un-bookmark article."
 msgstr "Failed to un-bookmark article."
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 
 msgid "Poll"
 msgstr "Poll"
@@ -241,9 +238,6 @@ msgstr "Debug Console"
 msgid "Adding..."
 msgstr "Adding..."
 
-msgid "Login with QR Code"
-msgstr "Login with QR Code"
-
 msgid "Market Cap"
 msgstr "Market Cap"
 
@@ -264,6 +258,9 @@ msgstr "Failed to like the comment."
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 
 msgid "Poll is currently only supported on {0}"
 msgstr "Poll is currently only supported on {0}"
@@ -286,8 +283,8 @@ msgstr "Report post"
 msgid "{0} left"
 msgstr "{0} left"
 
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
-msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
+msgid "Skip"
+msgstr "Skip"
 
 msgid "Copied"
 msgstr "Copied"
@@ -336,9 +333,6 @@ msgstr "The author is muted by you."
 
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
-
-msgid "Device Logged In"
-msgstr "Device Logged In"
 
 msgid "Report submitted"
 msgstr "Report submitted"
@@ -390,9 +384,6 @@ msgstr "Type something here..."
 
 msgid "Save Post?"
 msgstr "Save Post?"
-
-msgid "Reconnect with Firefly"
-msgstr "Reconnect with Firefly"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
@@ -462,9 +453,6 @@ msgstr "Mirror again"
 
 msgid "There are images or videos that were not uploaded successfully."
 msgstr "There are images or videos that were not uploaded successfully."
-
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
-msgstr "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
 
 msgid "No Airdrop Scam"
 msgstr "No Airdrop Scam"
@@ -639,6 +627,9 @@ msgstr "Send Tips"
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+
+msgid "Login to Firefly"
+msgstr "Login to Firefly"
 
 msgid "Top Channels"
 msgstr "Top Channels"
@@ -889,9 +880,6 @@ msgstr "Set"
 msgid "[Poll]"
 msgstr "[Poll]"
 
-msgid "Confirm to connect your account status."
-msgstr "Confirm to connect your account status."
-
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
@@ -943,6 +931,9 @@ msgstr "Failed to report @{0}."
 msgid "Your post has published successfully."
 msgstr "Your post has published successfully."
 
+msgid "Login with Farcaster"
+msgstr "Login with Farcaster"
+
 msgid "1m"
 msgstr "1m"
 
@@ -975,6 +966,9 @@ msgstr "Please confirm the login with Warpcast."
 
 msgid "The connection has timed out. Please try again later.·"
 msgstr "The connection has timed out. Please try again later.·"
+
+msgid "Log in with recovery phrase"
+msgstr "Log in with recovery phrase"
 
 msgid "Confirm you want to mute @{0}?"
 msgstr "Confirm you want to mute @{0}?"
@@ -1089,6 +1083,9 @@ msgstr "Failed to disconnect"
 
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
+
+msgid "New connection with Warpcast"
+msgstr "New connection with Warpcast"
 
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
@@ -1252,6 +1249,9 @@ msgstr "Remaining"
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
 
+msgid "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
+msgstr "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
+
 msgid "Failed to create schedule thread posts."
 msgstr "Failed to create schedule thread posts."
 
@@ -1260,6 +1260,9 @@ msgstr "Top Collectors"
 
 msgid "Quote"
 msgstr "Quote"
+
+msgid "Or login with any social account"
+msgstr "Or login with any social account"
 
 msgid "View engagements"
 msgstr "View engagements"
@@ -1293,9 +1296,6 @@ msgstr "Floor Price"
 
 msgid "Unliked"
 msgstr "Unliked"
-
-msgid "Please click and refresh the QR code to log in again."
-msgstr "Please click and refresh the QR code to log in again."
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -1420,6 +1420,9 @@ msgstr "The user rejected the request."
 msgid "Unwatch {identity}"
 msgstr "Unwatch {identity}"
 
+msgid "Confirm accounts to sync"
+msgstr "Confirm accounts to sync"
+
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
 
@@ -1474,9 +1477,6 @@ msgstr "Full"
 msgid "Powered by"
 msgstr "Powered by"
 
-msgid "No Lens profile was found. Please try using a different wallet."
-msgstr "No Lens profile was found. Please try using a different wallet."
-
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
 
@@ -1522,9 +1522,6 @@ msgstr "Failed to delete post."
 msgid "Copy"
 msgstr "Copy"
 
-msgid "Skip for now"
-msgstr "Skip for now"
-
 msgid "No available wallet."
 msgstr "No available wallet."
 
@@ -1536,6 +1533,9 @@ msgstr "Owner can change balance"
 
 msgid "{identity} watched"
 msgstr "{identity} watched"
+
+msgid "Accounts Connected"
+msgstr "Accounts Connected"
 
 msgid "Notifications"
 msgstr "Notifications"
@@ -1554,9 +1554,6 @@ msgstr "No Lens profile found. Please change to another wallet."
 
 msgid "Connect"
 msgstr "Connect"
-
-msgid "Sign in with Custody Wallet"
-msgstr "Sign in with Custody Wallet"
 
 msgid "View transaction on explorer"
 msgstr "View transaction on explorer"
@@ -1876,9 +1873,6 @@ msgstr "<0/> and <1>{0} others</1>"
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
 
-msgid "Log in to Farcaster account"
-msgstr "Log in to Farcaster account"
-
 msgid "{0} Users"
 msgstr "{0} Users"
 
@@ -1935,9 +1929,6 @@ msgstr "Language"
 
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
-
-msgid "FREE"
-msgstr "FREE"
 
 msgid "Profiles"
 msgstr "Profiles"

@@ -70,7 +70,7 @@ export function AccountCard({ source }: AccountCardProps) {
                             onClick={() => {
                                 LoginModalRef.open({
                                     source,
-                                    options: { expectedProfile: account.profile },
+                                    options: { expectedProfile: account.profile.profileId },
                                 });
                             }}
                         >
