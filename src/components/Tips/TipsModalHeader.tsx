@@ -5,7 +5,7 @@ import { rootRouteId, useMatch } from '@tanstack/react-router';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
-import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
+import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { Tooltip } from '@/components/Tooltip.js';
 
 interface TipsModalHeaderProps {

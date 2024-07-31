@@ -1,13 +1,12 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { uniqBy } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import { type SocialSourceInURL, Source } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -37,18 +36,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
         },
     });
 
-    const profiles = useMemo(() => {
-        if (isCurrentProfile) {
-            if (resolvedSource !== Source.Twitter) return currentProfiles;
-            // merge lens and farcaster profiles when source is twitter
-            return uniqBy(
-                [...currentProfiles.filter((x) => x.source !== Source.Twitter), ...otherProfiles],
-                (profile) => `${profile.source}/${profile.identity}`,
-            );
-        }
-
-        return otherProfiles;
-    }, [isCurrentProfile, resolvedSource, otherProfiles, currentProfiles]);
+    const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
 
     useEffect(() => {
         setProfileTab({

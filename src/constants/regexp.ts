@@ -42,4 +42,6 @@ export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
 
 export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z_][a-zA-Z0-9_]*)\/status\/(\d+)/;
 
+export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\/(\d+)/;
+
 export const URI_COMPONENT_REGEXP = /([A-Za-z0-9\-_.!~*'()]|%[0-9A-Fa-f]{2})+/gi;

@@ -13,6 +13,7 @@ import { Views } from '@/components/Actions/Views.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
@@ -75,18 +76,20 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 />
             </div>
         ) : null,
-        <div key="like">
-            <Like
-                isComment={isComment}
-                count={post.stats?.reactions}
-                hasLiked={post.hasLiked}
-                postId={post.postId}
-                source={post.source}
-                authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-                disabled={disabled}
-                hiddenCount
-            />
-        </div>,
+        post.source !== Source.Twitter ? (
+            <div key="like">
+                <Like
+                    isComment={isComment}
+                    count={post.stats?.reactions}
+                    hasLiked={post.hasLiked}
+                    postId={post.postId}
+                    source={post.source}
+                    authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
+                    disabled={disabled}
+                    hiddenCount
+                />
+            </div>
+        ) : null,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
@@ -94,18 +97,14 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
         <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
-        <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
+        <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
-    const actionLength = actions.length;
 
     return (
         <ClickableArea
-            className={classNames('mt-2 grid grid-flow-col items-center', className, {
+            className={classNames('mt-2 flex items-center justify-between', className, {
                 'pl-[52px]': !disablePadding,
             })}
-            style={{
-                gridTemplateColumns: `repeat(${actionLength - 1}, 1fr)`,
-            }}
         >
             {actions}
         </ClickableArea>
@@ -133,10 +132,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     const identity = resolveProfileId(post.author);
 
-    if (post.source === Source.Twitter) {
-        return null;
-    }
-
     return (
         <div
             className={classNames('mt-2 text-xs text-second', className, {
@@ -163,16 +158,18 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         post={post}
                         hiddenCount
                     />
-                    <Like
-                        isComment={isComment}
-                        count={post.stats?.reactions}
-                        hasLiked={post.hasLiked}
-                        postId={post.postId}
-                        source={post.source}
-                        authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-                        disabled={disabled}
-                        hiddenCount
-                    />
+                    {post.source !== Source.Twitter ? (
+                        <Like
+                            isComment={isComment}
+                            count={post.stats?.reactions}
+                            hasLiked={post.hasLiked}
+                            postId={post.postId}
+                            source={post.source}
+                            authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
+                            disabled={disabled}
+                            hiddenCount
+                        />
+                    ) : null}
                 </div>
                 <div className="flex translate-x-1.5 items-center space-x-2">
                     {post.source !== Source.Farcaster && post.canAct ? (
@@ -192,7 +189,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             handle={post.author.handle}
                         />
                     ) : null}
-                    <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
+                    <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>
             <PostStatistics post={post} showChannelTag={showChannelTag} onSetScrollIndex={onSetScrollIndex} />

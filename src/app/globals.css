@@ -83,6 +83,7 @@
     --plyr-control-icon-size: 16px;
     --color-success: #3dc233;
     --color-fail: #ff3545;
+    --color-light-warn: 255 122 85;
 }
 
 .dark {
@@ -130,6 +131,7 @@
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
     --color-card: white;
+    --color-light-warn: 255 122 85;
 }
 
 .dark .plyr__control {
@@ -172,6 +174,7 @@
     --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
+    --color-light-warn: 255 122 85;
 }
 
 html,
@@ -375,7 +378,7 @@ body.not-support .fixed.inset-y-0 {
 }
 
 .custom-date-picker * {
-    color: var(--color-main) !important;
+    color: rgb(var(--color-main)) !important;
 }
 
 .custom-date-picker button.Mui-disabled {
@@ -385,6 +388,11 @@ body.not-support .fixed.inset-y-0 {
 .schedule-task-list [data-test-id='virtuoso-item-list'] {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+.custom-time-picker {
+    overflow: unset;
+    color: rgb(var(--color-main)) !important;
 }
 
 .custom-time-picker > * {

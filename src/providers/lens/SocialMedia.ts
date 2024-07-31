@@ -885,6 +885,21 @@ class LensSocialMedia implements Provider {
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
+    async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const observer = await lensSessionHolder.sdk.authentication.getProfileId();
+        if (!observer || observer === profileId) return createPageable([], createIndicator(indicator));
+
+        const result = await lensSessionHolder.sdk.profile.mutualFollowers({
+            observer,
+            viewing: profileId,
+        });
+
+        return createPageable(
+            result.items.map(formatLensProfile),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
 
     async isFollowedByMe(profileId: string): Promise<boolean> {
         const result = await lensSessionHolder.sdk.profile.fetch({

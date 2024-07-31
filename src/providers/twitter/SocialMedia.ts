@@ -1,20 +1,18 @@
 import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import type {
-    TweetV2,
-    TweetV2PaginableTimelineResult,
-    UserV2,
-    UserV2MuteResult,
-    UserV2TimelineResult,
-} from 'twitter-api-v2';
+import type { TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult, UserV2TimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
+import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
+import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
+import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
-import { formatTweetsPage, tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
+import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
+import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
+import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
@@ -32,6 +30,11 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
+@SetQueryDataForLikePost(Source.Twitter)
+@SetQueryDataForBookmarkPost(Source.Twitter)
+@SetQueryDataForMirrorPost(Source.Twitter)
+@SetQueryDataForCommentPost(Source.Twitter)
+@SetQueryDataForDeletePost(Source.Twitter)
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
 class TwitterSocialMedia implements Provider {
@@ -106,6 +109,10 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     isFollowedByMe(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
@@ -153,13 +160,9 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2>>(`/api/twitter/${postId}`);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/${postId}`);
         if (!response.success) throw new Error(response.error.message);
-        const post = tweetV2ToPost(response.data);
-        if (response.data.author_id) {
-            post.author = await this.getProfileById(response.data.author_id);
-        }
-        return post;
+        return response.data;
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
@@ -224,12 +227,24 @@ class TwitterSocialMedia implements Provider {
         return formatTweetsPage(response.data, indicator);
     }
 
-    async getCommentsById(_postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return createPageable(EMPTY_LIST, createIndicator(indicator));
+    async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(`/api/twitter/${postId}/comments`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTweetsPage(response.data, indicator);
     }
 
-    getThreadByPostId(postId: string): Promise<Post[]> {
-        throw new NotImplementedError();
+    async getThreadByPostId(postId: string): Promise<Post[]> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<Post[]>>(
+            `/api/twitter/threadTweets/${postId}`,
+            {},
+            true,
+        );
+        if (!response.success) throw new Error(response.error.message);
+        return response.data;
     }
 
     async upvotePost(postId: string): Promise<void> {

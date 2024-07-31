@@ -30,7 +30,6 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
     const currentProfile = useCurrentProfile(post.source);
 
     const isComment = post.type === 'Comment';
-
     const showThread = isComment || !post.comments?.length;
 
     const pathname = usePathname();
@@ -88,7 +87,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     </span>
                 </div>
             ) : null}
-            {post.type === 'Mirror' && post.reporter && !isPostPage ? (
+            {post.type === 'Mirror' && post.reporter && post.source !== Source.Twitter && !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(post.reporter)}>
@@ -99,6 +98,22 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                         ) : (
                             <Trans>
                                 <strong>{post.reporter.displayName}</strong> mirrored
+                            </Trans>
+                        )}
+                    </Link>
+                </div>
+            ) : null}
+            {post.type === 'Mirror' && post.reporter && post.source === Source.Twitter && !isPostPage ? (
+                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                    <MirrorIcon width={16} height={16} />
+                    <Link href={getProfileUrl(post.reporter)}>
+                        {isSameProfile(post.reporter, currentProfile) ? (
+                            <Trans>
+                                <strong>You</strong> reposted
+                            </Trans>
+                        ) : (
+                            <Trans>
+                                <strong>{post.reporter.displayName}</strong> reposted
                             </Trans>
                         )}
                     </Link>

@@ -26,6 +26,7 @@ export interface LinkedAction {
 export interface ActionParameter {
     name: string; // parameter name in url
     label?: string; // input placeholder
+    required?: boolean; // input required
 }
 
 // A common error data structure that should be used in all responses for error indication,
@@ -46,7 +47,6 @@ export interface Action {
 }
 
 export interface ActionComponent {
-    parameterValue: string;
     label: string;
     href: string;
     parameters: ActionParameter[];

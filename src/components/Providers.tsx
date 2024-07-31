@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
@@ -29,7 +29,7 @@ import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 
-export function Providers(props: { children: React.ReactNode }) {
+export const Providers = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
 
@@ -125,4 +125,4 @@ export function Providers(props: { children: React.ReactNode }) {
             </QueryClientProvider>
         </I18nProvider>
     );
-}
+});

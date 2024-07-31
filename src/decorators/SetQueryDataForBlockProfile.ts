@@ -1,9 +1,12 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -64,6 +67,7 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;
+const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
 export function SetQueryDataForBlockProfile(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
@@ -93,6 +97,34 @@ export function SetQueryDataForBlockProfile(source: SocialSource) {
         }
 
         METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
+        return target;
+    };
+}
+
+export function SetQueryDataForMuteAllProfiles() {
+    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
+        function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN_MUTE_ALL)[number]>(key: K) {
+            const method = target.prototype[key] as FireflySocialMedia[K];
+
+            Object.defineProperty(target.prototype, key, {
+                value: async (source: Source, identity: string) => {
+                    const m = method as (source: Source, identity: string) => ReturnType<FireflySocialMedia[K]>;
+                    const relationships = await m.call(target.prototype, source, identity);
+                    [...relationships, { snsId: identity, snsPlatform: source }].forEach(({ snsId, snsPlatform }) => {
+                        const source = resolveSourceFromUrl(snsPlatform);
+                        queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
+
+                        if (source !== Source.Wallet) {
+                            setBlockStatus(narrowToSocialSource(source), snsId, true);
+                        }
+                    });
+
+                    return relationships;
+                },
+            });
+        }
+
+        METHODS_BE_OVERRIDDEN_MUTE_ALL.forEach(overrideMethod);
         return target;
     };
 }

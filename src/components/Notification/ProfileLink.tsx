@@ -11,7 +11,7 @@ export function ProfileLink({ profile }: Props) {
     const identity = profile.source === Source.Lens ? profile.handle : profile.profileId;
     return (
         <ProfileTippy identity={identity} source={profile.source} profile={profile}>
-            <Link href={getProfileUrl(profile)} className="hover:underline">
+            <Link href={getProfileUrl(profile)} className="font-bold hover:underline">
                 <strong>{profile.displayName.trim()}</strong>
             </Link>
         </ProfileTippy>

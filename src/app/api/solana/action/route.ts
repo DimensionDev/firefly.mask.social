@@ -51,12 +51,11 @@ function resolveActionJson(url: string, actions: ActionRuleResponse) {
     return null;
 }
 
-function createActionComponent(label: string, href: string, parameters?: [ActionParameter]): ActionComponent {
+function createActionComponent(label: string, href: string, parameters?: ActionParameter[]): ActionComponent {
     return {
-        parameterValue: '',
         label,
         href,
-        parameters: [],
+        parameters: parameters ?? [],
         parameter: parameters?.[0],
     };
 }
@@ -131,7 +130,7 @@ const queryBlink = memoizeWithRedis(
 /**
  * reference: https://docs.dialect.to/documentation/actions/blinks/detecting-actions-via-url-schemes
  */
-export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+export const GET = compose(withRequestErrorHandler(), async (request) => {
     const { url, type, blink } = getSearchParamsFromRequestWithZodObject(
         request,
         z.object({

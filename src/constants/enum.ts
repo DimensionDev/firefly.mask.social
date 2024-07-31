@@ -138,6 +138,7 @@ export enum ScrollListKey {
     Discover = 'discover-list',
     Following = 'following-list',
     Followers = 'followers-list',
+    MutualFollowers = 'mutual-followers-list',
     Notification = 'notification-list',
     Search = 'search-list',
     Comment = 'comment-list',
@@ -187,4 +188,10 @@ export enum NetworkType {
 export enum CryptoUsage {
     Encrypt = 'encrypt',
     Decrypt = 'decrypt',
+}
+
+export const enum FollowCategory {
+    Following = 'following',
+    Followers = 'followers',
+    Mutuals = 'mutuals',
 }

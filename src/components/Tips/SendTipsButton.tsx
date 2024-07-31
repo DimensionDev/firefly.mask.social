@@ -7,7 +7,7 @@ import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { router, TipsRoutePath } from '@/components/Tips/tipsModalRouter.js';
+import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';

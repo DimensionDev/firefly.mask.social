@@ -20,12 +20,11 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
-        const limit = Number(queryParams.limit ?? '25');
         const { data } = await client.v2.userTimeline(userId, {
             ...TWITTER_TIMELINE_OPTIONS,
-            exclude: ['replies'],
+            exclude: ['retweets'],
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
-            max_results: limit,
+            max_results: queryParams.limit,
         });
         return createSuccessResponseJSON(data);
     },

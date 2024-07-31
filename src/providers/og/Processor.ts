@@ -8,6 +8,8 @@ import {
     MASK_SOCIAL_DETAIL_REGEX,
     MASK_SOCIAL_POST_PATH_REGEX,
     MIRROR_HOSTNAME_REGEXP,
+    TWEET_REGEX,
+    TWEET_WEB_REGEX,
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
@@ -26,21 +28,26 @@ import { type ImageDigested, type LinkDigested, type OpenGraph, PayloadType } fr
 
 class Processor {
     digestImageUrl = async (url: string, signal?: AbortSignal): Promise<ImageDigested | null> => {
-        // TODO: verify link
-        const response = await fetch(url, {
-            signal,
-        });
-        if (!response.ok) return null;
+        if (!url.startsWith('http')) return null;
 
-        const buffer = Buffer.from(await response.arrayBuffer());
-        const img = sizeOf.imageSize(buffer);
+        try {
+            const response = await fetch(url, {
+                signal,
+            });
+            if (!response.ok) return null;
 
-        return {
-            url,
-            width: img.width ?? 0,
-            height: img.height ?? 0,
-            base64: `data:${response.headers.get('Content-Type')};base64,${buffer.toString('base64')}`,
-        };
+            const buffer = Buffer.from(await response.arrayBuffer());
+            const img = sizeOf.imageSize(buffer);
+
+            return {
+                url,
+                width: img.width ?? 0,
+                height: img.height ?? 0,
+                base64: `data:${response.headers.get('Content-Type')};base64,${buffer.toString('base64')}`,
+            };
+        } catch (error) {
+            return null;
+        }
     };
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigested | null> => {
@@ -72,6 +79,34 @@ class Processor {
             html: generateIframe(getEmbedUrl(document), url.href),
             locale: null,
         } satisfies OpenGraph;
+
+        if (TWEET_REGEX.test(documentUrl)) {
+            const match = documentUrl.match(TWEET_REGEX);
+            const id = match ? match[3] : null;
+            if (!id) return { og };
+            return {
+                og,
+                payload: {
+                    type: PayloadType.Post,
+                    id,
+                    source: SourceInURL.Twitter,
+                },
+            };
+        }
+
+        if (TWEET_WEB_REGEX.test(documentUrl)) {
+            const match = documentUrl.match(TWEET_WEB_REGEX);
+            const id = match ? match[2] : null;
+            if (!id) return { og };
+            return {
+                og,
+                payload: {
+                    type: PayloadType.Post,
+                    id,
+                    source: SourceInURL.Twitter,
+                },
+            };
+        }
 
         if (MIRROR_HOSTNAME_REGEXP.test(url.hostname)) {
             return {

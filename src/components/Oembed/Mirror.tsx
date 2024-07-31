@@ -14,7 +14,7 @@ import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 
 interface MirrorProps {
     address?: `0x${string}`;
-    title: string;
+    title: string | null;
     description: string;
     url: string;
     ens?: string;

@@ -35,16 +35,13 @@ function getFireflySession(account: Account) {
 
 function hasFireflySession() {
     // firefly id doesn't take twitter profile into account
-    return SORTED_SOCIAL_SOURCES.some((x) => (x === Source.Twitter ? false : !!getProfileState(x).currentProfile));
+    return SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile);
 }
 
 async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.forEach((source) => {
-            // we haven't supported to sync firefly id with a twitter account
-            if (source === Source.Twitter) return;
-
             const { state, sessionHolder } = getContext(source);
             state.resetCurrentAccount();
             state.updateAccounts([]);

@@ -3,6 +3,7 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
@@ -58,6 +59,7 @@ function toggleBlock(address: string, status: boolean) {
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;
+const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
 type Provider = FireflySocialMedia;
 export function SetQueryDataForBlockWallet() {
@@ -83,6 +85,34 @@ export function SetQueryDataForBlockWallet() {
 
         METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
 
+        return target;
+    };
+}
+
+export function SetQueryDataForMuteAllWallets() {
+    return function decorator<T extends ClassType<Provider>>(target: T): T {
+        function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN_MUTE_ALL)[number]>(key: K) {
+            const method = target.prototype[key] as Provider[K];
+
+            Object.defineProperty(target.prototype, key, {
+                value: async (source: Source, identity: string) => {
+                    const m = method as (source: Source, identity: string) => ReturnType<Provider[K]>;
+                    const relationships = await m.call(target.prototype, source, identity);
+                    [...relationships, { snsId: identity, snsPlatform: source }].forEach(({ snsId, snsPlatform }) => {
+                        const source = resolveSourceFromUrl(snsPlatform);
+                        queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
+
+                        if (source === Source.Wallet) {
+                            toggleBlock(snsId, true);
+                        }
+                    });
+
+                    return relationships;
+                },
+            });
+        }
+
+        METHODS_BE_OVERRIDDEN_MUTE_ALL.forEach(overrideMethod);
         return target;
     };
 }

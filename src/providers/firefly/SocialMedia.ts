@@ -9,7 +9,8 @@ import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL }
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
-import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
+import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
+import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
 import {
     SetQueryDataForDeleteWallet,
     SetQueryDataForReportAndDeleteWallet,
@@ -24,6 +25,7 @@ import {
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -58,6 +60,8 @@ import {
     type FireflyFarcasterProfileResponse,
     type FireflyProfile,
     type FriendshipResponse,
+    type IsMutedAllResponse,
+    type MuteAllResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
@@ -127,6 +131,8 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
 @SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
 @SetQueryDataForBlockWallet()
+@SetQueryDataForMuteAllProfiles()
+@SetQueryDataForMuteAllWallets()
 export class FireflySocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
@@ -464,6 +470,27 @@ export class FireflySocialMedia implements Provider {
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
+                fid: profileId,
+                size: 10,
+                cursor: indicator?.id,
+                sourceFid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
+                method: 'GET',
+            });
+            const { list, next_cursor } = resolveFireflyResponseData(response);
+            const data = list.map(formatFarcasterProfileFromFirefly);
+
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+            );
+        });
+    }
+    async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followersmutual', {
                 fid: profileId,
                 size: 10,
                 cursor: indicator?.id,
@@ -1224,6 +1251,32 @@ export class FireflySocialMedia implements Provider {
                 sources: options.sources.join(','),
             }),
         });
+    }
+
+    async isProfileMutedAll(source: Source, identity: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/isMuteAll', {
+            [getPlatformQueryKey(source)]: identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
+        const data = resolveFireflyResponseData(response);
+
+        return data?.isBlockAll ?? false;
+    }
+
+    async muteProfileAll(source: Source, identity: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
+            [getPlatformQueryKey(source)]: identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<MuteAllResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                [getPlatformQueryKey(source)]: identity,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
     }
 }
 

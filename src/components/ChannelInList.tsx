@@ -6,6 +6,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
+import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -24,6 +25,10 @@ interface ChannelInListProps {
     noMuteButton?: boolean;
 }
 
+const overrideComponents = {
+    p: PlainParagraph,
+    br: VoidLineBreak,
+};
 export function ChannelInList({
     channel,
     noFollowButton = true,
@@ -91,12 +96,7 @@ export function ChannelInList({
                     {!dense && channel.description ? (
                         <BioMarkup
                             className="mt-1.5 truncate text-sm"
-                            components={{
-                                // @ts-ignore
-                                // eslint-disable-next-line react/no-unstable-nested-components
-                                p: (props) => <>{props.children}</>,
-                                br: () => null,
-                            }}
+                            components={overrideComponents}
                             source={channel.source}
                         >
                             {channel.description ?? '-'}

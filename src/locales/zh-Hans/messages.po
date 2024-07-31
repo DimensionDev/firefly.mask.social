@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-25 00:04\n"
+"PO-Revision-Date: 2024-07-26 04:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -26,6 +26,9 @@ msgstr "请先登录 {sourceName}。"
 
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
+
+msgid "Failed to mute all wallets and accounts."
+msgstr ""
 
 msgid "Onchain Activities"
 msgstr "链上活动"
@@ -91,7 +94,7 @@ msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
-msgstr "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 
 msgid "Failed to unbookmark post."
 msgstr "取消收藏失败。"
@@ -113,6 +116,9 @@ msgstr "选择代币"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
+
+msgid "Send tips to @{0}"
+msgstr ""
 
 msgid "Debug Connection"
 msgstr "诊断网络"
@@ -140,9 +146,6 @@ msgstr "排名 #{0}"
 
 msgid "Searching channel"
 msgstr "查询频道中"
-
-msgid "quotes"
-msgstr "引用"
 
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
@@ -249,6 +252,9 @@ msgstr "未找到个人资料"
 msgid "NFT Standard"
 msgstr "NFT 标准"
 
+msgid "<0>{0}</0> reposted"
+msgstr ""
+
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
@@ -260,9 +266,6 @@ msgstr "投票目前仅支持 {0}"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
-
-msgid "likes"
-msgstr "点赞"
 
 msgid "Offline"
 msgstr "离线"
@@ -308,6 +311,9 @@ msgstr "失败"
 
 msgid "Bookmarks"
 msgstr "收藏"
+
+msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
 
 msgid "Confirm"
 msgstr "确认"
@@ -399,17 +405,14 @@ msgstr "已链接的账号"
 msgid "via {0} <0>{sendFrom}</0>"
 msgstr "于 {0} <0>{sendFrom}</0>"
 
-msgid "comments"
-msgstr "评论"
-
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
 
-msgid "recast"
-msgstr "转帖"
-
 msgid "Search"
 msgstr "搜索"
+
+msgid "Followed by {0}"
+msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
@@ -462,8 +465,8 @@ msgstr "没有空投骗局"
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
-msgid "recasts"
-msgstr "转帖"
+msgid "{0, plural, one {1 quote} other {{1} quotes}}"
+msgstr ""
 
 msgid "Items"
 msgstr "条目"
@@ -494,6 +497,9 @@ msgstr "收藏文章失败。"
 
 msgid "Max"
 msgstr "最大"
+
+msgid "Mute all"
+msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
@@ -585,6 +591,9 @@ msgstr "更新"
 msgid "Mute {identity}"
 msgstr "屏蔽 @{identity}"
 
+msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 
@@ -657,6 +666,9 @@ msgstr "查询规则"
 msgid "Resend full or remaining?"
 msgstr "重新完整发送或者发送剩余部分？"
 
+msgid "Followed by {0} and {1}"
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
@@ -677,9 +689,6 @@ msgstr "在 {0} 上提交报告失败"
 
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "未能在 {sourceName} 上屏蔽 @{0}。"
-
-msgid "like"
-msgstr "点赞"
 
 msgid "View Source"
 msgstr "查看原文"
@@ -732,9 +741,6 @@ msgstr "输入金额"
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
-msgid "Tip to @{0}"
-msgstr "打赏给 @{0}"
-
 msgid "Invalid Blink."
 msgstr "非法的 Blinks"
 
@@ -764,9 +770,6 @@ msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录�
 
 msgid "Top Profiles"
 msgstr "热门用户"
-
-msgid "mirrors"
-msgstr "转帖"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/>  和 <2/>} other {<3/>}} <4>点赞了你的 </4><5><6/></5>"
@@ -887,6 +890,9 @@ msgstr "您已在 {0} 发布成功。"
 
 msgid "Description"
 msgstr "介绍"
+
+msgid "All wallets and accounts are muted."
+msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -1014,11 +1020,11 @@ msgstr "此合约是一个管理升级代理合约。代理合约意味着合同
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
+msgid "Follow Back"
+msgstr ""
+
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
-
-msgid "collects"
-msgstr "收藏"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -1073,6 +1079,9 @@ msgstr "文章"
 
 msgid "Connect to {0}"
 msgstr "连接到 {0}"
+
+msgid "Followers you know"
+msgstr ""
 
 msgid "Settings"
 msgstr "设置"
@@ -1241,6 +1250,9 @@ msgstr "删除投票"
 
 msgid "Unmute {identity}"
 msgstr "取消屏蔽 {identity}"
+
+msgid "{0, plural, one {1 recast} other {{1} recasts}}"
+msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {发帖} other {全部发帖}}"
@@ -1506,6 +1518,9 @@ msgstr "使用托管钱包登录"
 msgid "View transaction on explorer"
 msgstr "查看交易详情"
 
+msgid "<0>You</0> reposted"
+msgstr ""
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
@@ -1520,9 +1535,6 @@ msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
 
 msgid "Watch {identity}"
 msgstr "关注 {identity}"
-
-msgid "view"
-msgstr "查看"
 
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
@@ -1569,6 +1581,9 @@ msgstr "签署交易以验证你是所选账号的所有者。"
 msgid "Refresh"
 msgstr "刷新"
 
+msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
 msgid "Channels"
 msgstr "频道"
 
@@ -1608,9 +1623,6 @@ msgstr "转帖失败。"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了您的} Farcaster {转帖了您的} other {转帖了您的}} <4><5/></4>"
 
-msgid "collect"
-msgstr "收藏"
-
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
 
@@ -1619,9 +1631,6 @@ msgstr "开发者"
 
 msgid "Share to"
 msgstr "分享到"
-
-msgid "views"
-msgstr "浏览数"
 
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
@@ -1679,6 +1688,9 @@ msgstr "取消关注"
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账号已连接。"
+
+msgid "{0, plural, one {1 comment} other {{1} comments}}"
+msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "您不能在 {0} 上评论 {author}。"
@@ -1755,11 +1767,11 @@ msgstr "取消屏蔽"
 msgid "No available token"
 msgstr "没有适合的代币"
 
+msgid "Send tips to {0}"
+msgstr ""
+
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
-
-msgid "Tip to {0}"
-msgstr "打赏给 {0}"
 
 msgid "Unmute @{0}"
 msgstr "取消屏蔽 @{0}"
@@ -1827,6 +1839,9 @@ msgstr "最终结果"
 msgid "Suspended account"
 msgstr "被冻结账户"
 
+msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
+msgstr ""
+
 msgid "Recasted"
 msgstr "已转发"
 
@@ -1841,6 +1856,9 @@ msgstr "打赏失败，请稍后重试。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
+
+msgid "All wallets and social accounts associated with {handle} will be muted."
+msgstr ""
 
 msgid "Download App"
 msgstr "下载应用"
@@ -1938,6 +1956,9 @@ msgstr "多媒体"
 msgid "No content to publish."
 msgstr "没有发布的内容。"
 
+msgid "{0, plural, one {1 like} other {{1} likes}}"
+msgstr ""
+
 msgid "Mirror"
 msgstr "转发"
 
@@ -1997,4 +2018,3 @@ msgstr "Blink 验证器"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

@@ -6,6 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
+import { addAccount } from '@/helpers/account.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -24,6 +25,7 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
@@ -242,6 +244,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
+                // set session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
                 const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
@@ -254,12 +257,12 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const account = {
+                const done = await addAccount({
                     profile,
                     session: TwitterSession.from(profile, payload),
-                };
-
-                state.addAccount(account, true);
+                    fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
+                });
+                if (!done) state.clear();
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();

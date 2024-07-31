@@ -2,14 +2,14 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotAllowedError, NotImplementedError, TimeoutError, UnreachableError } from '@/constants/error.js';
+import { NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
-import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
+import type { FarcasterLoginResponse, LensLoginResponse, TwitterLoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -73,8 +73,35 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             }
             throw new Error('Failed to restore firefly session.');
         }
-        case SessionType.Twitter:
-            throw new NotImplementedError();
+        case SessionType.Twitter: {
+            // encrypt twitter session
+            const encrypted = await fetchJSON<string>('/api/twitter/auth', {
+                method: 'POST',
+                signal,
+            });
+
+            console.log('DEBUG: restoreFireflySession - encrypted');
+            console.log({
+                encrypted,
+            });
+
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
+            const response = await fetchJSON<TwitterLoginResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    data: encrypted,
+                }),
+                signal,
+            });
+
+            console.log('DEBUG: response');
+            console.log({
+                response,
+            });
+
+            const data = resolveFireflyResponseData(response);
+            return new FireflySession(data.accountId, data.accessToken, session);
+        }
         case SessionType.Firefly:
             throw new NotAllowedError('Firefly session is not allowed.');
         default:

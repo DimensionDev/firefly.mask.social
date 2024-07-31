@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { useMemo } from 'react';
 
-import FullLogo from '@/assets/fullLogo.svg';
+import FullLogo from '@/assets/logo-full.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { DeviceType } from '@/types/device.js';
 

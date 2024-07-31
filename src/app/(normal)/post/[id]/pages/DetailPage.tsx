@@ -171,7 +171,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                             disablePadding
                             post={post}
                             disabled={post.isHidden}
-                            className="!mt-0 flex flex-col-reverse border-b border-t border-line px-4 py-3"
+                            className="!mt-0 border-b border-t border-line px-4 py-3"
                         />
                         {/* TODO: Compose Comment Input */}
                         <CommentList postId={postId} source={currentSource} />

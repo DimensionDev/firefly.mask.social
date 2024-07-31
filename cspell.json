@@ -24,6 +24,7 @@
         "DSEARCH",
         "enhanceable",
         "farcaster",
+        "followersmutual",
         "goplus",
         "hashgraph",
         "hasown",
@@ -91,7 +92,8 @@
         "xdai",
         "zksync",
         "zora",
-        "zustand"
+        "zustand",
+        "reposted"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -184,7 +186,8 @@
         "src/maskbook",
         "src/providers/hubble/proto",
         "src/assets/**",
-        "src/locales/**"
+        "src/locales/**",
+        "src/mask/setup/locales/*"
     ],
     "overrides": []
 }

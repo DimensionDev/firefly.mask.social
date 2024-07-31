@@ -70,6 +70,7 @@ export interface User {
     following: number;
     followers: number;
     addresses: string[];
+    solanaAddresses: string[];
     fid: string;
     isFollowing?: boolean;
     isFollowedBack?: boolean;
@@ -202,17 +203,19 @@ export interface Response<T> {
     error?: string[];
 }
 
+export type Relationship = {
+    id: string;
+    address: string;
+    snsId: string;
+    snsPlatform: string;
+};
+
 export type UsersResponse = Response<UsersData>;
 
 export type BlockedUsersResponse = Response<{
     page: number;
     nextPage: number;
-    blocks: Array<{
-        id: string;
-        address: string;
-        snsId: string;
-        snsPlatform: string;
-    }>;
+    blocks: Relationship[];
 }>;
 
 export type BlockedChannelsResponse = Response<
@@ -278,6 +281,11 @@ export type FarcasterLoginResponse = Response<{
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     fid: string | number;
+}>;
+
+export type TwitterLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
 }>;
 
 export type MetricsDownloadResponse = Response<{
@@ -489,14 +497,7 @@ export type BookmarkResponse<T> = Response<{
 }>;
 
 export type BlockFields = 'twitterId' | 'lensId' | 'fid' | 'address';
-export type BlockUserResponse = Response<
-    Array<{
-        id: string;
-        address: string;
-        snsId: string;
-        snsPlatform: string;
-    }>
->;
+export type BlockUserResponse = Response<Relationship[]>;
 
 export type BlockChannelResponse = Response<{
     identifiers: Array<{ channel_id: string; account_id: string }>;
@@ -847,3 +848,9 @@ export type BindWalletResponse = Response<{
     signMessage: string;
     signature: string;
 }>;
+
+export type IsMutedAllResponse = Response<{
+    isBlockAll: boolean;
+}>;
+
+export type MuteAllResponse = Response<Relationship[]>;

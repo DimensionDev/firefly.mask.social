@@ -4,7 +4,7 @@ import { compact, values } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import AddThread from '@/assets/addThread.svg';
+import AddThread from '@/assets/add-thread.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
 import Send2Icon from '@/assets/send2.svg';

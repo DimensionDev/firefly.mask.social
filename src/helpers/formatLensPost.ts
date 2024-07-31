@@ -296,6 +296,12 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
         stats,
         __original__: result,
         momoka: result.momoka || undefined,
+        sendFrom: result.publishedOn?.id
+            ? {
+                  displayName: result.publishedOn.id,
+                  name: result.publishedOn.id,
+              }
+            : undefined,
     };
 }
 

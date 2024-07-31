@@ -1,3 +1,5 @@
+import type { HTMLProps } from 'react';
+
 import { Avatar, type AvatarProps } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Link } from '@/esm/Link.js';
@@ -5,25 +7,20 @@ import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface AvatarGroupProps {
+interface AvatarGroupProps extends HTMLProps<HTMLDivElement> {
     profiles: Profile[];
-    AvatarProps?: AvatarProps;
+    AvatarProps?: Omit<AvatarProps, 'alt'>;
 }
 
 export function AvatarGroup({ profiles, AvatarProps }: AvatarGroupProps) {
     return (
         <div className="flex items-center">
             {profiles.map((profile, index, self) => (
-                <ProfileTippy
-                    key={profile.profileId}
-                    source={profile.source}
-                    identity={profile.handle}
-                    profile={profile}
-                >
+                <ProfileTippy key={profile.profileId} source={profile.source} identity={profile.profileId}>
                     <Link
                         href={getProfileUrl(profile)}
-                        className={classNames('inline-flex items-center', {
-                            '-ml-5': index > 0 && self.length > 1,
+                        className={classNames('relative inline-flex items-center', {
+                            '-ml-2.5': index > 0 && self.length > 1,
                         })}
                         style={{ zIndex: self.length - index }}
                     >
