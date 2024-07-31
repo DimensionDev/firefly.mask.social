@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { useMemo } from 'react';
-import { isAddress } from 'viem';
 
 import AcquiredIcon from '@/assets/nft-action/acquired.svg';
 import BurnIcon from '@/assets/nft-action/burn.svg';
@@ -75,7 +74,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                                     <Trans>
                                         <span className="font-bold uppercase text-main">Acquired</span> an NFT from{' '}
                                         <span className="font-bold text-main">
-                                            {isAddress(fromAddress) ? formatEthereumAddress(fromAddress, 4) : toAddress}
+                                            {formatEthereumAddress(fromAddress, 4)}
                                         </span>
                                     </Trans>
                                 ) : (
@@ -94,9 +93,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                             {toAddress ? (
                                 <Trans>
                                     <span className="font-bold uppercase text-main">Sent</span> an NFT to{' '}
-                                    <span className="font-bold text-main">
-                                        {isAddress(toAddress) ? formatEthereumAddress(toAddress, 4) : toAddress}
-                                    </span>
+                                    <span className="font-bold text-main">{formatEthereumAddress(toAddress, 4)}</span>
                                 </Trans>
                             ) : (
                                 <Trans>
