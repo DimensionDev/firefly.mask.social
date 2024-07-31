@@ -1,6 +1,7 @@
 import * as Sentry from '@sentry/browser';
 
 import { env } from '@/constants/env.js';
+import { settings } from '@/settings/index.js';
 
 export const feedbackIntegration = Sentry.feedbackIntegration({
     id: 'sentry-feedback',
@@ -23,6 +24,7 @@ class SentryClient {
             commitHash: env.shared.COMMIT_HASH ?? 'unknown',
             siteURL: env.external.NEXT_PUBLIC_SITE_URL ?? 'unknown',
             fireflyURL: env.external.NEXT_PUBLIC_FIREFLY_API_URL,
+            fireflyRootURL: settings.FIREFLY_ROOT_URL,
         };
 
         Sentry.onLoad(() => {
