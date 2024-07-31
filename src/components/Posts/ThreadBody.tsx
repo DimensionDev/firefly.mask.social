@@ -10,6 +10,7 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -36,6 +37,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const pathname = usePathname();
 
     const link = getPostUrl(post);
+    const muted = useIsProfileMuted(post.author);
 
     return (
         <motion.article
@@ -72,14 +74,16 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                     })}
                 >
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />
-                    <PostActions
-                        post={post}
-                        disabled={post.isHidden}
-                        disablePadding
-                        onSetScrollIndex={() => {
-                            if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                        }}
-                    />
+                    {!post.isHidden && !muted ? (
+                        <PostActions
+                            post={post}
+                            disabled={post.isHidden}
+                            disablePadding
+                            onSetScrollIndex={() => {
+                                if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                            }}
+                        />
+                    ) : null}
                 </div>
             </div>
         </motion.article>
