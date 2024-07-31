@@ -1125,6 +1125,9 @@ msgstr "詳細資訊"
 msgid "Blink"
 msgstr ""
 
+msgid "Failed to disconnect wallet from your social graph."
+msgstr ""
+
 msgid "No preview found for shared link"
 msgstr "分享的連結暫無預覽畫面"
 

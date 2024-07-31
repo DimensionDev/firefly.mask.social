@@ -1120,6 +1120,9 @@ msgstr "Details"
 msgid "Blink"
 msgstr "Blink"
 
+msgid "Failed to disconnect wallet from your social graph."
+msgstr "Failed to disconnect wallet from your social graph."
+
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
