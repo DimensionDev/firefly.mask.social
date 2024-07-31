@@ -49,7 +49,7 @@ export const FollowButton = memo(function FollowButton({
     }, [hovering, isFollowing, isFollowingBy, loading, variant]);
 
     if (hasMutedButton && muted) {
-        return <ToggleMutedProfileButton profile={profile} className={className} {...rest} />;
+        return <ToggleMutedProfileButton muted={muted} profile={profile} className={className} {...rest} />;
     }
     const variantClassName = {
         text: 'min-w-[112px] box-border px-5 whitespace-nowrap',
