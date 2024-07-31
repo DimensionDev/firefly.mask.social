@@ -3,12 +3,18 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
-import { isAddress } from 'viem';
+import { type Hex, isAddress } from 'viem';
 
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
+import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
+import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
+import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
+import {
+    SetQueryDataForDeleteWallet,
+    SetQueryDataForReportAndDeleteWallet,
+} from '@/decorators/SetQueryDataForDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -19,6 +25,8 @@ import {
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -34,6 +42,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import {
+    type BindWalletResponse,
     type BlockChannelResponse,
     type BlockedChannelsResponse,
     type BlockedUsersResponse,
@@ -52,6 +61,8 @@ import {
     type FireflyFarcasterProfileResponse,
     type FireflyProfile,
     type FriendshipResponse,
+    type IsMutedAllResponse,
+    type MuteAllResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
@@ -116,8 +127,13 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
     throw new Error('Failed to mute user');
 }
 
+@SetQueryDataForAddWallet()
+@SetQueryDataForDeleteWallet()
+@SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
 @SetQueryDataForBlockWallet()
+@SetQueryDataForMuteAllProfiles()
+@SetQueryDataForMuteAllWallets()
 export class FireflySocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
@@ -809,10 +825,12 @@ export class FireflySocialMedia implements Provider {
     async getThreadByPostId(postId: string, localPost?: Post) {
         return farcasterSessionHolder.withSession(async (session) => {
             const post = localPost ?? (await this.getPostById(postId));
+            const profile = getCurrentProfile(Source.Farcaster);
 
             const response = await fireflySessionHolder.fetch<ThreadResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
                     sourceFid: session?.profileId,
+                    sourceHandle: profile?.handle,
                     hash: postId,
                     maxDepth: 25,
                 }),
@@ -1176,6 +1194,92 @@ export class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async getMessageToSignForBindWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/messageToSign', {
+            address,
+        });
+
+        const response = await fireflySessionHolder.fetch<Response<{ message: Hex }>>(url, {
+            method: 'GET',
+        });
+
+        const { message } = resolveFireflyResponseData(response);
+
+        if (!message) throw new Error('Failed to get message to sign');
+
+        return message;
+    }
+
+    async verifyAndBindWallet(signMessage: string, signature: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/verify');
+
+        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                signMessage,
+                signature,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        return data;
+    }
+
+    async deleteWallet(addresses: string[]) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
+
+        await fireflySessionHolder.fetch<Response<void>>(url, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                addresses,
+            }),
+        });
+    }
+
+    async reportAndDeleteWallet(options: {
+        twitterId: string;
+        walletAddress: string;
+        reportReason: string;
+        sources: string[];
+    }) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/twitter/wallet/report');
+
+        await fireflySessionHolder.fetch<Response<void>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                ...options,
+                sources: options.sources.join(','),
+            }),
+        });
+    }
+
+    async isProfileMutedAll(source: Source, identity: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/isMuteAll', {
+            [getPlatformQueryKey(source)]: identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
+        const data = resolveFireflyResponseData(response);
+
+        return data?.isBlockAll ?? false;
+    }
+
+    async muteProfileAll(source: Source, identity: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
+            [getPlatformQueryKey(source)]: identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<MuteAllResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                [getPlatformQueryKey(source)]: identity,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
     }
 }
 

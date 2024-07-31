@@ -13,8 +13,8 @@ interface BackButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 
 export function BackButton({ size = 24, tooltip = t`Back`, ...props }: BackButtonProps) {
     return (
-        <ClickableButton {...props}>
-            <Tooltip content={tooltip} placement="top">
+        <Tooltip content={tooltip} placement="top">
+            <ClickableButton {...props} className={classNames('rounded hover:bg-lightBg', props.className)}>
                 <LeftArrowIcon
                     className={classNames('text-main', {
                         'cursor-pointer': !props.disabled,
@@ -22,7 +22,7 @@ export function BackButton({ size = 24, tooltip = t`Back`, ...props }: BackButto
                     width={size}
                     height={size}
                 />
-            </Tooltip>
-        </ClickableButton>
+            </ClickableButton>
+        </Tooltip>
     );
 }

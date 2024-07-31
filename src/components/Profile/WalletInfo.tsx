@@ -39,7 +39,6 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
     }, [profile.address, copyToClipboard]);
 
     const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
-
     const isMyWallets = useIsMyRelatedProfile(profile.address, Source.Wallet);
 
     return (

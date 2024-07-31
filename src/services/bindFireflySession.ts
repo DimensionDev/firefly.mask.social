@@ -1,7 +1,8 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { NotAllowedError, NotImplementedError, UnreachableError } from '@/constants/error.js';
+import { NotAllowedError, UnreachableError } from '@/constants/error.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -50,7 +51,30 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 }
 
 async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: AbortSignal) {
-    throw new NotImplementedError();
+    const encrypted = await fetchJSON<string>('/api/twitter/auth', {
+        method: 'POST',
+        signal,
+    });
+
+    console.log('DEBUG: bindTwitterSessionToFirefly - encrypted');
+    console.log({
+        encrypted,
+    });
+
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindTwitter'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                data: encrypted,
+                isForce: false,
+            }),
+            signal,
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
 }
 
 /**

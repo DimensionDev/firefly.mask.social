@@ -23,29 +23,36 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-async function downloadMetrics(session: FireflySession, signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetchWithSession(session)<MetricsDownloadResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/download'),
-        {
-            signal,
-        },
-    );
-    const data = resolveFireflyResponseData(response);
-    return data?.ciphertext;
-}
+async function convertSessionToProfile(session: Session, signal?: AbortSignal) {
+    switch (session.type) {
+        case SessionType.Twitter: {
+            const twitterSession = session as TwitterSession;
+            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
+                twitterSession.profileId,
+                twitterSession.payload,
+            );
+        }
+        case SessionType.Lens: {
+            const lensSession = session as LensSession;
+            if (!lensSession.refreshToken) return null;
 
-async function uploadMetrics(cipher: string, signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetch<MetricsUploadResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/upload'),
-        {
-            method: 'POST',
-            body: JSON.stringify({ ciphertext: cipher }),
-            signal,
-        },
-        true,
-    );
-    const data = resolveFireflyResponseData(response);
-    return data;
+            const sdk = createLensSDKForSession(new MemoryStorageProvider(), lensSession);
+            const profileId = await sdk.authentication.getProfileId();
+            if (!profileId) return null;
+
+            const provider = resolveSocialMediaProvider(Source.Lens);
+            return provider.getProfileById(lensSession.profileId);
+        }
+        case SessionType.Farcaster:
+            const farcasterSession = session as FarcasterSession;
+            const provider = resolveSocialMediaProvider(Source.Farcaster);
+            return provider.getProfileById(farcasterSession.profileId);
+        case SessionType.Firefly:
+            throw new NotAllowedError();
+        default:
+            safeUnreachable(session.type);
+            throw new UnreachableError('session type', session);
+    }
 }
 
 /**
@@ -87,36 +94,29 @@ async function decryptMetrics(cipher: string, signal?: AbortSignal) {
     return response.data.map(SessionFactory.createSession) as Session[];
 }
 
-async function convertSessionToProfile(session: Session, signal?: AbortSignal) {
-    switch (session.type) {
-        case SessionType.Twitter: {
-            const twitterSession = session as TwitterSession;
-            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
-                twitterSession.profileId,
-                twitterSession.payload,
-            );
-        }
-        case SessionType.Lens: {
-            const lensSession = session as LensSession;
-            if (!lensSession.refreshToken) return null;
+async function downloadMetrics(session: FireflySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetchWithSession(session)<MetricsDownloadResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/download'),
+        {
+            signal,
+        },
+    );
+    const data = resolveFireflyResponseData(response);
+    return data?.ciphertext;
+}
 
-            const sdk = createLensSDKForSession(new MemoryStorageProvider(), lensSession);
-            const profileId = await sdk.authentication.getProfileId();
-            if (!profileId) return null;
-
-            const provider = resolveSocialMediaProvider(Source.Lens);
-            return provider.getProfileById(lensSession.profileId);
-        }
-        case SessionType.Farcaster:
-            const farcasterSession = session as FarcasterSession;
-            const provider = resolveSocialMediaProvider(Source.Farcaster);
-            return provider.getProfileById(farcasterSession.profileId);
-        case SessionType.Firefly:
-            throw new NotAllowedError();
-        default:
-            safeUnreachable(session.type);
-            throw new UnreachableError('session type', session);
-    }
+async function uploadMetrics(cipher: string, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<MetricsUploadResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/upload'),
+        {
+            method: 'POST',
+            body: JSON.stringify({ ciphertext: cipher }),
+            signal,
+        },
+        true,
+    );
+    const data = resolveFireflyResponseData(response);
+    return data;
 }
 
 export async function downloadSessions(session: FireflySession, signal?: AbortSignal) {
@@ -126,12 +126,12 @@ export async function downloadSessions(session: FireflySession, signal?: AbortSi
     return await decryptMetrics(cipher, signal);
 }
 
-export async function uploadSessions(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
+async function uploadSessionsByMerge(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
     const syncedSessions = await downloadSessions(session, signal);
     const noSyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y, true)));
 
     if (noSyncedSessions.length) {
-        console.warn(`[uploadSessions] ${noSyncedSessions.length} sessions are not synced.`);
+        console.warn(`[uploadSessionsByMerge] ${noSyncedSessions.length} sessions are not synced.`);
     }
 
     const mergedSessions = Object.values(
@@ -165,8 +165,29 @@ export async function uploadSessions(session: FireflySession, sessions: Session[
             }
         });
 
-    const cipher = await encryptMetrics(session, mergedSessions, signal);
+    await uploadSessionByOverride(session, mergedSessions, signal);
+}
+
+async function uploadSessionByOverride(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
+    const cipher = await encryptMetrics(session, sessions, signal);
     await uploadMetrics(cipher, signal);
+}
+
+export function uploadSessions(
+    strategy: 'merge' | 'override',
+    session: FireflySession,
+    sessions: Session[],
+    signal?: AbortSignal,
+) {
+    switch (strategy) {
+        case 'merge':
+            return uploadSessionsByMerge(session, sessions, signal);
+        case 'override':
+            return uploadSessionByOverride(session, sessions, signal);
+        default:
+            safeUnreachable(strategy);
+            throw new UnreachableError('strategy', strategy);
+    }
 }
 
 /**

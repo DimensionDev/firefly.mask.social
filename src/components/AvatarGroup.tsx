@@ -16,12 +16,7 @@ export function AvatarGroup({ profiles, AvatarProps }: AvatarGroupProps) {
     return (
         <div className="flex items-center">
             {profiles.map((profile, index, self) => (
-                <ProfileTippy
-                    key={profile.profileId}
-                    source={profile.source}
-                    identity={profile.handle}
-                    profile={profile}
-                >
+                <ProfileTippy key={profile.profileId} source={profile.source} identity={profile.profileId}>
                     <Link
                         href={getProfileUrl(profile)}
                         className={classNames('relative inline-flex items-center', {

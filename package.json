@@ -97,6 +97,7 @@
         "react-i18next": "^13.0.2",
         "react-markdown": "^8.0.7",
         "react-qr-code": "^2.0.12",
+        "react-qrcode-logo": "^2.9.0",
         "react-tweet": "^3.2.1",
         "react-use": "^17.4.0",
         "react-virtuoso": "^4.7.8",

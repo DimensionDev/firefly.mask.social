@@ -9,6 +9,7 @@ import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -41,19 +42,20 @@ export function Info({ profile }: InfoProps) {
     });
 
     const source = profile.source;
+    const enabledMutuals = !isSameProfile(myProfile, profile);
     // Fetch the first page with useInfiniteQuery, the same as
     // MutualFollowersList, to make it reuseable in MutualFollowersList
-    const { data } = useInfiniteQuery({
-        enabled: isSameProfile(myProfile, profile),
+    const { data: mutuals } = useInfiniteQuery({
+        enabled: enabledMutuals,
         queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getMutualFollowers(profile.profileId);
         },
         initialPageParam: '',
-        getNextPageParam: () => null,
+        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        select: (data) => data.pages.flatMap((page) => page?.data ?? EMPTY_LIST),
     });
-    const mutuals = data?.pages[0]?.data;
     const mutualCount = mutuals?.length;
 
     const followingCount = profile.followingCount || 0;
@@ -120,7 +122,7 @@ export function Info({ profile }: InfoProps) {
                         </span>
                     </Link>
                 </div>
-                {mutualCount ? (
+                {enabledMutuals && mutualCount ? (
                     <div className="mt-3 flex items-center gap-2 leading-[22px] hover:underline">
                         <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
                         <Link

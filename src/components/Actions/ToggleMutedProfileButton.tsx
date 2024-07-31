@@ -10,10 +10,11 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
+    muted?: boolean;
 }
 
-export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({ profile, ...rest }: Props) {
-    const isMuted = profile.viewerContext?.blocking ?? true;
+export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({ profile, muted, ...rest }: Props) {
+    const isMuted = muted ?? profile.viewerContext?.blocking ?? true;
 
     const currentProfile = useCurrentProfile(profile.source);
     const [{ loading }, toggleMuted] = useToggleMutedProfile(currentProfile);

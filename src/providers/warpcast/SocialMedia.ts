@@ -104,6 +104,10 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }

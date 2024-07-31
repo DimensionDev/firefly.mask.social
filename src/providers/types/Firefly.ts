@@ -203,17 +203,19 @@ export interface Response<T> {
     error?: string[];
 }
 
+export type Relationship = {
+    id: string;
+    address: string;
+    snsId: string;
+    snsPlatform: string;
+};
+
 export type UsersResponse = Response<UsersData>;
 
 export type BlockedUsersResponse = Response<{
     page: number;
     nextPage: number;
-    blocks: Array<{
-        id: string;
-        address: string;
-        snsId: string;
-        snsPlatform: string;
-    }>;
+    blocks: Relationship[];
 }>;
 
 export type BlockedChannelsResponse = Response<
@@ -495,14 +497,7 @@ export type BookmarkResponse<T> = Response<{
 }>;
 
 export type BlockFields = 'twitterId' | 'lensId' | 'fid' | 'address';
-export type BlockUserResponse = Response<
-    Array<{
-        id: string;
-        address: string;
-        snsId: string;
-        snsPlatform: string;
-    }>
->;
+export type BlockUserResponse = Response<Relationship[]>;
 
 export type BlockChannelResponse = Response<{
     identifiers: Array<{ channel_id: string; account_id: string }>;
@@ -843,3 +838,19 @@ export type ScheduleTasksResponse = Response<{
     tasks: ScheduleTask[];
     cursor: string | null;
 }>;
+
+export type BindWalletResponse = Response<{
+    id: string;
+    address: Address;
+    ens: string;
+    is_connected: boolean;
+    blockchain: NetworkType;
+    signMessage: string;
+    signature: string;
+}>;
+
+export type IsMutedAllResponse = Response<{
+    isBlockAll: boolean;
+}>;
+
+export type MuteAllResponse = Response<Relationship[]>;

@@ -1,5 +1,3 @@
-'use client';
-
 import { Dialog, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
 import React, { Fragment, useRef } from 'react';

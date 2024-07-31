@@ -96,12 +96,8 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         identity ? (
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
-        post.source !== Source.Twitter ? (
-            <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
-        ) : null,
-        post.source !== Source.Twitter ? (
-            <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
-        ) : null,
+        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
+        <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
 
     return (
@@ -184,9 +180,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    {post.source !== Source.Twitter ? (
-                        <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
-                    ) : null}
+                    <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
                     {identity ? (
                         <Tips
                             identity={identity}
@@ -195,9 +189,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             handle={post.author.handle}
                         />
                     ) : null}
-                    {post.source !== Source.Twitter ? (
-                        <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
-                    ) : null}
+                    <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>
             <PostStatistics post={post} showChannelTag={showChannelTag} onSetScrollIndex={onSetScrollIndex} />

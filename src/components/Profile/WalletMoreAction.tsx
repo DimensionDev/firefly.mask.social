@@ -4,11 +4,13 @@ import { t } from '@lingui/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
+import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -21,6 +23,8 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const { data: ens } = useEnsName({ address: profile.address });
     const identity = profile.primary_ens || ens || formatEthereumAddress(profile.address, 4);
     const { data: isMuted } = useIsWalletMuted(profile.address);
+
+    const isMyWallet = useIsMyRelatedProfile(profile.address, Source.Wallet);
 
     return (
         <MoreActionMenu button={<EllipsisHorizontalCircleIcon width={32} height={32} />} className={className}>
@@ -41,6 +45,11 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                         />
                     )}
                 </Menu.Item>
+                {!isMyWallet && (
+                    <Menu.Item>
+                        {({ close }) => <MuteAllByWallet address={profile.address} handle={identity} onClose={close} />}
+                    </Menu.Item>
+                )}
                 <Menu.Item>
                     {({ close }) => (
                         <Tips

@@ -141,11 +141,17 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             </Menu.Item>
                         ) : null}
                         {!isMyProfile ? (
-                            <Menu.Item>
-                                {({ close }) => (
-                                    <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
-                                )}
-                            </Menu.Item>
+                            <>
+                                <Menu.Item>
+                                    {({ close }) => (
+                                        <MuteProfileButton
+                                            profile={author}
+                                            onToggle={toggleMutedProfile}
+                                            onClick={close}
+                                        />
+                                    )}
+                                </Menu.Item>
+                            </>
                         ) : null}
                     </>
                 )}

@@ -1,14 +1,17 @@
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { signIn } from 'next-auth/react';
+import type { HTMLProps } from 'react';
 import { useEffectOnce } from 'react-use';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { PageRoute } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
-export function LoginTwitter() {
+interface Props extends HTMLProps<HTMLDivElement> {}
+export function LoginTwitter(props: Props) {
     const pathname = usePathname();
 
     useEffectOnce(() => {
@@ -22,7 +25,13 @@ export function LoginTwitter() {
     });
 
     return (
-        <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
+        <div
+            {...props}
+            className={classNames(
+                'flex min-h-[200px] w-full flex-col items-center justify-center gap-4 md:w-[500px]',
+                props.className,
+            )}
+        >
             <LoadingIcon className="animate-spin" width={24} height={24} />
             <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                 <Trans>Please confirm the login with X.</Trans>

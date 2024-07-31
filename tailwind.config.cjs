@@ -59,6 +59,7 @@ module.exports = {
                 fireflyBrand: 'var(--color-firefly-brand)',
                 success: 'var(--color-success, #3DC233)',
                 fail: 'var(--color-fail, #FF3545)',
+                lightWarn: 'rgb(var(--color-light-warn) / <alpha-value>)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

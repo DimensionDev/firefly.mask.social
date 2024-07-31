@@ -83,6 +83,7 @@
     --plyr-control-icon-size: 16px;
     --color-success: #3dc233;
     --color-fail: #ff3545;
+    --color-light-warn: 255 122 85;
 }
 
 .dark {
@@ -130,6 +131,7 @@
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
     --color-card: white;
+    --color-light-warn: 255 122 85;
 }
 
 .dark .plyr__control {
@@ -172,6 +174,7 @@
     --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
+    --color-light-warn: 255 122 85;
 }
 
 html,

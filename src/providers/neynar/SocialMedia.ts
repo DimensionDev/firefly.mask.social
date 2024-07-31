@@ -191,6 +191,10 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     async getNotifications(): Promise<Pageable<Notification>> {
         throw new NotImplementedError();
     }

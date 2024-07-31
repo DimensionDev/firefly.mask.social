@@ -27,6 +27,9 @@ msgstr "需要登入後在{sourceName} 發佈貼文"
 msgid "Be the first one to comment!"
 msgstr "來留下第一條評論吧！"
 
+msgid "Failed to mute all wallets and accounts."
+msgstr ""
+
 msgid "Onchain Activities"
 msgstr "鏈上活動"
 
@@ -39,11 +42,14 @@ msgstr "斷開連接"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
+msgstr ""
+
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {秒} other {{count} 秒}}"
 
-msgid "New connect with Warpcast"
-msgstr "通過 Warpcast 的新連接"
+msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
+msgstr ""
 
 msgid "Report @{0}"
 msgstr "檢舉 @{0}"
@@ -99,9 +105,6 @@ msgstr "從書籤中移除貼文失敗。"
 msgid "Delete post"
 msgstr "刪除貼文"
 
-msgid "You can sign in to Farcaster with the following options."
-msgstr "您可以通過以下選項登入 Farcaster。"
-
 msgid "Mute @{0}"
 msgstr "將 @{0} 靜音"
 
@@ -113,6 +116,9 @@ msgstr "選擇代幣"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
+
+msgid "Send tips to @{0}"
+msgstr ""
 
 msgid "Debug Connection"
 msgstr "除錯連接"
@@ -204,17 +210,20 @@ msgstr "您可以將發送失敗的部分貼文保存，並在之後從草稿箱
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
-msgid "Wrong wallet"
-msgstr "錯誤的錢包"
-
 msgid "Failed to un-bookmark article."
 msgstr "從書籤中移除文章失敗。"
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
+msgstr ""
 
 msgid "Poll"
 msgstr "投票"
 
 msgid "Scheduled"
 msgstr "已排程"
+
+msgid "Failed to add wallet"
+msgstr ""
 
 msgid "Solana"
 msgstr "Solana"
@@ -231,8 +240,8 @@ msgstr "檢舉已於{0} 提交"
 msgid "Debug Console"
 msgstr ""
 
-msgid "Login with QR Code"
-msgstr "通過 QR 碼登錄"
+msgid "Adding..."
+msgstr ""
 
 msgid "Market Cap"
 msgstr "市值"
@@ -255,6 +264,9 @@ msgstr "按讚留言失敗"
 msgid "<0>Posted</0>an article"
 msgstr "<0>發布</0>一篇文章"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
+msgstr ""
+
 msgid "Poll is currently only supported on {0}"
 msgstr "投票功能目前僅在 {0} 支持"
 
@@ -276,8 +288,8 @@ msgstr "檢舉貼文"
 msgid "{0} left"
 msgstr "剩餘 {0}"
 
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>. Approve a new Farcaster signer to <3>Firefly</3>."
-msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼，授權 <3>Firefly</3> 連結您的帳戶。"
+msgid "Skip"
+msgstr ""
 
 msgid "Copied"
 msgstr "已複製"
@@ -309,6 +321,9 @@ msgstr "書籤"
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr ""
 
+msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
+msgstr ""
+
 msgid "Confirm"
 msgstr "確認"
 
@@ -323,9 +338,6 @@ msgstr "作者已經被您靜音"
 
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
-
-msgid "Device Logged In"
-msgstr "裝置已登入"
 
 msgid "Report submitted"
 msgstr "檢舉已提交"
@@ -377,9 +389,6 @@ msgstr ""
 
 msgid "Save Post?"
 msgstr "是否保存貼文？"
-
-msgid "Reconnect with Firefly"
-msgstr "通過 Firefly 重新連接"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
@@ -450,9 +459,6 @@ msgstr "重新鏡像"
 msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
-msgid "On your mobile device with <0>Warpcast</0>, open the <1>Camera</1> app and scan the QR code. Approve a new Farcaster signer to <2>Firefly</2>."
-msgstr "在您安裝了 <0>Warpcast</0> 的移動設備上，打開<1>相機</1>應用並掃描QR碼，授權 <2>Firefly</2> 連結您的帳戶。"
-
 msgid "No Airdrop Scam"
 msgstr "無空投騙局"
 
@@ -491,6 +497,9 @@ msgstr ""
 
 msgid "Max"
 msgstr "最大"
+
+msgid "Mute all"
+msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
@@ -624,6 +633,9 @@ msgstr "發送小費"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Login to Firefly"
+msgstr ""
+
 msgid "Top Channels"
 msgstr ""
 
@@ -732,9 +744,6 @@ msgstr ""
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Tip to @{0}"
-msgstr "給 @{0} 發送小費"
-
 msgid "Invalid Blink."
 msgstr ""
 
@@ -745,6 +754,9 @@ msgid "Are you sure you want to report this post?"
 msgstr "是否確定要檢舉這條貼文？"
 
 msgid "No function found that retrieves ownership"
+msgstr ""
+
+msgid "Send"
 msgstr ""
 
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
@@ -805,6 +817,9 @@ msgid "There are images that were not uploaded successfully."
 msgstr ""
 
 msgid "No mint function"
+msgstr ""
+
+msgid "Please choose issue to report this wallet:"
 msgstr ""
 
 msgid "Switch"
@@ -870,9 +885,6 @@ msgstr "設定"
 msgid "[Poll]"
 msgstr "[投票]"
 
-msgid "Confirm to connect your account status."
-msgstr ""
-
 msgid "Allow replies from"
 msgstr ""
 
@@ -884,6 +896,12 @@ msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "Description"
 msgstr "描述"
+
+msgid "All wallets and accounts are muted."
+msgstr ""
+
+msgid "Disconnected from your social graph"
+msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
@@ -918,6 +936,9 @@ msgstr ""
 msgid "Your post has published successfully."
 msgstr "你的貼文已成功發佈"
 
+msgid "Login with Farcaster"
+msgstr ""
+
 msgid "1m"
 msgstr "1個月"
 
@@ -950,6 +971,9 @@ msgstr "請至 Warpcast 確認登錄"
 
 msgid "The connection has timed out. Please try again later.·"
 msgstr "連結已超時。請稍候重試"
+
+msgid "Log in with recovery phrase"
+msgstr ""
 
 msgid "Confirm you want to mute @{0}?"
 msgstr "確認對 @{0} 的靜音？"
@@ -1059,7 +1083,13 @@ msgstr ""
 msgid "Login required to schedule post on {sourceName}"
 msgstr ""
 
+msgid "Failed to disconnect"
+msgstr ""
+
 msgid "Post has been encrypted"
+msgstr ""
+
+msgid "New connection with Warpcast"
 msgstr ""
 
 msgid "Token ${symbol} could not be found."
@@ -1083,10 +1113,16 @@ msgstr ""
 msgid "Creator"
 msgstr "創作者"
 
+msgid "I want to hide this wallet address."
+msgstr ""
+
 msgid "Details"
 msgstr "詳細資訊"
 
 msgid "Blink"
+msgstr ""
+
+msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -1182,6 +1218,9 @@ msgstr "已成功靜音"
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
+msgid "Add wallet"
+msgstr ""
+
 msgid "Your Blink URL."
 msgstr ""
 
@@ -1215,6 +1254,9 @@ msgstr "剩餘"
 msgid "Cancel recast successfully"
 msgstr ""
 
+msgid "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
+msgstr ""
+
 msgid "Failed to create schedule thread posts."
 msgstr ""
 
@@ -1223,6 +1265,9 @@ msgstr ""
 
 msgid "Quote"
 msgstr "引用"
+
+msgid "Or login with any social account"
+msgstr ""
 
 msgid "View engagements"
 msgstr "查看互動數據"
@@ -1257,9 +1302,6 @@ msgstr "地板價格"
 msgid "Unliked"
 msgstr "已取消喜歡"
 
-msgid "Please click and refresh the QR code to log in again."
-msgstr "請點擊刷新 QR 碼用以重新登錄"
-
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 
@@ -1269,11 +1311,17 @@ msgstr "未找到評論"
 msgid "Unfollow @{0}"
 msgstr "取消追蹤 @{0}"
 
+msgid "Not my wallet address."
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr "在您安裝了 <0>Firefly</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼。"
+
+msgid "Connected in Firefly"
+msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr ""
@@ -1299,6 +1347,9 @@ msgstr ""
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上追蹤@thefireflyapp"
 
+msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
 msgid "Light Mode"
 msgstr "淺色模式"
 
@@ -1322,6 +1373,9 @@ msgstr ""
 
 msgid "The content of this account is currently unavailable"
 msgstr "該帳戶的內容目前不可見"
+
+msgid "Wallet added successfully"
+msgstr ""
 
 msgid "There is no data available for display."
 msgstr "沒有可供展示的數據"
@@ -1370,6 +1424,9 @@ msgstr ""
 
 msgid "Unwatch {identity}"
 msgstr "取消觀察 {identity}"
+
+msgid "Confirm accounts to sync"
+msgstr ""
 
 msgid "Recast or Quote"
 msgstr ""
@@ -1425,9 +1482,6 @@ msgstr ""
 msgid "Powered by"
 msgstr "提供者為"
 
-msgid "No Lens profile was found. Please try using a different wallet."
-msgstr ""
-
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
@@ -1473,8 +1527,8 @@ msgstr ""
 msgid "Copy"
 msgstr "複製"
 
-msgid "Skip for now"
-msgstr "暫時跳過"
+msgid "No available wallet."
+msgstr ""
 
 msgid "Login to enable all features"
 msgstr ""
@@ -1484,6 +1538,9 @@ msgstr ""
 
 msgid "{identity} watched"
 msgstr "{identity} 觀察了"
+
+msgid "Accounts Connected"
+msgstr ""
 
 msgid "Notifications"
 msgstr "通知"
@@ -1502,9 +1559,6 @@ msgstr ""
 
 msgid "Connect"
 msgstr "連接"
-
-msgid "Sign in with Custody Wallet"
-msgstr "通過託管錢包登入"
 
 msgid "View transaction on explorer"
 msgstr ""
@@ -1528,6 +1582,9 @@ msgid "Watch {identity}"
 msgstr "觀察 {identity}"
 
 msgid "Failed to create scheduled post."
+msgstr ""
+
+msgid "I don’t use anymore."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1710,6 +1767,9 @@ msgstr ""
 msgid "Owned"
 msgstr ""
 
+msgid "Associated wallets"
+msgstr ""
+
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -1758,10 +1818,10 @@ msgstr "取消靜音"
 msgid "No available token"
 msgstr ""
 
-msgid "View on explorer"
+msgid "Send tips to {0}"
 msgstr ""
 
-msgid "Tip to {0}"
+msgid "View on explorer"
 msgstr ""
 
 msgid "Unmute @{0}"
@@ -1818,9 +1878,6 @@ msgstr ""
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
-msgid "Log in to Farcaster account"
-msgstr "登入 Farcaster 帳戶"
-
 msgid "{0} Users"
 msgstr ""
 
@@ -1846,6 +1903,9 @@ msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "All wallets and social accounts associated with {handle} will be muted."
 msgstr ""
 
 msgid "Download App"
@@ -1874,9 +1934,6 @@ msgstr "語言"
 
 msgid "Address on Watching Lists"
 msgstr "在觀察列表上的地址"
-
-msgid "FREE"
-msgstr "免費"
 
 msgid "Profiles"
 msgstr "個人資料"
@@ -1954,6 +2011,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Related by platforms"
 msgstr ""
 
 msgid "Copy link"

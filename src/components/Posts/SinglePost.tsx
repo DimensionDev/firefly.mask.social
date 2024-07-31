@@ -14,6 +14,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -52,6 +53,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
     const postLink = getPostUrl(post);
+    const muted = useIsProfileMuted(post.author);
 
     const show = useMemo(() => {
         if (post.source === Source.Twitter) return false;
@@ -93,7 +95,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             />
 
             <PostBody post={post} showMore={showMore} showTranslate={showTranslate} isDetail={isDetail} />
-            {!post.isHidden && !isDetail ? (
+            {!post.isHidden && !muted && !isDetail ? (
                 <PostActions
                     post={post}
                     disabled={post.isHidden}
