@@ -73,9 +73,9 @@ import type { ComposeType } from '@/types/compose.js';
 const initialConfig = {
     namespace: 'composer',
     theme: {
-        link: 'text-link',
-        hashtag: 'text-link',
-        mention: 'text-link',
+        link: 'text-lightHighlight',
+        hashtag: 'text-lightHighlight',
+        mention: 'text-lightHighlight',
     },
     nodes: [MentionNode, HashtagNode, AutoLinkNode, LinkNode],
     editorState: null,

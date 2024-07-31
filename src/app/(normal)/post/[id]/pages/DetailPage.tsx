@@ -4,7 +4,6 @@ import { t, Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import type React from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -171,7 +170,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                             disablePadding
                             post={post}
                             disabled={post.isHidden}
-                            className="!mt-0 border-b border-t border-line px-4 py-3"
+                            className="!mt-0 border-b border-t border-line pr-4 pl-2 py-3"
                         />
                         {/* TODO: Compose Comment Input */}
                         <CommentList postId={postId} source={currentSource} />

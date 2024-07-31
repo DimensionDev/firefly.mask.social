@@ -1,4 +1,5 @@
 import { compact } from 'lodash-es';
+import { usePathname } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
@@ -16,6 +17,7 @@ import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -97,12 +99,12 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
         <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
-        <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
+        <Share key="share" className='!flex-none' url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
 
     return (
         <ClickableArea
-            className={classNames('mt-2 flex items-center justify-between', className, {
+            className={classNames('mt-2 flex items-center justify-between text-lightSecond', className, {
                 'pl-[52px]': !disablePadding,
             })}
         >
@@ -132,10 +134,16 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     const identity = resolveProfileId(post.author);
 
+    const pathname = usePathname();
+    const isSmall = useIsSmall('max');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+
+    const noLeftPadding = isDetailPage || isSmall || disablePadding;
+
     return (
         <div
-            className={classNames('mt-2 text-xs text-second', className, {
-                'pl-[52px]': !disablePadding,
+            className={classNames('mt-2 text-xs text-lightSecond', className, {
+                'pl-[52px]': !noLeftPadding,
             })}
             {...rest}
         >

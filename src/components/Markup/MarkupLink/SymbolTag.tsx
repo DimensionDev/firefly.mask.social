@@ -22,7 +22,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
 
     const content = (
         <Link
-            className="cursor-pointer text-link hover:underline"
+            className="cursor-pointer text-lightHighlight hover:underline"
             onClick={(e) => {
                 e.stopPropagation();
             }}

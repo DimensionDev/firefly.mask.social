@@ -216,7 +216,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     return;
                 }}
                 className={classNames(
-                    'relative flex w-min cursor-pointer items-center text-main hover:text-secondarySuccess md:space-x-2',
+                    'relative flex w-min cursor-pointer items-center text-lightSecond hover:text-secondarySuccess md:space-x-2',
                     {
                         'text-secondarySuccess': mirrored,
                         'opacity-50': !!disabled,

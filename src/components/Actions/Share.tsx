@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { memo, useCallback } from 'react';
+import { type HTMLProps, memo, useCallback } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import ShareIcon from '@/assets/share.svg';
@@ -9,11 +9,11 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 
-interface ShareProps {
+interface ShareProps extends HTMLProps<HTMLDivElement> {
     url: string;
     disabled?: boolean;
 }
-export const Share = memo<ShareProps>(function Collect({ url, disabled = false }) {
+export const Share = memo<ShareProps>(function Collect({ url, className, disabled = false }) {
     const [, copyToClipboard] = useCopyToClipboard();
 
     const handleClick = useCallback(() => {
@@ -23,9 +23,13 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
 
     return (
         <ClickableArea
-            className={classNames('flex flex-auto items-center space-x-2 self-auto justify-self-auto text-main', {
-                'opacity-50': disabled,
-            })}
+            className={classNames(
+                'flex flex-auto items-center space-x-2 self-auto justify-self-auto text-lightSecond',
+                className,
+                {
+                    'opacity-50': disabled,
+                },
+            )}
         >
             <Tooltip content={t`Share`} placement="top" disabled={disabled}>
                 <motion.button

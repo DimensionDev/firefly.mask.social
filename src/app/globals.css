@@ -84,6 +84,7 @@
     --color-success: #3dc233;
     --color-fail: #ff3545;
     --color-light-warn: 255 122 85;
+    --color-light-highlight: #4C4AA9;
 }
 
 .dark {
@@ -132,6 +133,7 @@
     --plyr-control-icon-size: 16px;
     --color-card: white;
     --color-light-warn: 255 122 85;
+    --color-light-highlight: #4C4AA9;
 }
 
 .dark .plyr__control {
@@ -175,6 +177,7 @@
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
     --color-light-warn: 255 122 85;
+    --color-light-highlight: #4C4AA9;
 }
 
 html,
@@ -210,7 +213,7 @@ iframe {
 /* Markup styles */
 .markup > p,
 ul {
-    @apply !leading-6 sm:!leading-7;
+    @apply !leading-6 sm:!leading-5;
     @apply [&:not(:last-child)]:mb-2;
 }
 

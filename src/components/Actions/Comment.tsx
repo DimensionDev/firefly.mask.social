@@ -74,7 +74,7 @@ export const Comment = memo<CommentProps>(function Comment({
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full text-main hover:bg-link/[0.2] hover:text-link focus:outline-none focus-visible:outline-none"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link focus:outline-none focus-visible:outline-none"
                     aria-label="Comment"
                 >
                     <ReplyIcon width={16} height={16} />

@@ -29,6 +29,7 @@ import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {
@@ -76,6 +77,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(author, isDetail);
 
+    const isSmall = useIsSmall('max');
+
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
 
@@ -93,11 +96,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ? availableAttachments[0]
             : metadata.content?.asset;
 
+    const noLeftPadding = isDetail || isSmall || disablePadding;
+
     if (post.isEncrypted) {
         return (
             <div
                 className={classNames('my-2', {
-                    'pl-[52px]': !disablePadding,
+                    'pl-[52px]': !noLeftPadding,
                 })}
                 ref={ref}
             >
@@ -120,7 +125,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         return (
             <CollapsedContent
                 className={classNames({
-                    'pl-[52px]': !disablePadding,
+                    'pl-[52px]': !noLeftPadding,
                     'my-2': !isQuote,
                 })}
                 ref={ref}
@@ -191,8 +196,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     return (
         <div
-            className={classNames('-mt-2 mb-2 break-words text-base text-main', {
-                ['pl-[52px]']: !disablePadding,
+            className={classNames('mb-1.5 break-words text-base text-main', {
+                ['pl-[52px] -mt-2']: !noLeftPadding,
+                'mt-1.5': noLeftPadding,
             })}
             ref={mergedRef}
         >
@@ -214,7 +220,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {canShowMore ? (
-                <div className="text-[15px] font-bold text-link">
+                <div className="text-[15px] font-bold text-lightHighlight">
                     <div
                         onClick={() => {
                             router.push(getPostUrl(post));
