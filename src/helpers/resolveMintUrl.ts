@@ -38,11 +38,11 @@ export function resolveMintUrl(target: string) {
             address,
             tokenId,
         });
-    } else if (isAddress(address)) {
+    }
+    if (isAddress(address)) {
         return urlcat(`https://zora.co/collect/${chainName}::address`, {
             address,
         });
-    } else {
-        return;
     }
+    return;
 }

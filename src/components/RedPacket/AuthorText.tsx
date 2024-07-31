@@ -1,5 +1,4 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-import { isAddress } from 'viem';
 
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
@@ -13,7 +12,7 @@ interface AuthorTextProps {
 }
 
 export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorTextProps) {
-    const authorText = `From ${isAddress(from) ? formatEthereumAddress(from, 4) : from}`;
+    const authorText = `From ${formatEthereumAddress(from, 4)}`;
 
     switch (usage) {
         case UsageType.Cover:
@@ -44,7 +43,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                 >
                     <div style={getCSSPropertiesFromThemeSettings(theme.cover.title1)}>From</div>
                     <div style={getCSSPropertiesFromThemeSettings(theme.cover.title2)}>
-                        {isAddress(from) ? formatEthereumAddress(from, 4) : from}
+                        {formatEthereumAddress(from, 4)}
                     </div>
                 </div>
             );
