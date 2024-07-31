@@ -4,6 +4,7 @@ import { polygon } from 'viem/chains';
 import { LensHub } from '@/abis/LensHub.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constants/index.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
+import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
@@ -30,7 +31,10 @@ export async function GET(request: Request) {
                 'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
             },
         });
-    } catch {
-        return Response.json({ error: 'Failed to read tokenURI' }, { status: StatusCodes.BAD_REQUEST });
+    } catch (error) {
+        return Response.json(
+            { error: getGatewayErrorMessage(error, 'Failed to read tokenURI') },
+            { status: StatusCodes.BAD_REQUEST },
+        );
     }
 }

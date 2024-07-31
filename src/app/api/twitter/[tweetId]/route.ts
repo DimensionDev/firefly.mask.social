@@ -7,6 +7,7 @@ import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
@@ -21,7 +22,7 @@ export async function DELETE(request: NextRequest, context?: NextRequestContext)
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
         console.log('[twitter]: twitter/[tweetId]/ error', error);
-        return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
+        return createErrorResponseJSON(getGatewayErrorMessage(error, 'Internal Server Error'), {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });
     }

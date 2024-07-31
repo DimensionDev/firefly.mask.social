@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getFrameErrorMessage } from '@/helpers/getFrameErrorMessage.js';
+import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
@@ -145,9 +146,6 @@ export async function POST(request: Request) {
                 return Response.json({ error: `Unknown action: ${action}` }, { status: StatusCodes.BAD_REQUEST });
         }
     } catch (error) {
-        return Response.json(
-            { error: error instanceof Error ? error.message : JSON.stringify(error) },
-            { status: StatusCodes.BAD_GATEWAY },
-        );
+        return Response.json({ error: getGatewayErrorMessage(error) }, { status: StatusCodes.BAD_GATEWAY });
     }
 }

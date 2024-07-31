@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 
@@ -45,7 +46,7 @@ export async function GET(request: Request) {
             return Response.json({ error: `Unable to digest link = ${link}` }, { status: StatusCodes.BAD_GATEWAY });
         return createSuccessResponseJSON(linkDigested);
     } catch (error) {
-        return Response.json(error instanceof Error ? error.message : JSON.stringify(error), {
+        return Response.json(getGatewayErrorMessage(error), {
             status: StatusCodes.BAD_GATEWAY,
         });
     }
