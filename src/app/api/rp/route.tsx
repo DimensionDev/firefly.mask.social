@@ -104,13 +104,16 @@ export async function GET(request: NextRequest) {
     if (!parsedParams?.success)
         return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: StatusCodes.BAD_REQUEST });
 
-    const image = await createRedPacketImage(parsedParams.data, request.signal);
-    if (!image) return new Response('Failed to create image', { status: StatusCodes.INTERNAL_SERVER_ERROR });
+    try {
+        const image = await createRedPacketImage(parsedParams.data, request.signal);
 
-    return new Response(image, {
-        headers: {
-            'Content-Type': 'image/svg+xml',
-            'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
-        },
-    });
+        return new Response(image, {
+            headers: {
+                'Content-Type': 'image/svg+xml',
+                'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+            },
+        });
+    } catch (error) {
+        return new Response('Failed to create image.', { status: StatusCodes.INTERNAL_SERVER_ERROR });
+    }
 }
