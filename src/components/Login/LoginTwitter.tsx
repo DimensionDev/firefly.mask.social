@@ -28,7 +28,7 @@ export function LoginTwitter(props: Props) {
         <div
             {...props}
             className={classNames(
-                'flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4',
+                'flex min-h-[200px] w-full flex-col items-center justify-center gap-4 md:w-[500px]',
                 props.className,
             )}
         >

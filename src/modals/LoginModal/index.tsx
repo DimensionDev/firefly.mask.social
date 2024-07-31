@@ -49,6 +49,10 @@ export const LoginModal = memo(
                 });
                 history.push(url);
             },
+            onClose: () => {
+                history.flush();
+                history.push('/main');
+            },
         });
 
         if (isMedium) {

@@ -19,7 +19,7 @@ export function ScannableQRCode(props: Props) {
                     countdown === 0 || scanned ? 'blur-md' : '',
                 )}
             >
-                <QRCode value={url} ecLevel="M" size={238} quietZone={16} eyeRadius={150} qrStyle="dots" />
+                <QRCode value={url} ecLevel="H" size={238} quietZone={16} eyeRadius={150} qrStyle="dots" />
             </div>
             {countdown === 0 ? (
                 <ReloadIcon className="absolute inset-0 m-auto text-white" width={80} height={80} />

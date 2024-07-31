@@ -106,45 +106,39 @@ export function LoginFirefly(props: LoginFireflyProps) {
                 </div>
             ) : (
                 <div className="relative flex w-full flex-col items-center gap-3">
-                    {url ? (
-                        <>
-                            <div className="text-center text-[12px] leading-[16px] text-lightSecond">
-                                <Trans>
-                                    On your mobile device with <span className="font-bold">Firefly</span>, open the{' '}
-                                    <span className="font-bold">Camera</span> app and scan the QR code in{' '}
-                                    <span className="font-mono font-bold">
-                                        {plural(count, {
-                                            one: '1 second',
-                                            other: `${count} seconds`,
-                                        })}
-                                    </span>
-                                    .
-                                </Trans>
-                            </div>
-                            <div
-                                className={classNames('relative flex items-center justify-center', {
-                                    'cursor-pointer': !scanned,
+                    <div className="text-center text-[12px] leading-[16px] text-lightSecond">
+                        <Trans>
+                            On your mobile device with <span className="font-bold">Firefly</span>, open the{' '}
+                            <span className="font-bold">Camera</span> app and scan the QR code in{' '}
+                            <span className="font-mono font-bold">
+                                {plural(count, {
+                                    one: '1 second',
+                                    other: `${count} seconds`,
                                 })}
-                                onClick={() => {
-                                    if (scanned) return;
-                                    controller.current.abort();
-                                    onLoginByGrantPermission();
-                                }}
-                            >
-                                <ScannableQRCode url={url} scanned={scanned} countdown={count} />
-                                {scanned ? (
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <LoadingIcon className="animate-spin" width={24} height={24} />
-                                    </div>
-                                ) : null}
-                            </div>
-                        </>
-                    ) : (
-                        <div className="pt-7">
-                            <div className="mx-auto p-4">
-                                <div className="h-[238px] w-[238px] flex-grow rounded-2xl bg-gray-100 shadow-[0_0_20px_0_rgba(0,0,0,0.05)] backdrop-blur dark:bg-gray-800" />
-                            </div>
+                            </span>
+                            .
+                        </Trans>
+                    </div>
+                    {url ? (
+                        <div
+                            className={classNames('relative flex items-center justify-center', {
+                                'cursor-pointer': !scanned,
+                            })}
+                            onClick={() => {
+                                if (scanned) return;
+                                controller.current.abort();
+                                onLoginByGrantPermission();
+                            }}
+                        >
+                            <ScannableQRCode url={url} scanned={scanned} countdown={count} />
+                            {scanned ? (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                                </div>
+                            ) : null}
                         </div>
+                    ) : (
+                        <div className="h-[270px] w-[270px] rounded-2xl bg-gray-100 shadow-[0_0_20px_0_rgba(0,0,0,0.05)] backdrop-blur dark:bg-gray-800" />
                     )}
                 </div>
             )}
