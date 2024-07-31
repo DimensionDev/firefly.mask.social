@@ -12,6 +12,7 @@ import { ContentTypeError } from '@/constants/error.js';
 import { ALLOWED_IMAGES_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
 
 const FormDataSchema = z.object({
@@ -88,7 +89,7 @@ export async function PUT(req: NextRequest) {
                 status: StatusCodes.BAD_REQUEST,
             });
         }
-        return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
+        return createErrorResponseJSON(getGatewayErrorMessage(error, 'Internal Server Error'), {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });
     }

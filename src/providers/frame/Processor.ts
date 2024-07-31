@@ -22,12 +22,12 @@ class Processor {
         const { document } = parseHTML(html);
 
         const version = getVersion(document);
-        if (!version) return null;
+        if (!version) throw new Error('Version not found');
 
         const imageUrl = getImageUrl(document);
         const imageAlt = getImageAlt(document);
         const image = imageUrl ? await OpenGraphProcessor.digestImageUrl(imageUrl, signal) : null;
-        if (!image) return null;
+        if (!image) throw new Error(`Image not found: imageUrl = ${imageUrl}`);
 
         const frame: Frame = {
             url,

@@ -26,23 +26,41 @@ import { type ImageDigested, type LinkDigested, type OpenGraph, PayloadType } fr
 
 class Processor {
     digestImageUrl = async (url: string, signal?: AbortSignal): Promise<ImageDigested | null> => {
-        if (!url.startsWith('http')) return null;
-
         try {
-            const response = await fetch(url, {
-                signal,
-            });
-            if (!response.ok) return null;
+            if (url.startsWith('data:')) {
+                const matched = url.match(/^data:(.*?);base64,(.*)$/);
+                if (!matched) return null;
 
-            const buffer = Buffer.from(await response.arrayBuffer());
-            const img = sizeOf.imageSize(buffer);
+                const base64Data = matched[2];
+                if (!base64Data) return null;
 
-            return {
-                url,
-                width: img.width ?? 0,
-                height: img.height ?? 0,
-                base64: `data:${response.headers.get('Content-Type')};base64,${buffer.toString('base64')}`,
-            };
+                const img = sizeOf.imageSize(Buffer.from(base64Data, 'base64'));
+
+                return {
+                    url,
+                    width: img.width ?? 0,
+                    height: img.height ?? 0,
+                    base64: url,
+                };
+            }
+
+            if (url.startsWith('http')) {
+                const response = await fetch(url, {
+                    signal,
+                });
+                if (!response.ok) return null;
+
+                const buffer = Buffer.from(await response.arrayBuffer());
+                const img = sizeOf.imageSize(buffer);
+
+                return {
+                    url,
+                    width: img.width ?? 0,
+                    height: img.height ?? 0,
+                    base64: `data:${response.headers.get('Content-Type')};base64,${buffer.toString('base64')}`,
+                };
+            }
+            return null;
         } catch (error) {
             return null;
         }
