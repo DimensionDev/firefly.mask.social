@@ -42,6 +42,8 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
     const nftPreview = first(collection.nftPreviews);
     if (nftPreview && images.length === 1) {
         const tokenId = nftPreview.nft_id.split('.')?.[2];
+        const name =
+            nftPreview.name ?? nftPreview?.contract?.name ? `${nftPreview.contract.name} #${tokenId}` : `#${tokenId}`;
         return (
             <Link
                 href={resolveNftUrl(nftPreview.contract_address, {
@@ -65,7 +67,7 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
                     />
                 </div>
                 <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
-                    {nftPreview.name}
+                    {name}
                 </div>
             </Link>
         );
