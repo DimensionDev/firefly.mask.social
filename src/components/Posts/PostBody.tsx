@@ -3,7 +3,7 @@
 import { Select, t, Trans } from '@lingui/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { usePathname, useRouter } from 'next/navigation.js';
 import { forwardRef, useState } from 'react';
 import { useAsync } from 'react-use';
 
@@ -17,13 +17,14 @@ import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { STATUS } from '@/constants/enum.js';
+import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
@@ -75,6 +76,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const muted = useIsProfileMuted(author, isDetail);
 
+    const pathname = usePathname();
+    const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
+
     const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
     const payloadImageUrl = payloadFromImageAttachment?.[2];
     const hasEncryptedPayload = payloads?.payloadFromImageAttachment || payloads?.payloadFromText;
@@ -112,7 +116,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    if (post.isHidden || muted) {
+    if (post.isHidden || (muted && !isProfilePage)) {
         return (
             <CollapsedContent
                 className={classNames({
