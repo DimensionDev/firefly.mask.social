@@ -108,6 +108,10 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         throw new NotImplementedError();
     }
