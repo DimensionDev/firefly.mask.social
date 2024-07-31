@@ -25,6 +25,7 @@ import {
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -93,7 +94,6 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ComposeType } from '@/types/compose.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 
 async function reportPost(params: ReportPostParams) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');
