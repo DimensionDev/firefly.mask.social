@@ -42,6 +42,9 @@ msgstr "斷開連接"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
+msgstr ""
+
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {秒} other {{count} 秒}}"
 
@@ -222,6 +225,9 @@ msgstr "投票"
 msgid "Scheduled"
 msgstr "已排程"
 
+msgid "Failed to add wallet"
+msgstr ""
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -235,6 +241,9 @@ msgid "Report submitted on {0}"
 msgstr "檢舉已於{0} 提交"
 
 msgid "Debug Console"
+msgstr ""
+
+msgid "Adding..."
 msgstr ""
 
 msgid "Login with QR Code"
@@ -313,6 +322,9 @@ msgid "Bookmarks"
 msgstr "書籤"
 
 msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
+msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr ""
 
 msgid "Confirm"
@@ -753,6 +765,9 @@ msgstr "是否確定要檢舉這條貼文？"
 msgid "No function found that retrieves ownership"
 msgstr ""
 
+msgid "Send"
+msgstr ""
+
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
@@ -811,6 +826,9 @@ msgid "There are images that were not uploaded successfully."
 msgstr ""
 
 msgid "No mint function"
+msgstr ""
+
+msgid "Please choose issue to report this wallet:"
 msgstr ""
 
 msgid "Switch"
@@ -892,6 +910,9 @@ msgid "Description"
 msgstr "描述"
 
 msgid "All wallets and accounts are muted."
+msgstr ""
+
+msgid "Disconnected from your social graph"
 msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
@@ -1068,6 +1089,9 @@ msgstr ""
 msgid "Login required to schedule post on {sourceName}"
 msgstr ""
 
+msgid "Failed to disconnect"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -1091,6 +1115,9 @@ msgstr ""
 
 msgid "Creator"
 msgstr "創作者"
+
+msgid "I want to hide this wallet address."
+msgstr ""
 
 msgid "Details"
 msgstr "詳細資訊"
@@ -1191,6 +1218,9 @@ msgstr "已成功靜音"
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
+msgid "Add wallet"
+msgstr ""
+
 msgid "Your Blink URL."
 msgstr ""
 
@@ -1278,11 +1308,17 @@ msgstr "未找到評論"
 msgid "Unfollow @{0}"
 msgstr "取消追蹤 @{0}"
 
+msgid "Not my wallet address."
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr "在您安裝了 <0>Firefly</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼。"
+
+msgid "Connected in Firefly"
+msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr ""
@@ -1308,6 +1344,9 @@ msgstr ""
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上追蹤@thefireflyapp"
 
+msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
 msgid "Light Mode"
 msgstr "淺色模式"
 
@@ -1331,6 +1370,9 @@ msgstr ""
 
 msgid "The content of this account is currently unavailable"
 msgstr "該帳戶的內容目前不可見"
+
+msgid "Wallet added successfully"
+msgstr ""
 
 msgid "There is no data available for display."
 msgstr "沒有可供展示的數據"
@@ -1485,6 +1527,9 @@ msgstr "複製"
 msgid "Skip for now"
 msgstr "暫時跳過"
 
+msgid "No available wallet."
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1537,6 +1582,9 @@ msgid "Watch {identity}"
 msgstr "觀察 {identity}"
 
 msgid "Failed to create scheduled post."
+msgstr ""
+
+msgid "I don’t use anymore."
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -1717,6 +1765,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "Owned"
+msgstr ""
+
+msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
@@ -1966,6 +2017,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Related by platforms"
 msgstr ""
 
 msgid "Copy link"

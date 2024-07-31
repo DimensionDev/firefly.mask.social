@@ -42,6 +42,9 @@ msgstr "断开"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
+msgstr ""
+
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {1 秒} other {{count} 秒}}"
 
@@ -222,6 +225,9 @@ msgstr "投票"
 msgid "Scheduled"
 msgstr "已定时"
 
+msgid "Failed to add wallet"
+msgstr ""
+
 msgid "Solana"
 msgstr "Solana"
 
@@ -236,6 +242,9 @@ msgstr "举报已提交 {0}"
 
 msgid "Debug Console"
 msgstr "诊断命令行"
+
+msgid "Adding..."
+msgstr ""
 
 msgid "Login with QR Code"
 msgstr "使用二维码登录"
@@ -313,6 +322,9 @@ msgid "Bookmarks"
 msgstr "收藏"
 
 msgid "Followed by {0} , {1}, and {2} others you follow"
+msgstr ""
+
+msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr ""
 
 msgid "Confirm"
@@ -753,6 +765,9 @@ msgstr "您确定要举报这个帖子吗？"
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
+msgid "Send"
+msgstr ""
+
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 
@@ -812,6 +827,9 @@ msgstr "图片上传失败。"
 
 msgid "No mint function"
 msgstr "没有铸造功能"
+
+msgid "Please choose issue to report this wallet:"
+msgstr ""
 
 msgid "Switch"
 msgstr "切换"
@@ -892,6 +910,9 @@ msgid "Description"
 msgstr "介绍"
 
 msgid "All wallets and accounts are muted."
+msgstr ""
+
+msgid "Disconnected from your social graph"
 msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
@@ -1068,6 +1089,9 @@ msgstr "推荐关注"
 msgid "Login required to schedule post on {sourceName}"
 msgstr "需要先登录 {sourceName} 才能发送定时任务。"
 
+msgid "Failed to disconnect"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
@@ -1091,6 +1115,9 @@ msgstr "未发送的帖子"
 
 msgid "Creator"
 msgstr "创建者"
+
+msgid "I want to hide this wallet address."
+msgstr ""
 
 msgid "Details"
 msgstr "详情"
@@ -1191,6 +1218,9 @@ msgstr "屏蔽成功。"
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
 
+msgid "Add wallet"
+msgstr ""
+
 msgid "Your Blink URL."
 msgstr "您的 Blink URL。"
 
@@ -1278,11 +1308,17 @@ msgstr "未发现评论"
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
 
+msgid "Not my wallet address."
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
+
+msgid "Connected in Firefly"
+msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {添加一条评论} reply {发布你的评论} other {{1}}}"
@@ -1308,6 +1344,9 @@ msgstr "发帖失败"
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
+msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
 msgid "Light Mode"
 msgstr "浅色模式"
 
@@ -1331,6 +1370,9 @@ msgstr "{minutes, plural, one {1 分钟} other {{minutes} 分钟}}"
 
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账号的内容"
+
+msgid "Wallet added successfully"
+msgstr ""
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
@@ -1485,6 +1527,9 @@ msgstr "复制"
 msgid "Skip for now"
 msgstr "跳过"
 
+msgid "No available wallet."
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
@@ -1538,6 +1583,9 @@ msgstr "关注 {identity}"
 
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
+
+msgid "I don’t use anymore."
+msgstr ""
 
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
@@ -1718,6 +1766,9 @@ msgstr "您的名字"
 
 msgid "Owned"
 msgstr "拥有"
+
+msgid "Associated wallets"
+msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
@@ -1967,6 +2018,9 @@ msgstr "服务条款"
 
 msgid "[Quote]"
 msgstr "[引用]"
+
+msgid "Related by platforms"
+msgstr ""
 
 msgid "Copy link"
 msgstr "拷贝链接"
