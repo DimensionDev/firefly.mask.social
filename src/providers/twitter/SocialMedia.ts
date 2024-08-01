@@ -412,7 +412,7 @@ class TwitterSocialMedia implements Provider {
         return response.data.deleted;
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        const result = await FireflySocialMediaProvider.blockProfile(profileId, FireflyPlatform.Twitter);
+        const result = await FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Twitter, profileId);
         await runInSafe(() =>
             twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
                 `/api/twitter/mute/${profileId}`,
@@ -425,7 +425,7 @@ class TwitterSocialMedia implements Provider {
         return result;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        const result = await FireflySocialMediaProvider.unblockProfile(profileId, FireflyPlatform.Twitter);
+        const result = await FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId);
         await runInSafe(() =>
             twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
                 `/api/twitter/mute/${profileId}`,

@@ -1093,7 +1093,7 @@ class LensSocialMedia implements Provider {
     }
 
     async blockProfile(profileId: string) {
-        const result = await FireflySocialMediaProvider.blockProfile(profileId, FireflyPlatform.Lens);
+        const result = await FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Lens, profileId);
         await runInSafe(() =>
             lensSessionHolder.sdk.profile.block({
                 profiles: [profileId],
@@ -1103,7 +1103,7 @@ class LensSocialMedia implements Provider {
     }
 
     async unblockProfile(profileId: string) {
-        const result = await FireflySocialMediaProvider.unblockProfile(profileId, FireflyPlatform.Lens);
+        const result = await FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Lens, profileId);
         await runInSafe(() =>
             lensSessionHolder.sdk.profile.unblock({
                 profiles: [profileId],

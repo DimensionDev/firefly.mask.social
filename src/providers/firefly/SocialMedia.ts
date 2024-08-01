@@ -324,6 +324,14 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async blockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async unblockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
@@ -999,11 +1007,11 @@ export class FireflySocialMedia implements Provider {
         return unblock('address', address);
     }
 
-    async blockProfile(profileId: string, source = FireflyPlatform.Farcaster): Promise<boolean> {
+    async blockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
         return block(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
     }
 
-    async unblockProfile(profileId: string, source = FireflyPlatform.Farcaster): Promise<boolean> {
+    async unblockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
         return unblock(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
     }
 
