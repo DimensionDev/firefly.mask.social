@@ -2,58 +2,21 @@ import { safeUnreachable } from '@masknet/kit';
 import { compact, groupBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { CryptoUsage, Source } from '@/constants/enum.js';
-import { AbortError, NotAllowedError, NotImplementedError, UnreachableError } from '@/constants/error.js';
-import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
+import { CryptoUsage } from '@/constants/enum.js';
+import { AbortError, NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getProfileBySession } from '@/helpers/getProfileBySession.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { LensSession } from '@/providers/lens/Session.js';
-import { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { MetricsDownloadResponse, MetricsUploadResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
-
-async function convertSessionToProfile(session: Session, signal?: AbortSignal) {
-    switch (session.type) {
-        case SessionType.Twitter: {
-            const twitterSession = session as TwitterSession;
-            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
-                twitterSession.profileId,
-                twitterSession.payload,
-            );
-        }
-        case SessionType.Lens: {
-            const lensSession = session as LensSession;
-            if (!lensSession.refreshToken) return null;
-
-            const sdk = createLensSDKForSession(new MemoryStorageProvider(), lensSession);
-            const profileId = await sdk.authentication.getProfileId();
-            if (!profileId) return null;
-
-            const provider = resolveSocialMediaProvider(Source.Lens);
-            return provider.getProfileById(lensSession.profileId);
-        }
-        case SessionType.Farcaster:
-            const farcasterSession = session as FarcasterSession;
-            const provider = resolveSocialMediaProvider(Source.Farcaster);
-            return provider.getProfileById(farcasterSession.profileId);
-        case SessionType.Firefly:
-            throw new NotAllowedError();
-        default:
-            safeUnreachable(session.type);
-            throw new UnreachableError('session type', session);
-    }
-}
 
 /**
  * Encrypt sessions as firefly metrics.
@@ -198,7 +161,7 @@ export async function downloadAccounts(session: FireflySession, signal?: AbortSi
     const sessions = await downloadSessions(session, signal);
 
     // validate and convert session to profile
-    const allSettled = await Promise.allSettled(sessions.map((x) => convertSessionToProfile(x, signal)));
+    const allSettled = await Promise.allSettled(sessions.map((x) => getProfileBySession(x, signal)));
 
     // check if the request is aborted
     if (signal?.aborted) throw new AbortError();

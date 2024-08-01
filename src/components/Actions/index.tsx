@@ -99,7 +99,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
         <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
-        <Share key="share" className='!flex-none' url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
+        <Share key="share" className="!flex-none" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
 
     return (

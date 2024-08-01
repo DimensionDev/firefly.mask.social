@@ -84,7 +84,7 @@
     --color-success: #3dc233;
     --color-fail: #ff3545;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #4C4AA9;
+    --color-light-highlight: #4c4aa9;
 }
 
 .dark {
@@ -133,7 +133,7 @@
     --plyr-control-icon-size: 16px;
     --color-card: white;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #4C4AA9;
+    --color-light-highlight: #4c4aa9;
 }
 
 .dark .plyr__control {
@@ -177,7 +177,7 @@
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #4C4AA9;
+    --color-light-highlight: #4c4aa9;
 }
 
 html,
