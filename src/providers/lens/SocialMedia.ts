@@ -1,7 +1,6 @@
 import {
     CommentRankingFilterType,
     CustomFiltersType,
-    ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
     HiddenCommentsType,
@@ -66,6 +65,7 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { getLensSuggestFollows } from '@/services/getLensSuggestFollows.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
@@ -1025,16 +1025,15 @@ class LensSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const result = await lensSessionHolder.sdk.explore.profiles({
-            orderBy: ExploreProfilesOrderByType.MostFollowers,
-            cursor: indicator?.id,
+        const response = await getLensSuggestFollows(indicator);
+        const result = await lensSessionHolder.sdk.profile.fetchAll({
+            where: {
+                profileIds: response.data.map((profile) => profile.profileId),
+            },
         });
-
-        return createPageable(
-            result.items.map(formatLensProfile),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        if (!result) return createPageable(EMPTY_LIST, createIndicator(indicator));
+        response.data = result.items.map(formatLensProfile);
+        return response;
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -1255,24 +1254,6 @@ class LensSocialMedia implements Provider {
             return FireflySocialMediaProvider.reportPost(post);
         }
         return success;
-    }
-
-    async getSuggestedFollowUsers({
-        indicator,
-    }: {
-        indicator?: PageIndicator;
-    } = {}): Promise<Pageable<Profile, PageIndicator>> {
-        const result = await lensSessionHolder.sdk.explore.profiles({
-            orderBy: ExploreProfilesOrderByType.MostFollowers,
-        });
-
-        if (!result) throw new Error(t`No comments found`);
-
-        return createPageable(
-            result.items.map(formatLensProfile),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
     }
 }
 

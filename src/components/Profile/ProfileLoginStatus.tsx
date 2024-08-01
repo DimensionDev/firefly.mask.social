@@ -45,7 +45,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
                 LoginModalRef.open({
                     source: profile.source,
                     options: {
-                        expectedProfile: profile,
+                        expectedProfile: profile.profileId,
                     },
                 })
             }

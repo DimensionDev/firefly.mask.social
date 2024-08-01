@@ -5,6 +5,7 @@ import { AVATAR } from '@/constants/index.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
+import type { LensV3Profile } from '@/providers/types/Firefly.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
@@ -49,6 +50,21 @@ export function formatLensProfile(result: ProfileFragment): Profile {
 }
 
 export function formatLensProfileByHandleInfo(result: HandleInfoFragment): Profile {
+    return {
+        profileId: result.id,
+        displayName: result.localName || '',
+        handle: result.localName || '',
+        fullHandle: result.fullHandle || '',
+        pfp: '',
+        followerCount: 0,
+        followingCount: 0,
+        status: ProfileStatus.Active,
+        verified: true,
+        source: Source.Lens,
+    };
+}
+
+export function formatLensProfileFromSuggestedFollow(result: LensV3Profile): Profile {
     return {
         profileId: result.id,
         displayName: result.localName || '',

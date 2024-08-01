@@ -25,12 +25,12 @@ export const ConfirmFireflyModal = forwardRef<
             const { belongsTo, accounts } = props;
 
             ConfirmModalRef.open({
-                title: t`Device Logged In`,
+                title: t`Accounts Connected`,
                 content: (
                     <div>
-                        <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-lightMain">
+                        <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-second">
                             {belongsTo ? (
-                                <Trans>Confirm to connect your account status.</Trans>
+                                <Trans>Confirm accounts to sync</Trans>
                             ) : (
                                 <Trans>
                                     You are logging into a different Firefly account. Continuing will{' '}
@@ -59,16 +59,16 @@ export const ConfirmFireflyModal = forwardRef<
                         </ul>
                         <div className="flex gap-2">
                             <ClickableButton
-                                className="flex flex-1 items-center justify-center rounded-full border border-main py-2 font-bold text-main"
+                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-[15px] font-bold text-main"
                                 onClick={() => {
                                     ConfirmModalRef.close(false);
                                     ConfirmFireflyModalRef.close(false);
                                 }}
                             >
-                                <Trans>Skip for now</Trans>
+                                <Trans>Skip</Trans>
                             </ClickableButton>
                             <ClickableButton
-                                className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
+                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-[15px] font-bold text-primaryBottom"
                                 disabled={compact(Object.values(accounts)).length === 0}
                                 onClick={() => {
                                     ConfirmModalRef.close(true);

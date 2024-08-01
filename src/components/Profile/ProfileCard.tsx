@@ -12,8 +12,10 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileCardProps {
@@ -33,6 +35,8 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
             return source === Source.Lens ? provider.getProfileByHandle(identity) : provider.getProfileById(identity);
         },
     });
+    const myProfile = useCurrentProfile(source);
+
     if (isLoading) {
         return (
             <div className="h-[182px] w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
@@ -125,7 +129,9 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile
                 {profile.bio ?? '-'}
             </BioMarkup>
 
-            <FollowButton style={{ height: 40 }} className="min-h-[40px] w-full" profile={profile} />
+            {!isSameProfile(myProfile, profile) ? (
+                <FollowButton style={{ height: 40 }} className="min-h-[40px] w-full" profile={profile} />
+            ) : null}
         </ClickableArea>
     );
 });

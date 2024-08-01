@@ -66,7 +66,7 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
 
         const content = getScheduleTaskContent(compositePost);
 
-        await uploadSessions(fireflySessionHolder.sessionRequired, getProfileSessionsAll());
+        await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
         const result = await FireflySocialMediaProvider.schedulePost(
             scheduleTime,

@@ -160,8 +160,6 @@ export enum FarcasterSignType {
     RelayService = 'relay_service',
     // recovery phrase
     RecoveryPhrase = 'recovery_phrase',
-    // custody wallet
-    CustodyWallet = 'custody_wallet',
 }
 export enum BookmarkType {
     All = 'all',

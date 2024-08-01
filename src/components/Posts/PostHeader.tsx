@@ -15,7 +15,6 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -30,7 +29,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     const isMyPost = isSameProfile(post.author, currentProfile);
     const profileLink = getProfileUrl(post.author);
-    const muted = useIsProfileMuted(post.author);
 
     const isSmall = useIsSmall('max');
     const pathname = usePathname();
@@ -111,7 +109,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 {newLine ? <div>{handle}</div> : null}
             </div>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
-                {!post.isHidden && !muted && !isQuote ? (
+                {!post.isHidden && !isQuote ? (
                     <MoreAction channel={post.channel} source={post.source} author={post.author} post={post} />
                 ) : null}
             </div>

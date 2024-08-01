@@ -43,7 +43,10 @@ export async function GET(request: Request) {
     try {
         const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
         if (!linkDigested)
-            return Response.json({ error: `Unable to digest link = ${link}` }, { status: StatusCodes.BAD_GATEWAY });
+            return Response.json(
+                { error: `Unable to digest oembed link = ${link}` },
+                { status: StatusCodes.BAD_GATEWAY },
+            );
         return createSuccessResponseJSON(linkDigested);
     } catch (error) {
         return Response.json(getGatewayErrorMessage(error), {

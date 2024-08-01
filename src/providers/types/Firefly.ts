@@ -854,3 +854,27 @@ export type IsMutedAllResponse = Response<{
 }>;
 
 export type MuteAllResponse = Response<Relationship[]>;
+
+export interface FarcasterSuggestedFollowUser {
+    pfp: string;
+    display_name: string;
+    bio: string;
+    username: string;
+    following: number;
+    followers: number;
+    addresses: string[];
+    fid: number;
+    isFollowing: boolean;
+    isFollowedBack: boolean;
+    solanaAddresses: string[];
+}
+
+export type GetFarcasterSuggestedFollowUserResponse = Response<{
+    suggestedFollowList: FarcasterSuggestedFollowUser[];
+    cursor: number;
+}>;
+
+export type GetLensSuggestedFollowUserResponse = Response<{
+    suggestedFollowList: Array<[LensV3Profile]>;
+    cursor: number;
+}>;
