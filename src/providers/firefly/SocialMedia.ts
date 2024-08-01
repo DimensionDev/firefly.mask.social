@@ -324,6 +324,14 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async blockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async unblockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
@@ -997,14 +1005,6 @@ export class FireflySocialMedia implements Provider {
 
     async unblockWallet(address: string) {
         return unblock('address', address);
-    }
-
-    async blockProfile(profileId: string): Promise<boolean> {
-        return block('fid', profileId);
-    }
-
-    async unblockProfile(profileId: string): Promise<boolean> {
-        return unblock('fid', profileId);
     }
 
     async blockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
