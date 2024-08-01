@@ -19,8 +19,9 @@ export async function POST(request: NextRequest) {
         return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
     } catch (error) {
         console.error('[twitter]: error uploadMedia/', error);
-        return createErrorResponseJSON(getTwitterErrorMessage(error), {
-            status: StatusCodes.INTERNAL_SERVER_ERROR,
+        const { status, message } = getTwitterErrorMessage(error);
+        return createErrorResponseJSON(message, {
+            status: status ?? StatusCodes.INTERNAL_SERVER_ERROR,
         });
     }
 }
