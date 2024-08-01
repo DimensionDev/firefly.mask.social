@@ -22,19 +22,27 @@ interface ProfileCardProps {
     profile?: Profile;
     source: SocialSource;
     identity: string;
+    isInitialProfile?: boolean;
 }
 
-export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile: defaultProfile, source, identity }) {
+export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({
+    isInitialProfile = false,
+    profile: defaultProfile,
+    source,
+    identity,
+}) {
     const { data: profile, isLoading } = useQuery({
         enabled: !!identity && !!source,
         queryKey: ['profile', source, identity],
         queryFn: async () => {
-            if (defaultProfile) return defaultProfile;
+            if (!isInitialProfile && defaultProfile) return defaultProfile;
             if (!identity || !source) return;
             const provider = resolveSocialMediaProvider(source);
             return source === Source.Lens ? provider.getProfileByHandle(identity) : provider.getProfileById(identity);
         },
+        initialData: isInitialProfile ? defaultProfile : undefined,
     });
+    console.log(isInitialProfile ? defaultProfile : undefined);
     const myProfile = useCurrentProfile(source);
 
     if (isLoading) {

@@ -13,6 +13,7 @@ export interface ProfileTippyProps extends TippyProps {
     source: SocialSource;
     className?: string;
     profile?: Profile;
+    isInitialProfile?: boolean;
 }
 
 export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
@@ -20,6 +21,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
     source,
     children,
     profile: defaultProfile,
+    isInitialProfile,
     ...rest
 }) {
     const isMedium = useIsMedium();
@@ -44,7 +46,16 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
                 }}
                 hideOnClick
                 interactive
-                content={enabled ? <ProfileCard source={source} profile={defaultProfile} identity={identity} /> : null}
+                content={
+                    enabled ? (
+                        <ProfileCard
+                            source={source}
+                            profile={defaultProfile}
+                            identity={identity}
+                            isInitialProfile={isInitialProfile}
+                        />
+                    ) : null
+                }
                 {...rest}
             >
                 {children}
