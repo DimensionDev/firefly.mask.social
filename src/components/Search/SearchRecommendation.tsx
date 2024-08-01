@@ -102,11 +102,9 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </Link>
 
                 {fetchChannelLoading || channel ? (
-                    <>
                         <h2 className="border-t border-line p-3 pb-2 text-sm">
                             <Trans>Channels</Trans>
                         </h2>
-                    </>
                 ) : null}
 
                 {isLoading ? (
