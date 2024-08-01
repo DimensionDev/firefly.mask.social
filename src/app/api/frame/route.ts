@@ -25,7 +25,7 @@ export async function GET(request: Request) {
 
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
     if (!linkDigested)
-        return Response.json({ error: `Unable to digest link = ${link}` }, { status: StatusCodes.NOT_FOUND });
+        return Response.json({ error: `Unable to digest frame link = ${link}` }, { status: StatusCodes.NOT_FOUND });
 
     return createSuccessResponseJSON(linkDigested);
 }
