@@ -3,11 +3,11 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
+import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
 import { Info } from '@/components/Channel/Info.js';
-import { PostList } from '@/components/Channel/PostList.js';
 import { Title } from '@/components/Channel/Title.js';
 import { Loading } from '@/components/Loading.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
@@ -65,9 +65,7 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
 
             <hr className="divider w-full border-line" />
 
-            <Suspense fallback={<Loading />}>
-                <PostList source={channel.source} channel={channel} />
-            </Suspense>
+            <ChannelTabs channel={channel} />
         </div>
     );
 }
