@@ -99,7 +99,7 @@ async function removeFireflyAccountIfNeeded() {
     fireflySessionHolder.removeSession();
 }
 
-async function updateFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortSignal) {
+async function removeFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortSignal) {
     if (hasFireflySession()) return;
     const session = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
     if (!session) return;
@@ -226,7 +226,7 @@ export async function removeCurrentAccount(source: SocialSource) {
 
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
-    await updateFireflyMetricsIfNeeded([account.session]);
+    await removeFireflyMetricsIfNeeded([account.session]);
 
     if (TwitterSession.isNextAuth(account.session)) {
         await signOut({
@@ -255,5 +255,5 @@ export async function removeAllAccounts() {
     });
 
     await removeFireflyAccountIfNeeded();
-    await updateFireflyMetricsIfNeeded(sessions);
+    await removeFireflyMetricsIfNeeded(sessions);
 }
