@@ -23,17 +23,27 @@ export class UnauthorizedError extends Error {
 }
 
 export class FetchError extends Error {
-    status: number;
-    url: string;
-    statusText: string;
-    text: string;
-
-    constructor(message: string, status: number, statusText: string, url: string, text: string) {
+    constructor(
+        message: string,
+        public url: string,
+        public status: number,
+        public statusText: string,
+        public text: string,
+    ) {
         super(message);
-        this.status = status;
-        this.statusText = statusText;
-        this.url = url;
-        this.text = text;
+    }
+
+    static async fromResponse(response: Response, message?: string) {
+        const text = await response.clone().text();
+
+        return new FetchError(
+            message ??
+                [`[fetch] failed to fetch: ${response.status} ${response.statusText} ${response.url}`, text].join('\n'),
+            response.url,
+            response.status,
+            response.statusText,
+            text,
+        );
     }
 }
 
