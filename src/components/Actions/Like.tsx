@@ -86,10 +86,13 @@ export const Like = memo<LikeProps>(function Like({
 
     return (
         <ClickableArea
-            className={classNames('flex w-min cursor-pointer items-center text-lightSecond hover:text-danger md:space-x-2', {
-                'font-bold text-danger': !!hasLiked,
-                'opacity-50': disabled,
-            })}
+            className={classNames(
+                'flex w-min cursor-pointer items-center text-lightSecond hover:text-danger md:space-x-2',
+                {
+                    'font-bold text-danger': !!hasLiked,
+                    'opacity-50': disabled,
+                },
+            )}
             onClick={() => {
                 if (disabled) return;
                 handleClick();
