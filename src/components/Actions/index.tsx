@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
@@ -10,7 +10,6 @@ import { Like } from '@/components/Actions/Like.js';
 import { Mirror } from '@/components/Actions/Mirrors.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
-import { Views } from '@/components/Actions/Views.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
@@ -21,7 +20,6 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostActionsWithGridProps extends React.HTMLAttributes<HTMLDivElement> {
     post: Post;
@@ -35,13 +33,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     disabled = false,
     disablePadding = false,
 }) {
-    const publicationViews = useImpressionsStore.use.publicationViews();
-    const isSmall = useIsSmall('max');
     const isComment = post.type === 'Comment';
-
-    const views = useMemo(() => {
-        return publicationViews.find((x) => x.id === post.postId)?.views;
-    }, [publicationViews, post]);
 
     const identity = resolveProfileId(post.author);
 
@@ -92,9 +84,6 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 />
             </div>
         ) : null,
-        post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
-            <Views key="views" count={views} disabled={disabled} />
-        ),
         identity ? (
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
         ) : null,
