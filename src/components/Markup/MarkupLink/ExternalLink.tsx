@@ -25,7 +25,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
             onClick={(event) => event.stopPropagation()}
             href={u.href}
             title={u.href}
-            className={classNames('text-link', {
+            className={classNames('text-lightHighlight', {
                 'hover:underline': !!u,
             })}
             target={!isSelfReference(u.href) ? '_blank' : '_self'}

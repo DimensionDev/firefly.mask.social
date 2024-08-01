@@ -233,7 +233,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
 
                         <Link
                             href={asset.uri}
-                            className="flex items-center gap-1 text-link"
+                            className="flex items-center gap-1 text-lightHighlight"
                             target="_blank"
                             rel="noreferrer noopener"
                         >

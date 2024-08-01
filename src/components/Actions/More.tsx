@@ -58,7 +58,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
             source={source}
             button={
                 <Tooltip content={t`More`} placement="top">
-                    <MoreIcon width={24} height={24} />
+                    <MoreIcon width={20} height={20} />
                 </Tooltip>
             }
         >

@@ -348,6 +348,9 @@ msgstr "用户名"
 msgid "Switch to the development API version for testing new features."
 msgstr "切换到开发环境接口。"
 
+msgid "{0, plural, one {quote} other {quotes}}"
+msgstr ""
+
 msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr "{days, plural, one {1 天} other {{days} 天}}"
 
@@ -384,6 +387,9 @@ msgstr "已点赞"
 msgid "Token ID"
 msgstr "通证 ID"
 
+msgid "{0, plural, one {mirror} other {mirrors}}"
+msgstr ""
+
 msgid "Type something here..."
 msgstr "从这里开始..."
 
@@ -404,9 +410,6 @@ msgstr "出席人数"
 
 msgid "Connected accounts"
 msgstr "已链接的账号"
-
-msgid "via {0} <0>{sendFrom}</0>"
-msgstr "于 {0} <0>{sendFrom}</0>"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
@@ -464,9 +467,6 @@ msgstr "没有空投骗局"
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
-
-msgid "{0, plural, one {1 quote} other {{1} quotes}}"
-msgstr ""
 
 msgid "Items"
 msgstr "条目"
@@ -590,9 +590,6 @@ msgstr "更新"
 
 msgid "Mute {identity}"
 msgstr "屏蔽 @{identity}"
-
-msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
-msgstr ""
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
@@ -1287,9 +1284,6 @@ msgstr "删除投票"
 msgid "Unmute {identity}"
 msgstr "取消屏蔽 {identity}"
 
-msgid "{0, plural, one {1 recast} other {{1} recasts}}"
-msgstr ""
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {发帖} other {全部发帖}}"
 
@@ -1605,6 +1599,9 @@ msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 msgid "Muting..."
 msgstr "屏蔽中..."
 
+msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
@@ -1619,6 +1616,9 @@ msgstr "属性"
 
 msgid "Failed to set schedule time."
 msgstr "创建定时时间失败。"
+
+msgid "{0, plural, one {recast} other {recasts}}"
+msgstr ""
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
@@ -1686,6 +1686,9 @@ msgstr "引用帖子失败。"
 msgid "Image upload failed. Please try again."
 msgstr "图片上传失败。请重试。"
 
+msgid "{viewCount, plural, one {view} other {views}}"
+msgstr ""
+
 msgid "Only people you follow"
 msgstr "只有你关注的人"
 
@@ -1736,9 +1739,6 @@ msgstr "取消关注"
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账号已连接。"
-
-msgid "{0, plural, one {1 comment} other {{1} comments}}"
-msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "您不能在 {0} 上评论 {author}。"
@@ -1887,9 +1887,6 @@ msgstr "最终结果"
 msgid "Suspended account"
 msgstr "被冻结账户"
 
-msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
-msgstr ""
-
 msgid "Recasted"
 msgstr "已转发"
 
@@ -2001,9 +1998,6 @@ msgstr "多媒体"
 msgid "No content to publish."
 msgstr "没有发布的内容。"
 
-msgid "{0, plural, one {1 like} other {{1} likes}}"
-msgstr ""
-
 msgid "Mirror"
 msgstr "转发"
 
@@ -2054,6 +2048,9 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
 msgstr "一条 thread 至少包含 2 个帖子。"
+
+msgid "{0, plural, one {like} other {likes}}"
+msgstr ""
 
 msgid "Are you sure you want to report this user?"
 msgstr "您确定要举报这个用户么？"

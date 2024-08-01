@@ -1,5 +1,7 @@
+import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
+import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
@@ -10,8 +12,10 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
@@ -25,6 +29,27 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     const isMyPost = isSameProfile(post.author, currentProfile);
     const profileLink = getProfileUrl(post.author);
+
+    const isSmall = useIsSmall('max');
+    const pathname = usePathname();
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+
+    const newLine = isSmall || (isDetailPage && !isQuote);
+
+    const handle = (
+        <ProfileTippy source={post.author.source} identity={post.author.profileId}>
+            <Link
+                href={profileLink}
+                className="truncate text-clip text-[15px] leading-5 text-secondary"
+                onClick={(event) => event.stopPropagation()}
+            >
+                @{post.author.handle}
+            </Link>
+        </ProfileTippy>
+    );
+
+    const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
+    const isFirefly = sendFrom?.toLowerCase() === 'firefly';
 
     return (
         <div className="flex items-start gap-3">
@@ -50,36 +75,40 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </Link>
             </ProfileTippy>
 
-            <div
-                className={classNames('flex flex-1 items-center gap-2 overflow-hidden', {
-                    'max-w-[calc(100%-40px-88px-24px)]': !isQuote && !isMyPost,
-                    'max-w-[calc(100%-40px-88px)]': !isQuote && isMyPost,
-                })}
-            >
-                <ProfileTippy source={post.author.source} identity={post.author.profileId}>
-                    <Link
-                        href={profileLink}
-                        className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
-                        onClick={(event) => event.stopPropagation()}
-                    >
-                        {post.author.displayName}
-                    </Link>
-                </ProfileTippy>
-                <ProfileTippy source={post.author.source} identity={post.author.profileId}>
-                    <Link
-                        href={profileLink}
-                        className="truncate text-clip text-[15px] leading-6 text-secondary"
-                        onClick={(event) => event.stopPropagation()}
-                    >
-                        @{post.author.handle}
-                    </Link>
-                </ProfileTippy>
+            <div className="w-full">
+                <div
+                    className={classNames('flex flex-1 items-center overflow-hidden', {
+                        'max-w-[calc(100%-40px-28px-24px)]': !isQuote && !isMyPost,
+                        'max-w-[calc(100%-40px-28px)]': !isQuote && isMyPost,
+                    })}
+                >
+                    <ProfileTippy source={post.author.source} identity={post.author.profileId}>
+                        <Link
+                            href={profileLink}
+                            className="mr-1 block truncate text-clip text-[15px] font-bold leading-5 text-main"
+                            onClick={(event) => event.stopPropagation()}
+                        >
+                            {post.author.displayName}
+                        </Link>
+                    </ProfileTippy>
+                    {newLine ? null : handle}
+                    {post.timestamp && (!newLine || isQuote) ? (
+                        <>
+                            <span className="mx-1 leading-5">·</span>
+                            <span className="whitespace-nowrap text-xs leading-5 text-secondary md:text-[13px]">
+                                <TimestampFormatter time={post.timestamp} />
+                            </span>
+                            <span className="mx-1 leading-5">·</span>
+                        </>
+                    ) : null}
+                    {isFirefly ? (
+                        <FireflyAvatarIcon fontSize={15} width={15} height={15} className="mr-1 inline" />
+                    ) : null}
+                    <SocialSourceIcon source={post.source} size={15} />
+                </div>
+                {newLine ? <div>{handle}</div> : null}
             </div>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
-                <SocialSourceIcon source={post.source} />
-                <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
-                    <TimestampFormatter time={post.timestamp} />
-                </span>
                 {!post.isHidden && !isQuote ? (
                     <MoreAction channel={post.channel} source={post.source} author={post.author} post={post} />
                 ) : null}

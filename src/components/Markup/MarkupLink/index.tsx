@@ -127,7 +127,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         return (
             <Link
                 href={href}
-                className="text-link hover:underline"
+                className="text-lightHighlight hover:underline"
                 onClick={(event) => event.stopPropagation()}
                 target="_blank"
                 rel="noreferrer noopener"

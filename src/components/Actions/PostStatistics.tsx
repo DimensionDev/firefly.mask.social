@@ -5,6 +5,7 @@ import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
+import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { EngagementType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -59,64 +60,76 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         () => publicationViews.find((x) => x.id === post.postId)?.views,
         [publicationViews, post],
     );
+    const isSmall = useIsSmall('max');
+
     const comments = post.stats?.comments ? (
         <span
             className={classNames({
                 'hover:underline': post.source !== Source.Twitter,
             })}
         >
+            <span className="mr-[2px] font-bold">{post.stats.comments}</span>
             {plural(post.stats.comments, {
-                one: '1 comment',
-                other: `${post.stats.comments} comments`,
+                one: 'comment',
+                other: 'comments',
             })}
         </span>
     ) : null;
     const likes = post.stats?.reactions ? (
         <EngagementLink post={post} type={EngagementType.Likes} onSetScrollIndex={onSetScrollIndex}>
+            <span className="mr-[2px] font-bold">{post.stats.reactions}</span>
             {plural(post.stats.reactions, {
-                one: '1 like',
-                other: `${post.stats.reactions} likes`,
+                one: 'like',
+                other: 'likes',
             })}
         </EngagementLink>
     ) : null;
-    const collects = post.stats?.countOpenActions
-        ? plural(post.stats.countOpenActions, {
-              one: '1 comment',
-              other: `${post.stats.countOpenActions} comments`,
-          })
-        : null;
+    const collects = post.stats?.countOpenActions ? (
+        <>
+            <span className="mr-[2px] font-bold">{post.stats.countOpenActions}</span>
+            {plural(post.stats.countOpenActions, {
+                one: 'comment',
+                other: 'comments',
+            })}
+        </>
+    ) : null;
     const mirrors = post.stats?.mirrors ? (
         post.source === Source.Farcaster ? (
             <EngagementLink post={post} type={EngagementType.Recasts} onSetScrollIndex={onSetScrollIndex}>
+                <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
                 {plural(post.stats.mirrors, {
-                    one: '1 recast',
-                    other: `${post.stats.mirrors} recasts`,
+                    one: 'recast',
+                    other: 'recasts',
                 })}
             </EngagementLink>
         ) : (
             <EngagementLink post={post} type={EngagementType.Mirrors} onSetScrollIndex={onSetScrollIndex}>
+                <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
                 {plural(post.stats.mirrors, {
-                    one: '1 mirror',
-                    other: `${post.stats.mirrors} mirrors`,
+                    one: 'mirror',
+                    other: 'mirrors',
                 })}
             </EngagementLink>
         )
     ) : null;
     const quotes = post.stats?.quotes ? (
         <EngagementLink post={post} type={EngagementType.Quotes} onSetScrollIndex={onSetScrollIndex}>
+            <span className="mr-[2px] font-bold">{post.stats.quotes}</span>
             {plural(post.stats.quotes, {
-                one: '1 quote',
-                other: `${post.stats.quotes} quotes`,
+                one: 'quote',
+                other: 'quotes',
             })}
         </EngagementLink>
     ) : null;
-    const views = viewCount
-        ? plural(viewCount, {
-              one: '1 view',
-              other: `${viewCount} views`,
-          })
-        : null;
-    const isSmall = useIsSmall();
+    const views = viewCount ? (
+        <>
+            <span className="mr-[2px] font-bold">{viewCount}</span>
+            {plural(viewCount, {
+                one: 'view',
+                other: 'views',
+            })}
+        </>
+    ) : null;
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
     const isFirefly = sendFrom?.toLowerCase() === 'firefly';
@@ -128,20 +141,10 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             <div>
                 {(!isDetailPage
                     ? compact([
+                          isSmall ? <TimestampFormatter key="time" time={post.timestamp} /> : null,
                           comments,
                           likes,
-                          !isDetailPage && !isSmall && sendFrom ? (
-                              <span>
-                                  <Trans>
-                                      via{' '}
-                                      {isFirefly ? (
-                                          <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
-                                      ) : null}{' '}
-                                      <span className="capitalize">{sendFrom}</span>
-                                  </Trans>
-                              </span>
-                          ) : null,
-                          !isDetailPage && !isSmall && showChannelTag && post.channel ? (
+                          !isDetailPage && showChannelTag && post.channel ? (
                               <ChannelAnchor
                                   className="!inline-flex translate-y-1"
                                   channel={post.channel}
@@ -150,6 +153,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           ) : null,
                       ])
                     : compact([
+                          <TimestampFormatter key="time" time={post.timestamp} />,
                           likes,
                           collects,
                           mirrors,
@@ -175,27 +179,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                     );
                 })}
             </div>
-            {!isDetailPage && isSmall ? (
-                <div className="flex items-center">
-                    {sendFrom ? (
-                        <div>
-                            <Trans>
-                                via{' '}
-                                {isFirefly ? (
-                                    <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
-                                ) : null}{' '}
-                                <span className="capitalize">{sendFrom}</span>
-                            </Trans>
-                        </div>
-                    ) : null}
-                    {showChannelTag && post.channel ? (
-                        <>
-                            {sendFrom ? <div className="w-3 text-center">{' · '}</div> : null}
-                            <ChannelAnchor channel={post.channel} onClick={onSetScrollIndex} />
-                        </>
-                    ) : null}
-                </div>
-            ) : null}
         </div>
     );
 });

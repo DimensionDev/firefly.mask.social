@@ -348,6 +348,9 @@ msgstr ""
 msgid "Switch to the development API version for testing new features."
 msgstr ""
 
+msgid "{0, plural, one {quote} other {quotes}}"
+msgstr ""
+
 msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr ""
 
@@ -384,6 +387,9 @@ msgstr ""
 msgid "Token ID"
 msgstr ""
 
+msgid "{0, plural, one {mirror} other {mirrors}}"
+msgstr ""
+
 msgid "Type something here..."
 msgstr ""
 
@@ -403,9 +409,6 @@ msgid "Attendees"
 msgstr ""
 
 msgid "Connected accounts"
-msgstr ""
-
-msgid "via {0} <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "Functions with retrievable ownership"
@@ -463,9 +466,6 @@ msgid "No Airdrop Scam"
 msgstr ""
 
 msgid "Add another post..."
-msgstr ""
-
-msgid "{0, plural, one {1 quote} other {{1} quotes}}"
 msgstr ""
 
 msgid "Items"
@@ -589,9 +589,6 @@ msgid "Update"
 msgstr ""
 
 msgid "Mute {identity}"
-msgstr ""
-
-msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
 msgstr ""
 
 msgid "Remove from Bookmarks"
@@ -1287,9 +1284,6 @@ msgstr ""
 msgid "Unmute {identity}"
 msgstr ""
 
-msgid "{0, plural, one {1 recast} other {{1} recasts}}"
-msgstr ""
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -1605,6 +1599,9 @@ msgstr ""
 msgid "Muting..."
 msgstr ""
 
+msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr ""
 
@@ -1618,6 +1615,9 @@ msgid "Properties"
 msgstr ""
 
 msgid "Failed to set schedule time."
+msgstr ""
+
+msgid "{0, plural, one {recast} other {recasts}}"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -1686,6 +1686,9 @@ msgstr ""
 msgid "Image upload failed. Please try again."
 msgstr ""
 
+msgid "{viewCount, plural, one {view} other {views}}"
+msgstr ""
+
 msgid "Only people you follow"
 msgstr ""
 
@@ -1735,9 +1738,6 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "Your {0} account is now connected."
-msgstr ""
-
-msgid "{0, plural, one {1 comment} other {{1} comments}}"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
@@ -1887,9 +1887,6 @@ msgstr ""
 msgid "Suspended account"
 msgstr ""
 
-msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
-msgstr ""
-
 msgid "Recasted"
 msgstr ""
 
@@ -2001,9 +1998,6 @@ msgstr ""
 msgid "No content to publish."
 msgstr ""
 
-msgid "{0, plural, one {1 like} other {{1} likes}}"
-msgstr ""
-
 msgid "Mirror"
 msgstr ""
 
@@ -2053,6 +2047,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
 
 msgid "Are you sure you want to report this user?"

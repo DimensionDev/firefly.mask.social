@@ -48,7 +48,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
         if (!channelId) return;
         return (
             <ClickableArea
-                className="cursor-pointer text-link hover:underline"
+                className="cursor-pointer text-lightHighlight hover:underline"
                 as="span"
                 onClick={() => {
                     router.push(getFarcasterChannelUrlById(channelId));
