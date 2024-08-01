@@ -59,7 +59,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                         {profile.verifiedSources.map((x) => {
                             return (
                                 <Tooltip key={x.source} content={t`Verified by ${x.source}`} placement="bottom">
-                                    <RelatedSourceIcon source={x.source} size={24} />
+                                    <span>
+                                        <RelatedSourceIcon source={x.source} size={24} />
+                                    </span>
                                 </Tooltip>
                             );
                         })}
@@ -76,7 +78,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                             <RelationPlatformIcon size={24} source={relation.identity.platform} />
                                         </Link>
                                     ) : (
-                                        <RelationPlatformIcon size={24} source={relation.identity.platform} />
+                                        <span>
+                                            <RelationPlatformIcon size={24} source={relation.identity.platform} />
+                                        </span>
                                     )}
                                 </Tooltip>
                             );

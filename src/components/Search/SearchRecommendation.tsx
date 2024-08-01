@@ -129,7 +129,6 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     <h2 className="p-3 pb-2 text-sm">
                         <Trans>Publications</Trans>
                     </h2>
-
                     <Link
                         className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
                         href={`/search?q=${keyword}&type=${SearchType.Posts}`}

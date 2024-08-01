@@ -27,11 +27,10 @@ export const PollButton = memo(function PollButton() {
             }
             placement="top"
             disabled={!isPollSupported ? false : hasConflictContent}
-            className="leading-4"
         >
             <ClickableButton
                 disabled={!isPollSupported || hasConflictContent}
-                className="text-main"
+                className="leading-4 text-main"
                 onClick={createPoll}
             >
                 <PollIcon width={24} height={24} />
