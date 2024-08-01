@@ -18,7 +18,7 @@ import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { sentryClient } from '@/configs/sentryClient.js';
-import { NODE_ENV, STATUS } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
@@ -118,7 +118,7 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>
-                {env.shared.NODE_ENV === NODE_ENV.Development &&
+                {process.env.NODE_ENV === 'development' &&
                 env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled ? (
                     <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
                 ) : null}
