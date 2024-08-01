@@ -62,7 +62,7 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
     });
 
     const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindTwitter'),
+        urlcat(settings.FIREFLY_ROOT_URL, '/exchange/bindTwitter'),
         {
             method: 'POST',
             body: JSON.stringify({
