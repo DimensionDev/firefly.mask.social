@@ -63,7 +63,7 @@
     --color-tooltip-bg: rgba(24, 24, 24, 0.9);
     --color-third: rgba(177, 177, 177, 1);
     --color-input: rgba(245, 245, 245, 1);
-    --color-line: rgba(239, 243, 244, 1);
+    --color-line: #f4f4f4;
     --color-line2: rgba(231, 231, 231, 1);
     --color-light-bg: #f9f9f9;
     --color-light-main: #181818;
@@ -85,6 +85,7 @@
     --color-fail: #ff3545;
     --color-light-warn: 255 122 85;
     --color-light-highlight: #4c4aa9;
+    --color-highlight: 76 74 169;
 }
 
 .dark {
@@ -117,7 +118,7 @@
     --color-bg-modal: rgba(0, 0, 0);
     --color-bg-modal-layer: 217 217 217;
     --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.06) 100%);
-    --color-input: rgba(255, 255, 255, 0.15);
+    --color-input: rgba(255, 255, 255, 0.2);
     --color-line: rgba(255, 255, 255, 0.18);
     --color-line2: rgba(255, 255, 255, 0.43);
     --color-light-bg: rgba(255, 255, 255, 0.08);
@@ -134,6 +135,7 @@
     --color-card: white;
     --color-light-warn: 255 122 85;
     --color-light-highlight: #4c4aa9;
+    --color-highlight: 76 74 169;
 }
 
 .dark .plyr__control {

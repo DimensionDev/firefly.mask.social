@@ -61,6 +61,7 @@ module.exports = {
                 fail: 'var(--color-fail, #FF3545)',
                 lightWarn: 'rgb(var(--color-light-warn) / <alpha-value>)',
                 lightHighlight: 'var(--color-light-highlight)',
+                highlight: 'rgb(var(--color-highlight) / <alpha-value>)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

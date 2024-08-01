@@ -1,9 +1,8 @@
-'use client';
-
 import { t } from '@lingui/macro';
 import { useRef } from 'react';
 
-import { CloseButton } from '@/components/CloseButton.js';
+import { ClearButton } from '@/components/ClearButton.js';
+import { classNames } from '@/helpers/classNames.js';
 
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     onClear?: () => void;
@@ -22,19 +21,21 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
                 placeholder={t`Search...`}
                 ref={inputRef}
                 {...rest}
-                className={`w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6 ${
-                    rest.className ?? ''
-                }`}
+                className={classNames(
+                    `w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6`,
+                    rest.className,
+                )}
             />
-            <CloseButton
-                className={rest.value ? 'visible' : 'invisible'}
-                type="button"
-                size={16}
-                onClick={() => {
-                    onClear?.();
-                    inputRef.current?.focus();
-                }}
-            />
+            {rest.value ? (
+                <ClearButton
+                    className={'focus-within:text-highlight'}
+                    size={16}
+                    onClick={() => {
+                        onClear?.();
+                        inputRef.current?.focus();
+                    }}
+                />
+            ) : null}
         </label>
     );
 }

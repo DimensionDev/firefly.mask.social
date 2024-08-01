@@ -19,12 +19,12 @@ export const SearchFilter = memo(function SearchFilter() {
     const { searchKeyword, searchType, updateSearchType } = useSearchStateStore();
 
     return (
-        <div>
-            <h2 className="hidden rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:block md:bg-lightBg md:text-sm">
+        <div className="gap-2">
+            <h2 className="mt-[10px] box-border hidden h-[35px] rounded-xl px-3 text-lg font-bold md:mb-4 md:block md:bg-lightBg md:text-sm">
                 <Trans>Search Filter</Trans>
             </h2>
-            <div className="rounded-xl md:mt-4 md:border md:border-line">
-                <div className="pr-1 md:px-4 md:pb-1 md:pt-2">
+            <div className="rounded-xl md:mt-4 md:border md:border-line md:bg-lightBg">
+                <div className="pr-1 md:px-4 md:pb-1">
                     {[
                         {
                             type: SearchType.Posts,

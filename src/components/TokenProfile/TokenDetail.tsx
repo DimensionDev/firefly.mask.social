@@ -177,7 +177,9 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
             </div>
 
             <div className="mt-3 py-3">
-                <h2 className="font-inter font-bold text-main">{t`Statistic`}</h2>
+                <h2 className="font-inter font-bold text-main">
+                    <Trans>Statistic</Trans>
+                </h2>
                 <div className="mt-3 flex flex-col gap-3">
                     <InfoRow
                         title={t`Market Cap`}
@@ -266,7 +268,9 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                         asInfinite={!market?.max_supply}
                     />
                 </div>
-                <h2 className="mt-3 font-inter font-bold text-main">{t`Info`}</h2>
+                <h2 className="mt-3 font-inter font-bold text-main">
+                    <Trans>Info</Trans>
+                </h2>
                 <div className="mt-3 flex flex-col gap-3">
                     {contracts?.length ? (
                         <InfoRow
