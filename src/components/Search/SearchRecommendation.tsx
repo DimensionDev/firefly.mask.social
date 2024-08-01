@@ -110,11 +110,15 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 {isLoading ? (
                     <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
                         <LoadingIcon className="animate-spin" width={24} height={24} />
-                        <div className="font-bold">{t`Searching channel`}</div>
+                        <div className="font-bold">
+                            <Trans>Searching channel</Trans>
+                        </div>
                     </div>
                 ) : !channel ? (
                     <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
-                        <div className="font-bold">{t`No matching channel`}</div>
+                        <div className="font-bold">
+                            <Trans>No matching channel</Trans>
+                        </div>
                     </div>
                 ) : (
                     <div className="py-2" key={channel.id}>
@@ -154,11 +158,15 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 {isLoading ? (
                     <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
                         <LoadingIcon className="animate-spin" width={24} height={24} />
-                        <div className="font-bold">{t`Searching users`}</div>
+                        <div className="font-bold">
+                            <Trans>Searching users</Trans>
+                        </div>
                     </div>
                 ) : profiles?.data.length === 0 ? (
                     <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
-                        <div className="font-bold">{t`No matching users`}</div>
+                        <div className="font-bold">
+                            <Trans>No matching users</Trans>
+                        </div>
                     </div>
                 ) : profiles?.data.length ? (
                     <div className="py-2">
