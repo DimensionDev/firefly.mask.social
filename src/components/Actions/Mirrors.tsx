@@ -55,7 +55,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 case Source.Farcaster:
                     return t`Recast or Quote`;
                 case Source.Twitter:
-                    return t`Retweet`;
+                    return t`Repost`;
                 default:
                     safeUnreachable(source);
                     return '';
@@ -74,7 +74,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     other: 'Recasts or Quotes',
                 });
             case Source.Twitter:
-                return t`Retweet`;
+                return t`Repost`;
             default:
                 safeUnreachable(source);
                 return '';
@@ -88,7 +88,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             case Source.Farcaster:
                 return mirrored ? t`Cancel Recast` : t`Recast`;
             case Source.Twitter:
-                return t`Retweet`;
+                return t`Repost`;
             default:
                 safeUnreachable(source);
                 return '';
@@ -117,7 +117,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     const result = await (mirrored
                         ? TwitterSocialMediaProvider.unmirrorPost(postId)
                         : TwitterSocialMediaProvider.mirrorPost(postId));
-                    enqueueSuccessMessage(mirrored ? t`Cancel retweet successfully` : t`Retweeted`);
+                    enqueueSuccessMessage(mirrored ? t`Cancel repost successfully` : t`Reposted`);
                     return result;
                 default:
                     safeUnreachable(source);
@@ -140,7 +140,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     });
                     break;
                 case Source.Twitter:
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to retweet.`), {
+                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to repost.`), {
                         error,
                     });
                     break;
