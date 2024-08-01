@@ -261,6 +261,11 @@ const useTwitterStateBase = createState(
                     profile,
                     session: TwitterSession.from(profile, payload),
                     fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
+                }, {
+                    skipBelongsToCheck: true,
+                    skipResumeFireflyAccounts: true,
+                    skipResumeFireflySession: true,
+                    skipUploadFireflySession: true,
                 });
                 if (!done) state.clear();
             } catch (error) {
