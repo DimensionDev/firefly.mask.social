@@ -148,13 +148,15 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                                     content={`@${profile.handle}`}
                                     key={profile.platform_id}
                                 >
-                                    <SocialSourceIcon
-                                        className={classNames('inline-flex items-center', {
-                                            '-ml-1': index > 0 && self.length > 1,
-                                        })}
-                                        source={resolveSocialSource(profile.platform)}
-                                        size={20}
-                                    />
+                                    <span>
+                                        <SocialSourceIcon
+                                            className={classNames('inline-flex items-center', {
+                                                '-ml-1': index > 0 && self.length > 1,
+                                            })}
+                                            source={resolveSocialSource(profile.platform)}
+                                            size={20}
+                                        />
+                                    </span>
                                 </Tooltip>
                             );
                         })}
