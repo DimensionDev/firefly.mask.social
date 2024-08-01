@@ -15,8 +15,9 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts, uploadSessions } from '@/services/metrics.js';
+import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import type { Session } from '@/providers/types/Session.js';
 
 function getContext(source: SocialSource) {
     return {
@@ -96,6 +97,16 @@ async function removeFireflyAccountIfNeeded() {
     if (hasFireflySession()) return;
     useFireflyStateStore.getState().clear();
     fireflySessionHolder.removeSession();
+}
+
+async function updateFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortSignal) {
+    if (hasFireflySession()) return;
+    const session = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
+    if (!session) return;
+
+    const downloadedSessions = await downloadSessions(session, signal);
+    const filteredSessions = downloadedSessions.filter((x) => !sessions.find((y) => isSameSession(x, y)));
+    await uploadSessions('override', session, filteredSessions, signal);
 }
 
 export interface AccountOptions {
@@ -215,6 +226,7 @@ export async function removeCurrentAccount(source: SocialSource) {
 
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
+    await updateFireflyMetricsIfNeeded([account.session]);
 
     if (TwitterSession.isNextAuth(account.session)) {
         await signOut({
@@ -224,6 +236,8 @@ export async function removeCurrentAccount(source: SocialSource) {
 }
 
 export async function removeAllAccounts() {
+    const sessions = getProfileSessionsAll();
+
     SORTED_SOCIAL_SOURCES.forEach(async (x) => {
         const state = getProfileState(x);
         if (!state.accounts.length) return;
@@ -241,4 +255,5 @@ export async function removeAllAccounts() {
     });
 
     await removeFireflyAccountIfNeeded();
+    await updateFireflyMetricsIfNeeded(sessions);
 }
