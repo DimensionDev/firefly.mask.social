@@ -348,6 +348,9 @@ msgstr "用戶名"
 msgid "Switch to the development API version for testing new features."
 msgstr ""
 
+msgid "{0, plural, one {quote} other {quotes}}"
+msgstr ""
+
 msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr ""
 
@@ -384,6 +387,9 @@ msgstr "已喜歡"
 msgid "Token ID"
 msgstr ""
 
+msgid "{0, plural, one {mirror} other {mirrors}}"
+msgstr ""
+
 msgid "Type something here..."
 msgstr ""
 
@@ -404,9 +410,6 @@ msgstr "參與者"
 
 msgid "Connected accounts"
 msgstr "已連接的帳戶"
-
-msgid "via {0} <0>{sendFrom}</0>"
-msgstr ""
 
 msgid "Functions with retrievable ownership"
 msgstr ""
@@ -464,9 +467,6 @@ msgstr "無空投騙局"
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
-
-msgid "{0, plural, one {1 quote} other {{1} quotes}}"
-msgstr ""
 
 msgid "Items"
 msgstr "物品"
@@ -590,9 +590,6 @@ msgstr "更新"
 
 msgid "Mute {identity}"
 msgstr "將 @{identity} 靜音"
-
-msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
-msgstr ""
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
@@ -1287,9 +1284,6 @@ msgstr "移除投票"
 msgid "Unmute {identity}"
 msgstr "取消對 @{identity} 的靜音"
 
-msgid "{0, plural, one {1 recast} other {{1} recasts}}"
-msgstr ""
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -1605,6 +1599,9 @@ msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
 msgid "Muting..."
 msgstr "正在靜音"
 
+msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr ""
 
@@ -1618,6 +1615,9 @@ msgid "Properties"
 msgstr "屬性"
 
 msgid "Failed to set schedule time."
+msgstr ""
+
+msgid "{0, plural, one {recast} other {recasts}}"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -1686,6 +1686,9 @@ msgstr "引用貼文失敗"
 msgid "Image upload failed. Please try again."
 msgstr ""
 
+msgid "{viewCount, plural, one {view} other {views}}"
+msgstr ""
+
 msgid "Only people you follow"
 msgstr "僅限你追蹤的帳戶"
 
@@ -1736,9 +1739,6 @@ msgstr "取消追蹤"
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
-
-msgid "{0, plural, one {1 comment} other {{1} comments}}"
-msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你無法在 {0} 上回覆 @{author}。"
@@ -1887,9 +1887,6 @@ msgstr ""
 msgid "Suspended account"
 msgstr ""
 
-msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
-msgstr ""
-
 msgid "Recasted"
 msgstr ""
 
@@ -2001,9 +1998,6 @@ msgstr "多媒體"
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
-msgid "{0, plural, one {1 like} other {{1} likes}}"
-msgstr ""
-
 msgid "Mirror"
 msgstr ""
 
@@ -2053,6 +2047,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
 
 msgid "Are you sure you want to report this user?"

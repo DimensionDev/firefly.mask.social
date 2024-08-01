@@ -343,6 +343,9 @@ msgstr "Username"
 msgid "Switch to the development API version for testing new features."
 msgstr "Switch to the development API version for testing new features."
 
+msgid "{0, plural, one {quote} other {quotes}}"
+msgstr "{0, plural, one {quote} other {quotes}}"
+
 msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr "{days, plural, one {1 day} other {{days} days}}"
 
@@ -379,6 +382,9 @@ msgstr "Liked"
 msgid "Token ID"
 msgstr "Token ID"
 
+msgid "{0, plural, one {mirror} other {mirrors}}"
+msgstr "{0, plural, one {mirror} other {mirrors}}"
+
 msgid "Type something here..."
 msgstr "Type something here..."
 
@@ -399,9 +405,6 @@ msgstr "Attendees"
 
 msgid "Connected accounts"
 msgstr "Connected accounts"
-
-msgid "via {0} <0>{sendFrom}</0>"
-msgstr "via {0} <0>{sendFrom}</0>"
 
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
@@ -459,9 +462,6 @@ msgstr "No Airdrop Scam"
 
 msgid "Add another post..."
 msgstr "Add another post..."
-
-msgid "{0, plural, one {1 quote} other {{1} quotes}}"
-msgstr "{0, plural, one {1 quote} other {{1} quotes}}"
 
 msgid "Items"
 msgstr "Items"
@@ -585,9 +585,6 @@ msgstr "Update"
 
 msgid "Mute {identity}"
 msgstr "Mute {identity}"
-
-msgid "{0, plural, one {1 mirror} other {{1} mirrors}}"
-msgstr "{0, plural, one {1 mirror} other {{1} mirrors}}"
 
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
@@ -1282,9 +1279,6 @@ msgstr "Remove Poll"
 msgid "Unmute {identity}"
 msgstr "Unmute {identity}"
 
-msgid "{0, plural, one {1 recast} other {{1} recasts}}"
-msgstr "{0, plural, one {1 recast} other {{1} recasts}}"
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
@@ -1600,6 +1594,9 @@ msgstr "{count, plural, one {{0} View} other {{1} Views}}"
 msgid "Muting..."
 msgstr "Muting..."
 
+msgid "{0, plural, one {comment} other {comments}}"
+msgstr "{0, plural, one {comment} other {comments}}"
+
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 
@@ -1614,6 +1611,9 @@ msgstr "Properties"
 
 msgid "Failed to set schedule time."
 msgstr "Failed to set schedule time."
+
+msgid "{0, plural, one {recast} other {recasts}}"
+msgstr "{0, plural, one {recast} other {recasts}}"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
@@ -1681,6 +1681,9 @@ msgstr "Failed to quote post."
 msgid "Image upload failed. Please try again."
 msgstr "Image upload failed. Please try again."
 
+msgid "{viewCount, plural, one {view} other {views}}"
+msgstr "{viewCount, plural, one {view} other {views}}"
+
 msgid "Only people you follow"
 msgstr "Only people you follow"
 
@@ -1731,9 +1734,6 @@ msgstr "Unfollow"
 
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
-
-msgid "{0, plural, one {1 comment} other {{1} comments}}"
-msgstr "{0, plural, one {1 comment} other {{1} comments}}"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
@@ -1882,9 +1882,6 @@ msgstr "Final results"
 msgid "Suspended account"
 msgstr "Suspended account"
 
-msgid "{viewCount, plural, one {1 view} other {{viewCount} views}}"
-msgstr "{viewCount, plural, one {1 view} other {{viewCount} views}}"
-
 msgid "Recasted"
 msgstr "Recasted"
 
@@ -1996,9 +1993,6 @@ msgstr "Media"
 msgid "No content to publish."
 msgstr "No content to publish."
 
-msgid "{0, plural, one {1 like} other {{1} likes}}"
-msgstr "{0, plural, one {1 like} other {{1} likes}}"
-
 msgid "Mirror"
 msgstr "Mirror"
 
@@ -2049,6 +2043,9 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."
+
+msgid "{0, plural, one {like} other {likes}}"
+msgstr "{0, plural, one {like} other {likes}}"
 
 msgid "Are you sure you want to report this user?"
 msgstr "Are you sure you want to report this user?"
