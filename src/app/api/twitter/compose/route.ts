@@ -82,8 +82,9 @@ export async function POST(request: NextRequest) {
         return createSuccessResponseJSON(data);
     } catch (error) {
         console.error('[twitter]: error compose/', error, JSON.stringify(error));
-        return createErrorResponseJSON(getTwitterErrorMessage(error), {
-            status: StatusCodes.INTERNAL_SERVER_ERROR,
+        const { status, message } = getTwitterErrorMessage(error);
+        return createErrorResponseJSON(message, {
+            status: status ?? StatusCodes.INTERNAL_SERVER_ERROR,
         });
     }
 }

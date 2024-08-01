@@ -12,8 +12,9 @@ export function withTwitterRequestErrorHandler(
         try {
             return await handler(request, context);
         } catch (error) {
-            return createErrorResponseJSON(getTwitterErrorMessage(error), {
-                status: StatusCodes.INTERNAL_SERVER_ERROR,
+            const { status, message } = getTwitterErrorMessage(error);
+            return createErrorResponseJSON(message, {
+                status: status ?? StatusCodes.INTERNAL_SERVER_ERROR,
             });
         }
     };

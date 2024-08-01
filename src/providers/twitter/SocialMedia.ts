@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import type { TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult, UserV2TimelineResult } from 'twitter-api-v2';
+import type { TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -14,8 +14,10 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
@@ -77,8 +79,18 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new NotImplementedError();
+    async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2[]>>('/api/twitter/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ids,
+            }),
+        });
+        if (!response.success) throw new Error(response.error.message);
+        return response.data.map(formatTwitterProfile);
     }
 
     getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -400,43 +412,36 @@ class TwitterSocialMedia implements Provider {
         return response.data.deleted;
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
-            `/api/twitter/mute/${profileId}`,
-            {
-                method: 'POST',
-            },
-            true,
+        const result = await FireflySocialMediaProvider.blockProfile(profileId, FireflyPlatform.Twitter);
+        await runInSafe(() =>
+            twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
+                `/api/twitter/mute/${profileId}`,
+                {
+                    method: 'POST',
+                },
+                true,
+            ),
         );
-        if (!response.success) throw new Error(response.error.message);
-        return response.data.muting === true;
+        return result;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
-            `/api/twitter/mute/${profileId}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
+        const result = await FireflySocialMediaProvider.unblockProfile(profileId, FireflyPlatform.Twitter);
+        await runInSafe(() =>
+            twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
+                `/api/twitter/mute/${profileId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 },
-            },
-            true,
+                true,
+            ),
         );
-        if (!response.success) throw new Error(response.error.message);
-        return response.data.muting === false;
+        return result;
     }
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(`/api/twitter/mute`, {
-            limit: 20,
-            cursor: indicator?.id,
-        });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2TimelineResult>>(url, {}, true);
-        if (!response.success) throw new Error(response.error.message);
-        const profiles = (response.data.data ?? []).map(formatTwitterProfile);
-        return createPageable(
-            profiles,
-            createIndicator(indicator),
-            response.data.meta.next_token ? createIndicator(undefined, response.data.meta.next_token) : undefined,
-        );
+        return FireflySocialMediaProvider.getBlockedProfiles(indicator, FireflyPlatform.Twitter);
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
