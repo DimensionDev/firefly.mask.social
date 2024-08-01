@@ -177,8 +177,11 @@ function ComposeRouteRoot() {
                     ) : null}
                 </span>
                 {isMedium && !isDraft ? (
-                    <Tooltip content={t`Drafts`} placement="top" className="absolute right-4 top-1/2 -translate-y-1/2">
-                        <DraftIcon className="cursor-pointer text-fourMain" onClick={() => history.push('/draft')} />
+                    <Tooltip content={t`Drafts`} placement="top">
+                        <DraftIcon
+                            className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
+                            onClick={() => history.push('/draft')}
+                        />
                     </Tooltip>
                 ) : null}
                 {isMedium || isDraft ? null : <ComposeSend />}
@@ -199,7 +202,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const profile = useCurrentProfile(currentSocialSource);
 
         const {
-            type,
             posts,
             addImage,
             updateType,
