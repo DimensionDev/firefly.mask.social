@@ -160,7 +160,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             visible={open}
             onClickOutside={() => setOpen(false)}
             appendTo={() => document.body}
-            offset={[-30, -6]}
+            offset={[-30, -2]}
             placement="top"
             className="tippy-card"
             duration={200}
@@ -224,17 +224,17 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 )}
             >
                 <Tooltip
-                    disabled={disabled}
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]"
+                    disabled={disabled || open}
                     placement="top"
                     content={shares ? `${humanize(shares)} ${content}` : content}
-                    withDelay
                 >
-                    <MirrorIcon
-                        width={16}
-                        height={16}
-                        className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
-                    />
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
+                        <MirrorIcon
+                            width={16}
+                            height={16}
+                            className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
+                        />
+                    </span>
                 </Tooltip>
                 {!hiddenCount && shares ? (
                     <span
