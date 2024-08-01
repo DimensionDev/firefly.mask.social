@@ -71,7 +71,6 @@ class Processor {
         if (!url) throw new Error(`Invalid URL: ${documentUrl}`);
 
         const response = await fetch(url, {
-            headers: { 'User-Agent': 'Twitterbot' },
             // It must respond within 5 seconds.
             signal: anySignal(signal ?? null, AbortSignal.timeout(5000)),
         });
