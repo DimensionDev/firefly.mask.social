@@ -45,7 +45,7 @@ async function composeTweet(rawTweet: unknown) {
 
     if (tweet.mediaIds?.length) {
         composedTweet.media = {
-            media_ids: tweet.mediaIds,
+            media_ids: tweet.mediaIds as [string],
         };
     }
 

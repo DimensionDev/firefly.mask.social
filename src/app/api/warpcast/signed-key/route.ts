@@ -19,9 +19,7 @@ export async function GET(request: NextRequest) {
         const result = await waitForSignedKeyRequest(request.signal)(token);
         return createSuccessResponseJSON(result);
     } catch (error) {
-        if (error instanceof Error) {
-            return createErrorResponseJSON(error.message);
-        }
+        if (error instanceof Error) return createErrorResponseJSON(error.message);
         return createErrorResponseJSON('Unknown error');
     }
 }
