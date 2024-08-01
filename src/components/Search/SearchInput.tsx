@@ -1,9 +1,7 @@
 import { t } from '@lingui/macro';
 import { useRef } from 'react';
 
-import CloseCircleIcon from '@/assets/close-circle.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { ClearButton } from '@/components/ClearButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -28,17 +26,16 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
                     rest.className,
                 )}
             />
-            <Tooltip content={t`Clear`} className="inline-flex items-center" placement="top">
-                <ClickableButton
-                    className={classNames('focus-within:text-[#4C4AA9]', rest.value ? 'visible' : 'invisible')}
+            {rest.value ? (
+                <ClearButton
+                    className={'focus-within:text-highlight'}
+                    size={16}
                     onClick={() => {
                         onClear?.();
                         inputRef.current?.focus();
                     }}
-                >
-                    <CloseCircleIcon width={16} height={16} className="text-[#4c4aa9]" />
-                </ClickableButton>
-            </Tooltip>
+                />
+            ) : null}
         </label>
     );
 }

@@ -85,6 +85,7 @@
     --color-fail: #ff3545;
     --color-light-warn: 255 122 85;
     --color-light-highlight: #4c4aa9;
+    --color-highlight: 76 74 169;
 }
 
 .dark {
@@ -134,6 +135,7 @@
     --color-card: white;
     --color-light-warn: 255 122 85;
     --color-light-highlight: #4c4aa9;
+    --color-highlight: 76 74 169;
 }
 
 .dark .plyr__control {

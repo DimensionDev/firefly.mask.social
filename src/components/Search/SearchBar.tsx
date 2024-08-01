@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation.js';
-import { memo, useLayoutEffect, useRef, useState } from 'react';
+import { type HTMLProps, memo, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -14,11 +14,11 @@ import { useComeBack } from '@/hooks/useComeback.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
-interface SearchBarProps {
-    source: 'header' | 'secondary';
+interface SearchBarProps extends HTMLProps<HTMLDivElement> {
+    slot: 'header' | 'secondary';
 }
 
-const SearchBar = memo(function SearchBar(props: SearchBarProps) {
+const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBarProps) {
     const [showRecommendation, setShowRecommendation] = useState(false);
 
     const { searchKeyword, updateState } = useSearchStateStore();
@@ -47,21 +47,20 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
         setInputText(searchKeyword);
     }, [searchKeyword]);
 
-    if (props.source === 'header' && !isSearchPage) return null;
-    if (props.source === 'secondary' && isSearchPage) return null;
+    if (slot === 'header' && !isSearchPage) return null;
+    if (slot === 'secondary' && isSearchPage) return null;
 
     return (
-        <div
-            className={classNames('hidden items-center px-4 pt-6 md:flex', {
-                'mb-4 pl-0 pr-0': props.source === 'secondary',
-            })}
-            ref={rootRef}
-        >
-            {isSearchPage && props.source === 'header' ? (
+        <div className={classNames('hidden items-center pt-[10px] md:flex', className)} {...rest} ref={rootRef}>
+            {isSearchPage && slot === 'header' ? (
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
-            <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main focus-within:bg-bg focus-within:ring-1">
-                <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain focus-within:text-[#4C4AA9]" />
+            <div className="ring-highlight/50 group relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main ring-0 focus-within:bg-primaryBottom focus-within:ring-1">
+                <SearchIcon
+                    width={18}
+                    height={18}
+                    className="group-focus-within:text-highlight shrink-0 text-primaryMain"
+                />
                 <form
                     className="w-full flex-1"
                     onSubmit={(ev) => {
@@ -70,7 +69,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     }}
                 >
                     <SearchInput
-                        className="ring-0 focus:text-main"
+                        className="box-border h-[35px] focus:text-main"
                         value={inputText}
                         onChange={(ev) => setInputText(ev.target.value)}
                         onFocus={() => setShowRecommendation(true)}
@@ -93,11 +92,11 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 export function HeaderSearchBar() {
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, '/search');
-    return isSearchPage ? <SearchBar source="header" /> : null;
+    return isSearchPage ? <SearchBar slot="header" className="px-4 py-[10px]" /> : null;
 }
 
 export function AsideSearchBar() {
     const pathname = usePathname();
     const isSearchPage = !isRoutePathname(pathname, '/search');
-    return isSearchPage ? <SearchBar source="secondary" /> : null;
+    return isSearchPage ? <SearchBar slot="secondary" /> : null;
 }
