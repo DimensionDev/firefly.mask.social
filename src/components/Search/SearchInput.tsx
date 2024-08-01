@@ -1,9 +1,10 @@
-'use client';
-
 import { t } from '@lingui/macro';
 import { useRef } from 'react';
 
-import { CloseButton } from '@/components/CloseButton.js';
+import CloseCircleIcon from '@/assets/close-circle.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { Tooltip } from '@/components/Tooltip.js';
+import { classNames } from '@/helpers/classNames.js';
 
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     onClear?: () => void;
@@ -22,19 +23,22 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
                 placeholder={t`Search...`}
                 ref={inputRef}
                 {...rest}
-                className={`w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6 ${
-                    rest.className ?? ''
-                }`}
+                className={classNames(
+                    `w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6`,
+                    rest.className,
+                )}
             />
-            <CloseButton
-                className={rest.value ? 'visible' : 'invisible'}
-                type="button"
-                size={16}
-                onClick={() => {
-                    onClear?.();
-                    inputRef.current?.focus();
-                }}
-            />
+            <Tooltip content={t`Clear`} className="inline-flex items-center" placement="top">
+                <ClickableButton
+                    className={classNames('focus-within:text-[#4C4AA9]', rest.value ? 'visible' : 'invisible')}
+                    onClick={() => {
+                        onClear?.();
+                        inputRef.current?.focus();
+                    }}
+                >
+                    <CloseCircleIcon width={16} height={16} className="text-[#4c4aa9]" />
+                </ClickableButton>
+            </Tooltip>
         </label>
     );
 }

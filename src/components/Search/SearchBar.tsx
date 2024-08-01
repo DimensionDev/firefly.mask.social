@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname } from 'next/navigation.js';
 import { memo, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
@@ -19,7 +19,6 @@ interface SearchBarProps {
 }
 
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
-    const router = useRouter();
     const [showRecommendation, setShowRecommendation] = useState(false);
 
     const { searchKeyword, updateState } = useSearchStateStore();
@@ -54,16 +53,15 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     return (
         <div
             className={classNames('hidden items-center px-4 pt-6 md:flex', {
-                'pl-0 pr-0': props.source === 'secondary',
-                'mb-4': props.source === 'secondary',
+                'mb-4 pl-0 pr-0': props.source === 'secondary',
             })}
             ref={rootRef}
         >
             {isSearchPage && props.source === 'header' ? (
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
-            <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
-                <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
+            <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main focus-within:bg-bg focus-within:ring-1">
+                <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain focus-within:text-[#4C4AA9]" />
                 <form
                     className="w-full flex-1"
                     onSubmit={(ev) => {
@@ -72,6 +70,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     }}
                 >
                     <SearchInput
+                        className="ring-0 focus:text-main"
                         value={inputText}
                         onChange={(ev) => setInputText(ev.target.value)}
                         onFocus={() => setShowRecommendation(true)}
