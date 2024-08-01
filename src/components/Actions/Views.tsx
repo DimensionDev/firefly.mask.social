@@ -11,8 +11,9 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 interface ViewsProps {
     count?: number;
     disabled?: boolean;
+    hiddenCount?: boolean;
 }
-export const Views = memo<ViewsProps>(function Collect({ count = 0, disabled = false }) {
+export const Views = memo<ViewsProps>(function Collect({ hiddenCount = false, count = 0, disabled = false }) {
     return (
         <ClickableArea
             className={classNames('flex items-center text-main md:space-x-2', {
@@ -39,7 +40,7 @@ export const Views = memo<ViewsProps>(function Collect({ count = 0, disabled = f
                     <ViewsIcon width={20} height={20} />
                 </motion.button>
             </Tooltip>
-            {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
+            {!hiddenCount && count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
         </ClickableArea>
     );
 });
