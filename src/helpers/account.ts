@@ -14,10 +14,10 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
+import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
-import type { Session } from '@/providers/types/Session.js';
 
 function getContext(source: SocialSource) {
     return {
