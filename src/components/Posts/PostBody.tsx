@@ -116,7 +116,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    console.log('hide: ', post, post.isHidden, muted, muted && !isProfilePage);
     if (post.isHidden || (muted && !isProfilePage)) {
         return (
             <CollapsedContent
