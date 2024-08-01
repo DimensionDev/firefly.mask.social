@@ -178,8 +178,7 @@ export const ALLOWED_IMAGES_MIMES = [
     FileMimeType.BMP,
 ] as const;
 
-export const ALLOWED_MEDIA_MIMES = [
-    ...ALLOWED_IMAGES_MIMES,
+export const ALLOWED_VIDEO_MIMES = [
     FileMimeType.MP4,
     FileMimeType.MPEG,
     FileMimeType.MS_VIDEO,
@@ -187,7 +186,9 @@ export const ALLOWED_MEDIA_MIMES = [
     FileMimeType.WEBM,
     FileMimeType.GPP,
     FileMimeType.GPP2,
-] as const;
+];
+
+export const ALLOWED_MEDIA_MIMES = [...ALLOWED_IMAGES_MIMES, ...ALLOWED_VIDEO_MIMES] as const;
 
 export const SUFFIX_NAMES: Record<FileMimeType, string> = {
     [FileMimeType.PNG]: 'png',

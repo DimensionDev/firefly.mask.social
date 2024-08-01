@@ -55,15 +55,10 @@ export function MainView() {
             }
         }
 
-        const path = urlcat(
-            '/',
-            resolveSourceInURL(source),
-            signType
-                ? {
-                      signType,
-                  }
-                : {},
-        );
+        const path = urlcat('/:source', {
+            source: resolveSourceInURL(source),
+            signType: signType || undefined,
+        });
 
         // history.back() is buggy, use .replace() instead.
         history.replace(path);

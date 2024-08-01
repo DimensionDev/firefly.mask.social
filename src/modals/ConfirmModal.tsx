@@ -78,7 +78,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                     <div className="flex flex-col gap-2 p-6">
                         {props.content}
                         {props.enableCancelButton || props.enableConfirmButton ? (
-                            <div className="flex flex-row gap-3">
+                            <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">
                                 {props.enableCancelButton ? (
                                     <ClickableButton
                                         className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"

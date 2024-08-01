@@ -1,5 +1,4 @@
-import { Popover } from '@headlessui/react';
-import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { BugAntIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
@@ -9,18 +8,15 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import AddThread from '@/assets/add-thread.svg';
-import GalleryIcon from '@/assets/gallery.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
-import { Media } from '@/components/Compose/Media.js';
-import { PostBy } from '@/components/Compose/PostBy.js';
-import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
-import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
+import { ChooseChannelAction } from '@/components/Compose/ComposeActions/ChannelAction.js';
+import { MediaAction } from '@/components/Compose/ComposeActions/MediaAction.js';
+import { PlatformAction } from '@/components/Compose/ComposeActions/PlatformAction.js';
+import { ReplyRestrictionAction } from '@/components/Compose/ComposeActions/ReplyRestrictionAction.js';
 import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { GifEntryButton } from '@/components/Gif/GifEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
-import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -37,16 +33,16 @@ import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-interface ComposeActionProps {}
+interface ComposeActionsProps {}
 
-export function ComposeAction(props: ComposeActionProps) {
+export function ComposeActions(props: ComposeActionsProps) {
     const isMedium = useIsMedium();
     const account = useAccount();
 
     const currentProfileAll = useCurrentProfileAll();
     const post = useCompositePost();
-    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { availableSources, images, video, restriction, parentPost, channel, poll, rpPayload } = post;
+    const { type, posts, addPostInThread } = useComposeStateStore();
+    const { availableSources, images, video, poll, rpPayload } = post;
 
     const { scheduleTime } = useComposeScheduleStateStore();
     const { usedLength, availableLength } = measureChars(post);
@@ -87,29 +83,13 @@ export function ComposeAction(props: ComposeActionProps) {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
 
+    const showChannel =
+        availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) && (type === 'compose' || type === 'quote');
+
     return (
         <div className="px-4 pb-4">
             <div className="relative flex h-9 items-center gap-3">
-                <Popover as="div" className="relative">
-                    {({ close }) => (
-                        <>
-                            <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>
-                                    <GalleryIcon
-                                        className={classNames(
-                                            'text-main',
-                                            mediaDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
-                                        )}
-                                        width={24}
-                                        height={24}
-                                    />
-                                </Tooltip>
-                            </Popover.Button>
-
-                            {!mediaDisabled ? <Media close={close} /> : null}
-                        </>
-                    )}
-                </Popover>
+                <MediaAction />
 
                 {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
@@ -194,86 +174,24 @@ export function ComposeAction(props: ComposeActionProps) {
                 <span className="text-medium text-secondary">
                     <Trans>Share to</Trans>
                 </span>
-                <Popover as="div" className="relative">
-                    {(_) => (
-                        <>
-                            <Popover.Button
-                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={availableSources.some((x) => !!parentPost[x]) || hasError}
-                            >
-                                <span className="flex items-center gap-x-1 font-bold">
-                                    {availableSources
-                                        .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
-                                        .map((y) => (
-                                            <SocialSourceIcon key={y} source={y} size={20} />
-                                        ))}
-                                </span>
-                                {type === 'compose' && !hasError ? (
-                                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                                ) : null}
-                            </Popover.Button>
-                            <PostBy />
-                        </>
-                    )}
-                </Popover>
+                <PlatformAction hasError={hasError} />
             </div>
 
             <div className="flex h-9 items-center justify-between pb-safe">
                 <span className="text-medium text-secondary">
                     <Trans>Allow replies from</Trans>
                 </span>
-                <Popover as="div" className="relative">
-                    {(_) => (
-                        <>
-                            <Popover.Button
-                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={hasError}
-                            >
-                                <span className="text-medium font-bold">
-                                    <ReplyRestrictionText type={restriction} />
-                                </span>
-                                {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
-                            </Popover.Button>
-                            <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
-                        </>
-                    )}
-                </Popover>
+                <ReplyRestrictionAction hasError={hasError} />
             </div>
 
-            <div
-                className="flex h-9 items-center justify-between pb-safe"
-                style={{
-                    visibility:
-                        availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) &&
-                        (type === 'compose' || type === 'quote')
-                            ? 'unset'
-                            : 'hidden',
-                }}
-            >
-                <span className="text-medium text-secondary">
-                    <Trans>Farcaster channel</Trans>
-                </span>
-                <Popover as="div" className="relative">
-                    {({ close }) => (
-                        <>
-                            <Popover.Button
-                                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={hasError}
-                            >
-                                <span className="text-medium font-bold">
-                                    {compact(
-                                        SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
-                                            (source) => channel[source]?.name,
-                                        ),
-                                    ).join(',')}
-                                </span>
-                                {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
-                            </Popover.Button>
-                            <ChannelSearchPanel onSelected={close} />
-                        </>
-                    )}
-                </Popover>
-            </div>
+            {showChannel ? (
+                <div className="flex h-9 items-center justify-between pb-safe">
+                    <span className="text-medium text-secondary">
+                        <Trans>Farcaster channel</Trans>
+                    </span>
+                    <ChooseChannelAction hasError={hasError} />
+                </div>
+            ) : null}
         </div>
     );
 }

@@ -12,13 +12,14 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <label className="flex w-full flex-1 items-center" htmlFor="search">
+        <label className="flex w-full flex-1 items-center">
             <input
                 type="search"
                 name="searchText"
                 autoComplete="off"
                 spellCheck="false"
                 placeholder={t`Search...`}
+                autoFocus
                 ref={inputRef}
                 {...rest}
                 className={classNames(
