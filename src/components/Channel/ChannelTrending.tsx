@@ -42,7 +42,8 @@ export function ChannelTrending({ channel, source }: ChannelTrendingProps) {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Channel}:${channelId}:trending`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Channel}:${channelId}:trending`),
+                itemContent: (index, post) =>
+                    getPostItemContent(index, post, `${ScrollListKey.Channel}:${channelId}:trending`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

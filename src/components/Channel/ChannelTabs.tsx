@@ -28,10 +28,7 @@ const ContentList = memo(function ContentList({ type, channel }: { type: Channel
 });
 
 export function ChannelTabs({ channel }: ChannelTabsProps) {
-    const [currentTab, setCurrentTab] = useStateWithSearchParams<ChannelTabType>(
-        'channel_tab',
-        ChannelTabType.Recent,
-    );
+    const [currentTab, setCurrentTab] = useStateWithSearchParams<ChannelTabType>('channel_tab', ChannelTabType.Recent);
 
     return (
         <>
