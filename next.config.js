@@ -184,6 +184,7 @@ export default {
                 exclude: /src\/maskbook/,
                 loader: '@svgr/webpack',
                 options: {
+                    ref: true,
                     svgoConfig: {
                         plugins: [
                             {

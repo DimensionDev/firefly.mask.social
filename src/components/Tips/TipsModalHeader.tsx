@@ -20,11 +20,11 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
         <Dialog.Title as="h3" className="relative mb-6 shrink-0 pt-safe">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 text-fourMain">
                 {back ? (
-                    <ClickableButton onClick={() => router.navigate({ to: TipsRoutePath.TIPS, replace: true })}>
-                        <Tooltip placement="top" content={t`Back`}>
+                    <Tooltip placement="top" content={t`Back`}>
+                        <ClickableButton onClick={() => router.navigate({ to: TipsRoutePath.TIPS, replace: true })}>
                             <LeftArrowIcon width={24} height={24} />
-                        </Tooltip>
-                    </ClickableButton>
+                        </ClickableButton>
+                    </Tooltip>
                 ) : (
                     <CloseButton onClick={context.onClose} />
                 )}
