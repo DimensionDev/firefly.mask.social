@@ -57,9 +57,6 @@ msgstr ""
 msgid "Sell Tax: {0}%"
 msgstr ""
 
-msgid "Retweet"
-msgstr ""
-
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
@@ -463,6 +460,9 @@ msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
 msgid "No Airdrop Scam"
+msgstr ""
+
+msgid "Reposted"
 msgstr ""
 
 msgid "Add another post..."
@@ -873,9 +873,6 @@ msgstr ""
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
-msgid "Cancel retweet successfully"
-msgstr ""
-
 msgid "Set"
 msgstr ""
 
@@ -1042,9 +1039,6 @@ msgid "Failed to upvote post."
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
-msgstr ""
-
-msgid "Retweeted"
 msgstr ""
 
 msgid "liked"
@@ -1386,6 +1380,9 @@ msgstr ""
 msgid "Failed to like the post."
 msgstr ""
 
+msgid "Failed to repost."
+msgstr ""
+
 msgid "Download image"
 msgstr ""
 
@@ -1399,6 +1396,9 @@ msgid "Unable to retrieve post details."
 msgstr ""
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+msgstr ""
+
+msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
@@ -1593,6 +1593,9 @@ msgstr ""
 msgid "No whitelist"
 msgstr ""
 
+msgid "Cancel repost successfully"
+msgstr ""
+
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr ""
 
@@ -1665,10 +1668,10 @@ msgstr ""
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
-msgid "Failed to retweet."
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+msgid "Repost"
 msgstr ""
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
