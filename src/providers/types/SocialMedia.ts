@@ -806,4 +806,9 @@ export interface Provider {
      * Report spam or inappropriate channel content.
      */
     reportChannel?: (channelId: string) => Promise<boolean>;
+
+    /**
+     * Get trending posts in the channel.
+     */
+    getChannelTrendingPosts?: (channel: Channel, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

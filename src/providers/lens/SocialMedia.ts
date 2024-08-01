@@ -108,6 +108,10 @@ class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     async deletePost(postId: string): Promise<boolean> {
         const response = await lensSessionHolder.sdk.publication.hide({
             for: postId,

@@ -281,6 +281,10 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     getChannelById(channelId: string): Promise<Channel> {
         throw new NotImplementedError();
     }

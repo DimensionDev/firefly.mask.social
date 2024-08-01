@@ -227,6 +227,31 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const profile = getCurrentProfile(Source.Farcaster);
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/trending_casts', {
+                channelUrl: channel.url,
+                channelHandle: channel.id,
+                size: 20,
+                cursor: indicator?.id,
+                fid: session?.profileId,
+                handle: profile?.handle,
+            });
+            const response = await fireflySessionHolder.fetch<CastsOfChannelResponse>(url, {
+                method: 'GET',
+            });
+            const data = resolveFireflyResponseData(response);
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+
+            return createPageable(
+                posts,
+                createIndicator(indicator),
+                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+            );
+        });
+    }
+
     quotePost(postId: string, post: Post): Promise<string> {
         throw new NotImplementedError();
     }

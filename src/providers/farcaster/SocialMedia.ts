@@ -94,6 +94,10 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.searchChannels(q, indicator);
     }
 
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getChannelTrendingPosts(channel, indicator);
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
