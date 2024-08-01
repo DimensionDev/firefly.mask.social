@@ -1,5 +1,6 @@
 import { parseHTML } from 'linkedom';
 
+import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import {
@@ -67,14 +68,14 @@ class Processor {
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
         const url = parseURL(documentUrl);
-        if (!url) return null;
+        if (!url) throw new Error(`Invalid URL: ${documentUrl}`);
 
         const response = await fetch(url, {
             headers: { 'User-Agent': 'Twitterbot' },
             // It must respond within 5 seconds.
             signal: anySignal(signal ?? null, AbortSignal.timeout(5000)),
         });
-        if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
+        if (!response.ok || (response.status >= 500 && response.status < 600)) throw FetchError.fromResponse(response);
 
         return this.digestDocument(documentUrl, await response.text(), signal);
     };
