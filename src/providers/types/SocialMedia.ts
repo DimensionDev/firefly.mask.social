@@ -766,14 +766,14 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    blockProfile?: (profileId: string, source?: FireflyPlatform) => Promise<boolean>;
+    blockProfile?: (profileId: string) => Promise<boolean>;
 
     /**
      * Unblock a profile.
      * @param profileId
      * @returns
      */
-    unblockProfile?: (profileId: string, source?: FireflyPlatform) => Promise<boolean>;
+    unblockProfile?: (profileId: string) => Promise<boolean>;
 
     /**
      * Retrieves profiles that the current logged user has blocked.

@@ -999,11 +999,19 @@ export class FireflySocialMedia implements Provider {
         return unblock('address', address);
     }
 
-    async blockProfile(profileId: string, source = FireflyPlatform.Farcaster): Promise<boolean> {
+    async blockProfile(profileId: string): Promise<boolean> {
+        return block('fid', profileId);
+    }
+
+    async unblockProfile(profileId: string): Promise<boolean> {
+        return unblock('fid', profileId);
+    }
+
+    async blockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
         return block(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
     }
 
-    async unblockProfile(profileId: string, source = FireflyPlatform.Farcaster): Promise<boolean> {
+    async unblockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
         return unblock(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
     }
 
