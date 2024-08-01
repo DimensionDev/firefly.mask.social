@@ -25,10 +25,11 @@ export function MainView() {
                             key={source}
                             source={source}
                             onClick={() => {
-                                const params =
-                                    source === Source.Farcaster ? { signType: FarcasterSignType.RelayService } : {};
-                                const path = urlcat('/', resolveSourceInURL(source), params);
-                                // history.back() is buggy, use .replace() instead.
+                                const path = urlcat('/:source', {
+                                    source: resolveSourceInURL(source),
+                                    signType: source === Source.Farcaster ? FarcasterSignType.RelayService : undefined,
+                                });
+                                // history.push() is buggy, use .replace() instead.
                                 history.replace(path);
                             }}
                         />
