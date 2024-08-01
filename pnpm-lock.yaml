@@ -25081,6 +25081,7 @@ packages:
 
   /ethereum-bloom-filters@1.1.0:
     resolution: {integrity: sha512-J1gDRkLpuGNvWYzWslBQR9cDV4nd4kfvVTE/Wy4Kkm4yb3EYRSlyi0eB/inTsSTTVyA0+HyzHgbr95Fn/Z1fSw==}
+    deprecated: do not use this package use package versions above as this can miss some topics
     dependencies:
       '@noble/hashes': 1.4.0
     dev: false
@@ -26004,7 +26005,6 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
-    dev: true
 
   /formdata-polyfill@4.0.10:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
@@ -40265,7 +40265,6 @@ time:
   /bip39@3.1.0: '2023-02-25T05:36:52.236Z'
   /bn.js@4.12.0: '2021-02-24T07:16:47.735Z'
   /boring-avatars@1.6.3: '2022-02-20T17:50:27.695Z'
-  /bowser@2.11.0: '2020-09-12T08:25:10.987Z'
   /bs58@5.0.0: '2022-02-17T13:19:37.346Z'
   /buffer@6.0.3: '2020-11-23T02:51:27.107Z'
   /canonicalize@2.0.0: '2023-04-02T19:45:23.742Z'
@@ -40324,7 +40323,6 @@ time:
   /i18next@23.2.11: '2023-07-12T19:10:10.167Z'
   /idb@7.1.1: '2022-11-04T10:28:55.720Z'
   /image-size@1.0.2: '2022-07-12T14:40:59.467Z'
-  /imgur@2.3.0: '2023-05-22T17:54:45.804Z'
   /immer@10.0.2: '2023-05-09T18:24:24.940Z'
   /ipfs-http-client@60.0.1: '2023-05-25T14:59:42.047Z'
   /jsdom@24.1.0: '2024-05-26T09:22:23.832Z'
