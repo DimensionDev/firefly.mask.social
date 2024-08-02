@@ -219,12 +219,12 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     if (scanned) return;
                                     controller.current.abort();
 
+                                    resetCountdown();
                                     switch (signType) {
                                         case SignType.GrantPermission:
                                             onLoginByGrantPermission();
                                             break;
                                         case SignType.RelayService:
-                                            resetCountdown();
                                             onLoginByRelayService();
                                             break;
                                         default:
