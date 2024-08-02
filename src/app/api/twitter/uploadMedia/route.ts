@@ -15,9 +15,8 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const file = formData.get('file') as File | null;
         if (!file) throw new MalformedError('file not found');
 
-        const buffer = Buffer.from(await file.arrayBuffer());
         const client = await createTwitterClientV2(request);
-        const response = await client.v1.uploadMedia(buffer, { mimeType: file.type });
+        const response = await client.v1.uploadMedia(Buffer.from(await file.arrayBuffer()), { mimeType: file.type });
         return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
     },
 );
