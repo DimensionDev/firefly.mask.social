@@ -462,6 +462,7 @@ export interface WalletProfiles {
     lensProfilesV3: LensV3Profile[];
     farcasterProfiles: FarcasterProfile[];
     twitterProfiles: TwitterProfile[];
+    fireflyAccountId?: string;
 }
 
 export type WalletProfileResponse = Response<WalletProfiles>;
