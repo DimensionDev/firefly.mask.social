@@ -176,6 +176,7 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
         'referenced_tweets.id',
         'referenced_tweets.id.author_id',
         'entities.mentions.username',
+        'in_reply_to_user_id',
     ],
     'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
     'tweet.fields': [

@@ -14,7 +14,7 @@ import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resol
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
-import { UploadTokenTipsToken, reportTokenTips } from '@/services/reportTokenTips.js';
+import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
 
 interface SendTipsButtonProps {
     connected: boolean;
