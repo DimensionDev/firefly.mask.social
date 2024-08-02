@@ -28,7 +28,7 @@ const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
     );
 });
 
-export const OembedUIAndPayload = memo<{ data: LinkDigested; postId?: string }>(function OembedPayload(props) {
+export const OembedLayout = memo<{ data: LinkDigested; postId?: string }>(function OembedPayload(props) {
     const {
         data: { payload, og },
         postId,
@@ -98,5 +98,5 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData, postId })
 
     if (isLoading || error || !data?.success) return null;
 
-    return <OembedUIAndPayload data={data.data} />;
+    return <OembedLayout data={data.data} />;
 });

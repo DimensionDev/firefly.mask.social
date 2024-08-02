@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
-import { OembedUIAndPayload } from '@/components/Oembed/index.js';
+import { OembedLayout } from '@/components/Oembed/index.js';
 import { type SocialSource, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { URL_REGEX } from '@/constants/regexp.js';
@@ -93,7 +93,7 @@ export function PostLinks({ post, setContent }: Props) {
         <>
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.blink ? <ActionContainer action={data.blink} /> : null}
-            {data.oembed ? <OembedUIAndPayload data={data.oembed} postId={post.postId} /> : null}
+            {data.oembed ? <OembedLayout data={data.oembed} postId={post.postId} /> : null}
         </>
     );
 }
