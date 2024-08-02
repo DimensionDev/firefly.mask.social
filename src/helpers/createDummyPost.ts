@@ -9,7 +9,7 @@ import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
-export function createDummyPost(source: SocialSource, content: string) {
+export function createDummyPost(source: SocialSource, content: string, url?: string) {
     return {
         publicationId: '',
         postId: source === Source.Farcaster ? '0x0000000000000000000000000000000000000000' : '',
@@ -17,6 +17,8 @@ export function createDummyPost(source: SocialSource, content: string) {
         metadata: {
             locale: 'en',
             content: {
+                oembedUrl: url,
+                oembedUrls: url ? [url] : [],
                 content,
             },
         },

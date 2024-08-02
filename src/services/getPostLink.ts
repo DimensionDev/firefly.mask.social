@@ -17,61 +17,50 @@ import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
 
 export async function getPostFrame(post: Post): Promise<Frame | null> {
-    const urls = post.metadata.content?.oembedUrls ?? [];
+    if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
 
-    if (env.external.NEXT_PUBLIC_FRAME === STATUS.Enabled && urls.length > 0) {
-        const frame = await attemptUntil(
-            urls.map((x) => async () => {
-                if (isValidDomain(x)) return null;
-                const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-                    urlcat('/api/frame', {
-                        link: (await resolveTCOLink(x)) ?? x,
-                    }),
-                );
-                return response.success ? response.data.frame : null;
-            }),
-            null,
-            (x) => !!x,
-        );
+    const urls = post.metadata.content?.oembedUrls;
+    if (!urls?.length) return null;
 
-        return frame;
-    }
-    return null;
+    return attemptUntil(
+        urls.map((x) => async () => {
+            if (isValidDomain(x)) return null;
+            const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                urlcat('/api/frame', {
+                    link: (await resolveTCOLink(x)) ?? x,
+                }),
+            );
+            return response.success ? response.data.frame : null;
+        }),
+        null,
+        (x) => !!x,
+    );
 }
 
 export async function getPostBlinkAction(post: Post): Promise<Action | null> {
+    if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
+
     const content = post.metadata.content?.content;
 
-    if (env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled) {
-        // a blink could be a normal url, so the result is also available for the oembed and frame components
-        const schemes =
-            env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled && content ? BlinkParser.extractSchemes(content) : [];
-        const scheme = last(schemes);
+    // a blink could be a normal url, so the result is also available for the oembed and frame components
+    const scheme = last(content ? BlinkParser.extractSchemes(content) : undefined);
+    if (!scheme) return null;
 
-        if (scheme) {
-            const blink = await BlinkLoader.fetchAction(await resolveBlinkTCO(scheme));
-            if (blink) return blink;
-        }
-    }
-
-    return null;
+    return BlinkLoader.fetchAction(await resolveBlinkTCO(scheme));
 }
 
 export async function getPostOembed(post: Post): Promise<LinkDigested | null> {
+    if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
+
     const url = post.metadata.content?.oembedUrl;
+    if (!url || isValidDomain(url) || post.quoteOn) return null;
 
-    if (env.external.NEXT_PUBLIC_OPENGRAPH === STATUS.Enabled) {
-        if (!url || isValidDomain(url) || post.quoteOn) return null;
-
-        const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
-            urlcat('/api/oembed', {
-                link: (await resolveTCOLink(url)) ?? url,
-            }),
-        );
-        if (linkDigested.success) return linkDigested.data;
-    }
-
-    return null;
+    const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
+        urlcat('/api/oembed', {
+            link: (await resolveTCOLink(url)) ?? url,
+        }),
+    );
+    return linkDigested.success ? linkDigested.data : null;
 }
 
 export async function getPostLinks(post: Post): Promise<{

@@ -2,7 +2,6 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { getAccount } from '@wagmi/core';
-import { isUndefined } from 'lodash-es';
 import { memo, type ReactNode, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -14,26 +13,22 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
-import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
-import { attemptUntil } from '@/helpers/attemptUntil.js';
-import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { openIntentUrl } from '@/helpers/openIntentUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
-import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getPostFrame } from '@/services/getPostLink.js';
 import { validateMessage } from '@/services/validateMessage.js';
 import {
     ActionType,
@@ -284,64 +279,28 @@ export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ childre
 
 interface FrameProps {
     post: Post;
-    urls?: string[];
-    children: ReactNode;
     onData?: (frame: FrameType) => void;
+    children?: ReactNode;
 }
 
-export const Frame = memo<FrameProps>(function Frame({ post, urls = EMPTY_LIST, onData, children }) {
+export const Frame = memo<FrameProps>(function Frame({ post, onData, children }) {
     const {
-        isLoading: isLoadingFrame,
+        data: frame,
+        isLoading,
         error,
-        data,
     } = useQuery({
-        queryKey: ['frame', ...urls],
-        queryFn: async () => {
-            // TODO: if multiple frames are supported, we should refactor this part
-            if (MAX_FRAME_SIZE_PER_POST > 1 && urls.length > 1)
-                console.warn(
-                    '[frame]: Multiple frames found for this post. Only the first available frame will be used.',
-                );
-
-            try {
-                const result = await attemptUntil(
-                    urls.map((x) => async () => {
-                        if (isValidDomain(x)) return;
-                        return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-                            urlcat('/api/frame', {
-                                link: (await resolveTCOLink(x)) ?? x,
-                            }),
-                        );
-                    }),
-                    { success: false, error: { message: 'fetch error', code: 40001 } },
-                    (response) => {
-                        if (isUndefined(response)) return true;
-                        return !response?.success;
-                    },
-                );
-
-                return result;
-            } catch (error) {
-                return {
-                    success: false,
-                    error: { message: error instanceof Error ? error.message : '', code: ServerErrorCodes.UNKNOWN },
-                } as ResponseJSON<LinkDigestedResponse>;
-            }
-        },
-        enabled: !!urls.length,
+        queryKey: ['frame', post.postId],
+        queryFn: () => getPostFrame(post),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
     });
 
     useEffect(() => {
-        if (!data?.success || !data?.data?.frame) return;
-        onData?.(data.data.frame);
-    }, [data, onData]);
+        if (frame) onData?.(frame);
+    }, [frame, onData]);
 
-    const frame = data?.success ? data.data.frame : null;
-
-    if (isLoadingFrame) return null;
+    if (isLoading) return null;
 
     if (error || !frame) return children;
 

@@ -1,43 +1,40 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { last } from 'lodash-es';
 import { memo, useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
-import { resolveBlinkTCO } from '@/helpers/resolveBlinkTCO.js';
-import { BlinkLoader } from '@/providers/blink/Loader.js';
-import type { Action, ActionScheme } from '@/types/blink.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import { getPostBlinkAction } from '@/services/getPostLink.js';
+import type { Action } from '@/types/blink.js';
 
 interface Props {
-    schemes: ActionScheme[];
+    post: Post;
     children?: React.ReactNode;
     onData?: (data: Action) => void;
     onFailed?: (error: Error) => void;
 }
 
-export const Blink = memo<Props>(function Blink({ schemes, onData, onFailed, children }) {
-    const { data, error, isLoading } = useQuery({
-        queryKey: ['action', schemes.map((x) => x.url)],
-        queryFn: async () => {
-            const scheme = last(schemes);
-            if (!scheme) return null;
-            return BlinkLoader.fetchAction(await resolveBlinkTCO(scheme));
-        },
+export const Blink = memo<Props>(function Blink({ post, onData, onFailed, children }) {
+    const {
+        data: action,
+        error,
+        isLoading,
+    } = useQuery({
+        queryKey: ['action', post.postId],
+        queryFn: () => getPostBlinkAction(post),
         retry: false,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
     });
 
     useEffect(() => {
-        if (data) onData?.(data);
-    }, [onData, data]);
+        if (action) onData?.(action);
+    }, [onData, action]);
 
     useEffect(() => {
         if (error) onFailed?.(error);
     }, [onFailed, error]);
-
-    const action = data?.error ? null : data;
 
     if (isLoading) return null;
     if (error || !action) return children;

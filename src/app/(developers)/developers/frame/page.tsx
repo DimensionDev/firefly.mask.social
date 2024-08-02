@@ -2,7 +2,7 @@
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -16,10 +16,9 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 
-const DummyPost = createDummyPost(Source.Farcaster, '');
-
 export default function Frame() {
     const [url, setUrl] = useState('');
+    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url), [url]);
 
     const [{ value: cacheRemoved, error, loading }, onSubmit] = useAsyncFn(async () => {
         if (!isValidUrl(url)) throw new Error(t`Invalid URL.`);
@@ -73,9 +72,7 @@ export default function Frame() {
 
             {cacheRemoved === true ? (
                 <div className="w-full max-w-[500px]">
-                    <FrameUI urls={[url]} post={DummyPost}>
-                        <></>
-                    </FrameUI>
+                    <FrameUI post={post} />
                 </div>
             ) : error ? (
                 <div className="w-full">{error.message}</div>

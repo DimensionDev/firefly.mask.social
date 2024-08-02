@@ -11,11 +11,11 @@ import { type SocialSource } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLink.js';
 import type { ComposeType } from '@/types/compose.js';
-import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 
 interface Props {
     post: Post;
@@ -46,7 +46,7 @@ export function PostLinks({ post, setContent }: Props) {
         <>
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? <ActionContainer action={data.action} /> : null}
-            {data.oembed ? <OembedLayout data={data.oembed} postId={post.postId} /> : null}
+            {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
         </>
     );
 }
