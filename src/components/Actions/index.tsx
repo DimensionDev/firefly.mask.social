@@ -177,7 +177,9 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+                    {post.source !== Source.Twitter ? (
+                        <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+                    ) : null}
                     {identity ? (
                         <Tips
                             identity={identity}
