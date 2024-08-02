@@ -40,7 +40,7 @@ export const LensView = memo(function LensView() {
 
     if (!profiles.length || !account.address)
         return (
-            <div className="flex h-[462px] w-[500px] items-center justify-center">
+            <div className="flex h-full min-h-[30vh] w-full items-center justify-center md:h-[462px] md:w-[500px]">
                 <LoadingIcon className="animate-spin" width={24} height={24} />
             </div>
         );
