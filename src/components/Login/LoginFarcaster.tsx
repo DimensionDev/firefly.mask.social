@@ -144,6 +144,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 onLoginByRelayService();
                 break;
         }
+        return () => controller.current.abort();
     });
 
     useUnmount(() => {
