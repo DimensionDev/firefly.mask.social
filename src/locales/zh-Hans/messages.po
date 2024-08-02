@@ -741,9 +741,6 @@ msgstr "输入金额"
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
-msgid "Invalid Blink."
-msgstr "非法的 Blinks"
-
 msgid "Owned By"
 msgstr "属于"
 

@@ -18,7 +18,6 @@ export async function DELETE(request: Request) {
     if (!link) return Response.json({ error: 'Missing link' }, { status: StatusCodes.BAD_REQUEST });
 
     await digestLinkRedis.cache.delete(link);
-
     return createSuccessResponseJSON(null);
 }
 

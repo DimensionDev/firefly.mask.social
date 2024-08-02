@@ -741,9 +741,6 @@ msgstr ""
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Invalid Blink."
-msgstr ""
-
 msgid "Owned By"
 msgstr "擁有者"
 

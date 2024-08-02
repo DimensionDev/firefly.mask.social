@@ -2,7 +2,7 @@
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -10,14 +10,17 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Oembed } from '@/components/Oembed/index.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 
 export default function OpenGraph() {
     const [url, setUrl] = useState('');
+    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
-    const [{ value: cacheRemoved, error, loading }, onSubmit] = useAsyncFn(async () => {
+    const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
         if (!isValidUrl(url)) throw new Error(t`Invalid URL.`);
 
         await fetchJSON(
@@ -28,8 +31,6 @@ export default function OpenGraph() {
                 method: 'DELETE',
             },
         );
-
-        return true;
     }, [url]);
 
     return (
@@ -67,13 +68,10 @@ export default function OpenGraph() {
                 </ClickableButton>
             </div>
 
-            {cacheRemoved === true ? (
-                <div className="w-full max-w-[500px]">
-                    <Oembed url={url} />
-                </div>
-            ) : error ? (
-                <div className="w-full">{error.message}</div>
-            ) : null}
+            <div className="w-full max-w-[500px]">
+                <Oembed post={post} />
+            </div>
+            {error ? <div className="w-full">{error.message}</div> : null}
         </Section>
     );
 }

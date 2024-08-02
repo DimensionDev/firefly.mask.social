@@ -736,9 +736,6 @@ msgstr "Enter amount"
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
 
-msgid "Invalid Blink."
-msgstr "Invalid Blink."
-
 msgid "Owned By"
 msgstr "Owned By"
 
