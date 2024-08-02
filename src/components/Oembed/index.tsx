@@ -75,7 +75,7 @@ export const Oembed = memo<OembedProps>(function Oembed({ post, onData }) {
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['oembed', post.postId],
+        queryKey: ['oembed', post],
         queryFn: () => getPostOembed(post),
         refetchOnMount: false,
         refetchOnWindowFocus: false,

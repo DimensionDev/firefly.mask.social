@@ -75,13 +75,10 @@ export default function BlinkPage() {
                 </ClickableButton>
             </div>
 
-            {error ? (
-                <div className="w-full">{error.message}</div>
-            ) : (
-                <div className="w-full max-w-[500px]">
-                    <Blink post={post} />
-                </div>
-            )}
+            <div className="w-full max-w-[500px]">
+                <Blink post={post} />
+            </div>
+            {error ? <div className="w-full">{error.message}</div> : null}
         </Section>
     );
 }

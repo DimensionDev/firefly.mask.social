@@ -21,7 +21,7 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
         error,
         isLoading,
     } = useQuery({
-        queryKey: ['action', post.postId],
+        queryKey: ['action', post],
         queryFn: () => getPostBlinkAction(post),
         retry: false,
         refetchOnMount: false,

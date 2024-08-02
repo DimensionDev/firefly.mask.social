@@ -289,7 +289,7 @@ export const Frame = memo<FrameProps>(function Frame({ post, onData, children })
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['frame', post.postId],
+        queryKey: ['frame', post],
         queryFn: () => getPostFrame(post),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
