@@ -116,10 +116,11 @@ export function PostLinksInCompose({
     type: ComposeType;
     parentPost?: Post | null;
 }) {
-    const content = useMemo(() => readChars(chars, 'visible'), [chars]);
-    const oembedUrls: string[] = useMemo(() => content.match(URL_REGEX) || [], [content]);
-    const oembedUrl = last(oembedUrls);
     const post = useMemo(() => {
+        const content = readChars(chars, 'visible');
+        const oembedUrls = content.match(URL_REGEX) || [];
+        const oembedUrl = last(oembedUrls);
+
         return {
             postId: '',
             metadata: {
@@ -133,6 +134,6 @@ export function PostLinksInCompose({
             quoteOn: type === 'quote' ? parentPost ?? undefined : undefined,
             source,
         };
-    }, [content, oembedUrl, oembedUrls, parentPost, source, type]);
+    }, [chars, parentPost, source, type]);
     return <PostLinks post={post} />;
 }
