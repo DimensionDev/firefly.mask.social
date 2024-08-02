@@ -5,7 +5,7 @@ import { memo, useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostBlinkAction } from '@/services/getPostLink.js';
+import { getPostBlinkAction } from '@/services/getPostLinks.js';
 import type { Action } from '@/types/blink.js';
 
 interface Props {

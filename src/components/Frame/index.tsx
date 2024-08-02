@@ -28,7 +28,7 @@ import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostFrame } from '@/services/getPostLink.js';
+import { getPostFrame } from '@/services/getPostLinks.js';
 import { validateMessage } from '@/services/validateMessage.js';
 import {
     ActionType,

@@ -10,7 +10,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostOembed } from '@/services/getPostLink.js';
+import { getPostOembed } from '@/services/getPostLinks.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
 
 interface OembedUIProps {

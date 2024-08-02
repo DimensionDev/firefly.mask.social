@@ -14,7 +14,7 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostLinks } from '@/services/getPostLink.js';
+import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
 
 interface Props {

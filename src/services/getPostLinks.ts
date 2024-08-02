@@ -64,19 +64,27 @@ export async function getPostOembed(post: Post): Promise<LinkDigested | null> {
     return linkDigested.success ? linkDigested.data : null;
 }
 
-export async function getPostLinks(post: Post): Promise<{
-    oembed?: LinkDigested;
-    frame?: Frame;
-    action?: Action;
-} | null> {
-    const frame = await getPostFrame(post);
-    if (frame) return { frame };
-
-    const action = await getPostBlinkAction(post);
-    if (action) return { action };
-
-    const oembed = await getPostOembed(post);
-    if (oembed) return { oembed };
-
-    return null;
+export async function getPostLinks(post: Post) {
+    return attemptUntil<{
+        oembed?: LinkDigested;
+        frame?: Frame;
+        action?: Action;
+    } | null>(
+        [
+            async () => {
+                const frame = await getPostFrame(post);
+                return frame ? { frame } : null;
+            },
+            async () => {
+                const action = await getPostBlinkAction(post);
+                return action ? { action } : null;
+            },
+            async () => {
+                const oembed = await getPostOembed(post);
+                return oembed ? { oembed } : null;
+            },
+        ],
+        null,
+        (x) => !x,
+    );
 }
