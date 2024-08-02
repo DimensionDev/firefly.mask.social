@@ -118,7 +118,7 @@
     --color-bg-modal: rgba(0, 0, 0);
     --color-bg-modal-layer: 217 217 217;
     --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.06) 100%);
-    --color-input: rgba(255, 255, 255, 0.2);
+    --color-input: rgba(255, 255, 255, 1);
     --color-line: rgba(255, 255, 255, 0.18);
     --color-line2: rgba(255, 255, 255, 0.43);
     --color-light-bg: rgba(255, 255, 255, 0.08);
