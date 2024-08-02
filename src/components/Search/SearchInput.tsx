@@ -22,13 +22,14 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
                 ref={inputRef}
                 {...rest}
                 className={classNames(
-                    `w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6`,
+                    `w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6`,
                     rest.className,
                 )}
             />
             {rest.value ? (
                 <ClearButton
-                    className={'focus-within:text-highlight'}
+                    type="button"
+                    className="focus-within:text-highlight"
                     size={16}
                     onClick={() => {
                         onClear?.();

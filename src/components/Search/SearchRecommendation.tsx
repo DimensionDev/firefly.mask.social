@@ -212,7 +212,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     <Trans>Recent</Trans>
                 </span>
                 <ClickableButton
-                    className="ml-auto font-bold text-[#246BFD]"
+                    className="ml-auto font-bold text-highlight"
                     onClick={() => {
                         clearAll();
                         onClear?.();
@@ -225,7 +225,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 <ul className="my-0">
                     {records.map((record) => (
                         <Link
-                            className="flex cursor-pointer items-center text-ellipsis px-3 hover:bg-bg"
+                            className="flex cursor-pointer items-center px-3 hover:bg-bg"
                             key={record}
                             href={urlcat('/search', { q: record })}
                             onClick={() => {
@@ -234,10 +234,10 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             }}
                         >
                             <SearchIcon width={18} height={18} className="shrink-0" />
-                            <span className="color-main ml-4 text-ellipsis py-2">{record}</span>
+                            <span className="color-main ml-4 flex-grow truncate py-2">{record}</span>
                             <ClearButton
                                 size={16}
-                                className="ml-auto"
+                                className="ml-auto text-second"
                                 tooltip={t`Remove`}
                                 onClick={() => {
                                     removeRecord(record);
