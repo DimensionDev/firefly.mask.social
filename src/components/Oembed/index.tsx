@@ -20,12 +20,52 @@ interface OembedUIProps {
     og: OpenGraph;
 }
 
-export const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
+const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
     return og.html ? (
         <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com', false)} />
     ) : (
         <Embed og={og} />
     );
+});
+
+export const OembedLayout = memo<{ data: LinkDigested; postId?: string }>(function OembedPayload(props) {
+    const {
+        data: { payload, og },
+        postId,
+    } = props;
+    if (!og.title) return null;
+    if (payload?.type === 'Post' && payload.id === postId) return null;
+    const type = payload?.type;
+    if (type) {
+        switch (type) {
+            case PayloadType.Mirror:
+                return (
+                    <Mirror
+                        address={payload.address}
+                        title={og.title}
+                        description={payload.body || ''}
+                        url={og.url}
+                        ens={payload.ens}
+                        displayName={payload.displayName}
+                        timestamp={payload.timestamp}
+                    />
+                );
+            case PayloadType.Farcaster:
+                const post = formatWarpcastPost(payload.cast);
+                return <Quote post={post} />;
+            case PayloadType.Post:
+                const id = payload.id;
+                return (
+                    <Suspense fallback={null}>
+                        <PostEmbed id={id} source={payload.source} />
+                    </Suspense>
+                );
+            default:
+                safeUnreachable(type);
+                break;
+        }
+    }
+    return <OembedUI og={og} />;
 });
 
 interface OembedProps {
@@ -58,42 +98,5 @@ export const Oembed = memo<OembedProps>(function Oembed({ url, onData, postId })
 
     if (isLoading || error || !data?.success) return null;
 
-    const og: OpenGraph = data.data.og;
-    if (!og.title) return null;
-    if (data.data.payload?.type === 'Post' && data.data.payload.id === postId) return null;
-
-    const payload = data.data.payload;
-
-    const type = payload?.type;
-    if (type) {
-        switch (type) {
-            case PayloadType.Mirror:
-                return (
-                    <Mirror
-                        address={payload.address}
-                        title={og.title}
-                        description={payload.body || ''}
-                        url={og.url}
-                        ens={payload.ens}
-                        displayName={payload.displayName}
-                        timestamp={payload.timestamp}
-                    />
-                );
-            case PayloadType.Farcaster:
-                const post = formatWarpcastPost(payload.cast);
-                return <Quote post={post} />;
-            case PayloadType.Post:
-                const id = payload.id;
-                return (
-                    <Suspense fallback={null}>
-                        <PostEmbed id={id} source={payload.source} />
-                    </Suspense>
-                );
-            default:
-                safeUnreachable(type);
-                break;
-        }
-    }
-
-    return <OembedUI og={og} />;
+    return <OembedLayout data={data.data} />;
 });
