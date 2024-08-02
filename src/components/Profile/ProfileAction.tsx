@@ -19,11 +19,7 @@ export function ProfileAction({ profile, ProfileMoreActionProps }: ProfileAction
 
     return (
         <>
-            {!isRelatedProfile ? (
-                <FollowButton hasFollowBack={false} profile={profile} />
-            ) : (
-                <ProfileLoginStatus profile={profile} />
-            )}
+            {!isRelatedProfile ? <FollowButton profile={profile} /> : <ProfileLoginStatus profile={profile} />}
             <ProfileMoreAction {...ProfileMoreActionProps} profile={profile} />
         </>
     );

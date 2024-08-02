@@ -189,8 +189,10 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getFollowings(profileId, indicator);
     }
 
-    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getMutualFollowers(profileId, indicator);
+    async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const result = await FireflySocialMediaProvider.getMutualFollowers(profileId, indicator);
+        result.data = await NeynarSocialMediaProvider.getProfilesByIds(result.data.map((x) => x.profileId));
+        return result;
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator) {
