@@ -1,6 +1,5 @@
 import { formatBalance, multipliedBy } from '@masknet/web3-shared-base';
 import { useQuery } from '@tanstack/react-query';
-import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
@@ -11,18 +10,7 @@ import type { Token } from '@/providers/types/Transfer.js';
 import { getTokensByAddress } from '@/services/getTokensByAddress.js';
 
 function sortTokensByUsdValue(tokens: Token[]) {
-    const groups = groupBy(tokens, (token) => token.chainId);
-
-    return Object.values(groups)
-        .map((group) => {
-            return group.sort((a, b) => b.usdValue - a.usdValue);
-        })
-        .sort((a, b) => {
-            const maxA = Math.max(...a.map((token) => token.usdValue));
-            const maxB = Math.max(...b.map((token) => token.usdValue));
-            return maxA > maxB ? -1 : 1;
-        })
-        .flat();
+    return tokens.sort((a, b) => b.usdValue - a.usdValue);
 }
 
 export const useTipsTokens = () => {
