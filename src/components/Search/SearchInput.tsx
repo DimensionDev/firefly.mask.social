@@ -28,6 +28,7 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
             />
             {rest.value ? (
                 <ClearButton
+                    type="button"
                     className={'focus-within:text-highlight'}
                     size={16}
                     onClick={() => {
