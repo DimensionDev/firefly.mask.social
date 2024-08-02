@@ -16,7 +16,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         if (!postId) throw new MalformedError('postId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data: me } = await client.v2.me();
+        const { data: me, errors } = await client.v2.me();
         await client.v2.like(me.id, postId);
         return createSuccessResponseJSON(true);
     },

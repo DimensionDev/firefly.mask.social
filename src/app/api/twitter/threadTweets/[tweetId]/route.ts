@@ -18,8 +18,8 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         if (!tweetId) throw new MalformedError('tweetId not found');
 
         const client = await createTwitterClientV2(request);
-        const thread = await getThreadTweets(client, tweetId);
+        const { data, includes, errors } = await getThreadTweets(client, tweetId);
 
-        return createSuccessResponseJSON(thread.data.map((tweet) => tweetV2ToPost(tweet, thread.includes)));
+        return createSuccessResponseJSON(data.map((tweet) => tweetV2ToPost(tweet, includes)));
     },
 );

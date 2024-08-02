@@ -80,7 +80,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const client = await createTwitterClientV2(request);
         const tweet = await composeTweet(await request.json());
-        const { data } = await client.v2.tweet(tweet);
+        const { data, errors } = await client.v2.tweet(tweet);
         return createSuccessResponseJSON(data);
     },
 );

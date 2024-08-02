@@ -20,7 +20,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
-        const { data } = await client.v2.userTimeline(userId, {
+        const { data, errors } = await client.v2.userTimeline(userId, {
             ...TWITTER_TIMELINE_OPTIONS,
             exclude: ['retweets'],
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,

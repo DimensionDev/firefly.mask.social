@@ -16,7 +16,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         if (!targetId) throw new MalformedError('targetId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data: me } = await client.v2.me();
+        const { data: me, errors } = await client.v2.me();
         const { data } = await client.v2.mute(me.id, targetId);
 
         return createSuccessResponseJSON(data);
@@ -31,7 +31,7 @@ export const DELETE = compose<(request: NextRequest, context?: NextRequestContex
         if (!targetId) throw new MalformedError('targetId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data: me } = await client.v2.me();
+        const { data: me, errors } = await client.v2.me();
         const { data } = await client.v2.unmute(me.id, targetId);
 
         return createSuccessResponseJSON(data);

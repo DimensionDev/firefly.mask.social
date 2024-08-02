@@ -12,7 +12,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     withTwitterRequestErrorHandler,
     async (request) => {
         const client = await createTwitterClientV2(request);
-        const { data } = await client.v2.me();
+        const { data, errors } = await client.v2.me();
         return createSuccessResponseJSON(data);
     },
 );

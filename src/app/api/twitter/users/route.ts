@@ -32,9 +32,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
             ],
         });
 
-        if (errors && errors.length > 0) {
-            throw errors;
-        }
+        if (errors && errors.length > 0) throw errors;
         return createSuccessResponseJSON(data);
     },
 );

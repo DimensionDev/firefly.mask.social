@@ -15,8 +15,8 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
         const client = await createTwitterClientV2(request);
-        const { data: me } = await client.v2.me();
-        const { data } = await client.v2.userMutingUsers(me.id, {
+        const { data: me, errors } = await client.v2.me();
+        const { data, errors: muteErrors } = await client.v2.userMutingUsers(me.id, {
             ...TWITTER_MUTE_LIST_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
