@@ -24,7 +24,7 @@ import {
 } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact, flatten, values } from 'lodash-es';
-import { forwardRef, useCallback, useMemo, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
@@ -193,6 +193,7 @@ function ComposeRouteRoot() {
 
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
+        const isMedium = useIsMedium();
         const currentSource = useGlobalState.use.currentSource();
         const currentSocialSource = narrowToSocialSource(currentSource);
 
@@ -379,9 +380,29 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             contentRef.current.scrollTop = contentRef.current?.scrollHeight;
         }, [posts.length]);
 
+        const [viewportHeight, setViewportHeight] = useState(() => {
+            return window.visualViewport ? window.visualViewport.height : null;
+        });
+        useEffect(() => {
+            const viewport = window.visualViewport;
+            if (!viewport || isMedium) return;
+            function viewportHandler() {
+                setViewportHeight(viewport?.height || null);
+            }
+            viewport.addEventListener('scroll', viewportHandler);
+            viewport.addEventListener('resize', viewportHandler);
+            return () => {
+                viewport.removeEventListener('scroll', viewportHandler);
+                viewport.removeEventListener('resize', viewportHandler);
+            };
+        }, [isMedium]);
+
         return (
             <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false} disableDialogClose>
-                <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
+                <div
+                    className="absolute top-0 flex w-[100vw] flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0"
+                    style={isMedium ? undefined : { height: viewportHeight ?? '100%' }}
+                >
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
                         <div className="absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
