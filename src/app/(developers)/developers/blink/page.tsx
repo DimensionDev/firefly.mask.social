@@ -20,7 +20,7 @@ import { BlinkParser } from '@/providers/blink/Parser.js';
 
 export default function BlinkPage() {
     const [url, setUrl] = useState('');
-    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
+    const post = useMemo(() => createDummyPost(Source.Farcaster, url), [url]);
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
         const [scheme] = url ? BlinkParser.extractSchemes(url) : [];

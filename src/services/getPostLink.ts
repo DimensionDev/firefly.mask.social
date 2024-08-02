@@ -24,7 +24,7 @@ export async function getPostFrame(post: Post): Promise<Frame | null> {
 
     return attemptUntil(
         urls
-            .filter((x) => isValidDomain(x))
+            .filter((x) => x && !isValidDomain(x))
             .map((y) => async () => {
                 const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                     urlcat('/api/frame', {
@@ -34,7 +34,7 @@ export async function getPostFrame(post: Post): Promise<Frame | null> {
                 return response.success ? response.data.frame : null;
             }),
         null,
-        (x) => !!x,
+        (x) => !x,
     );
 }
 
