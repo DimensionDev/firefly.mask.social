@@ -2,15 +2,18 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined, last } from 'lodash-es';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedUIAndPayload } from '@/components/Oembed/index.js';
-import { STATUS } from '@/constants/enum.js';
+import { type SocialSource, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
+import type { Chars } from '@/helpers/chars.js';
+import { readChars } from '@/helpers/chars.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
@@ -19,6 +22,7 @@ import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import { BlinkParser } from '@/providers/blink/Parser.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { ComposeType } from '@/types/compose.js';
 import type { LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
@@ -99,4 +103,36 @@ export function PostLinks({ post, setContent }: Props) {
             {data.oembed ? <OembedUIAndPayload data={data.oembed} postId={post.postId} /> : null}
         </>
     );
+}
+
+export function PostLinksInCompose({
+    chars,
+    source,
+    type,
+    parentPost,
+}: {
+    chars: Chars;
+    source: SocialSource;
+    type: ComposeType;
+    parentPost?: Post | null;
+}) {
+    const content = useMemo(() => readChars(chars, 'visible'), [chars]);
+    const oembedUrls: string[] = useMemo(() => content.match(URL_REGEX) || [], [content]);
+    const oembedUrl = last(oembedUrls);
+    const post = useMemo(() => {
+        return {
+            postId: '',
+            metadata: {
+                locale: 'en',
+                content: {
+                    content,
+                    oembedUrl,
+                    oembedUrls,
+                },
+            },
+            quoteOn: type === 'quote' ? parentPost ?? undefined : undefined,
+            source,
+        };
+    }, [content, oembedUrl, oembedUrls, parentPost, source, type]);
+    return <PostLinks post={post} />;
 }

@@ -1,16 +1,12 @@
-import { last } from 'lodash-es';
-
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
-import { PostLinks } from '@/components/Posts/PostLinks.js';
+import { PostLinksInCompose } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
-import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { BlinkParser } from '@/providers/blink/Parser.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {
@@ -25,11 +21,6 @@ export function ComposeContent(props: ComposeContentProps) {
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens;
     const replying = type === 'reply' && !!post;
-
-    const content = readChars(chars, 'visible');
-    const parsedActionSchemes = BlinkParser.extractSchemes(content);
-    const oembedUrls = parsedActionSchemes.map((x) => x.url);
-    const oembedUrl = last(oembedUrls);
 
     return (
         <div className="relative flex flex-1 flex-col">
@@ -77,20 +68,11 @@ export function ComposeContent(props: ComposeContentProps) {
             {/* quote */}
             {type === 'quote' && post ? <Quote post={post} className="text-left" /> : null}
 
-            <PostLinks
-                post={{
-                    postId: '',
-                    metadata: {
-                        locale: 'en',
-                        content: {
-                            content,
-                            oembedUrl,
-                            oembedUrls,
-                        },
-                    },
-                    quoteOn: type === 'quote' ? post ?? undefined : undefined,
-                    source: post?.source ?? availableSources[0],
-                }}
+            <PostLinksInCompose
+                chars={chars}
+                parentPost={post}
+                source={post?.source ?? availableSources[0]}
+                type={type}
             />
         </div>
     );
