@@ -171,12 +171,12 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     </div>
                 ) : profiles?.data.length ? (
                     <div className="py-2">
-                        {uniqBy(profiles.data, (x) => x.handle)
+                        {uniqBy(profiles.data, (x) => `${x.source}/${x.handle}`)
                             .slice(0, MAX_RECOMMEND_PROFILE_SIZE)
                             .map((profile) => (
                                 <Link
                                     className="block cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
-                                    key={profile.handle}
+                                    key={`${profile.source}/${profile.handle}`}
                                     href={getProfileUrl(profile)}
                                     onClick={() => onSelect?.(profile)}
                                 >

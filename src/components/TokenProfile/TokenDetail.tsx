@@ -159,7 +159,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                 )}
             </div>
 
-            <div className="mt-4 flex gap-2.5 rounded-[28px] border border-line bg-input p-1">
+            <div className="mt-4 flex gap-2.5 rounded-[28px] border border-line bg-input p-1 dark:bg-white/20">
                 {ranges.map((range) => (
                     <ClickableButton
                         className={classNames(

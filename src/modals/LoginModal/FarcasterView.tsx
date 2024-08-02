@@ -24,5 +24,5 @@ function Title() {
 
 export function FarcasterView() {
     const signType = useSignType();
-    return <LoginFarcaster signType={signType} />;
+    return <LoginFarcaster key={signType} signType={signType} />;
 }
