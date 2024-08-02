@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { isUndefined, last } from 'lodash-es';
+import { last } from 'lodash-es';
 import { useEffect, useMemo } from 'react';
 import urlcat from 'urlcat';
 
@@ -49,29 +49,22 @@ export function PostLinks({ post, setContent }: Props) {
                 const frame = await attemptUntil(
                     urls.map((x) => async () => {
                         if (isValidDomain(x)) return;
-                        return fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                        const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                             urlcat('/api/frame', {
                                 link: (await resolveTCOLink(x)) ?? x,
                             }),
                         );
+                        return response.success ? response.data.frame : undefined;
                     }),
                     undefined,
-                    (response) => {
-                        if (isUndefined(response)) return true;
-                        return !response?.success;
-                    },
-                )
-                    .then((res) => {
-                        if (!res?.success) return null;
-                        return res.data.frame;
-                    })
-                    .catch(() => null);
+                    (x) => !!x,
+                );
                 return { frame };
             }
 
             if (env.external.NEXT_PUBLIC_BLINK === STATUS.Enabled && scheme) {
                 const blink = await BlinkLoader.fetchAction(await resolveBlinkTCO(scheme));
-                return { blink };
+                if (blink) return { blink };
             }
 
             if (!url || isValidDomain(url) || post.quoteOn) return;
@@ -135,5 +128,6 @@ export function PostLinksInCompose({
             source,
         };
     }, [chars, parentPost, source, type]);
+
     return <PostLinks post={post} />;
 }
