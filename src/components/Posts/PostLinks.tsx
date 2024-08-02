@@ -38,7 +38,7 @@ export function PostLinks({ post, setContent }: Props) {
         if (data?.oembed && url && content) {
             setContent?.(removeAtEnd(content, url));
         }
-    }, [content, data?.oembed, setContent, post]);
+    }, [data?.oembed, setContent, post]);
 
     if (isLoading || error || !data) return null;
 
