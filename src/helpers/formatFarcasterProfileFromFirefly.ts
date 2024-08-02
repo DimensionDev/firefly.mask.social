@@ -22,5 +22,6 @@ export function formatFarcasterProfileFromFirefly(user: User): Profile {
             following: user.isFollowing,
             followedBy: user.isFollowedBack,
         },
+        isPowerUser: user.isPowerUser ?? false,
     };
 }
