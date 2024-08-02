@@ -252,7 +252,7 @@ async function getNextFrame(
 
 export interface FrameLayoutProps {
     frame: FrameType;
-    post: Pick<Post, 'postId' | 'source'>;
+    post: Post;
     children?: ReactNode;
 }
 
