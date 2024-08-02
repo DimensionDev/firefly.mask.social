@@ -1,5 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
-
 interface TwitterV1ErrorData {
     errors: Array<{
         message: string;
@@ -18,13 +16,6 @@ interface TwitterError {
 }
 
 export function getTwitterErrorMessage(error: unknown): { status?: number; message: string } {
-    // inline error handling
-    if (Array.isArray(error)) {
-        const forbiddenError = error.find(({ title }) => title === 'Forbidden');
-        if (forbiddenError) return { status: StatusCodes.FORBIDDEN, message: forbiddenError.detail };
-        return { message: error.map(({ title, detail }) => `${title}: ${detail}`).join('\n') };
-    }
-
     if (!(error instanceof Error)) return { message: 'Unknown error.' };
 
     try {

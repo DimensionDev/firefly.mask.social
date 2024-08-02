@@ -4,6 +4,7 @@ import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
@@ -17,7 +18,11 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
 
         const client = await createTwitterClientV2(request);
         const { data: me, errors } = await client.v2.me();
+        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+
         const { errors: retweetErrors } = await client.v2.retweet(me.id, postId);
+        if (retweetErrors?.length) return createTwitterErrorResponseJSON(retweetErrors);
+
         return createSuccessResponseJSON(true);
     },
 );

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
@@ -31,8 +32,8 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
                 'connection_status',
             ],
         });
+        if (errors?.length) return createTwitterErrorResponseJSON(errors);
 
-        if (errors && errors.length > 0) throw errors;
         return createSuccessResponseJSON(data);
     },
 );

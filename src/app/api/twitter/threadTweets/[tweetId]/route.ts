@@ -4,6 +4,7 @@ import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { getThreadTweets } from '@/helpers/getThreadTweets.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -19,6 +20,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const client = await createTwitterClientV2(request);
         const { data, includes, errors } = await getThreadTweets(client, tweetId);
+        if (errors?.length) return createTwitterErrorResponseJSON(errors);
 
         return createSuccessResponseJSON(data.map((tweet) => tweetV2ToPost(tweet, includes)));
     },
