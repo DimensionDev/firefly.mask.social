@@ -118,6 +118,7 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>
+                {/* enable dead code elimination */}
                 {process.env.NODE_ENV === 'development' &&
                 env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled ? (
                     <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
