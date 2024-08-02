@@ -23,14 +23,16 @@ export async function getPostFrame(post: Post): Promise<Frame | null> {
     if (!urls?.length) return null;
 
     return attemptUntil(
-        urls.filter(x => isValidDomain(x)).map((y) => async () => {
-            const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-                urlcat('/api/frame', {
-                    link: (await resolveTCOLink(y)) ?? y,
-                }),
-            );
-            return response.success ? response.data.frame : null;
-        }),
+        urls
+            .filter((x) => isValidDomain(x))
+            .map((y) => async () => {
+                const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                    urlcat('/api/frame', {
+                        link: (await resolveTCOLink(y)) ?? y,
+                    }),
+                );
+                return response.success ? response.data.frame : null;
+            }),
         null,
         (x) => !!x,
     );
