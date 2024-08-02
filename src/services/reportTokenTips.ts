@@ -37,11 +37,7 @@ function report(params: UploadTokenTipsParams) {
     });
 }
 
-export async function reportTokenTips(
-    source: Source,
-    identity: string,
-    params: UploadTokenTipsParams,
-) {
+export async function reportTokenTips(source: Source, identity: string, params: UploadTokenTipsParams) {
     const profile =
         useLensStateStore.getState().currentProfile ||
         useFarcasterStateStore.getState().currentProfile ||
@@ -55,7 +51,7 @@ export async function reportTokenTips(
     const to_account_id = await getAllPlatformProfileFromFirefly(source, identity)
         .then((x) => x.data?.fireflyAccountId)
         .catch(() => undefined);
-        
+
     return report({
         from_account_id,
         to_account_id,
