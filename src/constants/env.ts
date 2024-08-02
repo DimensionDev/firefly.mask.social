@@ -45,6 +45,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FRAME: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_BLINK: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_OPENGRAPH: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_SCHEDULE_POST: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
