@@ -19,12 +19,12 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileCardProps {
-    profile?: Profile;
     source: SocialSource;
     identity: string;
+    defaultProfile?: Profile;
 }
 
-export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ profile: defaultProfile, source, identity }) {
+export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ defaultProfile, source, identity }) {
     const { data: profile, isLoading } = useQuery({
         enabled: !!identity && !!source,
         queryKey: ['profile', source, identity],

@@ -9,17 +9,17 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileTippyProps extends TippyProps {
+    className?: string;
     identity: string;
     source: SocialSource;
-    className?: string;
     profile?: Profile;
 }
 
 export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
     identity,
     source,
+    profile,
     children,
-    profile: defaultProfile,
     ...rest
 }) {
     const isMedium = useIsMedium();
@@ -44,7 +44,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
                 }}
                 hideOnClick
                 interactive
-                content={enabled ? <ProfileCard source={source} profile={defaultProfile} identity={identity} /> : null}
+                content={enabled ? <ProfileCard source={source} identity={identity} defaultProfile={profile} /> : null}
                 {...rest}
             >
                 {children}

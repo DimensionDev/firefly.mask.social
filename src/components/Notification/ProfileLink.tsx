@@ -7,6 +7,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 interface Props {
     profile: Profile;
 }
+
 export function ProfileLink({ profile }: Props) {
     const identity = profile.source === Source.Lens ? profile.handle : profile.profileId;
     return (
