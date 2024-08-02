@@ -20,7 +20,7 @@ export default function OpenGraph() {
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
-    const [{ value: cacheRemoved, error, loading }, onSubmit] = useAsyncFn(async () => {
+    const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
         if (!isValidUrl(url)) throw new Error(t`Invalid URL.`);
 
         await fetchJSON(
@@ -31,8 +31,6 @@ export default function OpenGraph() {
                 method: 'DELETE',
             },
         );
-
-        return true;
     }, [url]);
 
     return (
@@ -70,13 +68,13 @@ export default function OpenGraph() {
                 </ClickableButton>
             </div>
 
-            {cacheRemoved === true ? (
+            {error ? (
+                <div className="w-full">{error.message}</div>
+            ) : (
                 <div className="w-full max-w-[500px]">
                     <Oembed post={post} />
                 </div>
-            ) : error ? (
-                <div className="w-full">{error.message}</div>
-            ) : null}
+            )}
         </Section>
     );
 }

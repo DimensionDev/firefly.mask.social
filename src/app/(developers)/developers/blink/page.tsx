@@ -22,9 +22,9 @@ export default function BlinkPage() {
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
-    const [{ value: cacheRemoved, error, loading }, onSubmit] = useAsyncFn(async () => {
+    const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
         const [scheme] = url ? BlinkParser.extractSchemes(url) : [];
-        if (!scheme) throw new Error('Invalid blink url.');
+        if (!scheme) throw new Error('Invalid Blink URL.');
 
         await fetchJSON(urlcat('/api/solana/action', await resolveBlinkTCO(scheme)), {
             method: 'DELETE',
