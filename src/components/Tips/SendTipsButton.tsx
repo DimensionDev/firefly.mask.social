@@ -36,7 +36,6 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             const { chainId, id } = token;
             const transfer = resolveTransferProvider(recipient.networkType);
             const network = resolveNetworkProvider(recipient.networkType);
-            debugger;
             const hash = await transfer.transfer({
                 to: recipient.address,
                 token,
