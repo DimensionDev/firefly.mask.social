@@ -20,7 +20,7 @@ interface OembedUIProps {
     og: OpenGraph;
 }
 
-export const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
+const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
     return og.html ? (
         <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com', false)} />
     ) : (
