@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import { kv } from '@vercel/kv';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
@@ -26,6 +27,14 @@ export async function GET(request: Request) {
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
     if (!linkDigested)
         return Response.json({ error: `Unable to digest frame link = ${link}` }, { status: StatusCodes.NOT_FOUND });
+
+    const source = searchParams.get('source');
+    const postId = searchParams.get('post-id');
+    if (source && postId) {
+        await kv.hset(`post-links:${source}:${postId}`, {
+            frame: linkDigested.frame,
+        });
+    }
 
     return createSuccessResponseJSON(linkDigested);
 }
