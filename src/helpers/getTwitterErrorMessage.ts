@@ -16,7 +16,7 @@ interface TwitterError {
 }
 
 export function getTwitterErrorMessage(error: unknown): { status?: number; message: string } {
-    if (!(error instanceof Error)) return { message: 'Unknown error.' };
+    if (!(error instanceof Error)) return { message: JSON.stringify(error) };
 
     try {
         const { data } = error as unknown as TwitterError;
