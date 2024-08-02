@@ -57,9 +57,6 @@ msgstr "报告 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"
 
-msgid "Retweet"
-msgstr "转帖"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
@@ -464,6 +461,9 @@ msgstr "图片或者视频上传失败。"
 
 msgid "No Airdrop Scam"
 msgstr "没有空投骗局"
+
+msgid "Reposted"
+msgstr ""
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
@@ -873,9 +873,6 @@ msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
-msgid "Cancel retweet successfully"
-msgstr "成功取消转发"
-
 msgid "Set"
 msgstr "设置"
 
@@ -1043,9 +1040,6 @@ msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
-
-msgid "Retweeted"
-msgstr "已转帖"
 
 msgid "liked"
 msgstr "点赞"
@@ -1386,6 +1380,9 @@ msgstr "将在 {0} {1} 发送"
 msgid "Failed to like the post."
 msgstr "点赞失败。"
 
+msgid "Failed to repost."
+msgstr ""
+
 msgid "Download image"
 msgstr "下载图片"
 
@@ -1400,6 +1397,9 @@ msgstr "数据获取失败。"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "市场上流通并可供公众交易的货币数量。这相当于市场上随时可买到的股票（未被内部人士或政府持有和锁定）。"
+
+msgid "{0, plural, one {repost} other {reposts}}"
+msgstr ""
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
@@ -1593,6 +1593,9 @@ msgstr "复制链接"
 msgid "No whitelist"
 msgstr "没有白名单"
 
+msgid "Cancel repost successfully"
+msgstr ""
+
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
 
@@ -1665,11 +1668,11 @@ msgstr "日期"
 msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账号？"
 
-msgid "Failed to retweet."
-msgstr "转帖失败。"
-
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了您的} Farcaster {转帖了您的} other {转帖了您的}} <4><5/></4>"
+
+msgid "Repost"
+msgstr ""
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"

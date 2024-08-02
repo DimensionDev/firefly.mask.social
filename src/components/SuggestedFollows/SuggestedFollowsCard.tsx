@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import urlcat from 'urlcat';
 
@@ -10,7 +10,7 @@ import { AsideTitle } from '@/components/AsideTitle.js';
 import { ProfileCell } from '@/components/Profile/ProfileCell.js';
 import { DiscoverType, PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -18,26 +18,39 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
+async function filterFollowedProfiles(queryCallback: (indicator?: PageIndicator) => Promise<Pageable<Profile>>) {
+    let result = await queryCallback();
+    let data: Profile[] = [];
+    let sliceIndex = 0;
+    while (data.length < 3 && result.data.length - sliceIndex > 0) {
+        const sliceEndIndex = 3 - data.length;
+        const newData = result.data
+            .slice(sliceIndex, sliceEndIndex)
+            .filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following);
+        sliceIndex = sliceIndex + sliceEndIndex;
+        data = [...data, ...newData];
+        if (data.length < 3 && result.data.length - sliceIndex <= 0 && result.nextIndicator) {
+            result = await queryCallback(result.nextIndicator as PageIndicator);
+            sliceIndex = 0;
+        }
+    }
+    return data;
+}
+
 export function SuggestedFollowsCard() {
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfileAll();
-    const { data: farcasterData, isLoading: isLoadingFarcaster } = useSuspenseInfiniteQuery({
-        queryKey: ['suggested-follows', Source.Farcaster],
-        queryFn({ pageParam }) {
-            return FarcasterSocialMediaProvider.getSuggestedFollows(createIndicator(undefined, pageParam));
+    const { data: farcasterData, isLoading: isLoadingFarcaster } = useQuery({
+        queryKey: ['suggested-follows-lite', Source.Farcaster],
+        queryFn() {
+            return filterFollowedProfiles(FarcasterSocialMediaProvider.getSuggestedFollows);
         },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? []),
     });
-    const { data: lensData, isLoading: isLoadingLens } = useSuspenseInfiniteQuery({
-        queryKey: ['suggested-follows', Source.Lens],
-        queryFn({ pageParam }) {
-            return LensSocialMediaProvider.getSuggestedFollows(createIndicator(undefined, pageParam));
+    const { data: lensData, isLoading: isLoadingLens } = useQuery({
+        queryKey: ['suggested-follows-lite', Source.Lens],
+        queryFn() {
+            return filterFollowedProfiles(LensSocialMediaProvider.getSuggestedFollows);
         },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? []),
     });
 
     const showMoreUrl = useMemo(() => {
@@ -84,20 +97,14 @@ export function SuggestedFollowsCard() {
                 ) : (
                     <>
                         {!isLoadingFarcaster
-                            ? farcasterData
-                                  ?.filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following)
-                                  ?.slice(0, 3)
-                                  ?.map((profile) => (
-                                      <ProfileCell key={profile.profileId} profile={profile} source={profile.source} />
-                                  ))
+                            ? farcasterData?.map((profile) => (
+                                  <ProfileCell key={profile.profileId} profile={profile} source={profile.source} />
+                              ))
                             : loadingEl}
                         {!isLoadingLens
-                            ? lensData
-                                  ?.filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following)
-                                  ?.slice(0, 3)
-                                  ?.map((profile) => (
-                                      <ProfileCell key={profile.profileId} profile={profile} source={profile.source} />
-                                  ))
+                            ? lensData?.map((profile) => (
+                                  <ProfileCell key={profile.profileId} profile={profile} source={profile.source} />
+                              ))
                             : loadingEl}
                     </>
                 )}

@@ -57,9 +57,6 @@ msgstr "檢舉 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr ""
 
-msgid "Retweet"
-msgstr "轉發"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
@@ -464,6 +461,9 @@ msgstr ""
 
 msgid "No Airdrop Scam"
 msgstr "無空投騙局"
+
+msgid "Reposted"
+msgstr ""
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
@@ -873,9 +873,6 @@ msgstr ""
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
-msgid "Cancel retweet successfully"
-msgstr "成功取消轉發"
-
 msgid "Set"
 msgstr "設定"
 
@@ -1043,9 +1040,6 @@ msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
-
-msgid "Retweeted"
-msgstr "已轉發"
 
 msgid "liked"
 msgstr "已喜歡"
@@ -1386,6 +1380,9 @@ msgstr ""
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
+msgid "Failed to repost."
+msgstr ""
+
 msgid "Download image"
 msgstr "下載圖片"
 
@@ -1399,6 +1396,9 @@ msgid "Unable to retrieve post details."
 msgstr "無法檢索貼文詳情"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+msgstr ""
+
+msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
@@ -1593,6 +1593,9 @@ msgstr ""
 msgid "No whitelist"
 msgstr "無白名單"
 
+msgid "Cancel repost successfully"
+msgstr ""
+
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
 
@@ -1665,10 +1668,10 @@ msgstr "日期"
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
-msgid "Failed to retweet."
-msgstr "轉推失敗"
-
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+msgstr ""
+
+msgid "Repost"
 msgstr ""
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"

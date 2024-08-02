@@ -52,9 +52,6 @@ msgstr "Report @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "Sell Tax: {0}%"
 
-msgid "Retweet"
-msgstr "Retweet"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
@@ -459,6 +456,9 @@ msgstr "There are images or videos that were not uploaded successfully."
 
 msgid "No Airdrop Scam"
 msgstr "No Airdrop Scam"
+
+msgid "Reposted"
+msgstr "Reposted"
 
 msgid "Add another post..."
 msgstr "Add another post..."
@@ -868,9 +868,6 @@ msgstr "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 
-msgid "Cancel retweet successfully"
-msgstr "Cancel retweet successfully"
-
 msgid "Set"
 msgstr "Set"
 
@@ -1038,9 +1035,6 @@ msgstr "Failed to upvote post."
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
-
-msgid "Retweeted"
-msgstr "Retweeted"
 
 msgid "liked"
 msgstr "liked"
@@ -1381,6 +1375,9 @@ msgstr "will send on {0} at {1}"
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
+msgid "Failed to repost."
+msgstr "Failed to repost."
+
 msgid "Download image"
 msgstr "Download image"
 
@@ -1395,6 +1392,9 @@ msgstr "Unable to retrieve post details."
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+
+msgid "{0, plural, one {repost} other {reposts}}"
+msgstr "{0, plural, one {repost} other {reposts}}"
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
@@ -1588,6 +1588,9 @@ msgstr "Copy link to profile"
 msgid "No whitelist"
 msgstr "No whitelist"
 
+msgid "Cancel repost successfully"
+msgstr "Cancel repost successfully"
+
 msgid "{count, plural, one {{0} View} other {{1} Views}}"
 msgstr "{count, plural, one {{0} View} other {{1} Views}}"
 
@@ -1660,11 +1663,11 @@ msgstr "Date"
 msgid "Confirm to log out all accounts?"
 msgstr "Confirm to log out all accounts?"
 
-msgid "Failed to retweet."
-msgstr "Failed to retweet."
-
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
+
+msgid "Repost"
+msgstr "Repost"
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"

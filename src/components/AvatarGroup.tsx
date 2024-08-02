@@ -2,6 +2,7 @@ import type { HTMLProps } from 'react';
 
 import { Avatar, type AvatarProps } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -16,7 +17,11 @@ export function AvatarGroup({ profiles, AvatarProps }: AvatarGroupProps) {
     return (
         <div className="flex items-center">
             {profiles.map((profile, index, self) => (
-                <ProfileTippy key={profile.profileId} source={profile.source} identity={profile.profileId}>
+                <ProfileTippy
+                    key={profile.profileId}
+                    source={profile.source}
+                    identity={profile.source === Source.Lens ? profile.handle : profile.profileId}
+                >
                     <Link
                         href={getProfileUrl(profile)}
                         className={classNames('relative inline-flex items-center', {
