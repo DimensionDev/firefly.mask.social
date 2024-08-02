@@ -69,6 +69,8 @@ export interface Profile {
         address: string;
     };
     source: SocialSource;
+    // Farcaster only
+    isPowerUser?: boolean;
 }
 
 export interface MediaObject {

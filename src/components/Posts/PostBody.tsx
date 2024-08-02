@@ -37,6 +37,7 @@ interface PostBodyProps {
     isQuote?: boolean;
     isReply?: boolean;
     isDetail?: boolean;
+    isComment?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
@@ -48,6 +49,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         isQuote = false,
         isReply = false,
         isDetail = false,
+        isComment = false,
         showMore = false,
         disablePadding = false,
         showTranslate = false,
@@ -198,7 +200,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         <div
             className={classNames('mb-1.5 break-words text-base text-main', {
                 ['-mt-2 pl-[52px]']: !noLeftPadding,
-                'mt-1.5': noLeftPadding,
+                'mt-1.5': noLeftPadding || isComment,
             })}
             ref={mergedRef}
         >

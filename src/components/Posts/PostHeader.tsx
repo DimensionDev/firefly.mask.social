@@ -2,6 +2,7 @@ import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
+import PowerUserIcon from '@/assets/power-user.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
@@ -91,6 +92,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                             {post.author.displayName}
                         </Link>
                     </ProfileTippy>
+                    {post.author.isPowerUser ? <PowerUserIcon className="mr-2" width={15} height={15} /> : null}
                     {newLine ? null : handle}
                     {post.timestamp && (!newLine || isQuote) ? (
                         <>

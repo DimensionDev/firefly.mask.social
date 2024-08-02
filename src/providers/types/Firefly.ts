@@ -74,6 +74,7 @@ export interface User {
     fid: string;
     isFollowing?: boolean;
     isFollowedBack?: boolean;
+    isPowerUser?: boolean;
 }
 
 export interface Profile {
