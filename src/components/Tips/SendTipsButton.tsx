@@ -14,7 +14,7 @@ import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resol
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
-import { UploadTokenTipsToken, uploadTokenTipsWithFireflyAccountId } from '@/services/uploadTokenTips.js';
+import { UploadTokenTipsToken, reportTokenTips } from '@/services/reportTokenTips.js';
 
 interface SendTipsButtonProps {
     connected: boolean;
@@ -45,7 +45,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             if (hashUrl) {
                 update((prev) => ({ ...prev, hash: hashUrl }));
             }
-            uploadTokenTipsWithFireflyAccountId(recipient.source, recipient.identity, {
+            reportTokenTips(recipient.source, recipient.identity, {
                 from_address: await network.getAccount(),
                 to_address: recipient.address,
                 chain_id: `${token.chainId}`,

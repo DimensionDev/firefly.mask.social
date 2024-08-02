@@ -30,14 +30,14 @@ export interface UploadTokenTipsParams {
     tx_hash: string;
 }
 
-export function uploadTokenTips(params: UploadTokenTipsParams) {
+function report(params: UploadTokenTipsParams) {
     return fetchJSON(urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/upload'), {
         method: 'POST',
         body: JSON.stringify({ ...params, source: 'web' }),
     });
 }
 
-export async function uploadTokenTipsWithFireflyAccountId(
+export async function reportTokenTips(
     source: Source,
     identity: string,
     params: UploadTokenTipsParams,
@@ -55,7 +55,8 @@ export async function uploadTokenTipsWithFireflyAccountId(
     const to_account_id = await getAllPlatformProfileFromFirefly(source, identity)
         .then((x) => x.data?.fireflyAccountId)
         .catch(() => undefined);
-    return uploadTokenTips({
+        
+    return report({
         from_account_id,
         to_account_id,
         ...params,
