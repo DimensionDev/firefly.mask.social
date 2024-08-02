@@ -94,6 +94,10 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.searchChannels(q, indicator);
     }
 
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getChannelTrendingPosts(channel, indicator);
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
@@ -295,10 +299,11 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.reportPost(post);
     }
     async blockProfile(profileId: string) {
-        return FireflySocialMediaProvider.blockProfile(profileId);
+        return FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
+
     async unblockProfile(profileId: string) {
-        return FireflySocialMediaProvider.unblockProfile(profileId);
+        return FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

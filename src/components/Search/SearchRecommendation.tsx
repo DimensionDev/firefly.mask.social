@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first, uniqBy } from 'lodash-es';
+import urlcat from 'urlcat';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -89,11 +90,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </h2>
                 <Link
                     className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                    href={`/search?q=${keyword}&type=${SearchType.Posts}`}
+                    href={urlcat('/search', { q: keyword, type: SearchType.Posts })}
                     onClick={() =>
                         onSearch?.({
-                            type: SearchType.Posts,
                             q: keyword,
+                            type: SearchType.Posts,
                         })
                     }
                 >
@@ -226,7 +227,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <Link
                             className="flex cursor-pointer items-center text-ellipsis px-3 hover:bg-bg"
                             key={record}
-                            href={`/search?q=${record}`}
+                            href={urlcat('/search', { q: record })}
                             onClick={() => {
                                 addRecord(record);
                                 onSearch?.({ q: record });

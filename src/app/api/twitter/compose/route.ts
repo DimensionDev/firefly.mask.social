@@ -1,13 +1,14 @@
-import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
 import { type SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
 import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
-import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
+import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 
 const TweetSchema = z.object({
     text: z.string(),
@@ -74,16 +75,15 @@ async function composeTweet(rawTweet: unknown) {
     return composedTweet;
 }
 
-export async function POST(request: NextRequest) {
-    try {
+export const POST = compose<(request: NextRequest) => Promise<Response>>(
+    withRequestErrorHandler({ throwError: true }),
+    withTwitterRequestErrorHandler,
+    async (request) => {
         const client = await createTwitterClientV2(request);
         const tweet = await composeTweet(await request.json());
-        const { data } = await client.v2.tweet(tweet);
+        const { data, errors } = await client.v2.tweet(tweet);
+        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+
         return createSuccessResponseJSON(data);
-    } catch (error) {
-        console.error('[twitter]: error compose/', error, JSON.stringify(error));
-        return createErrorResponseJSON(getTwitterErrorMessage(error), {
-            status: StatusCodes.INTERNAL_SERVER_ERROR,
-        });
-    }
-}
+    },
+);

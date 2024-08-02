@@ -193,3 +193,8 @@ export const enum FollowCategory {
     Followers = 'followers',
     Mutuals = 'mutuals',
 }
+
+export enum ChannelTabType {
+    Trending = 'trending',
+    Recent = 'recent',
+}

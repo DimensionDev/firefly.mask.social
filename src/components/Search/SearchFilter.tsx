@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
+import urlcat from 'urlcat';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { SearchType } from '@/constants/enum.js';
@@ -44,7 +45,7 @@ export const SearchFilter = memo(function SearchFilter() {
                             <Link
                                 key={filter.type}
                                 className="flex cursor-pointer items-center text-sm"
-                                href={`/search?q=${searchKeyword}&type=${filter.type}`}
+                                href={urlcat('/search', { q: searchKeyword, type: filter.type })}
                                 onClick={(event) => {
                                     if (!searchKeyword) {
                                         event.stopPropagation();

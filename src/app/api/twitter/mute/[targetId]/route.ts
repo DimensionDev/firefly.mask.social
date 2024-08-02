@@ -4,6 +4,7 @@ import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
@@ -16,8 +17,11 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         if (!targetId) throw new MalformedError('targetId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data: me } = await client.v2.me();
-        const { data } = await client.v2.mute(me.id, targetId);
+        const { data: me, errors } = await client.v2.me();
+        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+
+        const { data, errors: muteErrors } = await client.v2.mute(me.id, targetId);
+        if (muteErrors?.length) return createTwitterErrorResponseJSON(muteErrors);
 
         return createSuccessResponseJSON(data);
     },
@@ -31,8 +35,11 @@ export const DELETE = compose<(request: NextRequest, context?: NextRequestContex
         if (!targetId) throw new MalformedError('targetId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data: me } = await client.v2.me();
-        const { data } = await client.v2.unmute(me.id, targetId);
+        const { data: me, errors } = await client.v2.me();
+        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+
+        const { data, errors: unmuteErrors } = await client.v2.unmute(me.id, targetId);
+        if (unmuteErrors?.length) return createTwitterErrorResponseJSON(unmuteErrors);
 
         return createSuccessResponseJSON(data);
     },

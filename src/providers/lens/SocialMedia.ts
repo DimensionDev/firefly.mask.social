@@ -21,7 +21,7 @@ import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -47,6 +47,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -104,6 +105,10 @@ class LensSocialMedia implements Provider {
     }
 
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -506,6 +511,17 @@ class LensSocialMedia implements Provider {
         if (!result) throw new Error(t`No profile found`);
 
         return formatLensProfile(result);
+    }
+
+    async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        const result = await lensSessionHolder.sdk.profile.fetchAll({
+            where: {
+                profileIds: ids,
+            },
+        });
+        const profiles = result.items.map(formatLensProfile);
+
+        return profiles;
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
@@ -1080,35 +1096,27 @@ class LensSocialMedia implements Provider {
     }
 
     async blockProfile(profileId: string) {
-        const result = await lensSessionHolder.sdk.profile.block({
-            profiles: [profileId],
-        });
-        return result.isSuccess().valueOf();
+        const result = await FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Lens, profileId);
+        await runInSafe(() =>
+            lensSessionHolder.sdk.profile.block({
+                profiles: [profileId],
+            }),
+        );
+        return result;
     }
 
     async unblockProfile(profileId: string) {
-        const result = await lensSessionHolder.sdk.profile.unblock({
-            profiles: [profileId],
-        });
-        return result.isSuccess().valueOf();
+        const result = await FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Lens, profileId);
+        await runInSafe(() =>
+            lensSessionHolder.sdk.profile.unblock({
+                profiles: [profileId],
+            }),
+        );
+        return result;
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const result = await lensSessionHolder.sdk.profile.whoHaveBeenBlocked({
-            cursor: indicator?.id,
-            limit: LimitType.TwentyFive,
-        });
-        if (!result.isSuccess()) {
-            throw new Error('Failed to fetch blocked profiles');
-        }
-
-        const wrappedResult = result.unwrap();
-
-        return createPageable(
-            wrappedResult.items.map(formatLensProfile),
-            createIndicator(indicator),
-            wrappedResult.pageInfo.next ? createNextIndicator(indicator, wrappedResult.pageInfo.next) : undefined,
-        );
+        return FireflySocialMediaProvider.getBlockedProfiles(indicator, FireflyPlatform.Lens);
     }
 
     async blockChannel(channelId: string): Promise<boolean> {

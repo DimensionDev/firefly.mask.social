@@ -36,6 +36,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -92,6 +93,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -225,6 +227,31 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const profile = getCurrentProfile(Source.Farcaster);
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/trending_casts', {
+                channelUrl: channel.url,
+                channelHandle: channel.id,
+                size: 20,
+                cursor: indicator?.id,
+                fid: session?.profileId,
+                handle: profile?.handle,
+            });
+            const response = await fireflySessionHolder.fetch<CastsOfChannelResponse>(url, {
+                method: 'GET',
+            });
+            const data = resolveFireflyResponseData(response);
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+
+            return createPageable(
+                posts,
+                createIndicator(indicator),
+                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+            );
+        });
+    }
+
     quotePost(postId: string, post: Post): Promise<string> {
         throw new NotImplementedError();
     }
@@ -319,6 +346,14 @@ export class FireflySocialMedia implements Provider {
     }
 
     async unfollow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async blockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async unblockProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
@@ -853,10 +888,17 @@ export class FireflySocialMedia implements Provider {
             platform: source,
         });
         const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
-        const fids = response.data?.blocks.map((x) => x.snsId);
-        const profiles: Profile[] = fids?.length ? await NeynarSocialMediaProvider.getProfilesByIds(fids) : EMPTY_LIST;
+        const ids = response.data?.blocks.map((x) => x.snsId);
+        const profiles: Profile[] = ids?.length && source ? await getProfilesByIds(source, ids) : EMPTY_LIST;
+
+        const blockedProfiles: Profile[] = profiles.map((profile) => ({
+            ...profile,
+            // since we use our own mute system, we need to set blocking to true manually
+            viewerContext: { ...profile.viewerContext, blocking: true },
+        }));
+
         return createPageable(
-            profiles,
+            blockedProfiles,
             createIndicator(indicator),
             response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
         );
@@ -990,12 +1032,12 @@ export class FireflySocialMedia implements Provider {
         return unblock('address', address);
     }
 
-    async blockProfile(profileId: string): Promise<boolean> {
-        return block('fid', profileId);
+    async blockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
+        return block(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
     }
 
-    async unblockProfile(profileId: string): Promise<boolean> {
-        return unblock('fid', profileId);
+    async unblockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
+        return unblock(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
     }
 
     async blockChannel(channelId: string): Promise<boolean> {

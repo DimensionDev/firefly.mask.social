@@ -1,4 +1,5 @@
 import { plural, Trans } from '@lingui/macro';
+import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
@@ -153,7 +154,13 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           ) : null,
                       ])
                     : compact([
-                          <TimestampFormatter key="time" time={post.timestamp} />,
+                          post.timestamp ? (
+                              <>
+                                  <span>{dayjs(post.timestamp).format('hh:mm A')}</span>
+                                  <span>{' · '}</span>
+                                  <span>{dayjs(post.timestamp).format('MMM DD, YYYY')}</span>
+                              </>
+                          ) : null,
                           likes,
                           collects,
                           mirrors,

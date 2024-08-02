@@ -70,12 +70,7 @@ export const Tips = memo(function Tips({
                 'w-min': !label,
             })}
         >
-            <Tooltip
-                className="w-full"
-                content={t`Send tips`}
-                placement="top"
-                disabled={disabled || tooltipDisabled || loading}
-            >
+            <Tooltip content={t`Send tips`} placement="top" disabled={disabled || tooltipDisabled || loading}>
                 <motion.button
                     className={classNames('inline-flex items-center', {
                         'hover:bg-lightWarn/[.20]': !disabled && !label && !loading,

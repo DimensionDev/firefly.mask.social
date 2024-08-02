@@ -205,7 +205,6 @@ async function getNextFrame(
                 const client = await getWalletClientRequired(config, {
                     chainId,
                 });
-
                 if (client.chain.id !== chainId) throw new Error(t`The chainId mismatch.`);
 
                 const method = action.method;
