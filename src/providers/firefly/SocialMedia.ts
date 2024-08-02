@@ -93,6 +93,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -418,37 +419,8 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getAllPlatformProfileByIdentity(source: Source, identity: string): Promise<FireflyProfile[]> {
-        let queryKey = '';
-        switch (source) {
-            case Source.Lens:
-                queryKey = 'lensHandle';
-                break;
-            case Source.Farcaster:
-                queryKey = 'fid';
-                break;
-            case Source.Wallet:
-                queryKey = 'walletAddress';
-                break;
-            case Source.Twitter:
-                queryKey = 'twitterId';
-                break;
-            case Source.Article:
-            default:
-                break;
-        }
-
-        const url = urlcat(
-            settings.FIREFLY_ROOT_URL,
-            '/v2/wallet/profile',
-            queryKey ? { [`${queryKey}`]: identity } : {},
-        );
-
-        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
-            method: 'GET',
-        });
-
+        const response = await getAllPlatformProfileFromFirefly(source, identity);
         const profiles = resolveFireflyResponseData(response);
-
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
 

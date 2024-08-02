@@ -14,6 +14,7 @@ import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resol
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
+import { UploadTokenTipsToken, uploadTokenTipsWithFireflyAccountId } from '@/services/uploadTokenTips.js';
 
 interface SendTipsButtonProps {
     connected: boolean;
@@ -35,6 +36,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             const { chainId, id } = token;
             const transfer = resolveTransferProvider(recipient.networkType);
             const network = resolveNetworkProvider(recipient.networkType);
+            debugger;
             const hash = await transfer.transfer({
                 to: recipient.address,
                 token,
@@ -44,6 +46,21 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             if (hashUrl) {
                 update((prev) => ({ ...prev, hash: hashUrl }));
             }
+            uploadTokenTipsWithFireflyAccountId(recipient.source, recipient.identity, {
+                from_address: await network.getAccount(),
+                to_address: recipient.address,
+                chain_id: `${token.chainId}`,
+                chain_name: token.chain,
+                amount: `${token.amount}`,
+                token_symbol: token.symbol,
+                token_icon: token.logo_url,
+                token_address: token.id,
+                token_type: transfer.isNativeToken(token)
+                    ? UploadTokenTipsToken.NativeToken
+                    : UploadTokenTipsToken.ERC20,
+                tip_memos: '',
+                tx_hash: hash,
+            });
             router.navigate({ to: TipsRoutePath.SUCCESS });
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to send tips.`), { error });
