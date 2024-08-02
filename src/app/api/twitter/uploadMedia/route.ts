@@ -1,14 +1,16 @@
-import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
-import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 
-export async function POST(request: NextRequest) {
-    try {
+export const POST = compose<(request: NextRequest) => Promise<Response>>(
+    withRequestErrorHandler({ throwError: true }),
+    withTwitterRequestErrorHandler,
+    async (request) => {
         const formData = await request.formData();
         const file = formData.get('file') as File | null;
         if (!file) throw new MalformedError('file not found');
@@ -17,11 +19,5 @@ export async function POST(request: NextRequest) {
         const client = await createTwitterClientV2(request);
         const response = await client.v1.uploadMedia(buffer, { mimeType: file.type });
         return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
-    } catch (error) {
-        console.error('[twitter]: error uploadMedia/', error);
-        const { status, message } = getTwitterErrorMessage(error);
-        return createErrorResponseJSON(message, {
-            status: status ?? StatusCodes.INTERNAL_SERVER_ERROR,
-        });
-    }
-}
+    },
+);

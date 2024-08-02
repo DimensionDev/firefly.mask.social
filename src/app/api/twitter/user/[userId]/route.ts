@@ -1,9 +1,7 @@
-import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -30,14 +28,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         });
 
         if (errors && errors.length > 0) {
-            for (const error of errors) {
-                if (error.title === 'Forbidden') {
-                    return createErrorResponseJSON(error.detail, {
-                        status: StatusCodes.FORBIDDEN,
-                    });
-                }
-                createErrorResponseJSON(error.detail);
-            }
+            throw errors;
         }
         return createSuccessResponseJSON(data);
     },
