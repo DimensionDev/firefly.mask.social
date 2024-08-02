@@ -16,9 +16,8 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
         const client = await createTwitterClientV2(request);
-        const limit = queryParams.limit || 25;
         const { data, errors } = await client.v2.bookmarks({
-            max_results: limit,
+            max_results: queryParams.limit || 25,
             pagination_token: queryParams.cursor || undefined,
         });
         if (errors?.length) return createTwitterErrorResponseJSON(errors);
