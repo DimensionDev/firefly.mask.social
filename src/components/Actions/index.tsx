@@ -93,7 +93,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             </div>
         ) : null,
         post.source === Source.Farcaster || post.source === Source.Twitter || isSmall ? null : (
-            <Views key="views" count={views} disabled={disabled} hiddenCount />
+            <Views key="views" count={views} disabled={disabled} hideCount />
         ),
         identity ? (
             <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />

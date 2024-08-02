@@ -42,7 +42,6 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({
         },
         initialData: isInitialProfile ? defaultProfile : undefined,
     });
-    console.log(isInitialProfile ? defaultProfile : undefined);
     const myProfile = useCurrentProfile(source);
 
     if (isLoading) {

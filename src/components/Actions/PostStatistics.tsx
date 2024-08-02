@@ -93,29 +93,25 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             })}
         </>
     ) : null;
-    const mirrors = useMemo(() => {
-        if (!post.stats?.mirrors) return null;
-        const text = {
-            [Source.Farcaster]: plural(post.stats.mirrors, {
-                one: 'recast',
-                other: 'recasts',
-            }),
-            [Source.Lens]: plural(post.stats.mirrors, {
-                one: 'mirror',
-                other: 'mirrors',
-            }),
-            [Source.Twitter]: plural(post.stats.mirrors, {
-                one: 'repost',
-                other: 'reposts',
-            }),
-        }[post.source];
-        return (
-            <EngagementLink post={post} type={EngagementType.Mirrors} onSetScrollIndex={onSetScrollIndex}>
-                <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
-                {text}
-            </EngagementLink>
-        );
-    }, [onSetScrollIndex, post]);
+    const mirrors = post.stats?.mirrors ? (
+        <EngagementLink post={post} type={EngagementType.Mirrors} onSetScrollIndex={onSetScrollIndex}>
+            <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
+            {{
+                [Source.Farcaster]: plural(post.stats.mirrors, {
+                    one: 'recast',
+                    other: 'recasts',
+                }),
+                [Source.Lens]: plural(post.stats.mirrors, {
+                    one: 'mirror',
+                    other: 'mirrors',
+                }),
+                [Source.Twitter]: plural(post.stats.mirrors, {
+                    one: 'repost',
+                    other: 'reposts',
+                }),
+            }[post.source] ?? null}
+        </EngagementLink>
+    ) : null;
     const quotes = post.stats?.quotes ? (
         <EngagementLink post={post} type={EngagementType.Quotes} onSetScrollIndex={onSetScrollIndex}>
             <span className="mr-[2px] font-bold">{post.stats.quotes}</span>
