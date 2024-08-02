@@ -11,7 +11,7 @@ import { type SocialSource } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
-import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLink.js';
@@ -23,9 +23,6 @@ interface Props {
 }
 
 export function PostLinks({ post, setContent }: Props) {
-    const url = post.metadata.content?.oembedUrl;
-    const content = post.metadata.content?.content;
-
     const { isLoading, error, data } = useQuery({
         queryKey: ['post-embed', post.postId],
         queryFn: () => getPostLinks(post),
@@ -35,10 +32,13 @@ export function PostLinks({ post, setContent }: Props) {
     });
 
     useEffect(() => {
+        const url = post.metadata.content?.oembedUrl;
+        const content = post.metadata.content?.content;
+
         if (data?.oembed && url && content) {
             setContent?.(removeAtEnd(content, url));
         }
-    }, [content, data?.oembed, setContent, url]);
+    }, [content, data?.oembed, setContent, post]);
 
     if (isLoading || error || !data) return null;
 
@@ -52,9 +52,9 @@ export function PostLinks({ post, setContent }: Props) {
 }
 
 export function PostLinksInCompose({
+    type,
     chars,
     source,
-    type,
     parentPost,
 }: {
     chars: Chars;
@@ -68,18 +68,7 @@ export function PostLinksInCompose({
         const oembedUrl = last(oembedUrls);
 
         return {
-            postId: '',
-            publicationId: '',
-            author: createDummyProfile(source),
-            source,
-            metadata: {
-                locale: 'en',
-                content: {
-                    content,
-                    oembedUrl,
-                    oembedUrls,
-                },
-            },
+            ...createDummyPost(source, content, oembedUrl, oembedUrls),
             quoteOn: type === 'quote' ? parentPost ?? undefined : undefined,
         } satisfies Post;
     }, [chars, parentPost, source, type]);

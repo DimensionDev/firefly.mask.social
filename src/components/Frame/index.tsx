@@ -301,7 +301,6 @@ export const Frame = memo<FrameProps>(function Frame({ post, onData, children })
     }, [frame, onData]);
 
     if (isLoading) return null;
-
     if (error || !frame) return children;
 
     return (

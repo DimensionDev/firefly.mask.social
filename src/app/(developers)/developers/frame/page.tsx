@@ -18,7 +18,7 @@ import { isValidUrl } from '@/helpers/isValidUrl.js';
 
 export default function Frame() {
     const [url, setUrl] = useState('');
-    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url), [url]);
+    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
     const [{ value: cacheRemoved, error, loading }, onSubmit] = useAsyncFn(async () => {
         if (!isValidUrl(url)) throw new Error(t`Invalid URL.`);

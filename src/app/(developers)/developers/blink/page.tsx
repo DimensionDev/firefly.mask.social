@@ -20,7 +20,7 @@ import { BlinkParser } from '@/providers/blink/Parser.js';
 
 export default function BlinkPage() {
     const [url, setUrl] = useState('');
-    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url), [url]);
+    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
     const [{ value: cacheRemoved, error, loading }, onSubmit] = useAsyncFn(async () => {
         const [scheme] = url ? BlinkParser.extractSchemes(url) : [];
@@ -29,7 +29,6 @@ export default function BlinkPage() {
         await fetchJSON(urlcat('/api/solana/action', await resolveBlinkTCO(scheme)), {
             method: 'DELETE',
         });
-        return true;
     }, [url]);
 
     return (
@@ -76,13 +75,13 @@ export default function BlinkPage() {
                 </ClickableButton>
             </div>
 
-            {cacheRemoved === true ? (
+            {error ? (
+                <div className="w-full">{error.message}</div>
+            ) : (
                 <div className="w-full max-w-[500px]">
                     <Blink post={post} />
                 </div>
-            ) : error ? (
-                <div className="w-full">{error.message}</div>
-            ) : null}
+            )}
         </Section>
     );
 }
