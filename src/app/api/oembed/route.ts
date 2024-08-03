@@ -1,12 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { KeyType, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { savePostLinks } from '@/services/getPostLinksKV.js';
-import { env } from '@/constants/env.js';
 
 const digestLinkRedis = memoizeWithRedis(OpenGraphProcessor.digestDocumentUrl, {
     key: KeyType.DigestOpenGraphLink,
@@ -35,14 +35,12 @@ export async function GET(request: Request) {
     if (!linkDigested)
         return Response.json({ error: `Unable to digest oembed link = ${link}` }, { status: StatusCodes.BAD_GATEWAY });
 
-    if (env.external.NEXT_PUBLIC_INSTANT_LINKS === STATUS.Enabled) {
-        try {
-            await savePostLinks(request, {
-                oembed: linkDigested,
-            });
-        } catch (error) {
-            console.error(`[oembed] Failed to save post links\n%s`, getGatewayErrorMessage(error));
-        }
+    try {
+        await savePostLinks(request, {
+            oembed: linkDigested,
+        });
+    } catch (error) {
+        console.error(`[oembed] Failed to save post links\n%s`, getGatewayErrorMessage(error));
     }
 
     return createSuccessResponseJSON(linkDigested);

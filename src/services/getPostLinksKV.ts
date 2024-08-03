@@ -4,6 +4,8 @@ import { kv } from '@vercel/kv';
 
 import { PostIndicator } from '@/schemas/index.js';
 import type { PostLinks } from '@/services/getPostLinks.js';
+import { env } from '@/constants/env.js';
+import { STATUS } from '@/constants/enum.js';
 
 export async function readPostLinks(request: Request): Promise<PostLinks | null> {
     const { searchParams } = new URL(request.url);
@@ -49,6 +51,8 @@ export async function readPostLinksAll(request: Request): Promise<Record<string,
 }
 
 export async function savePostLinks(request: Request, links: PostLinks) {
+    if (env.external.NEXT_PUBLIC_INSTANT_LINKS === STATUS.Enabled) return false;
+
     const { searchParams } = new URL(request.url);
 
     const parsed = PostIndicator.safeParse({
