@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { SourceInURL } from '@/constants/enum.js';
+
 export const Pageable = z.object({
     cursor: z.string().optional(),
     limit: z.coerce
@@ -17,3 +19,9 @@ export const HttpUrl = z
     .regex(/^(https?:\/\/)/);
 
 export const CAIP10 = z.string().regex(/^eip155:\d+:0x[a-fA-F0-9]{40}/i);
+
+export const PostIndicator = z.object({
+    source: z.nativeEnum(SourceInURL),
+    postId: z.string().optional(),
+    postIds: z.array(z.string()).optional(),
+});

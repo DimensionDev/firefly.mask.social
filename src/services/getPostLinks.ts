@@ -7,6 +7,7 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { resolveBlinkTCO } from '@/helpers/resolveBlinkTCO.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import { BlinkParser } from '@/providers/blink/Parser.js';
@@ -15,6 +16,12 @@ import type { Action } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
+
+export interface PostLinks {
+    oembed?: LinkDigested;
+    frame?: Frame;
+    action?: Action;
+}
 
 export async function getPostFrame(post: Post): Promise<Frame | null> {
     if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
@@ -29,6 +36,8 @@ export async function getPostFrame(post: Post): Promise<Frame | null> {
                 const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                     urlcat('/api/frame', {
                         link: (await resolveTCOLink(y)) ?? y,
+                        source: resolveSourceInURL(post.source),
+                        'post-id': post.postId,
                     }),
                 );
                 return response.success ? response.data.frame : null;
@@ -65,11 +74,7 @@ export async function getPostOembed(post: Post): Promise<LinkDigested | null> {
 }
 
 export async function getPostLinks(post: Post) {
-    return attemptUntil<{
-        oembed?: LinkDigested;
-        frame?: Frame;
-        action?: Action;
-    } | null>(
+    return attemptUntil<PostLinks | null>(
         [
             async () => {
                 const frame = await getPostFrame(post);
