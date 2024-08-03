@@ -68,6 +68,8 @@ export async function getPostOembed(post: Post): Promise<LinkDigested | null> {
     const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
         urlcat('/api/oembed', {
             link: (await resolveTCOLink(url)) ?? url,
+            source: resolveSourceInURL(post.source),
+            'post-id': post.postId,
         }),
     );
     return linkDigested.success ? linkDigested.data : null;
