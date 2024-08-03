@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
-import { KeyType, STATUS } from '@/constants/enum.js';
+import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getFrameErrorMessage } from '@/helpers/getFrameErrorMessage.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
@@ -12,7 +12,6 @@ import { FrameProcessor } from '@/providers/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { savePostLinks } from '@/services/getPostLinksKV.js';
 import { ActionType } from '@/types/frame.js';
-import { env } from '@/constants/env.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     key: KeyType.DigestFrameLink,

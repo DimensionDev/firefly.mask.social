@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { KeyType, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';

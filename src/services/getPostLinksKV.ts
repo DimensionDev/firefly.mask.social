@@ -2,10 +2,10 @@
 
 import { kv } from '@vercel/kv';
 
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { PostIndicator } from '@/schemas/index.js';
 import type { PostLinks } from '@/services/getPostLinks.js';
-import { env } from '@/constants/env.js';
-import { STATUS } from '@/constants/enum.js';
 
 export async function readPostLinks(request: Request): Promise<PostLinks | null> {
     const { searchParams } = new URL(request.url);
