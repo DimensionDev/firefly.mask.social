@@ -28,9 +28,13 @@ export async function GET(request: Request) {
     if (!linkDigested)
         return Response.json({ error: `Unable to digest frame link = ${link}` }, { status: StatusCodes.NOT_FOUND });
 
-    await savePostLinks(request, {
-        frame: linkDigested.frame,
-    });
+    try {
+        await savePostLinks(request, {
+            frame: linkDigested.frame,
+        });
+    } catch (error) {
+        console.error(`[frame] Failed to save post links\n%s`, getGatewayErrorMessage(error));
+    }
 
     return createSuccessResponseJSON(linkDigested);
 }
