@@ -19,7 +19,6 @@ export const RecentPostList = memo(function ForYouPostList() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'recent'],
         networkMode: 'always',
-
         queryFn: async ({ pageParam }) => {
             if (source !== Source.Lens) {
                 return createPageable<Post>(EMPTY_LIST, createIndicator());

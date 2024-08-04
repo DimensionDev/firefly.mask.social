@@ -19,7 +19,6 @@ export const ForYouPostList = memo(function ForYouPostList() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'for-you'],
         networkMode: 'always',
-
         queryFn: async ({ pageParam }) => {
             if (source !== Source.Farcaster) {
                 return createPageable<Post>(EMPTY_LIST, createIndicator());
