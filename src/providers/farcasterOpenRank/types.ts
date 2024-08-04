@@ -6,3 +6,9 @@ export interface TopProfile {
     score: number;
     percentile: number;
 }
+
+export interface PostForYouByAuthorship {
+    cast_hash: string;
+    fid: number;
+    timestamp: string;
+}

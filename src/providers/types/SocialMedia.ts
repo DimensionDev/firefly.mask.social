@@ -813,4 +813,14 @@ export interface Provider {
      * Get trending posts in the channel.
      */
     getChannelTrendingPosts?: (channel: Channel, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Get for you posts
+     */
+    getForYouPosts?: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Get recent feed posts
+     */
+    getRecentPosts?: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }
