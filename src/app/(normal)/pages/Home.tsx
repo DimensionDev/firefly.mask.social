@@ -2,7 +2,6 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { compact } from 'lodash-es';
 import { type ComponentType, memo, Suspense, useEffect } from 'react';
 
 import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.js';
@@ -20,6 +19,13 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
+const FARCASTER_TYPES_LOGGED = [
+    DiscoverType.Trending,
+    DiscoverType.ForYou,
+    DiscoverType.TopProfiles,
+    DiscoverType.TopChannels,
+] as const;
+const FARCASTER_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels] as const;
 const LENS_TYPES = [DiscoverType.Trending, DiscoverType.Recent, DiscoverType.TopProfiles] as const;
 
 const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> = memo(function ContentList({
@@ -48,12 +54,7 @@ export function HomePage() {
     const currentProfile = useCurrentProfile(Source.Farcaster);
     const [discoverType, setDiscoverType] = useStateWithSearchParams('discover', DiscoverType.Trending);
 
-    const farcasterTypes = compact([
-        DiscoverType.Trending,
-        currentProfile ? DiscoverType.ForYou : null,
-        DiscoverType.TopProfiles,
-        DiscoverType.TopChannels,
-    ]);
+    const farcasterTypes = currentProfile ? FARCASTER_TYPES_LOGGED : FARCASTER_TYPES;
 
     const tabLabels = {
         [DiscoverType.Trending]: <Trans>Trending</Trans>,
@@ -74,7 +75,7 @@ export function HomePage() {
                 if (!LENS_TYPES.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
                 break;
         }
-    }, [currentSource, discoverType, setDiscoverType]);
+    }, [currentSource, discoverType, farcasterTypes, setDiscoverType]);
 
     if (currentSource === Source.Article) {
         return <DiscoverArticleList />;
