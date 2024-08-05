@@ -67,7 +67,6 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
             method: 'POST',
             body: JSON.stringify({
                 data: encrypted,
-                isForce: false,
             }),
             signal,
         },
