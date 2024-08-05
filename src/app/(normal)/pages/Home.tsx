@@ -9,15 +9,24 @@ import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { Loading } from '@/components/Loading.js';
 import { DiscoverNFTList } from '@/components/NFTs/DiscoverNFTList.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
+import { ForYouPostList } from '@/components/Posts/ForYouPostList.js';
+import { RecentPostList } from '@/components/Posts/RecentPostList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { DiscoverType, type SocialSource, Source } from '@/constants/enum.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
+const FARCASTER_TYPES_LOGGED = [
+    DiscoverType.Trending,
+    DiscoverType.ForYou,
+    DiscoverType.TopProfiles,
+    DiscoverType.TopChannels,
+] as const;
 const FARCASTER_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels] as const;
-const LENS_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles] as const;
+const LENS_TYPES = [DiscoverType.Trending, DiscoverType.Recent, DiscoverType.TopProfiles] as const;
 
 const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> = memo(function ContentList({
     type,
@@ -26,6 +35,10 @@ const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> =
     switch (type) {
         case DiscoverType.Trending:
             return <DiscoverPostList />;
+        case DiscoverType.ForYou:
+            return <ForYouPostList />;
+        case DiscoverType.Recent:
+            return <RecentPostList />;
         case DiscoverType.TopProfiles:
             return <SuggestedFollowUsersList source={source} />;
         case DiscoverType.TopChannels:
@@ -38,10 +51,15 @@ const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> =
 
 export function HomePage() {
     const currentSource = useGlobalState.use.currentSource();
+    const currentProfile = useCurrentProfile(Source.Farcaster);
     const [discoverType, setDiscoverType] = useStateWithSearchParams('discover', DiscoverType.Trending);
+
+    const farcasterTypes = currentProfile ? FARCASTER_TYPES_LOGGED : FARCASTER_TYPES;
 
     const tabLabels = {
         [DiscoverType.Trending]: <Trans>Trending</Trans>,
+        [DiscoverType.ForYou]: <Trans>For You</Trans>,
+        [DiscoverType.Recent]: <Trans>Recent</Trans>,
         [DiscoverType.TopProfiles]: <Trans>Top Profiles</Trans>,
         [DiscoverType.TopChannels]: <Trans>Top Channels</Trans>,
     };
@@ -51,13 +69,13 @@ export function HomePage() {
     useEffect(() => {
         switch (currentSource) {
             case Source.Farcaster:
-                if (!FARCASTER_TYPES.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
+                if (!farcasterTypes.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
                 break;
             case Source.Lens:
                 if (!LENS_TYPES.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
                 break;
         }
-    }, [currentSource, discoverType, setDiscoverType]);
+    }, [currentSource, discoverType, farcasterTypes, setDiscoverType]);
 
     if (currentSource === Source.Article) {
         return <DiscoverArticleList />;
@@ -71,7 +89,7 @@ export function HomePage() {
         <div>
             {currentSource === Source.Farcaster ? (
                 <Tabs className="px-1.5 pb-1.5 pt-3" variant="solid" onChange={setDiscoverType} value={discoverType}>
-                    {FARCASTER_TYPES.map((type) => (
+                    {farcasterTypes.map((type) => (
                         <Tab value={type} key={type}>
                             {tabLabels[type]}
                         </Tab>

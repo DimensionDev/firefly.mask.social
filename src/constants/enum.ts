@@ -78,6 +78,8 @@ export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | So
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 
 export enum DiscoverType {
+    ForYou = 'for-you',
+    Recent = 'recent',
     Trending = 'trending',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
@@ -136,6 +138,8 @@ export enum RestrictionType {
 
 export enum ScrollListKey {
     Discover = 'discover-list',
+    ForYou = 'for-you',
+    Recent = 'recent',
     Following = 'following-list',
     Followers = 'followers-list',
     MutualFollowers = 'mutual-followers-list',
