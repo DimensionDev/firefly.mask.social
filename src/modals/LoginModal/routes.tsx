@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { createRootRoute, createRoute } from '@tanstack/react-router';
 
 import { FarcasterView, FarcasterViewBeforeLoad } from '@/modals/LoginModal/FarcasterView.js';
-import { LensView } from '@/modals/LoginModal/LensView.js';
+import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { RootView } from '@/modals/LoginModal/RootView.js';
 import { TwitterView } from '@/modals/LoginModal/TwitterView.js';
@@ -33,11 +33,7 @@ const lensRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: LensView,
     path: '/lens',
-    beforeLoad: () => {
-        return {
-            title: <Trans>Select Account</Trans>,
-        };
-    },
+    beforeLoad: LensViewBeforeLoad,
 });
 
 const twitterRoute = createRoute({

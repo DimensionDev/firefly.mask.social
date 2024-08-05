@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { useLocation } from '@tanstack/react-router';
+import { Trans } from '@lingui/macro';
+import { skipToken, useQuery } from '@tanstack/react-query';
+import { Navigate, useLocation } from '@tanstack/react-router';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -13,22 +14,34 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
+export const LensViewBeforeLoad = () => {
+    return {
+        title: <Title />,
+    };
+};
+
+function Title() {
+    const account = useAccount();
+    if (account.isReconnecting) return <Trans>Connecting Wallet</Trans>;
+    return <Trans>Select Account</Trans>;
+}
+
 export const LensView = memo(function LensView() {
     const account = useAccount();
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
+    const { error } = useQuery({
+        queryKey: ['wallet-account'],
+        retry: 0,
+        queryFn: async () => {
+            const { account } = await getWalletClientRequired(config);
+            return account.address;
+        },
+    });
+
     const { data: profiles = EMPTY_LIST } = useQuery({
         queryKey: ['lens', 'profiles', account.address, expectedProfile],
-        queryFn: async () => {
-            try {
-                const { account } = await getWalletClientRequired(config);
-                if (!account.address) return;
-                return LensSocialMediaProvider.getProfilesByAddress(account.address!);
-            } catch (err) {
-                if ((err as Error).name === 'ConnectorNotConnectedError') return null;
-                throw err;
-            }
-        },
+        queryFn: account.address ? () => LensSocialMediaProvider.getProfilesByAddress(account.address!) : skipToken,
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
             const { accounts } = getProfileState(Source.Lens);
@@ -37,6 +50,10 @@ export const LensView = memo(function LensView() {
             return list;
         },
     });
+
+    if ((error as Error | undefined)?.name === 'ConnectorNotConnectedError') {
+        return <Navigate to="/main" replace />;
+    }
 
     if (!profiles.length || !account.address)
         return (
