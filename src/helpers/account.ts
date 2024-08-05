@@ -35,7 +35,6 @@ function getFireflySession(account: Account) {
 }
 
 function hasFireflySession() {
-    // firefly id doesn't take twitter profile into account
     return SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile);
 }
 
@@ -100,7 +99,6 @@ async function removeFireflyAccountIfNeeded() {
 }
 
 async function removeFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortSignal) {
-    if (hasFireflySession()) return;
     const session = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
     if (!session) return;
 
