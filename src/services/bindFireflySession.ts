@@ -7,7 +7,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
-import type { TwitterSession } from '@/providers/twitter/Session.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -53,6 +53,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: AbortSignal) {
     const encrypted = await fetchJSON<string>('/api/twitter/auth', {
         method: 'POST',
+        headers: TwitterSession.payloadToHeaders(session.payload),
         signal,
     });
 
