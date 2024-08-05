@@ -1753,6 +1753,9 @@ msgstr ""
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
+msgid "Connecting Wallet"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 

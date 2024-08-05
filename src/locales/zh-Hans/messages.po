@@ -1758,6 +1758,9 @@ msgstr "如果包含可中止的代码，那么通证可能既不能被购买也
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
 
+msgid "Connecting Wallet"
+msgstr ""
+
 msgid "Total Supply"
 msgstr "总供应量"
 
