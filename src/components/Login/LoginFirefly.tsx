@@ -138,7 +138,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                             ) : null}
                         </div>
                     ) : (
-                        <div className="h-[270px] w-[270px] rounded-2xl bg-gray-100 shadow-[0_0_20px_0_rgba(0,0,0,0.05)] backdrop-blur dark:bg-gray-800" />
+                        <div className="h-[270px] w-[270px] rounded-2xl bg-gray-100 dark:bg-gray-800" />
                     )}
                 </div>
             )}

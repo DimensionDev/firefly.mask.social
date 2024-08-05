@@ -6,7 +6,9 @@ import { AbortError } from '@/constants/error.js';
 class Controller {
     private controller: AbortController | null = null;
 
-    constructor(public renew: () => void) {}
+    constructor() {
+        this.controller = new AbortController();
+    }
 
     get signal() {
         return this.controller?.signal;
@@ -16,18 +18,14 @@ class Controller {
         this.controller?.abort(new AbortError());
     }
 
-    static clone(controller: Controller) {
-        return new Controller(controller.renew);
+    renew() {
+        this.controller?.abort();
+        this.controller = new AbortController();
     }
 }
 
 export function useAbortController() {
-    const controllerRef = useRef<Controller>(
-        new Controller(() => {
-            controllerRef.current.abort();
-            controllerRef.current = Controller.clone(controllerRef.current);
-        }),
-    );
+    const controllerRef = useRef<Controller>(new Controller());
 
     useUnmount(() => {
         controllerRef.current.abort();
