@@ -1,23 +1,21 @@
 import { Menu } from '@headlessui/react';
 import { t } from '@lingui/macro';
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { type HTMLProps, memo } from 'react';
 
 import DotsIcon from '@/assets/dots.svg';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
 interface Props {
-    contracts: Trending['contracts'];
+    contracts: NonNullable<Trending['contracts']>;
 }
 export const ContractList = memo<Props>(function ContractList({ contracts }) {
-    if (!contracts?.length) return null;
     return (
         <MoreActionMenu
             button={
@@ -54,15 +52,16 @@ interface ContractItemProps extends HTMLProps<HTMLDivElement> {
     contract: Contract;
 }
 function ContractItem({ contract, ...rest }: ContractItemProps) {
-    const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, contract.chainId);
+    const chain = useChainInfo(contract.runtime, contract.chainId);
 
-    if (!chain) return null;
-
+    const name = chain?.name || contract.runtime;
     return (
         <div {...rest} className={classNames('flex items-center gap-2', rest.className)}>
-            <Image src={chain.icon} className="flex-shrink-0" alt={chain.name} width={16} height={16} />
+            {chain?.icon ? (
+                <Image src={chain.icon} className="flex-shrink-0" alt={name} width={16} height={16} />
+            ) : null}
             <div className="min-w-[100px] flex-grow p-1 leading-4">
-                <div className="text-[12px] font-bold text-main">{chain.name}</div>
+                <div className="text-[12px] font-bold text-main">{name}</div>
                 <div className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main">
                     {formatEthereumAddress(contract.address, 4)}
                 </div>

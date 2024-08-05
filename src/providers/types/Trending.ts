@@ -71,7 +71,8 @@ export type Runtime =
     | 'algorand'
     | 'solana'
     | 'flow'
-    | 'celo';
+    | 'celo'
+    | 'the-open-network';
 
 export interface Contract {
     runtime: Runtime;
