@@ -6,7 +6,9 @@ import { AbortError } from '@/constants/error.js';
 class Controller {
     private controller: AbortController | null = null;
 
-    constructor(public renew: () => void) {}
+    constructor(public renew: () => void) {
+        this.controller = new AbortController();
+    }
 
     get signal() {
         return this.controller?.signal;
