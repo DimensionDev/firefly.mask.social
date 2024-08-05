@@ -9,11 +9,11 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse, TwitterLoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import { TwitterSession } from '@/providers/twitter/Session.js';
 
 /**
  * Restore firefly session from a lens or farcaster session.
