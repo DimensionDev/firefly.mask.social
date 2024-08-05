@@ -7,7 +7,7 @@ import type { PostForYouByAuthorship, TopProfile } from '@/providers/farcasterOp
 
 class OpenRank {
     getTopProfiles(options?: { offset?: number; limit?: number }) {
-        const url = urlcat(`${env.external.NEXT_PUBLIC_FARCASTER_OPENRANK_URL}`, '/scores/global/engagement/rankings', {
+        const url = urlcat(env.external.NEXT_PUBLIC_FARCASTER_OPENRANK_URL, '/scores/global/engagement/rankings', {
             offset: options?.offset,
             limit: options?.limit,
         });
