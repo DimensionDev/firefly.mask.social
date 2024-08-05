@@ -1,13 +1,13 @@
 import urlcat from 'urlcat';
 
 import { type SocialSource } from '@/constants/enum.js';
-import { FRAME_SERVER_URL } from '@/constants/index.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { getMeaningfulThemeMode } from '@/helpers/getMeaningfulThemeMode.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { settings } from '@/settings/index.js';
 
 const getPollFrameSearchParams = (source: SocialSource) => {
     const profile = getCurrentProfile(source);
@@ -32,7 +32,7 @@ export const composePollFrameUrl = (url: string, source: SocialSource) => {
 export function getPollFrameUrl(pollId: string, source?: SocialSource, author?: Profile) {
     const profile = author ? author : source ? getCurrentProfile(source) : null;
 
-    return urlcat(FRAME_SERVER_URL, `/polls/${pollId}`, {
+    return urlcat(settings.FRAME_SERVER_URL, `/polls/${pollId}`, {
         author: profile ? getProfileUrl(profile) : null,
         source: source?.toLowerCase(),
     });
