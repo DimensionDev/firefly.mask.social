@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
-import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
+import { EMPTY_LIST, TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
@@ -32,9 +32,10 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         return createSuccessResponseJSON({
             ...data,
-            data: data.data.filter((item) =>
-                item.referenced_tweets?.some((tweet) => tweet.type === 'replied_to' && tweet.id === tweetId),
-            ),
+            data:
+                data?.data?.filter((item) =>
+                    item.referenced_tweets?.some((tweet) => tweet.type === 'replied_to' && tweet.id === tweetId),
+                ) || EMPTY_LIST,
         });
     },
 );
