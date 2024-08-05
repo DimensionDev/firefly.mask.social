@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { first, isNumber } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode, useRef, useState } from 'react';
@@ -13,8 +12,8 @@ import { Loading } from '@/components/Loading.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurity.js';
+import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -106,7 +105,8 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     const { isUp } = useCoinPrice24hStats(token?.id);
 
     usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${symbol}`);
-    const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, first(contracts)?.chainId);
+    const firstContract = first(contracts);
+    const chain = useChainInfo(firstContract?.runtime, firstContract?.chainId);
 
     if (isLoading) {
         return <Loading />;
