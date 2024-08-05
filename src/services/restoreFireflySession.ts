@@ -86,11 +86,6 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             });
             if (!encrypted.success) throw new Error(`Failed to encrypt twitter session: ${encrypted.error.message}.`);
 
-            console.log('DEBUG: restoreFireflySession - encrypted');
-            console.log({
-                encrypted,
-            });
-
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
             const response = await fetchJSON<TwitterLoginResponse>(url, {
                 method: 'POST',
@@ -98,11 +93,6 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                     data: encrypted.data,
                 }),
                 signal,
-            });
-
-            console.log('DEBUG: response');
-            console.log({
-                response,
             });
 
             const data = resolveFireflyResponseData(response);

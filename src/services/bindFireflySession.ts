@@ -56,12 +56,6 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
         headers: TwitterSession.payloadToHeaders(session.payload),
         signal,
     });
-
-    console.log('DEBUG: bindTwitterSessionToFirefly - encrypted');
-    console.log({
-        encrypted,
-    });
-
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/exchange/bindTwitter'),
         {
