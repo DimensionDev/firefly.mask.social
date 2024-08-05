@@ -146,7 +146,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     </>
                 ) : null}
 
-                {!scheduleTime ? (
+                {!scheduleTime && !mediaDisabled ? (
                     <div
                         className={classNames(
                             'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',

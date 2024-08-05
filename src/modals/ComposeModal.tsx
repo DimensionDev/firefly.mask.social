@@ -313,6 +313,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
+            const { cursor } = useComposeStateStore.getState();
+            const compositePost = getCompositePost(cursor);
             if (!typedMessage) return;
             if (!hasRpPayload(typedMessage) || isRpEncrypted(typedMessage)) return;
             if (!rpPayload?.payloadImage) return;
@@ -356,6 +358,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         content: RP_HASH_TAG,
                         visible: false,
                     },
+                    ...(compositePost ? compositePost.chars : []),
                     fullMessage,
                 ];
 

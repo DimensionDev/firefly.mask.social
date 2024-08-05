@@ -420,5 +420,5 @@ body.not-support .fixed.inset-y-0 {
 }
 
 .livepeer-aspect-ratio-container {
-    border-radius: 8px;
+    border-radius: 8px !important;
 }
