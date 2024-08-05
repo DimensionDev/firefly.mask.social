@@ -77,10 +77,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
 
-                        if (IS_MOBILE_DEVICE) {
-                            resetCountdown();
-                            startCountdown();
-                        }
+                        resetCountdown();
+                        startCountdown();
                     }, controller.current.signal),
                 { signal: controller.current.signal },
             );
@@ -144,7 +142,6 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 onLoginByRelayService();
                 break;
         }
-        return () => controller.current.abort();
     });
 
     useUnmount(() => {
