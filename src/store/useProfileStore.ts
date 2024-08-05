@@ -265,7 +265,7 @@ const useTwitterStateBase = createState(
                     {
                         profile,
                         session: TwitterSession.from(profile, payload),
-                        fireflySession: !isNextAuthCallback
+                        fireflySession: isNextAuthCallback
                             ? await bindOrRestoreFireflySession(nextAuthSession)
                             : undefined,
                     },
