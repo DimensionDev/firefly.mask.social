@@ -23,7 +23,7 @@ export const RecentPostList = memo(function ForYouPostList() {
             if (source !== Source.Lens) {
                 return createPageable<Post>(EMPTY_LIST, createIndicator());
             }
-            return LensSocialMediaProvider?.getRecentPosts(createIndicator(undefined, pageParam));
+            return LensSocialMediaProvider.getRecentPosts(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
