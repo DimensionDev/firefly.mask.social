@@ -50,7 +50,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 to_address: recipient.address,
                 chain_id: `${token.chainId}`,
                 chain_name: token.chain,
-                amount: `${token.amount}`,
+                amount,
                 token_symbol: token.symbol,
                 token_icon: token.logo_url,
                 token_address: token.id,
