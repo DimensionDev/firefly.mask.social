@@ -1,9 +1,9 @@
 import { Menu, type MenuProps } from '@headlessui/react';
-import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
+import EllipsisHorizontalCircleIcon from '@/assets/ellipsis-horizontal-circle.svg';
 import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -27,7 +27,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const isMyWallet = useIsMyRelatedProfile(profile.address, Source.Wallet);
 
     return (
-        <MoreActionMenu button={<EllipsisHorizontalCircleIcon width={32} height={32} />} className={className}>
+        <MoreActionMenu button={<EllipsisHorizontalCircleIcon className="h-8 w-8" />} className={className}>
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                 onClick={(event) => {
