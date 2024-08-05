@@ -27,8 +27,10 @@ const FARCASTER_TYPES_LOGGED = [
     DiscoverType.TopChannels,
 ] as const;
 const FARCASTER_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels] as const;
-const LENS_TYPES_FULL = [DiscoverType.Trending, DiscoverType.Recent, DiscoverType.TopProfiles] as const;
-const LENS_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles] as const;
+const LENS_TYPES =
+    env.external.NEXT_PUBLIC_OPENRANK === STATUS.Enabled
+        ? [DiscoverType.Trending, DiscoverType.Recent, DiscoverType.TopProfiles]
+        : ([DiscoverType.Trending, DiscoverType.TopProfiles] as const);
 
 const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> = memo(function ContentList({
     type,
@@ -57,11 +59,9 @@ export function HomePage() {
     const [discoverType, setDiscoverType] = useStateWithSearchParams('discover', DiscoverType.Trending);
 
     const farcasterTypes =
-        env.external.NEXT_PUBLIC_OPENRANK_API === STATUS.Enabled && currentProfile
+        env.external.NEXT_PUBLIC_OPENRANK === STATUS.Enabled && currentProfile
             ? FARCASTER_TYPES_LOGGED
             : FARCASTER_TYPES;
-
-    const lensTypes = env.external.NEXT_PUBLIC_OPENRANK_API === STATUS.Enabled ? LENS_TYPES_FULL : LENS_TYPES;
 
     const tabLabels = {
         [DiscoverType.Trending]: <Trans>Trending</Trans>,
@@ -79,10 +79,10 @@ export function HomePage() {
                 if (!farcasterTypes.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
                 break;
             case Source.Lens:
-                if (!lensTypes.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
+                if (!LENS_TYPES.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
                 break;
         }
-    }, [currentSource, discoverType, farcasterTypes, lensTypes, setDiscoverType]);
+    }, [currentSource, discoverType, farcasterTypes, setDiscoverType]);
 
     if (currentSource === Source.Article) {
         return <DiscoverArticleList />;
@@ -113,7 +113,7 @@ export function HomePage() {
                     }}
                     value={discoverType}
                 >
-                    {lensTypes.map((type) => (
+                    {LENS_TYPES.map((type) => (
                         <Tab value={type} key={type}>
                             {tabLabels[type]}
                         </Tab>
