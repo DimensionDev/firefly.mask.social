@@ -3,7 +3,7 @@ import { t } from '@lingui/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
-import EllipsisHorizontalCircleIcon from '@/assets/ellipsishirizontal-circle.svg';
+import EllipsisHorizontalCircleIcon from '@/assets/ellipsis-horizontal-circle.svg';
 import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
