@@ -46,9 +46,6 @@ patchedDependencies:
   '@rainbow-me/rainbowkit@2.0.5':
     hash: z4jq5w2a7nzhghr3tyox4fiwsm
     path: patches/@rainbow-me__rainbowkit@2.0.5.patch
-  bloom-filters@3.0.0:
-    hash: 2etetjrjxbcye2oktxqpij75ey
-    path: src/maskbook/patches/bloom-filters@3.0.0.patch
   fortmatic@2.2.1:
     hash: tb3oevqnvhntsyfyhi2z6spuea
     path: src/maskbook/patches/fortmatic@2.2.1.patch
@@ -1572,7 +1569,7 @@ importers:
         version: 9.1.2
       bloom-filters:
         specifier: ^3.0.0
-        version: 3.0.0(patch_hash=2etetjrjxbcye2oktxqpij75ey)
+        version: 3.0.0
       bn.js:
         specifier: ^4.12.0
         version: 4.12.0
@@ -16589,7 +16586,7 @@ packages:
     resolution: {integrity: sha512-gaqbzQPqOoamawKg0LGVd7SzLgXS+JH61oWprSLH+P+abTczqJbhTR8CmJ2u9/bUYNmHTGJx/UEmn6doAvvuig==}
     dev: false
 
-  /bloom-filters@3.0.0(patch_hash=2etetjrjxbcye2oktxqpij75ey):
+  /bloom-filters@3.0.0:
     resolution: {integrity: sha512-DBDgLkYokKS5NA5y8P9fuTavKQCkleAP39yqpW/5Nab/vwzHv+wOPRM/yDAStghARDleyRI4orW91uuxj48LKQ==}
     engines: {node: '>=12'}
     dependencies:
@@ -16603,7 +16600,6 @@ packages:
       seedrandom: 3.0.5
       xxhashjs: 0.2.2
     dev: false
-    patched: true
 
   /bluebird@3.7.2:
     resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==}
@@ -30482,7 +30478,7 @@ packages:
   /twitter-text@3.1.0:
     resolution: {integrity: sha512-nulfUi3FN6z0LUjYipJid+eiwXvOLb8Ass7Jy/6zsXmZK3URte043m8fL3FyDzrK+WLpyqhHuR/TcARTN/iuGQ==}
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.24.7
       core-js: 2.6.12
       punycode: 1.4.1
       twemoji-parser: 11.0.2
@@ -33055,4 +33051,9 @@ packages:
     dev: true
 
 time:
+  /@types/socket.io-client@1.4.36: '2021-03-12T14:48:11.667Z'
+  /@types/twitter-text@3.1.7: '2023-10-18T16:50:37.249Z'
+  /bloom-filters@3.0.0: '2022-03-30T09:01:50.740Z'
   /react-qrcode-logo@2.9.0: '2023-02-25T14:35:39.109Z'
+  /socket.io-client@2.4.0: '2021-01-04T22:41:40.900Z'
+  /twitter-text@3.1.0: '2020-03-31T18:30:37.518Z'
