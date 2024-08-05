@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
-import type { NetworkType } from '@/constants/enum.js';
+import { type NetworkType, Source } from '@/constants/enum.js';
 import type { FireflyProfile, Profile } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -17,6 +17,8 @@ interface TipsContext {
     pureWallet: boolean;
     socialProfiles: Profile[];
     isSending: boolean;
+    identity: string;
+    source: Source;
 }
 
 function createEmptyContext(): TipsContext {
@@ -30,6 +32,8 @@ function createEmptyContext(): TipsContext {
         pureWallet: false,
         socialProfiles: [],
         isSending: false,
+        identity: '',
+        source: Source.Wallet,
     };
 }
 
