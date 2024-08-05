@@ -108,7 +108,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
         </>
     );
 
-    if (isLoading) {
+    if (isLoading && source !== Source.Twitter) {
         return (
             <div>
                 {header}
