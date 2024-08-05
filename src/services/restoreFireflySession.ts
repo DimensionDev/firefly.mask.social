@@ -14,6 +14,7 @@ import type { FarcasterLoginResponse, LensLoginResponse, TwitterLoginResponse } 
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 /**
  * Restore firefly session from a lens or farcaster session.
@@ -78,11 +79,12 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             const twitterSession = session as TwitterSession;
 
             // encrypt twitter session
-            const encrypted = await fetchJSON<string>('/api/twitter/auth', {
+            const encrypted = await fetchJSON<ResponseJSON<string>>('/api/twitter/auth', {
                 method: 'POST',
                 headers: TwitterSession.payloadToHeaders(twitterSession.payload),
                 signal,
             });
+            if (!encrypted.success) throw new Error(`Failed to encrypt twitter session: ${encrypted.error.message}.`);
 
             console.log('DEBUG: restoreFireflySession - encrypted');
             console.log({
@@ -93,7 +95,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             const response = await fetchJSON<TwitterLoginResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    data: encrypted,
+                    data: encrypted.data,
                 }),
                 signal,
             });
