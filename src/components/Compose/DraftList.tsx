@@ -156,6 +156,7 @@ export const DraftList = memo(function DraftList() {
                     </div>
                 ),
                 confirmButtonText: t`Confirm`,
+                enableCancelButton: true,
             });
 
             if (!confirmed) return;

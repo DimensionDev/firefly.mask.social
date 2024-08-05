@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { memo } from 'react';
 import { Tweet } from 'react-tweet';
+import urlcat from 'urlcat';
 
 import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
@@ -14,7 +15,8 @@ import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { components } from '@/components/Tweet/index.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
+import { HEY_URL } from '@/constants/index.js';
+import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP, TWEET_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
@@ -113,6 +115,21 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 {tagPadding}
                 <ChannelTag title={trimmed} source={source} />
             </>
+        );
+    }
+
+    if (LENS_HANDLE_REGEXP.test(title)) {
+        const handle = title.replace('.lens', '');
+        return (
+            <Link
+                href={urlcat(HEY_URL, '/u/:handle', { handle })}
+                className="text-link hover:underline"
+                onClick={(event) => event.stopPropagation()}
+                target="_blank"
+                rel="noreferrer noopener"
+            >
+                {title}
+            </Link>
         );
     }
 

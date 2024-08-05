@@ -418,3 +418,7 @@ body.not-support .fixed.inset-y-0 {
 .custom-time-picker > :first-child {
     border-right: 1px solid var(--color-line2);
 }
+
+.livepeer-aspect-ratio-container {
+    border-radius: 8px;
+}
