@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import urlcat from 'urlcat';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
@@ -50,7 +49,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                         discover: DiscoverType.TopChannels,
                         source: resolveSocialSourceInURL(Source.Farcaster),
                     })}
-                    className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-fireflyBrand"
+                    className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-lightHighlight"
                 >
                     <Trans>Show More</Trans>
                 </Link>

@@ -109,7 +109,7 @@ export function SuggestedFollowsCard() {
                     </>
                 )}
             </div>
-            <Link href={showMoreUrl} className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-fireflyBrand">
+            <Link href={showMoreUrl} className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-lightHighlight">
                 <Trans>Show more</Trans>
             </Link>
         </div>
