@@ -1,24 +1,27 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
+import type { FireflyPlatform } from '@/constants/enum.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import type { WalletConnection } from '@/providers/types/Firefly.js';
+import type { ProfileTab } from '@/store/useProfileTabStore.js';
 import type { ClassType } from '@/types/index.js';
 
 type Provider = FireflySocialMedia;
 type WalletsData = Record<
     'connected' | 'related',
     Array<{
-        profile: FireflyProfile;
-        relations: FireflyProfile[];
+        walletConnection: WalletConnection;
+        platforms: ProfileTab[];
     }>
 >;
 type ReportOptions = Parameters<FireflySocialMedia['reportAndDeleteWallet']>[0];
 
-const METHODS_BE_OVERRIDDEN = ['deleteWallet'] as const;
+const METHODS_BE_OVERRIDDEN = ['disconnectAccount'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
 
-function deleteWalletsFromQueryData(addresses: string[]) {
+function deleteWalletsFromQueryData(address: string) {
     queryClient.setQueriesData<WalletsData>(
         {
             queryKey: ['my-wallets'],
@@ -26,10 +29,10 @@ function deleteWalletsFromQueryData(addresses: string[]) {
         (old) => {
             if (!old) return old;
             return produce(old, (draft) => {
-                for (const address of addresses) {
-                    draft.connected = draft.connected.filter((x) => x.profile.identity !== address);
-                    draft.related = draft.related.filter((x) => x.profile.identity !== address);
-                }
+                draft.connected = draft.connected.filter((x) =>
+                    isSameAddress(x.walletConnection.address, address, 'both'),
+                );
+                draft.related = draft.related.filter((x) => isSameAddress(x.walletConnection.address, address, 'both'));
             });
         },
     );
@@ -41,10 +44,14 @@ export function SetQueryDataForDeleteWallet() {
             const method = target.prototype[key] as Provider[K];
 
             Object.defineProperty(target.prototype, key, {
-                value: async (addresses: string[]) => {
-                    const m = method as (addresses: string[]) => ReturnType<Provider[K]>;
-                    const result = await m.call(target.prototype, addresses);
-                    deleteWalletsFromQueryData(addresses);
+                value: async (platform: FireflyPlatform, identity: string, address: string) => {
+                    const m = method as (
+                        platform: FireflyPlatform,
+                        identity: string,
+                        address: string,
+                    ) => ReturnType<Provider[K]>;
+                    const result = await m.call(target.prototype, platform, identity, address);
+                    deleteWalletsFromQueryData(address);
                     return result;
                 },
             });
@@ -65,7 +72,7 @@ export function SetQueryDataForReportAndDeleteWallet() {
                 value: async (options: ReportOptions) => {
                     const m = method as (options: ReportOptions) => ReturnType<Provider[K]>;
                     const result = await m.call(target.prototype, options);
-                    deleteWalletsFromQueryData([options.walletAddress]);
+                    deleteWalletsFromQueryData(options.walletAddress);
                     return result;
                 },
             });

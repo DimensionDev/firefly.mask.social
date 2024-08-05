@@ -4,16 +4,20 @@ import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useSignMessage } from 'wagmi';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
-interface AddWalletButtonProps {
+interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
     onSuccess?: () => void;
 }
 
-export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButton({ onSuccess }) {
+export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButton({
+    disabled = false,
+    onSuccess,
+    ...rest
+}) {
     const account = useAccount();
     const { signMessageAsync } = useSignMessage();
     const connectModal = useConnectModal();
@@ -40,9 +44,10 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
 
     return (
         <ClickableButton
+            {...rest}
             className="h-10 rounded-2xl bg-lightMain px-[18px] text-[15px] font-bold leading-10 text-lightBottom dark:text-darkBottom"
             onClick={handleAddWallet}
-            disabled={loading}
+            disabled={loading || disabled}
         >
             {loading ? <Trans>Adding...</Trans> : <Trans>Add wallet</Trans>}
         </ClickableButton>

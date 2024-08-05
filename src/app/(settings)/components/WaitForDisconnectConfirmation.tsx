@@ -6,7 +6,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import type { WalletConnection } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 const getReasons = () => [t`Not my wallet address.`, t`I don’t use anymore.`, t`I want to hide this wallet address.`];
@@ -60,7 +60,7 @@ export async function waitForSelectReportReason() {
     return confirmed ? selectedReason : null;
 }
 
-export async function waitForDisconnectConfirmation(profile: FireflyProfile, relatedProfiles: Profile[]) {
+export async function waitForDisconnectConfirmation(connection: WalletConnection, relatedProfiles: Profile[]) {
     return await ConfirmModalRef.openAndWaitForClose({
         title: t`Disconnect`,
         content: (
@@ -74,17 +74,19 @@ export async function waitForDisconnectConfirmation(profile: FireflyProfile, rel
                         <Trans>Confirm to disconnect this wallet from Firefly’s social graph?</Trans>
                     )}
                 </p>
-                <WalletItem profile={profile} relations={[]} noAction />
-                {relatedProfiles.map((profile) => (
-                    <div
-                        key={profile.profileId}
-                        className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 dark:bg-bg"
-                        style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
-                    >
-                        <ProfileAvatar profile={profile} size={36} />
-                        <ProfileName profile={profile} />
-                    </div>
-                ))}
+                <WalletItem connection={connection} platforms={[]} noAction />
+                <div className="no-scrollbar max-h-[calc(63px_*_3)] overflow-y-auto">
+                    {relatedProfiles.map((profile) => (
+                        <div
+                            key={profile.profileId}
+                            className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 dark:bg-bg"
+                            style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
+                        >
+                            <ProfileAvatar profile={profile} size={36} />
+                            <ProfileName profile={profile} />
+                        </div>
+                    ))}
+                </div>
             </div>
         ),
     });

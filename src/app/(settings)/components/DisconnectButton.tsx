@@ -1,38 +1,41 @@
 import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
+import { useRouter } from 'next/navigation.js';
 import { useAsyncFn } from 'react-use';
 
 import { waitForDisconnectConfirmation } from '@/app/(settings)/components/WaitForDisconnectConfirmation.js';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getFireflyIdentityForDisconnect, updateAccountConnection } from '@/helpers/formatWalletConnection.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { resolveProfilesByIdentities } from '@/helpers/resolveProfilesByIdentities.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { getProfileById } from '@/services/getProfileById.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface DisconnectButtonProps {
-    profile: FireflyProfile;
-    relations: FireflyProfile[];
+    connection: FireflyWalletConnection;
 }
 
-async function resolveFireflyProfiles(profiles: FireflyProfile[]) {
-    if (!profiles.length) return [];
-    return Promise.all(
-        profiles.map((profile) => {
-            return getProfileById(narrowToSocialSource(profile.source), profile.identity);
-        }),
-    );
-}
+export function DisconnectButton({ connection }: DisconnectButtonProps) {
+    const router = useRouter();
 
-export function DisconnectButton({ profile, relations }: DisconnectButtonProps) {
     const [{ loading }, disconnectWallet] = useAsyncFn(async () => {
         try {
-            const relatedProfiles = await resolveFireflyProfiles(relations);
-            const confirmed = await waitForDisconnectConfirmation(profile, compact(relatedProfiles));
+            const relatedProfiles = await resolveProfilesByIdentities(connection.platforms);
+            const confirmed = await waitForDisconnectConfirmation(connection, compact(relatedProfiles));
             if (!confirmed) return;
-            await FireflySocialMediaProvider.deleteWallet([profile.identity]);
+            const profileTab = getFireflyIdentityForDisconnect(connection);
+            if (!profileTab) {
+                throw new Error('No profile tab found for disconnecting wallet');
+            }
+            await FireflySocialMediaProvider.disconnectAccount(
+                profileTab.source,
+                profileTab.identity,
+                connection.address,
+            );
+            await updateAccountConnection(profileTab.source, profileTab.identity);
+            router.push('/');
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
             enqueueErrorMessage(
@@ -41,7 +44,7 @@ export function DisconnectButton({ profile, relations }: DisconnectButtonProps) 
             );
             throw error;
         }
-    }, [profile, relations]);
+    }, [connection, router]);
 
     return (
         <span>
