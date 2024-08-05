@@ -1753,6 +1753,9 @@ msgstr "If a suspendable code is included, the token maybe neither be bought nor
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
 
+msgid "Connecting Wallet"
+msgstr "Connecting Wallet"
+
 msgid "Total Supply"
 msgstr "Total Supply"
 

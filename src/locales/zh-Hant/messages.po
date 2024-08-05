@@ -1758,6 +1758,9 @@ msgstr ""
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
 
+msgid "Connecting Wallet"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 
