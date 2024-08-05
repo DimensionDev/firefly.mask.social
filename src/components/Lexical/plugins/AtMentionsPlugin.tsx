@@ -170,8 +170,8 @@ export function MentionsPlugin(): JSX.Element | null {
     const ref = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
     const currentProfileAll = useCurrentProfileAll();
-    const isUpdatingMentionTag = useRef<boolean>(false);
-    const matchedNodeCache = useRef<AutoLinkNode | null>(null);
+    const isUpdatingMentionTag = useRef(false);
+    const matchedNodeCache = useRef<AutoLinkNode>(null);
 
     const { availableSources } = useCompositePost();
 

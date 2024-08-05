@@ -25,7 +25,7 @@ class Controller {
 }
 
 export function useAbortController() {
-    const controllerRef = useRef<Controller>(new Controller());
+    const controllerRef = useRef(new Controller());
 
     useUnmount(() => {
         controllerRef.current.abort();
