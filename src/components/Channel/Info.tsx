@@ -64,7 +64,12 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                     </div>
                 </div>
 
-                <BioMarkup className="text-[15px]" source={Source.Farcaster}>
+                <BioMarkup
+                    className={classNames('text-[15px]', {
+                        '-ml-[60px]': !isMedium,
+                    })}
+                    source={Source.Farcaster}
+                >
                     {channel.description ?? '-'}
                 </BioMarkup>
             </div>

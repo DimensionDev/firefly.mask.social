@@ -3,14 +3,16 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
 import { Info } from '@/components/Channel/Info.js';
+import { PostList } from '@/components/Channel/PostList.js';
 import { Title } from '@/components/Channel/Title.js';
 import { Loading } from '@/components/Loading.js';
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -65,7 +67,13 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
 
             <hr className="divider w-full border-line" />
 
-            <ChannelTabs channel={channel} />
+            {env.external.NEXT_PUBLIC_CHANNEL_TRENDING === STATUS.Enabled ? (
+                <ChannelTabs channel={channel} />
+            ) : (
+                <Suspense fallback={<Loading />}>
+                    <PostList source={channel.source} channel={channel} />
+                </Suspense>
+            )}
         </div>
     );
 }
