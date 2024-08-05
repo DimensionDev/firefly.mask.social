@@ -168,8 +168,7 @@
         "determenistic",
         "SYSVAR",
         "Debank",
-        "ampm",
-        "crowdsourced"
+        "ampm"
     ],
     "flagWords": [],
     "ignorePaths": [

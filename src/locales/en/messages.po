@@ -1018,9 +1018,6 @@ msgstr "If you believe this action has been blocked in error, please <0/><1>Igno
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 
-msgid "For You"
-msgstr "For You"
-
 msgid "Failed to fetch bookmarks."
 msgstr "Failed to fetch bookmarks."
 

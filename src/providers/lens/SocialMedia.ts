@@ -16,7 +16,7 @@ import {
     PublicationType,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
-import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
+import { compact, first, flatMap, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 
@@ -51,7 +51,6 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { LensOpenRankProvider } from '@/providers/lensOpenRank/index.js';
 import {
     type LastLoggedInProfileRequest,
     profilesManagedQuery,
@@ -1245,7 +1244,6 @@ class LensSocialMedia implements Provider {
         });
         return result.isSuccess().valueOf();
     }
-
     async reportPost(post: Post) {
         const postId = post.postId;
         const result = await lensSessionHolder.sdk.publication.report({
@@ -1264,27 +1262,6 @@ class LensSocialMedia implements Provider {
             return FireflySocialMediaProvider.reportPost(post);
         }
         return success;
-    }
-
-    async getRecentPosts(indicator?: PageIndicator) {
-        const offset = parseInt(indicator?.id ?? '0', 10) || 0;
-        const limit = 50;
-        const items = await LensOpenRankProvider.feed('recent', {
-            offset,
-            limit,
-        });
-        const result = await lensSessionHolder.sdk.publication.fetchAll({
-            where: {
-                publicationIds: uniq(items.map((x) => x.postId)),
-            },
-        });
-        if (!result) createPageable(EMPTY_LIST, undefined);
-
-        return createPageable(
-            result.items.map(formatLensPost),
-            createIndicator(indicator),
-            createNextIndicator(indicator, `${offset + limit}`),
-        );
     }
 }
 

@@ -1018,9 +1018,6 @@ msgstr ""
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr ""
 
-msgid "For You"
-msgstr ""
-
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
