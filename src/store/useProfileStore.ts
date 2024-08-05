@@ -257,11 +257,22 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                await addAccount({
-                    profile,
-                    session: TwitterSession.from(profile, payload),
-                    fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
-                });
+                // session is null when the login is from the server
+                const isNextAuthCallback = session === null;
+
+                await addAccount(
+                    {
+                        profile,
+                        session: TwitterSession.from(profile, payload),
+                        fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
+                    },
+                    {
+                        skipBelongsToCheck: isNextAuthCallback,
+                        skipResumeFireflyAccounts: isNextAuthCallback,
+                        skipResumeFireflySession: isNextAuthCallback,
+                        skipUploadFireflySession: isNextAuthCallback,
+                    },
+                );
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
