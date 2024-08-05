@@ -47,7 +47,6 @@ import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
-import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
@@ -223,9 +222,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
                 updateType(type || 'compose');
-                updateAvailableSources(
-                    source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
-                );
+                if (source) updateAvailableSources(Array.isArray(source) ? source : [source]);
                 if (typedMessage) updateTypedMessage(typedMessage);
                 if (post) updateParentPost(post.source, post);
                 if (chars) {
