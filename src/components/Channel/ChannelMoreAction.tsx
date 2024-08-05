@@ -1,10 +1,10 @@
 import { Menu, type MenuProps } from '@headlessui/react';
-import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
+import EllipsisHorizontalCircleIcon from '@/assets/ellipsishirizontal-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -35,7 +35,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         <LoadingIcon width={16} height={16} />
                     </span>
                 ) : (
-                    <EllipsisHorizontalCircleIcon width={32} height={32} />
+                    <EllipsisHorizontalCircleIcon className="h-8 w-8" />
                 )
             }
         >
