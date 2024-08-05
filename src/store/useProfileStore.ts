@@ -26,7 +26,7 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { restoreFireflySession, restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
     accounts: Account[];
@@ -259,12 +259,15 @@ const useTwitterStateBase = createState(
 
                 // session is null when the login is from the server
                 const isNextAuthCallback = session === null;
+                const nextAuthSession = TwitterSession.from(profile, payload);
 
                 await addAccount(
                     {
                         profile,
                         session: TwitterSession.from(profile, payload),
-                        fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
+                        fireflySession: !isNextAuthCallback
+                            ? await bindOrRestoreFireflySession(nextAuthSession)
+                            : undefined,
                     },
                     {
                         skipBelongsToCheck: !isNextAuthCallback,
