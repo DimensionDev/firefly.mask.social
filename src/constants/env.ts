@@ -41,6 +41,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
     NEXT_PUBLIC_FARCASTER_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
     NEXT_PUBLIC_LENS_OPENRANK_URL: z.string().default('https://lens-api.k3l.io'),
+    NEXT_PUBLIC_OPENRANK_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string(),
 
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),

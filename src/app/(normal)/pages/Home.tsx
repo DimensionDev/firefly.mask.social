@@ -13,7 +13,8 @@ import { ForYouPostList } from '@/components/Posts/ForYouPostList.js';
 import { RecentPostList } from '@/components/Posts/RecentPostList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
-import { DiscoverType, type SocialSource, Source } from '@/constants/enum.js';
+import { DiscoverType, type SocialSource, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
@@ -26,7 +27,8 @@ const FARCASTER_TYPES_LOGGED = [
     DiscoverType.TopChannels,
 ] as const;
 const FARCASTER_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels] as const;
-const LENS_TYPES = [DiscoverType.Trending, DiscoverType.Recent, DiscoverType.TopProfiles] as const;
+const LENS_TYPES_FULL = [DiscoverType.Trending, DiscoverType.Recent, DiscoverType.TopProfiles] as const;
+const LENS_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles] as const;
 
 const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> = memo(function ContentList({
     type,
@@ -54,7 +56,12 @@ export function HomePage() {
     const currentProfile = useCurrentProfile(Source.Farcaster);
     const [discoverType, setDiscoverType] = useStateWithSearchParams('discover', DiscoverType.Trending);
 
-    const farcasterTypes = currentProfile ? FARCASTER_TYPES_LOGGED : FARCASTER_TYPES;
+    const farcasterTypes =
+        env.external.NEXT_PUBLIC_OPENRANK_API === STATUS.Enabled && currentProfile
+            ? FARCASTER_TYPES_LOGGED
+            : FARCASTER_TYPES;
+
+    const lensTypes = env.external.NEXT_PUBLIC_OPENRANK_API === STATUS.Enabled ? LENS_TYPES_FULL : LENS_TYPES;
 
     const tabLabels = {
         [DiscoverType.Trending]: <Trans>Trending</Trans>,
@@ -72,10 +79,10 @@ export function HomePage() {
                 if (!farcasterTypes.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
                 break;
             case Source.Lens:
-                if (!LENS_TYPES.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
+                if (!lensTypes.includes(discoverType)) setDiscoverType(DiscoverType.Trending);
                 break;
         }
-    }, [currentSource, discoverType, farcasterTypes, setDiscoverType]);
+    }, [currentSource, discoverType, farcasterTypes, lensTypes, setDiscoverType]);
 
     if (currentSource === Source.Article) {
         return <DiscoverArticleList />;
@@ -106,7 +113,7 @@ export function HomePage() {
                     }}
                     value={discoverType}
                 >
-                    {LENS_TYPES.map((type) => (
+                    {lensTypes.map((type) => (
                         <Tab value={type} key={type}>
                             {tabLabels[type]}
                         </Tab>
