@@ -13,6 +13,7 @@ import type { FarcasterLoginResponse, LensLoginResponse, TwitterLoginResponse } 
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 
 /**
  * Restore firefly session from a lens or farcaster session.
@@ -74,9 +75,12 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             throw new Error('Failed to restore firefly session.');
         }
         case SessionType.Twitter: {
+            const twitterSession = session as TwitterSession;
+
             // encrypt twitter session
             const encrypted = await fetchJSON<string>('/api/twitter/auth', {
                 method: 'POST',
+                headers: TwitterSession.payloadToHeaders(twitterSession.payload),
                 signal,
             });
 
