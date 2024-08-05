@@ -61,6 +61,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                     </div>
                 ),
                 confirmButtonText: t`Confirm`,
+                enableCancelButton: true,
             });
 
             if (!confirmed) return;
