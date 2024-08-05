@@ -1,9 +1,10 @@
-import { FRAME_SERVER_URL } from '@/constants/index.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
+import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { EmbedMediaType } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
 
 export function isValidPollFrameUrl(url: string): boolean {
-    return url.startsWith(FRAME_SERVER_URL);
+    return isSameOriginUrl(url, settings.FRAME_SERVER_URL);
 }
 
 export function resolveEmbedMediaType(url: string, type?: EmbedMediaType) {

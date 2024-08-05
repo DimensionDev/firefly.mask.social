@@ -109,6 +109,7 @@ export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Pre
 export const EVER_API = 'https://endpoint.4everland.co';
 
 export const FRAME_SERVER_URL = 'https://polls.mask.social';
+export const FRAME_DEV_SERVER_URL = 'https://fc-polls-ruddy.vercel.app';
 
 // S3 bucket
 export const S3_BUCKET = {
