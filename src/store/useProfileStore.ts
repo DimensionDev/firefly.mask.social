@@ -267,10 +267,10 @@ const useTwitterStateBase = createState(
                         fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
                     },
                     {
-                        skipBelongsToCheck: isNextAuthCallback,
-                        skipResumeFireflyAccounts: isNextAuthCallback,
-                        skipResumeFireflySession: isNextAuthCallback,
-                        skipUploadFireflySession: isNextAuthCallback,
+                        skipBelongsToCheck: !isNextAuthCallback,
+                        skipResumeFireflyAccounts: !isNextAuthCallback,
+                        skipResumeFireflySession: !isNextAuthCallback,
+                        skipUploadFireflySession: !isNextAuthCallback,
                     },
                 );
             } catch (error) {
