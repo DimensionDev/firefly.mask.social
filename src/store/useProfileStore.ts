@@ -259,12 +259,15 @@ const useTwitterStateBase = createState(
 
                 // session is null when the login is from the server
                 const isNextAuthCallback = session === null;
+                const nextAuthSession = TwitterSession.from(profile, payload);
 
                 await addAccount(
                     {
                         profile,
                         session: TwitterSession.from(profile, payload),
-                        fireflySession: session ? await bindOrRestoreFireflySession(session) : undefined,
+                        fireflySession: isNextAuthCallback
+                            ? await bindOrRestoreFireflySession(nextAuthSession)
+                            : undefined,
                     },
                     {
                         skipBelongsToCheck: !isNextAuthCallback,
