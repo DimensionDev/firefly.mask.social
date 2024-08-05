@@ -1283,7 +1283,7 @@ class LensSocialMedia implements Provider {
         return createPageable(
             result.items.map(formatLensPost),
             createIndicator(indicator),
-            createIndicator(undefined, `${offset + limit}`),
+            createNextIndicator(indicator, `${offset + limit}`),
         );
     }
 }

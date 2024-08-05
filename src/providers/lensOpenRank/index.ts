@@ -6,7 +6,7 @@ import type { FeedPost } from '@/providers/lensOpenRank/types.js';
 
 class OpenRank {
     feed(
-        strategy: 'recent',
+        strategy: 'recent' | 'popular' | 'recommended' | 'crowdsourced',
         params?: {
             offset?: number;
             limit?: number;
