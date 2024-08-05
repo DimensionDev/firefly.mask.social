@@ -26,7 +26,7 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-import { restoreFireflySession, restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
     accounts: Account[];
