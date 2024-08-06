@@ -248,7 +248,7 @@ export class FireflySocialMedia implements Provider {
             return createPageable(
                 posts,
                 createIndicator(indicator),
-                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+                data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
             );
         });
     }
