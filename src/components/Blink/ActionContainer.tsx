@@ -2,7 +2,6 @@ import { t, Trans } from '@lingui/macro';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { VersionedTransaction } from '@solana/web3.js';
-import { useQuery } from '@tanstack/react-query';
 import { take } from 'lodash-es';
 import { type ReactNode, useEffect, useMemo, useReducer } from 'react';
 
@@ -15,8 +14,6 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { parseURL } from '@/helpers/parseURL.js';
-import { BlinkRegistry } from '@/providers/blink/Registry.js';
 import type { ActionPostResponse } from '@/providers/types/Blink.js';
 import type { Action, ActionComponent, ActionParameter, ActionType } from '@/types/blink.js';
 
@@ -119,16 +116,7 @@ export function ActionContainer({
     action: Action;
     securityLevel?: SecurityLevel;
 }) {
-    const { data: registry, isLoading: isLoadingRegistry } = useQuery({
-        queryKey: ['blink-action-register'],
-        async queryFn() {
-            const config = await BlinkRegistry.fetchActionsRegistryConfig();
-            return Object.fromEntries(config.actions.map((action) => [action.host, action]));
-        },
-    });
-
-    const actionUrl = parseURL(action.url);
-    const actionState = (actionUrl ? registry?.[actionUrl.hostname]?.state : null) ?? 'unknown';
+    const actionState = action.state ?? 'unknown';
 
     const [executionState, dispatch] = useReducer(getNextExecutionState, {
         status: 'idle',
@@ -316,7 +304,7 @@ export function ActionContainer({
         <ActionLayout
             type={actionState}
             action={action}
-            disclaimer={isLoadingRegistry ? null : disclaimer}
+            disclaimer={disclaimer}
             successMessage={executionState.successMessage}
             buttons={buttons.map(asButtonProps)}
             inputs={inputs.map((input) => asInputProps(input))}

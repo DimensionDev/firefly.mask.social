@@ -6,20 +6,16 @@ import { env } from '@/constants/env.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
-import { resolveBlinkTCO } from '@/helpers/resolveBlinkTCO.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
-import { BlinkParser } from '@/providers/blink/Parser.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Action } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
 
-export async function getPostFrame(post: Post): Promise<Frame | null> {
+export async function getPostFrame(urls: string[]): Promise<Frame | null> {
     if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
-
-    const urls = post.metadata.content?.oembedUrls;
     if (!urls?.length) return null;
 
     return attemptUntil(
@@ -38,23 +34,26 @@ export async function getPostFrame(post: Post): Promise<Frame | null> {
     );
 }
 
-export async function getPostBlinkAction(post: Post): Promise<Action | null> {
+export async function getPostBlinkAction(urls: string[]): Promise<Action | null> {
     if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
+    if (!urls?.length) return null;
 
-    const content = post.metadata.content?.content;
-
-    // a blink could be a normal url, so the result is also available for the oembed and frame components
-    const scheme = last(content ? BlinkParser.extractSchemes(content) : undefined);
-    if (!scheme) return null;
-
-    return BlinkLoader.fetchAction(await resolveBlinkTCO(scheme));
+    return attemptUntil(
+        urls
+            .filter((x) => x && !isValidDomain(x))
+            .map((url) => async () => {
+                return BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
+            }),
+        null,
+        (x) => !x,
+    );
 }
 
-export async function getPostOembed(post: Post): Promise<LinkDigested | null> {
+export async function getPostOembed(urls: string[], post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
     if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
 
-    const url = post.metadata.content?.oembedUrl;
-    if (!url || isValidDomain(url) || post.quoteOn) return null;
+    const url = last(urls);
+    if (!url || isValidDomain(url) || post?.quoteOn) return null;
 
     const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
         urlcat('/api/oembed', {
@@ -64,7 +63,7 @@ export async function getPostOembed(post: Post): Promise<LinkDigested | null> {
     return linkDigested.success ? linkDigested.data : null;
 }
 
-export async function getPostLinks(post: Post) {
+export async function getPostLinks(oembedUrls: string[], post?: Pick<Post, 'quoteOn'>) {
     return attemptUntil<{
         oembed?: LinkDigested;
         frame?: Frame;
@@ -72,15 +71,15 @@ export async function getPostLinks(post: Post) {
     } | null>(
         [
             async () => {
-                const frame = await getPostFrame(post);
+                const frame = await getPostFrame(oembedUrls);
                 return frame ? { frame } : null;
             },
             async () => {
-                const action = await getPostBlinkAction(post);
+                const action = await getPostBlinkAction(oembedUrls);
                 return action ? { action } : null;
             },
             async () => {
-                const oembed = await getPostOembed(post);
+                const oembed = await getPostOembed(oembedUrls, post);
                 return oembed ? { oembed } : null;
             },
         ],
