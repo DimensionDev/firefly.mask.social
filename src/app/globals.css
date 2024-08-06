@@ -328,10 +328,12 @@ body.not-support .fixed.inset-y-0 {
 .ff-giphy-search-bar > div {
     display: none;
 }
+
 .ff-giphy-search-bar > input {
     height: 32px;
     box-shadow: none !important;
 }
+
 .ff-giphy-grid .giphy-gif {
     cursor: pointer;
 }
@@ -339,21 +341,6 @@ body.not-support .fixed.inset-y-0 {
 .image-swiper-slide > div {
     display: flex;
     justify-content: center;
-}
-
-.wallet-adapter-modal-list .wallet-adapter-button {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 100%;
-    white-space: nowrap;
-}
-
-.wallet-adapter-modal-list li {
-    width: 100%;
-}
-
-.wallet-adapter-modal-list .wallet-adapter-button .wallet-adapter-button-start-icon {
-    min-width: 28px;
 }
 
 .schedule-time-picker .react-time-picker__wrapper {
