@@ -19,10 +19,10 @@ export function ChannelTrending({ channel, source }: ChannelTrendingProps) {
 
     const result = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', channelId, 'trending'],
-        queryFn: async () => {
+        queryFn: async ({ pageParam }) => {
             if (!channelId) return createPageable<Post>(EMPTY_LIST, createIndicator());
             const provider = resolveSocialMediaProvider(source);
-            const posts = await provider.getChannelTrendingPosts(channel);
+            const posts = await provider.getChannelTrendingPosts(channel, createIndicator(undefined, pageParam));
             return posts;
         },
         staleTime: 1000 * 60 * 5,
