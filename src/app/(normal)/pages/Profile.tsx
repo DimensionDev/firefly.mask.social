@@ -101,7 +101,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     const header = (
         <>
-            {!isSuspended && profile && !showFallback ? (
+            {!isSuspended && (profile || walletProfile) && !showFallback ? (
                 <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} />
             ) : null}
             <ProfileSourceTabs profiles={profiles} />
