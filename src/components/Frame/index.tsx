@@ -284,13 +284,14 @@ interface FrameProps {
 }
 
 export const Frame = memo<FrameProps>(function Frame({ post, onData, children }) {
+    const urls = post.metadata.content?.oembedUrls ?? [];
     const {
         data: frame,
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['frame', post],
-        queryFn: () => getPostFrame(post),
+        queryKey: ['frame', ...urls],
+        queryFn: () => getPostFrame(urls),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,

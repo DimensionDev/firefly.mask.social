@@ -1,3 +1,6 @@
+import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { Response } from '@/providers/types/Firefly.js';
+
 export type ActionType = 'trusted' | 'malicious' | 'unknown';
 
 // Linked action inspired by HAL https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-11
@@ -41,3 +44,10 @@ export interface ActionComponent {
     parameters: ActionParameter[];
     parameter?: ActionParameter;
 }
+
+export type FireflyBlinkParserBlinkResponse = Response<{
+    action: ActionGetResponse;
+    actionApiUrl: string;
+    actionUrl: string;
+    state: ActionType;
+} | null>;

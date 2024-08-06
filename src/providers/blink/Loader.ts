@@ -6,16 +6,14 @@ import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js'
 import { BaseLoader } from '@/providers/base/Loader.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
-import type { Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import type { Action, ActionComponent, ActionParameter, ActionType } from '@/types/blink.js';
-
-export type BlinkResponse = Response<{
-    action: ActionGetResponse;
-    actionApiUrl: string;
-    actionUrl: string;
-    state: ActionType;
-} | null>;
+import type {
+    Action,
+    ActionComponent,
+    ActionParameter,
+    ActionType,
+    FireflyBlinkParserBlinkResponse,
+} from '@/types/blink.js';
 
 function createActionComponent(label: string, href: string, parameters?: ActionParameter[]): ActionComponent {
     return {
@@ -57,7 +55,7 @@ class Loader extends BaseLoader<Action> {
     protected override fetch(url: string, signal?: AbortSignal): Promise<Action | null> {
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
-            const response = await fireflySessionHolder.fetch<BlinkResponse>(
+            const response = await fireflySessionHolder.fetch<FireflyBlinkParserBlinkResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/blinks/parse'),
                 {
                     method: 'POST',
