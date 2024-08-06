@@ -203,7 +203,7 @@ export enum ChannelTabType {
     Recent = 'recent',
 }
 
-// for some client store need to sync data from server
+// async store needs to sync data from the server
 export enum AsyncStoreStatus {
     Idle = 'idle',
     Pending = 'pending',
