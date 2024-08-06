@@ -765,9 +765,6 @@ msgstr "<0>你</0> 已转发"
 msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
 
-msgid "You didn't connect with Firefly before, need to connect first to fully log in."
-msgstr "您之前未登录过 Firefly，需要重新连接并完成所有登录。"
-
 msgid "Top Profiles"
 msgstr "热门用户"
 
@@ -1706,6 +1703,9 @@ msgstr "添加另一个选项"
 
 msgid "1y"
 msgstr "1年"
+
+msgid "Cannot find your signer key, please connect again"
+msgstr ""
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"

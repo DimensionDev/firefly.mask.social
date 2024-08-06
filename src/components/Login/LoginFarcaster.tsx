@@ -1,18 +1,16 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { Link } from '@tanstack/react-router';
+import { Link, useRouter } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { FarcasterSignType as SignType, Source } from '@/constants/enum.js';
-import { AbortError, FarcasterProfileNotConnectedError, TimeoutError } from '@/constants/error.js';
+import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
+import { AbortError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -57,7 +55,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
-    const [profileError, setProfileError] = useState<FarcasterProfileNotConnectedError | null>(null);
+    const router = useRouter();
+    const { history } = router;
 
     const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
@@ -108,15 +107,10 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
                     // let the user see the qr code has been scanned and display a loading icon
                     setScanned(true);
-                    setProfileError(null);
 
                     if (!account.session.token) {
-                        setProfileError(
-                            new FarcasterProfileNotConnectedError(
-                                account.profile,
-                                t`You didn't connect with Firefly before, need to connect first to fully log in.`,
-                            ),
-                        );
+                        enqueueErrorMessage(t`Cannot find your signer key, please connect again`);
+                        history.replace(`/farcaster?signType=${FarcasterSignType.GrantPermission}`);
                         throw new AbortError();
                     }
 
@@ -164,34 +158,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                     </div>
                 </div>
             ) : (
-                <div className="relative flex w-full flex-col items-center gap-4">
-                    {profileError ? (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
-                            {profileError.profile ? (
-                                <div className="mb-4 flex flex-col items-center justify-center">
-                                    <ProfileAvatar
-                                        className="mb-2"
-                                        profile={profileError.profile}
-                                        size={64}
-                                        enableSourceIcon={false}
-                                    />
-                                    <p className="text-base">{profileError.profile.displayName}</p>
-                                    <p className="text-xs">@{profileError.profile.handle}</p>
-                                </div>
-                            ) : null}
-                            <p className="mb-[80px] max-w-[300px] text-sm">{profileError.message}</p>
-                            <ClickableButton
-                                className="rounded-md border border-main bg-main px-4 py-1 text-primaryBottom"
-                                onClick={() => {
-                                    setScanned(false);
-                                    setProfileError(null);
-                                    resetCountdown();
-                                }}
-                            >
-                                <Trans>Back</Trans>
-                            </ClickableButton>
-                        </div>
-                    ) : url ? (
+                <div className="flex w-full flex-col items-center gap-4">
+                    {url ? (
                         <>
                             <div className="text-center text-xs leading-4 text-lightSecond">
                                 {signType === SignType.GrantPermission ? (
