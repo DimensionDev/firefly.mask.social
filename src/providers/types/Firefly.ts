@@ -4,6 +4,8 @@ import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source } fro
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { ComposeType } from '@/types/compose.js';
+import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { ActionType } from '@/types/blink.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -880,3 +882,10 @@ export type GetLensSuggestedFollowUserResponse = Response<{
     suggestedFollowList: Array<[LensV3Profile]>;
     cursor: number;
 }>;
+
+export type BlinkResponse = Response<{
+    action: ActionGetResponse;
+    actionApiUrl: string;
+    actionUrl: string;
+    state: ActionType;
+} | null>;

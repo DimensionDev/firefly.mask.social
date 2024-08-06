@@ -6,16 +6,9 @@ import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js'
 import { BaseLoader } from '@/providers/base/Loader.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
-import type { Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 import type { Action, ActionComponent, ActionParameter, ActionType } from '@/types/blink.js';
-
-export type BlinkResponse = Response<{
-    action: ActionGetResponse;
-    actionApiUrl: string;
-    actionUrl: string;
-    state: ActionType;
-} | null>;
+import type { BlinkResponse } from '@/providers/types/Firefly.js';
 
 function createActionComponent(label: string, href: string, parameters?: ActionParameter[]): ActionComponent {
     return {
