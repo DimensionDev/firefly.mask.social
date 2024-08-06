@@ -911,8 +911,13 @@ export interface WalletConnection {
     twitterId: string;
 }
 
+export interface FireflyIdentity {
+    id: string;
+    source: Source;
+}
+
 export type FireflyWalletConnection = WalletConnection & {
-    platforms: FireflyIdentity[];
+    identities: FireflyIdentity[];
 };
 
 export type AllConnections = {
@@ -941,8 +946,3 @@ export type AllConnections = {
 };
 
 export type GetAllConnectionsResponse = Response<AllConnections>;
-
-export type FireflyIdentity = {
-    identity: string;
-    source: Source;
-};

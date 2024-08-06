@@ -3,7 +3,6 @@ import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useAsyncFn } from 'react-use';
 
-import { waitForDisconnectConfirmation } from '@/app/(settings)/components/WaitForDisconnectConfirmation.js';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -12,6 +11,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { resolveProfilesByIdentities } from '@/helpers/resolveProfilesByIdentities.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
 
 interface DisconnectButtonProps {
     connection: FireflyWalletConnection;
@@ -22,19 +22,15 @@ export function DisconnectButton({ connection }: DisconnectButtonProps) {
 
     const [{ loading }, disconnectWallet] = useAsyncFn(async () => {
         try {
-            const relatedProfiles = await resolveProfilesByIdentities(connection.platforms);
+            const relatedProfiles = await resolveProfilesByIdentities(connection.identities);
             const confirmed = await waitForDisconnectConfirmation(connection, compact(relatedProfiles));
             if (!confirmed) return;
-            const profileTab = getFireflyIdentityForDisconnect(connection);
-            if (!profileTab) {
+            const identity = getFireflyIdentityForDisconnect(connection);
+            if (!identity) {
                 throw new Error('No profile tab found for disconnecting wallet');
             }
-            await FireflySocialMediaProvider.disconnectAccount(
-                profileTab.source,
-                profileTab.identity,
-                connection.address,
-            );
-            await updateAccountConnection(profileTab.source, profileTab.identity);
+            await FireflySocialMediaProvider.disconnectAccount(identity, connection.address);
+            await updateAccountConnection(identity);
             router.push('/');
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {

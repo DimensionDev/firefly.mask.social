@@ -1,12 +1,12 @@
 import { t, Trans } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
-import { waitForSelectReportReason } from '@/app/(settings)/components/WaitForDisconnectConfirmation.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { WalletConnection } from '@/providers/types/Firefly.js';
+import { waitForSelectReportReason } from '@/app/(settings)/components/waitForSelectReportReason.js';
 
 interface ReportButtonProps {
     connection: WalletConnection;

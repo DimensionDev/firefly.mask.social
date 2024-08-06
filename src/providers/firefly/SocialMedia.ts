@@ -60,6 +60,7 @@ import {
     type CommentsResponse,
     type DiscoverChannelsResponse,
     type FireflyFarcasterProfileResponse,
+    type FireflyIdentity,
     type FireflyProfile,
     type FriendshipResponse,
     type GetAllConnectionsResponse,
@@ -1220,7 +1221,6 @@ export class FireflySocialMedia implements Provider {
         });
 
         const { message } = resolveFireflyResponseData(response);
-
         if (!message) throw new Error('Failed to get message to sign');
 
         return message;
@@ -1228,7 +1228,6 @@ export class FireflySocialMedia implements Provider {
 
     async verifyAndBindWallet(signMessage: string, signature: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/verify');
-
         const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -1238,20 +1237,19 @@ export class FireflySocialMedia implements Provider {
         });
 
         const data = resolveFireflyResponseData(response);
-
         return data;
     }
 
-    async disconnectAccount(platform: FireflyPlatform, identity: string, address: string) {
+    async disconnectAccount(identity: FireflyIdentity, address: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: platform,
-            connectionId: identity,
+            connectionPlatform: identity.source,
+            connectionId: identity.id,
         });
-        const deleteUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
-
         await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'DELETE',
         });
+
+        const deleteUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
         await fireflySessionHolder.fetch<Response<void>>(deleteUrl, {
             method: 'DELETE',
             body: JSON.stringify({

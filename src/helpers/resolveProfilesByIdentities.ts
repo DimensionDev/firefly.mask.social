@@ -5,15 +5,15 @@ import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 
-export const resolveProfilesByIdentities: (platforms: FireflyIdentity[]) => Promise<Profile[]> = memoize(
-    async function (platforms: FireflyIdentity[]) {
-        if (!platforms.length) return [];
-        const lensIds = platforms.filter((x) => x.source === Source.Lens).map((x) => x.identity);
-        const farcasterIds = platforms.filter((x) => x.source === Source.Farcaster).map((x) => x.identity);
+export const resolveProfilesByIdentities: (identities: FireflyIdentity[]) => Promise<Profile[]> = memoize(
+    async function (identities: FireflyIdentity[]) {
+        if (!identities.length) return [];
+        const lensIds = identities.filter((x) => x.source === Source.Lens).map((x) => x.id);
+        const farcasterIds = identities.filter((x) => x.source === Source.Farcaster).map((x) => x.id);
         return [
             ...(lensIds.length ? await getProfilesByIds(FireflyPlatform.Lens, lensIds) : []),
             ...(farcasterIds ? await getProfilesByIds(FireflyPlatform.Farcaster, farcasterIds) : []),
         ];
     },
-    (platforms) => platforms.map((x) => `${x.source}.${x.identity}`).join(','),
+    (identities) => identities.map((x) => `${x.source}.${x.id}`).join(','),
 );

@@ -3,11 +3,17 @@ import { safeUnreachable } from '@masknet/kit';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { removeAccountByProfileId } from '@/helpers/account.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import type { AllConnections, FireflyWalletConnection, WalletConnection } from '@/providers/types/Firefly.js';
+import type {
+    AllConnections,
+    FireflyIdentity,
+    FireflyWalletConnection,
+    WalletConnection,
+} from '@/providers/types/Firefly.js';
 
-function fillWithRelatedPlatforms(address: string, source: FireflyPlatform, { lens, farcaster }: AllConnections) {
+function getFireflyIdentities(connection: WalletConnection, { lens, farcaster }: AllConnections) {
+    const { address, source } = connection;
     switch (source) {
         case FireflyPlatform.Lens:
             const relatedLens = lens.connected.filter((x) => isSameAddress(x.address, address));
@@ -32,17 +38,18 @@ function fillWithRelatedPlatforms(address: string, source: FireflyPlatform, { le
 export function formatWalletConnections(walletConnections: WalletConnection[], allConnections: AllConnections) {
     return walletConnections.map((connection) => ({
         ...connection,
-        platforms: fillWithRelatedPlatforms(connection.address, connection.source, allConnections),
+        identities: getFireflyIdentities(connection, allConnections),
     }));
 }
 
-export async function updateAccountConnection(platform: FireflyPlatform, identity: string) {
-    const source = resolveSourceFromUrl(platform);
+export async function updateAccountConnection(identity: FireflyIdentity) {
+    const { id, source } = identity;
+
     switch (source) {
         case Source.Lens:
         case Source.Farcaster:
         case Source.Twitter:
-            await removeAccountByProfileId(source, identity);
+            await removeAccountByProfileId(source, id);
             break;
         case Source.Wallet:
         case Source.Article:
@@ -55,19 +62,19 @@ export async function updateAccountConnection(platform: FireflyPlatform, identit
     }
 }
 
-export function getFireflyIdentityForDisconnect(connection: FireflyWalletConnection) {
+export function getFireflyIdentityForDisconnect(connection: FireflyWalletConnection): FireflyIdentity | null {
     switch (connection.source) {
         case FireflyPlatform.Lens:
         case FireflyPlatform.Farcaster:
-            const platform = connection.platforms.find((x) => resolveSourceInURL(x.source) === connection.source);
-            return platform ? { source: connection.source, identity: platform.identity! } : null;
+            const identity = connection.identities.find((x) => resolveSourceInURL(x.source) === connection.source);
+            return identity ? { source: resolveSource(connection.source), id: identity.id } : null;
         case FireflyPlatform.Twitter:
-            return { source: connection.source, identity: connection.twitterId };
+            return { source: resolveSource(connection.source), id: connection.twitterId };
         case FireflyPlatform.Article:
         case FireflyPlatform.Firefly:
         case FireflyPlatform.NFTs:
         case FireflyPlatform.Wallet:
-            return { source: FireflyPlatform.Wallet, identity: connection.address };
+            return { source: Source.Wallet, id: connection.address };
         default:
             safeUnreachable(connection.source);
             return null;
