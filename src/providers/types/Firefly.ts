@@ -2,10 +2,10 @@ import type { Address } from 'viem';
 
 import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
-import type { Token as DebankToken } from '@/providers/types/Debank.js';
-import type { ComposeType } from '@/types/compose.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { ActionType } from '@/types/blink.js';
+import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
