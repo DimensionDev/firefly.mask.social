@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
-import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { RadioButton } from '@/components/RadioButton.js';
 import { SearchType } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -21,7 +21,7 @@ export const SearchFilter = memo(function SearchFilter() {
 
     return (
         <div className="gap-2">
-            <h2 className="mt-[10px] box-border hidden h-[35px] items-center rounded-xl px-3 text-lg font-bold md:mb-4 md:flex md:bg-lightBg md:text-sm">
+            <h2 className="mt-[10px] box-border hidden h-[35px] items-center rounded-xl px-3 text-[15px] font-bold md:mb-4 md:flex md:bg-lightBg md:text-sm">
                 <Trans>Search Filter</Trans>
             </h2>
             <div className="rounded-xl md:mt-4 md:border md:border-line md:bg-lightBg">
@@ -56,9 +56,11 @@ export const SearchFilter = memo(function SearchFilter() {
                                     DraggablePopoverRef.close();
                                 }}
                             >
-                                <span className="flex-1 py-2 font-bold leading-6 dark:text-white">{filter.label}</span>
+                                <span className="flex-1 py-2 text-[15px] font-bold leading-6 dark:text-white">
+                                    {filter.label}
+                                </span>
 
-                                <CircleCheckboxIcon checked={filter.type === searchType} />
+                                <RadioButton size={18} checked={filter.type === searchType} />
                             </Link>
                         ))}
                 </div>
