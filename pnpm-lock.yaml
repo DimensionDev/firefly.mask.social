@@ -116,7 +116,7 @@ importers:
         version: 0.3.0
       '@mui/material':
         specifier: 5.15.12
-        version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/x-date-pickers':
         specifier: ^7.7.1
         version: 7.7.1(@mui/material@5.15.12)(@types/react@18.2.48)(dayjs@1.11.10)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -544,6 +544,9 @@ importers:
       '@emotion/react':
         specifier: 11.11.1
         version: 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@emotion/styled':
+        specifier: 11.11.0
+        version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@masknet/kit':
         specifier: 0.3.0
         version: 0.3.0
@@ -552,13 +555,13 @@ importers:
         version: 5.15.12(@mui/material@5.15.12)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/lab':
         specifier: 5.0.0-alpha.167
-        version: 5.0.0-alpha.167(@emotion/react@11.11.1)(@mui/material@5.15.12)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.0.0-alpha.167(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.15.12)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/material':
         specifier: 5.15.12
-        version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/system':
         specifier: 5.15.12
-        version: 5.15.12(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.15.12(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query':
         specifier: ^5.29.2
         version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -6115,6 +6118,29 @@ packages:
     resolution: {integrity: sha512-0QBtGvaqtWi+nx6doRwDdBIzhNdZrXUppvTM4dtZZWEGTXL/XE/yJxLMGlDT1Gt+UHH5IX1n+jkXyytE/av7OA==}
     dev: false
 
+  /@emotion/styled@11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-hM5Nnvu9P3midq5aaXj4I+lnSfNi7Pmd4EWk1fOZ3pxookaQTNew6bp4JaCBYM4HVFZF9g7UjJmsUmC2JlxOng==}
+    peerDependencies:
+      '@emotion/react': ^11.0.0-rc.0
+      '@types/react': '*'
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.24.7
+      '@emotion/babel-plugin': 11.11.0
+      '@emotion/is-prop-valid': 1.2.2
+      '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@emotion/serialize': 1.1.2
+      '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@emotion/utils': 1.2.1
+      '@types/react': 18.2.48
+      react: 0.0.0-experimental-8039e6d0b-20231026
+    dev: false
+
   /@emotion/unitless@0.8.1:
     resolution: {integrity: sha512-KOEGMu6dmJZtpadb476IsZBclKvILjopjUii3V+7MnXIQCYh8W3NgNcgwo21n9LXZX6EDIKvqfjYxXebDwxKmQ==}
     dev: false
@@ -8712,7 +8738,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.24.7
       '@floating-ui/react-dom': 2.0.8(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/types': 7.2.14(@types/react@18.2.48)
       '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -8745,12 +8771,12 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.24.1
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
-  /@mui/lab@5.0.0-alpha.167(@emotion/react@11.11.1)(@mui/material@5.15.12)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@mui/lab@5.0.0-alpha.167(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.15.12)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-BNQJ7fBBvL68WGVnzAhbtTmabSuJDXaILr9dz/3RNK4TgGXPgWCAr7qtJeUdc4p1t7c4Z1ifG8UwgqD+5hzMNg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -8776,9 +8802,10 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.1
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/base': 5.0.0-beta.38(patch_hash=oukor3tid7cl6jy4xpoprwzzym)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/system': 5.15.12(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/system': 5.15.12(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/types': 7.2.14(@types/react@18.2.48)
       '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
@@ -8788,7 +8815,7 @@ packages:
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
-  /@mui/material@5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@mui/material@5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-vXJGg6KNKucsvbW6l7w9zafnpOp0CWc0Wx4mDykuABTpQ5QQBnZxP7+oB4yAS1hDZQ1WobbeIl0CjxK4EEahkA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -8811,9 +8838,10 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.7
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/base': 5.0.0-beta.38(patch_hash=oukor3tid7cl6jy4xpoprwzzym)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/core-downloads-tracker': 5.15.14
-      '@mui/system': 5.15.12(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/system': 5.15.12(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/types': 7.2.14(@types/react@18.2.48)
       '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
@@ -8866,7 +8894,7 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
-  /@mui/styled-engine@5.15.14(@emotion/react@11.11.1)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@mui/styled-engine@5.15.14(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-RILkuVD8gY6PvjZjqnWhz8fu68dVkqhM5+jYWfB5yhlSQKg+2rHkmEwm75XIeAqI3qwOndK6zELK5H6Zxn4NHw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -8884,12 +8912,13 @@ packages:
       '@babel/runtime': 7.24.7
       '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       csstype: 3.1.3
       prop-types: 15.8.1
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
-  /@mui/system@5.15.12(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@mui/system@5.15.12(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-/pq+GO6yN3X7r3hAwFTrzkAh7K1bTF5r8IzS79B9eyKJg7v6B/t4/zZYMR6OT9qEPtwf6rYN2Utg1e6Z7F1OgQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -8909,8 +8938,9 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.7
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/private-theming': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/styled-engine': 5.15.14(@emotion/react@11.11.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/styled-engine': 5.15.14(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/types': 7.2.14(@types/react@18.2.48)
       '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
@@ -8940,7 +8970,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.7
       '@mui/private-theming': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/styled-engine': 5.15.14(@emotion/react@11.11.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/styled-engine': 5.15.14(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/types': 7.2.14(@types/react@18.2.48)
       '@mui/utils': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
@@ -9045,7 +9075,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.7
       '@mui/base': 5.0.0-beta.38(patch_hash=oukor3tid7cl6jy4xpoprwzzym)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/system': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/utils': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react-transition-group': 4.4.10
@@ -24687,7 +24717,7 @@ packages:
         optional: true
     dependencies:
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       clsx: 1.2.1
       hoist-non-react-statics: 3.3.2
       react: 0.0.0-experimental-8039e6d0b-20231026
@@ -25664,7 +25694,7 @@ packages:
     dependencies:
       lilconfig: 3.1.1
       postcss: 8.4.30
-      yaml: 2.4.1
+      yaml: 2.4.2
     dev: false
 
   /postcss-nested@6.0.1(postcss@8.4.30):
@@ -31617,6 +31647,7 @@ packages:
     resolution: {integrity: sha512-pIXzoImaqmfOrL7teGUBt/T7ZDnyeGBWyXQBvOVhLkWLN37GXv8NMLK406UY6dS51JfcQHsmcW5cJ441bHg6Lg==}
     engines: {node: '>= 14'}
     hasBin: true
+    dev: true
 
   /yaml@2.4.2:
     resolution: {integrity: sha512-B3VqDZ+JAg1nZpaEmWtTXUlBneoGx6CPM9b0TENK6aoSu5t73dItudwdgmi6tHlIZZId4dZ9skcAQ2UbcyAeVA==}
@@ -31862,4 +31893,5 @@ packages:
     dev: true
 
 time:
+  /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
   /react-qrcode-logo@2.9.0: '2023-02-25T14:35:39.109Z'
