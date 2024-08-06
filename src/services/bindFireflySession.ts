@@ -12,6 +12,7 @@ import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
@@ -51,17 +52,19 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 }
 
 async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: AbortSignal) {
-    const encrypted = await fetchJSON<string>('/api/twitter/auth', {
+    const encrypted = await fetchJSON<ResponseJSON<string>>('/api/twitter/auth', {
         method: 'POST',
         headers: TwitterSession.payloadToHeaders(session.payload),
         signal,
     });
+    if (!encrypted.success) throw new Error(`Failed to encrypt twitter session: ${encrypted.error.message}.`);
+
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/exchange/bindTwitter'),
         {
             method: 'POST',
             body: JSON.stringify({
-                data: encrypted,
+                data: encrypted.data,
             }),
             signal,
         },
