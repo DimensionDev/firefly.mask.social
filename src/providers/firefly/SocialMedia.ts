@@ -62,6 +62,7 @@ import {
     type FireflyFarcasterProfileResponse,
     type FireflyIdentity,
     type FireflyProfile,
+    type FireflyWalletConnection,
     type FriendshipResponse,
     type GetAllConnectionsResponse,
     type IsMutedAllResponse,
@@ -1240,7 +1241,7 @@ export class FireflySocialMedia implements Provider {
         return data;
     }
 
-    async disconnectAccount(identity: FireflyIdentity, address: string) {
+    async disconnectAccount(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
             connectionPlatform: identity.source,
             connectionId: identity.id,
@@ -1248,9 +1249,11 @@ export class FireflySocialMedia implements Provider {
         await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'DELETE',
         });
+    }
 
-        const deleteUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
-        await fireflySessionHolder.fetch<Response<void>>(deleteUrl, {
+    async disconnectWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
+        await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'DELETE',
             body: JSON.stringify({
                 addresses: [address],
@@ -1258,19 +1261,16 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async reportAndDeleteWallet(options: {
-        twitterId: string;
-        walletAddress: string;
-        reportReason: string;
-        sources: string[];
-    }) {
+    async reportAndDeleteWallet(connection: FireflyWalletConnection, reason: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/twitter/wallet/report');
 
         await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'POST',
             body: JSON.stringify({
-                ...options,
-                sources: options.sources.join(','),
+                twitterId: connection.twitterId,
+                walletAddress: connection.address,
+                reportReason: reason,
+                sources: connection.sources.join(','),
             }),
         });
     }
@@ -1303,16 +1303,14 @@ export class FireflySocialMedia implements Provider {
 
     async getAllConnections() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
-
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
-
-        const data = resolveFireflyResponseData(response);
+        const connections = resolveFireflyResponseData(response);
 
         return {
-            connected: formatWalletConnections(data.wallet.connected, data),
-            related: formatWalletConnections(data.wallet.unconnected, data),
+            connected: formatWalletConnections(connections.wallet.connected, connections),
+            related: formatWalletConnections(connections.wallet.unconnected, connections),
         };
     }
 }

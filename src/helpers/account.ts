@@ -217,12 +217,9 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     }
 }
 
-export async function removeAccountByProfileId(source: SocialSource, profileId?: string) {
-    const { accounts, currentProfile } = getProfileState(source);
-    const account = accounts.find((x) => {
-        if (profileId) return x.profile.profileId === profileId;
-        return isSameProfile(x.profile, currentProfile);
-    });
+export async function removeAccountByProfileId(source: SocialSource, profileId: string) {
+    const { accounts } = getProfileState(source);
+    const account = accounts.find((x) => x.profile.profileId === profileId);
     if (!account) return;
 
     await removeAccount(account);
@@ -237,7 +234,10 @@ export async function removeAccountByProfileId(source: SocialSource, profileId?:
 }
 
 export async function removeCurrentAccount(source: SocialSource) {
-    await removeAccountByProfileId(source);
+    const { currentProfile } = getProfileState(source);
+    if (!currentProfile) return;
+
+    await removeAccountByProfileId(source, currentProfile.profileId);
 }
 
 export async function removeAllAccounts() {
