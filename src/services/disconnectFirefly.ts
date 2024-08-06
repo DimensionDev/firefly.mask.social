@@ -30,7 +30,7 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
 
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
-    if (!identity) throw new Error('No profile tab found for disconnecting wallet');
+    if (!identity) throw new Error('No profile identity found for disconnecting wallet');
 
     await FireflySocialMediaProvider.disconnectAccount(identity);
     await FireflySocialMediaProvider.disconnectWallet(connection.address);
