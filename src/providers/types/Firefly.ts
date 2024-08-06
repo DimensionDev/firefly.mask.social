@@ -880,3 +880,69 @@ export type GetLensSuggestedFollowUserResponse = Response<{
     suggestedFollowList: Array<[LensV3Profile]>;
     cursor: number;
 }>;
+
+export type LensConnection = LensV3Profile;
+
+export interface FarcasterConnection {
+    bio: string;
+    connectedAddresses: string[];
+    display_name: string;
+    fid: number;
+    pfp: string;
+    username: string;
+}
+
+export interface TwitterConnection {
+    handle: string;
+    id: string;
+    name: string;
+    platform: string;
+}
+
+export interface WalletConnection {
+    address: string;
+    avatar: string;
+    canReport: boolean;
+    ens: string[];
+    platform: 'eth' | 'solana';
+    provider: string;
+    source: FireflyPlatform;
+    sources: WalletProfile['verifiedSources'];
+    twitterId: string;
+}
+
+export type FireflyWalletConnection = WalletConnection & {
+    platforms: FireflyIdentity[];
+};
+
+export type AllConnections = {
+    account: Array<{
+        account_id: { high: number; low: number };
+        id: string;
+        name: string;
+        platform: string;
+    }>;
+    farcaster: Record<'connected' | 'unconnected', FarcasterConnection[]>;
+    lens: Record<
+        'connected' | 'unconnected',
+        Array<{
+            address: string;
+            lens: LensConnection[];
+        }>
+    >;
+    twitter: Record<
+        'connected' | 'unconnected',
+        Array<{
+            address: string;
+            twitters: TwitterConnection[];
+        }>
+    >;
+    wallet: Record<'connected' | 'unconnected', WalletConnection[]>;
+};
+
+export type GetAllConnectionsResponse = Response<AllConnections>;
+
+export type FireflyIdentity = {
+    identity: string;
+    source: Source;
+};
