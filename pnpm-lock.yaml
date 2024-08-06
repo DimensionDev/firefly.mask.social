@@ -913,9 +913,6 @@ importers:
       '@masknet/web3-shared-evm':
         specifier: workspace:^
         version: link:../../web3-shared/evm
-      '@masknet/web3-telemetry':
-        specifier: workspace:^
-        version: link:../../web3-telemetry
       '@tanstack/react-query':
         specifier: ^5.29.2
         version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1099,9 +1096,6 @@ importers:
       '@masknet/web3-shared-solana':
         specifier: workspace:^
         version: link:../web3-shared/solana
-      '@masknet/web3-telemetry':
-        specifier: workspace:^
-        version: link:../web3-telemetry
       '@react-hookz/web':
         specifier: ^23.1.0
         version: 23.1.0(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1441,9 +1435,6 @@ importers:
       '@masknet/web3-shared-solana':
         specifier: workspace:^
         version: link:../../web3-shared/solana
-      '@masknet/web3-telemetry':
-        specifier: workspace:^
-        version: link:../../web3-telemetry
       '@tanstack/react-query':
         specifier: ^5.29.2
         version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1540,9 +1531,6 @@ importers:
       '@masknet/web3-shared-solana':
         specifier: workspace:^
         version: link:../web3-shared/solana
-      '@masknet/web3-telemetry':
-        specifier: workspace:^
-        version: link:../web3-telemetry
       '@metamask/eth-sig-util':
         specifier: ^5.0.2
         version: 5.0.2
@@ -1698,9 +1686,6 @@ importers:
       '@masknet/web3-shared-base':
         specifier: workspace:^
         version: link:../base
-      '@masknet/web3-telemetry':
-        specifier: workspace:^
-        version: link:../../web3-telemetry
       bignumber.js:
         specifier: 9.1.2
         version: 9.1.2
@@ -1773,31 +1758,6 @@ importers:
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
-
-  src/maskbook/packages/web3-telemetry:
-    dependencies:
-      '@masknet/flags':
-        specifier: workspace:^
-        version: link:../flags
-      '@masknet/shared-base':
-        specifier: workspace:^
-        version: link:../shared-base
-      '@sentry/browser':
-        specifier: ^7.66.0
-        version: 7.66.0
-      '@sentry/tracing':
-        specifier: ^7.66.0
-        version: 7.66.0
-      urlcat:
-        specifier: ^3.1.0
-        version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
-      uuid:
-        specifier: ^9.0.0
-        version: 9.0.0
-    devDependencies:
-      '@types/uuid':
-        specifier: ^9.0.3
-        version: 9.0.3
 
 packages:
 
@@ -11701,16 +11661,6 @@ packages:
       '@sentry/utils': 7.112.2
     dev: false
 
-  /@sentry-internal/tracing@7.66.0:
-    resolution: {integrity: sha512-3vCgC2hC3T45pn53yTDVcRpHoJTBxelDPPZVsipAbZnoOVPkj7n6dNfDhj3I3kwWCBPahPkXmE+R4xViR8VqJg==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.66.0
-      '@sentry/types': 7.66.0
-      '@sentry/utils': 7.66.0
-      tslib: 2.6.2
-    dev: false
-
   /@sentry/browser@7.112.2:
     resolution: {integrity: sha512-wULwavCch84+d0bueAdFm6CDm1u0TfOjN91VgY+sj/vxUV2vesvDgI8zRZfmbZEor3MYA90zerkZT3ehZQKbYw==}
     engines: {node: '>=8'}
@@ -11725,33 +11675,12 @@ packages:
       '@sentry/utils': 7.112.2
     dev: false
 
-  /@sentry/browser@7.66.0:
-    resolution: {integrity: sha512-rW037rf8jkhyykG38+HUdwkRCKHJEMM5NkCqPIO5zuuxfLKukKdI2rbvgJ93s3/9UfsTuDFcKFL1u43mCn6sDw==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry-internal/tracing': 7.66.0
-      '@sentry/core': 7.66.0
-      '@sentry/replay': 7.66.0
-      '@sentry/types': 7.66.0
-      '@sentry/utils': 7.66.0
-      tslib: 2.6.2
-    dev: false
-
   /@sentry/core@7.112.2:
     resolution: {integrity: sha512-gHPCcJobbMkk0VR18J65WYQTt3ED4qC6X9lHKp27Ddt63E+MDGkG6lvYBU1LS8cV7CdyBGC1XXDCfor61GvLsA==}
     engines: {node: '>=8'}
     dependencies:
       '@sentry/types': 7.112.2
       '@sentry/utils': 7.112.2
-    dev: false
-
-  /@sentry/core@7.66.0:
-    resolution: {integrity: sha512-WMAEPN86NeCJ1IT48Lqiz4MS5gdDjBwP4M63XP4msZn9aujSf2Qb6My5uT87AJr9zBtgk8MyJsuHr35F0P3q1w==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.66.0
-      '@sentry/utils': 7.66.0
-      tslib: 2.6.2
     dev: false
 
   /@sentry/integrations@7.112.2:
@@ -11774,29 +11703,8 @@ packages:
       '@sentry/utils': 7.112.2
     dev: false
 
-  /@sentry/replay@7.66.0:
-    resolution: {integrity: sha512-5Y2SlVTOFTo3uIycv0mRneBakQtLgWkOnsJaC5LB0Ip0TqVKiMCbQ578vvXp+yvRj4LcS1gNd98xTTNojBoQNg==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@sentry/core': 7.66.0
-      '@sentry/types': 7.66.0
-      '@sentry/utils': 7.66.0
-    dev: false
-
-  /@sentry/tracing@7.66.0:
-    resolution: {integrity: sha512-9bnz2EcOwjeMZAuYJnrwcRrImu9c10p7A0iDB8b2HLcp7gpuCkJbJyGoC1xeKD7reVD0BPq3VIbeHSwCcQufoQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry-internal/tracing': 7.66.0
-    dev: false
-
   /@sentry/types@7.112.2:
     resolution: {integrity: sha512-kCMLt7yhY5OkWE9MeowlTNmox9pqDxcpvqguMo4BDNZM5+v9SEb1AauAdR78E1a1V8TyCzjBD7JDfXWhvpYBcQ==}
-    engines: {node: '>=8'}
-    dev: false
-
-  /@sentry/types@7.66.0:
-    resolution: {integrity: sha512-uUMSoSiar6JhuD8p7ON/Ddp4JYvrVd2RpwXJRPH1A4H4Bd4DVt1mKJy1OLG6HdeQv39XyhB1lPZckKJg4tATPw==}
     engines: {node: '>=8'}
     dev: false
 
@@ -11805,14 +11713,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@sentry/types': 7.112.2
-    dev: false
-
-  /@sentry/utils@7.66.0:
-    resolution: {integrity: sha512-9GYUVgXjK66uXXcLXVMXVzlptqMtq1eJENCuDeezQiEFrNA71KkLDg00wESp+LL+bl3wpVTBApArpbF6UEG5hQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.66.0
-      tslib: 2.6.2
     dev: false
 
   /@servie/events@3.0.0:
