@@ -712,9 +712,6 @@ msgstr ""
 msgid "Blacklist function"
 msgstr ""
 
-msgid "Claim on {0}: {promoteLink}"
-msgstr ""
-
 msgid "AUTHOR ADDRESS"
 msgstr ""
 

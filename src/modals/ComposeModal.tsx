@@ -40,7 +40,7 @@ import { DraftPage } from '@/components/Compose/DraftPage.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -52,7 +52,6 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -214,7 +213,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         } = useComposeStateStore();
         const { clearScheduleTime } = useComposeScheduleStateStore();
         const compositePost = useCompositePost();
-        const { typedMessage, rpPayload, id } = compositePost;
+        const { typedMessage, rpPayload, id, availableSources } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 
@@ -309,13 +308,13 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         }, [dispatch, currentProfileAll]);
 
         const promoteLink = useMemo(() => {
-            const preferProfile = SORTED_SOCIAL_SOURCES.reduce(
-                (prefer, x) => prefer || currentProfileAll[x],
-                currentProfileAll[Source.Farcaster],
+            const preferSource = SORTED_SOCIAL_SOURCES.find(
+                (x) => availableSources.includes(x) && currentProfileAll[x],
             );
-            if (!preferProfile) return SITE_URL;
+            if (!preferSource) return SITE_URL;
+            const preferProfile = currentProfileAll[preferSource]!;
             return urlcat(location.origin, getProfileUrl(preferProfile));
-        }, [currentProfileAll]);
+        }, [currentProfileAll, availableSources]);
 
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
@@ -348,15 +347,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                const fullMessage = [
-                    t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${promoteLink} !`,
-                    ...SORTED_SOCIAL_SOURCES.map((x) => {
-                        if (x === Source.Twitter) return '';
-                        const currentProfile = currentProfileAll[x];
-                        const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
-                        return profileLink ? t`Claim on ${resolveSourceName(x)}: ${promoteLink}` : '';
-                    }),
-                ].join('\n');
+                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${promoteLink} !`;
 
                 const chars: Chars = [
                     {
@@ -365,7 +356,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         visible: false,
                     },
                     ...(compositePost ? compositePost.chars : []),
-                    fullMessage,
+                    promoteMessage,
                 ];
 
                 updateChars(chars);

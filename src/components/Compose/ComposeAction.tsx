@@ -147,7 +147,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 ) : null}
 
                 {!scheduleTime && !mediaDisabled ? (
-                    <div
+                    <ClickableButton
                         className={classNames(
                             'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
                             {
@@ -165,7 +165,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <span className="text-[13px] font-medium leading-6 text-lightMain">
                             <Trans>LuckyDrop</Trans>
                         </span>
-                    </div>
+                    </ClickableButton>
                 ) : null}
 
                 {usedLength && !isMedium ? (

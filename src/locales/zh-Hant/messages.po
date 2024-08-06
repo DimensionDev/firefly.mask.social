@@ -717,9 +717,6 @@ msgstr "Gas不足"
 msgid "Blacklist function"
 msgstr "黑名單功能"
 
-msgid "Claim on {0}: {promoteLink}"
-msgstr ""
-
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 

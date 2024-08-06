@@ -712,9 +712,6 @@ msgstr "Insufficient Gas"
 msgid "Blacklist function"
 msgstr "Blacklist function"
 
-msgid "Claim on {0}: {promoteLink}"
-msgstr "Claim on {0}: {promoteLink}"
-
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
 
