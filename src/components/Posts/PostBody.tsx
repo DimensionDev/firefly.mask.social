@@ -127,7 +127,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         return (
             <CollapsedContent
                 className={classNames({
-                    'pl-[52px]': !noLeftPadding,
+                    ['-mt-3 pl-[52px]']: !noLeftPadding,
                     'my-2': !isQuote,
                 })}
                 ref={ref}
