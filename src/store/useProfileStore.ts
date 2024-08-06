@@ -247,7 +247,8 @@ const useTwitterStateBase = createState(
                 // set session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
-                const payload = session?.payload ?? (await TwitterSocialMediaProvider.login());
+                const sessionFromServer = await TwitterSocialMediaProvider.login();
+                const payload = session?.payload ?? sessionFromServer;
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!profile || !payload) {
@@ -257,17 +258,15 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                // session is null when the login is from the server
-                const isNextAuthCallback = session === null;
-                const nextAuthSession = TwitterSession.from(profile, payload);
+                // the login is from the server
+                const isNextAuthCallback = session === null && sessionFromServer !== null;
+                const session_ = TwitterSession.from(profile, payload);
 
                 await addAccount(
                     {
                         profile,
-                        session: TwitterSession.from(profile, payload),
-                        fireflySession: isNextAuthCallback
-                            ? await bindOrRestoreFireflySession(nextAuthSession)
-                            : undefined,
+                        session: session_,
+                        fireflySession: isNextAuthCallback ? await bindOrRestoreFireflySession(session_) : undefined,
                     },
                     {
                         skipBelongsToCheck: !isNextAuthCallback,
