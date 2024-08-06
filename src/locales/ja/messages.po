@@ -765,9 +765,6 @@ msgstr ""
 msgid "Failed to create image payload."
 msgstr ""
 
-msgid "You didn't connect with Firefly before, need to connect first to fully log in."
-msgstr ""
-
 msgid "Top Profiles"
 msgstr ""
 
@@ -1705,6 +1702,9 @@ msgid "Add another option"
 msgstr ""
 
 msgid "1y"
+msgstr ""
+
+msgid "Cannot find your signer key, please connect again"
 msgstr ""
 
 msgid "No codes found to suspend trading."
