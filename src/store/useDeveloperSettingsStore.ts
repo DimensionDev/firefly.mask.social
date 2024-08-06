@@ -1,3 +1,5 @@
+'use client';
+
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
