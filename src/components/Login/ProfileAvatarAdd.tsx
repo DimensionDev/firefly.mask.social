@@ -1,12 +1,12 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { AsyncStoreStatus, Source, type SocialSource } from '@/constants/enum.js';
+import { AsyncStoreStatus, type SocialSource,Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
-import LoadingIcon from '@/assets/loading.svg';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
     source: SocialSource;
