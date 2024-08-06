@@ -568,12 +568,6 @@ importers:
       '@types/masknet__global-types':
         specifier: workspace:^
         version: link:packages/polyfills/types
-      '@types/react':
-        specifier: 18.2.48
-        version: 18.2.48
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.2.18
       '@typescript/lib-dom':
         specifier: npm:@types/web@^0.0.143
         version: /@types/web@0.0.143
@@ -638,6 +632,12 @@ importers:
       '@types/lodash-es':
         specifier: ^4.17.9
         version: 4.17.9
+      '@types/react':
+        specifier: 18.2.48
+        version: 18.2.48
+      '@types/react-dom':
+        specifier: ^18.2.18
+        version: 18.2.18
       '@vitest/ui':
         specifier: ^0.34.3
         version: 0.34.3(vitest@0.34.6)
@@ -1526,9 +1526,6 @@ importers:
       fuse.js:
         specifier: ^7.0.0
         version: 7.0.0
-      graphql-request:
-        specifier: ^6.0.0
-        version: 6.0.0(graphql@16.8.1)
       immer:
         specifier: ^10.0.2
         version: 10.0.2
@@ -20755,18 +20752,6 @@ packages:
 
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
-
-  /graphql-request@6.0.0(graphql@16.8.1):
-    resolution: {integrity: sha512-2BmHTuglonjZvmNVw6ZzCfFlW/qkIPds0f+Qdi/Lvjsl3whJg2uvHmSvHnLWhUTEw6zcxPYAHiZoPvSVKOZ7Jw==}
-    peerDependencies:
-      graphql: 14 - 16
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
-      cross-fetch: 3.1.8
-      graphql: 16.8.1
-    transitivePeerDependencies:
-      - encoding
-    dev: false
 
   /graphql-request@6.1.0(graphql@16.8.1):
     resolution: {integrity: sha512-p+XPfS4q7aIpKVcgmnZKhMNqhltk20hfXtkaIkTfjjmiKMJ5xrt5c743cL03y/K7y1rg3WrIC49xGiEQ4mxdNw==}
