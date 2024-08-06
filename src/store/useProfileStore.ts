@@ -3,7 +3,7 @@ import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+import { AsyncStoreStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
@@ -29,6 +29,7 @@ import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySess
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
+    status: AsyncStoreStatus;
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -39,11 +40,13 @@ export interface ProfileState {
     resetCurrentAccount: () => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
+    transit: (status: AsyncStoreStatus) => void;
     upgrade: () => void;
     clear: () => void;
 }
 
 export interface ProfileStatePersisted {
+    status: AsyncStoreStatus;
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -58,6 +61,7 @@ function createState(
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
+                status: AsyncStoreStatus.Idle,
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
@@ -140,6 +144,10 @@ function createState(
                         state.currentProfile = updatedProfile;
                     });
                 },
+                transit: (status) =>
+                    set((state) => {
+                        state.status = status;
+                    }),
                 upgrade: () =>
                     set((state) => {
                         if (state.currentProfile && state.currentProfileSession && !state.accounts.length) {
@@ -162,6 +170,7 @@ function createState(
             {
                 storage: createSessionStorage(),
                 partialize: (state) => ({
+                    status: state?.status ?? AsyncStoreStatus.Idle,
                     accounts: state.accounts,
                     currentProfile: state.currentProfile,
                     currentProfileSession: state.currentProfileSession,
@@ -248,6 +257,11 @@ const useTwitterStateBase = createState(
                 if (session) twitterSessionHolder.resumeSession(session);
 
                 const sessionFromServer = await TwitterSocialMediaProvider.login();
+                const isSessionFromServer = session === null && sessionFromServer !== null;
+
+                // show indicator if the session is from the server
+                if (isSessionFromServer) state.transit(AsyncStoreStatus.Pending);
+
                 const payload = session?.payload ?? sessionFromServer;
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
@@ -258,27 +272,27 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                // the login is from the server
-                const isNextAuthCallback = session === null && sessionFromServer !== null;
                 const session_ = TwitterSession.from(profile, payload);
 
                 await addAccount(
                     {
                         profile,
                         session: session_,
-                        fireflySession: isNextAuthCallback ? await bindOrRestoreFireflySession(session_) : undefined,
+                        fireflySession: isSessionFromServer ? await bindOrRestoreFireflySession(session_) : undefined,
                     },
                     {
-                        skipBelongsToCheck: !isNextAuthCallback,
-                        skipResumeFireflyAccounts: !isNextAuthCallback,
-                        skipResumeFireflySession: !isNextAuthCallback,
-                        skipUploadFireflySession: !isNextAuthCallback,
+                        skipBelongsToCheck: !isSessionFromServer,
+                        skipResumeFireflyAccounts: !isSessionFromServer,
+                        skipResumeFireflySession: !isSessionFromServer,
+                        skipUploadFireflySession: !isSessionFromServer,
                     },
                 );
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
                 twitterSessionHolder.removeSession();
+            } finally {
+                state.transit(AsyncStoreStatus.Idle);
             }
         },
     },
