@@ -311,6 +311,15 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             }
         }, [dispatch, currentProfileAll]);
 
+        const promoteLink = useMemo(() => {
+            const preferProfile = SORTED_SOCIAL_SOURCES.reduce(
+                (prefer, x) => prefer || currentProfileAll[x],
+                currentProfileAll[Source.Farcaster],
+            );
+            if (!preferProfile) return SITE_URL;
+            return urlcat(location.origin, getProfileUrl(preferProfile));
+        }, [currentProfileAll]);
+
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             const { cursor } = useComposeStateStore.getState();
@@ -343,12 +352,12 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 );
 
                 const fullMessage = [
-                    t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`,
+                    t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${promoteLink} !`,
                     ...SORTED_SOCIAL_SOURCES.map((x) => {
                         if (x === Source.Twitter) return '';
                         const currentProfile = currentProfileAll[x];
                         const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
-                        return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';
+                        return profileLink ? t`Claim on ${resolveSourceName(x)}: ${promoteLink}` : '';
                     }),
                 ].join('\n');
 
@@ -375,7 +384,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 throw error;
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, rpPayload, id, currentProfileAll]);
+        }, [typedMessage, rpPayload, id, currentProfileAll, promoteLink]);
 
         useUpdateEffect(() => {
             if (!contentRef.current || !posts.length) return;

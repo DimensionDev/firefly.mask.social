@@ -381,6 +381,9 @@ msgstr "密碼"
 msgid "Liked"
 msgstr "已喜歡"
 
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
+msgstr ""
+
 msgid "Token ID"
 msgstr ""
 
@@ -530,9 +533,6 @@ msgstr ""
 
 msgid "Your action provider blocks execution of this action."
 msgstr ""
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
-msgstr "通過 Firefly 應用程式或 {SITE_URL} 查看我發送的紅包 🧧💰✨"
 
 msgid "Confirmation"
 msgstr "確認"
@@ -716,6 +716,9 @@ msgstr "Gas不足"
 
 msgid "Blacklist function"
 msgstr "黑名單功能"
+
+msgid "Claim on {0}: {promoteLink}"
+msgstr ""
 
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
@@ -1777,9 +1780,6 @@ msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-msgstr ""
-
-msgid "Claim on {0}: {1}"
 msgstr ""
 
 msgid "NFT ID"
