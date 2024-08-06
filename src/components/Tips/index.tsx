@@ -90,9 +90,9 @@ export const Tips = memo(function Tips({
                     {loading ? (
                         <LoadingIcon className="animate-spin" width={18} height={18} />
                     ) : (
-                        <TipsIcon width={18} height={18} className="text-main" />
+                        <TipsIcon width={18} height={18} />
                     )}
-                    {label ? <span className="ml-2 font-bold text-main">{label}</span> : null}
+                    {label ? <span className="ml-2 font-bold">{label}</span> : null}
                 </motion.button>
             </Tooltip>
         </ClickableArea>

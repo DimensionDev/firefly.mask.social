@@ -53,7 +53,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                 <Menu.Item>
                     {({ close }) => (
                         <Tips
-                            className="px-3 py-1 hover:bg-bg"
+                            className="px-3 py-1 !text-main hover:bg-bg"
                             identity={profile.address}
                             source={Source.Wallet}
                             handle={profile.primary_ens || ens}

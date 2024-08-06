@@ -72,7 +72,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                 <Menu.Item>
                     {({ close }) => (
                         <Tips
-                            className="px-3 py-1 hover:bg-bg"
+                            className="px-3 py-1 !text-main hover:bg-bg"
                             identity={address}
                             source={Source.Wallet}
                             handle={ens}
