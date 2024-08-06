@@ -40,20 +40,18 @@ import { DraftPage } from '@/components/Compose/DraftPage.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
-import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -215,7 +213,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         } = useComposeStateStore();
         const { clearScheduleTime } = useComposeScheduleStateStore();
         const compositePost = useCompositePost();
-        const { typedMessage, rpPayload, id } = compositePost;
+        const { typedMessage, rpPayload, id, availableSources } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 
@@ -223,9 +221,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
                 updateType(type || 'compose');
-                updateAvailableSources(
-                    source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
-                );
+                if (source) updateAvailableSources(Array.isArray(source) ? source : [source]);
                 if (typedMessage) updateTypedMessage(typedMessage);
                 if (post) updateParentPost(post.source, post);
                 if (chars) {
@@ -311,6 +307,15 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             }
         }, [dispatch, currentProfileAll]);
 
+        const promoteLink = useMemo(() => {
+            const preferSource = SORTED_SOCIAL_SOURCES.find(
+                (x) => availableSources.includes(x) && currentProfileAll[x],
+            );
+            if (!preferSource) return SITE_URL;
+            const preferProfile = currentProfileAll[preferSource]!;
+            return urlcat(location.origin, getProfileUrl(preferProfile));
+        }, [currentProfileAll, availableSources]);
+
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             const { cursor } = useComposeStateStore.getState();
@@ -342,15 +347,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                const fullMessage = [
-                    t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`,
-                    ...SORTED_SOCIAL_SOURCES.map((x) => {
-                        if (x === Source.Twitter) return '';
-                        const currentProfile = currentProfileAll[x];
-                        const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
-                        return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';
-                    }),
-                ].join('\n');
+                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${promoteLink} !`;
 
                 const chars: Chars = [
                     {
@@ -359,7 +356,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         visible: false,
                     },
                     ...(compositePost ? compositePost.chars : []),
-                    fullMessage,
+                    promoteMessage,
                 ];
 
                 updateChars(chars);
@@ -375,7 +372,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 throw error;
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, rpPayload, id, currentProfileAll]);
+        }, [typedMessage, rpPayload, id, currentProfileAll, promoteLink]);
 
         useUpdateEffect(() => {
             if (!contentRef.current || !posts.length) return;

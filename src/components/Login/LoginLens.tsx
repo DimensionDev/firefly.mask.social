@@ -87,7 +87,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
         <div className="flex flex-col rounded-xl md:max-h-[535px] md:w-[500px] md:overflow-auto">
             <div className="flex w-full flex-col md:min-h-[300px] md:overflow-auto">
                 {profiles.length ? (
-                    <div className="flex flex-col gap-4 overflow-auto p-4">
+                    <div className="flex flex-grow flex-col gap-4 overflow-auto p-4">
                         <div className="flex flex-col gap-4 overflow-auto rounded-[8px] bg-lightBg px-4 py-6">
                             <div className="text-left text-sm leading-4 text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>

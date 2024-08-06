@@ -376,6 +376,9 @@ msgstr "Password"
 msgid "Liked"
 msgstr "Liked"
 
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
+msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
+
 msgid "Token ID"
 msgstr "Token ID"
 
@@ -525,9 +528,6 @@ msgstr "Market Cap / FDV"
 
 msgid "Your action provider blocks execution of this action."
 msgstr "Your action provider blocks execution of this action."
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
-msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 
 msgid "Confirmation"
 msgstr "Confirmation"
@@ -1773,9 +1773,6 @@ msgstr "Associated wallets"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-
-msgid "Claim on {0}: {1}"
-msgstr "Claim on {0}: {1}"
 
 msgid "NFT ID"
 msgstr "NFT ID"
