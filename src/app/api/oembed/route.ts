@@ -5,21 +5,12 @@ import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.j
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
+import { savePostLinks } from '@/services/getPostLinksKV.js';
 
 const digestLinkRedis = memoizeWithRedis(OpenGraphProcessor.digestDocumentUrl, {
     key: KeyType.DigestOpenGraphLink,
     resolver: (link) => link,
 });
-
-export async function DELETE(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    const link = searchParams.get('link');
-    if (!link) return Response.json({ error: 'Missing link' }, { status: StatusCodes.BAD_REQUEST });
-
-    await digestLinkRedis.cache.delete(link);
-    return createSuccessResponseJSON(null);
-}
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
@@ -39,17 +30,27 @@ export async function GET(request: Request) {
         return Response.json({ error: 'Unsupported' }, { status: StatusCodes.BAD_REQUEST });
     }
 
+    const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
+    if (!linkDigested)
+        return Response.json({ error: `Unable to digest oembed link = ${link}` }, { status: StatusCodes.BAD_GATEWAY });
+
     try {
-        const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
-        if (!linkDigested)
-            return Response.json(
-                { error: `Unable to digest oembed link = ${link}` },
-                { status: StatusCodes.BAD_GATEWAY },
-            );
-        return createSuccessResponseJSON(linkDigested);
-    } catch (error) {
-        return Response.json(getGatewayErrorMessage(error), {
-            status: StatusCodes.BAD_GATEWAY,
+        await savePostLinks(request, {
+            oembed: linkDigested,
         });
+    } catch (error) {
+        console.error(`[oembed] Failed to save post links\n%s`, getGatewayErrorMessage(error));
     }
+
+    return createSuccessResponseJSON(linkDigested);
+}
+
+export async function DELETE(request: Request) {
+    const { searchParams } = new URL(request.url);
+
+    const link = searchParams.get('link');
+    if (!link) return Response.json({ error: 'Missing link' }, { status: StatusCodes.BAD_REQUEST });
+
+    await digestLinkRedis.cache.delete(link);
+    return createSuccessResponseJSON(null);
 }

@@ -10,6 +10,7 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
+import { savePostLinks } from '@/services/getPostLinksKV.js';
 import { ActionType } from '@/types/frame.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
@@ -26,6 +27,14 @@ export async function GET(request: Request) {
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
     if (!linkDigested)
         return Response.json({ error: `Unable to digest frame link = ${link}` }, { status: StatusCodes.NOT_FOUND });
+
+    try {
+        await savePostLinks(request, {
+            frame: linkDigested.frame,
+        });
+    } catch (error) {
+        console.error(`[frame] Failed to save post links\n%s`, getGatewayErrorMessage(error));
+    }
 
     return createSuccessResponseJSON(linkDigested);
 }
