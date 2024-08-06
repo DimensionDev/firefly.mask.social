@@ -1315,7 +1315,7 @@ export class FireflySocialMedia implements Provider {
         return {
             connected: formatWalletConnections(data.wallet.connected, data),
             related: formatWalletConnections(data.wallet.unconnected, data),
-        }
+        };
     }
 }
 
