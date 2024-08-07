@@ -1,15 +1,15 @@
 import { t, Trans } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
-import { waitForSelectReportReason } from '@/app/(settings)/components/WaitForDisconnectConfirmation.js';
+import { waitForSelectReportReason } from '@/app/(settings)/components/waitForSelectReportReason.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { WalletConnection } from '@/providers/types/Firefly.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface ReportButtonProps {
-    connection: WalletConnection;
+    connection: FireflyWalletConnection;
 }
 
 export function ReportButton({ connection }: ReportButtonProps) {
@@ -17,12 +17,8 @@ export function ReportButton({ connection }: ReportButtonProps) {
         try {
             const reason = await waitForSelectReportReason();
             if (!reason) return;
-            await FireflySocialMediaProvider.reportAndDeleteWallet({
-                twitterId: connection.twitterId,
-                walletAddress: connection.address,
-                reportReason: reason,
-                sources: connection.sources.map((x) => x.source),
-            });
+
+            await FireflySocialMediaProvider.reportAndDeleteWallet(connection, reason);
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect`), { error });

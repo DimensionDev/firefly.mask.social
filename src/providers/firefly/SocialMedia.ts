@@ -60,7 +60,9 @@ import {
     type CommentsResponse,
     type DiscoverChannelsResponse,
     type FireflyFarcasterProfileResponse,
+    type FireflyIdentity,
     type FireflyProfile,
+    type FireflyWalletConnection,
     type FriendshipResponse,
     type GetAllConnectionsResponse,
     type IsMutedAllResponse,
@@ -1220,7 +1222,6 @@ export class FireflySocialMedia implements Provider {
         });
 
         const { message } = resolveFireflyResponseData(response);
-
         if (!message) throw new Error('Failed to get message to sign');
 
         return message;
@@ -1228,7 +1229,6 @@ export class FireflySocialMedia implements Provider {
 
     async verifyAndBindWallet(signMessage: string, signature: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/verify');
-
         const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -1238,21 +1238,22 @@ export class FireflySocialMedia implements Provider {
         });
 
         const data = resolveFireflyResponseData(response);
-
         return data;
     }
 
-    async disconnectAccount(platform: FireflyPlatform, identity: string, address: string) {
+    async disconnectAccount(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: platform,
-            connectionId: identity,
+            connectionPlatform: identity.source,
+            connectionId: identity.id,
         });
-        const deleteUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
-
         await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'DELETE',
         });
-        await fireflySessionHolder.fetch<Response<void>>(deleteUrl, {
+    }
+
+    async disconnectWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
+        await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'DELETE',
             body: JSON.stringify({
                 addresses: [address],
@@ -1260,19 +1261,16 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async reportAndDeleteWallet(options: {
-        twitterId: string;
-        walletAddress: string;
-        reportReason: string;
-        sources: string[];
-    }) {
+    async reportAndDeleteWallet(connection: FireflyWalletConnection, reason: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/twitter/wallet/report');
 
         await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'POST',
             body: JSON.stringify({
-                ...options,
-                sources: options.sources.join(','),
+                twitterId: connection.twitterId,
+                walletAddress: connection.address,
+                reportReason: reason,
+                sources: connection.sources.join(','),
             }),
         });
     }
@@ -1305,16 +1303,14 @@ export class FireflySocialMedia implements Provider {
 
     async getAllConnections() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
-
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
-
-        const data = resolveFireflyResponseData(response);
+        const connections = resolveFireflyResponseData(response);
 
         return {
-            connected: formatWalletConnections(data.wallet.connected, data),
-            related: formatWalletConnections(data.wallet.unconnected, data),
+            connected: formatWalletConnections(connections.wallet.connected, connections),
+            related: formatWalletConnections(connections.wallet.unconnected, connections),
         };
     }
 }
