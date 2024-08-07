@@ -516,6 +516,9 @@ msgstr "拥有者"
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 验证器"
 
+msgid "No Lens profile found.<0/>Please change to another wallet."
+msgstr ""
+
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
@@ -1544,9 +1547,6 @@ msgstr "发帖中..."
 
 msgid "This Action has been flagged as an unsafe action, & has been blocked."
 msgstr "操作被认定为风险行为，已经被阻止。"
-
-msgid "No Lens profile found. Please change to another wallet."
-msgstr "没有找到 Lens 账号，请连接另一个钱包。"
 
 msgid "Connect"
 msgstr "连接"

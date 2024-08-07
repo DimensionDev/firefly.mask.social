@@ -9,6 +9,7 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
+import GhostHoleIcon from '@/assets/ghost.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
@@ -137,9 +138,16 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         )}
                     </div>
                 ) : (
-                    <div className="flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
-                        <div className="w-full text-left text-[14px] leading-[16px] text-second">
-                            <Trans>No Lens profile found. Please change to another wallet.</Trans>
+                    <div className="flex h-[226px] flex-grow flex-col items-center justify-center">
+                        <div className="flex h-[178px] flex-col items-center gap-6">
+                            <GhostHoleIcon width={148} height={106} className="text-third" />
+                            <div className="text-center text-sm font-bold leading-6 text-second">
+                                <Trans>
+                                    No Lens profile found.
+                                    <br />
+                                    Please change to another wallet.
+                                </Trans>
+                            </div>
                         </div>
                     </div>
                 )}

@@ -511,6 +511,9 @@ msgstr "Owners"
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
 
+msgid "No Lens profile found.<0/>Please change to another wallet."
+msgstr "No Lens profile found.<0/>Please change to another wallet."
+
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
@@ -1539,9 +1542,6 @@ msgstr "Posting..."
 
 msgid "This Action has been flagged as an unsafe action, & has been blocked."
 msgstr "This Action has been flagged as an unsafe action, & has been blocked."
-
-msgid "No Lens profile found. Please change to another wallet."
-msgstr "No Lens profile found. Please change to another wallet."
 
 msgid "Connect"
 msgstr "Connect"
