@@ -215,9 +215,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             await delay(300);
                             LoginModalRef.open();
                         }}
-                        className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
+                        className="flex w-[200px] items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                     >
-                        <LoadingIcon className="animate-spin" width={32} height={32} />
+                        <LoadingIcon className="mr-2 animate-spin" width={24} height={24} />
                         <Trans>Login</Trans>
                     </ClickableButton>
                 )}
