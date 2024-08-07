@@ -38,7 +38,7 @@ export const ConfirmFireflyModal = forwardRef<
                                 </Trans>
                             )}
                         </p>
-                        <ul className="flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
+                        <ul className="no-scrollbar flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
                             {accounts
                                 .sort((a, b) => {
                                     const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
