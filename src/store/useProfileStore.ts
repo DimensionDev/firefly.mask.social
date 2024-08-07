@@ -272,13 +272,15 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const session_ = TwitterSession.from(profile, payload);
+                const twitterSession = TwitterSession.from(profile, payload);
 
                 await addAccount(
                     {
                         profile,
-                        session: session_,
-                        fireflySession: isSessionFromServer ? await bindOrRestoreFireflySession(session_) : undefined,
+                        session: twitterSession,
+                        fireflySession: isSessionFromServer
+                            ? await bindOrRestoreFireflySession(twitterSession)
+                            : undefined,
                     },
                     {
                         skipBelongsToCheck: !isSessionFromServer,
