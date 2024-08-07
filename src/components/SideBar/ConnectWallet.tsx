@@ -21,7 +21,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatDomainName } from '@/helpers/formatDomainName.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
-import { resolve } from '@/helpers/resolve.js';
+import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -50,7 +50,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
     const chainTypes = [
         {
             icon: evmNetworkDescriptor?.icon,
-            label: resolve(() => {
+            label: resolveValue(() => {
                 if (!evmAccount.isConnected || !evmAccount.address || !mounted) return null;
                 if (ensName) return formatDomainName(ensName);
                 return formatEthereumAddress(evmAccount.address, 4);
@@ -62,7 +62,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
         },
         {
             icon: solanaNetworkDescriptor?.icon,
-            label: resolve(() => {
+            label: resolveValue(() => {
                 if (!solanaWallet.publicKey) return null;
                 const publicKey = encodePublicKey(solanaWallet.publicKey);
                 return formatSolanaAddress(publicKey, 4);
