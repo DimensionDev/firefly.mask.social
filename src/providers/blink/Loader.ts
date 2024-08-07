@@ -5,15 +5,8 @@ import { parseURL } from '@/helpers/parseURL.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import { settings } from '@/settings/index.js';
-import type {
-    Action,
-    ActionComponent,
-    ActionParameter,
-    ActionType,
-    FireflyBlinkParserBlinkResponse,
-} from '@/types/blink.js';
+import type { Action, ActionComponent, ActionParameter, FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 
 function createActionComponent(label: string, href: string, parameters?: ActionParameter[]): ActionComponent {
     return {
@@ -24,29 +17,30 @@ function createActionComponent(label: string, href: string, parameters?: ActionP
     };
 }
 
-function createAction(url: string, data: ActionGetResponse, blink: string, state: ActionType) {
+function createAction(url: string, res: NonNullable<FireflyBlinkParserBlinkResponse['data']>) {
+    const { actionApiUrl, action, state, actionUrl } = res;
     const PREFIX = 'solana://';
-    const websiteUrl = blink.startsWith(PREFIX) ? blink.substring(PREFIX.length) : url;
+    const websiteUrl = actionUrl.startsWith(PREFIX) ? actionUrl.substring(PREFIX.length) : url;
     const actionResult: Action = {
         url,
         websiteUrl,
-        icon: data.icon,
-        title: data.title,
-        description: data.description,
-        disabled: data.disabled ?? false,
+        icon: action.icon,
+        title: action.title,
+        description: action.description,
+        disabled: action.disabled ?? false,
         actions: [],
         state,
     };
-    if (data.links?.actions) {
-        const u = parseURL(url);
+    if (action.links?.actions) {
+        const u = parseURL(actionApiUrl);
         if (!u) return null;
 
-        actionResult.actions = data.links.actions.map((action) => {
+        actionResult.actions = action.links.actions.map((action) => {
             const href = action.href.startsWith('https://') ? action.href : urlcat(u.origin, action.href);
             return createActionComponent(action.label, href, action.parameters);
         });
     } else {
-        actionResult.actions = [createActionComponent(data.label, url)];
+        actionResult.actions = [createActionComponent(action.label, url)];
     }
     return actionResult;
 }
@@ -66,7 +60,7 @@ class Loader extends BaseLoader<Action> {
 
             if (!response.data) return null;
 
-            return createAction(url, response.data.action, response.data.actionUrl, response.data.state);
+            return createAction(url, response.data);
         });
     }
 

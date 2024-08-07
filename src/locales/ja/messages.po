@@ -813,6 +813,9 @@ msgstr ""
 msgid "No mint function"
 msgstr ""
 
+msgid "Transaction sent successfully"
+msgstr ""
+
 msgid "Please choose issue to report this wallet:"
 msgstr ""
 

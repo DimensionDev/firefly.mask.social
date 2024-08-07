@@ -813,6 +813,9 @@ msgstr "图片上传失败。"
 msgid "No mint function"
 msgstr "没有铸造功能"
 
+msgid "Transaction sent successfully"
+msgstr ""
+
 msgid "Please choose issue to report this wallet:"
 msgstr ""
 

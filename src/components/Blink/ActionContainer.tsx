@@ -205,9 +205,7 @@ export function ActionContainer({
             const signature = await wallet.sendTransaction(transaction, connection, { minContextSlot });
             const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
             await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
-            if (tx.message) {
-                enqueueSuccessMessage(tx.message);
-            }
+            enqueueSuccessMessage(tx.message ?? t`Transaction sent successfully`);
             dispatch({
                 type: ExecutionType.FINISH,
                 successMessage: tx.message,
