@@ -30,7 +30,7 @@ export const ConfirmFireflyModal = forwardRef<
                     <div>
                         <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-second">
                             {belongsTo ? (
-                                <Trans>Confirm accounts to sync</Trans>
+                                <Trans>Confirm to sync accounts</Trans>
                             ) : (
                                 <Trans>
                                     You are logging into a different Firefly account. Continuing will{' '}
