@@ -173,7 +173,7 @@ async function getNextFrame(
                 return;
             case ActionType.Mint: {
                 if (!button.target) return;
-                const mintUrl = resolveMintUrl(button.target);
+                const mintUrl = resolveMintUrl(frame.url, button.target);
                 if (!mintUrl) {
                     enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
                     return;
