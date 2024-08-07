@@ -57,6 +57,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_TIPS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_CHANNEL_TRENDING: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_FEEDBACK: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // public use of hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
@@ -97,6 +98,7 @@ export const env = {
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
 
         NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
+        NEXT_PUBLIC_FEEDBACK: process.env.NEXT_PUBLIC_FEEDBACK,
         NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
         NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
         NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,

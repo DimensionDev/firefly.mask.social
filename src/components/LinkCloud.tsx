@@ -5,6 +5,8 @@ import { useRef } from 'react';
 import { useMount } from 'react-use';
 
 import { feedbackIntegration } from '@/configs/sentryClient.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
 
 export function LinkCloud() {
@@ -56,9 +58,11 @@ export function LinkCloud() {
                     {name}
                 </Link>
             ))}
-            <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl} role="button">
-                <Trans>Feedback</Trans>
-            </span>
+            {env.external.NEXT_PUBLIC_FEEDBACK !== STATUS.Disabled ? (
+                <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl} role="button">
+                    <Trans>Feedback</Trans>
+                </span>
+            ) : null}
         </div>
     );
 }
