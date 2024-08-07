@@ -3,7 +3,10 @@ import { parse } from 'twemoji-parser';
 import { fetchText } from '@/helpers/fetchText.js';
 
 function fixMaxCDN(url: string) {
-    return url.replace('https://twemoji.maxcdn.com/v/latest/svg/', 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/');
+    return url.replace(
+        'https://twemoji.maxcdn.com/v/latest/svg/',
+        'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/',
+    );
 }
 
 export async function loadTwemojiUrls(content: string) {
