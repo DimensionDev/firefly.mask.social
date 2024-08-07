@@ -148,7 +148,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
         const accountsFiltered = accountsSynced.filter((x) => {
             const state = getProfileState(x.profile.source);
-            return !state.accounts.find((y) => isSameAccount(x, y));
+            return !state.accounts.find((y) => isSameAccount(x, y)) && !isSameAccount(x, account);
         });
         const accounts = (
             belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => x.profile.profileId)
