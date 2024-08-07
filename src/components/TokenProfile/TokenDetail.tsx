@@ -301,7 +301,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                         <InfoRow
                             title={t`Website`}
                             extra={
-                                <div>
+                                <div className="flex gap-1">
                                     {coin.home_urls.map((url) => (
                                         <Link
                                             key={url}

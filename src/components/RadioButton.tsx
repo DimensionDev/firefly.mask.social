@@ -19,7 +19,11 @@ export function RadioButton({ size = 40, checked, className, ...props }: Props) 
                 height: size,
             }}
         >
-            {checked ? <RadioOnIcon width={size} height={size} /> : <RadioOffIcon width={size} height={size} />}
+            {checked ? (
+                <RadioOnIcon className="text-highlight" width={size} height={size} />
+            ) : (
+                <RadioOffIcon width={size} height={size} />
+            )}
         </ClickableButton>
     );
 }
