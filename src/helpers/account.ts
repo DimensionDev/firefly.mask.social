@@ -143,8 +143,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             ? true
             : isSameSession(currentFireflySession, fireflySession);
 
-
-    console.log('DEBUG: belongs to')
+    console.log('DEBUG: belongs to');
     console.log({
         account,
         options: {
@@ -152,14 +151,14 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             skipBelongsToCheck,
             skipResumeFireflyAccounts,
             skipResumeFireflySession,
-            skipUploadFireflySession
+            skipUploadFireflySession,
         },
         skipBelongsToCheck,
         fireflySession,
         currentFireflySession,
         hasFireflySession: hasFireflySession(),
         belongsTo,
-    })
+    });
 
     // resume accounts from firefly
     if (!skipResumeFireflyAccounts && fireflySession) {
