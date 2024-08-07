@@ -21,7 +21,7 @@ export function NFTProperties(props: NFTPropertiesProps) {
                     return (
                         <div
                             key={type}
-                            className="flex flex-col items-center justify-center space-y-2.5 rounded-[10px] border border-input bg-lightBg p-[10px] px-2 py-1 text-center"
+                            className="flex flex-col items-center justify-center space-y-2.5 rounded-[10px] border border-line bg-lightBg p-[10px] px-2 py-1 text-center"
                         >
                             <TextOverflowTooltip content={type}>
                                 <div className="w-full truncate text-base font-normal leading-[22px] text-second">
