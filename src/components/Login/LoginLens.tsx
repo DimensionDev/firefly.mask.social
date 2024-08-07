@@ -137,8 +137,8 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         )}
                     </div>
                 ) : (
-                    <div className="flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
-                        <div className="w-full text-left text-[14px] leading-[16px] text-second">
+                    <div className="m-2 mb-auto flex flex-grow flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
+                        <div className="text-left text-[14px] leading-[16px] text-second">
                             <Trans>No Lens profile found. Please change to another wallet.</Trans>
                         </div>
                     </div>
