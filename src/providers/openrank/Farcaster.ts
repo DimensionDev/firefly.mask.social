@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { env } from '@/constants/env.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { PostForYouByAuthorship, TopProfile } from '@/providers/farcasterOpenRank/types.js';
+import type { PostForYouByAuthorship, TopProfile } from '@/providers/openrank/types.js';
 
 class OpenRank {
     getTopProfiles(options?: { offset?: number; limit?: number }) {
