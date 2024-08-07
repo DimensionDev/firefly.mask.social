@@ -143,22 +143,13 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             ? true
             : isSameSession(currentFireflySession, fireflySession);
 
-    console.log('DEBUG: belongs to');
-    console.log({
-        account,
-        options: {
-            setAsCurrent,
-            skipBelongsToCheck,
-            skipResumeFireflyAccounts,
-            skipResumeFireflySession,
-            skipUploadFireflySession,
-        },
-        skipBelongsToCheck,
-        fireflySession,
-        currentFireflySession,
-        hasFireflySession: hasFireflySession(),
-        belongsTo,
-    });
+    if (!belongsTo) {
+        console.warn('Account does not belong to the current firefly session.', {
+            account,
+            fireflySession,
+            currentFireflySession,
+        });
+    }
 
     // resume accounts from firefly
     if (!skipResumeFireflyAccounts && fireflySession) {
