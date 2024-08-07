@@ -40,7 +40,7 @@ export const LensView = memo(function LensView() {
     });
 
     const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
-        queryKey: ['lens', 'profiles', account.address, expectedProfile],
+        queryKey: ['lens', 'profiles', account.address],
         queryFn: account.address ? () => LensSocialMediaProvider.getProfilesByAddress(account.address!) : skipToken,
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
