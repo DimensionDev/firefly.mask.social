@@ -32,7 +32,7 @@ export function ChannelTabs({ channel }: ChannelTabsProps) {
 
     return (
         <>
-            <div className="scrollable-tab flex justify-evenly px-5">
+            <div className="scrollable-tab flex justify-evenly border-b border-line px-5">
                 {[
                     {
                         type: ChannelTabType.Recent,
