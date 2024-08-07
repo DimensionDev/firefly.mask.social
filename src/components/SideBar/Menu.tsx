@@ -13,6 +13,7 @@ import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
 import FollowingSelectedIcon from '@/assets/following.selected.svg';
 import FollowingIcon from '@/assets/following.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
 import NotificationIcon from '@/assets/notification.svg';
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
@@ -216,6 +217,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         }}
                         className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                     >
+                        <LoadingIcon className="animate-spin" width={32} height={32} />
                         <Trans>Login</Trans>
                     </ClickableButton>
                 )}
