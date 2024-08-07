@@ -72,7 +72,8 @@ export type Runtime =
     | 'solana'
     | 'flow'
     | 'celo'
-    | 'the-open-network';
+    | 'the-open-network'
+    | 'kava';
 
 export interface Contract {
     runtime: Runtime;

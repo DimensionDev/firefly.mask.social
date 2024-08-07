@@ -87,4 +87,9 @@ export const chainInfos: ChainInfo[] = [
         name: 'Base',
         icon: new URL('../../assets/chains/base.png', import.meta.url).href,
     },
+    {
+        runtime: 'kava',
+        name: 'Kava',
+        icon: 'https://assets.coingecko.com/asset_platforms/images/2/small/kava.jpeg?1707096364',
+    },
 ];
