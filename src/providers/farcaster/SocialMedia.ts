@@ -20,10 +20,10 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { FarcasterOpenRankProvider } from '@/providers/farcasterOpenRank/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { FarcasterOpenRankProvider } from '@/providers/openrank/Farcaster.js';
 import {
     type Channel,
     type Notification,

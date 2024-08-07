@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { FeedPost } from '@/providers/lensOpenRank/types.js';
+import type { FeedPost } from '@/providers/openrank/types.js';
 
 class OpenRank {
     feed(
