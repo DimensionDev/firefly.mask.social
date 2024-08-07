@@ -6,9 +6,9 @@ import { isAddress } from 'viem';
 
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
-import { ChainId, type Frame } from '@/types/frame.js';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
+import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
+import { ChainId } from '@/types/frame.js';
 
 const MINT_WHITELIST = ['https://moshi.cam/'];
 
