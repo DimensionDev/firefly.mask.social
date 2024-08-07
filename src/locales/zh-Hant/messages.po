@@ -117,6 +117,9 @@ msgstr "您引用/回覆的貼文已經被刪除"
 msgid "Send tips to @{0}"
 msgstr ""
 
+msgid "Transaction successfully sent"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr "除錯連接"
 
