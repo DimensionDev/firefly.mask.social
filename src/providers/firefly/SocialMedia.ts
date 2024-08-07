@@ -8,6 +8,7 @@ import { type Hex, isAddress } from 'viem';
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
 import {
@@ -24,7 +25,6 @@ import {
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { isZero } from '@/helpers/number.js';
@@ -62,7 +62,6 @@ import {
     type FireflyFarcasterProfileResponse,
     type FireflyProfile,
     type FriendshipResponse,
-    type GetAllConnectionsResponse,
     type IsMutedAllResponse,
     type MuteAllResponse,
     type NotificationResponse,
@@ -131,6 +130,7 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
     throw new Error('Failed to mute user');
 }
 
+@SetQueryDataForAddWallet()
 @SetQueryDataForDeleteWallet()
 @SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
@@ -1242,20 +1242,13 @@ export class FireflySocialMedia implements Provider {
         return data;
     }
 
-    async disconnectAccount(platform: FireflyPlatform, identity: string, address: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: platform,
-            connectionId: identity,
-        });
-        const deleteUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
+    async deleteWallet(addresses: string[]) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
 
         await fireflySessionHolder.fetch<Response<void>>(url, {
             method: 'DELETE',
-        });
-        await fireflySessionHolder.fetch<Response<void>>(deleteUrl, {
-            method: 'DELETE',
             body: JSON.stringify({
-                addresses: [address],
+                addresses,
             }),
         });
     }
@@ -1301,21 +1294,6 @@ export class FireflySocialMedia implements Provider {
         });
 
         return resolveFireflyResponseData(response);
-    }
-
-    async getAllConnections() {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
-
-        const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
-            method: 'GET',
-        });
-
-        const data = resolveFireflyResponseData(response);
-
-        return {
-            connected: formatWalletConnections(data.wallet.connected, data),
-            related: formatWalletConnections(data.wallet.unconnected, data),
-        };
     }
 }
 

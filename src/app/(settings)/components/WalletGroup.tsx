@@ -3,22 +3,19 @@ import { memo } from 'react';
 import { WalletItem } from '@/app/(settings)/components/WalletItem.js';
 import QuestionIcon from '@/assets/question.svg';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 interface WalletGroupProps {
     title: string;
-    connections: FireflyWalletConnection[];
+    profiles: Array<{
+        profile: FireflyProfile;
+        relations: FireflyProfile[];
+    }>;
     tooltip?: string;
-    noAction?: boolean;
 }
 
-export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
-    title,
-    connections,
-    tooltip,
-    noAction = false,
-}) {
-    if (!connections.length) return null;
+export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({ title, profiles, tooltip }) {
+    if (!profiles.length) return null;
 
     return (
         <div className="w-full">
@@ -35,12 +32,8 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
                 ) : null}
             </p>
             <div className="mt-5">
-                {connections.map((connection) => (
-                    <WalletItem
-                        key={connection.address}
-                        connection={connection}
-                        noAction={!connection.canReport && noAction}
-                    />
+                {profiles.map(({ profile, relations }) => (
+                    <WalletItem key={profile.identity} profile={profile} relations={relations} />
                 ))}
             </div>
         </div>
