@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { forwardRef, type HTMLProps, useState } from 'react';
+import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
@@ -96,7 +96,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     // if payload image attachment is available, we don't need to show the attachments
     const attachments = metadata.content?.attachments ?? EMPTY_LIST;
-    const availableAttachments = payloadImageUrl ? EMPTY_LIST : attachments;
+    const availableAttachments = useMemo(() => {
+        if (!payloadImageUrl) return attachments;
+        return attachments.filter((x) => x.uri !== payloadImageUrl);
+    }, [attachments, payloadImageUrl]);
 
     const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
     const asset =
