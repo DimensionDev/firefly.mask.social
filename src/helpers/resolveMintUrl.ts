@@ -29,11 +29,9 @@ const resolveZoraChainName = createLookupTableResolver<ChainId, string>(
     },
 );
 
-export function resolveMintUrl(frame: Frame, target: string) {
+export function resolveMintUrl(url: string, target: string) {
     // TODO: compose mint transaction
-    if (MINT_WHITELIST.some((url) => isSameOriginUrl(url, frame.url))) {
-        return frame.url;
-    }
+    if (MINT_WHITELIST.some((x) => isSameOriginUrl(x, url))) return url;
 
     const { chainId, address, parameters } = parseCAIP10(target);
     if (!address) return;
