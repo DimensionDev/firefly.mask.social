@@ -221,7 +221,13 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
                 updateType(type || 'compose');
-                if (source) updateAvailableSources(Array.isArray(source) ? source : [source]);
+                updateAvailableSources((originSources) => {
+                    const checkingSources = source ? (Array.isArray(source) ? source : [source]) : originSources;
+                    // Some profile might login out.
+                    const someMissed = checkingSources.some((x) => !currentProfileAll[x]);
+                    if (someMissed) return checkingSources.filter((x) => currentProfileAll[x]);
+                    return checkingSources;
+                });
                 if (typedMessage) updateTypedMessage(typedMessage);
                 if (post) updateParentPost(post.source, post);
                 if (chars) {

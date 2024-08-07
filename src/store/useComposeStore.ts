@@ -103,7 +103,10 @@ interface ComposeState extends ComposeBaseState {
     updatePostId: (source: SocialSource, postId: string, cursor?: Cursor) => void;
     updatePostError: (source: SocialSource, postError: Error, cursor?: Cursor) => void;
     updateParentPost: (source: SocialSource, parentPost: Post, cursor?: Cursor) => void;
-    updateAvailableSources: (sources: SocialSource[], cursor?: Cursor) => void;
+    updateAvailableSources: (
+        sources: SocialSource[] | ((sources: SocialSource[]) => SocialSource[]),
+        cursor?: Cursor,
+    ) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
     updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
@@ -459,7 +462,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     state,
                     (post) => ({
                         ...post,
-                        availableSources: sources,
+                        availableSources: typeof sources === 'function' ? sources(post.availableSources) : sources,
                     }),
                     cursor,
                 ),
