@@ -30,6 +30,12 @@ const resolveZoraChainName = createLookupTableResolver<ChainId, string>(
 );
 
 export function resolveMintUrl(url: string, target: string) {
+    console.log('DEBUG: resolveMintUrl');
+    console.log({
+        url,
+        target,
+    });
+
     // TODO: compose mint transaction
     if (MINT_WHITELIST.some((x) => isSameOriginUrl(x, url))) return url;
 
