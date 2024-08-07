@@ -143,6 +143,24 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             ? true
             : isSameSession(currentFireflySession, fireflySession);
 
+
+    console.log('DEBUG: belongs to')
+    console.log({
+        account,
+        options: {
+            setAsCurrent,
+            skipBelongsToCheck,
+            skipResumeFireflyAccounts,
+            skipResumeFireflySession,
+            skipUploadFireflySession
+        },
+        skipBelongsToCheck,
+        fireflySession,
+        currentFireflySession,
+        hasFireflySession: hasFireflySession(),
+        belongsTo,
+    })
+
     // resume accounts from firefly
     if (!skipResumeFireflyAccounts && fireflySession) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
