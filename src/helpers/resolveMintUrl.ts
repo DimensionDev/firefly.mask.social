@@ -7,7 +7,10 @@ import { isAddress } from 'viem';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
-import { ChainId } from '@/types/frame.js';
+import { ChainId, type Frame } from '@/types/frame.js';
+import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
+
+const MINT_WHITELIST = ['https://moshi.cam/'];
 
 const resolveZoraChainName = createLookupTableResolver<ChainId, string>(
     {
@@ -26,7 +29,12 @@ const resolveZoraChainName = createLookupTableResolver<ChainId, string>(
     },
 );
 
-export function resolveMintUrl(target: string) {
+export function resolveMintUrl(frame: Frame, target: string) {
+    // TODO: compose mint transaction
+    if (MINT_WHITELIST.some((url) => isSameOriginUrl(url, frame.url))) {
+        return frame.url;
+    }
+
     const { chainId, address, parameters } = parseCAIP10(target);
     if (!address) return;
 
