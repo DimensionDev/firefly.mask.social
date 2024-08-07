@@ -1215,6 +1215,12 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.29.2
         version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@types/use-subscription':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@types/uuid':
+        specifier: ^9.0.3
+        version: 9.0.3
       react-use:
         specifier: 17.4.0
         version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1227,13 +1233,6 @@ importers:
       uuid:
         specifier: ^9.0.0
         version: 9.0.0
-    devDependencies:
-      '@types/use-subscription':
-        specifier: ^1.0.0
-        version: 1.0.0
-      '@types/uuid':
-        specifier: ^9.0.3
-        version: 9.0.3
 
   src/maskbook/packages/test-serializer:
     dependencies:
@@ -13502,7 +13501,6 @@ packages:
 
   /@types/uuid@9.0.3:
     resolution: {integrity: sha512-taHQQH/3ZyI3zP8M/puluDEIEvtQHVYcC6y3N8ijFtAd28+Ey/G4sg1u2gB01S8MwybLOKAp9/yCMu/uR5l3Ug==}
-    dev: true
 
   /@types/vinyl-fs@3.0.5:
     resolution: {integrity: sha512-ckYz9giHgV6U10RFuf9WsDQ3X86EFougapxHmmoxLK7e6ICQqO8CE+4V/3lBN148V5N1pb4nQMmMjyScleVsig==}

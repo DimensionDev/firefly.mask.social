@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
-import LoadingIcon from '@/assets/loading.svg';
 import GhostHoleIcon from '@/assets/ghost.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
