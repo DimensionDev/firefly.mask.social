@@ -8,8 +8,8 @@ import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 
 export interface ProfileTab {
     source: Source;
-    isMyProfile?: boolean;
     identity?: string;
+    isMyProfile?: boolean;
 }
 
 interface ProfileTabState {

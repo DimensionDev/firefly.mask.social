@@ -220,7 +220,10 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
 export async function removeAccountByProfileId(source: SocialSource, profileId: string) {
     const { accounts } = getProfileState(source);
     const account = accounts.find((x) => x.profile.profileId === profileId);
-    if (!account) return;
+    if (!account) {
+        console.warn(`[removeAccountByProfileId] Account not found: ${profileId}`);
+        return;
+    }
 
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
@@ -235,7 +238,10 @@ export async function removeAccountByProfileId(source: SocialSource, profileId: 
 
 export async function removeCurrentAccount(source: SocialSource) {
     const { currentProfile } = getProfileState(source);
-    if (!currentProfile) return;
+    if (!currentProfile) {
+        console.warn(`[removeCurrentAccount] Current account not found: ${source}`);
+        return;
+    }
 
     await removeAccountByProfileId(source, currentProfile.profileId);
 }
