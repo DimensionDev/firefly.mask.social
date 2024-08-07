@@ -32,6 +32,7 @@ interface NotLoginFallbackProps {
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
     const isArticle = source === Source.Article;
+
     return (
         <div className="flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]">
             <Image
