@@ -20,6 +20,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
@@ -37,9 +38,10 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { profileTab } = useProfileTabState();
     const accounts = useConnectedAccounts(source);
 
+    const isMyProfile = useIsMyRelatedProfile(profileTab.id, profileTab.source);
+
     const isPureProfilePage = pathname === PageRoute.Profile;
-    const isMyProfilePage =
-        !!profileTab.isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
+    const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
 
     useMount(() => {
         getProfileState(source).refreshAccounts();
@@ -76,7 +78,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 if (
                                     isMyProfilePage &&
                                     profileTab.source === source &&
-                                    profileTab.identity !== resolveProfileId(account.profile)
+                                    profileTab.id !== resolveProfileId(account.profile)
                                 ) {
                                     updateParams(
                                         new URLSearchParams({

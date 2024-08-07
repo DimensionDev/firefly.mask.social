@@ -79,14 +79,14 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
 
                 const isActive =
                     profile.source === Source.Wallet
-                        ? isSameAddress(profile.identity, profileTab.identity)
-                        : profileTab.identity === profile.identity;
+                        ? isSameAddress(profile.identity, profileTab.id)
+                        : profileTab.id === profile.identity;
 
                 return (
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                setProfileTab({ source: profile.source, identity: profile.identity });
+                                setProfileTab({ source: profile.source, id: profile.identity });
 
                                 updateParams(
                                     new URLSearchParams({

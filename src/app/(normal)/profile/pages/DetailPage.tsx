@@ -41,8 +41,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
     useEffect(() => {
         setProfileTab({
             source: resolvedSource,
-            identity,
-            isMyProfile: isCurrentProfile,
+            id: identity,
         });
     }, [identity, resolvedSource, isCurrentProfile, setProfileTab]);
 

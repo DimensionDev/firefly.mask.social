@@ -40,12 +40,11 @@ export default function Page() {
 
         if (source) {
             setProfileTab({
-                isMyProfile: true,
                 source,
-                identity: profile?.identity,
+                id: profile?.identity || '',
             });
         }
-    }, [profile, profileTab.identity, searchParam, setProfileTab]);
+    }, [profile, profileTab.id, searchParam, setProfileTab]);
 
     // profile link should be shareable
     if (profile) {

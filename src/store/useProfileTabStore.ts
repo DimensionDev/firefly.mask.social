@@ -2,19 +2,13 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
-
-export interface ProfileTab {
-    source: Source;
-    identity?: string;
-    isMyProfile?: boolean;
-}
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface ProfileTabState {
-    profileTab: ProfileTab;
-    setProfileTab: (profileTab: ProfileTab) => void;
+    profileTab: FireflyIdentity;
+    setProfileTab: (profileTab: FireflyIdentity) => void;
     reset: () => void;
 }
 
@@ -22,15 +16,17 @@ const useProfileTabBase = create<ProfileTabState, [['zustand/persist', unknown],
     persist(
         immer((set) => ({
             profileTab: {
+                id: '',
                 source: getCurrentSourceFromUrl(),
             },
-            setProfileTab: (profileTab: ProfileTab) =>
+            setProfileTab: (profileTab: FireflyIdentity) =>
                 set((state) => {
                     state.profileTab = profileTab;
                 }),
             reset: () => {
                 set((state) => {
                     state.profileTab = {
+                        id: '',
                         source: getCurrentSourceFromUrl(),
                     };
                 });

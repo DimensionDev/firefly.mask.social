@@ -28,7 +28,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
 
-    const isMyProfile = useIsMyRelatedProfile(profileTab.identity ?? '', profileTab.source);
+    const isMyProfile = useIsMyRelatedProfile(profileTab.id, profileTab.source);
 
     const updateParams = useUpdateParams();
 
