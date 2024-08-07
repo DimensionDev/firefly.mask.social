@@ -126,6 +126,9 @@ msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼�
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
+msgid "Confirm to sync accounts"
+msgstr ""
+
 msgid "Failed to unwatch {identity}."
 msgstr "取消觀察 @{identity} 失敗。"
 
@@ -1421,9 +1424,6 @@ msgstr ""
 
 msgid "Unwatch {identity}"
 msgstr "取消觀察 {identity}"
-
-msgid "Confirm accounts to sync"
-msgstr ""
 
 msgid "Recast or Quote"
 msgstr ""

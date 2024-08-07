@@ -121,6 +121,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
+msgid "Confirm to sync accounts"
+msgstr "Confirm to sync accounts"
+
 msgid "Failed to unwatch {identity}."
 msgstr "Failed to unwatch {identity}"
 
@@ -1416,9 +1419,6 @@ msgstr "The user rejected the request."
 
 msgid "Unwatch {identity}"
 msgstr "Unwatch {identity}"
-
-msgid "Confirm accounts to sync"
-msgstr "Confirm accounts to sync"
 
 msgid "Recast or Quote"
 msgstr "Recast or Quote"

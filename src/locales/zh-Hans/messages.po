@@ -126,6 +126,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
 
+msgid "Confirm to sync accounts"
+msgstr ""
+
 msgid "Failed to unwatch {identity}."
 msgstr "取消关注 {identity} 失败。"
 
@@ -1421,9 +1424,6 @@ msgstr "用户取消了请求。"
 
 msgid "Unwatch {identity}"
 msgstr "取消关注 {identity}"
-
-msgid "Confirm accounts to sync"
-msgstr ""
 
 msgid "Recast or Quote"
 msgstr "转发或者引用"
