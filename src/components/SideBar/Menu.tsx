@@ -27,7 +27,7 @@ import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { IS_IOS } from '@/constants/bowser.js';
-import { PageRoute } from '@/constants/enum.js';
+import { AsyncStoreStatus, PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
@@ -40,6 +40,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
+import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface MenuProps {
     collapsed?: boolean;
@@ -56,6 +57,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
     const isLogin = useIsLogin();
     const pathname = usePathname();
+
+    const status = useTwitterStateStore.use.status();
+    const isLoading = status === AsyncStoreStatus.Pending;
 
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {
@@ -210,6 +214,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                     </ClickableButton>
                 ) : (
                     <ClickableButton
+                        disabled={isLoading}
                         onClick={async () => {
                             updateSidebarOpen(false);
                             await delay(300);
@@ -217,8 +222,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         }}
                         className="flex w-[200px] items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                     >
-                        <LoadingIcon className="mr-2 animate-spin" width={24} height={24} />
-                        <Trans>Login</Trans>
+                        {isLoading ? (
+                            <LoadingIcon className="mr-2 animate-spin" width={24} height={24} />
+                        ) : (
+                            <Trans>Login</Trans>
+                        )}
                     </ClickableButton>
                 )}
             </div>
