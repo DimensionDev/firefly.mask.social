@@ -112,9 +112,6 @@ msgstr ""
 msgid "Send tips to @{0}"
 msgstr ""
 
-msgid "Transaction successfully sent"
-msgstr ""
-
 msgid "Debug Connection"
 msgstr ""
 
@@ -809,6 +806,9 @@ msgid "There are images that were not uploaded successfully."
 msgstr ""
 
 msgid "No mint function"
+msgstr ""
+
+msgid "Transaction sent successfully"
 msgstr ""
 
 msgid "Please choose issue to report this wallet:"

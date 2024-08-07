@@ -112,9 +112,6 @@ msgstr "The post you quoted/replied has already deleted"
 msgid "Send tips to @{0}"
 msgstr "Send tips to @{0}"
 
-msgid "Transaction successfully sent"
-msgstr "Transaction successfully sent"
-
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -810,6 +807,9 @@ msgstr "There are images that were not uploaded successfully."
 
 msgid "No mint function"
 msgstr "No mint function"
+
+msgid "Transaction sent successfully"
+msgstr "Transaction sent successfully"
 
 msgid "Please choose issue to report this wallet:"
 msgstr "Please choose issue to report this wallet:"

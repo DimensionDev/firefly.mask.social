@@ -117,9 +117,6 @@ msgstr "您引用/回复的帖子已经被删除了。"
 msgid "Send tips to @{0}"
 msgstr "发送打赏给 {0}"
 
-msgid "Transaction successfully sent"
-msgstr ""
-
 msgid "Debug Connection"
 msgstr "诊断网络"
 
@@ -815,6 +812,9 @@ msgstr "图片上传失败。"
 
 msgid "No mint function"
 msgstr "没有铸造功能"
+
+msgid "Transaction sent successfully"
+msgstr ""
 
 msgid "Please choose issue to report this wallet:"
 msgstr ""
