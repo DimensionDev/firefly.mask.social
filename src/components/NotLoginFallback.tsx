@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { memo } from 'react';
+import LoadingIcon from '@/assets/loading.svg';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -32,6 +33,7 @@ interface NotLoginFallbackProps {
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
     const isArticle = source === Source.Article;
+
     return (
         <div className="flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]">
             <Image
@@ -55,6 +57,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     LoginModalRef.open({ source: isArticle ? undefined : source });
                 }}
             >
+                <LoadingIcon className="animate-spin" width={32} height={32} />
                 {isArticle ? t`Login` : t`Connect to ${resolveSourceName(source)}`}
             </ClickableButton>
         </div>
