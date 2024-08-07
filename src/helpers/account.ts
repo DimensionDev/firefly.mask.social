@@ -43,6 +43,14 @@ async function updateState(accounts: Account[], overwrite = false) {
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.forEach((source) => {
             const { state, sessionHolder } = getContext(source);
+
+            // sign out from twitter if the next auth session is set
+            if (source === Source.Twitter && TwitterSession.isNextAuth(sessionHolder.session)) {
+                signOut({
+                    redirect: false,
+                });
+            }
+
             state.resetCurrentAccount();
             state.updateAccounts([]);
             sessionHolder.removeSession();
