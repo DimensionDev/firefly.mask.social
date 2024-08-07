@@ -1,18 +1,12 @@
-import { FireflyRedPacket } from '@masknet/web3-providers';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface DeveloperSettingsState {
     useDevelopmentAPI: boolean;
     updateUseDevelopmentAPI: (value: boolean) => void;
-}
-
-function updateRedPacketApiRoot(devMode: boolean) {
-    FireflyRedPacket.updateApiRoot(devMode ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
 }
 
 const useDeveloperSettingsBase = create<
@@ -25,7 +19,6 @@ const useDeveloperSettingsBase = create<
             updateUseDevelopmentAPI: (value: boolean) =>
                 set((state) => {
                     state.useDevelopmentAPI = value;
-                    updateRedPacketApiRoot(value);
                 }),
         })),
         {
@@ -33,9 +26,6 @@ const useDeveloperSettingsBase = create<
             partialize: (state) => ({
                 useDevelopmentAPI: state.useDevelopmentAPI,
             }),
-            onRehydrateStorage: (state) => {
-                updateRedPacketApiRoot(state.useDevelopmentAPI);
-            },
         },
     ),
 );
