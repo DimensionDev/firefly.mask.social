@@ -3,6 +3,7 @@ import { t } from '@lingui/macro';
 import { type HTMLProps, memo } from 'react';
 
 import DotsIcon from '@/assets/dots.svg';
+import QuestionIcon from '@/assets/question.svg';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -59,9 +60,11 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
         <div {...rest} className={classNames('flex items-center gap-2', rest.className)}>
             {chain?.icon ? (
                 <Image src={chain.icon} className="flex-shrink-0" alt={name} width={16} height={16} />
-            ) : null}
+            ) : (
+                <QuestionIcon className="ml-1 cursor-pointer text-second" width={16} height={16} />
+            )}
             <div className="min-w-[100px] flex-grow p-1 leading-4">
-                <div className="text-[12px] font-bold text-main">{name}</div>
+                <div className="text-[12px] font-bold capitalize text-main">{name}</div>
                 <div className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main">
                     {formatEthereumAddress(contract.address, 4)}
                 </div>

@@ -217,13 +217,13 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     }
 }
 
-export async function removeAccountByProfileId(source: SocialSource, profileId?: string) {
-    const { accounts, currentProfile } = getProfileState(source);
-    const account = accounts.find((x) => {
-        if (profileId) return x.profile.profileId === profileId;
-        return isSameProfile(x.profile, currentProfile);
-    });
-    if (!account) return;
+export async function removeAccountByProfileId(source: SocialSource, profileId: string) {
+    const { accounts } = getProfileState(source);
+    const account = accounts.find((x) => x.profile.profileId === profileId);
+    if (!account) {
+        console.warn(`[removeAccountByProfileId] Account not found: ${profileId}`);
+        return;
+    }
 
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
@@ -237,7 +237,13 @@ export async function removeAccountByProfileId(source: SocialSource, profileId?:
 }
 
 export async function removeCurrentAccount(source: SocialSource) {
-    await removeAccountByProfileId(source);
+    const { currentProfile } = getProfileState(source);
+    if (!currentProfile) {
+        console.warn(`[removeCurrentAccount] Current account not found: ${source}`);
+        return;
+    }
+
+    await removeAccountByProfileId(source, currentProfile.profileId);
 }
 
 export async function removeAllAccounts() {

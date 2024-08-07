@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-25 00:04\n"
+"PO-Revision-Date: 2024-08-06 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -515,6 +515,9 @@ msgstr ""
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 驗證器"
+
+msgid "No Lens profile found.<0/>Please change to another wallet."
+msgstr ""
 
 msgid "Connect Wallet"
 msgstr "連接錢包"
@@ -1543,9 +1546,6 @@ msgid "Posting..."
 msgstr "正在發布"
 
 msgid "This Action has been flagged as an unsafe action, & has been blocked."
-msgstr ""
-
-msgid "No Lens profile found. Please change to another wallet."
 msgstr ""
 
 msgid "Connect"

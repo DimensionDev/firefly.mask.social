@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-26 04:51\n"
+"PO-Revision-Date: 2024-08-06 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -115,7 +115,7 @@ msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
 msgid "Send tips to @{0}"
-msgstr ""
+msgstr "发送打赏给 {0}"
 
 msgid "Debug Connection"
 msgstr "诊断网络"
@@ -220,7 +220,7 @@ msgid "Scheduled"
 msgstr "已定时"
 
 msgid "Failed to add wallet"
-msgstr ""
+msgstr "添加钱包失败"
 
 msgid "Solana"
 msgstr "Solana"
@@ -238,7 +238,7 @@ msgid "Debug Console"
 msgstr "诊断命令行"
 
 msgid "Adding..."
-msgstr ""
+msgstr "添加中..."
 
 msgid "Market Cap"
 msgstr "市值"
@@ -286,7 +286,7 @@ msgid "{0} left"
 msgstr "{0} 剩余"
 
 msgid "Skip"
-msgstr ""
+msgstr "跳过"
 
 msgid "Copied"
 msgstr "已复制"
@@ -418,7 +418,7 @@ msgid "Search"
 msgstr "搜索"
 
 msgid "Followed by {0}"
-msgstr ""
+msgstr "被 {0} 关注"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
@@ -466,7 +466,7 @@ msgid "No Airdrop Scam"
 msgstr "没有空投骗局"
 
 msgid "Reposted"
-msgstr ""
+msgstr "转帖"
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
@@ -502,7 +502,7 @@ msgid "Max"
 msgstr "最大"
 
 msgid "Mute all"
-msgstr ""
+msgstr "全部屏蔽"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
@@ -515,6 +515,9 @@ msgstr "拥有者"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 验证器"
+
+msgid "No Lens profile found.<0/>Please change to another wallet."
+msgstr ""
 
 msgid "Connect Wallet"
 msgstr "连接钱包"
@@ -631,7 +634,7 @@ msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
 msgid "Login to Firefly"
-msgstr ""
+msgstr "登录到 Firefly"
 
 msgid "Top Channels"
 msgstr "热门频道"
@@ -1545,9 +1548,6 @@ msgstr "发帖中..."
 msgid "This Action has been flagged as an unsafe action, & has been blocked."
 msgstr "操作被认定为风险行为，已经被阻止。"
 
-msgid "No Lens profile found. Please change to another wallet."
-msgstr "没有找到 Lens 账号，请连接另一个钱包。"
-
 msgid "Connect"
 msgstr "连接"
 
@@ -1669,7 +1669,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了您的} Farcaster {转帖了您的} other {转帖了您的}} <4><5/></4>"
 
 msgid "Repost"
-msgstr ""
+msgstr "转帖"
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
@@ -1822,7 +1822,7 @@ msgid "No available token"
 msgstr "没有适合的代币"
 
 msgid "Send tips to {0}"
-msgstr ""
+msgstr "发送打赏给 {0}"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"

@@ -110,19 +110,19 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     if (isLoading && source !== Source.Twitter) {
         return (
-            <div>
+            <>
                 {header}
                 <Loading />
-            </div>
+            </>
         );
     }
 
     if (showFallback) {
         return (
-            <div>
+            <>
                 {header}
                 <NotLoginFallback source={resolvedSource} />
-            </div>
+            </>
         );
     }
 

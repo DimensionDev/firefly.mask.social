@@ -21,7 +21,6 @@ export default function Wallets() {
         data: { connected = EMPTY_LIST, related = EMPTY_LIST } = {},
         isLoading,
         isRefetching,
-        refetch,
     } = useQuery({
         queryKey: ['my-wallet-connections'],
         queryFn: () => FireflySocialMediaProvider.getAllConnections(),
@@ -48,7 +47,7 @@ export default function Wallets() {
             />
             {!isLoading ? (
                 <div className="flex justify-center">
-                    <AddWalletButton disabled={isRefetching} onSuccess={refetch} />
+                    <AddWalletButton disabled={isRefetching} />
                 </div>
             ) : null}
         </Section>

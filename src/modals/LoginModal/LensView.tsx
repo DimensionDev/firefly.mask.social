@@ -39,8 +39,8 @@ export const LensView = memo(function LensView() {
         },
     });
 
-    const { data: profiles = EMPTY_LIST } = useQuery({
-        queryKey: ['lens', 'profiles', account.address, expectedProfile],
+    const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
+        queryKey: ['lens', 'profiles', account.address],
         queryFn: account.address ? () => LensSocialMediaProvider.getProfilesByAddress(account.address!) : skipToken,
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
@@ -55,7 +55,7 @@ export const LensView = memo(function LensView() {
         return <Navigate to="/main" replace />;
     }
 
-    if (!profiles.length || !account.address)
+    if (isLoading || !account.address)
         return (
             <div className="flex h-full min-h-[30vh] w-full items-center justify-center md:h-[462px] md:w-[500px]">
                 <LoadingIcon className="animate-spin" width={24} height={24} />

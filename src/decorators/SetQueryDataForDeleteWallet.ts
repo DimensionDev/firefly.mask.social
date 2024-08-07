@@ -1,38 +1,41 @@
+import { safeUnreachable } from '@masknet/kit';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { FireflyPlatform } from '@/constants/enum.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
-import type { WalletConnection } from '@/providers/types/Firefly.js';
-import type { ProfileTab } from '@/store/useProfileTabStore.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
 type Provider = FireflySocialMedia;
-type WalletsData = Record<
-    'connected' | 'related',
-    Array<{
-        walletConnection: WalletConnection;
-        platforms: ProfileTab[];
-    }>
->;
+type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
 type ReportOptions = Parameters<FireflySocialMedia['reportAndDeleteWallet']>[0];
 
-const METHODS_BE_OVERRIDDEN = ['disconnectAccount'] as const;
+const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
+
+function isConnectionAddress(connection: FireflyWalletConnection, address: string) {
+    switch (connection.platform) {
+        case 'eth':
+            return isSameAddress(connection.address, address);
+        case 'solana':
+            return isSameSolanaAddress(connection.address, address);
+        default:
+            safeUnreachable(connection.platform);
+            return false;
+    }
+}
 
 function deleteWalletsFromQueryData(address: string) {
     queryClient.setQueriesData<WalletsData>(
         {
-            queryKey: ['my-wallets'],
+            queryKey: ['my-wallet-connections'],
         },
         (old) => {
             if (!old) return old;
             return produce(old, (draft) => {
-                draft.connected = draft.connected.filter((x) =>
-                    isSameAddress(x.walletConnection.address, address, 'both'),
-                );
-                draft.related = draft.related.filter((x) => isSameAddress(x.walletConnection.address, address, 'both'));
+                draft.connected = draft.connected.filter((x) => !isConnectionAddress(x, address));
+                draft.related = draft.related.filter((x) => !isConnectionAddress(x, address));
             });
         },
     );
@@ -44,13 +47,9 @@ export function SetQueryDataForDeleteWallet() {
             const method = target.prototype[key] as Provider[K];
 
             Object.defineProperty(target.prototype, key, {
-                value: async (platform: FireflyPlatform, identity: string, address: string) => {
-                    const m = method as (
-                        platform: FireflyPlatform,
-                        identity: string,
-                        address: string,
-                    ) => ReturnType<Provider[K]>;
-                    const result = await m.call(target.prototype, platform, identity, address);
+                value: async (address: string) => {
+                    const m = method as (address: string) => ReturnType<Provider[K]>;
+                    const result = await m.call(target.prototype, address);
                     deleteWalletsFromQueryData(address);
                     return result;
                 },
@@ -69,10 +68,10 @@ export function SetQueryDataForReportAndDeleteWallet() {
             const method = target.prototype[key] as Provider[K];
 
             Object.defineProperty(target.prototype, key, {
-                value: async (options: ReportOptions) => {
-                    const m = method as (options: ReportOptions) => ReturnType<Provider[K]>;
-                    const result = await m.call(target.prototype, options);
-                    deleteWalletsFromQueryData(options.walletAddress);
+                value: async (connection: FireflyWalletConnection, reason: string) => {
+                    const m = method as (options: ReportOptions, reason: string) => ReturnType<Provider[K]>;
+                    const result = await m.call(target.prototype, connection, reason);
+                    deleteWalletsFromQueryData(connection.address);
                     return result;
                 },
             });

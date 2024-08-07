@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
@@ -42,6 +42,12 @@ interface PostBodyProps {
     disablePadding?: boolean;
     showTranslate?: boolean;
 }
+
+const overrideComponents = {
+    a: function Anchor({ title }: HTMLProps<HTMLAnchorElement>) {
+        return <span>{title && isValidUrl(title) ? formatUrl(title, 30) : title}</span>;
+    },
+};
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
     {
@@ -90,7 +96,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     // if payload image attachment is available, we don't need to show the attachments
     const attachments = metadata.content?.attachments ?? EMPTY_LIST;
-    const availableAttachments = payloadImageUrl ? EMPTY_LIST : attachments;
+    const availableAttachments = useMemo(() => {
+        if (!payloadImageUrl) return attachments;
+        return attachments.filter((x) => x.uri !== payloadImageUrl);
+    }, [attachments, payloadImageUrl]);
 
     const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
     const asset =
@@ -171,11 +180,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     className={classNames('line-clamp-3 w-full self-stretch break-words text-base text-main', {
                         'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                     })}
-                    components={{
-                        // @ts-ignore
-                        // eslint-disable-next-line react/no-unstable-nested-components
-                        a: ({ title }) => <span>{title && isValidUrl(title) ? formatUrl(title, 30) : title}</span>,
-                    }}
+                    components={overrideComponents}
                 >
                     {post.metadata.content?.content}
                 </NakedMarkup>
@@ -199,7 +204,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     return (
         <div
             className={classNames('mb-1.5 break-words text-base text-main', {
-                ['-mt-2 pl-[52px]']: !noLeftPadding,
+                '-mt-2 pl-[52px]': !noLeftPadding,
                 'mt-1.5': noLeftPadding || isComment,
             })}
             ref={mergedRef}
@@ -233,18 +238,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 </div>
             ) : null}
 
-            {!hasEncryptedPayload ? (
-                <>
-                    {/* for twitter only */}
-                    {post.poll ? <PollCard post={post} /> : null}
+            {/* for twitter only */}
+            {post.poll && !hasEncryptedPayload ? <PollCard post={post} /> : null}
 
-                    {showAttachments ? (
-                        <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
-                    ) : null}
-
-                    <PostLinks post={post} setContent={setPostContent} />
-                </>
+            {showAttachments ? (
+                <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
+
+            {!hasEncryptedPayload ? <PostLinks post={post} setContent={setPostContent} /> : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>

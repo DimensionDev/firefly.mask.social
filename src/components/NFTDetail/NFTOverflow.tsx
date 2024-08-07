@@ -67,7 +67,7 @@ function convertDescriptionToArray(description: string): ReactNode[] {
                     key={`${part}-${i}`}
                     href={part}
                     target="_blank"
-                    className="break-all text-farcasterPrimary underline"
+                    className="break-all text-lightHighlight underline"
                 >
                     {part}
                 </Link>
