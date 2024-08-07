@@ -6,6 +6,6 @@ import type { Runtime } from '@/providers/types/Trending.js';
 
 export function useChainInfo(runtime: Runtime | undefined, chainId: number | undefined) {
     const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
-    if (chain) return chain;
-    return chainInfos.find((x) => x.runtime === runtime);
+    // runtime is more accurate than chainId
+    return chainInfos.find((x) => x.runtime === runtime) || chain;
 }
