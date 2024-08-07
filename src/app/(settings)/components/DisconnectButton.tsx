@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { useRouter } from 'next/navigation.js';
 import { useAsyncFn } from 'react-use';
 
 import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
@@ -15,8 +14,6 @@ interface DisconnectButtonProps {
 }
 
 export function DisconnectButton({ connection }: DisconnectButtonProps) {
-    const router = useRouter();
-
     const [{ loading }, disconnectWallet] = useAsyncFn(async () => {
         try {
             const confirmed = await waitForDisconnectConfirmation(connection);
@@ -24,7 +21,6 @@ export function DisconnectButton({ connection }: DisconnectButtonProps) {
 
             await disconnectFirefly(connection);
 
-            router.push('/');
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
             enqueueErrorMessage(
@@ -33,7 +29,7 @@ export function DisconnectButton({ connection }: DisconnectButtonProps) {
             );
             throw error;
         }
-    }, [connection, router]);
+    }, [connection]);
 
     return (
         <span>

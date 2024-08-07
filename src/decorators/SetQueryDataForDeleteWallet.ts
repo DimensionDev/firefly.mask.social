@@ -4,24 +4,17 @@ import { produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { isSameAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
-import type { FireflyWalletConnection, WalletConnection } from '@/providers/types/Firefly.js';
-import type { ProfileTab } from '@/store/useProfileTabStore.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
 type Provider = FireflySocialMedia;
-type WalletsData = Record<
-    'connected' | 'related',
-    Array<{
-        walletConnection: WalletConnection;
-        platforms: ProfileTab[];
-    }>
->;
+type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
 type ReportOptions = Parameters<FireflySocialMedia['reportAndDeleteWallet']>[0];
 
 const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
 
-function isConnectionAddress(connection: WalletConnection, address: string) {
+function isConnectionAddress(connection: FireflyWalletConnection, address: string) {
     switch (connection.platform) {
         case 'eth':
             return isSameAddress(connection.address, address);
@@ -36,13 +29,13 @@ function isConnectionAddress(connection: WalletConnection, address: string) {
 function deleteWalletsFromQueryData(address: string) {
     queryClient.setQueriesData<WalletsData>(
         {
-            queryKey: ['my-wallets'],
+            queryKey: ['my-wallet-connections'],
         },
         (old) => {
             if (!old) return old;
             return produce(old, (draft) => {
-                draft.connected = draft.connected.filter((x) => isConnectionAddress(x.walletConnection, address));
-                draft.related = draft.related.filter((x) => isConnectionAddress(x.walletConnection, address));
+                draft.connected = draft.connected.filter((x) => !isConnectionAddress(x, address));
+                draft.related = draft.related.filter((x) => !isConnectionAddress(x, address));
             });
         },
     );

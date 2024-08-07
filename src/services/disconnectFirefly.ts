@@ -17,9 +17,9 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
         case FireflyPlatform.Twitter:
             return { source: resolveSource(connection.source), id: connection.twitterId };
         case FireflyPlatform.Article:
-        case FireflyPlatform.Firefly:
         case FireflyPlatform.NFTs:
             return null;
+        case FireflyPlatform.Firefly:
         case FireflyPlatform.Wallet:
             return { source: Source.Wallet, id: connection.address };
         default:
