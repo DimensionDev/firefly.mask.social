@@ -8,6 +8,7 @@ import { type Hex, isAddress } from 'viem';
 import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
 import {
@@ -133,6 +134,7 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
     throw new Error('Failed to mute user');
 }
 
+@SetQueryDataForAddWallet()
 @SetQueryDataForDeleteWallet()
 @SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
