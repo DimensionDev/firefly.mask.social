@@ -18,7 +18,7 @@ import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
-import { FireflyRedPacket } from '@/providers/redPacket/index.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/commitPoll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';

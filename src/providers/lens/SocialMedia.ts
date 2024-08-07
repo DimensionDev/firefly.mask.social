@@ -51,7 +51,7 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { LensOpenRankProvider } from '@/providers/lensOpenRank/index.js';
+import { LensOpenRankProvider } from '@/providers/openrank/Lens.js';
 import {
     type LastLoggedInProfileRequest,
     profilesManagedQuery,
