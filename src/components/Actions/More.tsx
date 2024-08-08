@@ -46,7 +46,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const identity = useFireflyIdentity(source, resolveFireflyProfileId(author) ?? '');
 
     const isMyPost = isSameProfile(author, currentProfile);
-    const isMyProfile = useIsMyRelatedProfile(identity);
+    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const isFollowing = !!author.viewerContext?.following;
     const [, toggleFollow] = useToggleFollow(author);

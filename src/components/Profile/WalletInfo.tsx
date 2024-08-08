@@ -1,8 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { useCallback } from 'react';
-import { useCopyToClipboard } from 'usehooks-ts';
 
 import CopyIcon from '@/assets/copy.svg';
 import EnsIcon from '@/assets/ens.svg';
@@ -17,9 +15,9 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
@@ -31,18 +29,9 @@ interface WalletInfoProps {
 
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
-    const [, copyToClipboard] = useCopyToClipboard();
-    const handleCopy = useCallback(() => {
-        if (!profile.address) return;
-        copyToClipboard(profile.address);
-        enqueueSuccessMessage(t`Copied`);
-    }, [profile.address, copyToClipboard]);
 
-    const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
-    const isMyWallets = useIsMyRelatedProfile({
-        id: profile.address,
-        source: Source.Wallet,
-    });
+    const [, handleCopy] = useCopyText(profile.address);
+    const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
 
     return (
         <div className="flex gap-3 p-3">
@@ -50,7 +39,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-[8px]">
                     <div className="flex items-center gap-2">
-                        <span className="text-xl font-black text-lightMain">{identity}</span>
+                        <span className="text-xl font-black text-lightMain">
+                            {profile.primary_ens || formatEthereumAddress(profile.address, 4)}
+                        </span>
                         {!isMyWallets && isMedium ? (
                             <>
                                 <WatchButton className="ml-auto" address={profile.address} />

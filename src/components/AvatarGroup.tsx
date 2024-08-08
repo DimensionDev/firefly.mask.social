@@ -2,10 +2,10 @@ import type { HTMLProps } from 'react';
 
 import { Avatar, type AvatarProps } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
-import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface AvatarGroupProps extends HTMLProps<HTMLDivElement> {
@@ -17,10 +17,8 @@ export function AvatarGroup({ profiles, AvatarProps }: AvatarGroupProps) {
     return (
         <div className="flex items-center">
             {profiles.map((profile, index, self) => {
-                const identity = {
-                    id: profile.source === Source.Lens ? profile.handle : profile.profileId,
-                    source: profile.source,
-                };
+                const identity = resolveFireflyIdentity(profile);
+                if (!identity) return null;
 
                 return (
                     <ProfileTippy key={profile.profileId} identity={identity}>

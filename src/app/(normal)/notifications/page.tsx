@@ -9,7 +9,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { NotificationFilter } from '@/components/Notification/NotificationFilter.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

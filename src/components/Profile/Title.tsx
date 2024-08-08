@@ -24,19 +24,19 @@ interface TitleProps {
 }
 
 export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile }: TitleProps) {
-    const [reached, setReached] = useState(false);
-
-    const { scrollY } = useScroll();
     const isMedium = useIsMedium();
+
+    const [reached, setReached] = useState(false);
+    const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, 'change', (value) => {
         setReached(value > 60);
     });
 
     const comeback = useComeBack();
-    const { identity: profileIdentity } = useFireflyIdentityState();
+    const { identity: identity } = useFireflyIdentityState();
 
-    const { walletProfile } = resolveFireflyProfiles(profileIdentity, profiles);
+    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     if ((profiles.length > 1 || !isOthersProfile) && !reached && isMedium && !sticky) return null;
 

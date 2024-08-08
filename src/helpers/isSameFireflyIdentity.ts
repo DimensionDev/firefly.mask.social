@@ -14,5 +14,5 @@ export function isSameFireflyIdentity(identity?: FireflyIdentity, otherIdentity?
 
 export function isSameFireflyProfile(profile?: FireflyProfile, otherProfile?: FireflyProfile) {
     if (!profile || !otherProfile) return false;
-    return isSameFireflyProfile(profile, otherProfile);
+    return isSameFireflyIdentity(profile.identity, otherProfile.identity);
 }

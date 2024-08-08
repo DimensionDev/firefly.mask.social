@@ -12,6 +12,7 @@ export function resolveFireflyProfileId(profile: Profile | null) {
         case Source.Lens:
             return profile.handle;
         case Source.Twitter:
+            return profile.profileId;
         case Source.Farcaster:
             return profile.profileId;
         default:
@@ -20,7 +21,7 @@ export function resolveFireflyProfileId(profile: Profile | null) {
     }
 }
 
-export function resolveFireflyIdentity<T extends Profile>(profile: T | null): FireflyIdentity<T['source']> | null {
+export function resolveFireflyIdentity(profile: Profile | null): FireflyIdentity | null {
     if (!profile) return null;
 
     const profileId = resolveFireflyProfileId(profile);

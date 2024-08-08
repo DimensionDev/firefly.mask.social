@@ -3,7 +3,6 @@ import { memo, useState } from 'react';
 
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
-import { type SocialSource } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
@@ -12,7 +11,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export interface ProfileTippyProps extends TippyProps {
     className?: string;
     profile?: Profile;
-    identity: FireflyIdentity<SocialSource>;
+    identity: FireflyIdentity;
 }
 
 export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ identity, profile, children, ...rest }) {

@@ -10,7 +10,7 @@ import { WalletTabs } from '@/components/Profile/WalletTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import type { FireflyProfile, Relation } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -25,14 +25,14 @@ interface ProfileContentProps {
 }
 
 export function ProfileContent({ profile, profiles, relations, isSuspended }: ProfileContentProps) {
-    const { identity: profileIdentity } = useFireflyIdentityState();
+    const { identity } = useFireflyIdentityState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
 
-    const { source } = profileIdentity;
-    const { walletProfile } = resolveFireflyProfiles(profileIdentity, profiles);
+    const { source } = identity;
+    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     const info = useMemo(() => {
         if (source === Source.Wallet && walletProfile) {

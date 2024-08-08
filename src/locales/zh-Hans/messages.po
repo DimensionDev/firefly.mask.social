@@ -48,6 +48,9 @@ msgstr ""
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {1 秒} other {{count} 秒}}"
 
+msgid "Unmute {ensOrAddress}"
+msgstr ""
+
 msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr ""
 
@@ -129,9 +132,6 @@ msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通�
 msgid "Confirm to sync accounts"
 msgstr ""
 
-msgid "Failed to unwatch {identity}."
-msgstr "取消关注 {identity} 失败。"
-
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
 
@@ -176,6 +176,9 @@ msgstr "还未支持收藏。"
 
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
+
+msgid "Unwatch {ensOrAddress}"
+msgstr ""
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -594,9 +597,6 @@ msgstr "删除选项"
 msgid "Update"
 msgstr "更新"
 
-msgid "Mute {identity}"
-msgstr "屏蔽 @{identity}"
-
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 
@@ -807,6 +807,9 @@ msgstr "打开 Firefly App"
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
+msgid "{ensOrAddress} unwatched"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -999,9 +1002,6 @@ msgstr "分享"
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
-msgid "Failed to watch {identity}."
-msgstr "关注 {identity} 失败。"
-
 msgid "Mute"
 msgstr "屏蔽"
 
@@ -1124,6 +1124,9 @@ msgstr ""
 
 msgid "No preview found for shared link"
 msgstr "无法预加载"
+
+msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+msgstr ""
 
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
@@ -1281,9 +1284,6 @@ msgstr "{0} 屏蔽的用户"
 msgid "Remove Poll"
 msgstr "删除投票"
 
-msgid "Unmute {identity}"
-msgstr "取消屏蔽 {identity}"
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {发帖} other {全部发帖}}"
 
@@ -1342,6 +1342,9 @@ msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
+msgid "Mute {ensOrAddress}"
 msgstr ""
 
 msgid "Light Mode"
@@ -1413,6 +1416,9 @@ msgstr "这看起来不像是一个陷阱。"
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
 
+msgid "Articles from @{ensOrAddress} will now be hidden in your home timeline"
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上屏蔽 @{0}"
 
@@ -1421,9 +1427,6 @@ msgstr "引用"
 
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
-
-msgid "Unwatch {identity}"
-msgstr "取消关注 {identity}"
 
 msgid "Recast or Quote"
 msgstr "转发或者引用"
@@ -1506,11 +1509,11 @@ msgstr "定时"
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "@{identity} 的文章会从您的时间线中隐藏"
-
 msgid "quote"
 msgstr "引用"
+
+msgid "{ensOrAddress} watched"
+msgstr ""
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
@@ -1532,9 +1535,6 @@ msgstr "登录以启用所有功能"
 
 msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
-
-msgid "{identity} watched"
-msgstr "{identity} 已关注"
 
 msgid "Accounts Connected"
 msgstr ""
@@ -1571,9 +1571,6 @@ msgstr "未发现个人信息"
 
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
-
-msgid "Watch {identity}"
-msgstr "关注 {identity}"
 
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
@@ -1633,6 +1630,9 @@ msgid "Refresh"
 msgstr "刷新"
 
 msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
+msgid "Watch {ensOrAddress}"
 msgstr ""
 
 msgid "Channels"
@@ -1794,6 +1794,9 @@ msgstr "已完成"
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
 
+msgid "Failed to watch {ensOrAddress}."
+msgstr ""
+
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
 
@@ -1841,9 +1844,6 @@ msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>获得</0> 一个 NFT 来自 <1>{0}</1>"
-
-msgid "{identity} unwatched"
-msgstr "{identity} 取消关注"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"
@@ -1908,9 +1908,6 @@ msgstr "打赏失败，请稍后重试。"
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
 
-msgid "All wallets and social accounts associated with {handle} will be muted."
-msgstr ""
-
 msgid "Download App"
 msgstr "下载应用"
 
@@ -1937,6 +1934,9 @@ msgstr "语言"
 
 msgid "Address on Watching Lists"
 msgstr "已关注地址列表"
+
+msgid "Failed to unwatch {ensOrAddress}."
+msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"

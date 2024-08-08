@@ -35,10 +35,10 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { currentProfile } = useProfileStore(source);
     const pathname = usePathname();
     const updateParams = useUpdateParams();
-    const { identity: profileIdentity } = useFireflyIdentityState();
+    const { identity } = useFireflyIdentityState();
     const accounts = useConnectedAccounts(source);
 
-    const isMyProfile = useIsMyRelatedProfile(profileIdentity);
+    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
     const isPureProfilePage = pathname === PageRoute.Profile;
     const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
 
@@ -76,8 +76,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 await switchAccount({ ...account, session: account.session });
                                 if (
                                     isMyProfilePage &&
-                                    profileIdentity.source === source &&
-                                    profileIdentity.id !== resolveFireflyProfileId(account.profile)
+                                    identity.source === source &&
+                                    identity.id !== resolveFireflyProfileId(account.profile)
                                 ) {
                                     updateParams(
                                         new URLSearchParams({

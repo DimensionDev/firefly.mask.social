@@ -29,8 +29,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const isBusy = mutation.isPending;
 
     const identity = useFireflyIdentity(Source.Wallet, author.id);
-
-    const isMyProfile = useIsMyRelatedProfile(identity);
+    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const { data: ens } = useEnsName({ address: author.id });
 
@@ -72,7 +71,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <Menu.Item>
                             {({ close }) => (
                                 <WatchWalletButton
-                                    identity={handleOrEnsOrAddress}
+                                    ensOrAddress={handleOrEnsOrAddress}
                                     isFollowing={author.isFollowing}
                                     address={author.id}
                                     onClick={close}
@@ -82,7 +81,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteWalletButton
-                                    identity={handleOrEnsOrAddress}
+                                    ensOrAddress={handleOrEnsOrAddress}
                                     isMuted={author.isMuted}
                                     address={author.id}
                                     onClick={close}

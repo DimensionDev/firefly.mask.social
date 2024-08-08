@@ -7,7 +7,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import TipsIcon from '@/assets/tips.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
+import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -19,7 +19,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface TipsProps extends HTMLProps<HTMLDivElement> {
-    identity: FireflyIdentity<SocialSource | Source.Wallet>;
+    identity: FireflyIdentity;
     disabled?: boolean;
     handle?: string | null;
     label?: string;

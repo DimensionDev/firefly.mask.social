@@ -25,7 +25,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const { data: isMuted } = useIsWalletMuted(profile.address);
 
     const identity = useFireflyIdentity(Source.Wallet, profile.address);
-    const isMyWallet = useIsMyRelatedProfile(identity);
+    const isMyWallet = useIsMyRelatedProfile(identity.source, identity.id);
 
     const ensOrAddress = profile.primary_ens || ens || formatEthereumAddress(profile.address, 4);
 
@@ -41,7 +41,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                 <Menu.Item>
                     {({ close }) => (
                         <MuteWalletButton
-                            identity={ensOrAddress}
+                            ensOrAddress={ensOrAddress}
                             isMuted={isMuted}
                             address={profile.address}
                             onClick={close}

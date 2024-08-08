@@ -910,9 +910,9 @@ export interface WalletConnection {
     twitterId: string;
 }
 
-export interface FireflyIdentity<T = Source> {
+export interface FireflyIdentity {
     id: string;
-    source: T;
+    source: Source;
 }
 
 export type FireflyWalletConnection = WalletConnection & {

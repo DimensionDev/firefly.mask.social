@@ -48,6 +48,9 @@ msgstr ""
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {秒} other {{count} 秒}}"
 
+msgid "Unmute {ensOrAddress}"
+msgstr ""
+
 msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr ""
 
@@ -129,9 +132,6 @@ msgstr ""
 msgid "Confirm to sync accounts"
 msgstr ""
 
-msgid "Failed to unwatch {identity}."
-msgstr "取消觀察 @{identity} 失敗。"
-
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
 
@@ -175,6 +175,9 @@ msgid "Collect Action is not supported yet."
 msgstr "暫未接受收集功能。"
 
 msgid "Tax can be modified"
+msgstr ""
+
+msgid "Unwatch {ensOrAddress}"
 msgstr ""
 
 msgid "Join our Discord"
@@ -594,9 +597,6 @@ msgstr "移除選擇"
 msgid "Update"
 msgstr "更新"
 
-msgid "Mute {identity}"
-msgstr "將 @{identity} 靜音"
-
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
 
@@ -807,6 +807,9 @@ msgstr "在 Firefly 應用程式中打開"
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
+msgid "{ensOrAddress} unwatched"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止。請檢查您的權限"
 
@@ -999,9 +1002,6 @@ msgstr ""
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
-msgid "Failed to watch {identity}."
-msgstr "觀察 @{identity} 失敗。"
-
 msgid "Mute"
 msgstr "靜音"
 
@@ -1124,6 +1124,9 @@ msgstr ""
 
 msgid "No preview found for shared link"
 msgstr "分享的連結暫無預覽畫面"
+
+msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+msgstr ""
 
 msgid "Contract source code not verified"
 msgstr ""
@@ -1281,9 +1284,6 @@ msgstr "{0} 位已靜音的用戶"
 msgid "Remove Poll"
 msgstr "移除投票"
 
-msgid "Unmute {identity}"
-msgstr "取消對 @{identity} 的靜音"
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -1342,6 +1342,9 @@ msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上追蹤@thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
+msgid "Mute {ensOrAddress}"
 msgstr ""
 
 msgid "Light Mode"
@@ -1413,6 +1416,9 @@ msgstr ""
 msgid "Failed to publish post."
 msgstr "發布貼文失敗"
 
+msgid "Articles from @{ensOrAddress} will now be hidden in your home timeline"
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上靜音 @{0}"
 
@@ -1421,9 +1427,6 @@ msgstr "引用"
 
 msgid "The user rejected the request."
 msgstr ""
-
-msgid "Unwatch {identity}"
-msgstr "取消觀察 {identity}"
 
 msgid "Recast or Quote"
 msgstr ""
@@ -1506,11 +1509,11 @@ msgstr ""
 msgid "Post by {0}"
 msgstr "由 {0} 發布"
 
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "來自 @{identity} 的文章將在您的主頁時間線中被隱藏"
-
 msgid "quote"
 msgstr "引用"
+
+msgid "{ensOrAddress} watched"
+msgstr ""
 
 msgid "Casts + Replies"
 msgstr ""
@@ -1532,9 +1535,6 @@ msgstr ""
 
 msgid "Owner can change balance"
 msgstr ""
-
-msgid "{identity} watched"
-msgstr "{identity} 觀察了"
 
 msgid "Accounts Connected"
 msgstr ""
@@ -1571,9 +1571,6 @@ msgstr "未找到人物"
 
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
-
-msgid "Watch {identity}"
-msgstr "觀察 {identity}"
 
 msgid "Failed to create scheduled post."
 msgstr ""
@@ -1633,6 +1630,9 @@ msgid "Refresh"
 msgstr "重新整理"
 
 msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
+msgid "Watch {ensOrAddress}"
 msgstr ""
 
 msgid "Channels"
@@ -1794,6 +1794,9 @@ msgstr "已完成"
 msgid "Failed to unmirror post."
 msgstr "取消鏡像貼文失敗"
 
+msgid "Failed to watch {ensOrAddress}."
+msgstr ""
+
 msgid "Failed to unlike the comment."
 msgstr "取消評論點贊失敗"
 
@@ -1841,9 +1844,6 @@ msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
-
-msgid "{identity} unwatched"
-msgstr "{identity} 取消了觀察"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
@@ -1908,9 +1908,6 @@ msgstr ""
 msgid "<0>Burned</0> an NFT"
 msgstr ""
 
-msgid "All wallets and social accounts associated with {handle} will be muted."
-msgstr ""
-
 msgid "Download App"
 msgstr "下載應用程式"
 
@@ -1937,6 +1934,9 @@ msgstr "語言"
 
 msgid "Address on Watching Lists"
 msgstr "在觀察列表上的地址"
+
+msgid "Failed to unwatch {ensOrAddress}."
+msgstr ""
 
 msgid "Profiles"
 msgstr "個人資料"

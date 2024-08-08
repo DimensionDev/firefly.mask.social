@@ -31,7 +31,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
     const { data: isMuted } = useIsWalletMuted(address);
 
     const identity = useFireflyIdentity(Source.Wallet, address);
-    const isMyProfile = useIsMyRelatedProfile(identity);
+    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const ensOrAddress = ens || formatEthereumAddress(address, 4);
     const collectionId = data?.collection?.id;
@@ -55,13 +55,13 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     <>
                         <Menu.Item>
                             {({ close }) => (
-                                <WatchWalletButton identity={ensOrAddress} address={address} onClick={close} />
+                                <WatchWalletButton ensOrAddress={ensOrAddress} address={address} onClick={close} />
                             )}
                         </Menu.Item>
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteWalletButton
-                                    identity={ensOrAddress}
+                                    ensOrAddress={ensOrAddress}
                                     address={address}
                                     isMuted={isMuted}
                                     onClick={close}

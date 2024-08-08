@@ -26,5 +26,6 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
 export default function Page({ params, searchParams }: Props) {
     if (isBotRequest()) return null;
-    return <ProfileDetailPage identity={{ id: params.id, source: resolveSourceFromUrl(searchParams.source) }} />;
+    const identity = { id: params.id, source: resolveSourceFromUrl(searchParams.source) };
+    return <ProfileDetailPage identity={identity} />;
 }

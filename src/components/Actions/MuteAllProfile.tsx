@@ -18,24 +18,24 @@ import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MuteAllProfileBaseProps {
-    handle: string;
     identity: FireflyIdentity;
+    handleOrEnsOrAddress: string;
     onClose?(): void;
 }
 
-function waitForConfirmation(handle: string) {
+function waitForConfirmation(handleOrEnsOrAddress: string) {
     return ConfirmModalRef.openAndWaitForClose({
         title: t`Mute all`,
         content: (
             <p className="-mt-4 mb-4 text-lightMain">
-                <Trans>All wallets and social accounts associated with {handle} will be muted.</Trans>
+                <Trans>All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted.</Trans>
             </p>
         ),
         variant: 'normal',
     });
 }
 
-function MuteAllProfileBase({ handle, identity, onClose }: MuteAllProfileBaseProps) {
+function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAllProfileBaseProps) {
     const { data: isMutedAll, isLoading } = useQuery({
         queryKey: ['profile', 'mute-all', identity.id, identity.source],
         queryFn: async () => FireflySocialMediaProvider.isProfileMutedAll(identity),
@@ -44,7 +44,7 @@ function MuteAllProfileBase({ handle, identity, onClose }: MuteAllProfileBasePro
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
         try {
             onClose?.();
-            const confirmed = await waitForConfirmation(`@${handle}`);
+            const confirmed = await waitForConfirmation(`@${handleOrEnsOrAddress}`);
             if (!confirmed) return;
             await FireflySocialMediaProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
@@ -82,7 +82,7 @@ export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfile
             [profile.profileId, profile.source],
         );
 
-        return <MuteAllProfileBase identity={identity} handle={`@${profile.handle}`} onClose={onClose} />;
+        return <MuteAllProfileBase identity={identity} handleOrEnsOrAddress={`@${profile.handle}`} onClose={onClose} />;
     },
 );
 
@@ -100,7 +100,7 @@ export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose
         return (
             <MuteAllProfileBase
                 identity={identity}
-                handle={handle || ens || formatEthereumAddress(address, 4)}
+                handleOrEnsOrAddress={handle || ens || formatEthereumAddress(address, 4)}
                 onClose={onClose}
             />
         );

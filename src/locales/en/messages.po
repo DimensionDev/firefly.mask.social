@@ -43,6 +43,9 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 msgid "{count, plural, one {1 second} other {{count} seconds}}"
 msgstr "{count, plural, one {1 second} other {{count} seconds}}"
 
+msgid "Unmute {ensOrAddress}"
+msgstr "Unmute {ensOrAddress}"
+
 msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 
@@ -124,9 +127,6 @@ msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the t
 msgid "Confirm to sync accounts"
 msgstr "Confirm to sync accounts"
 
-msgid "Failed to unwatch {identity}."
-msgstr "Failed to unwatch {identity}"
-
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "Failed to fetch: {0}. Please try again later."
 
@@ -171,6 +171,9 @@ msgstr "Collect Action is not supported yet."
 
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
+
+msgid "Unwatch {ensOrAddress}"
+msgstr "Unwatch {ensOrAddress}"
 
 msgid "Join our Discord"
 msgstr "Join our Discord"
@@ -589,9 +592,6 @@ msgstr "Remove Choice"
 msgid "Update"
 msgstr "Update"
 
-msgid "Mute {identity}"
-msgstr "Mute {identity}"
-
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
 
@@ -802,6 +802,9 @@ msgstr "Open in Firefly App"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
+msgid "{ensOrAddress} unwatched"
+msgstr "{ensOrAddress} unwatched"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -994,9 +997,6 @@ msgstr "Share Now"
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
-msgid "Failed to watch {identity}."
-msgstr "Failed to watch {identity}."
-
 msgid "Mute"
 msgstr "Mute"
 
@@ -1119,6 +1119,9 @@ msgstr "Failed to disconnect wallet from your social graph."
 
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
+
+msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+msgstr "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
 
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
@@ -1276,9 +1279,6 @@ msgstr "{0} muted users"
 msgid "Remove Poll"
 msgstr "Remove Poll"
 
-msgid "Unmute {identity}"
-msgstr "Unmute {identity}"
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
 
@@ -1338,6 +1338,9 @@ msgstr "Follow @thefireflyapp on X"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+
+msgid "Mute {ensOrAddress}"
+msgstr "Mute {ensOrAddress}"
 
 msgid "Light Mode"
 msgstr "Light Mode"
@@ -1408,6 +1411,9 @@ msgstr "This does not appear to be a honeypot."
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
 
+msgid "Articles from @{ensOrAddress} will now be hidden in your home timeline"
+msgstr "Articles from @{ensOrAddress} will now be hidden in your home timeline"
+
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
 
@@ -1416,9 +1422,6 @@ msgstr "Quotes"
 
 msgid "The user rejected the request."
 msgstr "The user rejected the request."
-
-msgid "Unwatch {identity}"
-msgstr "Unwatch {identity}"
 
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
@@ -1501,11 +1504,11 @@ msgstr "Schedule"
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "Articles from @{identity} will now be hidden in your home timeline"
-
 msgid "quote"
 msgstr "quote"
+
+msgid "{ensOrAddress} watched"
+msgstr "{ensOrAddress} watched"
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
@@ -1527,9 +1530,6 @@ msgstr "Login to enable all features"
 
 msgid "Owner can change balance"
 msgstr "Owner can change balance"
-
-msgid "{identity} watched"
-msgstr "{identity} watched"
 
 msgid "Accounts Connected"
 msgstr "Accounts Connected"
@@ -1566,9 +1566,6 @@ msgstr "No profile found"
 
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr "Your post will be sent on {0} at {1} <0>View</0>"
-
-msgid "Watch {identity}"
-msgstr "Watch {identity}"
 
 msgid "Failed to create scheduled post."
 msgstr "Failed to create scheduled post."
@@ -1629,6 +1626,9 @@ msgstr "Refresh"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
+
+msgid "Watch {ensOrAddress}"
+msgstr "Watch {ensOrAddress}"
 
 msgid "Channels"
 msgstr "Channels"
@@ -1789,6 +1789,9 @@ msgstr "Completed"
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
 
+msgid "Failed to watch {ensOrAddress}."
+msgstr "Failed to watch {ensOrAddress}."
+
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
 
@@ -1836,9 +1839,6 @@ msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
-
-msgid "{identity} unwatched"
-msgstr "{identity} unwatched"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "Unfollowed @{0} on {sourceName}"
@@ -1903,9 +1903,6 @@ msgstr "Failed to send tips, please try again later."
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
 
-msgid "All wallets and social accounts associated with {handle} will be muted."
-msgstr "All wallets and social accounts associated with {handle} will be muted."
-
 msgid "Download App"
 msgstr "Download App"
 
@@ -1932,6 +1929,9 @@ msgstr "Language"
 
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
+
+msgid "Failed to unwatch {ensOrAddress}."
+msgstr "Failed to unwatch {ensOrAddress}."
 
 msgid "Profiles"
 msgstr "Profiles"
