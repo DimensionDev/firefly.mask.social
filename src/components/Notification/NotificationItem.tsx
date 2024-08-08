@@ -25,7 +25,7 @@ import { Link } from '@/esm/Link.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
+import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
 
 export const resolveNotificationIcon = createLookupTableResolver<
     NotificationType,
@@ -45,22 +45,6 @@ export const resolveNotificationIcon = createLookupTableResolver<
 
 export interface NotificationItemProps {
     notification: Notification;
-}
-
-function PostTypeI18N({ type }: { type: PostType }) {
-    switch (type) {
-        case 'Post':
-            return <Trans>post</Trans>;
-        case 'Comment':
-            return <Trans>comment</Trans>;
-        case 'Quote':
-            return <Trans>quote</Trans>;
-        case 'Mirror':
-            return <Trans>mirror</Trans>;
-        default:
-            safeUnreachable(type);
-            return null;
-    }
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
@@ -112,7 +96,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         />{' '}
                         <span>liked your </span>
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select
+                                value={notification.post.type}
+                                _Post="post"
+                                _Comment="comment"
+                                _Quote="quote"
+                                _Mirror="mirror"
+                                other="post"
+                            />
                         </strong>
                     </Trans>
                 );
@@ -123,7 +114,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <ProfileLink profile={by} /> quoted your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.quote.quoteOn.type} />
+                            <Select
+                                value={notification.quote.quoteOn.type}
+                                _Post="post"
+                                _Comment="comment"
+                                _Quote="quote"
+                                _Mirror="mirror"
+                                other="post"
+                            />
                         </strong>
                     </Trans>
                 );
@@ -155,7 +153,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <ProfileLink profile={author} /> commented on your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.comment.commentOn.type} />
+                            <Select
+                                value={notification.comment.commentOn.type}
+                                _Post="post"
+                                _Comment="comment"
+                                _Quote="quote"
+                                _Mirror="mirror"
+                                other="post"
+                            />
                         </strong>
                     </Trans>
                 );
@@ -166,7 +171,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <ProfileLink profile={mentionAuthor} /> mentioned you in a{' '}
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select
+                                value={notification.post.type}
+                                _Post="post"
+                                _Comment="comment"
+                                _Quote="quote"
+                                _Mirror="mirror"
+                                other="post"
+                            />
                         </strong>
                     </Trans>
                 );
@@ -195,7 +207,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             other="mirrored your"
                         />{' '}
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select
+                                value={notification.post.type}
+                                _Post="post"
+                                _Comment="comment"
+                                _Quote="quote"
+                                _Mirror="mirror"
+                                other="post"
+                            />
                         </strong>
                     </Trans>
                 );
@@ -218,7 +237,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         />{' '}
                         <span>acted on your </span>
                         <strong>
-                            <PostTypeI18N type={notification.post.type} />
+                            <Select
+                                value={notification.post.type}
+                                _Post="post"
+                                _Comment="comment"
+                                _Quote="quote"
+                                _Mirror="mirror"
+                                other="post"
+                            />
                         </strong>
                     </Trans>
                 );

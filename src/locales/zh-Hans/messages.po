@@ -243,6 +243,9 @@ msgstr "诊断命令行"
 msgid "Adding..."
 msgstr "添加中..."
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Market Cap"
 msgstr "市值"
 
@@ -306,8 +309,8 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
-msgid "comment"
-msgstr "评论"
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
 
 msgid "True Token"
 msgstr "真实的通证"
@@ -449,9 +452,6 @@ msgstr "由 {0} 校验"
 
 msgid "Select Account"
 msgstr "选择账号"
-
-msgid "mirror"
-msgstr "转帖"
 
 msgid "POST"
 msgstr "发帖"
@@ -645,9 +645,6 @@ msgstr "热门频道"
 msgid "Failed to upload. File type is not supported on X"
 msgstr "图片格式 X 不支持。上传失败。"
 
-msgid "post"
-msgstr "发帖"
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
@@ -659,9 +656,6 @@ msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4> 交互了你的 </4><5><6/></5>"
 
 msgid "The file exceeds the size limit."
 msgstr "文件超过了大小限制。"
@@ -716,6 +710,9 @@ msgstr "评论不能为空。"
 
 msgid "Days"
 msgstr "天"
+
+msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
 
 msgid "Insufficient Gas"
 msgstr "燃油费不足"
@@ -773,9 +770,6 @@ msgstr "创建图片内容失败"
 
 msgid "Top Profiles"
 msgstr "热门用户"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/>  和 <2/>} other {<3/>}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "EVM"
 msgstr "EVM"
@@ -1509,9 +1503,6 @@ msgstr "由 {0} 发帖"
 msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr "@{identity} 的文章会从您的时间线中隐藏"
 
-msgid "quote"
-msgstr "引用"
-
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -1668,9 +1659,6 @@ msgstr "日期"
 msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账号？"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了您的} Farcaster {转帖了您的} other {转帖了您的}} <4><5/></4>"
-
 msgid "Repost"
 msgstr "转帖"
 
@@ -1743,6 +1731,9 @@ msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产
 msgid "Unfollow"
 msgstr "取消关注"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账号已连接。"
 
@@ -1760,6 +1751,9 @@ msgstr "如果包含可中止的代码，那么通证可能既不能被购买也
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我们正在更新 X 的连接。X 上的发帖功能目前受限。"
+
+msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
 
 msgid "Connecting Wallet"
 msgstr ""
@@ -1887,6 +1881,9 @@ msgstr "<0>从 </0> <1>{0}</1>"
 msgid "{0} Users"
 msgstr "{0} 用户"
 
+msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Final results"
 msgstr "最终结果"
 
@@ -1949,9 +1946,6 @@ msgstr "请在 X 确认登陆。"
 
 msgid "Max Supply"
 msgstr "最大供应量"
-
-msgid "<0/> commented on your <1><2/></1>"
-msgstr "<0/> 评论了你的 <1><2/></1>"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
@@ -2043,9 +2037,6 @@ msgstr "关闭"
 msgid "Failed to update scheduled post."
 msgstr "更新定时任务失败"
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr "<0/> 在 <1><2/></1> 提及了你"
-
 msgid "Login"
 msgstr "登录"
 
@@ -2066,6 +2057,3 @@ msgstr "点赞"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-
-msgid "<0/> quoted your <1><2/></1>"
-msgstr "<0/> 引用了你的 <1><2/></1>"
