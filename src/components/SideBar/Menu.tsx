@@ -41,6 +41,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 
 interface MenuProps {
     collapsed?: boolean;
@@ -63,9 +64,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {
-            const source = getCurrentSourceFromParams(params);
-            const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
-            const isCurrentProfile = profiles.some((x) => x.source === source && x.identity === identity);
+            const identity = {
+                id: isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '',
+                source: getCurrentSourceFromParams(params),
+            };
+            const isCurrentProfile = profiles.some((x) => isSameFireflyIdentity(x.identity, identity));
             return isCurrentProfile || pathname === PageRoute.Profile;
         }
         return isRoutePathname(pathname, href);

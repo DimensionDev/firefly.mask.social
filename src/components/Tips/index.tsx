@@ -15,6 +15,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { TipsModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 
 interface TipsProps extends HTMLProps<HTMLDivElement> {
     identity: string;
@@ -58,7 +59,9 @@ export const Tips = memo(function Tips({
 
     if (
         env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||
-        profiles.some((profile) => profile.identity === identity && profile.source === source)
+        profiles.some((profile) =>
+            isSameFireflyIdentity({ id: profile.identity, source: profile.source }, { id: identity, source }),
+        )
     )
         return null;
 

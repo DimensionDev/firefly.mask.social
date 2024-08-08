@@ -15,11 +15,11 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface MuteAllProfileBaseProps {
-    identity: string;
-    source: Source;
     handle: string;
+    identity: FireflyIdentity;
     onClose?(): void;
 }
 
@@ -35,18 +35,18 @@ function waitForConfirmation(handle: string) {
     });
 }
 
-function MuteAllProfileBase({ identity, source, handle, onClose }: MuteAllProfileBaseProps) {
+function MuteAllProfileBase({ handle, identity, onClose }: MuteAllProfileBaseProps) {
     const { data: isMutedAll, isLoading } = useQuery({
-        queryKey: ['profile', 'mute-all', source, identity],
-        queryFn: async () => FireflySocialMediaProvider.isProfileMutedAll(source, identity),
+        queryKey: ['profile', 'mute-all', identity.id, identity.source],
+        queryFn: async () => FireflySocialMediaProvider.isProfileMutedAll(identity),
     });
 
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
         try {
             onClose?.();
-            const confirmed = await waitForConfirmation(handle);
+            const confirmed = await waitForConfirmation(`@${handle}`);
             if (!confirmed) return;
-            await FireflySocialMediaProvider.muteProfileAll(source, identity);
+            await FireflySocialMediaProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mute all wallets and accounts.`), {
@@ -54,7 +54,7 @@ function MuteAllProfileBase({ identity, source, handle, onClose }: MuteAllProfil
             });
             throw error;
         }
-    }, [source, identity, onClose]);
+    }, [identity.id, identity.source, onClose]);
 
     if (isLoading || isMutedAll === true) return null;
 
@@ -76,8 +76,10 @@ export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfile
     function MuteAllByProfile({ profile, onClose }) {
         return (
             <MuteAllProfileBase
-                identity={profile.profileId}
-                source={profile.source}
+                identity={{
+                    id: profile.profileId,
+                    source: profile.source,
+                }}
                 handle={`@${profile.handle}`}
                 onClose={onClose}
             />
@@ -89,9 +91,15 @@ export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose
     function MuteAllByWallet({ address, handle, onClose }) {
         const { data: ens } = useEnsName({ address });
         const resolvedHandle = handle || ens || formatEthereumAddress(address, 4);
-
         return (
-            <MuteAllProfileBase identity={address} source={Source.Wallet} handle={resolvedHandle} onClose={onClose} />
+            <MuteAllProfileBase
+                identity={{
+                    id: address,
+                    source: Source.Wallet,
+                }}
+                handle={resolvedHandle}
+                onClose={onClose}
+            />
         );
     },
 );
