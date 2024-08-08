@@ -6,7 +6,7 @@ import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { Source } from '@/constants/enum.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentAvailableProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

@@ -10,7 +10,7 @@ import { FollowCategory, type SocialSource, Source, SourceInURL } from '@/consta
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
