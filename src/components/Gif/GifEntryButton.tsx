@@ -3,7 +3,7 @@ import { t } from '@lingui/macro';
 import { Fragment, memo } from 'react';
 
 import GifIcon from '@/assets/gif.svg';
-import { GifSelector } from '@/components/Compose/GifSelector.js';
+import { GifSelector } from '@/components/Gif/GifSelector.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -42,7 +42,7 @@ export const GifEntryButton = memo(function GifEntryButton({ disabled = false }:
                     >
                         <Popover.Panel
                             static
-                            className="absolute bottom-full left-0 z-50 flex w-[280px] -translate-x-5 -translate-y-3 flex-col gap-2 rounded-lg bg-lightBottom py-3 shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:translate-x-0"
+                            className="absolute bottom-full left-0 z-50 flex w-[280px] -translate-x-[70px] -translate-y-3 flex-col gap-2 rounded-lg bg-lightBottom py-3 shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:w-[568px] md:-translate-x-[108px]"
                         >
                             <GifSelector onSelected={close} />
                         </Popover.Panel>

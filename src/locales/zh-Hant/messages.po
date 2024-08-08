@@ -1233,6 +1233,9 @@ msgstr ""
 msgid "Feedback"
 msgstr "反饋"
 
+msgid "GIFs"
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1713,6 +1716,9 @@ msgstr ""
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
 
+msgid "Stickers"
+msgstr ""
+
 msgid "Dark Mode"
 msgstr "深色模式"
 
@@ -1855,6 +1861,9 @@ msgid "Cancel Recast"
 msgstr ""
 
 msgid "The scheduled time has passed."
+msgstr ""
+
+msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
@@ -2000,6 +2009,9 @@ msgstr "多媒體"
 
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
+
+msgid "Text"
+msgstr ""
 
 msgid "Mirror"
 msgstr ""
