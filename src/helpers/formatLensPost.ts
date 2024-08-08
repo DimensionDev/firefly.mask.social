@@ -533,7 +533,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 export function formatLensPostByFeed(result: FeedItemFragment): Post | null {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
     const basePost = firstComment || result.root;
-    if (basePost.by.operations.isBlockedByMe) return null;
+    if (basePost.by.operations.isBlockedByMe.value) return null;
     const post = formatLensPost(basePost);
     const mirrors = result.mirrors.map((x) => formatLensProfile(x.by));
     const reactions = result.reactions.map((x) => formatLensProfile(x.by));
