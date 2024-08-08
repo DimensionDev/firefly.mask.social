@@ -11,7 +11,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';

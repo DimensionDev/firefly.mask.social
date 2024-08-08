@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -12,11 +12,11 @@ import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 
 interface MuteAllProfileBaseProps {
     identity: FireflyIdentity;
