@@ -243,6 +243,9 @@ msgstr ""
 msgid "Adding..."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Market Cap"
 msgstr ""
 
@@ -306,7 +309,7 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
-msgid "comment"
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
 msgid "True Token"
@@ -448,9 +451,6 @@ msgid "Verified by {0}"
 msgstr ""
 
 msgid "Select Account"
-msgstr ""
-
-msgid "mirror"
 msgstr ""
 
 msgid "POST"
@@ -645,9 +645,6 @@ msgstr ""
 msgid "Failed to upload. File type is not supported on X"
 msgstr ""
 
-msgid "post"
-msgstr ""
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
@@ -658,9 +655,6 @@ msgid "Frame"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr ""
 
 msgid "The file exceeds the size limit."
@@ -717,6 +711,9 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
+msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr ""
 
@@ -765,6 +762,9 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
+msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {quote}}</1>"
+msgstr ""
+
 msgid "<0>You</0> mirrored"
 msgstr ""
 
@@ -772,9 +772,6 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Top Profiles"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "EVM"
@@ -1509,9 +1506,6 @@ msgstr ""
 msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr ""
 
-msgid "quote"
-msgstr ""
-
 msgid "Casts + Replies"
 msgstr ""
 
@@ -1668,9 +1662,6 @@ msgstr ""
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr ""
-
 msgid "Repost"
 msgstr ""
 
@@ -1741,6 +1732,9 @@ msgid "You may lose your assets if giving approval to the website of this token.
 msgstr ""
 
 msgid "Unfollow"
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
 msgid "Your {0} account is now connected."
@@ -1887,6 +1881,9 @@ msgstr ""
 msgid "{0} Users"
 msgstr ""
 
+msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Final results"
 msgstr ""
 
@@ -1948,9 +1945,6 @@ msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "Max Supply"
-msgstr ""
-
-msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"
@@ -2043,9 +2037,6 @@ msgstr ""
 msgid "Failed to update scheduled post."
 msgstr ""
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
 msgid "Login"
 msgstr ""
 
@@ -2065,7 +2056,4 @@ msgid "Likes"
 msgstr ""
 
 msgid "Blink Validator"
-msgstr ""
-
-msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
