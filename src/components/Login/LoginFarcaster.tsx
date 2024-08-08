@@ -220,7 +220,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>
-                                        Never login on Firefly?
+                                        First time connecting to Firefly?
                                         <br />
                                         Approve{' '}
                                         <Link

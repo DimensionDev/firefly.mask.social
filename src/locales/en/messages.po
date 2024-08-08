@@ -40,9 +40,6 @@ msgstr "Quote Post"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
-msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr "{count, plural, one {1 second} other {{count} seconds}}"
-
 msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 
@@ -168,6 +165,9 @@ msgstr "Airdrop Scam"
 
 msgid "Collect Action is not supported yet."
 msgstr "Collect Action is not supported yet."
+
+msgid "Overwrite"
+msgstr "Overwrite"
 
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
@@ -1234,14 +1234,14 @@ msgstr "Share"
 msgid "Your frame URL."
 msgstr "Your frame URL."
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
+msgstr "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
+
 msgid "Remaining"
 msgstr "Remaining"
 
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
-
-msgid "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
-msgstr "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
 
 msgid "Failed to create schedule thread posts."
 msgstr "Failed to create schedule thread posts."
@@ -1299,9 +1299,6 @@ msgstr "Not my wallet address."
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
-msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
@@ -1476,6 +1473,9 @@ msgstr "All notifications"
 
 msgid "Mobile App"
 msgstr "Mobile App"
+
+msgid "First time connecting to Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
+msgstr "First time connecting to Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."

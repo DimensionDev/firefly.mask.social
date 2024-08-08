@@ -45,9 +45,6 @@ msgstr "引用"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？"
 
-msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr "{count, plural, one {1 秒} other {{count} 秒}}"
-
 msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly"
 
@@ -173,6 +170,9 @@ msgstr "空投骗局"
 
 msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
+
+msgid "Overwrite"
+msgstr ""
 
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
@@ -1239,14 +1239,14 @@ msgstr "分享"
 msgid "Your frame URL."
 msgstr "您 Frame 的 URL。"
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
+msgstr ""
+
 msgid "Remaining"
 msgstr "剩余"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
-
-msgid "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
-msgstr "从未登录过 Firefly? <0/>授权 <1>一个 Farcaster 新的 signer</1> 给 Firefly"
 
 msgid "Failed to create schedule thread posts."
 msgstr "创建定时 thread 失败。"
@@ -1304,9 +1304,6 @@ msgstr "不是我的钱包地址。"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
-msgstr "在您装有 <0>Firefly</0> 的手机上，打开<1>相机</1>并在 <2>{0}</2> 内扫描二维码。"
 
 msgid "Connected in Firefly"
 msgstr "已在 Firefly 中"
@@ -1481,6 +1478,9 @@ msgstr "通知"
 
 msgid "Mobile App"
 msgstr "手机应用"
+
+msgid "First time connecting to Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
+msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
@@ -2057,4 +2057,3 @@ msgstr "点赞"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-
