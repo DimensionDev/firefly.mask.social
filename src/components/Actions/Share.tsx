@@ -1,25 +1,19 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { type HTMLProps, memo, useCallback } from 'react';
-import { useCopyToClipboard } from 'react-use';
+import { type HTMLProps, memo } from 'react';
 
 import ShareIcon from '@/assets/share.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface ShareProps extends HTMLProps<HTMLDivElement> {
     url: string;
     disabled?: boolean;
 }
 export const Share = memo<ShareProps>(function Collect({ url, className, disabled = false }) {
-    const [, copyToClipboard] = useCopyToClipboard();
-
-    const handleClick = useCallback(() => {
-        copyToClipboard(url);
-        enqueueSuccessMessage(t`Copied`);
-    }, [url, copyToClipboard]);
+    const [, handleCopy] = useCopyText(url);
 
     return (
         <ClickableArea
@@ -38,7 +32,7 @@ export const Share = memo<ShareProps>(function Collect({ url, className, disable
                         event.preventDefault();
                         event.stopPropagation();
                         if (disabled) return;
-                        handleClick();
+                        handleCopy();
                     }}
                     whileTap={{ scale: 0.9 }}
                     className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"

@@ -1,8 +1,6 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { useCallback } from 'react';
-import { useCopyToClipboard } from 'usehooks-ts';
 
 import CopyIcon from '@/assets/copy.svg';
 import EnsIcon from '@/assets/ens.svg';
@@ -17,9 +15,9 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
@@ -31,12 +29,7 @@ interface WalletInfoProps {
 
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
-    const [, copyToClipboard] = useCopyToClipboard();
-    const handleCopy = useCallback(() => {
-        if (!profile.address) return;
-        copyToClipboard(profile.address);
-        enqueueSuccessMessage(t`Copied`);
-    }, [profile.address, copyToClipboard]);
+    const [, handleCopy] = useCopyText(profile.address);
 
     const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
     const isMyWallets = useIsMyRelatedProfile(profile.address, Source.Wallet);
