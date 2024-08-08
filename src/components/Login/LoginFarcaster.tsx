@@ -209,12 +209,12 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                 {signType === SignType.GrantPermission ? (
                                     <Trans>
                                         Already logged in?
-                                        <br /> Approve the{' '}
+                                        <br />
                                         <Link
                                             to={`/farcaster?signType=${SignType.RelayService}`}
                                             className="font-bold hover:underline"
                                         >
-                                            existing Farcaster signer
+                                            Approve the existing Farcaster signer
                                         </Link>{' '}
                                         to Firefly
                                     </Trans>
@@ -222,14 +222,13 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     <Trans>
                                         First time connecting to Firefly?
                                         <br />
-                                        Approve{' '}
                                         <Link
                                             to={`/farcaster?signType=${SignType.GrantPermission}`}
                                             className="font-bold hover:underline"
                                         >
-                                            a new Farcaster signer
+                                            Approve a new connection
                                         </Link>{' '}
-                                        to Firefly
+                                        with Warpcast
                                     </Trans>
                                 ) : null}
                             </div>

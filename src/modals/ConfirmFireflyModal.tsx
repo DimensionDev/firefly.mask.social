@@ -75,7 +75,7 @@ export const ConfirmFireflyModal = forwardRef<
                                     ConfirmFireflyModalRef.close(true);
                                 }}
                             >
-                                {belongsTo ? t`Login` : t`Overwrite`}
+                                {belongsTo ? t`Sync` : t`Overwrite`}
                             </ClickableButton>
                         </div>
                     </div>

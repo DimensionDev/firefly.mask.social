@@ -8,7 +8,8 @@ interface Props extends React.HTMLProps<SVGAElement> {
 }
 
 export function CircleCheckboxIcon({ size = 40, checked, className, ...props }: Props) {
-    if (checked) return <YesIcon width={size} height={size} {...props} className={className} />;
+    if (checked)
+        return <YesIcon width={size} height={size} {...props} className={classNames('text-highlight', className)} />;
 
     return (
         <div
@@ -18,7 +19,7 @@ export function CircleCheckboxIcon({ size = 40, checked, className, ...props }: 
                 height: size,
             }}
         >
-            <DisableNoIcon width={size / 2} height={size / 2} {...props} />
+            <DisableNoIcon className="text-secondaryLine" width={size / 2} height={size / 2} {...props} />
         </div>
     );
 }
