@@ -25,7 +25,6 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
-import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
@@ -43,10 +42,8 @@ interface MoreProps {
 export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, post, channel }) {
     const currentProfile = useCurrentProfile(source);
 
-    const identity = useFireflyIdentity(source, resolveFireflyProfileId(author) ?? '');
-
     const isMyPost = isSameProfile(author, currentProfile);
-    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
+    const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(author) ?? '');
 
     const isFollowing = !!author.viewerContext?.following;
     const [, toggleFollow] = useToggleFollow(author);

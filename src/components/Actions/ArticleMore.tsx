@@ -71,7 +71,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <Menu.Item>
                             {({ close }) => (
                                 <WatchWalletButton
-                                    ensOrAddress={handleOrEnsOrAddress}
+                                    handleOrEnsOrAddress={handleOrEnsOrAddress}
                                     isFollowing={author.isFollowing}
                                     address={author.id}
                                     onClick={close}
@@ -81,7 +81,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteWalletButton
-                                    ensOrAddress={handleOrEnsOrAddress}
+                                    handleOrEnsOrAddress={handleOrEnsOrAddress}
                                     isMuted={author.isMuted}
                                     address={author.id}
                                     onClick={close}

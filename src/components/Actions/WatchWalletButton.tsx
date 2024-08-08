@@ -10,19 +10,19 @@ import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
-    ensOrAddress: string;
+    handleOrEnsOrAddress: string;
     address: Address;
     isFollowing?: boolean;
 }
 
 export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function WatchWalletButton(
-    { ensOrAddress, address, isFollowing, ...rest }: Props,
+    { handleOrEnsOrAddress, address, isFollowing, ...rest }: Props,
     ref,
 ) {
     const { data } = useIsFollowingWallet(address, isFollowing === undefined);
     const following = isFollowing || data;
 
-    const mutation = useToggleWatchWallet({ ensOrAddress, address, following: !!following });
+    const mutation = useToggleWatchWallet({ handleOrEnsOrAddress, address, following: !!following });
 
     return (
         <MenuButton
@@ -35,7 +35,11 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
         >
             {following ? <UnfollowIcon width={18} height={18} /> : <FollowIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
-                {following ? <Trans>Unwatch {ensOrAddress}</Trans> : <Trans>Watch {ensOrAddress}</Trans>}
+                {following ? (
+                    <Trans>Unwatch {handleOrEnsOrAddress}</Trans>
+                ) : (
+                    <Trans>Watch {handleOrEnsOrAddress}</Trans>
+                )}
             </span>
         </MenuButton>
     );

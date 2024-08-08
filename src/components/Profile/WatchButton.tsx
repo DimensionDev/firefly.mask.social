@@ -39,7 +39,7 @@ export const WatchButton = memo(function WatchButton({
     const { data: ens } = useEnsName({ address });
     const { data: isFollowing } = useIsFollowingWallet(address, seen);
     const identity = ens || formatEthereumAddress(address, 4);
-    const mutation = useToggleWatchWallet({ ensOrAddress: identity, address, following: !!isFollowing });
+    const mutation = useToggleWatchWallet({ handleOrEnsOrAddress: identity, address, following: !!isFollowing });
 
     const loading = mutation.isPending;
     const buttonText = {

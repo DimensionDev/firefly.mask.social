@@ -7,12 +7,12 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Options {
-    ensOrAddress: string;
+    handleOrEnsOrAddress: string;
     address: Address;
     following: boolean;
 }
 
-export function useToggleWatchWallet({ ensOrAddress, address, following }: Options) {
+export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following }: Options) {
     const mutation = useMutation({
         mutationFn: async () => {
             try {
@@ -21,17 +21,19 @@ export function useToggleWatchWallet({ ensOrAddress, address, following }: Optio
 
                 if (following) {
                     const result = await FireflySocialMediaProvider.unwatchWallet(addr);
-                    enqueueSuccessMessage(t`${ensOrAddress} unwatched`);
+                    enqueueSuccessMessage(t`${handleOrEnsOrAddress} unwatched`);
                     return result;
                 }
                 const result = await FireflySocialMediaProvider.watchWallet(addr);
-                enqueueSuccessMessage(t`${ensOrAddress} watched`);
+                enqueueSuccessMessage(t`${handleOrEnsOrAddress} watched`);
                 return result;
             } catch (error) {
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(
                         error,
-                        following ? t`Failed to unwatch ${ensOrAddress}.` : t`Failed to watch ${ensOrAddress}.`,
+                        following
+                            ? t`Failed to unwatch ${handleOrEnsOrAddress}.`
+                            : t`Failed to watch ${handleOrEnsOrAddress}.`,
                     ),
                     {
                         error,

@@ -34,7 +34,7 @@ export function ProfileDetailPage({ identity }: Props) {
 
     useEffect(() => {
         setIdentity(identity);
-    }, [identity, isCurrentProfile, setIdentity]);
+    }, [identity, setIdentity]);
 
     if (isLoading && !isCurrentProfile) {
         return <Loading />;

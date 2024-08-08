@@ -16,6 +16,7 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 
 interface MuteAllProfileBaseProps {
     identity: FireflyIdentity;
@@ -74,27 +75,14 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
 
 export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfileBaseProps['onClose'] }>(
     function MuteAllByProfile({ profile, onClose }) {
-        const identity = useMemo(
-            () => ({
-                id: profile.profileId,
-                source: profile.source,
-            }),
-            [profile.profileId, profile.source],
-        );
-
+        const identity = useFireflyIdentity(profile.source, profile.profileId);
         return <MuteAllProfileBase identity={identity} handleOrEnsOrAddress={`@${profile.handle}`} onClose={onClose} />;
     },
 );
 
 export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose: MuteAllProfileBaseProps['onClose'] }>(
     function MuteAllByWallet({ address, handle, onClose }) {
-        const identity = useMemo(
-            () => ({
-                id: address,
-                source: Source.Wallet,
-            }),
-            [address],
-        );
+        const identity = useFireflyIdentity(Source.Wallet, address);
         const { data: ens } = useEnsName({ address });
 
         return (

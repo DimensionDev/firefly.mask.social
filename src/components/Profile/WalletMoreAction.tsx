@@ -41,7 +41,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                 <Menu.Item>
                     {({ close }) => (
                         <MuteWalletButton
-                            ensOrAddress={ensOrAddress}
+                            handleOrEnsOrAddress={ensOrAddress}
                             isMuted={isMuted}
                             address={profile.address}
                             onClick={close}

@@ -55,13 +55,17 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     <>
                         <Menu.Item>
                             {({ close }) => (
-                                <WatchWalletButton ensOrAddress={ensOrAddress} address={address} onClick={close} />
+                                <WatchWalletButton
+                                    handleOrEnsOrAddress={ensOrAddress}
+                                    address={address}
+                                    onClick={close}
+                                />
                             )}
                         </Menu.Item>
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteWalletButton
-                                    ensOrAddress={ensOrAddress}
+                                    handleOrEnsOrAddress={ensOrAddress}
                                     address={address}
                                     isMuted={isMuted}
                                     onClick={close}

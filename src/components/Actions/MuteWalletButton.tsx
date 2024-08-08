@@ -13,13 +13,13 @@ import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
-    ensOrAddress: string;
+    handleOrEnsOrAddress: string;
     address: Address;
     isMuted?: boolean;
 }
 
 export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function MuteArticleButton(
-    { ensOrAddress, address, isMuted, ...rest }: Props,
+    { handleOrEnsOrAddress, address, isMuted, ...rest }: Props,
     ref,
 ) {
     const isLogin = useIsLogin();
@@ -38,11 +38,13 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
                 if (!isLogin) return LoginModalRef.open();
                 if (!isMuted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                        title: t`Mute ${ensOrAddress}`,
+                        title: t`Mute ${handleOrEnsOrAddress}`,
                         variant: 'normal',
                         content: (
                             <div className="text-main">
-                                <Trans>Articles from @{ensOrAddress} will now be hidden in your home timeline</Trans>
+                                <Trans>
+                                    Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline
+                                </Trans>
                             </div>
                         ),
                     });
@@ -60,7 +62,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
                 <MuteIcon width={18} height={18} />
             )}
             <span className="font-bold leading-[22px] text-main">
-                {isMuted ? <Trans>Unmute {ensOrAddress}</Trans> : <Trans>Mute {ensOrAddress}</Trans>}
+                {isMuted ? <Trans>Unmute {handleOrEnsOrAddress}</Trans> : <Trans>Mute {handleOrEnsOrAddress}</Trans>}
             </span>
         </MenuButton>
     );
