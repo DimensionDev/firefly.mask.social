@@ -1,6 +1,5 @@
 'use client';
 
-import { SearchContextManager } from '@giphy/react-components';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
@@ -108,11 +107,7 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                             <WagmiProvider>
                                 <SolanaWalletAdapterProvider>
                                     {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                    <LivepeerConfig client={livepeerClient}>
-                                        <SearchContextManager apiKey={env.external.NEXT_PUBLIC_GIPHY_API_KEY}>
-                                            {props.children}
-                                        </SearchContextManager>
-                                    </LivepeerConfig>
+                                    <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
                                 </SolanaWalletAdapterProvider>
                             </WagmiProvider>
                         </SnackbarProvider>

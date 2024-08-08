@@ -2,7 +2,6 @@ import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -18,7 +17,7 @@ export async function getProfileOGById(source: SocialSourceInURL, profileId: str
         },
     ];
 
-    const title = createPageTitle(`${profile.displayName} (@${profile.handle})`);
+    const title = `@${profile.handle} in Firefly`;
     const description = profile.bio ?? '';
 
     return createSiteMetadata({

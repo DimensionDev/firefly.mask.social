@@ -61,7 +61,7 @@ export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile 
         <div className="sticky top-0 z-30 h-0 w-full">
             <div
                 className={classNames(
-                    'absolute left-0 top-0 z-30 flex h-[60px] w-full items-center bg-primaryBottom px-4',
+                    'absolute left-0 top-0 z-30 flex h-[60px] w-full items-center bg-primaryBottom pl-4 pr-3',
                     {
                         hidden: !reached,
                     },
@@ -74,7 +74,7 @@ export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile 
                     </span>
                 </div>
 
-                <div className="flex flex-shrink-0 gap-2.5">{renderActions()}</div>
+                <div className="flex flex-shrink-0 gap-2">{renderActions()}</div>
             </div>
         </div>
     );

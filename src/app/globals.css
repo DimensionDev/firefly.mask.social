@@ -325,15 +325,34 @@ body.not-support .fixed.inset-y-0 {
 }
 
 /* reset giphy search bar css */
+.ff-giphy-search-bar {
+    height: 36px !important;
+    background: transparent !important;
+}
 .ff-giphy-search-bar > div {
     display: none;
 }
 .ff-giphy-search-bar > input {
     height: 32px;
     box-shadow: none !important;
+    background-color: transparent !important;
+    color: var(--color-light-main);
 }
 .ff-giphy-grid .giphy-gif {
     cursor: pointer;
+}
+
+.giphy-suggestion-bar > div {
+    padding: 4px 12px;
+    height: auto !important;
+    background-color: var(--color-light-bg);
+    color: var(--color-light-main);
+}
+
+.giphy-suggestion-bar > div > img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
 }
 
 .image-swiper-slide > div {

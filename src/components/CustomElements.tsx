@@ -9,7 +9,7 @@ import { NODE_ENV, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function CustomElements() {
     const account = useAccount();
@@ -34,18 +34,19 @@ export default function CustomElements() {
         return true;
     }, []);
 
+    const { updateTypedMessage, updateRpPayload } = useComposeStateStore();
+
     useEffect(() => {
         if (!value) return;
         return CrossIsolationMessages.events.compositionDialogEvent.on((event) => {
             if (!event.open) return;
 
-            ComposeModalRef.open({
-                type: 'compose',
-                typedMessage: getTypedMessageRedPacket(event.options?.initialMetas),
-                rpPayload: event.options?.pluginMeta?.payloadImage ? event.options.pluginMeta : undefined,
-            });
+            updateTypedMessage(getTypedMessageRedPacket(event.options?.initialMetas));
+            if (event.options?.pluginMeta?.payloadImage) {
+                updateRpPayload(event.options.pluginMeta);
+            }
         });
-    }, [value]);
+    }, [updateRpPayload, updateTypedMessage, value]);
 
     useUpdateEffect(() => {
         if (!account.address || !chainId || !value) return;

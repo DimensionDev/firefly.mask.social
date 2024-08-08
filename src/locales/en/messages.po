@@ -109,6 +109,9 @@ msgstr "The contract owner is not found to have the authority to modify the bala
 msgid "Select token"
 msgstr "Select token"
 
+msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
+msgstr "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
+
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
@@ -168,6 +171,9 @@ msgstr "Airdrop Scam"
 
 msgid "Collect Action is not supported yet."
 msgstr "Collect Action is not supported yet."
+
+msgid "Overwrite"
+msgstr "Overwrite"
 
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
@@ -241,6 +247,9 @@ msgstr "Debug Console"
 msgid "Adding..."
 msgstr "Adding..."
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+
 msgid "Market Cap"
 msgstr "Market Cap"
 
@@ -304,8 +313,8 @@ msgstr "Retry"
 msgid "Show less"
 msgstr "Show less"
 
-msgid "comment"
-msgstr "comment"
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 
 msgid "True Token"
 msgstr "True Token"
@@ -447,9 +456,6 @@ msgstr "Verified by {0}"
 
 msgid "Select Account"
 msgstr "Select Account"
-
-msgid "mirror"
-msgstr "mirror"
 
 msgid "POST"
 msgstr "POST"
@@ -640,9 +646,6 @@ msgstr "Top Channels"
 msgid "Failed to upload. File type is not supported on X"
 msgstr "Failed to upload. File type is not supported on X"
 
-msgid "post"
-msgstr "post"
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 
@@ -654,9 +657,6 @@ msgstr "Frame"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 
 msgid "The file exceeds the size limit."
 msgstr "The file exceeds the size limit."
@@ -711,6 +711,9 @@ msgstr "Comment cannot be empty."
 
 msgid "Days"
 msgstr "Days"
+
+msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
@@ -768,9 +771,6 @@ msgstr "Failed to create image payload."
 
 msgid "Top Profiles"
 msgstr "Top Profiles"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 
 msgid "EVM"
 msgstr "EVM"
@@ -888,6 +888,9 @@ msgstr "No one likes this post yet."
 
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
+
+msgid "Sync"
+msgstr "Sync"
 
 msgid "Description"
 msgstr "Description"
@@ -1234,6 +1237,9 @@ msgstr "Failed to parse session."
 msgid "Feedback"
 msgstr "Feedback"
 
+msgid "GIFs"
+msgstr "GIFs"
+
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 
@@ -1243,14 +1249,14 @@ msgstr "Share"
 msgid "Your frame URL."
 msgstr "Your frame URL."
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
+msgstr "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
+
 msgid "Remaining"
 msgstr "Remaining"
 
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
-
-msgid "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
-msgstr "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
 
 msgid "Failed to create schedule thread posts."
 msgstr "Failed to create schedule thread posts."
@@ -1305,9 +1311,6 @@ msgstr "Not my wallet address."
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
-msgstr "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
@@ -1510,6 +1513,9 @@ msgstr "quote"
 msgid "{ensOrAddress} watched"
 msgstr "{ensOrAddress} watched"
 
+msgid "Articles from @{identity} will now be hidden in your home timeline"
+msgstr "Articles from @{identity} will now be hidden in your home timeline"
+
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
@@ -1663,9 +1669,6 @@ msgstr "Date"
 msgid "Confirm to log out all accounts?"
 msgstr "Confirm to log out all accounts?"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-
 msgid "Repost"
 msgstr "Repost"
 
@@ -1711,11 +1714,17 @@ msgstr "No codes found to suspend trading."
 msgid "Please enable Momoka to support sending posts on Lens."
 msgstr "Please enable Momoka to support sending posts on Lens."
 
+msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
+msgstr "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
+
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
+
+msgid "Stickers"
+msgstr "Stickers"
 
 msgid "Dark Mode"
 msgstr "Dark Mode"
@@ -1738,6 +1747,9 @@ msgstr "You may lose your assets if giving approval to the website of this token
 msgid "Unfollow"
 msgstr "Unfollow"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
@@ -1755,6 +1767,9 @@ msgstr "If a suspendable code is included, the token maybe neither be bought nor
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
+
+msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 
 msgid "Connecting Wallet"
 msgstr "Connecting Wallet"
@@ -1855,6 +1870,9 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
+msgid "Emoji"
+msgstr "Emoji"
+
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
 
@@ -1881,6 +1899,9 @@ msgstr "<0>since </0> <1>{0}</1>"
 
 msgid "{0} Users"
 msgstr "{0} Users"
+
+msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 
 msgid "Final results"
 msgstr "Final results"
@@ -1945,9 +1966,6 @@ msgstr "Please confirm the login with X."
 msgid "Max Supply"
 msgstr "Max Supply"
 
-msgid "<0/> commented on your <1><2/></1>"
-msgstr "<0/> commented on your <1><2/></1>"
-
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
 
@@ -1999,6 +2017,9 @@ msgstr "Media"
 msgid "No content to publish."
 msgstr "No content to publish."
 
+msgid "Text"
+msgstr "Text"
+
 msgid "Mirror"
 msgstr "Mirror"
 
@@ -2038,9 +2059,6 @@ msgstr "Close"
 msgid "Failed to update scheduled post."
 msgstr "Failed to update scheduled post."
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr "<0/> mentioned you in a <1><2/></1>"
-
 msgid "Login"
 msgstr "Login"
 
@@ -2061,6 +2079,3 @@ msgstr "Likes"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
-
-msgid "<0/> quoted your <1><2/></1>"
-msgstr "<0/> quoted your <1><2/></1>"

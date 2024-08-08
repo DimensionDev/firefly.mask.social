@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { PlayButton } from '@livepeer/react';
 import urlcat from 'urlcat';
 
@@ -46,8 +47,14 @@ export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps
             poster={asset.coverUri}
         >
             {isGif ? (
-                <span className="absolute bottom-[5px] left-2.5" onClick={(event) => event.stopPropagation()}>
+                <span
+                    className="absolute bottom-[5px] left-2.5 flex items-center"
+                    onClick={(event) => event.stopPropagation()}
+                >
                     <PlayButton />
+                    <span className="font-bold text-white">
+                        <Trans>GIF</Trans>
+                    </span>
                 </span>
             ) : null}
         </Video>

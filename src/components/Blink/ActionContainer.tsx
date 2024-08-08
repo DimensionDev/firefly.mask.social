@@ -198,6 +198,7 @@ export function ActionContainer({
             }
 
             const tx = await postActionComponent(account, component, params);
+            if (!tx.transaction) throw new Error(tx.message);
             const transaction = VersionedTransaction.deserialize(Buffer.from(tx.transaction, 'base64'));
             const {
                 context: { slot: minContextSlot },
@@ -216,9 +217,12 @@ export function ActionContainer({
                 enqueueErrorMessage(resp?.message ?? t`Unknown error`);
                 throw error;
             }
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Unknown error`), {
-                error,
-            });
+            enqueueErrorMessage(
+                getSnackbarMessageFromError(error, error instanceof Error ? error.message : t`Unknown error`),
+                {
+                    error,
+                },
+            );
             throw error;
         } finally {
             dispatch({ type: ExecutionType.RESET });

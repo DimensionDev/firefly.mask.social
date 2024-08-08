@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-06 12:01\n"
+"PO-Revision-Date: 2024-08-08 04:27\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -114,6 +114,9 @@ msgstr ""
 msgid "Select token"
 msgstr "選擇代幣"
 
+msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
+msgstr ""
+
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
@@ -173,6 +176,9 @@ msgstr "空投騙局"
 
 msgid "Collect Action is not supported yet."
 msgstr "暫未接受收集功能。"
+
+msgid "Overwrite"
+msgstr ""
 
 msgid "Tax can be modified"
 msgstr ""
@@ -246,6 +252,9 @@ msgstr ""
 msgid "Adding..."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Market Cap"
 msgstr "市值"
 
@@ -309,8 +318,8 @@ msgstr "重試"
 msgid "Show less"
 msgstr "顯示更少"
 
-msgid "comment"
-msgstr "留言"
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
 
 msgid "True Token"
 msgstr ""
@@ -452,9 +461,6 @@ msgstr "通過 {0} 驗證"
 
 msgid "Select Account"
 msgstr "選定帳戶"
-
-msgid "mirror"
-msgstr "鏡像"
 
 msgid "POST"
 msgstr "貼文"
@@ -645,9 +651,6 @@ msgstr ""
 msgid "Failed to upload. File type is not supported on X"
 msgstr ""
 
-msgid "post"
-msgstr "貼文"
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
@@ -658,9 +661,6 @@ msgid "Frame"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr ""
 
 msgid "The file exceeds the size limit."
@@ -717,6 +717,9 @@ msgstr ""
 msgid "Days"
 msgstr "天"
 
+msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr "Gas不足"
 
@@ -772,9 +775,6 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Top Profiles"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "EVM"
@@ -893,6 +893,9 @@ msgstr "還沒有人按讚這條貼文"
 
 msgid "Your posts have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上。"
+
+msgid "Sync"
+msgstr ""
 
 msgid "Description"
 msgstr "描述"
@@ -1239,6 +1242,9 @@ msgstr ""
 msgid "Feedback"
 msgstr "反饋"
 
+msgid "GIFs"
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1248,13 +1254,13 @@ msgstr "分享"
 msgid "Your frame URL."
 msgstr ""
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
+msgstr ""
+
 msgid "Remaining"
 msgstr "剩餘"
 
 msgid "Cancel recast successfully"
-msgstr ""
-
-msgid "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
 msgstr ""
 
 msgid "Failed to create schedule thread posts."
@@ -1310,9 +1316,6 @@ msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
-msgstr "在您安裝了 <0>Firefly</0> 的移動設備上，打開<1>相機</1>應用並在 <2>{0}</2> 內掃描QR碼。"
 
 msgid "Connected in Firefly"
 msgstr ""
@@ -1515,6 +1518,9 @@ msgstr "引用"
 msgid "{ensOrAddress} watched"
 msgstr ""
 
+msgid "Articles from @{identity} will now be hidden in your home timeline"
+msgstr "來自 @{identity} 的文章將在您的主頁時間線中被隱藏"
+
 msgid "Casts + Replies"
 msgstr ""
 
@@ -1668,9 +1674,6 @@ msgstr "日期"
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr ""
-
 msgid "Repost"
 msgstr ""
 
@@ -1716,11 +1719,17 @@ msgstr ""
 msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
+msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
+msgstr ""
+
 msgid "Buy Tax: {0}%"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
+
+msgid "Stickers"
+msgstr ""
 
 msgid "Dark Mode"
 msgstr "深色模式"
@@ -1743,6 +1752,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr "取消追蹤"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
 
@@ -1760,6 +1772,9 @@ msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
+
+msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
 
 msgid "Connecting Wallet"
 msgstr ""
@@ -1860,6 +1875,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "Emoji"
+msgstr ""
+
 msgid "Failed to report spam NFT."
 msgstr ""
 
@@ -1885,6 +1903,9 @@ msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
 msgid "{0} Users"
+msgstr ""
+
+msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
 msgid "Final results"
@@ -1950,9 +1971,6 @@ msgstr "請至 X 確認登錄"
 msgid "Max Supply"
 msgstr ""
 
-msgid "<0/> commented on your <1><2/></1>"
-msgstr ""
-
 msgid "<0>You</0> recasted"
 msgstr ""
 
@@ -2004,6 +2022,9 @@ msgstr "多媒體"
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
+msgid "Text"
+msgstr ""
+
 msgid "Mirror"
 msgstr ""
 
@@ -2043,9 +2064,6 @@ msgstr ""
 msgid "Failed to update scheduled post."
 msgstr ""
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
 msgid "Login"
 msgstr ""
 
@@ -2065,7 +2083,4 @@ msgid "Likes"
 msgstr "喜歡"
 
 msgid "Blink Validator"
-msgstr ""
-
-msgid "<0/> quoted your <1><2/></1>"
 msgstr ""

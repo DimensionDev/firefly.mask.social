@@ -12,6 +12,7 @@ import type {
     LiveStreamMetadataV3Fragment,
     MintMetadataV3Fragment,
     PostFragment,
+    ProfileFragment,
     PublicationMetadataFragment,
     PublicationMetadataMediaFragment,
     QuoteBaseFragment,
@@ -305,6 +306,13 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
     };
 }
 
+/**
+ * Remove feeds that posted by muted users.
+ */
+export function filterFeeds<T extends { by: ProfileFragment }>(posts: T[]): T[] {
+    return posts.filter((x) => !x.by.operations.isBlockedByMe.value);
+}
+
 export function formatLensPost(result: AnyPublicationFragment): Post {
     const profile = formatLensProfile(result.by);
     const timestamp = new Date(result.createdAt).getTime();
@@ -522,12 +530,14 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     }
 }
 
-export function formatLensPostByFeed(result: FeedItemFragment): Post {
+export function formatLensPostByFeed(result: FeedItemFragment): Post | null {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
-    const post = formatLensPost(firstComment || result.root);
+    const basePost = firstComment || result.root;
+    if (basePost.by.operations.isBlockedByMe) return null;
+    const post = formatLensPost(basePost);
     const mirrors = result.mirrors.map((x) => formatLensProfile(x.by));
     const reactions = result.reactions.map((x) => formatLensProfile(x.by));
-    const comments = result.comments.map((x) => formatLensPost(x));
+    const comments = filterFeeds(result.comments).map((x) => formatLensPost(x));
 
     return {
         ...post,
