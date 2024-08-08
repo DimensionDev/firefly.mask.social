@@ -13,7 +13,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface TitleProps {
     profile?: Profile | null;
@@ -34,7 +34,7 @@ export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile 
     });
 
     const comeback = useComeBack();
-    const { profileIdentity } = useProfileIdentityState();
+    const { identity: profileIdentity } = useFireflyIdentityState();
 
     const { walletProfile } = resolveFireflyProfiles(profileIdentity, profiles);
 

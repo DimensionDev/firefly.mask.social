@@ -15,7 +15,7 @@ import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface ProfileTabsProps {
     profiles: FireflyProfile[];
@@ -63,7 +63,7 @@ const resolveProfileTabColor = createLookupTableResolver<
 
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const { profileIdentity, setProfileIdentity } = useProfileIdentityState();
+    const { identity, setIdentity } = useFireflyIdentityState();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
@@ -76,13 +76,13 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
         <div className="scrollable-tab flex gap-2 px-5">
             {profiles.map((profile, index) => {
                 const colors = resolveProfileTabColor(profile.identity.source);
-                const isActive = isSameFireflyIdentity(profile.identity, profileIdentity);
+                const isActive = isSameFireflyIdentity(profile.identity, identity);
 
                 return (
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                setProfileIdentity(profile.identity);
+                                setIdentity(profile.identity);
 
                                 updateParams(
                                     new URLSearchParams({

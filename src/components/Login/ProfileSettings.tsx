@@ -24,7 +24,7 @@ import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
@@ -35,7 +35,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { currentProfile } = useProfileStore(source);
     const pathname = usePathname();
     const updateParams = useUpdateParams();
-    const { profileIdentity } = useProfileIdentityState();
+    const { identity: profileIdentity } = useFireflyIdentityState();
     const accounts = useConnectedAccounts(source);
 
     const isMyProfile = useIsMyRelatedProfile(profileIdentity);

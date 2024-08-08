@@ -14,7 +14,7 @@ import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import type { FireflyProfile, Relation } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface ProfileContentProps {
@@ -25,7 +25,7 @@ interface ProfileContentProps {
 }
 
 export function ProfileContent({ profile, profiles, relations, isSuspended }: ProfileContentProps) {
-    const { profileIdentity } = useProfileIdentityState();
+    const { identity: profileIdentity } = useFireflyIdentityState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();

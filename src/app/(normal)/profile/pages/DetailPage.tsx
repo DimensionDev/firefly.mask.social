@@ -11,14 +11,14 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface Props {
     identity: FireflyIdentity;
 }
 
 export function ProfileDetailPage({ identity }: Props) {
-    const { setProfileIdentity } = useProfileIdentityState();
+    const { setIdentity } = useFireflyIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
@@ -33,8 +33,8 @@ export function ProfileDetailPage({ identity }: Props) {
     const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
 
     useEffect(() => {
-        setProfileIdentity(identity);
-    }, [identity, isCurrentProfile, setProfileIdentity]);
+        setIdentity(identity);
+    }, [identity, isCurrentProfile, setIdentity]);
 
     if (isLoading && !isCurrentProfile) {
         return <Loading />;

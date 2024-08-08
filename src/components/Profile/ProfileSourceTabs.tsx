@@ -16,14 +16,14 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface ProfileSourceTabs {
     profiles: FireflyProfile[];
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const { profileIdentity } = useProfileIdentityState();
+    const { identity: profileIdentity } = useFireflyIdentityState();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
