@@ -14,13 +14,14 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             title: SITE_NAME,
             description: SITE_DESCRIPTION,
             url: SITE_URL,
+            images: [`${SITE_URL}/image/og.png`],
         },
         twitter: {
             card: 'summary',
             title: SITE_NAME,
             description: SITE_DESCRIPTION,
             creator: '@thefireflyapp',
-            images: ['https://firefly.social/icon.png'],
+            images: [`${SITE_URL}/image/og.png`],
         },
         manifest: '/site.webmanifest',
         icons: [
