@@ -6,26 +6,26 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
-interface ProfileTabState {
-    profileTab: FireflyIdentity;
-    setProfileTab: (profileTab: FireflyIdentity) => void;
+interface ProfileIdentityState {
+    profileIdentity: FireflyIdentity;
+    setProfileIdentity: (profileIdentity: FireflyIdentity) => void;
     reset: () => void;
 }
 
-const useProfileTabBase = create<ProfileTabState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
+const useProfileIdentityBase = create<ProfileIdentityState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
         immer((set) => ({
-            profileTab: {
+            profileIdentity: {
                 id: '',
                 source: getCurrentSourceFromUrl(),
             },
-            setProfileTab: (profileTab: FireflyIdentity) =>
+            setProfileIdentity: (profileIdentity: FireflyIdentity) =>
                 set((state) => {
-                    state.profileTab = profileTab;
+                    state.profileIdentity = profileIdentity;
                 }),
             reset: () => {
                 set((state) => {
-                    state.profileTab = {
+                    state.profileIdentity = {
                         id: '',
                         source: getCurrentSourceFromUrl(),
                     };
@@ -39,4 +39,4 @@ const useProfileTabBase = create<ProfileTabState, [['zustand/persist', unknown],
     ),
 );
 
-export const useProfileTabState = createSelectors(useProfileTabBase);
+export const useProfileIdentityState = createSelectors(useProfileIdentityBase);

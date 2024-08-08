@@ -16,19 +16,19 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
 
 interface ProfileSourceTabs {
     profiles: FireflyProfile[];
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const { profileTab } = useProfileTabState();
+    const { profileIdentity: profileIdentity } = useProfileIdentityState();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
 
-    const isMyProfile = useIsMyRelatedProfile(profileTab.id, profileTab.source);
+    const isMyProfile = useIsMyRelatedProfile(profileIdentity.id, profileIdentity.source);
 
     const updateParams = useUpdateParams();
 
@@ -49,11 +49,13 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <ClickableButton
                             className={classNames(
-                                profileTab.source === value ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
+                                profileIdentity.source === value
+                                    ? 'border-b-2 border-fireflyBrand text-main'
+                                    : 'text-third',
                                 'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
                                 'md:h-[60px] md:py-[18px] md:leading-6',
                             )}
-                            aria-current={profileTab.source === value ? 'page' : undefined}
+                            aria-current={profileIdentity.source === value ? 'page' : undefined}
                             onClick={() => {
                                 const currentProfile =
                                     value !== Source.Wallet &&

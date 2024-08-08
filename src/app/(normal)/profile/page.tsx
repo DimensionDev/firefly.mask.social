@@ -12,10 +12,10 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
 
 export default function Page() {
-    const { profileTab, setProfileTab } = useProfileTabState();
+    const { profileIdentity: profileIdentity, setProfileIdentity: setProfileIdentity } = useProfileIdentityState();
     const searchParam = useSearchParams();
 
     const currentProfiles = useCurrentProfileAll();
@@ -39,12 +39,12 @@ export default function Page() {
         const source = profile ? profile.source : urlSource ? resolveSourceFromUrl(urlSource) : null;
 
         if (source) {
-            setProfileTab({
+            setProfileIdentity({
                 source,
                 id: profile?.identity || '',
             });
         }
-    }, [profile, profileTab.id, searchParam, setProfileTab]);
+    }, [profile, profileIdentity.id, searchParam, setProfileIdentity]);
 
     // profile link should be shareable
     if (profile) {

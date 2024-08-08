@@ -26,29 +26,29 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
+import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfilePageProps {
     profiles: FireflyProfile[];
 }
 
 export function ProfilePage({ profiles }: ProfilePageProps) {
-    const { profileTab } = useProfileTabState();
+    const { profileIdentity: profileIdentity } = useProfileIdentityState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
-    const resolvedSource = narrowToSocialSource(profileTab.source);
+    const resolvedSource = narrowToSocialSource(profileIdentity.source);
 
     const isLogin = useIsLogin(resolvedSource);
 
     const pathname = usePathname();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isOthersProfile = !currentProfiles.some(
-        (x) => x.source === profileTab.source && x.identity === profileTab.id,
+        (x) => x.source === profileIdentity.source && x.identity === profileIdentity.id,
     );
 
-    const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
-    const { source, id } = profileTab;
+    const { walletProfile } = resolveFireflyProfiles(profileIdentity, profiles);
+    const { source, id } = profileIdentity;
 
     const {
         data: profile = null,
@@ -91,12 +91,14 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const isFinalized = !isSuspended && !isLoading;
     const twitterProfile = isOthersProfile ? profile : currentTwitterProfile || profile;
     const profileMissing =
-        !profile && !walletProfile && ((profileTab.source === Source.Twitter && !twitterProfile) || !profiles.length);
+        !profile &&
+        !walletProfile &&
+        ((profileIdentity.source === Source.Twitter && !twitterProfile) || !profiles.length);
 
     const profileNotFound = isFinalized && profileMissing;
 
     const showFallback =
-        profileTab.source !== Source.Wallet &&
+        profileIdentity.source !== Source.Wallet &&
         ((!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile));
 
     const header = (

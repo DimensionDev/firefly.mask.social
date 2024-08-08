@@ -24,7 +24,7 @@ import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
@@ -35,10 +35,10 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { currentProfile } = useProfileStore(source);
     const pathname = usePathname();
     const updateParams = useUpdateParams();
-    const { profileTab } = useProfileTabState();
+    const { profileIdentity: profileIdentity } = useProfileIdentityState();
     const accounts = useConnectedAccounts(source);
 
-    const isMyProfile = useIsMyRelatedProfile(profileTab.id, profileTab.source);
+    const isMyProfile = useIsMyRelatedProfile(profileIdentity.id, profileIdentity.source);
 
     const isPureProfilePage = pathname === PageRoute.Profile;
     const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
@@ -77,8 +77,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 await switchAccount({ ...account, session: account.session });
                                 if (
                                     isMyProfilePage &&
-                                    profileTab.source === source &&
-                                    profileTab.id !== resolveProfileId(account.profile)
+                                    profileIdentity.source === source &&
+                                    profileIdentity.id !== resolveProfileId(account.profile)
                                 ) {
                                     updateParams(
                                         new URLSearchParams({

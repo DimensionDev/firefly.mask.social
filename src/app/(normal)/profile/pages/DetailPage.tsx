@@ -11,7 +11,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
 
 interface Props {
     identity: string;
@@ -20,30 +20,33 @@ interface Props {
 
 export function ProfileDetailPage({ identity, source }: Props) {
     const resolvedSource = resolveSourceFromUrl(source);
-    const profileTab = { source: resolvedSource, identity };
+    const profileIdentity = { source: resolvedSource, identity };
 
-    const { setProfileTab } = useProfileTabState();
+    const { setProfileIdentity: setProfileIdentity } = useProfileIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some(
-        (x) => x.source === profileTab.source && x.identity === profileTab.identity,
+        (x) => x.source === profileIdentity.source && x.identity === profileIdentity.identity,
     );
 
     const { data: otherProfiles = EMPTY_LIST, isLoading } = useQuery({
-        queryKey: ['all-profiles', profileTab.source, profileTab.identity],
+        queryKey: ['all-profiles', profileIdentity.source, profileIdentity.identity],
         queryFn: async () => {
-            if (!profileTab.identity) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(profileTab.source, profileTab.identity);
+            if (!profileIdentity.identity) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(
+                profileIdentity.source,
+                profileIdentity.identity,
+            );
         },
     });
 
     const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
 
     useEffect(() => {
-        setProfileTab({
+        setProfileIdentity({
             source: resolvedSource,
             id: identity,
         });
-    }, [identity, resolvedSource, isCurrentProfile, setProfileTab]);
+    }, [identity, resolvedSource, isCurrentProfile, setProfileIdentity]);
 
     if (isLoading && !isCurrentProfile) {
         return <Loading />;
