@@ -762,9 +762,6 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
-msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {quote}}</1>"
-msgstr ""
-
 msgid "<0>You</0> mirrored"
 msgstr ""
 
@@ -1753,6 +1750,9 @@ msgid "If a suspendable code is included, the token maybe neither be bought nor 
 msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
+msgstr ""
+
+msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
 msgid "Connecting Wallet"
