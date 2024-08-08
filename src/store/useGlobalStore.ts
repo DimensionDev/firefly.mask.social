@@ -16,7 +16,6 @@ interface GlobalState {
     setVirtuosoState: (key: 'temporary' | 'cached', listKey: string, snapshot: StateSnapshot) => void;
     currentSource: Source;
     updateCurrentSource: (source: Source) => void;
-
     updateCollapsedConnectWallet: (collapsed: boolean) => void;
 }
 

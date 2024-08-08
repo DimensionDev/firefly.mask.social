@@ -12,6 +12,9 @@ const QUERY_KEY_MAP: { [key in Source]?: string } = {
     [Source.Twitter]: 'twitterId',
 };
 
+export async function getAllPlatformProfileFromFirefly(source: Source, identity: string) {
+    const queryKey = QUERY_KEY_MAP[source] ?? '';
+
 export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity) {
     const queryKey = QUERY_KEY_MAP[identity.source] ?? '';
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', queryKey ? { [`${queryKey}`]: identity } : {});
