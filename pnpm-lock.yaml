@@ -72,6 +72,9 @@ importers:
       '@farcaster/core':
         specifier: ^0.14.17
         version: 0.14.17(typescript@5.5.3)(zod@3.22.4)
+      '@giphy/js-fetch-api':
+        specifier: ^5.6.0
+        version: 5.6.0
       '@giphy/react-components':
         specifier: ^9.5.0
         version: 9.5.0(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(styled-components@6.1.11)
@@ -19417,7 +19420,6 @@ packages:
 
   /ethereum-bloom-filters@1.1.0:
     resolution: {integrity: sha512-J1gDRkLpuGNvWYzWslBQR9cDV4nd4kfvVTE/Wy4Kkm4yb3EYRSlyi0eB/inTsSTTVyA0+HyzHgbr95Fn/Z1fSw==}
-    deprecated: do not use this package use package versions above as this can miss some topics
     dependencies:
       '@noble/hashes': 1.4.0
     dev: false
@@ -31881,4 +31883,5 @@ packages:
 
 time:
   /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
+  /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /react-qrcode-logo@2.9.0: '2023-02-25T14:35:39.109Z'
