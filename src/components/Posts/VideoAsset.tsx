@@ -47,9 +47,12 @@ export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps
             poster={asset.coverUri}
         >
             {isGif ? (
-                <span className="absolute bottom-[5px] left-2.5 flex items-center" onClick={(event) => event.stopPropagation()}>
+                <span
+                    className="absolute bottom-[5px] left-2.5 flex items-center"
+                    onClick={(event) => event.stopPropagation()}
+                >
                     <PlayButton />
-                    <span className='text-white font-bold'>
+                    <span className="font-bold text-white">
                         <Trans>GIF</Trans>
                     </span>
                 </span>
