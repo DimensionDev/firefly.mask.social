@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { useCallback, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.jsx';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 
 export function useCopyText(
     text: string,
