@@ -3,7 +3,6 @@ import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -37,7 +36,7 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
         openGraph: {
             type: 'article',
             url: urlcat(SITE_URL, getPostUrl(post)),
-            title: createPageTitle(`Post by ${post.author.displayName}`),
+            title: `Posted by ${post.author.displayName} via Firefly`,
             description: post.metadata.content?.content ?? '',
             images,
             audio: audios,
@@ -45,7 +44,7 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
         },
         twitter: {
             card: 'summary_large_image',
-            title: createPageTitle(`Post by ${post.author.displayName}`),
+            title: `Posted by ${post.author.displayName} via Firefly`,
             description: post.metadata.content?.content ?? '',
             images,
         },

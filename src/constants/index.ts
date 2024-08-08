@@ -20,7 +20,7 @@ import { MediaSource } from '@/types/compose.js';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SITE_NAME = 'Firefly: All in one social app';
+export const SITE_NAME = 'Firefly: App for Web3 Natives';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
