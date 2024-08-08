@@ -63,7 +63,7 @@ const resolveProfileTabColor = createLookupTableResolver<
 
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const { profileIdentity: profileIdentity, setProfileIdentity: setProfileIdentity } = useProfileIdentityState();
+    const { profileIdentity, setProfileIdentity } = useProfileIdentityState();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();

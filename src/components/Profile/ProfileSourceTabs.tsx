@@ -23,7 +23,7 @@ interface ProfileSourceTabs {
 }
 
 export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const { profileIdentity: profileIdentity } = useProfileIdentityState();
+    const { profileIdentity } = useProfileIdentityState();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;

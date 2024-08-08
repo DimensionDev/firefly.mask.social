@@ -35,7 +35,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { currentProfile } = useProfileStore(source);
     const pathname = usePathname();
     const updateParams = useUpdateParams();
-    const { profileIdentity: profileIdentity } = useProfileIdentityState();
+    const { profileIdentity } = useProfileIdentityState();
     const accounts = useConnectedAccounts(source);
 
     const isMyProfile = useIsMyRelatedProfile(profileIdentity.id, profileIdentity.source);

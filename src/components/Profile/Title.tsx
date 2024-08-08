@@ -34,7 +34,7 @@ export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile 
     });
 
     const comeback = useComeBack();
-    const { profileIdentity: profileIdentity } = useProfileIdentityState();
+    const { profileIdentity } = useProfileIdentityState();
 
     const { walletProfile } = resolveFireflyProfiles(profileIdentity, profiles);
 

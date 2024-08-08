@@ -34,7 +34,7 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ profiles }: ProfilePageProps) {
-    const { profileIdentity: profileIdentity } = useProfileIdentityState();
+    const { profileIdentity } = useProfileIdentityState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const resolvedSource = narrowToSocialSource(profileIdentity.source);

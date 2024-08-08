@@ -22,7 +22,7 @@ export function ProfileDetailPage({ identity, source }: Props) {
     const resolvedSource = resolveSourceFromUrl(source);
     const profileIdentity = { source: resolvedSource, identity };
 
-    const { setProfileIdentity: setProfileIdentity } = useProfileIdentityState();
+    const { setProfileIdentity } = useProfileIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some(
         (x) => x.source === profileIdentity.source && x.identity === profileIdentity.identity,

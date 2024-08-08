@@ -15,7 +15,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useProfileIdentityState } from '@/store/useProfileIdentityStore.js';
 
 export default function Page() {
-    const { profileIdentity: profileIdentity, setProfileIdentity: setProfileIdentity } = useProfileIdentityState();
+    const { profileIdentity, setProfileIdentity } = useProfileIdentityState();
     const searchParam = useSearchParams();
 
     const currentProfiles = useCurrentProfileAll();

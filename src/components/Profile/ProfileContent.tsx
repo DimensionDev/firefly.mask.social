@@ -25,7 +25,7 @@ interface ProfileContentProps {
 }
 
 export function ProfileContent({ profile, profiles, relations, isSuspended }: ProfileContentProps) {
-    const { profileIdentity: profileIdentity } = useProfileIdentityState();
+    const { profileIdentity } = useProfileIdentityState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();
