@@ -1,12 +1,12 @@
 import { BugAntIcon, ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/macro';
 import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react';
-import { useCopyToClipboard } from 'react-use';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { env } from '@/constants/env.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 
 export interface ErrorReportSnackbarProps {
     id: number | string;
@@ -52,18 +52,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
         return 'https://github.com/DimensionDev/firefly.mask.social/issues/new?' + url.toString();
     }, [title, body]);
 
-    const text = `${title}\n\n${body}`;
-
-    const [, copyToClipboard] = useCopyToClipboard();
-    const [copied, setCopied] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
-
-    const handleCopy = useCallback(() => {
-        copyToClipboard(text);
-        setCopied(true);
-        clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(setCopied, 1500, false);
-    }, [copyToClipboard, text]);
+    const [copied, handleCopy] = useCopyText(`${title}\n\n${body}`, { enqueueSuccessMessage: false });
 
     return (
         <SnackbarContent ref={ref} className="rounded-[4px] bg-danger">

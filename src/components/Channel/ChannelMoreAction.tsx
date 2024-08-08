@@ -1,7 +1,6 @@
 import { Menu, type MenuProps } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { memo } from 'react';
-import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
 import EllipsisHorizontalCircleIcon from '@/assets/ellipsis-horizontal-circle.svg';
@@ -10,8 +9,8 @@ import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -22,9 +21,10 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 }
 
 export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ channel }) {
-    const [, copyToClipboard] = useCopyToClipboard();
     const isLogin = useIsLogin(channel.source);
     const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleMutedChannel();
+
+    const [, handleCopy] = useCopyText(urlcat(location.origin, getChannelUrl(channel)));
 
     return (
         <MoreActionMenu
@@ -51,8 +51,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         <MenuButton
                             onClick={async () => {
                                 close();
-                                copyToClipboard(urlcat(location.origin, getChannelUrl(channel)));
-                                enqueueSuccessMessage(t`Copied`);
+                                handleCopy();
                             }}
                         >
                             <LinkIcon width={18} height={18} />
