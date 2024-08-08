@@ -1,4 +1,4 @@
-import { plural, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useAsyncFn, useMount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
@@ -108,15 +108,8 @@ export function LoginFirefly(props: LoginFireflyProps) {
                 <div className="relative flex w-full flex-col items-center gap-3">
                     <div className="text-center text-[12px] leading-[16px] text-lightSecond">
                         <Trans>
-                            On your mobile device with <span className="font-bold">Firefly</span>, open the{' '}
-                            <span className="font-bold">Camera</span> app and scan the QR code in{' '}
-                            <span className="font-mono font-bold">
-                                {plural(count, {
-                                    one: '1 second',
-                                    other: `${count} seconds`,
-                                })}
-                            </span>
-                            .
+                            Scan the QR code with the <span className="font-bold">Firefly mobile app</span> or{' '}
+                            <span className="font-bold">Camera app</span> to log in instantly.
                         </Trans>
                     </div>
                     {url ? (
