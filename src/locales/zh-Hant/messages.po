@@ -45,13 +45,7 @@ msgstr "引用"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
-msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr "{count, plural, one {秒} other {{count} 秒}}"
-
 msgid "Unmute {ensOrAddress}"
-msgstr ""
-
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr ""
 
 msgid "Report @{0}"
@@ -1512,14 +1506,8 @@ msgstr ""
 msgid "Post by {0}"
 msgstr "由 {0} 發布"
 
-msgid "quote"
-msgstr "引用"
-
 msgid "{ensOrAddress} watched"
 msgstr ""
-
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "來自 @{identity} 的文章將在您的主頁時間線中被隱藏"
 
 msgid "Casts + Replies"
 msgstr ""

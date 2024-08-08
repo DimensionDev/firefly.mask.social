@@ -40,13 +40,7 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
-msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr ""
-
 msgid "Unmute {ensOrAddress}"
-msgstr ""
-
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr ""
 
 msgid "Report @{0}"
@@ -1505,9 +1499,6 @@ msgid "Schedule"
 msgstr ""
 
 msgid "Post by {0}"
-msgstr ""
-
-msgid "quote"
 msgstr ""
 
 msgid "{ensOrAddress} watched"

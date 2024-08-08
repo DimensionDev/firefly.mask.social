@@ -45,13 +45,7 @@ msgstr "引用"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？"
 
-msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr "{count, plural, one {1 秒} other {{count} 秒}}"
-
 msgid "Unmute {ensOrAddress}"
-msgstr ""
-
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 msgstr ""
 
 msgid "Report @{0}"
@@ -1290,9 +1284,6 @@ msgstr "{0} 隐藏的用户"
 msgid "Remove Poll"
 msgstr "删除投票"
 
-msgid "Unmute {identity}"
-msgstr "取消隐藏 {identity}"
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {发帖} other {全部发帖}}"
 
@@ -1515,14 +1506,8 @@ msgstr "定时"
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
-msgid "quote"
-msgstr "引用"
-
 msgid "{ensOrAddress} watched"
 msgstr ""
-
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "@{identity} 的文章会从您的时间线中隐藏"
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
@@ -1931,9 +1916,6 @@ msgstr "打赏失败，请稍后重试。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
-
-msgid "All wallets and social accounts associated with {handle} will be muted."
-msgstr "{handle} 相关的所有钱包和社交账号都将会被隐藏。"
 
 msgid "Download App"
 msgstr "下载应用"

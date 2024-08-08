@@ -40,14 +40,8 @@ msgstr "Quote Post"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
-msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr "{count, plural, one {1 second} other {{count} seconds}}"
-
 msgid "Unmute {ensOrAddress}"
 msgstr "Unmute {ensOrAddress}"
-
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
-msgstr "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
 
 msgid "Report @{0}"
 msgstr "Report @{0}"
@@ -1507,14 +1501,8 @@ msgstr "Schedule"
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
-msgid "quote"
-msgstr "quote"
-
 msgid "{ensOrAddress} watched"
 msgstr "{ensOrAddress} watched"
-
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "Articles from @{identity} will now be hidden in your home timeline"
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
