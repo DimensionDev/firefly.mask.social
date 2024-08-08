@@ -40,9 +40,6 @@ msgstr "Quote Post"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
-msgid "Unmute {ensOrAddress}"
-msgstr "Unmute {ensOrAddress}"
-
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -171,9 +168,6 @@ msgstr "Overwrite"
 
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
-
-msgid "Unwatch {ensOrAddress}"
-msgstr "Unwatch {ensOrAddress}"
 
 msgid "Join our Discord"
 msgstr "Join our Discord"
@@ -589,6 +583,9 @@ msgstr "Failed to mirror."
 msgid "Remove Choice"
 msgstr "Remove Choice"
 
+msgid "Failed to watch {handleOrEnsOrAddress}."
+msgstr "Failed to watch {handleOrEnsOrAddress}."
+
 msgid "Update"
 msgstr "Update"
 
@@ -796,9 +793,6 @@ msgstr "Open in Firefly App"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
-msgid "{ensOrAddress} unwatched"
-msgstr "{ensOrAddress} unwatched"
-
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -936,6 +930,9 @@ msgstr "1m"
 
 msgid "Bookmark"
 msgstr "Bookmark"
+
+msgid "{handleOrEnsOrAddress} watched"
+msgstr "{handleOrEnsOrAddress} watched"
 
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
@@ -1075,6 +1072,9 @@ msgstr "Login required to schedule post on {sourceName}"
 msgid "Failed to disconnect"
 msgstr "Failed to disconnect"
 
+msgid "Failed to unwatch {handleOrEnsOrAddress}."
+msgstr "Failed to unwatch {handleOrEnsOrAddress}."
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
@@ -1108,6 +1108,9 @@ msgstr "I want to hide this wallet address."
 msgid "Details"
 msgstr "Details"
 
+msgid "Unmute {handleOrEnsOrAddress}"
+msgstr "Unmute {handleOrEnsOrAddress}"
+
 msgid "Blink"
 msgstr "Blink"
 
@@ -1122,6 +1125,9 @@ msgstr "All wallets and social accounts associated with {handleOrEnsOrAddress} w
 
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
+
+msgid "Unwatch {handleOrEnsOrAddress}"
+msgstr "Unwatch {handleOrEnsOrAddress}"
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
@@ -1216,6 +1222,9 @@ msgstr "Add wallet"
 msgid "Your Blink URL."
 msgstr "Your Blink URL."
 
+msgid "Watch {handleOrEnsOrAddress}"
+msgstr "Watch {handleOrEnsOrAddress}"
+
 msgid "Show More"
 msgstr "Show More"
 
@@ -1309,6 +1318,9 @@ msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
 
+msgid "Mute {handleOrEnsOrAddress}"
+msgstr "Mute {handleOrEnsOrAddress}"
+
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 
@@ -1335,9 +1347,6 @@ msgstr "Follow @thefireflyapp on X"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
-
-msgid "Mute {ensOrAddress}"
-msgstr "Mute {ensOrAddress}"
 
 msgid "Light Mode"
 msgstr "Light Mode"
@@ -1407,9 +1416,6 @@ msgstr "This does not appear to be a honeypot."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
-
-msgid "Articles from @{ensOrAddress} will now be hidden in your home timeline"
-msgstr "Articles from @{ensOrAddress} will now be hidden in your home timeline"
 
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
@@ -1501,9 +1507,6 @@ msgstr "Schedule"
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
-msgid "{ensOrAddress} watched"
-msgstr "{ensOrAddress} watched"
-
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
@@ -1551,6 +1554,9 @@ msgstr "<0>You</0> reposted"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
+
+msgid "{handleOrEnsOrAddress} unwatched"
+msgstr "{handleOrEnsOrAddress} unwatched"
 
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
@@ -1620,9 +1626,6 @@ msgstr "Refresh"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
-
-msgid "Watch {ensOrAddress}"
-msgstr "Watch {ensOrAddress}"
 
 msgid "Channels"
 msgstr "Channels"
@@ -1771,6 +1774,9 @@ msgstr "Collection"
 msgid "Your name"
 msgstr "Your name"
 
+msgid "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
+msgstr "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
+
 msgid "Owned"
 msgstr "Owned"
 
@@ -1791,9 +1797,6 @@ msgstr "Completed"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
-
-msgid "Failed to watch {ensOrAddress}."
-msgstr "Failed to watch {ensOrAddress}."
 
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
@@ -1938,9 +1941,6 @@ msgstr "Language"
 
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
-
-msgid "Failed to unwatch {ensOrAddress}."
-msgstr "Failed to unwatch {ensOrAddress}."
 
 msgid "Profiles"
 msgstr "Profiles"
