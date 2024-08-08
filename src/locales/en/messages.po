@@ -40,9 +40,6 @@ msgstr "Quote Post"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
-msgstr "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
-
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -102,6 +99,9 @@ msgstr "The contract owner is not found to have the authority to modify the bala
 
 msgid "Select token"
 msgstr "Select token"
+
+msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
+msgstr "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
@@ -880,6 +880,9 @@ msgstr "No one likes this post yet."
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
 
+msgid "Sync"
+msgstr "Sync"
+
 msgid "Description"
 msgstr "Description"
 
@@ -1474,9 +1477,6 @@ msgstr "All notifications"
 msgid "Mobile App"
 msgstr "Mobile App"
 
-msgid "First time connecting to Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
-msgstr "First time connecting to Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
-
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
 
@@ -1698,6 +1698,9 @@ msgstr "No codes found to suspend trading."
 
 msgid "Please enable Momoka to support sending posts on Lens."
 msgstr "Please enable Momoka to support sending posts on Lens."
+
+msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
+msgstr "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"

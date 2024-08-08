@@ -45,9 +45,6 @@ msgstr "引用"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？"
 
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
-msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly"
-
 msgid "Report @{0}"
 msgstr "报告 @{0}"
 
@@ -107,6 +104,9 @@ msgstr "合约所有者无权修改其他地址的通证余额。"
 
 msgid "Select token"
 msgstr "选择代币"
+
+msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
+msgstr ""
 
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
@@ -885,6 +885,9 @@ msgstr "还未有人点赞。"
 msgid "Your posts have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
+msgid "Sync"
+msgstr ""
+
 msgid "Description"
 msgstr "介绍"
 
@@ -1479,9 +1482,6 @@ msgstr "通知"
 msgid "Mobile App"
 msgstr "手机应用"
 
-msgid "First time connecting to Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
-msgstr ""
-
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
 
@@ -1703,6 +1703,9 @@ msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Please enable Momoka to support sending posts on Lens."
 msgstr "请启用 Momoka 以支持在 Lens 上发送帖子。"
+
+msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
+msgstr ""
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"

@@ -45,9 +45,6 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
-msgstr ""
-
 msgid "Report @{0}"
 msgstr ""
 
@@ -106,6 +103,9 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr ""
 
 msgid "Select token"
+msgstr ""
+
+msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
 msgstr ""
 
 msgid "The post you quoted/replied has already deleted"
@@ -885,6 +885,9 @@ msgstr ""
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
+msgid "Sync"
+msgstr ""
+
 msgid "Description"
 msgstr ""
 
@@ -1479,9 +1482,6 @@ msgstr ""
 msgid "Mobile App"
 msgstr ""
 
-msgid "First time connecting to Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
-msgstr ""
-
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -1702,6 +1702,9 @@ msgid "No codes found to suspend trading."
 msgstr ""
 
 msgid "Please enable Momoka to support sending posts on Lens."
+msgstr ""
+
+msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr ""
 
 msgid "Buy Tax: {0}%"
