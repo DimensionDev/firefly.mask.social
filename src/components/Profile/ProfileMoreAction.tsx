@@ -14,7 +14,8 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
@@ -33,8 +34,14 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
     const profiles = useCurrentFireflyProfilesAll();
 
-    const isRelatedProfile = profiles.some((current) => {
-        return current.source === profile.source && current.identity === resolveProfileId(profile);
+    const isRelatedProfile = profiles.some((x) => {
+        const profileId = resolveFireflyProfileId(profile);
+        if (!profileId) return false;
+
+        return isSameFireflyIdentity(x.identity, {
+            id: profileId,
+            source: profile.source,
+        });
     });
 
     return (

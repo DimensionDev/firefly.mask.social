@@ -6,6 +6,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -95,17 +96,19 @@ export function SetQueryDataForMuteAllWallets() {
             const method = target.prototype[key] as Provider[K];
 
             Object.defineProperty(target.prototype, key, {
-                value: async (source: Source, identity: string) => {
-                    const m = method as (source: Source, identity: string) => ReturnType<Provider[K]>;
-                    const relationships = await m.call(target.prototype, source, identity);
-                    [...relationships, { snsId: identity, snsPlatform: source }].forEach(({ snsId, snsPlatform }) => {
-                        const source = resolveSourceFromUrl(snsPlatform);
-                        queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
+                value: async (identity: FireflyIdentity) => {
+                    const m = method as (identity: FireflyIdentity) => ReturnType<Provider[K]>;
+                    const relationships = await m.call(target.prototype, identity);
+                    [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
+                        ({ snsId, snsPlatform }) => {
+                            const source = resolveSourceFromUrl(snsPlatform);
+                            queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
 
-                        if (source === Source.Wallet) {
-                            toggleBlock(snsId, true);
-                        }
-                    });
+                            if (source === Source.Wallet) {
+                                toggleBlock(snsId, true);
+                            }
+                        },
+                    );
 
                     return relationships;
                 },

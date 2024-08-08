@@ -13,6 +13,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
@@ -26,11 +27,14 @@ interface Props {
 }
 export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
     const { data: ens } = useEnsName({ address });
-    const identity = ens || formatEthereumAddress(address, 4);
     const { data } = useNFTDetail(contractAddress, tokenId, chainId);
-    const collectionId = data?.collection?.id;
     const { data: isMuted } = useIsWalletMuted(address);
-    const isMyProfile = useIsMyRelatedProfile(address, Source.Wallet);
+
+    const identity = useFireflyIdentity(Source.Wallet, address);
+    const isMyProfile = useIsMyRelatedProfile(identity);
+
+    const ensOrAddress = ens || formatEthereumAddress(address, 4);
+    const collectionId = data?.collection?.id;
 
     return (
         <MoreActionMenu
@@ -50,12 +54,14 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                 {!isMyProfile ? (
                     <>
                         <Menu.Item>
-                            {({ close }) => <WatchWalletButton identity={identity} address={address} onClick={close} />}
+                            {({ close }) => (
+                                <WatchWalletButton identity={ensOrAddress} address={address} onClick={close} />
+                            )}
                         </Menu.Item>
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteWalletButton
-                                    identity={identity}
+                                    identity={ensOrAddress}
                                     address={address}
                                     isMuted={isMuted}
                                     onClick={close}
@@ -73,8 +79,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                     {({ close }) => (
                         <Tips
                             className="px-3 py-1 !text-main hover:bg-bg"
-                            identity={address}
-                            source={Source.Wallet}
+                            identity={identity}
                             handle={ens}
                             tooltipDisabled
                             label={t`Send tips`}

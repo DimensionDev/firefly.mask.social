@@ -10,7 +10,7 @@ import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -26,19 +26,18 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const { profileIdentity } = useProfileIdentityState();
 
     const pathname = usePathname();
-    const isProfilePage = pathname === PageRoute.Profile;
-
-    const isMyProfile = useIsMyRelatedProfile(profileIdentity.id, profileIdentity.source);
-
     const updateParams = useUpdateParams();
+
+    const isProfilePage = pathname === PageRoute.Profile;
+    const isMyProfile = useIsMyRelatedProfile(profileIdentity);
 
     const tabs = useMemo(() => {
         return SORTED_PROFILE_SOURCES.filter((source) => {
             if (isProfilePage) {
-                if (source === Source.Wallet) return profiles.some((x) => x.source === Source.Wallet);
+                if (source === Source.Wallet) return profiles.some((x) => x.identity.source === Source.Wallet);
                 return true;
             }
-            return profiles.some((x) => x.source === source);
+            return profiles.some((x) => x.identity.source === source);
         });
     }, [profiles, isProfilePage]);
 
@@ -67,9 +66,9 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                 const target = currentProfile
                                     ? {
                                           source: currentProfile.source,
-                                          identity: resolveProfileId(currentProfile),
+                                          identity: resolveFireflyProfileId(currentProfile),
                                       }
-                                    : profiles.find((x) => x.source === value);
+                                    : profiles.find((x) => x.identity.source === value);
 
                                 updateParams(
                                     new URLSearchParams({

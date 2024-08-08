@@ -17,6 +17,7 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -43,9 +44,7 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     const pathname = usePathname();
     const currentProfiles = useCurrentFireflyProfilesAll();
-    const isOthersProfile = !currentProfiles.some(
-        (x) => x.source === profileIdentity.source && x.identity === profileIdentity.id,
-    );
+    const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, profileIdentity));
 
     const { walletProfile } = resolveFireflyProfiles(profileIdentity, profiles);
     const { source, id } = profileIdentity;

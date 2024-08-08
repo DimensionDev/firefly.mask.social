@@ -477,8 +477,8 @@ export interface Relation {
     source: string[];
     identity: {
         uuid: string;
-        platform: RelationPlatform;
         identity: string;
+        platform: RelationPlatform;
         displayName: string;
     };
 }
@@ -910,9 +910,9 @@ export interface WalletConnection {
     twitterId: string;
 }
 
-export interface FireflyIdentity {
+export interface FireflyIdentity<T = Source> {
     id: string;
-    source: Source;
+    source: T;
 }
 
 export type FireflyWalletConnection = WalletConnection & {

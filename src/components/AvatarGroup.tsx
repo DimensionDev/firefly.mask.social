@@ -16,23 +16,26 @@ interface AvatarGroupProps extends HTMLProps<HTMLDivElement> {
 export function AvatarGroup({ profiles, AvatarProps }: AvatarGroupProps) {
     return (
         <div className="flex items-center">
-            {profiles.map((profile, index, self) => (
-                <ProfileTippy
-                    key={profile.profileId}
-                    source={profile.source}
-                    identity={profile.source === Source.Lens ? profile.handle : profile.profileId}
-                >
-                    <Link
-                        href={getProfileUrl(profile)}
-                        className={classNames('relative inline-flex items-center', {
-                            '-ml-2.5': index > 0 && self.length > 1,
-                        })}
-                        style={{ zIndex: self.length - index }}
-                    >
-                        <Avatar src={profile.pfp} size={40} alt={profile.profileId} {...AvatarProps} />
-                    </Link>
-                </ProfileTippy>
-            ))}
+            {profiles.map((profile, index, self) => {
+                const identity = {
+                    id: profile.source === Source.Lens ? profile.handle : profile.profileId,
+                    source: profile.source,
+                };
+
+                return (
+                    <ProfileTippy key={profile.profileId} identity={identity}>
+                        <Link
+                            href={getProfileUrl(profile)}
+                            className={classNames('relative inline-flex items-center', {
+                                '-ml-2.5': index > 0 && self.length > 1,
+                            })}
+                            style={{ zIndex: self.length - index }}
+                        >
+                            <Avatar src={profile.pfp} size={40} alt={profile.profileId} {...AvatarProps} />
+                        </Link>
+                    </ProfileTippy>
+                );
+            })}
         </div>
     );
 }

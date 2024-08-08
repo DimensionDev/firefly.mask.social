@@ -16,23 +16,24 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileCardProps {
-    source: SocialSource;
-    identity: string;
+    identity: FireflyIdentity<SocialSource>;
     defaultProfile?: Profile;
 }
 
-export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ defaultProfile, source, identity }) {
+export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identity, defaultProfile }) {
+    const { id, source } = identity;
     const { data: profile, isLoading } = useQuery({
         enabled: !!identity && !!source,
-        queryKey: ['profile', source, identity],
+        queryKey: ['profile', id, source],
         queryFn: async () => {
             if (defaultProfile) return defaultProfile;
             if (!identity || !source) return;
             const provider = resolveSocialMediaProvider(source);
-            return source === Source.Lens ? provider.getProfileByHandle(identity) : provider.getProfileById(identity);
+            return source === Source.Lens ? provider.getProfileByHandle(id) : provider.getProfileById(id);
         },
     });
     const myProfile = useCurrentProfile(source);

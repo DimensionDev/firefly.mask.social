@@ -6,22 +6,16 @@ import { TippyContext, useTippyContext } from '@/components/TippyContext/index.j
 import { type SocialSource } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileTippyProps extends TippyProps {
     className?: string;
-    identity: string;
-    source: SocialSource;
     profile?: Profile;
+    identity: FireflyIdentity<SocialSource>;
 }
 
-export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
-    identity,
-    source,
-    profile,
-    children,
-    ...rest
-}) {
+export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ identity, profile, children, ...rest }) {
     const isMedium = useIsMedium();
     const [enabled, setEnabled] = useState(!isMedium);
 
@@ -44,7 +38,7 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({
                 }}
                 hideOnClick
                 interactive
-                content={enabled ? <ProfileCard source={source} identity={identity} defaultProfile={profile} /> : null}
+                content={enabled ? <ProfileCard identity={identity} defaultProfile={profile} /> : null}
                 {...rest}
             >
                 {children}

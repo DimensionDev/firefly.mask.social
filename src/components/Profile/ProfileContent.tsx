@@ -71,7 +71,7 @@ export function ProfileContent({ profile, profiles, relations, isSuspended }: Pr
     return (
         <>
             {info}
-            <ProfileTabs profiles={profiles.filter((x) => x.source === source)} />
+            <ProfileTabs profiles={profiles.filter((x) => x.identity.source === source)} />
             {content}
         </>
     );

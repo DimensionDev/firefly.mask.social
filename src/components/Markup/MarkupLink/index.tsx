@@ -58,7 +58,12 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
                 const link = getProfileUrl(createDummyProfileFromLensHandle(handle));
                 return (
-                    <ProfileTippy source={Source.Lens} identity={handle}>
+                    <ProfileTippy
+                        identity={{
+                            source: Source.Lens,
+                            id: handle,
+                        }}
+                    >
                         <MentionLink handle={handle} href={link} className="inline-block" />
                     </ProfileTippy>
                 );
@@ -72,7 +77,12 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
                 const link = getProfileUrl(profile);
                 return (
-                    <ProfileTippy source={Source.Farcaster} identity={profile.profileId}>
+                    <ProfileTippy
+                        identity={{
+                            source: Source.Farcaster,
+                            id: profile.profileId,
+                        }}
+                    >
                         <MentionLink handle={profile.handle} href={link} className="inline-block" />
                     </ProfileTippy>
                 );
@@ -82,7 +92,12 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 const profile = post?.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
                 if (!profile) return title;
                 return (
-                    <ProfileTippy source={Source.Twitter} identity={profile.profileId}>
+                    <ProfileTippy
+                        identity={{
+                            source: Source.Twitter,
+                            id: profile.profileId,
+                        }}
+                    >
                         <MentionLink handle={profile.handle} href={getProfileUrl(profile)} className="inline-block" />
                     </ProfileTippy>
                 );

@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -14,8 +14,8 @@ import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MuteAllProfileBaseProps {
     handle: string;
@@ -54,7 +54,7 @@ function MuteAllProfileBase({ handle, identity, onClose }: MuteAllProfileBasePro
             });
             throw error;
         }
-    }, [identity.id, identity.source, onClose]);
+    }, [identity, onClose]);
 
     if (isLoading || isMutedAll === true) return null;
 
@@ -74,30 +74,33 @@ function MuteAllProfileBase({ handle, identity, onClose }: MuteAllProfileBasePro
 
 export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfileBaseProps['onClose'] }>(
     function MuteAllByProfile({ profile, onClose }) {
-        return (
-            <MuteAllProfileBase
-                identity={{
-                    id: profile.profileId,
-                    source: profile.source,
-                }}
-                handle={`@${profile.handle}`}
-                onClose={onClose}
-            />
+        const identity = useMemo(
+            () => ({
+                id: profile.profileId,
+                source: profile.source,
+            }),
+            [profile.profileId, profile.source],
         );
+
+        return <MuteAllProfileBase identity={identity} handle={`@${profile.handle}`} onClose={onClose} />;
     },
 );
 
 export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose: MuteAllProfileBaseProps['onClose'] }>(
     function MuteAllByWallet({ address, handle, onClose }) {
+        const identity = useMemo(
+            () => ({
+                id: address,
+                source: Source.Wallet,
+            }),
+            [address],
+        );
         const { data: ens } = useEnsName({ address });
-        const resolvedHandle = handle || ens || formatEthereumAddress(address, 4);
+
         return (
             <MuteAllProfileBase
-                identity={{
-                    id: address,
-                    source: Source.Wallet,
-                }}
-                handle={resolvedHandle}
+                identity={identity}
+                handle={handle || ens || formatEthereumAddress(address, 4)}
                 onClose={onClose}
             />
         );

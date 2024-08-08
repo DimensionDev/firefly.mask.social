@@ -17,7 +17,7 @@ import { switchAccount } from '@/helpers/account.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -38,8 +38,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { profileIdentity } = useProfileIdentityState();
     const accounts = useConnectedAccounts(source);
 
-    const isMyProfile = useIsMyRelatedProfile(profileIdentity.id, profileIdentity.source);
-
+    const isMyProfile = useIsMyRelatedProfile(profileIdentity);
     const isPureProfilePage = pathname === PageRoute.Profile;
     const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
 
@@ -78,7 +77,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 if (
                                     isMyProfilePage &&
                                     profileIdentity.source === source &&
-                                    profileIdentity.id !== resolveProfileId(account.profile)
+                                    profileIdentity.id !== resolveFireflyProfileId(account.profile)
                                 ) {
                                     updateParams(
                                         new URLSearchParams({
@@ -86,7 +85,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                         }),
                                         isPureProfilePage
                                             ? undefined
-                                            : urlcat('/profile/:id', { id: resolveProfileId(account.profile) }),
+                                            : urlcat('/profile/:id', { id: resolveFireflyProfileId(account.profile) }),
                                     );
                                 }
                             }}

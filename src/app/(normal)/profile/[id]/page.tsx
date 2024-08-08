@@ -5,8 +5,8 @@ import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { getProfileOGById } from '@/services/getProfileOGById.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { getProfileOGById } from '@/services/getProfileOGById.js';
 
 const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
     key: KeyType.GetProfileOGById,

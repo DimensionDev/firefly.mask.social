@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 
-import { Source } from '@/constants/enum.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
-export function useIsMyRelatedProfile(identity: string, source: Source) {
+export function useIsMyRelatedProfile(identity: FireflyIdentity) {
     const profiles = useCurrentFireflyProfilesAll();
 
     return useMemo(
-        () => profiles.some((profile) => profile.identity === identity && profile.source === source),
-        [profiles, identity, source],
+        () => profiles.some((profile) => isSameFireflyIdentity(profile.identity, identity)),
+        [profiles, identity],
     );
 }
