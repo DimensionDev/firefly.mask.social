@@ -1225,6 +1225,9 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
+msgid "GIFs"
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1705,6 +1708,9 @@ msgstr ""
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
+msgid "Stickers"
+msgstr ""
+
 msgid "Dark Mode"
 msgstr ""
 
@@ -1849,6 +1855,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "Emoji"
+msgstr ""
+
 msgid "Failed to report spam NFT."
 msgstr ""
 
@@ -1991,6 +2000,9 @@ msgid "Media"
 msgstr ""
 
 msgid "No content to publish."
+msgstr ""
+
+msgid "Text"
 msgstr ""
 
 msgid "Mirror"

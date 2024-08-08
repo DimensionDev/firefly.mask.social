@@ -1225,6 +1225,9 @@ msgstr "Failed to parse session."
 msgid "Feedback"
 msgstr "Feedback"
 
+msgid "GIFs"
+msgstr "GIFs"
+
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 
@@ -1705,6 +1708,9 @@ msgstr "Buy Tax: {0}%"
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 
+msgid "Stickers"
+msgstr "Stickers"
+
 msgid "Dark Mode"
 msgstr "Dark Mode"
 
@@ -1849,6 +1855,9 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
+msgid "Emoji"
+msgstr "Emoji"
+
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
 
@@ -1992,6 +2001,9 @@ msgstr "Media"
 
 msgid "No content to publish."
 msgstr "No content to publish."
+
+msgid "Text"
+msgstr "Text"
 
 msgid "Mirror"
 msgstr "Mirror"
