@@ -6,7 +6,7 @@ import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentAvailableProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

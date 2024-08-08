@@ -10,7 +10,7 @@ import { VirtualList, type VirtualListProps } from '@/components/VirtualList/Vir
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

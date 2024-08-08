@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
