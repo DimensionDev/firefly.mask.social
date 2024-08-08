@@ -526,6 +526,9 @@ msgstr "No Lens profile found.<0/>Please change to another wallet."
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
+msgid "<0/> and <1/> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr "<0/> and <1/> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "Not Found. Please check your URL[{0}]."
 
@@ -835,6 +838,9 @@ msgstr "Add account"
 msgid "{0} Comments"
 msgstr "{0} Comments"
 
+msgid "<0/> and <1/> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr "<0/> and <1/> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+
 msgid "Schedule Post"
 msgstr "Schedule Post"
 
@@ -1107,9 +1113,6 @@ msgstr "Creator"
 
 msgid "I want to hide this wallet address."
 msgstr "I want to hide this wallet address."
-
-msgid "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
-msgstr "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
 
 msgid "Details"
 msgstr "Details"
@@ -1869,9 +1872,6 @@ msgstr "Cancel Recast"
 
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
-
-msgid "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
-msgstr "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."

@@ -96,11 +96,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (length === 2)
                     return (
                         <Trans>
-                            <Trans>
-                                <ProfileLink profile={firstReactor} /> and{' '}
-                                <ProfileLink profile={notification.reactors[1]} />
-                            </Trans>{' '}
-                            <span>liked your </span>
+                            <ProfileLink profile={firstReactor} /> and{' '}
+                            <ProfileLink profile={notification.reactors[1]} /> <span>liked your </span>
                             <strong>
                                 <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />
                             </strong>
@@ -274,10 +271,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (length === 2)
                     return (
                         <Trans>
-                            <Trans>
-                                <ProfileLink profile={firstActed} /> and{' '}
-                                <ProfileLink profile={notification.actions[1]} />
-                            </Trans>{' '}
+                            <ProfileLink profile={firstActed} /> and <ProfileLink profile={notification.actions[1]} />{' '}
                             <span>acted on your </span>
                             <strong>
                                 <Select value={type} _Post="post" _Comment="comment" _Mirror="mirror" other="post" />

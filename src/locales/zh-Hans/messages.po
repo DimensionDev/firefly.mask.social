@@ -531,6 +531,9 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
+msgid "<0/> and <1/> <2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。请检查你的 URL [{0}]。"
 
@@ -840,6 +843,9 @@ msgstr "添加账号"
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
+msgid "<0/> and <1/> <2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
+msgstr ""
+
 msgid "Schedule Post"
 msgstr "定时任务"
 
@@ -1111,9 +1117,6 @@ msgid "Creator"
 msgstr "创建者"
 
 msgid "I want to hide this wallet address."
-msgstr ""
-
-msgid "<0/> and <1/><2>liked your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
 msgstr ""
 
 msgid "Details"
@@ -1874,9 +1877,6 @@ msgstr "取消转帖"
 
 msgid "The scheduled time has passed."
 msgstr "定时任务的时间已过期。"
-
-msgid "<0/> and <1/><2>acted on your </2><3>{type, select, Post {post} Comment {comment} Mirror {mirror} other {post}}</3>"
-msgstr ""
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
