@@ -29,7 +29,7 @@ export function RadioButton({ size = 40, checked, className, ...props }: Props) 
             {checked ? (
                 <RadioOnIcon className="text-highlight" width={size} height={size} />
             ) : (
-                <RadioOffIcon width={size} height={size} />
+                <RadioOffIcon className="text-secondaryLine" width={size} height={size} />
             )}
         </button>
     );
