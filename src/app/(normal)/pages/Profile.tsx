@@ -36,14 +36,13 @@ interface ProfilePageProps {
 
 export function ProfilePage({ profiles }: ProfilePageProps) {
     const { identity } = useFireflyIdentityState();
-    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
-
     const resolvedSource = narrowToSocialSource(identity.source);
-
-    const isLogin = useIsLogin(resolvedSource);
 
     const pathname = usePathname();
     const currentProfiles = useCurrentFireflyProfilesAll();
+    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
+
+    const isLogin = useIsLogin(resolvedSource);
     const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
@@ -86,8 +85,8 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     useUpdateCurrentVisitingProfile(profile);
 
     const isSuspended = error instanceof FetchError && error.status === StatusCodes.FORBIDDEN;
-
     const isFinalized = !isSuspended && !isLoading;
+
     const twitterProfile = isOthersProfile ? profile : currentTwitterProfile || profile;
     const profileMissing =
         !profile && !walletProfile && ((identity.source === Source.Twitter && !twitterProfile) || !profiles.length);

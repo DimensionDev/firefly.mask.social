@@ -35,7 +35,6 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     disablePadding = false,
 }) {
     const isComment = post.type === 'Comment';
-
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
     const actions = compact([
@@ -85,7 +84,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 />
             </div>
         ) : null,
-        identity ? <Tips key="tips" identity={identity} disabled={disabled} handle={post.author.handle} /> : null,
+        identity.id ? <Tips key="tips" identity={identity} disabled={disabled} handle={post.author.handle} /> : null,
         <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
         <Share key="share" className="!flex-none" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
@@ -179,7 +178,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     {post.source !== Source.Twitter ? (
                         <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
                     ) : null}
-                    {identity ? <Tips identity={identity} disabled={disabled} handle={post.author.handle} /> : null}
+                    {identity.id ? <Tips identity={identity} disabled={disabled} handle={post.author.handle} /> : null}
                     <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>

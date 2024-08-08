@@ -15,24 +15,24 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 export default function Page() {
-    const { identity, setIdentity } = useFireflyIdentityState();
+    const { setIdentity } = useFireflyIdentityState();
     const searchParam = useSearchParams();
 
     const currentProfiles = useCurrentProfileAll();
     const profiles = useCurrentFireflyProfiles();
 
     const profile = useMemo(() => {
-        const urlSource = searchParam.get('source') as SocialSourceInURL;
-        if (urlSource) {
-            const source = narrowToSocialSource(resolveSourceFromUrl(urlSource));
+        const sourceInUrl = searchParam.get('source') as SocialSourceInURL;
+        if (sourceInUrl) {
+            const source = narrowToSocialSource(resolveSourceFromUrl(sourceInUrl));
             return resolveFireflyIdentity(currentProfiles[source]);
         }
         return first(profiles)?.identity ?? null;
     }, [profiles, currentProfiles, searchParam]);
 
     useEffect(() => {
-        const urlSource = searchParam.get('source') as SocialSourceInURL;
-        const source = profile ? profile.source : urlSource ? resolveSourceFromUrl(urlSource) : null;
+        const sourceInUrl = searchParam.get('source') as SocialSourceInURL;
+        const source = profile ? profile.source : sourceInUrl ? resolveSourceFromUrl(sourceInUrl) : null;
 
         if (source) {
             setIdentity({
@@ -40,7 +40,7 @@ export default function Page() {
                 id: profile?.id || '',
             });
         }
-    }, [profile, identity.id, searchParam, setIdentity]);
+    }, [profile, searchParam, setIdentity]);
 
     // profile link should be shareable
     if (profile) {

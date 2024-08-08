@@ -23,19 +23,18 @@ interface Props extends PropsWithChildren {
 }
 
 export default function DetailLayout({ children, params }: Props) {
-    const identity = params.id;
-    const searchParams = useSearchParams();
-    const rawSource = searchParams.get('source') as SourceInURL;
+    const id = params.id;
+    const sourceInUrl = useSearchParams().get('source') as SourceInURL;
+    const source = resolveSourceFromUrl(sourceInUrl);
 
-    const source = resolveSourceFromUrl(rawSource);
     const myProfile = useCurrentProfile(narrowToSocialSource(source));
 
     const { data: profile = null } = useQuery({
-        queryKey: ['profile', source, identity],
+        queryKey: ['profile', source, id],
         queryFn: async () => {
             if (source === Source.Twitter) return null;
-            if (!identity || !source || source === Source.Wallet) return null;
-            return getProfileById(narrowToSocialSource(source), identity);
+            if (!id || !source || source === Source.Wallet) return null;
+            return getProfileById(narrowToSocialSource(source), id);
         },
     });
 
@@ -74,7 +73,7 @@ export default function DetailLayout({ children, params }: Props) {
                                     replace
                                     href={{
                                         pathname: path,
-                                        query: { source: rawSource },
+                                        query: { source: sourceInUrl },
                                     }}
                                     className={classNames(
                                         pathname === path ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
