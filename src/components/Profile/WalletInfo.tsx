@@ -29,8 +29,7 @@ interface WalletInfoProps {
 
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
-
-    const [, handleCopy] = useCopyText(profile.address);
+    const [, handleCopy] = useCopyText(profile.address);  
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
 
     return (
