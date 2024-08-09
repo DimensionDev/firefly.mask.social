@@ -129,7 +129,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             onClose: async (props) => {
                 if (props?.disableClear) return;
 
-                // wait for anmation to finish
+                // wait for animation to finish
                 await delay(300);
 
                 clear();
