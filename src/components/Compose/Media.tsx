@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { Source } from '@/constants/enum.js';
-import { ALLOWED_IMAGES_MIMES, FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
+import { ALLOWED_MEDIA_MIMES, FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -103,7 +103,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept={ALLOWED_IMAGES_MIMES.join(', ')}
+                    accept={ALLOWED_MEDIA_MIMES.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"
