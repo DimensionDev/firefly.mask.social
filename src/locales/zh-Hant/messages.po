@@ -46,7 +46,7 @@ msgid "Confirm to disconnect this wallet and related accounts from Firefly’s s
 msgstr ""
 
 msgid "New connect with Warpcast"
-msgstr ""
+msgstr "通過 Warpcast 的新連接"
 
 msgid "Report @{0}"
 msgstr "檢舉 @{0}"
@@ -409,7 +409,7 @@ msgid "Save Post?"
 msgstr "是否保存貼文？"
 
 msgid "Reconnect with Firefly"
-msgstr ""
+msgstr "通過 Firefly 重新連接"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
@@ -1867,7 +1867,7 @@ msgid "The scheduled time has passed."
 msgstr ""
 
 msgid "The connection has timed out. Please try again later."
-msgstr ""
+msgstr "連結已超時。請稍候重試"
 
 msgid "Emoji"
 msgstr ""
@@ -1954,7 +1954,7 @@ msgid "Address on Watching Lists"
 msgstr "在觀察列表上的地址"
 
 msgid "FREE"
-msgstr ""
+msgstr "免費"
 
 msgid "Profiles"
 msgstr "個人資料"
