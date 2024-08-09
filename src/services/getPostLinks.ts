@@ -6,6 +6,7 @@ import { env } from '@/constants/env.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -13,7 +14,6 @@ import type { Action } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
-import { parseURL } from '@/helpers/parseURL.js';
 
 function isValidPostLink(url: string) {
     const parsed = parseURL(url);
