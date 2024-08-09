@@ -2,6 +2,7 @@
 import { memo, type SyntheticEvent, useCallback, useState } from 'react';
 
 import { Image, type ImageProps } from '@/components/Image.js';
+import { resolveNextImageUrl } from '@/helpers/resolveNextImageUrl.js';
 import { useMounted } from '@/hooks/useMounted.js';
 
 export interface ImageAssetProps extends ImageProps {
@@ -28,14 +29,8 @@ const getImageCache = (key: string) => {
     return value;
 };
 
-const getImageCacheKey = (src: ImageProps['src']) => {
-    if (typeof src === 'string') return src;
-    if ('src' in src) return src.src;
-    return src.default.src;
-};
-
 export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoadHandler, ...props }) {
-    const cacheKey = getImageCacheKey(props.src);
+    const cacheKey = resolveNextImageUrl(props.src);
     const ratioCache = getImageCache(cacheKey);
     const [imageProps, setImageProps] = useState<Partial<ImageProps>>(
         ratioCache ? { style: { aspectRatio: ratioCache } } : {},

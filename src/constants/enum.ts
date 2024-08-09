@@ -103,6 +103,7 @@ export enum KeyType {
     GetFollowings = 'getFollowings',
     ConsumerSecret = 'consumerSecret',
     GetBlink = 'getBlink',
+    LoadImage = 'loadImage',
 }
 
 export type TrendingUserSource = Source.Farcaster | Source.Lens;
