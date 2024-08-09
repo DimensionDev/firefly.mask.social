@@ -21,7 +21,7 @@ export function Title() {
 
     switch (type) {
         case 'compose':
-            return <Trans>Compose</Trans>
+            return <Trans>Compose</Trans>;
         case 'quote':
             return <Trans>Quote</Trans>;
         case 'reply':
