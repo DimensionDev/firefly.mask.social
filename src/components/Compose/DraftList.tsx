@@ -100,11 +100,11 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                             cancelButtonText: t`Full`,
                             confirmButtonText: t`Remaining`,
                             variant: 'normal',
-                            onCancel: () => {
-                                handleApply(draft, true);
-                            },
                             onConfirm: () => {
                                 handleApply(draft);
+                            },
+                            onCancel: () => {
+                                handleApply(draft, true);
                             },
                         });
 

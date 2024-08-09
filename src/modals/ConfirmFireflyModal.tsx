@@ -80,6 +80,10 @@ export const ConfirmFireflyModal = forwardRef<
                         </div>
                     </div>
                 ),
+                onCancel: () => {
+                    ConfirmModalRef.close(false);
+                    ConfirmFireflyModalRef.close(false);
+                },
                 enableCancelButton: false,
                 enableConfirmButton: false,
                 enableCloseButton: false,
