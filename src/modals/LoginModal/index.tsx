@@ -67,9 +67,7 @@ export const LoginModal = memo(
 
         return (
             <Popover open={open} onClose={() => dispatch?.close()}>
-                <div>
-                    <RouterProvider router={router} />
-                </div>
+                <RouterProvider router={router} />
             </Popover>
         );
     }),

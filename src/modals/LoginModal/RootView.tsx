@@ -9,11 +9,10 @@ import { LoginModalRef } from '@/modals/controls.js';
 export function RootView() {
     const isMedium = useIsMedium();
     const router = useRouter();
-    const { matches, location } = router.state;
-
-    const isMain = location.pathname === '/main';
 
     if (isMedium) {
+        const { matches, location } = router.state;
+        const isMain = location.pathname === '/main';
         const contextTitle = [...matches].reverse().find((x) => x.context.title)?.context.title;
         const title = contextTitle ?? <Trans>Login to Firefly</Trans>;
         return (
