@@ -77,6 +77,9 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             status: ProfileStatus.Active,
             verified: user?.verified ?? false,
             source: Source.Twitter,
+            viewerContext: {
+                following: user?.connection_status?.some((status) => status === 'following'),
+            },
         },
         stats: {
             reactions: item.public_metrics?.like_count ?? 0,
