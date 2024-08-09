@@ -19,7 +19,7 @@ export function useCopyText(
         clearTimeout(timerRef.current);
         timerRef.current = setTimeout(setCopied, 1500, false);
         if (options.enqueueSuccessMessage) enqueueSuccessMessage(t`Copied`);
-    }, [text, copyToClipboard]);
+    }, [text, copyToClipboard, options.enqueueSuccessMessage]);
 
     return [copied, handleCopy] as const;
 }
