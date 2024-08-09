@@ -19,6 +19,9 @@ function isValidPostLink(url: string) {
     const parsed = parseURL(url);
     if (!parsed) return false;
 
+    // such as ens domains
+    if (isValidDomain(url)) return false;
+
     // file extension
     if (/\.\w{1,6}$/i.test(parsed.pathname)) return false;
 
@@ -31,7 +34,7 @@ export async function getPostFrame(urls: string[]): Promise<Frame | null> {
 
     return attemptUntil(
         urls
-            .filter((x) => x && !isValidDomain(x) && isValidPostLink(x))
+            .filter((x) => isValidPostLink(x))
             .map((y) => async () => {
                 const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                     urlcat('/api/frame', {
@@ -51,7 +54,7 @@ export async function getPostBlinkAction(urls: string[]): Promise<Action | null>
 
     return attemptUntil(
         urls
-            .filter((x) => x && !isValidDomain(x) && isValidPostLink(x))
+            .filter((x) => isValidPostLink(x))
             .map((url) => async () => {
                 return BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
             }),
@@ -64,7 +67,7 @@ export async function getPostOembed(urls: string[], post?: Pick<Post, 'quoteOn'>
     if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
 
     const url = last(urls);
-    if (!url || isValidDomain(url) || isValidPostLink(url)) return null;
+    if (!url || !isValidPostLink(url)) return null;
     if (post?.quoteOn) return null;
 
     const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
