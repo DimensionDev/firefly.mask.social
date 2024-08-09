@@ -51,6 +51,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
 export interface LoginFarcasterProps {
     signType: SignType | null;
+    expectedSignType?: SignType;
 }
 
 export function LoginFarcaster({ signType }: LoginFarcasterProps) {

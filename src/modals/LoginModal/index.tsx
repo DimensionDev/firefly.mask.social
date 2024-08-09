@@ -52,7 +52,7 @@ export const LoginModal = memo(
             },
             onClose: async () => {
                 // wait for dropdown animation
-                if (!isMedium) await delay(300);
+                await delay(300);
 
                 history.flush();
                 history.push('/main');

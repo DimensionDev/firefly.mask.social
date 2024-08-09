@@ -3,6 +3,7 @@ import { useLocation } from '@tanstack/react-router';
 
 import { LoginFarcaster, type LoginFarcasterProps } from '@/components/Login/LoginFarcaster.js';
 import { FarcasterSignType } from '@/constants/enum.js';
+import { safeUnreachable } from '@masknet/kit';
 
 export const FarcasterViewBeforeLoad = () => {
     return {
@@ -11,15 +12,25 @@ export const FarcasterViewBeforeLoad = () => {
 };
 
 function useSignType() {
-    const { signType } = useLocation().search as LoginFarcasterProps;
-    return signType || FarcasterSignType.RelayService;
+    const { signType, expectedSignType } = useLocation().search as LoginFarcasterProps;
+    return signType || expectedSignType || null;
 }
 
 function Title() {
     const signType = useSignType();
-    if (signType === FarcasterSignType.GrantPermission) return <Trans>New connection with Warpcast</Trans>;
-    else if (signType === FarcasterSignType.RelayService) return <Trans>Login with Farcaster</Trans>;
-    return <Trans>Log in with recovery phrase</Trans>;
+    if (!signType) return null;
+
+    switch (signType) {
+        case FarcasterSignType.GrantPermission:
+            return <Trans>New connection with Warpcast</Trans>;
+        case FarcasterSignType.RelayService:
+            return <Trans>Login with Farcaster</Trans>;
+        case FarcasterSignType.RecoveryPhrase:
+            return <Trans>Log in with recovery phrase</Trans>;
+        default:
+            safeUnreachable(signType);
+            return null;
+    }
 }
 
 export function FarcasterView() {
