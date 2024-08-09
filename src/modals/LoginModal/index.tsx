@@ -18,6 +18,7 @@ const memoryHistory = createMemoryHistory({
 const router = createRouter({
     routeTree,
     history: memoryHistory,
+    defaultPendingMinMs: 0,
 });
 
 export interface LoginModalOpenProps {
