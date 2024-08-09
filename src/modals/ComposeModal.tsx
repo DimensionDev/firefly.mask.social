@@ -6,6 +6,7 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
+import { delay } from '@masknet/kit';
 import { ProfileIdentifier } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
@@ -125,14 +126,20 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 if (channel) updateChannel(channel);
                 if (initialPath) router.navigate({ to: initialPath });
             },
-            onClose: (props) => {
+            onClose: async (props) => {
                 if (props?.disableClear) return;
+
+                // wait for animation to finish
+                await delay(300);
+
                 clear();
                 clearScheduleTime();
                 router.navigate({ to: '/' });
-                setTimeout(() => {
-                    editor.update(() => $getRoot().clear());
-                }, 1000);
+
+                // https://github.com/DimensionDev/firefly.mask.social/pull/1644
+                await delay(1000);
+
+                editor.update(() => $getRoot().clear());
             },
         });
 
