@@ -8,7 +8,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
 export async function getProfileOGById(source: SocialSourceInURL, profileId: string) {
-    const profile = await getProfileById(resolveSocialSource(source), profileId);
+    const profile = await getProfileById(resolveSocialSource(source), profileId)?.catch(() => null);
     if (!profile) return createSiteMetadata();
 
     const images = [
