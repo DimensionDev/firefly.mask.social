@@ -196,6 +196,7 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                             }
 
                             setSignType(type);
+                            router.history.replace(`/farcaster?signType=${type}`);
                         }}
                     >
                         <span className="flex flex-1 items-center">
