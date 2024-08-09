@@ -127,10 +127,12 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             },
             onClose: (props) => {
                 if (props?.disableClear) return;
-                clear();
-                clearScheduleTime();
-                router.navigate({ to: '/' });
+
+                // Clear the state after the modal is closed
                 setTimeout(() => {
+                    clear();
+                    clearScheduleTime();
+                    router.navigate({ to: '/' });
                     editor.update(() => $getRoot().clear());
                 }, 1000);
             },
