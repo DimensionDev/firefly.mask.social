@@ -42,7 +42,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const muted = useIsProfileMuted(post.author);
 
     const isSmall = useIsSmall('max');
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     return (
         <motion.article

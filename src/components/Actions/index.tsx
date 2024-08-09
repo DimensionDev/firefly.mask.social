@@ -125,7 +125,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     const pathname = usePathname();
     const isSmall = useIsSmall('max');
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const noLeftPadding = isDetailPage || isSmall || disablePadding;
 
