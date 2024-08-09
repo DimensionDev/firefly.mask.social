@@ -28,7 +28,6 @@ import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
-import { getFrameMintUrl } from '@/services/getFrameMintUrl.js';
 import { getPostFrame } from '@/services/getPostLinks.js';
 import { validateMessage } from '@/services/validateMessage.js';
 import {
@@ -173,10 +172,8 @@ async function getNextFrame(
                     openWindow(button.target, '_blank');
                 return;
             case ActionType.Mint: {
-                if (!button.target) return;
-
                 const mintTx = await getFrameMintTransaction(frame, button);
-                if (mintTx) {
+                if (mintTx && button.target) {
                     const { chainId } = parseCAIP10(button.target);
                     const client = await getWalletClientRequired(config, {
                         chainId,
@@ -186,13 +183,7 @@ async function getNextFrame(
                     return;
                 }
 
-                const mintUrl = getFrameMintUrl(frame, button);
-                if (mintUrl) {
-                    if (await ConfirmLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
-                    return;
-                }
-
-                enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(frame.url)) openWindow(frame.url, '_blank');
                 return;
             }
             case ActionType.Transaction:
