@@ -178,6 +178,9 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 accounts,
             });
 
+            console.log('DEBUG: confirmed');
+            console.log({ confirmed });
+
             if (confirmed) {
                 await updateState(accounts, !belongsTo);
             } else {
