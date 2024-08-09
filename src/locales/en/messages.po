@@ -898,9 +898,6 @@ msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention ite
 msgid "Hide more comments"
 msgstr "Hide more comments"
 
-msgid "Failed to resolve mint URL = {0}."
-msgstr "Failed to resolve mint URL = {0}."
-
 msgid "Malformed session."
 msgstr "Malformed session."
 
