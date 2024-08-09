@@ -14,7 +14,6 @@ import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
