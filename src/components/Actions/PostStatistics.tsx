@@ -26,10 +26,12 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 function EngagementLink({
     children,
+    prefetch = false,
     ...props
 }: {
     post: Post;
     type: EngagementType;
+    prefetch?: boolean;
     children?: ReactNode;
     onSetScrollIndex?: () => void;
 }) {
@@ -38,6 +40,7 @@ function EngagementLink({
     }
     return (
         <Link
+            prefetch={prefetch}
             className="hover:underline"
             href={resolveEngagementLink(props.post.postId, props.post.source, props.type)}
             onClick={(ev) => {

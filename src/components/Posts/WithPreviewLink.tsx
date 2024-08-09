@@ -12,6 +12,7 @@ interface WithPreviewLinkProps {
     disablePreview?: boolean;
     children: React.ReactNode;
     useModal?: boolean;
+    prefetch?: boolean;
 }
 
 export function WithPreviewLink({
@@ -20,6 +21,7 @@ export function WithPreviewLink({
     post,
     index,
     useModal = false,
+    prefetch = false,
 }: WithPreviewLinkProps) {
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
@@ -35,6 +37,7 @@ export function WithPreviewLink({
 
     return !disablePreview && !useModal ? (
         <Link
+            prefetch={prefetch}
             href={getPostImageUrl(post, index, isPostPage)}
             scroll={false}
             onClick={(event) => event.stopPropagation()}
