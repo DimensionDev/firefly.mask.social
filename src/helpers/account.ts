@@ -181,6 +181,13 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             if (confirmed) {
                 await updateState(accounts, !belongsTo);
             } else {
+                // logout server tw if needed
+                if (TwitterSession.isNextAuth(account.session)) {
+                    signOut({
+                        redirect: false,
+                    });
+                }
+
                 // the user rejected to store conflicting accounts
                 if (!belongsTo) return false;
 
