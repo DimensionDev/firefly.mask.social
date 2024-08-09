@@ -1,3 +1,4 @@
+import { delay } from '@masknet/kit';
 import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
 import { forwardRef, memo } from 'react';
 import urlcat from 'urlcat';
@@ -38,7 +39,7 @@ export const LoginModal = memo(
         const { history } = router;
 
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: async (props) => {
+            onOpen: (props) => {
                 if (!props?.source) {
                     history.replace('/main');
                     return;
@@ -49,7 +50,10 @@ export const LoginModal = memo(
                 });
                 history.push(url);
             },
-            onClose: () => {
+            onClose: async () => {
+                // wait for dropdown animation
+                if (!isMedium) await delay(300);
+
                 history.flush();
                 history.push('/main');
             },

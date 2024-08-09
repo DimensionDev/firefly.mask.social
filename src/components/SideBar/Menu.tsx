@@ -200,7 +200,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                     </ul>
                 </li>
             </ul>
-            <div className="absolute -left-2 -right-2 bottom-20 text-center">
+            <div
+                className={classNames('absolute -left-2 -right-2 bottom-20', {
+                    'flex justify-center text-center': !isLogin,
+                })}
+            >
                 {isLogin ? (
                     <LoginStatusBar collapsed={collapsed} />
                 ) : collapsed ? (

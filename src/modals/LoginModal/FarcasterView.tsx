@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { useLocation } from '@tanstack/react-router';
+import { useState } from 'react';
 
 import { LoginFarcaster, type LoginFarcasterProps } from '@/components/Login/LoginFarcaster.js';
 import { FarcasterSignType } from '@/constants/enum.js';
@@ -23,6 +24,6 @@ function Title() {
 }
 
 export function FarcasterView() {
-    const signType = useSignType();
-    return <LoginFarcaster key={signType} signType={signType} />;
+    const [signType, setSignType] = useState<FarcasterSignType | null>(null);
+    return <LoginFarcaster key={signType} signType={signType} setSignType={setSignType} />;
 }

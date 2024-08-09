@@ -45,6 +45,9 @@ msgstr "引用"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "New connect with Warpcast"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr "檢舉 @{0}"
 
@@ -95,6 +98,9 @@ msgstr "從書籤中移除貼文失敗。"
 
 msgid "Delete post"
 msgstr "刪除貼文"
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr ""
 
 msgid "Mute @{0}"
 msgstr "將 @{0} 靜音"
@@ -401,6 +407,9 @@ msgstr "在這裡輸入"
 
 msgid "Save Post?"
 msgstr "是否保存貼文？"
+
+msgid "Reconnect with Firefly"
+msgstr ""
 
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
@@ -959,9 +968,6 @@ msgstr "對 @{0} 的解除靜音失敗"
 
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
-
-msgid "The connection has timed out. Please try again later.·"
-msgstr "連結已超時。請稍候重試"
 
 msgid "Log in with recovery phrase"
 msgstr ""
@@ -1860,6 +1866,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "The connection has timed out. Please try again later."
+msgstr ""
+
 msgid "Emoji"
 msgstr ""
 
@@ -1943,6 +1952,9 @@ msgstr "語言"
 
 msgid "Address on Watching Lists"
 msgstr "在觀察列表上的地址"
+
+msgid "FREE"
+msgstr ""
 
 msgid "Profiles"
 msgstr "個人資料"
