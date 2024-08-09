@@ -49,6 +49,7 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import { delay } from '@masknet/kit';
 
 const initialConfig = {
     namespace: 'composer',
@@ -125,16 +126,20 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 if (channel) updateChannel(channel);
                 if (initialPath) router.navigate({ to: initialPath });
             },
-            onClose: (props) => {
+            onClose: async (props) => {
                 if (props?.disableClear) return;
 
-                // Clear the state after the modal is closed
-                setTimeout(() => {
-                    clear();
-                    clearScheduleTime();
-                    router.navigate({ to: '/' });
-                    editor.update(() => $getRoot().clear());
-                }, 1000);
+                // wait for anmation to finish
+                await delay(300);
+
+                clear();
+                clearScheduleTime();
+                router.navigate({ to: '/' });
+
+                // https://github.com/DimensionDev/firefly.mask.social/pull/1644
+                await delay(1000);
+
+                editor.update(() => $getRoot().clear());
             },
         });
 
