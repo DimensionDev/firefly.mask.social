@@ -2,7 +2,6 @@ import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/rea
 import { forwardRef, useRef } from 'react';
 import urlcat from 'urlcat';
 
-import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import type { FarcasterSignType, ProfileSource } from '@/constants/enum.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
