@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-08 04:27\n"
+"PO-Revision-Date: 2024-08-09 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -172,7 +172,7 @@ msgid "Collect Action is not supported yet."
 msgstr "暫未接受收集功能。"
 
 msgid "Overwrite"
-msgstr ""
+msgstr "覆寫"
 
 msgid "Tax can be modified"
 msgstr ""
@@ -292,7 +292,7 @@ msgid "{0} left"
 msgstr "剩餘 {0}"
 
 msgid "Skip"
-msgstr ""
+msgstr "跳過"
 
 msgid "Copied"
 msgstr "已複製"
@@ -322,7 +322,7 @@ msgid "Bookmarks"
 msgstr "書籤"
 
 msgid "Followed by {0} , {1}, and {2} others you follow"
-msgstr ""
+msgstr "已被你跟隨的 {0}、{1} 和其他{2} 人跟隨"
 
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr ""
@@ -397,7 +397,7 @@ msgid "{0, plural, one {mirror} other {mirrors}}"
 msgstr ""
 
 msgid "Type something here..."
-msgstr ""
+msgstr "在這裡輸入"
 
 msgid "Save Post?"
 msgstr "是否保存貼文？"
@@ -2072,3 +2072,4 @@ msgstr "喜歡"
 
 msgid "Blink Validator"
 msgstr ""
+
