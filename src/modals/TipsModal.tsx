@@ -13,11 +13,10 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
-import type { FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export interface TipsModalOpenProps {
-    identity: string;
-    source: Source;
+    identity: FireflyIdentity;
     profiles: FireflyProfile[];
     handle: string | null;
     pureWallet?: boolean;
@@ -27,18 +26,18 @@ export type TipsModalCloseProps = {} | void;
 
 function formatTipsProfiles(profiles: FireflyProfile[]) {
     const socialProfiles = profiles
-        .filter((x) => x.source !== Source.Wallet)
+        .filter((x) => x.identity.source !== Source.Wallet)
         .map(
             (p) =>
                 ({
-                    platform: p.source.toLowerCase(),
+                    platform: p.identity.source.toLowerCase(),
                     handle: p.displayName,
                 }) as unknown as Profile,
         );
     const walletProfiles = profiles
         .filter((profile) => {
             const origin = profile.__origin__ as WalletProfile;
-            return profile.source === Source.Wallet && TIPS_SUPPORT_NETWORKS.includes(origin.blockchain);
+            return profile.identity.source === Source.Wallet && TIPS_SUPPORT_NETWORKS.includes(origin.blockchain);
         })
         .map((profile) => {
             const { address, primary_ens, blockchain } = profile.__origin__ as WalletProfile;
@@ -61,7 +60,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
     function TipsModalUI(_, ref) {
         const { reset, update } = TipsContext.useContainer();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: async ({ identity, source, handle, profiles, pureWallet = false }) => {
+            onOpen: async ({ identity, handle, profiles, pureWallet = false }) => {
                 try {
                     const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
@@ -78,10 +77,9 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                             recipientList: walletProfiles,
                             recipient: walletProfiles[0],
                             identity,
-                            source,
                             handle:
-                                source === Source.Wallet && !handle
-                                    ? formatWalletHandle(walletProfiles, identity)
+                                identity.source === Source.Wallet && !handle
+                                    ? formatWalletHandle(walletProfiles, identity.id)
                                     : handle,
                             pureWallet,
                             socialProfiles,

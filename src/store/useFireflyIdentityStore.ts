@@ -2,35 +2,31 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
-export interface ProfileTab {
-    source: Source;
-    identity?: string;
-    isMyProfile?: boolean;
-}
-
-interface ProfileTabState {
-    profileTab: ProfileTab;
-    setProfileTab: (profileTab: ProfileTab) => void;
+interface FireflyIdentityState {
+    identity: FireflyIdentity;
+    setIdentity: (profileIdentity: FireflyIdentity) => void;
     reset: () => void;
 }
 
-const useProfileTabBase = create<ProfileTabState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
+const useFireflyIdentityBase = create<FireflyIdentityState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
         immer((set) => ({
-            profileTab: {
+            identity: {
+                id: '',
                 source: getCurrentSourceFromUrl(),
             },
-            setProfileTab: (profileTab: ProfileTab) =>
+            setIdentity: (profileIdentity: FireflyIdentity) =>
                 set((state) => {
-                    state.profileTab = profileTab;
+                    state.identity = profileIdentity;
                 }),
             reset: () => {
                 set((state) => {
-                    state.profileTab = {
+                    state.identity = {
+                        id: '',
                         source: getCurrentSourceFromUrl(),
                     };
                 });
@@ -43,4 +39,4 @@ const useProfileTabBase = create<ProfileTabState, [['zustand/persist', unknown],
     ),
 );
 
-export const useProfileTabState = createSelectors(useProfileTabBase);
+export const useFireflyIdentityState = createSelectors(useFireflyIdentityBase);

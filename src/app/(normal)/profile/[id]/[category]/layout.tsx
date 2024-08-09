@@ -6,7 +6,7 @@ import { usePathname, useSearchParams } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
 import { Title } from '@/components/Profile/Title.js';
-import { FollowCategory, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { FollowCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -23,18 +23,18 @@ interface Props extends PropsWithChildren {
 }
 
 export default function DetailLayout({ children, params }: Props) {
-    const searchParams = useSearchParams();
-    const rawSource = searchParams.get('source') as SourceInURL;
-    const source = resolveSourceFromUrl(rawSource);
-    const identity = params.id;
-    const myProfile = useCurrentProfile(source as SocialSource);
+    const id = params.id;
+    const sourceInUrl = useSearchParams().get('source') as SourceInURL;
+    const source = resolveSourceFromUrl(sourceInUrl);
+
+    const myProfile = useCurrentProfile(narrowToSocialSource(source));
 
     const { data: profile = null } = useQuery({
-        queryKey: ['profile', source, identity],
+        queryKey: ['profile', source, id],
         queryFn: async () => {
-            if (!identity || !source || source === Source.Wallet) return null;
             if (source === Source.Twitter) return null;
-            return getProfileById(narrowToSocialSource(source), identity);
+            if (!id || !source || source === Source.Wallet) return null;
+            return getProfileById(narrowToSocialSource(source), id);
         },
     });
 
@@ -73,7 +73,7 @@ export default function DetailLayout({ children, params }: Props) {
                                     replace
                                     href={{
                                         pathname: path,
-                                        query: { source: rawSource },
+                                        query: { source: sourceInUrl },
                                     }}
                                     className={classNames(
                                         pathname === path ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',

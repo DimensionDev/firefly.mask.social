@@ -21,7 +21,7 @@ import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
@@ -43,7 +43,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const currentProfile = useCurrentProfile(source);
 
     const isMyPost = isSameProfile(author, currentProfile);
-    const isMyProfile = useIsMyRelatedProfile(resolveProfileId(author) ?? '', source);
+    const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(author) ?? '');
 
     const isFollowing = !!author.viewerContext?.following;
     const [, toggleFollow] = useToggleFollow(author);

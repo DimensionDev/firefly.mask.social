@@ -17,13 +17,14 @@ import { switchAccount } from '@/helpers/account.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;
@@ -34,12 +35,12 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { currentProfile } = useProfileStore(source);
     const pathname = usePathname();
     const updateParams = useUpdateParams();
-    const { profileTab } = useProfileTabState();
+    const { identity } = useFireflyIdentityState();
     const accounts = useConnectedAccounts(source);
 
+    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
     const isPureProfilePage = pathname === PageRoute.Profile;
-    const isMyProfilePage =
-        !!profileTab.isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
+    const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
 
     useMount(() => {
         getProfileState(source).refreshAccounts();
@@ -75,8 +76,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 await switchAccount({ ...account, session: account.session });
                                 if (
                                     isMyProfilePage &&
-                                    profileTab.source === source &&
-                                    profileTab.identity !== resolveProfileId(account.profile)
+                                    identity.source === source &&
+                                    identity.id !== resolveFireflyProfileId(account.profile)
                                 ) {
                                     updateParams(
                                         new URLSearchParams({
@@ -84,7 +85,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                         }),
                                         isPureProfilePage
                                             ? undefined
-                                            : urlcat('/profile/:id', { id: resolveProfileId(account.profile) }),
+                                            : urlcat('/profile/:id', { id: resolveFireflyProfileId(account.profile) }),
                                     );
                                 }
                             }}

@@ -7,49 +7,44 @@ import { useEffect, useMemo } from 'react';
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 export default function Page() {
-    const { profileTab, setProfileTab } = useProfileTabState();
+    const { setIdentity } = useFireflyIdentityState();
     const searchParam = useSearchParams();
 
     const currentProfiles = useCurrentProfileAll();
     const profiles = useCurrentFireflyProfiles();
-    const profile = useMemo(() => {
-        const urlSource = searchParam.get('source') as SocialSourceInURL;
-        if (urlSource) {
-            const source = narrowToSocialSource(resolveSourceFromUrl(urlSource));
-            if (currentProfiles[source])
-                return {
-                    identity: resolveProfileId(currentProfiles[source]),
-                    source,
-                };
-        }
 
-        return first(profiles);
+    const profile = useMemo(() => {
+        const sourceInUrl = searchParam.get('source') as SocialSourceInURL;
+        if (sourceInUrl) {
+            const source = narrowToSocialSource(resolveSourceFromUrl(sourceInUrl));
+            return resolveFireflyIdentity(currentProfiles[source]);
+        }
+        return first(profiles)?.identity ?? null;
     }, [profiles, currentProfiles, searchParam]);
 
     useEffect(() => {
-        const urlSource = searchParam.get('source') as SocialSourceInURL;
-        const source = profile ? profile.source : urlSource ? resolveSourceFromUrl(urlSource) : null;
+        const sourceInUrl = searchParam.get('source') as SocialSourceInURL;
+        const source = profile ? profile.source : sourceInUrl ? resolveSourceFromUrl(sourceInUrl) : null;
 
         if (source) {
-            setProfileTab({
-                isMyProfile: true,
+            setIdentity({
                 source,
-                identity: profile?.identity,
+                id: profile?.id || '',
             });
         }
-    }, [profile, profileTab.identity, searchParam, setProfileTab]);
+    }, [profile, searchParam, setIdentity]);
 
     // profile link should be shareable
     if (profile) {
-        redirect(`/profile/${profile.identity}?source=${resolveSourceInURL(profile.source)}`, RedirectType.replace);
+        redirect(`/profile/${profile.id}?source=${resolveSourceInURL(profile.source)}`, RedirectType.replace);
     }
 
     return <ProfilePage profiles={profiles} />;

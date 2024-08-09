@@ -1,8 +1,9 @@
+import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 import { type NetworkType, Source } from '@/constants/enum.js';
-import type { FireflyProfile, Profile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, Profile } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 export type TipsProfile = FireflyProfile & { address: string; networkType: NetworkType };
@@ -17,8 +18,7 @@ interface TipsContext {
     pureWallet: boolean;
     socialProfiles: Profile[];
     isSending: boolean;
-    identity: string;
-    source: Source;
+    identity: FireflyIdentity;
 }
 
 function createEmptyContext(): TipsContext {
@@ -32,8 +32,10 @@ function createEmptyContext(): TipsContext {
         pureWallet: false,
         socialProfiles: [],
         isSending: false,
-        identity: '',
-        source: Source.Wallet,
+        identity: {
+            id: ZERO_ADDRESS,
+            source: Source.Wallet,
+        },
     };
 }
 

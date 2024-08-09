@@ -6,45 +6,35 @@ import { useEffect } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import { type SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface Props {
-    identity: string;
-    source: SocialSourceInURL;
+    identity: FireflyIdentity;
 }
 
-export function ProfileDetailPage({ identity, source }: Props) {
-    const resolvedSource = resolveSourceFromUrl(source);
-    const profileTab = { source: resolvedSource, identity };
-
-    const { setProfileTab } = useProfileTabState();
+export function ProfileDetailPage({ identity }: Props) {
+    const { setIdentity } = useFireflyIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
-    const isCurrentProfile = currentProfiles.some(
-        (x) => x.source === profileTab.source && x.identity === profileTab.identity,
-    );
+    const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
     const { data: otherProfiles = EMPTY_LIST, isLoading } = useQuery({
-        queryKey: ['all-profiles', profileTab.source, profileTab.identity],
+        queryKey: ['all-profiles', identity.source, identity.id],
         queryFn: async () => {
-            if (!profileTab.identity) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(profileTab.source, profileTab.identity);
+            if (!identity.id) return EMPTY_LIST;
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity);
         },
     });
 
     const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
 
     useEffect(() => {
-        setProfileTab({
-            source: resolvedSource,
-            identity,
-            isMyProfile: isCurrentProfile,
-        });
-    }, [identity, resolvedSource, isCurrentProfile, setProfileTab]);
+        setIdentity(identity);
+    }, [identity, setIdentity]);
 
     if (isLoading && !isCurrentProfile) {
         return <Loading />;

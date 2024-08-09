@@ -7,6 +7,7 @@ import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQ
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -107,17 +108,19 @@ export function SetQueryDataForMuteAllProfiles() {
             const method = target.prototype[key] as FireflySocialMedia[K];
 
             Object.defineProperty(target.prototype, key, {
-                value: async (source: Source, identity: string) => {
-                    const m = method as (source: Source, identity: string) => ReturnType<FireflySocialMedia[K]>;
-                    const relationships = await m.call(target.prototype, source, identity);
-                    [...relationships, { snsId: identity, snsPlatform: source }].forEach(({ snsId, snsPlatform }) => {
-                        const source = resolveSourceFromUrl(snsPlatform);
-                        queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
+                value: async (identity: FireflyIdentity) => {
+                    const m = method as (identity: FireflyIdentity) => ReturnType<FireflySocialMedia[K]>;
+                    const relationships = await m.call(target.prototype, identity);
+                    [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
+                        ({ snsId, snsPlatform }) => {
+                            const source = resolveSourceFromUrl(snsPlatform);
+                            queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
 
-                        if (source !== Source.Wallet) {
-                            setBlockStatus(narrowToSocialSource(source), snsId, true);
-                        }
-                    });
+                            if (source !== Source.Wallet) {
+                                setBlockStatus(narrowToSocialSource(source), snsId, true);
+                            }
+                        },
+                    );
 
                     return relationships;
                 },

@@ -22,7 +22,7 @@ interface SendTipsButtonProps {
 }
 
 const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ connected, onConnect }) {
-    const { token, recipient, amount, update, identity, source } = TipsContext.useContainer();
+    const { token, recipient, amount, update, identity } = TipsContext.useContainer();
     const { value, loading: isValidating, error } = useTipsValidation();
 
     const [{ loading: isSending }, handleSendTips] = useAsyncFn(async () => {
@@ -45,7 +45,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             if (hashUrl) {
                 update((prev) => ({ ...prev, hash: hashUrl }));
             }
-            reportTokenTips(source, identity, {
+            reportTokenTips(identity, {
                 from_address: await network.getAccount(),
                 to_address: recipient.address,
                 chain_id: `${token.chainId}`,

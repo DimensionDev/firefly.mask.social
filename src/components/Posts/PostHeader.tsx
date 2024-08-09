@@ -17,6 +17,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -36,10 +37,12 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
     const pathname = usePathname();
     const isDetailPage = isRoutePathname(pathname, '/post/:detail');
 
+    const identity = useFireflyIdentity(post.source, post.author.profileId);
+
     const newLine = isSmall || (isDetailPage && !isQuote);
 
     const handle = (
-        <ProfileTippy source={post.author.source} identity={post.author.profileId}>
+        <ProfileTippy identity={identity}>
             <Link
                 href={profileLink}
                 className="truncate text-clip text-[15px] leading-5 text-secondary"
@@ -52,7 +55,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     return (
         <div className="flex items-start gap-3">
-            <ProfileTippy source={post.author.source} identity={post.author.profileId}>
+            <ProfileTippy identity={identity}>
                 <Link
                     href={profileLink}
                     className="z-[1]"
@@ -81,7 +84,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                         'max-w-[calc(100%-40px-28px)]': !isQuote && isMyPost,
                     })}
                 >
-                    <ProfileTippy source={post.author.source} identity={post.author.profileId}>
+                    <ProfileTippy identity={identity}>
                         <Link
                             href={profileLink}
                             className="mr-1 block truncate text-clip text-[15px] font-bold leading-5 text-main"
