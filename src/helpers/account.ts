@@ -289,5 +289,4 @@ export async function removeAllAccounts() {
     });
 
     await removeFireflyAccountIfNeeded();
-    await removeFireflyMetricsIfNeeded(sessions);
 }
