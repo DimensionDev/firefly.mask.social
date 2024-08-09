@@ -1,14 +1,15 @@
 import urlcat from 'urlcat';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSource, SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
-export async function getProfileOGById(source: SocialSourceInURL, profileId: string) {
-    const profile = await getProfileById(resolveSocialSource(source), profileId).catch(() => null);
+export async function getProfileOGById(sourceInUrl: SocialSourceInURL, profileId: string) {
+    const source = resolveSource(sourceInUrl);
+    const profile = await getProfileById(source as SocialSource, profileId).catch(() => null);
     if (!profile) return createSiteMetadata();
 
     const images = [
