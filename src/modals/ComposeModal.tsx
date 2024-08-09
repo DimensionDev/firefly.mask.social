@@ -358,6 +358,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         content: RP_HASH_TAG,
                         visible: false,
                     },
+                    {
+                        tag: CHAR_TAG.PROMOTE_LINK,
+                        content: promoteLink,
+                        visible: false,
+                    },
                     ...(compositePost ? compositePost.chars : []),
                     promoteMessage,
                 ];

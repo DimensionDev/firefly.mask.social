@@ -18,6 +18,9 @@ function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) 
         case CHAR_TAG.MENTION:
             paragraphNode.append($createMentionNode(chars.content, chars.profiles));
             break;
+        case CHAR_TAG.PROMOTE_LINK:
+            paragraphNode.append($createTextNode(chars.content));
+            break;
         default:
             safeUnreachable(tag);
             break;
