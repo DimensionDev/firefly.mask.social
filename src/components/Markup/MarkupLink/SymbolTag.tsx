@@ -26,6 +26,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
             onClick={(e) => {
                 e.stopPropagation();
             }}
+            prefetch={false}
             href={`/token/${symbol}`}
         >
             {title}
