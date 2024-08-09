@@ -1,6 +1,5 @@
-import { delay } from '@masknet/kit';
 import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
-import { forwardRef, memo } from 'react';
+import { forwardRef, useRef } from 'react';
 import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
@@ -12,14 +11,19 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { routeTree } from '@/modals/LoginModal/routes.js';
 
-const memoryHistory = createMemoryHistory({
-    initialEntries: ['/main'],
-});
+function createLoginRouter() {
+    const memoryHistory = createMemoryHistory({
+        initialEntries: ['/main'],
+    });
 
-const router = createRouter({
-    routeTree,
-    history: memoryHistory,
-});
+    const router = createRouter({
+        routeTree,
+        history: memoryHistory,
+        defaultPendingMinMs: 0,
+    });
+
+    return router;
+}
 
 export interface LoginModalOpenProps {
     source?: ProfileSource;
@@ -33,48 +37,38 @@ export interface LoginModalOpenProps {
         expectedSignType?: FarcasterSignType;
     };
 }
-export const LoginModal = memo(
-    forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
-        const isMedium = useIsMedium();
-        const { history } = router;
+export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
+    const isMedium = useIsMedium();
+    const routerRef = useRef(createLoginRouter());
 
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: (props) => {
-                if (!props?.source) {
-                    history.replace('/main');
-                    return;
-                }
-                const url = urlcat('/:source', {
-                    ...props.options,
-                    source: resolveSourceInURL(props.source),
-                });
-                history.push(url);
-            },
-            onClose: async () => {
-                // wait for dropdown animation
-                await delay(300);
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: (props) => {
+            routerRef.current = createLoginRouter();
 
-                history.flush();
-                history.push('/main');
-            },
-        });
+            if (!props?.source) {
+                routerRef.current.history.push('/main');
+            } else {
+                const path = urlcat(`/${resolveSourceInURL(props.source)}`, props.options ?? {});
+                routerRef.current.history.push(path);
+            }
+        },
+    });
 
-        if (isMedium) {
-            return (
-                <Modal open={open} onClose={() => dispatch?.close()}>
-                    <div>
-                        <RouterProvider router={router} />
-                    </div>
-                </Modal>
-            );
-        }
-
+    if (isMedium) {
         return (
-            <Popover open={open} onClose={() => dispatch?.close()}>
+            <Modal open={open} onClose={() => dispatch?.close()}>
                 <div>
-                    <RouterProvider router={router} />
+                    <RouterProvider router={routerRef.current} />
                 </div>
-            </Popover>
+            </Modal>
         );
-    }),
-);
+    }
+
+    return (
+        <Popover open={open} onClose={() => dispatch?.close()}>
+            <div>
+                <RouterProvider router={routerRef.current} />
+            </div>
+        </Popover>
+    );
+});

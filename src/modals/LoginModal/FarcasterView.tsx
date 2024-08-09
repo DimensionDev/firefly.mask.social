@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useLocation } from '@tanstack/react-router';
 
-import { LoginFarcaster, type LoginFarcasterProps } from '@/components/Login/LoginFarcaster.js';
+import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { FarcasterSignType } from '@/constants/enum.js';
 
 export const FarcasterViewBeforeLoad = () => {
@@ -12,7 +12,10 @@ export const FarcasterViewBeforeLoad = () => {
 };
 
 function useSignType() {
-    const { signType, expectedSignType } = useLocation().search as LoginFarcasterProps;
+    const { signType, expectedSignType } = useLocation().search as {
+        signType: FarcasterSignType | null;
+        expectedSignType?: FarcasterSignType;
+    };
     return signType || expectedSignType || null;
 }
 
@@ -35,5 +38,5 @@ function Title() {
 
 export function FarcasterView() {
     const signType = useSignType();
-    return <LoginFarcaster key={signType} signType={signType} />;
+    return <LoginFarcaster key={`farcaster_${signType ?? 'unknown'}`} signType={signType} />;
 }
