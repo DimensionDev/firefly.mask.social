@@ -61,11 +61,11 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     const insideTippy = useTippyContext();
 
+    if (!isMedium || insideTippy) return content;
+
     if (!channelId || !source) return;
 
     if (allChannelData[source][channelId] === null) return title;
-
-    if (!isMedium || insideTippy) return content;
 
     return (
         <TippyContext.Provider value>

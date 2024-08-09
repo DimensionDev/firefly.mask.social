@@ -16,6 +16,7 @@ import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 
 interface Props {
     post: Post;
@@ -24,7 +25,10 @@ interface Props {
 
 export function PostLinks({ post, setContent }: Props) {
     const urls = post.metadata.content?.oembedUrls ?? [];
+    const [seen, ref] = useEverSeen();
+
     const { isLoading, error, data } = useQuery({
+        enabled: seen,
         queryKey: ['post-embed', ...urls, post.postId],
         queryFn: () => getPostLinks(urls, post),
         refetchOnMount: false,
@@ -44,11 +48,11 @@ export function PostLinks({ post, setContent }: Props) {
     if (isLoading || error || !data) return null;
 
     return (
-        <>
+        <div ref={ref}>
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? <ActionContainer action={data.action} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
-        </>
+        </div>
     );
 }
 
