@@ -1,5 +1,6 @@
 import { ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { memo, useRef, useState } from 'react';
 
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
@@ -14,6 +15,22 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+
+export function Title() {
+    const { type } = useComposeStateStore();
+
+    switch (type) {
+        case 'compose':
+            return <Trans>Compose</Trans>
+        case 'quote':
+            return <Trans>Quote</Trans>;
+        case 'reply':
+            return <Trans>Reply</Trans>;
+        default:
+            safeUnreachable(type);
+            return <Trans>Compose</Trans>;
+    }
+}
 
 export const ComposeUI = memo(function ComposeUI() {
     const contentRef = useRef<HTMLDivElement>(null);
