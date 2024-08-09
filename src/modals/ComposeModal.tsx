@@ -6,6 +6,7 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
+import { delay } from '@masknet/kit';
 import { ProfileIdentifier } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
@@ -49,7 +50,6 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
-import { delay } from '@masknet/kit';
 
 const initialConfig = {
     namespace: 'composer',
