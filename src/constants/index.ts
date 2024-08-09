@@ -157,14 +157,34 @@ export const PUBLIC_ACT_PROXY_ADDRESS = '0x53582b1b7BE71622E7386D736b6baf87749B7
 export const TOKEN_HANDLE_REGISTRY = '0xD4F2F33680FCCb36748FA9831851643781608844';
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 
-export const ALLOWED_IMAGES_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'] as const;
+export const ALLOWED_MEDIA_MIMES = [
+    'image/png',
+    'image/jpeg',
+    'image/gif',
+    'image/webp',
+    'image/bmp',
+    'video/mp4',
+    'video/mpeg',
+    'video/x-msvideo',
+    'video/ogg',
+    'video/webm',
+    'video/3gpp',
+    'video/3gpp2',
+] as const;
 
-export const SUFFIX_NAMES: Record<(typeof ALLOWED_IMAGES_MIMES)[number], string> = {
+export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> = {
     'image/png': 'png',
     'image/jpeg': 'jpg',
     'image/gif': 'gif',
     'image/bmp': 'bmp',
     'image/webp': 'webp',
+    'video/mp4': 'mp4',
+    'video/mpeg': 'mpeg',
+    'video/x-msvideo': 'avi',
+    'video/ogg': 'ogv',
+    'video/3gpp': '3gp',
+    'video/3gpp2': '3g2',
+    'video/webm': 'webm',
 };
 
 export const FILE_MAX_SIZE_IN_BYTES = 4 * 1024 * 1024; // 4MB
