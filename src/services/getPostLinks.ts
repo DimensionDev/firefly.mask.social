@@ -13,6 +13,17 @@ import type { Action } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
+import { parseURL } from '@/helpers/parseURL.js';
+
+function isValidPostLink(url: string) {
+    const parsed = parseURL(url);
+    if (!parsed) return false;
+
+    // file extension
+    if (/\.\w{1,6}$/i.test(parsed.pathname)) return false;
+
+    return true;
+}
 
 export async function getPostFrame(urls: string[]): Promise<Frame | null> {
     if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
@@ -20,7 +31,7 @@ export async function getPostFrame(urls: string[]): Promise<Frame | null> {
 
     return attemptUntil(
         urls
-            .filter((x) => x && !isValidDomain(x))
+            .filter((x) => x && !isValidDomain(x) && isValidPostLink(x))
             .map((y) => async () => {
                 const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
                     urlcat('/api/frame', {
@@ -40,7 +51,7 @@ export async function getPostBlinkAction(urls: string[]): Promise<Action | null>
 
     return attemptUntil(
         urls
-            .filter((x) => x && !isValidDomain(x))
+            .filter((x) => x && !isValidDomain(x) && isValidPostLink(x))
             .map((url) => async () => {
                 return BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
             }),
@@ -53,7 +64,8 @@ export async function getPostOembed(urls: string[], post?: Pick<Post, 'quoteOn'>
     if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
 
     const url = last(urls);
-    if (!url || isValidDomain(url) || post?.quoteOn) return null;
+    if (!url || isValidDomain(url) || isValidPostLink(url)) return null;
+    if (post?.quoteOn) return null;
 
     const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
         urlcat('/api/oembed', {
