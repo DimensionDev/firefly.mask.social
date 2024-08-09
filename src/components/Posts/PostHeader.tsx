@@ -15,6 +15,7 @@ import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -48,9 +49,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
             </Link>
         </ProfileTippy>
     );
-
-    const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
-    const isFirefly = sendFrom?.toLowerCase() === 'firefly';
 
     return (
         <div className="flex items-start gap-3">
@@ -103,7 +101,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                             <span className="mx-1 leading-5">·</span>
                         </>
                     ) : null}
-                    {isFirefly ? (
+                    {isSendFromFirefly(post) ? (
                         <FireflyAvatarIcon fontSize={15} width={15} height={15} className="mr-1 inline" />
                     ) : null}
                     <SocialSourceIcon source={post.source} size={15} />
