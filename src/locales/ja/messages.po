@@ -45,6 +45,9 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "New connect with Warpcast"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -94,6 +97,9 @@ msgid "Failed to unbookmark post."
 msgstr ""
 
 msgid "Delete post"
+msgstr ""
+
+msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
 msgid "Mute @{0}"
@@ -400,6 +406,9 @@ msgid "Type something here..."
 msgstr ""
 
 msgid "Save Post?"
+msgstr ""
+
+msgid "Reconnect with Firefly"
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."
@@ -958,9 +967,6 @@ msgid "Failed to unmute /{0}."
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
-msgstr ""
-
-msgid "The connection has timed out. Please try again later.·"
 msgstr ""
 
 msgid "Log in with recovery phrase"
@@ -1860,6 +1866,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "The connection has timed out. Please try again later."
+msgstr ""
+
 msgid "Emoji"
 msgstr ""
 
@@ -1942,6 +1951,9 @@ msgid "Language"
 msgstr ""
 
 msgid "Address on Watching Lists"
+msgstr ""
+
+msgid "FREE"
 msgstr ""
 
 msgid "Profiles"
