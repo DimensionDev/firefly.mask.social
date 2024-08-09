@@ -54,7 +54,7 @@ export interface LoginFarcasterProps {
     setSignType: (signType: SignType | null) => void;
 }
 
-export function LoginFarcaster({ signType }: LoginFarcasterProps) {
+export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
     const controller = useAbortController();
 
     const isMedium = useIsMedium();
@@ -194,6 +194,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     safeUnreachable(type);
                                     break;
                             }
+
+                            setSignType(type);
                         }}
                     >
                         <span className="flex flex-1 items-center">
