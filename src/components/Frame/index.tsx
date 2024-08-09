@@ -173,7 +173,11 @@ async function getNextFrame(
                 return;
             case ActionType.Mint: {
                 if (!button.target) return;
-                const mintUrl = frame.url;
+                const mintUrl = resolveMintUrl(frame.url, button.target);
+                if (!mintUrl) {
+                    enqueueErrorMessage(t`Failed to resolve mint URL = ${button.target}.`);
+                    return;
+                }
                 if (await ConfirmLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
                 return;
             }

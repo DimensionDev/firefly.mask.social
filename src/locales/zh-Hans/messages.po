@@ -903,6 +903,9 @@ msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
 
+msgid "Failed to resolve mint URL = {0}."
+msgstr "未能解析铸造 URL = {0}。"
+
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
