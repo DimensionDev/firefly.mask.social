@@ -19,8 +19,12 @@ interface Props {
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (searchParams.source) return getProfileOGByIdRedis(searchParams.source, params.id);
-    return createSiteMetadata();
+    try {
+        if (searchParams.source) return await getProfileOGByIdRedis(searchParams.source, params.id);
+        return createSiteMetadata();
+    } catch {
+        return createSiteMetadata();
+    }
 }
 
 export default function Page({ params, searchParams }: Props) {
