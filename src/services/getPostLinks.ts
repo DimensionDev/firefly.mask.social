@@ -33,16 +33,14 @@ export async function getPostFrame(urls: string[]): Promise<Frame | null> {
     if (!urls?.length) return null;
 
     return attemptUntil(
-        urls
-            .filter((x) => isValidPostLink(x))
-            .map((y) => async () => {
-                const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-                    urlcat('/api/frame', {
-                        link: (await resolveTCOLink(y)) ?? y,
-                    }),
-                );
-                return response.success ? response.data.frame : null;
-            }),
+        urls.filter(isValidPostLink).map((y) => async () => {
+            const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                urlcat('/api/frame', {
+                    link: (await resolveTCOLink(y)) ?? y,
+                }),
+            );
+            return response.success ? response.data.frame : null;
+        }),
         null,
         (x) => !x,
     );
@@ -53,11 +51,9 @@ export async function getPostBlinkAction(urls: string[]): Promise<Action | null>
     if (!urls?.length) return null;
 
     return attemptUntil(
-        urls
-            .filter((x) => isValidPostLink(x))
-            .map((url) => async () => {
-                return BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
-            }),
+        urls.filter(isValidPostLink).map((url) => async () => {
+            return BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
+        }),
         null,
         (x) => !x,
     );
