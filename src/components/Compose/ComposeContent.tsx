@@ -19,7 +19,7 @@ export function ComposeContent(props: ComposeContentProps) {
     const { id, parentPost, images, video, poll, availableSources, chars } = props.post;
 
     // in reply and quote mode, there could be only one parent post
-    const post = parentPost.Farcaster || parentPost.Lens;
+    const post = parentPost.Farcaster || parentPost.Lens || parentPost.Twitter;
     const replying = type === 'reply' && !!post;
 
     return (
