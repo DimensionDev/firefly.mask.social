@@ -1,9 +1,9 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useLocation } from '@tanstack/react-router';
 
 import { LoginFarcaster, type LoginFarcasterProps } from '@/components/Login/LoginFarcaster.js';
 import { FarcasterSignType } from '@/constants/enum.js';
-import { safeUnreachable } from '@masknet/kit';
 
 export const FarcasterViewBeforeLoad = () => {
     return {
