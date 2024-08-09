@@ -51,10 +51,9 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
 export interface LoginFarcasterProps {
     signType: SignType | null;
-    setSignType: (signType: SignType | null) => void;
 }
 
-export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
+export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const controller = useAbortController();
 
     const isMedium = useIsMedium();
@@ -183,6 +182,8 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                         className="flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg"
                         key={type}
                         onClick={() => {
+                            history.replace(`/farcaster?signType=${type}`);
+
                             switch (type) {
                                 case FarcasterSignType.GrantPermission:
                                     onLoginByGrantPermission();
@@ -194,9 +195,6 @@ export function LoginFarcaster({ signType, setSignType }: LoginFarcasterProps) {
                                     safeUnreachable(type);
                                     break;
                             }
-
-                            setSignType(type);
-                            router.history.replace(`/farcaster?signType=${type}`);
                         }}
                     >
                         <span className="flex flex-1 items-center">
