@@ -14,6 +14,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -54,7 +55,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
     const postLink = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author);
+    const [seen, ref] = useEverSeen();
+    const muted = useIsProfileMuted(post.author, seen);
 
     const isSmall = useIsSmall('max');
 
@@ -68,6 +70,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     return (
         <motion.article
+            ref={ref}
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

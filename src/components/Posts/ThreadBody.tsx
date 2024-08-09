@@ -11,6 +11,7 @@ import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -39,13 +40,15 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const pathname = usePathname();
 
     const link = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author);
+    const [seen, ref] = useEverSeen();
+    const muted = useIsProfileMuted(post.author, seen);
 
     const isSmall = useIsSmall('max');
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     return (
         <motion.article
+            ref={ref}
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
