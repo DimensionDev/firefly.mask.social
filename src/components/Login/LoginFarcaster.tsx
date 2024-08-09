@@ -132,7 +132,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         }
     }, [resetCountdown, startCountdown]);
 
-    useMount(() => {
+    const onClick = (signType: FarcasterSignType | null) => {
         if (!signType) return;
         switch (signType) {
             case SignType.GrantPermission:
@@ -147,6 +147,10 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 safeUnreachable(signType);
                 break;
         }
+    };
+
+    useMount(() => {
+        onClick(signType);
     });
 
     useUnmount(() => {
@@ -183,18 +187,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         key={type}
                         onClick={() => {
                             history.replace(`/farcaster?signType=${type}`);
-
-                            switch (type) {
-                                case FarcasterSignType.GrantPermission:
-                                    onLoginByGrantPermission();
-                                    break;
-                                case FarcasterSignType.RelayService:
-                                    onLoginByRelayService();
-                                    break;
-                                default:
-                                    safeUnreachable(type);
-                                    break;
-                            }
+                            onClick(type);
                         }}
                     >
                         <span className="flex flex-1 items-center">
@@ -251,19 +244,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                 onClick={() => {
                                     if (scanned) return;
                                     controller.current.abort();
-
                                     resetCountdown();
-                                    switch (signType) {
-                                        case SignType.GrantPermission:
-                                            onLoginByGrantPermission();
-                                            break;
-                                        case SignType.RelayService:
-                                            onLoginByRelayService();
-                                            break;
-                                        default:
-                                            safeUnreachable(signType);
-                                            break;
-                                    }
+                                    onClick(signType);
                                 }}
                             >
                                 <ScannableQRCode url={url} scanned={scanned} countdown={count} />
