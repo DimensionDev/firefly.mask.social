@@ -50,7 +50,7 @@ export function Popover({ open, backdrop = true, children, onClose, enableOverfl
                             <div className="h-1 w-12 rounded-full bg-main" />
                         </div>
                         <div
-                            className="max-h-[50vh] w-full overflow-y-auto"
+                            className="flex max-h-[50vh] w-full flex-shrink-0 flex-col overflow-y-auto"
                             style={{ overflow: !enableOverflow ? 'unset' : undefined }}
                         >
                             {children}
