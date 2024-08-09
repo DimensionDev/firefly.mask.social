@@ -6,5 +6,6 @@ export async function getFrameMintTransaction(
     frame: Frame,
     button: FrameButton,
 ): Promise<SendTransactionParameters | null> {
+    // not implemented
     return null;
 }
