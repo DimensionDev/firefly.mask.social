@@ -43,12 +43,9 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
 
     useLayoutEffect(() => {
         document.documentElement.classList.toggle('dark', isDarkMode);
-    }, [isDarkMode]);
 
-    useLayoutEffect(() => {
         const meta = document.querySelector('meta[name="theme-color"]');
-        if (!meta) return;
-        meta.setAttribute('content', isDarkMode ? '#030303' : '#ffffff');
+        meta?.setAttribute('content', isDarkMode ? '#030303' : '#ffffff');
     }, [isDarkMode]);
 
     useEffect(() => {
@@ -60,13 +57,9 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
 
     useEffectOnce(() => {
         sentryClient.init();
-    });
 
-    useEffectOnce(() => {
         if (!viewerId) setViewerId(uuid());
-    });
 
-    useEffectOnce(() => {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(console.error);
         }
