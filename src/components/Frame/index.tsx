@@ -21,7 +21,6 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { openIntentUrl } from '@/helpers/openIntentUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
-import { resolveMintUrl } from '@/helpers/resolveMintUrl.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';

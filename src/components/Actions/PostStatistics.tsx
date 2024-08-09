@@ -11,6 +11,7 @@ import { EngagementType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -133,7 +134,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     ) : null;
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
-    const isFirefly = sendFrom?.toLowerCase() === 'firefly';
 
     const isDetailPage = isRoutePathname(pathname, '/post/:detail');
 
@@ -169,7 +169,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           sendFrom ? (
                               <Trans>
                                   Posted via{' '}
-                                  {isFirefly ? (
+                                  {isSendFromFirefly(post) ? (
                                       <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
                                   ) : null}{' '}
                                   <span className="capitalize">{sendFrom}</span>

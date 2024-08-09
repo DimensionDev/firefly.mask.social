@@ -177,11 +177,10 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 belongsTo,
                 accounts,
             });
-
             if (confirmed) {
                 await updateState(accounts, !belongsTo);
             } else {
-                // logout server tw if needed
+                // sign out tw from server if needed
                 if (TwitterSession.isNextAuth(account.session)) {
                     signOut({
                         redirect: false,
