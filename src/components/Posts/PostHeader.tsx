@@ -34,7 +34,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     const isSmall = useIsSmall('max');
     const pathname = usePathname();
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const newLine = isSmall || (isDetailPage && !isQuote);
 

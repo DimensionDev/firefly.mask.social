@@ -138,7 +138,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
 
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     return (
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
