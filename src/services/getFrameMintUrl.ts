@@ -8,9 +8,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
-import { ChainId } from '@/types/frame.js';
-
-const MINT_WHITELIST = ['https://moshi.cam/'];
+import { ChainId, type Frame, type FrameButton } from '@/types/frame.js';
 
 const resolveZoraChainName = createLookupTableResolver<ChainId, string>(
     {
@@ -29,26 +27,30 @@ const resolveZoraChainName = createLookupTableResolver<ChainId, string>(
     },
 );
 
-export function resolveMintUrl(url: string, target: string) {
-    // TODO: compose mint transaction
-    if (MINT_WHITELIST.some((x) => isSameOriginUrl(x, url))) return url;
+export function getFrameMintUrl({ url }: Frame, button: FrameButton) {
+    const targetUrl = button.target;
+    if (!targetUrl) return url;
 
-    const { chainId, address, parameters } = parseCAIP10(target);
-    if (!address) return;
+    const { chainId, address, parameters } = parseCAIP10(targetUrl);
+    if (!address) return url;
 
-    const tokenId = first(parameters);
-    const chainName = resolveZoraChainName(chainId);
+    // zora mint
+    if (isSameOriginUrl(url, 'https://zora.co/')) {
+        const tokenId = first(parameters);
+        const chainName = resolveZoraChainName(chainId);
 
-    if (isAddress(address) && tokenId) {
-        return urlcat(`https://zora.co/collect/${chainName}::address/:tokenId`, {
-            address,
-            tokenId,
-        });
+        if (isAddress(address) && tokenId) {
+            return urlcat(`https://zora.co/collect/${chainName}::address/:tokenId`, {
+                address,
+                tokenId,
+            });
+        }
+        if (isAddress(address)) {
+            return urlcat(`https://zora.co/collect/${chainName}::address`, {
+                address,
+            });
+        }
     }
-    if (isAddress(address)) {
-        return urlcat(`https://zora.co/collect/${chainName}::address`, {
-            address,
-        });
-    }
-    return;
+
+    return url;
 }
