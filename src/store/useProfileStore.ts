@@ -274,7 +274,7 @@ const useTwitterStateBase = createState(
 
                 const twitterSession = TwitterSession.from(profile, payload);
 
-                await addAccount(
+                const added = await addAccount(
                     {
                         profile,
                         session: twitterSession,
@@ -289,11 +289,21 @@ const useTwitterStateBase = createState(
                         skipUploadFireflySession: !isSessionFromServer,
                     },
                 );
+
+                console.log('DEBUG: added');
+                console.log({
+                    added,
+                });
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
                 twitterSessionHolder.removeSession();
             } finally {
+                console.log('DEBUG: transit');
+                console.log({
+                    status: AsyncStoreStatus.Idle,
+                });
+
                 state.transit(AsyncStoreStatus.Idle);
             }
         },
