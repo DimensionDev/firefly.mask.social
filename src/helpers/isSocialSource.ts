@@ -1,5 +1,4 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { type SocialSource, type SocialSourceInURL, Source , SourceInURL } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
