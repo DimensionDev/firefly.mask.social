@@ -13,11 +13,12 @@ export const FarcasterViewBeforeLoad = () => {
 };
 
 function useSignType() {
+    const isMedium = useIsMedium();
     const { signType, expectedSignType } = useLocation().search as {
         signType: FarcasterSignType | null;
         expectedSignType?: FarcasterSignType;
     };
-    return signType || expectedSignType || null;
+    return signType || expectedSignType || (isMedium ? FarcasterSignType.RelayService : null);
 }
 
 function Title() {
@@ -38,7 +39,6 @@ function Title() {
 }
 
 export function FarcasterView() {
-    const isMedium = useIsMedium();
-    const signType = useSignType() || (isMedium ? FarcasterSignType.RelayService : null);
+    const signType = useSignType();
     return <LoginFarcaster key={`farcaster_${signType ?? 'unknown'}`} signType={signType} />;
 }
