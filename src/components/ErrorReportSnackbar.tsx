@@ -85,7 +85,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
                                 className="max-h-[90px] max-w-[400px] overflow-auto break-words p-4 pt-0"
                                 style={{ scrollbarWidth: 'none' }}
                             >
-                                <div className="whitespace-pre-wrap text-white">{detail}</div>
+                                <div className="whitespace-pre-wrap text-sm text-white">{detail}</div>
                             </div>
                         ) : null}
                         <div className="flex px-4 pb-2">

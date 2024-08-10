@@ -1,3 +1,4 @@
+import { resolveValue } from '@/helpers/resolveValue.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export class AbortError extends Error {
@@ -34,7 +35,13 @@ export class FetchError extends Error {
     }
 
     static async fromResponse(response: Response, message?: string) {
-        const text = await response.clone().text();
+        const text = await resolveValue(async () => {
+            try {
+                return await response.clone().text();
+            } catch {
+                return '';
+            }
+        });
 
         return new FetchError(
             message ??
