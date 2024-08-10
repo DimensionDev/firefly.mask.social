@@ -66,9 +66,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
 
     return (
         <Popover open={open} onClose={() => dispatch?.close()}>
-            <div>
-                <RouterProvider router={routerRef.current} />
-            </div>
+            <RouterProvider router={routerRef.current} />
         </Popover>
     );
 });
