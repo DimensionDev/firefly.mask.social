@@ -14,6 +14,7 @@ import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { failedAt } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
@@ -252,7 +253,12 @@ export async function crossPost(
                 errors: compact(allErrors),
                 persist: true,
             });
-            throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(', ')}.`);
+            throw new Error(
+                [
+                    `Failed to post on: ${failedPlatforms.map(resolveSourceName).join(', ')}`,
+                    ...compact(allErrors).map(getDetailedErrorMessage),
+                ].join('\n'),
+            );
         } else {
             enqueueSuccessMessage(t`Your post has published successfully.`);
         }
