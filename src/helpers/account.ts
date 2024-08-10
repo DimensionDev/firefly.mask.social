@@ -152,7 +152,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             : isSameSession(currentFireflySession, fireflySession);
 
     if (!belongsTo) {
-        console.warn('Account does not belong to the current firefly session.', {
+        console.warn('[account] account does not belong to the current firefly session.', {
             account,
             fireflySession,
             currentFireflySession,
@@ -203,10 +203,14 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     }
 
     // resume firefly session
-    if (!skipResumeFireflySession) await resumeFireflySession(account, signal);
+    if (!skipResumeFireflySession) {
+        console.warn('[addAccount] resume firefly session');
+        await resumeFireflySession(account, signal);
+    }
 
     // upload sessions to firefly
     if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
+        console.warn('[addAccount] upload sessions to firefly');
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
     }
 
