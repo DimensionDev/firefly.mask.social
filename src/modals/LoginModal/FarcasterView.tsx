@@ -4,6 +4,7 @@ import { useLocation } from '@tanstack/react-router';
 
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { FarcasterSignType } from '@/constants/enum.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export const FarcasterViewBeforeLoad = () => {
     return {
@@ -37,6 +38,7 @@ function Title() {
 }
 
 export function FarcasterView() {
-    const signType = useSignType();
+    const isMedium = useIsMedium();
+    const signType = useSignType() || (isMedium ? FarcasterSignType.RelayService : null);
     return <LoginFarcaster key={`farcaster_${signType ?? 'unknown'}`} signType={signType} />;
 }
