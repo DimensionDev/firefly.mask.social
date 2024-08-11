@@ -41,7 +41,7 @@ export default function DetailLayout({ children, params }: Props) {
     const pathname = usePathname();
 
     const tabs = compact([
-        !isSameProfile(myProfile, profile)
+        !isSameProfile(myProfile, profile || { source: source as SocialSource, profileId: identity })
             ? {
                   label: <Trans>Followers you know</Trans>,
                   category: FollowCategory.Mutuals,
