@@ -27,7 +27,7 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
                                 <DarkLogo width={169} height={80} />
                             )
                         ) : (
-                            <MiniLogo className='ml-5' width={33} height={43} />
+                            <MiniLogo className="ml-5" width={33} height={43} />
                         )}
                     </Link>
                 </div>
