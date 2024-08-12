@@ -1,6 +1,5 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
 
-import { Source } from '@/constants/enum.js';
 import {
     createLensSDK,
     LocalStorageProvider,
@@ -39,4 +38,4 @@ export class LensSessionHolder extends SessionHolder<LensSession> {
     }
 }
 
-export const lensSessionHolder = new LensSessionHolder(Source.Lens);
+export const lensSessionHolder = new LensSessionHolder();

@@ -1,4 +1,3 @@
-import { Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NOT_DEPEND_HUBBLE_KEY } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -49,4 +48,4 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     }
 }
 
-export const farcasterSessionHolder = new FarcasterSessionHolder(Source.Farcaster);
+export const farcasterSessionHolder = new FarcasterSessionHolder();
