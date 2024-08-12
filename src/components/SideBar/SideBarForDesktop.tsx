@@ -17,17 +17,17 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
 
     return (
         <div className="fixed inset-y-0 z-40 flex h-[100svh] min-h-[626px] flex-col md:w-[289px]">
-            <div className="flex grow flex-col gap-y-5 border-r border-line px-3 lg:px-6">
-                <div className="flex h-16 shrink-0 items-center md:px-4">
+            <div className="flex grow flex-col gap-y-4 border-r border-line px-3 lg:px-6">
+                <div className="-ml-1 flex h-16 shrink-0 items-center">
                     <Link href={PageRoute.Home}>
                         {isMedium ? (
                             !isDarkMode ? (
-                                <LightLogo width={134} height={64} />
+                                <LightLogo width={169} height={80} />
                             ) : (
-                                <DarkLogo width={134} height={64} />
+                                <DarkLogo width={169} height={80} />
                             )
                         ) : (
-                            <MiniLogo width={33} height={43} />
+                            <MiniLogo className='ml-5' width={33} height={43} />
                         )}
                     </Link>
                 </div>
