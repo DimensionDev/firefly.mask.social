@@ -58,6 +58,10 @@ export function setLensCredentials(storage: IStorageProvider, session: LensSessi
     );
 }
 
+export function removeLensCredentials(storage: IStorageProvider) {
+    storage.removeItem('lens.production.credentials');
+}
+
 export function createLensSDK(storage: IStorageProvider) {
     return new LensClientSDK({
         environment: production,
