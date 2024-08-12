@@ -1189,6 +1189,9 @@ msgstr "This can’t be undone and you’ll lose your draft."
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
 
+msgid "This address is already connected"
+msgstr "This address is already connected"
+
 msgid "Publications"
 msgstr "Publications"
 

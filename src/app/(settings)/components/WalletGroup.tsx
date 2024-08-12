@@ -9,14 +9,14 @@ interface WalletGroupProps {
     title: string;
     connections: FireflyWalletConnection[];
     tooltip?: string;
-    noAction?: boolean;
+    related?: boolean;
 }
 
 export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
     title,
     connections,
     tooltip,
-    noAction = false,
+    related = false,
 }) {
     if (!connections.length) return null;
 
@@ -35,13 +35,10 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
                 ) : null}
             </p>
             <div className="mt-5">
-                {connections.map((connection) => (
-                    <WalletItem
-                        key={connection.address}
-                        connection={connection}
-                        noAction={!connection.canReport && noAction}
-                    />
-                ))}
+                {connections.map((connection) => {
+                    const noAction = !connection.canReport && related && !connection.identities.length;
+                    return <WalletItem key={connection.address} connection={connection} noAction={noAction} />;
+                })}
             </div>
         </div>
     );
