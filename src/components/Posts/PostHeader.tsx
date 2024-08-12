@@ -23,10 +23,16 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface PostHeaderProps {
     post: Post;
     isQuote?: boolean;
+    isComment?: boolean;
     onClickProfileLink?: () => void;
 }
 
-export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false, onClickProfileLink }) {
+export const PostHeader = memo<PostHeaderProps>(function PostHeader({
+    post,
+    isQuote = false,
+    isComment = false,
+    onClickProfileLink,
+}) {
     const currentProfile = useCurrentProfile(post.source);
 
     const isMyPost = isSameProfile(post.author, currentProfile);
@@ -36,7 +42,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
     const pathname = usePathname();
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
-    const newLine = isSmall || (isDetailPage && !isQuote);
+    const newLine = isSmall || (isDetailPage && !isQuote && !isComment);
 
     const handle = (
         <ProfileTippy source={post.author.source} identity={post.author.profileId}>
@@ -90,7 +96,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                             {post.author.displayName}
                         </Link>
                     </ProfileTippy>
-                    {post.author.isPowerUser ? <PowerUserIcon className="mr-2" width={15} height={15} /> : null}
+                    {post.author.isPowerUser ? <PowerUserIcon className="mr-2" width={16} height={16} /> : null}
                     {newLine ? null : handle}
                     {post.timestamp && (!newLine || isQuote) ? (
                         <>
