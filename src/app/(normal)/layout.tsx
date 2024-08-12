@@ -27,10 +27,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 flags: 'i',
                             },
                             {
-                                r: '/post/[^/]+/\\w+/\\d+$', // image gallery
-                                flags: 'i',
-                            },
-                            {
                                 r: '/article/[^/]+$',
                                 flags: 'i',
                             },
@@ -52,10 +48,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             },
                             {
                                 r: '/post/[^/]+/\\w+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '/post/[^/]+/\\w+/\\d+$', // image gallery
                                 flags: 'i',
                             },
                             {
