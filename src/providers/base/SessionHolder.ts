@@ -48,6 +48,7 @@ export class SessionHolder<T extends Session> {
     }
 
     resumeSession(session: T) {
+        queryClient.removeQueries({ queryKey: ['profile', this.source] });
         this.internalSession = session;
         this.emitter.emit('update', session);
     }
