@@ -51,7 +51,7 @@ export async function createLensSchedulePostPayload(
 
     // Request the user settings
     const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
-    if (signless) {
+    if (!signless) {
         const message = t`Please enable Momoka to support sending posts on Lens.`;
         enqueueErrorMessage(message);
         throw new Error(message);
