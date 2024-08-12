@@ -1020,6 +1020,9 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
+msgid "There are videos that were not uploaded successfully."
+msgstr ""
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
 

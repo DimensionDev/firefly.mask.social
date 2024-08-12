@@ -1015,6 +1015,9 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
+msgid "There are videos that were not uploaded successfully."
+msgstr "There are videos that were not uploaded successfully."
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "This can’t be undone, and the scheduled send will be canceled."
 
