@@ -1,4 +1,4 @@
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, type DialogPanelProps, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
@@ -10,9 +10,17 @@ interface PopoverProps {
     children?: React.ReactNode;
     onClose?: () => void;
     enableOverflow?: boolean;
+    DialogPanelProps?: DialogPanelProps<'div'>;
 }
 
-export function Popover({ open, backdrop = true, children, onClose, enableOverflow = true }: PopoverProps) {
+export function Popover({
+    open,
+    backdrop = true,
+    children,
+    onClose,
+    enableOverflow = true,
+    DialogPanelProps,
+}: PopoverProps) {
     const { setRef } = useDisableScrollPassive();
 
     return (
@@ -41,10 +49,12 @@ export function Popover({ open, backdrop = true, children, onClose, enableOverfl
                     leaveTo="translate-y-full"
                 >
                     <Dialog.Panel
+                        {...DialogPanelProps}
                         className={classNames(
                             'fixed inset-x-6 bottom-3 top-auto z-40 mx-auto flex max-w-[800px] flex-col justify-center rounded-2xl border border-line bg-primaryBottom p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]',
+                            DialogPanelProps?.className as string,
                         )}
-                        style={{ overflow: !enableOverflow ? 'unset' : 'hidden' }}
+                        style={{ overflow: !enableOverflow ? 'unset' : 'hidden', ...DialogPanelProps?.style }}
                     >
                         <div className="absolute inset-x-0 top-0.5 z-10 m-auto flex w-20 cursor-pointer justify-center p-2">
                             <div className="h-1 w-12 rounded-full bg-main" />
