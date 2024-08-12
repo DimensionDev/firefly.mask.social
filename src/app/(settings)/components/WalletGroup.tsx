@@ -35,10 +35,13 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
                 ) : null}
             </p>
             <div className="mt-5">
-                {connections.map((connection) => {
-                    const noAction = !connection.canReport && related && !connection.identities.length;
-                    return <WalletItem key={connection.address} connection={connection} noAction={noAction} />;
-                })}
+                {connections.map((connection) => (
+                    <WalletItem
+                        key={connection.address}
+                        connection={connection}
+                        noAction={!connection.canReport && related}
+                    />
+                ))}
             </div>
         </div>
     );
