@@ -27,7 +27,7 @@ export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfP
     useUpdateEffect(() => {
         if (isRoutePathname(pathname, '/post/:detail/photos/:index', true)) return;
 
-        setLastPathname(lastPathname);
+        setLastPathname(pathname);
     }, [pathname]);
 
     if (
