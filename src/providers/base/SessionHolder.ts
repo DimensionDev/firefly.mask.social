@@ -2,20 +2,21 @@ import { Emitter } from '@servie/events';
 import { type Subscription } from 'use-subscription';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import type { Session } from '@/providers/types/Session.js';
+import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 
 export class SessionHolder<T extends Session> {
-    source: Source;
-    constructor(source: Source) {
-        this.source = source;
-    }
     protected emitter = new Emitter<{
         // the actual type is T | null, use unknown to avoid type errors
         update: [unknown];
     }>();
     protected internalSession: T | null = null;
+
+    private removeQueries() {
+        if (!this.session) return;
+        queryClient.removeQueries({ queryKey: ['profile', resolveSourceFromSessionType(this.session.type)] });
+    }
 
     get session() {
         return this.internalSession;
@@ -48,13 +49,13 @@ export class SessionHolder<T extends Session> {
     }
 
     resumeSession(session: T) {
-        queryClient.removeQueries({ queryKey: ['profile', this.source] });
+        this.removeQueries();
         this.internalSession = session;
         this.emitter.emit('update', session);
     }
 
     removeSession() {
-        queryClient.removeQueries({ queryKey: ['profile', this.source] });
+        this.removeQueries();
         this.internalSession = null;
         this.emitter.emit('update', null);
     }

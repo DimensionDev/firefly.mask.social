@@ -49,4 +49,4 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     }
 }
 
-export const farcasterSessionHolder = new FarcasterSessionHolder(Source.Farcaster);
+export const farcasterSessionHolder = new FarcasterSessionHolder();

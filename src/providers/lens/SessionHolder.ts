@@ -39,4 +39,4 @@ export class LensSessionHolder extends SessionHolder<LensSession> {
     }
 }
 
-export const lensSessionHolder = new LensSessionHolder(Source.Lens);
+export const lensSessionHolder = new LensSessionHolder();

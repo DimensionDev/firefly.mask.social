@@ -32,4 +32,4 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     }
 }
 
-export const twitterSessionHolder = new TwitterSessionHolder(Source.Twitter);
+export const twitterSessionHolder = new TwitterSessionHolder();

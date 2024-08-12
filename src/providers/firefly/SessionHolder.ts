@@ -23,4 +23,4 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
     }
 }
 
-export const fireflySessionHolder = new FireflySessionHolder(Source.Firefly);
+export const fireflySessionHolder = new FireflySessionHolder();
