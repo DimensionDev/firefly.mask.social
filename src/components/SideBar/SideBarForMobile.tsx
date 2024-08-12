@@ -51,12 +51,12 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                     >
                         <Dialog.Panel className="relative mr-16 flex w-full max-w-[280px] flex-1">
                             <div className="fixed inset-0 z-50 flex w-[280px] flex-col bg-white group-[.not-support]:!top-0 dark:bg-black">
-                                <div className="flex grow flex-col gap-y-5 border-r border-line px-3">
-                                    <div className="flex h-16 shrink-0 items-center px-4">
+                                <div className="flex grow flex-col gap-y-4 border-r border-line px-3">
+                                    <div className="-ml-2 flex h-16 shrink-0 items-center">
                                         {isDarkMode ? (
-                                            <DarkLogo width={134} height={64} />
+                                            <DarkLogo width={169} height={80} />
                                         ) : (
-                                            <LightLogo width={134} height={64} />
+                                            <LightLogo width={169} height={80} />
                                         )}
                                     </div>
                                     <Menu />
