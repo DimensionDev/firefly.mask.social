@@ -20,7 +20,9 @@ interface IfPathname {
 
 export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfPathname) {
     const pathname = usePathname();
-    const [lastPathname, setLastPathname] = useState(pathname);
+    const [lastPathname, setLastPathname] = useState(
+        !isRoutePathname(pathname, '/post/:detail/photos/:index', true) ? pathname : '',
+    );
 
     useUpdateEffect(() => {
         if (isRoutePathname(pathname, '/post/:detail/photos/:index', true)) return;
