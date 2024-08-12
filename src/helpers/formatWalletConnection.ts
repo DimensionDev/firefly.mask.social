@@ -2,13 +2,13 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
 import type {
     AllConnections,
     FireflyIdentity,
     FireflyWalletConnection,
     WalletConnection,
 } from '@/providers/types/Firefly.js';
-import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
 
 function getRelatedFireflyIdentities(
     connection: WalletConnection,

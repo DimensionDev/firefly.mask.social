@@ -1,12 +1,10 @@
-import { safeUnreachable } from '@masknet/kit';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { isSameAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
+import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
-import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
 
 type Provider = FireflySocialMedia;
 type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
