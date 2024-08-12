@@ -113,119 +113,121 @@ export function ComposeSend(props: ComposeSendProps) {
     }
 
     return (
-        <div className="flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            {usedLength && post.availableSources.length ? (
-                <div className="flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                    <CountdownCircle width={24} height={24} className="flex-shrink-0" />
-                    <span className={usedLength > availableLength ? 'text-danger' : ''}>
-                        {usedLength} / {availableLength}
-                    </span>
-                </div>
-            ) : null}
-
-            {hasThread ? (
-                <ClickableButton
-                    className="text-main"
-                    disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
-                    onClick={() => {
-                        addPostInThread();
-                        setEditorContent('');
-                    }}
-                >
-                    {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
-                        <AddThread width={40} height={40} />
-                    ) : (
-                        <Tooltip content={t`Add`} placement="top">
-                            <AddThread width={40} height={40} />
-                        </Tooltip>
-                    )}
-                </ClickableButton>
-            ) : null}
-
-            <Tippy
-                appendTo={() => document.body}
-                className="tippy-card"
-                placement="bottom"
-                duration={500}
-                delay={500}
-                arrow={false}
-                trigger="mouseenter"
-                interactive
-                disabled={!hasError || posts.length === 1}
-                content={
-                    <div className="flex flex-col rounded-lg bg-tooltipBg px-3 py-1 opacity-80">
-                        {post.availableSources.map((x) => {
-                            const name = resolveSourceName(x);
-                            const errorIndex = posts.findIndex((post) => post.postError[x]);
-
-                            if (errorIndex === -1) return null;
-
-                            return (
-                                <div className="flex gap-x-1" key={x}>
-                                    <span className="text-primaryBottom">{name}</span>
-                                    <span className="text-commonDanger">
-                                        {errorIndex} / {posts.length}
-                                    </span>
-                                </div>
-                            );
-                        })}
+        <div className="flex-1 shadow-send">
+            <div className="flex h-[68px] items-center justify-end gap-4 px-4">
+                {usedLength && post.availableSources.length ? (
+                    <div className="flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                        <CountdownCircle width={24} height={24} className="flex-shrink-0" />
+                        <span className={usedLength > availableLength ? 'text-danger' : ''}>
+                            {usedLength} / {availableLength}
+                        </span>
                     </div>
-                }
-            >
-                <ClickableButton
-                    disabled={disabled}
-                    className={classNames(
-                        'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white dark:bg-white dark:text-black',
-                        {
-                            'bg-commonDanger': !!hasError,
-                            'w-[187px]': !!scheduleTime,
-                        },
-                    )}
-                    onClick={() => {
-                        handlePost(!!hasError);
-                    }}
+                ) : null}
+
+                {hasThread ? (
+                    <ClickableButton
+                        className="text-main"
+                        disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
+                        onClick={() => {
+                            addPostInThread();
+                            setEditorContent('');
+                        }}
+                    >
+                        {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
+                            <AddThread width={40} height={40} />
+                        ) : (
+                            <Tooltip content={t`Add`} placement="top">
+                                <AddThread width={40} height={40} />
+                            </Tooltip>
+                        )}
+                    </ClickableButton>
+                ) : null}
+
+                <Tippy
+                    appendTo={() => document.body}
+                    className="tippy-card"
+                    placement="bottom"
+                    duration={500}
+                    delay={500}
+                    arrow={false}
+                    trigger="mouseenter"
+                    interactive
+                    disabled={!hasError || posts.length === 1}
+                    content={
+                        <div className="flex flex-col rounded-lg bg-tooltipBg px-3 py-1 opacity-80">
+                            {post.availableSources.map((x) => {
+                                const name = resolveSourceName(x);
+                                const errorIndex = posts.findIndex((post) => post.postError[x]);
+
+                                if (errorIndex === -1) return null;
+
+                                return (
+                                    <div className="flex gap-x-1" key={x}>
+                                        <span className="text-primaryBottom">{name}</span>
+                                        <span className="text-commonDanger">
+                                            {errorIndex} / {posts.length}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    }
                 >
-                    {posts.length > 1 && loading ? (
-                        <span
-                            className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 duration-100 dark:bg-black/50"
-                            style={{
-                                transform: `scaleX(${percentage})`,
-                                transformOrigin: 'left',
-                            }}
-                        />
-                    ) : null}
-                    {loading ? (
-                        <>
-                            <LoadingIcon width={16} height={16} className="animate-spin" />
-                            <span>
-                                <Trans>Posting...</Trans>
-                            </span>
-                        </>
-                    ) : hasError ? (
-                        <>
-                            <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
-                            <span>
-                                <Trans>Retry</Trans>
-                            </span>
-                        </>
-                    ) : (
-                        <>
-                            <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
-                            <span>
-                                {scheduleTime ? (
-                                    <Trans>Send on schedule</Trans>
-                                ) : (
-                                    <Plural
-                                        value={posts.length}
-                                        one={<Trans>Post</Trans>}
-                                        other={<Trans>Post All</Trans>}
-                                    />
-                                )}
-                            </span>
-                        </>
-                    )}
-                </ClickableButton>
-            </Tippy>
+                    <ClickableButton
+                        disabled={disabled}
+                        className={classNames(
+                            'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white dark:bg-white dark:text-black',
+                            {
+                                'bg-commonDanger': !!hasError,
+                                'w-[187px]': !!scheduleTime,
+                            },
+                        )}
+                        onClick={() => {
+                            handlePost(!!hasError);
+                        }}
+                    >
+                        {posts.length > 1 && loading ? (
+                            <span
+                                className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 duration-100 dark:bg-black/50"
+                                style={{
+                                    transform: `scaleX(${percentage})`,
+                                    transformOrigin: 'left',
+                                }}
+                            />
+                        ) : null}
+                        {loading ? (
+                            <>
+                                <LoadingIcon width={16} height={16} className="animate-spin" />
+                                <span>
+                                    <Trans>Posting...</Trans>
+                                </span>
+                            </>
+                        ) : hasError ? (
+                            <>
+                                <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                                <span>
+                                    <Trans>Retry</Trans>
+                                </span>
+                            </>
+                        ) : (
+                            <>
+                                <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                                <span>
+                                    {scheduleTime ? (
+                                        <Trans>Send on schedule</Trans>
+                                    ) : (
+                                        <Plural
+                                            value={posts.length}
+                                            one={<Trans>Post</Trans>}
+                                            other={<Trans>Post All</Trans>}
+                                        />
+                                    )}
+                                </span>
+                            </>
+                        )}
+                    </ClickableButton>
+                </Tippy>
+            </div>
         </div>
     );
 }
