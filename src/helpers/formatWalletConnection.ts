@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type {
     AllConnections,
     FireflyIdentity,
@@ -13,14 +13,16 @@ function getRelatedFireflyIdentities(
     connection: WalletConnection,
     { lens, farcaster }: AllConnections,
 ): FireflyIdentity[] {
-    const { address, source } = connection;
+    const { address, source, platform } = connection;
     switch (source) {
         case FireflyPlatform.Lens:
             const relatedLens = lens.connected.filter((x) => isSameAddress(x.address, address));
             return relatedLens.flatMap((x) => x.lens).map((x) => ({ id: x.id, source: Source.Lens }));
         case FireflyPlatform.Farcaster:
             const relatedFarcaster = farcaster.connected.filter((x) =>
-                x.connectedAddresses?.some((addr) => isSameAddress(addr, address)),
+                x.connectedAddresses?.some((addr) =>
+                    platform === 'solana' ? isSameSolanaAddress(addr, address) : isSameAddress(addr, address),
+                ),
             );
             return relatedFarcaster.map((x) => ({ id: `${x.fid}`, source: Source.Farcaster }));
         case FireflyPlatform.Wallet:
