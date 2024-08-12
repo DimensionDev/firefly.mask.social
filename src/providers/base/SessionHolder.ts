@@ -3,8 +3,8 @@ import { type Subscription } from 'use-subscription';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NotImplementedError } from '@/constants/error.js';
-import type { Session } from '@/providers/types/Session.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
+import type { Session } from '@/providers/types/Session.js';
 
 export class SessionHolder<T extends Session> {
     protected emitter = new Emitter<{

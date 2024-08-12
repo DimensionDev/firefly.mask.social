@@ -1,6 +1,5 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
 
-import { Source } from '@/constants/enum.js';
 import {
     createLensSDK,
     LocalStorageProvider,
