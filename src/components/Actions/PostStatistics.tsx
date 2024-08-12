@@ -20,6 +20,7 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 interface Props extends HTMLProps<HTMLDivElement> {
     post: Post;
     showChannelTag?: boolean;
+    isComment?: boolean;
 
     onSetScrollIndex?: () => void;
 }
@@ -57,6 +58,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     className,
     post,
     showChannelTag = true,
+    isComment = false,
     onSetScrollIndex,
 }: Props) {
     const pathname = usePathname();
@@ -143,7 +145,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     return (
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
-                {(!isDetailPage
+                {(!isDetailPage || isComment
                     ? compact([
                           isSmall ? <TimestampFormatter key="time" time={post.timestamp} /> : null,
                           comments,

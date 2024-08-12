@@ -91,6 +91,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             {!isComment ? <FeedActionType post={post} listKey={listKey} index={index} /> : null}
 
             <PostHeader
+                isComment={isComment}
                 post={post}
                 onClickProfileLink={() => {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);

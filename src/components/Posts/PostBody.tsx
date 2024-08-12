@@ -205,7 +205,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         <div
             className={classNames('mb-1.5 break-words text-base text-main', {
                 '-mt-2 pl-[52px]': !noLeftPadding,
-                'mt-1.5': noLeftPadding || isComment,
+                'mt-1.5': noLeftPadding,
             })}
             ref={mergedRef}
         >

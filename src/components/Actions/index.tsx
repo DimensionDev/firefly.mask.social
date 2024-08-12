@@ -191,7 +191,12 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>
-            <PostStatistics post={post} showChannelTag={showChannelTag} onSetScrollIndex={onSetScrollIndex} />
+            <PostStatistics
+                isComment={isComment}
+                post={post}
+                showChannelTag={showChannelTag}
+                onSetScrollIndex={onSetScrollIndex}
+            />
         </div>
     );
 });
