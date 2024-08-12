@@ -177,7 +177,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         ] as const;
 
         return (
-            <div className="flex flex-col gap-2 rounded-[12px] md:w-[600px]">
+            <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
                 <p className="pb-2 text-left text-sm">
                     <Trans>You can sign in to Farcaster with the following options.</Trans>
                 </p>
