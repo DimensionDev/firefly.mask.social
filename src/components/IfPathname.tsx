@@ -1,7 +1,8 @@
 'use client';
 
 import { usePathname } from 'next/navigation.js';
-import type { ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
+import { useUpdateEffect } from 'react-use';
 
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
@@ -19,13 +20,20 @@ interface IfPathname {
 
 export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfPathname) {
     const pathname = usePathname();
+    const [lastPathname, setLastPathname] = useState(pathname);
+
+    useUpdateEffect(() => {
+        if (isRoutePathname(pathname, '/post/:detail/photos/:index', true)) return;
+
+        setLastPathname(lastPathname);
+    }, [pathname]);
 
     if (
         isOneOf &&
         isOneOf.some((includedPath) =>
             typeof includedPath === 'string'
-                ? isRoutePathname(pathname, includedPath, exact)
-                : new RegExp(includedPath.r, includedPath.flags).test(pathname),
+                ? isRoutePathname(lastPathname, includedPath, exact)
+                : new RegExp(includedPath.r, includedPath.flags).test(lastPathname),
         )
     ) {
         return <>{children}</>;
@@ -35,8 +43,8 @@ export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfP
         isNotOneOf &&
         !isNotOneOf.some((excludedPath) =>
             typeof excludedPath === 'string'
-                ? isRoutePathname(pathname, excludedPath, exact)
-                : new RegExp(excludedPath.r, excludedPath.flags).test(pathname),
+                ? isRoutePathname(lastPathname, excludedPath, exact)
+                : new RegExp(excludedPath.r, excludedPath.flags).test(lastPathname),
         )
     ) {
         return <>{children}</>;
