@@ -6,6 +6,7 @@ import { isSameAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
+import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
 
 type Provider = FireflySocialMedia;
 type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
@@ -13,18 +14,6 @@ type ReportOptions = Parameters<FireflySocialMedia['reportAndDeleteWallet']>[0];
 
 const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
-
-function isConnectionAddress(connection: FireflyWalletConnection, address: string) {
-    switch (connection.platform) {
-        case 'eth':
-            return isSameAddress(connection.address, address);
-        case 'solana':
-            return isSameSolanaAddress(connection.address, address);
-        default:
-            safeUnreachable(connection.platform);
-            return false;
-    }
-}
 
 function deleteWalletsFromQueryData(address: string) {
     queryClient.setQueriesData<WalletsData>(
@@ -34,8 +23,10 @@ function deleteWalletsFromQueryData(address: string) {
         (old) => {
             if (!old) return old;
             return produce(old, (draft) => {
-                draft.connected = draft.connected.filter((x) => !isConnectionAddress(x, address));
-                draft.related = draft.related.filter((x) => !isConnectionAddress(x, address));
+                draft.connected = draft.connected.filter(
+                    (x) => !isSameConnectionAddress(x.platform, x.address, address),
+                );
+                draft.related = draft.related.filter((x) => !isSameConnectionAddress(x.platform, x.address, address));
             });
         },
     );
