@@ -231,12 +231,12 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     // switch to next available account if the current account is removing.
     if (isSameProfile(state.currentProfile, account.profile)) {
         const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
+        sessionHolder.removeSession();
         if (nextAccount) {
             await switchAccount(nextAccount, signal);
             state.removeAccount(account);
         } else {
             state.removeAccount(account);
-            sessionHolder.removeSession();
         }
     } else {
         state.removeAccount(account);

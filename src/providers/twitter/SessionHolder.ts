@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
@@ -31,4 +32,4 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     }
 }
 
-export const twitterSessionHolder = new TwitterSessionHolder();
+export const twitterSessionHolder = new TwitterSessionHolder(Source.Twitter);

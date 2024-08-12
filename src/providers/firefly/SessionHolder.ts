@@ -1,3 +1,4 @@
+import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
@@ -22,4 +23,4 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
     }
 }
 
-export const fireflySessionHolder = new FireflySessionHolder();
+export const fireflySessionHolder = new FireflySessionHolder(Source.Firefly);

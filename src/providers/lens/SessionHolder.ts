@@ -1,6 +1,12 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
 
-import { createLensSDK, LocalStorageProvider, setLensCredentials } from '@/helpers/createLensSDK.js';
+import { Source } from '@/constants/enum.js';
+import {
+    createLensSDK,
+    LocalStorageProvider,
+    removeLensCredentials,
+    setLensCredentials,
+} from '@/helpers/createLensSDK.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
@@ -26,6 +32,11 @@ export class LensSessionHolder extends SessionHolder<LensSession> {
         }
         super.resumeSession(session);
     }
+
+    override removeSession(): void {
+        removeLensCredentials(new LocalStorageProvider());
+        super.removeSession();
+    }
 }
 
-export const lensSessionHolder = new LensSessionHolder();
+export const lensSessionHolder = new LensSessionHolder(Source.Lens);

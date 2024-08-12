@@ -1,10 +1,16 @@
 import { Emitter } from '@servie/events';
 import { type Subscription } from 'use-subscription';
 
+import { queryClient } from '@/configs/queryClient.js';
+import type { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import type { Session } from '@/providers/types/Session.js';
 
 export class SessionHolder<T extends Session> {
+    source: Source;
+    constructor(source: Source) {
+        this.source = source;
+    }
     protected emitter = new Emitter<{
         // the actual type is T | null, use unknown to avoid type errors
         update: [unknown];
@@ -47,6 +53,7 @@ export class SessionHolder<T extends Session> {
     }
 
     removeSession() {
+        queryClient.removeQueries({ queryKey: ['profile', this.source] });
         this.internalSession = null;
         this.emitter.emit('update', null);
     }
