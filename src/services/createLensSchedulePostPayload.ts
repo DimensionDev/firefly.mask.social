@@ -48,7 +48,10 @@ export async function createLensSchedulePostPayload(
 
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to schedule post on ${sourceName}`);
-    if (!currentProfile.signless) {
+
+    // Request the user settings
+    const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
+    if (signless) {
         const message = t`Please enable Momoka to support sending posts on Lens.`;
         enqueueErrorMessage(message);
         throw new Error(message);
