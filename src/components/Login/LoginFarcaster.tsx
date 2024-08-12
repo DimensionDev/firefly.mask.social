@@ -177,7 +177,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         ] as const;
 
         return (
-            <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
+            <div className="flex flex-col gap-2 rounded-[12px] md:w-[600px]">
                 <p className="pb-2 text-left text-sm">
                     <Trans>You can sign in to Farcaster with the following options.</Trans>
                 </p>
@@ -207,7 +207,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
     return (
         <div className="box-border flex flex-col rounded-xl p-6 md:w-[500px]">
-            {!IS_MOBILE_DEVICE ? (
+            {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4">
                     {count !== 0 ? <LoadingIcon className="animate-spin" width={24} height={24} /> : null}
                     <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
