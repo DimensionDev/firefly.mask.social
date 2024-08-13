@@ -6,7 +6,6 @@ import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
-import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
@@ -20,8 +19,7 @@ export const DELETE = compose(
         if (!tweetId) throw new MalformedError('tweetId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data, errors } = await client.v2.deleteTweet(tweetId);
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        const { data } = await client.v2.deleteTweet(tweetId);
 
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     },
@@ -35,10 +33,9 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         if (!tweetId) throw new MalformedError('tweetId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data, includes, errors } = await client.v2.singleTweet(tweetId, {
+        const { data, includes } = await client.v2.singleTweet(tweetId, {
             ...TWITTER_TIMELINE_OPTIONS,
         });
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
 
         return createSuccessResponseJSON(tweetV2ToPost(data, includes));
     },
