@@ -508,7 +508,7 @@ class TwitterSocialMedia implements Provider {
             method: 'PUT',
             body: JSON.stringify({
                 name: params.displayName,
-                description: params.displayName,
+                description: params.bio,
                 location: params.location,
                 url: params.website,
             }),
