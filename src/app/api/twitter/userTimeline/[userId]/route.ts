@@ -21,11 +21,12 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
         const client = await createTwitterClientV2(request);
-        const { data } = await client.v2.userTimeline(userId, {
+        const { data, errors } = await client.v2.userTimeline(userId, {
             ...TWITTER_TIMELINE_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
+        console.error('[Twitter errors]: ', errors);
 
         return createSuccessResponseJSON(data);
     },

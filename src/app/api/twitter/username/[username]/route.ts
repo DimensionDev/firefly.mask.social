@@ -17,9 +17,10 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         if (!username) throw new MalformedError('username not found');
 
         const client = await createTwitterClientV2(request);
-        const { data } = await client.v2.userByUsername(username, {
+        const { data, errors } = await client.v2.userByUsername(username, {
             ...TWITTER_USER_OPTIONS,
         });
+        console.error('[Twitter errors]: ', errors);
 
         return createSuccessResponseJSON(data);
     },

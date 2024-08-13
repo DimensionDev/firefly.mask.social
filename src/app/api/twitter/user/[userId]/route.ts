@@ -17,9 +17,10 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         if (!userId) throw new MalformedError('userId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data } = await client.v2.user(userId, {
+        const { data, errors } = await client.v2.user(userId, {
             ...TWITTER_USER_OPTIONS,
         });
+        console.error('[Twitter errors]: ', errors);
 
         return createSuccessResponseJSON(data);
     },

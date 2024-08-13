@@ -27,6 +27,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
+        console.error('[Twitter errors]: ', errors);
 
         return createSuccessResponseJSON(data);
     },
