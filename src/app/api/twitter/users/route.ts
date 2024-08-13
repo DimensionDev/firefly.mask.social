@@ -22,9 +22,10 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         const { ids } = parsedBody.data;
 
         const client = await createTwitterClientV2(request);
-        const { data } = await client.v2.users(ids, {
+        const { data, errors } = await client.v2.users(ids, {
             ...TWITTER_USER_OPTIONS,
         });
+        console.error('[Twitter errors]: ', errors);
 
         return createSuccessResponseJSON(data);
     },
