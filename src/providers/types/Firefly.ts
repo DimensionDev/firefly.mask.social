@@ -73,6 +73,7 @@ export interface User {
     solanaAddresses: string[];
     fid: string;
     isFollowing?: boolean;
+    /** if followed by the user, no relation to whether you follow the user or not */
     isFollowedBack?: boolean;
     isPowerUser?: boolean;
 }

@@ -469,12 +469,7 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const data = list
-                .map(formatFarcasterProfileFromFirefly)
-                // We can't distinguish whether a user is following me or not if I do not follow him/her.
-                // Fortunately here we are getting followers, so we are sure the user is following me.
-                // This is a workaround until the API fixes it.
-                .map((x) => ({ ...x, viewerContext: { ...x.viewerContext, followedBy: true } }) as Profile);
+            const data = list.map(formatFarcasterProfileFromFirefly);
 
             return createPageable(
                 data,
@@ -841,12 +836,10 @@ export class FireflySocialMedia implements Provider {
     async getThreadByPostId(postId: string, localPost?: Post) {
         return farcasterSessionHolder.withSession(async (session) => {
             const post = localPost ?? (await this.getPostById(postId));
-            const profile = getCurrentProfile(Source.Farcaster);
 
             const response = await fireflySessionHolder.fetch<ThreadResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
                     sourceFid: session?.profileId,
-                    sourceHandle: profile?.handle,
                     hash: postId,
                     maxDepth: 25,
                 }),
