@@ -1,7 +1,6 @@
 /* cspell:disable */
 
-import type { TweetV2UserTimelineParams } from 'twitter-api-v2';
-import type { UsersV2Params } from 'twitter-api-v2/dist/esm/types/v2/user.v2.types.js';
+import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
 
 import {
     EngagementType,
