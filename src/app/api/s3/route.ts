@@ -3,43 +3,19 @@ import { Upload } from '@aws-sdk/lib-storage';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { v4 as uuid } from 'uuid';
-import { z, ZodError, ZodIssueCode } from 'zod';
+import { z, ZodError } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { ContentTypeError } from '@/constants/error.js';
-import { ALLOWED_MEDIA_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
+import { SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
-import { isValidFileType } from '@/helpers/isValidFileType.js';
+import { fileSchema } from '@/schemas/file.js';
 
 const FormDataSchema = z.object({
-    file: z.custom<File>((value) => {
-        if (!(value instanceof File)) {
-            throw new ZodError([
-                {
-                    message: `The file not found`,
-                    path: [],
-                    code: ZodIssueCode.invalid_type,
-                    expected: 'object',
-                    received: typeof value,
-                },
-            ]);
-        }
-        if (!isValidFileType(value.type)) {
-            throw new ZodError([
-                {
-                    message: `Invalid file type. Allowed types: ${ALLOWED_MEDIA_MIMES.join(', ')}`,
-                    path: [],
-                    code: ZodIssueCode.invalid_type,
-                    expected: 'string',
-                    received: 'string',
-                },
-            ]);
-        }
-        return value;
-    }),
+    file: fileSchema,
     source: z.enum([SourceInURL.Farcaster, SourceInURL.Twitter, SourceInURL.Lens]),
 });
 
