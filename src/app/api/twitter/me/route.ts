@@ -14,7 +14,10 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     async (request) => {
         const client = await createTwitterClientV2(request);
         const { data, errors } = await client.v2.me();
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.me', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         return createSuccessResponseJSON(data);
     },

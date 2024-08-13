@@ -20,7 +20,10 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             max_results: queryParams.limit || 25,
             pagination_token: queryParams.cursor || undefined,
         });
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.bookmarks', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         return createSuccessResponseJSON(data);
     },

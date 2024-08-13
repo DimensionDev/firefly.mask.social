@@ -82,7 +82,10 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const client = await createTwitterClientV2(request);
         const tweet = await composeTweet(await request.json());
         const { data, errors } = await client.v2.tweet(tweet);
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.tweet', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         return createSuccessResponseJSON(data);
     },
