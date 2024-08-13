@@ -441,3 +441,12 @@ body.not-support .fixed.inset-y-0 {
 .livepeer-aspect-ratio-container {
     border-radius: 8px !important;
 }
+
+.mini-video > div > div > div > div:last-of-type > div:first-of-type > span[aria-label] {
+    display: none;
+}
+
+.mini-video > div > div {
+    max-height: 138px;
+    width: 100%;
+}
