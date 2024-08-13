@@ -1,6 +1,5 @@
 import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
-import { t } from '@lingui/macro';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { v4 as uuid } from 'uuid';
@@ -20,7 +19,7 @@ const FormDataSchema = z.object({
         if (!(value instanceof File)) {
             throw new ZodError([
                 {
-                    message: t`The file not found`,
+                    message: `The file not found`,
                     path: [],
                     code: ZodIssueCode.invalid_type,
                     expected: 'object',
@@ -31,7 +30,7 @@ const FormDataSchema = z.object({
         if (!isValidFileType(value.type)) {
             throw new ZodError([
                 {
-                    message: t`Invalid file type. Allowed types: ${ALLOWED_MEDIA_MIMES.join(', ')}`,
+                    message: `Invalid file type. Allowed types: ${ALLOWED_MEDIA_MIMES.join(', ')}`,
                     path: [],
                     code: ZodIssueCode.invalid_type,
                     expected: 'string',
