@@ -612,12 +612,6 @@ msgstr "取消收藏"
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>购买</0> 一个 NFT"
 
-msgid "The file not found"
-msgstr "未找到文件"
-
-msgid "Invalid file type. Allowed types: {0}"
-msgstr "无效文件类型，允许类型为: {0}"
-
 msgid "Connection failed"
 msgstr "连接失败"
 

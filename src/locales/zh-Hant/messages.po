@@ -612,12 +612,6 @@ msgstr "從書籤中移除"
 msgid "<0>Bought</0> an NFT"
 msgstr ""
 
-msgid "The file not found"
-msgstr "找不到文件"
-
-msgid "Invalid file type. Allowed types: {0}"
-msgstr "無效的文件種類。有效種類：{0}"
-
 msgid "Connection failed"
 msgstr "連結失敗"
 

@@ -607,12 +607,6 @@ msgstr ""
 msgid "<0>Bought</0> an NFT"
 msgstr ""
 
-msgid "The file not found"
-msgstr ""
-
-msgid "Invalid file type. Allowed types: {0}"
-msgstr ""
-
 msgid "Connection failed"
 msgstr ""
 
