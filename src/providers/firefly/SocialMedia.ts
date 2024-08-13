@@ -1320,6 +1320,12 @@ export class FireflySocialMedia implements Provider {
             related: formatWalletConnections(connections.wallet.unconnected, connections),
         };
     }
+
+    async getS3UploadMediaToken() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
+        const response = await fetchJSON<UploadMediaTokenResponse>(url);
+        return resolveFireflyResponseData(response);
+    }
 }
 
 export const FireflySocialMediaProvider = new FireflySocialMedia();

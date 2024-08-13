@@ -257,6 +257,9 @@ export type CommentsResponse = Response<{
 }>;
 
 export type UploadMediaTokenResponse = Response<{
+    bucket: string;
+    cdnHost: string;
+    region: string;
     accessKeyId: string;
     secretAccessKey: string;
     sessionToken: string;

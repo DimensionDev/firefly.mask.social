@@ -186,7 +186,8 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> 
     'video/webm': 'webm',
 };
 
-export const FILE_MAX_SIZE_IN_BYTES = 4 * 1024 * 1024; // 4MB
+export const FILE_MAX_SIZE = 4 * 1024 * 1024; // 4MB
+export const VIDEO_MAX_SIZE = 400 * 1024 * 1024; // 400MB
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [
