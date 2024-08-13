@@ -42,10 +42,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const { data, includes, errors } = await client.v2.singleTweet(tweetId, {
             ...TWITTER_TIMELINE_OPTIONS,
         });
-
-        if (errors?.length) {
-            console.error('[twitter] v2.singleTweet', errors);
-        }
+        if (errors?.length) console.error('[twitter] v2.singleTweet', errors);
 
         return createSuccessResponseJSON(tweetV2ToPost(data, includes));
     },

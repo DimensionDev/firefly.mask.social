@@ -22,9 +22,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             max_results: queryParams.limit,
         });
 
-        if (errors?.length) {
-            console.error('[twitter] v2.homeTimeline', errors);
-        }
+        if (errors?.length) console.error('[twitter] v2.homeTimeline', errors);
 
         return createSuccessResponseJSON(data);
     },

@@ -26,9 +26,8 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
-        if (errors?.length) {
-            console.error('[twitter] v2.userTimeline', errors);
-        }
+        if (errors?.length) console.error('[twitter] v2.userTimeline', errors);
+
         return createSuccessResponseJSON(data);
     },
 );
