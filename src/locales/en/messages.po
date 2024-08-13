@@ -607,12 +607,6 @@ msgstr "Remove from Bookmarks"
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>Bought</0> an NFT"
 
-msgid "The file not found"
-msgstr "The file not found"
-
-msgid "Invalid file type. Allowed types: {0}"
-msgstr "Invalid file type. Allowed types: {0}"
-
 msgid "Connection failed"
 msgstr "Connection failed"
 
