@@ -9,7 +9,7 @@ import { EmojiList } from '@/components/Gif/EmojiList.js';
 import { GifList } from '@/components/Gif/GifList.js';
 import { GiphyTabType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
+import { FILE_MAX_SIZE } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -56,7 +56,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
     const onGifSelected = useCallback(
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
-            if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE_IN_BYTES) {
+            if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE) {
                 enqueueErrorMessage(t`The file exceeds the size limit.`);
                 return;
             }
