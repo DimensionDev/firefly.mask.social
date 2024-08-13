@@ -165,7 +165,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     {attachmentsSnapshot.map((attachment, index) => {
                         const uri = attachment.uri ?? '';
                         const isLast = attachmentsSnapshot.length === index + 1;
-                        console.log(index, attachment.type);
                         return (
                             <div
                                 key={index}
