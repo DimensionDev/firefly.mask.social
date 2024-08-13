@@ -21,6 +21,7 @@ import {
     type Profile,
     type Provider,
     SessionType,
+    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 
 const ErrorResponseSchema = z.custom<Response<never>>((response) => {
@@ -547,6 +548,9 @@ class HubbleSocialMedia implements Provider {
 
         await this.submitMessage(messageBytes);
         return true;
+    }
+    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+        throw new NotImplementedError();
     }
 }
 

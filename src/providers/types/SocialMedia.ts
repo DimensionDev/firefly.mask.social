@@ -305,6 +305,14 @@ export interface Channel {
     __original__?: unknown;
 }
 
+export interface UpdateProfileParams {
+    bio: string;
+    displayName: string;
+    location: string;
+    website: string;
+    avatar?: File;
+}
+
 export interface Provider {
     type: SessionType;
 
@@ -823,4 +831,9 @@ export interface Provider {
      * Get recent feed posts
      */
     getRecentPosts?: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Update profile
+     */
+    updateProfile: (params: UpdateProfileParams) => Promise<boolean>;
 }

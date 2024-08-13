@@ -31,6 +31,7 @@ import {
     type Profile,
     type Provider,
     SessionType,
+    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { getFarcasterSuggestFollows } from '@/services/getFarcasterSuggestFollows.js';
@@ -357,6 +358,9 @@ class FarcasterSocialMedia implements Provider {
         const getAllPostsResult = await Promise.allSettled(postIds.map((id) => this.getPostById(id))); // TODO: replace to multiple queries
         const posts = getAllPostsResult.filter((x) => x.status === 'fulfilled').map((x) => x.value);
         return createPageable(posts, createIndicator(indicator), createNextIndicator(indicator, `${offset + limit}`));
+    }
+    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+        return WarpcastSocialMediaProvider.updateProfile(params);
     }
 }
 

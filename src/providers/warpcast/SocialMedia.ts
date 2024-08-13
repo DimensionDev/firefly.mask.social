@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
@@ -15,6 +15,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import {
@@ -25,6 +26,7 @@ import {
     type Profile,
     type Provider,
     SessionType,
+    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import {
     type BookmarkedCastsResponse,
@@ -39,9 +41,11 @@ import {
     type SearchCastsResponse,
     type SearchUsersResponse,
     type SuccessResponse,
+    type UpdateProfileResponse,
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
 
 class WarpcastSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -716,6 +720,20 @@ class WarpcastSocialMedia implements Provider {
             createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
+    }
+
+    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+        const pfp = params.avatar ? await uploadToS3(params.avatar, SourceInURL.Farcaster) : undefined;
+        await farcasterSessionHolder.fetch<UpdateProfileResponse>(urlcat(WARPCAST_CLIENT_URL, 'me'), {
+            method: 'PATCH',
+            body: JSON.stringify({
+                pfp,
+                displayName: params.displayName,
+                bio: params.bio,
+                location: parseJSON(params.location) ?? undefined,
+            }),
+        });
+        return true;
     }
 }
 

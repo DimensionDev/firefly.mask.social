@@ -96,6 +96,7 @@ import {
     type Profile,
     type Provider,
     SessionType,
+    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
@@ -1318,6 +1319,9 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
         const response = await fetchJSON<UploadMediaTokenResponse>(url);
         return resolveFireflyResponseData(response);
+    }
+    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+        throw new NotImplementedError();
     }
 }
 

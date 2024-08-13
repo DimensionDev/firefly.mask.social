@@ -29,6 +29,7 @@ import {
     ProfileStatus,
     type Provider,
     SessionType,
+    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -492,6 +493,27 @@ class TwitterSocialMedia implements Provider {
     }
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
+    }
+    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+        if (params.avatar) {
+            const formData = new FormData();
+            formData.set('file', params.avatar);
+            await twitterSessionHolder.fetch('/api/twitter/me/avatar', {
+                method: 'PUT',
+                body: formData,
+            });
+        }
+        const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me', {
+            method: 'PUT',
+            body: JSON.stringify({
+                name: params.displayName,
+                description: params.displayName,
+                location: params.location,
+                url: params.website,
+            }),
+        });
+        if (!res.success) throw new Error(res.error.message);
+        return true;
     }
 }
 

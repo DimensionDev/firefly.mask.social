@@ -15,13 +15,15 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
+import { profile } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -71,8 +73,11 @@ import {
     type Provider,
     ReactionType,
     SessionType,
+    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import { getLensSuggestFollows } from '@/services/getLensSuggestFollows.js';
+import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
@@ -1290,6 +1295,19 @@ class LensSocialMedia implements Provider {
             createIndicator(indicator),
             createNextIndicator(indicator, `${offset + limit}`),
         );
+    }
+    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+        const metadata = profile({
+            id: uuid(),
+            name: params.displayName,
+            bio: params.bio,
+            picture: params.avatar ? await uploadToS3(params.avatar, SourceInURL.Lens) : undefined,
+        });
+        const metadataURI = await uploadLensMetadataToS3(metadata);
+        const result = await lensSessionHolder.sdk.profile.setProfileMetadata({
+            metadataURI,
+        });
+        return result.isSuccess();
     }
 }
 
