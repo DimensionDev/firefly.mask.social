@@ -724,13 +724,14 @@ class WarpcastSocialMedia implements Provider {
 
     async updateProfile(params: UpdateProfileParams): Promise<boolean> {
         const pfp = params.avatar ? await uploadToS3(params.avatar, SourceInURL.Farcaster) : undefined;
+        const location = parseJSON(params.location) ?? undefined;
         await farcasterSessionHolder.fetch<UpdateProfileResponse>(urlcat(WARPCAST_CLIENT_URL, 'me'), {
             method: 'PATCH',
             body: JSON.stringify({
                 pfp,
                 displayName: params.displayName,
                 bio: params.bio,
-                location: parseJSON(params.location) ?? undefined,
+                location,
             }),
         });
         return true;

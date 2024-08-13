@@ -498,10 +498,11 @@ class TwitterSocialMedia implements Provider {
         if (params.avatar) {
             const formData = new FormData();
             formData.set('file', params.avatar);
-            await twitterSessionHolder.fetch('/api/twitter/me/avatar', {
+            const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me/avatar', {
                 method: 'PUT',
                 body: formData,
             });
+            if (!res.success) throw new Error(res.error.message);
         }
         const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me', {
             method: 'PUT',
