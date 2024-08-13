@@ -239,7 +239,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {/* for twitter only */}
-            {post.poll && !hasEncryptedPayload ? <PollCard post={post} /> : null}
+            {post.poll && !hasEncryptedPayload ? <PollCard post={post} frameUrl="" /> : null}
 
             {showAttachments ? (
                 <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />

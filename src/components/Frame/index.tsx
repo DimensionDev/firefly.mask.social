@@ -85,12 +85,12 @@ async function getNextFrame(
     async function createPacket(additional?: Additional) {
         switch (source) {
             case Source.Lens:
-                return LensFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
+                return LensFrameProvider.generateSignaturePacket(postId, frame.url, button.index, input, {
                     state: latestFrame && frame.state ? frame.state : undefined,
                     ...additional,
                 });
             case Source.Farcaster:
-                return HubbleFrameProvider.generateSignaturePacket(postId, frame, button.index, input, {
+                return HubbleFrameProvider.generateSignaturePacket(postId, frame.url, button.index, input, {
                     state: latestFrame && frame.state ? frame.state : undefined,
                     ...additional,
                 });

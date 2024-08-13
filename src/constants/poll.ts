@@ -35,7 +35,7 @@ export const POLL_MAX_VALID_IN_DAYS: Record<SocialSource, number> = {
 };
 
 export const POLL_ACTION_ENABLED: Record<SocialSource, boolean> = {
-    [Source.Lens]: false,
-    [Source.Farcaster]: false,
+    [Source.Lens]: true,
+    [Source.Farcaster]: true,
     [Source.Twitter]: false,
 };

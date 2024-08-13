@@ -7,6 +7,7 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -97,4 +98,14 @@ export async function getPostLinks(oembedUrls: string[], post?: Pick<Post, 'quot
         null,
         (x) => !x,
     );
+}
+
+export function getPollIdFromLinks(urls: string[]) {
+    const pollLink = urls.find(isValidPollFrameUrl);
+    if (!pollLink) return;
+
+    const parsed = parseURL(pollLink);
+    const id = parsed?.pathname.split('/')[2];
+
+    return id ? { pollId: id, url: pollLink } : undefined;
 }

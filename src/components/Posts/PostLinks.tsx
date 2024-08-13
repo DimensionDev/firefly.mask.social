@@ -7,6 +7,7 @@ import { useEffect, useMemo } from 'react';
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
+import { FramePoll } from '@/components/Poll/FramePoll.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import type { Chars } from '@/helpers/chars.js';
@@ -14,7 +15,7 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostLinks } from '@/services/getPostLinks.js';
+import { getPollIdFromLinks, getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
 
 interface Props {
@@ -24,7 +25,10 @@ interface Props {
 
 export function PostLinks({ post, setContent }: Props) {
     const urls = post.metadata.content?.oembedUrls ?? [];
+    const pollLink = getPollIdFromLinks(urls);
+
     const { isLoading, error, data } = useQuery({
+        enabled: !pollLink,
         queryKey: ['post-embed', ...urls, post.postId],
         queryFn: () => getPostLinks(urls, post),
         refetchOnMount: false,
@@ -40,6 +44,10 @@ export function PostLinks({ post, setContent }: Props) {
             setContent?.(removeAtEnd(content, url));
         }
     }, [data?.oembed, setContent, post]);
+
+    if (pollLink) {
+        return <FramePoll post={post} pollId={pollLink.pollId} frameUrl={pollLink.url} />;
+    }
 
     if (isLoading || error || !data) return null;
 
