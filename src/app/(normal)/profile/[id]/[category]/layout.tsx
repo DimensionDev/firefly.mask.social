@@ -25,24 +25,23 @@ interface Props extends PropsWithChildren {
 export default function DetailLayout({ children, params }: Props) {
     const id = params.id;
     const sourceInUrl = useSearchParams().get('source') as SourceInURL;
-    const source = resolveSourceFromUrl(sourceInUrl);
+    const source = narrowToSocialSource(resolveSourceFromUrl(sourceInUrl));
 
-    const myProfile = useCurrentProfile(narrowToSocialSource(source));
+    const myProfile = useCurrentProfile(source);
 
     const { data: profile = null } = useQuery({
         queryKey: ['profile', source, id],
         queryFn: async () => {
-            if (!identity || !source) return null;
+            if (!id || !source) return null;
             if (source === Source.Twitter) return null;
-            if (!id || !source || source === Source.Wallet) return null;
-            return getProfileById(narrowToSocialSource(source), id);
+            return getProfileById(source, id);
         },
     });
 
     const pathname = usePathname();
 
     const tabs = compact([
-        !isSameProfile(myProfile, profile || { source, profileId: identity })
+        !isSameProfile(myProfile, profile || { source, profileId: id })
             ? {
                   label: <Trans>Followers you know</Trans>,
                   category: FollowCategory.Mutuals,

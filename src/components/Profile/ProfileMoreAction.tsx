@@ -43,8 +43,6 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
         });
     });
 
-    const [, handleCopy] = useCopyText(urlcat(location.origin, getProfileUrl(profile)));
-
     return (
         <MoreActionMenu
             source={profile.source}
