@@ -21,7 +21,7 @@ export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
 export const SITE_NAME = 'Firefly: App for Web3 Natives';
-export const SITE_DESCRIPTION = 'Firefly is a social app for exploring what’s happening onchain.';
+export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
