@@ -69,11 +69,7 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
-    const disabledVideo =
-        !!video ||
-        availableSources.includes(Source.Farcaster) ||
-        availableSources.includes(Source.Twitter) ||
-        (availableSources.includes(Source.Lens) && images.length > 0);
+    const disabledVideo = !!video || availableSources.includes(Source.Farcaster) || images.length > 0;
 
     return (
         <Transition
