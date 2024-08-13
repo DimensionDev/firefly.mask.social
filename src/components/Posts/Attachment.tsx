@@ -165,7 +165,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     {attachmentsSnapshot.map((attachment, index) => {
                         const uri = attachment.uri ?? '';
                         const isLast = attachmentsSnapshot.length === index + 1;
-                        console.log(index, attachment.type);
                         return (
                             <div
                                 key={index}
@@ -241,7 +240,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
 
                         <Link
                             href={asset.uri}
-                            className="flex items-center gap-1 text-lightHighlight"
+                            className="text-lightHighlight flex items-center gap-1"
                             target="_blank"
                             rel="noreferrer noopener"
                         >

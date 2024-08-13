@@ -99,7 +99,7 @@
         "react-markdown": "^8.0.7",
         "react-qr-code": "^2.0.12",
         "react-tweet": "^3.2.1",
-        "react-use": "^17.4.0",
+        "react-use": "^17.5.1",
         "react-virtuoso": "^4.7.8",
         "remark-breaks": "^4.0.0",
         "remark-linkify-regex": "^1.2.1",
