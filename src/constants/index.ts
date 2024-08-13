@@ -1,6 +1,7 @@
 /* cspell:disable */
 
-import type { TweetV2UserTimelineParams, UserV2TimelineParams } from 'twitter-api-v2';
+import type { TweetV2UserTimelineParams } from 'twitter-api-v2';
+import type { UsersV2Params } from 'twitter-api-v2/dist/esm/types/v2/user.v2.types.js';
 
 import {
     EngagementType,
@@ -214,8 +215,8 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     'poll.fields': ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status'],
 };
 
-export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
-    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics'],
+export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
+    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics', 'connection_status'],
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';

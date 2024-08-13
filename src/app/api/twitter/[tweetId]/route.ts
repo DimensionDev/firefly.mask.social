@@ -35,10 +35,9 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         if (!tweetId) throw new MalformedError('tweetId not found');
 
         const client = await createTwitterClientV2(request);
-        const { data, includes, errors } = await client.v2.singleTweet(tweetId, {
+        const { data, includes } = await client.v2.singleTweet(tweetId, {
             ...TWITTER_TIMELINE_OPTIONS,
         });
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
 
         return createSuccessResponseJSON(tweetV2ToPost(data, includes));
     },

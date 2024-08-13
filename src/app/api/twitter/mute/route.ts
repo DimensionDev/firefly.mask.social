@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server.js';
 
-import { TWITTER_MUTE_LIST_OPTIONS } from '@/constants/index.js';
+import { TWITTER_USER_OPTIONS } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
@@ -13,7 +13,7 @@ import { Pageable } from '@/schemas/index.js';
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
-    async (request) => {
+    async (request: NextRequest) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
         const client = await createTwitterClientV2(request);
@@ -21,7 +21,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
         if (errors?.length) return createTwitterErrorResponseJSON(errors);
 
         const { data, errors: muteErrors } = await client.v2.userMutingUsers(me.id, {
-            ...TWITTER_MUTE_LIST_OPTIONS,
+            ...TWITTER_USER_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
