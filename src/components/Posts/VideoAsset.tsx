@@ -19,9 +19,10 @@ interface VideoAssetProps {
     source: Source;
     isQuote?: boolean;
     autoPlay?: boolean;
+    videoClassName?: string;
 }
 
-export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps) {
+export function VideoAsset({ asset, isQuote, source, autoPlay, videoClassName }: VideoAssetProps) {
     const isGif = asset.type === 'AnimatedGif';
 
     return isQuote ? (
@@ -41,6 +42,7 @@ export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps
         </div>
     ) : (
         <Video
+            className={videoClassName}
             loop={isGif}
             autoPlay={autoPlay || isGif}
             src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri}
