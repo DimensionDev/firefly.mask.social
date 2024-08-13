@@ -469,12 +469,7 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const data = list
-                .map(formatFarcasterProfileFromFirefly)
-                // We can't distinguish whether a user is following me or not if I do not follow him/her.
-                // Fortunately here we are getting followers, so we are sure the user is following me.
-                // This is a workaround until the API fixes it.
-                .map((x) => ({ ...x, viewerContext: { ...x.viewerContext, followedBy: true } }) as Profile);
+            const data = list.map(formatFarcasterProfileFromFirefly);
 
             return createPageable(
                 data,
