@@ -154,7 +154,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(`/api/twitter/homeTimeline`, {
+        const url = urlcat(`/api/twitter/home`, {
             limit: 25,
             cursor: indicator?.id,
         });

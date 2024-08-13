@@ -27,7 +27,10 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             next_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
-        console.error('[Twitter errors]: ', errors);
+
+        if (errors.length) {
+            console.error('[twitter] v2.search', errors);
+        }
 
         return createSuccessResponseJSON({
             ...data,

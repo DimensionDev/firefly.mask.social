@@ -18,7 +18,11 @@ export const PUT = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const client = await createTwitterClientV2(request);
         const { errors } = await client.v2.bookmark(tweetId);
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+
+        if (errors?.length) {
+            console.error('[twitter] v2.bookmark', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         return createSuccessResponseJSON(true);
     },
@@ -33,7 +37,11 @@ export const DELETE = compose<(request: NextRequest, context?: NextRequestContex
 
         const client = await createTwitterClientV2(request);
         const { errors } = await client.v2.deleteBookmark(tweetId);
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+
+        if (errors?.length) {
+            console.error('[twitter] v2.deleteBookmark', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         return createSuccessResponseJSON(true);
     },

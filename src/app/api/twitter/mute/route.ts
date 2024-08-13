@@ -17,15 +17,18 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
 
         const client = await createTwitterClientV2(request);
         const { data: me, errors } = await client.v2.me();
-        console.error('[Twitter errors]: ', errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.me', errors);
+        }
 
         const { data, errors: muteErrors } = await client.v2.userMutingUsers(me.id, {
             ...TWITTER_USER_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
-        console.error('[Twitter errors]: ', muteErrors);
-
+        if (muteErrors?.length) {
+            console.error('[twitter] v2.userMutingUsers', muteErrors);
+        }
         return createSuccessResponseJSON(data);
     },
 );
