@@ -13,6 +13,7 @@ import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
+import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -23,23 +24,22 @@ interface Props {
 }
 
 export function PostLinks({ post, setContent }: Props) {
-    const urls = post.metadata.content?.oembedUrls ?? [];
+    const url = resolveOembedUrl(post);
     const { isLoading, error, data } = useQuery({
-        queryKey: ['post-embed', ...urls, post.postId],
-        queryFn: () => getPostLinks(urls, post),
+        queryKey: ['post-embed', url, post.postId],
+        queryFn: () => getPostLinks(url!, post),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
+        enabled: !!url,
     });
 
     useEffect(() => {
-        const url = post.metadata.content?.oembedUrl;
         const content = post.metadata.content?.content;
-
-        if (data?.oembed && url && content) {
+        if (data && url && content) {
             setContent?.(removeAtEnd(content, url));
         }
-    }, [data?.oembed, setContent, post]);
+    }, [data, setContent, post, url]);
 
     if (isLoading || error || !data) return null;
 

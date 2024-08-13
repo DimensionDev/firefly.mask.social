@@ -70,17 +70,18 @@ interface OembedProps {
 }
 
 export const Oembed = memo<OembedProps>(function Oembed({ post, onData }) {
-    const urls = post.metadata.content?.oembedUrls ?? [];
+    const url = post.metadata.content?.oembedUrl;
     const {
         data: oembed,
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['oembed', ...urls, post],
-        queryFn: () => getPostOembed(urls, post),
+        queryKey: ['oembed', url, post],
+        queryFn: () => getPostOembed(url!, post),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
+        enabled: !!url,
     });
 
     useEffect(() => {
