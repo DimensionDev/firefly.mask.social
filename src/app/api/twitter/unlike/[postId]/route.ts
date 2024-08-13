@@ -18,10 +18,16 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
 
         const client = await createTwitterClientV2(request);
         const { data: me, errors } = await client.v2.me();
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.me', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         const { errors: unlikeErrors } = await client.v2.unlike(me.id, postId);
-        if (unlikeErrors?.length) return createTwitterErrorResponseJSON(unlikeErrors);
+        if (unlikeErrors?.length) {
+            console.error('[twitter] v2.unlike', unlikeErrors);
+            return createTwitterErrorResponseJSON(unlikeErrors);
+        }
 
         return createSuccessResponseJSON(true);
     },

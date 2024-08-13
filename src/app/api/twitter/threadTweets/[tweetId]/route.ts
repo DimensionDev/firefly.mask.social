@@ -20,7 +20,10 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const client = await createTwitterClientV2(request);
         const { data, includes, errors } = await getThreadTweets(client, tweetId);
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.tweets', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         return createSuccessResponseJSON(data.map((tweet) => tweetV2ToPost(tweet, includes)));
     },
