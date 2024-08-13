@@ -13,7 +13,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface TitleProps {
     profile?: Profile | null;
@@ -24,19 +24,19 @@ interface TitleProps {
 }
 
 export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile }: TitleProps) {
-    const [reached, setReached] = useState(false);
-
-    const { scrollY } = useScroll();
     const isMedium = useIsMedium();
+
+    const [reached, setReached] = useState(false);
+    const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, 'change', (value) => {
         setReached(value > 60);
     });
 
     const comeback = useComeBack();
-    const { profileTab } = useProfileTabState();
+    const { identity: identity } = useFireflyIdentityState();
 
-    const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
+    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     if ((profiles.length > 1 || !isOthersProfile) && !reached && isMedium && !sticky) return null;
 

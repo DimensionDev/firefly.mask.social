@@ -1,8 +1,8 @@
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { settings } from '@/settings/index.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
@@ -37,18 +37,21 @@ function report(params: UploadTokenTipsParams) {
     });
 }
 
-export async function reportTokenTips(source: Source, identity: string, params: UploadTokenTipsParams) {
+export async function reportTokenTips(identity: FireflyIdentity, params: UploadTokenTipsParams) {
     const profile =
         useLensStateStore.getState().currentProfile ||
         useFarcasterStateStore.getState().currentProfile ||
         useTwitterStateStore.getState().currentProfile;
 
+    const resolvedIdentity = resolveFireflyIdentity(profile);
+    if (!resolvedIdentity) throw new Error('No available profile.');
+
     const from_account_id = profile
-        ? await getAllPlatformProfileFromFirefly(profile.source, resolveProfileId(profile)!)
+        ? await getAllPlatformProfileFromFirefly(resolvedIdentity)
               .then((x) => x.data?.fireflyAccountId)
               .catch(() => undefined)
         : undefined;
-    const to_account_id = await getAllPlatformProfileFromFirefly(source, identity)
+    const to_account_id = await getAllPlatformProfileFromFirefly(identity)
         .then((x) => x.data?.fireflyAccountId)
         .catch(() => undefined);
 

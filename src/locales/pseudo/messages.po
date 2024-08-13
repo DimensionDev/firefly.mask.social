@@ -127,9 +127,6 @@ msgstr ""
 msgid "Confirm to sync accounts"
 msgstr ""
 
-msgid "Failed to unwatch {identity}."
-msgstr ""
-
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
 
@@ -598,10 +595,10 @@ msgstr ""
 msgid "Remove Choice"
 msgstr ""
 
-msgid "Update"
+msgid "Failed to watch {handleOrEnsOrAddress}."
 msgstr ""
 
-msgid "Mute {identity}"
+msgid "Update"
 msgstr ""
 
 msgid "Remove from Bookmarks"
@@ -943,6 +940,9 @@ msgstr ""
 msgid "Bookmark"
 msgstr ""
 
+msgid "{handleOrEnsOrAddress} watched"
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr ""
 
@@ -995,9 +995,6 @@ msgid "Share Now"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr ""
-
-msgid "Failed to watch {identity}."
 msgstr ""
 
 msgid "Mute"
@@ -1084,6 +1081,9 @@ msgstr ""
 msgid "Failed to disconnect"
 msgstr ""
 
+msgid "Failed to unwatch {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -1117,6 +1117,9 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
+msgid "Unmute {handleOrEnsOrAddress}"
+msgstr ""
+
 msgid "Blink"
 msgstr ""
 
@@ -1126,7 +1129,13 @@ msgstr ""
 msgid "No preview found for shared link"
 msgstr ""
 
+msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+msgstr ""
+
 msgid "Contract source code not verified"
+msgstr ""
+
+msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
@@ -1225,6 +1234,9 @@ msgstr ""
 msgid "Your Blink URL."
 msgstr ""
 
+msgid "Watch {handleOrEnsOrAddress}"
+msgstr ""
+
 msgid "Show More"
 msgstr ""
 
@@ -1288,9 +1300,6 @@ msgstr ""
 msgid "Remove Poll"
 msgstr ""
 
-msgid "Unmute {identity}"
-msgstr ""
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -1319,6 +1328,9 @@ msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
 msgid "Connected in Firefly"
+msgstr ""
+
+msgid "Mute {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
@@ -1426,9 +1438,6 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
-msgid "Unwatch {identity}"
-msgstr ""
-
 msgid "Recast or Quote"
 msgstr ""
 
@@ -1510,9 +1519,6 @@ msgstr ""
 msgid "Post by {0}"
 msgstr ""
 
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr ""
-
 msgid "Casts + Replies"
 msgstr ""
 
@@ -1532,9 +1538,6 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Owner can change balance"
-msgstr ""
-
-msgid "{identity} watched"
 msgstr ""
 
 msgid "Accounts Connected"
@@ -1564,6 +1567,9 @@ msgstr ""
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
+msgid "{handleOrEnsOrAddress} unwatched"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -1571,9 +1577,6 @@ msgid "No profile found"
 msgstr ""
 
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
-msgstr ""
-
-msgid "Watch {identity}"
 msgstr ""
 
 msgid "Failed to create scheduled post."
@@ -1783,6 +1786,9 @@ msgstr ""
 msgid "Your name"
 msgstr ""
 
+msgid "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
+msgstr ""
+
 msgid "Owned"
 msgstr ""
 
@@ -1850,9 +1856,6 @@ msgid "Mask Network"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
-msgstr ""
-
-msgid "{identity} unwatched"
 msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
@@ -1925,9 +1928,6 @@ msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
-msgstr ""
-
-msgid "All wallets and social accounts associated with {handle} will be muted."
 msgstr ""
 
 msgid "Download App"

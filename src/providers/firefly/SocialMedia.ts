@@ -422,8 +422,8 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getAllPlatformProfileByIdentity(source: Source, identity: string): Promise<FireflyProfile[]> {
-        const response = await getAllPlatformProfileFromFirefly(source, identity);
+    async getAllPlatformProfileByIdentity(identity: FireflyIdentity): Promise<FireflyProfile[]> {
+        const response = await getAllPlatformProfileFromFirefly(identity);
         const profiles = resolveFireflyResponseData(response);
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
@@ -1275,9 +1275,9 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async isProfileMutedAll(source: Source, identity: string) {
+    async isProfileMutedAll(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/isMuteAll', {
-            [getPlatformQueryKey(source)]: identity,
+            [getPlatformQueryKey(identity.source)]: identity.id,
         });
 
         const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
@@ -1286,15 +1286,15 @@ export class FireflySocialMedia implements Provider {
         return data?.isBlockAll ?? false;
     }
 
-    async muteProfileAll(source: Source, identity: string) {
+    async muteProfileAll(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
-            [getPlatformQueryKey(source)]: identity,
+            [getPlatformQueryKey(identity.source)]: identity.id,
         });
 
         const response = await fireflySessionHolder.fetch<MuteAllResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                [getPlatformQueryKey(source)]: identity,
+                [getPlatformQueryKey(identity.source)]: identity.id,
             }),
         });
 

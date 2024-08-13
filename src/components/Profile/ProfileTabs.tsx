@@ -10,12 +10,12 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface ProfileTabsProps {
     profiles: FireflyProfile[];
@@ -63,7 +63,7 @@ const resolveProfileTabColor = createLookupTableResolver<
 
 export function ProfileTabs({ profiles }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const { profileTab, setProfileTab } = useProfileTabState();
+    const { identity, setIdentity } = useFireflyIdentityState();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
@@ -75,22 +75,18 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
     return (
         <div className="scrollable-tab flex gap-2 px-5">
             {profiles.map((profile, index) => {
-                const colors = resolveProfileTabColor(profile.source);
-
-                const isActive =
-                    profile.source === Source.Wallet
-                        ? isSameAddress(profile.identity, profileTab.identity)
-                        : profileTab.identity === profile.identity;
+                const colors = resolveProfileTabColor(profile.identity.source);
+                const isActive = isSameFireflyIdentity(profile.identity, identity);
 
                 return (
                     <ClickableArea
                         onClick={() => {
                             startTransition(() => {
-                                setProfileTab({ source: profile.source, identity: profile.identity });
+                                setIdentity(profile.identity);
 
                                 updateParams(
                                     new URLSearchParams({
-                                        source: resolveSourceInURL(profile.source),
+                                        source: resolveSourceInURL(profile.identity.source),
                                     }),
                                     isCompleteProfilePage
                                         ? urlcat('/profile/:id', { id: profile.identity })
@@ -113,7 +109,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                         key={index}
                     >
                         <SquareSourceIcon
-                            source={profile.source}
+                            source={profile.identity.source}
                             size={14}
                             forceLight={isActive}
                             className="rounded-[4px]"
@@ -122,7 +118,9 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                             }}
                         />
                         <span className="whitespace-nowrap text-[10px] leading-3">
-                            {profile.source === Source.Wallet ? profile.displayName : `@${profile.displayName}`}
+                            {profile.identity.source === Source.Wallet
+                                ? profile.displayName
+                                : `@${profile.displayName}`}
                         </span>
                     </ClickableArea>
                 );

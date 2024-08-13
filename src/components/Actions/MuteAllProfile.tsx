@@ -12,41 +12,42 @@ import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MuteAllProfileBaseProps {
-    identity: string;
-    source: Source;
-    handle: string;
+    identity: FireflyIdentity;
+    handleOrEnsOrAddress: string;
     onClose?(): void;
 }
 
-function waitForConfirmation(handle: string) {
+function waitForConfirmation(handleOrEnsOrAddress: string) {
     return ConfirmModalRef.openAndWaitForClose({
         title: t`Mute all`,
         content: (
             <p className="-mt-4 mb-4 text-lightMain">
-                <Trans>All wallets and social accounts associated with {handle} will be muted.</Trans>
+                <Trans>All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted.</Trans>
             </p>
         ),
         variant: 'normal',
     });
 }
 
-function MuteAllProfileBase({ identity, source, handle, onClose }: MuteAllProfileBaseProps) {
+function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAllProfileBaseProps) {
     const { data: isMutedAll, isLoading } = useQuery({
-        queryKey: ['profile', 'mute-all', source, identity],
-        queryFn: async () => FireflySocialMediaProvider.isProfileMutedAll(source, identity),
+        queryKey: ['profile', 'mute-all', identity.id, identity.source],
+        queryFn: async () => FireflySocialMediaProvider.isProfileMutedAll(identity),
     });
 
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
         try {
             onClose?.();
-            const confirmed = await waitForConfirmation(handle);
+            const confirmed = await waitForConfirmation(`@${handleOrEnsOrAddress}`);
             if (!confirmed) return;
-            await FireflySocialMediaProvider.muteProfileAll(source, identity);
+            await FireflySocialMediaProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mute all wallets and accounts.`), {
@@ -54,7 +55,7 @@ function MuteAllProfileBase({ identity, source, handle, onClose }: MuteAllProfil
             });
             throw error;
         }
-    }, [source, identity, onClose]);
+    }, [identity, onClose]);
 
     if (isLoading || isMutedAll === true) return null;
 
@@ -74,24 +75,22 @@ function MuteAllProfileBase({ identity, source, handle, onClose }: MuteAllProfil
 
 export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfileBaseProps['onClose'] }>(
     function MuteAllByProfile({ profile, onClose }) {
-        return (
-            <MuteAllProfileBase
-                identity={profile.profileId}
-                source={profile.source}
-                handle={`@${profile.handle}`}
-                onClose={onClose}
-            />
-        );
+        const identity = useFireflyIdentity(profile.source, profile.profileId);
+        return <MuteAllProfileBase identity={identity} handleOrEnsOrAddress={`@${profile.handle}`} onClose={onClose} />;
     },
 );
 
 export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose: MuteAllProfileBaseProps['onClose'] }>(
     function MuteAllByWallet({ address, handle, onClose }) {
+        const identity = useFireflyIdentity(Source.Wallet, address);
         const { data: ens } = useEnsName({ address });
-        const resolvedHandle = handle || ens || formatEthereumAddress(address, 4);
 
         return (
-            <MuteAllProfileBase identity={address} source={Source.Wallet} handle={resolvedHandle} onClose={onClose} />
+            <MuteAllProfileBase
+                identity={identity}
+                handleOrEnsOrAddress={handle || ens || formatEthereumAddress(address, 4)}
+                onClose={onClose}
+            />
         );
     },
 );

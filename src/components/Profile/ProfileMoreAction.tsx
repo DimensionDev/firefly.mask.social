@@ -12,7 +12,8 @@ import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -27,15 +28,20 @@ export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'classNam
 
 export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMoreAction({ className, profile }) {
     const currentProfile = useCurrentProfile(profile.source);
+    const profiles = useCurrentFireflyProfilesAll();
     const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
-    const profiles = useCurrentFireflyProfilesAll();
-
-    const isRelatedProfile = profiles.some((current) => {
-        return current.source === profile.source && current.identity === resolveProfileId(profile);
-    });
-
     const [, handleCopy] = useCopyText(urlcat(location.origin, getProfileUrl(profile)));
+
+    const isRelatedProfile = profiles.some((x) => {
+        const profileId = resolveFireflyProfileId(profile);
+        if (!profileId) return false;
+
+        return isSameFireflyIdentity(x.identity, {
+            id: profileId,
+            source: profile.source,
+        });
+    });
 
     return (
         <MoreActionMenu

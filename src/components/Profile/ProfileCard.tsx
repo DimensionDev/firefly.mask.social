@@ -7,35 +7,38 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileCardProps {
-    source: SocialSource;
-    identity: string;
+    identity: FireflyIdentity;
     defaultProfile?: Profile;
 }
 
-export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ defaultProfile, source, identity }) {
+export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identity, defaultProfile }) {
+    const { id, source } = identity;
+
     const { data: profile, isLoading } = useQuery({
-        enabled: !!identity && !!source,
-        queryKey: ['profile', source, identity],
+        enabled: !!id && !!source,
+        queryKey: ['profile', id, source],
         queryFn: async () => {
             if (defaultProfile) return defaultProfile;
-            if (!identity || !source) return;
-            const provider = resolveSocialMediaProvider(source);
-            return source === Source.Lens ? provider.getProfileByHandle(identity) : provider.getProfileById(identity);
+            if (!id || !source) return;
+            const provider = resolveSocialMediaProvider(narrowToSocialSource(source));
+            return source === Source.Lens ? provider.getProfileByHandle(id) : provider.getProfileById(id);
         },
     });
-    const myProfile = useCurrentProfile(source);
+    const myProfile = useCurrentProfile(narrowToSocialSource(source));
 
     if (isLoading) {
         return (

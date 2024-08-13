@@ -472,8 +472,7 @@ export interface WalletProfiles {
 export type WalletProfileResponse = Response<WalletProfiles>;
 
 export interface FireflyProfile {
-    identity: string;
-    source: Source;
+    identity: FireflyIdentity;
     displayName: string;
     __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | null;
 }
@@ -482,8 +481,8 @@ export interface Relation {
     source: string[];
     identity: {
         uuid: string;
-        platform: RelationPlatform;
         identity: string;
+        platform: RelationPlatform;
         displayName: string;
     };
 }

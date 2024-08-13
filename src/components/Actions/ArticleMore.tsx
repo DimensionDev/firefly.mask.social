@@ -14,6 +14,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -27,10 +28,13 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const author = article.author;
     const isBusy = mutation.isPending;
 
-    const isMyProfile = useIsMyRelatedProfile(author.id, Source.Wallet);
+    const identity = useFireflyIdentity(Source.Wallet, author.id);
+    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const { data: ens } = useEnsName({ address: author.id });
-    const identity = author.handle || ens || formatEthereumAddress(author.id, 4);
+
+    const handleOrEnsOrAddress = author.handle || ens || formatEthereumAddress(author.id, 4);
+
     return (
         <MoreActionMenu
             button={
@@ -67,7 +71,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <Menu.Item>
                             {({ close }) => (
                                 <WatchWalletButton
-                                    identity={identity}
+                                    handleOrEnsOrAddress={handleOrEnsOrAddress}
                                     isFollowing={author.isFollowing}
                                     address={author.id}
                                     onClick={close}
@@ -77,7 +81,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <Menu.Item>
                             {({ close }) => (
                                 <MuteWalletButton
-                                    identity={identity}
+                                    handleOrEnsOrAddress={handleOrEnsOrAddress}
                                     isMuted={author.isMuted}
                                     address={author.id}
                                     onClick={close}
@@ -91,8 +95,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                     {({ close }) => (
                         <Tips
                             className="px-3 py-1 !text-main hover:bg-bg"
-                            identity={author.id}
-                            source={Source.Wallet}
+                            identity={identity}
                             handle={author.handle || ens}
                             tooltipDisabled
                             label={t`Send tips`}

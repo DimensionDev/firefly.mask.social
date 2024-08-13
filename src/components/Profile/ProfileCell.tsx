@@ -7,6 +7,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -16,6 +17,9 @@ interface Props extends HTMLAttributes<HTMLAnchorElement> {
 }
 
 export function ProfileCell({ profile, source, className, ...rest }: Props) {
+    const identity = resolveFireflyIdentity(profile);
+    if (!identity) return null;
+
     return (
         <Link
             href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.profileId)}
@@ -23,7 +27,7 @@ export function ProfileCell({ profile, source, className, ...rest }: Props) {
             {...rest}
         >
             <div className="flex w-full items-center">
-                <ProfileTippy source={source} identity={profile.profileId}>
+                <ProfileTippy identity={identity}>
                     <span>
                         <Avatar
                             className="mr-3 shrink-0 rounded-full border"

@@ -12,13 +12,14 @@ import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { TipsModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface TipsProps extends HTMLProps<HTMLDivElement> {
-    identity: string;
-    source: Source;
+    identity: FireflyIdentity;
     disabled?: boolean;
     handle?: string | null;
     label?: string;
@@ -29,7 +30,6 @@ interface TipsProps extends HTMLProps<HTMLDivElement> {
 
 export const Tips = memo(function Tips({
     identity,
-    source,
     disabled = false,
     label,
     tooltipDisabled = false,
@@ -42,11 +42,11 @@ export const Tips = memo(function Tips({
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
-            const relatedProfiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(source, identity);
-            if (!relatedProfiles?.some((profile) => profile.source === Source.Wallet)) {
+            const relatedProfiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity);
+            if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 throw new Error('No available profiles');
             }
-            TipsModalRef.open({ identity, source, handle, pureWallet, profiles: relatedProfiles });
+            TipsModalRef.open({ identity, handle, pureWallet, profiles: relatedProfiles });
             onClick?.();
         } catch (error) {
             enqueueErrorMessage(
@@ -54,11 +54,11 @@ export const Tips = memo(function Tips({
             );
             throw error;
         }
-    }, [identity, source, handle, pureWallet, onClick]);
+    }, [identity, handle, pureWallet, onClick]);
 
     if (
         env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||
-        profiles.some((profile) => profile.identity === identity && profile.source === source)
+        profiles.some((profile) => isSameFireflyIdentity(profile.identity, identity))
     )
         return null;
 

@@ -1,14 +1,13 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
-import type { ProfileTab } from '@/store/useProfileTabStore.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export function resolveFireflyProfiles(
-    profileTab: ProfileTab,
+    profileIdentity: FireflyIdentity,
     profiles: FireflyProfile[],
 ): { socialProfile: FireflyProfile | null; walletProfile: WalletProfile | null } {
-    if (!profileTab.identity)
+    if (!profileIdentity.id)
         return {
             socialProfile: null,
             walletProfile: null,
@@ -17,12 +16,12 @@ export function resolveFireflyProfiles(
         socialProfile:
             profiles.find(
                 (x) =>
-                    SORTED_SOCIAL_SOURCES.includes(x.source as SocialSource) &&
-                    x.source === profileTab.source &&
-                    x.identity === profileTab.identity,
+                    SORTED_SOCIAL_SOURCES.includes(x.identity.source as SocialSource) &&
+                    isSameFireflyIdentity(x.identity, profileIdentity),
             ) ?? null,
         walletProfile:
-            (profiles.find((x) => x.source === Source.Wallet && isSameAddress(x.identity, profileTab.identity))
-                ?.__origin__ as WalletProfile | undefined) ?? null,
+            (profiles.find(
+                (x) => x.identity.source === Source.Wallet && isSameFireflyIdentity(x.identity, profileIdentity),
+            )?.__origin__ as WalletProfile | undefined) ?? null,
     };
 }
