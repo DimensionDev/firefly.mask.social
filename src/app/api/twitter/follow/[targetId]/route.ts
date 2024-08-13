@@ -18,10 +18,16 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
 
         const client = await createTwitterClientV2(request);
         const { data: me, errors } = await client.v2.me();
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.me', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
 
         const { errors: followErrors } = await client.v2.follow(me.id, targetId);
-        if (followErrors?.length) return createTwitterErrorResponseJSON(followErrors);
+        if (followErrors?.length) {
+            console.error('[twitter] v2.follow', followErrors);
+            return createTwitterErrorResponseJSON(followErrors);
+        }
 
         return createSuccessResponseJSON(true);
     },
