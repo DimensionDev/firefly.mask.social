@@ -10,6 +10,7 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -41,6 +42,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const muted = useIsProfileMuted(post.author);
 
     const isSmall = useIsSmall('max');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     return (
         <motion.article
@@ -74,7 +76,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 <div
                     className={classNames('w-full max-w-[calc(100%_-_53px)]', {
                         'pb-5': !isLast,
-                        '-mt-[14px]': !isSmall,
+                        '-mt-[14px]': !isSmall && !isDetailPage,
                     })}
                 >
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />

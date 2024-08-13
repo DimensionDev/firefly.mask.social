@@ -10,7 +10,7 @@ import { WalletTabs } from '@/components/Profile/WalletTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import type { FireflyProfile, Relation } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

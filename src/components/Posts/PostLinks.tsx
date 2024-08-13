@@ -26,7 +26,7 @@ interface Props {
 export function PostLinks({ post, setContent }: Props) {
     const url = resolveOembedUrl(post);
     const { isLoading, error, data } = useQuery({
-        queryKey: ['post-embed', url, post],
+        queryKey: ['post-embed', url, post.postId],
         queryFn: () => getPostLinks(url!, post),
         refetchOnMount: false,
         refetchOnWindowFocus: false,

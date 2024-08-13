@@ -11,11 +11,19 @@ interface MoreActionMenuProps extends MenuProps<'div'> {
     button: React.ReactNode;
     children: React.ReactNode;
     source?: SocialSource;
-    disabled?: boolean;
     className?: string;
+    disabled?: boolean;
+    loginRequired?: boolean;
 }
 
-export function MoreActionMenu({ disabled, button, children, className, source }: MoreActionMenuProps) {
+export function MoreActionMenu({
+    disabled,
+    button,
+    children,
+    className,
+    source,
+    loginRequired = true,
+}: MoreActionMenuProps) {
     const isLogin = useIsLogin();
 
     return (
@@ -34,7 +42,7 @@ export function MoreActionMenu({ disabled, button, children, className, source }
                 aria-label="More"
                 onClick={async (event) => {
                     event.stopPropagation();
-                    if (!isLogin) {
+                    if (!isLogin && loginRequired) {
                         event.preventDefault();
                         return LoginModalRef.open({ source });
                     }

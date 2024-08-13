@@ -6,11 +6,11 @@ import { usePathname, useSearchParams } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
 import { Title } from '@/components/Profile/Title.js';
-import { FollowCategory, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { FollowCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
@@ -24,15 +24,16 @@ interface Props extends PropsWithChildren {
 
 export default function DetailLayout({ children, params }: Props) {
     const searchParams = useSearchParams();
-    const rawSource = searchParams.get('source') as SourceInURL;
-    const source = resolveSourceFromUrl(rawSource);
+    const sourceInURL = searchParams.get('source') as SourceInURL;
+    const rawSource = resolveSourceFromUrl(sourceInURL);
+    const source = narrowToSocialSource(rawSource);
     const identity = params.id;
-    const myProfile = useCurrentProfile(source as SocialSource);
+    const myProfile = useCurrentProfile(source);
 
     const { data: profile = null } = useQuery({
         queryKey: ['profile', source, identity],
         queryFn: async () => {
-            if (!identity || !source || source === Source.Wallet) return null;
+            if (!identity || !source) return null;
             if (source === Source.Twitter) return null;
             return getProfileById(narrowToSocialSource(source), identity);
         },
@@ -41,7 +42,7 @@ export default function DetailLayout({ children, params }: Props) {
     const pathname = usePathname();
 
     const tabs = compact([
-        !isSameProfile(myProfile, profile)
+        !isSameProfile(myProfile, profile || { source, profileId: identity })
             ? {
                   label: <Trans>Followers you know</Trans>,
                   category: FollowCategory.Mutuals,
@@ -73,7 +74,7 @@ export default function DetailLayout({ children, params }: Props) {
                                     replace
                                     href={{
                                         pathname: path,
-                                        query: { source: rawSource },
+                                        query: { source: sourceInURL },
                                     }}
                                     className={classNames(
                                         pathname === path ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',

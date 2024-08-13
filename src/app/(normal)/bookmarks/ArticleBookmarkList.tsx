@@ -9,7 +9,7 @@ import { getArticleItemContent } from '@/components/VirtualList/getArticleItemCo
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';

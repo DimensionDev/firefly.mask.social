@@ -1,31 +1,18 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { type HTMLProps, type MouseEvent, useCallback, useRef, useState } from 'react';
-import { useCopyToClipboard } from 'react-use';
+import { type HTMLProps } from 'react';
 
 import CopyIcon from '@/assets/copy.svg';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface Props extends HTMLProps<HTMLButtonElement> {
     value: string;
 }
 
 export function CopyButton({ value, onClick, ...rest }: Props) {
-    const [, copyToClipboard] = useCopyToClipboard();
-    const [copied, setCopied] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
-
-    const handleCopy = useCallback(
-        (event: MouseEvent<HTMLButtonElement>) => {
-            copyToClipboard(value);
-            setCopied(true);
-            clearTimeout(timerRef.current);
-            timerRef.current = setTimeout(setCopied, 1500, false);
-            onClick?.(event);
-        },
-        [copyToClipboard, onClick, value],
-    );
+    const [copied, handleCopy] = useCopyText(value, { enqueueSuccessMessage: false });
 
     return (
         <Tooltip content={copied ? t`Copied` : t`Copy`} placement="top" hideOnClick={false} interactive>

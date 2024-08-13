@@ -1,7 +1,9 @@
 import { Emitter } from '@servie/events';
 import { type Subscription } from 'use-subscription';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import type { Session } from '@/providers/types/Session.js';
 
 export class SessionHolder<T extends Session> {
@@ -10,6 +12,11 @@ export class SessionHolder<T extends Session> {
         update: [unknown];
     }>();
     protected internalSession: T | null = null;
+
+    private removeQueries() {
+        if (!this.session) return;
+        queryClient.removeQueries({ queryKey: ['profile', resolveSourceFromSessionType(this.session.type)] });
+    }
 
     get session() {
         return this.internalSession;
@@ -42,11 +49,13 @@ export class SessionHolder<T extends Session> {
     }
 
     resumeSession(session: T) {
+        this.removeQueries();
         this.internalSession = session;
         this.emitter.emit('update', session);
     }
 
     removeSession() {
+        this.removeQueries();
         this.internalSession = null;
         this.emitter.emit('update', null);
     }

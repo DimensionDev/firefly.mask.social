@@ -40,14 +40,14 @@ export default function Wallets() {
             {isLoading ? <Loading className="!min-h-[200px]" /> : null}
             <WalletGroup title={t`Connected in Firefly`} connections={connected} />
             <WalletGroup
+                related
                 title={t`Related by platforms`}
                 connections={related}
-                noAction
                 tooltip={t`Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection.`}
             />
             {!isLoading ? (
                 <div className="flex justify-center">
-                    <AddWalletButton disabled={isRefetching} />
+                    <AddWalletButton connections={connected} disabled={isRefetching} />
                 </div>
             ) : null}
         </Section>

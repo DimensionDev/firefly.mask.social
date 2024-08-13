@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { PlayButton } from '@livepeer/react';
 import urlcat from 'urlcat';
 
@@ -18,9 +19,10 @@ interface VideoAssetProps {
     source: Source;
     isQuote?: boolean;
     autoPlay?: boolean;
+    videoClassName?: string;
 }
 
-export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps) {
+export function VideoAsset({ asset, isQuote, source, autoPlay, videoClassName }: VideoAssetProps) {
     const isGif = asset.type === 'AnimatedGif';
 
     return isQuote ? (
@@ -40,14 +42,21 @@ export function VideoAsset({ asset, isQuote, source, autoPlay }: VideoAssetProps
         </div>
     ) : (
         <Video
+            className={videoClassName}
             loop={isGif}
             autoPlay={autoPlay || isGif}
             src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri}
             poster={asset.coverUri}
         >
             {isGif ? (
-                <span className="absolute bottom-[5px] left-2.5" onClick={(event) => event.stopPropagation()}>
+                <span
+                    className="absolute bottom-[5px] left-2.5 flex items-center"
+                    onClick={(event) => event.stopPropagation()}
+                >
                     <PlayButton />
+                    <span className="font-bold text-white">
+                        <Trans>GIF</Trans>
+                    </span>
                 </span>
             ) : null}
         </Video>

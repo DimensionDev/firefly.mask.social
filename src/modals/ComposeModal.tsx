@@ -1,27 +1,16 @@
 'use client';
 
-import { Dialog } from '@headlessui/react';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
-import { safeUnreachable } from '@masknet/kit';
+import { delay } from '@masknet/kit';
 import { ProfileIdentifier } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-import {
-    createMemoryHistory,
-    createRootRoute,
-    createRoute,
-    createRouter,
-    Outlet,
-    rootRouteId,
-    RouterProvider,
-    useMatch,
-    useRouter,
-} from '@tanstack/react-router';
+import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact, flatten, values } from 'lodash-es';
 import { forwardRef, useCallback, useMemo, useRef } from 'react';
@@ -30,16 +19,10 @@ import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
-import DraftIcon from '@/assets/draft.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { CloseButton } from '@/components/CloseButton.js';
-import { ComposeSend } from '@/components/Compose/ComposeSend.js';
-import { ComposeUI } from '@/components/Compose/ComposeUI.js';
-import { DraftPage } from '@/components/Compose/DraftPage.js';
+import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
@@ -47,15 +30,15 @@ import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
+import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -98,97 +81,6 @@ export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
 
-const rootRoute = createRootRoute({
-    component: ComposeRouteRoot,
-});
-
-const composeRoute = createRoute({
-    getParentRoute: () => rootRoute,
-    path: '/',
-    component: ComposeUI,
-});
-
-const draftRoute = createRoute({
-    getParentRoute: () => rootRoute,
-    path: 'draft',
-    component: DraftPage,
-});
-
-const routeTree = rootRoute.addChildren([composeRoute, draftRoute]);
-
-const memoryHistory = createMemoryHistory({
-    initialEntries: ['/'],
-});
-
-const router = createRouter({
-    routeTree,
-    history: memoryHistory,
-});
-
-function ComposeRouteRoot() {
-    const { type } = useComposeStateStore();
-    const isMedium = useIsMedium();
-    const { history } = useRouter();
-    const { context } = useMatch({ from: rootRouteId });
-
-    const isDraft = router.history.location.pathname === '/draft';
-
-    const title = useMemo(() => {
-        if (isDraft) return t`Drafts`;
-        switch (type) {
-            case 'compose':
-                return t`Compose`;
-            case 'quote':
-                return t`Quote`;
-            case 'reply':
-                return t`Reply`;
-            default:
-                safeUnreachable(type);
-                return t`Compose`;
-        }
-    }, [isDraft, type]);
-
-    return (
-        <>
-            <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
-                {isDraft ? (
-                    <LeftArrowIcon
-                        onClick={() => history.replace('/')}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                    />
-                ) : (
-                    <CloseButton
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-fourMain"
-                        onClick={context.onClose}
-                    />
-                )}
-
-                <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
-                    {title}
-                    {!isMedium && !isDraft ? (
-                        <DraftIcon
-                            width={18}
-                            height={18}
-                            className="cursor-pointer text-fourMain"
-                            onClick={() => history.push('/draft')}
-                        />
-                    ) : null}
-                </span>
-                {isMedium && !isDraft ? (
-                    <Tooltip content={t`Drafts`} placement="top">
-                        <DraftIcon
-                            className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                            onClick={() => history.push('/draft')}
-                        />
-                    </Tooltip>
-                ) : null}
-                {isMedium || isDraft ? null : <ComposeSend />}
-            </Dialog.Title>
-            <Outlet />
-        </>
-    );
-}
-
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
         const currentSource = useGlobalState.use.currentSource();
@@ -221,7 +113,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
                 updateType(type || 'compose');
-                if (source) updateAvailableSources(Array.isArray(source) ? source : [source]);
+                updateAvailableSources(
+                    source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
+                );
                 if (typedMessage) updateTypedMessage(typedMessage);
                 if (post) updateParentPost(post.source, post);
                 if (chars) {
@@ -232,14 +126,20 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 if (channel) updateChannel(channel);
                 if (initialPath) router.navigate({ to: initialPath });
             },
-            onClose: (props) => {
+            onClose: async (props) => {
                 if (props?.disableClear) return;
+
+                // wait for animation to finish
+                await delay(300);
+
                 clear();
                 clearScheduleTime();
                 router.navigate({ to: '/' });
-                setTimeout(() => {
-                    editor.update(() => $getRoot().clear());
-                }, 1000);
+
+                // https://github.com/DimensionDev/firefly.mask.social/pull/1644
+                await delay(1000);
+
+                editor.update(() => $getRoot().clear());
             },
         });
 
@@ -355,6 +255,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         content: RP_HASH_TAG,
                         visible: false,
                     },
+                    {
+                        tag: CHAR_TAG.PROMOTE_LINK,
+                        content: promoteLink,
+                        visible: false,
+                    },
                     ...(compositePost ? compositePost.chars : []),
                     promoteMessage,
                 ];
@@ -381,7 +286,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
         return (
             <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false} disableDialogClose>
-                <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
+                <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
                         <div className="absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">

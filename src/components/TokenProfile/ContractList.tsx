@@ -19,6 +19,7 @@ interface Props {
 export const ContractList = memo<Props>(function ContractList({ contracts }) {
     return (
         <MoreActionMenu
+            loginRequired={false}
             button={
                 <Tooltip content={t`More`} placement="top">
                     <DotsIcon className="text-secondary" width={16} height={16} />

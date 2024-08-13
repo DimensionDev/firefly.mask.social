@@ -9,7 +9,7 @@ import { z, ZodError, ZodIssueCode } from 'zod';
 import { SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { ContentTypeError } from '@/constants/error.js';
-import { ALLOWED_IMAGES_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
+import { ALLOWED_MEDIA_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
@@ -31,7 +31,7 @@ const FormDataSchema = z.object({
         if (!isValidFileType(value.type)) {
             throw new ZodError([
                 {
-                    message: t`Invalid file type. Allowed types: ${ALLOWED_IMAGES_MIMES.join(', ')}`,
+                    message: t`Invalid file type. Allowed types: ${ALLOWED_MEDIA_MIMES.join(', ')}`,
                     path: [],
                     code: ZodIssueCode.invalid_type,
                     expected: 'string',

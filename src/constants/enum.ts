@@ -208,3 +208,10 @@ export enum AsyncStoreStatus {
     Idle = 'idle',
     Pending = 'pending',
 }
+
+export enum GiphyTabType {
+    Gifs = 'gifs',
+    Stickers = 'stickers',
+    Text = 'text',
+    Emoji = 'emoji',
+}

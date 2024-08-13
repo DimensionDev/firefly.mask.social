@@ -16,11 +16,6 @@ interface GlobalState {
     setVirtuosoState: (key: 'temporary' | 'cached', listKey: string, snapshot: StateSnapshot) => void;
     currentSource: Source;
     updateCurrentSource: (source: Source) => void;
-    currentProfileTabState: {
-        source: Source;
-        identity: string;
-    };
-    updateCurrentProfileState: (state: { source: Source; identity: string }) => void;
     updateCollapsedConnectWallet: (collapsed: boolean) => void;
 }
 
@@ -33,14 +28,6 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             updateCurrentSource: (source: Source) =>
                 set((state) => {
                     state.currentSource = source;
-                }),
-            currentProfileTabState: {
-                source: getCurrentSourceFromUrl(),
-                identity: '',
-            },
-            updateCurrentProfileState: (profileState: { source: Source; identity: string }) =>
-                set((state) => {
-                    state.currentProfileTabState = profileState;
                 }),
             scrollIndex: {},
             setScrollIndex: (key: string, value) => {

@@ -1,7 +1,6 @@
 import { Menu, type MenuProps } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { memo } from 'react';
-import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
 import MoreCircleIcon from '@/assets/more-circle.svg';
@@ -12,9 +11,9 @@ import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
@@ -27,7 +26,6 @@ export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'classNam
 }
 
 export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMoreAction({ className, profile }) {
-    const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
     const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
@@ -36,6 +34,8 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const isRelatedProfile = profiles.some((current) => {
         return current.source === profile.source && current.identity === resolveProfileId(profile);
     });
+
+    const [, handleCopy] = useCopyText(urlcat(location.origin, getProfileUrl(profile)));
 
     return (
         <MoreActionMenu
@@ -55,8 +55,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                         <MenuButton
                             onClick={async () => {
                                 close();
-                                copyToClipboard(urlcat(location.origin, getProfileUrl(profile)));
-                                enqueueSuccessMessage(t`Copied`);
+                                handleCopy();
                             }}
                         >
                             <LinkIcon width={18} height={18} />

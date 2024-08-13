@@ -51,7 +51,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
         const assetType = resolveEmbedMediaType(lastAsset.url, lastAsset.type);
         if (!assetType) return defaultContent;
         return {
-            content: cast.text,
+            content: cast.text.replace(lastAsset.url, ''),
             oembedUrl: last(oembedUrls),
             oembedUrls,
             asset: {

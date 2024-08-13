@@ -40,10 +40,7 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
-msgid "{count, plural, one {1 second} other {{count} seconds}}"
-msgstr ""
-
-msgid "Already logged in?<0/> Approve the <1>existing Farcaster signer</1> to Firefly"
+msgid "New connect with Warpcast"
 msgstr ""
 
 msgid "Report @{0}"
@@ -97,6 +94,9 @@ msgstr ""
 msgid "Delete post"
 msgstr ""
 
+msgid "You can sign in to Farcaster with the following options."
+msgstr ""
+
 msgid "Mute @{0}"
 msgstr ""
 
@@ -104,6 +104,9 @@ msgid "The contract owner is not found to have the authority to modify the balan
 msgstr ""
 
 msgid "Select token"
+msgstr ""
+
+msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
 msgstr ""
 
 msgid "The post you quoted/replied has already deleted"
@@ -167,6 +170,9 @@ msgid "Airdrop Scam"
 msgstr ""
 
 msgid "Collect Action is not supported yet."
+msgstr ""
+
+msgid "Overwrite"
 msgstr ""
 
 msgid "Tax can be modified"
@@ -238,6 +244,9 @@ msgstr ""
 msgid "Adding..."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Market Cap"
 msgstr ""
 
@@ -301,7 +310,10 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
-msgid "comment"
+msgid "The video \"{0}\" exceeds the size limit."
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
 msgid "True Token"
@@ -394,6 +406,9 @@ msgstr ""
 msgid "Save Post?"
 msgstr ""
 
+msgid "Reconnect with Firefly"
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -443,9 +458,6 @@ msgid "Verified by {0}"
 msgstr ""
 
 msgid "Select Account"
-msgstr ""
-
-msgid "mirror"
 msgstr ""
 
 msgid "POST"
@@ -640,9 +652,6 @@ msgstr ""
 msgid "Failed to upload. File type is not supported on X"
 msgstr ""
 
-msgid "post"
-msgstr ""
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
@@ -653,9 +662,6 @@ msgid "Frame"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5><6/></5>"
 msgstr ""
 
 msgid "The file exceeds the size limit."
@@ -710,6 +716,9 @@ msgid "Comment cannot be empty."
 msgstr ""
 
 msgid "Days"
+msgstr ""
+
+msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
 msgid "Insufficient Gas"
@@ -767,9 +776,6 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Top Profiles"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "EVM"
@@ -886,6 +892,9 @@ msgstr ""
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
+msgid "Sync"
+msgstr ""
+
 msgid "Description"
 msgstr ""
 
@@ -899,9 +908,6 @@ msgid "{attentionFactors, plural, one {# Attention item} other {# Attention item
 msgstr ""
 
 msgid "Hide more comments"
-msgstr ""
-
-msgid "Failed to resolve mint URL = {0}."
 msgstr ""
 
 msgid "Malformed session."
@@ -961,9 +967,6 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
-msgid "The connection has timed out. Please try again later.·"
-msgstr ""
-
 msgid "Log in with recovery phrase"
 msgstr ""
 
@@ -1013,6 +1016,9 @@ msgid "No post found"
 msgstr ""
 
 msgid "Clear All"
+msgstr ""
+
+msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
@@ -1189,6 +1195,9 @@ msgstr ""
 msgid "Article removed from your Bookmarks"
 msgstr ""
 
+msgid "This address is already connected"
+msgstr ""
+
 msgid "Publications"
 msgstr ""
 
@@ -1231,6 +1240,9 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
+msgid "GIFs"
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr ""
 
@@ -1240,13 +1252,13 @@ msgstr ""
 msgid "Your frame URL."
 msgstr ""
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
+msgstr ""
+
 msgid "Remaining"
 msgstr ""
 
 msgid "Cancel recast successfully"
-msgstr ""
-
-msgid "Never login on Firefly?<0/>Approve <1>a new Farcaster signer</1> to Firefly"
 msgstr ""
 
 msgid "Failed to create schedule thread posts."
@@ -1304,9 +1316,6 @@ msgid "Not my wallet address."
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr ""
-
-msgid "On your mobile device with <0>Firefly</0>, open the <1>Camera</1> app and scan the QR code in <2>{0}</2>."
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -1504,9 +1513,6 @@ msgstr ""
 msgid "Articles from @{identity} will now be hidden in your home timeline"
 msgstr ""
 
-msgid "quote"
-msgstr ""
-
 msgid "Casts + Replies"
 msgstr ""
 
@@ -1663,9 +1669,6 @@ msgstr ""
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4><5/></4>"
-msgstr ""
-
 msgid "Repost"
 msgstr ""
 
@@ -1711,10 +1714,16 @@ msgstr ""
 msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
+msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
+msgstr ""
+
 msgid "Buy Tax: {0}%"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
+msgstr ""
+
+msgid "Stickers"
 msgstr ""
 
 msgid "Dark Mode"
@@ -1738,6 +1747,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Your {0} account is now connected."
 msgstr ""
 
@@ -1754,6 +1766,9 @@ msgid "If a suspendable code is included, the token maybe neither be bought nor 
 msgstr ""
 
 msgid "We're updating our connection with X. Posting on X will be limited for now."
+msgstr ""
+
+msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
 msgid "Connecting Wallet"
@@ -1855,6 +1870,12 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "The connection has timed out. Please try again later."
+msgstr ""
+
+msgid "Emoji"
+msgstr ""
+
 msgid "Failed to report spam NFT."
 msgstr ""
 
@@ -1880,6 +1901,9 @@ msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
 msgid "{0} Users"
+msgstr ""
+
+msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
 msgid "Final results"
@@ -1933,6 +1957,9 @@ msgstr ""
 msgid "Address on Watching Lists"
 msgstr ""
 
+msgid "FREE"
+msgstr ""
+
 msgid "Profiles"
 msgstr ""
 
@@ -1943,9 +1970,6 @@ msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "Max Supply"
-msgstr ""
-
-msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"
@@ -1999,6 +2023,9 @@ msgstr ""
 msgid "No content to publish."
 msgstr ""
 
+msgid "Text"
+msgstr ""
+
 msgid "Mirror"
 msgstr ""
 
@@ -2038,9 +2065,6 @@ msgstr ""
 msgid "Failed to update scheduled post."
 msgstr ""
 
-msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
 msgid "Login"
 msgstr ""
 
@@ -2060,7 +2084,4 @@ msgid "Likes"
 msgstr ""
 
 msgid "Blink Validator"
-msgstr ""
-
-msgid "<0/> quoted your <1><2/></1>"
 msgstr ""

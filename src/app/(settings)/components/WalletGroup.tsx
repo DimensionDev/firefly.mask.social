@@ -9,14 +9,14 @@ interface WalletGroupProps {
     title: string;
     connections: FireflyWalletConnection[];
     tooltip?: string;
-    noAction?: boolean;
+    related?: boolean;
 }
 
 export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
     title,
     connections,
     tooltip,
-    noAction = false,
+    related = false,
 }) {
     if (!connections.length) return null;
 
@@ -39,7 +39,7 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
                     <WalletItem
                         key={connection.address}
                         connection={connection}
-                        noAction={!connection.canReport && noAction}
+                        noAction={!connection.canReport && related}
                     />
                 ))}
             </div>

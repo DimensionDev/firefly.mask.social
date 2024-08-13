@@ -7,14 +7,18 @@ import { useAccount, useSignMessage } from 'wagmi';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
+    connections: FireflyWalletConnection[];
     onSuccess?: () => void;
 }
 
 export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButton({
     disabled = false,
+    connections,
     onSuccess,
     ...rest
 }) {
@@ -29,6 +33,10 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
                 return connectModal.openConnectModal?.();
             }
 
+            if (connections.some((connection) => isSameAddress(connection.address, address))) {
+                return enqueueErrorMessage(t`This address is already connected`);
+            }
+
             const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
             const signature = await signMessageAsync({ message: { raw: message }, account: address });
 
@@ -40,7 +48,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to add wallet`), { error });
             throw error;
         }
-    }, [account.isConnected, account.address, connectModal.openConnectModal]);
+    }, [account.isConnected, account.address, connections, connectModal.openConnectModal]);
 
     return (
         <ClickableButton

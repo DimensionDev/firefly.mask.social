@@ -34,7 +34,12 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
+import {
+    filterFeeds,
+    formatLensPost,
+    formatLensPostByFeed,
+    formatLensQuoteOrComment,
+} from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -605,7 +610,7 @@ class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            filterFeeds(result.items).map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -625,7 +630,7 @@ class LensSocialMedia implements Provider {
         const result = data.unwrap();
 
         return createPageable(
-            result.items.map(formatLensPostByFeed),
+            compact(result.items.map(formatLensPostByFeed)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
