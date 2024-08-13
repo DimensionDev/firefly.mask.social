@@ -40,6 +40,9 @@ msgstr "Quote Post"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
+msgid "New connect with Warpcast"
+msgstr "New connect with Warpcast"
+
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -90,6 +93,9 @@ msgstr "Failed to unbookmark post."
 
 msgid "Delete post"
 msgstr "Delete post"
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr "You can sign in to Farcaster with the following options."
 
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -301,6 +307,9 @@ msgstr "Retry"
 msgid "Show less"
 msgstr "Show less"
 
+msgid "The video \"{0}\" exceeds the size limit."
+msgstr "The video \"{0}\" exceeds the size limit."
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 
@@ -393,6 +402,9 @@ msgstr "Type something here..."
 
 msgid "Save Post?"
 msgstr "Save Post?"
+
+msgid "Reconnect with Firefly"
+msgstr "Reconnect with Firefly"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
@@ -895,9 +907,6 @@ msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention ite
 msgid "Hide more comments"
 msgstr "Hide more comments"
 
-msgid "Failed to resolve mint URL = {0}."
-msgstr "Failed to resolve mint URL = {0}."
-
 msgid "Malformed session."
 msgstr "Malformed session."
 
@@ -958,9 +967,6 @@ msgstr "Failed to unmute /{0}."
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
-msgid "The connection has timed out. Please try again later.·"
-msgstr "The connection has timed out. Please try again later.·"
-
 msgid "Log in with recovery phrase"
 msgstr "Log in with recovery phrase"
 
@@ -1008,6 +1014,9 @@ msgstr "No post found"
 
 msgid "Clear All"
 msgstr "Clear All"
+
+msgid "There are videos that were not uploaded successfully."
+msgstr "There are videos that were not uploaded successfully."
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "This can’t be undone, and the scheduled send will be canceled."
@@ -1194,6 +1203,9 @@ msgstr "This can’t be undone and you’ll lose your draft."
 
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
+
+msgid "This address is already connected"
+msgstr "This address is already connected"
 
 msgid "Publications"
 msgstr "Publications"
@@ -1861,6 +1873,9 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
+msgid "The connection has timed out. Please try again later."
+msgstr "The connection has timed out. Please try again later."
+
 msgid "Emoji"
 msgstr "Emoji"
 
@@ -1941,6 +1956,9 @@ msgstr "Language"
 
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
+
+msgid "FREE"
+msgstr "FREE"
 
 msgid "Profiles"
 msgstr "Profiles"

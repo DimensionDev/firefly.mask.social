@@ -38,6 +38,18 @@ export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, 
     },
 );
 
+export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, Source>(
+    {
+        [SessionType.Farcaster]: Source.Farcaster,
+        [SessionType.Lens]: Source.Lens,
+        [SessionType.Twitter]: Source.Twitter,
+        [SessionType.Firefly]: Source.Firefly,
+    },
+    (sessionType) => {
+        throw new UnreachableError('sessionType', sessionType);
+    },
+);
+
 export const resolveSocialSourceFromSessionType = createLookupTableResolver<SessionType, SocialSource>(
     {
         [SessionType.Farcaster]: Source.Farcaster,

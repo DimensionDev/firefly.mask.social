@@ -32,7 +32,9 @@ export function MainView() {
                             source={source}
                             onClick={() => {
                                 const params =
-                                    source === Source.Farcaster ? { signType: FarcasterSignType.RelayService } : {};
+                                    source === Source.Farcaster && isMedium
+                                        ? { signType: FarcasterSignType.RelayService }
+                                        : {};
                                 const path = urlcat('/', resolveSourceInURL(source), params);
                                 // history.back() is buggy, use .replace() instead.
                                 history.replace(path);

@@ -13,10 +13,11 @@ const giphyApi = new GiphyFetch(env.external.NEXT_PUBLIC_GIPHY_API_KEY);
 const fetchDefaultVariations = (offset: number) => giphyApi.emojiDefaultVariations({ offset });
 
 interface EmojiListProps {
+    width: number;
     onSelected: (gif: IGif) => void;
 }
 
-export const EmojiList = memo<EmojiListProps>(function EmojiList({ onSelected }) {
+export const EmojiList = memo<EmojiListProps>(function EmojiList({ width, onSelected }) {
     const isMedium = useIsMedium();
 
     const [{ loading }, fetchGifs] = useAsyncFn(async (offset: number) => {
@@ -24,14 +25,14 @@ export const EmojiList = memo<EmojiListProps>(function EmojiList({ onSelected })
     }, []);
 
     return (
-        <div className="relative h-[224px] rounded md:h-[262px]">
+        <div className="relative h-full rounded">
             <div className="no-scrollbar h-full overflow-y-auto overflow-x-hidden px-3">
                 <Grid
                     className="ff-giphy-grid"
                     hideAttribution
                     noLink
-                    columns={isMedium ? 4 : 2}
-                    width={isMedium ? 542 : 255}
+                    columns={isMedium ? 3 : 2}
+                    width={width}
                     fetchGifs={fetchGifs}
                     onGifClick={onSelected}
                 />

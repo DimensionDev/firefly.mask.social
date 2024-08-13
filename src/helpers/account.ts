@@ -152,7 +152,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             : isSameSession(currentFireflySession, fireflySession);
 
     if (!belongsTo) {
-        console.warn('Account does not belong to the current firefly session.', {
+        console.warn('[account] account does not belong to the current firefly session.', {
             account,
             fireflySession,
             currentFireflySession,
@@ -177,10 +177,16 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 belongsTo,
                 accounts,
             });
-
             if (confirmed) {
                 await updateState(accounts, !belongsTo);
             } else {
+                // sign out tw from server if needed
+                if (TwitterSession.isNextAuth(account.session)) {
+                    signOut({
+                        redirect: false,
+                    });
+                }
+
                 // the user rejected to store conflicting accounts
                 if (!belongsTo) return false;
 
@@ -197,10 +203,14 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     }
 
     // resume firefly session
-    if (!skipResumeFireflySession) await resumeFireflySession(account, signal);
+    if (!skipResumeFireflySession) {
+        console.warn('[addAccount] resume firefly session');
+        await resumeFireflySession(account, signal);
+    }
 
     // upload sessions to firefly
     if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
+        console.warn('[addAccount] upload sessions to firefly');
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
     }
 
@@ -282,5 +292,4 @@ export async function removeAllAccounts() {
     });
 
     await removeFireflyAccountIfNeeded();
-    await removeFireflyMetricsIfNeeded(sessions);
 }

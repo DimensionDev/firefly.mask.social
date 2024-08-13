@@ -121,7 +121,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     const isSmall = useIsSmall('max');
     const isComment = post.type === 'Comment';
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
@@ -182,7 +182,12 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>
-            <PostStatistics post={post} showChannelTag={showChannelTag} onSetScrollIndex={onSetScrollIndex} />
+            <PostStatistics
+                isComment={isComment}
+                post={post}
+                showChannelTag={showChannelTag}
+                onSetScrollIndex={onSetScrollIndex}
+            />
         </div>
     );
 });

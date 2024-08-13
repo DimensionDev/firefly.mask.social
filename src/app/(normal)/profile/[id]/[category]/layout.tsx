@@ -32,6 +32,7 @@ export default function DetailLayout({ children, params }: Props) {
     const { data: profile = null } = useQuery({
         queryKey: ['profile', source, id],
         queryFn: async () => {
+            if (!identity || !source) return null;
             if (source === Source.Twitter) return null;
             if (!id || !source || source === Source.Wallet) return null;
             return getProfileById(narrowToSocialSource(source), id);
@@ -41,7 +42,7 @@ export default function DetailLayout({ children, params }: Props) {
     const pathname = usePathname();
 
     const tabs = compact([
-        !isSameProfile(myProfile, profile)
+        !isSameProfile(myProfile, profile || { source, profileId: identity })
             ? {
                   label: <Trans>Followers you know</Trans>,
                   category: FollowCategory.Mutuals,

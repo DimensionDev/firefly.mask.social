@@ -45,6 +45,9 @@ msgstr "引用"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？"
 
+msgid "New connect with Warpcast"
+msgstr "使用 Warpcast 连接"
+
 msgid "Report @{0}"
 msgstr "报告 @{0}"
 
@@ -95,6 +98,9 @@ msgstr "取消收藏失败。"
 
 msgid "Delete post"
 msgstr "删除帖子"
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr "您可以使用以下方式登录 Farcaster。"
 
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -306,6 +312,9 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
+msgid "The video \"{0}\" exceeds the size limit."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
@@ -398,6 +407,9 @@ msgstr "从这里开始..."
 
 msgid "Save Post?"
 msgstr "保存草稿？"
+
+msgid "Reconnect with Firefly"
+msgstr "使用 Firefly 重连"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
@@ -900,9 +912,6 @@ msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
 
-msgid "Failed to resolve mint URL = {0}."
-msgstr "未能解析铸造 URL = {0}。"
-
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
@@ -963,9 +972,6 @@ msgstr "取消隐藏失败/{0}。"
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
-msgid "The connection has timed out. Please try again later.·"
-msgstr "连接已经超时。请稍后重试。"
-
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
 
@@ -1013,6 +1019,9 @@ msgstr "未找到帖子"
 
 msgid "Clear All"
 msgstr "全部清除"
+
+msgid "There are videos that were not uploaded successfully."
+msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
@@ -1199,6 +1208,9 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
+
+msgid "This address is already connected"
+msgstr ""
 
 msgid "Publications"
 msgstr "帖子"
@@ -1866,6 +1878,9 @@ msgstr "取消转帖"
 msgid "The scheduled time has passed."
 msgstr "定时任务的时间已过期。"
 
+msgid "The connection has timed out. Please try again later."
+msgstr "连接已经超时。请稍后重试。"
+
 msgid "Emoji"
 msgstr ""
 
@@ -1946,6 +1961,9 @@ msgstr "语言"
 
 msgid "Address on Watching Lists"
 msgstr "已关注地址列表"
+
+msgid "FREE"
+msgstr "免费"
 
 msgid "Profiles"
 msgstr "个人信息"
@@ -2072,4 +2090,3 @@ msgstr "点赞"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-

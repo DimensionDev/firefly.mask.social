@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { Source } from '@/constants/enum.js';
-import { ALLOWED_IMAGES_MIMES, FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
+import { ALLOWED_MEDIA_MIMES, FILE_MAX_SIZE, VIDEO_MAX_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -33,7 +33,7 @@ export function Media({ close }: MediaProps) {
 
             if (files && files.length > 0) {
                 const shouldUploadFiles = [...files].filter((file) => {
-                    if (file.size > FILE_MAX_SIZE_IN_BYTES) {
+                    if (file.size > FILE_MAX_SIZE) {
                         enqueueErrorMessage(t`The file "${file.name}" exceeds the size limit.`);
                         return false;
                     }
@@ -57,18 +57,19 @@ export function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                updateVideo(createLocalMediaObject(files[0]));
+                const file = files[0];
+                if (file.size > VIDEO_MAX_SIZE) {
+                    enqueueErrorMessage(t`The video "${file.name}" exceeds the size limit.`);
+                    return false;
+                }
+                updateVideo(createLocalMediaObject(file));
             }
             close();
         },
         [close, updateVideo],
     );
 
-    const disabledVideo =
-        !!video ||
-        availableSources.includes(Source.Farcaster) ||
-        availableSources.includes(Source.Twitter) ||
-        (availableSources.includes(Source.Lens) && images.length > 0);
+    const disabledVideo = !!video || availableSources.includes(Source.Farcaster) || images.length > 0;
 
     return (
         <Transition
@@ -103,7 +104,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept={ALLOWED_IMAGES_MIMES.join(', ')}
+                    accept={ALLOWED_MEDIA_MIMES.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"

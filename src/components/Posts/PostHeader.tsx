@@ -15,6 +15,7 @@ import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
@@ -23,10 +24,16 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface PostHeaderProps {
     post: Post;
     isQuote?: boolean;
+    isComment?: boolean;
     onClickProfileLink?: () => void;
 }
 
-export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false, onClickProfileLink }) {
+export const PostHeader = memo<PostHeaderProps>(function PostHeader({
+    post,
+    isQuote = false,
+    isComment = false,
+    onClickProfileLink,
+}) {
     const currentProfile = useCurrentProfile(post.source);
 
     const isMyPost = isSameProfile(post.author, currentProfile);
@@ -34,11 +41,10 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     const isSmall = useIsSmall('max');
     const pathname = usePathname();
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const identity = useFireflyIdentity(post.source, post.author.profileId);
-
-    const newLine = isSmall || (isDetailPage && !isQuote);
+    const newLine = isSmall || (isDetailPage && !isQuote && !isComment);
 
     const handle = (
         <ProfileTippy identity={identity}>
@@ -51,9 +57,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
             </Link>
         </ProfileTippy>
     );
-
-    const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
-    const isFirefly = sendFrom?.toLowerCase() === 'firefly';
 
     return (
         <div className="flex items-start gap-3">
@@ -95,7 +98,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                             {post.author.displayName}
                         </Link>
                     </ProfileTippy>
-                    {post.author.isPowerUser ? <PowerUserIcon className="mr-2" width={15} height={15} /> : null}
+                    {post.author.isPowerUser ? <PowerUserIcon className="mr-2" width={16} height={16} /> : null}
                     {newLine ? null : handle}
                     {post.timestamp && (!newLine || isQuote) ? (
                         <>
@@ -106,7 +109,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                             <span className="mx-1 leading-5">·</span>
                         </>
                     ) : null}
-                    {isFirefly ? (
+                    {isSendFromFirefly(post) ? (
                         <FireflyAvatarIcon fontSize={15} width={15} height={15} className="mr-1 inline" />
                     ) : null}
                     <SocialSourceIcon source={post.source} size={15} />

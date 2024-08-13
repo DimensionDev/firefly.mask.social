@@ -1,6 +1,7 @@
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { t, Trans } from '@lingui/macro';
 import { useCallback, useMemo, useState } from 'react';
+import { useSize } from 'react-use';
 
 import SearchIcon from '@/assets/search.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -8,7 +9,7 @@ import { EmojiList } from '@/components/Gif/EmojiList.js';
 import { GifList } from '@/components/Gif/GifList.js';
 import { GiphyTabType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
+import { FILE_MAX_SIZE } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -35,6 +36,13 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
     const [tabType, setTabType] = useState<GiphyTabType>(GiphyTabType.Gifs);
     const { type, updateImages } = useComposeStateStore();
     const { availableSources } = useCompositePost();
+    const [sizedFooter, { width }] = useSize(
+        <div className="mt-2 flex items-center justify-end pr-3 text-[13px] font-bold text-lightSecond">
+            <Trans>Powered by</Trans>
+            <Image className="ml-2" alt="GIPHY" src="/image/giphy.png" width={12} height={12} />
+            <span className="text-black dark:text-white">GIPHY</span>
+        </div>,
+    );
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
 
@@ -48,7 +56,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
     const onGifSelected = useCallback(
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
-            if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE_IN_BYTES) {
+            if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE) {
                 enqueueErrorMessage(t`The file exceeds the size limit.`);
                 return;
             }
@@ -67,8 +75,28 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
             options={searchOptions}
             shouldFetchChannels={false}
         >
-            <div>
-                <div className="no-scrollbar mx-3 mb-2.5 overflow-x-auto whitespace-nowrap rounded-3xl bg-lightBg px-4 py-1">
+            <div className="h-[calc(100vh-56px-32px)] max-h-[calc(800px-56px-32px)]">
+                {tabType !== GiphyTabType.Emoji ? (
+                    <div className="relative mx-3 flex flex-grow items-center rounded-xl bg-lightBg pl-3 text-main">
+                        <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
+                        <div className="w-full flex-1">
+                            <SearchBar className="ff-giphy-search-bar" placeholder={t`Search...`} />
+                        </div>
+                    </div>
+                ) : null}
+                <div
+                    className={classNames('mt-2', {
+                        'h-[calc(100%-130px)]': tabType !== GiphyTabType.Emoji,
+                        'h-[calc(100%-130px+36px)]': tabType === GiphyTabType.Emoji,
+                    })}
+                >
+                    {tabType === GiphyTabType.Emoji ? (
+                        <EmojiList width={width - 24} onSelected={onGifSelected} />
+                    ) : (
+                        <GifList width={width - 24} onSelected={onGifSelected} />
+                    )}
+                </div>
+                <div className="no-scrollbar mx-3 my-2.5 overflow-x-auto whitespace-nowrap rounded-3xl bg-lightBg px-4 py-1">
                     {getGiphyMediaTabs().map((mediaTab) => (
                         <ClickableButton
                             onClick={() => setTabType(mediaTab.type)}
@@ -82,24 +110,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
                         </ClickableButton>
                     ))}
                 </div>
-                {tabType !== GiphyTabType.Emoji ? (
-                    <div className="relative mx-3 flex flex-grow items-center rounded-xl bg-lightBg pl-3 text-main">
-                        <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
-                        <div className="w-full flex-1">
-                            <SearchBar className="ff-giphy-search-bar" placeholder={t`Search...`} />
-                        </div>
-                    </div>
-                ) : null}
-                {tabType === GiphyTabType.Emoji ? (
-                    <EmojiList onSelected={onGifSelected} />
-                ) : (
-                    <GifList onSelected={onGifSelected} />
-                )}
-                <div className="mt-2 flex items-center justify-end pr-3 text-[13px] font-bold text-lightSecond">
-                    <Trans>Powered by</Trans>
-                    <Image className="ml-2" alt="GIPHY" src="/image/giphy.png" width={12} height={12} />
-                    <span className="text-black dark:text-white">GIPHY</span>
-                </div>
+                {sizedFooter}
             </div>
         </SearchContextManager>
     );

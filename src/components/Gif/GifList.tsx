@@ -6,15 +6,16 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { IGif } from '@/types/giphy.js';
 
 interface GifListProps {
+    width: number;
     onSelected: (gif: IGif) => void;
 }
 
-export const GifList = memo<GifListProps>(function GifList({ onSelected }) {
+export const GifList = memo<GifListProps>(function GifList({ width, onSelected }) {
     const { isFetching, fetchGifs, searchKey } = useContext(SearchContext);
     const isMedium = useIsMedium();
 
     return (
-        <div className="relative mt-2 h-[180px] rounded md:h-[218px]">
+        <div className="relative h-full rounded">
             <div className="no-scrollbar h-full overflow-y-auto overflow-x-hidden px-3">
                 <SuggestionBar />
                 <Grid
@@ -22,8 +23,8 @@ export const GifList = memo<GifListProps>(function GifList({ onSelected }) {
                     hideAttribution
                     noLink
                     key={searchKey}
-                    columns={isMedium ? 4 : 2}
-                    width={isMedium ? 542 : 255}
+                    columns={isMedium ? 3 : 2}
+                    width={width}
                     fetchGifs={fetchGifs}
                     onGifClick={onSelected}
                 />

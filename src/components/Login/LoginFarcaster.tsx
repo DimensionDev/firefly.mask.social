@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { Link, useRouter } from '@tanstack/react-router';
@@ -7,10 +8,11 @@ import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
-import { AbortError, TimeoutError } from '@/constants/error.js';
+import { AbortError, NotAllowedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -19,6 +21,7 @@ import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
@@ -53,8 +56,11 @@ export interface LoginFarcasterProps {
 export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const controller = useAbortController();
 
+    const isMedium = useIsMedium();
+
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
+
     const router = useRouter();
     const { history } = router;
 
@@ -126,7 +132,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         }
     }, [resetCountdown, startCountdown]);
 
-    useMount(() => {
+    const onClick = (signType: FarcasterSignType | null) => {
         if (!signType) return;
         switch (signType) {
             case SignType.GrantPermission:
@@ -135,14 +141,69 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             case SignType.RelayService:
                 onLoginByRelayService();
                 break;
+            case SignType.RecoveryPhrase:
+                throw new NotAllowedError();
+            default:
+                safeUnreachable(signType);
+                break;
         }
+    };
+
+    useMount(() => {
+        onClick(signType);
     });
 
     useUnmount(() => {
         if (IS_MOBILE_DEVICE) resetCountdown();
     });
 
-    if (!signType || signType === SignType.RecoveryPhrase) return null;
+    // let the user select sign type on mobile devices
+    if (!signType || signType === FarcasterSignType.RecoveryPhrase) {
+        if (isMedium) return null;
+
+        const options = [
+            {
+                label: t`New connect with Warpcast`,
+                type: FarcasterSignType.GrantPermission,
+                developmentOnly: false,
+                isFreeOfTransactionFee: false,
+            },
+            {
+                label: t`Reconnect with Firefly`,
+                type: FarcasterSignType.RelayService,
+                developmentOnly: false,
+                isFreeOfTransactionFee: true,
+            },
+        ] as const;
+
+        return (
+            <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
+                <p className="pb-2 text-left text-sm">
+                    <Trans>You can sign in to Farcaster with the following options.</Trans>
+                </p>
+                {options.map(({ label, type, isFreeOfTransactionFee }) => (
+                    <ClickableButton
+                        className="flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg"
+                        key={type}
+                        onClick={() => {
+                            history.replace(`/farcaster?signType=${type}`);
+                            onClick(type);
+                        }}
+                    >
+                        <span className="flex flex-1 items-center">
+                            {label}
+                            {isFreeOfTransactionFee ? (
+                                <span className="ml-2 rounded-md border border-main px-1 text-xs font-bold text-main">
+                                    {t`FREE`}
+                                </span>
+                            ) : null}
+                        </span>
+                        <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main" />
+                    </ClickableButton>
+                ))}
+            </div>
+        );
+    }
 
     return (
         <div className="box-border flex flex-col rounded-xl p-6 md:w-[500px]">
@@ -153,7 +214,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         {count !== 0 ? (
                             <Trans>Please confirm the login with Warpcast.</Trans>
                         ) : (
-                            <Trans>The connection has timed out. Please try again later.·</Trans>
+                            <Trans>The connection has timed out. Please try again later.</Trans>
                         )}
                     </div>
                 </div>
@@ -183,19 +244,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                 onClick={() => {
                                     if (scanned) return;
                                     controller.current.abort();
-
                                     resetCountdown();
-                                    switch (signType) {
-                                        case SignType.GrantPermission:
-                                            onLoginByGrantPermission();
-                                            break;
-                                        case SignType.RelayService:
-                                            onLoginByRelayService();
-                                            break;
-                                        default:
-                                            safeUnreachable(signType);
-                                            break;
-                                    }
+                                    onClick(signType);
                                 }}
                             >
                                 <ScannableQRCode url={url} scanned={scanned} countdown={count} />

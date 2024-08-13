@@ -45,6 +45,9 @@ msgstr "引用"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "New connect with Warpcast"
+msgstr "通過 Warpcast 的新連接"
+
 msgid "Report @{0}"
 msgstr "檢舉 @{0}"
 
@@ -95,6 +98,9 @@ msgstr "從書籤中移除貼文失敗。"
 
 msgid "Delete post"
 msgstr "刪除貼文"
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr ""
 
 msgid "Mute @{0}"
 msgstr "將 @{0} 靜音"
@@ -306,6 +312,9 @@ msgstr "重試"
 msgid "Show less"
 msgstr "顯示更少"
 
+msgid "The video \"{0}\" exceeds the size limit."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
@@ -398,6 +407,9 @@ msgstr "在這裡輸入"
 
 msgid "Save Post?"
 msgstr "是否保存貼文？"
+
+msgid "Reconnect with Firefly"
+msgstr "通過 Firefly 重新連接"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
@@ -900,9 +912,6 @@ msgstr ""
 msgid "Hide more comments"
 msgstr "隱藏更多評論"
 
-msgid "Failed to resolve mint URL = {0}."
-msgstr ""
-
 msgid "Malformed session."
 msgstr ""
 
@@ -963,9 +972,6 @@ msgstr "對 @{0} 的解除靜音失敗"
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
-msgid "The connection has timed out. Please try again later.·"
-msgstr "連結已超時。請稍候重試"
-
 msgid "Log in with recovery phrase"
 msgstr ""
 
@@ -1013,6 +1019,9 @@ msgstr "未找到貼文"
 
 msgid "Clear All"
 msgstr "清除所有"
+
+msgid "There are videos that were not uploaded successfully."
+msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
@@ -1199,6 +1208,9 @@ msgstr "該行為無法撤銷，您會失去這份草稿"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已從你的書籤中移除"
+
+msgid "This address is already connected"
+msgstr ""
 
 msgid "Publications"
 msgstr "發表"
@@ -1866,6 +1878,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "The connection has timed out. Please try again later."
+msgstr "連結已超時。請稍候重試"
+
 msgid "Emoji"
 msgstr ""
 
@@ -1946,6 +1961,9 @@ msgstr "語言"
 
 msgid "Address on Watching Lists"
 msgstr "在觀察列表上的地址"
+
+msgid "FREE"
+msgstr "免費"
 
 msgid "Profiles"
 msgstr "個人資料"
@@ -2072,4 +2090,3 @@ msgstr "喜歡"
 
 msgid "Blink Validator"
 msgstr ""
-

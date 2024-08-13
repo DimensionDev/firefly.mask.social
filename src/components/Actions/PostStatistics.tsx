@@ -11,6 +11,7 @@ import { EngagementType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -19,16 +20,19 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 interface Props extends HTMLProps<HTMLDivElement> {
     post: Post;
     showChannelTag?: boolean;
+    isComment?: boolean;
 
     onSetScrollIndex?: () => void;
 }
 
 function EngagementLink({
     children,
+    prefetch = false,
     ...props
 }: {
     post: Post;
     type: EngagementType;
+    prefetch?: boolean;
     children?: ReactNode;
     onSetScrollIndex?: () => void;
 }) {
@@ -37,6 +41,7 @@ function EngagementLink({
     }
     return (
         <Link
+            prefetch={prefetch}
             className="hover:underline"
             href={resolveEngagementLink(props.post.postId, props.post.source, props.type)}
             onClick={(ev) => {
@@ -53,6 +58,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     className,
     post,
     showChannelTag = true,
+    isComment = false,
     onSetScrollIndex,
 }: Props) {
     const pathname = usePathname();
@@ -133,14 +139,13 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     ) : null;
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
-    const isFirefly = sendFrom?.toLowerCase() === 'firefly';
 
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail');
+    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     return (
         <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
-                {(!isDetailPage
+                {(!isDetailPage || isComment
                     ? compact([
                           isSmall ? <TimestampFormatter key="time" time={post.timestamp} /> : null,
                           comments,
@@ -169,7 +174,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           sendFrom ? (
                               <Trans>
                                   Posted via{' '}
-                                  {isFirefly ? (
+                                  {isSendFromFirefly(post) ? (
                                       <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
                                   ) : null}{' '}
                                   <span className="capitalize">{sendFrom}</span>
