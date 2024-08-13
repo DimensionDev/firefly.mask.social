@@ -41,7 +41,7 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             },
             {
                 rel: 'apple-touch-icon',
-                url: '/apple-touch-icon-57x57.png',
+                url: '/apple-touch-icon.png',
             },
         ],
         ...metadata,
