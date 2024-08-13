@@ -10,7 +10,7 @@ import {
     rabbyWallet,
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
-import { createClient, defineChain, http } from 'viem';
+import { createClient, http } from 'viem';
 import { type Config, createConfig } from 'wagmi';
 import {
     arbitrum,
@@ -26,8 +26,8 @@ import {
     metis,
     optimism,
     polygon,
-    zora,
     xLayer,
+    zora,
 } from 'wagmi/chains';
 
 import { env } from '@/constants/env.js';
