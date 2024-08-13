@@ -29,7 +29,7 @@ function isValidPostLink(url: string) {
 
 export async function getPostFrame(url: string): Promise<Frame | null> {
     if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
-    if (!url || isValidDomain(url) || !isValidPostLink(url)) return null;
+    if (!url || !isValidPostLink(url)) return null;
     const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
         urlcat('/api/frame', {
             link: (await resolveTCOLink(url)) ?? url,
@@ -40,7 +40,7 @@ export async function getPostFrame(url: string): Promise<Frame | null> {
 
 export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
-    if (!url || isValidDomain(url)) return null;
+    if (!url || !isValidPostLink(url)) return null;
     return BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
 }
 
