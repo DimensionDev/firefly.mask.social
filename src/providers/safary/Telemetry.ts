@@ -1,20 +1,19 @@
-import type { Safary } from '@/providers/types/Safary.js';
-import { type EventOptions, type ExceptionOptions, Provider } from '@/providers/types/Telemetry.js';
+import { NotImplementedError } from '@/constants/error.js';
+import type { Events, Safary } from '@/providers/types/Safary.js';
+import { Provider } from '@/providers/types/Telemetry.js';
 
-class SafaryTelemetry extends Provider {
+class SafaryTelemetry extends Provider<Events, never> {
     private get sdk() {
         if (typeof window.safary === 'undefined') return null;
         return window.safary as Safary;
     }
 
-    override captureEvent(options: EventOptions): void {
-        if (!this.shouldRecord()) return;
+    override captureEvent<T extends keyof Events>(name: T, parameters: Events[T]): void {
         throw new Error('Method not implemented.');
     }
 
-    override captureException(options: ExceptionOptions): void {
-        if (!this.shouldRecord()) return;
-        throw new Error('Method not implemented.');
+    override captureException(): void {
+        throw new NotImplementedError();
     }
 }
 
