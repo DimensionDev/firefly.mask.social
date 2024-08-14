@@ -21,6 +21,16 @@
             "source": "/post/farcaster/:id([\\w-]+)",
             "destination": "/post/:id?source=farcaster",
             "permanent": true
+        },
+        {
+            "source": "/profile/lens/:id([\\w-]+)",
+            "destination": "/profile/:id?source=lens",
+            "permanent": true
+        },
+        {
+            "source": "/profile/farcaster/:id([\\w-]+)",
+            "destination": "/profile/:id?source=farcaster",
+            "permanent": true
         }
     ]
 }
