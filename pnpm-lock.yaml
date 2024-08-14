@@ -362,8 +362,8 @@ importers:
         specifier: ^3.8.8
         version: 3.8.8(graphql@16.8.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@crowdin/cli':
-        specifier: ^3.15.0
-        version: 3.15.0
+        specifier: ^4.1.1
+        version: 4.1.1
       '@lingui/cli':
         specifier: ^4.8.0
         version: 4.8.0(typescript@5.5.4)
@@ -5715,15 +5715,15 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@crowdin/cli@3.15.0:
-    resolution: {integrity: sha512-oQMfC5S5OkVee+ryB56E1g0cr2iL9HFaYMWSwNRODp1KICWo0B/oRQo3MvStiZ3VW9ZkeydEoOgRnXXxw2amOA==}
+  /@crowdin/cli@4.1.1:
+    resolution: {integrity: sha512-OC5xJgaXM9eC9UgiAV17HZrCDP1gM1gs2yMdSRFjM6ydu9LddybntMKgWU3ffRHjCjK6wDTrC31jo932Czrs+A==}
     hasBin: true
     dependencies:
       command-exists-promise: 2.0.2
-      node-fetch: 2.6.7
+      node-fetch: 2.7.0
       shelljs: 0.8.5
-      tar: 4.4.19
-      yauzl: 2.10.0
+      tar: 6.2.1
+      yauzl: 3.1.3
     transitivePeerDependencies:
       - encoding
     dev: true
@@ -16796,6 +16796,12 @@ packages:
 
   /chownr@1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
+    dev: false
+
+  /chownr@2.0.0:
+    resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
+    engines: {node: '>=10'}
+    dev: true
 
   /chrome-launcher@0.15.1:
     resolution: {integrity: sha512-UugC8u59/w2AyX5sHLZUHoxBAiSiunUhZa3zZwMH6zPVis0C3dDKiRWyUGIo14tTbZHGVviWxv3PQWZ7taZ4fg==}
@@ -20696,6 +20702,14 @@ packages:
     resolution: {integrity: sha512-GWSSJGFy4e9GUeCcbIkED+bgAoFyj7XF1mV8rma3QW4NIqX9Kyx79N/PF61H5udOV3aY1IaMLs6pGbH71nlCTA==}
     dependencies:
       minipass: 2.9.0
+    dev: false
+
+  /fs-minipass@2.1.0:
+    resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
+    engines: {node: '>= 8'}
+    dependencies:
+      minipass: 3.3.6
+    dev: true
 
   /fs-mkdirp-stream@1.0.0:
     resolution: {integrity: sha512-+vSd9frUnapVC2RZYfL3FCB2p3g4TBhaUmrsWlSudsGdnxIuUvBB2QM1VZeBtc49QFwrp+wQLrDs3+xxDgI5gQ==}
@@ -24560,9 +24574,22 @@ packages:
     dependencies:
       safe-buffer: 5.2.1
       yallist: 3.1.1
+    dev: false
+
+  /minipass@3.3.6:
+    resolution: {integrity: sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==}
+    engines: {node: '>=8'}
+    dependencies:
+      yallist: 4.0.0
+    dev: true
 
   /minipass@4.2.8:
     resolution: {integrity: sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==}
+    engines: {node: '>=8'}
+    dev: true
+
+  /minipass@5.0.0:
+    resolution: {integrity: sha512-3FnjYuehv9k6ovOEbyOswadCDPX1piCfhV8ncmYtHOjuPwylVWsghTLo7rabjC3Rx5xD4HDx8Wm1xnMF7S5qFQ==}
     engines: {node: '>=8'}
     dev: true
 
@@ -24574,6 +24601,15 @@ packages:
     resolution: {integrity: sha512-6ZYMOEnmVsdCeTJVE0W9ZD+pVnE8h9Hma/iOwwRDsdQoePpoX56/8B6z3P9VNwppJuBKNRuFDRNRqRWexT9G9Q==}
     dependencies:
       minipass: 2.9.0
+    dev: false
+
+  /minizlib@2.1.2:
+    resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
+    engines: {node: '>= 8'}
+    dependencies:
+      minipass: 3.3.6
+      yallist: 4.0.0
+    dev: true
 
   /mipd@0.0.7(typescript@5.5.4):
     resolution: {integrity: sha512-aAPZPNDQ3uMTdKbuO2YmAw2TxLHO0moa4YKAyETM/DTj5FloZo+a+8tU+iv4GmW+sOxKLSRwcSFuczk+Cpt6fg==}
@@ -24997,18 +25033,6 @@ packages:
   /node-fetch-native@1.6.4:
     resolution: {integrity: sha512-IhOigYzAKHd244OC0JIMIUrjzctirCmPkaIfhDeGcEETWof5zKYUW7e7MYvChGWh/4CJeXEgsRyGzuF334rOOQ==}
     dev: false
-
-  /node-fetch@2.6.7:
-    resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
-    engines: {node: 4.x || >=6.0.0}
-    peerDependencies:
-      encoding: ^0.1.0
-    peerDependenciesMeta:
-      encoding:
-        optional: true
-    dependencies:
-      whatwg-url: 5.0.0
-    dev: true
 
   /node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
@@ -29272,6 +29296,19 @@ packages:
       mkdirp: 0.5.6
       safe-buffer: 5.2.1
       yallist: 3.1.1
+    dev: false
+
+  /tar@6.2.1:
+    resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
+    engines: {node: '>=10'}
+    dependencies:
+      chownr: 2.0.0
+      fs-minipass: 2.1.0
+      minipass: 5.0.0
+      minizlib: 2.1.2
+      mkdirp: 1.0.4
+      yallist: 4.0.0
+    dev: true
 
   /temp-dir@2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}
@@ -32364,6 +32401,14 @@ packages:
       fd-slicer: 1.1.0
     dev: true
 
+  /yauzl@3.1.3:
+    resolution: {integrity: sha512-JCCdmlJJWv7L0q/KylOekyRaUrdEoUxWkWVcgorosTROCFWiS9p2NNPE9Yb91ak7b1N5SxAZEliWpspbZccivw==}
+    engines: {node: '>=12'}
+    dependencies:
+      buffer-crc32: 0.2.13
+      pend: 1.2.0
+    dev: true
+
   /yjs@13.6.15:
     resolution: {integrity: sha512-moFv4uNYhp8BFxIk3AkpoAnnjts7gwdpiG8RtyFiKbMtxKCS0zVZ5wPaaGpwC3V2N/K8TK8MwtSI3+WO9CHWjQ==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
@@ -32498,6 +32543,7 @@ packages:
 time:
   /@aws-sdk/client-s3@3.629.0: '2024-08-12T19:54:45.219Z'
   /@aws-sdk/lib-storage@3.629.0: '2024-08-12T19:56:21.720Z'
+  /@crowdin/cli@4.1.1: '2024-07-26T07:17:49.529Z'
   /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /@lens-protocol/client@2.3.1: '2024-06-27T16:34:51.781Z'
