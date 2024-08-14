@@ -43,6 +43,9 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
+msgid "Failed to upload. File type is not supported on X."
+msgstr "Failed to upload. File type is not supported on X."
+
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -645,9 +648,6 @@ msgstr "Login to Firefly"
 
 msgid "Top Channels"
 msgstr "Top Channels"
-
-msgid "Failed to upload. File type is not supported on X"
-msgstr "Failed to upload. File type is not supported on X"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
@@ -1686,9 +1686,6 @@ msgstr "Share to"
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
-
-msgid "Image upload failed. Please try again."
-msgstr "Image upload failed. Please try again."
 
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {view} other {views}}"

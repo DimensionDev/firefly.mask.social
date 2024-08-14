@@ -84,6 +84,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
+export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 
