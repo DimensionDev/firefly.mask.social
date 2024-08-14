@@ -1,7 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react';
 
-import RadioOffIcon from '@/assets/radio-off.svg';
-import RadioOnIcon from '@/assets/radio-on.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
@@ -13,7 +11,8 @@ export function RadioButton({ size = 40, checked, className, ...props }: Props) 
     return (
         <button
             className={classNames(
-                'flex items-center justify-center',
+                'flex items-center justify-center rounded-full transition-all duration-200 ease-in-out',
+                checked ? 'border-highlight bg-white' : 'border-secondaryLine',
                 {
                     'disabled:cursor-not-allowed disabled:opacity-50': !!props.disabled,
                 },
@@ -24,13 +23,8 @@ export function RadioButton({ size = 40, checked, className, ...props }: Props) 
                 ...props.style,
                 width: size,
                 height: size,
+                borderWidth: checked ? 5 : 2,
             }}
-        >
-            {checked ? (
-                <RadioOnIcon className="text-highlight" width={size} height={size} />
-            ) : (
-                <RadioOffIcon className="text-secondaryLine" width={size} height={size} />
-            )}
-        </button>
+        />
     );
 }
