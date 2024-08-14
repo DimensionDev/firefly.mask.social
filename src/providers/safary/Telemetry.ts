@@ -1,4 +1,4 @@
-import { Provider, type EventOptions, type ExceptionOptions } from '@/providers/types/Telemetry.js';
+import { type EventOptions, type ExceptionOptions,Provider } from '@/providers/types/Telemetry.js';
 
 class SafaryTelemetry extends Provider {
     override captureEvent(options: EventOptions): void {
