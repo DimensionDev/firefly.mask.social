@@ -24,6 +24,9 @@ interface VideoAssetProps {
 
 export function VideoAsset({ asset, isQuote, source, autoPlay, videoClassName }: VideoAssetProps) {
     const isGif = asset.type === 'AnimatedGif';
+    const src = source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri;
+
+    console.log('VIDEO DEBUG: ', source, src, asset.uri);
 
     return isQuote ? (
         <div className="relative h-full w-full">
@@ -41,13 +44,7 @@ export function VideoAsset({ asset, isQuote, source, autoPlay, videoClassName }:
             ) : null}
         </div>
     ) : (
-        <Video
-            className={videoClassName}
-            loop={isGif}
-            autoPlay={autoPlay || isGif}
-            src={source === Source.Twitter ? forwardTwitterVideo(asset.uri) : asset.uri}
-            poster={asset.coverUri}
-        >
+        <Video className={videoClassName} loop={isGif} autoPlay={autoPlay || isGif} src={src} poster={asset.coverUri}>
             {isGif ? (
                 <span
                     className="absolute bottom-[5px] left-2.5 flex items-center"
