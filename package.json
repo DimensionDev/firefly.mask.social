@@ -90,7 +90,7 @@
         "next-auth": "^4.24.7",
         "notistack": "2.0.8",
         "plyr-react": "^5.3.0",
-        "postcss": "^8.4.30",
+        "postcss": "^8.4.41",
         "punycode": "^2.3.0",
         "react": "0.0.0-experimental-8039e6d0b-20231026",
         "react-cool-inview": "^3.0.1",
@@ -172,7 +172,7 @@
         "graphql-request": "^6.0.0",
         "html-webpack-plugin": "^5.5.3",
         "https-browserify": "^1.0.0",
-        "jsdom": "^24.1.0",
+        "jsdom": "^24.1.1",
         "patch-package": "^8.0.0",
         "prettier": "^3.2.5",
         "prettier-plugin-tailwindcss": "^0.6.1",
@@ -180,7 +180,7 @@
         "stream-http": "^2.8.3",
         "svgo-loader": "^4.0.0",
         "twitter-text": "^3.1.0",
-        "vitest": "^0.34.6",
+        "vitest": "^2.0.5",
         "zlib-browserify": "^0.0.3"
     },
     "pnpm": {
