@@ -65,6 +65,7 @@ export function Media({ close }: MediaProps) {
                 updateVideo(createLocalMediaObject(file));
             }
             close();
+            return;
         },
         [close, updateVideo],
     );
