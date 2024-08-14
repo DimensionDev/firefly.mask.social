@@ -5,7 +5,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
-import { commitPoll, vote } from '@/services/commitPoll.js';
+import { commitPoll, vote } from '@/services/poll.js';
 import type { Index } from '@/types/frame.js';
 
 @SetQueryDataForVote(Source.Farcaster)

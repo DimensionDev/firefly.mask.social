@@ -34,9 +34,7 @@ export function VoteButton({ option, post, frameUrl }: VoteButtonProps) {
                 frameUrl,
                 option,
             });
-            if (res.is_success) {
-                enqueueSuccessMessage(t`Voted successfully.`);
-            }
+            enqueueSuccessMessage(res.is_success ? t`Voted successfully.` : t`Failed to vote.`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to vote.`), { error });
             throw error;

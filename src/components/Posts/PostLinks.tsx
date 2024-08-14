@@ -7,7 +7,6 @@ import { useEffect, useMemo } from 'react';
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
-import { FramePoll } from '@/components/Poll/FramePoll.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import type { Chars } from '@/helpers/chars.js';
@@ -16,7 +15,7 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPollIdFromLink, getPostLinks } from '@/services/getPostLinks.js';
+import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
 
 interface Props {
@@ -26,14 +25,13 @@ interface Props {
 
 export function PostLinks({ post, setContent }: Props) {
     const url = resolveOembedUrl(post);
-    const pollId = url ? getPollIdFromLink(url) : undefined;
     const { isLoading, error, data } = useQuery({
         queryKey: ['post-embed', url, post.postId],
         queryFn: () => getPostLinks(url!, post),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
-        enabled: pollId ? false : !!url,
+        enabled: !!url,
     });
 
     useEffect(() => {
@@ -42,10 +40,6 @@ export function PostLinks({ post, setContent }: Props) {
             setContent?.(removeAtEnd(content, url));
         }
     }, [data, setContent, post, url]);
-
-    if (url && pollId) {
-        return <FramePoll post={post} pollId={pollId} frameUrl={url} />;
-    }
 
     if (isLoading || error || !data) return null;
 

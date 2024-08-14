@@ -10,6 +10,7 @@ import { useAsync } from 'react-use';
 import Lock from '@/assets/lock.svg';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
+import { FramePoll } from '@/components/Poll/FramePoll.js';
 import { PollCard } from '@/components/Poll/PollCard.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
@@ -26,11 +27,13 @@ import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } f
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getPollIdFromLink } from '@/services/getPostLinks.js';
 
 interface PostBodyProps {
     post: Post;
@@ -108,6 +111,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             : metadata.content?.asset;
 
     const noLeftPadding = isDetail || isSmall || disablePadding;
+
+    const oembedUrl = resolveOembedUrl(post);
+    const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
 
     if (post.isEncrypted) {
         return (
@@ -238,14 +244,20 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 </div>
             ) : null}
 
-            {/* for twitter only */}
-            {post.poll && !hasEncryptedPayload ? <PollCard post={post} frameUrl="" /> : null}
+            {/* Poll */}
+            {!hasEncryptedPayload ? (
+                post.poll ? (
+                    <PollCard post={post} frameUrl="" />
+                ) : pollId && oembedUrl ? (
+                    <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
+                ) : null
+            ) : null}
 
             {showAttachments ? (
                 <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
 
-            {!hasEncryptedPayload ? <PostLinks post={post} setContent={setPostContent} /> : null}
+            {!hasEncryptedPayload && !pollId ? <PostLinks post={post} setContent={setPostContent} /> : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
