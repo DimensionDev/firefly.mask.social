@@ -27,11 +27,11 @@ interface PostEventParameters {
     firefly_account_id: string;
     include_image: 'Y' | 'N';
     include_video: 'Y' | 'N';
+    include_lucky_drop: 'Y' | 'N';
+    include_poll: 'Y' | 'N';
     is_scheduled: 'Y' | 'N';
     scheduled_id?: string;
-    include_Lucky_drop: 'Y' | 'N';
     lucky_drop_id?: string;
-    include_poll: 'Y' | 'N';
     poll_id?: string;
 }
 
@@ -39,7 +39,6 @@ export interface Events {
     send_cross_post_success: {
         type: EventType.Interact;
         parameters: {
-            firefly_account_id: string;
             include_lens_post?: 'Y' | 'N';
             lens_post_id?: string;
             lens_id?: string;
@@ -52,13 +51,7 @@ export interface Events {
             x_post_id?: string;
             x_id?: string;
             x_handle?: string;
-            is_scheduled: 'Y' | 'N';
-            scheduled_id?: string;
-            include_lucky_drop: 'Y' | 'N';
-            lucky_drop_id?: string;
-            include_poll: 'Y' | 'N';
-            poll_Id?: string;
-        };
+        } & Exclude<PostEventParameters, 'include_image' | 'include_video'>;
     };
     create_scheduled_post: {
         type: EventType.Interact;
@@ -221,5 +214,5 @@ export interface Events {
 }
 
 export interface Safary {
-    track(event: keyof Events, parameters: Events[keyof Events]['parameters']): void;
+    track<T extends keyof Events>(event: T, parameters: Events[T]['parameters']): void;
 }
