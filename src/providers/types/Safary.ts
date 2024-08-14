@@ -1,4 +1,4 @@
-import { EventType, EventId, type Event } from '@/providers/types/Telemetry.js';
+import { type Event,EventId, EventType } from '@/providers/types/Telemetry.js';
 
 interface FarcasterEventParameters {
     source_firefly_account_id: string;
