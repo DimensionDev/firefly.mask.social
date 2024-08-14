@@ -14,8 +14,8 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import type { FireflyProfile, Relation } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
-import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
 interface ProfileContentProps {
     profile?: Profile | null;
@@ -25,14 +25,14 @@ interface ProfileContentProps {
 }
 
 export function ProfileContent({ profile, profiles, relations, isSuspended }: ProfileContentProps) {
-    const { profileTab } = useProfileTabState();
+    const { identity } = useFireflyIdentityState();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile;
 
-    const { source } = profileTab;
-    const { walletProfile } = resolveFireflyProfiles(profileTab, profiles);
+    const { source } = identity;
+    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     const info = useMemo(() => {
         if (source === Source.Wallet && walletProfile) {
@@ -71,7 +71,7 @@ export function ProfileContent({ profile, profiles, relations, isSuspended }: Pr
     return (
         <>
             {info}
-            <ProfileTabs profiles={profiles.filter((x) => x.source === source)} />
+            <ProfileTabs profiles={profiles.filter((x) => x.identity.source === source)} />
             {content}
         </>
     );

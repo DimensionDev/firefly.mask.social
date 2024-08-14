@@ -200,7 +200,14 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                         />
                                     ) : (
                                         <div className="h-full w-full">
-                                            <VideoAsset asset={attachment} isQuote={isQuote} source={post.source} />
+                                            <VideoAsset
+                                                videoClassName={
+                                                    attachmentsSnapshot.length >= 2 ? 'mini-video' : undefined
+                                                }
+                                                asset={attachment}
+                                                isQuote={isQuote}
+                                                source={post.source}
+                                            />
                                         </div>
                                     )}
                                 </WithPreviewLink>

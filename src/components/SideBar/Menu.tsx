@@ -33,6 +33,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -63,9 +64,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {
-            const source = getCurrentSourceFromParams(params);
-            const identity = isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '';
-            const isCurrentProfile = profiles.some((x) => x.source === source && x.identity === identity);
+            const identity = {
+                id: isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '',
+                source: getCurrentSourceFromParams(params),
+            };
+            const isCurrentProfile = profiles.some((x) => isSameFireflyIdentity(x.identity, identity));
             return isCurrentProfile || pathname === PageRoute.Profile;
         }
         return isRoutePathname(pathname, href);

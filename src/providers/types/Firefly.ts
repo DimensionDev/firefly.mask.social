@@ -73,6 +73,7 @@ export interface User {
     solanaAddresses: string[];
     fid: string;
     isFollowing?: boolean;
+    /** if followed by the user, no relation to whether you follow the user or not */
     isFollowedBack?: boolean;
     isPowerUser?: boolean;
 }
@@ -257,6 +258,9 @@ export type CommentsResponse = Response<{
 }>;
 
 export type UploadMediaTokenResponse = Response<{
+    bucket: string;
+    cdnHost: string;
+    region: string;
     accessKeyId: string;
     secretAccessKey: string;
     sessionToken: string;
@@ -468,8 +472,7 @@ export interface WalletProfiles {
 export type WalletProfileResponse = Response<WalletProfiles>;
 
 export interface FireflyProfile {
-    identity: string;
-    source: Source;
+    identity: FireflyIdentity;
     displayName: string;
     __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | null;
 }
@@ -478,8 +481,8 @@ export interface Relation {
     source: string[];
     identity: {
         uuid: string;
-        platform: RelationPlatform;
         identity: string;
+        platform: RelationPlatform;
         displayName: string;
     };
 }

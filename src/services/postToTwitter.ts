@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { first } from 'lodash-es';
+import { first, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
@@ -18,7 +18,7 @@ import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
-    const { chars, images, postId, parentPost, restriction, poll } = compositePost;
+    const { chars, images, video, postId, parentPost, restriction, poll } = compositePost;
 
     const twitterPostId = postId.Twitter;
     const twitterParentPost = parentPost.Twitter;
@@ -31,10 +31,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     const { currentProfile } = useTwitterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
+    const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
         if (images.some((media) => !resolveUploadId(Source.Twitter, media))) {
             throw new Error(t`There are images that were not uploaded successfully.`);
         }
+        if (videos.some((media) => !resolveUploadId(Source.Twitter, media))) {
+            throw new Error(t`There are videos that were not uploaded successfully.`);
+        }
+
         return {
             publicationId: '',
             type: postType,
@@ -46,11 +50,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                     content: readChars(chars, 'both', Source.Twitter),
                 },
             },
-            mediaObjects: images.map((media) => ({
-                id: resolveUploadId(Source.Twitter, media),
-                url: resolveImageUrl(Source.Twitter, media),
-                mimeType: media.mimeType,
-            })),
+            mediaObjects: uniqBy(
+                [...images, ...videos].map((media) => ({
+                    id: resolveUploadId(Source.Twitter, media),
+                    url: resolveImageUrl(Source.Twitter, media),
+                    mimeType: media.mimeType,
+                })),
+                'id',
+            ),
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',
             source: Source.Twitter,
@@ -64,19 +71,28 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             const pollStub = await TwitterPollProvider.createPoll(poll);
             return [pollStub];
         },
+        uploadVideos: async () => {
+            if (!video) return [];
+            const uploaded = await uploadToTwitter([video.file]);
+            return uploaded.map((x) => createTwitterMediaObject(x, video));
+        },
         uploadImages: async () => {
             const downloaded = await downloadMediaObjects(images);
             const uploaded = await uploadToTwitter(downloaded.map((x) => x.file));
             return uploaded.map((x, index) => createTwitterMediaObject(x, downloaded[index]));
         },
-        compose: (images, _, polls) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, polls)),
-        reply: (images, _, polls) => {
+        compose: (images, videos, polls) =>
+            TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls)),
+        reply: (images, videos, polls) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, polls));
+            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, videos, polls));
         },
-        quote: (images) => {
+        quote: (images, videos) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-            return TwitterSocialMediaProvider.quotePost(twitterParentPost.postId, composeDraft('Quote', images));
+            return TwitterSocialMediaProvider.quotePost(
+                twitterParentPost.postId,
+                composeDraft('Quote', images, videos),
+            );
         },
     });
 

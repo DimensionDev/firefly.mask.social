@@ -55,7 +55,8 @@ export interface Frame {
 }
 
 /**
- * Supported chain IDs
+ * Supported chain IDs by Frame
+ * Learn more: https://docs.farcaster.xyz/developers/frames/spec
  */
 export enum ChainId {
     Ethereum = 1,

@@ -58,7 +58,7 @@ class Loader extends BaseLoader<Action> {
                 },
             );
 
-            if (!response.data) return null;
+            if (!response.data || typeof response.data.action === 'string') return null;
 
             return createAction(url, response.data);
         });

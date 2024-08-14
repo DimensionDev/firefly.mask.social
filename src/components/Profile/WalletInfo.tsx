@@ -30,9 +30,7 @@ interface WalletInfoProps {
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
     const [, handleCopy] = useCopyText(profile.address);
-
-    const identity = profile.primary_ens || formatEthereumAddress(profile.address, 4);
-    const isMyWallets = useIsMyRelatedProfile(profile.address, Source.Wallet);
+    const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
 
     return (
         <div className="flex gap-3 p-3">
@@ -40,7 +38,9 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-[8px]">
                     <div className="flex items-center gap-2">
-                        <span className="text-xl font-black text-lightMain">{identity}</span>
+                        <span className="text-xl font-black text-lightMain">
+                            {profile.primary_ens || formatEthereumAddress(profile.address, 4)}
+                        </span>
                         {!isMyWallets && isMedium ? (
                             <>
                                 <WatchButton className="ml-auto" address={profile.address} />

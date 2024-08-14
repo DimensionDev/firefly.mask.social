@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import type { TweetV2UserTimelineParams, UserV2TimelineParams } from 'twitter-api-v2';
+import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
 
 import {
     EngagementType,
@@ -21,7 +21,7 @@ export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
 export const SITE_NAME = 'Firefly: App for Web3 Natives';
-export const SITE_DESCRIPTION = 'Firefly is a social app for exploring what’s happening onchain.';
+export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
@@ -186,7 +186,8 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> 
     'video/webm': 'webm',
 };
 
-export const FILE_MAX_SIZE_IN_BYTES = 4 * 1024 * 1024; // 4MB
+export const FILE_MAX_SIZE = 4 * 1024 * 1024; // 4MB
+export const VIDEO_MAX_SIZE = 400 * 1024 * 1024; // 400MB
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [
@@ -213,8 +214,8 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     'poll.fields': ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status'],
 };
 
-export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
-    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics'],
+export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
+    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics', 'connection_status'],
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';

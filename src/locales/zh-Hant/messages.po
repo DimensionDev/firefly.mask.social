@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-09 00:04\n"
+"PO-Revision-Date: 2024-08-13 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -131,9 +131,6 @@ msgstr ""
 
 msgid "Confirm to sync accounts"
 msgstr ""
-
-msgid "Failed to unwatch {identity}."
-msgstr "取消觀察 @{identity} 失敗。"
 
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
@@ -314,6 +311,9 @@ msgstr "重試"
 
 msgid "Show less"
 msgstr "顯示更少"
+
+msgid "The video \"{0}\" exceeds the size limit."
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
@@ -600,11 +600,11 @@ msgstr "鏡像失敗"
 msgid "Remove Choice"
 msgstr "移除選擇"
 
+msgid "Failed to watch {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "Update"
 msgstr "更新"
-
-msgid "Mute {identity}"
-msgstr "將 @{identity} 靜音"
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
@@ -945,6 +945,9 @@ msgstr "1個月"
 msgid "Bookmark"
 msgstr "書籤"
 
+msgid "{handleOrEnsOrAddress} watched"
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr ""
 
@@ -999,9 +1002,6 @@ msgstr ""
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
-msgid "Failed to watch {identity}."
-msgstr "觀察 @{identity} 失敗。"
-
 msgid "Mute"
 msgstr "靜音"
 
@@ -1019,6 +1019,9 @@ msgstr "未找到貼文"
 
 msgid "Clear All"
 msgstr "清除所有"
+
+msgid "There are videos that were not uploaded successfully."
+msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
@@ -1083,6 +1086,9 @@ msgstr ""
 msgid "Failed to disconnect"
 msgstr ""
 
+msgid "Failed to unwatch {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -1116,6 +1122,9 @@ msgstr ""
 msgid "Details"
 msgstr "詳細資訊"
 
+msgid "Unmute {handleOrEnsOrAddress}"
+msgstr ""
+
 msgid "Blink"
 msgstr ""
 
@@ -1125,7 +1134,13 @@ msgstr ""
 msgid "No preview found for shared link"
 msgstr "分享的連結暫無預覽畫面"
 
+msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+msgstr ""
+
 msgid "Contract source code not verified"
+msgstr ""
+
+msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
@@ -1224,6 +1239,9 @@ msgstr ""
 msgid "Your Blink URL."
 msgstr ""
 
+msgid "Watch {handleOrEnsOrAddress}"
+msgstr ""
+
 msgid "Show More"
 msgstr "顯示更多"
 
@@ -1287,9 +1305,6 @@ msgstr "{0} 位已靜音的用戶"
 msgid "Remove Poll"
 msgstr "移除投票"
 
-msgid "Unmute {identity}"
-msgstr "取消對 @{identity} 的靜音"
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -1318,6 +1333,9 @@ msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
 msgid "Connected in Firefly"
+msgstr ""
+
+msgid "Mute {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
@@ -1425,9 +1443,6 @@ msgstr "引用"
 msgid "The user rejected the request."
 msgstr ""
 
-msgid "Unwatch {identity}"
-msgstr "取消觀察 {identity}"
-
 msgid "Recast or Quote"
 msgstr ""
 
@@ -1509,9 +1524,6 @@ msgstr ""
 msgid "Post by {0}"
 msgstr "由 {0} 發布"
 
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "來自 @{identity} 的文章將在您的主頁時間線中被隱藏"
-
 msgid "Casts + Replies"
 msgstr ""
 
@@ -1532,9 +1544,6 @@ msgstr ""
 
 msgid "Owner can change balance"
 msgstr ""
-
-msgid "{identity} watched"
-msgstr "{identity} 觀察了"
 
 msgid "Accounts Connected"
 msgstr ""
@@ -1563,6 +1572,9 @@ msgstr ""
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
+msgid "{handleOrEnsOrAddress} unwatched"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -1571,9 +1583,6 @@ msgstr "未找到人物"
 
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
-
-msgid "Watch {identity}"
-msgstr "觀察 {identity}"
 
 msgid "Failed to create scheduled post."
 msgstr ""
@@ -1782,6 +1791,9 @@ msgstr ""
 msgid "Your name"
 msgstr ""
 
+msgid "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
+msgstr ""
+
 msgid "Owned"
 msgstr ""
 
@@ -1850,9 +1862,6 @@ msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
-
-msgid "{identity} unwatched"
-msgstr "{identity} 取消了觀察"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
@@ -1924,9 +1933,6 @@ msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
-msgstr ""
-
-msgid "All wallets and social accounts associated with {handle} will be muted."
 msgstr ""
 
 msgid "Download App"

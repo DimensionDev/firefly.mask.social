@@ -23,26 +23,25 @@ interface Props extends PropsWithChildren {
 }
 
 export default function DetailLayout({ children, params }: Props) {
-    const searchParams = useSearchParams();
-    const sourceInURL = searchParams.get('source') as SourceInURL;
-    const rawSource = resolveSourceFromUrl(sourceInURL);
-    const source = narrowToSocialSource(rawSource);
-    const identity = params.id;
+    const id = params.id;
+    const sourceInUrl = useSearchParams().get('source') as SourceInURL;
+    const source = narrowToSocialSource(resolveSourceFromUrl(sourceInUrl));
+
     const myProfile = useCurrentProfile(source);
 
     const { data: profile = null } = useQuery({
-        queryKey: ['profile', source, identity],
+        queryKey: ['profile', source, id],
         queryFn: async () => {
-            if (!identity || !source) return null;
+            if (!id || !source) return null;
             if (source === Source.Twitter) return null;
-            return getProfileById(narrowToSocialSource(source), identity);
+            return getProfileById(source, id);
         },
     });
 
     const pathname = usePathname();
 
     const tabs = compact([
-        !isSameProfile(myProfile, profile || { source, profileId: identity })
+        !isSameProfile(myProfile, profile || { source, profileId: id })
             ? {
                   label: <Trans>Followers you know</Trans>,
                   category: FollowCategory.Mutuals,
@@ -74,7 +73,7 @@ export default function DetailLayout({ children, params }: Props) {
                                     replace
                                     href={{
                                         pathname: path,
-                                        query: { source: sourceInURL },
+                                        query: { source: sourceInUrl },
                                     }}
                                     className={classNames(
                                         pathname === path ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',

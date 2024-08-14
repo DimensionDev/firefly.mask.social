@@ -27,6 +27,7 @@ import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
 import { getPostFrame } from '@/services/getPostLinks.js';
 import { validateMessage } from '@/services/validateMessage.js';
 import {
@@ -171,9 +172,18 @@ async function getNextFrame(
                     openWindow(button.target, '_blank');
                 return;
             case ActionType.Mint: {
-                if (!button.target) return;
-                const mintUrl = frame.url;
-                if (await ConfirmLeavingModalRef.openAndWaitForClose(mintUrl)) openWindow(mintUrl, '_blank');
+                const mintTx = await getFrameMintTransaction(frame, button);
+                if (mintTx && button.target) {
+                    const { chainId } = parseCAIP10(button.target);
+                    const client = await getWalletClientRequired(config, {
+                        chainId,
+                    });
+                    if (client.chain.id !== chainId) throw new Error(t`The chainId mismatch.`);
+                    await client.sendTransaction(mintTx);
+                    return;
+                }
+
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(frame.url)) openWindow(frame.url, '_blank');
                 return;
             }
             case ActionType.Transaction:
@@ -279,17 +289,18 @@ interface FrameProps {
 }
 
 export const Frame = memo<FrameProps>(function Frame({ post, onData, children }) {
-    const urls = post.metadata.content?.oembedUrls ?? [];
+    const url = post.metadata.content?.oembedUrl;
     const {
         data: frame,
         isLoading,
         error,
     } = useQuery({
-        queryKey: ['frame', ...urls],
-        queryFn: () => getPostFrame(urls),
+        queryKey: ['frame', url],
+        queryFn: () => getPostFrame(url!),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
+        enabled: !!url,
     });
 
     useEffect(() => {

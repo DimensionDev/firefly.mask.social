@@ -16,17 +16,18 @@ interface Props {
 }
 
 export const Blink = memo<Props>(function Blink({ post, onData, onFailed, children }) {
-    const urls = post.metadata.content?.oembedUrls ?? [];
+    const url = post.metadata.content?.oembedUrl;
     const {
         data: action,
         error,
         isLoading,
     } = useQuery({
-        queryKey: ['action', ...urls, post],
-        queryFn: () => getPostBlinkAction(post.metadata.content?.oembedUrls ?? []),
+        queryKey: ['action', url],
+        queryFn: () => getPostBlinkAction(url!),
         retry: false,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
+        enabled: !!url,
     });
 
     useEffect(() => {

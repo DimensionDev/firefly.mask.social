@@ -422,8 +422,8 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getAllPlatformProfileByIdentity(source: Source, identity: string): Promise<FireflyProfile[]> {
-        const response = await getAllPlatformProfileFromFirefly(source, identity);
+    async getAllPlatformProfileByIdentity(identity: FireflyIdentity): Promise<FireflyProfile[]> {
+        const response = await getAllPlatformProfileFromFirefly(identity);
         const profiles = resolveFireflyResponseData(response);
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
@@ -469,12 +469,7 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const data = list
-                .map(formatFarcasterProfileFromFirefly)
-                // We can't distinguish whether a user is following me or not if I do not follow him/her.
-                // Fortunately here we are getting followers, so we are sure the user is following me.
-                // This is a workaround until the API fixes it.
-                .map((x) => ({ ...x, viewerContext: { ...x.viewerContext, followedBy: true } }) as Profile);
+            const data = list.map(formatFarcasterProfileFromFirefly);
 
             return createPageable(
                 data,
@@ -841,12 +836,10 @@ export class FireflySocialMedia implements Provider {
     async getThreadByPostId(postId: string, localPost?: Post) {
         return farcasterSessionHolder.withSession(async (session) => {
             const post = localPost ?? (await this.getPostById(postId));
-            const profile = getCurrentProfile(Source.Farcaster);
 
             const response = await fireflySessionHolder.fetch<ThreadResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
                     sourceFid: session?.profileId,
-                    sourceHandle: profile?.handle,
                     hash: postId,
                     maxDepth: 25,
                 }),
@@ -1282,9 +1275,9 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async isProfileMutedAll(source: Source, identity: string) {
+    async isProfileMutedAll(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/isMuteAll', {
-            [getPlatformQueryKey(source)]: identity,
+            [getPlatformQueryKey(identity.source)]: identity.id,
         });
 
         const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
@@ -1293,15 +1286,15 @@ export class FireflySocialMedia implements Provider {
         return data?.isBlockAll ?? false;
     }
 
-    async muteProfileAll(source: Source, identity: string) {
+    async muteProfileAll(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
-            [getPlatformQueryKey(source)]: identity,
+            [getPlatformQueryKey(identity.source)]: identity.id,
         });
 
         const response = await fireflySessionHolder.fetch<MuteAllResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                [getPlatformQueryKey(source)]: identity,
+                [getPlatformQueryKey(identity.source)]: identity.id,
             }),
         });
 
@@ -1319,6 +1312,12 @@ export class FireflySocialMedia implements Provider {
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),
         };
+    }
+
+    async getS3UploadMediaToken() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
+        const response = await fetchJSON<UploadMediaTokenResponse>(url);
+        return resolveFireflyResponseData(response);
     }
 }
 

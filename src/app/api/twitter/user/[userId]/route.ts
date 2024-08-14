@@ -1,10 +1,10 @@
 import { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
+import { TWITTER_USER_OPTIONS } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
-import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
@@ -18,16 +18,9 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const client = await createTwitterClientV2(request);
         const { data, errors } = await client.v2.user(userId, {
-            'user.fields': [
-                'description',
-                'username',
-                'name',
-                'profile_image_url',
-                'public_metrics',
-                'connection_status',
-            ],
+            ...TWITTER_USER_OPTIONS,
         });
-        if (errors?.length) return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) console.error('[twitter] v2.user', errors);
 
         return createSuccessResponseJSON(data);
     },

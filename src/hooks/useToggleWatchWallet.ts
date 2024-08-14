@@ -7,29 +7,33 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface Options {
-    identity: string;
+    handleOrEnsOrAddress: string;
     address: Address;
     following: boolean;
 }
-export function useToggleWatchWallet({ identity, address, following }: Options) {
+
+export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following }: Options) {
     const mutation = useMutation({
         mutationFn: async () => {
             try {
-                // TODO address is case sensitive by far.
+                // TODO: address is case sensitive by far.
                 const addr = address.toLowerCase();
+
                 if (following) {
                     const result = await FireflySocialMediaProvider.unwatchWallet(addr);
-                    enqueueSuccessMessage(t`${identity} unwatched`);
+                    enqueueSuccessMessage(t`${handleOrEnsOrAddress} unwatched`);
                     return result;
                 }
                 const result = await FireflySocialMediaProvider.watchWallet(addr);
-                enqueueSuccessMessage(t`${identity} watched`);
+                enqueueSuccessMessage(t`${handleOrEnsOrAddress} watched`);
                 return result;
             } catch (error) {
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(
                         error,
-                        following ? t`Failed to unwatch ${identity}.` : t`Failed to watch ${identity}.`,
+                        following
+                            ? t`Failed to unwatch ${handleOrEnsOrAddress}.`
+                            : t`Failed to watch ${handleOrEnsOrAddress}.`,
                     ),
                     {
                         error,

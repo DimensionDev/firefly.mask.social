@@ -17,7 +17,8 @@ import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { resolveProfileId } from '@/helpers/resolveProfileId.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -34,8 +35,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     disablePadding = false,
 }) {
     const isComment = post.type === 'Comment';
-
-    const identity = resolveProfileId(post.author);
+    const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
     const actions = compact([
         <div key="comment">
@@ -84,9 +84,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 />
             </div>
         ) : null,
-        identity ? (
-            <Tips key="tips" identity={identity} source={post.source} disabled={disabled} handle={post.author.handle} />
-        ) : null,
+        identity.id ? <Tips key="tips" identity={identity} disabled={disabled} handle={post.author.handle} /> : null,
         <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
         <Share key="share" className="!flex-none" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
@@ -119,13 +117,13 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     onSetScrollIndex,
     ...rest
 }) {
-    const isComment = post.type === 'Comment';
-
-    const identity = resolveProfileId(post.author);
-
     const pathname = usePathname();
+
     const isSmall = useIsSmall('max');
+    const isComment = post.type === 'Comment';
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
+
+    const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
     const noLeftPadding = isDetailPage || isSmall || disablePadding;
 
@@ -180,14 +178,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     {post.source !== Source.Twitter ? (
                         <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
                     ) : null}
-                    {identity ? (
-                        <Tips
-                            identity={identity}
-                            source={post.source}
-                            disabled={disabled}
-                            handle={post.author.handle}
-                        />
-                    ) : null}
+                    {identity.id ? <Tips identity={identity} disabled={disabled} handle={post.author.handle} /> : null}
                     <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>

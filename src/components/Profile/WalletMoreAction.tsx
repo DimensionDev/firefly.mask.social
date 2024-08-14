@@ -10,6 +10,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -21,10 +22,12 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 
 export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ profile, className, ...rest }) {
     const { data: ens } = useEnsName({ address: profile.address });
-    const identity = profile.primary_ens || ens || formatEthereumAddress(profile.address, 4);
     const { data: isMuted } = useIsWalletMuted(profile.address);
 
-    const isMyWallet = useIsMyRelatedProfile(profile.address, Source.Wallet);
+    const identity = useFireflyIdentity(Source.Wallet, profile.address);
+    const isMyWallet = useIsMyRelatedProfile(identity.source, identity.id);
+
+    const ensOrAddress = profile.primary_ens || ens || formatEthereumAddress(profile.address, 4);
 
     return (
         <MoreActionMenu button={<EllipsisHorizontalCircleIcon className="h-8 w-8" />} className={className}>
@@ -38,7 +41,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                 <Menu.Item>
                     {({ close }) => (
                         <MuteWalletButton
-                            identity={identity}
+                            handleOrEnsOrAddress={ensOrAddress}
                             isMuted={isMuted}
                             address={profile.address}
                             onClick={close}
@@ -47,15 +50,16 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                 </Menu.Item>
                 {!isMyWallet && (
                     <Menu.Item>
-                        {({ close }) => <MuteAllByWallet address={profile.address} handle={identity} onClose={close} />}
+                        {({ close }) => (
+                            <MuteAllByWallet address={profile.address} handle={ensOrAddress} onClose={close} />
+                        )}
                     </Menu.Item>
                 )}
                 <Menu.Item>
                     {({ close }) => (
                         <Tips
                             className="px-3 py-1 !text-main hover:bg-bg"
-                            identity={profile.address}
-                            source={Source.Wallet}
+                            identity={identity}
                             handle={profile.primary_ens || ens}
                             tooltipDisabled
                             label={t`Send tips`}

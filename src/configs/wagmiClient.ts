@@ -10,7 +10,7 @@ import {
     rabbyWallet,
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
-import { createClient, defineChain, http } from 'viem';
+import { createClient, http } from 'viem';
 import { type Config, createConfig } from 'wagmi';
 import {
     arbitrum,
@@ -26,37 +26,13 @@ import {
     metis,
     optimism,
     polygon,
+    xLayer,
     zora,
 } from 'wagmi/chains';
 
 import { env } from '@/constants/env.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
-
-const XLayer = defineChain({
-    id: 196,
-    name: 'X Layer',
-    nativeCurrency: {
-        decimals: 18,
-        name: 'OKB',
-        symbol: 'OKB',
-    },
-    rpcUrls: {
-        default: { http: ['https://rpc.xlayer.tech'] },
-    },
-    blockExplorers: {
-        default: {
-            name: 'X Layer explorer',
-            url: 'https://www.okx.com/explorer/xlayer',
-        },
-    },
-    contracts: {
-        multicall3: {
-            address: '0x8A42F70047a99298822dD1dbA34b454fc49913F2',
-            blockCreated: 67224,
-        },
-    },
-});
 
 export const chains = [
     mainnet,
@@ -71,7 +47,7 @@ export const chains = [
     aurora,
     confluxESpace,
     fantom,
-    XLayer,
+    xLayer,
     metis,
     zora,
 ] as const satisfies Chain[];

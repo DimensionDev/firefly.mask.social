@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-09 00:04\n"
+"PO-Revision-Date: 2024-08-13 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -131,9 +131,6 @@ msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通�
 
 msgid "Confirm to sync accounts"
 msgstr "确认登陆"
-
-msgid "Failed to unwatch {identity}."
-msgstr "取消关注 {identity} 失败。"
 
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
@@ -314,6 +311,9 @@ msgstr "重试"
 
 msgid "Show less"
 msgstr "收起"
+
+msgid "The video \"{0}\" exceeds the size limit."
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
@@ -600,11 +600,11 @@ msgstr "转帖失败。"
 msgid "Remove Choice"
 msgstr "删除选项"
 
+msgid "Failed to watch {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "Update"
 msgstr "更新"
-
-msgid "Mute {identity}"
-msgstr "屏蔽 @{identity}"
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
@@ -945,6 +945,9 @@ msgstr "1个月"
 msgid "Bookmark"
 msgstr "收藏"
 
+msgid "{handleOrEnsOrAddress} watched"
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr "流通总量"
 
@@ -999,9 +1002,6 @@ msgstr "分享"
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
-msgid "Failed to watch {identity}."
-msgstr "关注 {identity} 失败。"
-
 msgid "Mute"
 msgstr "屏蔽"
 
@@ -1019,6 +1019,9 @@ msgstr "未找到帖子"
 
 msgid "Clear All"
 msgstr "全部清除"
+
+msgid "There are videos that were not uploaded successfully."
+msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
@@ -1083,6 +1086,9 @@ msgstr "需要先登录 {sourceName} 才能发送定时任务。"
 msgid "Failed to disconnect"
 msgstr "断连失败"
 
+msgid "Failed to unwatch {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
@@ -1116,6 +1122,9 @@ msgstr "我想隐藏这个钱包地址。"
 msgid "Details"
 msgstr "详情"
 
+msgid "Unmute {handleOrEnsOrAddress}"
+msgstr ""
+
 msgid "Blink"
 msgstr "Blink"
 
@@ -1125,8 +1134,14 @@ msgstr "未能从您的社交图谱中断链。"
 msgid "No preview found for shared link"
 msgstr "无法预加载"
 
+msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+msgstr ""
+
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
+
+msgid "Unwatch {handleOrEnsOrAddress}"
+msgstr ""
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
@@ -1224,6 +1239,9 @@ msgstr "添加钱包"
 msgid "Your Blink URL."
 msgstr "您的 Blink URL。"
 
+msgid "Watch {handleOrEnsOrAddress}"
+msgstr ""
+
 msgid "Show More"
 msgstr "显示更多"
 
@@ -1287,9 +1305,6 @@ msgstr "{0} 隐藏的用户"
 msgid "Remove Poll"
 msgstr "删除投票"
 
-msgid "Unmute {identity}"
-msgstr "取消隐藏 {identity}"
-
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {发帖} other {全部发帖}}"
 
@@ -1319,6 +1334,9 @@ msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "Connected in Firefly"
 msgstr "已在 Firefly 中"
+
+msgid "Mute {handleOrEnsOrAddress}"
+msgstr ""
 
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {添加一条评论} reply {发布你的评论} other {{1}}}"
@@ -1425,9 +1443,6 @@ msgstr "引用"
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
 
-msgid "Unwatch {identity}"
-msgstr "取消关注 {identity}"
-
 msgid "Recast or Quote"
 msgstr "转发或者引用"
 
@@ -1509,9 +1524,6 @@ msgstr "定时"
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
-msgid "Articles from @{identity} will now be hidden in your home timeline"
-msgstr "@{identity} 的文章会从您的时间线中隐藏"
-
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -1532,9 +1544,6 @@ msgstr "登录以启用所有功能"
 
 msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
-
-msgid "{identity} watched"
-msgstr "{identity} 已关注"
 
 msgid "Accounts Connected"
 msgstr "已链接账户"
@@ -1563,6 +1572,9 @@ msgstr "<0>你</0> 已转帖"
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
+msgid "{handleOrEnsOrAddress} unwatched"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
 
@@ -1571,9 +1583,6 @@ msgstr "未发现个人信息"
 
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
-
-msgid "Watch {identity}"
-msgstr "关注 {identity}"
 
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
@@ -1782,6 +1791,9 @@ msgstr "NFT 系列"
 msgid "Your name"
 msgstr "您的名字"
 
+msgid "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
+msgstr ""
+
 msgid "Owned"
 msgstr "拥有"
 
@@ -1850,9 +1862,6 @@ msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>获得</0> 一个 NFT 来自 <1>{0}</1>"
-
-msgid "{identity} unwatched"
-msgstr "{identity} 取消关注"
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"
@@ -1925,9 +1934,6 @@ msgstr "打赏失败，请稍后重试。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
-
-msgid "All wallets and social accounts associated with {handle} will be muted."
-msgstr "{handle} 相关的所有钱包和社交账号都将会被隐藏。"
 
 msgid "Download App"
 msgstr "下载应用"

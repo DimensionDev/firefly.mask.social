@@ -6,6 +6,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInURL } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { getProfileOGById } from '@/services/getProfileOGById.js';
 
 const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
@@ -28,5 +29,5 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
 export default function Page({ params, searchParams }: Props) {
     if (isBotRequest()) return null;
-    return <ProfileDetailPage identity={params.id} source={searchParams.source} />;
+    return <ProfileDetailPage identity={{ id: params.id, source: resolveSourceFromUrl(searchParams.source) }} />;
 }
