@@ -200,7 +200,7 @@
             "@openzeppelin/contracts@<4.8.3": ">=4.8.3",
             "i18next": "23.2.11",
             "react-i18next": "13.0.2",
-            "react-use": "17.4.0"
+            "react-use": "17.5.1"
         },
         "override comments": {
             "i18next-translation-parser": "see https://github.com/i18next/i18next-translation-parser/issues/11 we manually pin the commit"
@@ -231,10 +231,10 @@
             "urlcat@3.1.0": "src/maskbook/patches/urlcat@3.1.0.patch",
             "@protobufjs/inquire@1.1.0": "src/maskbook/patches/@protobufjs__inquire@1.1.0.patch",
             "web3-core@1.10.2": "src/maskbook/patches/web3-core@1.10.2.patch",
-            "react-use@17.4.0": "src/maskbook/patches/react-use@17.4.0.patch",
             "@lexical/react@0.12.5": "patches/@lexical__react@0.12.5.patch",
             "@rainbow-me/rainbowkit@2.0.5": "patches/@rainbow-me__rainbowkit@2.0.5.patch",
-            "@headlessui/react@1.7.17": "patches/@headlessui__react@1.7.17.patch"
+            "@headlessui/react@1.7.17": "patches/@headlessui__react@1.7.17.patch",
+            "react-use@17.5.1": "src/maskbook/patches/react-use@17.5.1.patch"
         }
     }
 }
