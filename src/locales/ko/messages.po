@@ -48,6 +48,9 @@ msgstr ""
 msgid "New connect with Warpcast"
 msgstr ""
 
+msgid "Failed to upload. File type is not supported on X."
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -649,9 +652,6 @@ msgid "Login to Firefly"
 msgstr ""
 
 msgid "Top Channels"
-msgstr ""
-
-msgid "Failed to upload. File type is not supported on X"
 msgstr ""
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
@@ -1690,9 +1690,6 @@ msgid "Share to"
 msgstr ""
 
 msgid "Failed to quote post."
-msgstr ""
-
-msgid "Image upload failed. Please try again."
 msgstr ""
 
 msgid "{viewCount, plural, one {view} other {views}}"

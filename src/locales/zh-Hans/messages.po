@@ -48,6 +48,9 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
+msgid "Failed to upload. File type is not supported on X."
+msgstr ""
+
 msgid "Report @{0}"
 msgstr "报告 @{0}"
 
@@ -650,9 +653,6 @@ msgstr "登录到 Firefly"
 
 msgid "Top Channels"
 msgstr "热门频道"
-
-msgid "Failed to upload. File type is not supported on X"
-msgstr "图片格式 X 不支持。上传失败。"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
@@ -1691,9 +1691,6 @@ msgstr "分享到"
 
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
-
-msgid "Image upload failed. Please try again."
-msgstr "图片上传失败。请重试。"
 
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {查看} other {查看}}"
