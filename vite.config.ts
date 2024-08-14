@@ -1,4 +1,3 @@
-import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 function createURL(pathToFile: string) {
@@ -6,7 +5,6 @@ function createURL(pathToFile: string) {
 }
 
 export default defineConfig({
-    plugins: [react()],
     envPrefix: ['VITE_', 'NEXT_', 'S3_', 'TWITTER_', 'IMGUR_', 'NEXTAUTH_', 'FARCASTER_', 'HUBBLE_', 'SESSION_'],
     test: {
         environment: 'jsdom',

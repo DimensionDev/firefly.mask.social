@@ -1,7 +1,6 @@
-import { render } from '@testing-library/react';
-import { describe, expect, it, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
-import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
 
 describe('formatPrice', () => {
     test.each([
@@ -22,28 +21,5 @@ describe('formatPrice', () => {
         [0.0012555555, undefined, '0.001256'],
     ])('format %s with %s digits to %s', (price, digits, expected) => {
         expect(formatPrice(price, digits)).toBe(expected);
-    });
-});
-
-describe('renderShrankPrice', () => {
-    it('should not do anything to unshrank price', () => {
-        expect(renderShrankPrice('0.123')).toBe('0.123');
-    });
-
-    it('should render shrank price', () => {
-        const rendered = renderShrankPrice('0.0{5}123');
-        const { asFragment } = render(rendered);
-
-        expect(asFragment()).toMatchInlineSnapshot(`
-          <DocumentFragment>
-            0.0
-            <sub
-              class="text-[0.66em]"
-            >
-              5
-            </sub>
-            123
-          </DocumentFragment>
-        `);
     });
 });
