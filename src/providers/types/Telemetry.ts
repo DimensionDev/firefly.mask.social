@@ -62,7 +62,7 @@ export interface ExceptionOptions extends CommonOptions {
 
 export abstract class Provider {
     constructor(protected sampleRate = 1) {
-        if (env.external.NEXT_PUBLIC_TELMETRY === STATUS.Enabled) {
+        if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled) {
             this.enable();
         } else {
             this.disable();
