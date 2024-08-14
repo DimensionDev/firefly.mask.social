@@ -10,10 +10,10 @@
                 "paths": [
                     "/post/*",
                     "/profile/*",
-                    "/*",
                     "/nft/*",
                     "/article/*",
-                    "/login/desktop/*"
+                    "/login/desktop/*",
+                    "/*"
                 ],
                 "components": [
                     {
