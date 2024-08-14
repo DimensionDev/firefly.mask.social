@@ -506,8 +506,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       jsdom:
-        specifier: ^24.1.0
-        version: 24.1.0
+        specifier: ^24.1.1
+        version: 24.1.1
       patch-package:
         specifier: ^8.0.0
         version: 8.0.0
@@ -531,7 +531,7 @@ importers:
         version: 3.1.0
       vitest:
         specifier: ^2.0.5
-        version: 2.0.5(@types/node@20.11.9)(jsdom@24.1.0)
+        version: 2.0.5(@types/node@20.11.9)(jsdom@24.1.1)
       zlib-browserify:
         specifier: ^0.0.3
         version: 0.0.3
@@ -703,7 +703,7 @@ importers:
         version: 4.5.0(@types/node@20.11.9)
       vitest:
         specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.0)
+        version: 0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.1)
 
   src/maskbook/packages/base:
     dependencies:
@@ -13212,7 +13212,7 @@ packages:
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-      vitest: 2.0.5(@types/node@20.11.9)(jsdom@24.1.0)
+      vitest: 2.0.5(@types/node@20.11.9)(jsdom@24.1.1)
     dev: true
 
   /@testing-library/react@16.0.0(@testing-library/dom@10.1.0)(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
@@ -14495,7 +14495,7 @@ packages:
       pathe: 1.1.2
       picocolors: 1.0.0
       sirv: 2.0.4
-      vitest: 0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.0)
+      vitest: 0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.1)
     dev: true
 
   /@vitest/utils@0.34.3:
@@ -21657,8 +21657,8 @@ packages:
     resolution: {integrity: sha512-J+FkSdyD+0mA0N+81tMotaRMfSL9SGi+xpD3T6YApKsc3bGSXJlfXri3VyFOeYkfLRQisDk1W+jIFFKBeUBbBg==}
     dev: true
 
-  /https-proxy-agent@7.0.4:
-    resolution: {integrity: sha512-wlwpilI7YdjSkWaQ/7omYBMTliDcmCN8OLihO6I9B86g06lMyAoqgoDpV0XqoaPOKj+0DIdAvnsWfyAAhmimcg==}
+  /https-proxy-agent@7.0.5:
+    resolution: {integrity: sha512-1e4Wqeblerz+tMKPIq2EMGiiWW1dIjZOksyHWSUm1rmuvw/how9hBHZ38lAGj5ID4Ik6EdkOw7NmWPy6LAwalw==}
     engines: {node: '>= 14'}
     dependencies:
       agent-base: 7.1.1
@@ -22737,8 +22737,8 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: false
 
-  /jsdom@24.1.0:
-    resolution: {integrity: sha512-6gpM7pRXCwIOKxX47cgOyvyQDN/Eh0f1MeKySBV2xGdKtqJBLj8P25eY3EVCWo2mglDDzozR2r2MW4T+JiNUZA==}
+  /jsdom@24.1.1:
+    resolution: {integrity: sha512-5O1wWV99Jhq4DV7rCLIoZ/UIhyQeDR7wHVyZAHAshbrvZsLs+Xzz7gtwnlJTJDjleiTKh54F4dXrX70vJQTyJQ==}
     engines: {node: '>=18'}
     peerDependencies:
       canvas: ^2.11.2
@@ -22752,11 +22752,11 @@ packages:
       form-data: 4.0.0
       html-encoding-sniffer: 4.0.0
       http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.4
+      https-proxy-agent: 7.0.5
       is-potential-custom-element-name: 1.0.1
-      nwsapi: 2.2.10
+      nwsapi: 2.2.12
       parse5: 7.1.2
-      rrweb-cssom: 0.7.0
+      rrweb-cssom: 0.7.1
       saxes: 6.0.0
       symbol-tree: 3.2.4
       tough-cookie: 4.1.4
@@ -22765,7 +22765,7 @@ packages:
       whatwg-encoding: 3.1.1
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
-      ws: 8.17.0
+      ws: 8.18.0
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -25175,8 +25175,8 @@ packages:
       strip-hex-prefix: 1.0.0
     dev: false
 
-  /nwsapi@2.2.10:
-    resolution: {integrity: sha512-QK0sRs7MKv0tKe1+5uZIQk/C8XGza4DAnztJG8iD+TpJIORARrCxczA738awHrZoHeTjSSoHqao2teO0dC/gFQ==}
+  /nwsapi@2.2.12:
+    resolution: {integrity: sha512-qXDmcVlZV4XRtKFzddidpfVP4oMSGhga+xdMc25mv8kaLUHtgzCDhUxkrN8exkGdTlLNaXj7CV3GtON7zuGZ+w==}
     dev: true
 
   /oauth-sign@0.9.0:
@@ -27884,8 +27884,8 @@ packages:
     resolution: {integrity: sha512-APM0Gt1KoXBz0iIkkdB/kfvGOwC4UuJFeG/c+yV7wSc7q96cG/kJ0HiYCnzivD9SB53cLV1MlHFNfOuPaadYSw==}
     dev: true
 
-  /rrweb-cssom@0.7.0:
-    resolution: {integrity: sha512-KlSv0pm9kgQSRxXEMgtivPJ4h826YHsuob8pSHcfSZsSXGtvpEAie8S0AnXuObEJ7nhikOb4ahwxDm0H2yW17g==}
+  /rrweb-cssom@0.7.1:
+    resolution: {integrity: sha512-TrEMa7JGdVm0UThDJSx7ddw5nVm3UJS9o9CCIZ72B1vSyEZoziDqBYP3XIoi/12lKrJR8rE3jeFHMok2F/Mnsg==}
     dev: true
 
   /rtl-css-js@1.16.1:
@@ -30951,7 +30951,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.0):
+  /vitest@0.34.6(@vitest/ui@0.34.3)(jsdom@24.1.1):
     resolution: {integrity: sha512-+5CALsOvbNKnS+ZHMXtuUC7nL8/7F1F2DnHGjSsszX8zCjWSSviphCb/NuS9Nzf4Q03KyyDRBAXhF/8lffME4Q==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -30996,7 +30996,7 @@ packages:
       cac: 6.7.14
       chai: 4.4.1
       debug: 4.3.4
-      jsdom: 24.1.0
+      jsdom: 24.1.1
       local-pkg: 0.4.3
       magic-string: 0.30.8
       pathe: 1.1.2
@@ -31018,7 +31018,7 @@ packages:
       - terser
     dev: true
 
-  /vitest@2.0.5(@types/node@20.11.9)(jsdom@24.1.0):
+  /vitest@2.0.5(@types/node@20.11.9)(jsdom@24.1.1):
     resolution: {integrity: sha512-8GUxONfauuIdeSl5f9GTgVEpg5BTOlplET4WEDaeY2QBiN8wSm68vxN/tb5z405OwppfoCavnwXafiaYBC/xOA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -31054,7 +31054,7 @@ packages:
       chai: 5.1.1
       debug: 4.3.5
       execa: 8.0.1
-      jsdom: 24.1.0
+      jsdom: 24.1.1
       magic-string: 0.30.11
       pathe: 1.1.2
       std-env: 3.7.0
@@ -32102,19 +32102,6 @@ packages:
       utf-8-validate:
         optional: true
 
-  /ws@8.17.0:
-    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: true
-
   /ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
     engines: {node: '>=10.0.0'}
@@ -32130,6 +32117,19 @@ packages:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
     dev: false
+
+  /ws@8.18.0:
+    resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: true
 
   /ws@8.5.0:
     resolution: {integrity: sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==}
@@ -32506,6 +32506,7 @@ time:
   /@wagmi/core@2.13.4: '2024-08-09T00:57:30.856Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
   /immer@10.0.3: '2023-10-02T06:36:31.915Z'
+  /jsdom@24.1.1: '2024-07-21T05:09:13.175Z'
   /postcss@8.4.41: '2024-08-05T23:08:39.503Z'
   /react-qrcode-logo@2.9.0: '2023-02-25T14:35:39.109Z'
   /tailwindcss@3.4.10: '2024-08-13T20:43:40.812Z'

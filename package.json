@@ -172,7 +172,7 @@
         "graphql-request": "^6.0.0",
         "html-webpack-plugin": "^5.5.3",
         "https-browserify": "^1.0.0",
-        "jsdom": "^24.1.0",
+        "jsdom": "^24.1.1",
         "patch-package": "^8.0.0",
         "prettier": "^3.2.5",
         "prettier-plugin-tailwindcss": "^0.6.1",
