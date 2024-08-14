@@ -1,4 +1,4 @@
-import { compact } from '@apollo/client/utilities';
+import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
