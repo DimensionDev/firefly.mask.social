@@ -6,7 +6,7 @@ import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
-import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -21,7 +21,7 @@ import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, parentPost, images, frames, openGraphs, postId, channel, poll } = compositePost;
+    const { chars, parentPost, images, video, frames, openGraphs, postId, channel, poll } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -34,10 +34,12 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const { currentProfile } = useFarcasterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[], polls?: Poll[]) => {
-        // TODO: support video
-        if (images.some((image) => !resolveImageUrl(Source.Farcaster, image))) {
-            throw new Error(t`Image upload failed. Please try again.`);
+    const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
+        if (
+            images.some((image) => !resolveImageUrl(Source.Farcaster, image)) ||
+            videos.some((video) => !resolveVideoUrl(Source.Farcaster, video))
+        ) {
+            throw new Error(t`There are images or videos that were not uploaded successfully.`);
         }
 
         const currentChannel = channel[Source.Farcaster];
@@ -65,6 +67,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...(polls ?? []).map((poll) => ({
                         url: getPollFrameUrl(poll.id, Source.Farcaster),
                     })),
+                    ...videos.map((media) => ({
+                        url: resolveVideoUrl(Source.Farcaster, media),
+                        mimeType: media.mimeType,
+                    })),
                 ],
                 (x) => x.url.toLowerCase(),
             ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),
@@ -87,27 +93,34 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 }),
             );
         },
+        uploadVideos: () => {
+            return Promise.all(
+                (video?.file ? [video] : []).map(async (media) => {
+                    return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
+                }),
+            );
+        },
         uploadPolls: async () => {
             if (!poll) return [];
             const pollStub = await FarcasterPollProvider.createPoll(poll, readChars(chars, 'both', Source.Farcaster));
             return [pollStub];
         },
-        compose: async (images, _, polls) => {
+        compose: async (images, videos, polls) => {
             await validateSignerKey();
-            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, polls));
+            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls));
         },
-        reply: async (images, _, polls) => {
+        reply: async (images, videos, polls) => {
             await validateSignerKey();
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             // for farcaster, post id is read from post.commentOn.postId
-            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, polls));
+            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, videos, polls));
         },
-        quote: async (images, _, polls) => {
+        quote: async (images, videos, polls) => {
             await validateSignerKey();
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             return FarcasterSocialMediaProvider.quotePost(
                 farcasterParentPost.postId,
-                composeDraft('Quote', images, polls),
+                composeDraft('Quote', images, videos, polls),
                 farcasterParentPost.author.profileId,
             );
         },
