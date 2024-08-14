@@ -1,4 +1,4 @@
-import { type Event,EventId, EventType } from '@/providers/types/Telemetry.js';
+import { type Event, EventId, EventType } from '@/providers/types/Telemetry.js';
 
 interface FarcasterEventParameters {
     source_firefly_account_id: string;
@@ -214,5 +214,5 @@ export interface Events extends Record<EventId, Event> {
 }
 
 export interface Safary {
-    track<T extends keyof Events>(event: T, parameters: Events[T]['parameters']): void;
+    track<T extends EventId>(name: T, parameters: Events[T]['parameters']): void;
 }
