@@ -88,7 +88,7 @@ export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose
         return (
             <MuteAllProfileBase
                 identity={identity}
-                handleOrEnsOrAddress={handle || ens || formatEthereumAddress(address, 4)}
+                handleOrEnsOrAddress={handle?.replace('@', '') || ens || formatEthereumAddress(address, 4)}
                 onClose={onClose}
             />
         );
