@@ -61,6 +61,7 @@ export function EditProfileDialog({
             form.setValue('displayName', profile.displayName);
             if (profile.bio) form.setValue('bio', profile.bio);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, profile.source]);
 
     const onSubmit = async (values: ProfileFormValues) => {
