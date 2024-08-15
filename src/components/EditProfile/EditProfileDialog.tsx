@@ -69,6 +69,7 @@ export function EditProfileDialog({
                 values.avatar instanceof FileList && values.avatar.length > 0 ? values.avatar[0] : undefined;
             const avatar = avatarFile ? await uploadProfileAvatar(profile.source, avatarFile) : profile.pfp;
             await updateProfile(profile.source, { ...values, avatar });
+            await queryClient.refetchQueries();
             queryClient.setQueryData(['profile', profile.source, resolveFireflyProfileId(profile)], (old: Profile) => {
                 return produce(old, (state: Profile) => {
                     state.displayName = values.displayName;
@@ -76,7 +77,6 @@ export function EditProfileDialog({
                     if (avatarFile) state.pfp = getFileURL(avatarFile);
                 });
             });
-            await queryClient.refetchQueries();
             onClose();
             enqueueSuccessMessage(t`Updated profile successfully`);
         } catch (error) {
