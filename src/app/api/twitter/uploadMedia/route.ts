@@ -30,13 +30,14 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const options = (
             formData.get('options') ? parseJSON(formData.get('options') as string) : null
         ) as Partial<UploadMediaV1Params> | null;
-        const parsedOptions = options ? UploadSchema.safeParse(options).data : {};
+        const parsedOptions = options ? UploadSchema.safeParse(options) : undefined;
         if (!file) throw new MalformedError('file not found');
+        if (parsedOptions && !parsedOptions.success) throw new Error(parsedOptions.error.message);
 
         const client = await createTwitterClientV2(request);
         const response = await client.v1.uploadMedia(Buffer.from(await file.arrayBuffer()), {
             mimeType: file.type,
-            ...parsedOptions,
+            ...(parsedOptions ? parsedOptions.data : {}),
         });
         return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
     },
