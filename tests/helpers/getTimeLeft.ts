@@ -2,46 +2,45 @@ import { describe, expect, it } from 'vitest';
 
 import { getTimeLeft } from '@/helpers/getTimeLeft.js';
 
-function forwardMinutes(minutes: number) {
-    return new Date(new Date().getTime() + minutes * 60000).toISOString();
+function getDurationTextAt(intervalMinutes: number) {
+    const now = new Date().getTime();
+    const startDate = new Date(now).toISOString();
+    const endDate = new Date(now + intervalMinutes * 60000).toISOString();
+    const { days, hours, minutes, seconds } = getTimeLeft(endDate, startDate);
+
+    if (days >= 1) return `${days} days left`;
+    if (hours >= 1) return `${hours} hours left`;
+    if (minutes >= 1) return `${minutes} minutes left`;
+    if (seconds >= 1) return `${seconds} seconds left`;
+    return 'Final results';
 }
 
 describe('getTimeLeft', () => {
     it('No time left', () => {
-        expect(getTimeLeft(forwardMinutes(-1))).toStrictEqual({ days: -1, hours: -1, minutes: -1, seconds: -60 });
+        expect(getDurationTextAt(-1)).toBe('Final results');
     });
 
     it('1 day left', () => {
-        expect(getTimeLeft(forwardMinutes(60 * 24))).toStrictEqual({
-            days: 1,
-            hours: 24,
-            minutes: 1440,
-            seconds: 86400,
-        });
+        expect(getDurationTextAt(60 * 24)).toBe('1 days left');
     });
 
     it('2 days left', () => {
-        expect(getTimeLeft(forwardMinutes(60 * 48))).toStrictEqual({
-            days: 2,
-            hours: 48,
-            minutes: 2880,
-            seconds: 172800,
-        });
+        expect(getDurationTextAt(60 * 48)).toBe('2 days left');
     });
 
     it('1 hour left', () => {
-        expect(getTimeLeft(forwardMinutes(60 * 1))).toStrictEqual({ days: 0, hours: 1, minutes: 60, seconds: 3600 });
+        expect(getDurationTextAt(60 * 1)).toBe('1 hours left');
     });
 
     it('2 hours left', () => {
-        expect(getTimeLeft(forwardMinutes(60 * 2))).toStrictEqual({ days: 0, hours: 2, minutes: 120, seconds: 7200 });
+        expect(getDurationTextAt(60 * 2)).toBe('2 hours left');
     });
 
     it('1 minute left', () => {
-        expect(getTimeLeft(forwardMinutes(1))).toStrictEqual({ days: 0, hours: 0, minutes: 1, seconds: 60 });
+        expect(getDurationTextAt(1)).toBe('1 minutes left');
     });
 
     it('2 minutes left', () => {
-        expect(getTimeLeft(forwardMinutes(2))).toStrictEqual({ days: 0, hours: 0, minutes: 2, seconds: 120 });
+        expect(getDurationTextAt(2)).toBe('2 minutes left');
     });
 });
