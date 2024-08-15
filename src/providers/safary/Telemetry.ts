@@ -1,5 +1,6 @@
 import { ChainId } from '@masknet/web3-shared-solana';
 import { getClient } from '@wagmi/core';
+import { v4 as uuid } from 'uuid';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, STATUS } from '@/constants/enum.js';
@@ -20,6 +21,8 @@ function formatParameter(key: string, value: unknown): [string, unknown] {
 }
 
 class SafaryTelemetry extends Provider<Events, never> {
+    private latestEventId: string | null = null;
+
     private get sdk() {
         if (typeof bom.window?.safary === 'undefined') return null;
         return bom.window.safary as Safary;
@@ -28,8 +31,10 @@ class SafaryTelemetry extends Provider<Events, never> {
     getPublicParameters() {
         const evmClient = getClient(config);
         const solanaAdaptor = resolveWalletAdapter();
-
         return {
+            public_uuid: uuid(),
+            public_previous_uuid: this.latestEventId,
+
             public_ua: bom.navigator?.userAgent,
             public_href: bom.location?.href,
 
@@ -63,6 +68,9 @@ class SafaryTelemetry extends Provider<Events, never> {
             const formattedParameters = Object.fromEntries(
                 Object.entries(parameters).map(([key, value]) => formatParameter(key, value)),
             );
+
+            // update the latest event id
+            this.latestEventId = publicParameters.public_uuid;
 
             await this.sdk.track({
                 eventType: name,
