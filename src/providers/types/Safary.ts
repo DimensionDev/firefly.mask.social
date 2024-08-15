@@ -214,5 +214,9 @@ export interface Events extends Record<EventId, Event> {
 }
 
 export interface Safary {
-    track<T extends EventId>(name: T, parameters: Events[T]['parameters']): void;
+    track<T extends EventId>(event: {
+        eventType: T;
+        eventName: string;
+        parameters: Events[T]['parameters'];
+    }): Promise<void>;
 }
