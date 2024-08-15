@@ -21,5 +21,5 @@ export function isLinkMatchingHost(link: string, host: string, strict = true) {
  * @returns {boolean} - True if the link is a self-reference; otherwise, false.
  */
 export function isSelfReference(link: string) {
-    return bom.location ? isLinkMatchingHost(link, location.host) : false;
+    return bom.location ? isLinkMatchingHost(link, bom.location.host) : false;
 }

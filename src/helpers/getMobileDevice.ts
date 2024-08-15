@@ -6,7 +6,7 @@ import { bom } from '@/helpers/bom.js';
 export function getMobileDevice() {
     if (!bom.window || !bom.navigator) return 'unknown';
 
-    const userAgent = navigator.userAgent || navigator.vendor || bom.window.opera;
+    const userAgent = bom.navigator.userAgent || bom.navigator.vendor || bom.window.opera;
 
     // Windows Phone must come first because its UA also contains "Android"
     if (/windows phone/i.test(userAgent)) {
