@@ -1,6 +1,6 @@
-import { v4 as uuid } from 'uuid';
 import { ChainId } from '@masknet/web3-shared-solana';
 import { getClient } from '@wagmi/core';
+import { v4 as uuid } from 'uuid';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, STATUS } from '@/constants/enum.js';
