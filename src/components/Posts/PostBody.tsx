@@ -152,7 +152,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <NakedMarkup
                     post={post}
                     className={classNames(
-                        'linkify line-clamp-5 w-full self-stretch break-words text-[15px] opacity-75 text-left',
+                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-[15px] opacity-75',
                         {
                             'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
