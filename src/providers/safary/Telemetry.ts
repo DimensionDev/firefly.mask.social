@@ -31,7 +31,6 @@ class SafaryTelemetry extends Provider<Events, never> {
 
         return {
             public_ua: bom.navigator?.userAgent,
-            public_use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
             public_href: bom.location?.href,
 
             public_evm_address: evmClient?.account?.address,
@@ -39,8 +38,8 @@ class SafaryTelemetry extends Provider<Events, never> {
             public_solana_chain_id: ChainId.Mainnet,
             public_solana_address: solanaAdaptor.publicKey?.toBase58(),
 
-            // the current logined ffid
             public_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
+            public_use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
         };
     }
 
