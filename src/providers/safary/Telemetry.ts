@@ -67,7 +67,7 @@ class SafaryTelemetry extends Provider<Events, never> {
 
             await this.sdk.track({
                 eventType: name,
-                eventName: name,
+                eventName: name.replaceAll(/_/g, ' '),
                 parameters: {
                     ...publicParameters,
                     ...formattedParameters,
