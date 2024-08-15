@@ -2,6 +2,7 @@ import { getEnumAsArray } from '@masknet/kit';
 import { cookies } from 'next/headers.js';
 
 import { Locale } from '@/constants/enum.js';
+import { bom } from '@/helpers/bom.js';
 import { getCookie } from '@/helpers/getCookie.js';
 import { defaultLocale } from '@/i18n/index.js';
 
@@ -10,6 +11,6 @@ function resolveLocale(locale: string): Locale {
 }
 
 export function getLocaleFromCookies() {
-    const locale = typeof document === 'undefined' ? cookies().get('locale')?.value : getCookie('locale');
+    const locale = bom.document ? getCookie('locale') : cookies().get('locale')?.value;
     return locale ? resolveLocale(locale) : defaultLocale;
 }
