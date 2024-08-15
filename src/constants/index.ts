@@ -220,3 +220,27 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
+
+export const MAX_PROFILE_BIO_SIZE = {
+    [Source.Farcaster]: 160,
+    [Source.Lens]: 320,
+    [Source.Twitter]: 160,
+};
+
+export const MAX_PROFILE_DISPLAY_NAME_SIZE = {
+    [Source.Farcaster]: 32,
+    [Source.Lens]: 100,
+    [Source.Twitter]: 50,
+};
+
+export const MAX_PROFILE_LOCATION_SIZE = {
+    [Source.Farcaster]: 0,
+    [Source.Lens]: 100,
+    [Source.Twitter]: 30,
+};
+
+export const MAX_PROFILE_WEBSITE_SIZE = {
+    [Source.Farcaster]: 0,
+    [Source.Lens]: 100,
+    [Source.Twitter]: 100,
+};

@@ -28,7 +28,7 @@ export function ProfileAction({ profile, ProfileMoreActionProps }: ProfileAction
     const isEditableProfile = isSameProfile(myProfile, profile);
 
     const button = useMemo(() => {
-        if (isEditableProfile) return <EditProfileButton />;
+        if (isEditableProfile) return <EditProfileButton profile={profile} />;
         return !isRelatedProfile ? <FollowButton profile={profile} /> : <ProfileLoginStatus profile={profile} />;
     }, [isEditableProfile, isRelatedProfile, profile]);
 

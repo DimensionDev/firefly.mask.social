@@ -34,6 +34,7 @@ import {
     type CastResponse,
     type CastsResponse,
     type FeedResponse,
+    type FindLocationResponse,
     type LikesResponse,
     type NotificationResponse,
     type ReactionResponse,
@@ -735,6 +736,18 @@ class WarpcastSocialMedia implements Provider {
             }),
         });
         return true;
+    }
+
+    async findLocation(query: string) {
+        const { result } = await farcasterSessionHolder.fetch<FindLocationResponse>(
+            urlcat(WARPCAST_CLIENT_URL, 'find-location', {
+                q: query,
+            }),
+            {
+                method: 'GET',
+            },
+        );
+        return result.predictions;
     }
 }
 

@@ -279,6 +279,9 @@ importers:
       react-dom:
         specifier: 0.0.0-experimental-8039e6d0b-20231026
         version: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
+      react-hook-form:
+        specifier: 7.52.2
+        version: 7.52.2(react@0.0.0-experimental-8039e6d0b-20231026)
       react-i18next:
         specifier: 13.0.2
         version: 13.0.2(i18next@23.2.11)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -26683,6 +26686,18 @@ packages:
   /react-hook-form@7.45.2(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-9s45OdTaKN+4NSTbXVqeDITd/nwIg++nxJGL8+OD5uf1DxvhsXQ641kaYHk5K28cpIOTYm71O/fYk7rFaygb3A==}
     engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026
+    dev: false
+
+  /react-hook-form@7.52.2(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-pqfPEbERnxxiNMPd0bzmt1tuaPcVccywFDpyk2uV5xCIBphHV5T8SVnX9/o3kplPE1zzKt77+YIoq+EMwJp56A==}
+    engines: {node: '>=18.0.0'}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
     peerDependenciesMeta:

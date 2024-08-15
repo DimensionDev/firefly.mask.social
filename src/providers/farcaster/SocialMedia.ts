@@ -362,6 +362,9 @@ class FarcasterSocialMedia implements Provider {
     async updateProfile(params: UpdateProfileParams): Promise<boolean> {
         return WarpcastSocialMediaProvider.updateProfile(params);
     }
+    async findLocation(query: string) {
+        return WarpcastSocialMediaProvider.findLocation(query);
+    }
 }
 
 export const FarcasterSocialMediaProvider = new FarcasterSocialMedia();
