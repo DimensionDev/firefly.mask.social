@@ -10,6 +10,7 @@ import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js
 import type { Events, Safary } from '@/providers/types/Safary.js';
 import { Provider } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
@@ -37,6 +38,8 @@ class SafaryTelemetry extends Provider<Events, never> {
             evm_chain_id: evmClient?.chain.id,
             solana_chain_id: ChainId.Mainnet,
             solana_address: solanaAdaptor.publicKey?.toBase58(),
+            // the current logined ffid
+            account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
         };
     }
 
