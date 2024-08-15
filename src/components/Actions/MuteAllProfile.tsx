@@ -45,7 +45,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
         try {
             onClose?.();
-            const confirmed = await waitForConfirmation(`@${handleOrEnsOrAddress}`);
+            const confirmed = await waitForConfirmation(handleOrEnsOrAddress);
             if (!confirmed) return;
             await FireflySocialMediaProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
