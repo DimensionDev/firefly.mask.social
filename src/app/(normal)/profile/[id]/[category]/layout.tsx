@@ -60,7 +60,9 @@ export default function DetailLayout({ children, params }: Props) {
 
     return (
         <>
-            {profile ? <Title profile={profile} sticky /> : null}
+            {profile ? (
+                <Title profile={profile} sticky keepVisible disableActions className="border-b border-line" />
+            ) : null}
             <nav className="border-b border-line bg-primaryBottom px-4">
                 <ul className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
                     {tabs.map((tab) => {
