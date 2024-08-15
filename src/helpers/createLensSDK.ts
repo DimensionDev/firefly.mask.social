@@ -1,21 +1,19 @@
 import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
 
-import { getWindowSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 import type { LensSession } from '@/providers/lens/Session.js';
-
-const ls = getWindowSafe()?.localStorage;
 
 export class LocalStorageProvider implements IStorageProvider {
     getItem(key: string) {
-        return ls?.getItem(key) ?? null;
+        return bom.localStorage?.getItem(key) ?? null;
     }
 
     setItem(key: string, value: string) {
-        ls?.setItem(key, value);
+        bom.localStorage?.setItem(key, value);
     }
 
     removeItem(key: string) {
-        ls?.removeItem(key);
+        bom.localStorage?.removeItem(key);
     }
 }
 

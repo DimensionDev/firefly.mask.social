@@ -1,8 +1,8 @@
-import { getNavigatorSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 import { hydrateLeafwatchViewerId } from '@/store/useLeafwatchPersistStore.js';
 
 export function addPostViews(id: string) {
-    const controller = getNavigatorSafe()?.serviceWorker.controller;
+    const controller = bom.navigator?.serviceWorker.controller;
     const viewerId = hydrateLeafwatchViewerId();
 
     if (id && controller) {

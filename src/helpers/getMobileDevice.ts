@@ -1,16 +1,12 @@
-import { getNavigatorSafe, getWindowSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 
 /**
  * Determine the mobile operating system.
  */
 export function getMobileDevice() {
-    const win = getWindowSafe();
-    if (!win) return 'unknown';
+    if (!bom.window || !bom.navigator) return 'unknown';
 
-    const navigator = getNavigatorSafe();
-    if (!navigator) return 'unknown';
-
-    const userAgent = navigator.userAgent || navigator.vendor || win.opera;
+    const userAgent = navigator.userAgent || navigator.vendor || bom.window.opera;
 
     // Windows Phone must come first because its UA also contains "Android"
     if (/windows phone/i.test(userAgent)) {
@@ -22,7 +18,7 @@ export function getMobileDevice() {
     }
 
     // iOS detection from: http://stackoverflow.com/a/9039885/177710
-    if (/iPad|iPhone|iPod/.test(userAgent) && !win.MSStream) {
+    if (/iPad|iPhone|iPod/.test(userAgent) && !bom.window.MSStream) {
         return 'iOS';
     }
 

@@ -1,11 +1,11 @@
 import { find } from 'lodash-es';
 
-import { getNavigatorSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { Language } from '@/services/translate.js';
 
 export const getBrowserLanguage = () => {
-    const browserLanguage = getNavigatorSafe()?.language ?? '';
+    const browserLanguage = bom.navigator?.language ?? '';
     const browserLanguageLowerCase = browserLanguage.toLowerCase();
     // corner case: zh-cn to Chinese_Simplified
     if (browserLanguageLowerCase === 'zh-cn') return Language.Chinese_Simplified;

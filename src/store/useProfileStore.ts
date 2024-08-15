@@ -7,7 +7,7 @@ import { AsyncStoreStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
-import { getWindowSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -189,7 +189,7 @@ const useFarcasterStateBase = createState(
     {
         name: 'farcaster-state',
         onRehydrateStorage: () => async (state) => {
-            if (!getWindowSafe() || !state) return;
+            if (!bom.window || !state) return;
 
             state.upgrade();
 
@@ -208,7 +208,7 @@ const useLensStateBase = createState(
     {
         name: 'lens-state',
         onRehydrateStorage: () => async (state) => {
-            if (!getWindowSafe() || !state) return;
+            if (!bom.window || !state) return;
 
             state.upgrade();
 
@@ -241,7 +241,7 @@ const useTwitterStateBase = createState(
     {
         name: 'twitter-state',
         onRehydrateStorage: () => async (state) => {
-            if (!getWindowSafe() || !state) return;
+            if (!bom.window || !state) return;
 
             state.upgrade();
 
@@ -306,7 +306,7 @@ const useFireflyStateBase = createState(
     {
         name: 'firefly-state',
         onRehydrateStorage: () => async (state) => {
-            if (!getWindowSafe() || !state) return;
+            if (!bom.window || !state) return;
 
             try {
                 const session = state.currentProfileSession || (await restoreFireflySessionAll());

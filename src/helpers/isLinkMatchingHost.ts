@@ -1,4 +1,4 @@
-import { getLocationSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 import { parseURL } from '@/helpers/parseURL.js';
 
 /**
@@ -21,5 +21,5 @@ export function isLinkMatchingHost(link: string, host: string, strict = true) {
  * @returns {boolean} - True if the link is a self-reference; otherwise, false.
  */
 export function isSelfReference(link: string) {
-    return getLocationSafe() ? isLinkMatchingHost(link, location.host) : false;
+    return bom.location ? isLinkMatchingHost(link, location.host) : false;
 }

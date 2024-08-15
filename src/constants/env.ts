@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
-import { getWindowSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 
 const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
@@ -84,9 +84,9 @@ export const env = {
         VERSION: process.env.npm_package_version || process.version,
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
-    internal: (!getWindowSafe() || process.env.VITEST
-        ? InternalEnvSchema.parse(process.env)
-        : {}) as z.infer<typeof InternalEnvSchema>,
+    internal: (!bom.window || process.env.VITEST ? InternalEnvSchema.parse(process.env) : {}) as z.infer<
+        typeof InternalEnvSchema
+    >,
     external: ExternalEnvSchema.parse({
         NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
 

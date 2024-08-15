@@ -1,9 +1,9 @@
 'use client';
 
-import { getNavigatorSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 
-const ua = getNavigatorSafe()?.userAgent
+const ua = bom.navigator?.userAgent;
 
 export const IS_SAFARI = !!(ua?.toLowerCase().includes('safari') && !ua?.toLowerCase().includes('chrome'));
 export const IS_APPLE = !!ua?.toLowerCase().includes('apple');

@@ -1,16 +1,21 @@
-export function getWindowSafe() {
-    if (typeof window === 'undefined') return null;
-    return window;
-}
+export const bom = {
+    get window() {
+        return typeof window === 'undefined' ? null : window;
+    },
 
-export function getDocumentSafe() {
-    return getWindowSafe()?.document ?? null;
-}
+    get document() {
+        return this.window?.document ?? null;
+    },
 
-export function getLocationSafe() {
-    return getWindowSafe()?.location ?? null;
-}
+    get location() {
+        return this.window?.location ?? null;
+    },
 
-export function getNavigatorSafe() {
-    return getWindowSafe()?.navigator ?? null;
-}
+    get navigator() {
+        return this.window?.navigator ?? null;
+    },
+
+    get localStorage() {
+        return this.window?.localStorage ?? null;
+    },
+};
