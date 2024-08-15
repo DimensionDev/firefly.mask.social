@@ -23,5 +23,3 @@ const useLeafwatchPersistBase = create(
 );
 
 export const useLeafwatchPersistStore = createSelectors(useLeafwatchPersistBase);
-
-export const hydrateLeafwatchViewerId = () => useLeafwatchPersistBase.getState().hydrateLeafwatchViewerId();

@@ -1,8 +1,9 @@
 import { Source } from '@/constants/enum.js';
+import { bom } from '@/helpers/bom.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 export function getCurrentSourceFromUrl() {
-    if (typeof document === 'undefined') return Source.Farcaster;
+    if (!bom.document) return Source.Farcaster;
     const searchParams = new URLSearchParams(location.search);
     const source = searchParams.get('source');
     if (!source) return Source.Farcaster;
