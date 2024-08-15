@@ -17,7 +17,7 @@ class SafaryTelemetry extends Provider<Events, never> {
         return window.safary as Safary;
     }
 
-    override async captureEvent<T extends keyof Events>(name: T, parameters: Events[T]): Promise<void> {
+    override async captureEvent<T extends keyof Events>(name: T, parameters: Events[T]['parameters']): Promise<void> {
         if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
             return;
         }

@@ -63,6 +63,6 @@ export abstract class Provider<
     Events extends Record<EventId, Event>,
     Exceptions extends Record<ExceptionId, Exception>,
 > {
-    abstract captureEvent<T extends EventId>(name: EventId, parameters: Events[T]): Promise<void>;
-    abstract captureException<T extends ExceptionId>(name: ExceptionId, parameters: Exceptions[T]): Promise<void>;
+    abstract captureEvent<T extends EventId>(name: EventId, parameters: Events[T]['parameters']): Promise<void>;
+    abstract captureException<T extends ExceptionId>(name: ExceptionId, error: Exceptions[T]['error']): Promise<void>;
 }
