@@ -1,5 +1,5 @@
-export function getTimeLeft(endDatetime: string) {
-    const now = new Date().getTime();
+export function getTimeLeft(endDatetime: string, startDatetime = new Date().toISOString()) {
+    const now = new Date(startDatetime).getTime();
     const timeLeft = new Date(endDatetime).getTime() - now;
 
     return {
