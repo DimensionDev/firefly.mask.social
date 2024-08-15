@@ -126,6 +126,9 @@ msgstr ""
 msgid "Send tips to @{0}"
 msgstr ""
 
+msgid "Display Name"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr ""
 
@@ -202,6 +205,9 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
+msgstr ""
+
+msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
 msgid "OpenGraph"
@@ -573,6 +579,9 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
+msgid "Bio"
+msgstr ""
+
 msgid "[Photo]"
 msgstr ""
 
@@ -936,6 +945,9 @@ msgstr ""
 msgid "Login with Farcaster"
 msgstr ""
 
+msgid "Bio should not exceed {maxBioSize} characters"
+msgstr ""
+
 msgid "1m"
 msgstr ""
 
@@ -970,6 +982,9 @@ msgid "Please confirm the login with Warpcast."
 msgstr ""
 
 msgid "Log in with recovery phrase"
+msgstr ""
+
+msgid "Edit Profile"
 msgstr ""
 
 msgid "Confirm you want to mute @{0}?"
@@ -1012,6 +1027,9 @@ msgid "Failed to recast."
 msgstr ""
 
 msgid "No post found"
+msgstr ""
+
+msgid "Display Name should not be blank"
 msgstr ""
 
 msgid "Clear All"
@@ -1090,6 +1108,9 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "New connection with Warpcast"
+msgstr ""
+
+msgid "Updated profile successfully"
 msgstr ""
 
 msgid "Token ${symbol} could not be found."
@@ -1329,6 +1350,9 @@ msgstr ""
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "Failed to update profile."
+msgstr ""
+
 msgid "Connected in Firefly"
 msgstr ""
 
@@ -1414,6 +1438,9 @@ msgid "Muted contents"
 msgstr ""
 
 msgid "Unable to retrieve post details."
+msgstr ""
+
+msgid "Update photo"
 msgstr ""
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
@@ -1647,6 +1674,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Invalid website format"
+msgstr ""
+
 msgid "Switching..."
 msgstr ""
 
@@ -1770,6 +1800,9 @@ msgstr ""
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
+msgid "Display Name should not exceed {maxDisplayNameSize} characters"
+msgstr ""
+
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
@@ -1888,6 +1921,9 @@ msgid "Sorry, there is no wallet address available for tipping."
 msgstr ""
 
 msgid "No matching users"
+msgstr ""
+
+msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr ""
 
 msgid "Save"

@@ -121,6 +121,9 @@ msgstr "The post you quoted/replied has already deleted"
 msgid "Send tips to @{0}"
 msgstr "Send tips to @{0}"
 
+msgid "Display Name"
+msgstr "Display Name"
+
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -198,6 +201,9 @@ msgstr "Change Wallet"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
+
+msgid "Location should not exceed {maxLocationSize} characters"
+msgstr "Location should not exceed {maxLocationSize} characters"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -568,6 +574,9 @@ msgstr "Failed to mute /{0}."
 msgid "Address"
 msgstr "Address"
 
+msgid "Bio"
+msgstr "Bio"
+
 msgid "[Photo]"
 msgstr "[Photo]"
 
@@ -931,6 +940,9 @@ msgstr "Your post has published successfully."
 msgid "Login with Farcaster"
 msgstr "Login with Farcaster"
 
+msgid "Bio should not exceed {maxBioSize} characters"
+msgstr "Bio should not exceed {maxBioSize} characters"
+
 msgid "1m"
 msgstr "1m"
 
@@ -966,6 +978,9 @@ msgstr "Please confirm the login with Warpcast."
 
 msgid "Log in with recovery phrase"
 msgstr "Log in with recovery phrase"
+
+msgid "Edit Profile"
+msgstr "Edit Profile"
 
 msgid "Confirm you want to mute @{0}?"
 msgstr "Confirm you want to mute @{0}?"
@@ -1008,6 +1023,9 @@ msgstr "Failed to recast."
 
 msgid "No post found"
 msgstr "No post found"
+
+msgid "Display Name should not be blank"
+msgstr "Display Name should not be blank"
 
 msgid "Clear All"
 msgstr "Clear All"
@@ -1086,6 +1104,9 @@ msgstr "Post has been encrypted"
 
 msgid "New connection with Warpcast"
 msgstr "New connection with Warpcast"
+
+msgid "Updated profile successfully"
+msgstr "Updated profile successfully"
 
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
@@ -1324,6 +1345,9 @@ msgstr "Not my wallet address."
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
+msgid "Failed to update profile."
+msgstr "Failed to update profile."
+
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
 
@@ -1410,6 +1434,9 @@ msgstr "Muted contents"
 
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
+
+msgid "Update photo"
+msgstr "Update photo"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
@@ -1642,6 +1669,9 @@ msgstr "Channels"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "Invalid website format"
+msgstr "Invalid website format"
+
 msgid "Switching..."
 msgstr "Switching..."
 
@@ -1765,6 +1795,9 @@ msgstr "If a suspendable code is included, the token maybe neither be bought nor
 msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr "We're updating our connection with X. Posting on X will be limited for now."
 
+msgid "Display Name should not exceed {maxDisplayNameSize} characters"
+msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
+
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 
@@ -1884,6 +1917,9 @@ msgstr "Sorry, there is no wallet address available for tipping."
 
 msgid "No matching users"
 msgstr "No matching users"
+
+msgid "Website should not exceed {maxWebsiteSize} characters"
+msgstr "Website should not exceed {maxWebsiteSize} characters"
 
 msgid "Save"
 msgstr "Save"
