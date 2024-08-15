@@ -23,12 +23,12 @@ class SafaryTelemetry extends Provider<Events, never> {
         }
 
         if (env.shared.NODE_ENV === NODE_ENV.Development) {
-            console.info(`[safary] capture event: ${name}`, parameters);
+            console.info('[safary] capture event:', name, parameters);
             return;
         }
 
         if (!this.sdk) {
-            console.error('[safary] Safary SDK not available. Failed to capture event:', name, parameters);
+            console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
             return;
         }
 
@@ -41,7 +41,7 @@ class SafaryTelemetry extends Provider<Events, never> {
                 ) as Events[T]['parameters'],
             });
         } catch (error) {
-            console.error(`[safary] failed to capture event: ${name}`, parameters);
+            console.error('[safary] failed to capture event:', name, parameters);
             throw error;
         }
     }
