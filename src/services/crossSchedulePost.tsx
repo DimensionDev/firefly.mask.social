@@ -17,8 +17,8 @@ import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { commitPoll } from '@/services/commitPoll.js';
 import { uploadSessions } from '@/services/metrics.js';
+import { commitPoll } from '@/services/poll.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 

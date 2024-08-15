@@ -1,4 +1,4 @@
-import type { Frame, Index } from '@/types/frame.js';
+import type { Index } from '@/types/frame.js';
 
 export interface Additional {
     // for initial frame should not provide state
@@ -10,7 +10,7 @@ export interface Additional {
 export interface Provider<Signature> {
     generateSignaturePacket(
         postId: string,
-        frame: Frame,
+        frameUrl: string,
         index: Index,
         input?: string,
         additional?: Additional,

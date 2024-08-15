@@ -5,12 +5,12 @@ import { toBytes } from 'viem';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import type { Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Hubble.js';
-import type { Frame, Index } from '@/types/frame.js';
+import type { Index } from '@/types/frame.js';
 
 class FrameProvider implements Provider<FrameSignaturePacket> {
     async generateSignaturePacket(
         postId: string,
-        frame: Frame,
+        frameUrl: string,
         index: Index,
         input?: string,
         additional?: {
@@ -24,7 +24,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
             (fid) => ({
                 type: MessageType.FRAME_ACTION,
                 frameActionBody: {
-                    url: toBytes(frame.url),
+                    url: toBytes(frameUrl),
                     buttonIndex: index,
                     castId: {
                         fid,
@@ -52,7 +52,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
             untrustedData: omitBy(
                 {
                     fid: messageData.fid,
-                    url: frame.url,
+                    url: frameUrl,
                     messageHash: messageDataHash,
                     timestamp: messageData.timestamp,
                     network: messageData.network,

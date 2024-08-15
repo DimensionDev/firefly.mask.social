@@ -21,7 +21,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { commitPoll } from '@/services/commitPoll.js';
+import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
