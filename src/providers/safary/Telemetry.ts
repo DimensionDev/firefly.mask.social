@@ -30,17 +30,17 @@ class SafaryTelemetry extends Provider<Events, never> {
         const solanaAdaptor = resolveWalletAdapter();
 
         return {
-            ua: bom.navigator?.userAgent,
-            use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
-            href: bom.location?.href,
+            public_ua: bom.navigator?.userAgent,
+            public_use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
+            public_href: bom.location?.href,
 
-            evm_address: evmClient?.account?.address,
-            evm_chain_id: evmClient?.chain.id,
-            solana_chain_id: ChainId.Mainnet,
-            solana_address: solanaAdaptor.publicKey?.toBase58(),
+            public_evm_address: evmClient?.account?.address,
+            public_evm_chain_id: evmClient?.chain.id,
+            public_solana_chain_id: ChainId.Mainnet,
+            public_solana_address: solanaAdaptor.publicKey?.toBase58(),
 
             // the current logined ffid
-            account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
+            public_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
         };
     }
 
