@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
+import { getWindowSafe } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -12,7 +13,8 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
 
     override fetch<T>(url: string, options?: RequestInit, required = false) {
         if (required && !this.internalSession?.payload) throw new Error('Twitter session is required');
-        const input = typeof window === 'undefined' ? urlcat(SITE_URL, url) : url;
+
+        const input = getWindowSafe() ? url : urlcat(SITE_URL, url);
 
         return this.internalSession?.payload
             ? fetchJSON<T>(
