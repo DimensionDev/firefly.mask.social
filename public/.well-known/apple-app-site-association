@@ -10,8 +10,10 @@
                 "paths": [
                     "/post/*",
                     "/profile/*",
-                    "/*",
-                    "/login/desktop/*"
+                    "/nft/*",
+                    "/article/*",
+                    "/login/desktop/*",
+                    "/*"
                 ],
                 "components": [
                     {
@@ -30,6 +32,14 @@
                     {
                         "/": "/login/desktop/*",
                         "comment": "Matches any URL with a path that starts with /login/desktop/."
+                    },
+                    {
+                        "/": "/nft/*",
+                        "comment": "Matches any URL with a path that starts with /nft/."
+                    },
+                    {
+                        "/": "/article/*",
+                        "comment": "Matches any URL with a path that starts with /article/."
                     }
                 ]
             }

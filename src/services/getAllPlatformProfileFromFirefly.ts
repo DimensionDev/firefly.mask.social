@@ -14,7 +14,12 @@ const QUERY_KEY_MAP: { [key in Source]?: string } = {
 
 export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity) {
     const queryKey = QUERY_KEY_MAP[identity.source] ?? '';
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', queryKey ? { [`${queryKey}`]: identity } : {});
+
+    const url = urlcat(
+        settings.FIREFLY_ROOT_URL,
+        '/v2/wallet/profile',
+        queryKey ? { [`${queryKey}`]: identity.id } : {},
+    );
 
     return fireflySessionHolder.fetch<WalletProfileResponse>(url, {
         method: 'GET',

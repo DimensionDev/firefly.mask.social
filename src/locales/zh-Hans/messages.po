@@ -18,6 +18,9 @@ msgstr ""
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
+msgid "{days, plural, one {1 day left} other {{days} days left}}"
+msgstr ""
+
 msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想尝试重新发送或者仅发送剩余部分吗？"
 
@@ -47,6 +50,9 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？
 
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
+
+msgid "Failed to upload. File type is not supported on X."
+msgstr ""
 
 msgid "Report @{0}"
 msgstr "报告 @{0}"
@@ -291,9 +297,6 @@ msgstr "<0>发送了</0> 一个 NFT"
 msgid "Report post"
 msgstr "举报帖子"
 
-msgid "{0} left"
-msgstr "{0} 剩余"
-
 msgid "Skip"
 msgstr "跳过"
 
@@ -302,6 +305,9 @@ msgstr "已复制"
 
 msgid "Name"
 msgstr "名称"
+
+msgid "Failed to vote."
+msgstr ""
 
 msgid "Your posts have published successfully."
 msgstr "发布成功。"
@@ -359,9 +365,6 @@ msgstr "切换到开发环境接口。"
 
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr "{0, plural, one {引用} other {引用}}"
-
-msgid "{days, plural, one {1 day} other {{days} days}}"
-msgstr "{days, plural, one {1 天} other {{days} 天}}"
 
 msgid "Blockchain"
 msgstr "区块链"
@@ -474,6 +477,9 @@ msgstr "转帖"
 msgid "There are images or videos that were not uploaded successfully."
 msgstr "图片或者视频上传失败。"
 
+msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
+msgstr ""
+
 msgid "No Airdrop Scam"
 msgstr "没有空投骗局"
 
@@ -488,9 +494,6 @@ msgstr "条目"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
-
-msgid "Less than a minute left"
-msgstr "剩不到一分钟"
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
@@ -509,6 +512,9 @@ msgstr "信息"
 
 msgid "Failed to bookmark article."
 msgstr "收藏文章失败。"
+
+msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
+msgstr ""
 
 msgid "Max"
 msgstr "最大"
@@ -644,9 +650,6 @@ msgstr "登录到 Firefly"
 
 msgid "Top Channels"
 msgstr "热门频道"
-
-msgid "Failed to upload. File type is not supported on X"
-msgstr "图片格式 X 不支持。上传失败。"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
@@ -1377,9 +1380,6 @@ msgstr "删除"
 msgid "May the token is a honeypot."
 msgstr "也许这个通证是一个陷阱"
 
-msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
-msgstr "{minutes, plural, one {1 分钟} other {{minutes} 分钟}}"
-
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账号的内容"
 
@@ -1427,6 +1427,9 @@ msgstr "这看起来不像是一个陷阱。"
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
+
+msgid "Voted successfully."
+msgstr ""
 
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0}"
@@ -1686,9 +1689,6 @@ msgstr "分享到"
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
 
-msgid "Image upload failed. Please try again."
-msgstr "图片上传失败。请重试。"
-
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {查看} other {查看}}"
 
@@ -1881,9 +1881,6 @@ msgstr ""
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
 
-msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
-msgstr "{hours, plural, one {1 小时} other {{hours} 小时}}"
-
 msgid "Malformed twitter session payload."
 msgstr "错误的 twitter 会话。"
 
@@ -1949,6 +1946,9 @@ msgstr "转帖"
 
 msgid "Video"
 msgstr "视频"
+
+msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
+msgstr ""
 
 msgid "Language"
 msgstr "语言"

@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import type { TweetV2UserTimelineParams, UserV2TimelineParams } from 'twitter-api-v2';
+import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
 
 import {
     EngagementType,
@@ -21,7 +21,7 @@ export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
 export const SITE_NAME = 'Firefly: App for Web3 Natives';
-export const SITE_DESCRIPTION = 'Firefly is a social app for exploring what’s happening onchain.';
+export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
@@ -84,6 +84,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
+export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 
@@ -214,8 +215,8 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     'poll.fields': ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status'],
 };
 
-export const TWITTER_MUTE_LIST_OPTIONS: UserV2TimelineParams = {
-    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics'],
+export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
+    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics', 'connection_status'],
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';

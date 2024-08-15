@@ -5,8 +5,7 @@ import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
-import { Source } from '@/constants/enum.js';
-import { ALLOWED_MEDIA_MIMES, FILE_MAX_SIZE, VIDEO_MAX_SIZE } from '@/constants/index.js';
+import { ALLOWED_MEDIA_MIMES, FILE_MAX_SIZE, SUPPORTED_VIDEO_SOURCES, VIDEO_MAX_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -70,7 +69,8 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
-    const disabledVideo = !!video || availableSources.includes(Source.Farcaster) || images.length > 0;
+    const disabledVideo =
+        !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
 
     return (
         <Transition

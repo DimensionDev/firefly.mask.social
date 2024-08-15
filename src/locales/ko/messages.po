@@ -18,6 +18,9 @@ msgstr ""
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
+msgid "{days, plural, one {1 day left} other {{days} days left}}"
+msgstr ""
+
 msgid "Do you want to retry with the full or remaining content?"
 msgstr ""
 
@@ -46,6 +49,9 @@ msgid "Confirm to disconnect this wallet and related accounts from Firefly’s s
 msgstr ""
 
 msgid "New connect with Warpcast"
+msgstr ""
+
+msgid "Failed to upload. File type is not supported on X."
 msgstr ""
 
 msgid "Report @{0}"
@@ -291,9 +297,6 @@ msgstr ""
 msgid "Report post"
 msgstr ""
 
-msgid "{0} left"
-msgstr ""
-
 msgid "Skip"
 msgstr ""
 
@@ -301,6 +304,9 @@ msgid "Copied"
 msgstr ""
 
 msgid "Name"
+msgstr ""
+
+msgid "Failed to vote."
 msgstr ""
 
 msgid "Your posts have published successfully."
@@ -358,9 +364,6 @@ msgid "Switch to the development API version for testing new features."
 msgstr ""
 
 msgid "{0, plural, one {quote} other {quotes}}"
-msgstr ""
-
-msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr ""
 
 msgid "Blockchain"
@@ -474,6 +477,9 @@ msgstr ""
 msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
+msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
+msgstr ""
+
 msgid "No Airdrop Scam"
 msgstr ""
 
@@ -487,9 +493,6 @@ msgid "Items"
 msgstr ""
 
 msgid "Failed to upload. More than {maxImageCount} images."
-msgstr ""
-
-msgid "Less than a minute left"
 msgstr ""
 
 msgid "Minting Txn Hash"
@@ -508,6 +511,9 @@ msgid "Info"
 msgstr ""
 
 msgid "Failed to bookmark article."
+msgstr ""
+
+msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr ""
 
 msgid "Max"
@@ -643,9 +649,6 @@ msgid "Login to Firefly"
 msgstr ""
 
 msgid "Top Channels"
-msgstr ""
-
-msgid "Failed to upload. File type is not supported on X"
 msgstr ""
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
@@ -1377,9 +1380,6 @@ msgstr ""
 msgid "May the token is a honeypot."
 msgstr ""
 
-msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
-msgstr ""
-
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
@@ -1426,6 +1426,9 @@ msgid "This does not appear to be a honeypot."
 msgstr ""
 
 msgid "Failed to publish post."
+msgstr ""
+
+msgid "Voted successfully."
 msgstr ""
 
 msgid "Muted @{0} on {sourceName}."
@@ -1686,9 +1689,6 @@ msgstr ""
 msgid "Failed to quote post."
 msgstr ""
 
-msgid "Image upload failed. Please try again."
-msgstr ""
-
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr ""
 
@@ -1881,9 +1881,6 @@ msgstr ""
 msgid "Failed to report spam NFT."
 msgstr ""
 
-msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
-msgstr ""
-
 msgid "Malformed twitter session payload."
 msgstr ""
 
@@ -1948,6 +1945,9 @@ msgid "Mirrors"
 msgstr ""
 
 msgid "Video"
+msgstr ""
+
+msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr ""
 
 msgid "Language"

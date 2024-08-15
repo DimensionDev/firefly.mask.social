@@ -6,6 +6,7 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -79,4 +80,12 @@ export async function getPostLinks(url: string, post?: Pick<Post, 'quoteOn'>) {
         null,
         (x) => !x,
     );
+}
+
+export function getPollIdFromLink(url: string) {
+    if (!isValidPollFrameUrl(url)) return;
+
+    const parsed = parseURL(url);
+
+    return parsed?.pathname.split('/')[2];
 }
