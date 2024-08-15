@@ -56,7 +56,7 @@ export async function createTwitterSchedulePostPayload(
         text: readChars(chars, 'both', Source.Twitter),
         media: imageResults.length
             ? {
-                  media_ids: compact(imageResults?.map((x) => x.id)),
+                  media_ids: compact(imageResults?.map((x) => x.uploadIds?.Twimg)),
               }
             : undefined,
         reply_settings: resolveTwitterReplyRestriction(restriction),
