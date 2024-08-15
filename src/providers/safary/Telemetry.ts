@@ -34,10 +34,12 @@ class SafaryTelemetry extends Provider<Events, never> {
             ua: getNavigatorSafe()?.userAgent,
             use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
             href: getWindowSafe()?.location.href,
+
             evm_address: evmClient?.account?.address,
             evm_chain_id: evmClient?.chain.id,
             solana_chain_id: ChainId.Mainnet,
             solana_address: solanaAdaptor.publicKey?.toBase58(),
+
             // the current logined ffid
             account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
         };
