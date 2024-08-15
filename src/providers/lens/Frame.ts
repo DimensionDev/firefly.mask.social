@@ -3,12 +3,12 @@ import dayjs from 'dayjs';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
-import type { Frame, Index } from '@/types/frame.js';
+import type { Index } from '@/types/frame.js';
 
 class FrameProvider implements Provider<FrameSignaturePacket> {
     async generateSignaturePacket(
         postId: string,
-        frame: Frame,
+        frameUrl: string,
         index: Index,
         input?: string,
         additional?: Additional,
@@ -30,7 +30,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
             // The EIP-721 spec version, must be 1.0.0
             specVersion: '1.0.0',
             state: additional?.state ?? '',
-            url: frame.url,
+            url: frameUrl,
         });
         if (result.isFailure()) {
             // CredentialsExpiredError or NotAuthenticatedError

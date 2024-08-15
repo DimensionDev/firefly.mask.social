@@ -1,9 +1,9 @@
-import { compact } from '@apollo/client/utilities';
+import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
-import { createTwitterMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { createTwitterMediaObject, resolveUploadId } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { uploadToTwitter, uploadVideoToTwitter } from '@/services/uploadToTwitter.js';
@@ -61,7 +61,7 @@ export async function createTwitterSchedulePostPayload(
         text: readChars(chars, 'both', Source.Twitter),
         media: mediaResults.length
             ? {
-                  media_ids: compact(mediaResults?.map((x) => x.id)),
+                  media_ids: compact(mediaResults?.map((x) => resolveUploadId(Source.Twitter, x))),
               }
             : undefined,
         reply_settings: resolveTwitterReplyRestriction(restriction),

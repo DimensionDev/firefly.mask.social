@@ -1,4 +1,4 @@
-import type { SocialSource } from '@/constants/enum.js';
+import type { SocialSource, SocialSourceInURL } from '@/constants/enum.js';
 import type { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import type { Pageable } from '@/helpers/pageable.js';
 import type { Response } from '@/providers/types/Firefly.js';
@@ -8,6 +8,8 @@ export interface PollOption {
     position?: number;
     label: string;
     votes?: number;
+    isVoted?: boolean;
+    percent?: number;
 }
 
 export interface Poll {
@@ -48,6 +50,46 @@ export type CreatePollResponse = Response<{
     poll_id: string;
 }>;
 
+type FireflyPollOption = {
+    id: number;
+    name: string;
+    count: number;
+    is_select: boolean;
+    percent: number;
+};
+
+export interface FireflyPoll {
+    poll_id: string;
+    created_time: number;
+    end_time: number;
+    is_end: boolean;
+    vote_count: number;
+    type: POLL_CHOICE_TYPE;
+    multiple_count: number;
+    choice_detail: FireflyPollOption[];
+}
+
+export type GetPollResponse = Response<FireflyPoll>;
+
+export interface VoteRequest {
+    poll_id: string;
+    platform: SocialSourceInURL;
+    platform_id: string;
+    choices: number[];
+    lens_token: string;
+    farcaster_signature: string;
+    wallet_address: string;
+    original_message: string;
+    signature_message: string;
+}
+
+export type VoteResponseData = {
+    is_success: boolean;
+    choice_detail: FireflyPollOption[];
+};
+
+export type VoteResponse = Response<VoteResponseData>;
+
 export interface Provider {
     /**
      * Creates a new poll
@@ -66,11 +108,18 @@ export interface Provider {
 
     /**
      * Votes for an option in a poll
+     * @param postId
      * @param pollId
+     * @param frameUrl
      * @param option
      * @returns
      */
-    vote: (pollId: string, option: PollOption) => Promise<void>;
+    vote: (options: {
+        postId: string;
+        pollId: string;
+        frameUrl: string;
+        option: PollOption;
+    }) => Promise<VoteResponseData>;
 
     /**
      * Deletes a poll by its id
