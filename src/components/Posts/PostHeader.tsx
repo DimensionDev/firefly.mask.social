@@ -103,7 +103,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     {post.timestamp && (!newLine || isQuote) ? (
                         <>
                             <span className="mx-1 leading-5">·</span>
-                            <span className="whitespace-nowrap text-xs leading-5 text-secondary md:text-[13px]">
+                            <span className="whitespace-nowrap text-[15px] leading-5 text-secondary">
                                 <TimestampFormatter time={post.timestamp} />
                             </span>
                             <span className="mx-1 leading-5">·</span>
