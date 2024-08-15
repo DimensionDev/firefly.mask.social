@@ -28,6 +28,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const formData = await request.formData();
         const file = formData.get('file') as File | null;
         if (!file) throw new MalformedError('file not found');
+
         const options = (
             formData.get('options') ? parseJSON(formData.get('options') as string) : null
         ) as Partial<UploadMediaV1Params> | null;
@@ -39,6 +40,6 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
             mimeType: file.type,
             ...(parsedOptions ? parsedOptions.data : {}),
         });
-        return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
+        return createSuccessResponseJSON({ media_id: response, media_id_string: response });
     },
 );

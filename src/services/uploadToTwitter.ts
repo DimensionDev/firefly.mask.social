@@ -5,14 +5,14 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 
 interface UploadMediaResponse {
     data: {
-        media_id: number;
+        media_id: string;
         media_id_string: string;
     };
 }
 
 export interface TwitterMediaResponse {
     file: File;
-    media_id: number;
+    media_id: string;
     media_id_string: string;
 }
 
