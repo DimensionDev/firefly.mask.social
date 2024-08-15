@@ -18,6 +18,9 @@ msgstr ""
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
+msgid "{days, plural, one {1 day left} other {{days} days left}}"
+msgstr ""
+
 msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想用全部內容還是剩餘內容重試？"
 
@@ -291,9 +294,6 @@ msgstr ""
 msgid "Report post"
 msgstr "檢舉貼文"
 
-msgid "{0} left"
-msgstr "剩餘 {0}"
-
 msgid "Skip"
 msgstr "跳過"
 
@@ -302,6 +302,9 @@ msgstr "已複製"
 
 msgid "Name"
 msgstr "名稱"
+
+msgid "Failed to vote."
+msgstr ""
 
 msgid "Your posts have published successfully."
 msgstr "你的貼文已成功發佈"
@@ -358,9 +361,6 @@ msgid "Switch to the development API version for testing new features."
 msgstr ""
 
 msgid "{0, plural, one {quote} other {quotes}}"
-msgstr ""
-
-msgid "{days, plural, one {1 day} other {{days} days}}"
 msgstr ""
 
 msgid "Blockchain"
@@ -474,6 +474,9 @@ msgstr "重新鏡像"
 msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
+msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
+msgstr ""
+
 msgid "No Airdrop Scam"
 msgstr "無空投騙局"
 
@@ -488,9 +491,6 @@ msgstr "物品"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
-
-msgid "Less than a minute left"
-msgstr "剩餘不到一分鐘"
 
 msgid "Minting Txn Hash"
 msgstr ""
@@ -508,6 +508,9 @@ msgid "Info"
 msgstr "資訊"
 
 msgid "Failed to bookmark article."
+msgstr ""
+
+msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr ""
 
 msgid "Max"
@@ -1383,9 +1386,6 @@ msgstr "刪除"
 msgid "May the token is a honeypot."
 msgstr ""
 
-msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
-msgstr ""
-
 msgid "The content of this account is currently unavailable"
 msgstr "該帳戶的內容目前不可見"
 
@@ -1433,6 +1433,9 @@ msgstr ""
 
 msgid "Failed to publish post."
 msgstr "發布貼文失敗"
+
+msgid "Voted successfully."
+msgstr ""
 
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上靜音 @{0}"
@@ -1887,9 +1890,6 @@ msgstr ""
 msgid "Failed to report spam NFT."
 msgstr ""
 
-msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
-msgstr ""
-
 msgid "Malformed twitter session payload."
 msgstr ""
 
@@ -1955,6 +1955,9 @@ msgstr ""
 
 msgid "Video"
 msgstr "影片"
+
+msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
+msgstr ""
 
 msgid "Language"
 msgstr "語言"

@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "{days, plural, one {1 day left} other {{days} days left}}"
+msgstr "{days, plural, one {1 day left} other {{days} days left}}"
+
 msgid "Do you want to retry with the full or remaining content?"
 msgstr "Do you want to retry with the full or remaining content?"
 
@@ -286,9 +289,6 @@ msgstr "<0>Sent</0> an NFT"
 msgid "Report post"
 msgstr "Report post"
 
-msgid "{0} left"
-msgstr "{0} left"
-
 msgid "Skip"
 msgstr "Skip"
 
@@ -297,6 +297,9 @@ msgstr "Copied"
 
 msgid "Name"
 msgstr "Name"
+
+msgid "Failed to vote."
+msgstr "Failed to vote."
 
 msgid "Your posts have published successfully."
 msgstr "Your posts have published successfully."
@@ -354,9 +357,6 @@ msgstr "Switch to the development API version for testing new features."
 
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr "{0, plural, one {quote} other {quotes}}"
-
-msgid "{days, plural, one {1 day} other {{days} days}}"
-msgstr "{days, plural, one {1 day} other {{days} days}}"
 
 msgid "Blockchain"
 msgstr "Blockchain"
@@ -469,6 +469,9 @@ msgstr "Mirror again"
 msgid "There are images or videos that were not uploaded successfully."
 msgstr "There are images or videos that were not uploaded successfully."
 
+msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
+msgstr "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
+
 msgid "No Airdrop Scam"
 msgstr "No Airdrop Scam"
 
@@ -483,9 +486,6 @@ msgstr "Items"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
-
-msgid "Less than a minute left"
-msgstr "Less than a minute left"
 
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
@@ -504,6 +504,9 @@ msgstr "Info"
 
 msgid "Failed to bookmark article."
 msgstr "Failed to bookmark article."
+
+msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
+msgstr "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 
 msgid "Max"
 msgstr "Max"
@@ -1378,9 +1381,6 @@ msgstr "Delete"
 msgid "May the token is a honeypot."
 msgstr "May the token is a honeypot."
 
-msgid "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
-msgstr "{minutes, plural, one {1 minute} other {{minutes} minutes}}"
-
 msgid "The content of this account is currently unavailable"
 msgstr "The content of this account is currently unavailable"
 
@@ -1428,6 +1428,9 @@ msgstr "This does not appear to be a honeypot."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
+
+msgid "Voted successfully."
+msgstr "Voted successfully."
 
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
@@ -1882,9 +1885,6 @@ msgstr "Emoji"
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
 
-msgid "{hours, plural, one {1 hour} other {{hours} hours}}"
-msgstr "{hours, plural, one {1 hour} other {{hours} hours}}"
-
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."
 
@@ -1950,6 +1950,9 @@ msgstr "Mirrors"
 
 msgid "Video"
 msgstr "Video"
+
+msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
+msgstr "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 
 msgid "Language"
 msgstr "Language"
