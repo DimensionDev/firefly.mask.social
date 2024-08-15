@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
@@ -46,7 +46,6 @@ import {
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
-import { uploadToS3 } from '@/services/uploadToS3.js';
 
 class WarpcastSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -724,12 +723,11 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async updateProfile(params: UpdateProfileParams): Promise<boolean> {
-        const pfp = params.avatar ? await uploadToS3(params.avatar, SourceInURL.Farcaster) : undefined;
         const location = parseJSON(params.location) ?? undefined;
         await farcasterSessionHolder.fetch<UpdateProfileResponse>(urlcat(WARPCAST_CLIENT_URL, 'me'), {
             method: 'PATCH',
             body: JSON.stringify({
-                pfp,
+                pfp: params.avatar,
                 displayName: params.displayName,
                 bio: params.bio,
                 location,

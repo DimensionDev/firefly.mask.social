@@ -3,9 +3,9 @@ import { t, Trans } from '@lingui/macro';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
+import { EditingProfileAvatar } from '@/components/EditProfile/EditingProfileAvatar.js';
 import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
@@ -19,16 +19,15 @@ import {
     MAX_PROFILE_WEBSITE_SIZE,
 } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { Profile, UpdateProfileParams } from '@/providers/types/SocialMedia.js';
+import { updateProfile } from '@/services/updateProfile.js';
+import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
 
-export type ProfileFormValues = UpdateProfileParams;
-// {
-//     file?: File;
-//     name: string;
-//     bio?: string;
-//     website?: string;
-//     location?: string;
-// }
+export interface ProfileFormValues extends Omit<UpdateProfileParams, 'avatar'> {
+    avatar?: FileList;
+}
 
 export function EditProfileDialog({
     profile,
@@ -49,9 +48,20 @@ export function EditProfileDialog({
     const {
         handleSubmit,
         formState: { isSubmitting, isDirty, isValid },
+        register,
     } = form;
-    const onSubmit = (values: ProfileFormValues) => {
-        // TODO: API
+    const onSubmit = async (values: ProfileFormValues) => {
+        try {
+            const avatarFile =
+                values.avatar instanceof FileList && values.avatar.length > 0 ? values.avatar[0] : undefined;
+            const avatar = avatarFile ? await uploadProfileAvatar(profile.source, avatarFile) : profile.pfp;
+            await updateProfile(profile.source, { ...values, avatar });
+            enqueueSuccessMessage(t`Updated profile successfully`);
+        } catch (error) {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to update profile.`), {
+                error,
+            });
+        }
     };
 
     const maxDisplayNameSize = MAX_PROFILE_DISPLAY_NAME_SIZE[profile.source] ?? 0;
@@ -70,9 +80,9 @@ export function EditProfileDialog({
                 </Dialog.Title>
                 <FormProvider {...form}>
                     <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-4 p-4 text-left">
-                        <div className="flex w-full items-center space-y-4">
-                            <Avatar src={profile.pfp} size={108} alt="avatar" />
-                            <div className="flex flex-col gap-2 text-left text-main">
+                        <div className="flex w-full items-center gap-4">
+                            <EditingProfileAvatar pfp={profile.pfp} name="avatar" />
+                            <div className="flex flex-col space-y-2 text-left text-main">
                                 <div className="text-[20px] font-bold">@{profile.handle}</div>
                                 <label
                                     htmlFor="avatar-upload-input"
@@ -80,7 +90,12 @@ export function EditProfileDialog({
                                 >
                                     <Trans>Update photo</Trans>
                                 </label>
-                                <input id="avatar-upload-input" type="file" className="hidden" />
+                                <input
+                                    id="avatar-upload-input"
+                                    type="file"
+                                    className="hidden"
+                                    {...register('avatar')}
+                                />
                             </div>
                         </div>
                         <div className="space-y-1.5">
@@ -165,10 +180,10 @@ export function EditProfileDialog({
                                 <label className="leading-12 h-12 min-w-[110px] text-sm font-bold text-main">
                                     <Trans>Bio</Trans>
                                 </label>
-                                <FormInputContainer name="bio" maxLength={maxBioSize} className="h-[160px] flex-1">
+                                <FormInputContainer name="bio" maxLength={maxBioSize} className="h-[100px] flex-1">
                                     <FormTextarea
                                         name="bio"
-                                        className="h-[160px] resize-none"
+                                        className="h-[100px] resize-none"
                                         options={{
                                             maxLength: {
                                                 value: maxBioSize,

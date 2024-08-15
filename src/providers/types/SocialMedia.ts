@@ -310,7 +310,7 @@ export interface UpdateProfileParams {
     displayName: string;
     location: string;
     website: string;
-    avatar?: File;
+    avatar?: string;
 }
 
 export interface Provider {
