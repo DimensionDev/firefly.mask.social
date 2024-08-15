@@ -5,7 +5,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { getNavigatorSafe, getWindowSafe } from '@/helpers/bom.js';
+import { bom } from '@/helpers/bom.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { Events, Safary } from '@/providers/types/Safary.js';
 import { Provider } from '@/providers/types/Telemetry.js';
@@ -21,9 +21,8 @@ function formatParameter(key: string, value: unknown): [string, unknown] {
 
 class SafaryTelemetry extends Provider<Events, never> {
     private get sdk() {
-        const win = getWindowSafe();
-        if (typeof win?.safary === 'undefined') return null;
-        return win.safary as Safary;
+        if (typeof bom.window?.safary === 'undefined') return null;
+        return bom.window.safary as Safary;
     }
 
     getPublicParameters() {
@@ -31,9 +30,9 @@ class SafaryTelemetry extends Provider<Events, never> {
         const solanaAdaptor = resolveWalletAdapter();
 
         return {
-            ua: getNavigatorSafe()?.userAgent,
+            ua: bom.navigator?.userAgent,
             use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
-            href: getWindowSafe()?.location.href,
+            href: bom.location?.href,
 
             evm_address: evmClient?.account?.address,
             evm_chain_id: evmClient?.chain.id,
