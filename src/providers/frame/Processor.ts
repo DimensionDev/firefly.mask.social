@@ -27,8 +27,14 @@ class Processor {
 
         const imageUrl = getImageUrl(document);
         const imageAlt = getImageAlt(document);
-        const image = imageUrl ? await OpenGraphProcessor.digestImageUrl(imageUrl, signal) : null;
-        if (!image) throw new Error(`Image not found: imageUrl = ${imageUrl}`);
+        const digestedImage = imageUrl ? await OpenGraphProcessor.digestImageUrl(imageUrl, signal) : null;
+        if (!digestedImage) console.error(`Image not found: imageUrl = ${imageUrl}`);
+
+        const image = digestedImage ?? {
+            url: '/image/frame-fallback.png',
+            width: 860,
+            height: 640,
+        };
 
         const frame: Frame = {
             url,
