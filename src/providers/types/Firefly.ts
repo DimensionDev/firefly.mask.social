@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source, WalletSource } from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -909,7 +909,7 @@ export interface WalletConnection {
     ens: string[];
     platform: 'eth' | 'solana';
     provider: string;
-    source: FireflyPlatform;
+    source: WalletSource;
     sources: WalletProfile['verifiedSources'];
     twitterId: string;
 }

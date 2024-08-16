@@ -1,26 +1,28 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source, WalletSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { removeAccountByProfileId } from '@/helpers/account.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | null {
     switch (connection.source) {
-        case FireflyPlatform.Lens:
-        case FireflyPlatform.Farcaster:
-            const identity = connection.identities.find((x) => resolveSourceInURL(x.source) === connection.source);
-            return identity ? { source: resolveSource(connection.source), id: identity.id } : null;
-        case FireflyPlatform.Twitter:
-            return { source: resolveSource(connection.source), id: connection.twitterId };
-        case FireflyPlatform.Article:
-        case FireflyPlatform.NFTs:
+        case WalletSource.Lens:
+        case WalletSource.Farcaster:
+        case WalletSource.LensContract:
+            const identity = connection.identities.find(
+                (x) => x.source === resolveSourceFromWalletSource(connection.source),
+            );
+            return identity ? { source: resolveSourceFromWalletSource(connection.source), id: identity.id } : null;
+        case WalletSource.Twitter:
+            return { source: resolveSourceFromWalletSource(connection.source), id: connection.twitterId };
+        case WalletSource.Article:
+        case WalletSource.NFTs:
             return null;
-        case FireflyPlatform.Firefly:
-        case FireflyPlatform.Wallet:
+        case WalletSource.Firefly:
+        case WalletSource.Wallet:
             return { source: Source.Wallet, id: connection.address };
         default:
             safeUnreachable(connection.source);

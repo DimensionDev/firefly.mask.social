@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform, NetworkType } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, WalletSource } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
@@ -29,7 +29,7 @@ function updateWalletFromQueryData(data: BindWalletResponse['data']) {
                     ens: Array.isArray(data.ens) ? data.ens : data.ens ? [data.ens] : [],
                     platform: data.blockchain === NetworkType.Solana ? 'solana' : 'eth',
                     provider: FireflyPlatform.Firefly,
-                    source: FireflyPlatform.Firefly,
+                    source: WalletSource.Firefly,
                     sources: [],
                     twitterId: '',
                     identities: [],
