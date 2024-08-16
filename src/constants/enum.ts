@@ -215,3 +215,14 @@ export enum GiphyTabType {
     Text = 'text',
     Emoji = 'emoji',
 }
+
+export enum WalletSource {
+    Farcaster = 'farcaster',
+    Lens = 'lens',
+    Twitter = 'twitter',
+    Firefly = 'firefly',
+    Article = 'article',
+    Wallet = 'wallet',
+    NFTs = 'nfts',
+    LensContract = 'lens_contract',
+}
