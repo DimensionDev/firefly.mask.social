@@ -42,7 +42,7 @@ export class FetchError extends Error {
                 return '';
             }
         });
-        const method = typeof input === 'string' ? 'GET' : input instanceof URL ? 'GET' : input.method;
+        const method = typeof input === 'string' ? 'GET' : input instanceof URL ? 'GET' : input.method.toUpperCase();
 
         return new FetchError(
             message ??
