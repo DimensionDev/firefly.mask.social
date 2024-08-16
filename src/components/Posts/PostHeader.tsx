@@ -82,14 +82,14 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                 </Link>
             </ProfileTippy>
 
-            <div className="w-full">
-                <div
-                    className={classNames('flex flex-1 items-center overflow-hidden', {
-                        'max-w-[calc(100%-40px-28px-24px)]': !isQuote && !isMyPost,
-                        'max-w-[calc(100%-40px-28px)]': !isQuote && isMyPost,
-                        'max-w-[calc(100%-40px)]': isQuote,
-                    })}
-                >
+            <div
+                className={classNames('flex flex-1 items-center overflow-hidden', {
+                    'max-w-[calc(100%-40px-28px-24px)]': !isQuote && !isMyPost,
+                    'max-w-[calc(100%-40px-28px)]': !isQuote && isMyPost,
+                    'max-w-[calc(100%-40px)]': isQuote,
+                })}
+            >
+                <div className="flex max-w-full flex-1 items-center overflow-hidden">
                     <ProfileTippy identity={identity}>
                         <Link
                             href={profileLink}
@@ -100,13 +100,13 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         </Link>
                     </ProfileTippy>
                     {post.author.isPowerUser ? (
-                        <PowerUserIcon className={newLine ? '' : 'mr-2'} width={16} height={16} />
+                        <PowerUserIcon className="mr-2 shrink-0" width={16} height={16} />
                     ) : null}
                     {newLine ? null : handle}
                     {post.timestamp && (isComment || isQuote || !isDetailPage) ? (
                         <>
                             <span className="mx-1 leading-5 text-secondary">·</span>
-                            <span className="whitespace-nowrap text-xs leading-5 text-secondary md:text-[13px]">
+                            <span className="whitespace-nowrap text-[15px] leading-5 text-secondary">
                                 <TimestampFormatter time={post.timestamp} />
                             </span>
                             <span className="mx-1 leading-5 text-secondary">·</span>
