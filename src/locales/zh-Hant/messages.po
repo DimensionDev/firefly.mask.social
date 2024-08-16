@@ -168,6 +168,9 @@ msgstr "更多"
 msgid "Translate post"
 msgstr "翻譯貼文"
 
+msgid "Free"
+msgstr ""
+
 msgid "Searching users"
 msgstr "搜尋用戶"
 
@@ -528,6 +531,9 @@ msgstr "保存失敗的貼文？"
 msgid "Owners"
 msgstr ""
 
+msgid "collected"
+msgstr ""
+
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 驗證器"
 
@@ -721,6 +727,9 @@ msgid "Days"
 msgstr "天"
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
+msgid "Cost"
 msgstr ""
 
 msgid "Insufficient Gas"
@@ -918,6 +927,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登入失敗."
 
+msgid "Network"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消按讚"
 
@@ -1066,6 +1078,9 @@ msgid "Invalid URL."
 msgstr "無效的 URL"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
+msgid "Standard"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -1377,6 +1392,9 @@ msgstr ""
 msgid "Community"
 msgstr "社群"
 
+msgid "Free Collect"
+msgstr ""
+
 msgid "Delete"
 msgstr "刪除"
 
@@ -1475,6 +1493,9 @@ msgstr "在 X 上跟隨 @realMaskNetwork"
 
 msgid "Leaving Firefly"
 msgstr "離開 Firefly"
+
+msgid "Collect for {0}"
+msgstr ""
 
 msgid "24H Volume"
 msgstr "24 小時交易量"
@@ -1641,6 +1662,9 @@ msgstr "重新整理"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
+msgid "Collect Article"
+msgstr ""
+
 msgid "Channels"
 msgstr "頻道"
 
@@ -1786,6 +1810,9 @@ msgid "Owned"
 msgstr ""
 
 msgid "Associated wallets"
+msgstr ""
+
+msgid "Switch Chain"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."

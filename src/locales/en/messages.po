@@ -163,6 +163,9 @@ msgstr "More"
 msgid "Translate post"
 msgstr "Translate post"
 
+msgid "Free"
+msgstr "Free"
+
 msgid "Searching users"
 msgstr "Searching users"
 
@@ -523,6 +526,9 @@ msgstr "Save failed post?"
 msgid "Owners"
 msgstr "Owners"
 
+msgid "collected"
+msgstr "collected"
+
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
 
@@ -717,6 +723,9 @@ msgstr "Days"
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+
+msgid "Cost"
+msgstr "Cost"
 
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
@@ -913,6 +922,9 @@ msgstr "Malformed session."
 msgid "Failed to login."
 msgstr "Failed to login."
 
+msgid "Network"
+msgstr "Network"
+
 msgid "Unlike"
 msgstr "Unlike"
 
@@ -1062,6 +1074,9 @@ msgstr "Invalid URL."
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+
+msgid "Standard"
+msgstr "Standard"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
@@ -1372,6 +1387,9 @@ msgstr "Executing"
 msgid "Community"
 msgstr "Community"
 
+msgid "Free Collect"
+msgstr "Free Collect"
+
 msgid "Delete"
 msgstr "Delete"
 
@@ -1470,6 +1488,9 @@ msgstr "Follow @realMaskNetwork on X"
 
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
+
+msgid "Collect for {0}"
+msgstr "Collect for {0}"
 
 msgid "24H Volume"
 msgstr "24H Volume"
@@ -1636,6 +1657,9 @@ msgstr "Refresh"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
 
+msgid "Collect Article"
+msgstr "Collect Article"
+
 msgid "Channels"
 msgstr "Channels"
 
@@ -1782,6 +1806,9 @@ msgstr "Owned"
 
 msgid "Associated wallets"
 msgstr "Associated wallets"
+
+msgid "Switch Chain"
+msgstr "Switch Chain"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
