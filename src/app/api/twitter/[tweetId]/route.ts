@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import { pick } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
@@ -58,16 +59,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
                 data.text = tweet.text;
                 if (!includes.media) {
                     const result = await client.v2.singleTweet(tweet.id, {
-                        expansions: ['attachments.media_keys'],
-                        'media.fields': [
-                            'media_key',
-                            'height',
-                            'width',
-                            'type',
-                            'url',
-                            'preview_image_url',
-                            'variants',
-                        ],
+                        ...pick(TWITTER_TIMELINE_OPTIONS, 'expansions', 'media.fields'),
                     });
 
                     if (result.includes?.media) includes.media = result.includes.media;
