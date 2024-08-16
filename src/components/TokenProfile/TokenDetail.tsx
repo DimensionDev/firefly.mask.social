@@ -145,7 +145,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     </span>
                 ) : null}
             </div>
-            <TokenSecurityBar tokenSecurity={security} />
+            <TokenSecurityBar security={security} />
             <div
                 className={classNames(
                     'flex h-[175px] items-center justify-center overflow-auto',
