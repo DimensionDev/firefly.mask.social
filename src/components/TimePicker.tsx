@@ -27,6 +27,8 @@ export const TimePicker = memo<TimePickerProps>(function TimePicker({
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <InteractiveTippy
+                visible={visible}
+                onClickOutside={() => setVisible(false)}
                 content={
                     <div
                         className={classNames(
