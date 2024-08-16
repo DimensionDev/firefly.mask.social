@@ -1,5 +1,5 @@
 import { useMotionValueEvent, useScroll } from 'framer-motion';
-import { useState } from 'react';
+import { type HTMLProps, useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
@@ -15,21 +15,33 @@ import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useProfileTabState } from '@/store/useProfileTabStore.js';
 
-interface TitleProps {
+interface TitleProps extends HTMLProps<HTMLDivElement> {
     profile?: Profile | null;
     profiles?: FireflyProfile[];
     /** Always visible */
     sticky?: boolean;
     isOthersProfile?: boolean;
+    keepVisible?: boolean;
+    disableActions?: boolean;
 }
 
-export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile }: TitleProps) {
+export function Title({
+    profile,
+    profiles = EMPTY_LIST,
+    sticky,
+    isOthersProfile,
+    keepVisible,
+    disableActions,
+    className,
+    ...rest
+}: TitleProps) {
     const [reached, setReached] = useState(false);
 
     const { scrollY } = useScroll();
     const isMedium = useIsMedium();
 
     useMotionValueEvent(scrollY, 'change', (value) => {
+        if (keepVisible) return;
         setReached(value > 60);
     });
 
@@ -57,16 +69,11 @@ export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile 
         ? walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4)
         : profile?.displayName;
 
+    const hidden = !reached && !keepVisible;
+
     return (
-        <div className="sticky top-0 z-30 h-0 w-full">
-            <div
-                className={classNames(
-                    'absolute left-0 top-0 z-30 flex h-[60px] w-full items-center bg-primaryBottom pl-4 pr-3',
-                    {
-                        hidden: !reached,
-                    },
-                )}
-            >
+        <div className={classNames('sticky top-0 z-30 w-full', { hidden }, className)} {...rest} aria-hidden={hidden}>
+            <div className={classNames('z-30 flex h-[60px] w-full items-center bg-primaryBottom pl-4 pr-3')}>
                 <div className="mr-auto flex items-center gap-7 overflow-auto">
                     <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
                     <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-black text-lightMain">
@@ -74,7 +81,7 @@ export function Title({ profile, profiles = EMPTY_LIST, sticky, isOthersProfile 
                     </span>
                 </div>
 
-                <div className="flex flex-shrink-0 gap-2">{renderActions()}</div>
+                {disableActions ? null : <div className="flex flex-shrink-0 gap-2">{renderActions()}</div>}
             </div>
         </div>
     );
