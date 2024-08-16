@@ -54,14 +54,13 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         if (retweeted) {
             const tweet = includes?.tweets?.find((x) => x.id === retweeted.id);
             if (tweet) {
-                data.attachments = tweet?.attachments;
+                data.attachments = tweet.attachments;
                 data.note_tweet = tweet.note_tweet;
                 data.text = tweet.text;
                 if (!includes.media) {
                     const result = await client.v2.singleTweet(tweet.id, {
                         ...pick(TWITTER_TIMELINE_OPTIONS, 'expansions', 'media.fields'),
                     });
-
                     if (result.includes?.media) includes.media = result.includes.media;
                 }
             }
