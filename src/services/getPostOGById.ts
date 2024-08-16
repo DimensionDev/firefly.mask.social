@@ -38,7 +38,7 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
             url: urlcat(SITE_URL, getPostUrl(post)),
             title: `Posted by ${post.author.displayName} via Firefly`,
             description: post.metadata.content?.content ?? '',
-            images,
+            images: images.length ? images : [`${SITE_URL}/image/og.png`],
             audio: audios,
             videos,
         },
@@ -46,7 +46,7 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
             card: 'summary_large_image',
             title: `Posted by ${post.author.displayName} via Firefly`,
             description: post.metadata.content?.content ?? '',
-            images,
+            images: images.length ? images : [`${SITE_URL}/image/og.png`],
         },
     });
 }
