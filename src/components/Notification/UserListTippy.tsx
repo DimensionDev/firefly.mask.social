@@ -16,7 +16,7 @@ export const UserListTippy = memo<Props>(function UserListTippy({ users, classNa
             maxWidth={350}
             className="tippy-card"
             placement="bottom"
-            delay={100}
+            delay={[100, 0]}
             duration={1000}
             arrow={false}
             hideOnClick
