@@ -9,7 +9,7 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
-export interface ErrorHandlerProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ErrorHandlerProps extends React.HTMLAttributes<HTMLDivElement> {
     error: Error;
     reset: () => void;
 }

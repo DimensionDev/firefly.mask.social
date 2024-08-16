@@ -5,7 +5,7 @@ import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 
-export interface TextOverflowTooltipProps extends Omit<TippyProps, 'ref' | 'title' | 'children'> {
+interface TextOverflowTooltipProps extends Omit<TippyProps, 'ref' | 'title' | 'children'> {
     withDelay?: boolean;
     content: ReactNode;
     // eslint-disable-next-line

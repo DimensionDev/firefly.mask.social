@@ -4,7 +4,7 @@ import { bom } from '@/helpers/bom.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { Language } from '@/services/translate.js';
 
-export const getBrowserLanguage = () => {
+const getBrowserLanguage = () => {
     const browserLanguage = bom.navigator?.language ?? '';
     const browserLanguageLowerCase = browserLanguage.toLowerCase();
     // corner case: zh-cn to Chinese_Simplified
@@ -16,7 +16,7 @@ export const getBrowserLanguage = () => {
     return matched ?? (browserLanguage as Language);
 };
 
-export const isSameLanguageWithBrowser = (locale: string) => {
+const isSameLanguageWithBrowser = (locale: string) => {
     const browserLanguage = getBrowserLanguage();
     const browserLanguageLowerCase = browserLanguage.toLowerCase();
     const localLowerCase = locale.toLowerCase();

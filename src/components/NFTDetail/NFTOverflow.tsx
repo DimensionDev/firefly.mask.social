@@ -11,7 +11,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 
-export interface NFTOverflowProps {
+interface NFTOverflowProps {
     description: string;
     tokenId?: string;
     creator?: string;
@@ -22,7 +22,7 @@ export interface NFTOverflowProps {
     schemaType?: SchemaType;
 }
 
-export function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
+function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (
         <div className="flex w-full gap-[30px] text-base font-normal leading-6">
             <div className="w-[144px] min-w-[144px] whitespace-nowrap text-secondary">{props.field}:</div>
@@ -31,7 +31,7 @@ export function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     );
 }
 
-export function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
+function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
     if (props.chainId) {
         const resolveExplorerLink = {
             address: EVMExplorerResolver.addressLink.bind(EVMExplorerResolver),

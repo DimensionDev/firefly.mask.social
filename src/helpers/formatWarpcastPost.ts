@@ -5,13 +5,13 @@ import { URL_REGEX } from '@/constants/regexp.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 
-export function getAttachments(cast: Cast) {
+function getAttachments(cast: Cast) {
     const images = cast.embeds?.images?.map<Attachment>((x) => ({ uri: x.url, type: 'Image' }));
     const videos = cast.embeds?.videos?.map<Attachment>((x) => ({ uri: x.url, type: 'Video' }));
     return union<Attachment>(images, videos);
 }
 
-export function formatContent(cast: Cast) {
+function formatContent(cast: Cast) {
     const oembedUrl = last(cast.text.match(URL_REGEX) || []);
 
     if (cast.embeds?.images?.length) {

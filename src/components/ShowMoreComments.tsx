@@ -5,7 +5,7 @@ import LineArrowUpSVG from '@/assets/line-arrow-up.svg';
 import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export interface ShowMoreCommentsProps extends HTMLProps<HTMLDivElement> {
+interface ShowMoreCommentsProps extends HTMLProps<HTMLDivElement> {
     avatarUrls?: string[];
     maxAvatarCount?: number; // show all avatar urls when it is 0. default to 3
     isOpen?: boolean;

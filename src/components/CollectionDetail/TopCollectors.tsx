@@ -20,13 +20,13 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-export interface TopCollectorsProps {
+interface TopCollectorsProps {
     address: string;
     chainId?: ChainId;
     totalQuantity?: number;
 }
 
-export function getTopCollectorsItemContent(
+function getTopCollectorsItemContent(
     index: number,
     item: SimpleHash.TopCollector,
     options?: {

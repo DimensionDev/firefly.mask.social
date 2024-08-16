@@ -1,6 +1,6 @@
 import type { Runtime } from '@/providers/types/Trending.js';
 
-export interface ChainInfo {
+interface ChainInfo {
     name: string;
     runtime: Runtime;
     /** url of the icon*/

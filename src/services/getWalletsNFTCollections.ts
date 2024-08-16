@@ -6,7 +6,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { NFTCollectionsResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-export interface Params {
+interface Params {
     limit?: number;
     indicator?: PageIndicator;
     walletAddress: string;

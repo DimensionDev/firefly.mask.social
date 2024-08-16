@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 
-export interface ClickableAreaProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ClickableAreaProps extends React.HTMLAttributes<HTMLDivElement> {
     as?: keyof JSX.IntrinsicElements;
     children?: React.ReactNode;
     onClick?: (ev: React.MouseEvent) => void;

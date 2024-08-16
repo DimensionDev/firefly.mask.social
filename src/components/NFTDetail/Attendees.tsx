@@ -22,7 +22,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-export interface AttendeesProps {
+interface AttendeesProps {
     eventId: number;
 }
 

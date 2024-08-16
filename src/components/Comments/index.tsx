@@ -14,7 +14,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-export interface CommentListProps {
+interface CommentListProps {
     postId: string;
     source: SocialSource;
     excludePostIds?: string[];

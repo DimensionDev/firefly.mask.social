@@ -4,15 +4,13 @@ import { createContext, type HTMLProps, type PropsWithChildren, type ReactNode, 
 
 import { classNames } from '@/helpers/classNames.js';
 
-export interface TabsProps<T = string>
-    extends PropsWithChildren,
-        Omit<HTMLProps<HTMLDivElement>, 'onChange' | 'value'> {
+interface TabsProps<T = string> extends PropsWithChildren, Omit<HTMLProps<HTMLDivElement>, 'onChange' | 'value'> {
     value: T;
     onChange: (value: T) => void;
     variant?: 'default' | 'second' | 'solid';
 }
 
-export interface TabContextProps {
+interface TabContextProps {
     value: string;
     onChange: (value: string) => void;
     variant: NonNullable<TabsProps['variant']>;

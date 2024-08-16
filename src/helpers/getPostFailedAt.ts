@@ -5,10 +5,6 @@ import type { CompositePost } from '@/store/useComposeStore.js';
  * @param post
  * @returns
  */
-export function failedAt(post: CompositePost) {
+export function getPostFailedAt(post: CompositePost) {
     return post.availableSources.filter((x) => !post.postId[x]);
-}
-
-export function isPublishedPost(post: CompositePost) {
-    return failedAt(post).length === 0;
 }

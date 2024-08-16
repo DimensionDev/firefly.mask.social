@@ -1,5 +1,4 @@
 import { PublicKey } from '@solana/web3.js';
-import { castArray, compact, uniq } from 'lodash-es';
 import { type Address, isAddress, isAddressEqual } from 'viem';
 
 export function isSameAddress(address?: string, otherAddress?: string): boolean {
@@ -15,17 +14,4 @@ export function isSameSolanaAddress(address?: string, otherAddress?: string): bo
     } catch {
         return false;
     }
-}
-
-export function currySameAddress(addresses: string | string[] = []) {
-    addresses = compact(uniq(castArray(addresses))).map((address) => address.toLowerCase());
-    return (target?: string | { address: string }) => {
-        if (addresses.length === 0 || !target) return false;
-        if (typeof target === 'string') {
-            return addresses.includes(target.toLowerCase());
-        } else if (typeof target === 'object' && typeof target.address === 'string') {
-            return addresses.includes(target.address.toLowerCase());
-        }
-        throw new Error('Unsupported `target` address format');
-    };
 }

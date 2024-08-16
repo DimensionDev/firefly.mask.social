@@ -280,9 +280,6 @@ msgstr ""
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
-msgid "Offline"
-msgstr ""
-
 msgid "Username is required."
 msgstr ""
 
@@ -1603,9 +1600,6 @@ msgstr ""
 msgid "Cancel repost successfully"
 msgstr ""
 
-msgid "{count, plural, one {{0} View} other {{1} Views}}"
-msgstr ""
-
 msgid "Muting..."
 msgstr ""
 
@@ -1735,9 +1729,6 @@ msgstr ""
 msgid "Article added to your Bookmarks"
 msgstr ""
 
-msgid "Online"
-msgstr ""
-
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
@@ -1766,9 +1757,6 @@ msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-msgstr ""
-
-msgid "We're updating our connection with X. Posting on X will be limited for now."
 msgstr ""
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"

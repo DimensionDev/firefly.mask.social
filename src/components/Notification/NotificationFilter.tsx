@@ -2,10 +2,10 @@ import { select, t } from '@lingui/macro';
 import { type Dispatch, type HTMLProps, type SetStateAction, useMemo } from 'react';
 
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
-import { resolveNotificationIcon } from '@/components/Notification/NotificationItem.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {

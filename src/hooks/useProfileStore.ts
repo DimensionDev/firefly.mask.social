@@ -3,12 +3,7 @@ import { useMemo } from 'react';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
-export function useProfileStore(source: SocialSource) {
-    const all = useProfileStoreAll();
-    return all[source];
-}
-
-export function useProfileStoreAll() {
+function useProfileStoreAll() {
     const lensAccounts = useLensStateStore.use.accounts();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentLensProfileSession = useLensStateStore.use.currentProfileSession();
@@ -54,4 +49,9 @@ export function useProfileStoreAll() {
         lensAccounts,
         twitterAccounts,
     ]);
+}
+
+export function useProfileStore(source: SocialSource) {
+    const all = useProfileStoreAll();
+    return all[source];
 }

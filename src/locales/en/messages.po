@@ -280,9 +280,6 @@ msgstr "Poll is currently only supported on {0}"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
-msgid "Offline"
-msgstr "Offline"
-
 msgid "Username is required."
 msgstr "Username is required."
 
@@ -1603,9 +1600,6 @@ msgstr "No whitelist"
 msgid "Cancel repost successfully"
 msgstr "Cancel repost successfully"
 
-msgid "{count, plural, one {{0} View} other {{1} Views}}"
-msgstr "{count, plural, one {{0} View} other {{1} Views}}"
-
 msgid "Muting..."
 msgstr "Muting..."
 
@@ -1735,9 +1729,6 @@ msgstr "Dark Mode"
 msgid "Article added to your Bookmarks"
 msgstr "Article added to your Bookmarks"
 
-msgid "Online"
-msgstr "Online"
-
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
@@ -1767,9 +1758,6 @@ msgstr "Unmuted @{0} on {sourceName}."
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-
-msgid "We're updating our connection with X. Posting on X will be limited for now."
-msgstr "We're updating our connection with X. Posting on X will be limited for now."
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
