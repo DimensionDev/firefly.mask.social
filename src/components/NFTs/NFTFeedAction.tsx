@@ -166,5 +166,5 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
         }
     }, [action, ownerAddress, toAddress, fromAddress, cost]);
 
-    return <div className="flex min-h-6 items-center space-x-1 text-[15px] leading-6">{actionEl}</div>;
+    return <div className="min-h-6 flex items-center space-x-1 text-[15px] leading-6">{actionEl}</div>;
 }
