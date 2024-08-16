@@ -4,9 +4,8 @@ import { Fragment, memo, type ReactElement } from 'react';
 
 import DangerIcon from '@/assets/danger.svg';
 import WarningIcon from '@/assets/warning.svg';
-import { Tippy } from '@/esm/Tippy.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 import { type SecurityMessage, SecurityMessageLevel, type TokenSecurityType } from '@/providers/types/Security.js';
 
 interface TokenCardProps {
@@ -66,16 +65,14 @@ function TokenSecurityTippy({ children, level, tokenSecurity }: Props) {
     const theFirst = first(matched)!;
 
     return (
-        <Tippy
-            appendTo={() => document.body}
+        <InteractiveTippy
             maxWidth={350}
             className="tippy-card"
             placement="bottom"
             content={<RiskCard level={theFirst.level} tokenSecurity={tokenSecurity} messages={matched} />}
-            {...getInteractiveTippyProps()}
         >
             {children}
-        </Tippy>
+        </InteractiveTippy>
     );
 }
 

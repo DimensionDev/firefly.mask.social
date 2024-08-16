@@ -4,12 +4,11 @@ import { memo, useEffect, useMemo } from 'react';
 
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
-import { Tippy } from '@/esm/Tippy.js';
 import { getFarcasterChannelUrlById } from '@/helpers/getFarcasterChannelUrlById.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useChannelStoreState } from '@/store/useChannelStore.js';
@@ -70,16 +69,14 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     return (
         <TippyContext.Provider value>
-            <Tippy
-                appendTo={() => document.body}
+            <InteractiveTippy
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
                 content={<ChannelCard loading={data.isLoading} channel={data.data} />}
-                {...getInteractiveTippyProps()}
             >
                 <span ref={ref}>{content}</span>
-            </Tippy>
+            </InteractiveTippy>
         </TippyContext.Provider>
     );
 });

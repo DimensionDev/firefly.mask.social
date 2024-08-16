@@ -7,9 +7,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { memo, type PropsWithChildren, useState } from 'react';
 
-import { Tippy } from '@/esm/Tippy.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 
 interface TimePickerProps extends PropsWithChildren<MultiSectionDigitalClockProps<dayjs.Dayjs>> {
     className?: string;
@@ -27,10 +26,7 @@ export const TimePicker = memo<TimePickerProps>(function TimePicker({
     const [visible, setVisible] = useState(false);
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Tippy
-                visible={visible}
-                onClickOutside={() => setVisible(false)}
-                appendTo={() => document.body}
+            <InteractiveTippy
                 content={
                     <div
                         className={classNames(
@@ -51,14 +47,12 @@ export const TimePicker = memo<TimePickerProps>(function TimePicker({
                 }
                 className="tippy-card"
                 placement="bottom-end"
-                {...getInteractiveTippyProps({
-                    trigger: 'click',
-                })}
+                trigger="click"
             >
                 <div className="w-full" onClick={() => setVisible(!visible)}>
                     <span className={className}>{children}</span>
                 </div>
-            </Tippy>
+            </InteractiveTippy>
         </LocalizationProvider>
     );
 });

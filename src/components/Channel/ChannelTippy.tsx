@@ -1,8 +1,7 @@
 import { type HTMLProps, memo } from 'react';
 
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
-import { Tippy } from '@/esm/Tippy.js';
-import { getInteractiveTippyProps } from '@/helpers/tippy.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -16,16 +15,15 @@ export const ChannelTippy = memo<ChannelTippyProps>(function ChannelTippy({ chan
     if (!isMedium) return rest.children;
 
     return (
-        <Tippy
+        <InteractiveTippy
             appendTo={() => document.body}
             offset={[100, 0]}
             maxWidth={350}
             className="tippy-card"
             placement="bottom-end"
-            {...getInteractiveTippyProps()}
             content={<ChannelCard channel={channel} />}
         >
             <div {...rest} />
-        </Tippy>
+        </InteractiveTippy>
     );
 });

@@ -10,9 +10,9 @@ import SendIcon from '@/assets/send.svg';
 import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
-import { Tippy } from '@/esm/Tippy.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
@@ -29,7 +29,6 @@ import { crossPostScheduleThread } from '@/services/crossSchedulePostThread.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -144,8 +143,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     </ClickableButton>
                 ) : null}
 
-                <Tippy
-                    appendTo={() => document.body}
+                <InteractiveTippy
                     className="tippy-card"
                     placement="bottom"
                     disabled={!hasError || posts.length === 1}
@@ -168,7 +166,6 @@ export function ComposeSend(props: ComposeSendProps) {
                             })}
                         </div>
                     }
-                    {...getInteractiveTippyProps()}
                 >
                     <ClickableButton
                         disabled={disabled}
@@ -223,7 +220,7 @@ export function ComposeSend(props: ComposeSendProps) {
                             </>
                         )}
                     </ClickableButton>
-                </Tippy>
+                </InteractiveTippy>
             </div>
         </div>
     );
