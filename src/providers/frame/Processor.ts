@@ -81,7 +81,7 @@ class Processor {
             signal: anySignal(signal ?? null, AbortSignal.timeout(5000)),
         });
         if (!response.ok || (response.status >= 500 && response.status < 600))
-            throw await FetchError.fromResponse(response);
+            throw await FetchError.from(url, response);
 
         return this.digestDocument(documentUrl, await response.text(), signal);
     };
