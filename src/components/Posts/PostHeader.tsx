@@ -14,9 +14,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -34,9 +32,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     isComment = false,
     onClickProfileLink,
 }) {
-    const currentProfile = useCurrentProfile(post.source);
-
-    const isMyPost = isSameProfile(post.author, currentProfile);
     const profileLink = getProfileUrl(post.author);
 
     const isSmall = useIsSmall('max');
@@ -83,10 +78,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
             </ProfileTippy>
 
             <div
-                className={classNames('flex flex-1 items-center overflow-hidden', {
-                    'max-w-[calc(100%-40px-28px-24px)]': !isQuote && !isMyPost,
-                    'max-w-[calc(100%-40px-28px)]': !isQuote && isMyPost,
-                    'max-w-[calc(100%-40px)]': isQuote,
+                className={classNames({
+                    'w-[calc(100%-40px-20px-24px)]': !isQuote,
+                    'w-[calc(100%-24px-24px)]': isQuote,
                 })}
             >
                 <div className="flex max-w-full flex-1 items-center overflow-hidden">
