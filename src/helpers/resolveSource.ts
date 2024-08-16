@@ -1,4 +1,4 @@
-import { type SocialSource, type SocialSourceInURL, Source, WalletSource, SourceInURL } from '@/constants/enum.js';
+import { type SocialSource, type SocialSourceInURL, Source, SourceInURL,WalletSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
