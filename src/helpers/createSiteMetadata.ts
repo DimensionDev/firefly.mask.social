@@ -17,7 +17,7 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             images: [`${SITE_URL}/image/og.png`],
         },
         twitter: {
-            card: 'summary',
+            card: 'summary_large_image',
             title: SITE_NAME,
             description: SITE_DESCRIPTION,
             creator: '@thefireflyapp',
