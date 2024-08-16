@@ -83,7 +83,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                 maxWidth={304}
                                 className="tippy-card"
                                 placement="bottom"
-                                duration={200}
+                                duration={500}
                                 arrow={false}
                                 trigger="mouseenter"
                                 hideOnClick
