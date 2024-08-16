@@ -113,7 +113,7 @@ async function getNextFrame(
         // validate the signature packet in development
         if (env.shared.NODE_ENV === NODE_ENV.Development) {
             const valid = await validateMessage(packet.trustedData.messageBytes, source);
-            if (valid === true) console.log('Valid signature packet:', packet);
+            if (valid === true) console.log('[frame] valid signature packet:', packet);
             else throw new MalformedError('Invalid frame packet.');
         }
 
