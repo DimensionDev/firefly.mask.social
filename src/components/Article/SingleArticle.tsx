@@ -8,6 +8,7 @@ import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
 import ArticleAnchorIcon from '@/assets/article-anchor.svg';
+import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
@@ -162,6 +163,9 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                                 />
                             </div>
                         ) : null}
+                    </div>
+                    <div className="mt-2">
+                        <ArticleActions article={article} />
                     </div>
                 </div>
             )}

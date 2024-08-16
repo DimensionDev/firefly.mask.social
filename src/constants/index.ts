@@ -205,3 +205,6 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
+
+export const MIRROR_COLLECT_FEE = 690000000000000n;
+export const MIRROR_COLLECT_FEE_IN_POLYGON = 100000000000000000n;

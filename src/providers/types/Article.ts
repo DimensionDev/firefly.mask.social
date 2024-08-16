@@ -33,7 +33,17 @@ export interface Article {
     id: string;
     coverUrl: string | null;
     hasBookmarked?: boolean;
+    slug?: string;
     followingSources: FollowingSource[];
+}
+
+export interface ArticleCollectDetail {
+    quantity: number;
+    soldNum: number;
+    chainId: number;
+    factorAddress: string;
+    price: number | null;
+    proxyAddress: string | null
 }
 
 export interface Provider {

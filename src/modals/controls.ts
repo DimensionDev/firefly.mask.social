@@ -1,4 +1,5 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
+import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from '@/modals/ConfirmLeavingModal.js';
@@ -29,3 +30,4 @@ export const SolanaAccountModalRef = new SingletonModal();
 export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();
 export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();
 export const EditProfileModalRef = new SingletonModal<EditProfileModalOpenProps>();
+export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();
