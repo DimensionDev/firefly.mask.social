@@ -5,6 +5,7 @@ export interface Currency {
     symbol?: string;
     description?: string;
 }
+
 export type CommunityType =
     | 'discord'
     | 'facebook'
