@@ -11,6 +11,7 @@ import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryB
 import { Tooltip } from '@/components/Tooltip.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -43,10 +44,15 @@ export const ComposeUI = memo(function ComposeUI() {
 
     return (
         <>
-            <div className="flex flex-col overflow-auto px-4 pb-4">
+            <div
+                className={classNames(
+                    'flex flex-col overflow-auto px-4 pb-4',
+                    isMedium ? 'h-full' : 'max-h-[300px] min-h-[300px]',
+                )}
+            >
                 <div
                     ref={contentRef}
-                    className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
+                    className="flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border border-secondaryLine bg-bg px-4 py-[14px]"
                 >
                     {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <SchedulePostEntryButton showText />
