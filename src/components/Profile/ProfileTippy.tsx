@@ -1,9 +1,9 @@
 import type { TippyProps } from '@tippyjs/react';
 import { memo, useState } from 'react';
 
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
-import { Tippy } from '@/esm/Tippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -23,25 +23,18 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ iden
 
     return (
         <TippyContext.Provider value>
-            <Tippy
-                appendTo={() => document.body}
+            <InteractiveTippy
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
-                duration={500}
-                delay={500}
-                arrow={false}
-                trigger="mouseenter"
                 onTrigger={() => {
                     setEnabled(true);
                 }}
-                hideOnClick
-                interactive
                 content={enabled ? <ProfileCard identity={identity} defaultProfile={profile} /> : null}
                 {...rest}
             >
                 {children}
-            </Tippy>
+            </InteractiveTippy>
         </TippyContext.Provider>
     );
 });

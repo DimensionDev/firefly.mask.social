@@ -7,6 +7,7 @@ import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
@@ -14,7 +15,6 @@ import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { Tippy } from '@/esm/Tippy.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
@@ -79,15 +79,10 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                             );
                         })}
                         {profile.ens.length ? (
-                            <Tippy
+                            <InteractiveTippy
                                 maxWidth={304}
                                 className="tippy-card"
                                 placement="bottom"
-                                duration={200}
-                                arrow={false}
-                                trigger="mouseenter"
-                                hideOnClick
-                                interactive
                                 content={
                                     <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
                                         {profile.ens.map((ens) => {
@@ -106,7 +101,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                 <span>
                                     <EnsIcon width={24} height={24} />
                                 </span>
-                            </Tippy>
+                            </InteractiveTippy>
                         ) : null}
                     </div>
                     <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
