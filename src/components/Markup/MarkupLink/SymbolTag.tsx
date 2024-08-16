@@ -40,8 +40,8 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
-                duration={500}
-                delay={500}
+                duration={100}
+                delay={1000}
                 arrow={false}
                 trigger="mouseenter"
                 onShow={() => setShow(true)}

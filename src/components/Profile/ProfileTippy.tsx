@@ -28,8 +28,8 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ iden
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
-                duration={500}
-                delay={500}
+                duration={100}
+                delay={1000}
                 arrow={false}
                 trigger="mouseenter"
                 onTrigger={() => {

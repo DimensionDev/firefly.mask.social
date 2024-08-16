@@ -70,8 +70,8 @@ function TokenSecurityTippy({ children, level, tokenSecurity }: Props) {
             maxWidth={350}
             className="tippy-card"
             placement="bottom"
-            duration={500}
-            delay={500}
+            delay={100}
+            duration={1000}
             arrow={false}
             trigger="mouseenter"
             hideOnClick
