@@ -140,7 +140,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     return (
-        <div className={classNames('min-h-6 flex w-full justify-between text-xs leading-6 text-second', className)}>
+        <div className={classNames('flex min-h-6 w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
                 {(!isDetailPage || isComment
                     ? compact([
