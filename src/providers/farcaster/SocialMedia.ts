@@ -360,7 +360,7 @@ class FarcasterSocialMedia implements Provider {
         return createPageable(posts, createIndicator(indicator), createNextIndicator(indicator, `${offset + limit}`));
     }
     async updateProfile(params: UpdateProfileParams): Promise<boolean> {
-        return WarpcastSocialMediaProvider.updateProfile(params);
+        return HubbleSocialMediaProvider.updateProfile(params);
     }
     async findLocation(query: string) {
         return WarpcastSocialMediaProvider.findLocation(query);

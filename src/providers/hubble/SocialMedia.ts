@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { CastAddBody, CastRemoveBody, Factories, ReactionType } from '@farcaster/core';
+import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataBody, UserDataType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -550,7 +550,28 @@ class HubbleSocialMedia implements Provider {
         return true;
     }
     async updateProfile(params: UpdateProfileParams): Promise<boolean> {
-        throw new NotImplementedError();
+        const userDataBody: UserDataBody = {
+            type: UserDataType.USERNAME,
+            value: params.displayName,
+        };
+        const { messageBytes } = await encodeMessageData(
+            () => ({
+                userDataBody,
+            }),
+            async (messageData, signer) => {
+                return Factories.UserDataBody.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        await this.submitMessage(messageBytes);
+        return true;
     }
 }
 
