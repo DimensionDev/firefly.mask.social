@@ -52,7 +52,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const retweeted = data.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
         if (retweeted) {
             const tweet = includes?.tweets?.find((x) => x.id === retweeted.id);
-            if (tweet) {
+            if (tweet && !includes.media) {
                 const result = await client.v2.singleTweet(tweet.id, {
                     expansions: ['attachments.media_keys'],
                     'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
