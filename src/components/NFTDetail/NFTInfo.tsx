@@ -101,7 +101,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                         {collection.name}
                                     </div>
                                 </TextOverflowTooltip>
-                                <LinkIcon className="ml-1 h-4 w-4 min-w-4 text-secondary" />
+                                <LinkIcon className="min-w-4 ml-1 h-4 w-4 text-secondary" />
                             </Link>
                         ) : null}
                         <TextOverflowTooltip content={name}>
