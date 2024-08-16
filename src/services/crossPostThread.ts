@@ -5,7 +5,7 @@ import { compact } from 'lodash-es';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { failedAt } from '@/helpers/isPublishedThread.js';
+import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
@@ -113,7 +113,7 @@ export async function crossPostThread({
     const { posts: updatedPosts } = useComposeStateStore.getState();
 
     // check publish result
-    const failedPlatforms = failedAt(updatedPosts);
+    const failedPlatforms = getThreadFailedAt(updatedPosts);
 
     if (failedPlatforms.length) {
         // the first error on each platform

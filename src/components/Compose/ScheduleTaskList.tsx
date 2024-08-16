@@ -146,7 +146,8 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
         </div>
     );
 });
-export function getScheduleTaskItemContent(index: number, task: ScheduleTask) {
+
+function getScheduleTaskItemContent(index: number, task: ScheduleTask) {
     return <ScheduleTaskItem key={task.uuid} index={index} task={task} />;
 }
 

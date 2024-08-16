@@ -12,7 +12,7 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { resolveRainbowKitLocale } from '@/helpers/resolveRainbowKitLocale.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
-export interface WagmiProviderProps {
+interface WagmiProviderProps {
     children: React.ReactNode;
 }
 

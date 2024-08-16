@@ -12,7 +12,7 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
-export interface CollectionInfoProps {
+interface CollectionInfoProps {
     address: string;
     floorPrice?: string;
     nftCount?: number;

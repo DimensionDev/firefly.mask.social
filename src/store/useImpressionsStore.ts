@@ -18,7 +18,7 @@ interface ImpressionsState {
 
 const STATS_URL = '/api/publication-views';
 
-export const useImpressionsBase = create<ImpressionsState>((set) => ({
+const useImpressionsBase = create<ImpressionsState>((set) => ({
     publicationViews: EMPTY_LIST,
     fetchAndStoreViews: async (ids) => {
         if (env.shared.NODE_ENV === NODE_ENV.Development) return;

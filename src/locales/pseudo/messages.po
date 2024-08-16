@@ -280,9 +280,6 @@ msgstr ""
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
-msgid "Offline"
-msgstr ""
-
 msgid "Username is required."
 msgstr ""
 
@@ -1603,9 +1600,6 @@ msgstr ""
 msgid "Cancel repost successfully"
 msgstr ""
 
-msgid "{count, plural, one {{0} View} other {{1} Views}}"
-msgstr ""
-
 msgid "Muting..."
 msgstr ""
 
@@ -1733,9 +1727,6 @@ msgid "Dark Mode"
 msgstr ""
 
 msgid "Article added to your Bookmarks"
-msgstr ""
-
-msgid "Online"
 msgstr ""
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"

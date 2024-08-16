@@ -8,7 +8,7 @@ import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import type { LensV3Profile } from '@/providers/types/Firefly.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
+function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
     let avatarUrl = (profile as { avatar?: string }).avatar;
 
     if (profile?.metadata?.picture?.__typename === 'NftImage') {

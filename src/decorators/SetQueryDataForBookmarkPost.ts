@@ -18,7 +18,7 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
     };
 }
 
-export function toggleBookmark(source: Source, postId: string, status: boolean) {
+function toggleBookmark(source: Source, postId: string, status: boolean) {
     patchPostQueryData(source, postId, (draft) => {
         draft.hasBookmarked = status;
         draft.stats = patchPostStats(draft.stats, status);

@@ -105,8 +105,6 @@ export enum KeyType {
     GetBlink = 'getBlink',
 }
 
-export type TrendingUserSource = Source.Farcaster | Source.Lens;
-
 export enum ProfileTabType {
     Feed = 'feed',
     Replies = 'replies',

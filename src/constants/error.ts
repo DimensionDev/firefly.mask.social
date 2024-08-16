@@ -1,5 +1,4 @@
 import { resolveValue } from '@/helpers/resolveValue.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export class AbortError extends Error {
     constructor() {
@@ -55,18 +54,6 @@ export class FetchError extends Error {
             response.statusText,
             text,
         );
-    }
-}
-
-/**
- * Connected a profile that is not logged firefly before.
- */
-export class FarcasterProfileNotConnectedError extends Error {
-    constructor(
-        public profile: Profile | null,
-        public override message: string,
-    ) {
-        super(message);
     }
 }
 

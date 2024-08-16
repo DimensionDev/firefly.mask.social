@@ -285,9 +285,6 @@ msgstr "投票目前仅支持 {0}"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
 
-msgid "Offline"
-msgstr "离线"
-
 msgid "Username is required."
 msgstr "用户名为必填。"
 
@@ -1608,9 +1605,6 @@ msgstr "没有白名单"
 msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
-msgid "{count, plural, one {{0} View} other {{1} Views}}"
-msgstr "{count, plural, one {{0} 次浏览} other {{1} 次浏览}}"
-
 msgid "Muting..."
 msgstr "屏蔽中..."
 
@@ -1739,9 +1733,6 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
-
-msgid "Online"
-msgstr "在线"
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"

@@ -1,7 +1,6 @@
 import { type SocialSource, type SocialSourceInURL, Source, SourceInURL, WalletSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
@@ -78,5 +77,3 @@ export const resolveSourceFromWalletSource = createLookupTableResolver<WalletSou
         throw new UnreachableError('WalletSource', walletSource);
     },
 );
-
-export const resolveFireflyPlatform = resolveSourceInURL;

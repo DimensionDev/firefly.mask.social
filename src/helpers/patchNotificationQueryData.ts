@@ -8,7 +8,7 @@ import { type Notification, NotificationType, type Post, type Profile } from '@/
 
 type Patcher = (old: Draft<Notification>) => void;
 
-export function patchNotificationQueryData(source: Source, patcher: Patcher) {
+function patchNotificationQueryData(source: Source, patcher: Patcher) {
     queryClient.setQueryData<{ pages: Array<{ data: Notification[] }> }>(['notifications', source, true], (old) => {
         if (!old) return old;
 
