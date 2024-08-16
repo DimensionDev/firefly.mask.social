@@ -19,7 +19,8 @@ function updateWalletFromQueryData(data: BindWalletResponse['data']) {
             queryKey: ['my-wallet-connections'],
         },
         (old) => {
-            if (!old || old.connected.some((x) => isSameAddress(x.address, data.address))) return old;
+            if (!old || [...old.connected, ...old.related].some((x) => isSameAddress(x.address, data.address)))
+                return old;
             return produce(old, (draft) => {
                 draft.connected.push({
                     address: data.address,
