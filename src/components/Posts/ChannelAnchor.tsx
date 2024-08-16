@@ -25,9 +25,14 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ c
             <ChannelTippy channel={channel}>
                 <Link href={getChannelUrl(channel)} className="flex items-center gap-1">
                     {channel.imageUrl ? (
-                        <Avatar src={channel.imageUrl} alt={channel.id} size={16} className="h-4 w-4 rounded-full" />
+                        <Avatar
+                            src={channel.imageUrl}
+                            alt={channel.id}
+                            size={15}
+                            className="h-[15px] w-[15px] rounded-full"
+                        />
                     ) : (
-                        <SocialSourceIcon className="rounded-full" source={channel.source} size={16} />
+                        <SocialSourceIcon className="rounded-full" source={channel.source} size={15} />
                     )}
                     <span>/{channel.id}</span>
                 </Link>
