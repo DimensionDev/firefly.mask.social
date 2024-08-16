@@ -15,7 +15,7 @@ export default function Settings() {
     useNavigatorTitle(t`Developers`);
 
     useEffect(() => {
-        if (!isSmall) router.replace('/developers/frame');
+        if (!isSmall) router.replace('/developers/general');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
