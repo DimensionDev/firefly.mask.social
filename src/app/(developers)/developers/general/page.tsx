@@ -8,7 +8,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
-export default function Settings() {
+export default function General() {
     const { useDevelopmentAPI, updateUseDevelopmentAPI } = useDeveloperSettingsState();
 
     return (
