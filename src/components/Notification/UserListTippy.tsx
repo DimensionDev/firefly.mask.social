@@ -4,7 +4,7 @@ import { ProfileCell } from '@/components/Profile/ProfileCell.js';
 import { Tippy } from '@/esm/Tippy.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface Props extends PropsWithChildren {
+interface Props extends PropsWithChildren {
     users: Profile[];
     className?: string;
 }

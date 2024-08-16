@@ -249,7 +249,7 @@ async function getNextFrame(
     }
 }
 
-export interface FrameLayoutProps {
+interface FrameLayoutProps {
     frame: FrameType;
     post: Post;
     children?: ReactNode;

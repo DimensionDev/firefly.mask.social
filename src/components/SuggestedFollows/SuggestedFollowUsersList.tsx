@@ -14,7 +14,7 @@ interface Props {
     source: SocialSource;
 }
 
-export function getSuggestedFollowUserInList(index: number, profile: Profile) {
+function getSuggestedFollowUserInList(index: number, profile: Profile) {
     return <ProfileInList profile={profile} key={`${profile.profileId}-${index}`} />;
 }
 

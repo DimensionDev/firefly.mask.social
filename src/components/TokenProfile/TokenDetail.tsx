@@ -11,7 +11,7 @@ import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
-import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurity.js';
+import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';

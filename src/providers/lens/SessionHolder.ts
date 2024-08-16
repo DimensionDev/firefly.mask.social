@@ -9,7 +9,7 @@ import {
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
-export class LensSessionHolder extends SessionHolder<LensSession> {
+class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
 
     get sdk() {

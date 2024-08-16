@@ -11,7 +11,7 @@ function getAttachments(cast: Cast) {
     return union<Attachment>(images, videos);
 }
 
-export function formatContent(cast: Cast) {
+function formatContent(cast: Cast) {
     const oembedUrl = last(cast.text.match(URL_REGEX) || []);
 
     if (cast.embeds?.images?.length) {

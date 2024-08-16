@@ -32,14 +32,3 @@ interface RegisteredAction {
 export interface ActionsRegistryResponse {
     actions: RegisteredAction[];
 }
-
-interface ActionRule {
-    /** relative (preferred) or absolute path to perform the rule mapping from */
-    pathPattern: string;
-    /** relative (preferred) or absolute path that supports Action requests */
-    apiPath: string;
-}
-
-export interface ActionRuleResponse {
-    rules: ActionRule[];
-}

@@ -4,13 +4,8 @@ import { Plural, Select, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
-import { type FunctionComponent, memo, type SVGAttributes, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
-import CollectIcon from '@/assets/collect-large.svg';
-import FollowIcon from '@/assets/follow.svg';
-import LikeIcon from '@/assets/like-large.svg';
-import MessagesIcon from '@/assets/messages.svg';
-import MirrorIcon from '@/assets/mirror-large.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
@@ -22,28 +17,12 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
 
-export const resolveNotificationIcon = createLookupTableResolver<
-    NotificationType,
-    FunctionComponent<SVGAttributes<SVGElement>> | null
->(
-    {
-        [NotificationType.Reaction]: LikeIcon,
-        [NotificationType.Act]: CollectIcon,
-        [NotificationType.Comment]: MessagesIcon,
-        [NotificationType.Mirror]: MirrorIcon,
-        [NotificationType.Quote]: MirrorIcon,
-        [NotificationType.Follow]: FollowIcon,
-        [NotificationType.Mention]: MessagesIcon,
-    },
-    null,
-);
-
-export interface NotificationItemProps {
+interface NotificationItemProps {
     notification: Notification;
 }
 

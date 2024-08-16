@@ -20,7 +20,7 @@ import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
-export interface NFTInfoProps {
+interface NFTInfoProps {
     ownerAddress?: string;
     contractAddress?: string;
     imageURL: string;

@@ -49,7 +49,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
     }
 }
 
-export interface LoginFarcasterProps {
+interface LoginFarcasterProps {
     signType: SignType | null;
 }
 

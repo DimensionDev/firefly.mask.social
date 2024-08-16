@@ -8,7 +8,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface ProfileTippyProps extends TippyProps {
+interface ProfileTippyProps extends TippyProps {
     className?: string;
     profile?: Profile;
     identity: FireflyIdentity;

@@ -12,7 +12,7 @@ import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { Collection } from '@/providers/types/Firefly.js';
 
-export interface SelectedCollection {
+interface SelectedCollection {
     chainId: ChainId;
     collectionId: string;
     collection: Collection;
