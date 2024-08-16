@@ -34,7 +34,7 @@ export class FetchError extends Error {
         super(message);
     }
 
-    static async fromResponse(response: Response, message?: string) {
+    static async from(input: RequestInfo | URL | string, response: Response, message?: string) {
         const text = await resolveValue(async () => {
             try {
                 return await response.clone().text();
@@ -42,10 +42,14 @@ export class FetchError extends Error {
                 return '';
             }
         });
+        const method = typeof input === 'string' ? 'GET' : input instanceof URL ? 'GET' : input.method.toUpperCase();
 
         return new FetchError(
             message ??
-                [`[fetch] failed to fetch: ${response.status} ${response.statusText} ${response.url}`, text].join('\n'),
+                [
+                    `[fetch] failed to fetch: ${method} ${response.status} ${response.statusText} ${response.url}`,
+                    text,
+                ].join('\n'),
             response.url,
             response.status,
             response.statusText,
