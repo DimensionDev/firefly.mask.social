@@ -111,16 +111,18 @@ export function SetQueryDataForMuteAllProfiles() {
                 value: async (identity: FireflyIdentity) => {
                     const m = method as (identity: FireflyIdentity) => ReturnType<FireflySocialMedia[K]>;
                     const relationships = await m.call(target.prototype, identity);
-                    [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(({ snsId, snsPlatform }) => {
-                        const source = resolveSourceFromUrl(snsPlatform);
-                        const platformId =
-                            source === Source.Farcaster && typeof snsId === 'number' ? `${snsId}` : snsId;
-                        queryClient.setQueryData(['profile', 'mute-all', source, platformId], true);
+                    [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
+                        ({ snsId, snsPlatform }) => {
+                            const source = resolveSourceFromUrl(snsPlatform);
+                            const platformId =
+                                source === Source.Farcaster && typeof snsId === 'number' ? `${snsId}` : snsId;
+                            queryClient.setQueryData(['profile', 'mute-all', source, platformId], true);
 
-                        if (source !== Source.Wallet) {
-                            setBlockStatus(narrowToSocialSource(source), platformId, true);
-                        }
-                    });
+                            if (source !== Source.Wallet) {
+                                setBlockStatus(narrowToSocialSource(source), platformId, true);
+                            }
+                        },
+                    );
 
                     return relationships;
                 },
