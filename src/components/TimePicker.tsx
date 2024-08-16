@@ -9,6 +9,7 @@ import { memo, type PropsWithChildren, useState } from 'react';
 
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 
 interface TimePickerProps extends PropsWithChildren<MultiSectionDigitalClockProps<dayjs.Dayjs>> {
     className?: string;
@@ -50,12 +51,9 @@ export const TimePicker = memo<TimePickerProps>(function TimePicker({
                 }
                 className="tippy-card"
                 placement="bottom-end"
-                duration={500}
-                delay={500}
-                arrow={false}
-                trigger="click"
-                hideOnClick
-                interactive
+                {...getInteractiveTippyProps({
+                    trigger: 'click',
+                })}
             >
                 <div className="w-full" onClick={() => setVisible(!visible)}>
                     <span className={className}>{children}</span>

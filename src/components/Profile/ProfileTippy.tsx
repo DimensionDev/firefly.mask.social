@@ -4,6 +4,7 @@ import { memo, useState } from 'react';
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
 import { Tippy } from '@/esm/Tippy.js';
+import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -28,16 +29,11 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ iden
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
-                duration={[100, 0]}
-                delay={1000}
-                arrow={false}
-                trigger="mouseenter"
                 onTrigger={() => {
                     setEnabled(true);
                 }}
-                hideOnClick
-                interactive
                 content={enabled ? <ProfileCard identity={identity} defaultProfile={profile} /> : null}
+                {...getInteractiveTippyProps()}
                 {...rest}
             >
                 {children}

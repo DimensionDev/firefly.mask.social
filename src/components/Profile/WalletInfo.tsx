@@ -17,6 +17,7 @@ import { Link } from '@/esm/Link.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
+import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -83,11 +84,6 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                 maxWidth={304}
                                 className="tippy-card"
                                 placement="bottom"
-                                duration={500}
-                                arrow={false}
-                                trigger="mouseenter"
-                                hideOnClick
-                                interactive
                                 content={
                                     <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
                                         {profile.ens.map((ens) => {
@@ -102,6 +98,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                         })}
                                     </div>
                                 }
+                                {...getInteractiveTippyProps()}
                             >
                                 <span>
                                     <EnsIcon width={24} height={24} />

@@ -7,6 +7,7 @@ import { memo, type PropsWithChildren, useState } from 'react';
 
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 
 interface DatePickerProps extends PropsWithChildren<DateCalendarProps<dayjs.Dayjs>> {
     className?: string;
@@ -47,12 +48,9 @@ export const DatePicker = memo<DatePickerProps>(function DatePicker({
                 }
                 className="tippy-card"
                 placement="bottom-end"
-                duration={500}
-                delay={500}
-                arrow={false}
-                trigger="click"
-                hideOnClick
-                interactive
+                {...getInteractiveTippyProps({
+                    trigger: 'click',
+                })}
             >
                 <div className="w-full" onClick={() => setVisible(!visible)}>
                     <span className={className}>{children}</span>

@@ -29,6 +29,7 @@ import { crossPostScheduleThread } from '@/services/crossSchedulePostThread.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { getInteractiveTippyProps } from '@/helpers/tippy.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -147,11 +148,6 @@ export function ComposeSend(props: ComposeSendProps) {
                     appendTo={() => document.body}
                     className="tippy-card"
                     placement="bottom"
-                    duration={500}
-                    delay={500}
-                    arrow={false}
-                    trigger="mouseenter"
-                    interactive
                     disabled={!hasError || posts.length === 1}
                     content={
                         <div className="flex flex-col rounded-lg bg-tooltipBg px-3 py-1 opacity-80">
@@ -172,6 +168,7 @@ export function ComposeSend(props: ComposeSendProps) {
                             })}
                         </div>
                     }
+                    {...getInteractiveTippyProps()}
                 >
                     <ClickableButton
                         disabled={disabled}
