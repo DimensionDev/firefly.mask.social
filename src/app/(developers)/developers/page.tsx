@@ -8,7 +8,7 @@ import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
-export default function Settings() {
+export default function Developers() {
     const router = useRouter();
     const isSmall = useIsSmall('max');
 
