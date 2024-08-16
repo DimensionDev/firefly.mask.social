@@ -16,7 +16,7 @@ export function ToolkitList() {
                 <Trans>Developers</Trans>
             </div>
             {[
-                { name: <Trans>Settings</Trans>, link: '/settings' },
+                { name: <Trans>General</Trans>, link: '/general' },
                 { name: <Trans>Blink Validator</Trans>, link: '/blink' },
                 { name: <Trans>Frame Validator</Trans>, link: '/frame' },
                 { name: <Trans>OpenGraph Validator</Trans>, link: '/og' },
