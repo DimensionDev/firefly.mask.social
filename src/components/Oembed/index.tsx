@@ -32,6 +32,7 @@ export const OembedLayout = memo<{ data: LinkDigested; post?: Post }>(function O
     } = props;
 
     if (!og.title) return null;
+    if (payload?.type === 'Post' && post?.type === 'Mirror') return null;
     if (payload?.type === 'Post' && payload.id === post?.postId) return null;
 
     const type = payload?.type;
