@@ -149,6 +149,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             }
             const author = includes?.users?.find((user) => user.id === mention.id);
             ret.reporter = ret.author;
+            ret.parentPostId = retweeted.id;
             ret.author = {
                 profileId: mention.id,
                 displayName: author?.name ?? mention?.username ?? '',
