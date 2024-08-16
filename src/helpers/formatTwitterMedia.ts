@@ -5,14 +5,10 @@ import type { MediaObjectV2, MediaVariantsV2 } from 'twitter-api-v2';
 import { type Attachment } from '@/providers/types/SocialMedia.js';
 
 /**
- * use m3u8 link first if available
- * then use mp4 link with highest bitrate
+ * use mp4 link with highest bitrate
  * TODO: Maybe we can choose video on network speed
  */
 function getBestVideoUrl(variants: MediaVariantsV2[]) {
-    const m3u8Variant = variants.find((v) => v.content_type === 'application/x-mpegURL');
-    if (m3u8Variant?.url) return m3u8Variant.url;
-
     const mp4Variants = variants.filter((v) => v.content_type === 'video/mp4');
     return last(mp4Variants)?.url ?? first(variants)?.url;
 }
