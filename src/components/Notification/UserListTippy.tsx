@@ -4,7 +4,7 @@ import { ProfileCell } from '@/components/Profile/ProfileCell.js';
 import { Tippy } from '@/esm/Tippy.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface Props extends PropsWithChildren {
+interface Props extends PropsWithChildren {
     users: Profile[];
     className?: string;
 }
@@ -16,8 +16,8 @@ export const UserListTippy = memo<Props>(function UserListTippy({ users, classNa
             maxWidth={350}
             className="tippy-card"
             placement="bottom"
-            duration={500}
-            delay={300}
+            delay={[100, 0]}
+            duration={1000}
             arrow={false}
             hideOnClick
             interactive

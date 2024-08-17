@@ -18,12 +18,12 @@ import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { Collection } from '@/providers/types/Firefly.js';
 import { getWalletsNFTCollections } from '@/services/getWalletsNFTCollections.js';
 
-export interface NFTCollectionItemProps {
+interface NFTCollectionItemProps {
     collection: Collection;
     onClick?: (chainId: ChainId, collectionId: string, collection: Collection) => void;
 }
 
-export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
+function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
     const distinctNFTCount = collection.distinct_nfts_owned;
     const images = useMemo(() => {
         let previewImages = collection.nftPreviews ?? [];
@@ -115,11 +115,11 @@ export function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProp
     );
 }
 
-export function getNFTItemContent(index: number, props: NFTCollectionItemProps) {
+function getNFTItemContent(index: number, props: NFTCollectionItemProps) {
     return <NFTCollectionItem key={`${props.collection.collection_id}-${index}`} {...props} />;
 }
 
-export interface NFTCollectionListProps {
+interface NFTCollectionListProps {
     address: string;
     onClickCollection?: NFTCollectionItemProps['onClick'];
 }

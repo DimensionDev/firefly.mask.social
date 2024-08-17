@@ -114,10 +114,12 @@ export function SetQueryDataForMuteAllProfiles() {
                     [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
                         ({ snsId, snsPlatform }) => {
                             const source = resolveSourceFromUrl(snsPlatform);
-                            queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
+                            const platformId =
+                                source === Source.Farcaster && typeof snsId === 'number' ? `${snsId}` : snsId;
+                            queryClient.setQueryData(['profile', 'mute-all', source, platformId], true);
 
                             if (source !== Source.Wallet) {
-                                setBlockStatus(narrowToSocialSource(source), snsId, true);
+                                setBlockStatus(narrowToSocialSource(source), platformId, true);
                             }
                         },
                     );

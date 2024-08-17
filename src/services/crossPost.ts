@@ -15,7 +15,7 @@ import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMe
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
-import { failedAt } from '@/helpers/isPublishedPost.js';
+import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -222,7 +222,7 @@ export async function crossPost(
 
     // check publish result
     if (!skipCheckPublished) {
-        const failedPlatforms = failedAt(updatedCompositePost);
+        const failedPlatforms = getPostFailedAt(updatedCompositePost);
 
         if (failedPlatforms.length) {
             // the first error on each platform

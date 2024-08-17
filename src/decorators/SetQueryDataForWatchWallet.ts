@@ -7,7 +7,7 @@ import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
 
-export function toggleWatch(address: string, status: boolean) {
+function toggleWatch(address: string, status: boolean) {
     type PagesData = { pages: Array<{ data: Article[] }> };
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;

@@ -4,7 +4,7 @@ import { kv } from '@vercel/kv';
 
 import type { KeyType } from '@/constants/enum.js';
 
-export interface MemoizedFunction {
+interface MemoizedFunction {
     cache: {
         get: (fieldKey: string) => Promise<string>;
         set: (fieldKey: string, fieldValue: string) => Promise<void>;

@@ -14,9 +14,10 @@ import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 const SHOW_LENGTH = 3;
 
-export interface SuggestedChannelsProps {
+interface SuggestedChannelsProps {
     source: SocialSource;
 }
+
 export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     const { data, isLoading, isError } = useQuery({
         queryKey: ['suggest-channels', source],

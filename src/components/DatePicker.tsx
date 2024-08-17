@@ -5,7 +5,7 @@ import { type DateCalendarProps } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 import { memo, type PropsWithChildren, useState } from 'react';
 
-import { Tippy } from '@/esm/Tippy.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface DatePickerProps extends PropsWithChildren<DateCalendarProps<dayjs.Dayjs>> {
@@ -24,10 +24,7 @@ export const DatePicker = memo<DatePickerProps>(function DatePicker({
     const [visible, setVisible] = useState(false);
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Tippy
-                visible={visible}
-                onClickOutside={() => setVisible(false)}
-                appendTo={() => document.body}
+            <InteractiveTippy
                 content={
                     <div
                         className={classNames(
@@ -47,17 +44,12 @@ export const DatePicker = memo<DatePickerProps>(function DatePicker({
                 }
                 className="tippy-card"
                 placement="bottom-end"
-                duration={500}
-                delay={500}
-                arrow={false}
                 trigger="click"
-                hideOnClick
-                interactive
             >
                 <div className="w-full" onClick={() => setVisible(!visible)}>
                     <span className={className}>{children}</span>
                 </div>
-            </Tippy>
+            </InteractiveTippy>
         </LocalizationProvider>
     );
 });

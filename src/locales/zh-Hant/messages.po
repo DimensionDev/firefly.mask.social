@@ -126,9 +126,6 @@ msgstr "您引用/回覆的貼文已經被刪除"
 msgid "Send tips to @{0}"
 msgstr ""
 
-msgid "Display Name"
-msgstr ""
-
 msgid "Debug Connection"
 msgstr "除錯連接"
 
@@ -205,9 +202,6 @@ msgid "Change Wallet"
 msgstr "更換錢包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr ""
-
-msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
 msgid "OpenGraph"
@@ -290,9 +284,6 @@ msgstr "投票功能目前僅在 {0} 支持"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
-
-msgid "Offline"
-msgstr "離線"
 
 msgid "Username is required."
 msgstr "需要用戶名"
@@ -579,9 +570,6 @@ msgstr "對 @{0} 的靜音失敗"
 msgid "Address"
 msgstr "地址"
 
-msgid "Bio"
-msgstr ""
-
 msgid "[Photo]"
 msgstr ""
 
@@ -626,6 +614,12 @@ msgstr "從書籤中移除"
 
 msgid "<0>Bought</0> an NFT"
 msgstr ""
+
+msgid "The file not found"
+msgstr "找不到文件"
+
+msgid "Invalid file type. Allowed types: {0}"
+msgstr "無效的文件種類。有效種類：{0}"
 
 msgid "Connection failed"
 msgstr "連結失敗"
@@ -945,9 +939,6 @@ msgstr "你的貼文已成功發佈"
 msgid "Login with Farcaster"
 msgstr ""
 
-msgid "Bio should not exceed {maxBioSize} characters"
-msgstr ""
-
 msgid "1m"
 msgstr "1個月"
 
@@ -982,9 +973,6 @@ msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
 msgid "Log in with recovery phrase"
-msgstr ""
-
-msgid "Edit Profile"
 msgstr ""
 
 msgid "Confirm you want to mute @{0}?"
@@ -1028,9 +1016,6 @@ msgstr ""
 
 msgid "No post found"
 msgstr "未找到貼文"
-
-msgid "Display Name should not be blank"
-msgstr ""
 
 msgid "Clear All"
 msgstr "清除所有"
@@ -1108,9 +1093,6 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "New connection with Warpcast"
-msgstr ""
-
-msgid "Updated profile successfully"
 msgstr ""
 
 msgid "Token ${symbol} could not be found."
@@ -1350,9 +1332,6 @@ msgstr ""
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
-msgid "Failed to update profile."
-msgstr ""
-
 msgid "Connected in Firefly"
 msgstr ""
 
@@ -1439,9 +1418,6 @@ msgstr "已靜音的內容"
 
 msgid "Unable to retrieve post details."
 msgstr "無法檢索貼文詳情"
-
-msgid "Update photo"
-msgstr ""
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
@@ -1629,9 +1605,6 @@ msgstr "無白名單"
 msgid "Cancel repost successfully"
 msgstr ""
 
-msgid "{count, plural, one {{0} View} other {{1} Views}}"
-msgstr "{count, plural, one {{0} 次查看} other {{1} 次查看}}"
-
 msgid "Muting..."
 msgstr "正在靜音"
 
@@ -1673,9 +1646,6 @@ msgstr "頻道"
 
 msgid "Firefly"
 msgstr "Firefly"
-
-msgid "Invalid website format"
-msgstr ""
 
 msgid "Switching..."
 msgstr "切換中..."
@@ -1764,9 +1734,6 @@ msgstr "深色模式"
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入你的書籤"
 
-msgid "Online"
-msgstr "線上"
-
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
@@ -1795,12 +1762,6 @@ msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-msgstr ""
-
-msgid "We're updating our connection with X. Posting on X will be limited for now."
-msgstr "我們正在更新與 X 的連接。在 X 上的發文目前收到限制。"
-
-msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
@@ -1922,9 +1883,6 @@ msgstr ""
 
 msgid "No matching users"
 msgstr "沒有符合的用戶"
-
-msgid "Website should not exceed {maxWebsiteSize} characters"
-msgstr ""
 
 msgid "Save"
 msgstr "存檔"

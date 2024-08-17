@@ -35,7 +35,7 @@ export function LinkCloud() {
             <span className="font-bold text-gray-500">© {2024} Firefly</span>
             {[
                 { name: <Trans>Communities</Trans>, link: '/settings/communities', self: true },
-                { name: <Trans>Developers</Trans>, link: '/developers/frame', self: true },
+                { name: <Trans>Developers</Trans>, link: '/developers/general', self: true },
                 {
                     name: <Trans>Privacy Policy</Trans>,
                     link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',

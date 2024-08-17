@@ -105,8 +105,6 @@ export enum KeyType {
     GetBlink = 'getBlink',
 }
 
-export type TrendingUserSource = Source.Farcaster | Source.Lens;
-
 export enum ProfileTabType {
     Feed = 'feed',
     Replies = 'replies',
@@ -214,4 +212,15 @@ export enum GiphyTabType {
     Stickers = 'stickers',
     Text = 'text',
     Emoji = 'emoji',
+}
+
+export enum WalletSource {
+    Farcaster = 'farcaster',
+    Lens = 'lens',
+    Twitter = 'twitter',
+    Firefly = 'firefly',
+    Article = 'article',
+    Wallet = 'wallet',
+    NFTs = 'nfts',
+    LensContract = 'lens_contract',
 }

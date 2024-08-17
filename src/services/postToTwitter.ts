@@ -12,7 +12,7 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
-import { uploadToTwitter } from '@/services/uploadToTwitter.js';
+import { uploadToTwitter, uploadVideoToTwitter } from '@/services/uploadToTwitter.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -73,12 +73,12 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
         },
         uploadVideos: async () => {
             if (!video) return [];
-            const uploaded = await uploadToTwitter([video.file]);
+            const uploaded = await uploadVideoToTwitter(video.file);
             return uploaded.map((x) => createTwitterMediaObject(x, video));
         },
         uploadImages: async () => {
             const downloaded = await downloadMediaObjects(images);
-            const uploaded = await uploadToTwitter(downloaded.map((x) => x.file));
+            const uploaded = await uploadToTwitter(downloaded.map((x) => ({ file: x.file })));
             return uploaded.map((x, index) => createTwitterMediaObject(x, downloaded[index]));
         },
         compose: (images, videos, polls) =>

@@ -2,11 +2,11 @@
 
 import { memo, useState } from 'react';
 
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { useTippyContext } from '@/components/TippyContext/index.js';
 import { TokenProfile } from '@/components/TokenProfile/TokenProfile.js';
 import { Link } from '@/esm/Link.js';
-import { Tippy } from '@/esm/Tippy.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {
@@ -35,18 +35,11 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
 
     if (isMedium && !insideTippy) {
         return (
-            <Tippy
-                appendTo={() => document.body}
+            <InteractiveTippy
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
-                duration={500}
-                delay={500}
-                arrow={false}
-                trigger="mouseenter"
                 onShow={() => setShow(true)}
-                hideOnClick
-                interactive
                 content={
                     enabled ? (
                         <TokenProfile
@@ -57,7 +50,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 }
             >
                 {content}
-            </Tippy>
+            </InteractiveTippy>
         );
     }
     return content;

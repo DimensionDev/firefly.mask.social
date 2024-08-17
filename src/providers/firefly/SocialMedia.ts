@@ -1244,7 +1244,7 @@ export class FireflySocialMedia implements Provider {
 
     async disconnectAccount(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: identity.source,
+            connectionPlatform: resolveSourceInURL(identity.source),
             connectionId: identity.id,
         });
         await fireflySessionHolder.fetch<Response<void>>(url, {

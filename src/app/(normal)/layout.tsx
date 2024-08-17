@@ -8,8 +8,7 @@ import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.j
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
-import { Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { Source } from '@/constants/enum.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -94,7 +93,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     </IfPathname>
 
                     <IfPathname isOneOf={['/']} exact>
-                        {env.external.NEXT_PUBLIC_CALENDAR_WIDGET === STATUS.Enabled ? <mask-calendar-widget /> : null}
+                        <mask-calendar-widget />
                     </IfPathname>
 
                     <LinkCloud />

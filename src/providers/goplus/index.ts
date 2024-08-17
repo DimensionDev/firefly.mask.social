@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { GO_PLUS_LABS_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SecurityMessages } from '@/providers/goplus/rules.js';
-import { type GoPlusResponse, SecurityMessageLevel, type TokenSecurityType } from '@/providers/types/Security.js';
+import { type GoPlusResponse, SecurityMessageLevel, type TokenContractSecurity } from '@/providers/types/Security.js';
 
 export class GoPlus {
     static async getTokenSecurity(chainId: number, address: string) {
@@ -12,22 +12,22 @@ export class GoPlus {
             chainId,
             contract_addresses: address.toLowerCase(),
         });
-        const res = await fetchJSON<GoPlusResponse<Record<string, TokenSecurityType>>>(url);
+        const res = await fetchJSON<GoPlusResponse<Record<string, TokenContractSecurity>>>(url);
         return createTokenSecurity(chainId, res.result);
     }
 }
 
-function createTokenSecurity(chainId: number, response: Record<string, TokenSecurityType>) {
+function createTokenSecurity(chainId: number, response: Record<string, TokenContractSecurity>) {
     if (isEmpty(response)) return;
     const entity = first(Object.entries(response));
     if (!entity) return;
-    const tokenSecurity = { ...entity[1], contract: entity[0], chainId };
-    const is_high_risk = isHighRisk(tokenSecurity);
-    const makeMessageList = getMessageList(tokenSecurity);
+    const security = { ...entity[1], contract: entity[0], chainId };
+    const is_high_risk = isHighRisk(security);
+    const makeMessageList = getMessageList(security);
     const risk_item_quantity = makeMessageList.filter((x) => x.level === SecurityMessageLevel.High).length;
     const warn_item_quantity = makeMessageList.filter((x) => x.level === SecurityMessageLevel.Medium).length;
     return {
-        ...tokenSecurity,
+        ...security,
         is_high_risk,
         risk_item_quantity,
         warn_item_quantity,
@@ -35,15 +35,15 @@ function createTokenSecurity(chainId: number, response: Record<string, TokenSecu
     };
 }
 
-function isHighRisk(tokenSecurity?: TokenSecurityType) {
-    if (!tokenSecurity) return false;
-    return tokenSecurity.trust_list === '1'
+function isHighRisk(security?: TokenContractSecurity) {
+    if (!security) return false;
+    return security.trust_list === '1'
         ? false
         : SecurityMessages.filter(
               (x) =>
-                  x.condition(tokenSecurity) &&
+                  x.condition(security) &&
                   x.level !== SecurityMessageLevel.Safe &&
-                  !x.shouldHide(tokenSecurity) &&
+                  !x.shouldHide(security) &&
                   x.level === SecurityMessageLevel.High,
           ).sort((a, z) => {
               if (a.level === SecurityMessageLevel.High) return -1;
@@ -52,12 +52,11 @@ function isHighRisk(tokenSecurity?: TokenSecurityType) {
           }).length > 0;
 }
 
-function getMessageList(tokenSecurity: TokenSecurityType) {
-    return tokenSecurity.trust_list === '1'
+function getMessageList(security: TokenContractSecurity) {
+    return security.trust_list === '1'
         ? []
         : SecurityMessages.filter(
-              (x) =>
-                  x.condition(tokenSecurity) && x.level !== SecurityMessageLevel.Safe && !x.shouldHide(tokenSecurity),
+              (x) => x.condition(security) && x.level !== SecurityMessageLevel.Safe && !x.shouldHide(security),
           ).sort((a, z) => {
               if (a.level === SecurityMessageLevel.High) return -1;
               if (z.level === SecurityMessageLevel.High) return 1;

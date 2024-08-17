@@ -3,7 +3,7 @@ import type { GetWalletClientReturnType } from 'wagmi/actions';
 
 import { canonicalize } from '@/esm/canonicalize.js';
 
-export interface CustodyPayload {
+interface CustodyPayload {
     method: 'generateToken';
     params: {
         timestamp: number;

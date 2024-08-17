@@ -3,10 +3,10 @@ import { compact } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
-import { createTwitterMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { createTwitterMediaObject, resolveUploadId } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
-import { uploadToTwitter } from '@/services/uploadToTwitter.js';
+import { uploadToTwitter, uploadVideoToTwitter } from '@/services/uploadToTwitter.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { type ComposeType } from '@/types/compose.js';
 
@@ -32,14 +32,19 @@ export async function createTwitterSchedulePostPayload(
     compositePost: CompositePost,
     isThread = false,
 ): Promise<TwitterSchedulePostPayload> {
-    const { chars, images, parentPost, restriction, poll } = compositePost;
+    const { chars, images, video, parentPost, restriction, poll } = compositePost;
 
     const twitterParentPost = parentPost.Twitter;
 
     const confirmedMedias = await downloadMediaObjects(images);
-    const imageResults = (await uploadToTwitter(confirmedMedias.map((x) => x.file))).map((x, index) =>
+    const imageResults = (await uploadToTwitter(confirmedMedias.map((x) => ({ file: x.file })))).map((x, index) =>
         createTwitterMediaObject(x, confirmedMedias[index]),
     );
+    const videoResults = video
+        ? (await uploadVideoToTwitter(video.file)).map((x) => createTwitterMediaObject(x, video))
+        : [];
+
+    const mediaResults = [...imageResults, ...videoResults];
 
     const pollResult = poll ? await TwitterPollProvider.createPoll(poll) : undefined;
 
@@ -54,9 +59,9 @@ export async function createTwitterSchedulePostPayload(
                       : undefined
                 : undefined,
         text: readChars(chars, 'both', Source.Twitter),
-        media: imageResults.length
+        media: mediaResults.length
             ? {
-                  media_ids: compact(imageResults?.map((x) => x.uploadIds?.Twimg)),
+                  media_ids: compact(mediaResults?.map((x) => resolveUploadId(Source.Twitter, x))),
               }
             : undefined,
         reply_settings: resolveTwitterReplyRestriction(restriction),

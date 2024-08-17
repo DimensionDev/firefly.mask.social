@@ -53,6 +53,7 @@ export interface TradingSecurity {
     is_anti_whale?: BooleanChar;
     trust_list?: BooleanChar;
 }
+
 export interface SecurityItem {
     is_high_risk?: boolean;
     risk_item_quantity?: number;
@@ -60,7 +61,7 @@ export interface SecurityItem {
     message_list?: SecurityMessage[];
 }
 
-export type TokenSecurityType = ContractSecurity &
+export type TokenContractSecurity = ContractSecurity &
     TokenSecurity &
     SecurityItem &
     TradingSecurity & {
@@ -82,8 +83,8 @@ export enum SecurityMessageLevel {
 export interface SecurityMessage {
     type: SecurityType;
     level: SecurityMessageLevel;
-    condition(info: TokenSecurityType): boolean;
-    title: (info: TokenSecurityType) => string;
-    message: (info: TokenSecurityType) => string;
-    shouldHide(info: TokenSecurityType): boolean;
+    condition(info: TokenContractSecurity): boolean;
+    title: (info: TokenContractSecurity) => string;
+    message: (info: TokenContractSecurity) => string;
+    shouldHide(info: TokenContractSecurity): boolean;
 }

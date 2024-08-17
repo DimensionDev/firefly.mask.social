@@ -28,12 +28,6 @@ export const POLL_OPTIONS_MAX_COUNT: Record<SocialSource, number> = {
     [Source.Twitter]: 4,
 };
 
-export const POLL_MAX_VALID_IN_DAYS: Record<SocialSource, number> = {
-    [Source.Lens]: Number.MAX_SAFE_INTEGER,
-    [Source.Farcaster]: Number.MAX_SAFE_INTEGER,
-    [Source.Twitter]: 6,
-};
-
 export const POLL_ACTION_ENABLED: Record<SocialSource, boolean> = {
     [Source.Lens]: true,
     [Source.Farcaster]: true,

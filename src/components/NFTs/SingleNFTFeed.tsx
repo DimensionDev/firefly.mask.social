@@ -16,7 +16,7 @@ import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export interface SingleNFTFeedProps {
+interface SingleNFTFeedProps {
     ownerAddress: Address;
     contractAddress: Address;
     disableAnimate?: boolean;
