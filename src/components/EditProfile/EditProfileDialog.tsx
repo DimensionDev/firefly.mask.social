@@ -1,7 +1,5 @@
 import { Dialog } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
-import { useQueryClient } from '@tanstack/react-query';
-import { produce } from 'immer';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -23,9 +21,7 @@ import {
 } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getFileURL } from '@/helpers/getFileURL.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import type { Profile, UpdateProfileParams } from '@/providers/types/SocialMedia.js';
 import { updateProfile } from '@/services/updateProfile.js';
 import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
@@ -47,10 +43,11 @@ export function EditProfileDialog({
         defaultValues: {
             displayName: profile.displayName,
             bio: profile.bio,
+            website: profile.website,
+            location: profile.location,
         },
         mode: 'onChange',
     });
-    const queryClient = useQueryClient();
     const {
         handleSubmit,
         formState: { isSubmitting, isDirty, isValid },
@@ -60,6 +57,7 @@ export function EditProfileDialog({
         if (open) {
             form.setValue('displayName', profile.displayName);
             if (profile.bio) form.setValue('bio', profile.bio);
+            if (profile.website) form.setValue('website', profile.website);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, profile.source]);
@@ -70,14 +68,6 @@ export function EditProfileDialog({
                 values.avatar instanceof FileList && values.avatar.length > 0 ? values.avatar[0] : undefined;
             const avatar = avatarFile ? await uploadProfileAvatar(profile.source, avatarFile) : profile.pfp;
             await updateProfile(profile.source, { ...values, avatar });
-            await queryClient.refetchQueries();
-            queryClient.setQueryData(['profile', profile.source, resolveFireflyProfileId(profile)], (old: Profile) => {
-                return produce(old, (state: Profile) => {
-                    state.displayName = values.displayName;
-                    state.bio = values.bio;
-                    if (avatarFile) state.pfp = getFileURL(avatarFile);
-                });
-            });
             onClose();
             enqueueSuccessMessage(t`Updated profile successfully`);
         } catch (error) {

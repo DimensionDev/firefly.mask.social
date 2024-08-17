@@ -12,6 +12,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { SetQueryDataForUpdateProfile } from '@/decorators/SetQueryDataForUpdateProfile.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import {
     createIndicator,
@@ -45,6 +46,7 @@ import { getFarcasterSuggestFollows } from '@/services/getFarcasterSuggestFollow
 @SetQueryDataForBlockProfile(Source.Farcaster)
 @SetQueryDataForFollowProfile(Source.Farcaster)
 @SetQueryDataForBlockChannel(Source.Farcaster)
+@SetQueryDataForUpdateProfile(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post, profileId?: string): Promise<string> {

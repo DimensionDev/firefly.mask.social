@@ -71,6 +71,8 @@ export interface Profile {
     source: SocialSource;
     // Farcaster only
     isPowerUser?: boolean;
+    website?: string;
+    location?: string;
 }
 
 export interface MediaObject {

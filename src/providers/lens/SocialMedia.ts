@@ -15,7 +15,7 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
-import { profile } from '@lens-protocol/metadata';
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -34,6 +34,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { SetQueryDataForUpdateProfile } from '@/decorators/SetQueryDataForUpdateProfile.js';
 import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -88,6 +89,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForDeletePost(Source.Lens)
 @SetQueryDataForBlockProfile(Source.Lens)
 @SetQueryDataForFollowProfile(Source.Lens)
+@SetQueryDataForUpdateProfile(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -1301,6 +1303,12 @@ class LensSocialMedia implements Provider {
             name: params.displayName,
             bio: params.bio,
             picture: params.avatar,
+            attributes: compact([
+                params.website ? { type: MetadataAttributeType.STRING, key: 'website', value: params.website } : null,
+                params.location
+                    ? { type: MetadataAttributeType.STRING, key: 'location', value: params.location }
+                    : null,
+            ]),
         });
         const metadataURI = await uploadLensMetadataToS3(metadata);
         const result = await lensSessionHolder.sdk.profile.setProfileMetadata({

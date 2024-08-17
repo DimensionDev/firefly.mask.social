@@ -12,9 +12,11 @@ import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePos
 import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
+import { SetQueryDataForUpdateProfile } from '@/decorators/SetQueryDataForUpdateProfile.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -40,6 +42,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForDeletePost(Source.Twitter)
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
+@SetQueryDataForUpdateProfile(Source.Twitter)
 class TwitterSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
@@ -181,6 +184,9 @@ class TwitterSocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
@@ -189,12 +195,18 @@ class TwitterSocialMedia implements Provider {
             headers: TwitterSession.payloadToHeaders(payload),
         });
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 

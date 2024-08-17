@@ -201,7 +201,16 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
 };
 
 export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
-    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics', 'connection_status'],
+    'user.fields': [
+        'description',
+        'username',
+        'name',
+        'profile_image_url',
+        'public_metrics',
+        'connection_status',
+        'url',
+        'location',
+    ],
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
