@@ -24,6 +24,7 @@
     "dependencies": {
         "@aws-sdk/client-s3": "^3.629.0",
         "@aws-sdk/lib-storage": "^3.629.0",
+        "@emotion/react": "11.11.4",
         "@dimensiondev/holoflows-kit": "0.9.0-20240322092738-f9180f3",
         "@farcaster/core": "^0.14.17",
         "@giphy/js-fetch-api": "^5.6.0",
@@ -184,44 +185,38 @@
     },
     "pnpm": {
         "overrides": {
-            "@types/node": "20.11.9",
-            "@types/react": "18.2.48",
-            "cross-blob": "3.0.1",
-            "i18next-translation-parser>html-parse-stringify2": "github:locize/html-parse-stringify2#d463109433b2c49c74a081044f54b2a6a1ccad7c",
-            "web3@0.20.7>bignumber.js": "git+https://github.com/frozeman/bignumber.js-nolookahead.git#57692b3ecfc98bbdd6b3a516cb2353652ea49934",
+            "@emotion/react": "$@emotion/react",
             "@mui/base": "5.0.0-beta.38",
-            "@protobufjs/inquire": "1.1.0",
-            "reflect-metadata": "0.1.13",
-            "webpack@5": "Jack-Works/webpack#528c91e564d5756e21c9c462b607d913452af770",
-            "react": "0.0.0-experimental-8039e6d0b-20231026",
-            "react-dom": "0.0.0-experimental-8039e6d0b-20231026",
-            "crypto-js@<4.2.0": ">=4.2.0",
+            "@mui/material": "$@mui/material",
             "@openzeppelin/contracts@<4.8.3": ">=4.8.3",
+            "@protobufjs/inquire": "1.1.0",
+            "@types/node": "20.14.9",
+            "@types/react": "$@types/react",
+            "@types/react-dom": "$@types/react-dom",
+            "crypto-js@<4.2.0": ">=4.2.0",
             "i18next": "23.2.11",
+            "i18next-translation-parser>html-parse-stringify2": "github:locize/html-parse-stringify2#d463109433b2c49c74a081044f54b2a6a1ccad7c",
+            "react": "$react",
+            "react-dom": "$react-dom",
             "react-i18next": "13.0.2",
-            "react-use": "17.5.1"
+            "reflect-metadata": "0.1.13",
+            "react-use": "17.5.1",
+            "webpack@5": "Jack-Works/webpack#528c91e564d5756e21c9c462b607d913452af770",
+            "web3@0.20.7>bignumber.js": "git+https://github.com/frozeman/bignumber.js-nolookahead.git#57692b3ecfc98bbdd6b3a516cb2353652ea49934"
         },
         "override comments": {
             "i18next-translation-parser": "see https://github.com/i18next/i18next-translation-parser/issues/11 we manually pin the commit"
         },
         "onlyBuiltDependencies": [],
         "peerDependencyRules": {
-            "ignoreMissing": [
+            "ignoreMissing": [],
+            "allowAny": [
+                "webpack",
                 "react",
                 "react-dom",
-                "@types/node",
-                "@babel/core",
-                "webextension-polyfill",
-                "prop-types",
-                "@mui/material",
-                "typescript"
+                "@types/react"
             ],
-            "allowedVersions": {
-                "react": "0.0.0-experimental-0a360642d-20230711",
-                "react-dom": "0.0.0-experimental-0a360642d-20230711",
-                "typescript": "5",
-                "rollup": "3"
-            }
+            "allowedVersions": {}
         },
         "patchedDependencies": {
             "gulp@4.0.2": "src/maskbook/patches/gulp@4.0.2.patch",
