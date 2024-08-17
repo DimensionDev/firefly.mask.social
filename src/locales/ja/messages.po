@@ -591,6 +591,9 @@ msgstr ""
 msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr ""
 
+msgid "Failed to avatar."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr ""
 
@@ -1437,9 +1440,6 @@ msgstr ""
 msgid "Unable to retrieve post details."
 msgstr ""
 
-msgid "Update photo"
-msgstr ""
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
@@ -1525,6 +1525,9 @@ msgid "All notifications"
 msgstr ""
 
 msgid "Mobile App"
+msgstr ""
+
+msgid "Upload photo"
 msgstr ""
 
 msgid "You can save this to send later from your drafts."

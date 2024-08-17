@@ -5,6 +5,7 @@ import { ContentTypeError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { fileSchema } from '@/schemas/file.js';
@@ -25,8 +26,10 @@ export const PUT = compose<(request: NextRequest, context?: NextRequestContext) 
         const { file } = FormDataSchema.parse({
             file: formData.get('file'),
         });
-        await client.v1.updateAccountProfileImage(Buffer.from(await file.arrayBuffer()));
+        const user = await client.v1.updateAccountProfileImage(Buffer.from(await file.arrayBuffer()));
 
-        return createSuccessResponseJSON({});
+        return createSuccessResponseJSON({
+            pfp: convertTwitterAvatar(user.profile_image_url_https),
+        });
     },
 );

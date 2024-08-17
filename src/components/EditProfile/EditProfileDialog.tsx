@@ -92,129 +92,139 @@ export function EditProfileDialog({
                     </span>
                 </Dialog.Title>
                 <FormProvider {...form}>
-                    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-4 p-4 text-left">
-                        <div className="flex w-full items-center gap-4">
-                            <EditingProfileAvatar pfp={profile.pfp} name="avatar" />
-                            <div className="flex flex-col space-y-2 text-left text-main">
-                                <div className="text-[20px] font-bold">@{profile.handle}</div>
-                                <label
-                                    htmlFor="avatar-upload-input"
-                                    className="text-md block h-[28px] cursor-pointer rounded-lg bg-link px-5 font-bold leading-[28px] shadow-messageShadow"
-                                >
-                                    <Trans>Update photo</Trans>
-                                </label>
-                                <input
-                                    id="avatar-upload-input"
-                                    type="file"
-                                    className="hidden"
-                                    {...register('avatar')}
-                                />
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
+                        <div className="mb-12 flex flex-col gap-4 p-4">
+                            <div className="flex w-full items-center gap-4">
+                                <EditingProfileAvatar pfp={profile.pfp} name="avatar" />
+                                <div className="flex flex-col space-y-2 text-left text-main">
+                                    <div className="text-[20px] font-bold">@{profile.handle}</div>
+                                    <label
+                                        htmlFor="avatar-upload-input"
+                                        className="text-md block cursor-pointer rounded-lg font-bold leading-5 text-lightHighlight"
+                                    >
+                                        <Trans>Upload photo</Trans>
+                                    </label>
+                                    <input
+                                        id="avatar-upload-input"
+                                        type="file"
+                                        className="hidden"
+                                        {...register('avatar')}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="space-y-1.5">
-                            <div className="flex w-full flex-row items-center space-x-1">
-                                <label className="min-w-[110px] text-sm font-bold text-main">
-                                    <Trans>Display Name</Trans>
-                                </label>
-                                <FormInputContainer
-                                    name="displayName"
-                                    maxLength={maxDisplayNameSize}
-                                    className="flex-1"
-                                >
-                                    <FormInput
+                            <div className="space-y-1.5">
+                                <div className="flex w-full flex-row items-center space-x-1">
+                                    <label className="min-w-[110px] text-sm font-bold text-main">
+                                        <Trans>Display Name</Trans>
+                                    </label>
+                                    <FormInputContainer
                                         name="displayName"
-                                        options={{
-                                            required: true,
-                                            minLength: {
-                                                value: 1,
-                                                message: t`Display Name should not be blank`,
-                                            },
-                                            maxLength: {
-                                                value: maxDisplayNameSize,
-                                                message: t`Display Name should not exceed ${maxDisplayNameSize} characters`,
-                                            },
-                                        }}
-                                    />
-                                </FormInputContainer>
-                            </div>
-                            <ErrorMessage name="displayName" className="ml-[114px]" />
-                        </div>
-
-                        {profile.source !== Source.Farcaster ? (
-                            <div className="space-y-1.5">
-                                <div className="flex w-full flex-row items-center space-x-1">
-                                    <label className="min-w-[110px] text-sm font-bold text-main">
-                                        <Trans>Website</Trans>
-                                    </label>
-                                    <FormInputContainer name="website" maxLength={maxWebsiteSize} className="flex-1">
+                                        maxLength={maxDisplayNameSize}
+                                        className="flex-1"
+                                    >
                                         <FormInput
+                                            name="displayName"
+                                            options={{
+                                                required: true,
+                                                minLength: {
+                                                    value: 1,
+                                                    message: t`Display Name should not be blank`,
+                                                },
+                                                maxLength: {
+                                                    value: maxDisplayNameSize,
+                                                    message: t`Display Name should not exceed ${maxDisplayNameSize} characters`,
+                                                },
+                                            }}
+                                        />
+                                    </FormInputContainer>
+                                </div>
+                                <ErrorMessage name="displayName" className="ml-[114px]" />
+                            </div>
+
+                            {profile.source !== Source.Farcaster ? (
+                                <div className="space-y-1.5">
+                                    <div className="flex w-full flex-row items-center space-x-1">
+                                        <label className="min-w-[110px] text-sm font-bold text-main">
+                                            <Trans>Website</Trans>
+                                        </label>
+                                        <FormInputContainer
                                             name="website"
-                                            options={{
-                                                pattern: {
-                                                    value: URL_REGEX,
-                                                    message: t`Invalid website format`,
-                                                },
-                                                maxLength: {
-                                                    value: maxWebsiteSize,
-                                                    message: t`Website should not exceed ${maxWebsiteSize} characters`,
-                                                },
-                                            }}
-                                        />
-                                    </FormInputContainer>
+                                            maxLength={maxWebsiteSize}
+                                            className="flex-1"
+                                        >
+                                            <FormInput
+                                                name="website"
+                                                options={{
+                                                    pattern: {
+                                                        value: URL_REGEX,
+                                                        message: t`Invalid website format`,
+                                                    },
+                                                    maxLength: {
+                                                        value: maxWebsiteSize,
+                                                        message: t`Website should not exceed ${maxWebsiteSize} characters`,
+                                                    },
+                                                }}
+                                            />
+                                        </FormInputContainer>
+                                    </div>
+                                    <ErrorMessage name="website" className="ml-[114px]" />
                                 </div>
-                                <ErrorMessage name="website" className="ml-[114px]" />
-                            </div>
-                        ) : null}
+                            ) : null}
 
-                        {profile.source !== Source.Farcaster ? (
-                            <div className="space-y-1.5">
-                                <div className="flex w-full flex-row items-center space-x-1">
-                                    <label className="min-w-[110px] text-sm font-bold text-main">
-                                        <Trans>Location</Trans>
-                                    </label>
-                                    <FormInputContainer name="location" maxLength={maxLocationSize} className="flex-1">
-                                        <FormInput
+                            {profile.source !== Source.Farcaster ? (
+                                <div className="space-y-1.5">
+                                    <div className="flex w-full flex-row items-center space-x-1">
+                                        <label className="min-w-[110px] text-sm font-bold text-main">
+                                            <Trans>Location</Trans>
+                                        </label>
+                                        <FormInputContainer
                                             name="location"
+                                            maxLength={maxLocationSize}
+                                            className="flex-1"
+                                        >
+                                            <FormInput
+                                                name="location"
+                                                options={{
+                                                    maxLength: {
+                                                        value: maxLocationSize,
+                                                        message: t`Location should not exceed ${maxLocationSize} characters`,
+                                                    },
+                                                }}
+                                            />
+                                        </FormInputContainer>
+                                    </div>
+                                    <ErrorMessage name="location" className="ml-[114px]" />
+                                </div>
+                            ) : null}
+
+                            <div className="space-y-1.5">
+                                <div className="flex w-full flex-row items-start space-x-1">
+                                    <label className="leading-12 h-12 min-w-[110px] text-sm font-bold text-main">
+                                        <Trans>Bio</Trans>
+                                    </label>
+                                    <FormInputContainer name="bio" maxLength={maxBioSize} className="h-[100px] flex-1">
+                                        <FormTextarea
+                                            name="bio"
+                                            className="h-[100px] resize-none"
                                             options={{
                                                 maxLength: {
-                                                    value: maxLocationSize,
-                                                    message: t`Location should not exceed ${maxLocationSize} characters`,
+                                                    value: maxBioSize,
+                                                    message: t`Bio should not exceed ${maxBioSize} characters`,
                                                 },
                                             }}
                                         />
                                     </FormInputContainer>
                                 </div>
-                                <ErrorMessage name="location" className="ml-[114px]" />
+                                <ErrorMessage name="bio" className="ml-[114px]" />
                             </div>
-                        ) : null}
-
-                        <div className="space-y-1.5">
-                            <div className="flex w-full flex-row items-start space-x-1">
-                                <label className="leading-12 h-12 min-w-[110px] text-sm font-bold text-main">
-                                    <Trans>Bio</Trans>
-                                </label>
-                                <FormInputContainer name="bio" maxLength={maxBioSize} className="h-[100px] flex-1">
-                                    <FormTextarea
-                                        name="bio"
-                                        className="h-[100px] resize-none"
-                                        options={{
-                                            maxLength: {
-                                                value: maxBioSize,
-                                                message: t`Bio should not exceed ${maxBioSize} characters`,
-                                            },
-                                        }}
-                                    />
-                                </FormInputContainer>
-                            </div>
-                            <ErrorMessage name="bio" className="ml-[114px]" />
                         </div>
-                        <div className="flex w-full justify-end">
+                        <div className="mt-auto flex w-full justify-end p-4 shadow-accountCardShadowLight">
                             <ClickableButton
                                 enableDefault
                                 enablePropagate
                                 type="submit"
                                 disabled={!isDirty || !isValid || isSubmitting}
-                                className="mt-6 flex h-10 w-[84px] items-center justify-center rounded-full bg-main text-[15px] font-bold leading-10 text-primaryBottom"
+                                className="flex h-10 w-[84px] items-center justify-center rounded-full bg-main text-[15px] font-bold leading-10 text-primaryBottom"
                             >
                                 {isSubmitting ? (
                                     <LoadingIcon width={16} height={16} className="animate-spin" />

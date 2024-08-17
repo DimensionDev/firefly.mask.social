@@ -591,6 +591,9 @@ msgstr ""
 msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr ""
 
+msgid "Failed to avatar."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
 
@@ -1437,9 +1440,6 @@ msgstr "已靜音的內容"
 msgid "Unable to retrieve post details."
 msgstr "無法檢索貼文詳情"
 
-msgid "Update photo"
-msgstr ""
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
@@ -1526,6 +1526,9 @@ msgstr "全部通知"
 
 msgid "Mobile App"
 msgstr "手機應用"
+
+msgid "Upload photo"
+msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以保存並在之後從草稿箱中發送"

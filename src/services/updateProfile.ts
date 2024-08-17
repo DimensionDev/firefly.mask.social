@@ -16,6 +16,9 @@ function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>
     patchPostQueryData(profile.source, matcher, (draft) => {
         draft.author.displayName = params.displayName;
         draft.author.bio = params.bio;
+        draft.author.location = params.location;
+        draft.author.website = params.website;
+        if (params.avatar) draft.author.pfp = params.avatar;
     });
 }
 

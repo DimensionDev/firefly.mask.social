@@ -586,6 +586,9 @@ msgstr "THREAD POST"
 msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr "This entry has been permanently stored on-chain and signed by its creator."
 
+msgid "Failed to avatar."
+msgstr "Failed to avatar."
+
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
@@ -1432,9 +1435,6 @@ msgstr "Muted contents"
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
 
-msgid "Update photo"
-msgstr "Update photo"
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 
@@ -1521,6 +1521,9 @@ msgstr "All notifications"
 
 msgid "Mobile App"
 msgstr "Mobile App"
+
+msgid "Upload photo"
+msgstr "Upload photo"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."

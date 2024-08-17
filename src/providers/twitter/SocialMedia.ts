@@ -507,10 +507,12 @@ class TwitterSocialMedia implements Provider {
     async uploadProfileAvatar(file: File) {
         const formData = new FormData();
         formData.set('file', file);
-        await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me/avatar', {
+        const res = await twitterSessionHolder.fetch<ResponseJSON<{ pfp: string }>>('/api/twitter/me/avatar', {
             method: 'PUT',
             body: formData,
         });
+        if (!res.success) throw new Error(t`Failed to avatar.`);
+        return res.data.pfp;
     }
     async updateProfile(params: UpdateProfileParams): Promise<boolean> {
         const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me', {

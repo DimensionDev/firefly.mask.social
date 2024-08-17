@@ -591,6 +591,9 @@ msgstr "THREAD 发帖"
 msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr "这个入口已经被其创建者签名并永久存储上链"
 
+msgid "Failed to avatar."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
@@ -1437,9 +1440,6 @@ msgstr "已屏蔽的内容"
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
 
-msgid "Update photo"
-msgstr ""
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "市场上流通并可供公众交易的货币数量。这相当于市场上随时可买到的股票（未被内部人士或政府持有和锁定）。"
 
@@ -1526,6 +1526,9 @@ msgstr "通知"
 
 msgid "Mobile App"
 msgstr "手机应用"
+
+msgid "Upload photo"
+msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
