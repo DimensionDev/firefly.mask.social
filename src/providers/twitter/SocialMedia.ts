@@ -12,7 +12,6 @@ import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePos
 import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
-import { SetQueryDataForUpdateProfile } from '@/decorators/SetQueryDataForUpdateProfile.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -42,7 +41,6 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForDeletePost(Source.Twitter)
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
-@SetQueryDataForUpdateProfile(Source.Twitter)
 class TwitterSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {

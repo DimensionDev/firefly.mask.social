@@ -67,7 +67,7 @@ export function EditProfileDialog({
             const avatarFile =
                 values.avatar instanceof FileList && values.avatar.length > 0 ? values.avatar[0] : undefined;
             const avatar = avatarFile ? await uploadProfileAvatar(profile.source, avatarFile) : profile.pfp;
-            await updateProfile(profile.source, { ...values, avatar });
+            await updateProfile(profile, { ...values, avatar });
             onClose();
             enqueueSuccessMessage(t`Updated profile successfully`);
         } catch (error) {

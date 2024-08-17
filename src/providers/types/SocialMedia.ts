@@ -308,6 +308,7 @@ export interface Channel {
 }
 
 export interface UpdateProfileParams {
+    profileId?: string;
     bio: string;
     displayName: string;
     location: string;

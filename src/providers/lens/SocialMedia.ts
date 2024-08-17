@@ -34,7 +34,6 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { SetQueryDataForUpdateProfile } from '@/decorators/SetQueryDataForUpdateProfile.js';
 import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -89,7 +88,6 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForDeletePost(Source.Lens)
 @SetQueryDataForBlockProfile(Source.Lens)
 @SetQueryDataForFollowProfile(Source.Lens)
-@SetQueryDataForUpdateProfile(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
