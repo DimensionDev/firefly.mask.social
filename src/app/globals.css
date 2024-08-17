@@ -342,6 +342,10 @@ body.not-support .fixed.inset-y-0 {
     cursor: pointer;
 }
 
+.giphy-suggestion-bar {
+    @apply no-scrollbar;
+}
+
 .giphy-suggestion-bar > div {
     padding: 4px 12px;
     height: auto !important;

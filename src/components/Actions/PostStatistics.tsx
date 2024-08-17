@@ -6,14 +6,12 @@ import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
-import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { EngagementType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -67,7 +65,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         () => publicationViews.find((x) => x.id === post.postId)?.views,
         [publicationViews, post],
     );
-    const isSmall = useIsSmall('max');
 
     const comments = post.stats?.comments ? (
         <span
@@ -147,7 +144,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             <div>
                 {(!isDetailPage || isComment
                     ? compact([
-                          isSmall ? <TimestampFormatter key="time" time={post.timestamp} /> : null,
                           comments,
                           likes,
                           !isDetailPage && showChannelTag && post.channel ? (

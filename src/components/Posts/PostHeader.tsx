@@ -42,7 +42,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     const pathname = usePathname();
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
-    const newLine = isSmall || (isDetailPage && !isQuote && !isComment);
+    const newLine = !isQuote && (isSmall || (isDetailPage && !isComment));
 
     const handle = (
         <ProfileTippy source={post.author.source} identity={post.author.profileId}>
@@ -57,7 +57,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     );
 
     return (
-        <div className="flex items-start gap-3">
+        <div className={classNames('flex gap-3', isQuote ? 'items-center' : 'items-start')}>
             <ProfileTippy source={post.author.source} identity={post.author.profileId}>
                 <Link
                     href={profileLink}
@@ -80,13 +80,13 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                 </Link>
             </ProfileTippy>
 
-            <div className="w-full">
-                <div
-                    className={classNames('flex flex-1 items-center overflow-hidden', {
-                        'max-w-[calc(100%-40px-28px-24px)]': !isQuote && !isMyPost,
-                        'max-w-[calc(100%-40px-28px)]': !isQuote && isMyPost,
-                    })}
-                >
+            <div
+                className={classNames({
+                    'w-[calc(100%-40px-20px-24px)]': !isQuote,
+                    'w-[calc(100%-24px-24px)]': isQuote,
+                })}
+            >
+                <div className="flex max-w-full flex-1 items-center overflow-hidden">
                     <ProfileTippy source={post.author.source} identity={post.author.profileId}>
                         <Link
                             href={profileLink}
@@ -96,21 +96,23 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             {post.author.displayName}
                         </Link>
                     </ProfileTippy>
-                    {post.author.isPowerUser ? <PowerUserIcon className="mr-2" width={16} height={16} /> : null}
+                    {post.author.isPowerUser ? (
+                        <PowerUserIcon className="mr-2 shrink-0" width={16} height={16} />
+                    ) : null}
                     {newLine ? null : handle}
-                    {post.timestamp && (!newLine || isQuote) ? (
+                    {post.timestamp && (isComment || isQuote || !isDetailPage) ? (
                         <>
-                            <span className="mx-1 leading-5">·</span>
-                            <span className="whitespace-nowrap text-xs leading-5 text-secondary md:text-[13px]">
+                            <span className="mx-1 leading-5 text-secondary">·</span>
+                            <span className="whitespace-nowrap text-[15px] leading-5 text-secondary">
                                 <TimestampFormatter time={post.timestamp} />
                             </span>
-                            <span className="mx-1 leading-5">·</span>
+                            <span className="mx-1 leading-5 text-secondary">·</span>
                         </>
                     ) : null}
                     {isSendFromFirefly(post) ? (
-                        <FireflyAvatarIcon fontSize={15} width={15} height={15} className="mr-1 inline" />
+                        <FireflyAvatarIcon fontSize={15} width={15} height={15} className="mr-1 inline shrink-0" />
                     ) : null}
-                    <SocialSourceIcon source={post.source} size={15} />
+                    <SocialSourceIcon className="shrink-0" source={post.source} size={15} />
                 </div>
                 {newLine ? <div>{handle}</div> : null}
             </div>
