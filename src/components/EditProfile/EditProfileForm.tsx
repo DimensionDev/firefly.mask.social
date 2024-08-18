@@ -83,7 +83,7 @@ export function EditProfileForm() {
                         <label className="min-w-[110px] text-sm font-bold text-main">
                             <Trans>Display Name</Trans>
                         </label>
-                        <FormInputContainer name="displayName" maxLength={maxDisplayNameSize} className="flex-1">
+                        <FormInputContainer name="displayName" className="flex-1">
                             <FormInput
                                 name="displayName"
                                 options={{
@@ -109,7 +109,7 @@ export function EditProfileForm() {
                             <label className="min-w-[110px] text-sm font-bold text-main">
                                 <Trans>Website</Trans>
                             </label>
-                            <FormInputContainer name="website" maxLength={maxWebsiteSize} className="flex-1">
+                            <FormInputContainer name="website" className="flex-1">
                                 <FormInput
                                     name="website"
                                     options={{
@@ -135,7 +135,7 @@ export function EditProfileForm() {
                             <label className="min-w-[110px] text-sm font-bold text-main">
                                 <Trans>Location</Trans>
                             </label>
-                            <FormInputContainer name="location" maxLength={maxLocationSize} className="flex-1">
+                            <FormInputContainer name="location" className="flex-1">
                                 <FormInput
                                     name="location"
                                     options={{
@@ -156,7 +156,7 @@ export function EditProfileForm() {
                         <label className="leading-12 h-12 min-w-[110px] text-sm font-bold text-main">
                             <Trans>Bio</Trans>
                         </label>
-                        <FormInputContainer name="bio" maxLength={maxBioSize} className="h-[100px] flex-1">
+                        <FormInputContainer name="bio" className="h-[100px] flex-1">
                             <FormTextarea
                                 name="bio"
                                 className="h-[100px] resize-none"

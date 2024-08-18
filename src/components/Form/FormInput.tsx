@@ -1,7 +1,7 @@
 import type { HTMLProps } from 'react';
 import { type FieldPath, type FieldValues, type RegisterOptions, useFormContext, useFormState } from 'react-hook-form';
 
-import { classNames } from '@/helpers/classNames.js';
+import { inputClassName } from '@/helpers/inputClassName.js';
 
 export interface InputProps<
     TFieldValues extends FieldValues = FieldValues,
@@ -20,11 +20,7 @@ export function FormInput<
     const error = errors[name];
     return (
         <input
-            className={classNames(
-                'w-full rounded-2xl border-none bg-bg text-main !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
-                error ? 'focus:shadow-inputDanger focus:outline-fail' : 'focus:outline-link',
-                className,
-            )}
+            className={inputClassName({ error: !!error, className })}
             autoComplete="off"
             {...props}
             {...register(name, options)}
