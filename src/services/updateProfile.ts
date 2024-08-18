@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
@@ -9,6 +9,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile, UpdateProfileParams } from '@/providers/types/SocialMedia.js';
+import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>, params: UpdateProfileParams) {
     if (!profile) return;
@@ -20,6 +21,15 @@ function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>
         if (typeof params.website === 'string') draft.author.website = params.website;
         if (params.pfp) draft.author.pfp = params.pfp;
     });
+}
+
+async function refreshCurrentProfileInState(source: SocialSource, params: UpdateProfileParams) {
+    const stateStore = {
+        [Source.Farcaster]: useFarcasterStateStore,
+        [Source.Lens]: useLensStateStore,
+        [Source.Twitter]: useTwitterStateStore,
+    }[source];
+    return stateStore?.getState().refreshCurrentAccount();
 }
 
 export async function updateProfile(
@@ -54,4 +64,5 @@ export async function updateProfile(
     });
 
     setCurrentProfileInPosts(profile, params);
+    await refreshCurrentProfileInState(profile.source, params);
 }

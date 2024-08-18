@@ -67,7 +67,7 @@ export function EditProfileContent({ profile, onUpdateProfile }: { profile: Prof
             <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
                 <div className="mb-12 flex flex-col gap-4 p-4">
                     <div className="flex w-full items-center gap-4">
-                        <EditingProfileAvatar pfp={profile.pfp} name="avatar" />
+                        <EditingProfileAvatar pfp={profile.pfp} name="pfp" />
                         <div className="flex flex-col space-y-2 text-left text-main">
                             <div className="text-[20px] font-bold">@{profile.handle}</div>
                             <label
