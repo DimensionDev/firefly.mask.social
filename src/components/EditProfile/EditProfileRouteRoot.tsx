@@ -29,7 +29,6 @@ export function EditProfileRouteRoot() {
             website: profile.website,
             location: profile.location,
         },
-
         mode: 'onChange',
     });
 
