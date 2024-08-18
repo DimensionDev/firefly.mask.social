@@ -183,6 +183,9 @@ importers:
       '@tanstack/react-query-next-experimental':
         specifier: ^5.29.2
         version: 5.29.2(@tanstack/react-query@5.29.2)(next@14.1.4)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@tanstack/react-ranger':
+        specifier: ^0.0.4
+        version: 0.0.4(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-router':
         specifier: ^1.34.3
         version: 1.34.3(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -273,6 +276,9 @@ importers:
       react:
         specifier: 0.0.0-experimental-8039e6d0b-20231026
         version: 0.0.0-experimental-8039e6d0b-20231026
+      react-avatar-editor:
+        specifier: 13.0.2
+        version: 13.0.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-cool-inview:
         specifier: ^3.0.1
         version: 3.0.1(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -415,6 +421,9 @@ importers:
       '@types/react':
         specifier: 18.2.48
         version: 18.2.48
+      '@types/react-avatar-editor':
+        specifier: ^13.0.2
+        version: 13.0.2
       '@types/react-dom':
         specifier: ^18.2.18
         version: 18.2.18
@@ -2594,8 +2603,8 @@ packages:
       semver: 6.3.1
     dev: false
 
-  /@babel/helper-define-polyfill-provider@0.6.1(@babel/core@7.24.3):
-    resolution: {integrity: sha512-o7SDgTJuvx5vLKD6SFvkydkSMBvahDKGiNJzG22IZYXhiqoe9efY7zocICBgzHV4IRg5wdgl2nEL/tulKIEIbA==}
+  /@babel/helper-define-polyfill-provider@0.6.2(@babel/core@7.24.3):
+    resolution: {integrity: sha512-LV76g+C502biUK6AyZ3LK10vDpDyCzZnhZFXkH1L75zHPj68+qc8Zfpx2th+gzwA2MzyK+1g/3EPl62yFnVttQ==}
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
     peerDependenciesMeta:
@@ -2610,23 +2619,6 @@ packages:
       resolve: 1.22.8
     transitivePeerDependencies:
       - supports-color
-
-  /@babel/helper-define-polyfill-provider@0.6.2:
-    resolution: {integrity: sha512-LV76g+C502biUK6AyZ3LK10vDpDyCzZnhZFXkH1L75zHPj68+qc8Zfpx2th+gzwA2MzyK+1g/3EPl62yFnVttQ==}
-    peerDependencies:
-      '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-    dependencies:
-      '@babel/helper-compilation-targets': 7.24.6
-      '@babel/helper-plugin-utils': 7.24.6
-      debug: 4.3.5
-      lodash.debounce: 4.0.8
-      resolve: 1.22.8
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /@babel/helper-environment-visitor@7.24.6:
     resolution: {integrity: sha512-Y50Cg3k0LKLMjxdPjIl40SdJgMB85iXn27Vk/qbHZCFx/o5XO3PSnpi675h1KEmmDb6OFArfd5SCQEQ5Q4H88g==}
@@ -13056,6 +13048,11 @@ packages:
       '@tanstack/query-core': 4.29.23
     dev: false
 
+  /@tanstack/ranger@0.0.3:
+    resolution: {integrity: sha512-RYpW7MnEMxKLuskfadeyBfxpU8cUTGrtp5TnCV9PKEgMfrR6vwlk9/1/eU2EvJfYZbDAr1inphL4TGWCcRLAXQ==}
+    engines: {node: '>=12'}
+    dev: false
+
   /@tanstack/react-query-devtools@5.29.2(@tanstack/react-query@5.29.2)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-EmsaLNa8iFtReAW+5ftom0/TW78fIosVor517ak/+JFaoTBw8Yub3ao937JFE6AM3K/HXhteqvObetgt1ndLcw==}
     peerDependencies:
@@ -13124,6 +13121,18 @@ packages:
         optional: true
     dependencies:
       '@tanstack/query-core': 5.29.0
+      react: 0.0.0-experimental-8039e6d0b-20231026
+    dev: false
+
+  /@tanstack/react-ranger@0.0.4(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-3re8xKJ6t3j8eKp6pdKi92FQegsxHipTgsvg7k0DP+SRWt/iJ2F8GSm8DuQVLHiE3R7kX1Q42fQhmku1PdcWOA==}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      '@tanstack/ranger': 0.0.3
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
@@ -13736,6 +13745,12 @@ packages:
     resolution: {integrity: sha512-W4KDz75m7rJjFbyCctzCtRzZUj+PrUHV+YjqDp50sSRezTbrtEAIq2iTzC6lISARl3qw+8IlcCyljdcVJE0Wug==}
     dependencies:
       '@types/node': 20.11.9
+    dev: true
+
+  /@types/react-avatar-editor@13.0.2:
+    resolution: {integrity: sha512-vnGU4sx5TDB9JMCuw+kB3+jfDNMhVlpBbgMRZG9NzVnaBb5xUjVV4VmHdD2O8gj/pb5GN+QXKk7jan09aMjG2A==}
+    dependencies:
+      '@types/react': 18.2.48
     dev: true
 
   /@types/react-dom@18.2.18:
@@ -15947,7 +15962,7 @@ packages:
     dependencies:
       '@babel/compat-data': 7.24.6
       '@babel/core': 7.24.3
-      '@babel/helper-define-polyfill-provider': 0.6.1(@babel/core@7.24.3)
+      '@babel/helper-define-polyfill-provider': 0.6.2(@babel/core@7.24.3)
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -15962,7 +15977,7 @@ packages:
         optional: true
     dependencies:
       '@babel/compat-data': 7.24.6
-      '@babel/helper-define-polyfill-provider': 0.6.2
+      '@babel/helper-define-polyfill-provider': 0.6.2(@babel/core@7.24.3)
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -15977,7 +15992,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.24.3
-      '@babel/helper-define-polyfill-provider': 0.6.1(@babel/core@7.24.3)
+      '@babel/helper-define-polyfill-provider': 0.6.2(@babel/core@7.24.3)
       core-js-compat: 3.36.1
     transitivePeerDependencies:
       - supports-color
@@ -15991,7 +16006,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.24.3
-      '@babel/helper-define-polyfill-provider': 0.6.1(@babel/core@7.24.3)
+      '@babel/helper-define-polyfill-provider': 0.6.2(@babel/core@7.24.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -16004,7 +16019,7 @@ packages:
       '@babel/core':
         optional: true
     dependencies:
-      '@babel/helper-define-polyfill-provider': 0.6.2
+      '@babel/helper-define-polyfill-provider': 0.6.2(@babel/core@7.24.3)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -26637,6 +26652,27 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
+  /react-avatar-editor@13.0.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-a4ajbi7lwDh98kgEtSEeKMu0vs0CHTczkq4Xcxr1EiwMFH1GlgHCEtwGU8q/H5W8SeLnH4KPK8LUjEEaZXklxQ==}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@babel/plugin-transform-runtime': 7.24.6
+      '@babel/runtime': 7.25.0
+      prop-types: 15.8.1
+      react: 0.0.0-experimental-8039e6d0b-20231026
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+    dev: false
+
   /react-cool-inview@3.0.1(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-ly6i3Pv5p0fvm12NmJGfKS34eOhA+iU43Th+gZ6t3G6UwsxQsWoITHTHzA9pdkOc/3VmnReqvC/hJkQUDGhQFA==}
     peerDependencies:
@@ -32512,11 +32548,14 @@ time:
   /@lens-protocol/client@2.3.1: '2024-06-27T16:34:51.781Z'
   /@solana/web3.js@1.95.2: '2024-07-26T13:49:00.799Z'
   /@tailwindcss/forms@0.5.7: '2023-11-10T19:42:19.349Z'
+  /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
+  /@types/react-avatar-editor@13.0.2: '2023-11-07T13:56:07.308Z'
   /@wagmi/core@2.13.4: '2024-08-09T00:57:30.856Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
   /immer@10.0.3: '2023-10-02T06:36:31.915Z'
   /jsdom@24.1.1: '2024-07-21T05:09:13.175Z'
   /postcss@8.4.41: '2024-08-05T23:08:39.503Z'
+  /react-avatar-editor@13.0.2: '2023-12-20T22:00:38.496Z'
   /react-qrcode-logo@2.9.0: '2023-02-25T14:35:39.109Z'
   /tailwindcss@3.4.10: '2024-08-13T20:43:40.812Z'
   /typescript@5.5.4: '2024-07-22T23:02:51.857Z'

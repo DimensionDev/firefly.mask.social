@@ -46,6 +46,9 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
+msgid "Edit Image"
+msgstr "Edit Image"
+
 msgid "Failed to upload. File type is not supported on X."
 msgstr "Failed to upload. File type is not supported on X."
 

@@ -51,6 +51,9 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
+msgid "Edit Image"
+msgstr ""
+
 msgid "Failed to upload. File type is not supported on X."
 msgstr ""
 

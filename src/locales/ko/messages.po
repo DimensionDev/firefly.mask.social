@@ -51,6 +51,9 @@ msgstr ""
 msgid "New connect with Warpcast"
 msgstr ""
 
+msgid "Edit Image"
+msgstr ""
+
 msgid "Failed to upload. File type is not supported on X."
 msgstr ""
 

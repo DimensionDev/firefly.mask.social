@@ -23,13 +23,13 @@ function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>
     });
 }
 
-async function refreshCurrentProfileInState(source: SocialSource, params: UpdateProfileParams) {
+function refreshCurrentProfileInState(source: SocialSource, params: UpdateProfileParams) {
     const stateStore = {
         [Source.Farcaster]: useFarcasterStateStore,
         [Source.Lens]: useLensStateStore,
         [Source.Twitter]: useTwitterStateStore,
     }[source];
-    return stateStore?.getState().refreshCurrentAccount();
+    stateStore.getState().updateCurrentProfile(params);
 }
 
 export async function updateProfile(
@@ -64,5 +64,5 @@ export async function updateProfile(
     });
 
     setCurrentProfileInPosts(profile, params);
-    await refreshCurrentProfileInState(profile.source, params);
+    refreshCurrentProfileInState(profile.source, params);
 }
