@@ -14,21 +14,26 @@ function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>
     if (!profile) return;
     const matcher: Matcher = (post) => post?.author.profileId === profile.profileId;
     patchPostQueryData(profile.source, matcher, (draft) => {
-        draft.author.displayName = params.displayName;
-        draft.author.bio = params.bio;
-        draft.author.location = params.location;
-        draft.author.website = params.website;
-        if (params.avatar) draft.author.pfp = params.avatar;
+        if (typeof params.displayName === 'string') draft.author.displayName = params.displayName;
+        if (typeof params.bio === 'string') draft.author.bio = params.bio;
+        if (typeof params.location === 'string') draft.author.location = params.location;
+        if (typeof params.website === 'string') draft.author.website = params.website;
+        if (params.pfp) draft.author.pfp = params.pfp;
     });
 }
 
 export async function updateProfile(
-    profile: Pick<Profile, 'handle' | 'profileId' | 'source'>,
+    profile: Pick<Profile, 'handle' | 'profileId' | 'source' | 'displayName' | 'bio' | 'pfp' | 'website' | 'location'>,
     params: UpdateProfileParams,
 ) {
     switch (profile.source) {
         case Source.Farcaster:
-            await FarcasterSocialMediaProvider.updateProfile(params);
+            const diffUpdateParams: UpdateProfileParams = Object.keys(params).reduce<UpdateProfileParams>((acc, k) => {
+                const key = k as keyof UpdateProfileParams;
+                if (typeof params[key] === 'string' && params[key] !== profile[key]) acc[key] = params[key];
+                return acc;
+            }, {});
+            await FarcasterSocialMediaProvider.updateProfile(diffUpdateParams);
             break;
         case Source.Lens:
             await LensSocialMediaProvider.updateProfile(params);
@@ -40,10 +45,11 @@ export async function updateProfile(
     queryClient.setQueryData(['profile', profile.source, resolveFireflyProfileId(profile)], (old: Profile) => {
         if (!old) return old;
         return produce(old, (state: Profile) => {
-            state.displayName = params.displayName;
-            state.bio = params.bio;
-            state.website = params.website;
-            state.pfp = params.avatar ?? getStampAvatarByProfileId(profile.source, profile.profileId);
+            if (typeof params.displayName === 'string') state.displayName = params.displayName;
+            if (typeof params.bio === 'string') state.bio = params.bio;
+            if (typeof params.location === 'string') state.location = params.location;
+            if (typeof params.website === 'string') state.website = params.website;
+            state.pfp = params.pfp ?? getStampAvatarByProfileId(profile.source, profile.profileId);
         });
     });
 

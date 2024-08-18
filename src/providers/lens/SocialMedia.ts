@@ -1300,7 +1300,7 @@ class LensSocialMedia implements Provider {
             id: uuid(),
             name: params.displayName,
             bio: params.bio,
-            picture: params.avatar,
+            picture: params.pfp,
             attributes: compact([
                 params.website ? { type: MetadataAttributeType.STRING, key: 'website', value: params.website } : null,
                 params.location

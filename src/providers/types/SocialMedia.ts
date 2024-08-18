@@ -307,13 +307,7 @@ export interface Channel {
     __original__?: unknown;
 }
 
-export interface UpdateProfileParams {
-    bio: string;
-    displayName: string;
-    location: string;
-    website: string;
-    avatar?: string;
-}
+export type UpdateProfileParams = Partial<Pick<Profile, 'pfp' | 'bio' | 'location' | 'website' | 'displayName'>>;
 
 export interface Provider {
     type: SessionType;

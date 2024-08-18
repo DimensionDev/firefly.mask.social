@@ -1,3 +1,4 @@
+import { UserDataType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { uniq } from 'lodash-es';
 
@@ -360,7 +361,17 @@ class FarcasterSocialMedia implements Provider {
         return createPageable(posts, createIndicator(indicator), createNextIndicator(indicator, `${offset + limit}`));
     }
     async updateProfile(params: UpdateProfileParams): Promise<boolean> {
-        return HubbleSocialMediaProvider.updateProfile(params);
+        await Promise.all([
+            typeof params.displayName === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.DISPLAY, params.displayName)
+                : null,
+            typeof params.bio === 'string' ? HubbleSocialMediaProvider.userDataAdd(UserDataType.BIO, params.bio) : null,
+            params.pfp ? HubbleSocialMediaProvider.userDataAdd(UserDataType.PFP, params.pfp) : null,
+            typeof params.website === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.URL, params.website)
+                : null,
+        ]);
+        return true;
     }
     async findLocation(query: string) {
         return WarpcastSocialMediaProvider.findLocation(query);

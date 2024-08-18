@@ -4,11 +4,7 @@ import { Trans } from '@lingui/macro';
 import { CloseButton } from '@/components/CloseButton.js';
 import { EditProfileContent } from '@/components/EditProfile/EditProfileContent.js';
 import { Modal } from '@/components/Modal.js';
-import type { Profile, UpdateProfileParams } from '@/providers/types/SocialMedia.js';
-
-export interface ProfileFormValues extends Omit<UpdateProfileParams, 'avatar'> {
-    avatar?: FileList;
-}
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function EditProfileDialog({
     profile,

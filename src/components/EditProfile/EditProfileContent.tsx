@@ -4,7 +4,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { EditingProfileAvatar } from '@/components/EditProfile/EditingProfileAvatar.js';
-import type { ProfileFormValues } from '@/components/EditProfile/EditProfileDialog.js';
 import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
@@ -19,9 +18,13 @@ import {
 import { URL_REGEX } from '@/constants/regexp.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile, UpdateProfileParams } from '@/providers/types/SocialMedia.js';
 import { updateProfile } from '@/services/updateProfile.js';
 import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
+
+export interface ProfileFormValues extends Omit<UpdateProfileParams, 'pfp'> {
+    pfp?: FileList;
+}
 
 export function EditProfileContent({ profile, onUpdateProfile }: { profile: Profile; onUpdateProfile?: () => void }) {
     const form = useForm<ProfileFormValues>({
@@ -42,10 +45,9 @@ export function EditProfileContent({ profile, onUpdateProfile }: { profile: Prof
 
     const onSubmit = async (values: ProfileFormValues) => {
         try {
-            const avatarFile =
-                values.avatar instanceof FileList && values.avatar.length > 0 ? values.avatar[0] : undefined;
-            const avatar = avatarFile ? await uploadProfileAvatar(profile.source, avatarFile) : profile.pfp;
-            await updateProfile(profile, { ...values, avatar });
+            const pfpFile = values.pfp instanceof FileList && values.pfp.length > 0 ? values.pfp[0] : undefined;
+            const pfp = pfpFile ? await uploadProfileAvatar(profile.source, pfpFile) : profile.pfp;
+            await updateProfile(profile, { ...values, pfp });
             onUpdateProfile?.();
             enqueueSuccessMessage(t`Updated profile successfully`);
         } catch (error) {
@@ -74,7 +76,7 @@ export function EditProfileContent({ profile, onUpdateProfile }: { profile: Prof
                             >
                                 <Trans>Upload photo</Trans>
                             </label>
-                            <input id="avatar-upload-input" type="file" className="hidden" {...register('avatar')} />
+                            <input id="avatar-upload-input" type="file" className="hidden" {...register('pfp')} />
                         </div>
                     </div>
                     <div className="space-y-1.5">
