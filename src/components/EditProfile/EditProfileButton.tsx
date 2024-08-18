@@ -12,7 +12,7 @@ export function EditProfileButton({ profile }: { profile: Profile }) {
             <EditProfileDialog open={open} onClose={() => setOpen(false)} profile={profile} />
             <ClickableButton
                 onClick={() => setOpen(true)}
-                className="flex h-8 items-center justify-center rounded-full border border-lightMain px-5 text-[15px] font-bold leading-5 text-lightMain"
+                className="flex h-8 flex-shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-lightMain px-5 text-[15px] font-bold leading-5 text-lightMain"
             >
                 <Trans>Edit Profile</Trans>
             </ClickableButton>
