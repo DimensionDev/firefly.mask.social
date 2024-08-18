@@ -32,8 +32,7 @@ export function EditProfileAvatarEditor() {
     const onConfirm = () => {
         ref.current?.getImageScaledToCanvas().toBlob((blob) => {
             if (!blob || !file) return;
-            const newFile = new File([blob], file.name, { type: blob.type });
-            setValue('pfp', newFile, { shouldDirty: true });
+            setValue('pfp', new File([blob], 'pfp.png', { type: blob.type }), { shouldDirty: true });
             history.replace('/');
         }, 'image/png');
     };
