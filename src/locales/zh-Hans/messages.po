@@ -1819,7 +1819,7 @@ msgid "Owned"
 msgstr "拥有"
 
 msgid "Associated wallets"
-msgstr "已关联钱包"
+msgstr "已关联的钱包"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
