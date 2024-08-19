@@ -8,6 +8,7 @@ import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -78,14 +79,16 @@ export function Info({ profile }: InfoProps) {
             <div className="relative flex w-[calc(100%-80px-12px)] flex-col">
                 <div className="flex w-full flex-col">
                     <div className="flex w-full items-center gap-2">
-                        <span
-                            className={classNames(
-                                'truncate text-clip text-xl font-black text-lightMain',
-                                showAction ? 'max-w-[calc(100%-152px-20px-24px)]' : 'max-w-[calc(100%-20px-16px)]',
-                            )}
-                        >
-                            {profile.displayName}
-                        </span>
+                        <TextOverflowTooltip content={profile.displayName} placement="top">
+                            <div
+                                className={classNames(
+                                    'truncate text-xl font-black text-lightMain',
+                                    showAction ? 'max-w-[calc(100%-152px-20px-24px)]' : 'max-w-[calc(100%-20px-16px)]',
+                                )}
+                            >
+                                {profile.displayName}
+                            </div>
+                        </TextOverflowTooltip>
                         <SocialSourceIcon className="mr-auto shrink-0" source={source} size={20} />
                         {showAction ? <ProfileAction profile={profile} /> : null}
                     </div>
