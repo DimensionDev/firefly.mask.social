@@ -15,9 +15,11 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
+import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -68,11 +70,13 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { getLensSuggestFollows } from '@/services/getLensSuggestFollows.js';
+import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
@@ -1290,6 +1294,25 @@ class LensSocialMedia implements Provider {
             createIndicator(indicator),
             createNextIndicator(indicator, `${offset + limit}`),
         );
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        const metadata = createProfileMetadata({
+            id: uuid(),
+            name: profile.displayName,
+            bio: profile.bio,
+            picture: profile.pfp,
+            attributes: compact([
+                profile.website ? { type: MetadataAttributeType.STRING, key: 'website', value: profile.website } : null,
+                profile.location
+                    ? { type: MetadataAttributeType.STRING, key: 'location', value: profile.location }
+                    : null,
+            ]),
+        });
+        const metadataURI = await uploadLensMetadataToS3(metadata);
+        const result = await lensSessionHolder.sdk.profile.setProfileMetadata({
+            metadataURI,
+        });
+        return result.isSuccess();
     }
 }
 

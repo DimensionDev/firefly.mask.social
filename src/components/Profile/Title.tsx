@@ -72,7 +72,11 @@ export function Title({
     const hidden = !reached && !keepVisible;
 
     return (
-        <div className={classNames('sticky top-0 z-30 w-full', { hidden }, className)} {...rest} aria-hidden={hidden}>
+        <div
+            className={classNames('sticky top-0 z-30 h-0 w-full', { hidden }, className)}
+            {...rest}
+            aria-hidden={hidden}
+        >
             <div className={classNames('z-30 flex h-[60px] w-full items-center bg-primaryBottom pl-4 pr-3')}>
                 <div className="mr-auto flex items-center gap-7 overflow-auto">
                     <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />

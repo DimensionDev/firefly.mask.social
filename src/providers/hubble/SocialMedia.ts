@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { CastAddBody, CastRemoveBody, Factories, ReactionType } from '@farcaster/core';
+import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -19,6 +19,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -547,6 +548,32 @@ class HubbleSocialMedia implements Provider {
 
         await this.submitMessage(messageBytes);
         return true;
+    }
+
+    async userDataAdd(type: UserDataType, value: string) {
+        const { messageBytes } = await encodeMessageData(
+            () => ({
+                userDataBody: {
+                    type,
+                    value,
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.UserDataAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+        await this.submitMessage(messageBytes);
+    }
+
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
     }
 }
 

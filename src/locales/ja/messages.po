@@ -51,6 +51,9 @@ msgstr ""
 msgid "New connect with Warpcast"
 msgstr ""
 
+msgid "Edit Image"
+msgstr ""
+
 msgid "Failed to upload. File type is not supported on X."
 msgstr ""
 
@@ -124,6 +127,9 @@ msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
 msgid "Send tips to @{0}"
+msgstr ""
+
+msgid "Display Name"
 msgstr ""
 
 msgid "Debug Connection"
@@ -202,6 +208,9 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
+msgstr ""
+
+msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
 msgid "OpenGraph"
@@ -573,6 +582,9 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
+msgid "Bio"
+msgstr ""
+
 msgid "[Photo]"
 msgstr ""
 
@@ -583,6 +595,9 @@ msgid "THREAD POST"
 msgstr ""
 
 msgid "This entry has been permanently stored on-chain and signed by its creator."
+msgstr ""
+
+msgid "Failed to avatar."
 msgstr ""
 
 msgid "Frame Validator"
@@ -616,12 +631,6 @@ msgid "Remove from Bookmarks"
 msgstr ""
 
 msgid "<0>Bought</0> an NFT"
-msgstr ""
-
-msgid "The file not found"
-msgstr ""
-
-msgid "Invalid file type. Allowed types: {0}"
 msgstr ""
 
 msgid "Connection failed"
@@ -942,6 +951,9 @@ msgstr ""
 msgid "Login with Farcaster"
 msgstr ""
 
+msgid "Bio should not exceed {maxBioSize} characters"
+msgstr ""
+
 msgid "1m"
 msgstr ""
 
@@ -976,6 +988,9 @@ msgid "Please confirm the login with Warpcast."
 msgstr ""
 
 msgid "Log in with recovery phrase"
+msgstr ""
+
+msgid "Edit Profile"
 msgstr ""
 
 msgid "Confirm you want to mute @{0}?"
@@ -1018,6 +1033,9 @@ msgid "Failed to recast."
 msgstr ""
 
 msgid "No post found"
+msgstr ""
+
+msgid "Display Name should not be blank"
 msgstr ""
 
 msgid "Clear All"
@@ -1096,6 +1114,9 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "New connection with Warpcast"
+msgstr ""
+
+msgid "Updated profile successfully"
 msgstr ""
 
 msgid "Token ${symbol} could not be found."
@@ -1215,6 +1236,9 @@ msgstr ""
 msgid "Publications"
 msgstr ""
 
+msgid "Unable to read image."
+msgstr ""
+
 msgid "Your website URL."
 msgstr ""
 
@@ -1330,6 +1354,9 @@ msgid "Not my wallet address."
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
+msgid "Failed to update profile."
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -1506,6 +1533,9 @@ msgstr ""
 msgid "Mobile App"
 msgstr ""
 
+msgid "Upload photo"
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -1647,6 +1677,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Invalid website format"
+msgstr ""
+
 msgid "Switching..."
 msgstr ""
 
@@ -1762,6 +1795,9 @@ msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
+msgstr ""
+
+msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
@@ -1882,6 +1918,9 @@ msgid "Sorry, there is no wallet address available for tipping."
 msgstr ""
 
 msgid "No matching users"
+msgstr ""
+
+msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr ""
 
 msgid "Save"

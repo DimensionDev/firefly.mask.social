@@ -4,11 +4,15 @@ import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
+import { getJsonBodyFromRequestWithZodObject } from '@/helpers/getJsonBodyFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { TwitterEditProfile } from '@/schemas/index.js';
 import type { NextRequestContext } from '@/types/index.js';
 
-export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+type RequestFn = (request: NextRequest, context?: NextRequestContext) => Promise<Response>;
+
+export const GET = compose<RequestFn>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request) => {
@@ -20,5 +24,16 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         }
 
         return createSuccessResponseJSON(data);
+    },
+);
+
+export const PUT = compose<RequestFn>(
+    withRequestErrorHandler({ throwError: true }),
+    withTwitterRequestErrorHandler,
+    async (request) => {
+        const params = await getJsonBodyFromRequestWithZodObject(request, TwitterEditProfile);
+        const client = await createTwitterClientV2(request);
+        await client.v1.updateAccountProfile(params);
+        return createSuccessResponseJSON(null);
     },
 );

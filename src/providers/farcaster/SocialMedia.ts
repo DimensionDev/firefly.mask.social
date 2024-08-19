@@ -1,3 +1,4 @@
+import { UserDataType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { uniq } from 'lodash-es';
 
@@ -29,6 +30,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -357,6 +359,24 @@ class FarcasterSocialMedia implements Provider {
         const getAllPostsResult = await Promise.allSettled(postIds.map((id) => this.getPostById(id))); // TODO: replace to multiple queries
         const posts = getAllPostsResult.filter((x) => x.status === 'fulfilled').map((x) => x.value);
         return createPageable(posts, createIndicator(indicator), createNextIndicator(indicator, `${offset + limit}`));
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        await Promise.all([
+            typeof profile.displayName === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.DISPLAY, profile.displayName)
+                : null,
+            typeof profile.bio === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.BIO, profile.bio)
+                : null,
+            profile.pfp ? HubbleSocialMediaProvider.userDataAdd(UserDataType.PFP, profile.pfp) : null,
+            typeof profile.website === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.URL, profile.website)
+                : null,
+        ]);
+        return true;
+    }
+    async findLocation(query: string) {
+        return WarpcastSocialMediaProvider.findLocation(query);
     }
 }
 

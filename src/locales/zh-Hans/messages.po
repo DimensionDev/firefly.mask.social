@@ -51,6 +51,9 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
+msgid "Edit Image"
+msgstr ""
+
 msgid "Failed to upload. File type is not supported on X."
 msgstr ""
 
@@ -125,6 +128,9 @@ msgstr "您引用/回复的帖子已经被删除了。"
 
 msgid "Send tips to @{0}"
 msgstr "发送打赏给 {0}"
+
+msgid "Display Name"
+msgstr ""
 
 msgid "Debug Connection"
 msgstr "诊断网络"
@@ -203,6 +209,9 @@ msgstr "更换钱包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
+
+msgid "Location should not exceed {maxLocationSize} characters"
+msgstr ""
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -573,6 +582,9 @@ msgstr "屏蔽 /{0} 失败。"
 msgid "Address"
 msgstr "地址"
 
+msgid "Bio"
+msgstr ""
+
 msgid "[Photo]"
 msgstr "[照片]"
 
@@ -584,6 +596,9 @@ msgstr "THREAD 发帖"
 
 msgid "This entry has been permanently stored on-chain and signed by its creator."
 msgstr "这个入口已经被其创建者签名并永久存储上链"
+
+msgid "Failed to avatar."
+msgstr ""
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"
@@ -617,12 +632,6 @@ msgstr "取消收藏"
 
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>购买</0> 一个 NFT"
-
-msgid "The file not found"
-msgstr "未找到文件"
-
-msgid "Invalid file type. Allowed types: {0}"
-msgstr "无效文件类型，允许类型为: {0}"
 
 msgid "Connection failed"
 msgstr "连接失败"
@@ -942,6 +951,9 @@ msgstr "发布成功。"
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"
 
+msgid "Bio should not exceed {maxBioSize} characters"
+msgstr ""
+
 msgid "1m"
 msgstr "1个月"
 
@@ -977,6 +989,9 @@ msgstr "请确认使用 Warpcast 登录。"
 
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
+
+msgid "Edit Profile"
+msgstr ""
 
 msgid "Confirm you want to mute @{0}?"
 msgstr "您确定要隐藏 @{0} 吗？"
@@ -1019,6 +1034,9 @@ msgstr "转帖失败。"
 
 msgid "No post found"
 msgstr "未找到帖子"
+
+msgid "Display Name should not be blank"
+msgstr ""
 
 msgid "Clear All"
 msgstr "全部清除"
@@ -1097,6 +1115,9 @@ msgstr "帖子已经被加密"
 
 msgid "New connection with Warpcast"
 msgstr "使用 Warpcast 连接"
+
+msgid "Updated profile successfully"
+msgstr ""
 
 msgid "Token ${symbol} could not be found."
 msgstr "未找到通证 ${symbol} 。"
@@ -1215,6 +1236,9 @@ msgstr "文章已经从您的收藏中移除"
 msgid "Publications"
 msgstr "帖子"
 
+msgid "Unable to read image."
+msgstr ""
+
 msgid "Your website URL."
 msgstr "您网站的 URL。"
 
@@ -1331,6 +1355,9 @@ msgstr "不是我的钱包地址。"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
+
+msgid "Failed to update profile."
+msgstr ""
 
 msgid "Connected in Firefly"
 msgstr "已在 Firefly 中"
@@ -1506,6 +1533,9 @@ msgstr "通知"
 msgid "Mobile App"
 msgstr "手机应用"
 
+msgid "Upload photo"
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
 
@@ -1647,6 +1677,9 @@ msgstr "频道"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "Invalid website format"
+msgstr ""
+
 msgid "Switching..."
 msgstr "切换中..."
 
@@ -1763,6 +1796,9 @@ msgstr "在 {sourceName} 上已取消对 @{0} 的屏蔽。"
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
+
+msgid "Display Name should not exceed {maxDisplayNameSize} characters"
+msgstr ""
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> 引用了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
@@ -1883,6 +1919,9 @@ msgstr "对不起，未找到合适的地址用来打赏。"
 
 msgid "No matching users"
 msgstr "未找到匹配用户"
+
+msgid "Website should not exceed {maxWebsiteSize} characters"
+msgstr ""
 
 msgid "Save"
 msgstr "保存"

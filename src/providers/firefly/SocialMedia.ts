@@ -94,6 +94,7 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -1318,6 +1319,9 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
         const response = await fetchJSON<UploadMediaTokenResponse>(url);
         return resolveFireflyResponseData(response);
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
     }
 }
 

@@ -74,6 +74,7 @@ module.exports = {
                 accountCardShadowLight: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)',
                 accountCardShadowDark: '0px 0px 20px 0px rgba(255, 255, 255, 0.12)',
                 lightS3: '0px 10px 24px 0px rgba(0, 0, 0, 0.06)',
+                inputDanger: '0 0 0 3px rgba(255, 53, 69, 0.20)',
             },
             fontFamily: {
                 inter: ['var(--font-inter)'],
