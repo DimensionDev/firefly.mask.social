@@ -78,7 +78,12 @@ export function Info({ profile }: InfoProps) {
             <div className="relative flex w-[calc(100%-80px-12px)] flex-col">
                 <div className="flex w-full flex-col">
                     <div className="flex w-full items-center gap-2">
-                        <span className={classNames('truncate text-clip text-xl font-black text-lightMain', showAction ? 'max-w-[calc(100%-152px-20px-24px)]' : 'max-w-[calc(100%-20px-16px)]')}>
+                        <span
+                            className={classNames(
+                                'truncate text-clip text-xl font-black text-lightMain',
+                                showAction ? 'max-w-[calc(100%-152px-20px-24px)]' : 'max-w-[calc(100%-20px-16px)]',
+                            )}
+                        >
                             {profile.displayName}
                         </span>
                         <SocialSourceIcon className="mr-auto shrink-0" source={source} size={20} />
