@@ -1,4 +1,4 @@
-export interface ArticleDetailResponse {
+export interface MirrorArticleDetail {
     data: {
         data: {
             entry: {

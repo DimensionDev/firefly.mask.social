@@ -1,25 +1,22 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { readContract, switchChain, writeContract } from '@wagmi/core';
+import { switchChain } from '@wagmi/core';
 import { forwardRef, useMemo, useState } from 'react';
-import { useAsync, useAsyncFn } from 'react-use';
-import { zeroAddress } from 'viem';
-import { polygon } from 'viem/chains';
-import { useAccount, useChains, usePublicClient } from 'wagmi';
+import { useAsyncFn } from 'react-use';
+import { useAccount, useChains } from 'wagmi';
 
-import { MirrorABI } from '@/abis/Mirror.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
-import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
 import { MirrorAPI } from '@/providers/mirror/index.js';
+import { ParagraphAPI } from '@/providers/paragraph/index.jsx';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface CollectArticleModalOpenProps {
@@ -30,7 +27,6 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
     function CollectArticleModal(_, ref) {
         const account = useAccount();
         const chains = useChains();
-        const client = usePublicClient();
 
         const [props, setProps] = useState<CollectArticleModalOpenProps>();
         const [open, dispatch] = useSingletonModal(ref, {
@@ -57,56 +53,38 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
             },
         });
 
-        // TODO: paragraph
-        const { value: isCollected, loading: queryCollectedLoading } = useAsync(async () => {
-            try {
-                if (!data?.proxyAddress || !account.address || !props?.article.platform) return;
-
-                const result = await readContract(config, {
-                    abi: MirrorABI,
-                    address: data.proxyAddress as `0x${string}`,
-                    functionName: 'balanceOf',
-                    args: [account.address],
-                    chainId: data.chainId,
-                });
-
-                if (BigInt(result as bigint) >= 1) return true;
-                return false;
-            } catch {
-                return false;
-            }
-        }, [data?.proxyAddress, account.address, props?.article.platform, data?.chainId]);
-
         const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
-            if (!account.isConnected) {
+            if (!data) return;
+            if (!account.isConnected || !account.address) {
                 ConnectWalletModalRef.open();
                 return;
             }
-            if (data?.chainId && account.chainId !== data?.chainId) {
+            if (data.chainId && account.chainId !== data?.chainId) {
                 await switchChain(config, { chainId: data.chainId });
             }
 
-            await writeContract(config, {
-                abi: MirrorABI,
-                address: (data?.proxyAddress || data?.factorAddress) as `0x${string}`,
-                functionName: 'purchase',
-                args: [account.address, '', zeroAddress],
-                // https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
-                value: data?.chainId !== polygon.id ? MIRROR_COLLECT_FEE : MIRROR_COLLECT_FEE_IN_POLYGON,
-            });
+            switch (props?.article.platform) {
+                case ArticlePlatform.Mirror:
+                    return MirrorAPI.collect(data, account.address);
+                case ArticlePlatform.Paragraph:
+                    return ParagraphAPI.collect(data, account.address);
+                default:
+                    return;
+            }
         }, [account, data]);
+
+        const chain = chains.find((x) => x.id === data?.chainId);
 
         const buttonText = useMemo(() => {
             if (data?.chainId !== account.chainId) return t`Switch Chain`;
-            if (isCollected) return t`Collected`;
+            if (data?.isCollected) return t`Collected`;
 
             if (!data?.price) return t`Free Collect`;
-            // TODO: symbol
-            return t`Collect for ${data.price}`;
-        }, [isCollected, data, account]);
+            return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
+        }, [data, account, chain]);
 
-        const chain = chains.find((x) => x.id === data?.chainId);
-        const loading = queryDetailLoading || queryCollectedLoading || collectLoading;
+        const loading = queryDetailLoading || collectLoading;
+
         return (
             <Modal onClose={() => dispatch?.close()} open={open}>
                 <div
@@ -180,7 +158,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                         </div>
 
                         <ClickableButton
-                            disabled={loading || isCollected}
+                            disabled={loading || data?.isCollected}
                             onClick={handleCollect}
                             className="mt-3 flex h-10 w-full items-center justify-center rounded-[20px] bg-lightMain font-bold text-lightBottom dark:text-darkBottom"
                         >

@@ -41,9 +41,21 @@ export interface ArticleCollectDetail {
     quantity: number;
     soldNum: number;
     chainId: number;
-    factorAddress: string;
+    contractAddress: string;
     price: number | null;
-    proxyAddress: string | null
+    isCollected: boolean;
+    fee: bigint;
+
+    // paragraph only
+    symbol?: string;
+    name?: string;
+    onwerAddress?: string;
+    referrerAddress?: string;
+    postId?: string;
+    position?: {
+        from: number;
+        to: number;
+    };
 }
 
 export interface Provider {
