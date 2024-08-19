@@ -31,8 +31,8 @@ export const PUT = compose<RequestFn>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request) => {
-        const client = await createTwitterClientV2(request);
         const params = await getJsonBodyFromRequestWithZodObject(request, TwitterEditProfile);
+        const client = await createTwitterClientV2(request);
         await client.v1.updateAccountProfile(params);
         return createSuccessResponseJSON(null);
     },
