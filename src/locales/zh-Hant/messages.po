@@ -1537,7 +1537,7 @@ msgid "Copy"
 msgstr "複製"
 
 msgid "No available wallet."
-msgstr ""
+msgstr "沒有可用的錢包。"
 
 msgid "Login to enable all features"
 msgstr ""
