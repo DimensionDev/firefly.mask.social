@@ -474,6 +474,9 @@ msgstr "重新鏡像"
 msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
+msgid "{addressName} is already connected."
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
@@ -1208,9 +1211,6 @@ msgstr "該行為無法撤銷，您會失去這份草稿"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已從你的書籤中移除"
-
-msgid "This address is already connected"
-msgstr ""
 
 msgid "Publications"
 msgstr "發表"
