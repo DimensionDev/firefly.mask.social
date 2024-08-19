@@ -15,7 +15,7 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata';
+import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -70,10 +70,10 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     ReactionType,
     SessionType,
-    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import { getLensSuggestFollows } from '@/services/getLensSuggestFollows.js';
 import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
@@ -1295,16 +1295,16 @@ class LensSocialMedia implements Provider {
             createNextIndicator(indicator, `${offset + limit}`),
         );
     }
-    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
-        const metadata = profile({
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        const metadata = createProfileMetadata({
             id: uuid(),
-            name: params.displayName,
-            bio: params.bio,
-            picture: params.pfp,
+            name: profile.displayName,
+            bio: profile.bio,
+            picture: profile.pfp,
             attributes: compact([
-                params.website ? { type: MetadataAttributeType.STRING, key: 'website', value: params.website } : null,
-                params.location
-                    ? { type: MetadataAttributeType.STRING, key: 'location', value: params.location }
+                profile.website ? { type: MetadataAttributeType.STRING, key: 'website', value: profile.website } : null,
+                profile.location
+                    ? { type: MetadataAttributeType.STRING, key: 'location', value: profile.location }
                     : null,
             ]),
         });

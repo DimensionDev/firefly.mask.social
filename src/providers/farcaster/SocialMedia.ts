@@ -30,9 +30,9 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
-    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { getFarcasterSuggestFollows } from '@/services/getFarcasterSuggestFollows.js';
@@ -360,15 +360,17 @@ class FarcasterSocialMedia implements Provider {
         const posts = getAllPostsResult.filter((x) => x.status === 'fulfilled').map((x) => x.value);
         return createPageable(posts, createIndicator(indicator), createNextIndicator(indicator, `${offset + limit}`));
     }
-    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         await Promise.all([
-            typeof params.displayName === 'string'
-                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.DISPLAY, params.displayName)
+            typeof profile.displayName === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.DISPLAY, profile.displayName)
                 : null,
-            typeof params.bio === 'string' ? HubbleSocialMediaProvider.userDataAdd(UserDataType.BIO, params.bio) : null,
-            params.pfp ? HubbleSocialMediaProvider.userDataAdd(UserDataType.PFP, params.pfp) : null,
-            typeof params.website === 'string'
-                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.URL, params.website)
+            typeof profile.bio === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.BIO, profile.bio)
+                : null,
+            profile.pfp ? HubbleSocialMediaProvider.userDataAdd(UserDataType.PFP, profile.pfp) : null,
+            typeof profile.website === 'string'
+                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.URL, profile.website)
                 : null,
         ]);
         return true;

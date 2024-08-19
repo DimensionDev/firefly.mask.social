@@ -16,9 +16,9 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
-    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 
 function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
@@ -305,7 +305,7 @@ class NeynarSocialMedia implements Provider {
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
     }
 }

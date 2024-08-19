@@ -75,6 +75,8 @@ export interface Profile {
     location?: string;
 }
 
+export type ProfileEditable = Partial<Pick<Profile, 'pfp' | 'bio' | 'location' | 'website' | 'displayName'>>;
+
 export interface MediaObject {
     title?: string;
     mimeType?: string;
@@ -306,8 +308,6 @@ export interface Channel {
     blocked?: boolean;
     __original__?: unknown;
 }
-
-export type UpdateProfileParams = Partial<Pick<Profile, 'pfp' | 'bio' | 'location' | 'website' | 'displayName'>>;
 
 export interface Provider {
     type: SessionType;
@@ -831,5 +831,5 @@ export interface Provider {
     /**
      * Update profile
      */
-    updateProfile: (params: UpdateProfileParams) => Promise<boolean>;
+    updateProfile: (profile: ProfileEditable) => Promise<boolean>;
 }
