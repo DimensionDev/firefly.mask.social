@@ -23,7 +23,7 @@ function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>
     });
 }
 
-function refreshCurrentProfileInState(source: SocialSource, params: UpdateProfileParams) {
+function updateCurrentProfileInState(source: SocialSource, params: UpdateProfileParams) {
     const stateStore = {
         [Source.Farcaster]: useFarcasterStateStore,
         [Source.Lens]: useLensStateStore,
@@ -64,5 +64,5 @@ export async function updateProfile(
     });
 
     setCurrentProfileInPosts(profile, params);
-    refreshCurrentProfileInState(profile.source, params);
+    updateCurrentProfileInState(profile.source, params);
 }
