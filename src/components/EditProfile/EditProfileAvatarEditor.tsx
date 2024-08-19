@@ -12,7 +12,7 @@ export function EditProfileAvatarEditor() {
     const pfp = (history.location.state as { pfp?: FileList }).pfp;
     const file = pfp?.[0];
 
-    const ref = useRef<AvatarEditorProps & { getImageScaledToCanvas: () => HTMLCanvasElement }>(null);
+    const editorRef = useRef<AvatarEditorProps & { getImageScaledToCanvas: () => HTMLCanvasElement }>(null);
 
     const rangerRef = useRef<HTMLDivElement>(null);
     const [values, setValues] = useState<readonly number[]>([1]);
@@ -30,7 +30,7 @@ export function EditProfileAvatarEditor() {
     if (!file) history.replace('/');
 
     const onConfirm = () => {
-        ref.current?.getImageScaledToCanvas().toBlob((blob) => {
+        editorRef.current?.getImageScaledToCanvas().toBlob((blob) => {
             if (!blob || !file) return;
             setValue('pfp', new File([blob], 'pfp.png', { type: blob.type }), { shouldDirty: true });
             history.replace('/');
@@ -43,7 +43,7 @@ export function EditProfileAvatarEditor() {
                 {/* @ts-ignore fix react-avatar-editor type */}
                 <AvatarEditor
                     className="!h-auto !w-full rounded-lg"
-                    ref={ref}
+                    ref={editorRef}
                     image={file!}
                     width={300}
                     height={300}
