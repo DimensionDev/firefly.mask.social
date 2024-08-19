@@ -1,13 +1,13 @@
-import { LoadingBase, makeStyles } from '@masknet/theme'
-import { useState } from 'react'
-import { Box, useTheme } from '@mui/material'
+import { LoadingBase, makeStyles } from '@masknet/theme';
+import { useState } from 'react';
+import { Box, useTheme } from '@mui/material';
 
 interface ImageLoaderProps {
-    src: string
+    src: string;
 }
 
-const MASK_DARK_FALLBACK = new URL('../assets/mask.dark.svg', import.meta.url).href
-const MASK_LIGHT_FALLBACK = new URL('../assets/mask.light.svg', import.meta.url).href
+const MASK_DARK_FALLBACK = new URL('../assets/mask.dark.svg', import.meta.url).href;
+const MASK_LIGHT_FALLBACK = new URL('../assets/mask.light.svg', import.meta.url).href;
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -32,36 +32,37 @@ const useStyles = makeStyles()((theme) => ({
         left: 'calc(50% - 10px)',
         color: theme.palette.maskColor.main,
     },
-}))
+}));
 
 export function ImageLoader({ src }: ImageLoaderProps) {
-    const [loaded, setLoaded] = useState(false)
-    const [failed, setFailed] = useState(false)
-    const { classes } = useStyles()
-    const theme = useTheme()
+    const [loaded, setLoaded] = useState(false);
+    const [failed, setFailed] = useState(false);
+    const { classes } = useStyles();
+    const theme = useTheme();
 
     return (
         <div className={classes.container}>
-            {!failed ?
+            {!failed ? (
                 <img
                     src={src}
                     className={classes.poster}
                     onLoad={() => setLoaded(true)}
                     onError={() => {
-                        setFailed(true)
+                        setFailed(true);
                     }}
                 />
-            :   <img
+            ) : (
+                <img
                     src={theme.palette.mode === 'light' ? MASK_LIGHT_FALLBACK : MASK_DARK_FALLBACK}
                     width={60}
                     height={60}
                 />
-            }
-            {!loaded && !failed ?
+            )}
+            {!loaded && !failed ? (
                 <Box className={classes.iconContainer}>
                     <LoadingBase size={20} />
                 </Box>
-            :   null}
+            ) : null}
         </div>
-    )
+    );
 }

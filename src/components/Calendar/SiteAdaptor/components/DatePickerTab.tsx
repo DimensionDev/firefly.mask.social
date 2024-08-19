@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react'
-import { makeStyles } from '@masknet/theme'
-import { startOfWeek, endOfWeek, eachDayOfInterval } from 'date-fns'
-import { ClickAwayListener, IconButton, Typography } from '@mui/material'
-import { Icons } from '@masknet/icons'
-import { DatePicker } from './DatePicker.jsx'
+import React, { useMemo } from 'react';
+import { makeStyles } from '@masknet/theme';
+import { startOfWeek, endOfWeek, eachDayOfInterval } from 'date-fns';
+import { ClickAwayListener, IconButton, Typography } from '@mui/material';
+import { Icons } from '@masknet/icons';
+import { DatePicker } from './DatePicker.jsx';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -36,22 +36,22 @@ const useStyles = makeStyles()((theme) => ({
         color: theme.palette.maskColor.second,
         cursor: 'default',
     },
-}))
+}));
 
 interface DatePickerTabProps {
-    open: boolean
-    setOpen: (x: boolean) => void
-    selectedDate: Date
-    setSelectedDate: (date: Date) => void
-    list: Record<string, any[]> | null
-    currentTab: 'news' | 'event' | 'nfts'
+    open: boolean;
+    setOpen: (x: boolean) => void;
+    selectedDate: Date;
+    setSelectedDate: (date: Date) => void;
+    list: Record<string, any[]> | null;
+    currentTab: 'news' | 'event' | 'nfts';
 }
 
 export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOpen, currentTab }: DatePickerTabProps) {
-    const { classes } = useStyles()
+    const { classes } = useStyles();
     const week = useMemo(() => {
-        return eachDayOfInterval({ start: startOfWeek(selectedDate), end: endOfWeek(selectedDate) })
-    }, [selectedDate])
+        return eachDayOfInterval({ start: startOfWeek(selectedDate), end: endOfWeek(selectedDate) });
+    }, [selectedDate]);
     return (
         <div className={classes.container}>
             {week.map((v) => {
@@ -62,20 +62,22 @@ export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOp
                         }`}
                         key={v.toString()}
                         onClick={() => {
-                            if (list && !list[v.toLocaleDateString()]) return
-                            setSelectedDate(v)
-                        }}>
+                            if (list && !list[v.toLocaleDateString()]) return;
+                            setSelectedDate(v);
+                        }}
+                    >
                         <Typography>{v.getDate()}</Typography>
                     </div>
-                )
+                );
             })}
             <ClickAwayListener onClickAway={() => setOpen(false)}>
                 <div>
                     <IconButton
                         size="small"
                         onClick={() => {
-                            setOpen(!open)
-                        }}>
+                            setOpen(!open);
+                        }}
+                    >
                         <Icons.LinearCalendar size={24} />
                     </IconButton>
                     <DatePicker
@@ -88,5 +90,5 @@ export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOp
                 </div>
             </ClickAwayListener>
         </div>
-    )
+    );
 }

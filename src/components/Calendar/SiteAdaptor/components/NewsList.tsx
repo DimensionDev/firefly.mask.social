@@ -1,9 +1,9 @@
-import { EmptyStatus, LoadingStatus, Image } from '@masknet/shared'
-import { makeStyles } from '@masknet/theme'
-import { Link, Typography } from '@mui/material'
-import { format } from 'date-fns'
-import { useCallback, useMemo } from 'react'
-import { useCalendarTrans } from '../../locales/i18n_generated.js'
+import { EmptyStatus, LoadingStatus, Image } from '@masknet/shared';
+import { makeStyles } from '@masknet/theme';
+import { Link, Typography } from '@mui/material';
+import { format } from 'date-fns';
+import { useCallback, useMemo } from 'react';
+import { useCalendarTrans } from '../../locales/i18n_generated.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -100,39 +100,39 @@ const useStyles = makeStyles()((theme) => ({
         color: theme.palette.maskColor.main,
         padding: '10px 0',
     },
-}))
+}));
 
 interface NewsListProps {
-    list: Record<string, any[]>
-    isLoading: boolean
-    empty: boolean
-    date: Date
+    list: Record<string, any[]>;
+    isLoading: boolean;
+    empty: boolean;
+    date: Date;
 }
 
 export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
-    const { classes, cx } = useStyles()
-    const t = useCalendarTrans()
+    const { classes, cx } = useStyles();
+    const t = useCalendarTrans();
     const futureNewsList = useMemo(() => {
-        const newsList: string[] = []
+        const newsList: string[] = [];
         for (const key in list) {
             if (new Date(key) >= date) {
-                newsList.push(key)
+                newsList.push(key);
             }
         }
-        return newsList
-    }, [list, date])
+        return newsList;
+    }, [list, date]);
     const listRef = useCallback((el: HTMLDivElement | null) => {
-        el?.scrollTo({ top: 0 })
-    }, [])
+        el?.scrollTo({ top: 0 });
+    }, []);
 
     return (
         <div className={classes.container} ref={listRef} key={date.toISOString()}>
             <div className={classes.paddingWrap}>
-                {isLoading && !list?.length ?
+                {isLoading && !list?.length ? (
                     <div className={cx(classes.empty, classes.eventTitle)}>
                         <LoadingStatus />
                     </div>
-                : !empty && futureNewsList.length ?
+                ) : !empty && futureNewsList.length ? (
                     futureNewsList.map((key) => {
                         return (
                             <div key={key}>
@@ -145,7 +145,8 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                                         href={v.event_url}
                                         className={classes.eventCard}
                                         rel="noopener noreferrer"
-                                        target="_blank">
+                                        target="_blank"
+                                    >
                                         <div className={classes.eventHeader}>
                                             <div className={classes.projectWrap}>
                                                 <Image
@@ -165,10 +166,12 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                                     </Link>
                                 ))}
                             </div>
-                        )
+                        );
                     })
-                :   <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>}
+                ) : (
+                    <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>
+                )}
             </div>
         </div>
-    )
+    );
 }

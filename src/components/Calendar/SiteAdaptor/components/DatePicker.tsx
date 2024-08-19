@@ -1,12 +1,12 @@
-import { Icons } from '@masknet/icons'
-import { safeUnreachable } from '@masknet/kit'
-import { makeStyles } from '@masknet/theme'
-import { IconButton, Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns'
-import { range } from 'lodash-es'
-import { useMemo, useState } from 'react'
-import { useEventList, useNFTList, useNewsList } from '../../hooks/useEventList.js'
+import { Icons } from '@masknet/icons';
+import { safeUnreachable } from '@masknet/kit';
+import { makeStyles } from '@masknet/theme';
+import { IconButton, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns';
+import { range } from 'lodash-es';
+import { useMemo, useState } from 'react';
+import { useEventList, useNFTList, useNewsList } from '../../hooks/useEventList.js';
 
 const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
     container: {
@@ -73,58 +73,58 @@ const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
         border: 'none',
         padding: 0,
     },
-}))
+}));
 
 interface DatePickerProps {
-    open: boolean
-    setOpen: (x: boolean) => void
-    selectedDate: Date
-    setSelectedDate: (date: Date) => void
-    currentTab: 'news' | 'event' | 'nfts'
+    open: boolean;
+    setOpen: (x: boolean) => void;
+    selectedDate: Date;
+    setSelectedDate: (date: Date) => void;
+    currentTab: 'news' | 'event' | 'nfts';
 }
 
 export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, currentTab }: DatePickerProps) {
-    const { classes } = useStyles({ open })
-    const [currentDate, setCurrentDate] = useState(selectedDate)
-    const monthStart = startOfMonth(currentDate)
-    const startingDayOfWeek = monthStart.getDay()
-    const daysInMonth = endOfMonth(currentDate).getDate()
-    const daysInPrevMonth = endOfMonth(addMonths(currentDate, -1)).getDate()
-    const { data: eventList } = useEventList(monthStart, currentTab === 'event')
-    const { data: newsList } = useNewsList(monthStart, currentTab === 'news')
-    const { data: nftList } = useNFTList(monthStart, currentTab === 'nfts')
+    const { classes } = useStyles({ open });
+    const [currentDate, setCurrentDate] = useState(selectedDate);
+    const monthStart = startOfMonth(currentDate);
+    const startingDayOfWeek = monthStart.getDay();
+    const daysInMonth = endOfMonth(currentDate).getDate();
+    const daysInPrevMonth = endOfMonth(addMonths(currentDate, -1)).getDate();
+    const { data: eventList } = useEventList(monthStart, currentTab === 'event');
+    const { data: newsList } = useNewsList(monthStart, currentTab === 'news');
+    const { data: nftList } = useNFTList(monthStart, currentTab === 'nfts');
     const list = useMemo(() => {
         switch (currentTab) {
             case 'news':
-                return newsList
+                return newsList;
             case 'event':
-                return eventList
+                return eventList;
             case 'nfts':
-                return nftList
+                return nftList;
             default:
-                safeUnreachable(currentTab)
-                return null
+                safeUnreachable(currentTab);
+                return null;
         }
-    }, [currentTab, newsList, eventList, nftList])
+    }, [currentTab, newsList, eventList, nftList]);
 
     const isPrevMonthDisabled = useMemo(() => {
-        return !isAfter(currentDate, endOfMonth(new Date()))
-    }, [currentDate])
+        return !isAfter(currentDate, endOfMonth(new Date()));
+    }, [currentDate]);
     const isNextMonthDisabled = useMemo(() => {
-        return isAfter(addMonths(currentDate, 1), addMonths(endOfMonth(new Date()), 2))
-    }, [currentDate])
+        return isAfter(addMonths(currentDate, 1), addMonths(endOfMonth(new Date()), 2));
+    }, [currentDate]);
 
     const handleDateClick = (date: Date) => {
-        setSelectedDate(date)
-        setOpen(false)
-    }
+        setSelectedDate(date);
+        setOpen(false);
+    };
 
     const changeMonth = (amount: number) => {
-        setCurrentDate(addMonths(currentDate, amount))
-    }
+        setCurrentDate(addMonths(currentDate, amount));
+    };
 
     const renderDatePicker = () => {
-        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
         const table = (
             <table>
@@ -141,25 +141,25 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                     {range(6).map((weekIndex) => (
                         <tr key={weekIndex} className={classes.row}>
                             {range(7).map((dayIndex) => {
-                                const dayOfMonth = weekIndex * 7 + dayIndex - startingDayOfWeek + 1
+                                const dayOfMonth = weekIndex * 7 + dayIndex - startingDayOfWeek + 1;
                                 let currentDatePointer = new Date(
                                     currentDate.getFullYear(),
                                     currentDate.getMonth(),
                                     dayOfMonth,
-                                )
+                                );
 
                                 if (dayOfMonth <= 0) {
                                     currentDatePointer = new Date(
                                         currentDate.getFullYear(),
                                         currentDate.getMonth() - 1,
                                         daysInPrevMonth + dayOfMonth,
-                                    )
+                                    );
                                 } else if (dayOfMonth > daysInMonth) {
                                     currentDatePointer = new Date(
                                         currentDate.getFullYear(),
                                         currentDate.getMonth() + 1,
                                         dayOfMonth - daysInMonth,
-                                    )
+                                    );
                                 }
 
                                 return (
@@ -168,25 +168,28 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                                             className={classes.button}
                                             type="submit"
                                             disabled={!list?.[currentDatePointer.toLocaleDateString()]}
-                                            onClick={() => handleDateClick(currentDatePointer)}>
+                                            onClick={() => handleDateClick(currentDatePointer)}
+                                        >
                                             <Typography
                                                 className={`${classes.dateItem} ${
-                                                    selectedDate.toDateString() === currentDatePointer.toDateString() ?
-                                                        classes.active
-                                                    : list?.[currentDatePointer.toLocaleDateString()] ? classes.canClick
-                                                    : ''
-                                                }`}>
+                                                    selectedDate.toDateString() === currentDatePointer.toDateString()
+                                                        ? classes.active
+                                                        : list?.[currentDatePointer.toLocaleDateString()]
+                                                          ? classes.canClick
+                                                          : ''
+                                                }`}
+                                            >
                                                 {currentDatePointer.getDate()}
                                             </Typography>
                                         </button>
                                     </td>
-                                )
+                                );
                             })}
                         </tr>
                     ))}
                 </tbody>
             </table>
-        )
+        );
 
         return (
             <div className={classes.container}>
@@ -203,8 +206,8 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                 </div>
                 {table}
             </div>
-        )
-    }
+        );
+    };
 
-    return <div>{renderDatePicker()}</div>
+    return <div>{renderDatePicker()}</div>;
 }

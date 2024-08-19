@@ -1,7 +1,7 @@
-import { Icons } from '@masknet/icons'
-import { makeStyles } from '@masknet/theme'
-import { Typography } from '@mui/material'
-import { useCalendarTrans } from '../../locales/i18n_generated.js'
+import { Icons } from '@masknet/icons';
+import { makeStyles } from '@masknet/theme';
+import { Typography } from '@mui/material';
+import { useCalendarTrans } from '../../locales/i18n_generated.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -39,11 +39,11 @@ const useStyles = makeStyles()((theme) => ({
         lineHeight: '18px',
         alignItems: 'center',
     },
-}))
+}));
 
 export function Footer() {
-    const { classes } = useStyles()
-    const t = useCalendarTrans()
+    const { classes } = useStyles();
+    const t = useCalendarTrans();
     return (
         <div className={classes.container}>
             <div className={classes.lineWrap}>
@@ -53,5 +53,5 @@ export function Footer() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

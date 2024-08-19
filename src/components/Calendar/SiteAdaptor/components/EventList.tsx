@@ -1,11 +1,11 @@
-import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared'
-import { makeStyles } from '@masknet/theme'
-import { resolveIPFS_URL } from '@masknet/web3-shared-base'
-import { Link, Typography } from '@mui/material'
-import { format } from 'date-fns'
-import { useCallback, useMemo } from 'react'
-import { useCalendarTrans } from '../../locales/i18n_generated.js'
-import { ImageLoader } from './ImageLoader.jsx'
+import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
+import { makeStyles } from '@masknet/theme';
+import { resolveIPFS_URL } from '@masknet/web3-shared-base';
+import { Link, Typography } from '@mui/material';
+import { format } from 'date-fns';
+import { useCallback, useMemo } from 'react';
+import { useCalendarTrans } from '../../locales/i18n_generated.js';
+import { ImageLoader } from './ImageLoader.jsx';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -87,45 +87,45 @@ const useStyles = makeStyles()((theme) => ({
         color: theme.palette.maskColor.main,
         padding: '10px 0',
     },
-}))
+}));
 
 interface EventListProps {
-    list: Record<string, any[]>
-    isLoading: boolean
-    empty: boolean
-    date: Date
+    list: Record<string, any[]>;
+    isLoading: boolean;
+    empty: boolean;
+    date: Date;
 }
 
 export const formatDate = (date: string) => {
-    const dateFormat = 'MMM dd, yyyy HH:mm'
-    return format(new Date(date), dateFormat)
-}
+    const dateFormat = 'MMM dd, yyyy HH:mm';
+    return format(new Date(date), dateFormat);
+};
 
 export function EventList({ list, isLoading, empty, date }: EventListProps) {
-    const { classes, cx } = useStyles()
-    const t = useCalendarTrans()
+    const { classes, cx } = useStyles();
+    const t = useCalendarTrans();
     const futureEvents = useMemo(() => {
-        const listAfterDate: string[] = []
+        const listAfterDate: string[] = [];
         for (const key in list) {
             if (new Date(key) >= date) {
-                listAfterDate.push(key)
+                listAfterDate.push(key);
             }
         }
-        return listAfterDate
-    }, [list, date])
+        return listAfterDate;
+    }, [list, date]);
 
     const listRef = useCallback((el: HTMLDivElement | null) => {
-        el?.scrollTo({ top: 0 })
-    }, [])
+        el?.scrollTo({ top: 0 });
+    }, []);
 
     return (
         <div className={classes.container} ref={listRef} key={date.toISOString()}>
             <div className={classes.paddingWrap}>
-                {isLoading && !list?.length ?
+                {isLoading && !list?.length ? (
                     <div className={cx(classes.empty, classes.eventTitle)}>
                         <LoadingStatus />
                     </div>
-                : !empty && futureEvents.length ?
+                ) : !empty && futureEvents.length ? (
                     futureEvents.map((key) => {
                         return (
                             <div key={key}>
@@ -138,7 +138,8 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                         className={classes.eventCard}
                                         href={v.event_url}
                                         rel="noopener noreferrer"
-                                        target="_blank">
+                                        target="_blank"
+                                    >
                                         <div className={classes.eventHeader}>
                                             <div className={classes.projectWrap}>
                                                 <Image
@@ -158,10 +159,12 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                     </Link>
                                 ))}
                             </div>
-                        )
+                        );
                     })
-                :   <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>}
+                ) : (
+                    <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>
+                )}
             </div>
         </div>
-    )
+    );
 }

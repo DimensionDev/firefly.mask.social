@@ -1,16 +1,16 @@
-import { safeUnreachable } from '@masknet/kit'
-import { EMPTY_OBJECT } from '@masknet/shared-base'
-import { MaskTabList, makeStyles, useTabs } from '@masknet/theme'
-import { TabContext, TabPanel } from '@mui/lab'
-import { Tab } from '@mui/material'
-import { useMemo, useState } from 'react'
-import { useEventList, useNFTList, useNewsList } from '../hooks/useEventList.js'
-import { useCalendarTrans } from '../locales/i18n_generated.js'
-import { DatePickerTab } from './components/DatePickerTab.jsx'
-import { EventList } from './components/EventList.jsx'
-import { Footer } from './components/Footer.jsx'
-import { NFTList } from './components/NFTList.jsx'
-import { NewsList } from './components/NewsList.jsx'
+import { safeUnreachable } from '@masknet/kit';
+import { EMPTY_OBJECT } from '@masknet/shared-base';
+import { MaskTabList, makeStyles, useTabs } from '@masknet/theme';
+import { TabContext, TabPanel } from '@mui/lab';
+import { Tab } from '@mui/material';
+import { useMemo, useState } from 'react';
+import { useEventList, useNFTList, useNewsList } from '../hooks/useEventList.js';
+import { useCalendarTrans } from '../locales/i18n_generated.js';
+import { DatePickerTab } from './components/DatePickerTab.jsx';
+import { EventList } from './components/EventList.jsx';
+import { Footer } from './components/Footer.jsx';
+import { NFTList } from './components/NFTList.jsx';
+import { NewsList } from './components/NewsList.jsx';
 
 const useStyles = makeStyles()((theme) => ({
     calendar: {
@@ -34,33 +34,33 @@ const useStyles = makeStyles()((theme) => ({
     tabPanel: {
         padding: '0 4px 0 12px',
     },
-}))
+}));
 
 export function CalendarContent() {
-    const t = useCalendarTrans()
-    const { classes } = useStyles()
-    const [currentTab, onChange, tabs] = useTabs('news', 'event', 'nfts')
-    const [selectedDate, setSelectedDate] = useState(new Date())
-    const [open, setOpen] = useState(false)
+    const t = useCalendarTrans();
+    const { classes } = useStyles();
+    const [currentTab, onChange, tabs] = useTabs('news', 'event', 'nfts');
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [open, setOpen] = useState(false);
     const { data: eventList = EMPTY_OBJECT, isPending: eventLoading } = useEventList(
         selectedDate,
         currentTab === 'event',
-    )
-    const { data: newsList = EMPTY_OBJECT, isPending: newsLoading } = useNewsList(selectedDate, currentTab === 'news')
-    const { data: nftList = EMPTY_OBJECT, isPending: nftLoading } = useNFTList(selectedDate, currentTab === 'nfts')
+    );
+    const { data: newsList = EMPTY_OBJECT, isPending: newsLoading } = useNewsList(selectedDate, currentTab === 'news');
+    const { data: nftList = EMPTY_OBJECT, isPending: nftLoading } = useNFTList(selectedDate, currentTab === 'nfts');
     const list = useMemo(() => {
         switch (currentTab) {
             case 'news':
-                return newsList
+                return newsList;
             case 'event':
-                return eventList
+                return eventList;
             case 'nfts':
-                return nftList
+                return nftList;
             default:
-                safeUnreachable(currentTab)
-                return null
+                safeUnreachable(currentTab);
+                return null;
         }
-    }, [currentTab, newsList, eventList, nftList])
+    }, [currentTab, newsList, eventList, nftList]);
 
     return (
         <div className={classes.calendar}>
@@ -107,5 +107,5 @@ export function CalendarContent() {
                 <Footer />
             </TabContext>
         </div>
-    )
+    );
 }

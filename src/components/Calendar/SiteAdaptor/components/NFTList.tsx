@@ -1,12 +1,12 @@
-import { Icons } from '@masknet/icons'
-import { EmptyStatus, LoadingStatus, Image } from '@masknet/shared'
-import { makeStyles } from '@masknet/theme'
-import { IconButton, Link, Typography } from '@mui/material'
-import { format } from 'date-fns'
-import { useMemo, type ReactNode, useCallback } from 'react'
-import { useCalendarTrans } from '../../locales/i18n_generated.js'
-import { CountdownTimer } from './CountDownTimer.jsx'
-import { formatDate } from './EventList.jsx'
+import { Icons } from '@masknet/icons';
+import { EmptyStatus, LoadingStatus, Image } from '@masknet/shared';
+import { makeStyles } from '@masknet/theme';
+import { IconButton, Link, Typography } from '@mui/material';
+import { format } from 'date-fns';
+import { useMemo, type ReactNode, useCallback } from 'react';
+import { useCalendarTrans } from '../../locales/i18n_generated.js';
+import { CountdownTimer } from './CountDownTimer.jsx';
+import { formatDate } from './EventList.jsx';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -105,50 +105,50 @@ const useStyles = makeStyles()((theme) => ({
         gap: '8px',
         alignItems: 'center',
     },
-}))
+}));
 
 interface NFTListProps {
-    list: Record<string, any[]>
-    isLoading: boolean
-    empty: boolean
-    date: Date
+    list: Record<string, any[]>;
+    isLoading: boolean;
+    empty: boolean;
+    date: Date;
 }
 
 const socialIcons: Record<string, ReactNode> = {
     twitter: <Icons.TwitterX size={18} />,
     discord: <Icons.DiscordRoundBlack size={20} color="#000" />,
     website: <Icons.WebBlack size={20} />,
-}
+};
 
 const sortPlat = (_: any, b: { type: string }) => {
-    if (b.type === 'website') return -1
-    else return 0
-}
+    if (b.type === 'website') return -1;
+    else return 0;
+};
 
 export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
-    const { classes, cx } = useStyles()
-    const t = useCalendarTrans()
+    const { classes, cx } = useStyles();
+    const t = useCalendarTrans();
     const listAfterDate = useMemo(() => {
-        const listAfterDate: string[] = []
+        const listAfterDate: string[] = [];
         for (const key in list) {
             if (new Date(key) >= date) {
-                listAfterDate.push(key)
+                listAfterDate.push(key);
             }
         }
-        return listAfterDate
-    }, [list, date])
+        return listAfterDate;
+    }, [list, date]);
 
     const listRef = useCallback((el: HTMLDivElement | null) => {
-        el?.scrollTo({ top: 0 })
-    }, [])
+        el?.scrollTo({ top: 0 });
+    }, []);
     return (
         <div className={classes.container} ref={listRef} key={date.toISOString()}>
             <div className={classes.paddingWrap}>
-                {isLoading && !list?.length ?
+                {isLoading && !list?.length ? (
                     <div className={cx(classes.empty, classes.eventTitle)}>
                         <LoadingStatus />
                     </div>
-                : !empty && listAfterDate.length ?
+                ) : !empty && listAfterDate.length ? (
                     listAfterDate.map((key) => {
                         return (
                             <div key={key}>
@@ -161,7 +161,8 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                         className={classes.eventCard}
                                         href={v.event_url}
                                         rel="noopener noreferrer"
-                                        target="_blank">
+                                        target="_blank"
+                                    >
                                         <div className={classes.eventHeader}>
                                             <div className={classes.projectWrap}>
                                                 <Image
@@ -187,12 +188,13 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                                 style={{ width: '20px', height: '20px' }}
                                                                 key={platform.type}
                                                                 onClick={(e) => {
-                                                                    e.stopPropagation()
-                                                                    window.open(platform.url)
-                                                                }}>
+                                                                    e.stopPropagation();
+                                                                    window.open(platform.url);
+                                                                }}
+                                                            >
                                                                 {socialIcons[platform.type]}
                                                             </IconButton>
-                                                        )
+                                                        );
                                                     })}
                                             </div>
                                         </div>
@@ -218,10 +220,12 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                     </Link>
                                 ))}
                             </div>
-                        )
+                        );
                     })
-                :   <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>}
+                ) : (
+                    <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>
+                )}
             </div>
         </div>
-    )
+    );
 }

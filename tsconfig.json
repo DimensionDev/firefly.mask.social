@@ -102,7 +102,7 @@
             "@masknet/web3-telemetry/helpers": ["./src/maskbook/packages/web3-telemetry/src/entry-helpers.ts"],
             "@masknet/web3-telemetry/types": ["./src/maskbook/packages/web3-telemetry/src/entry-types.ts"],
             "@masknet/plugin-redpacket": ["./src/maskbook/packages/plugins/RedPacket/src/index.ts"],
-            "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"],
+            "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"]
         }
     },
     "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

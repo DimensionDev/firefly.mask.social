@@ -1,8 +1,8 @@
-import { makeStyles } from '@masknet/theme'
-import { Typography } from '@mui/material'
-import { differenceInSeconds } from 'date-fns'
-import { useCallback, useEffect, useState } from 'react'
-import { useCalendarTrans } from '../../locales/i18n_generated.js'
+import { makeStyles } from '@masknet/theme';
+import { Typography } from '@mui/material';
+import { differenceInSeconds } from 'date-fns';
+import { useCallback, useEffect, useState } from 'react';
+import { useCalendarTrans } from '../../locales/i18n_generated.js';
 
 const useStyles = makeStyles()((theme) => ({
     timer: {
@@ -17,45 +17,45 @@ const useStyles = makeStyles()((theme) => ({
         justifyContent: 'center',
         padding: '2px',
     },
-}))
+}));
 
 interface CountDownTimerProps {
-    targetDate: Date
+    targetDate: Date;
 }
 
 export function CountdownTimer({ targetDate }: CountDownTimerProps) {
     const calculateRemainingTime = useCallback((targetDate: Date) => {
-        const currentDate = new Date()
-        const difference = differenceInSeconds(targetDate, currentDate)
-        return difference > 0 ? difference : 0
-    }, [])
+        const currentDate = new Date();
+        const difference = differenceInSeconds(targetDate, currentDate);
+        return difference > 0 ? difference : 0;
+    }, []);
 
-    const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(targetDate))
+    const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(targetDate));
 
-    const { classes } = useStyles()
-    const t = useCalendarTrans()
+    const { classes } = useStyles();
+    const t = useCalendarTrans();
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const newRemainingTime = calculateRemainingTime(targetDate)
-            setRemainingTime(newRemainingTime)
+            const newRemainingTime = calculateRemainingTime(targetDate);
+            setRemainingTime(newRemainingTime);
 
             if (newRemainingTime === 0) {
-                clearInterval(interval)
+                clearInterval(interval);
             }
-        }, 1000)
+        }, 1000);
 
-        return () => clearInterval(interval)
-    }, [targetDate])
+        return () => clearInterval(interval);
+    }, [targetDate]);
 
-    const days = Math.floor(remainingTime / (60 * 60 * 24))
-    const hours = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60))
-    const minutes = Math.floor((remainingTime % (60 * 60)) / 60)
-    const seconds = remainingTime % 60
+    const days = Math.floor(remainingTime / (60 * 60 * 24));
+    const hours = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
+    const minutes = Math.floor((remainingTime % (60 * 60)) / 60);
+    const seconds = remainingTime % 60;
 
     return (
         <Typography className={classes.timer}>
             {remainingTime === 0 ? t.expired() : `${days}d :${hours}h :${minutes}m :${seconds}s`}
         </Typography>
-    )
+    );
 }
