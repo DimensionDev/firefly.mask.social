@@ -60,6 +60,7 @@ export function Info({ profile }: InfoProps) {
 
     const followingCount = profile.followingCount || 0;
     const followerCount = profile.followerCount || 0;
+    const showAction = !!profile;
 
     return (
         <div className="flex gap-3 p-3">
@@ -74,12 +75,14 @@ export function Info({ profile }: InfoProps) {
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className="relative flex flex-1 flex-col">
-                <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
-                        <span className="text-xl font-black text-lightMain">{profile.displayName}</span>
-                        <SocialSourceIcon className="mr-auto min-w-5" source={source} size={20} />
-                        {profile ? <ProfileAction profile={profile} /> : null}
+            <div className="relative flex w-[calc(100%-80px-12px)] flex-col">
+                <div className="flex w-full flex-col">
+                    <div className="flex w-full items-center gap-2">
+                        <span className={classNames('truncate text-clip text-xl font-black text-lightMain', showAction ? 'max-w-[calc(100%-152px-20px-24px)]' : 'max-w-[calc(100%-20px-16px)]')}>
+                            {profile.displayName}
+                        </span>
+                        <SocialSourceIcon className="mr-auto shrink-0" source={source} size={20} />
+                        {showAction ? <ProfileAction profile={profile} /> : null}
                     </div>
                     <span className="text-[15px] text-secondary">@{profile.handle}</span>
                 </div>
