@@ -474,6 +474,9 @@ msgstr "转帖"
 msgid "There are images or videos that were not uploaded successfully."
 msgstr "图片或者视频上传失败。"
 
+msgid "{addressName} is already connected."
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
@@ -1208,9 +1211,6 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
-
-msgid "This address is already connected"
-msgstr ""
 
 msgid "Publications"
 msgstr "帖子"

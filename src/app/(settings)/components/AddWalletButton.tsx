@@ -1,11 +1,12 @@
 import { t, Trans } from '@lingui/macro';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -23,6 +24,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     ...rest
 }) {
     const account = useAccount();
+    const accountModal = useAccountModal();
     const { signMessageAsync } = useSignMessage();
     const connectModal = useConnectModal();
 
@@ -33,8 +35,11 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
                 return connectModal.openConnectModal?.();
             }
 
-            if (connections.some((connection) => isSameAddress(connection.address, address))) {
-                return enqueueErrorMessage(t`This address is already connected`);
+            const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
+            if (existedConnection) {
+                const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
+                accountModal.openAccountModal?.();
+                return enqueueErrorMessage(t`${addressName} is already connected.`);
             }
 
             const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
@@ -48,7 +53,13 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to add wallet`), { error });
             throw error;
         }
-    }, [account.isConnected, account.address, connections, connectModal.openConnectModal]);
+    }, [
+        account.isConnected,
+        account.address,
+        connections,
+        connectModal.openConnectModal,
+        accountModal.openAccountModal,
+    ]);
 
     return (
         <ClickableButton
