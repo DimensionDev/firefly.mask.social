@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { useRouter } from '@tanstack/react-router';
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import AvatarEditor, { type AvatarEditorProps } from 'react-avatar-editor';
 import { useFormContext } from 'react-hook-form';
 
@@ -26,7 +26,7 @@ export function EditProfileAvatarEditor() {
         onDrag: (instance: Ranger<HTMLDivElement>) => setValues(instance.sortedValues),
     });
 
-    const { setValue, getFieldState } = useFormContext();
+    const { setValue } = useFormContext();
     if (!file) history.replace('/');
 
     const onConfirm = () => {
@@ -53,7 +53,7 @@ export function EditProfileAvatarEditor() {
                     {rangerInstance
                         .handles()
                         .map(({ value, onKeyDownHandler, onMouseDownHandler, onTouchStart }, i) => (
-                            <>
+                            <Fragment key={i}>
                                 <div className="relative h-full w-full overflow-hidden rounded-2xl">
                                     <div
                                         className="h-full w-full origin-left bg-link"
@@ -63,7 +63,6 @@ export function EditProfileAvatarEditor() {
                                     />
                                 </div>
                                 <button
-                                    key={i}
                                     onKeyDown={onKeyDownHandler}
                                     onMouseDown={onMouseDownHandler}
                                     onTouchStart={onTouchStart}
@@ -76,7 +75,7 @@ export function EditProfileAvatarEditor() {
                                         left: `${rangerInstance.getPercentageForValue(value)}%`,
                                     }}
                                 />
-                            </>
+                            </Fragment>
                         ))}
                 </div>
             </div>
