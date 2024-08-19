@@ -64,7 +64,7 @@ export function Info({ profile }: InfoProps) {
     const showAction = !!profile;
 
     return (
-        <div className="flex gap-3 p-3">
+        <div className="grid grid-cols-[80px_calc(100%-80px-12px)] gap-3 p-3">
             {profile.pfp ? (
                 <Avatar
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
@@ -76,7 +76,7 @@ export function Info({ profile }: InfoProps) {
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className="relative flex w-[calc(100%-80px-12px)] flex-col">
+            <div className="relative flex w-full flex-col overflow-hidden">
                 <div className="flex w-full flex-col">
                     <div className="flex w-full items-center gap-2">
                         <TextOverflowTooltip content={profile.displayName} placement="top">
@@ -133,37 +133,37 @@ export function Info({ profile }: InfoProps) {
                         </span>
                     </Link>
                 </div>
-                {enabledMutuals && mutualCount ? (
-                    <div className="mt-3 flex items-center gap-2 leading-[22px] hover:underline">
-                        <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
-                        <Link
-                            className="text-sm text-secondary"
-                            href={{
-                                pathname: `/profile/${profileId}/${FollowCategory.Mutuals}`,
-                                query: { source: resolveSourceInURL(source) },
-                            }}
-                        >
-                            {mutualCount === 1 ? (
-                                <Trans>Followed by {mutuals[0].displayName}</Trans>
-                            ) : mutualCount === 2 ? (
-                                <Trans>
-                                    Followed by {mutuals[0].displayName} and {mutuals[1].displayName}
-                                </Trans>
-                            ) : mutualCount === 3 ? (
-                                <Trans>
-                                    Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
-                                    {mutuals[2].displayName}
-                                </Trans>
-                            ) : (
-                                <Trans>
-                                    Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
-                                    {mutualCount - 2} others you follow
-                                </Trans>
-                            )}
-                        </Link>
-                    </div>
-                ) : null}
             </div>
+            {enabledMutuals && mutualCount ? (
+                <div className="col-[1/3] mt-3 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">
+                    <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
+                    <Link
+                        className="text-sm text-secondary"
+                        href={{
+                            pathname: `/profile/${profileId}/${FollowCategory.Mutuals}`,
+                            query: { source: resolveSourceInURL(source) },
+                        }}
+                    >
+                        {mutualCount === 1 ? (
+                            <Trans>Followed by {mutuals[0].displayName}</Trans>
+                        ) : mutualCount === 2 ? (
+                            <Trans>
+                                Followed by {mutuals[0].displayName} and {mutuals[1].displayName}
+                            </Trans>
+                        ) : mutualCount === 3 ? (
+                            <Trans>
+                                Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
+                                {mutuals[2].displayName}
+                            </Trans>
+                        ) : (
+                            <Trans>
+                                Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and {mutualCount - 2}{' '}
+                                others you follow
+                            </Trans>
+                        )}
+                    </Link>
+                </div>
+            ) : null}
         </div>
     );
 }
