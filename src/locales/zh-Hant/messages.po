@@ -1494,9 +1494,6 @@ msgstr "在 X 上跟隨 @realMaskNetwork"
 msgid "Leaving Firefly"
 msgstr "離開 Firefly"
 
-msgid "Collect for {0}"
-msgstr ""
-
 msgid "24H Volume"
 msgstr "24 小時交易量"
 
@@ -2012,6 +2009,9 @@ msgstr ""
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Collect for {0} {1}"
+msgstr ""
 
 msgid "Recast"
 msgstr ""

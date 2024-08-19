@@ -1494,9 +1494,6 @@ msgstr "在 X 上关注 @realMaskNetwork"
 msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
 
-msgid "Collect for {0}"
-msgstr ""
-
 msgid "24H Volume"
 msgstr "24小时的交易量"
 
@@ -2012,6 +2009,9 @@ msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Collect for {0} {1}"
+msgstr ""
 
 msgid "Recast"
 msgstr "转推"

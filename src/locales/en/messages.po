@@ -1489,9 +1489,6 @@ msgstr "Follow @realMaskNetwork on X"
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
 
-msgid "Collect for {0}"
-msgstr "Collect for {0}"
-
 msgid "24H Volume"
 msgstr "24H Volume"
 
@@ -2007,6 +2004,9 @@ msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Collect for {0} {1}"
+msgstr "Collect for {0} {1}"
 
 msgid "Recast"
 msgstr "Recast"

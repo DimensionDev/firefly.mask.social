@@ -1489,9 +1489,6 @@ msgstr ""
 msgid "Leaving Firefly"
 msgstr ""
 
-msgid "Collect for {0}"
-msgstr ""
-
 msgid "24H Volume"
 msgstr ""
 
@@ -2006,6 +2003,9 @@ msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr ""
 
 msgid "GIF"
+msgstr ""
+
+msgid "Collect for {0} {1}"
 msgstr ""
 
 msgid "Recast"
