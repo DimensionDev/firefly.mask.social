@@ -6,7 +6,8 @@ import { Box } from '@mui/system';
 import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
 import { useMemo, useState } from 'react';
-import { useEventList, useNFTList, useNewsList } from '../../hooks/useEventList.js';
+
+import { useEventList, useNewsList, useNFTList } from '@/components/hooks/useEventList.js';
 
 const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
     container: {

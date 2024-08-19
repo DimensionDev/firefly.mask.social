@@ -1,12 +1,13 @@
+import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
-import { EmptyStatus, LoadingStatus, Image } from '@masknet/shared';
+import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
 import { makeStyles } from '@masknet/theme';
 import { IconButton, Link, Typography } from '@mui/material';
-import { format } from 'date-fns';
-import { useMemo, type ReactNode, useCallback } from 'react';
-import { useCalendarTrans } from '../../locales/i18n_generated.js';
-import { CountdownTimer } from './CountDownTimer.jsx';
-import { formatDate } from './EventList.jsx';
+import dayjs from 'dayjs';
+import { type ReactNode, useCallback, useMemo } from 'react';
+
+import { CountdownTimer } from '@/components/Calendar/components/CountDownTimer.jsx';
+import { formatDate } from '@/components/Calendar/components/EventList.jsx';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -127,7 +128,6 @@ const sortPlat = (_: any, b: { type: string }) => {
 
 export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
     const { classes, cx } = useStyles();
-    const t = useCalendarTrans();
     const listAfterDate = useMemo(() => {
         const listAfterDate: string[] = [];
         for (const key in list) {
@@ -153,7 +153,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                         return (
                             <div key={key}>
                                 <Typography className={classes.dateDiv}>
-                                    {format(new Date(key), 'MMM dd,yyy')}
+                                    {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
@@ -199,19 +199,25 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                             </div>
                                         </div>
                                         <div className={classes.eventHeader}>
-                                            <Typography className={classes.second}>{t.total()}</Typography>
+                                            <Typography className={classes.second}>
+                                                <Trans>Total</Trans>
+                                            </Typography>
                                             <Typography className={classes.eventTitle}>
                                                 {Number(v.ext_info.nft_info.total).toLocaleString('en-US')}
                                             </Typography>
                                         </div>
                                         <div className={classes.eventHeader}>
-                                            <Typography className={classes.second}>{t.price()}</Typography>
+                                            <Typography className={classes.second}>
+                                                <Trans>Price</Trans>
+                                            </Typography>
                                             <Typography className={classes.eventTitle}>
                                                 {v.ext_info.nft_info.token}
                                             </Typography>
                                         </div>
                                         <div className={classes.eventHeader}>
-                                            <Typography className={classes.second}>{t.date()}</Typography>
+                                            <Typography className={classes.second}>
+                                                <Trans>Date</Trans>
+                                            </Typography>
                                             <Typography className={classes.eventTitle}>
                                                 {formatDate(v.event_date)}
                                             </Typography>
@@ -223,7 +229,9 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                         );
                     })
                 ) : (
-                    <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>
+                    <EmptyStatus className={classes.empty}>
+                        <Trans>No content for the last two weeks.</Trans>
+                    </EmptyStatus>
                 )}
             </div>
         </div>

@@ -1,7 +1,7 @@
+import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { makeStyles } from '@masknet/theme';
 import { Typography } from '@mui/material';
-import { useCalendarTrans } from '../../locales/i18n_generated.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -43,13 +43,14 @@ const useStyles = makeStyles()((theme) => ({
 
 export function Footer() {
     const { classes } = useStyles();
-    const t = useCalendarTrans();
     return (
         <div className={classes.container}>
             <div className={classes.lineWrap}>
                 <div className={classes.calender}>
                     <Icons.Calendar size={24} />
-                    <Typography className={classes.calendarText}>{t.title()}</Typography>
+                    <Typography className={classes.calendarText}>
+                        <Trans>Calendar</Trans>
+                    </Typography>
                 </div>
             </div>
         </div>

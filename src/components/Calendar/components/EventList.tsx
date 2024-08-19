@@ -1,11 +1,12 @@
+import { Trans } from '@lingui/macro';
 import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
 import { makeStyles } from '@masknet/theme';
 import { resolveIPFS_URL } from '@masknet/web3-shared-base';
 import { Link, Typography } from '@mui/material';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
-import { useCalendarTrans } from '../../locales/i18n_generated.js';
-import { ImageLoader } from './ImageLoader.jsx';
+
+import { ImageLoader } from '@/components/Calendar/components/ImageLoader.jsx';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -96,14 +97,8 @@ interface EventListProps {
     date: Date;
 }
 
-export const formatDate = (date: string) => {
-    const dateFormat = 'MMM dd, yyyy HH:mm';
-    return format(new Date(date), dateFormat);
-};
-
 export function EventList({ list, isLoading, empty, date }: EventListProps) {
     const { classes, cx } = useStyles();
-    const t = useCalendarTrans();
     const futureEvents = useMemo(() => {
         const listAfterDate: string[] = [];
         for (const key in list) {
@@ -130,7 +125,7 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                         return (
                             <div key={key}>
                                 <Typography className={classes.dateDiv}>
-                                    {format(new Date(key), 'MMM dd,yyy')}
+                                    {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
@@ -154,7 +149,9 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                             </div>
                                         </div>
                                         <Typography className={classes.eventTitle}>{v.event_title}</Typography>
-                                        <Typography className={classes.time}>{formatDate(v.event_date)}</Typography>
+                                        <Typography className={classes.time}>
+                                            {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
+                                        </Typography>
                                         <ImageLoader src={v.poster_url} />
                                     </Link>
                                 ))}
@@ -162,7 +159,9 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                         );
                     })
                 ) : (
-                    <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>
+                    <EmptyStatus className={classes.empty}>
+                        <Trans>No content for the last two weeks.</Trans>
+                    </EmptyStatus>
                 )}
             </div>
         </div>

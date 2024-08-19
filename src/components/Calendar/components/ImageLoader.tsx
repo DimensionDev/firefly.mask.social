@@ -1,6 +1,6 @@
 import { LoadingBase, makeStyles } from '@masknet/theme';
-import { useState } from 'react';
 import { Box, useTheme } from '@mui/material';
+import { useState } from 'react';
 
 interface ImageLoaderProps {
     src: string;

@@ -1,9 +1,9 @@
-import { EmptyStatus, LoadingStatus, Image } from '@masknet/shared';
+import { Trans } from '@lingui/macro';
+import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
 import { makeStyles } from '@masknet/theme';
 import { Link, Typography } from '@mui/material';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
-import { useCalendarTrans } from '../../locales/i18n_generated.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -111,7 +111,6 @@ interface NewsListProps {
 
 export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
     const { classes, cx } = useStyles();
-    const t = useCalendarTrans();
     const futureNewsList = useMemo(() => {
         const newsList: string[] = [];
         for (const key in list) {
@@ -137,7 +136,7 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                         return (
                             <div key={key}>
                                 <Typography className={classes.dateDiv}>
-                                    {format(new Date(key), 'MMM dd,yyy')}
+                                    {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
@@ -169,7 +168,9 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                         );
                     })
                 ) : (
-                    <EmptyStatus className={classes.empty}>{t.empty_status()}</EmptyStatus>
+                    <EmptyStatus className={classes.empty}>
+                        <Trans>No content for the last two weeks.</Trans>
+                    </EmptyStatus>
                 )}
             </div>
         </div>

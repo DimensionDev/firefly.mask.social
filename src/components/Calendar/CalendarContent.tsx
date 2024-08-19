@@ -1,16 +1,17 @@
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EMPTY_OBJECT } from '@masknet/shared-base';
-import { MaskTabList, makeStyles, useTabs } from '@masknet/theme';
+import { makeStyles, MaskTabList, useTabs } from '@masknet/theme';
 import { TabContext, TabPanel } from '@mui/lab';
 import { Tab } from '@mui/material';
 import { useMemo, useState } from 'react';
-import { useEventList, useNFTList, useNewsList } from '../hooks/useEventList.js';
-import { useCalendarTrans } from '../locales/i18n_generated.js';
-import { DatePickerTab } from './components/DatePickerTab.jsx';
-import { EventList } from './components/EventList.jsx';
-import { Footer } from './components/Footer.jsx';
-import { NFTList } from './components/NFTList.jsx';
-import { NewsList } from './components/NewsList.jsx';
+
+import { DatePickerTab } from '@/components/Calendar/components/DatePickerTab.jsx';
+import { EventList } from '@/components/Calendar/components/EventList.jsx';
+import { Footer } from '@/components/Calendar/components/Footer.jsx';
+import { NewsList } from '@/components/Calendar/components/NewsList.jsx';
+import { NFTList } from '@/components/Calendar/components/NFTList.jsx';
+import { useEventList, useNewsList, useNFTList } from '@/components/hooks/useEventList.js';
+import { EMPTY_OBJECT } from '@/constants/index.js';
 
 const useStyles = makeStyles()((theme) => ({
     calendar: {
@@ -37,7 +38,6 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 export function CalendarContent() {
-    const t = useCalendarTrans();
     const { classes } = useStyles();
     const [currentTab, onChange, tabs] = useTabs('news', 'event', 'nfts');
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -67,9 +67,9 @@ export function CalendarContent() {
             <TabContext value={currentTab}>
                 <div className={classes.tabList}>
                     <MaskTabList variant="base" onChange={onChange} aria-label="">
-                        <Tab className={classes.tab} label={t.news()} value={tabs.news} />
-                        <Tab className={classes.tab} label={t.event()} value={tabs.event} />
-                        <Tab className={classes.tab} label={t.nfts()} value={tabs.nfts} />
+                        <Tab className={classes.tab} label={<Trans>News</Trans>} value={tabs.news} />
+                        <Tab className={classes.tab} label={<Trans>Events</Trans>} value={tabs.event} />
+                        <Tab className={classes.tab} label={<Trans>NFTs</Trans>} value={tabs.nfts} />
                     </MaskTabList>
                 </div>
                 <DatePickerTab

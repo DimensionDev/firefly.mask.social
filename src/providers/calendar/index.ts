@@ -1,5 +1,6 @@
-import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import urlcat from 'urlcat';
+
+import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 
 const BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/crypto_event_list';
 
