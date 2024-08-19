@@ -1,6 +1,4 @@
-import { RouterProvider } from '@tanstack/react-router';
-
-import { router } from '@/components/EditProfile/EditProfileRouter.js';
+import { EditProfileRouter } from '@/components/EditProfile/EditProfileRouter.js';
 import { Modal } from '@/components/Modal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -16,7 +14,7 @@ export function EditProfileDialog({
     return (
         <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false} disableDialogClose>
             <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
-                <RouterProvider router={router} context={{ onClose, profile }} />
+                <EditProfileRouter onClose={onClose} profile={profile} />
             </div>
         </Modal>
     );

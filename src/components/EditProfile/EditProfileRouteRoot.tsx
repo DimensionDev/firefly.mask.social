@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
+import { Outlet, rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -12,7 +12,7 @@ export interface ProfileFormValues extends Omit<UpdateProfileParams, 'pfp'> {
 }
 
 export function EditProfileRouteRoot() {
-    const { context } = useMatch({ from: rootRouteId });
+    const context = useRouteContext({ from: rootRouteId });
     const { history } = useRouter();
 
     const pathname = history.location.pathname;
