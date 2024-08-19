@@ -1236,6 +1236,9 @@ msgstr ""
 msgid "Publications"
 msgstr "發表"
 
+msgid "Unable to read image."
+msgstr ""
+
 msgid "Your website URL."
 msgstr "你的網站連結"
 
@@ -1313,9 +1316,6 @@ msgstr ""
 
 msgid "View engagements"
 msgstr "查看互動數據"
-
-msgid "The file is not found."
-msgstr ""
 
 msgid "Translated"
 msgstr ""

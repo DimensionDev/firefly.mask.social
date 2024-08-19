@@ -1231,6 +1231,9 @@ msgstr "This address is already connected"
 msgid "Publications"
 msgstr "Publications"
 
+msgid "Unable to read image."
+msgstr "Unable to read image."
+
 msgid "Your website URL."
 msgstr "Your website URL."
 
@@ -1308,9 +1311,6 @@ msgstr "Or login with any social account"
 
 msgid "View engagements"
 msgstr "View engagements"
-
-msgid "The file is not found."
-msgstr "The file is not found."
 
 msgid "Translated"
 msgstr "Translated"

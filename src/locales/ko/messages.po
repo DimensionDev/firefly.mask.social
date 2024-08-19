@@ -1236,6 +1236,9 @@ msgstr ""
 msgid "Publications"
 msgstr ""
 
+msgid "Unable to read image."
+msgstr ""
+
 msgid "Your website URL."
 msgstr ""
 
@@ -1312,9 +1315,6 @@ msgid "Or login with any social account"
 msgstr ""
 
 msgid "View engagements"
-msgstr ""
-
-msgid "The file is not found."
 msgstr ""
 
 msgid "Translated"

@@ -1,12 +1,12 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useRef, useState } from 'react';
 import AvatarEditor, { type AvatarEditorProps } from 'react-avatar-editor';
 import { useFormContext } from 'react-hook-form';
 
+import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 
 export function EditProfileAvatarEditor() {
     const { history } = useRouter();
@@ -29,8 +29,13 @@ export function EditProfileAvatarEditor() {
 
     const { setValue } = useFormContext();
     if (!file) {
-        enqueueErrorMessage(t`The file is not found.`);
-        history.replace('/');
+        return (
+            <BaseNotFound className="py-12">
+                <div className="mt-11 text-sm font-bold">
+                    <Trans>Unable to read image.</Trans>
+                </div>
+            </BaseNotFound>
+        );
     }
 
     const onConfirm = () => {
