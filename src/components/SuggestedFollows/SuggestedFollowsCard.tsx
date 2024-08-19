@@ -8,8 +8,9 @@ import urlcat from 'urlcat';
 import LoadingIcon from '@/assets/loading.svg';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ProfileCell } from '@/components/Profile/ProfileCell.js';
-import { DiscoverType, PageRoute, Source } from '@/constants/enum.js';
+import { DiscoverType, PageRoute, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -69,7 +70,7 @@ export function SuggestedFollowsCard() {
             });
         }
         return urlcat(PageRoute.Home, {
-            source: resolveSourceInURL(currentSource),
+            source: isSocialSource(currentSource) ? resolveSourceInURL(currentSource) : SourceInURL.Farcaster,
             discover: DiscoverType.TopProfiles,
         });
     }, [currentSource, profileAll.Farcaster, profileAll.Lens]);
