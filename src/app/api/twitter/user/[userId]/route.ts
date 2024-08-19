@@ -21,9 +21,9 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const { data, errors } = await client.v2.user(userId, {
             ...TWITTER_USER_OPTIONS,
         });
-        if (errors?.length) console.error('[twitter] v2.user', errors);
-        if (!data && errors?.length) {
-            return createTwitterErrorResponseJSON(errors);
+        if (errors?.length) {
+            console.error('[twitter] v2.user', errors);
+            if (!data) return createTwitterErrorResponseJSON(errors);
         }
 
         return createSuccessResponseJSON(data);
