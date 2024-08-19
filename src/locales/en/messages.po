@@ -2071,5 +2071,8 @@ msgstr "Are you sure you want to report this user?"
 msgid "Likes"
 msgstr "Likes"
 
+msgid "× {0}"
+msgstr "× {0}"
+
 msgid "Blink Validator"
 msgstr "Blink Validator"

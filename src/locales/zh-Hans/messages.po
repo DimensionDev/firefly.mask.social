@@ -2076,5 +2076,8 @@ msgstr "您确定要举报这个用户么？"
 msgid "Likes"
 msgstr "点赞"
 
+msgid "× {0}"
+msgstr ""
+
 msgid "Blink Validator"
 msgstr "Blink 验证器"

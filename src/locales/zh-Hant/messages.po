@@ -2076,5 +2076,8 @@ msgstr ""
 msgid "Likes"
 msgstr "喜歡"
 
+msgid "× {0}"
+msgstr ""
+
 msgid "Blink Validator"
 msgstr ""
