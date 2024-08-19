@@ -47,3 +47,5 @@ export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\
 export const URI_COMPONENT_REGEXP = /([A-Za-z0-9\-_.!~*'()]|%[0-9A-Fa-f]{2})+/gi;
 
 export const LENS_HANDLE_REGEXP = /^[a-zA-Z0-9_]*\.lens$/;
+
+export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
