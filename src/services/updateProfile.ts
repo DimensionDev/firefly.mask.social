@@ -9,10 +9,10 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
-import type { Profile, UpdateProfileParams } from '@/providers/types/SocialMedia.js';
+import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
-function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>, params: UpdateProfileParams) {
+function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>, params: ProfileEditable) {
     if (!profile) return;
     const matcher: Matcher = (post) => post?.author.profileId === profile.profileId;
     patchPostQueryData(profile.source, matcher, (draft) => {
@@ -24,7 +24,7 @@ function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>
     });
 }
 
-function updateCurrentProfileInState(source: SocialSource, params: UpdateProfileParams) {
+function updateCurrentProfileInState(source: SocialSource, params: ProfileEditable) {
     const stateStore = {
         [Source.Farcaster]: useFarcasterStateStore,
         [Source.Lens]: useLensStateStore,
@@ -33,24 +33,22 @@ function updateCurrentProfileInState(source: SocialSource, params: UpdateProfile
     stateStore.getState().updateCurrentProfile(params);
 }
 
-export async function updateProfile(
-    profile: Pick<Profile, 'handle' | 'profileId' | 'source' | 'displayName' | 'bio' | 'pfp' | 'website' | 'location'>,
-    params: UpdateProfileParams,
-) {
+export async function updateProfile(profile: Profile, profileEditable: ProfileEditable) {
     switch (profile.source) {
         case Source.Farcaster:
-            const diffUpdateParams: UpdateProfileParams = Object.keys(params).reduce<UpdateProfileParams>((acc, k) => {
-                const key = k as keyof UpdateProfileParams;
-                if (typeof params[key] === 'string' && params[key] !== profile[key]) acc[key] = params[key];
+            const diffUpdateParams: ProfileEditable = Object.keys(profileEditable).reduce<ProfileEditable>((acc, k) => {
+                const key = k as keyof ProfileEditable;
+                if (typeof profileEditable[key] === 'string' && profileEditable[key] !== profile[key])
+                    acc[key] = profileEditable[key];
                 return acc;
             }, {});
             await FarcasterSocialMediaProvider.updateProfile(diffUpdateParams);
             break;
         case Source.Lens:
-            await LensSocialMediaProvider.updateProfile(params);
+            await LensSocialMediaProvider.updateProfile(profileEditable);
             break;
         case Source.Twitter:
-            await TwitterSocialMediaProvider.updateProfile(params);
+            await TwitterSocialMediaProvider.updateProfile(profileEditable);
             break;
         default:
             safeUnreachable(profile.source);
@@ -59,14 +57,14 @@ export async function updateProfile(
     queryClient.setQueryData(['profile', profile.source, resolveFireflyProfileId(profile)], (old: Profile) => {
         if (!old) return old;
         return produce(old, (state: Profile) => {
-            if (typeof params.displayName === 'string') state.displayName = params.displayName;
-            if (typeof params.bio === 'string') state.bio = params.bio;
-            if (typeof params.location === 'string') state.location = params.location;
-            if (typeof params.website === 'string') state.website = params.website;
-            state.pfp = params.pfp ?? getStampAvatarByProfileId(profile.source, profile.profileId);
+            if (typeof profileEditable.displayName === 'string') state.displayName = profileEditable.displayName;
+            if (typeof profileEditable.bio === 'string') state.bio = profileEditable.bio;
+            if (typeof profileEditable.location === 'string') state.location = profileEditable.location;
+            if (typeof profileEditable.website === 'string') state.website = profileEditable.website;
+            state.pfp = profileEditable.pfp ?? getStampAvatarByProfileId(profile.source, profile.profileId);
         });
     });
 
-    setCurrentProfileInPosts(profile, params);
-    updateCurrentProfileInState(profile.source, params);
+    setCurrentProfileInPosts(profile, profileEditable);
+    updateCurrentProfileInState(profile.source, profileEditable);
 }

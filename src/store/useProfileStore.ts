@@ -25,7 +25,7 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
-import type { Profile, UpdateProfileParams } from '@/providers/types/SocialMedia.js';
+import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
@@ -41,7 +41,7 @@ export interface ProfileState {
     resetCurrentAccount: () => void;
     refreshAccounts: () => void;
     refreshCurrentAccount: () => void;
-    updateCurrentProfile: (params: UpdateProfileParams) => void;
+    updateCurrentProfile: (profile: ProfileEditable) => void;
     transit: (status: AsyncStoreStatus) => void;
     upgrade: () => void;
     clear: () => void;

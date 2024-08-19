@@ -24,9 +24,9 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
-    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import {
     type BookmarkedCastsResponse,
@@ -722,7 +722,7 @@ class WarpcastSocialMedia implements Provider {
         );
     }
 
-    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         const location = parseJSON(params.location) ?? undefined;
         await farcasterSessionHolder.fetch<UpdateProfileResponse>(urlcat(WARPCAST_CLIENT_URL, 'me'), {
             method: 'PATCH',

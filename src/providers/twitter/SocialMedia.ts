@@ -27,10 +27,10 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     ProfileStatus,
     type Provider,
     SessionType,
-    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -514,14 +514,14 @@ class TwitterSocialMedia implements Provider {
         if (!res.success) throw new Error(t`Failed to avatar.`);
         return res.data.pfp;
     }
-    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me', {
             method: 'PUT',
             body: JSON.stringify({
-                name: params.displayName,
-                description: params.bio,
-                location: params.location,
-                url: params.website,
+                name: profile.displayName,
+                description: profile.bio,
+                location: profile.location,
+                url: profile.website,
             }),
         });
         if (!res.success) throw new Error(res.error.message);

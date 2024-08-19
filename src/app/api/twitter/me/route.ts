@@ -7,7 +7,7 @@ import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResp
 import { getJsonBodyFromRequestWithZodObject } from '@/helpers/getJsonBodyFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
-import { TwitterEditProfile } from '@/schemas/twitter.js';
+import { TwitterEditProfile } from '@/schemas/index.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 type RequestFn = (request: NextRequest, context?: NextRequestContext) => Promise<Response>;

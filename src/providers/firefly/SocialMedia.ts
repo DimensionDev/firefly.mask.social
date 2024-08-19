@@ -94,9 +94,9 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
-    type UpdateProfileParams,
 } from '@/providers/types/SocialMedia.js';
 import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
@@ -1320,7 +1320,7 @@ export class FireflySocialMedia implements Provider {
         const response = await fetchJSON<UploadMediaTokenResponse>(url);
         return resolveFireflyResponseData(response);
     }
-    async updateProfile(params: UpdateProfileParams): Promise<boolean> {
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
     }
 }
