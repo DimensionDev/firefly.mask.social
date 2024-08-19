@@ -1753,9 +1753,6 @@ msgstr ""
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
-msgid "x {0}"
-msgstr ""
-
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
@@ -2072,6 +2069,9 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
+msgstr ""
+
+msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
