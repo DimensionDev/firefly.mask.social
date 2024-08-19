@@ -12,10 +12,10 @@ import { SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
-import { fileSchema } from '@/schemas/file.js';
+import { FileSchema } from '@/schemas/index.js';
 
 const FormDataSchema = z.object({
-    file: fileSchema,
+    file: FileSchema,
     source: z.enum([SourceInURL.Farcaster, SourceInURL.Twitter, SourceInURL.Lens]),
 });
 

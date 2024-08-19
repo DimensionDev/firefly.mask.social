@@ -8,11 +8,11 @@ import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
-import { fileSchema } from '@/schemas/file.js';
+import { FileSchema } from '@/schemas/index.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 const FormDataSchema = z.object({
-    file: fileSchema,
+    file: FileSchema,
 });
 
 export const PUT = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
