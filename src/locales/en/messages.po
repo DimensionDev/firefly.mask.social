@@ -1753,6 +1753,9 @@ msgstr "You cannot reply to @{author} on {0}."
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
 
+msgid "x {0}"
+msgstr "x {0}"
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
 

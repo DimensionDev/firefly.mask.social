@@ -33,7 +33,9 @@ export function NFTList(props: { address: string; chainId?: ChainId }) {
             VirtualGridListProps={{
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
-                    return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>);
+                    return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                        ownerCount: item.schema === SchemaType.ERC1155 ? item.tokenCount : undefined,
+                    });
                 },
             }}
         />

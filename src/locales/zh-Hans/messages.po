@@ -1758,6 +1758,9 @@ msgstr "您不能在 {0} 上评论 {author}。"
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
+msgid "x {0}"
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的屏蔽。"
 

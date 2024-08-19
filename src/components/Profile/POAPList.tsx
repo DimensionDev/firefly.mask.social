@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -15,6 +16,7 @@ import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
@@ -57,6 +59,7 @@ export function getNFTItemContent(
         isPoap?: boolean;
         isShowOwner?: boolean;
         isShowChainIcon?: boolean;
+        ownerCount?: number;
     },
 ) {
     return (
@@ -75,6 +78,11 @@ export function getNFTItemContent(
                 {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
                 {options?.isShowOwner && item.owner?.address ? (
                     <Owner address={item.owner.address as `0x${string}`} />
+                ) : null}
+                {options?.ownerCount ? (
+                    <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-lightBg px-1 text-xs font-bold leading-5">
+                        <Trans>x {nFormatter(options.ownerCount)}</Trans>
+                    </div>
                 ) : null}
                 <NFTImage
                     width={500}

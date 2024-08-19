@@ -1753,6 +1753,9 @@ msgstr ""
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
+msgid "x {0}"
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
