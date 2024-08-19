@@ -34,6 +34,6 @@ export const PUT = compose<RequestFn>(
         const client = await createTwitterClientV2(request);
         const params = await getJsonBodyFromRequestWithZodObject(request, TwitterEditProfile);
         await client.v1.updateAccountProfile(params);
-        return createSuccessResponseJSON({});
+        return createSuccessResponseJSON(null);
     },
 );
