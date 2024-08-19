@@ -77,12 +77,15 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                     />
                 </Link>
 
-                <div className="flex flex-1 flex-col gap-[6px]">
+                <div className="flex max-w-[calc(100%-80px-10px)] flex-1 flex-col gap-[6px]">
                     <div className="flex items-center gap-2">
-                        <Link href={url} className="cursor-pointer text-xl leading-6 text-lightMain">
+                        <Link
+                            href={url}
+                            className="block w-full max-w-[calc(100%-18px)] cursor-pointer truncate text-xl leading-6 text-lightMain"
+                        >
                             {profile.displayName}
                         </Link>
-                        <SocialSourceIcon source={profile.source} size={18} />
+                        <SocialSourceIcon source={profile.source} className="flex-shrink-0" size={18} />
                     </div>
 
                     <Link href={url} className="cursor-pointer text-[15px] leading-6 text-secondary">
