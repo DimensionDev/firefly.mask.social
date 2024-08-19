@@ -31,7 +31,7 @@ export function EditProfileAvatarEditor() {
     if (!file) {
         return (
             <BaseNotFound className="py-12">
-                <div className="mt-11 text-sm font-bold">
+                <div className="mt-11 text-sm font-bold text-fourMain">
                     <Trans>Unable to read image.</Trans>
                 </div>
             </BaseNotFound>
