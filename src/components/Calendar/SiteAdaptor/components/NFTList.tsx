@@ -1,11 +1,12 @@
-import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared'
+import { Icons } from '@masknet/icons'
+import { EmptyStatus, LoadingStatus, Image } from '@masknet/shared'
 import { makeStyles } from '@masknet/theme'
-import { resolveIPFS_URL } from '@masknet/web3-shared-base'
-import { Link, Typography } from '@mui/material'
+import { IconButton, Link, Typography } from '@mui/material'
 import { format } from 'date-fns'
-import { useCallback, useMemo } from 'react'
+import { useMemo, type ReactNode, useCallback } from 'react'
 import { useCalendarTrans } from '../../locales/i18n_generated.js'
-import { ImageLoader } from './ImageLoader.js'
+import { CountdownTimer } from './CountDownTimer.jsx'
+import { formatDate } from './EventList.jsx'
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -42,6 +43,9 @@ const useStyles = makeStyles()((theme) => ({
         padding: '8px 0',
         flexDirection: 'column',
         gap: '8px',
+        fontWeight: 700,
+        lineHeight: '16px',
+        fontSize: '12px',
         cursor: 'pointer',
         '&:hover': {
             textDecoration: 'none',
@@ -72,13 +76,22 @@ const useStyles = makeStyles()((theme) => ({
         fontSize: '14px',
         fontWeight: 400,
         lineHeight: '18px',
-        color: theme.palette.mode === 'dark' ? theme.palette.maskColor.second : theme.palette.maskColor.main,
+        color: theme.palette.maskColor.main,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
-    time: {
+    second: {
         fontSize: '14px',
         fontWeight: 400,
         lineHeight: '18px',
         color: theme.palette.maskColor.second,
+    },
+    poster: {
+        borderRadius: '8px',
+        width: '100%',
+        height: '156px',
+        objectFit: 'cover',
     },
     dateDiv: {
         fontSize: '14px',
@@ -87,24 +100,35 @@ const useStyles = makeStyles()((theme) => ({
         color: theme.palette.maskColor.main,
         padding: '10px 0',
     },
+    socialLinks: {
+        display: 'flex',
+        gap: '8px',
+        alignItems: 'center',
+    },
 }))
 
-interface EventListProps {
+interface NFTListProps {
     list: Record<string, any[]>
     isLoading: boolean
     empty: boolean
     date: Date
 }
 
-export const formatDate = (date: string) => {
-    const dateFormat = 'MMM dd, yyyy HH:mm'
-    return format(new Date(date), dateFormat)
+const socialIcons: Record<string, ReactNode> = {
+    twitter: <Icons.TwitterX size={18} />,
+    discord: <Icons.DiscordRoundBlack size={20} color="#000" />,
+    website: <Icons.WebBlack size={20} />,
 }
 
-export function EventList({ list, isLoading, empty, date }: EventListProps) {
+const sortPlat = (_: any, b: { type: string }) => {
+    if (b.type === 'website') return -1
+    else return 0
+}
+
+export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
     const { classes, cx } = useStyles()
     const t = useCalendarTrans()
-    const futureEvents = useMemo(() => {
+    const listAfterDate = useMemo(() => {
         const listAfterDate: string[] = []
         for (const key in list) {
             if (new Date(key) >= date) {
@@ -117,7 +141,6 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
     const listRef = useCallback((el: HTMLDivElement | null) => {
         el?.scrollTo({ top: 0 })
     }, [])
-
     return (
         <div className={classes.container} ref={listRef} key={date.toISOString()}>
             <div className={classes.paddingWrap}>
@@ -125,8 +148,8 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                     <div className={cx(classes.empty, classes.eventTitle)}>
                         <LoadingStatus />
                     </div>
-                : !empty && futureEvents.length ?
-                    futureEvents.map((key) => {
+                : !empty && listAfterDate.length ?
+                    listAfterDate.map((key) => {
                         return (
                             <div key={key}>
                                 <Typography className={classes.dateDiv}>
@@ -142,7 +165,7 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                         <div className={classes.eventHeader}>
                                             <div className={classes.projectWrap}>
                                                 <Image
-                                                    src={resolveIPFS_URL(v.project.logo)}
+                                                    src={v.project.logo}
                                                     classes={{ container: classes.logo }}
                                                     size={24}
                                                     alt={v.project.name}
@@ -152,9 +175,46 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                                 </Typography>
                                             </div>
                                         </div>
-                                        <Typography className={classes.eventTitle}>{v.event_title}</Typography>
-                                        <Typography className={classes.time}>{formatDate(v.event_date)}</Typography>
-                                        <ImageLoader src={v.poster_url} />
+                                        <Typography className={classes.eventTitle}>{v.project.description}</Typography>
+                                        <div className={classes.eventHeader}>
+                                            <CountdownTimer targetDate={new Date(v.event_date)} />
+                                            <div className={classes.socialLinks}>
+                                                {v.project.links
+                                                    .sort(sortPlat)
+                                                    .map((platform: { type: string; url: string }) => {
+                                                        return (
+                                                            <IconButton
+                                                                style={{ width: '20px', height: '20px' }}
+                                                                key={platform.type}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    window.open(platform.url)
+                                                                }}>
+                                                                {socialIcons[platform.type]}
+                                                            </IconButton>
+                                                        )
+                                                    })}
+                                            </div>
+                                        </div>
+                                        <div className={classes.eventHeader}>
+                                            <Typography className={classes.second}>{t.total()}</Typography>
+                                            <Typography className={classes.eventTitle}>
+                                                {Number(v.ext_info.nft_info.total).toLocaleString('en-US')}
+                                            </Typography>
+                                        </div>
+                                        <div className={classes.eventHeader}>
+                                            <Typography className={classes.second}>{t.price()}</Typography>
+                                            <Typography className={classes.eventTitle}>
+                                                {v.ext_info.nft_info.token}
+                                            </Typography>
+                                        </div>
+                                        <div className={classes.eventHeader}>
+                                            <Typography className={classes.second}>{t.date()}</Typography>
+                                            <Typography className={classes.eventTitle}>
+                                                {formatDate(v.event_date)}
+                                            </Typography>
+                                        </div>
+                                        <img className={classes.poster} src={v.poster_url} alt="poster" />
                                     </Link>
                                 ))}
                             </div>

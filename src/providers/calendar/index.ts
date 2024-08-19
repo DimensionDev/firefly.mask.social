@@ -3,8 +3,8 @@ import urlcat from 'urlcat'
 
 const BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/crypto_event_list'
 
-export class Calendar {
-    static async getNewsList(startDate: number, endDate?: number) {
+class Provider {
+    async getNewsList(startDate: number, endDate?: number) {
         const list = await fetchCachedJSON<any>(
             urlcat(BASE_URL, {
                 provider_type: 'coincarp',
@@ -16,7 +16,7 @@ export class Calendar {
         return list?.data?.events?.map((x: any) => ({ ...x, event_date: x.event_date * 1000 }))
     }
     
-    static async getEventList(startDate: number, endDate?: number) {
+    async getEventList(startDate: number, endDate?: number) {
         const list = await fetchCachedJSON<any>(
             urlcat(BASE_URL, {
                 provider_type: 'link3',
@@ -28,7 +28,7 @@ export class Calendar {
         return list?.data?.events?.map((x: any) => ({ ...x, event_date: x.event_date * 1000 }))
     }
     
-    static async getNFTList(startDate: number, endDate?: number) {
+    async getNFTList(startDate: number, endDate?: number) {
         const list = await fetchCachedJSON<any>(
             urlcat(BASE_URL, {
                 provider_type: 'nftgo',
@@ -40,3 +40,5 @@ export class Calendar {
         return list?.data?.events?.map((x: any) => ({ ...x, event_date: x.event_date * 1000 }))
     }
 }
+
+export const CalendarProvider = new Provider()

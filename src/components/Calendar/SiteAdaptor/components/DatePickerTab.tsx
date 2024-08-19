@@ -3,7 +3,7 @@ import { makeStyles } from '@masknet/theme'
 import { startOfWeek, endOfWeek, eachDayOfInterval } from 'date-fns'
 import { ClickAwayListener, IconButton, Typography } from '@mui/material'
 import { Icons } from '@masknet/icons'
-import { DatePicker } from './DatePicker.js'
+import { DatePicker } from './DatePicker.jsx'
 
 const useStyles = makeStyles()((theme) => ({
     container: {

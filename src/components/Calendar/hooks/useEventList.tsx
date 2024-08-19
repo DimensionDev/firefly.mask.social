@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { Calendar } from '@masknet/web3-providers'
 import { startOfMonth, endOfMonth } from 'date-fns'
 import { EMPTY_OBJECT } from '@masknet/shared-base'
+import { CalendarProvider } from '@/providers/calendar/index.js'
 import type { UseQueryResult } from '@tanstack/react-query'
 import { addDays } from 'date-fns/esm'
 
@@ -11,7 +11,7 @@ export function useNewsList(date: Date, enabled = true): UseQueryResult<any> {
     return useQuery({
         enabled,
         queryKey: ['newsList', startTime, endTime],
-        queryFn: async () => Calendar.getNewsList(startTime, endTime),
+        queryFn: async () => CalendarProvider.getNewsList(startTime, endTime),
         select(data) {
             return (
                 data?.reduce((acc: Record<string, any[]>, v: any) => {

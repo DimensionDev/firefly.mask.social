@@ -6,11 +6,11 @@ import { Tab } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { useEventList, useNFTList, useNewsList } from '../hooks/useEventList.js'
 import { useCalendarTrans } from '../locales/i18n_generated.js'
-import { DatePickerTab } from './components/DatePickerTab.js'
-import { EventList } from './components/EventList.js'
-import { Footer } from './components/Footer.js'
-import { NFTList } from './components/NFTList.js'
-import { NewsList } from './components/NewsList.js'
+import { DatePickerTab } from './components/DatePickerTab.jsx'
+import { EventList } from './components/EventList.jsx'
+import { Footer } from './components/Footer.jsx'
+import { NFTList } from './components/NFTList.jsx'
+import { NewsList } from './components/NewsList.jsx'
 
 const useStyles = makeStyles()((theme) => ({
     calendar: {
