@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro';
-import { Icons } from '@masknet/icons';
 import { makeStyles } from '@masknet/theme';
 import { Typography } from '@mui/material';
+
+import CalendarIcon from '@/assets/calendar.svg';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -47,7 +48,7 @@ export function Footer() {
         <div className={classes.container}>
             <div className={classes.lineWrap}>
                 <div className={classes.calender}>
-                    <Icons.Calendar size={24} />
+                    <CalendarIcon width={24} height={24} />
                     <Typography className={classes.calendarText}>
                         <Trans>Calendar</Trans>
                     </Typography>

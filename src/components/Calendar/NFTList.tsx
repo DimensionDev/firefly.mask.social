@@ -1,13 +1,14 @@
 import { Trans } from '@lingui/macro';
-import { Icons } from '@masknet/icons';
 import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
 import { makeStyles } from '@masknet/theme';
 import { IconButton, Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { type ReactNode, useCallback, useMemo } from 'react';
 
-import { CountdownTimer } from '@/components/Calendar/components/CountDownTimer.jsx';
-import { formatDate } from '@/components/Calendar/components/EventList.jsx';
+import DiscordRoundIcon from '@/assets/discord-round.svg';
+import WebsiteIcon from '@/assets/website.svg';
+import TwitterIcon from '@/assets/x.svg';
+import { CountdownTimer } from '@/components/Calendar/components/CountDownTimer.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -116,9 +117,9 @@ interface NFTListProps {
 }
 
 const socialIcons: Record<string, ReactNode> = {
-    twitter: <Icons.TwitterX size={18} />,
-    discord: <Icons.DiscordRoundBlack size={20} color="#000" />,
-    website: <Icons.WebBlack size={20} />,
+    twitter: <TwitterIcon width={18} height={18} />,
+    discord: <DiscordRoundIcon width={20} height={18} color="#000" />,
+    website: <WebsiteIcon width={20} height={18} />,
 };
 
 const sortPlat = (_: any, b: { type: string }) => {
@@ -219,7 +220,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                 <Trans>Date</Trans>
                                             </Typography>
                                             <Typography className={classes.eventTitle}>
-                                                {formatDate(v.event_date)}
+                                                {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
                                             </Typography>
                                         </div>
                                         <img className={classes.poster} src={v.poster_url} alt="poster" />

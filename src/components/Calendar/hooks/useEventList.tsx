@@ -31,7 +31,7 @@ export function useEventList(date: Date, enabled = true) {
     return useQuery<any>({
         enabled,
         queryKey: ['eventList', startTime, endTime],
-        queryFn: async () => Calendar.getEventList(startTime, endTime),
+        queryFn: async () => CalendarProvider.getEventList(startTime, endTime),
         select(data) {
             return (
                 data?.reduce((acc: Record<string, any[]>, v: any) => {
@@ -51,7 +51,7 @@ export function useNFTList(date: Date, enabled = true) {
     return useQuery<any>({
         enabled,
         queryKey: ['nftList', startTime, endTime],
-        queryFn: async () => Calendar.getNFTList(startTime, endTime),
+        queryFn: async () => CalendarProvider.getNFTList(startTime, endTime),
         select(data) {
             return (
                 data?.reduce((acc: Record<string, any[]>, v: any) => {
