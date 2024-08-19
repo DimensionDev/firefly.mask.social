@@ -316,6 +316,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
+msgid "Total"
+msgstr ""
+
 msgid "True Token"
 msgstr ""
 
@@ -431,6 +434,9 @@ msgid "Followed by {0}"
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
+msgstr ""
+
+msgid "Calendar"
 msgstr ""
 
 msgid "Watch"
@@ -649,6 +655,9 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
+msgid "No content for the last two weeks."
+msgstr ""
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
@@ -815,6 +824,9 @@ msgid "No mint function"
 msgstr ""
 
 msgid "Transaction sent successfully"
+msgstr ""
+
+msgid "Expired"
 msgstr ""
 
 msgid "Please choose issue to report this wallet:"
@@ -1289,6 +1301,9 @@ msgid "View engagements"
 msgstr ""
 
 msgid "Translated"
+msgstr ""
+
+msgid "Price"
 msgstr ""
 
 msgid "Failed to bookmark post."
@@ -1786,6 +1801,9 @@ msgstr ""
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
+msgid "News"
+msgstr ""
+
 msgid "NFT ID"
 msgstr ""
 
@@ -1886,6 +1904,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "Events"
 msgstr ""
 
 msgid "{0} Users"

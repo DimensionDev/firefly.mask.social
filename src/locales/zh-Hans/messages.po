@@ -321,6 +321,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
+msgid "Total"
+msgstr ""
+
 msgid "True Token"
 msgstr "真实的通证"
 
@@ -437,6 +440,9 @@ msgstr "被 {0} 关注"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
+
+msgid "Calendar"
+msgstr ""
 
 msgid "Watch"
 msgstr "关注"
@@ -654,6 +660,9 @@ msgstr "登录到 Firefly"
 msgid "Top Channels"
 msgstr "热门频道"
 
+msgid "No content for the last two weeks."
+msgstr ""
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
@@ -821,6 +830,9 @@ msgstr "没有铸造功能"
 
 msgid "Transaction sent successfully"
 msgstr "交易发送成功"
+
+msgid "Expired"
+msgstr ""
 
 msgid "Please choose issue to report this wallet:"
 msgstr "请选择举报这个钱包的原因："
@@ -1295,6 +1307,9 @@ msgstr "查看互动"
 
 msgid "Translated"
 msgstr "已翻译"
+
+msgid "Price"
+msgstr ""
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -1791,6 +1806,9 @@ msgstr "已关联的钱包"
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
+msgid "News"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -1892,6 +1910,9 @@ msgstr "<0/> 和 <1>{0} 其他的</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
+
+msgid "Events"
+msgstr ""
 
 msgid "{0} Users"
 msgstr "{0} 用户"

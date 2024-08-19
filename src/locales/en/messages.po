@@ -316,6 +316,9 @@ msgstr "The video \"{0}\" exceeds the size limit."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 
+msgid "Total"
+msgstr "Total"
+
 msgid "True Token"
 msgstr "True Token"
 
@@ -432,6 +435,9 @@ msgstr "Followed by {0}"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
+
+msgid "Calendar"
+msgstr "Calendar"
 
 msgid "Watch"
 msgstr "Watch"
@@ -649,6 +655,9 @@ msgstr "Login to Firefly"
 msgid "Top Channels"
 msgstr "Top Channels"
 
+msgid "No content for the last two weeks."
+msgstr "No content for the last two weeks."
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 
@@ -816,6 +825,9 @@ msgstr "No mint function"
 
 msgid "Transaction sent successfully"
 msgstr "Transaction sent successfully"
+
+msgid "Expired"
+msgstr "Expired"
 
 msgid "Please choose issue to report this wallet:"
 msgstr "Please choose issue to report this wallet:"
@@ -1290,6 +1302,9 @@ msgstr "View engagements"
 
 msgid "Translated"
 msgstr "Translated"
+
+msgid "Price"
+msgstr "Price"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
@@ -1786,6 +1801,9 @@ msgstr "Associated wallets"
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 
+msgid "News"
+msgstr "News"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -1887,6 +1905,9 @@ msgstr "<0/> and <1>{0} others</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
+
+msgid "Events"
+msgstr "Events"
 
 msgid "{0} Users"
 msgstr "{0} Users"
