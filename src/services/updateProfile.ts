@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -50,6 +51,9 @@ export async function updateProfile(
             break;
         case Source.Twitter:
             await TwitterSocialMediaProvider.updateProfile(params);
+            break;
+        default:
+            safeUnreachable(profile.source);
     }
 
     queryClient.setQueryData(['profile', profile.source, resolveFireflyProfileId(profile)], (old: Profile) => {

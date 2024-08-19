@@ -26,6 +26,7 @@ export function FormTextarea<
                 className,
             )}
             autoComplete="off"
+            spellCheck="false"
             {...props}
             {...register(name, options)}
         />

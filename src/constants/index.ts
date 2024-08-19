@@ -142,12 +142,10 @@ export const MIN_POST_SIZE_PER_THREAD = 3;
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 
+export const ALLOWED_IMAGES_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'];
+
 export const ALLOWED_MEDIA_MIMES = [
-    'image/png',
-    'image/jpeg',
-    'image/gif',
-    'image/webp',
-    'image/bmp',
+    ...ALLOWED_IMAGES_MIMES,
     'video/mp4',
     'video/mpeg',
     'video/x-msvideo',
@@ -215,25 +213,25 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
 
-export const MAX_PROFILE_BIO_SIZE = {
+export const MAX_PROFILE_BIO_SIZE: Record<SocialSource, number> = {
     [Source.Farcaster]: 160,
     [Source.Lens]: 320,
     [Source.Twitter]: 160,
 };
 
-export const MAX_PROFILE_DISPLAY_NAME_SIZE = {
+export const MAX_PROFILE_DISPLAY_NAME_SIZE: Record<SocialSource, number> = {
     [Source.Farcaster]: 32,
     [Source.Lens]: 100,
     [Source.Twitter]: 50,
 };
 
-export const MAX_PROFILE_LOCATION_SIZE = {
+export const MAX_PROFILE_LOCATION_SIZE: Record<SocialSource, number> = {
     [Source.Farcaster]: 0,
     [Source.Lens]: 100,
     [Source.Twitter]: 30,
 };
 
-export const MAX_PROFILE_WEBSITE_SIZE = {
+export const MAX_PROFILE_WEBSITE_SIZE: Record<SocialSource, number> = {
     [Source.Farcaster]: 0,
     [Source.Lens]: 100,
     [Source.Twitter]: 100,

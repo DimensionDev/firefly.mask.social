@@ -7,5 +7,5 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
 }
 
 export function Input({ error, className, ...props }: InputProps) {
-    return <input className={inputClassName({ error, className })} autoComplete="off" {...props} />;
+    return <input className={inputClassName({ error, className })} autoComplete="off" spellCheck="false" {...props} />;
 }

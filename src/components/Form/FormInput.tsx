@@ -22,6 +22,7 @@ export function FormInput<
         <input
             className={inputClassName({ error: !!error, className })}
             autoComplete="off"
+            spellCheck="false"
             {...props}
             {...register(name, options)}
         />

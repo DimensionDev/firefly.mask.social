@@ -12,6 +12,7 @@ import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
 import { Source } from '@/constants/enum.js';
 import {
+    ALLOWED_IMAGES_MIMES,
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,
     MAX_PROFILE_LOCATION_SIZE,
@@ -45,6 +46,7 @@ export function EditProfileForm() {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to update profile.`), {
                 error,
             });
+            throw error;
         }
     };
 
@@ -70,6 +72,7 @@ export function EditProfileForm() {
                             id="pfp-upload"
                             type="file"
                             className="hidden"
+                            accept={ALLOWED_IMAGES_MIMES.join(', ')}
                             onChange={(e) => {
                                 history.replace('/pfp-editor', {
                                     pfp: e.target.files,

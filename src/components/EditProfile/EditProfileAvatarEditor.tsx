@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useRef, useState } from 'react';
@@ -6,6 +6,7 @@ import AvatarEditor, { type AvatarEditorProps } from 'react-avatar-editor';
 import { useFormContext } from 'react-hook-form';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 
 export function EditProfileAvatarEditor() {
     const { history } = useRouter();
@@ -27,7 +28,10 @@ export function EditProfileAvatarEditor() {
     });
 
     const { setValue } = useFormContext();
-    if (!file) history.replace('/');
+    if (!file) {
+        enqueueErrorMessage(t`The file is not found.`);
+        history.replace('/');
+    }
 
     const onConfirm = () => {
         editorRef.current?.getImageScaledToCanvas().toBlob((blob) => {
