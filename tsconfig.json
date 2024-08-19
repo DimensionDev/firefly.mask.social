@@ -8,9 +8,6 @@
             "path": "./src/maskbook/packages/plugin-infra/tsconfig.json"
         },
         {
-            "path": "./src/maskbook/packages/plugins/Calendar/tsconfig.json"
-        },
-        {
             "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
         },
         {
@@ -106,10 +103,6 @@
             "@masknet/web3-telemetry/types": ["./src/maskbook/packages/web3-telemetry/src/entry-types.ts"],
             "@masknet/plugin-redpacket": ["./src/maskbook/packages/plugins/RedPacket/src/index.ts"],
             "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"],
-            "@masknet/plugin-snapshot": ["./src/maskbook/packages/plugins/Snapshot/src/index.ts"],
-            "@masknet/plugin-snapshot/register": ["./src/maskbook/packages/plugins/Snapshot/src/register.ts"],
-            "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"],
-            "@masknet/plugin-calendar/register": ["./src/maskbook/packages/plugins/Calendar/src/register.ts"]
         }
     },
     "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

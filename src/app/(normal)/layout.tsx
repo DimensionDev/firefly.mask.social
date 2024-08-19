@@ -93,7 +93,8 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     </IfPathname>
 
                     <IfPathname isOneOf={['/']} exact>
-                        <mask-calendar-widget />
+                        {/* <CalendarCard /> */}
+                        <></>
                     </IfPathname>
 
                     <LinkCloud />

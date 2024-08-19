@@ -10,7 +10,6 @@ import '@/mask/plugin-host/enable.js';
 
 // custom elements
 import '@/mask/custom-elements/PageInspector.js';
-import '@/mask/custom-elements/CalendarWidget.js';
 import '@/mask/custom-elements/DecryptedPostInspector.js';
 
 // no plugin available for post inspector
