@@ -1,5 +1,7 @@
+'use client';
+
 import { safeUnreachable } from '@masknet/kit';
-import { useAccountModal } from '@rainbow-me/rainbowkit';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useWeb3Modal, useWeb3ModalState } from '@web3modal/wagmi/react';
 import { forwardRef } from 'react';
 
@@ -8,23 +10,23 @@ import { useWalletModal } from '@/hooks/useWalletModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
-export const AccountModal = forwardRef<SingletonModalRefCreator>(function AccountModal(_, ref) {
+export const ConnectModal = forwardRef<SingletonModalRefCreator>(function RainbowKitConnectModal(_, ref) {
     const providerType = useDeveloperSettingsState.use.providerType();
 
-    const { openAccountModal, accountModalOpen } = useAccountModal();
+    const { openConnectModal, connectModalOpen } = useConnectModal();
 
-    const { open: opened } = useWeb3ModalState();
+    const { open: opned } = useWeb3ModalState();
     const { open } = useWeb3Modal();
 
     const openModal = () => {
         switch (providerType) {
             case WalletProviderType.AppKit:
                 open({
-                    view: 'Account',
+                    view: 'Connect',
                 });
                 break;
             case WalletProviderType.RainbowKit:
-                openAccountModal?.();
+                openConnectModal?.();
                 break;
             default:
                 safeUnreachable(providerType);
@@ -35,9 +37,9 @@ export const AccountModal = forwardRef<SingletonModalRefCreator>(function Accoun
     const getModalOpened = () => {
         switch (providerType) {
             case WalletProviderType.AppKit:
-                return opened;
+                return opned;
             case WalletProviderType.RainbowKit:
-                return accountModalOpen;
+                return connectModalOpen;
             default:
                 safeUnreachable(providerType);
                 return false;

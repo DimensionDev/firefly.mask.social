@@ -3,7 +3,7 @@ import { type ForwardedRef, useEffect, useRef } from 'react';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-export function useAppKitWallet(
+export function useWalletModal(
     openModal: (() => void) | undefined,
     open: boolean,
     singletonModalRef: ForwardedRef<SingletonModalRefCreator>,
