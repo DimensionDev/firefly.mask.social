@@ -670,6 +670,9 @@ msgstr "REPLY to<0><1>@{0}</1></0>"
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Directory"
+msgstr "Directory"
+
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
 
@@ -913,6 +916,9 @@ msgstr "All wallets and accounts are muted."
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
 
+msgid "Failed to upload."
+msgstr "Failed to upload."
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 
@@ -921,6 +927,9 @@ msgstr "Hide more comments"
 
 msgid "Malformed session."
 msgstr "Malformed session."
+
+msgid "Upload"
+msgstr "Upload"
 
 msgid "Failed to login."
 msgstr "Failed to login."
@@ -1348,6 +1357,9 @@ msgstr "Unfollow @{0}"
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
 
+msgid "Upload to S3"
+msgstr "Upload to S3"
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
@@ -1533,6 +1545,9 @@ msgstr "Upload photo"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
+
+msgid "Click to upload"
+msgstr "Click to upload"
 
 msgid "Internal Server Error. Please try again later."
 msgstr "Internal Server Error. Please try again later."

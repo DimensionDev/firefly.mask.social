@@ -670,6 +670,9 @@ msgstr ""
 msgid "Frame"
 msgstr ""
 
+msgid "Directory"
+msgstr ""
+
 msgid "Cannot choose due to account mismatch."
 msgstr ""
 
@@ -913,6 +916,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -920,6 +926,9 @@ msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "Upload"
 msgstr ""
 
 msgid "Failed to login."
@@ -1348,6 +1357,9 @@ msgstr ""
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1532,6 +1544,9 @@ msgid "Upload photo"
 msgstr ""
 
 msgid "You can save this to send later from your drafts."
+msgstr ""
+
+msgid "Click to upload"
 msgstr ""
 
 msgid "Internal Server Error. Please try again later."

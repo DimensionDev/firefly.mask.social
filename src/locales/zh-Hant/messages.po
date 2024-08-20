@@ -675,6 +675,9 @@ msgstr ""
 msgid "Frame"
 msgstr ""
 
+msgid "Directory"
+msgstr ""
+
 msgid "Cannot choose due to account mismatch."
 msgstr ""
 
@@ -918,6 +921,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -925,6 +931,9 @@ msgid "Hide more comments"
 msgstr "隱藏更多評論"
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "Upload"
 msgstr ""
 
 msgid "Failed to login."
@@ -1353,6 +1362,9 @@ msgstr "取消追蹤 @{0}"
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1538,6 +1550,9 @@ msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以保存並在之後從草稿箱中發送"
+
+msgid "Click to upload"
+msgstr ""
 
 msgid "Internal Server Error. Please try again later."
 msgstr ""
