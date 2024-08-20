@@ -204,9 +204,6 @@ msgstr "更换钱包"
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
 
-msgid "Location should not exceed {maxLocationSize} characters"
-msgstr ""
-
 msgid "FAILED POST"
 msgstr ""
 

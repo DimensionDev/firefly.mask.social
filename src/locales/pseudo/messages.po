@@ -199,9 +199,6 @@ msgstr ""
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr ""
 
-msgid "Location should not exceed {maxLocationSize} characters"
-msgstr ""
-
 msgid "FAILED POST"
 msgstr ""
 

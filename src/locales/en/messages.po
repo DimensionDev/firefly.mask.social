@@ -199,9 +199,6 @@ msgstr "Change Wallet"
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 
-msgid "Location should not exceed {maxLocationSize} characters"
-msgstr "Location should not exceed {maxLocationSize} characters"
-
 msgid "FAILED POST"
 msgstr "FAILED POST"
 
