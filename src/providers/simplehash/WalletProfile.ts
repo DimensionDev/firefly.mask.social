@@ -11,8 +11,9 @@ class SimpleHashWalletProfile implements Provider {
         address: string,
         tokenId: string,
         options?: BaseHubOptions<ChainId>,
+        skipScoreCheck = false,
     ): Promise<NonFungibleAsset<ChainId, SchemaType> | null> {
-        const asset = await SimpleHashEVM.getAsset(address, tokenId, options);
+        const asset = await SimpleHashEVM.getAsset(address, tokenId, options, skipScoreCheck);
         return asset || null;
     }
 
