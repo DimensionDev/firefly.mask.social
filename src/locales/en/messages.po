@@ -73,6 +73,9 @@ msgstr "Unmute successfully."
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
 
+msgid "Failed to collect article."
+msgstr "Failed to collect article."
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -862,6 +865,9 @@ msgstr "{0} Comments"
 msgid "Schedule Post"
 msgstr "Schedule Post"
 
+msgid "Sold Out"
+msgstr "Sold Out"
+
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
@@ -1596,6 +1602,9 @@ msgstr "Notifications"
 
 msgid "Back"
 msgstr "Back"
+
+msgid "Article collected successfully!"
+msgstr "Article collected successfully!"
 
 msgid "Posting..."
 msgstr "Posting..."

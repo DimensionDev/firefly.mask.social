@@ -78,6 +78,9 @@ msgstr "已成功取消靜音"
 msgid "Mute /{0}"
 msgstr "將 @{0} 靜音"
 
+msgid "Failed to collect article."
+msgstr ""
+
 msgid "Communities"
 msgstr "社群"
 
@@ -867,6 +870,9 @@ msgstr "{0} 評論"
 msgid "Schedule Post"
 msgstr ""
 
+msgid "Sold Out"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr "代理合約"
 
@@ -1601,6 +1607,9 @@ msgstr "通知"
 
 msgid "Back"
 msgstr "返回"
+
+msgid "Article collected successfully!"
+msgstr ""
 
 msgid "Posting..."
 msgstr "正在發布"

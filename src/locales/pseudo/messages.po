@@ -73,6 +73,9 @@ msgstr ""
 msgid "Mute /{0}"
 msgstr ""
 
+msgid "Failed to collect article."
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -862,6 +865,9 @@ msgstr ""
 msgid "Schedule Post"
 msgstr ""
 
+msgid "Sold Out"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr ""
 
@@ -1595,6 +1601,9 @@ msgid "Notifications"
 msgstr ""
 
 msgid "Back"
+msgstr ""
+
+msgid "Article collected successfully!"
 msgstr ""
 
 msgid "Posting..."

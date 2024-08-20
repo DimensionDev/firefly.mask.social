@@ -78,6 +78,9 @@ msgstr "取消隐藏成功。"
 msgid "Mute /{0}"
 msgstr "隐藏 /{0}"
 
+msgid "Failed to collect article."
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -867,6 +870,9 @@ msgstr "{0} 评论"
 msgid "Schedule Post"
 msgstr "定时任务"
 
+msgid "Sold Out"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr "代理合约"
 
@@ -1601,6 +1607,9 @@ msgstr "通知"
 
 msgid "Back"
 msgstr "返回"
+
+msgid "Article collected successfully!"
+msgstr ""
 
 msgid "Posting..."
 msgstr "发帖中..."
