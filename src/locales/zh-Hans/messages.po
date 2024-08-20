@@ -681,6 +681,9 @@ msgstr "回复给<0><1>@{0}</1></0>"
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Directory"
+msgstr ""
+
 msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
 
@@ -924,6 +927,9 @@ msgstr "已隐藏所有的钱包和账号。"
 msgid "Disconnected from your social graph"
 msgstr "从您的社交图谱中断开"
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
@@ -932,6 +938,9 @@ msgstr "隐藏更多的评论"
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
+
+msgid "Upload"
+msgstr ""
 
 msgid "Failed to login."
 msgstr "登录失败。"
@@ -1359,6 +1368,9 @@ msgstr "取消关注 @{0}"
 msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
 
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1544,6 +1556,9 @@ msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
+
+msgid "Click to upload"
+msgstr ""
 
 msgid "Internal Server Error. Please try again later."
 msgstr "内部服务错误。请稍后重试。"

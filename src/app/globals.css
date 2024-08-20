@@ -299,6 +299,13 @@ body {
     display: none;
 }
 
+.swiper-pagination-bullet {
+    background: #fff !important;
+}
+.swiper-pagination-bullet-active {
+    background: var(--color-firefly-brand) !important;
+}
+
 .tippy-card {
     background: none !important;
 }

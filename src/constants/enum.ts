@@ -224,3 +224,12 @@ export enum WalletSource {
     NFTs = 'nfts',
     LensContract = 'lens_contract',
 }
+
+export enum AdvertisementType {
+    Link = 'link',
+    Function = 'function',
+}
+
+export enum AdFunctionType {
+    OpenScan = 'openScan',
+}
