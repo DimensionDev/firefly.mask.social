@@ -9,7 +9,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { CollectArticleModalRef } from '@/modals/controls.js';
-import { type Article } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface ArticleActionsProps {
     article: Article;
@@ -33,19 +33,21 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         'flex w-min items-center text-lightSecond hover:text-primaryPink md:space-x-2',
                     )}
                 >
-                    <Tooltip content={t`Collect`} placement="top">
-                        <motion.button
-                            onClick={() => {
-                                CollectArticleModalRef.open({
-                                    article,
-                                });
-                            }}
-                            className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-primaryPink/[.20]"
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            <CollectIcon width={17} height={16} />
-                        </motion.button>
-                    </Tooltip>
+                    {!(article.platform === ArticlePlatform.Paragraph && !article.origin) ? (
+                        <Tooltip content={t`Collect`} placement="top">
+                            <motion.button
+                                onClick={() => {
+                                    CollectArticleModalRef.open({
+                                        article,
+                                    });
+                                }}
+                                className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-primaryPink/[.20]"
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <CollectIcon width={17} height={16} />
+                            </motion.button>
+                        </Tooltip>
+                    ) : null}
                 </ClickableArea>
             </div>
         </div>

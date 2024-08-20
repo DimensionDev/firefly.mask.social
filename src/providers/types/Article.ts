@@ -38,7 +38,7 @@ export interface Article {
 }
 
 export interface ArticleCollectDetail {
-    quantity: number;
+    quantity?: number;
     soldNum: number;
     chainId: number;
     contractAddress: string;
@@ -79,4 +79,30 @@ export interface Provider {
      * @returns
      */
     getFollowingArticles: (indicator?: PageIndicator) => Promise<Pageable<Article, PageIndicator>>;
+}
+
+export interface ArticleCollectProvider {
+    /**
+     *
+     * Retrieves article detail by its digest.
+     * @param digest query id
+     * @returns
+     */
+    getArticleDetail: (digest: string) => Promise<ArticleCollectDetail>;
+
+    /**
+     * Retrieves the estimated gas fee for collecting an article.
+     * @param detail article detail
+     * @param account user account
+     * @returns
+     */
+    estimateCollectGas: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
+
+    /**
+     * Collect an article
+     * @param detail article detail
+     * @param account user account
+     * @returns
+     */
+    collect: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
 }

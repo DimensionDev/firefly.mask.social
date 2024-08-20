@@ -1,4 +1,4 @@
-import { getAccount, readContract, writeContract } from '@wagmi/core';
+import { getAccount, getTransactionConfirmations, readContract, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
 import { createPublicClient, http, zeroAddress } from 'viem';
 import { polygon } from 'viem/chains';
@@ -11,9 +11,9 @@ import { rightShift } from '@/helpers/number.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import { WrtingNFTQuery } from '@/providers/mirror/query.js';
 import { type MirrorArticleDetail } from '@/providers/mirror/type.js';
-import type { ArticleCollectDetail } from '@/providers/types/Article.js';
+import type { ArticleCollectDetail, ArticleCollectProvider } from '@/providers/types/Article.js';
 
-class Mirror {
+class Mirror implements ArticleCollectProvider {
     async getArticleDetail(digest: string): Promise<ArticleCollectDetail> {
         const response = await fetchJSON<MirrorArticleDetail>(urlcat(location.origin, '/api/mirror'), {
             method: 'POST',
@@ -91,7 +91,9 @@ class Mirror {
             value: detail.fee + price,
         });
 
-        return hash;
+        return getTransactionConfirmations(config, {
+            hash,
+        });
     }
 }
 
