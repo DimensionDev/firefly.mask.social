@@ -42,12 +42,21 @@ export const FollowButton = memo(function FollowButton({
             if (isFollowing) return hovering && !loading ? t`Unfollow` : t`Following`;
             return isFollowedBy ? t`Follow Back` : t`Follow`;
         }
-        if (isFollowing) return <FollowedIcon className="h-4 w-4" />;
-        return isFollowedBy ? <MutualFollowIcon className="h-4 w-4" /> : <FollowIcon className="h-4 w-4" />;
+        if (isFollowing) return <FollowedIcon className="h-4 w-4 flex-shrink-0" />;
+        if (isFollowedBy) return <MutualFollowIcon className="h-4 w-4 flex-shrink-0" />;
+        return <FollowIcon className="h-4 w-4 flex-shrink-0" />;
     }, [hovering, isFollowing, isFollowedBy, loading, variant]);
 
     if (hasMutedButton && muted) {
-        return <ToggleMutedProfileButton muted={muted} profile={profile} className={className} {...rest} />;
+        return (
+            <ToggleMutedProfileButton
+                variant={variant}
+                muted={muted}
+                profile={profile}
+                className={className}
+                {...rest}
+            />
+        );
     }
     const variantClassName = {
         text: 'min-w-[112px] box-border px-5 whitespace-nowrap',
