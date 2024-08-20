@@ -30,14 +30,17 @@ interface DraftListItemProps {
 const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, handleRemove, handleApply }) {
     const currentProfileAll = useCurrentProfileAll();
 
+    const hasError = draft.posts.some((x) => !!compact(values(x.postError)).length);
+
     const title = useMemo(() => {
         const target = first(draft.posts);
         const parent = target?.parentPost;
         const post = parent?.Farcaster || parent?.Lens;
         switch (draft.type) {
             case 'compose':
-                if (draft.posts.length > 1) return <Trans>THREAD POST</Trans>;
-                return <Trans>POST</Trans>;
+                if (draft.posts.length > 1)
+                    return hasError ? <Trans>FAIELD THREAD POST</Trans> : <Trans>THREAD POST</Trans>;
+                return hasError ? <Trans>FAILED POST</Trans> : <Trans>POST</Trans>;
             case 'reply':
                 const profileUrl = post ? getProfileUrl(post.author) : '';
 
@@ -52,7 +55,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
             case 'quote':
                 return <Trans>QUOTE</Trans>;
         }
-    }, [draft]);
+    }, [draft, hasError]);
 
     const post = first(draft.posts);
     const content = post ? readChars(post.chars, 'visible') : '';
@@ -62,8 +65,6 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
         return !draft.availableProfiles.some((x) => currentAllProfiles.some((profile) => isSameProfile(profile, x)));
     }, [currentProfileAll, draft.availableProfiles]);
-
-    const hasError = draft.posts.some((x) => !!compact(values(x.postError)).length);
 
     return (
         <div className="border-b border-line py-3 last:border-b-0">
