@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
+import { NODE_ENV, STATUS, VERCEL_NEV, WalletProviderType } from '@/constants/enum.js';
 import { bom } from '@/helpers/bom.js';
 
 const InternalEnvSchema = z.object({
@@ -77,7 +77,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
 
     // wallet provider
-    NEXT_PUBLIC_WALLET_PROVIDER: z.union([z.literal('app_kit'), z.literal('rainbow_kit')]).default('app_kit'),
+    NEXT_PUBLIC_WALLET_PROVIDER: z.nativeEnum(WalletProviderType).default(WalletProviderType.AppKit),
 });
 
 export const env = {

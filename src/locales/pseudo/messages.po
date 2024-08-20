@@ -328,6 +328,9 @@ msgstr ""
 msgid "The video \"{0}\" exceeds the size limit."
 msgstr ""
 
+msgid "Switch between the app kit and rainbow kit wallet providers."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
@@ -826,6 +829,9 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
+msgid "Rainbow Kit"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
@@ -1079,6 +1085,9 @@ msgid "Failed to upvote post."
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
+msgstr ""
+
+msgid "App Kit"
 msgstr ""
 
 msgid "liked"
@@ -1985,6 +1994,9 @@ msgid "Profile"
 msgstr ""
 
 msgid "QUOTE"
+msgstr ""
+
+msgid "Wallet Provider"
 msgstr ""
 
 msgid "Collect"

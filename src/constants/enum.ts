@@ -77,6 +77,11 @@ export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 
+export enum WalletProviderType {
+    AppKit = 'app_kit',
+    RainbowKit = 'rainbow_kit',
+}
+
 export enum DiscoverType {
     ForYou = 'for-you',
     Recent = 'recent',

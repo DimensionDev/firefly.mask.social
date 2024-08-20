@@ -33,10 +33,12 @@ import {
     zora,
 } from 'wagmi/chains';
 
+import { WalletProviderType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SITE_DESCRIPTION, SITE_HOSTNAME, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
+import { settings } from '@/settings/index.js';
 
 export const chains = [
     mainnet,
@@ -57,8 +59,10 @@ export const chains = [
 ] as const satisfies Chain[];
 
 function createWagmiConfig(): Config {
-    switch (env.external.NEXT_PUBLIC_WALLET_PROVIDER) {
-        case 'app_kit':
+    const type = settings.WALLET_PROVIDER_TYPE;
+
+    switch (type) {
+        case WalletProviderType.AppKit:
             const metadata = {
                 name: SITE_NAME,
                 description: SITE_DESCRIPTION,
@@ -80,7 +84,7 @@ function createWagmiConfig(): Config {
             });
             return config;
 
-        case 'rainbow_kit':
+        case WalletProviderType.RainbowKit:
             return createConfig({
                 chains,
                 connectors: connectorsForWallets(
@@ -105,8 +109,8 @@ function createWagmiConfig(): Config {
                 },
             });
         default:
-            safeUnreachable(env.external.NEXT_PUBLIC_WALLET_PROVIDER);
-            throw new UnreachableError('wallet provider', env.external.NEXT_PUBLIC_WALLET_PROVIDER);
+            safeUnreachable(type);
+            throw new UnreachableError('wallet provider', type);
     }
 }
 

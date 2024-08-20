@@ -328,6 +328,9 @@ msgstr "Show less"
 msgid "The video \"{0}\" exceeds the size limit."
 msgstr "The video \"{0}\" exceeds the size limit."
 
+msgid "Switch between the app kit and rainbow kit wallet providers."
+msgstr "Switch between the app kit and rainbow kit wallet providers."
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 
@@ -826,6 +829,9 @@ msgstr "Open in Firefly App"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
+msgid "Rainbow Kit"
+msgstr "Rainbow Kit"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -1080,6 +1086,9 @@ msgstr "Failed to upvote post."
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
+
+msgid "App Kit"
+msgstr "App Kit"
 
 msgid "liked"
 msgstr "liked"
@@ -1986,6 +1995,9 @@ msgstr "Profile"
 
 msgid "QUOTE"
 msgstr "QUOTE"
+
+msgid "Wallet Provider"
+msgstr "Wallet Provider"
 
 msgid "Collect"
 msgstr "Collect"
