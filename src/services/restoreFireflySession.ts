@@ -100,6 +100,8 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
         }
         case SessionType.Firefly:
             throw new NotAllowedError('Firefly session is not allowed.');
+        case SessionType.Wallet:
+            throw new NotAllowedError('Wallet session is not allowed.');
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('session type', session.type);

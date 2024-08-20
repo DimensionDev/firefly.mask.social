@@ -7,6 +7,7 @@ export enum SessionType {
     Lens = 'Lens',
     Farcaster = 'Farcaster',
     Firefly = 'Firefly',
+    Wallet = 'Wallet',
 }
 
 export enum NetworkType {

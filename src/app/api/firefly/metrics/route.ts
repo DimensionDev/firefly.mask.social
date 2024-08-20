@@ -177,6 +177,8 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             };
         case SessionType.Firefly:
             throw new NotAllowedError();
+        case SessionType.Wallet:
+            throw new NotAllowedError();
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('session type', session.type);

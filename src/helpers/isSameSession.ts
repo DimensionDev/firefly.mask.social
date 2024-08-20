@@ -31,6 +31,9 @@ export function isSameSession(session: Session | null, otherSession: Session | n
             );
         case SessionType.Firefly:
             return session.token === otherSession.token;
+        case SessionType.Wallet:
+            // TODO: is same wallet address
+            return true;
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('session type', session);
