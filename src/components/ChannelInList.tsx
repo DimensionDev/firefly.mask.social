@@ -68,11 +68,11 @@ export function ChannelInList({
                     </ChannelTippy>
                 </div>
 
-                <div className="flex-start flex flex-1 flex-col overflow-auto">
+                <div className="flex-start flex max-w-[calc(100%-40px-16px)] flex-1 flex-col overflow-auto">
                     <div className="flex-start flex items-center text-sm font-bold leading-5">
-                        <ChannelTippy channel={channel}>
+                        <ChannelTippy channel={channel} className="mr-2 truncate">
                             <span
-                                className={classNames('mr-2', {
+                                className={classNames({
                                     'text-xl': !dense,
                                     'text-l': dense,
                                 })}
@@ -80,7 +80,11 @@ export function ChannelInList({
                                 {channel.name}
                             </span>
                         </ChannelTippy>
-                        <SocialSourceIcon source={channel.source} size={isSmall || dense ? 16 : 20} />
+                        <SocialSourceIcon
+                            source={channel.source}
+                            size={isSmall || dense ? 16 : 20}
+                            className="flex-shrink-0"
+                        />
                     </div>
                     <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>

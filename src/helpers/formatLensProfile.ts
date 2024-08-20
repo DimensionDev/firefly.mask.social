@@ -46,6 +46,8 @@ export function formatLensProfile(result: ProfileFragment): Profile {
             blocking: result.operations.isBlockedByMe.value,
         },
         source: Source.Lens,
+        website: result.metadata?.attributes?.find((x) => x.key === 'website')?.value,
+        location: result.metadata?.attributes?.find((x) => x.key === 'location')?.value,
     };
 }
 

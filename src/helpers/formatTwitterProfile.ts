@@ -24,5 +24,7 @@ export function formatTwitterProfile(data: UserV2): Profile {
         viewerContext: {
             following,
         },
+        website: data.url,
+        location: data.location,
     };
 }

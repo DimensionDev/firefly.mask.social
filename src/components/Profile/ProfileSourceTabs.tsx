@@ -66,7 +66,9 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                           source: currentProfile.source,
                                           identity: resolveFireflyProfileId(currentProfile),
                                       }
-                                    : profiles.find((x) => x.identity.source === value);
+                                    : profiles
+                                          .map((x) => ({ source: x.identity.source, identity: x.identity.id }))
+                                          .find((x) => x.source === value);
 
                                 updateParams(
                                     new URLSearchParams({

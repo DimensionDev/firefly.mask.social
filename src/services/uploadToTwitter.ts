@@ -1,4 +1,5 @@
 import type { UploadMediaV1Params } from 'twitter-api-v2';
+import { v4 as uuid } from 'uuid';
 
 import { getVideoDuration } from '@/helpers/getVideoDuration.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -28,6 +29,9 @@ export async function uploadToTwitter(
             return twitterSessionHolder.fetch<UploadMediaResponse>('/api/twitter/uploadMedia', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    'Content-Type': `multipart/form-data; boundary=--------------------------${uuid()}`,
+                },
             });
         }),
     );

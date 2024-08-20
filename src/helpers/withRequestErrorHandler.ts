@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
-import { MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
+import { ContentTypeError, MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import type { NextRequestContext } from '@/types/index.js';
 
@@ -20,6 +20,11 @@ export function withRequestErrorHandler(options?: { throwError?: boolean }) {
             try {
                 return await handler(request, context);
             } catch (error) {
+                if (error instanceof ContentTypeError) {
+                    return createErrorResponseJSON(error.message, {
+                        status: StatusCodes.BAD_REQUEST,
+                    });
+                }
                 if (error instanceof ZodError) {
                     return createErrorResponseJSON(handleZodErrorMessage(error), {
                         status: StatusCodes.BAD_REQUEST,

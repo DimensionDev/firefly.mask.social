@@ -71,7 +71,11 @@ export interface Profile {
     source: SocialSource;
     // Farcaster only
     isPowerUser?: boolean;
+    website?: string;
+    location?: string;
 }
+
+export type ProfileEditable = Partial<Pick<Profile, 'pfp' | 'bio' | 'location' | 'website' | 'displayName'>>;
 
 export interface MediaObject {
     title?: string;
@@ -823,4 +827,9 @@ export interface Provider {
      * Get recent feed posts
      */
     getRecentPosts?: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Update profile
+     */
+    updateProfile: (profile: ProfileEditable) => Promise<boolean>;
 }

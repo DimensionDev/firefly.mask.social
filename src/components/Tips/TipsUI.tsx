@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { NUMERIC_INPUT_REGEXP_PATTERN } from '@masknet/shared-base';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -10,6 +9,7 @@ import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { TokenSelectorEntry } from '@/components/Tips/TokenSelector.js';
 import { WalletSelectorEntry } from '@/components/Tips/WalletSelector.js';
 import { NetworkType } from '@/constants/enum.js';
+import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
@@ -27,7 +27,7 @@ export const TipsUI = memo(function TipsUI() {
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
         if (value && !new RegExp(NUMERIC_INPUT_REGEXP_PATTERN).test(value)) return;
-        const amount_ = value.replaceAll(',', '.');
+        const amount_ = value.replaceAll(/[,。]/g, '.');
         if (RE_MATCH_FRACTION_AMOUNT.test(amount_)) {
             update((prev) => ({ ...prev, amount: `0${amount_}` }));
         } else if (amount_ === '' || RE_MATCH_WHOLE_AMOUNT.test(amount_)) {

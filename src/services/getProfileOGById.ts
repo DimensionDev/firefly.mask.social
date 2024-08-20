@@ -1,19 +1,21 @@
 import urlcat from 'urlcat';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
-export async function getProfileOGById(source: SocialSourceInURL, profileId: string) {
-    const profile = await getProfileById(resolveSocialSource(source), profileId).catch(() => null);
+export async function getProfileOGById(sourceInUrl: SocialSourceInURL, profileId: string) {
+    const source = resolveSocialSource(sourceInUrl);
+    const profile = await getProfileById(source, profileId).catch(() => null);
     if (!profile) return createSiteMetadata();
 
     const images = [
         {
-            url: profile.pfp,
+            url: getStampAvatarByProfileId(source, profileId) || profile.pfp,
         },
     ];
 

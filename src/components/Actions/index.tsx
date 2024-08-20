@@ -85,7 +85,9 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             </div>
         ) : null,
         identity.id ? <Tips key="tips" identity={identity} disabled={disabled} handle={post.author.handle} /> : null,
-        <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />,
+        post.source !== Source.Twitter ? (
+            <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+        ) : null,
         <Share key="share" className="!flex-none" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
 

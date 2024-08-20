@@ -15,6 +15,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -26,6 +27,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     ProfileStatus,
     type Provider,
     SessionType,
@@ -180,6 +182,9 @@ class TwitterSocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
@@ -188,12 +193,18 @@ class TwitterSocialMedia implements Provider {
             headers: TwitterSession.payloadToHeaders(payload),
         });
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
@@ -492,6 +503,29 @@ class TwitterSocialMedia implements Provider {
     }
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
+    }
+    async uploadProfileAvatar(file: File) {
+        const formData = new FormData();
+        formData.set('file', file);
+        const res = await twitterSessionHolder.fetch<ResponseJSON<{ pfp: string }>>('/api/twitter/me/avatar', {
+            method: 'PUT',
+            body: formData,
+        });
+        if (!res.success) throw new Error(t`Failed to avatar.`);
+        return res.data.pfp;
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me', {
+            method: 'PUT',
+            body: JSON.stringify({
+                name: profile.displayName,
+                description: profile.bio,
+                location: profile.location,
+                url: profile.website,
+            }),
+        });
+        if (!res.success) throw new Error(res.error.message);
+        return true;
     }
 }
 

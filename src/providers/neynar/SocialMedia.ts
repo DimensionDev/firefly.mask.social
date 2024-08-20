@@ -16,6 +16,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -302,6 +303,9 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async reportPost(post: Post): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
     }
 }
