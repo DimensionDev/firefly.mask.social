@@ -39,7 +39,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
         switch (draft.type) {
             case 'compose':
                 if (draft.posts.length > 1)
-                    return hasError ? <Trans>FAIELD THREAD POST</Trans> : <Trans>THREAD POST</Trans>;
+                    return hasError ? <Trans>FAILED THREAD POST</Trans> : <Trans>THREAD POST</Trans>;
                 return hasError ? <Trans>FAILED POST</Trans> : <Trans>POST</Trans>;
             case 'reply':
                 const profileUrl = post ? getProfileUrl(post.author) : '';
