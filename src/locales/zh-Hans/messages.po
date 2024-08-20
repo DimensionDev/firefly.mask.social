@@ -282,9 +282,6 @@ msgstr "未找到个人资料"
 msgid "NFT Standard"
 msgstr "NFT 标准"
 
-msgid "<0>{0}</0> reposted"
-msgstr "<0>{0}</0> 已转发"
-
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
@@ -336,6 +333,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
+msgid "<0>{0}</0><1>mirrored</1>"
+msgstr ""
+
 msgid "True Token"
 msgstr "真实的通证"
 
@@ -359,6 +359,9 @@ msgstr "{0} 隐藏的频道"
 
 msgid "[Video]"
 msgstr "[视频]"
+
+msgid "<0>You</0> <1>mirrored</1>"
+msgstr ""
 
 msgid "The author is muted by you."
 msgstr "此作者已被隐藏。"
@@ -1215,6 +1218,9 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 msgid "What's happening..."
 msgstr "正在发生..."
 
+msgid "<0>You</0> <1>reposted</1>"
+msgstr ""
+
 msgid "24h"
 msgstr "24小时"
 
@@ -1590,6 +1596,9 @@ msgstr "复制"
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
 
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
@@ -1616,9 +1625,6 @@ msgstr "连接"
 
 msgid "View transaction on explorer"
 msgstr "查看交易详情"
-
-msgid "<0>You</0> reposted"
-msgstr "<0>你</0> 已转帖"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"

@@ -277,9 +277,6 @@ msgstr ""
 msgid "NFT Standard"
 msgstr ""
 
-msgid "<0>{0}</0> reposted"
-msgstr ""
-
 msgid "Failed to like the comment."
 msgstr ""
 
@@ -331,6 +328,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
+msgid "<0>{0}</0><1>mirrored</1>"
+msgstr ""
+
 msgid "True Token"
 msgstr ""
 
@@ -353,6 +353,9 @@ msgid "{0} muted channels"
 msgstr ""
 
 msgid "[Video]"
+msgstr ""
+
+msgid "<0>You</0> <1>mirrored</1>"
 msgstr ""
 
 msgid "The author is muted by you."
@@ -1210,6 +1213,9 @@ msgstr ""
 msgid "What's happening..."
 msgstr ""
 
+msgid "<0>You</0> <1>reposted</1>"
+msgstr ""
+
 msgid "24h"
 msgstr ""
 
@@ -1585,6 +1591,9 @@ msgstr ""
 msgid "No available wallet."
 msgstr ""
 
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1610,9 +1619,6 @@ msgid "Connect"
 msgstr ""
 
 msgid "View transaction on explorer"
-msgstr ""
-
-msgid "<0>You</0> reposted"
 msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
