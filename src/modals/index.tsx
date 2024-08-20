@@ -4,7 +4,6 @@ import { memo } from 'react';
 
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
-import { ChainModal } from '@/modals/ChainModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
@@ -25,8 +24,7 @@ export const Modals = memo(function Modals() {
     return (
         <>
             <AccountModal ref={controls.AccountModalRef.register} />
-            <ChainModal ref={controls.ChainModalRef.register} />
-            <ConnectModal ref={controls.RainbowKitModalRef.register} />
+            <ConnectModal ref={controls.ConnectModalRef.register} />
             <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
             <SolanaAccountModal ref={controls.SolanaAccountModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
