@@ -60,12 +60,14 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             const fieldValue = await kv.hget(key, fieldKey);
             const fieldValueWithTTL = fieldValue as { expiresAt: number; ttl: number; value: unknown };
 
+            // field value with TTL when set
             if (typeof fieldValueWithTTL.expiresAt === 'number' && typeof fieldValueWithTTL.ttl === 'number') {
                 if (Date.now() >= fieldValueWithTTL.expiresAt) return null;
                 else return fieldValueWithTTL.value;
             }
-            // legacy field value
-            return fieldValue;
+
+            // throw away the value when no TTL
+            return null;
         },
         set: async (fieldKey: string, value: unknown, ttl = 7 * 24 * 60 * 60 * 1000 /* a week */) => {
             await kv.hset(key, {
