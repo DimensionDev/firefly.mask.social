@@ -2,6 +2,7 @@
 
 'use client';
 
+import { safeUnreachable } from '@masknet/kit';
 import { type Chain, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
     coinbaseWallet,
@@ -10,6 +11,8 @@ import {
     rabbyWallet,
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
+import { createWeb3Modal } from '@web3modal/wagmi/react';
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 import { createClient, http } from 'viem';
 import { type Config, createConfig } from 'wagmi';
 import {
@@ -31,10 +34,9 @@ import {
 } from 'wagmi/chains';
 
 import { env } from '@/constants/env.js';
+import { UnreachableError } from '@/constants/error.js';
 import { SITE_DESCRIPTION, SITE_HOSTNAME, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
-import { createWeb3Modal } from '@web3modal/wagmi/react';
-import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 
 export const chains = [
     mainnet,
@@ -54,51 +56,58 @@ export const chains = [
     zora,
 ] as const satisfies Chain[];
 
-const metadata = {
-    name: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    url: SITE_URL,
-    icons: ['/image/firefly-light-avatar.png'],
-};
+function createWagmiConfig(): Config {
+    switch (env.external.NEXT_PUBLIC_WALLET_PROVIDER) {
+        case 'app_kit':
+            const metadata = {
+                name: SITE_NAME,
+                description: SITE_DESCRIPTION,
+                url: SITE_URL,
+                icons: ['/image/firefly-light-avatar.png'],
+            };
 
-const wagmiConfig =
-    env.external.NEXT_PUBLIC_WALLET_PROVIDER === 'appkit'
-        ? defaultWagmiConfig({
-              chains,
-              metadata,
-              projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-          })
-        : createConfig({
-            chains,
-            connectors: connectorsForWallets(
-                [
+            const config = defaultWagmiConfig({
+                chains,
+                metadata,
+                projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+            });
+
+            createWeb3Modal({
+                metadata,
+                wagmiConfig: config,
+                projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+                enableAnalytics: false, // Optional - defaults to your Cloud configuration
+            });
+            return config;
+
+        case 'rainbow_kit':
+            return createConfig({
+                chains,
+                connectors: connectorsForWallets(
+                    [
+                        {
+                            groupName: 'Recommended',
+                            wallets: [metaMaskWallet, walletConnectWallet, coinbaseWallet, rabbyWallet, okxWallet],
+                        },
+                    ],
                     {
-                        groupName: 'Recommended',
-                        wallets: [metaMaskWallet, walletConnectWallet, coinbaseWallet, rabbyWallet, okxWallet],
+                        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+                        appName: SITE_HOSTNAME,
                     },
-                ],
-                {
-                    projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-                    appName: SITE_HOSTNAME,
+                ),
+                client({ chain }) {
+                    return createClient({
+                        chain,
+                        transport: http(resolveRPCUrl(chain.id), {
+                            batch: true,
+                        }),
+                    });
                 },
-            ),
-            client({ chain }) {
-                return createClient({
-                    chain,
-                    transport: http(resolveRPCUrl(chain.id), {
-                        batch: true,
-                    }),
-                });
-            },
-        });
-
-if (env.external.NEXT_PUBLIC_WALLET_PROVIDER === 'appkit') {
-    createWeb3Modal({
-        metadata,
-        wagmiConfig,
-        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-        enableAnalytics: false, // Optional - defaults to your Cloud configuration
-    });
+            });
+        default:
+            safeUnreachable(env.external.NEXT_PUBLIC_WALLET_PROVIDER);
+            throw new UnreachableError('wallet provider', env.external.NEXT_PUBLIC_WALLET_PROVIDER);
+    }
 }
 
-export const config = wagmiConfig as Config; 
+export const config = createWagmiConfig();

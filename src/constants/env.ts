@@ -77,7 +77,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
 
     // wallet provider
-    NEXT_PUBLIC_WALLET_PROVIDER: z.union([z.literal('appkit'), z.literal('rainbowkit')]).default('appkit'),
+    NEXT_PUBLIC_WALLET_PROVIDER: z.union([z.literal('app_kit'), z.literal('rainbow_kit')]).default('app_kit'),
 });
 
 export const env = {
