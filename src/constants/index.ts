@@ -35,6 +35,7 @@ export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
 export const CORS_HOST = 'https://cors-next.r2d2.to';
 export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
 export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
+export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds

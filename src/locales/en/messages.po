@@ -40,6 +40,9 @@ msgstr "Disconnect"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "FAILED THREAD POST"
+msgstr "FAILED THREAD POST"
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
@@ -324,9 +327,6 @@ msgstr "Show less"
 
 msgid "The video \"{0}\" exceeds the size limit."
 msgstr "The video \"{0}\" exceeds the size limit."
-
-msgid "FAIELD THREAD POST"
-msgstr "FAIELD THREAD POST"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
@@ -676,6 +676,9 @@ msgstr "REPLY to<0><1>@{0}</1></0>"
 msgid "Frame"
 msgstr "Frame"
 
+msgid "Directory"
+msgstr "Directory"
+
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
 
@@ -919,6 +922,9 @@ msgstr "All wallets and accounts are muted."
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
 
+msgid "Failed to upload."
+msgstr "Failed to upload."
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 
@@ -927,6 +933,9 @@ msgstr "Hide more comments"
 
 msgid "Malformed session."
 msgstr "Malformed session."
+
+msgid "Upload"
+msgstr "Upload"
 
 msgid "Failed to login."
 msgstr "Failed to login."
@@ -1354,6 +1363,9 @@ msgstr "Unfollow @{0}"
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
 
+msgid "Upload to S3"
+msgstr "Upload to S3"
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
@@ -1539,6 +1551,9 @@ msgstr "Upload photo"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
+
+msgid "Click to upload"
+msgstr "Click to upload"
 
 msgid "Internal Server Error. Please try again later."
 msgstr "Internal Server Error. Please try again later."

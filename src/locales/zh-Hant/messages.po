@@ -45,6 +45,9 @@ msgstr "斷開連接"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "FAILED THREAD POST"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
@@ -328,9 +331,6 @@ msgid "Show less"
 msgstr "顯示更少"
 
 msgid "The video \"{0}\" exceeds the size limit."
-msgstr ""
-
-msgid "FAIELD THREAD POST"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
@@ -681,6 +681,9 @@ msgstr ""
 msgid "Frame"
 msgstr ""
 
+msgid "Directory"
+msgstr ""
+
 msgid "Cannot choose due to account mismatch."
 msgstr ""
 
@@ -924,6 +927,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -931,6 +937,9 @@ msgid "Hide more comments"
 msgstr "隱藏更多評論"
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "Upload"
 msgstr ""
 
 msgid "Failed to login."
@@ -1359,6 +1368,9 @@ msgstr "取消追蹤 @{0}"
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1544,6 +1556,9 @@ msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以保存並在之後從草稿箱中發送"
+
+msgid "Click to upload"
+msgstr ""
 
 msgid "Internal Server Error. Please try again later."
 msgstr ""
