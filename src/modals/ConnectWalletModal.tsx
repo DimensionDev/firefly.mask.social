@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
-import { useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { forwardRef } from 'react';
 
@@ -15,12 +14,12 @@ import { NetworkPluginID } from '@/constants/enum.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function ConnectWalletModal(_, ref) {
     const isMedium = useIsMedium();
 
-    const connectModalEVM = useConnectModalEVM();
     const connectModalSolana = useConnectModalSolana();
     const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
     const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
@@ -41,7 +40,7 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
                 {
                     icon: evmNetworkDescriptor?.icon,
                     label: <Trans>EVM</Trans>,
-                    onOpen: () => connectModalEVM.openConnectModal?.(),
+                    onOpen: () => ConnectModalRef.open(),
                     type: 'EVM',
                 },
                 {
