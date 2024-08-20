@@ -256,6 +256,9 @@ msgstr "Your account is now connected."
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
 
+msgid "Trending Channels"
+msgstr "Trending Channels"
+
 msgid "Debug Console"
 msgstr "Debug Console"
 
@@ -627,6 +630,9 @@ msgstr "Failed to watch {handleOrEnsOrAddress}."
 
 msgid "Update"
 msgstr "Update"
+
+msgid "You might like"
+msgstr "You might like"
 
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
@@ -1015,9 +1021,6 @@ msgstr "<0>{0}</0> liked"
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
 
-msgid "Suggested Channels"
-msgstr "Suggested Channels"
-
 msgid "Email (optional)"
 msgstr "Email (optional)"
 
@@ -1107,9 +1110,6 @@ msgstr "You need to connect your {0} account to use this feature."
 
 msgid "Bad Request. Please check your request."
 msgstr "Bad Request. Please check your request."
-
-msgid "Suggested Follows"
-msgstr "Suggested Follows"
 
 msgid "Login required to schedule post on {sourceName}"
 msgstr "Login required to schedule post on {sourceName}"

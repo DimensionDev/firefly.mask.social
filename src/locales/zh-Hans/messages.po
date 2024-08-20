@@ -261,6 +261,9 @@ msgstr "您的账号已连接。"
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr "诊断命令行"
 
@@ -632,6 +635,9 @@ msgstr ""
 
 msgid "Update"
 msgstr "更新"
+
+msgid "You might like"
+msgstr ""
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
@@ -1020,9 +1026,6 @@ msgstr "<0>{0}</0> 点赞"
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
-msgid "Suggested Channels"
-msgstr "推荐频道"
-
 msgid "Email (optional)"
 msgstr "邮箱（可选）"
 
@@ -1112,9 +1115,6 @@ msgstr "您需要连接您的 {0} 账号来使用此功能。"
 
 msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
-
-msgid "Suggested Follows"
-msgstr "推荐关注"
 
 msgid "Login required to schedule post on {sourceName}"
 msgstr "需要先登录 {sourceName} 才能发送定时任务。"
