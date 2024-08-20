@@ -9,7 +9,7 @@ import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON } from '@/constants/i
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { rightShift } from '@/helpers/number.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
-import { WrtingNFTQuery } from '@/providers/mirror/query.js';
+import { WritingNFTQuery } from '@/providers/mirror/query.js';
 import { type MirrorArticleDetail } from '@/providers/mirror/type.js';
 import type { ArticleCollectDetail, ArticleCollectProvider } from '@/providers/types/Article.js';
 
@@ -18,7 +18,7 @@ class Mirror implements ArticleCollectProvider {
         const response = await fetchJSON<MirrorArticleDetail>(urlcat(location.origin, '/api/mirror'), {
             method: 'POST',
             body: JSON.stringify({
-                ...WrtingNFTQuery,
+                ...WritingNFTQuery,
                 variables: {
                     digest,
                 },

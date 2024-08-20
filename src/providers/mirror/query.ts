@@ -1,4 +1,4 @@
-export const WrtingNFTQuery = {
+export const WritingNFTQuery = {
     operationName: 'WritingNFT',
     query: `
       query WritingNFT($digest: String!) {
