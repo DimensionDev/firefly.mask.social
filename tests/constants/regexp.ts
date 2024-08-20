@@ -287,7 +287,6 @@ describe('URL_SINGLE_REGEX', () => {
             'https://localhost/path/to/resource?query=param', // Localhost with path and query
             'https://user:password@example.com', // User info in URL
         ].forEach((url) => {
-            console.log(url, URL_SINGLE_REGEX.test(url), false);
             expect(URL_SINGLE_REGEX.test(url)).toBe(false);
         });
     });
