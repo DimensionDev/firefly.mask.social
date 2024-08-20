@@ -63,7 +63,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             // field value with TTL when set
             if (typeof fieldValueWithTTL.expiresAt === 'number' && typeof fieldValueWithTTL.ttl === 'number') {
                 if (Date.now() >= fieldValueWithTTL.expiresAt) return null;
-                else return fieldValueWithTTL.value;
+                return fieldValueWithTTL.value;
             }
 
             // throw away the value when no TTL
