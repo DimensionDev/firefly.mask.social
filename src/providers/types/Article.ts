@@ -49,7 +49,7 @@ export interface ArticleCollectDetail {
     // paragraph only
     symbol?: string;
     name?: string;
-    onwerAddress?: string;
+    ownerAddress?: string;
     referrerAddress?: string;
     postId?: string;
     position?: {

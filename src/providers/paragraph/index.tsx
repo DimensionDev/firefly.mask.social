@@ -33,7 +33,7 @@ class Paragraph implements ArticleCollectProvider {
 
         const chainId = chains.find((x) => x.name.toLowerCase() === data.chain.toLowerCase())?.id;
 
-        if (!chainId) throw new Error('Unsupport chain');
+        if (!chainId) throw new Error('UnSupport chain');
         if (data.contractAddress) {
             try {
                 const account = getAccount(config);
@@ -75,7 +75,7 @@ class Paragraph implements ArticleCollectProvider {
             fee: chainId !== polygon.id ? PARAGRAPH_COLLECT_FEE : PARAGRAPH_COLLECT_FEE_IN_POLYGON,
             symbol: data.symbol,
             name: data.text,
-            onwerAddress: data.collectorWallet,
+            ownerAddress: data.collectorWallet,
             referrerAddress: data.referrerAddress,
             postId: data.noteId,
             position: data.position,
@@ -106,7 +106,7 @@ class Paragraph implements ArticleCollectProvider {
         }
 
         const address = resolveParagraphMintContract(detail.chainId);
-        if (!address) throw new Error('Unsupport netowrk');
+        if (!address) throw new Error('UnSupport network');
 
         return client.estimateContractGas({
             address: address as `0x${string}`,
@@ -116,7 +116,7 @@ class Paragraph implements ArticleCollectProvider {
                 [
                     detail.name,
                     detail.symbol,
-                    detail.onwerAddress,
+                    detail.ownerAddress,
                     account,
                     detail.referrerAddress ?? zeroAddress,
                     BigInt(detail.quantity ?? MAX_SUPPLY),
@@ -133,10 +133,10 @@ class Paragraph implements ArticleCollectProvider {
 
     async collect(detail: ArticleCollectDetail, account: string) {
         const chain = chains.find((x) => x.id === detail.chainId);
-        if (!chain) throw new Error('Unsupported chain');
+        if (!chain) throw new Error('UnSupport chain');
 
         const address = resolveParagraphMintContract(detail.chainId);
-        if (!address) throw new Error('Unsupport netowrk');
+        if (!address) throw new Error('UnSupport network');
         const price = detail.price ? BigInt(rightShift(detail.price, chain.nativeCurrency.decimals).toString()) : 0n;
         const value = detail.fee + price;
 
@@ -161,7 +161,7 @@ class Paragraph implements ArticleCollectProvider {
                 [
                     detail.name,
                     detail.symbol,
-                    detail.onwerAddress,
+                    detail.ownerAddress,
                     account,
                     detail.referrerAddress ?? zeroAddress,
                     BigInt(detail.quantity ?? MAX_SUPPLY),

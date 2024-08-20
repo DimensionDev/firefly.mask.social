@@ -1,3 +1,4 @@
+/* cspell:disable */
 export const ParagraphABI = [
     {
         anonymous: false,
