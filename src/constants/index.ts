@@ -216,7 +216,7 @@ export const SOLANA_WALLET_CACHE_KEY = 'walletName';
 
 export const MAX_PROFILE_BIO_SIZE: Record<SocialSource, number> = {
     [Source.Farcaster]: 160,
-    [Source.Lens]: 320,
+    [Source.Lens]: 260,
     [Source.Twitter]: 160,
 };
 
