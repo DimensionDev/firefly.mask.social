@@ -15,7 +15,7 @@ export const ConnectModal = forwardRef<SingletonModalRefCreator>(function Rainbo
 
     const { openConnectModal, connectModalOpen } = useConnectModal();
 
-    const { open: opned } = useWeb3ModalState();
+    const { open: opened } = useWeb3ModalState();
     const { open } = useWeb3Modal();
 
     const openModal = () => {
@@ -37,7 +37,7 @@ export const ConnectModal = forwardRef<SingletonModalRefCreator>(function Rainbo
     const getModalOpened = () => {
         switch (providerType) {
             case WalletProviderType.AppKit:
-                return opned;
+                return opened;
             case WalletProviderType.RainbowKit:
                 return connectModalOpen;
             default:
