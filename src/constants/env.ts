@@ -75,6 +75,9 @@ const ExternalEnvSchema = z.object({
 
     // giphy api key.
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
+
+    // wallet provider
+    NEXT_PUBLIC_WALLET_PROVIDER: z.union([z.literal('appkit'), z.literal('rainbowkit')]).default('appkit'),
 });
 
 export const env = {
@@ -121,5 +124,7 @@ export const env = {
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
+
+        NEXT_PUBLIC_WALLET_PROVIDER: process.env.NEXT_PUBLIC_WALLET_PROVIDER,
     }),
 };
