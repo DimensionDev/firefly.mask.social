@@ -56,10 +56,24 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
     };
 
     memoized.cache = {
-        get: async (fieldKey: string) => kv.hget(key, fieldKey),
-        set: async (fieldKey: string, value: any) => {
+        get: async (fieldKey: string) => {
+            const fieldValue = await kv.hget(key, fieldKey);
+            const fieldValueWithTTL = fieldValue as { expiresAt: number; ttl: number; value: unknown };
+
+            if (typeof fieldValueWithTTL.expiresAt === 'number' && typeof fieldValueWithTTL.ttl === 'number') {
+                if (Date.now() >= fieldValueWithTTL.expiresAt) return null;
+                else return fieldValueWithTTL.value;
+            }
+            // legacy field value
+            return fieldValue;
+        },
+        set: async (fieldKey: string, value: unknown, ttl = 7 * 24 * 60 * 60 * 1000 /* a week */) => {
             await kv.hset(key, {
-                [fieldKey]: value,
+                [fieldKey]: {
+                    expiresAt: Date.now() + ttl,
+                    ttl,
+                    value,
+                },
             });
         },
         has: async (fieldKey: string) => (await kv.hexists(key, fieldKey)) === 1,
