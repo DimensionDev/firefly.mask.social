@@ -1,7 +1,5 @@
 import { plural, Trans } from '@lingui/macro';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useMotionValueEvent, useScroll } from 'framer-motion';
-import { useState } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
@@ -20,7 +18,6 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -34,13 +31,6 @@ export function Info({ profile }: InfoProps) {
     const myProfile = useCurrentProfile(currentSocialSource);
     const myProfileId = myProfile?.profileId;
     const profileId = profile.profileId;
-
-    const isMedium = useIsMedium();
-    const [reached, setReached] = useState(false);
-    const { scrollY } = useScroll();
-    useMotionValueEvent(scrollY, 'change', (value) => {
-        setReached(value > 60);
-    });
 
     const source = profile.source;
     const enabledMutuals = !isSameProfile(myProfile, profile);
@@ -79,17 +69,12 @@ export function Info({ profile }: InfoProps) {
             <div className="relative flex w-full flex-col overflow-hidden">
                 <div className="flex w-full flex-col">
                     <div className="flex w-full items-center gap-2">
+                        <SocialSourceIcon className="shrink-0" source={source} size={20} />
                         <TextOverflowTooltip content={profile.displayName} placement="top">
-                            <div
-                                className={classNames(
-                                    'truncate text-xl font-black text-lightMain',
-                                    showAction ? 'max-w-[calc(100%-152px-20px-24px)]' : 'max-w-[calc(100%-20px-16px)]',
-                                )}
-                            >
+                            <div className={classNames('mr-auto truncate text-xl font-black text-lightMain')}>
                                 {profile.displayName}
                             </div>
                         </TextOverflowTooltip>
-                        <SocialSourceIcon className="mr-auto shrink-0" source={source} size={20} />
                         {showAction ? <ProfileAction profile={profile} /> : null}
                     </div>
                     <span className="text-[15px] text-secondary">@{profile.handle}</span>

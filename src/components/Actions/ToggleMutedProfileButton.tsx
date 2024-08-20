@@ -10,6 +10,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
+    variant?: 'text' | 'icon';
     muted?: boolean;
 }
 
