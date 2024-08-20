@@ -8,9 +8,14 @@ export function useNFTDetail(address: string, tokenId: string, chainId: ChainId 
     return useQuery({
         queryKey: ['nft-detail', address, tokenId, chainId],
         async queryFn() {
-            const result = await SimpleHashWalletProfileProvider.getNFT(address, tokenId, {
-                chainId,
-            });
+            const result = await SimpleHashWalletProfileProvider.getNFT(
+                address,
+                tokenId,
+                {
+                    chainId,
+                },
+                true,
+            );
             if (!result) {
                 useInvalidNFTStore.getState().add(chainId, address, tokenId);
             }
