@@ -98,6 +98,8 @@ export function SuggestedFollowsCard() {
                         slideShadows: false,
                     }}
                     pagination
+                    loop
+                    wrapperClass="!box-border"
                     autoplay={{ delay: 2000 }}
                     modules={[Autoplay, EffectCoverflow]}
                 >
