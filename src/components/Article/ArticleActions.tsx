@@ -1,13 +1,20 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
+import { useEnsName } from 'wagmi';
 
 import CollectIcon from '@/assets/collect.svg';
+import { Bookmark } from '@/components/Actions/Bookmark.js';
+import { ArticleShare } from '@/components/Article/ArticleShare.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import { CollectArticleModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
@@ -16,21 +23,19 @@ interface ArticleActionsProps {
 }
 
 export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article }) {
+    const mutation = useToggleArticleBookmark();
+    const identity = useFireflyIdentity(Source.Wallet, article.author.id);
+    const { data: ens } = useEnsName({ address: article.author.id });
+
     return (
         <div className="flex items-center justify-between">
             <div className="text-xs leading-[24px] text-second">
-                <div className="flex gap-1">
-                    <strong>123</strong>
-                    <span>
-                        <Trans>collected</Trans>
-                    </span>
-                </div>
                 {article.slug ? <div className="text-second">#{article.slug}</div> : null}
             </div>
             <div className="flex items-center">
                 <ClickableArea
                     className={classNames(
-                        'flex w-min items-center text-lightSecond hover:text-primaryPink md:space-x-2',
+                        'flex w-min items-center text-lightSecond hover:text-secondarySuccess md:space-x-2',
                     )}
                 >
                     {!(article.platform === ArticlePlatform.Paragraph && !article.origin) ? (
@@ -41,7 +46,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                                         article,
                                     });
                                 }}
-                                className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-primaryPink/[.20]"
+                                className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]"
                                 whileTap={{ scale: 0.9 }}
                             >
                                 <CollectIcon width={17} height={16} />
@@ -49,6 +54,15 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         </Tooltip>
                     ) : null}
                 </ClickableArea>
+                <Bookmark hiddenCount hasBookmarked={article.hasBookmarked} onClick={() => mutation.mutate(article)} />
+                <Tips
+                    identity={identity}
+                    handle={article.author.handle || ens}
+                    tooltipDisabled
+                    onClick={close}
+                    pureWallet
+                />
+                {article.origin ? <ArticleShare article={article} /> : null}
             </div>
         </div>
     );
