@@ -360,9 +360,6 @@ msgstr ""
 msgid "[Video]"
 msgstr ""
 
-msgid "<0>You</0> <1>mirrored</1>"
-msgstr ""
-
 msgid "The author is muted by you."
 msgstr ""
 
@@ -1218,9 +1215,6 @@ msgstr ""
 msgid "What's happening..."
 msgstr ""
 
-msgid "<0>You</0> <1>reposted</1>"
-msgstr ""
-
 msgid "24h"
 msgstr ""
 
@@ -1624,6 +1618,9 @@ msgid "Connect"
 msgstr ""
 
 msgid "View transaction on explorer"
+msgstr ""
+
+msgid "<0>You</0> reposted"
 msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."

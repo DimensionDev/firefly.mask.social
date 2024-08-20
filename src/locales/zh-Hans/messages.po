@@ -360,9 +360,6 @@ msgstr "{0} 隐藏的频道"
 msgid "[Video]"
 msgstr "[视频]"
 
-msgid "<0>You</0> <1>mirrored</1>"
-msgstr ""
-
 msgid "The author is muted by you."
 msgstr "此作者已被隐藏。"
 
@@ -1218,9 +1215,6 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 msgid "What's happening..."
 msgstr "正在发生..."
 
-msgid "<0>You</0> <1>reposted</1>"
-msgstr ""
-
 msgid "24h"
 msgstr "24小时"
 
@@ -1625,6 +1619,9 @@ msgstr "连接"
 
 msgid "View transaction on explorer"
 msgstr "查看交易详情"
+
+msgid "<0>You</0> reposted"
+msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
