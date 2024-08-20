@@ -45,6 +45,9 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "FAILED THREAD POST"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
@@ -219,6 +222,9 @@ msgstr ""
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
+msgid "FAILED POST"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr ""
 
@@ -261,6 +267,9 @@ msgstr ""
 msgid "Report submitted on {0}"
 msgstr ""
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -280,9 +289,6 @@ msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
-msgstr ""
-
-msgid "<0>{0}</0> reposted"
 msgstr ""
 
 msgid "Failed to like the comment."
@@ -334,6 +340,9 @@ msgid "The video \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
+
+msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
@@ -633,6 +642,9 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+msgid "You might like"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr ""
 
@@ -679,6 +691,9 @@ msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
 msgid "Frame"
+msgstr ""
+
+msgid "Directory"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
@@ -930,6 +945,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -937,6 +955,9 @@ msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "Upload"
 msgstr ""
 
 msgid "Failed to login."
@@ -1021,9 +1042,6 @@ msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "Fully Diluted Valuation"
-msgstr ""
-
-msgid "Suggested Channels"
 msgstr ""
 
 msgid "Email (optional)"
@@ -1117,9 +1135,6 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
 msgid "Bad Request. Please check your request."
-msgstr ""
-
-msgid "Suggested Follows"
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
@@ -1374,6 +1389,9 @@ msgstr ""
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1563,6 +1581,9 @@ msgstr ""
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
+msgid "Click to upload"
+msgstr ""
+
 msgid "Internal Server Error. Please try again later."
 msgstr ""
 
@@ -1591,6 +1612,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "No available wallet."
+msgstr ""
+
+msgid "<0>{0}</0><1>reposted</1>"
 msgstr ""
 
 msgid "Login to enable all features"

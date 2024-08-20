@@ -4,12 +4,12 @@ import { memo } from 'react';
 
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
-import { ChainModal } from '@/modals/ChainModal.js';
 import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
+import { ConnectModal } from '@/modals/ConnectModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
@@ -17,7 +17,6 @@ import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
-import { RainbowKitConnectModal } from '@/modals/RainbowKitConnectModal.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { TipsModal } from '@/modals/TipsModal.js';
@@ -26,8 +25,7 @@ export const Modals = memo(function Modals() {
     return (
         <>
             <AccountModal ref={controls.AccountModalRef.register} />
-            <RainbowKitConnectModal ref={controls.RainbowKitModalRef.register} />
-            <ChainModal ref={controls.ChainModalRef.register} />
+            <ConnectModal ref={controls.ConnectModalRef.register} />
             <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
             <SolanaAccountModal ref={controls.SolanaAccountModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />

@@ -40,6 +40,9 @@ msgstr "Disconnect"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "FAILED THREAD POST"
+msgstr "FAILED THREAD POST"
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
@@ -214,6 +217,9 @@ msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate mean
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "Location should not exceed {maxLocationSize} characters"
 
+msgid "FAILED POST"
+msgstr "FAILED POST"
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -256,6 +262,9 @@ msgstr "Your account is now connected."
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
 
+msgid "Trending Channels"
+msgstr "Trending Channels"
+
 msgid "Debug Console"
 msgstr "Debug Console"
 
@@ -276,9 +285,6 @@ msgstr "Profile not found"
 
 msgid "NFT Standard"
 msgstr "NFT Standard"
-
-msgid "<0>{0}</0> reposted"
-msgstr "<0>{0}</0> reposted"
 
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
@@ -330,6 +336,9 @@ msgstr "The video \"{0}\" exceeds the size limit."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+
+msgid "<0>{0}</0><1>mirrored</1>"
+msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
@@ -628,6 +637,9 @@ msgstr "Failed to watch {handleOrEnsOrAddress}."
 msgid "Update"
 msgstr "Update"
 
+msgid "You might like"
+msgstr "You might like"
+
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
 
@@ -675,6 +687,9 @@ msgstr "REPLY to<0><1>@{0}</1></0>"
 
 msgid "Frame"
 msgstr "Frame"
+
+msgid "Directory"
+msgstr "Directory"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
@@ -925,6 +940,9 @@ msgstr "All wallets and accounts are muted."
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
 
+msgid "Failed to upload."
+msgstr "Failed to upload."
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 
@@ -933,6 +951,9 @@ msgstr "Hide more comments"
 
 msgid "Malformed session."
 msgstr "Malformed session."
+
+msgid "Upload"
+msgstr "Upload"
 
 msgid "Failed to login."
 msgstr "Failed to login."
@@ -1017,9 +1038,6 @@ msgstr "<0>{0}</0> liked"
 
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
-
-msgid "Suggested Channels"
-msgstr "Suggested Channels"
 
 msgid "Email (optional)"
 msgstr "Email (optional)"
@@ -1113,9 +1131,6 @@ msgstr "You need to connect your {0} account to use this feature."
 
 msgid "Bad Request. Please check your request."
 msgstr "Bad Request. Please check your request."
-
-msgid "Suggested Follows"
-msgstr "Suggested Follows"
 
 msgid "Login required to schedule post on {sourceName}"
 msgstr "Login required to schedule post on {sourceName}"
@@ -1369,6 +1384,9 @@ msgstr "Unfollow @{0}"
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
 
+msgid "Upload to S3"
+msgstr "Upload to S3"
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
@@ -1558,6 +1576,9 @@ msgstr "Upload photo"
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
 
+msgid "Click to upload"
+msgstr "Click to upload"
+
 msgid "Internal Server Error. Please try again later."
 msgstr "Internal Server Error. Please try again later."
 
@@ -1587,6 +1608,9 @@ msgstr "Copy"
 
 msgid "No available wallet."
 msgstr "No available wallet."
+
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr "<0>{0}</0><1>reposted</1>"
 
 msgid "Login to enable all features"
 msgstr "Login to enable all features"

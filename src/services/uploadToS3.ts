@@ -8,7 +8,11 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 const uploadedCache = new WeakMap<File, string | Promise<string>>();
 
-export async function uploadToS3(file: File, source: SocialSourceInURL): Promise<string> {
+export async function uploadToDirectory(
+    file: File,
+    directory: string,
+    nameGenerator = (file: File) => `${uuid()}.${SUFFIX_NAMES[file.type as keyof typeof SUFFIX_NAMES]}`,
+): Promise<string> {
     const hit = uploadedCache.get(file);
     if (typeof hit === 'string' || hit instanceof Promise) return hit;
     const promise = new Promise<string>(async (resolve, reject) => {
@@ -26,7 +30,7 @@ export async function uploadToS3(file: File, source: SocialSourceInURL): Promise
 
             const params: PutObjectCommandInput = {
                 Bucket: mediaToken.bucket,
-                Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type as keyof typeof SUFFIX_NAMES]}`,
+                Key: `${directory}/${nameGenerator(file)}`,
                 Body: file,
                 ContentType: file.type,
             };
@@ -52,3 +56,5 @@ export async function uploadToS3(file: File, source: SocialSourceInURL): Promise
 
     return promise;
 }
+
+export const uploadToS3 = (file: File, source: SocialSourceInURL) => uploadToDirectory(file, source.toLowerCase());

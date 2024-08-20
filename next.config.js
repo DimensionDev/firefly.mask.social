@@ -81,6 +81,10 @@ export default {
                 protocol: 'https',
                 hostname: 'ipfs.io',
             },
+            {
+                protocol: 'https',
+                hostname: 'media.firefly.land',
+            },
         ],
     },
     async headers() {

@@ -66,7 +66,7 @@ export function Info({ profile }: InfoProps) {
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className="relative flex w-full flex-col overflow-hidden">
+            <div className="relative flex w-full flex-col">
                 <div className="flex w-full flex-col">
                     <div className="flex w-full items-center gap-2">
                         <SocialSourceIcon className="shrink-0" source={source} size={20} />

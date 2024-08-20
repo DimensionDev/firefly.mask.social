@@ -45,6 +45,9 @@ msgstr "斷開連接"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "FAILED THREAD POST"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
@@ -219,6 +222,9 @@ msgstr ""
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
+msgid "FAILED POST"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr ""
 
@@ -261,6 +267,9 @@ msgstr "您的帳戶現已連接。"
 msgid "Report submitted on {0}"
 msgstr "檢舉已於{0} 提交"
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -281,9 +290,6 @@ msgstr "找不到帳戶"
 
 msgid "NFT Standard"
 msgstr "NFT 標準"
-
-msgid "<0>{0}</0> reposted"
-msgstr ""
 
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
@@ -334,6 +340,9 @@ msgid "The video \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
+
+msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
@@ -633,6 +642,9 @@ msgstr ""
 msgid "Update"
 msgstr "更新"
 
+msgid "You might like"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
 
@@ -679,6 +691,9 @@ msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
 msgid "Frame"
+msgstr ""
+
+msgid "Directory"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
@@ -930,6 +945,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -937,6 +955,9 @@ msgid "Hide more comments"
 msgstr "隱藏更多評論"
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "Upload"
 msgstr ""
 
 msgid "Failed to login."
@@ -1022,9 +1043,6 @@ msgstr "<0>{0}</0> 喜歡了"
 
 msgid "Fully Diluted Valuation"
 msgstr ""
-
-msgid "Suggested Channels"
-msgstr "推薦頻道"
 
 msgid "Email (optional)"
 msgstr ""
@@ -1117,9 +1135,6 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 
 msgid "Bad Request. Please check your request."
-msgstr ""
-
-msgid "Suggested Follows"
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
@@ -1374,6 +1389,9 @@ msgstr "取消追蹤 @{0}"
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1563,6 +1581,9 @@ msgstr ""
 msgid "You can save this to send later from your drafts."
 msgstr "您可以保存並在之後從草稿箱中發送"
 
+msgid "Click to upload"
+msgstr ""
+
 msgid "Internal Server Error. Please try again later."
 msgstr ""
 
@@ -1592,6 +1613,9 @@ msgstr "複製"
 
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
+
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
 
 msgid "Login to enable all features"
 msgstr ""

@@ -31,7 +31,6 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
-
             linkifyRegex(MENTION_REGEX),
             linkifyRegex(HASHTAG_REGEX),
             linkifyRegex(SYMBOL_REGEX),
@@ -43,7 +42,16 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
 
     const LinkComponent = useMemo(() => {
         return function Link(props: HTMLProps<HTMLAnchorElement>) {
-            return <MarkupLink title={props.title} post={post} source={source} />;
+            const matched = props.title?.startsWith('@') && props.title.endsWith('.');
+
+            const title = matched ? props.title?.slice(0, -1) : props.title;
+
+            return (
+                <>
+                    <MarkupLink title={title} post={post} source={source} />
+                    {matched ? '.' : null}
+                </>
+            );
         };
     }, [post, source]);
 

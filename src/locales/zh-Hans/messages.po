@@ -45,6 +45,9 @@ msgstr "断开"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "FAILED THREAD POST"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账号？"
 
@@ -219,6 +222,9 @@ msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
+msgid "FAILED POST"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -261,6 +267,9 @@ msgstr "您的账号已连接。"
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr "诊断命令行"
 
@@ -281,9 +290,6 @@ msgstr "未找到个人资料"
 
 msgid "NFT Standard"
 msgstr "NFT 标准"
-
-msgid "<0>{0}</0> reposted"
-msgstr "<0>{0}</0> 已转发"
 
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
@@ -335,6 +341,9 @@ msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
+
+msgid "<0>{0}</0><1>mirrored</1>"
+msgstr ""
 
 msgid "True Token"
 msgstr "真实的通证"
@@ -633,6 +642,9 @@ msgstr ""
 msgid "Update"
 msgstr "更新"
 
+msgid "You might like"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 
@@ -680,6 +692,9 @@ msgstr "回复给<0><1>@{0}</1></0>"
 
 msgid "Frame"
 msgstr "Frame"
+
+msgid "Directory"
+msgstr ""
 
 msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
@@ -930,6 +945,9 @@ msgstr "已隐藏所有的钱包和账号。"
 msgid "Disconnected from your social graph"
 msgstr "从您的社交图谱中断开"
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
@@ -938,6 +956,9 @@ msgstr "隐藏更多的评论"
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
+
+msgid "Upload"
+msgstr ""
 
 msgid "Failed to login."
 msgstr "登录失败。"
@@ -1022,9 +1043,6 @@ msgstr "<0>{0}</0> 点赞"
 
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
-
-msgid "Suggested Channels"
-msgstr "推荐频道"
 
 msgid "Email (optional)"
 msgstr "邮箱（可选）"
@@ -1118,9 +1136,6 @@ msgstr "您需要连接您的 {0} 账号来使用此功能。"
 
 msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
-
-msgid "Suggested Follows"
-msgstr "推荐关注"
 
 msgid "Login required to schedule post on {sourceName}"
 msgstr "需要先登录 {sourceName} 才能发送定时任务。"
@@ -1374,6 +1389,9 @@ msgstr "取消关注 @{0}"
 msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
 
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1563,6 +1581,9 @@ msgstr ""
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
 
+msgid "Click to upload"
+msgstr ""
+
 msgid "Internal Server Error. Please try again later."
 msgstr "内部服务错误。请稍后重试。"
 
@@ -1592,6 +1613,9 @@ msgstr "复制"
 
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
+
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
 
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
@@ -1624,7 +1648,7 @@ msgid "View transaction on explorer"
 msgstr "查看交易详情"
 
 msgid "<0>You</0> reposted"
-msgstr "<0>你</0> 已转帖"
+msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
