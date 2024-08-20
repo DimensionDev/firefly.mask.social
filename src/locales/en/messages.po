@@ -277,9 +277,6 @@ msgstr "Profile not found"
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
-msgid "<0>{0}</0> reposted"
-msgstr "<0>{0}</0> reposted"
-
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
@@ -330,6 +327,9 @@ msgstr "The video \"{0}\" exceeds the size limit."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+
+msgid "<0>{0}</0><1>mirrored</1>"
+msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
@@ -1584,6 +1584,9 @@ msgstr "Copy"
 
 msgid "No available wallet."
 msgstr "No available wallet."
+
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr "<0>{0}</0><1>reposted</1>"
 
 msgid "Login to enable all features"
 msgstr "Login to enable all features"
