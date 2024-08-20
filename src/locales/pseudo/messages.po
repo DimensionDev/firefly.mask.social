@@ -541,9 +541,6 @@ msgstr ""
 msgid "Owners"
 msgstr ""
 
-msgid "collected"
-msgstr ""
-
 msgid "OpenGraph Validator"
 msgstr ""
 
@@ -956,6 +953,9 @@ msgid "Website"
 msgstr ""
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Post with link"
 msgstr ""
 
 msgid "Your post has published successfully."

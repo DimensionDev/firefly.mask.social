@@ -541,9 +541,6 @@ msgstr "Save failed post?"
 msgid "Owners"
 msgstr "Owners"
 
-msgid "collected"
-msgstr "collected"
-
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
 
@@ -957,6 +954,9 @@ msgstr "Website"
 
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
+
+msgid "Post with link"
+msgstr "Post with link"
 
 msgid "Your post has published successfully."
 msgstr "Your post has published successfully."

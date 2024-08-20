@@ -546,9 +546,6 @@ msgstr "保存失敗的貼文？"
 msgid "Owners"
 msgstr ""
 
-msgid "collected"
-msgstr ""
-
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 驗證器"
 
@@ -961,6 +958,9 @@ msgid "Website"
 msgstr "網站"
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Post with link"
 msgstr ""
 
 msgid "Your post has published successfully."
