@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useSignMessage } from 'wagmi';
@@ -9,6 +8,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { AccountModalRef, ConnectModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
@@ -24,21 +24,19 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     ...rest
 }) {
     const account = useAccount();
-    const accountModal = useAccountModal();
     const { signMessageAsync } = useSignMessage();
-    const connectModal = useConnectModal();
 
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {
         try {
             const address = account.address;
             if (!account.isConnected || !address) {
-                return connectModal.openConnectModal?.();
+                return ConnectModalRef.open();
             }
 
             const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
-                accountModal.openAccountModal?.();
+                AccountModalRef.open();
                 return enqueueErrorMessage(t`${addressName} is already connected.`);
             }
 
@@ -53,13 +51,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to add wallet`), { error });
             throw error;
         }
-    }, [
-        account.isConnected,
-        account.address,
-        connections,
-        connectModal.openConnectModal,
-        accountModal.openAccountModal,
-    ]);
+    }, [account.isConnected, account.address, connections]);
 
     return (
         <ClickableButton

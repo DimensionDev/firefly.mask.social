@@ -256,6 +256,9 @@ msgstr ""
 msgid "Report submitted on {0}"
 msgstr ""
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -275,9 +278,6 @@ msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
-msgstr ""
-
-msgid "<0>{0}</0> reposted"
 msgstr ""
 
 msgid "Failed to like the comment."
@@ -329,6 +329,9 @@ msgid "The video \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
+
+msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
@@ -626,6 +629,9 @@ msgid "Failed to watch {handleOrEnsOrAddress}."
 msgstr ""
 
 msgid "Update"
+msgstr ""
+
+msgid "You might like"
 msgstr ""
 
 msgid "Remove from Bookmarks"
@@ -1015,9 +1021,6 @@ msgstr ""
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Suggested Channels"
-msgstr ""
-
 msgid "Email (optional)"
 msgstr ""
 
@@ -1106,9 +1109,6 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
 msgid "Bad Request. Please check your request."
-msgstr ""
-
-msgid "Suggested Follows"
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
@@ -1583,6 +1583,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "No available wallet."
+msgstr ""
+
+msgid "<0>{0}</0><1>reposted</1>"
 msgstr ""
 
 msgid "Login to enable all features"

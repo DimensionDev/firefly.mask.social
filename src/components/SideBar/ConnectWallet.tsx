@@ -4,7 +4,6 @@ import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId, encodePublicKey } from '@masknet/web3-shared-solana';
-import { useAccountModal as useAccountModalEVM, useConnectModal as useConnectModalEVM } from '@rainbow-me/rainbowkit';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
@@ -23,7 +22,7 @@ import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
+import { AccountModalRef, ConnectModalRef, ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ConnectWalletProps {
@@ -33,8 +32,6 @@ interface ConnectWalletProps {
 export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWalletProps) {
     const mounted = useMounted();
 
-    const connectModalEVM = useConnectModalEVM();
-    const accountModalEVM = useAccountModalEVM();
     const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
     const connectModalSolana = useConnectModalSolana();
     const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
@@ -55,8 +52,8 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                 if (ensName) return formatDomainName(ensName);
                 return formatEthereumAddress(evmAccount.address, 4);
             }),
-            onOpenConnectModal: () => connectModalEVM.openConnectModal?.(),
-            onOpenAccountModal: () => accountModalEVM.openAccountModal?.(),
+            onOpenConnectModal: () => ConnectModalRef.open(),
+            onOpenAccountModal: () => AccountModalRef.open(),
             isConnected: evmAccount.isConnected,
             type: 'EVM',
         },
