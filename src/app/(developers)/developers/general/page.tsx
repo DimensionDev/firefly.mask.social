@@ -26,12 +26,8 @@ type Item =
       };
 
 export default function General() {
-    const {
-        useDevelopmentAPI,
-        updateUseDevelopmentAPI,
-        providerType,
-        updateProviderType: updateWalletProvider,
-    } = useDeveloperSettingsState();
+    const { useDevelopmentAPI, updateUseDevelopmentAPI, providerType, updateProviderType } =
+        useDeveloperSettingsState();
 
     const items: Item[] = [
         {
@@ -66,11 +62,7 @@ export default function General() {
                 return <CircleCheckboxIcon checked={item.value} />;
             case 'select':
                 return (
-                    <select
-                        onChange={(ev) => {
-                            updateWalletProvider(ev.currentTarget.value as WalletProviderType);
-                        }}
-                    >
+                    <select onChange={(ev) => updateProviderType(ev.currentTarget.value as WalletProviderType)}>
                         {item.items.map((x, i) => (
                             <option key={i} value={x.value}>
                                 {x.label}
