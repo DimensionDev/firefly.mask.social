@@ -261,6 +261,9 @@ msgstr "您的帳戶現已連接。"
 msgid "Report submitted on {0}"
 msgstr "檢舉已於{0} 提交"
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -632,6 +635,9 @@ msgstr ""
 
 msgid "Update"
 msgstr "更新"
+
+msgid "You might like"
+msgstr ""
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤中移除"
@@ -1011,9 +1017,6 @@ msgstr "<0>{0}</0> 喜歡了"
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Suggested Channels"
-msgstr "推薦頻道"
-
 msgid "Email (optional)"
 msgstr ""
 
@@ -1102,9 +1105,6 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 
 msgid "Bad Request. Please check your request."
-msgstr ""
-
-msgid "Suggested Follows"
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
