@@ -1,7 +1,14 @@
 import { first } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
 
-import { CHANNEL_REGEX, HASHTAG_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import {
+    CHANNEL_REGEX,
+    HASHTAG_REGEX,
+    MENTION_REGEX,
+    SYMBOL_REGEX,
+    URL_REGEX,
+    URL_SINGLE_REGEX,
+} from '@/constants/regexp.js';
 
 describe('MENTION_REGEXP', () => {
     it('should match a mention', () => {
@@ -233,6 +240,55 @@ describe('SYMBOL_REGEX', () => {
         cases.forEach(([input, expectedOutput]) => {
             const [matched] = input.match(SYMBOL_REGEX) ?? [null];
             expect(matched).toBe(expectedOutput);
+        });
+    });
+});
+
+describe('URL_SINGLE_REGEX', () => {
+    it('should match valid URLs', () => {
+        [
+            'https://example.com',
+            'https://www.example.com',
+            'https://example.com:8080',
+            'https://example.com/path/to/resource',
+            'https://example.com/path/to/resource?query=param',
+            'https://example.com/path/to/resource#fragment',
+            'https://sub.example.com',
+            'https://example.com/path/to/resource?query=param&another=param',
+            'https://example.com/path/to/resource#fragment',
+            'https://example.com:8080/path?query=param#fragment',
+            'https://example.co.uk',
+            'https://example.travel',
+            'https://example.com/path/to/resource?query=param&key=value',
+            'https://example.com/path/to/resource/with/trailing/slash/', // Trailing slash
+            'https://example.com/path/to/resource?query=param&key=value&key2=value2', // Multiple query parameters
+            'https://example.com/path/to/resource#fragment?query=param', // Fragment before query
+        ].forEach((url) => {
+            expect(URL_SINGLE_REGEX.test(url)).toBe(true);
+        });
+    });
+
+    it('should not match invalid URLs', () => {
+        [
+            ' https://example.com',
+            'http://example.com', // Wrong protocol
+            'https://example', // Missing TLD
+            'https://.com', // Invalid domain
+            'https://example.com/path/to/ resource', // Space in path
+            'ftp://example.com', // Wrong protocol
+            'https://.example.com', // Leading dot in domain
+            'https://example..com', // Double dots in domain
+            'https://example.com/path/to/ resource?query=param#fragment', // Space in path
+            'https://example.c', // Short TLD
+            'https://-example.com', // Leading hyphen in domain
+            'https://localhost', // Localhost without port
+            'https://localhost:3000', // Localhost with port
+            'https://localhost/path', // Localhost with path
+            'https://localhost/path/to/resource?query=param', // Localhost with path and query
+            'https://user:password@example.com', // User info in URL
+        ].forEach((url) => {
+            console.log(url, URL_SINGLE_REGEX.test(url), false);
+            expect(URL_SINGLE_REGEX.test(url)).toBe(false);
         });
     });
 });
