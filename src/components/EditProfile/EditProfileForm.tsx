@@ -18,10 +18,11 @@ import {
     MAX_PROFILE_LOCATION_SIZE,
     MAX_PROFILE_WEBSITE_SIZE,
 } from '@/constants/index.js';
-import { URL_REGEX } from '@/constants/regexp.js';
+import { URL_SINGLE_REGEX } from '@/constants/regexp.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';
 import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
 
@@ -50,6 +51,7 @@ export function EditProfileForm() {
         }
     };
 
+    const resolveLengthCalculatorFn = resolveLengthCalculator(profile.source);
     const maxDisplayNameSize = MAX_PROFILE_DISPLAY_NAME_SIZE[profile.source] ?? 0;
     const maxLocationSize = MAX_PROFILE_LOCATION_SIZE[profile.source] ?? 0;
     const maxWebsiteSize = MAX_PROFILE_WEBSITE_SIZE[profile.source] ?? 0;
@@ -95,9 +97,11 @@ export function EditProfileForm() {
                                         value: 1,
                                         message: t`Display Name should not be blank`,
                                     },
-                                    maxLength: {
-                                        value: maxDisplayNameSize,
-                                        message: t`Display Name should not exceed ${maxDisplayNameSize} characters`,
+                                    validate(value: string) {
+                                        if (resolveLengthCalculatorFn(value) > maxDisplayNameSize) {
+                                            return t`Display Name should not exceed ${maxDisplayNameSize} characters`;
+                                        }
+                                        return true;
                                     },
                                 }}
                             />
@@ -117,7 +121,7 @@ export function EditProfileForm() {
                                     name="website"
                                     options={{
                                         pattern: {
-                                            value: URL_REGEX,
+                                            value: URL_SINGLE_REGEX,
                                             message: t`Invalid website format`,
                                         },
                                         maxLength: {
@@ -142,9 +146,11 @@ export function EditProfileForm() {
                                 <FormInput
                                     name="location"
                                     options={{
-                                        maxLength: {
-                                            value: maxLocationSize,
-                                            message: t`Location should not exceed ${maxLocationSize} characters`,
+                                        validate(value: string) {
+                                            if (resolveLengthCalculatorFn(value) > maxLocationSize) {
+                                                return t`Location should not exceed ${maxLocationSize} characters`;
+                                            }
+                                            return true;
                                         },
                                     }}
                                 />
@@ -164,9 +170,11 @@ export function EditProfileForm() {
                                 name="bio"
                                 className="h-[100px] resize-none"
                                 options={{
-                                    maxLength: {
-                                        value: maxBioSize,
-                                        message: t`Bio should not exceed ${maxBioSize} characters`,
+                                    validate(value: string) {
+                                        if (resolveLengthCalculatorFn(value) > maxBioSize) {
+                                            return t`Bio should not exceed ${maxBioSize} characters`;
+                                        }
+                                        return true;
                                     },
                                 }}
                             />
