@@ -857,7 +857,7 @@ export class FireflySocialMedia implements Provider {
         indicator?: PageIndicator,
         source?: Exclude<SourceInURL, SourceInURL.Article>,
     ): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blocklist', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/platformMuteList', {
             size: 20,
             page: indicator?.id ?? 1,
             platform: source,
