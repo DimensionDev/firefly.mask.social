@@ -16,18 +16,16 @@ import { NotImplementedError } from '@/constants/error.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 
 class Mirror implements Provider {
-   
-    async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>>{
-        throw new NotImplementedError()
+    async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {
+        throw new NotImplementedError();
     }
 
-
     async getArticleById(articleId: string): Promise<Article | null> {
-        throw new NotImplementedError()
-    };
+        throw new NotImplementedError();
+    }
 
-    async getFollowingArticles(indicator?: PageIndicator):Promise<Pageable<Article, PageIndicator>> {
-        throw new NotImplementedError()
+    async getFollowingArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {
+        throw new NotImplementedError();
     }
     async getArticleCollectDetail(digest: string): Promise<ArticleCollectDetail> {
         const response = await fetchJSON<MirrorArticleDetail>(urlcat(location.origin, '/api/mirror'), {

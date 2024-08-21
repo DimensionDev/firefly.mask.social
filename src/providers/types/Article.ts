@@ -80,27 +80,27 @@ export interface Provider {
      */
     getFollowingArticles: (indicator?: PageIndicator) => Promise<Pageable<Article, PageIndicator>>;
 
-     /**
+    /**
      *
      * Retrieves article detail by its digest.
      * @param digest query id
      * @returns
      */
-     getArticleCollectDetail: (digest: string) => Promise<ArticleCollectDetail>;
+    getArticleCollectDetail: (digest: string) => Promise<ArticleCollectDetail>;
 
-     /**
-      * Retrieves the estimated gas fee for collecting an article.
-      * @param detail article detail
-      * @param account user account
-      * @returns
-      */
-     estimateCollectGas: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
- 
-     /**
-      * Collect an article
-      * @param detail article detail
-      * @param account user account
-      * @returns
-      */
-     collect: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
+    /**
+     * Retrieves the estimated gas fee for collecting an article.
+     * @param detail article detail
+     * @param account user account
+     * @returns
+     */
+    estimateCollectGas: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
+
+    /**
+     * Collect an article
+     * @param detail article detail
+     * @param account user account
+     * @returns
+     */
+    collect: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
 }

@@ -25,16 +25,16 @@ import { settings } from '@/settings/index.js';
 import { NotImplementedError } from '@/constants/error.js';
 
 class FireflyArticle implements Provider {
-    getArticleCollectDetail(digest: string):Promise<ArticleCollectDetail> {
-        throw new NotImplementedError()
-    };
+    getArticleCollectDetail(digest: string): Promise<ArticleCollectDetail> {
+        throw new NotImplementedError();
+    }
     estimateCollectGas(detail: ArticleCollectDetail, account: string): Promise<bigint> {
-        throw new NotImplementedError()
-    };
-    collect(detail: ArticleCollectDetail, account: string):Promise<bigint> {
-        throw new NotImplementedError()
-    };
-    
+        throw new NotImplementedError();
+    }
+    collect(detail: ArticleCollectDetail, account: string): Promise<bigint> {
+        throw new NotImplementedError();
+    }
+
     async discoverArticles(indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
             size: 20,

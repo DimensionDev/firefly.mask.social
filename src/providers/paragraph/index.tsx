@@ -17,22 +17,20 @@ import { NotImplementedError } from '@/constants/error.js';
 
 const MAX_SUPPLY = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 
-class Paragraph implements  Provider{
-    async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>>{
-        throw new NotImplementedError()
+class Paragraph implements Provider {
+    async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {
+        throw new NotImplementedError();
     }
-
 
     async getArticleById(articleId: string): Promise<Article | null> {
-        throw new NotImplementedError()
-    };
-
-    async getFollowingArticles(indicator?: PageIndicator):Promise<Pageable<Article, PageIndicator>> {
-        throw new NotImplementedError()
+        throw new NotImplementedError();
     }
-    
 
-   async getArticleCollectDetail(digestLink: string): Promise<ArticleCollectDetail> {
+    async getFollowingArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getArticleCollectDetail(digestLink: string): Promise<ArticleCollectDetail> {
         const response = await fetchJSON<{ data: ParagraphArticleDetail }>(
             urlcat(location.origin, '/api/paragraph', { link: digestLink }),
             {

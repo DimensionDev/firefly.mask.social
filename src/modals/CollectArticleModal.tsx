@@ -46,14 +46,12 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
             enabled: !!props?.article && open,
             queryKey: ['article', props?.article.platform, props?.article.id, props?.article.origin],
             queryFn: async () => {
-                if(!props) return
-                const digest = getArticleDigest(props?.article)
-                if(!digest) return
+                if (!props) return;
+                const digest = getArticleDigest(props?.article);
+                if (!digest) return;
                 const provider = resolveArticleCollectProvider(props.article.platform);
 
-                return provider.getArticleDetail(
-                    digest
-                );
+                return provider.getArticleDetail(digest);
             },
         });
 
