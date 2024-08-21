@@ -35,7 +35,7 @@ export default {
         serverSourceMaps: false,
         swcPlugins: [['@lingui/swc-plugin', {}]],
         serverActions: {
-            bodySizeLimit: '20mb',
+            bodySizeLimit: '80mb',
         },
     },
     images: {

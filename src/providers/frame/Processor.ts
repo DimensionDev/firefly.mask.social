@@ -80,8 +80,10 @@ class Processor {
             // It must respond within 5 seconds.
             signal: anySignal(signal ?? null, AbortSignal.timeout(5000)),
         });
-        if (!response.ok || (response.status >= 500 && response.status < 600))
-            throw await FetchError.from(url, response);
+        if (!response.ok || (response.status >= 500 && response.status < 600)) {
+            const fetchError = await FetchError.from(url, response);
+            fetchError.toThrow();
+        }
 
         return this.digestDocument(documentUrl, await response.text(), signal);
     };

@@ -339,6 +339,9 @@ msgstr "收起"
 msgid "The video \"{0}\" exceeds the size limit."
 msgstr ""
 
+msgid "Switch between the app kit and rainbow kit wallet providers."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
@@ -846,6 +849,9 @@ msgstr "打开 Firefly App"
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
+msgid "Rainbow Kit"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -1050,6 +1056,9 @@ msgstr "邮箱（可选）"
 msgid "NFT Contract"
 msgstr "NFT 合约"
 
+msgid "Show more tokens with small balances"
+msgstr ""
+
 msgid "Share Now"
 msgstr "分享"
 
@@ -1106,6 +1115,9 @@ msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
+
+msgid "App Kit"
+msgstr ""
 
 msgid "liked"
 msgstr "点赞"
@@ -1884,6 +1896,9 @@ msgstr ""
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
+msgid "Hide tokens with small balances"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2027,6 +2042,9 @@ msgstr "个人信息"
 
 msgid "QUOTE"
 msgstr "引用"
+
+msgid "Wallet Provider"
+msgstr ""
 
 msgid "Collect"
 msgstr "收藏"

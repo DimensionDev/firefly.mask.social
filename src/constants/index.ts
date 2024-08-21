@@ -125,6 +125,11 @@ export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Lens]: 20,
     [Source.Twitter]: 4,
 };
+export const MAX_VIDEO_SIZE_PER_POST: Record<SocialSource, number> = {
+    [Source.Farcaster]: 400 * 1024 * 1024, // 400MB
+    [Source.Lens]: 400 * 1024 * 1024, // 400MB
+    [Source.Twitter]: 75 * 1024 * 1024, // 75MB
+};
 
 // HTTP Cache headers
 export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=31536000, must-revalidate';
@@ -172,7 +177,6 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> 
 };
 
 export const FILE_MAX_SIZE = 4 * 1024 * 1024; // 4MB
-export const VIDEO_MAX_SIZE = 400 * 1024 * 1024; // 400MB
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [
@@ -214,6 +218,7 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
 
+// update profile
 export const MAX_PROFILE_BIO_SIZE: Record<SocialSource, number> = {
     [Source.Farcaster]: 160,
     [Source.Lens]: 260,

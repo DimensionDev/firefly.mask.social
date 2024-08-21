@@ -69,6 +69,7 @@
         "@vercel/kv": "^1.0.1",
         "@vercel/speed-insights": "^1.0.10",
         "@wagmi/core": "^2.13.4",
+        "@web3modal/wagmi": "^5.1.0",
         "async-call-rpc": "^6.4.0",
         "bignumber.js": "9.1.2",
         "bn.js": "^4.12.0",

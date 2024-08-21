@@ -9,6 +9,10 @@ class Settings {
     get FRAME_SERVER_URL() {
         return useDeveloperSettingsState.getState().useDevelopmentAPI ? FRAME_DEV_SERVER_URL : FRAME_SERVER_URL;
     }
+
+    get WALLET_PROVIDER_TYPE() {
+        return useDeveloperSettingsState.getState().providerType;
+    }
 }
 
 export const settings = new Settings();
