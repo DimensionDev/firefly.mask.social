@@ -197,6 +197,9 @@ export interface Article {
     cover_img_url: string | null;
     has_bookmarked?: boolean;
     followingSources: FollowingSource[];
+    paragraph_raw_data?: {
+        slug: string;
+    };
 }
 
 export interface Response<T> {

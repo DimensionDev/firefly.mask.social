@@ -81,6 +81,9 @@ msgstr "取消隐藏成功。"
 msgid "Mute /{0}"
 msgstr "隐藏 /{0}"
 
+msgid "Failed to collect article."
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -176,6 +179,9 @@ msgstr "更多"
 
 msgid "Translate post"
 msgstr "翻译帖子"
+
+msgid "Free"
+msgstr ""
 
 msgid "Searching users"
 msgstr "查找用户中"
@@ -753,6 +759,9 @@ msgstr "天"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
+msgid "Cost"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr "燃油费不足"
 
@@ -879,6 +888,9 @@ msgstr "{0} 评论"
 msgid "Schedule Post"
 msgstr "定时任务"
 
+msgid "Sold Out"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr "代理合约"
 
@@ -957,6 +969,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登录失败。"
 
+msgid "Network"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -971,6 +986,9 @@ msgstr "网站"
 
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
+
+msgid "Post with link"
+msgstr ""
 
 msgid "Your post has published successfully."
 msgstr "发布成功。"
@@ -1118,6 +1136,9 @@ msgstr "无效的 URL。"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
+
+msgid "Standard"
+msgstr ""
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -1434,6 +1455,9 @@ msgstr "执行中"
 msgid "Community"
 msgstr "社区"
 
+msgid "Free Collect"
+msgstr ""
+
 msgid "Delete"
 msgstr "删除"
 
@@ -1620,6 +1644,9 @@ msgstr "通知"
 msgid "Back"
 msgstr "返回"
 
+msgid "Article collected successfully!"
+msgstr ""
+
 msgid "Posting..."
 msgstr "发帖中..."
 
@@ -1706,6 +1733,9 @@ msgstr "刷新"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
+
+msgid "Collect Article"
+msgstr ""
 
 msgid "Channels"
 msgstr "频道"
@@ -1859,6 +1889,9 @@ msgstr "拥有"
 
 msgid "Associated wallets"
 msgstr "已关联的钱包"
+
+msgid "Switch Chain"
+msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
@@ -2066,6 +2099,9 @@ msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Collect for {0} {1}"
+msgstr ""
 
 msgid "Recast"
 msgstr "转推"

@@ -76,6 +76,9 @@ msgstr ""
 msgid "Mute /{0}"
 msgstr ""
 
+msgid "Failed to collect article."
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -170,6 +173,9 @@ msgid "More"
 msgstr ""
 
 msgid "Translate post"
+msgstr ""
+
+msgid "Free"
 msgstr ""
 
 msgid "Searching users"
@@ -748,6 +754,9 @@ msgstr ""
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
+msgid "Cost"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr ""
 
@@ -874,6 +883,9 @@ msgstr ""
 msgid "Schedule Post"
 msgstr ""
 
+msgid "Sold Out"
+msgstr ""
+
 msgid "Proxy contract"
 msgstr ""
 
@@ -952,6 +964,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
+msgid "Network"
+msgstr ""
+
 msgid "Unlike"
 msgstr ""
 
@@ -965,6 +980,9 @@ msgid "Website"
 msgstr ""
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Post with link"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -1112,6 +1130,9 @@ msgid "Invalid URL."
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
+msgid "Standard"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -1429,6 +1450,9 @@ msgstr ""
 msgid "Community"
 msgstr ""
 
+msgid "Free Collect"
+msgstr ""
+
 msgid "Delete"
 msgstr ""
 
@@ -1615,6 +1639,9 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+msgid "Article collected successfully!"
+msgstr ""
+
 msgid "Posting..."
 msgstr ""
 
@@ -1700,6 +1727,9 @@ msgid "Refresh"
 msgstr ""
 
 msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
+msgid "Collect Article"
 msgstr ""
 
 msgid "Channels"
@@ -1853,6 +1883,9 @@ msgid "Owned"
 msgstr ""
 
 msgid "Associated wallets"
+msgstr ""
+
+msgid "Switch Chain"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
@@ -2060,6 +2093,9 @@ msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr ""
 
 msgid "GIF"
+msgstr ""
+
+msgid "Collect for {0} {1}"
 msgstr ""
 
 msgid "Recast"

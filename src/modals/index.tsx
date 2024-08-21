@@ -4,6 +4,7 @@ import { memo } from 'react';
 
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
+import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
@@ -39,6 +40,7 @@ export const Modals = memo(function Modals() {
             <PreviewMediaModal ref={controls.PreviewMediaModalRef.register} />
             <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
             <EditProfileModal ref={controls.EditProfileModalRef.register} />
+            <CollectArticleModal ref={controls.CollectArticleModalRef.register} />
         </>
     );
 });

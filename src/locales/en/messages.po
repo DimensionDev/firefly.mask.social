@@ -76,6 +76,9 @@ msgstr "Unmute successfully."
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
 
+msgid "Failed to collect article."
+msgstr "Failed to collect article."
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -171,6 +174,9 @@ msgstr "More"
 
 msgid "Translate post"
 msgstr "Translate post"
+
+msgid "Free"
+msgstr "Free"
 
 msgid "Searching users"
 msgstr "Searching users"
@@ -748,6 +754,9 @@ msgstr "Days"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 
+msgid "Cost"
+msgstr "Cost"
+
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
 
@@ -874,6 +883,9 @@ msgstr "{0} Comments"
 msgid "Schedule Post"
 msgstr "Schedule Post"
 
+msgid "Sold Out"
+msgstr "Sold Out"
+
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
@@ -952,6 +964,9 @@ msgstr "Upload"
 msgid "Failed to login."
 msgstr "Failed to login."
 
+msgid "Network"
+msgstr "Network"
+
 msgid "Unlike"
 msgstr "Unlike"
 
@@ -966,6 +981,9 @@ msgstr "Website"
 
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
+
+msgid "Post with link"
+msgstr "Post with link"
 
 msgid "Your post has published successfully."
 msgstr "Your post has published successfully."
@@ -1113,6 +1131,9 @@ msgstr "Invalid URL."
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+
+msgid "Standard"
+msgstr "Standard"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
@@ -1429,6 +1450,9 @@ msgstr "Executing"
 msgid "Community"
 msgstr "Community"
 
+msgid "Free Collect"
+msgstr "Free Collect"
+
 msgid "Delete"
 msgstr "Delete"
 
@@ -1615,6 +1639,9 @@ msgstr "Notifications"
 msgid "Back"
 msgstr "Back"
 
+msgid "Article collected successfully!"
+msgstr "Article collected successfully!"
+
 msgid "Posting..."
 msgstr "Posting..."
 
@@ -1701,6 +1728,9 @@ msgstr "Refresh"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
+
+msgid "Collect Article"
+msgstr "Collect Article"
 
 msgid "Channels"
 msgstr "Channels"
@@ -1854,6 +1884,9 @@ msgstr "Owned"
 
 msgid "Associated wallets"
 msgstr "Associated wallets"
+
+msgid "Switch Chain"
+msgstr "Switch Chain"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
@@ -2061,6 +2094,9 @@ msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Collect for {0} {1}"
+msgstr "Collect for {0} {1}"
 
 msgid "Recast"
 msgstr "Recast"

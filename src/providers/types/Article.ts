@@ -33,7 +33,29 @@ export interface Article {
     id: string;
     coverUrl: string | null;
     hasBookmarked?: boolean;
+    slug?: string;
     followingSources: FollowingSource[];
+}
+
+export interface ArticleCollectDetail {
+    quantity?: number;
+    soldCount: number;
+    chainId: number;
+    contractAddress: string;
+    price: number | null;
+    isCollected: boolean;
+    fee: bigint;
+
+    // paragraph only
+    symbol?: string;
+    name?: string;
+    ownerAddress?: string;
+    referrerAddress?: string;
+    postId?: string;
+    position?: {
+        from: number;
+        to: number;
+    };
 }
 
 export interface Provider {
@@ -57,4 +79,28 @@ export interface Provider {
      * @returns
      */
     getFollowingArticles: (indicator?: PageIndicator) => Promise<Pageable<Article, PageIndicator>>;
+
+    /**
+     *
+     * Retrieves article detail by its digest.
+     * @param digest query id
+     * @returns
+     */
+    getArticleCollectDetail: (digest: string) => Promise<ArticleCollectDetail>;
+
+    /**
+     * Retrieves the estimated gas fee for collecting an article.
+     * @param detail article detail
+     * @param account user account
+     * @returns
+     */
+    estimateCollectGas: (detail: ArticleCollectDetail) => Promise<bigint>;
+
+    /**
+     * Collect an article
+     * @param detail article detail
+     * @param account user account
+     * @returns
+     */
+    collect: (detail: ArticleCollectDetail) => Promise<bigint>;
 }

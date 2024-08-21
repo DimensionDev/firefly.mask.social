@@ -20,6 +20,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostActionsWithGridProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -36,7 +37,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
 }) {
     const isComment = post.type === 'Comment';
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
-
+    const mutation = useToggleBookmark(post.source);
     const actions = compact([
         <div key="comment">
             <Comment
@@ -86,7 +87,16 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         ) : null,
         identity.id ? <Tips key="tips" identity={identity} disabled={disabled} handle={post.author.handle} /> : null,
         post.source !== Source.Twitter ? (
-            <Bookmark key="bookmark" count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+            <Bookmark
+                key="bookmark"
+                count={post.stats?.bookmarks}
+                disabled={disabled}
+                hasBookmarked={post.hasBookmarked}
+                onClick={() => {
+                    mutation.mutate(post);
+                }}
+                hiddenCount
+            />
         ) : null,
         <Share key="share" className="!flex-none" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
     ]);
@@ -128,6 +138,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
     const noLeftPadding = isDetailPage || isSmall || disablePadding;
+    const mutation = useToggleBookmark(post.source);
 
     return (
         <div
@@ -178,7 +189,15 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         />
                     ) : null}
                     {post.source !== Source.Twitter ? (
-                        <Bookmark count={post.stats?.bookmarks} disabled={disabled} post={post} hiddenCount />
+                        <Bookmark
+                            onClick={() => {
+                                mutation.mutate(post);
+                            }}
+                            count={post.stats?.bookmarks}
+                            disabled={disabled}
+                            hasBookmarked={post.hasBookmarked}
+                            hiddenCount
+                        />
                     ) : null}
                     {identity.id ? <Tips identity={identity} disabled={disabled} handle={post.author.handle} /> : null}
                     <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
