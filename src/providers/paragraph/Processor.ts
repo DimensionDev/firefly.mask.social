@@ -5,6 +5,7 @@ import { FetchError } from '@/constants/error.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 
 interface State {
     props: {
@@ -65,7 +66,10 @@ class Processor {
 
         if (isEmpty(data?.props.pageProps.collectible)) {
             const target = first(data?.props.pageProps.initialState.notes.allNotes);
-            if (!target) return Response.json({ error: 'Unable to digest link' }, { status: 500 });
+            if (!target)
+                return createErrorResponseJSON(`Failed to parse state from document = ${documentUrl}.`, {
+                    status: 500,
+                });
 
             const result = {
                 chain: target.highlightsChain,
