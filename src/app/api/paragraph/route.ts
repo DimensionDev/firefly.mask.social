@@ -7,7 +7,7 @@ import { ParagraphProcessor } from '@/providers/paragraph/Processor.js';
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const link = searchParams.get('link');
-    if (!link) return Response.json({ error: 'Missing link' }, { status: 400 });
+    if (!link) return createErrorResponseJSON('Missing link', { status: 400 });
 
     try {
         const result = await ParagraphProcessor.digestDocumentUrl(link, request.signal);
