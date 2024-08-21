@@ -153,10 +153,9 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 )}
 
                 <div
-                    className="left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-4"
+                    className="left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-4 backdrop-blur"
                     style={{
                         boxShadow: '-1px 0 20px 0 rgba(0, 0, 0, 0.05)',
-                        backdropFilter: 'blur(8px)',
                     }}
                 >
                     <ClickableButton
