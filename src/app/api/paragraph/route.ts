@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
+import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { ParagraphProcessor } from '@/providers/paragraph/Processor.js';
 
@@ -12,15 +13,14 @@ export async function GET(request: Request) {
         const result = await ParagraphProcessor.digestDocumentUrl(link, request.signal);
 
         if (!result) {
-            return Response.json(
-                { error: `Unable to digest paragraph link = ${link}` },
-                { status: StatusCodes.BAD_GATEWAY },
-            );
+            return createErrorResponseJSON(`Unable to digest paragraph link = ${link}`, {
+                status: StatusCodes.BAD_GATEWAY,
+            });
         }
 
         return result;
     } catch (error) {
-        return Response.json(getGatewayErrorMessage(error), {
+        return createErrorResponseJSON(getGatewayErrorMessage(error), {
             status: StatusCodes.BAD_GATEWAY,
         });
     }
