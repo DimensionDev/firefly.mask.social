@@ -5,15 +5,15 @@ import { polygon } from 'viem/chains';
 
 import { MirrorABI } from '@/abis/Mirror.js';
 import { chains, config } from '@/configs/wagmiClient.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { rightShift } from '@/helpers/number.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import { WritingNFTQuery } from '@/providers/mirror/query.js';
 import { type MirrorArticleDetail } from '@/providers/mirror/type.js';
 import type { Article, ArticleCollectDetail, Provider } from '@/providers/types/Article.js';
-import { NotImplementedError } from '@/constants/error.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 
 class Mirror implements Provider {
     async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {

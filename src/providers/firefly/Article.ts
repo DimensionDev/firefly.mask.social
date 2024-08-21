@@ -2,6 +2,7 @@ import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -22,7 +23,6 @@ import {
     type GetFollowingArticlesResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import { NotImplementedError } from '@/constants/error.js';
 
 class FireflyArticle implements Provider {
     getArticleCollectDetail(digest: string): Promise<ArticleCollectDetail> {

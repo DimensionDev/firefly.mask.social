@@ -14,14 +14,14 @@ import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { getArticleDigest } from '@/helpers/getArticleDigest.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
-import { getArticleDigest } from '@/helpers/getArticleDigest.js';
+import { type Article } from '@/providers/types/Article.js';
 
 export interface CollectArticleModalOpenProps {
     article: Article;

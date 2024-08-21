@@ -5,15 +5,15 @@ import { polygon } from 'viem/chains';
 
 import { ParagraphABI, ParagraphMintABI } from '@/abis/Paragraph.js';
 import { chains, config } from '@/configs/wagmiClient.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { PARAGRAPH_COLLECT_FEE, PARAGRAPH_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { rightShift } from '@/helpers/number.js';
+import type { Pageable,PageIndicator } from '@/helpers/pageable.js';
 import { resolveParagraphMintContract } from '@/helpers/resolveParagraphMintContract.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import type { ParagraphArticleDetail } from '@/providers/paragraph/type.js';
 import type { Article, ArticleCollectDetail, Provider } from '@/providers/types/Article.js';
-import type { PageIndicator, Pageable } from '@/helpers/pageable.js';
-import { NotImplementedError } from '@/constants/error.js';
 
 const MAX_SUPPLY = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 
