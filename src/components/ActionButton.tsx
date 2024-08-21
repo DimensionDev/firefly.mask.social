@@ -4,7 +4,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface ActionButtonProps extends ClickableButtonProps {
+export interface ActionButtonProps extends ClickableButtonProps {
     loading?: boolean;
     variant?: 'primary' | 'secondary' | 'danger';
 }

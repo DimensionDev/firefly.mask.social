@@ -1,24 +1,23 @@
 import { Trans } from '@lingui/macro';
 import { switchChain } from '@wagmi/core';
-import { memo, type PropsWithChildren } from 'react';
+import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
-import { ActionButton } from '@/components/ActionButton.js';
+import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 
-interface ChainBoundaryProps extends PropsWithChildren {
+interface ChainGuardButtonProps extends ActionButtonProps {
     targetChainId?: number;
     text?: string;
     buttonClassName?: string;
 }
 
-export const ChainBoundary = memo<ChainBoundaryProps>(function ChainBoundary({
+export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBoundary({
     targetChainId,
-    text,
     children,
-    buttonClassName,
+    ...props
 }) {
     const account = useAccount();
 
@@ -30,10 +29,10 @@ export const ChainBoundary = memo<ChainBoundaryProps>(function ChainBoundary({
     if (!account.isConnected || !account.address) {
         return (
             <ActionButton
+                {...props}
                 onClick={() => {
                     ConnectModalRef.open();
                 }}
-                className={buttonClassName}
             >
                 <Trans>Connect Wallet</Trans>
             </ActionButton>
@@ -42,11 +41,11 @@ export const ChainBoundary = memo<ChainBoundaryProps>(function ChainBoundary({
 
     if (targetChainId && account.chainId !== targetChainId) {
         return (
-            <ActionButton className={buttonClassName} loading={loading} onClick={handleSwitchChain}>
-                {text}
+            <ActionButton {...props} loading={loading} onClick={handleSwitchChain}>
+                {children}
             </ActionButton>
         );
     }
 
-    return children;
+    return <ActionButton {...props}>{children}</ActionButton>;
 });

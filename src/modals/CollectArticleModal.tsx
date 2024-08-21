@@ -7,9 +7,8 @@ import { useAsync, useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ActionButton } from '@/components/ActionButton.js';
 import { Avatar } from '@/components/Avatar.js';
-import { ChainBoundary } from '@/components/ChainBoundary.js';
+import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -192,15 +191,15 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                                 </div>
                             </div>
 
-                            <ChainBoundary targetChainId={data?.chainId} text={buttonText}>
-                                <ActionButton
-                                    disabled={data?.isCollected || isSoldOut || !hasSufficientBalance}
-                                    loading={collectLoading || queryDetailLoading || queryBalanceLoading}
-                                    onClick={handleCollect}
-                                >
-                                    {buttonText}
-                                </ActionButton>
-                            </ChainBoundary>
+                            <ChainGuardButton
+                                targetChainId={data?.chainId}
+                                className="w-full"
+                                disabled={data?.isCollected || isSoldOut || !hasSufficientBalance}
+                                loading={collectLoading || queryDetailLoading || queryBalanceLoading}
+                                onClick={handleCollect}
+                            >
+                                {buttonText}
+                            </ChainGuardButton>
                         </div>
                     )}
                 </div>
