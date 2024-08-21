@@ -1,4 +1,4 @@
-import { type Article,ArticlePlatform } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export function getArticleDigest(article?: Article) {
     if (!article) return;

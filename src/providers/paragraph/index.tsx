@@ -9,7 +9,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { PARAGRAPH_COLLECT_FEE, PARAGRAPH_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { rightShift } from '@/helpers/number.js';
-import type { Pageable,PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveParagraphMintContract } from '@/helpers/resolveParagraphMintContract.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import type { ParagraphArticleDetail } from '@/providers/paragraph/type.js';
