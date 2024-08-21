@@ -42,7 +42,7 @@ const TwitterMetricsSchema = z.object({
     client_os: z.string(),
     login_metadata: z.array(
         z.object({
-            client_id: z.string(),
+            client_id: z.string(), // '635682749'
             login_time: z.number(),
             access_token: z.string(),
             access_token_secret: z.string(),
@@ -62,8 +62,9 @@ const LensMetricsSchema = z.object({
             address: z.string(), // 0xab...cd
             login_time: z.number(),
             // cspell: disable-next-line
-            profile_id: z.string(), // 0x049b19
+            profile_id: z.string(), // '0x049b19'
             refresh_token: z.string(),
+            identity_token: z.string().optional(),
         }),
     ),
 });
@@ -76,7 +77,8 @@ const FarcasterMetricsSchema = z.object({
         z.object({
             fid: z.number(),
             login_time: z.number(),
-            signer_public_key: z.string(),
+            access_token: z.string().optional(),
+            signer_public_key: z.string().optional(),
             signer_private_key: z.string(),
         }),
     ),
