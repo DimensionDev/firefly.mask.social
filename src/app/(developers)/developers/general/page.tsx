@@ -71,7 +71,7 @@ export default function General() {
                 return <CircleCheckboxIcon checked={item.value} />;
             case 'select':
                 return (
-                    <select className="rounded-md border-line bg-bg" onChange={item.onChange}>
+                    <select className="rounded-md border-line bg-bg px-2 py-1.5" onChange={item.onChange}>
                         {item.items.map((x, i) => (
                             <option key={i} value={x.value}>
                                 {x.label}
