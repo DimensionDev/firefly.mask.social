@@ -6,6 +6,47 @@ import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.j
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
 
+interface State {
+    props: {
+        pageProps: {
+            collectible: {
+                chain: string;
+                noteId: string;
+                supply: string;
+                costEth: string;
+                position: {
+                    from: number;
+                    to: number;
+                };
+                contractAddress: string;
+                text: string;
+                collectorWallet: string;
+            };
+
+            initialState: {
+                notes: {
+                    allNotes: Array<{
+                        highlightsSupply: string;
+                        highlightsCost: number;
+                        highlightsChain: string;
+                        id: string;
+                        post_preview: string;
+                        collectibleWalletAddress: string;
+                    }>;
+                };
+                blog: {
+                    blog: {
+                        url?: string;
+                        user: {
+                            referrerWalletAddress?: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+}
+
 class Processor {
     async digestDocumentUrl(documentUrl: string, signal?: AbortSignal) {
         const url = parseURL(documentUrl);
@@ -20,48 +61,7 @@ class Processor {
         const { document } = parseHTML(html);
 
         const dataScript = document.getElementById('__NEXT_DATA__');
-        const data = dataScript?.innerText
-            ? parseJSON<{
-                  props: {
-                      pageProps: {
-                          collectible: {
-                              chain: string;
-                              noteId: string;
-                              supply: string;
-                              costEth: string;
-                              position: {
-                                  from: number;
-                                  to: number;
-                              };
-                              contractAddress: string;
-                              text: string;
-                              collectorWallet: string;
-                          };
-
-                          initialState: {
-                              notes: {
-                                  allNotes: Array<{
-                                      highlightsSupply: string;
-                                      highlightsCost: number;
-                                      highlightsChain: string;
-                                      id: string;
-                                      post_preview: string;
-                                      collectibleWalletAddress: string;
-                                  }>;
-                              };
-                              blog: {
-                                  blog: {
-                                      url?: string;
-                                      user: {
-                                          referrerWalletAddress?: string;
-                                      };
-                                  };
-                              };
-                          };
-                      };
-                  };
-              }>(dataScript.innerText)
-            : undefined;
+        const data = dataScript?.innerText ? parseJSON<State>(dataScript.innerText) : undefined;
 
         if (isEmpty(data?.props.pageProps.collectible)) {
             const target = first(data?.props.pageProps.initialState.notes.allNotes);

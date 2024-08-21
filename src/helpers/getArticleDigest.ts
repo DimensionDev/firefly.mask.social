@@ -1,3 +1,5 @@
+import { safeUnreachable } from '@masknet/kit';
+
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export function getArticleDigest(article?: Article) {
@@ -9,6 +11,7 @@ export function getArticleDigest(article?: Article) {
         case ArticlePlatform.Paragraph:
             return article.origin;
         default:
+            safeUnreachable(article.platform);
             return;
     }
 }

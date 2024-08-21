@@ -39,15 +39,14 @@ class Paragraph implements Provider {
         );
 
         const data = response.data;
-
-        if (!data) throw new Error('Failed to fetch article detail');
+        if (!data) throw new Error('Failed to fetch article detail.');
 
         let isCollected = false;
         let soldCount = 0;
 
         const chainId = chains.find((x) => x.name.toLowerCase() === data.chain.toLowerCase())?.id;
+        if (!chainId) throw new Error(`Unsupported chain: ${data.chain}`);
 
-        if (!chainId) throw new Error('UnSupport chain');
         if (data.contractAddress) {
             try {
                 const account = getAccount(config);
@@ -99,7 +98,7 @@ class Paragraph implements Provider {
     async estimateCollectGas(detail: ArticleCollectDetail) {
         const account = getAccount(config);
         const chain = chains.find((x) => x.id === detail.chainId);
-        if (!chain) throw new Error('Unsupported chain');
+        if (!chain) throw new Error(`Unsupported chain: ${detail.chainId}`);
 
         const client = createPublicClient({
             chain,
@@ -121,7 +120,7 @@ class Paragraph implements Provider {
         }
 
         const address = resolveParagraphMintContract(detail.chainId);
-        if (!address) throw new Error('UnSupport network');
+        if (!address) throw new Error(`Unsupported network: ${detail.chainId}`);
 
         return client.estimateContractGas({
             address: address as `0x${string}`,
@@ -149,10 +148,11 @@ class Paragraph implements Provider {
     async collect(detail: ArticleCollectDetail) {
         const account = getAccount(config);
         const chain = chains.find((x) => x.id === detail.chainId);
-        if (!chain) throw new Error('UnSupport chain');
+        if (!chain) throw new Error(`Unsupported chain: ${detail.chainId}`);
 
         const address = resolveParagraphMintContract(detail.chainId);
-        if (!address) throw new Error('UnSupport network');
+        if (!address) throw new Error(`Unsupported network: ${detail.chainId}`);
+
         const price = detail.price ? BigInt(rightShift(detail.price, chain.nativeCurrency.decimals).toString()) : 0n;
         const value = detail.fee + price;
 
