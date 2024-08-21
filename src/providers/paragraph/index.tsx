@@ -11,12 +11,28 @@ import { rightShift } from '@/helpers/number.js';
 import { resolveParagraphMintContract } from '@/helpers/resolveParagraphMintContract.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import type { ParagraphArticleDetail } from '@/providers/paragraph/type.js';
-import type { ArticleCollectDetail, ArticleCollectProvider } from '@/providers/types/Article.js';
+import type { Article, ArticleCollectDetail, Provider } from '@/providers/types/Article.js';
+import type { PageIndicator, Pageable } from '@/helpers/pageable.js';
+import { NotImplementedError } from '@/constants/error.js';
 
 const MAX_SUPPLY = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 
-class Paragraph implements ArticleCollectProvider {
-    async getArticleDetail(digestLink: string): Promise<ArticleCollectDetail> {
+class Paragraph implements  Provider{
+    async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>>{
+        throw new NotImplementedError()
+    }
+
+
+    async getArticleById(articleId: string): Promise<Article | null> {
+        throw new NotImplementedError()
+    };
+
+    async getFollowingArticles(indicator?: PageIndicator):Promise<Pageable<Article, PageIndicator>> {
+        throw new NotImplementedError()
+    }
+    
+
+   async getArticleCollectDetail(digestLink: string): Promise<ArticleCollectDetail> {
         const response = await fetchJSON<{ data: ParagraphArticleDetail }>(
             urlcat(location.origin, '/api/paragraph', { link: digestLink }),
             {
@@ -29,7 +45,7 @@ class Paragraph implements ArticleCollectProvider {
         if (!data) throw new Error('Failed to fetch article detail');
 
         let isCollected = false;
-        let soldNum = 0;
+        let soldCount = 0;
 
         const chainId = chains.find((x) => x.name.toLowerCase() === data.chain.toLowerCase())?.id;
 
@@ -53,7 +69,7 @@ class Paragraph implements ArticleCollectProvider {
                 });
 
                 if (totalSupply) {
-                    soldNum = Number(totalSupply);
+                    soldCount = Number(totalSupply);
                 }
 
                 if (BigInt(balance as bigint) >= 1) {
@@ -61,13 +77,13 @@ class Paragraph implements ArticleCollectProvider {
                 }
             } catch {
                 isCollected = false;
-                soldNum = 0;
+                soldCount = 0;
             }
         }
 
         return {
             quantity: data.supply && data.supply !== MAX_SUPPLY ? Number(data.supply) : undefined,
-            soldNum,
+            soldCount,
             chainId,
             contractAddress: data.contractAddress,
             isCollected,

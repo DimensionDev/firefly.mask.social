@@ -11,10 +11,25 @@ import { rightShift } from '@/helpers/number.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import { WritingNFTQuery } from '@/providers/mirror/query.js';
 import { type MirrorArticleDetail } from '@/providers/mirror/type.js';
-import type { ArticleCollectDetail, ArticleCollectProvider } from '@/providers/types/Article.js';
+import type { Article, ArticleCollectDetail, Provider } from '@/providers/types/Article.js';
+import { NotImplementedError } from '@/constants/error.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 
-class Mirror implements ArticleCollectProvider {
-    async getArticleDetail(digest: string): Promise<ArticleCollectDetail> {
+class Mirror implements Provider {
+   
+    async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>>{
+        throw new NotImplementedError()
+    }
+
+
+    async getArticleById(articleId: string): Promise<Article | null> {
+        throw new NotImplementedError()
+    };
+
+    async getFollowingArticles(indicator?: PageIndicator):Promise<Pageable<Article, PageIndicator>> {
+        throw new NotImplementedError()
+    }
+    async getArticleCollectDetail(digest: string): Promise<ArticleCollectDetail> {
         const response = await fetchJSON<MirrorArticleDetail>(urlcat(location.origin, '/api/mirror'), {
             method: 'POST',
             body: JSON.stringify({
@@ -50,7 +65,7 @@ class Mirror implements ArticleCollectProvider {
 
         return {
             quantity: result.quantity,
-            soldNum: result.optimisticNumSold,
+            soldCount: result.optimisticNumSold,
             chainId: result.network.chainId,
             contractAddress: result.proxyAddress ?? result.factoryAddress,
             isCollected,

@@ -21,6 +21,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import { getArticleDigest } from '@/helpers/getArticleDigest.js';
 
 export interface CollectArticleModalOpenProps {
     article: Article;
@@ -45,11 +46,13 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
             enabled: !!props?.article && open,
             queryKey: ['article', props?.article.platform, props?.article.id, props?.article.origin],
             queryFn: async () => {
-                if (!props?.article?.origin) return;
+                if(!props) return
+                const digest = getArticleDigest(props?.article)
+                if(!digest) return
                 const provider = resolveArticleCollectProvider(props.article.platform);
 
                 return provider.getArticleDetail(
-                    props.article.platform === ArticlePlatform.Paragraph ? props.article.origin : props.article.id,
+                    digest
                 );
             },
         });
@@ -111,7 +114,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
         }, [data, account.isConnected, account.address, props?.article.platform]);
 
         const chain = chains.find((x) => x.id === data?.chainId);
-        const isSoldOut = !!data?.quantity && data.soldNum >= data.quantity;
+        const isSoldOut = !!data?.quantity && data.soldCount >= data.quantity;
 
         const buttonText = useMemo(() => {
             if (isSoldOut) return t`Sold Out`;
@@ -172,7 +175,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                             <div className="flex items-center justify-center gap-7 text-sm leading-[22px]">
                                 <div className="flex flex-col items-center">
                                     <div className="font-bold text-main">
-                                        <span>{data?.soldNum}</span>
+                                        <span>{data?.soldCount}</span>
                                         {data?.quantity ? <span>/ {data.quantity}</span> : null}
                                     </div>
                                     <div className="text-second">

@@ -13,7 +13,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Article, ArticlePlatform, type Provider } from '@/providers/types/Article.js';
+import { type Article, type ArticleCollectDetail, ArticlePlatform, type Provider } from '@/providers/types/Article.js';
 import {
     type Article as FFArticle,
     type BookmarkResponse,
@@ -22,8 +22,19 @@ import {
     type GetFollowingArticlesResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
+import { NotImplementedError } from '@/constants/error.js';
 
 class FireflyArticle implements Provider {
+    getArticleCollectDetail(digest: string):Promise<ArticleCollectDetail> {
+        throw new NotImplementedError()
+    };
+    estimateCollectGas(detail: ArticleCollectDetail, account: string): Promise<bigint> {
+        throw new NotImplementedError()
+    };
+    collect(detail: ArticleCollectDetail, account: string):Promise<bigint> {
+        throw new NotImplementedError()
+    };
+    
     async discoverArticles(indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
             size: 20,
