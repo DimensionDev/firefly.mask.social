@@ -1885,9 +1885,6 @@ msgstr ""
 msgid "Associated wallets"
 msgstr ""
 
-msgid "Switch Chain"
-msgstr ""
-
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
