@@ -39,15 +39,14 @@ class Paragraph implements Provider {
         );
 
         const data = response.data;
-
         if (!data) throw new Error('Failed to fetch article detail');
 
         let isCollected = false;
         let soldCount = 0;
 
         const chainId = chains.find((x) => x.name.toLowerCase() === data.chain.toLowerCase())?.id;
+        if (!chainId) throw new Error(`Unsupported chain: ${data.chain}`);
 
-        if (!chainId) throw new Error('UnSupport chain');
         if (data.contractAddress) {
             try {
                 const account = getAccount(config);
