@@ -1,21 +1,34 @@
 import { getAccount, getTransactionConfirmations, http, readContract, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
 import { createPublicClient, zeroAddress } from 'viem';
-import { polygon } from 'viem/chains';
+import { base, optimism, polygon, zora } from 'viem/chains';
 
 import { ParagraphABI, ParagraphMintABI } from '@/abis/Paragraph.js';
 import { chains, config } from '@/configs/wagmiClient.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { PARAGRAPH_COLLECT_FEE, PARAGRAPH_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { rightShift } from '@/helpers/number.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveParagraphMintContract } from '@/helpers/resolveParagraphMintContract.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
-import type { ParagraphArticleDetail } from '@/providers/paragraph/type.js';
+import { type ParagraphArticleDetail, ParagraphChain } from '@/providers/paragraph/type.js';
 import type { Article, ArticleCollectDetail, Provider } from '@/providers/types/Article.js';
 
 const MAX_SUPPLY = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
+
+const resolveParagraphChain = createLookupTableResolver<ParagraphChain, number>(
+    {
+        [ParagraphChain.Optimism]: optimism.id,
+        [ParagraphChain.Polygon]: polygon.id,
+        [ParagraphChain.Base]: base.id,
+        [ParagraphChain.Zora]: zora.id,
+    },
+    (chain: ParagraphChain) => {
+        throw new UnreachableError('chain', chain);
+    },
+);
 
 class Paragraph implements Provider {
     async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {
@@ -44,7 +57,7 @@ class Paragraph implements Provider {
         let isCollected = false;
         let soldCount = 0;
 
-        const chainId = chains.find((x) => x.name.toLowerCase() === data.chain.toLowerCase())?.id;
+        const chainId = resolveParagraphChain(data.chain);
         if (!chainId) throw new Error(`Unsupported chain: ${data.chain}`);
 
         if (data.contractAddress) {

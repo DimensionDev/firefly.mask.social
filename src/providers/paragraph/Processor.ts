@@ -6,12 +6,18 @@ import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
+<<<<<<< HEAD
+||||||| parent of 43e0e66f (fix: add chain map)
+import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+=======
+import type { ParagraphChain } from '@/providers/paragraph/type.js';
+>>>>>>> 43e0e66f (fix: add chain map)
 
 interface State {
     props: {
         pageProps: {
             collectible: {
-                chain: string;
+                chain: ParagraphChain;
                 noteId: string;
                 supply: string;
                 costEth: string;
@@ -29,7 +35,7 @@ interface State {
                     allNotes: Array<{
                         highlightsSupply: string;
                         highlightsCost: number;
-                        highlightsChain: string;
+                        highlightsChain: ParagraphChain;
                         id: string;
                         post_preview: string;
                         collectibleWalletAddress: string;

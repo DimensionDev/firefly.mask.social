@@ -1,5 +1,5 @@
 export interface ParagraphArticleDetail {
-    chain: string;
+    chain: ParagraphChain;
     noteId: string;
     supply: string;
     costEth: string;
@@ -12,4 +12,11 @@ export interface ParagraphArticleDetail {
     symbol: string;
     referrerAddress?: string;
     collectorWallet: string;
+}
+
+export enum ParagraphChain {
+    Optimism = 'optimism',
+    Base = 'base',
+    Zora = 'zora',
+    Polygon = 'polygon',
 }
