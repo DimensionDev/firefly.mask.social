@@ -10,8 +10,6 @@ import { ConnectModalRef } from '@/modals/controls.js';
 
 interface ChainGuardButtonProps extends ActionButtonProps {
     targetChainId?: number;
-    text?: string;
-    buttonClassName?: string;
 }
 
 export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBoundary({
