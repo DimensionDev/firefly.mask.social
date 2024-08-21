@@ -273,8 +273,6 @@ export async function removeCurrentAccount(source: SocialSource) {
 }
 
 export async function removeAllAccounts() {
-    const sessions = getProfileSessionsAll();
-
     SORTED_SOCIAL_SOURCES.forEach(async (x) => {
         const state = getProfileState(x);
         if (!state.accounts.length) return;
