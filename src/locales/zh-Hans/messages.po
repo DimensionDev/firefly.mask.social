@@ -1032,6 +1032,9 @@ msgstr "邮箱（可选）"
 msgid "NFT Contract"
 msgstr "NFT 合约"
 
+msgid "Show more tokens with small balances"
+msgstr ""
+
 msgid "Share Now"
 msgstr "分享"
 
@@ -1850,6 +1853,9 @@ msgstr "已关联的钱包"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
+
+msgid "Hide tokens with small balances"
+msgstr ""
 
 msgid "NFT ID"
 msgstr "NFT ID"

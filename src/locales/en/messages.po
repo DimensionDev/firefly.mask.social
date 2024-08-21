@@ -1027,6 +1027,9 @@ msgstr "Email (optional)"
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
+msgid "Show more tokens with small balances"
+msgstr "Show more tokens with small balances"
+
 msgid "Share Now"
 msgstr "Share Now"
 
@@ -1845,6 +1848,9 @@ msgstr "Associated wallets"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+
+msgid "Hide tokens with small balances"
+msgstr "Hide tokens with small balances"
 
 msgid "NFT ID"
 msgstr "NFT ID"
