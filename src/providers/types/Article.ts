@@ -94,7 +94,7 @@ export interface Provider {
      * @param account user account
      * @returns
      */
-    estimateCollectGas: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
+    estimateCollectGas: (detail: ArticleCollectDetail) => Promise<bigint>;
 
     /**
      * Collect an article
@@ -102,5 +102,5 @@ export interface Provider {
      * @param account user account
      * @returns
      */
-    collect: (detail: ArticleCollectDetail, account: string) => Promise<bigint>;
+    collect: (detail: ArticleCollectDetail) => Promise<bigint>;
 }
