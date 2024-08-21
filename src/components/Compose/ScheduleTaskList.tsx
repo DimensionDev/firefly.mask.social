@@ -27,11 +27,11 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
 
-function getTitle(displayInfo: SchedulePostDisplayInfo) {
+function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
     if (!displayInfo) return;
     switch (displayInfo.type) {
         case 'compose':
-            return <Trans>POST</Trans>;
+            return isFailed ? <Trans>FAILED POST</Trans> : <Trans>POST</Trans>;
         case 'reply':
             return <Trans>REPLY</Trans>;
         case 'quote':
@@ -44,11 +44,11 @@ function getTitle(displayInfo: SchedulePostDisplayInfo) {
 
 const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task: ScheduleTask; index: number }) {
     const displayInfo = task.display_info;
-    const title = getTitle(displayInfo);
+    const isFailed = task.status === 'fail';
+
+    const title = getTitle(displayInfo, isFailed);
     const isMedium = useIsMedium();
     const content = displayInfo.content;
-
-    const isFailed = task.status === 'fail';
 
     const [{ loading: removeLoading }, handleRemove] = useAsyncFn(async () => {
         try {

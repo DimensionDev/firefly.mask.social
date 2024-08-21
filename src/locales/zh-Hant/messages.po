@@ -42,6 +42,9 @@ msgstr "斷開連接"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "FAILED THREAD POST"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
@@ -199,6 +202,9 @@ msgid "Change Wallet"
 msgstr "更換錢包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
+msgstr ""
+
+msgid "FAILED POST"
 msgstr ""
 
 msgid "OpenGraph"
@@ -1528,7 +1534,7 @@ msgid "Copy"
 msgstr "複製"
 
 msgid "No available wallet."
-msgstr ""
+msgstr "沒有可用的錢包。"
 
 msgid "Login to enable all features"
 msgstr ""

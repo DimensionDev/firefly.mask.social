@@ -37,6 +37,9 @@ msgstr "Disconnect"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "FAILED THREAD POST"
+msgstr "FAILED THREAD POST"
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
@@ -195,6 +198,9 @@ msgstr "Change Wallet"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
+
+msgid "FAILED POST"
+msgstr "FAILED POST"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"

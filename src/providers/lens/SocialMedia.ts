@@ -914,6 +914,7 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.mutualFollowers({
             observer,
             viewing: profileId,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         return createPageable(
