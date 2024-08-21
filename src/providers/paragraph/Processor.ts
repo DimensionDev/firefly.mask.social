@@ -2,10 +2,10 @@ import { parseHTML } from 'linkedom';
 import { first, isEmpty } from 'lodash-es';
 
 import { FetchError } from '@/constants/error.js';
+import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 
 interface State {
     props: {
