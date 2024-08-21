@@ -32,6 +32,7 @@ interface PostEventParameters {
     is_scheduled: boolean;
     scheduled_id?: string;
     lucky_drop_id?: string;
+    lucky_drop_payload_image_url?: string;
     poll_id?: string;
 }
 
@@ -51,7 +52,7 @@ export interface Events extends Record<EventId, Event> {
             x_post_id?: string;
             x_id?: string;
             x_handle?: string;
-        } & Exclude<PostEventParameters, 'include_image' | 'include_video'>;
+        } & PostEventParameters;
     };
     [EventId.CREATE_SCHEDULED_POST]: {
         type: EventType.Interact;
