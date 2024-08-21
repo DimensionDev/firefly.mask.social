@@ -1,14 +1,15 @@
 import { t, Trans } from '@lingui/macro';
 import { EVMChainResolver } from '@masknet/web3-providers';
 import { useQuery } from '@tanstack/react-query';
-import { estimateFeesPerGas, getBalance, switchChain } from '@wagmi/core';
+import { estimateFeesPerGas, getBalance } from '@wagmi/core';
 import { forwardRef, useMemo, useState } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { ActionButton } from '@/components/ActionButton.js';
 import { Avatar } from '@/components/Avatar.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ChainBoundary } from '@/components/ChainBoundary.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -20,7 +21,6 @@ import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ConnectWalletModalRef } from '@/modals/controls.js';
 import { type Article } from '@/providers/types/Article.js';
 
 export interface CollectArticleModalOpenProps {
@@ -57,18 +57,10 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
 
         const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
             if (!data || !props?.article.platform) return;
-            if (!account.isConnected || !account.address) {
-                ConnectWalletModalRef.open();
-                return;
-            }
-            if (data.chainId && account.chainId !== data?.chainId) {
-                await switchChain(config, { chainId: data.chainId });
-                return;
-            }
 
             const provider = resolveArticleCollectProvider(props?.article.platform);
             try {
-                const confirmation = await provider.collect(data, account.address);
+                const confirmation = await provider.collect(data);
                 if (!confirmation) return;
                 enqueueSuccessMessage(t`Article collected successfully!`);
             } catch (error) {
@@ -87,7 +79,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                 chainId: data.chainId,
                 type: isEIP1559 ? 'eip1559' : 'legacy',
             });
-            const gasLimit = await provider.estimateCollectGas(data, account.address);
+            const gasLimit = await provider.estimateCollectGas(data);
             const balance = await getBalance(config, {
                 address: account.address,
                 chainId: data.chainId,
@@ -117,11 +109,11 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
         const buttonText = useMemo(() => {
             if (isSoldOut) return t`Sold Out`;
             if (data?.isCollected) return t`Collected`;
-            if (!data?.price) return t`Free Collect`;
             if (!hasSufficientBalance) return t`Insufficient Balance`;
-            if (data?.chainId !== account.chainId) return t`Switch Chain`;
+
+            if (!data?.price) return t`Free Collect`;
             return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
-        }, [data, account, chain, isSoldOut, hasSufficientBalance]);
+        }, [data, chain, isSoldOut, hasSufficientBalance]);
 
         return (
             <Modal onClose={() => dispatch?.close()} open={open}>
@@ -200,24 +192,15 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                                 </div>
                             </div>
 
-                            <ClickableButton
-                                disabled={
-                                    collectLoading ||
-                                    data?.isCollected ||
-                                    queryBalanceLoading ||
-                                    queryDetailLoading ||
-                                    isSoldOut ||
-                                    !hasSufficientBalance
-                                }
-                                onClick={handleCollect}
-                                className="mt-3 flex h-10 w-full items-center justify-center rounded-[20px] bg-lightMain font-bold text-lightBottom dark:text-darkBottom"
-                            >
-                                {collectLoading || queryDetailLoading || queryBalanceLoading ? (
-                                    <LoadingIcon className="animate-spin" width={24} height={24} />
-                                ) : (
-                                    buttonText
-                                )}
-                            </ClickableButton>
+                            <ChainBoundary targetChainId={data?.chainId} text={buttonText}>
+                                <ActionButton
+                                    disabled={data?.isCollected || isSoldOut || !hasSufficientBalance}
+                                    loading={collectLoading || queryDetailLoading || queryBalanceLoading}
+                                    onClick={handleCollect}
+                                >
+                                    {buttonText}
+                                </ActionButton>
+                            </ChainBoundary>
                         </div>
                     )}
                 </div>
