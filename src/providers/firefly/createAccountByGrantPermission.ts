@@ -64,7 +64,7 @@ async function createSession(callback?: (url: string) => void, signal?: AbortSig
 
     switch (status) {
         case 'confirm':
-            return new FireflySession('', result.accessToken, null);
+            return new FireflySession(linkInfo.session, result.accessToken, null);
         case 'cancel':
             throw new UserRejectionError();
         case 'expired':
