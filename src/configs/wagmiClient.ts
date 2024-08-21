@@ -71,6 +71,9 @@ function createWagmiConfig(): Config {
             };
 
             const config = defaultWagmiConfig({
+                auth: {
+                    email: false,
+                },
                 chains,
                 metadata,
                 projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
