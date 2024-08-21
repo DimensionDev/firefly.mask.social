@@ -12,8 +12,16 @@ import FireflyRoundIcon from '@/assets/firefly.round.svg';
 import MaskRoundIcon from '@/assets/mask.round.svg';
 import SecurityIcon from '@/assets/security.svg';
 import TelegramIcon from '@/assets/telegram.svg';
-import XLightIcon from '@/assets/x-light.svg';
+import { XIcon } from '@/components/XIcon.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+
+function SmallXIcon() {
+    return (
+        <div className="flex h-6 w-6 items-center justify-center">
+            <XIcon width={23} height={23} />
+        </div>
+    );
+}
 
 export default function More() {
     useNavigatorTitle(t`More`);
@@ -50,7 +58,7 @@ export default function More() {
                     {
                         content: t`Follow @thefireflyapp on X`,
                         link: 'https://x.com/intent/user?screen_name=thefireflyapp',
-                        logo: XLightIcon,
+                        logo: SmallXIcon,
                     },
                     {
                         content: t`Visit firefly.social`,
@@ -81,7 +89,7 @@ export default function More() {
                     {
                         content: t`Follow @realMaskNetwork on X`,
                         link: 'https://x.com/intent/user?screen_name=realMaskNetwork',
-                        logo: XLightIcon,
+                        logo: SmallXIcon,
                     },
                     {
                         content: t`Visit mask.io`,
