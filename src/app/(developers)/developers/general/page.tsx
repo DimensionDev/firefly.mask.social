@@ -9,6 +9,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { WalletProviderType } from '@/constants/enum.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
+import type { ChangeEvent } from 'react';
 
 type Item =
     | {
@@ -16,6 +17,7 @@ type Item =
           value: boolean;
           title: string;
           description: string;
+          onClick?: () => void;
       }
     | {
           type: 'select';
@@ -23,6 +25,7 @@ type Item =
           items: Array<{ label: string; value: string }>;
           title: string;
           description: string;
+          onChange?: (ev: ChangeEvent<HTMLSelectElement>) => void;
       };
 
 export default function General() {
@@ -35,6 +38,9 @@ export default function General() {
             value: useDevelopmentAPI,
             title: t`Enable development API version`,
             description: t`Switch to the development API version for testing new features.`,
+            onClick: () => {
+                updateUseDevelopmentAPI(!useDevelopmentAPI);
+            },
         },
         {
             type: 'select',
@@ -51,6 +57,9 @@ export default function General() {
             ],
             title: t`Wallet Provider`,
             description: t`Switch between the app kit and rainbow kit wallet providers.`,
+            onChange: (ev) => {
+                updateProviderType(ev.currentTarget.value as WalletProviderType);
+            },
         },
     ];
 
@@ -62,7 +71,7 @@ export default function General() {
                 return <CircleCheckboxIcon checked={item.value} />;
             case 'select':
                 return (
-                    <select onChange={(ev) => updateProviderType(ev.currentTarget.value as WalletProviderType)}>
+                    <select onChange={item.onChange}>
                         {item.items.map((x, i) => (
                             <option key={i} value={x.value}>
                                 {x.label}
@@ -90,9 +99,7 @@ export default function General() {
                                 as="li"
                                 className="mb-6 flex cursor-pointer items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main"
                                 key={i}
-                                onClick={() => {
-                                    updateUseDevelopmentAPI(!useDevelopmentAPI);
-                                }}
+                                onClick={x.type === 'checkbox' ? x.onClick : undefined}
                             >
                                 <div className="flex-1">
                                     <h2 className="mb-2">{x.title}</h2>
