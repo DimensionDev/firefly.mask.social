@@ -93,7 +93,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                             <div className="text-left text-sm leading-4 text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
-                            <div className="no-scrollbar flex flex-grow flex-col gap-4 overflow-auto">
+                            <div className="no-scrollbar flex min-h-20 flex-grow flex-col gap-4 overflow-auto">
                                 {profiles.map((profile) => (
                                     <ProfileInList
                                         key={profile.profileId}
