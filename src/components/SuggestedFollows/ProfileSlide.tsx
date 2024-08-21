@@ -21,13 +21,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
     const identity = useFireflyIdentity(profile.source, profile.profileId);
 
     return (
-        <div
-            className="h-[184px] w-[164px] rounded-2xl bg-lightBottom px-3 py-6 dark:bg-darkBottom"
-            style={{
-                boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)',
-                backdropFilter: 'blur(8px)',
-            }}
-        >
+        <div className="h-[184px] w-[164px] rounded-2xl bg-lightBottom px-3 py-6 shadow-primary backdrop-blur dark:bg-darkBottom">
             <div
                 className={classNames('h-[56px] w-[56px] rounded-full border-2 p-0.5', {
                     'border-farcasterPrimary': profile.source === Source.Farcaster,
