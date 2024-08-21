@@ -2,6 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import type { ChangeEvent } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
@@ -9,7 +10,6 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { WalletProviderType } from '@/constants/enum.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
-import type { ChangeEvent } from 'react';
 
 type Item =
     | {
@@ -71,7 +71,7 @@ export default function General() {
                 return <CircleCheckboxIcon checked={item.value} />;
             case 'select':
                 return (
-                    <select onChange={item.onChange}>
+                    <select className="rounded-md border-line bg-bg" onChange={item.onChange}>
                         {item.items.map((x, i) => (
                             <option key={i} value={x.value}>
                                 {x.label}
