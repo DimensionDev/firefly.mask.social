@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
+import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getFrameErrorMessage } from '@/helpers/getFrameErrorMessage.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
@@ -21,11 +22,11 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const link = searchParams.get('link');
-    if (!link) return Response.json({ error: 'Missing link' }, { status: StatusCodes.BAD_REQUEST });
+    if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
 
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
     if (!linkDigested)
-        return Response.json({ error: `Unable to digest frame link = ${link}` }, { status: StatusCodes.NOT_FOUND });
+        return createErrorResponseJSON(`Unable to digest frame link = ${link}`, { status: StatusCodes.NOT_FOUND });
 
     return createSuccessResponseJSON(linkDigested);
 }
@@ -34,7 +35,7 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const link = searchParams.get('link');
-    if (!link) return Response.json({ error: 'Missing link' }, { status: StatusCodes.BAD_REQUEST });
+    if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
 
     await digestLinkRedis.cache.delete(link);
     return createSuccessResponseJSON(null);
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
         postUrl: searchParams.get('post-url'),
     });
     if (!parsedFrameAction.success)
-        return Response.json({ error: parsedFrameAction.error.message }, { status: StatusCodes.BAD_REQUEST });
+        return createErrorResponseJSON(parsedFrameAction.error.message, { status: StatusCodes.BAD_REQUEST });
 
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
@@ -88,7 +89,7 @@ export async function POST(request: Request) {
     if (response.status < 200 || response.status >= 400) {
         const text = await response.text();
         console.error(`[frame] response status: ${response.status}\n%s`, text);
-        return Response.json({ error: getFrameErrorMessage(text) }, { status: StatusCodes.BAD_REQUEST });
+        return createErrorResponseJSON(getFrameErrorMessage(text), { status: StatusCodes.BAD_REQUEST });
     }
 
     try {
@@ -106,32 +107,17 @@ export async function POST(request: Request) {
                         });
                 }
                 console.error(`Failed to redirect to ${locationUrl}\n%s`, await response.text());
-                return Response.json(
-                    {
-                        error: 'The frame server cannot handle the post-redirect request correctly.',
-                    },
-                    {
-                        status: StatusCodes.BAD_GATEWAY,
-                    },
-                );
+                return createErrorResponseJSON('The frame server cannot handle the post-redirect request correctly.', {
+                    status: StatusCodes.BAD_GATEWAY,
+                });
             case ActionType.Link:
-                return Response.json(
-                    {
-                        error: 'Not available',
-                    },
-                    {
-                        status: StatusCodes.BAD_REQUEST,
-                    },
-                );
+                return createErrorResponseJSON('Not available', {
+                    status: StatusCodes.BAD_REQUEST,
+                });
             case ActionType.Mint:
-                return Response.json(
-                    {
-                        error: 'Not available',
-                    },
-                    {
-                        status: StatusCodes.BAD_REQUEST,
-                    },
-                );
+                return createErrorResponseJSON('Not available', {
+                    status: StatusCodes.BAD_REQUEST,
+                });
             case ActionType.Transaction: {
                 if (parsedPacket?.untrustedData.transactionId) {
                     return createSuccessResponseJSON(
@@ -143,9 +129,9 @@ export async function POST(request: Request) {
             }
             default:
                 safeUnreachable(action);
-                return Response.json({ error: `Unknown action: ${action}` }, { status: StatusCodes.BAD_REQUEST });
+                return createErrorResponseJSON(`Unknown action: ${action}`, { status: StatusCodes.BAD_REQUEST });
         }
     } catch (error) {
-        return Response.json({ error: getGatewayErrorMessage(error) }, { status: StatusCodes.BAD_GATEWAY });
+        return createErrorResponseJSON(getGatewayErrorMessage(error), { status: StatusCodes.BAD_GATEWAY });
     }
 }
