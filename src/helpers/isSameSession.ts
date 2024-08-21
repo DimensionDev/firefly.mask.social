@@ -16,7 +16,7 @@ export function isSameSession(session: Session | null, otherSession: Session | n
             // compare private keys
             return (
                 session.token === otherSession.token ||
-                (session.profileId && otherSession.profileId && session.profileId === otherSession.profileId)
+                !!(session.profileId && otherSession.profileId && session.profileId === otherSession.profileId)
             );
         case SessionType.Lens:
             const lensSession = session as LensSession;
