@@ -461,3 +461,8 @@ body.not-support .fixed.inset-y-0 {
     max-height: 138px;
     width: 100%;
 }
+
+/* add class that tailwindcss does not have https://tailwindcss.com/docs/word-break */
+.break-word {
+    word-break: break-word;
+}
