@@ -51,7 +51,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                 if (!digest) return;
                 const provider = resolveArticleCollectProvider(props.article.platform);
 
-                return provider.getArticleDetail(digest);
+                return provider.getArticleCollectDetail(digest);
             },
         });
 

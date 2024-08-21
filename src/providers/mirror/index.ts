@@ -73,7 +73,8 @@ class Mirror implements Provider {
         };
     }
 
-    async estimateCollectGas(detail: ArticleCollectDetail, account: string) {
+    async estimateCollectGas(detail: ArticleCollectDetail) {
+        const account = getAccount(config);
         const chain = chains.find((x) => x.id === detail.chainId);
         if (!chain) throw new Error('Unsupported chain');
 
@@ -88,19 +89,20 @@ class Mirror implements Provider {
             address: detail.contractAddress as `0x${string}`,
             abi: MirrorABI,
             functionName: 'purchase',
-            args: [account, '', zeroAddress],
+            args: [account.address, '', zeroAddress],
             value: detail.fee + price,
         });
     }
 
-    async collect(detail: ArticleCollectDetail, account: string) {
+    async collect(detail: ArticleCollectDetail) {
+        const account = getAccount(config);
         const price = detail.price ? BigInt(rightShift(detail.price, 18).toString()) : 0n;
 
         const hash = await writeContract(config, {
             abi: MirrorABI,
             address: detail.contractAddress as `0x${string}`,
             functionName: 'purchase',
-            args: [account, '', zeroAddress],
+            args: [account.address, '', zeroAddress],
             value: detail.fee + price,
         });
 

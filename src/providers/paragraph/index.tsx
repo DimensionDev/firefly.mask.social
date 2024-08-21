@@ -96,7 +96,8 @@ class Paragraph implements Provider {
         };
     }
 
-    async estimateCollectGas(detail: ArticleCollectDetail, account: string) {
+    async estimateCollectGas(detail: ArticleCollectDetail) {
+        const account = getAccount(config);
         const chain = chains.find((x) => x.id === detail.chainId);
         if (!chain) throw new Error('Unsupported chain');
 
@@ -114,7 +115,7 @@ class Paragraph implements Provider {
                 address: detail.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account, detail.referrerAddress ?? zeroAddress],
+                args: [account.address, detail.referrerAddress ?? zeroAddress],
                 value,
             });
         }
@@ -131,7 +132,7 @@ class Paragraph implements Provider {
                     detail.name,
                     detail.symbol,
                     detail.ownerAddress,
-                    account,
+                    account.address,
                     detail.referrerAddress ?? zeroAddress,
                     BigInt(detail.quantity ?? MAX_SUPPLY),
                     BigInt(rightShift(detail.price ?? 0, chain.nativeCurrency.decimals).toString()),
@@ -145,7 +146,8 @@ class Paragraph implements Provider {
         });
     }
 
-    async collect(detail: ArticleCollectDetail, account: string) {
+    async collect(detail: ArticleCollectDetail) {
+        const account = getAccount(config);
         const chain = chains.find((x) => x.id === detail.chainId);
         if (!chain) throw new Error('UnSupport chain');
 
@@ -160,7 +162,7 @@ class Paragraph implements Provider {
                 address: detail.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account, detail.referrerAddress ?? zeroAddress],
+                args: [account.address, detail.referrerAddress ?? zeroAddress],
                 value,
             });
 
