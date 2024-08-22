@@ -17,7 +17,7 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
     const { context } = useMatch({ from: rootRouteId });
 
     return (
-        <Dialog.Title as="h3" className="relative mb-6 shrink-0 pt-safe">
+        <Dialog.Title as="h3" className="relative mb-6 flex shrink-0 justify-center pt-safe">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 text-fourMain">
                 {back ? (
                     <Tooltip placement="top" content={t`Back`}>
@@ -29,7 +29,9 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
                     <CloseButton onClick={context.onClose} />
                 )}
             </span>
-            <span className="text-lg font-bold leading-[22px]">{title || t`Tips`}</span>
+            <span className="max-w-[calc(100%-70px)] truncate text-lg font-bold leading-[22px]">
+                {title || t`Tips`}
+            </span>
         </Dialog.Title>
     );
 }
